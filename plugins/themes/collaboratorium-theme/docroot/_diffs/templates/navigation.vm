@@ -1,0 +1,56 @@
+<div id="mainNav">
+	<ul>
+		<li class="first"><span></span></li>
+		#foreach ($nav_item in $nav_items)
+			#set($nav_name = $nav_item.getName().replaceAll("\s",""))
+			#if ($nav_item.isSelected())
+				#set ($nav_item_class = "current")
+			#else
+				#set ($nav_item_class = "")
+			#end
+
+			#if ($nav_item.hasChildren())
+				#set ($nav_item_class = $nav_item_class+" hasChildren")
+			#end
+
+			<li class="$nav_item_class">
+				<a href="$nav_item.getURL()" $nav_item.getTarget()  class="$nav_name"><span class="$nav_name"></span></a>
+				#if ($nav_item.hasChildren())
+					#set($children=[])
+					#foreach ($child in $nav_item.getChildren())
+						#set($dummy = $children.add($child))
+					#end
+				#end
+			</li>
+		#end
+	</ul>
+	<div class="clear"></div>
+	#if ($children)
+		#if ($children.size() > 3)
+			#set ($childNavClass="long")
+		#else
+			#set ($childNavClass="short")
+		#end
+		<div id="childNavContainer">
+			<div id="childNav" class="$childNavClass">
+				<ul>
+					#set ($first="first-sub")
+					#foreach ($child in $children)
+						#set($child_name = $child.getName().replaceAll("\s",""))
+						#if ($child.isSelected())
+							#set ($child_class = "current")
+						#else
+							#set ($child_class = "")
+						#end
+						<li class="$child_class $!first">
+							<a href="$child.getURL()" $child.getTarget() class="$child_name"><span class="$child_name"></span></a>
+						</li>
+						#set($first="")
+					#end
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+	#end
+	<div class="clear"></div>
+</div>

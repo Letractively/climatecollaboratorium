@@ -1,0 +1,156 @@
+@charset "utf-8";
+/* CSS Document */
+
+.wiki-body,
+.wiki-body p,
+.wiki-body table,
+.wiki-body tr,
+.wiki-body td,
+.wiki-body th,
+.wiki-body ol,
+.wiki-body ul,
+.wiki-body li,
+.child-pages li {
+    font-size: 10pt;
+    line-height: 11pt;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.wiki-body p {
+    margin: 10px 0;
+    padding: 0;
+}
+
+.wiki-body li,
+.wiki-body ul p,
+.wiki-body ol p {
+    margin: 0;
+    padding: 0;
+}
+
+.wiki-body ul li, .wiki-body ul ul li {
+    list-style-type: disc;
+}
+
+.wiki-body ul, .wiki-body ul ul {
+	padding-left: 40px;
+} 
+
+.wiki-body ol,
+.wiki-body ol ol ol ol,
+.wiki-body ol ol ol ol ol ol ol,
+.wiki-body ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: decimal;
+}
+
+.wiki-body ol ol,
+.wiki-body ol ol ol ol ol,
+.wiki-body ol ol ol ol ol ol ol ol,
+.wiki-body ol ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: lower-alpha;
+}
+
+.wiki-body ol ol ol,
+.wiki-body ol ol ol ol ol ol,
+.wiki-body ol ol ol ol ol ol ol ol ol,
+.wiki-body ol ol ol ol ol ol ol ol ol ol ol ol {
+    list-style-type: lower-roman;
+}
+
+/*Needs the id selector because of the
+'#com-atlassian-confluence h1' entry in master.css*/
+.wiki-body h1,
+.wiki-body h1,
+.wiki-body h2,
+.wiki-body h3,
+.wiki-body h4,
+.wiki-body h5,
+.wiki-body h6 {
+    font-weight: bold;
+    line-height: normal;
+    padding: 0;
+}
+
+
+.wiki-body h1 {
+    font-size: 21pt;
+    margin-top: 38px;
+}
+
+.wiki-body h2 {
+    font-size: 19pt;
+    margin-top: 30px;
+}
+
+.wiki-body h3 {
+    font-size: 17pt;
+    margin-top: 26px;
+}
+
+.wiki-body h4 {
+    font-size: 15pt;
+    margin-top: 24px;
+}
+
+.wiki-body h5 {
+    font-size: 12pt;
+    margin-top: 21px;
+}
+
+.wiki-body h6 {
+    font-size: 11pt;
+    margin-top: 21px;
+}
+
+.wiki-body .confluenceTable, .grid {
+/*
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+*/
+    padding: 0;
+}
+
+.wiki-body td.confluenceTd {
+    padding-right: 12px;
+}
+.wiki-body td.confluenceTd,
+.wiki-body th.confluenceTh {
+    margin: 0;
+    padding: 0;
+}
+.wiki-body-preview {
+    padding: 5px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+
+/** Child pages theming **/
+.portlet-wiki div.child-pages {
+	border-top: 1px solid #ddd;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-top:10px;
+}
+
+
+.portlet-wiki div.child-pages h2 {
+	font-size: 12px;
+	margin-bottom:10px;
+	padding-bottom:5px;
+}
+
+.portlet-wiki .child-pages ul li {
+    list-style-image: url('/collaboratorium-theme/images/docs_16.gif');
+}
+
+.portlet-wiki .child-pages ul {
+	padding-left: 25px;
+} 
+
+/** Page actions **/
+.portlet-wiki .page-actions {
+	border-top: 1px solid #ddd;
+	padding-top: 3px;
+}

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map project-version="3.0">
+	<db-entity name="MetaData">
+		<db-attribute name="description" type="VARCHAR" length="1028"/>
+		<db-attribute name="external" type="VARCHAR" length="128"/>
+		<db-attribute name="id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="internalname" type="VARCHAR" length="64"/>
+		<db-attribute name="labels" type="VARCHAR" length="128"/>
+		<db-attribute name="name" type="VARCHAR" length="64"/>
+		<db-attribute name="profile" type="VARCHAR" length="64"/>
+		<db-attribute name="type" type="VARCHAR" length="64"/>
+		<db-attribute name="units" type="VARCHAR" length="64"/>
+	</db-entity>
+	<db-entity name="MetaDataDefaults">
+		<db-attribute name="defaultval" type="DOUBLE"/>
+		<db-attribute name="id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="max" type="DOUBLE"/>
+		<db-attribute name="metadata" type="VARCHAR" length="64"/>
+		<db-attribute name="min" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="Scenario">
+		<db-attribute name="creation" type="TIMESTAMP"/>
+		<db-attribute name="description" type="VARCHAR" length="8192"/>
+		<db-attribute name="id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="name" type="VARCHAR" length="64"/>
+		<db-attribute name="simId" type="VARCHAR" length="64"/>
+		<db-attribute name="user" type="VARCHAR" length="64"/>
+	</db-entity>
+	<db-entity name="Simulation">
+		<db-attribute name="description" type="VARCHAR" length="8192"/>
+		<db-attribute name="id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="name" type="VARCHAR" length="64"/>
+		<db-attribute name="url" type="VARCHAR" length="64"/>
+	</db-entity>
+	<db-entity name="SimulationToMetaDataMapping">
+		<db-attribute name="metaDataId" type="VARCHAR" length="64"/>
+		<db-attribute name="simulationInput" type="VARCHAR" length="64"/>
+		<db-attribute name="simulationOutput" type="VARCHAR" length="64"/>
+	</db-entity>
+	<db-entity name="Tuple">
+		<db-attribute name="id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="seq" type="INTEGER"/>
+		<db-attribute name="variableId" type="VARCHAR" length="64"/>
+	</db-entity>
+	<db-entity name="TupleValues">
+		<db-attribute name="id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="seq" type="INTEGER"/>
+		<db-attribute name="tupleid" type="VARCHAR" length="64"/>
+		<db-attribute name="value" type="DOUBLE"/>
+	</db-entity>
+	<db-entity name="Variable">
+		<db-attribute name="id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="meta" type="VARCHAR" length="64"/>
+		<db-attribute name="scenarioInput" type="VARCHAR" length="64"/>
+		<db-attribute name="scenarioOutput" type="VARCHAR" length="64"/>
+	</db-entity>
+	<obj-entity name="MetaData" className="mit.simulation.climate.dao.MetaDataDAO" dbEntityName="MetaData">
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="external" type="java.lang.String" db-attribute-path="external"/>
+		<obj-attribute name="id" type="java.lang.String" db-attribute-path="id"/>
+		<obj-attribute name="internalname" type="java.lang.String" db-attribute-path="internalname"/>
+		<obj-attribute name="labels" type="java.lang.String" db-attribute-path="labels"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="profile" type="java.lang.String" db-attribute-path="profile"/>
+		<obj-attribute name="type" type="java.lang.String" db-attribute-path="type"/>
+		<obj-attribute name="units" type="java.lang.String" db-attribute-path="units"/>
+	</obj-entity>
+	<obj-entity name="MetaDataDefaults" className="mit.simulation.climate.dao.MetaDataDefaultsDAO" dbEntityName="MetaDataDefaults">
+		<obj-attribute name="default" type="java.lang.Double" db-attribute-path="defaultval"/>
+		<obj-attribute name="max" type="java.lang.Double" db-attribute-path="max"/>
+		<obj-attribute name="min" type="java.lang.Double" db-attribute-path="min"/>
+	</obj-entity>
+	<obj-entity name="Scenario" className="mit.simulation.climate.dao.ScenarioDAO" dbEntityName="Scenario">
+		<obj-attribute name="creation" type="java.util.Date" db-attribute-path="creation"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="id" type="java.lang.String" db-attribute-path="id"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+	</obj-entity>
+	<obj-entity name="Simulation" className="mit.simulation.climate.dao.SimulationDAO" dbEntityName="Simulation">
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="id" type="java.lang.String" db-attribute-path="id"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="url" type="java.lang.String" db-attribute-path="url"/>
+	</obj-entity>
+	<obj-entity name="Tuple" className="mit.simulation.climate.dao.TupleDAO" dbEntityName="Tuple">
+		<obj-attribute name="id" type="java.lang.String" db-attribute-path="id"/>
+		<obj-attribute name="seq" type="java.lang.Integer" db-attribute-path="seq"/>
+	</obj-entity>
+	<obj-entity name="TupleValues" className="mit.simulation.climate.dao.TupleValuesDAO" dbEntityName="TupleValues">
+		<obj-attribute name="seq" type="java.lang.Integer" db-attribute-path="seq"/>
+		<obj-attribute name="value" type="java.lang.Double" db-attribute-path="value"/>
+	</obj-entity>
+	<obj-entity name="User" className="mit.simulation.climate.dao.UserDAO" dbEntityName="User">
+		<obj-attribute name="id" type="java.lang.String" db-attribute-path="id"/>
+		<obj-attribute name="username" type="java.lang.String" db-attribute-path="name"/>
+	</obj-entity>
+	<obj-entity name="Variable" className="mit.simulation.climate.dao.VariableDAO" dbEntityName="Variable">
+		<obj-attribute name="id" type="java.lang.String" db-attribute-path="id"/>
+		<obj-attribute name="scenarioInput" type="java.lang.String" db-attribute-path="scenarioInput"/>
+		<obj-attribute name="scenarioOutput" type="java.lang.String" db-attribute-path="scenarioOutput"/>
+	</obj-entity>
+	<db-relationship name="metaToSimulation" source="MetaData" target="SimulationToMetaDataMapping" toMany="true">
+		<db-attribute-pair source="id" target="metaDataId"/>
+	</db-relationship>
+	<db-relationship name="metaToVariable" source="MetaData" target="Variable" toMany="true">
+		<db-attribute-pair source="id" target="meta"/>
+	</db-relationship>
+	<db-relationship name="toDefaults" source="MetaData" target="MetaDataDefaults" toMany="true">
+		<db-attribute-pair source="id" target="metadata"/>
+	</db-relationship>
+	<db-relationship name="toMetaData" source="MetaDataDefaults" target="MetaData" toMany="false">
+		<db-attribute-pair source="metadata" target="id"/>
+	</db-relationship>
+	<db-relationship name="scenarioInputToVars" source="Scenario" target="Variable" toMany="true">
+		<db-attribute-pair source="id" target="scenarioInput"/>
+	</db-relationship>
+	<db-relationship name="scenarioOutputToVars" source="Scenario" target="Variable" toMany="true">
+		<db-attribute-pair source="id" target="scenarioOutput"/>
+	</db-relationship>
+	<db-relationship name="scenarioToSimulation" source="Scenario" target="Simulation" toMany="false">
+		<db-attribute-pair source="simId" target="id"/>
+	</db-relationship>
+	<db-relationship name="scenarioToUser" source="Scenario" target="User" toMany="false">
+		<db-attribute-pair source="user" target="id"/>
+	</db-relationship>
+	<db-relationship name="inputsToMetaData" source="Simulation" target="SimulationToMetaDataMapping" toMany="true">
+		<db-attribute-pair source="id" target="simulationInput"/>
+	</db-relationship>
+	<db-relationship name="outputsToMetaData" source="Simulation" target="SimulationToMetaDataMapping" toMany="true">
+		<db-attribute-pair source="id" target="simulationOutput"/>
+	</db-relationship>
+	<db-relationship name="simulationToScenario" source="Simulation" target="Scenario" toMany="true">
+		<db-attribute-pair source="id" target="simId"/>
+	</db-relationship>
+	<db-relationship name="metaToSimInput" source="SimulationToMetaDataMapping" target="Simulation" toMany="false">
+		<db-attribute-pair source="simulationInput" target="id"/>
+	</db-relationship>
+	<db-relationship name="metaToSimOutput" source="SimulationToMetaDataMapping" target="Simulation" toMany="false">
+		<db-attribute-pair source="simulationOutput" target="id"/>
+	</db-relationship>
+	<db-relationship name="simulationToMeta" source="SimulationToMetaDataMapping" target="MetaData" toMany="false">
+		<db-attribute-pair source="metaDataId" target="id"/>
+	</db-relationship>
+	<db-relationship name="tupleValues" source="Tuple" target="TupleValues" toMany="true">
+		<db-attribute-pair source="id" target="tupleid"/>
+	</db-relationship>
+	<db-relationship name="tuplesToVariable" source="Tuple" target="Variable" toMany="false">
+		<db-attribute-pair source="variableId" target="id"/>
+	</db-relationship>
+	<db-relationship name="valuesToTuple" source="TupleValues" target="Tuple" toMany="false">
+		<db-attribute-pair source="tupleid" target="id"/>
+	</db-relationship>
+	<db-relationship name="varToScenarioInput" source="Variable" target="Scenario" toMany="false">
+		<db-attribute-pair source="scenarioInput" target="id"/>
+	</db-relationship>
+	<db-relationship name="varToScenarioOutput" source="Variable" target="Scenario" toMany="false">
+		<db-attribute-pair source="scenarioOutput" target="id"/>
+	</db-relationship>
+	<db-relationship name="variableToMetaData" source="Variable" target="MetaData" toMany="false">
+		<db-attribute-pair source="meta" target="id"/>
+	</db-relationship>
+	<db-relationship name="variableToTuples" source="Variable" target="Tuple" toMany="true">
+		<db-attribute-pair source="id" target="variableId"/>
+	</db-relationship>
+	<obj-relationship name="metaToDefaults" source="MetaData" target="MetaDataDefaults" db-relationship-path="toDefaults"/>
+	<obj-relationship name="metaToVariable" source="MetaData" target="Variable" db-relationship-path="metaToVariable"/>
+	<obj-relationship name="toMetaData" source="MetaDataDefaults" target="MetaData" db-relationship-path="toMetaData"/>
+	<obj-relationship name="scenarioOutputToVars" source="Scenario" target="Variable" deleteRule="Cascade" db-relationship-path="scenarioOutputToVars"/>
+	<obj-relationship name="scenarioToAuthor" source="Scenario" target="User" db-relationship-path="scenarioToUser"/>
+	<obj-relationship name="scenarioToInputVars" source="Scenario" target="Variable" deleteRule="Cascade" db-relationship-path="scenarioInputToVars"/>
+	<obj-relationship name="scenarioToSimulation" source="Scenario" target="Simulation" db-relationship-path="scenarioToSimulation"/>
+	<obj-relationship name="inputs" source="Simulation" target="MetaData" db-relationship-path="inputsToMetaData.simulationToMeta"/>
+	<obj-relationship name="outputs" source="Simulation" target="MetaData" db-relationship-path="outputsToMetaData.simulationToMeta"/>
+	<obj-relationship name="simulationToScenario" source="Simulation" target="Scenario" db-relationship-path="simulationToScenario"/>
+	<obj-relationship name="tupleValues" source="Tuple" target="TupleValues" deleteRule="Cascade" db-relationship-path="tupleValues"/>
+	<obj-relationship name="tuplesToVariable" source="Tuple" target="Variable" db-relationship-path="tuplesToVariable"/>
+	<obj-relationship name="valuesToTuple" source="TupleValues" target="Tuple" db-relationship-path="valuesToTuple"/>
+	<obj-relationship name="userToScenario" source="User" target="Scenario" db-relationship-path="userToScenario"/>
+	<obj-relationship name="varToScenarioInput" source="Variable" target="Scenario" db-relationship-path="varToScenarioInput"/>
+	<obj-relationship name="variableToMetaData" source="Variable" target="MetaData" db-relationship-path="variableToMetaData"/>
+	<obj-relationship name="variableToTuples" source="Variable" target="Tuple" deleteRule="Cascade" db-relationship-path="variableToTuples"/>
+</data-map>

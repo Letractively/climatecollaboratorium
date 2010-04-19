@@ -1,0 +1,283 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+
+/* Vertical Tabs */
+#physical-impacts .ui-tabs ul li a {
+	background: 0;
+	border: 0;
+}
+
+.ui-tabs {
+	border-bottom: 0;
+	padding: 0 0 0 0;
+}
+
+.ui-tabs-vertical {
+	width: 400px;
+}
+.ui-tabs-vertical .ui-tabs-nav {
+	float: left;
+	width: 120px;
+}
+.ui-tabs-vertical .ui-tabs-nav li {
+	clear: left;
+	width: 100%;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li a {
+	display:block;
+	width: 120px;
+	height: auto;
+	padding-top: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected {
+	padding-bottom: 0;
+	padding-right: .1em;
+	border-right-width: 1px;
+	border-right-width: 1px;
+}
+
+.ui-tabs-vertical .ui-tabs-panel {
+	padding: 1em;
+	float: left;
+	width: 200px;
+	border: none;
+}
+
+.ui-tabs-panel .ui-widget-content h4 {
+     margin-top:10px;
+}
+
+/* Temperature change theme */
+
+.models-temperature-change {
+	margin-bottom: 8px;
+	margin-top: 8px;
+	font-size: 1.4em;
+}
+
+.models-temperature-change .temp {
+	color: rgb(60, 150, 200);
+	font-weight: bold;
+}
+
+
+#scenario-sim {
+	width: 560px;
+	padding: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#sliders {
+	width: 550px;
+	height: 350px;
+	overflow: auto;
+	border-style: solid;
+	border-color: #737373;
+	border-width: 1px;
+	background-color: #C9C9C9;
+	padding: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
+#sliders a {
+color: #000;
+}
+
+#infoBox {
+	width: 600px;
+	height: 250px;
+	border-style: solid;
+	border-color: #737373;
+	border-width: 1px;
+	background-color: #C9C9C9;
+	overflow: auto;
+	margin-left: auto;
+	margin-right: auto;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
+.control-box {
+	float: center;
+	margin-left: auto;
+	margin-right: auto;
+	 position: relative;
+}
+
+.model-information .actions table.control-table {
+	border-spacing: 0px;
+	border-collapse:separate;
+	border: 0;
+	background: transparent;
+}
+
+.model-information .actions table.control-table td {
+	border-spacing: 0px;
+	border-collapse:separate;
+}
+.control-cell {
+	padding-left:3px;
+	padding-right:3px;
+}
+
+.input-var {
+	padding: 10px;
+	margin: 0px;
+	background-color: #AAA;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.expand-icon {
+	float: left;
+}
+
+.slider-label {
+	margin-bottom: 5px;
+}
+
+.input-details {
+	padding: 10px;
+	background-color: #acf;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	margin-top: 10px;
+	font-size: 10px;
+}
+
+.amount-slider {
+     width:100px;
+}
+
+
+input.text-input {
+	width: 50px;
+	float: right;
+	border: 1px solid black;
+	background: white;
+	text-align: center;
+	height:15px;
+	margin-top: 5px;
+}
+
+div.amount {
+	width: 60px;
+	float: right;
+	border: 1px solid black;
+	background: white;
+	text-align: center;
+	margin-top: 5px;
+}
+
+.slider {
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+}
+
+
+button#displayparams {
+	margin-left: 25px;
+	margin-bottom: 10px;
+}
+
+#list-display {
+	margin-top: 40px;
+}
+
+select.simlist {
+	margin-left: 0px;
+}
+
+table {
+	border-spacing: 0px;
+	background-color: white;
+	border-collapse:separate;
+}
+
+div.page-content {
+	margin-left: 100px;
+}
+
+select {
+	max-width: 100px;
+}
+
+/* Message box */
+div.growlUI {
+	background: url(../images/check48.png) no-repeat 10px 10px;
+}
+
+div.growlUI.error {
+	background: url(../images/redx.png) no-repeat 10px 10px;
+}
+
+div.growlUI h1 {
+	color: white; padding: 5px 5px 5px 75px;
+	text-align: left;
+	font-size: 16px;
+}
+div.growlUI h2 {
+	 padding: 5px 5px 5px 75px;
+	 text-align: left;
+	 font-size: 12px;
+	 color: white;
+}
+
+/*	jqplot */
+.jqplot-legend {
+	font-size: inherit;
+	margin-top: 15px;
+}
+
+/* Other */
+#impacts {
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 580px;
+}
+
+input[type="button"][disabled] {
+	color: #cccccc;
+}
+
+.ui-slider-range {
+	background: #eeaa00;
+	position: absolute;
+	left: 0px;
+}
+
+.run-the-model-to-see-inputs {
+	border: 1px solid #DFDFDF;
+	text-align: center;
+	width: 100%;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	font-weight: bold;
+	color: #999999;
+	display: none;
+}
+
+#model-warning-message {
+
+     padding-top:305px;
+     font-style: italic;
+     font-size: 9pt;
+     width: 379px;
+     color: #C03333;
+}

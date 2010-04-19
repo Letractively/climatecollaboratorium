@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+
+
+.activities-wall .PortletBox .bd {
+    padding-top: 18px;
+}
+
+.activities-wall .PortletBox .ft {
+    padding-top: 15px;
+}
+
+
+
+.activities-wall .hd .name {
+	background: url("../images/activities_icon.png") no-repeat center left;
+}
+
+
+table.activities-table td {
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+table.activities-table tr.date {
+	border-bottom: 1px solid #BFBFBF;
+	font-weight: bold;
+}
+
+table.activities-table tr.date td {
+	padding-top: 15px;
+}
+
+table.activities-table td {
+	vertical-align:top;
+}
+
+table.activities-table td.time {
+	vertical-align:top;
+	width:100px;
+}
+
+
+

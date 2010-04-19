@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<project name="MIT Simulation Web Service Assembly v1.0" default="compile" basedir=".">
+    <property file="${basedir}/build.properties"/>
+
+    <!-- directory set up -->
+    <property name="srcdir" value="${basedir}/src" />
+    <property name="libdir" value="${basedir}/lib" />
+    <property name="configdir" value="${basedir}/conf" />
+    <property name="testlogdir" value="${basedir}/log" />
+
+    <property name="javasrc" value="${srcdir}/java" />
+    <property name="javamain" value="${javasrc}/main" />    
+    <property name="javatests" value="${javasrc}/tests" />
+    
+    <property name="cayennesrc" value="${srcdir}/cayenne" />    
+
+    <property name="builddir" value="build" />
+    <property name="build_classdir" value="${builddir}/classes" />
+    <property name="build_testclassdir" value="${builddir}/testClasses" />
+    
+    <property name="build_distdir" value="${builddir}/dist" />
+    <property name="build_webdir" value="${builddir}/web" />
+    <property name="build_webdir_lib" value="${build_webdir}/lib" />
+    <property name="war.dir" value="${build_distdir}/deploy" />
+
+    <!-- classes needed to compile the  code -->
+    <path id="buildlibs">
+       <fileset dir="lib">
+         <include name="**/*.jar" />
+         <exclude name="test/*.jar" />
+       </fileset>
+    </path>
+
+    <!-- classes needed to compile the test code -->
+    <path id="test.build.classpath">
+        <pathelement location="${build_classdir}"/>
+        <path refid="buildlibs"/>
+        <fileset dir="lib">
+          <include name="test/*.jar" />
+        </fileset>
+    </path>
+
+    <!-- initialization -->
+    <target name="init">
+       <mkdir dir="${builddir}"/>
+       <mkdir dir="${build_classdir}"/>
+       <mkdir dir="${build_distdir}"/>
+       <mkdir dir="${build_webdir}"/>
+    </target>   
+
+    <!-- compile -->
+    <target name="compile" depends="init">
+        <javac destdir="${build_classdir}" debug="true" verbose="false">
+        	  <src path="${javamain}" />
+        	  <src path="${cayennesrc}" />
+            <classpath refid="buildlibs" />
+        </javac>
+        <!-- copy conf files into classes directory -->
+        <copy todir="${build_classdir}">
+          <fileset dir="${configdir}">
+              <exclude name="**/WEB-INF/**" />
+              <exclude name="**/META-INF/**" />
+          </fileset>
+        </copy>            
+        <copy todir="${build_classdir}">
+          <fileset dir="${cayennesrc}">
+              <include name="*.xml" />
+          </fileset>
+        </copy>            
+    </target>
+
+    <target name="compile_tests" depends="compile">
+        <mkdir dir="${build_testclassdir}"/>
+        <javac srcdir="${javatests}" destdir="${build_testclassdir}" debug="true" verbose="false">
+            <classpath refid="test.build.classpath" />
+        </javac>
+    </target>
+    
+    <target name="test" depends="compile_tests">
+        <mkdir dir="${testlogdir}"/>
+        
+        <junit fork="true" haltonerror="false">
+            <classpath location="${build_testclassdir}" />
+            <classpath refid="test.build.classpath" />
+
+            <test name="mit.simulation.climate.AllTests" todir="${testlogdir}">
+                <formatter type="plain" usefile="true"/>
+                <formatter type="xml" usefile="true"/>
+            </test>            
+        </junit>
+
+    </target>    
+
+    <!-- web package -->
+    <target name="web" description="package web application" depends="compile">
+      <copy todir="${build_webdir_lib}" flatten="true">
+        <fileset dir="${libdir}">  
+           <include name="**/*.jar" />
+           <exclude name="**/servlet-api.jar" />
+           <exclude name="test/*.jar" />
+        </fileset>
+      </copy>
+      <war destfile="${build_distdir}/${app.name}.war" 
+           webxml="${configdir}/WEB-INF/web.xml">
+        <lib dir="${build_webdir_lib}" />
+        <classes dir="${build_classdir}"/>
+        <fileset dir="${configdir}" includes="META-INF/*" />
+      </war>    
+    </target>
+    
+    <!-- deploy in exploded form -->    
+    <target name="deploy" description="deploy war file into tomcat server" depends="web">  
+        <!-- explode the war file -->      
+        <unzip src="${build_distdir}/${app.name}.war" dest="${war.dir}" />
+        <touch file="${war.dir}/WEB-INF/web.xml" />
+        <!-- deploy into tomcat deploy directory -->
+        <mkdir dir="${tomcat.deploy.path}/${app.name}" />      
+        <copy todir="${tomcat.deploy.path}/${app.name}">
+            <fileset dir="${war.dir}">
+                <include name="**/*" />
+            </fileset>
+        </copy>       
+        <echo message="deploy ${build_distdir}/${app.name}.war into ${tomcat.deploy.path} successfully!" />
+    </target>
+
+    
+    <target name="undeploy" description="undeploy the application from tomcat server" >
+        <delete file="${tomcat.deploy.path}/../conf/Catalina/localhost/simulation-servlet.xml"/>
+        <delete dir="${tomcat.deploy.path}/${app.name}" />
+    </target>
+
+
+    <target name="clean" description="Remove all build generated files.">
+      <delete dir="${builddir}"/>
+    </target>
+    
+</project>

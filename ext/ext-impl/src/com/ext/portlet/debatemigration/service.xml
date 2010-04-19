@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
+
+<service-builder package-path="com.ext.portlet.debatemigration">
+	<namespace>Debatemigration</namespace>
+
+    <entity name="DebateMigration" remote-service="true" local-service="true">
+        <!-- PK field -->
+        <column name="debateMigrationPK" type="Long" primary="true" />
+        <column name="migrationDate" type="Date" />
+
+    </entity>
+
+	<entity name="DebateMigrationCategory" remote-service="true" local-service="true">
+        <column name="debateMigrationCategoryPK" type="Long" primary="true" />
+        <column name="debateMigrationId" type="Long" />
+        <column name="oldMBCategoryId" type="Long" />
+        <column name="newCategoryId" type="Long"/>
+
+    </entity>
+
+    <entity name="DebateMigrationDebate" remote-service="true" local-service="true">
+        <column name="debateMigrationDebatePK" type="Long" primary="true" />
+        <column name="debateMigrationId" type="Long" />
+        <column name="oldMBCategoryId" type="Long" />
+        <column name="newDebateId" type="Long"/>
+
+    </entity>
+
+    <entity name="DebateMigrationItem" remote-service="true" local-service="true">
+       <column name="debateMigrationItemPK" type="Long" primary="true" />
+        <column name="debateMigrationId" type="Long" />
+        <column name="oldMBMessageId" type="Long" />
+        <column name="newDebateItemId" type="Long"/>
+
+        <finder name="DebateMigrationItem" return-type="DebateMigrationItem">
+			<finder-column name="debateMigrationId" />
+            <finder-column name="oldMBMessageId"/>
+	</finder>
+
+    </entity>
+
+    <entity name="DebateMigrationComment" remote-service="true" local-service="true">
+       <column name="debateMigrationCommentPK" type="Long" primary="true" />
+        <column name="debateMigrationId" type="Long" />
+        <column name="oldMBMessageId" type="Long" />
+        <column name="oldMBThreadId" type="Long" />
+        <column name="newDebateCommentId" type="Long"/>
+    </entity>
+
+
+</service-builder>
+

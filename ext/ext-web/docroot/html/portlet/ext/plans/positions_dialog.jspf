@@ -1,0 +1,48 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * List of positions dialog box.
+ *
+ * @author TCSDEVELOPER
+ * @version 1.0
+ */
+ %>
+<div class="position">
+	<div class="position_top">
+    	<div class="title"><h1>Positions</h1></div>
+    </div>
+    <div class="position_bg">
+    	<div class="inner">
+            <div class="treeContent">
+            	<ul class='lv1'>
+            		<li>
+                		<ul>
+                			<c:forEach var="position" items="${tmpPlan.positions}">
+								<% 
+									MBMessage position = (MBMessage) pageContext.getAttribute("position");
+									String posURL = planPositionURL.replaceAll(PlanConstants.DEBATE_CATEGORY_ID, String.valueOf(position.getCategoryId()));
+									posURL = posURL.replaceAll(PlanConstants.POSITION_ID, String.valueOf(position.getMessageId())); 
+								%>
+								<li>
+									<a href="<%= posURL %>"><strong>${position.subject}</strong></a>
+								</li>
+							</c:forEach>	
+						</ul>
+					</li>
+				</ul>
+            </div>
+        </div>
+    </div>
+    <div class="position_bottom">
+    	<div class="btnBox">
+            <a href="#" class="cancelBtn" onClick="<portlet:namespace />closeDialog('positions-${tmpPlan.planId}-dialog')"><span class="hidden">Cancel</span></a>
+        </div>
+    </div>
+</div>

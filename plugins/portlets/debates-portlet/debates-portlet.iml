@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/docroot/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/docroot" relative="/" />
+        </webroots>
+      </configuration>
+      <facet type="jsf" name="JSF">
+        <configuration />
+      </facet>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/docroot/WEB-INF/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module" module-name="portal" />
+    <orderEntry type="module" module-name="ext" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/icefaces-facelets.jar!/" />
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/backport-util-concurrent.jar!/" />
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/icefaces.jar!/" />
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/jsf-impl.jar!/" />
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/el-ri.jar!/" />
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/icefaces-comps.jar!/" />
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/jsf-api.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/address-demo/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/component-metadata/src/main/java" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/component-showcase/facelets/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/effects2/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/timezone6/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/timezone3/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/dragdrop2/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/portlet/chat/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/component-showcase/jsp/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/timezone4/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/bridge/openajaxconformancetests/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/core/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/easyajaxpush/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/portlet/location/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/tiles/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/component-showcase/common-src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/timezone5/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/component-metadata/src/test/java" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/push-server/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/timezone2/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/effects1/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/component-showcase/facelets-enh/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/dragdrop1/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/component/test/java" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/auctionMonitor/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/core/conf" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/component/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/timezone1/src" />
+          <root url="file://$MODULE_DIR$/../../../../../Library/Java/ICEfaces-1.8.2-src/icefaces/samples/tutorial/timezone7/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../portal copy/lib/development/mail.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../portal copy/lib/global/portlet.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/collab_jsf_components.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+

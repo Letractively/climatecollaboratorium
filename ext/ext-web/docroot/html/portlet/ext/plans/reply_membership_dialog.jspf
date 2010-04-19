@@ -1,0 +1,60 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * Add plan dialog box.
+ *
+ * @author TCSDEVELOPER
+ * @version 1.0
+ */
+ %>
+<!-- prepare form submit action URL -->
+<portlet:actionURL windowState="NORMAL" var="submitRequestReplyURL">
+	<portlet:param name="struts_action" value="/ext/plans/edit_members" />
+	<portlet:param name="<%=PlanConstants.REDIRECT%>" value="<%=currentURL%>"/>
+	<portlet:param name="<%=PlanConstants.PLAN_ID%>" value="<%=planId%>"/>
+	<portlet:param name="<%=Constants.CMD%>" value="<%=PlanConstants.REQUEST_REPLY%>"/>
+</portlet:actionURL>
+
+	<div class="manageMembers">
+		<div class="manageMembers_top">
+    		<div class="title"><h4 class="selectColumn">Handle Membership Request</h4></div>
+    	</div>
+    	<div class="interior">
+    		<form name="test"></form>
+			<form action="${submitRequestReplyURL}" method="post" name="<portlet:namespace /><%=PlanConstants.REQUEST_REPLY%>form">
+				
+				<div class="row">
+					<label>Request:</label>
+					<p id="<portlet:namespace/>tryanewid"></p>
+				</div>
+				<div class="row">
+				<label>Reponse:</label>
+					<select name="<portlet:namespace /><%=PlanConstants.REQUEST_STATUS%>">
+						<option value="<%= PlanConstants.STATUS_APPROVED %>"><liferay-ui:message key="approve" /></option>
+						<option value="<%= PlanConstants.STATUS_DENIED %>"><liferay-ui:message key="deny" /></option>
+					</select>
+ 				</div>
+				
+				<div class="row">
+					<label>Optional comment:</label>
+					<input type="textarea" rows="20" cols="30" name="<portlet:namespace />comment" />
+					<div class="clear"></div>
+				</div>
+			<input type="hidden" name="<portlet:namespace/><%= PlanConstants.MEMBERSHIP_REQUEST_ID %>" value=""/>
+   			</form>
+    	</div>
+     	<div class="manageMembers_bottom">
+     		<div class="btnBox">
+        		<a href="javascript:;" class="checkBtn first" onClick="document.<portlet:namespace /><%=PlanConstants.REQUEST_REPLY%>form.submit()" ><span class="hidden">Check</span></a>
+            	<a href="javascript:;" class="cancelBtn" onClick="<portlet:namespace />closeDialog('reply-membership-dialog')"><span class="hidden">Cancel</span></a>
+	        </div>
+	     </div>
+	</div>
+

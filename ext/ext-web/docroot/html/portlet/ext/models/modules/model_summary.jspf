@@ -1,0 +1,32 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * A module responsible for displaying model summary. Takes no parameters.
+ *
+ * !IMPORTANT! Remember to include init.jspf first. 
+ *    
+ * @author janusz.p
+ * @version 1.0
+ */
+ %>
+<script type="text/javascript">
+ModelUtils.modelReady(function(type, model) {
+	if (type == "success") {
+		$("#modelSummaryName").html(model.name);
+		$("#modelSummaryDescription").html(model.description);
+		$("#modelSummaryWrapper").show();
+	}
+});
+</script>
+
+<div id='modelSummaryWrapper' style='display: none'>
+	<h4>Model: <span id="modelSummaryName"></span></h4>
+	<div width="60%" id="modelSummaryDescription"></div>
+</div>
