@@ -1,0 +1,99 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * File responsible for rendering columns configuration form.
+ *
+ * version 1.1: themed to be consistent with collaboratorium theme
+ *
+ * @author janusz.p, TCSDEVELOPER
+ * @version 1.1
+ */
+%>
+<portlet:actionURL windowState="NORMAL" var="submitURL">
+	<portlet:param name="struts_action" value="/ext/plans/configure_columns" />
+</portlet:actionURL>
+
+
+
+<script type="text/javascript">
+function doSubmit() {
+     jQuery("#selected-columns option").attr("selected","true");
+     if (jQuery("#selected-columns option").size() == 0) {
+         alert("You need to select at least one column.");
+         return;
+     }
+     document.<portlet:namespace />columns.submit();
+}
+
+function <portlet:namespace/>addSelected() {
+     jQuery("#available-columns option[selected]").appendTo("#selected-columns");
+}
+
+function <portlet:namespace/>removeSelected() {
+      jQuery("#selected-columns option[selected]").appendTo("#available-columns");
+}
+
+
+</script>
+
+
+	
+	<div class="selectModel">
+		<div class="selectModel_top"></div>
+    	<div class="selectModel_bg columns" style="height: 250px;">
+    	     <div class="available floatLeft">
+    	          <h3>Available Columns</h3>
+    	          <select multiple id="available-columns" class="selected-columns" size="15">
+    	               <c:forEach  var="tmpCol" items="<%=PlanConstants.Columns.getPlanTypeColumns(planType)%>">
+    	                    <%
+    	                        PlanConstants.Columns col  = ( PlanConstants.Columns)pageContext.getAttribute("tmpCol"); 
+    	                    %>
+    	                    
+    	                    <c:if test="<%=!col.getUserSetting(plansUserSettings)%>">
+    	                         <option value="<%=col.name()%>"><%=col.getName()%></option>
+    	                    </c:if>
+    	               </c:forEach>
+    	          </select>
+    	      </div>
+    	      <div class="buttons floatLeft">
+    	           <div>
+    	             <a href="javascript:<portlet:namespace/>addSelected()">&gt;&gt;</a><br/>
+    	             <a href="javascript:<portlet:namespace/>removeSelected()">&lt;&lt;</a>
+    	           </div>
+    	      </div>
+    	      <h3>Displayed Columns</h3>
+    	     <div class="selected floatLeft">
+    	          <form method="post" action="${submitURL}" name="<portlet:namespace />columns">
+					<input type="hidden" name="<portlet:namespace /><%= PlanConstants.REDIRECT %>" value="<%= redirect %>" />
+					<input type="hidden" name="<portlet:namespace /><%= PlanConstants.PLAN_TYPE_ID %>" value="<%= String.valueOf(planType.getPlanTypeId()) %>" />
+				    	          
+    	          <select multiple name="<portlet:namespace/>columns" id="selected-columns" class="selected-columns" size="15">
+    	               <c:forEach var="tmpCol" items="<%=PlanConstants.Columns.getPlanTypeColumns(planType)%>">
+    	                      <%
+    	                        PlanConstants.Columns col  = ( PlanConstants.Columns)pageContext.getAttribute("tmpCol"); 
+    	                    %>
+    	                   
+    	                    <c:if test="<%=col.getUserSetting(plansUserSettings)%>">
+    	                         <option value="<%=col.name()%>"><%=col.getName()%></option>
+    	                    </c:if>
+    	               </c:forEach>
+    	          </select>
+    	          </form>
+    	     </div>
+    	     <div class="clear"></div>
+    	     
+  	  </div>
+    	 <div class="selectModel_bottom">
+    	 	<div class="btnBox">
+    	    	<a href="javascript:doSubmit()" onClick="" class="checkBtn first"><span class="hidden">Check</span></a>
+    	        <a href="javascript:;" class="cancelBtn" onClick="<portlet:namespace />closeDialog('configuration-dialog')"><span class="hidden">Cancel</span></a>
+    	    </div>
+    	 </div>
+	</div>

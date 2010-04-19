@@ -1,0 +1,364 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+
+
+
+<%
+ /**
+ * @author janusz.p, jintrone
+ * @version 1.2
+ *
+ * version 1.1: themed to be consistent with collaboratorium theme
+ * version 1.2: moved column iterator to back-end enumeration
+ *
+ *
+ **/
+%>
+
+
+<script type="text/javascript">
+	<c:if test="<%= highlightVote && planVote != null %>">
+		jQuery(document).ready(function() {
+			var planRow = jQuery("#plan-<%= planVote.getPlanId() %>");
+			if (planRow.size() < 1) {
+				alert("<liferay-ui:message key="plan-you-have-voted-on-is-not-in-current-data-set" />");
+			} else {
+				planRow.addClass("highlight");
+				location.hash = "plan<%= planVote.getPlanId() %>";
+			}
+		});
+
+	</c:if>
+
+    
+</script>
+
+
+<form action="${toggleFiltersURL}" method="post" name="<portlet:namespace />toggleFilters"></form>
+<input type="hidden" name="planID" id="PLANID" value=""/>
+<div class="topBtn">
+   
+	    <h3 class="floatRight"><%=plansCount%> <%=published?"finalized plans":"plans under development"%>
+        <c:if test="<%=published%>">, <%=PlanVoteLocalServiceUtil.getPlanVotesCount()%> total votes</c:if>
+        
+        </h3>
+
+        <div class="floatLeft linkBox" id="plan">
+		<a href='javascript:;' class="configuration black" onClick="<portlet:namespace />showDialog('configuration-dialog', {width: 755, height: 400})">Select Columns</a>
+		<span>|</span>
+		<a href='javascript:;' class="preferences black" onClick="<portlet:namespace />showDialog('filters-dialog', {width: 580, height: 500})">Filter Plans</a>
+		<span>|</span>
+		<span class="enable-filters">
+			<input
+				type="checkbox"
+				name="<portlet:namespace /><%= PlanConstants.ENABLE_FILTERS %>"
+				onClick="document.<portlet:namespace />toggleFilters.submit()"
+				<%= planUserSettings != null && planUserSettings.getFilterEnabled() ? "checked='true'" : "" %>
+			/>
+			Enable filter
+		</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="portlet-plans-clear"></div>
+
+
+
+<div class="tableOutlay">
+<table border="0" cellpadding="0" cellspacing="0" id="myTable" class="plansTable">
+<tr>
+<%
+	currentColumn = 1;
+%>
+
+<c:forEach var="tmpcol" items="<%= columns %>">
+<%
+     PlanConstants.Columns col = (PlanConstants.Columns)pageContext.getAttribute("tmpcol");
+     boolean userDisplayPref =  col.getUserSetting(plansUserSettings);
+     boolean shown = (col == PlanConstants.Columns.VOTES  || col == PlanConstants.Columns.PUBLISH_DATE) ? (userDisplayPref && published) : 
+                             (col == PlanConstants.Columns.CREATE_DATE) ? (userDisplayPref && !published): userDisplayPref;
+                             
+     boolean sort = col!=PlanConstants.Columns.POSITIONS;
+    String name = col.getName();
+    if (col == PlanConstants.Columns.VOTES) {
+        name+="<br/>(% of "+PlanVoteLocalServiceUtil.getPlanVotesCount()+" votes)";
+    }
+    
+%>
+    <c:if test="<%=(shown && currentColumn==1)%>">
+		<th class='plans-anchor-placehloder'></th> <!-- anchor placeholder -->
+	</c:if>
+	<c:if test="<%=shown%>">
+			<th class="<%= currentColumn == 1 ? "first" : "" %> <%= currentColumn == columnsCount ? "black_last" : "" %>">
+				 <div class="popup-button-container" id="info-button-container-<%=currentColumn%>">
+				 <div class="popup-info-button" id="info-button-<%=currentColumn%>"><span class="hidden">Info</span></div>
+			
+			     <div class="flush-bottom-outer" id="info-container-box-<%=currentColumn%>">
+			      <div class="flush-bottom-inner">
+			     <div class="popup-info-box hidden" id="info-popup-<%=currentColumn%>"><%=col.getDescription()%></div>
+				 </div>
+				 </div>
+				 </div>	 
+					 <script type="text/javascript">
+					      jQuery("#info-button-<%=currentColumn%>").hover(
+					           function() {
+					                
+					           
+					                var cont = jQuery("#info-container-box-<%=currentColumn%>");
+					                var item = jQuery("#info-popup-<%=currentColumn%>");
+					                var pos = jQuery("#info-button-container-<%=currentColumn%>").position();
+					                var width = jQuery("#info-button-container-<%=currentColumn%>").width();
+					                
+					                
+					                
+					                var xpos =pos.left + width/2.0 - 125;
+					                if (<%= currentColumn == 1%>) {
+					                     xpos = pos.left;
+					                } else if (<%= currentColumn == columnsCount%>) {
+					                     xpos = pos.left+width - 250;
+					              
+					                }
+					                var ypos = pos.top-5;
+					                
+					                cont.css({'top':ypos,'left':xpos, "width":'250px'});
+					                item.fadeIn("medium");
+					           },
+					           function() {
+					                 jQuery("#info-popup-<%=currentColumn%>").fadeOut("medium");
+					           });
+					 </script>		
+				<c:choose>
+				     <c:when test="<%=sort%>">
+				         <div class="header-text">
+						<a href="<%= columnOrderURL.get(col) %>" >
+					
+							<span class="<%= sortColumn.equals(col) ? sortDirection : "" %>">
+								<%=name%>
+							</span>
+						</a>
+						</div>
+					</c:when>
+					<c:otherwise>
+					     <div class="header-text">
+					     <%=name%>
+					     </div>
+					 </c:otherwise>
+					 
+					
+			</c:choose>
+							
+			</th>
+			<% currentColumn++; %>
+	</c:if>
+</c:forEach>
+		
+		
+
+		<c:if test="<%= published %>">
+			<th class="votecol <%= currentColumn == 1 ? "first" : "last" %>">
+				<liferay-ui:message key="vote-for-plan" />
+			</th>
+		</c:if>
+	</tr>
+	<%
+		boolean alt = false;
+
+	%>
+
+	<c:forEach var="tmpPlan" items="<%= PlanLocalServiceHelper.getPlans(renderRequest, planType.getPlanTypeId(), pagerStart, pagerStart + pagerMax, sortColumn, sortDirection) %>">
+		<%
+			Plan tmpPlan = (Plan) pageContext.getAttribute("tmpPlan");
+			alt = !alt;
+			currentColumn = 1;
+		%>
+		<tr class="<%= alt ? "" : "even" %>" id="plan-${tmpPlan.planId}">
+		<td class='plans-anchor-placehloder'><a name="plan${tmpPlan.planId}"></a></td>
+			
+		<c:forEach var="tmpcol" items="<%= columns %>">
+			<%
+			     PlanConstants.Columns col = (PlanConstants.Columns)pageContext.getAttribute("tmpcol");
+			     boolean userDisplayCol =  col.getUserSetting(plansUserSettings);
+			     boolean shown = (col == PlanConstants.Columns.VOTES  || col == PlanConstants.Columns.PUBLISH_DATE) ? (userDisplayCol && published) : 
+			                             (col == PlanConstants.Columns.CREATE_DATE) ? (userDisplayCol && !published): userDisplayCol;
+			                             
+			     boolean sort = col!=PlanConstants.Columns.POSITIONS;  
+			%>
+			<c:if test="<%=shown%>">
+			
+			     <c:choose>
+			     <c:when test="<%=col==PlanConstants.Columns.NAME%>">
+	     	
+						<liferay-portlet:renderURL windowState="NORMAL" var="viewPlanURLtable">
+							<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+							<portlet:param name="planId" value="${tmpPlan.planId}" />
+						</liferay-portlet:renderURL>
+						<td class="<%= currentColumn == 1 ? "first" : "" %> <%= currentColumn == columnsCount ? "last" : "" %>">
+							<a class="blue" href="${viewPlanURLtable}" ><strong>${tmpPlan.name}</strong></a>
+							
+						</td>
+						<% currentColumn++; %>
+					    
+				</c:when>
+				<c:when test="<%=col==PlanConstants.Columns.POSITIONS%>">
+				<td class="<%= currentColumn == 1 ? "first" : "" %> <%= currentColumn == columnsCount ? "last" : "" %>">
+					<a href="javascript:<portlet:namespace />showDialog('positions-${tmpPlan.planId}-dialog', { width: 500, height: 500 })" ><img src="/html/portlet/ext/plans/img/positions_btn.png" alt="view" /></a>
+
+					<div id="positions-${tmpPlan.planId}-dialog" style="display: none">
+						<%@ include file="/html/portlet/ext/plans/positions_dialog.jspf" %>
+					</div>
+				</td>
+				<% currentColumn++; %>
+				</c:when>	     
+			     <c:otherwise>
+       		     <td class="<%= currentColumn == 1 ? "first" : "" %> <%= currentColumn == columnsCount ? "last" : "" %>">
+					<%=col.getValue(tmpPlan)%>
+				</td>
+				<% currentColumn++;%>
+				</c:otherwise>
+			     </c:choose>
+			</c:if>
+             </c:forEach>  
+			
+
+			<!-- prepare link for removing a vote  -->
+			<liferay-portlet:actionURL var="unvoteURL">
+				<portlet:param name="struts_action" value="/ext/plans/plan_vote" />
+				<portlet:param name="<%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+				<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= String.valueOf(tmpPlan.getPlanId()) %>" />
+				<portlet:param name="<%= PlanConstants.UPDATE_TYPE %>" value="<%= PlanConstants.UNVOTE %>" />
+			</liferay-portlet:actionURL>
+
+			<!-- prepare link for vote for a plan  -->
+			<liferay-portlet:actionURL var="voteURL">
+				<portlet:param name="struts_action" value="/ext/plans/plan_vote" />
+				<portlet:param name="<%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+				<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= String.valueOf(tmpPlan.getPlanId()) %>" />
+				<portlet:param name="<%= PlanConstants.UPDATE_TYPE %>" value="<%= PlanConstants.VOTE %>" />
+			</liferay-portlet:actionURL>
+
+			<c:if test="<%= published %>">
+				<td class="<%= currentColumn == 1 ? "first" : "" %> <%= currentColumn == columnsCount ? "last" : "" %>">
+					<c:choose>
+						<c:when test="<%= planVote != null && planVote.getPlanId().equals(tmpPlan.getPlanId()) %>">
+							<a class="voteButton" href="javascript:;" onClick="deferUntilLogin(
+							function() {
+							     <portlet:namespace />planVote('unvote', '${unvoteURL}');
+                              });" >
+                             <img src="/collaboratorium-theme/images/check_btn.gif" alt="unvote" />
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a class="voteButton" href="javascript:;" onClick="deferUntilLogin(
+							function() {
+							     <portlet:namespace />planVote('vote', '${voteURL}');
+                              });" >
+								<img src="/collaboratorium-theme/images/check_disable_btn.gif" alt="vote" />
+							</a>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</c:if>
+		</tr>
+	</c:forEach>
+</table>
+</div>
+
+<portlet:renderURL windowState="NORMAL" var="firstPageURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plans" />
+	<portlet:param name="<%= PlanConstants.PAGER_START %>" value="<%= String.valueOf(pagerFirst) %>" />
+	<portlet:param name="<%= PlanConstants.ORDER_DIRECTION %>" value="<%= sortDirection %>" />
+	<portlet:param name="<%= PlanConstants.ORDER_COLUMN %>" value="<%= String.valueOf(sortColumn) %>" />
+    <portlet:param name="<%= PlanConstants.VIEW_PLANS_TABS %>" value="<%= selectedTab %>" />
+</portlet:renderURL>
+
+<portlet:renderURL windowState="NORMAL" var="lastPageURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plans" />
+	<portlet:param name="<%= PlanConstants.PAGER_START %>" value="<%= String.valueOf(pagerLast) %>" />
+	<portlet:param name="<%= PlanConstants.ORDER_DIRECTION %>" value="<%= sortDirection %>" />
+	<portlet:param name="<%= PlanConstants.ORDER_COLUMN %>" value="<%= String.valueOf(sortColumn) %>" />
+    <portlet:param name="<%= PlanConstants.VIEW_PLANS_TABS %>" value="<%= selectedTab %>" />
+</portlet:renderURL>
+
+<portlet:renderURL windowState="NORMAL" var="nextPageURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plans" />
+	<portlet:param name="<%= PlanConstants.PAGER_START %>" value="<%= String.valueOf(pagerNext) %>" />
+	<portlet:param name="<%= PlanConstants.ORDER_DIRECTION %>" value="<%= sortDirection %>" />
+	<portlet:param name="<%= PlanConstants.ORDER_COLUMN %>" value="<%= String.valueOf(sortColumn) %>" />
+    <portlet:param name="<%= PlanConstants.VIEW_PLANS_TABS %>" value="<%= selectedTab %>" />
+</portlet:renderURL>
+
+<portlet:renderURL windowState="NORMAL" var="prevPageURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plans" />
+	<portlet:param name="<%= PlanConstants.PAGER_START %>" value="<%= String.valueOf(pagerPrev) %>" />
+	<portlet:param name="<%= PlanConstants.ORDER_DIRECTION %>" value="<%= sortDirection %>" />
+	<portlet:param name="<%= PlanConstants.ORDER_COLUMN %>" value="<%= String.valueOf(sortColumn) %>" />
+    <portlet:param name="<%= PlanConstants.VIEW_PLANS_TABS %>" value="<%= selectedTab %>" />
+</portlet:renderURL>
+
+
+<div class="clear"></div>
+<div class="pageBottom">
+	<div class="pageNum">
+		<div class="totalPage">Displaying
+			<strong><%= pagerStart + 1 %> - <%= Math.min(pagerStart + pagerMax, plansCount) %></strong>
+			of
+			<strong><%= plansCount %></strong> Plans</div>
+		<div class="turnPage">
+			<c:choose>
+				<c:when test="<%= enableFirst %>">
+					<a class="firstPage black" href="${firstPageURL}">First Page</a>
+				</c:when>
+				<c:otherwise>
+					<span class="firstPage">FirstPage</span>
+				</c:otherwise>
+			</c:choose>
+
+			<c:choose>
+				<c:when test="<%= enablePrev %>">
+					<a class="previous black" href="${prevPageURL}">Previous</a>
+				</c:when>
+				<c:otherwise>
+					<span class="previous">Previous</span>
+				</c:otherwise>
+			</c:choose>
+
+			<c:choose>
+				<c:when test="<%= enableNext %>">
+					<a class="next black" href="${nextPageURL}">Next</a>
+				</c:when>
+				<c:otherwise>
+					<span class="next">Next</span>
+				</c:otherwise>
+			</c:choose>
+
+			<c:choose>
+				<c:when test="<%= enableLast %>">
+					<a class="lastPage black" href="${lastPageURL}">Last Page</a>
+				</c:when>
+				<c:otherwise>
+					<span class="lastPage">Last Page</span>
+				</c:otherwise>
+			</c:choose>
+
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<div id="configuration-dialog" style="display: none">
+	<%@ include file="/html/portlet/ext/plans/configure_columns.jspf" %>
+</div>
+
+<div id="filters-dialog" style="display: none">
+	<%@ include file="/html/portlet/ext/plans/filter_plans.jspf" %>
+</div>
+
+
+

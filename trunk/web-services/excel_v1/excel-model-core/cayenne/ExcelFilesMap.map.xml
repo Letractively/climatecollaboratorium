@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map project-version="3.0">
+	<db-entity name="ExcelModel">
+		<db-attribute name="ID" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="128"/>
+		<db-attribute name="Name" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="Path" type="VARCHAR" isMandatory="true" length="128"/>
+	</db-entity>
+	<db-entity name="InputParam">
+		<db-attribute name="ColNum" type="INTEGER" isMandatory="true" length="16"/>
+		<db-attribute name="Description" type="VARCHAR" length="1024"/>
+		<db-attribute name="ID" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="ModelID" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="Name" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="RowNum" type="INTEGER" isMandatory="true" length="16"/>
+	</db-entity>
+	<db-entity name="OutputParam">
+		<db-attribute name="ColNum" type="INTEGER" isMandatory="true" length="64"/>
+		<db-attribute name="Description" type="VARCHAR" length="1024"/>
+		<db-attribute name="ID" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="128"/>
+		<db-attribute name="ModelID" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="Name" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="NumColumns" type="INTEGER" isMandatory="true" length="64"/>
+		<db-attribute name="NumRows" type="INTEGER" isMandatory="true" length="64"/>
+		<db-attribute name="RowNum" type="INTEGER" isMandatory="true" length="64"/>
+	</db-entity>
+	<obj-entity name="ExcelModel" className="cayenne_classes.ExcelModelDAO" dbEntityName="ExcelModel">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="Name"/>
+		<obj-attribute name="path" type="java.lang.String" db-attribute-path="Path"/>
+	</obj-entity>
+	<obj-entity name="InputParam" className="cayenne_classes.InputParamDAO" dbEntityName="InputParam">
+		<obj-attribute name="colNum" type="java.lang.Integer" db-attribute-path="ColNum"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="Description"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="Name"/>
+		<obj-attribute name="rowNum" type="java.lang.Integer" db-attribute-path="RowNum"/>
+	</obj-entity>
+	<obj-entity name="OutputParam" className="cayenne_classes.OutputParamDAO" dbEntityName="OutputParam">
+		<obj-attribute name="colNum" type="java.lang.Integer" db-attribute-path="ColNum"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="Description"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="Name"/>
+		<obj-attribute name="numColumns" type="java.lang.Integer" db-attribute-path="NumColumns"/>
+		<obj-attribute name="numRows" type="java.lang.Integer" db-attribute-path="NumRows"/>
+		<obj-attribute name="rowNum" type="java.lang.Integer" db-attribute-path="RowNum"/>
+	</obj-entity>
+	<db-relationship name="toInputParam" source="ExcelModel" target="InputParam" toMany="true">
+		<db-attribute-pair source="ID" target="ModelID"/>
+	</db-relationship>
+	<db-relationship name="toOutputParams" source="ExcelModel" target="OutputParam" toMany="true">
+		<db-attribute-pair source="ID" target="ModelID"/>
+	</db-relationship>
+	<db-relationship name="toModel" source="InputParam" target="ExcelModel" toMany="false">
+		<db-attribute-pair source="ModelID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="toModel" source="OutputParam" target="ExcelModel" toMany="false">
+		<db-attribute-pair source="ModelID" target="ID"/>
+	</db-relationship>
+	<obj-relationship name="toInputParam" source="ExcelModel" target="InputParam" db-relationship-path="toInputParam"/>
+	<obj-relationship name="toOutputParams" source="ExcelModel" target="OutputParam" db-relationship-path="toOutputParams"/>
+	<obj-relationship name="toModel" source="InputParam" target="ExcelModel" db-relationship-path="toModel"/>
+	<obj-relationship name="toModel" source="OutputParam" target="ExcelModel" db-relationship-path="toModel"/>
+</data-map>

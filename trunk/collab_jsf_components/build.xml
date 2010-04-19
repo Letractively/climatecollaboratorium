@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<project default="deploy">
+    <property name="project.dir" value="." />
+
+    <property file="${project.dir}/build.${user.name}.properties" />
+    <property file="${project.dir}/build.${env.COMPUTERNAME}.properties" />
+    <property file="${project.dir}/build.ext.properties" />
+    <property file="${project.dir}/build.properties" />
+
+
+    <path id="project.class.path">
+        <fileset dir="lib" includes="*.jar"/>
+    </path>
+
+    <target name="prepare-libs">
+        <copy todir="lib" file="${app.server.lib.portal.dir}/ext-impl.jar" />
+        <copy todir="lib" file="${app.server.lib.portal.dir}/portal-impl.jar" />
+        <copy todir="lib" file="${app.server.lib.global.dir}/ext-service.jar" />
+        <copy todir="lib" file="${app.server.lib.global.dir}/portal-service.jar" />
+        <copy todir="lib" file="${app.server.lib.global.dir}/portal-kernel.jar" />
+    </target>
+
+    <target name="compile" depends="prepare-libs">    
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" includes="**" encoding="utf-8"
+                destdir="build/classes"
+                source="1.5" target="1.5" nowarn="true"
+                debug="true" debuglevel="lines,vars,source">
+            <classpath refid="project.class.path"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <copy todir="build/classes">
+            <fileset dir="conf" />
+        </copy>
+        <jar destfile="build/collab_jsf_components.jar" basedir="build/classes" />
+    </target>
+
+    <target name="deploy" depends="jar">
+        <copy file="build/collab_jsf_components.jar" toDir="/home/janusz/workdir/liferay/plugins-svn/portlets/debates-portlet/docroot/WEB-INF/lib/" />
+    </target>
+</project>

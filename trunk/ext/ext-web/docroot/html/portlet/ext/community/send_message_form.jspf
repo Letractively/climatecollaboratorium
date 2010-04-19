@@ -1,0 +1,55 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+    /**
+     *
+     *
+     * User login form.
+     *
+     * @author TCSDEVELOPER
+     * @version 1.0
+     */
+%>
+
+<form class="uni-form" name="<portlet:namespace />sendMessage">
+    <div class="DialogBox">
+        <div class="DialogNWCorner"></div>
+        <div class="DialogNEdge"><div class="content">
+            <h4>Enter message details</h4>
+        </div></div>
+        <div class="DialogNECorner"></div>
+        
+        <br class="clearfloat"/>
+
+        <div class="DialogWEdge"></div>
+        
+        <div class="DialogBody">
+            <div>
+                <dl>
+                    <dd><label for="subject">Subject:</label> &nbsp;&nbsp; <span class="error subject"> </span> </dd>
+                    <dt><input name="subject" type="text"></input></dt>
+                    <dd><label for="content">Message text:</label> &nbsp;&nbsp; <span class="error content"></span></dd>
+                    <dt><textarea name="content"></textarea></dt>
+                </dl>
+            </div>
+            
+        </div>
+        <div class="DialogEEdge"></div>
+        
+        <br class="clearfloat"/>
+
+        <div class="DialogSWCorner"></div>
+        <div class="DialogSEdge">
+            <div class="content">
+                <a href="javascript:;" onClick="<portlet:namespace/>sendUserMessage()" class="checkIcon"><span class="hidden">OK</span></a>
+                <a href="javascript:;" onclick="<portlet:namespace/>closeDialog('sendMessagePopup');return false;" class="cancelIcon"><span class="hidden">CANCEL</span></a>
+            </div>
+        </div>
+        <div class="DialogSECorner"></div>
+        <br class="clearfloat"/>
+    </div>
+</form>

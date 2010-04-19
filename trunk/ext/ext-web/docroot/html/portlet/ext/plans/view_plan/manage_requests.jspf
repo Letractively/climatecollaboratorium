@@ -1,0 +1,72 @@
+
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<script type="text/javascript">
+  function <portlet:namespace/>viewRequest(id,text) {
+    document.<portlet:namespace /><%=PlanConstants.REQUEST_REPLY%>form.<portlet:namespace/><%= PlanConstants.MEMBERSHIP_REQUEST_ID %>.value=id;
+    <portlet:namespace />showDialog('reply-membership-dialog', {width: 371, height: 400});
+  	 jQuery("#<portlet:namespace/>tryanewid").text(text);
+  }
+</script>
+
+<%
+List<MembershipRequest> requests = (List<MembershipRequest>)renderRequest.getAttribute(PlanConstants.MEMBERSHIP_REQUESTS_PARAMETER);
+
+%>
+
+<div class="pending-requests-table reduced-table">
+
+<c:choose>
+<c:when test="<%=(requests!=null && requests.size() > 0)%>">
+<liferay-ui:search-container delta="10">
+			<liferay-ui:search-container-results>
+			<%
+				results = requests.subList(searchContainer.getStart(),Math.min(requests.size(),searchContainer.getEnd()));
+				total = requests.size();
+				pageContext.setAttribute("results", results);
+				pageContext.setAttribute("total", total);
+			%>
+		
+         </liferay-ui:search-container-results>
+			<liferay-ui:search-container-row
+				className="com.liferay.portal.model.MembershipRequest"
+				keyProperty="membershipRequestId"
+				modelVar="request2"
+			>
+			<%
+			User user2 = UserLocalServiceUtil.getUser(request2.getUserId());
+			String userURL = "/web/guest/members?userId="+user2.getUserId();
+		     %>
+		     <liferay-ui:search-container-column-text
+		        href="<%=userURL%>"
+			     name="user"
+		         value="<%=user2.getScreenName()%>"	     
+		     />
+		     
+		     <liferay-ui:search-container-column-text
+		         name="date"
+		         value="<%=dateFormatDate.format(request2.getCreateDate())%>"	     
+		     />
+		     <c:if test="<%=isPlanOwner%>">
+              <liferay-ui:search-container-column-text
+			    name="View">
+		          <a href='#' onclick='<portlet:namespace/>viewRequest(<%=request2.getMembershipRequestId()%>,"<%=HtmlUtil.escape(request2.getComments())%>")'>
+                       View
+                  </a>
+               </liferay-ui:search-container-column-text>
+                
+		     </c:if>
+         
+	      </liferay-ui:search-container-row>
+	      <liferay-ui:search-iterator />
+</liferay-ui:search-container>
+</c:when>
+<c:otherwise>
+<span class="no-membership-requests">No outstanding requests</span>
+</c:otherwise>
+</c:choose>
+ </div>

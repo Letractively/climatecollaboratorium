@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
+
+<service-builder package-path="com.ext.portlet.debaterevision">
+	<namespace>Debaterevision</namespace>
+
+	<entity name="Debate" remote-service="true" local-service="true">
+
+		<!-- PK field -->
+		<column name="debatePK" type="Long" primary="true" />
+
+        <!-- ID for debate  -->
+        <column name="debateId" type="Long"/>
+
+
+        <!-- Main fields -->
+
+		<column name="treeVersion" type="Long" />
+		<column name="updated" type="Date" />
+
+
+         <!-- Status of the item at the time of this update (DELETED|ACTIVE) -->
+        <column name="status" type="String" />
+
+		<!-- References to other entities -->
+        <column name="rootCommentId" type="Long" />
+
+        <column name="authorId" type="Long" />
+
+
+		<!-- Order columns -->
+
+		<order by="asc">
+			<order-column name="treeVersion"/>
+		</order>
+
+		<finder name="byIdStatus" return-type="Collection">
+            <finder-column name="debateId"/>
+			<finder-column name="status" comparator="LIKE" />
+		</finder>
+
+        <finder name="byIdVersion" return-type="Collection">
+            <finder-column name="debateId"/>
+			<finder-column name="treeVersion" />
+		</finder>
+
+	</entity>
+
+    <entity name="DebateItem" local-service="true">
+	    <!-- PK field -->
+		<column name="debateItemPK" type="Long" primary="true" />
+
+        <!-- ID for item  -->
+		<column name="debateItemId" type="Long"/>
+        <column name="debateItemParentId" type="Long"/>
+        <column name="debateId" type="Long"/>
+
+        <column name="debateSummary" type="String"/>
+        <column name="debateDetail" type="String"/>
+        <column name="debatePostType" type="String"/>
+        <column name="authorId" type="Long" />
+
+        <!-- The version of this item (monotonic) -->
+        <column name="itemVersion" type="Long" />
+
+        <!-- The version of the tree when this update was made -->
+
+        <column name="treeVersion" type="Long" />
+		<column name="updated" type="Date" />
+
+        <!-- Status of the item at the time of this update (DELETED|ACTIVE) -->
+        <column name="status" type="String" />
+
+        <column name="children" type="Collection" entity="DebateItem"/>
+
+
+        <column name="comments" type="Collection" entity="DebateComment"/>
+        
+       
+
+		<order by="asc">
+			<order-column name="itemVersion"/>
+		</order>
+
+
+        <finder name="activeIdInTreeVersion" return-type="Collection" where="status LIKE 'ACTIVE'">
+            <finder-column name="debateItemId"/>
+			<finder-column name="treeVersion" comparator="&lt;=" />
+            <finder-column name="updated" comparator="&lt;="/>
+		</finder>
+
+
+        <finder name="byIdStatus" return-type="Collection">
+            <finder-column name="debateItemId"/>
+			<finder-column name="status" comparator="LIKE" />
+		</finder>
+
+        <finder name="byIdVersion" return-type="Collection">
+            <finder-column name="debateItemId"/>
+			<finder-column name="itemVersion" />
+		</finder>
+
+
+	</entity>
+
+    <entity name="DebateItemReference" local-service="true">
+	    <!-- PK field -->
+		<column name="debateItemReferencePK" type="Long" primary="true" />
+
+        <!-- ID for item  -->
+		<column name="debateItemId" type="Long"/>
+        <!-- Convenience -->
+        <column name="debateId" type="Long"/>
+
+        <column name="itemVersion" type="Long"/>
+        <column name="status" type="String"/>
+
+        <column name="text" type="String" />
+
+        <column name="url" type="String" />
+        
+        <finder name="DebateItemIdItemVersionStatus" return-type="Collection">
+            <finder-column name="debateItemId" />
+            <finder-column name="itemVersion" />
+            <finder-column name="status" />
+        </finder>
+        
+
+	</entity>
+
+    <entity name="DebateCategory" local-service="true">
+	    <!-- PK field -->
+		<column name="debateCategoryPK" type="Long" primary="true" />
+
+        <column name="authorId" type="Long"/>
+
+        <!-- ID for item  -->
+		<column name="title" type="String"/>
+
+        <column name="brandingContentId" type="Long"/>
+        <column name="description" type="String"/>
+        <column name="parentCategory" type="Long"/>
+        <column name="updated" type="Date"/>
+        
+	</entity>
+
+    <entity name="DebateCategoryMap" local-service="true">
+	    <!-- PK field -->
+        <column name="debateCategoryMapPK" type="Long" primary="true" />
+
+
+        <column name="debateCategoryPK" type="Long"/>
+
+        <column name="debateId" type="Long"/>
+        
+        <finder name="debateIdCategoryId" return-type="DebateCategoryMap">
+            <finder-column name="debateCategoryPK"/>
+            <finder-column name="debateId"/>
+        </finder>
+	</entity>
+
+    <entity name="DebateComment" local-service="true">
+		<column name="debateCommentId" type="Long" primary="true" />
+		<column name="debateItemId" type="Long"/>
+        <column name="debateCommentTitle" type="String"/>
+        <column name="debateCommentDetail" type="String"/>
+
+        <!-- The version that the item was at when this comment was made -->
+        <column name="itemVersion" type="Long" />
+
+        <column name="authorId" type="Long" />
+        <column name="updated" type="Date" />
+
+        <finder name="commentForDebateItem" return-type="Collection">
+                <finder-column name="debateItemId" />
+        </finder>
+	</entity>
+    
+    <entity name="DebateItemVote" local-service="true">
+        <column name="debateItemVoteId" primary="true" type="Long" />
+        <column name="debateItemId" type="Long" />
+        <column name="userId" type="Long" />
+        
+        <finder name="DebateItemId" return-type="Collection">
+            <finder-column name="debateItemId" />
+        </finder>
+        
+        <finder name="UserId" return-type="Collection" >
+            <finder-column name="userId" />
+        </finder>
+        
+        <finder name="DebateItemIdUserId" return-type="Collection">
+            <finder-column name="debateItemId" />
+            <finder-column name="userId" />
+        </finder>
+    </entity>
+    
+    <entity name="DebateItemVoteStats" local-service="true">
+        <column name="debateItemVotesStats" type="Long" primary="true" />
+        <column name="debateItemId" type="Long" />
+        <column name="votesCount" type="Long" />
+        
+        <finder name="DebateItemId" return-type="DebateItemVoteStats">
+            <finder-column name="debateItemId" />
+        </finder>
+    </entity>
+
+     <exceptions>
+        <exception>NoSuchDebateComment</exception> 
+		<exception>NoSuchDebate</exception>
+		<exception>NoSuchDebateItem</exception>
+        <exception>NoSuchDebateCategory</exception>
+        <exception>NoSuchDebateCategoryMap</exception>
+         <exception>NoSuchDebateItemReference</exception>
+	</exceptions>
+
+</service-builder>
+

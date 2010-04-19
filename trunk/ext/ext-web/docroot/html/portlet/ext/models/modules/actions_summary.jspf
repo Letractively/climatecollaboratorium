@@ -1,0 +1,32 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ * A module responsible for displaying actions summary. Takes no parameters.
+ *
+ * !IMPORTANT! Remember to include init.jspf first. 
+ *    
+ * @author janusz.p
+ * @version 1.0
+ */
+ %>
+<script type="text/javascript">
+ModelUtils.scenarioReady(function(type) {
+	if (type == "success") {
+		ModelUtils.showActionsShort('actionsSummary');
+	}
+});
+</script>
+<div class="corcen_top">
+	<div class="corcen_bottom">
+		<div class="corcen">
+			<div class="title"><h3><span class="hidden">Actions Input</span></h3></div>
+			<div id="actionsSummary"></div>
+		</div>
+	</div>
+</div>

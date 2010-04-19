@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+
+#simple-table
+
+{
+	/*font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
+	font-size: 12px;
+	background: #fff;
+	margin: 20px;
+	width: 90%;
+	border-collapse: collapse;
+	text-align: left;
+
+}
+
+#simple-table th
+{
+	font-size: 12px;
+	/*color: #039;*/
+	color: #000;
+	padding: 10px 8px;
+	border-bottom: 1px dashed #ccc;
+}
+
+#simple-table td
+{
+	border-bottom: 1px dashed #ccc;
+	color: #0D58A6;
+	
+	padding: 6px 8px;
+
+}
+
+#simple-table tbody tr:hover td
+{
+	color: #04376C;
+}
+

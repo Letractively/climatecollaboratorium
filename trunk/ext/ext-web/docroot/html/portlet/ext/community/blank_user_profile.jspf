@@ -1,0 +1,33 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<div id="Profile" class="single-col">
+    <div class="PortletBox">
+        <div class="content">
+
+            <div class="t"></div>
+            <div class="hd">
+                <div class="name">
+                    <h2> Profile</h2>
+                </div>
+            </div>
+            <div class="bd">
+
+                <div class="content-inner">
+                    <div class="select-profile">
+                        Select a profile at left to view a user's public information
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="b">
+            <div></div>
+        </div>
+    </div>
+</div>

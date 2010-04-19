@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/backport-util-concurrent.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/collab_jsf_components.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-el.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/el-ri.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/icefaces-comps.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/icefaces-facelets.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/icefaces.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/jsf-api.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/jsf-impl.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/tomahawk-1.1.9.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Collaboratorium - Repo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-validator.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/ext-impl.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/log4j.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/oro.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/portal-impl.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/util-bridges.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/util-java.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/util-taglib.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

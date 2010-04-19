@@ -1,0 +1,14 @@
+.disablecheckIcon{
+	width:25px;
+	height:25px;
+	background:url(../images/check_disable_btn.gif) no-repeat center center;
+}
+.checkIcon{
+	width:25px;
+	height: 25px;
+	background:url(../images/check_btn.gif) no-repeat center center;
+}
+.cancelIcon {
+	width:25px;
+	height:25px;
+	background:url(../images/cancel_btn.gif) no-repeat center center;

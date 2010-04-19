@@ -1,0 +1,95 @@
+<project name="pangaea-servlet" default="dist" basedir=".">
+  <description>
+    Simple pangaea servlet build
+  </description>
+  <!-- set global properties for this build -->
+  <property name="CATALINA_HOME" location="/usr/share/apache-tomcat-6.0.18/" />
+  <property name="webapp" value="${CATALINA_HOME}/webapps8080/${ant.project.name}" />
+  <property name="src" location="src" />
+  <property name="build" location="build" />
+  <property name="lib" location="lib" />
+  <property name="web" location="WebContent" />
+  <property name="dist" location="dist" />
+  <property name="target" location="target" />
+  <property name="distclasses" value="${dist}/classes" />
+
+  <path id="classpath">
+    <fileset dir="lib">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+  <path id="tomcat-libs">
+    <fileset dir="${CATALINA_HOME}/lib">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+
+  <target name="init">
+    <mkdir dir="${build}" />
+    <mkdir dir="${dist}" />
+    <mkdir dir="${target}"/>
+  </target>
+
+  <target name="compile" depends="init" description="compile the source ">
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}">
+      <classpath>
+        <path refid="classpath" />
+        <path refid="tomcat-libs" />
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="dist" depends="compile" description="generate the distribution">
+    <!-- Create war structure -->
+
+    <copy todir="${dist}">
+      <fileset dir="${web}/">
+        <include name="**/*" />
+        <exclude name="**/CVS/*" />
+      </fileset>
+    </copy>
+
+    <mkdir dir="${dist}/WEB-INF/lib" />
+    <copy todir="${dist}/WEB-INF/lib">
+      <fileset dir="lib">
+        <include name="**/*.jar" />
+      </fileset>
+    </copy>
+
+
+    <mkdir dir="${dist}/WEB-INF/classes" />
+    <copy todir="${dist}/WEB-INF/classes">
+      <fileset dir="${build}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+
+
+  </target>
+
+
+  <target name="clean" description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}" />
+    <delete dir="${dist}" />
+  </target>
+
+
+  <target name="deploy" depends="compile">
+    <war destfile="${target}/${ant.project.name}.war" webxml="${web}/WEB-INF/web.xml">
+      <fileset dir="${web}">
+        <include name="**/*" />
+        <exclude name="**/CVS/*" />
+        <exclude name="**/WEB-INF/*" />
+        <exclude name="**/META-INF/*" />
+      </fileset>
+      <lib dir="${lib}"/>
+      <classes dir="${build}"/>
+    </war>
+  </target>
+
+
+</project>
+

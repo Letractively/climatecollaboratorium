@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 5.1.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_5_1_0.dtd">
+
+<liferay-portlet-app>
+	<portlet>
+		<portlet-name>debates3</portlet-name>
+		<social-activity-interpreter-class>org.climatecollaboratorium.debates.activity.DebatesActivityFeedEntry</social-activity-interpreter-class>
+		<instanceable>true</instanceable>
+		<render-weight>1</render-weight>
+		<ajaxable>false</ajaxable>
+		<header-portal-css>/html/portlet/ext/models/css/jquery-ui-1.7.2.custom.css</header-portal-css>
+		<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>
+		<header-portlet-css>/css/debates.css</header-portlet-css>
+		<header-portlet-javascript>/js/jqueryCompatibility.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/nicEdit.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery.corner.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery.history.js</header-portlet-javascript>
+	</portlet>
+	<role-mapper>
+		<role-name>administrator</role-name>
+		<role-link>Administrator</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>guest</role-name>
+		<role-link>Guest</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>power-user</role-name>
+		<role-link>Power User</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>user</role-name>
+		<role-link>User</role-link>
+	</role-mapper>
+</liferay-portlet-app>
