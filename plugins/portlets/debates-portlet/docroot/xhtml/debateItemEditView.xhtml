@@ -86,11 +86,11 @@
                                        columnClasses=" text , url , action " varStatus="status">
                             <ice:column styleClass=" #{status.index % 2 == 0 ? 'even' : 'odd'}">
                                 <f:facet name="header">Text</f:facet>
-                                #{reference.text}
+                                <div class="referenceEdit text">#{reference.text}</div>
                             </ice:column>
                             <ice:column styleClass=" #{status.index % 2 == 0 ? 'even' : 'odd'} ">
                                 <f:facet name="header">Url</f:facet>
-                                <a href="#{reference.url}" target="_blank">#{reference.url}</a>
+                                <div class="referenceEdit url"><a href="#{reference.url}" target="_blank">#{reference.url}</a></div>
                             </ice:column>
 
                             <ice:column styleClass=" #{status.index % 2 == 0 ? 'even' : 'odd'}">
