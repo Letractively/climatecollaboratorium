@@ -1134,7 +1134,7 @@ a.helpMessageTrigger.helpHidden {
 .argumentHelp .con {
     background:  url("../img/con_icon_small.png") 0px 4px no-repeat;
     width:15px;
-    padding: 3px 9px;Ê
+    padding: 3px 9px;ï¿½
 }
 
 .argumentHelp .comment {
@@ -1147,4 +1147,6 @@ a.helpMessageTrigger.helpHidden {
     padding: 3px 9px;
 }
 
-
+a.moderator, a.moderator:hover  {
+    color: #cc0000;
+}

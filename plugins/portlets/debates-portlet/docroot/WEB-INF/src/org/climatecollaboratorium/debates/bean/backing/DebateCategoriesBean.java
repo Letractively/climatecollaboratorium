@@ -6,14 +6,14 @@
 
 package org.climatecollaboratorium.debates.bean.backing;
 
+import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateCategory;
 import com.liferay.portal.SystemException;
 import org.climatecollaboratorium.debates.bean.support.DebateCategoryWrapper;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author: jintrone
@@ -32,7 +32,7 @@ public class DebateCategoriesBean {
 
 
     
-    public DebateCategoriesBean() {
+    public DebateCategoriesBean() throws SystemException {
         repopulate();
     }
 
@@ -41,11 +41,20 @@ public class DebateCategoriesBean {
         return categories;
     }
 
-    public void setCategories(List<DebateCategoryWrapper> categories) {
+    public void setCategories(List<DebateCategoryWrapper> categories) throws SystemException {
+        // sort debate items randomly
+        final Random rand = new Random();
+        for (DebateCategoryWrapper category: categories) {
+            Collections.sort(category.getDebates(), new Comparator<Debate>() {
+                public int compare(Debate o1, Debate o2) {
+                    return 1 - rand.nextInt(2);
+                }
+            });
+        }
         this.categories = categories;
     }
 
-    private void repopulate() {
+    private void repopulate() throws SystemException {
         
         List<DebateCategoryWrapper> ncats = new ArrayList<DebateCategoryWrapper>();
         if (debatePreferences == null) {
@@ -93,7 +102,12 @@ public class DebateCategoriesBean {
                 wrapper,
                 new Runnable() {
                     public void run() {
-                        repopulate();
+                        try {
+                            repopulate();
+                        }
+                        catch (Exception e) {
+                            // ignore
+                        }
                     }
                 });
     }
@@ -108,7 +122,12 @@ public class DebateCategoriesBean {
                         e.printStackTrace();
                     }
                 }
-                repopulate();
+                try {
+                    repopulate();
+                }
+                catch (Exception e) {
+                    // ignore
+                }
             }
         });
     }

@@ -13,6 +13,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -69,7 +70,7 @@ public class DebateItemUserObject extends IceUserObject {
         return item.getVotesCount();
     }
 
-    public void itemSelectedCallback(ActionEvent action) {
+    public void itemSelectedCallback(ActionEvent action) throws SystemException, PortalException  {
         for (SelectionListener<DebateItem> listener: listeners) {
 
             listener.onSelected(item);
@@ -121,7 +122,7 @@ public class DebateItemUserObject extends IceUserObject {
     }
 
     public boolean isActive() {
-        return item.getDebateItemId().equals(debateDetailsBean.getSelectedDebateItem().getDebateItemId());
+        return item.getDebateItemId().equals(debateDetailsBean.getSelectedDebateItem().getItem().getDebateItemId());
     }
     
     public boolean getHasComments() throws SystemException {
@@ -131,4 +132,7 @@ public class DebateItemUserObject extends IceUserObject {
     public int getCommentsCount() throws SystemException {
         return item.getComments().size();
     }
+
+
+    
 }

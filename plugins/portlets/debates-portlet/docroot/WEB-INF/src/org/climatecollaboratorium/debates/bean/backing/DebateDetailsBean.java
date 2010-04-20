@@ -21,6 +21,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 import org.climatecollaboratorium.debates.activity.DebateActivityKeys;
+import org.climatecollaboratorium.debates.bean.support.DebateItemWrapper;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -38,7 +39,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
 
     private String text;
     private DebateItem rootDebateItem;
-    private DebateItem selectedDebateItem;
+    private DebateItemWrapper selectedDebateItem;
     private EditDebateCommentBean editDebateCommentBean = null;
 
     Map<Long, DefaultMutableTreeNode> treeNodeByItemId = null;
@@ -71,7 +72,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
      if (userid==null || debate==null) return false;
 
         try {
-            return ActivityUtil.isSubscribed(DebateActivityKeys.ALL,Long.parseLong(userid),selectedDebateItem.getDebateId());
+            return ActivityUtil.isSubscribed(DebateActivityKeys.ALL,Long.parseLong(userid),selectedDebateItem.getItem().getDebateId());
         } catch (SystemException e) {
 
         }
@@ -190,7 +191,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
 
     }
 
-    public void debateItemUpdated(DebateItem item) throws SystemException, RenderingException {
+    public void debateItemUpdated(DebateItem item) throws SystemException, RenderingException, PortalException {
         if (item.getDebateItemId().equals(rootDebateItem.getDebateItemId())) {
             rootDebateItem = item;
         } else {
@@ -207,7 +208,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
         refresh();//state.executeAndRender();
     }
 
-    public void debateItemRemoved(DebateItem item) throws RenderingException {
+    public void debateItemRemoved(DebateItem item) throws RenderingException, SystemException, PortalException {
         DefaultMutableTreeNode itemNode = treeNodeByItemId.get(item.getDebateItemId());
         if (itemNode != null) {
             itemNode.removeFromParent();
@@ -292,16 +293,16 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
         return text;
     }
 
-    public DebateItem getSelectedDebateItem() {
+    public DebateItemWrapper getSelectedDebateItem() {
         return selectedDebateItem;
     }
 
-    public void setSelectedDebateItem(DebateItem debateItem) {
-        this.selectedDebateItem = debateItem;
+    public void setSelectedDebateItem(DebateItem debateItem) throws SystemException, PortalException {
+        this.selectedDebateItem = new DebateItemWrapper(debateItem);
     }
 
     @Override
-    public void onSelected(DebateItem item) {
+    public void onSelected(DebateItem item) throws SystemException, PortalException  {
         try {
             int i = DebateLocalServiceUtil.getDebatesCount();
             System.out.println("Found " + i + " debates");
@@ -318,7 +319,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
 
     }
 
-    public void selectRootItem(ActionEvent event) {
+    public void selectRootItem(ActionEvent event) throws SystemException, PortalException  {
         setSelectedDebateItem(rootDebateItem);
         for (SelectionListener<DebateItem> listener : selectionListeners) {
             listener.onSelected(rootDebateItem);
@@ -326,7 +327,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
     }
 
     public List<DebateComment> getSelectedDebateItemComments() throws SystemException {
-        return selectedDebateItem.getComments();
+        return selectedDebateItem.getItem().getComments();
     }
 
 
@@ -415,22 +416,22 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
         if (! Helper.isUserLoggedIn()) {
             return false;
         }
-        return selectedDebateItem.hasUserVotedForThisItem(currentUser.getUserId());
+        return selectedDebateItem.getItem().hasUserVotedForThisItem(currentUser.getUserId());
     }
 
     public void voteForCurrentItem(ActionEvent event) throws PortalException, SystemException {
-        selectedDebateItem.voteForThisItem(Helper.getLiferayUser().getUserId());
+        selectedDebateItem.getItem().voteForThisItem(Helper.getLiferayUser().getUserId());
 
 
         SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                DebateItem.class.getName(), selectedDebateItem.getDebateItemId(), DebateActivityKeys.VOTE_FOR_POSITION.id(),
+                DebateItem.class.getName(), selectedDebateItem.getItem().getDebateItemId(), DebateActivityKeys.VOTE_FOR_POSITION.id(),
                 StringPool.BLANK, 0);
     }
 
     public void unvoteCurrentItem(ActionEvent event) throws PortalException, SystemException {
-        selectedDebateItem.unvoteThisItem(Helper.getLiferayUser().getUserId());
+        selectedDebateItem.getItem().unvoteThisItem(Helper.getLiferayUser().getUserId());
         SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                DebateItem.class.getName(), selectedDebateItem.getDebateItemId(), DebateActivityKeys.RETRACT_VOTE_FOR_POSITION.id(),
+                DebateItem.class.getName(), selectedDebateItem.getItem().getDebateItemId(), DebateActivityKeys.RETRACT_VOTE_FOR_POSITION.id(),
                 StringPool.BLANK, 0);
     }
 
@@ -446,9 +447,9 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
         List<SelectItem> ret = new ArrayList<SelectItem>();
         int addedElements = 0;
         DateFormat df = new SimpleDateFormat("MM/dd/yy HH:mm");
-        for (DebateItem item : selectedDebateItem.getCompleteHistory()) {
+        for (DebateItem item : selectedDebateItem.getItem().getCompleteHistory()) {
             addedElements++;
-            if (item.getDebateItemPK().equals(selectedDebateItem.getDebateItemPK())) {
+            if (item.getDebateItemPK().equals(selectedDebateItem.getItem().getDebateItemPK())) {
                 ret.add(new SelectItem(item.getDebateItemPK(), "current"));
             } else {
                 ret.add(new SelectItem(item.getDebateItemPK(), df.format(item.getUpdated())));
@@ -500,8 +501,8 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
         return renderer;
     }
 
-    public void setSelectedItemId(Long item) {
-        this.selectedDebateItem = DebateItemLocalServiceUtil.getLastActiveItem(item);
+    public void setSelectedItemId(Long item) throws SystemException, PortalException  {
+        setSelectedDebateItem(DebateItemLocalServiceUtil.getLastActiveItem(item));
     }
 
 }

@@ -5,8 +5,15 @@
     <ice:messages globalOnly="true" layout="table"/>
     <ice:form id="debate-map-form">
         <div class="debateSummary #{debateDetails.rootItem == debateDetails.selectedDebateItem ? 'active' : ''} ">
-            <ice:commandLink actionListener="#{debateDetails.selectRootItem}" styleClass="debateQuestion"
-                             value="#{debateDetails.rootItem.debateSummary}"/>
+            <ice:commandLink actionListener="#{debateDetails.selectRootItem}" styleClass="hidden"
+                             value="#{debateDetails.rootItem.debateSummary}"
+                             onclick="setFragment('#{debateDetails.rootItem.debateId}', #{debateDetails.rootItem.debateItemId});"
+                             style="display: none"
+                    />
+
+            <a href="#debate=#{debateDetails.rootItem.debateId};item=#{debateDetails.rootItem.debateItemId}"
+                onclick="jQuery(this).parent().find('a').eq(0).click(); return false;"
+                class="debateQuestion">#{debateDetails.rootItem.debateSummary}</a>
         </div>
         <ice:dataTable value="#{debateDetails.positionTrees}" var="positionTree" styleClass="debateMap"
                        columnClasses=" tree, votes, action " headerClasses=" tree , votes , action " varStatus="status">
@@ -18,11 +25,22 @@
                             <table style="width: 100%">
                                 <tr>
                                     <td>
+                                    <!--
+                                    This is ugly hack that is meant to give users real url to debate items in debate map, two links get rendered
+                                    one is rendered by icefaeces, but this link has "javascript:;" in it's href attribute so (it gets hidden,
+                                    second is rendered with <a...></a> this second link is used like a "proxy" for icefaces link
+                                     -->
+
                                     <ice:commandLink
                                         onclick="setFragment('#{item.userObject.item.debateId}', #{item.userObject.item.debateItemId});"
-                                        styleClass="#{status.index == 0 ? 'firstRow' : ''} itemLink #{item.userObject.debatePostType} #{item.userObject.active ? 'active' : ''} #{item.userObject.hasComments ? 'hasComments' : ''}"
+                                        styleClass="hidden"
                                         actionListener="#{item.userObject.itemSelectedCallback}"
-                                        value="#{item.userObject.text}"/>
+                                        value="#{item.userObject.text}" 
+                                    />
+                                    <a href="#debate=#{item.userObject.item.debateId};item=#{item.userObject.item.debateItemId}"
+                                       onclick="jQuery(this).parent().find('a').eq(0).click(); return false;"
+                                       class="#{status.index == 0 ? 'firstRow' : ''} itemLink #{item.userObject.debatePostType} #{item.userObject.active ? 'active' : ''} #{item.userObject.hasComments ? 'hasComments' : ''}"
+                                    >#{item.userObject.text}</a>
                                     </td>
                                     <td class="commentsCount"><div>#{item.userObject.commentsCount}</div></td>
                                 </tr>
