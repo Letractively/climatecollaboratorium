@@ -143,9 +143,9 @@ public class DebatesSuggestBean {
         if (current_type != Type.DEBATE && details.getSelectedDebateItem()!=null) {
             message = "(Selected debate item: "+
                     details.getSelectedDebateItem().getDebatePostType()+":"+
-                    "<a href='"+ DebatesUtil.getItemURL(details.getSelectedDebateItem())+"'>"+
+                    "<a href='"+ DebatesUtil.getItemURL(details.getSelectedDebateItem().getItem())+"'>"+
                     details.getSelectedDebateItem().getDebateSummary()+"</a> in debate \""+
-                    details.getSelectedDebateItem().getDebate().getCurrentRoot().getDebateSummary()+"\")<br/><br/>"+
+                    details.getSelectedDebateItem().getItem().getDebate().getCurrentRoot().getDebateSummary()+"\")<br/><br/>"+
                     message;
 
         }

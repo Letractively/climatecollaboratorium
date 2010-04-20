@@ -1,10 +1,14 @@
 package org.climatecollaboratorium.debates.bean.backing;
 
+import com.ext.portlet.community.action.CommunityConstants;
 import com.ext.portlet.debaterevision.model.DebateItem;
+import com.liferay.portal.NoSuchUserException;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.ratings.model.RatingsStats;
@@ -158,10 +162,7 @@ public class Helper {
         strBuilder.append(content.substring(lastIndex));
         return strBuilder.toString();
     }
-    
-    private static String createLink(String url, String desc) {
-        return "<a href='" + url + "'>" + desc + "</a>";
-    }
+
     
     public static String filterContent(String content) {
         String tmp = content;
@@ -170,8 +171,64 @@ public class Helper {
         }
         tmp = filterUrlEmbeddedLinks(tmp);
         tmp = filterLinkifyUrls(tmp);
+        tmp = filterUserlinks(tmp);
         
         return tmp;
     }
+
+    public static String filterUserlinks(String content) {
+
+        final String portletId;
+        final long groupId;
+        final String primKey;
+        
+        groupId = Helper.getThemeDisplay().getScopeGroupId();
+        primKey = Helper.getThemeDisplay().getPortletDisplay().getResourcePK();
+        portletId = Helper.getThemeDisplay().getPortletDisplay().getRootPortletId();
+        
+        Pattern pattern = Pattern.compile("\\[user=[^\\]]*\\]");
+        Matcher matcher = pattern.matcher(content);
+        StringBuilder strBuilder = new StringBuilder();
+
+        int lastIndex = 0;
+        while (matcher.find()) {
+            strBuilder.append(content.substring(lastIndex, matcher.start()));
+            String username = content.substring(matcher.start()+6, matcher.end() - 1);
+
+            User user = null;
+            PermissionChecker permCheck = null;
+            // check if user is a valid user
+            try {
+                user = UserLocalServiceUtil.getUserByScreenName(getThemeDisplay().getCompanyId(), username);
+                permCheck = PermissionCheckerFactoryUtil.create(user, false);
+            } catch (Exception e) {
+                // ignore
+            } 
+            if (user != null) {
+                if (permCheck != null && permCheck.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN)) {
+                    strBuilder.append(createLink(CommunityConstants.USER_PROFILE_PATH + "?userId=" + user.getUserId(), username, "moderator"));
+                }
+                else {
+                    strBuilder.append(createLink(CommunityConstants.USER_PROFILE_PATH + "?userId=" + user.getUserId(), username, "user"));
+                }
+            }
+            else {
+                strBuilder.append(username);
+            }
+            lastIndex = matcher.end();
+        }
+        strBuilder.append(content.substring(lastIndex));
+        return strBuilder.toString();
+
+    }
+
+    private static String createLink(String url, String desc) {
+        return createLink(url, desc, "");
+    }
+
+    private static String createLink(String url, String desc, String title) {
+        return "<a href='" + url + "' title='" + title + "' class='" + title + "'>" + desc + "</a>";
+    }
+
 
 }

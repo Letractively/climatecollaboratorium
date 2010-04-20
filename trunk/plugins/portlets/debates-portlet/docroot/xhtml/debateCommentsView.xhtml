@@ -41,7 +41,10 @@
                 <div class="clear"></div>
                 <p class="whoAndWhen">
                     <ice:outputText value="By"/>
-                    <a href="/web/guest/members?userId=#{wrapper.comment.author.userId}">
+                    <a href="/web/guest/members?userId=#{wrapper.comment.author.userId}"
+                       class="#{permissions.canAdmin ? 'moderator' : ''}"
+                       title="#{permissions.canAdmin ? 'moderator' : ''}"
+                    >
                         <ice:outputText value="#{wrapper.comment.author.screenName}"/>
                     </a>
                     <ice:outputText value="on"/>

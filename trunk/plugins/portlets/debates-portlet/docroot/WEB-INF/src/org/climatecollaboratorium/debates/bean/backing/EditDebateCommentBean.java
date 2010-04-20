@@ -46,11 +46,11 @@ public class EditDebateCommentBean {
 
     public void save(ActionEvent event) throws SystemException, PortalException {
         if (permissions.getCanAddComment()) {
-            debateDetailsBean.getSelectedDebateItem().addComment(title, content, Helper.getLiferayUser().getUserId());
+            debateDetailsBean.getSelectedDebateItem().getItem().addComment(title, content, Helper.getLiferayUser().getUserId());
             title = "";
             content = "";
             DebateItemType type = DebateItemType.valueOf(debateDetailsBean.getSelectedDebateItem().getDebatePostType());
-            DebateItem item = debateDetailsBean.getSelectedDebateItem();
+            DebateItem item = debateDetailsBean.getSelectedDebateItem().getItem();
             if (type.equals(DebateItemType.POSITION)) {
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), DebateItem.class
                         .getName(), item.getDebateItemId(), DebateActivityKeys.COMMENT_ON_POSITION.id(), StringPool.BLANK,
@@ -67,6 +67,9 @@ public class EditDebateCommentBean {
                         0);
 
             }
+        }
+        if (! debateDetailsBean.isSubscribed()) {
+            debateDetailsBean.subscribe();
         }
     }
 

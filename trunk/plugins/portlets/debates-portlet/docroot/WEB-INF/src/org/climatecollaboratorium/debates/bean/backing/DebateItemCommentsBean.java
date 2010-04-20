@@ -28,7 +28,7 @@ public class DebateItemCommentsBean {
     
     public List<DebateCommentWrapper> getComments() throws SystemException {
         List<DebateCommentWrapper> comments = new ArrayList<DebateCommentWrapper>();
-        DebateItem item = debateDetailsBean.getSelectedDebateItem();
+        DebateItem item = debateDetailsBean.getSelectedDebateItem().getItem();
         
         for (DebateComment comment: item.getComments()) {
             DebateCommentWrapper commentWrapper = new DebateCommentWrapper(comment);

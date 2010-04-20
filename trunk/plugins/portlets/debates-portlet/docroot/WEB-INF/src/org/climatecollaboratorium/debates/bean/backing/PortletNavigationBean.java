@@ -6,6 +6,7 @@
 
 package org.climatecollaboratorium.debates.bean.backing;
 
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 import javax.faces.context.FacesContext;
@@ -71,7 +72,7 @@ public class PortletNavigationBean  {
 //       setItem(Long.parseLong(String.valueOf(e.getComponent().getAttributes().get("item"))));
     }
     
-    public void navigateWithItem(ActionEvent e) throws SystemException {
+    public void navigateWithItem(ActionEvent e) throws SystemException, PortalException {
         setDebate(debate);
         setItem(item);
     }
@@ -110,7 +111,7 @@ public class PortletNavigationBean  {
         return item;
     }
 
-    public void setItem(Long item) {
+    public void setItem(Long item) throws SystemException, PortalException {
         this.item = item;       
 
         if (item > 0) {

@@ -120,10 +120,10 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
         hideForms();
     }
 
-    public void editSelectedItem(ActionEvent event) throws SystemException, RenderingException {
+    public void editSelectedItem(ActionEvent event) throws SystemException, PortalException, RenderingException {
         hideForms();
         editing = true;
-        item = debateDetailsBean.getSelectedDebateItem();
+        item = debateDetailsBean.getSelectedDebateItem().getItem();
         selectedHistoryVersion = item;
         setReferences(item.getReferences());
         debateDetailsBean.setSelectedDebateItem(item);
@@ -175,7 +175,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
                         StringPool.BLANK, 0);
             }
             else {
-                DebateItem parent = debateDetailsBean.getSelectedDebateItem();
+                DebateItem parent = debateDetailsBean.getSelectedDebateItem().getItem();
                 savedItem = parent.addChild(title, content, userId, type.toString(), references);
                 debateDetailsBean.debateItemAdded(savedItem);
                 
@@ -205,6 +205,9 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
             }
         }
 
+        if (! debateDetailsBean.isSubscribed()) {
+            debateDetailsBean.subscribe();
+        }
         hideForms();
 
     }
@@ -308,7 +311,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
         if (! permissions.getCanAdmin()) {
             return;
         }
-        DebateItem item = debateDetailsBean.getSelectedDebateItem();
+        DebateItem item = debateDetailsBean.getSelectedDebateItem().getItem();
         if (item != null) {
             /// check permissions
             item.delete(Helper.getLiferayUser().getUserId());
