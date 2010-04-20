@@ -3,12 +3,32 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:collab="http://climatecollaboratorium.org/components" xmlns:c="http://java.sun.com/jstl/core" >
   <ice:portlet id="debates-portlet">
-  
+
+  <!-- for session timeout debugging
+  <div id="statusDiv"></div>
+  -->
 
     <script type="text/javascript">
 
-           
+        /* for session timeout debugging */
+        /*
+            Ice.onConnectionTrouble("mainContent", function() {
+                jQuery("#statusDiv").prepend("connectionTrouble ");
+            });
 
+            Ice.onSessionExpired("mainContent", function() {
+                jQuery("#statusDiv").prepend("sessionExpired ");
+            });
+
+            Ice.onConnectionLost("mainContent", function() {
+                jQuery("#statusDiv").prepend("connection lost ");
+            });
+
+            Ice.onAsynchronousReceive("mainContent", function() {
+                jQuery("#statusDiv").prepend("asynchronous receive ");
+            });
+
+        */
             jQuery(document).ready(function() {
               });
 
@@ -26,7 +46,7 @@
                    if (currentFrag['debate'] == debateId &amp;&amp; debateItemId == currentFrag['item']) {
                        return;
                    }
-               }    
+               }
                var frag = debateId == null?'':('#debate='+debateId+
                                                (debateItemId==null?'':';item='+debateItemId));
                window.location.href=window.location.href.split("#")[0]+frag;
@@ -44,7 +64,7 @@
                 });
                 return result;
             }
-            
+
             function showAddLinkDialog() {
                 try {
                     jQuery('#addLinkDialog').slideDown();
@@ -56,7 +76,7 @@
                 catch (err) {
                     alert('error: ' + err);
                 }
-                   
+
             }
 
             function closeAddLinkDialog(caller) {

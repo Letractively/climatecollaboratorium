@@ -20,7 +20,7 @@
 	</context-param>
 	<context-param>
 		<param-name>com.icesoft.faces.connectionTimeout</param-name>
-		<param-value>60000</param-value>
+		<param-value>15000</param-value>
 	</context-param>
 	<context-param>
 		<param-name>com.icesoft.faces.heartbeatInterval</param-name>
@@ -302,7 +302,7 @@
 		<url-pattern>/debates3/*</url-pattern>
 	</servlet-mapping>
 	<session-config>
-		<session-timeout>60</session-timeout>
+        <session-timeout>60</session-timeout>
 	</session-config>
 	<jsp-config>
 		<taglib>
