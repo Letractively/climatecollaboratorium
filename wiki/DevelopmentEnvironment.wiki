@@ -6,9 +6,9 @@ The Climate Collaboratorium is based upon v.5.2.3 of the [http://liferay.com Lif
 
 We have not yet build any re-distributable wars for the collaboratorium, so it will be necessary to deploy your own from the "ext" environment.  Instructions on setting up the ext environment may be found in the Liferay developer docs.
 
-#Install MySQL 5.1.
-#Install the Liferay Tomcat bundle [http://sourceforge.net/projects/lportal/files/Liferay%20Portal/liferay-portal-tomcat-6.0-5.2.3.zip download]
-#Install Liferay's ext environment [http://sourceforge.net/projects/lportal/files/Liferay%20Portal/5.2.3/liferay-portal-ext-5.2.3.zip/download download]
+  # Install MySQL 5.1.
+  # Install the Liferay Tomcat bundle [http://sourceforge.net/projects/lportal/files/Liferay%20Portal/liferay-portal-tomcat-6.0-5.2.3.zip download]
+  # Install Liferay's ext environment [http://sourceforge.net/projects/lportal/files/Liferay%20Portal/5.2.3/liferay-portal-ext-5.2.3.zip/download download]
 
 
 
