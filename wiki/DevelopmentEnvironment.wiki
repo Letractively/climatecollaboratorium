@@ -31,5 +31,5 @@ We have not yet built any re-distributable wars for the main sources of the coll
   # Import the the collaboratorium.sample.sql, which can be found in  ext/sql/collaboratorium/.
 
 ===Installing additional web services===
-  # Install the three web services from the downloads page ([http://climatecollaboratorium.googlecode.com/files/simulation-servlet.v1.war simulation-servlet],[http://climatecollaboratorium.googlecode.com/files/pangaea-servlet.v1.war pangaea-servlet],[http://http://climatecollaboratorium.googlecode.com/files/excel_wrapper-servlet.v1.war excel_wrapper-servlet]) by copying them to tomcat's webapps directory. 
+  # Install the three web services from the downloads page ([http://climatecollaboratorium.googlecode.com/files/simulation-servlet.v1.war simulation-servlet], [http://climatecollaboratorium.googlecode.com/files/pangaea-servlet.v1.war pangaea-servlet], [http://http://climatecollaboratorium.googlecode.com/files/excel_wrapper-servlet.v1.war excel_wrapper-servlet]) by copying them to tomcat's webapps directory. 
   
