@@ -1156,3 +1156,16 @@ a.helpMessageTrigger.helpHidden {
 a.moderator, a.moderator:hover  {
     color: #cc0000;
 }
+
+.center {
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog .ui-dialog-title {
+    margin-top: 3px;
+    margin-left: 10px;
+}

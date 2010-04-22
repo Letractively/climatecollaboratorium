@@ -23,6 +23,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Helper {
+    private final static ThemeDisplay themeDisplay = getThemeDisplay();
+    private final static String portletId = themeDisplay.getPortletDisplay().getRootPortletId();
+    private final static long groupId = themeDisplay.getScopeGroupId();
+    private final static String primKey = themeDisplay.getPortletDisplay().getResourcePK();
+
     public static int getDebateItemVotes(DebateItem debateItem) throws SystemException {
         RatingsStats ratingsStats =
             RatingsStatsLocalServiceUtil.getStats(DebateItem.class.getName(), debateItem.getDebateItemId());
@@ -178,14 +183,8 @@ public class Helper {
 
     public static String filterUserlinks(String content) {
 
-        final String portletId;
-        final long groupId;
-        final String primKey;
-        
-        groupId = Helper.getThemeDisplay().getScopeGroupId();
-        primKey = Helper.getThemeDisplay().getPortletDisplay().getResourcePK();
-        portletId = Helper.getThemeDisplay().getPortletDisplay().getRootPortletId();
-        
+
+                     
         Pattern pattern = Pattern.compile("\\[user=[^\\]]*\\]");
         Matcher matcher = pattern.matcher(content);
         StringBuilder strBuilder = new StringBuilder();
@@ -202,10 +201,10 @@ public class Helper {
                 user = UserLocalServiceUtil.getUserByScreenName(getThemeDisplay().getCompanyId(), username);
                 permCheck = PermissionCheckerFactoryUtil.create(user, false);
             } catch (Exception e) {
-                // ignore
+                e.printStackTrace();
             } 
             if (user != null) {
-                if (permCheck != null && permCheck.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN)) {
+                if (permCheck != null && (permCheck.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN) || permCheck.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_EDIT_DEBATE_MAP))) {
                     strBuilder.append(createLink(CommunityConstants.USER_PROFILE_PATH + "?userId=" + user.getUserId(), username, "moderator"));
                 }
                 else {

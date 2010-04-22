@@ -4,31 +4,37 @@
     xmlns:collab="http://climatecollaboratorium.org/components" xmlns:c="http://java.sun.com/jstl/core" >
   <ice:portlet id="debates-portlet">
 
-  <!-- for session timeout debugging
+  <!-- for session timeout debugging -->
   <div id="statusDiv"></div>
-  -->
+
 
     <script type="text/javascript">
 
         /* for session timeout debugging */
-        /*
+
             Ice.onConnectionTrouble("mainContent", function() {
-                jQuery("#statusDiv").prepend("connectionTrouble ");
+                //jQuery("#statusDiv").prepend("connectionTrouble " + new Date() + "<br />");
             });
 
             Ice.onSessionExpired("mainContent", function() {
-                jQuery("#statusDiv").prepend("sessionExpired ");
+               jQuery('#reloadPagePopup').hide();
+               jQuery('#reloadPagePopup').dialog({resizable: false, title: "Session timed out", modal: true, width: 300, height: 170});
+               jQuery('#reloadPagePopup').show();
+               //jQuery("#statusDiv").prepend("sessionExpired " + new Date() + "<br />");
             });
 
             Ice.onConnectionLost("mainContent", function() {
-                jQuery("#statusDiv").prepend("connection lost ");
+               jQuery('#reloadPagePopup').hide();
+               jQuery('#reloadPagePopup').dialog({resizable: false, title: "Session timed out", modal: true, width: 300, height: 170});
+               jQuery('#reloadPagePopup').show();
+               // jQuery("#statusDiv").prepend("connection lost " + new Date() + "<br />");
             });
 
             Ice.onAsynchronousReceive("mainContent", function() {
-                jQuery("#statusDiv").prepend("asynchronous receive ");
+               // jQuery("#statusDiv").prepend("asynchronous receive "+ new Date() + "<br />");
             });
 
-        */
+
             jQuery(document).ready(function() {
               });
 
@@ -155,8 +161,22 @@
                     return false;
                 }
             }
+
                 
             </script>
+
+    <div class="hidden" id="reloadPagePopup" style="display: none">
+        <div>
+            Your session was interrupted, click on the button below to refresh the page
+            (if you're in the course of adding / editing, click cancel and copy your work not to lose anything)<br /><br />
+            <div class="center">
+                <input type="button" value="Reload" onclick="location.reload(true)" />
+                &amp;nbsp;&amp;nbsp;
+                <input type="button" onclick="jQuery('#reloadPagePopup').dialog('close')" value="Cancel" />
+            </div>
+        </div>
+    </div>
+  
     <div class="hidden" id="navigationForm" style="display: none">
         <ice:form id="myform">
             <ice:inputText value="#{portletNavigation.debate}" styleClass="debateId" />
@@ -166,7 +186,7 @@
     
     </div> 
     
-            
+
     
     <div class="debateDetails">
       <ice:panelPopup rendered="#{editDebateItem.adding}" styleClass="collaboratoriumPopup" autoPosition="manual" modal="true">
