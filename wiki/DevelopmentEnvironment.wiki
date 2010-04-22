@@ -17,7 +17,7 @@ We have not yet built any re-distributable wars for the main sources of the coll
 
 ===Installing the Collaboratorium Source===
   # *Install Ext*  (trunk/ext) Code from the repository should simply replace existing directories - e.g. ext-impl, ext-lib, ext-web, etc.
-  # *Install the plugins* (trunk/plugins)  The repository contains an entire copy of Liferay's plugins environment. You will need to follow the developer docs (above) to configure local settings for this environment (this should only involve creating a build.<username>.properties file to specify relevant local directories).
+  # *Install the plugins* (trunk/plugins)  The repository contains an entire copy of Liferay's plugins environment. You will need to follow the developer docs (above) to configure local settings for this environment (this should only involve creating a build.`<username>`.properties file to specify relevant local directories).
   # Additional source directories (icefaces-custom, collab_jsf_components) may be installed wherever the developer sees fit.  It is not necessary to build these components, as the relevant jars are incorporated their dependent source trees. 
 
 ===Deploy the Collaboratorium===
