@@ -16,8 +16,6 @@
                 Please enter your comment below (new comments will appear at the bottom of the list).<f:verbatim>&amp;nbsp;</f:verbatim><a href='/web/guest/resources/-/wiki/Main/Moderators'>Moderators</a> will review all comments and add good ideas that appear there to the argument map.
             </collab:helpMessage>
 
-        
-
 
     </ice:form>
     <ice:form>
@@ -41,12 +39,7 @@
                 <div class="clear"></div>
                 <p class="whoAndWhen">
                     <ice:outputText value="By"/>
-                    <a href="/web/guest/members?userId=#{wrapper.comment.author.userId}"
-                       class="#{permissions.canAdmin ? 'moderator' : ''}"
-                       title="#{permissions.canAdmin ? 'moderator' : ''}"
-                    >
-                        <ice:outputText value="#{wrapper.comment.author.screenName}"/>
-                    </a>
+                    <collab:userLink userId="#{wrapper.comment.author.userId}" />
                     <ice:outputText value="on"/>
                     <ice:outputText value="#{wrapper.comment.updated}" styleClass="date">
                         <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
