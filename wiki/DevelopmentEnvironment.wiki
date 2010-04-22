@@ -28,7 +28,7 @@ We have not yet built any re-distributable wars for the main sources of the coll
 ===Configuring the database===
   # Create a user/password liferay/liferay.
   # Create a DB named 'lportal' and grant the liferay user create permissions
-  # Import the the [http://code.google.com/p/climatecollaboratorium/source/browse/trunk/ext/sql/collaboratorium/collaboratorium.sample.sql collaboratorium.sample.sql], which can be found in  ext/sql/collaboratorium/ in the source tree.
+  # Build the DB using the SQL script [http://code.google.com/p/climatecollaboratorium/source/browse/trunk/ext/sql/collaboratorium/collaboratorium.sample.sql collaboratorium.sample.sql], which can be found in  ext/sql/collaboratorium/ in the source tree.
 
 ===Installing additional web services===
   # Install the three web services from the downloads page ([http://climatecollaboratorium.googlecode.com/files/simulation-servlet.v1.war simulation-servlet], [http://climatecollaboratorium.googlecode.com/files/pangaea-servlet.v1.war pangaea-servlet], [http://http://climatecollaboratorium.googlecode.com/files/excel_wrapper-servlet.v1.war excel_wrapper-servlet]) by copying them to tomcat's webapps directory. 
