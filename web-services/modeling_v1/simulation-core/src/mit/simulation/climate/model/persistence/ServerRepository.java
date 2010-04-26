@@ -1,41 +1,19 @@
 package mit.simulation.climate.model.persistence;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-
-import mit.simulation.climate.dao.MetaDataDAO;
-import mit.simulation.climate.dao.ScenarioDAO;
-import mit.simulation.climate.dao.SimulationDAO;
-import mit.simulation.climate.dao.TupleDAO;
-import mit.simulation.climate.dao.UserDAO;
-import mit.simulation.climate.dao.VariableDAO;
+import mit.simulation.climate.dao.*;
 import mit.simulation.climate.model.EntityState;
 import mit.simulation.climate.model.MetaData;
 import mit.simulation.climate.model.Scenario;
 import mit.simulation.climate.model.Simulation;
-
-import mit.simulation.climate.model.Variable;
-import mit.simulation.climate.model.MetaData.VarContext;
-import mit.simulation.util.CsvDumper;
-
 import org.apache.cayenne.CayenneDataObject;
 import org.apache.cayenne.DataObjectUtils;
 import org.apache.cayenne.access.DataContext;
-import org.apache.cayenne.conf.ServletUtil;
 import org.apache.cayenne.exp.Expression;
 import org.apache.cayenne.exp.ExpressionFactory;
 import org.apache.cayenne.query.SelectQuery;
 import org.apache.log4j.Logger;
+
+import java.util.*;
 
 public class ServerRepository {
 
@@ -579,20 +557,6 @@ public class ServerRepository {
 //
 //	}
 
-	public static void buildATLANTA(String name) throws IOException {
-		if (name==null) {
-			logger.warn("Requires a file name");
-			return;
-		}
-		ServerSimulation sim = (ServerSimulation) ServerRepository.instance().findSimulationByName("C-ROADS (alt)");
-		ServerScenario scenario = (ServerScenario)ServerRepository.instance().findScenarioByName("Atlanta Plan");
-		if (scenario == null) {
-			scenario = new ServerScenario(sim,"-1","Atalanta Plan","Commitments resulting from the Atlanta Negotiation Excercise",null);
-
-		}
-		new CsvDumper(name,scenario);
-		ServerRepository.instance().discard();
-	}
 
 //	public static void buildATLANTAInputs() throws IOException {
 //
