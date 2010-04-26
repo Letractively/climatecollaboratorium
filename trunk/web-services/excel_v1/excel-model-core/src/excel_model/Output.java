@@ -1,74 +1,34 @@
 package excel_model;
 
-import java.util.ArrayList;
+import excel_model.Model;
 
-public class Output {
+public interface Output {
+
+	public void setRow(int row);
+	public int getRow();
+
+	public void setCol(int col);
+	public int getCol();
+
+	public void setNumValues(int count);
+	public int getNumValues();
+
+	public String getName();
+	public void setName(String name);
 	
-	String intName;
-	ArrayList<Double> values;
-	String units;
-	String name;
-	String description;
-	double min;
-	double max;
+	public String getType();
+	public void setType(String type);
 	
-	public Output(String intName, ArrayList<Double> values, String units, 
-			String name, String descr, Double min, Double max){
-		this.intName = intName;
-		this.values = values;
-		this.units = units;
-		this.name = name;
-		this.description = descr;
-		this.min = min;
-		this.max = max;
-	}
+	public int getNumColumns();
+	public void setNumColumns(int num);
 	
-	public String getIntName(){
-		return this.intName;
-	}
-	public void setIntName(String s){
-		this.intName = s;
-	}
+	public int getNumRows();
+	public void setNumRows(int num);
 	
-	public ArrayList<Double> getValues(){
-		return this.values;
-	}
-	public void setValues(ArrayList<Double> a){
-		this.values = a;
-	}
+	public String getDescription();
+	public void setDescription(String descr);
 	
-	public String getUnits(){
-		return this.units;
-	}
-	public void setUnits(String s){
-		this.units = s;
-	}
-	
-	public String getName(){
-		return this.name;
-	}
-	public void setName(String s){
-		this.name = s;
-	}
-	
-	public String getDescr(){
-		return this.description;
-	}
-	public void setDescr(String s){
-		this.description = s;
-	}
-	
-	public double getMin(){
-		return this.min;
-	}
-	public void setMin(Double d){
-		this.min = d;
-	}
-	
-	public double getMax(){
-		return this.max;
-	}
-	public void setMax(Double d){
-		this.max = d;
-	}
+	public String getInternalName();
+	public void setInternalName(String name);
+
 }
