@@ -7,6 +7,7 @@ import mit.simulation.climate.dao.TupleDAO;
 import mit.simulation.climate.dao.UserDAO;
 import mit.simulation.climate.dao.VariableDAO;
 import mit.simulation.climate.model.MetaData;
+import mit.simulation.climate.model.Simulation;
 
 
 
@@ -28,10 +29,6 @@ public class ServerFactory {
 		return new ServerMetaData(dao);
 	}
 
-	public ServerUser get(UserDAO dao) {
-		if (dao == null) return null;
-		return new ServerUser(dao);
-	}
 	public ServerScenario get(ScenarioDAO dao) {
 		if (dao == null) return null;
 		return new ServerScenario(dao);
@@ -42,10 +39,13 @@ public class ServerFactory {
 		return new ServerVariable(dao);
 	}
 
-	public ServerSimulation get(SimulationDAO dao) {
+	public Simulation get(SimulationDAO dao) {
 		if (dao == null) return null;
-		return new ServerSimulation(dao);
+		if (dao.getToChildren() == null || dao.getToChildren().size() ==0) {
+			return new ServerSimulation(dao);
+		} else return new CompositeServerSimulation(dao);
 	}
+
 	public ServerTuple get(TupleDAO dao) {
 		if (dao == null) return null;
 		return new ServerTuple(dao);

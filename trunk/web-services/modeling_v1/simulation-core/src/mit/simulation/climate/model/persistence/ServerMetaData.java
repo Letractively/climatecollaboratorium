@@ -8,7 +8,8 @@ import mit.simulation.climate.dao.MetaDataDAO;
 import mit.simulation.climate.dao.MetaDataDefaultsDAO;
 import mit.simulation.climate.model.MetaData;
 
-public class ServerMetaData extends ServerObject<MetaDataDAO> implements MetaData {
+public class ServerMetaData extends ServerObject<MetaDataDAO> implements
+		MetaData {
 
 	Logger log = Logger.getLogger(ServerMetaData.class);
 
@@ -16,30 +17,39 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements MetaDat
 		super(dao);
 	}
 
-	public ServerMetaData(String printname, String internalname, String description, Type t, String[] labels, String[] units, Class<Number>[] profile, Number[] min, Number[] max, Number[] defaults, String external) {
+	public ServerMetaData(String printname, String internalname,
+			String description, VarType vtype, VarContext t, String[] labels, String[] units,
+			Class<Object>[] profile, String[] min, String[] max,
+			String[] categories, String[] defaults, String external) {
 		super();
+		MetaDataDefaultsDAO defaultsdao = ServerRepository.instance().createDAO(MetaDataDefaultsDAO.class);
+		dao.setMetaToDefaults(defaultsdao);
 		setName(printname);
 		setInternalName(internalname);
 		setDescription(description);
-		setType(t);
+		setVarType(vtype);
+		setVarContext(t);
 		setLabels(labels);
 		setProfile(profile);
 		setUnits(units);
-		if (min!=null) {
+		if (min != null) {
 			setMin(min);
 		}
-		if (max!=null) {
+		if (max != null) {
 			setMax(max);
 		}
-		if (defaults!=null) {
+		if (defaults != null) {
 			setDefault(defaults);
 		}
-		
-		if (external!=null) {
+
+		if (external != null) {
 			setExternalInfo(external);
 		}
-	}
 
+
+
+
+	}
 
 	@Override
 	public String getId() {
@@ -61,47 +71,52 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements MetaDat
 		return dao.getName();
 	}
 
-
 	@Override
 	public void setName(String name) {
 		dao.setName(name);
 	}
-	
+
 	public void setExternalInfo(String url) {
 		dao.setExternal(url);
 	}
-	
+
 	public String getExternalInfo() {
 		return dao.getExternal();
 	}
 
 	@Override
-	public Class<Number>[] getProfile() {
-
-		String[] sprofile = dao.getProfile().split(";");
-		Class<Number>[] result = new Class[sprofile.length];
-		int i = 0;
-		for (String s:sprofile) {
+	public Class<Object>[] getProfile() {
 			try {
-				result[i++] = (Class<Number>)Class.forName(s);
+				return new Class[] {Class.forName(dao.getProfile())};
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		return result;
+			return null;
+//		String[] sprofile = dao.getProfile().split(";");
+//		Class<Object>[] result = new Class[sprofile.length];
+//		int i = 0;
+//		for (String s : sprofile) {
+//			try {
+//				result[i++] = (Class<Object>) Class.forName(s);
+//			} catch (ClassNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		return result;
 	}
 
 	@Override
-	public void setProfile(Class<Number>[] profile) {
-		String result = "";
-		for (Class c:profile) {
-			if (result.length() > 0) result+=";";
-			result+=c.getCanonicalName();
-			MetaDataDefaultsDAO defaultsdao = ServerRepository.instance().createDAO(MetaDataDefaultsDAO.class);
-			dao.addToMetaToDefaults(defaultsdao);
-		}
-		dao.setProfile(result);
+	public void setProfile(Class<Object>[] profile) {
+//		String result = "";
+//		for (Class c : profile) {
+//			if (result.length() > 0)
+//				result += ";";
+//			result += c.getCanonicalName();
+
+//		}
+		dao.setProfile(profile[0].getCanonicalName());
 	}
 
 	public String[] getLabels() {
@@ -115,38 +130,37 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements MetaDat
 	public void setLabels(String[] labels) {
 		String slabels = "";
 		String sep = "";
-		for (String l:labels) {
-			slabels+=(sep+l);
-			sep=";";
+		for (String l : labels) {
+			slabels += (sep + l);
+			sep = ";";
 		}
 		dao.setLabels(slabels);
 
 	}
 
-
 	@Override
 	public String[] getUnits() {
-		String[] units = dao.getUnits().split(";");
-		return units;
+		if (dao.getUnits() == null) {
+			return null;
+		}
+		return new String[] {dao.getUnits()};
 	}
 
 	@Override
 	public void setUnits(String[] units) {
 		String slabels = "";
 		String sep = "";
-		for (String l:units) {
-			slabels+=(sep+l);
-			sep=";";
+		for (String l : units) {
+			slabels += (sep + l);
+			sep = ";";
 		}
 		dao.setUnits(slabels);
 	}
-
 
 	@Override
 	public String getDescription() {
 		return dao.getDescription();
 	}
-
 
 	@Override
 	public void setDescription(String desc) {
@@ -154,102 +168,113 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements MetaDat
 	}
 
 	@Override
-	public Type getType() {
-		return Type.valueOf(dao.getType());
+	public VarContext getVarContext() {
+		return VarContext.valueOf(dao.getVarcontext());
 	}
 
 	@Override
-	public void setType(Type t) {
-		dao.setType(t.toString());
+	public void setVarContext(VarContext t) {
+		dao.setVarcontext(t.toString());
 
 	}
 
+	@Override
 	public String toString() {
-		return getName()+":"+dao.getProfile();
+		return getName() + ":" + dao.getProfile();
 	}
 
 	@Override
-	public Number[] getDefault() {
-
-		List<MetaDataDefaultsDAO> defdaos = dao.getMetaToDefaults();
-		Number[] result = new Number[defdaos.size()];
-		int idx = 0;
-		Class<? extends Number>[] profile = getProfile();
-		for (MetaDataDefaultsDAO defdao:defdaos) {
-			result[idx] = Utils.formatNumber(profile[idx++], defdao.getDefault());
-		}
-		return result;
-	}
-
-	@Override
-	public Number[] getMax() {
-		List<MetaDataDefaultsDAO> defdaos = dao.getMetaToDefaults();
-		Number[] result = new Number[defdaos.size()];
-		int idx = 0;
-		Class<? extends Number>[] profile = getProfile();
-		for (MetaDataDefaultsDAO defdao:defdaos) {
-			result[idx] = Utils.formatNumber(profile[idx++], defdao.getMax());
-		}
-		return result;
-	}
-
-	@Override
-	public Number[] getMin() {
-		List<MetaDataDefaultsDAO> defdaos = dao.getMetaToDefaults();
-		Number[] result = new Number[defdaos.size()];
-		int idx = 0;
-		Class<? extends Number>[] profile = getProfile();
-		for (MetaDataDefaultsDAO defdao:defdaos) {
-			result[idx] = Utils.formatNumber(profile[idx++], defdao.getMin());
-		}
-		return result;
-	}
-
-	@Override
-	public void setDefault(Number[] n) {
-		List<MetaDataDefaultsDAO> defdaos = dao.getMetaToDefaults();
-		if (defdaos.size() != n.length) {
-			log.error("Proposed defaults do not correspond to underlying metadata");
-		}
-		int idx = 0;
-		Class<? extends Number>[] profile = getProfile();
-		for (MetaDataDefaultsDAO defdao:defdaos) {
-			defdao.setDefault(n[idx++].doubleValue());
-		}
+	public String[] getDefault() {
+		return dao.getMetaToDefaults().getDefault()==null?null:new String[] {dao.getMetaToDefaults().getDefault()};
 
 	}
 
 	@Override
-	public void setMax(Number[] n) {
-		List<MetaDataDefaultsDAO> defdaos = dao.getMetaToDefaults();
-		if (defdaos.size() != n.length) {
-			log.error("Proposed max does not correspond to underlying metadata");
-		}
-		int idx = 0;
-		Class<? extends Number>[] profile = getProfile();
-		for (MetaDataDefaultsDAO defdao:defdaos) {
-			defdao.setMax(n[idx++].doubleValue());
-		}
+	public void setDefault(String[] n) {
+		dao.getMetaToDefaults().setDefault(n[0]);
+
 	}
 
 	@Override
-	public void setMin(Number[] n) {
-		List<MetaDataDefaultsDAO> defdaos = dao.getMetaToDefaults();
-		if (defdaos.size() != n.length) {
-			log.error("Proposed min does not correspond to underlying metadata");
-		}
-		int idx = 0;
-		Class<? extends Number>[] profile = getProfile();
-		for (MetaDataDefaultsDAO defdao:defdaos) {
-			defdao.setMin(n[idx++].doubleValue());
-		}
+	public String[] getMax() {
+		return dao.getMetaToDefaults().getMax()==null?null:new String[] {dao.getMetaToDefaults().getMax()};
+	}
+
+	@Override
+	public String[] getMin() {
+		return dao.getMetaToDefaults().getMin()==null?null:new String[] {dao.getMetaToDefaults().getMin()};
 	}
 
 
+	// new edit
+	@Override
+	public void setMax(String[] n) {
+		dao.getMetaToDefaults().setMax(n[0]);
+
+	}
+
+	// new edit
+	@Override
+	public void setMin(String[] n) {
+		dao.getMetaToDefaults().setMin(n[0]);
+	}
 
 	public boolean equals(Object o) {
-		return ((o instanceof ServerMetaData) && dao.equals(((ServerMetaData)o).dao));
+		return ((o instanceof ServerMetaData) && dao
+				.equals(((ServerMetaData) o).dao));
 	}
+
+	@Override
+	public boolean isIndex() {
+		return VarContext.INDEX.equals(getVarContext());
+	}
+
+
+
+	@Override
+	public String[] getCategories() {
+		if (dao.getMetaToDefaults() == null) log.error("Warning - no meta data defaults for "+dao.getId());
+		return dao.getMetaToDefaults().getCategories()==null?null:dao.getMetaToDefaults().getCategories().split(";");
+	}
+
+	@Override
+	public VarType getVarType() {
+		return MetaData.VarType.valueOf(dao.getVartype());
+	}
+
+	@Override
+	public void setCategories(String[] categories) {
+		StringBuffer b = new StringBuffer();
+		String sep = "";
+		for (String c:categories) {
+			b.append(sep);
+			b.append(c);
+			sep = ";";
+		}
+		dao.getMetaToDefaults().setCategories(b.toString());
+
+	}
+
+
+
+	@Override
+	public void setVarType(VarType t) {
+		dao.setVartype(t.toString());
+	}
+
+	@Override
+	public MetaData getIndexingMetaData() {
+		return ServerRepository.instance().get(dao.getToIndexingId());
+	}
+
+	@Override
+	public void setIndexingMetaData(MetaData md) {
+		dao.setToIndexingId(((ServerMetaData)md).dao);
+
+	}
+
+
+
 
 
 }

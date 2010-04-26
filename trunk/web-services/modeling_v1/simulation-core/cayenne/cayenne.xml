@@ -2,17 +2,11 @@
 <domains project-version="3.0">
 <domain name="Simulation">
 	<map name="SimulationMap" location="SimulationMap.map.xml"/>
-	<map name="UserMap" location="UserMap.map.xml"/>
 
 	<node name="Simulation"
 		 datasource="jdbc/simpool"
 		 factory="org.apache.cayenne.conf.JNDIDataSourceFactory">
 			<map-ref name="SimulationMap"/>
-	 </node>
-	<node name="UserNode"
-		 datasource="jdbc/delibpool"
-		 factory="org.apache.cayenne.conf.JNDIDataSourceFactory">
-			<map-ref name="UserMap"/>
 	 </node>
 </domain>
 </domains>

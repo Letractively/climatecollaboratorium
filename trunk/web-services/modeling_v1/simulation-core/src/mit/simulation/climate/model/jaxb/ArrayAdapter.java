@@ -16,6 +16,8 @@ public class ArrayAdapter {
 	}
 
 	public ArrayAdapter(Object[] data) {
+		if (data == null) this.data = null;
+		else {
 		this.data = "[";
 		String sep="";
 		for (Object o:data) {
@@ -23,6 +25,7 @@ public class ArrayAdapter {
 			sep=",";
 		}
 		this.data+="]";
+		}
 	}
 
 

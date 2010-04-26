@@ -1,9 +1,7 @@
 package mit.simulation.climate.model.jaxb;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 
@@ -47,6 +45,7 @@ public class JaxbReference {
 	public static class Adapter extends
 			XmlAdapter<JaxbReference, HasId> {
 
+		@Override
 		public JaxbReference marshal(HasId arg0) throws Exception {
 			return new JaxbReference(arg0);
 		}

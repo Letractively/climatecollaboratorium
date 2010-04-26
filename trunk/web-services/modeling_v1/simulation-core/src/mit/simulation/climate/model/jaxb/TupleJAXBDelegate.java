@@ -14,15 +14,13 @@ public class TupleJAXBDelegate implements Tuple {
 		this.src = src;
 	}
 
-
-	public Number[] getValues() {
+	public String[] getValues() {
 		return src.getValues();
 	}
 
 	@Override
-	public void setValues(Number[] vals) {
+	public void setValues(String[] vals) {
 		// TODO Auto-generated method stub
-
 	}
 
 	public static class Adapter extends XmlAdapter<TupleJAXBDelegate, Tuple> {
