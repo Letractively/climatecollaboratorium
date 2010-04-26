@@ -12,12 +12,21 @@ import org.apache.cayenne.CayenneDataObject;
  */
 public abstract class _ExcelModelDAO extends CayenneDataObject {
 
+    public static final String ID_PROPERTY = "id";
     public static final String NAME_PROPERTY = "name";
     public static final String PATH_PROPERTY = "path";
+    public static final String WORKSHEET_PROPERTY = "worksheet";
     public static final String TO_INPUT_PARAM_PROPERTY = "toInputParam";
     public static final String TO_OUTPUT_PARAMS_PROPERTY = "toOutputParams";
 
     public static final String ID_PK_COLUMN = "ID";
+
+    public void setId(Integer id) {
+        writeProperty("id", id);
+    }
+    public Integer getId() {
+        return (Integer)readProperty("id");
+    }
 
     public void setName(String name) {
         writeProperty("name", name);
@@ -31,6 +40,13 @@ public abstract class _ExcelModelDAO extends CayenneDataObject {
     }
     public String getPath() {
         return (String)readProperty("path");
+    }
+
+    public void setWorksheet(Integer worksheet) {
+        writeProperty("worksheet", worksheet);
+    }
+    public Integer getWorksheet() {
+        return (Integer)readProperty("worksheet");
     }
 
     public void addToToInputParam(InputParamDAO obj) {

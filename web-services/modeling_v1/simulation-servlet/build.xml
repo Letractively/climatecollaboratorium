@@ -88,7 +88,8 @@
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build}" />
     <delete dir="${dist}" />
-  </target>
+    <delete dir="${target}"/>
+</target>
 
     <target name="deploy" depends="compile">
     <war destfile="${target}/${ant.project.name}.war" webxml="${web}/WEB-INF/web.xml">

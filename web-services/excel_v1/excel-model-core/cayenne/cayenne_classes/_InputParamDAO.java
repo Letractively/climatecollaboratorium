@@ -12,6 +12,7 @@ public abstract class _InputParamDAO extends CayenneDataObject {
 
     public static final String COL_NUM_PROPERTY = "colNum";
     public static final String DESCRIPTION_PROPERTY = "description";
+    public static final String INTERNAL_NAME_PROPERTY = "internalName";
     public static final String NAME_PROPERTY = "name";
     public static final String ROW_NUM_PROPERTY = "rowNum";
     public static final String TO_MODEL_PROPERTY = "toModel";
@@ -30,6 +31,13 @@ public abstract class _InputParamDAO extends CayenneDataObject {
     }
     public String getDescription() {
         return (String)readProperty("description");
+    }
+
+    public void setInternalName(String internalName) {
+        writeProperty("internalName", internalName);
+    }
+    public String getInternalName() {
+        return (String)readProperty("internalName");
     }
 
     public void setName(String name) {

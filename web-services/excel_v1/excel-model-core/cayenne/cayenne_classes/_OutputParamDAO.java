@@ -12,10 +12,12 @@ public abstract class _OutputParamDAO extends CayenneDataObject {
 
     public static final String COL_NUM_PROPERTY = "colNum";
     public static final String DESCRIPTION_PROPERTY = "description";
+    public static final String INTERNAL_NAME_PROPERTY = "internalName";
     public static final String NAME_PROPERTY = "name";
     public static final String NUM_COLUMNS_PROPERTY = "numColumns";
     public static final String NUM_ROWS_PROPERTY = "numRows";
     public static final String ROW_NUM_PROPERTY = "rowNum";
+    public static final String TYPE_PROPERTY = "type";
     public static final String TO_MODEL_PROPERTY = "toModel";
 
     public static final String ID_PK_COLUMN = "ID";
@@ -32,6 +34,13 @@ public abstract class _OutputParamDAO extends CayenneDataObject {
     }
     public String getDescription() {
         return (String)readProperty("description");
+    }
+
+    public void setInternalName(String internalName) {
+        writeProperty("internalName", internalName);
+    }
+    public String getInternalName() {
+        return (String)readProperty("internalName");
     }
 
     public void setName(String name) {
@@ -60,6 +69,13 @@ public abstract class _OutputParamDAO extends CayenneDataObject {
     }
     public Integer getRowNum() {
         return (Integer)readProperty("rowNum");
+    }
+
+    public void setType(String type) {
+        writeProperty("type", type);
+    }
+    public String getType() {
+        return (String)readProperty("type");
     }
 
     public void setToModel(ExcelModelDAO toModel) {

@@ -6,12 +6,19 @@
 </head>
 <body>
 
-<form name="input" action="http://localhost:8080/simulation-servlet/rest/test" method="post">
-First name:
-<input type="text" name="firstname">
+<form name="input" action="http://localhost:8080/simulation-servlet/rest/scenario" method="post">
+Simulation
+<input type="text" name="simulation">
 <br>
-Last name:
-<input type="text" name="lastname">
+Name:
+<input type="text" name="name">
+<br>
+Description:
+<input type="text" name="description">
+<br>
+Temporary
+<input type="text" name="state">
+<br>
 <input type="submit" value="Submit">
 </form>
 </body>

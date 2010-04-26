@@ -5,7 +5,7 @@
 
 	<node name="ExcelFilesNode"
 		 datasource="ExcelFilesNode.driver.xml"
-		 factory="org.apache.cayenne.conf.JNDIDriverDataSourceFactory">
+		 factory="org.apache.cayenne.conf.DriverDataSourceFactory">
 			<map-ref name="ExcelFilesMap"/>
 	 </node>
 </domain>

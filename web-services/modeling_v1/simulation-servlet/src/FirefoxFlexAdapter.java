@@ -100,11 +100,11 @@ public class FirefoxFlexAdapter implements Filter {
 	}
 	
 	public void dumpRequest(HttpServletRequest req) {
-		logger.info("Request for "+req.getRequestURL());
-		logger.info("Request type "+req.getMethod());
+//		logger.info("Request for "+req.getRequestURL());
+//		logger.info("Request type "+req.getMethod());
 		for (Enumeration e = req.getHeaderNames();e.hasMoreElements();) {
 			String elt = e.nextElement().toString();
-			logger.info(elt+" = "+req.getHeader(elt));
+//			logger.info(elt+" = "+req.getHeader(elt));
 		}
 		
 	}

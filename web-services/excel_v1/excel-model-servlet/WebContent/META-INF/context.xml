@@ -42,22 +42,5 @@
 
 />
  
- <Resource name="ExcelFilesNode.driver.xml" auth="Container" type="javax.sql.DataSource"
- 			  maxActive="100" maxIdle="30" maxWait="10000"
- 			  username="climatedb" password="cci08" driverClassName="com.mysql.jdbc.Driver"
- 			  url="jdbc:mysql://127.0.0.1:3306/exceldb?autoReconnect=true"
- 			  validationQuery="select 1"/> 
-
- <Resource name="jdbc/delibpool" auth="Container" type="javax.sql.DataSource"
-              maxActive="100" maxIdle="30" maxWait="10000"
-              username="climatedb" password="cci08" driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://127.0.0.1:3306/deliberation3?autoReconnect=true"
-	      validationQuery="select 1"/>
-
- <Resource name="jdbc/simpool" auth="Container" type="javax.sql.DataSource"
-              maxActive="100" maxIdle="30" maxWait="10000"
-              username="climatedb" password="cci08" driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://127.0.0.1:3306/simulation3?autoReconnect=true"
-	      validationQuery="select 1"/>
-
+<Loader delegate="true"/>
 </Context>
