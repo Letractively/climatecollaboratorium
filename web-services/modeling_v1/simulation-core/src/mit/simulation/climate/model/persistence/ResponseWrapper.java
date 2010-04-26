@@ -1,7 +1,6 @@
 package mit.simulation.climate.model.persistence;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;

@@ -15,14 +15,18 @@ public abstract class _MetaDataDAO extends CayenneDataObject {
     public static final String DESCRIPTION_PROPERTY = "description";
     public static final String EXTERNAL_PROPERTY = "external";
     public static final String ID_PROPERTY = "id";
+    public static final String INDEXING_ID_PROPERTY = "indexingId";
     public static final String INTERNALNAME_PROPERTY = "internalname";
     public static final String LABELS_PROPERTY = "labels";
     public static final String NAME_PROPERTY = "name";
     public static final String PROFILE_PROPERTY = "profile";
-    public static final String TYPE_PROPERTY = "type";
     public static final String UNITS_PROPERTY = "units";
+    public static final String VARCONTEXT_PROPERTY = "varcontext";
+    public static final String VARTYPE_PROPERTY = "vartype";
     public static final String META_TO_DEFAULTS_PROPERTY = "metaToDefaults";
     public static final String META_TO_VARIABLE_PROPERTY = "metaToVariable";
+    public static final String TO_INDEXED_PROPERTY = "toIndexed";
+    public static final String TO_INDEXING_ID_PROPERTY = "toIndexingId";
 
     public static final String ID_PK_COLUMN = "id";
 
@@ -45,6 +49,13 @@ public abstract class _MetaDataDAO extends CayenneDataObject {
     }
     public String getId() {
         return (String)readProperty("id");
+    }
+
+    public void setIndexingId(String indexingId) {
+        writeProperty("indexingId", indexingId);
+    }
+    public String getIndexingId() {
+        return (String)readProperty("indexingId");
     }
 
     public void setInternalname(String internalname) {
@@ -75,13 +86,6 @@ public abstract class _MetaDataDAO extends CayenneDataObject {
         return (String)readProperty("profile");
     }
 
-    public void setType(String type) {
-        writeProperty("type", type);
-    }
-    public String getType() {
-        return (String)readProperty("type");
-    }
-
     public void setUnits(String units) {
         writeProperty("units", units);
     }
@@ -89,15 +93,26 @@ public abstract class _MetaDataDAO extends CayenneDataObject {
         return (String)readProperty("units");
     }
 
-    public void addToMetaToDefaults(MetaDataDefaultsDAO obj) {
-        addToManyTarget("metaToDefaults", obj, true);
+    public void setVarcontext(String varcontext) {
+        writeProperty("varcontext", varcontext);
     }
-    public void removeFromMetaToDefaults(MetaDataDefaultsDAO obj) {
-        removeToManyTarget("metaToDefaults", obj, true);
+    public String getVarcontext() {
+        return (String)readProperty("varcontext");
     }
-    @SuppressWarnings("unchecked")
-    public List<MetaDataDefaultsDAO> getMetaToDefaults() {
-        return (List<MetaDataDefaultsDAO>)readProperty("metaToDefaults");
+
+    public void setVartype(String vartype) {
+        writeProperty("vartype", vartype);
+    }
+    public String getVartype() {
+        return (String)readProperty("vartype");
+    }
+
+    public void setMetaToDefaults(MetaDataDefaultsDAO metaToDefaults) {
+        setToOneTarget("metaToDefaults", metaToDefaults, true);
+    }
+
+    public MetaDataDefaultsDAO getMetaToDefaults() {
+        return (MetaDataDefaultsDAO)readProperty("metaToDefaults");
     }
 
 
@@ -110,6 +125,27 @@ public abstract class _MetaDataDAO extends CayenneDataObject {
     @SuppressWarnings("unchecked")
     public List<VariableDAO> getMetaToVariable() {
         return (List<VariableDAO>)readProperty("metaToVariable");
+    }
+
+
+    public void addToToIndexed(MetaDataDAO obj) {
+        addToManyTarget("toIndexed", obj, true);
+    }
+    public void removeFromToIndexed(MetaDataDAO obj) {
+        removeToManyTarget("toIndexed", obj, true);
+    }
+    @SuppressWarnings("unchecked")
+    public List<MetaDataDAO> getToIndexed() {
+        return (List<MetaDataDAO>)readProperty("toIndexed");
+    }
+
+
+    public void setToIndexingId(MetaDataDAO toIndexingId) {
+        setToOneTarget("toIndexingId", toIndexingId, true);
+    }
+
+    public MetaDataDAO getToIndexingId() {
+        return (MetaDataDAO)readProperty("toIndexingId");
     }
 
 

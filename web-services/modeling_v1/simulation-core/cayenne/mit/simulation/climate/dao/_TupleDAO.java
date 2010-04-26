@@ -1,7 +1,5 @@
 package mit.simulation.climate.dao;
 
-import java.util.List;
-
 import org.apache.cayenne.CayenneDataObject;
 
 /**
@@ -14,7 +12,7 @@ public abstract class _TupleDAO extends CayenneDataObject {
 
     public static final String ID_PROPERTY = "id";
     public static final String SEQ_PROPERTY = "seq";
-    public static final String TUPLE_VALUES_PROPERTY = "tupleValues";
+    public static final String VALUE_PROPERTY = "value";
     public static final String TUPLES_TO_VARIABLE_PROPERTY = "tuplesToVariable";
 
     public static final String ID_PK_COLUMN = "id";
@@ -33,17 +31,12 @@ public abstract class _TupleDAO extends CayenneDataObject {
         return (Integer)readProperty("seq");
     }
 
-    public void addToTupleValues(TupleValuesDAO obj) {
-        addToManyTarget("tupleValues", obj, true);
+    public void setValue(String value) {
+        writeProperty("value", value);
     }
-    public void removeFromTupleValues(TupleValuesDAO obj) {
-        removeToManyTarget("tupleValues", obj, true);
+    public String getValue() {
+        return (String)readProperty("value");
     }
-    @SuppressWarnings("unchecked")
-    public List<TupleValuesDAO> getTupleValues() {
-        return (List<TupleValuesDAO>)readProperty("tupleValues");
-    }
-
 
     public void setTuplesToVariable(VariableDAO tuplesToVariable) {
         setToOneTarget("tuplesToVariable", tuplesToVariable, true);

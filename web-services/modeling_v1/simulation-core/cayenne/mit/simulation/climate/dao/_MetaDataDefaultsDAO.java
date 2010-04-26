@@ -10,6 +10,7 @@ import org.apache.cayenne.CayenneDataObject;
  */
 public abstract class _MetaDataDefaultsDAO extends CayenneDataObject {
 
+    public static final String CATEGORIES_PROPERTY = "categories";
     public static final String DEFAULT_PROPERTY = "default";
     public static final String MAX_PROPERTY = "max";
     public static final String MIN_PROPERTY = "min";
@@ -17,25 +18,32 @@ public abstract class _MetaDataDefaultsDAO extends CayenneDataObject {
 
     public static final String ID_PK_COLUMN = "id";
 
-    public void setDefault(Double _default) {
+    public void setCategories(String categories) {
+        writeProperty("categories", categories);
+    }
+    public String getCategories() {
+        return (String)readProperty("categories");
+    }
+
+    public void setDefault(String _default) {
         writeProperty("default", _default);
     }
-    public Double getDefault() {
-        return (Double)readProperty("default");
+    public String getDefault() {
+        return (String)readProperty("default");
     }
 
-    public void setMax(Double max) {
+    public void setMax(String max) {
         writeProperty("max", max);
     }
-    public Double getMax() {
-        return (Double)readProperty("max");
+    public String getMax() {
+        return (String)readProperty("max");
     }
 
-    public void setMin(Double min) {
+    public void setMin(String min) {
         writeProperty("min", min);
     }
-    public Double getMin() {
-        return (Double)readProperty("min");
+    public String getMin() {
+        return (String)readProperty("min");
     }
 
     public void setToMetaData(MetaDataDAO toMetaData) {

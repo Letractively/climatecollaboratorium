@@ -10,9 +10,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import mit.simulation.climate.model.EntityState;
 import mit.simulation.climate.model.Scenario;
 import mit.simulation.climate.model.Simulation;
-import mit.simulation.climate.model.User;
+
 import mit.simulation.climate.model.Variable;
 
 @XmlRootElement
@@ -28,8 +29,8 @@ public class ScenarioJAXBDelegate implements Scenario {
 		this.src = src;
 	}
 
-	@XmlElement(name="author")
-	public User getAuthor() {
+	@XmlElement(name="authorid")
+	public String getAuthor() {
 		return src.getAuthor();
 	}
 
@@ -54,16 +55,26 @@ public class ScenarioJAXBDelegate implements Scenario {
 		return src.getInputSet();
 	}
 
-	@XmlElementWrapper(name="outputs")
-	@XmlElement(name="variable")
+
 	public List<Variable> getOutputSet() {
 		return src.getOutputSet();
+	}
+
+	@XmlElementWrapper(name="outputs")
+	@XmlElement(name="variable")
+	public List<Variable> getCombinedOutputs() {
+		return src.getCombinedOutputs();
 	}
 
 	@XmlElement(name="simulation")
 	@XmlJavaTypeAdapter(JaxbReference.Adapter.class)
 	public Simulation getSimulation() {
 		return src.getSimulation();
+	}
+
+	@XmlElement(name="state")
+	public EntityState getState() {
+		return src.getState();
 	}
 
 	@Override
@@ -79,7 +90,7 @@ public class ScenarioJAXBDelegate implements Scenario {
 	}
 
 	@Override
-	public void setAuthor(User u) {
+	public void setAuthor(String s) {
 		// TODO Auto-generated method stub
 
 	}
@@ -129,6 +140,16 @@ public class ScenarioJAXBDelegate implements Scenario {
 		// TODO Auto-generated method stub
 
 	}
+
+
+
+	@Override
+	public void setState(EntityState name) {
+		// TODO Auto-generated method stub
+
+	}
+
+
 
 
 }

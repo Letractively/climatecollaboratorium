@@ -2,33 +2,47 @@ package mit.simulation.climate.model.persistence;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import mit.simulation.climate.dao.ScenarioDAO;
 import mit.simulation.climate.dao.VariableDAO;
+import mit.simulation.climate.model.EntityState;
+import mit.simulation.climate.model.MetaData;
 import mit.simulation.climate.model.Scenario;
 import mit.simulation.climate.model.Simulation;
-import mit.simulation.climate.model.User;
+
 import mit.simulation.climate.model.Variable;
+import mit.simulation.climate.model.MetaData.VarContext;
+import mit.simulation.climate.model.helper.CompositeMetaData;
+import mit.simulation.climate.model.helper.CompositeVariable;
 
 public class ServerScenario extends ServerObject<ScenarioDAO> implements Scenario {
 
+	private static Logger log = Logger.getLogger(ServerScenario.class);
 
 	public ServerScenario(ScenarioDAO dao) {
 		super(dao);
 	}
 
-	public ServerScenario(Simulation s, User u, String name, String description) {
+	public ServerScenario(Simulation s, String userid, String name, String description, EntityState state) {
 		setSimulation(s);
 		setName(name);
-		setAuthor(u);
+		setAuthor(userid);
 		setDescription(description);
 		setCreation(new Date());
+		if (state==null) {
+			setState(EntityState.PUBLIC);
+		} else {
+			setState(state);
+		}
 	}
 
 	@Override
-	public User getAuthor() {
-		return ServerRepository.instance().get(dao.getScenarioToAuthor());
+	public String getAuthor() {
+		return dao.getUser();
 	}
 
 	@Override
@@ -66,6 +80,7 @@ public class ServerScenario extends ServerObject<ScenarioDAO> implements Scenari
 
 	@Override
 	public List<Variable> getOutputSet() {
+		log.debug("Returning regular outputs");
 		List<Variable> result = new ArrayList<Variable>();
 
 		for (VariableDAO v:dao.getScenarioOutputToVars()) {
@@ -75,14 +90,60 @@ public class ServerScenario extends ServerObject<ScenarioDAO> implements Scenari
 		return result;
 	}
 
+	public List<Variable> getCombinedOutputs() {
+		log.debug("Returning combined outputs");
+		List<Variable> outvars = getOutputSet();
+
+		Variable defaultidx  = null;
+		boolean hasindexed = false;
+		for (Iterator<Variable> i = outvars.iterator();i.hasNext();) {
+			Variable test = i.next();
+			log.debug("Checking variable "+test.getMetaData().getName());
+			log.debug("Varcontext is "+test.getMetaData().getVarContext());
+			hasindexed|=(test.getMetaData().getVarContext() == VarContext.INDEXED);
+			if (test.getMetaData().isIndex()) {
+				defaultidx = test;
+				//i.remove();
+				break;
+			}
+		}
+
+		if (!hasindexed) {
+			log.debug("No variables are indexed; returning regular outvars");
+			return outvars;
+		}
+		else {
+			List<Variable> result = new ArrayList<Variable>();
+			for (Variable outvar:outvars) {
+				Variable idx = ((outvar.getMetaData().getIndexingMetaData() == null)?defaultidx:findOutputVariable(outvar.getMetaData().getIndexingMetaData()));
+				if (outvar.getMetaData().getVarContext() == VarContext.INDEXED) {
+					result.add(new CompositeVariable(outvar,idx,outvar));
+				} else {
+					result.add(outvar);
+				}
+			}
+			return result;
+		}
+	}
+
+	private Variable findOutputVariable(MetaData md) {
+		List<Variable> vars = getOutputSet();
+		for (Variable var:vars) {
+			if (var.getMetaData().equals(md)) {
+				return var;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public Simulation getSimulation() {
 		return ServerRepository.instance().get(dao.getScenarioToSimulation());
 	}
 
 	@Override
-	public void setAuthor(User u) {
-		dao.setScenarioToAuthor(((ServerUser)u).getDataObject());
+	public void setAuthor(String u) {
+		dao.setUser(u);
 
 	}
 
@@ -110,6 +171,15 @@ public class ServerScenario extends ServerObject<ScenarioDAO> implements Scenari
 	@Override
 	public void setName(String name) {
 		dao.setName(name);
+	}
+
+	public EntityState getState() {
+		String state = dao.getState();
+		return state==null?EntityState.PUBLIC:EntityState.valueOf(state);
+	}
+
+	public void setState(EntityState state) {
+		dao.setState(state.toString());
 	}
 
 

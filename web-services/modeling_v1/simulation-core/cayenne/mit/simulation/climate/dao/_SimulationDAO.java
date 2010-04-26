@@ -1,5 +1,6 @@
 package mit.simulation.climate.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.cayenne.CayenneDataObject;
@@ -12,15 +13,34 @@ import org.apache.cayenne.CayenneDataObject;
  */
 public abstract class _SimulationDAO extends CayenneDataObject {
 
+    public static final String COMPOSITE_DESCRIPTOR_PROPERTY = "compositeDescriptor";
+    public static final String CREATION_PROPERTY = "creation";
     public static final String DESCRIPTION_PROPERTY = "description";
     public static final String ID_PROPERTY = "id";
     public static final String NAME_PROPERTY = "name";
+    public static final String STATE_PROPERTY = "state";
     public static final String URL_PROPERTY = "url";
     public static final String INPUTS_PROPERTY = "inputs";
     public static final String OUTPUTS_PROPERTY = "outputs";
     public static final String SIMULATION_TO_SCENARIO_PROPERTY = "simulationToScenario";
+    public static final String TO_CHILDREN_PROPERTY = "toChildren";
+    public static final String TO_PARENT_PROPERTY = "toParent";
 
     public static final String ID_PK_COLUMN = "id";
+
+    public void setCompositeDescriptor(String compositeDescriptor) {
+        writeProperty("compositeDescriptor", compositeDescriptor);
+    }
+    public String getCompositeDescriptor() {
+        return (String)readProperty("compositeDescriptor");
+    }
+
+    public void setCreation(Date creation) {
+        writeProperty("creation", creation);
+    }
+    public Date getCreation() {
+        return (Date)readProperty("creation");
+    }
 
     public void setDescription(String description) {
         writeProperty("description", description);
@@ -41,6 +61,13 @@ public abstract class _SimulationDAO extends CayenneDataObject {
     }
     public String getName() {
         return (String)readProperty("name");
+    }
+
+    public void setState(String state) {
+        writeProperty("state", state);
+    }
+    public String getState() {
+        return (String)readProperty("state");
     }
 
     public void setUrl(String url) {
@@ -83,6 +110,30 @@ public abstract class _SimulationDAO extends CayenneDataObject {
     @SuppressWarnings("unchecked")
     public List<ScenarioDAO> getSimulationToScenario() {
         return (List<ScenarioDAO>)readProperty("simulationToScenario");
+    }
+
+
+    public void addToToChildren(SimulationDAO obj) {
+        addToManyTarget("toChildren", obj, true);
+    }
+    public void removeFromToChildren(SimulationDAO obj) {
+        removeToManyTarget("toChildren", obj, true);
+    }
+    @SuppressWarnings("unchecked")
+    public List<SimulationDAO> getToChildren() {
+        return (List<SimulationDAO>)readProperty("toChildren");
+    }
+
+
+    public void addToToParent(SimulationDAO obj) {
+        addToManyTarget("toParent", obj, true);
+    }
+    public void removeFromToParent(SimulationDAO obj) {
+        removeToManyTarget("toParent", obj, true);
+    }
+    @SuppressWarnings("unchecked")
+    public List<SimulationDAO> getToParent() {
+        return (List<SimulationDAO>)readProperty("toParent");
     }
 
 

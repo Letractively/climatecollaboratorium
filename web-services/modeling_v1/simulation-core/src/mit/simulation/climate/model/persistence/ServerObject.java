@@ -1,10 +1,11 @@
 package mit.simulation.climate.model.persistence;
 
 
-import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 
 import org.apache.cayenne.CayenneDataObject;
+
+
 
 public abstract class ServerObject <T extends CayenneDataObject> {
 
@@ -14,13 +15,18 @@ public abstract class ServerObject <T extends CayenneDataObject> {
 	public ServerObject() {
 		Class<T> cls = null;
 		try {
-			ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
+			Class ladder = this.getClass();
+			while (ladder!= null && !(ladder.getGenericSuperclass() instanceof ParameterizedType)) {
+				ladder = ladder.getSuperclass();
+			}
+			if (ladder == null) throw new IllegalArgumentException("Could not identify generic type");
+			ParameterizedType type = (ParameterizedType) ladder.getGenericSuperclass();
 			cls = (Class<T>) type.getActualTypeArguments()[0];
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		dao =  (T)ServerRepository.instance().createDAO(cls);
+		dao =  ServerRepository.instance().createDAO(cls);
 	}
 
 	public ServerObject(T dao) {
@@ -30,11 +36,15 @@ public abstract class ServerObject <T extends CayenneDataObject> {
 	public T getDataObject() {
 		return dao;
 	}
-	
+
 	public int hashCode() {
 		return (dao.hashCode()*7)+13;
 	}
 
+
+	public boolean equals(Object o) {
+		return (o instanceof ServerObject) && ((ServerObject)o).dao.equals(this.dao);
+	}
 
 
 }

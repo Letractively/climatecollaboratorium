@@ -44,6 +44,9 @@ public class ServerVariable extends ServerObject<VariableDAO> implements
 
 	@Override
 	public List<Tuple> getValue() {
+
+
+		//we could be a lot smarter here
 		List<Tuple> result = new ArrayList<Tuple>();
 		List<TupleDAO> srctuples = dao.getVariableToTuples();
 		Collections.sort(srctuples, new Comparator<TupleDAO>() {
@@ -54,11 +57,11 @@ public class ServerVariable extends ServerObject<VariableDAO> implements
 			}
 
 		});
+
 		for (TupleDAO tdao : srctuples) {
-
 			result.add(ServerRepository.instance().get(tdao));
-
 		}
+
 		max = result.size()-1;
 		return result;
 	}
@@ -68,6 +71,7 @@ public class ServerVariable extends ServerObject<VariableDAO> implements
 		dao.setVariableToMetaData(((ServerMetaData) md).getDataObject());
 	}
 
+	@Override
 	public String toString() {
 		String result = getMetaData().toString();
 		result+=":"+getValue();

@@ -1,6 +1,7 @@
 package mit.simulation.climate.model;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -20,13 +21,25 @@ public interface Simulation extends HasId {
 	public void setURL(URL url);
 
 
+	public Date getCreation();
+	public void setCreation(Date d);
+
 	public List<MetaData> getInputs();
 	public void addInput(MetaData md);
 
 	public List<MetaData> getOutputs();
 	public void addOutput(MetaData md);
 
+	public List<MetaData> getCombinedOutputs();
+
 	public String getName();
 	public void setName(String name);
+
+	public void setState(EntityState name);
+	public EntityState getState();
+
+
+
+	//public boolean isComposite();
 
 }

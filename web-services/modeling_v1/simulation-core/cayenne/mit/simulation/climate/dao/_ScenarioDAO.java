@@ -17,8 +17,9 @@ public abstract class _ScenarioDAO extends CayenneDataObject {
     public static final String DESCRIPTION_PROPERTY = "description";
     public static final String ID_PROPERTY = "id";
     public static final String NAME_PROPERTY = "name";
+    public static final String STATE_PROPERTY = "state";
+    public static final String USER_PROPERTY = "user";
     public static final String SCENARIO_OUTPUT_TO_VARS_PROPERTY = "scenarioOutputToVars";
-    public static final String SCENARIO_TO_AUTHOR_PROPERTY = "scenarioToAuthor";
     public static final String SCENARIO_TO_INPUT_VARS_PROPERTY = "scenarioToInputVars";
     public static final String SCENARIO_TO_SIMULATION_PROPERTY = "scenarioToSimulation";
 
@@ -52,6 +53,20 @@ public abstract class _ScenarioDAO extends CayenneDataObject {
         return (String)readProperty("name");
     }
 
+    public void setState(String state) {
+        writeProperty("state", state);
+    }
+    public String getState() {
+        return (String)readProperty("state");
+    }
+
+    public void setUser(String user) {
+        writeProperty("user", user);
+    }
+    public String getUser() {
+        return (String)readProperty("user");
+    }
+
     public void addToScenarioOutputToVars(VariableDAO obj) {
         addToManyTarget("scenarioOutputToVars", obj, true);
     }
@@ -61,15 +76,6 @@ public abstract class _ScenarioDAO extends CayenneDataObject {
     @SuppressWarnings("unchecked")
     public List<VariableDAO> getScenarioOutputToVars() {
         return (List<VariableDAO>)readProperty("scenarioOutputToVars");
-    }
-
-
-    public void setScenarioToAuthor(UserDAO scenarioToAuthor) {
-        setToOneTarget("scenarioToAuthor", scenarioToAuthor, true);
-    }
-
-    public UserDAO getScenarioToAuthor() {
-        return (UserDAO)readProperty("scenarioToAuthor");
     }
 
 

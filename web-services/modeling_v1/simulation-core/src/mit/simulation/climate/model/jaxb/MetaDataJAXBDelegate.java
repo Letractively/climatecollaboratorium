@@ -2,16 +2,20 @@ package mit.simulation.climate.model.jaxb;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import org.apache.log4j.Logger;
 
 import mit.simulation.climate.model.MetaData;
 
 
 @XmlType(name="metadata")
 public class MetaDataJAXBDelegate implements MetaData {
+
+	private static Logger log = Logger.getLogger(MetaDataJAXBDelegate.class);
 
 	MetaData src;
 
@@ -20,6 +24,9 @@ public class MetaDataJAXBDelegate implements MetaData {
 	}
 
 	public MetaDataJAXBDelegate(MetaData src) {
+		if (src == null) {
+			log.warn("Creating a delegate with null metadata");
+		}
 		this.src = src;
 	}
 
@@ -48,13 +55,19 @@ public class MetaDataJAXBDelegate implements MetaData {
 
 	@XmlElement(name="profile")
 	@XmlJavaTypeAdapter(ArrayAdapter.Adapter.class)
-	public Class<Number>[] getProfile() {
+	public Class<Object>[] getProfile() {
 		return src.getProfile();
 	}
 
-	@XmlAttribute(name="type")
-	public Type getType() {
-		return src.getType();
+	@XmlAttribute(name="varcontext")
+	public VarContext getVarContext() {
+		return src.getVarContext();
+	}
+
+	@XmlAttribute(name="vartype")
+	public VarType getVarType() {
+		log.debug("Getting vartype for "+src);
+		return src.getVarType();
 	}
 
 	@XmlElement(name="units")
@@ -63,21 +76,23 @@ public class MetaDataJAXBDelegate implements MetaData {
 		return src.getUnits();
 	}
 
+
 	@XmlElement(name="defaults")
 	@XmlJavaTypeAdapter(ArrayAdapter.Adapter.class)
-	public Number[] getDefault() {
+	public String[] getDefault() {
 		return src.getDefault();
 	}
 
 	@XmlElement(name="maxes")
 	@XmlJavaTypeAdapter(ArrayAdapter.Adapter.class)
-	public Number[] getMax() {
+	public String[] getMax() {
 		return src.getMax();
 	}
 
+
 	@XmlElement(name="mins")
 	@XmlJavaTypeAdapter(ArrayAdapter.Adapter.class)
-	public Number[] getMin() {
+	public String[] getMin() {
 		return src.getMin();
 	}
 
@@ -90,6 +105,26 @@ public class MetaDataJAXBDelegate implements MetaData {
 	@XmlElement(name="external")
 	public String getExternalInfo() {
 		return src.getExternalInfo();
+	}
+
+
+
+	@XmlAttribute(name="index")
+	public boolean isIndex() {
+		return src.isIndex();
+	}
+
+	@XmlElement(name="categories")
+	@XmlJavaTypeAdapter(ArrayAdapter.Adapter.class)
+	public String[] getCategories() {
+		return src.getCategories();
+	}
+
+
+
+	public void setIsIndex(boolean b) {
+		// TODO Auto-generated method stub
+
 	}
 
 
@@ -109,13 +144,10 @@ public class MetaDataJAXBDelegate implements MetaData {
 	//	src.setName(name);
 	}
 
-	public void setProfile(Class<Number>[] profile) {
+	public void setProfile(Class<Object>[] profile) {
 		//src.setProfile(profile);
 	}
 
-	public void setType(Type t) {
-	//	src.setType(t);
-	}
 
 	public void setUnits(String[] units) {
 	//	src.setUnits(units);
@@ -135,21 +167,20 @@ public class MetaDataJAXBDelegate implements MetaData {
 
 	}
 
-
 	@Override
-	public void setDefault(Number[] n) {
+	public void setDefault(String[] n) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setMax(Number[] n) {
+	public void setMax(String[] n) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setMin(Number[] n) {
+	public void setMin(String[] n) {
 		// TODO Auto-generated method stub
 
 	}
@@ -160,6 +191,40 @@ public class MetaDataJAXBDelegate implements MetaData {
 		// TODO Auto-generated method stub
 
 	}
+
+
+
+	@Override
+	public void setCategories(String[] s) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setVarContext(VarContext t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setVarType(VarType t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@XmlTransient
+	public MetaData getIndexingMetaData() {
+		log.debug("Somone is calling me! Argh!");
+		return null;
+	}
+
+	@Override
+	public void setIndexingMetaData(MetaData md) {
+		// TODO Auto-generated method stub
+
+	}
+
+
 
 
 
