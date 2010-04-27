@@ -204,7 +204,7 @@ public class Helper {
                 e.printStackTrace();
             } 
             if (user != null) {
-                if (permCheck != null && (permCheck.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN) || permCheck.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_EDIT_DEBATE_MAP))) {
+                if (permCheck != null && permCheck.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN)) {
                     strBuilder.append(createLink(CommunityConstants.USER_PROFILE_PATH + "?userId=" + user.getUserId(), username, "moderator"));
                 }
                 else {
