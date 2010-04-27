@@ -26,18 +26,18 @@ We have not yet built any re-distributable wars for the main sources of the coll
   # Under plugins/themes/collaboratorium-theme, execute "ant deploy"
 
 ===Configuring the database===
-  # Main Liferay DB
-  ## Create a user/password liferay/liferay.
-  ## Create a DB named 'lportal' and grant the liferay user create permissions
-  ## Build the DB using the SQL script [http://code.google.com/p/climatecollaboratorium/source/browse/trunk/ext/sql/collaboratorium/collaboratorium.sample.sql collaboratorium.sample.sql], which can be found in  ext/sql/collaboratorium/ in the source tree.
-  # Simulation DB
-  ## Create a user/password climatedb/cci08.
-  ## Create a DB named 'simulation3' and grant the climatdb user create permissions.
-  ## Build the DB using the SQL script [http://code.google.com/p/climatecollaboratorium/source/browse/trunk/web-services/modeling_v1/sql/simulation3.sql simulation3.sql], which can be found in web-services/modeling_v1/sql in the source tree.
-  # Excel DB
-  ## Create a user/password climatedb/cci08.
-  ## Create a DB named 'simulation3' and grant the climatdb user create permissions.
-  ## Build the DB using the SQL script [http://code.google.com/p/climatecollaboratorium/source/browse/trunk/web-services/modeling_v1/sql/simulation3.sql simulation3.sql], which can be found in web-services/modeling_v1/sql in the source tree.
+  * Main Liferay DB
+    # Create a user/password liferay/liferay.
+    # Create a DB named 'lportal' and grant the liferay user create permissions
+    # Build the DB using the SQL script [http://code.google.com/p/climatecollaboratorium/source/browse/trunk/ext/sql/collaboratorium/collaboratorium.sample.sql collaboratorium.sample.sql], which can be found in  ext/sql/collaboratorium/ in the source tree.
+  * Simulation DB
+    # Create a user/password climatedb/cci08.
+    # Create a DB named 'simulation3' and grant the climatdb user create permissions.
+    # Build the DB using the SQL script [http://code.google.com/p/climatecollaboratorium/source/browse/trunk/web-services/modeling_v1/sql/simulation3.sql simulation3.sql], which can be found in web-services/modeling_v1/sql in the source tree.
+  * Excel DB
+    # Create a user/password climatedb/cci08 (if you have not already).
+    # Create a DB named 'exceldb2' and grant the climatdb user create permissions.
+    # Build the DB using the SQL script [http://code.google.com/p/climatecollaboratorium/source/browse/trunk/web-services/excel_v1/sql/exceldb2.sql exceldb2.sql], which can be found in web-services/excel_v1/sql in the source tree.
 
 ===Installing additional web services===
   # Install the three web services from the downloads page ([http://climatecollaboratorium.googlecode.com/files/simulation-servlet.war simulation-servlet], [http://climatecollaboratorium.googlecode.com/files/pangaea-servlet.war pangaea-servlet], [http://http://climatecollaboratorium.googlecode.com/files/excel_wrapper-servlet.war excel_wrapper-servlet]) by copying them to tomcat's webapps directory.  Please note that the generated web services must be named simulation-servlet, pangaea-servlet, and excel_wrapper-servlet, respectively. 
