@@ -20,11 +20,6 @@ We have not yet built any re-distributable wars for the main sources of the coll
   # *Install the plugins* (trunk/plugins)  The repository contains an entire copy of Liferay's plugins environment. You will need to follow the developer docs (above) to configure local settings for this environment (this should only involve creating a build.`<username>`.properties file to specify relevant local directories).
   # Additional source directories (icefaces-custom, collab_jsf_components) may be installed wherever the developer sees fit.  It is not necessary to build these components, as the relevant jars are incorporated their dependent source trees. 
 
-===Deploy the Collaboratorium===
-  # From the root ext directory, execute "ant deploy".
-  # Under plugins/portlets/debates-portlet "ant deploy" (*NOTE:* If you would like to enable rapid development for this portlet, you can run "ant deploy-exploded", but you will need to edit debates-portlet.xml to point to the absolute path of your local development directory).
-  # Under plugins/themes/collaboratorium-theme, execute "ant deploy"
-
 ===Configuring the database===
   * Main Liferay DB
     # Create a user/password liferay/liferay.
@@ -41,4 +36,13 @@ We have not yet built any re-distributable wars for the main sources of the coll
 
 ===Installing additional web services===
   # Install the three web services from the downloads page ([http://climatecollaboratorium.googlecode.com/files/simulation-servlet.war simulation-servlet], [http://climatecollaboratorium.googlecode.com/files/pangaea-servlet.war pangaea-servlet], [http://http://climatecollaboratorium.googlecode.com/files/excel_wrapper-servlet.war excel_wrapper-servlet]) by copying them to tomcat's webapps directory.  Please note that the generated web services must be named simulation-servlet, pangaea-servlet, and excel_wrapper-servlet, respectively. 
+
+===Deploy the Collaboratorium===
+  # From the root ext directory, execute "ant deploy".
+  # Under plugins/portlets/debates-portlet "ant deploy" (*NOTE:* If you would like to enable rapid development for this portlet, you can run "ant deploy-exploded", but you will need to edit debates-portlet.xml to point to the absolute path of your local development directory).
+  # Under plugins/themes/collaboratorium-theme, execute "ant deploy"
+
+
+
+Once you've deployed, you should be able to start up Tomcat in the standard fashion.  If all goes well, http://localhost:8080 will redirect you to the home page.  The Administrator account is the only account configured in the sample data.  The user name is "Administrator" and the password is "test".
   
