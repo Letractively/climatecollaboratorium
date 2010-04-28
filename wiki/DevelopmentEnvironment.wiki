@@ -1,6 +1,6 @@
 #summary Instructions on setting up your development environment.
 
-The Climate Collaboratorium is based upon v.5.2.3 of the [http://liferay.com Liferay web-portal].  It has been developed against Tomcat 6.1 and MySQL 5.1  We recommend the following steps to getting your environment up and running.
+The Climate Collaboratorium is based upon v.5.2.3 of the [http://liferay.com Liferay web-portal].  It has been developed against Tomcat 6.1 and MySQL 5.1  We recommend the following steps for getting your environment up and running.
 
 ===Environment===
 
