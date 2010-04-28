@@ -1,4 +1,4 @@
-#summary Guidlines for navigating the source repo.
+#summary Guidelines for navigating the source repo.
 
 = Introduction =
 
