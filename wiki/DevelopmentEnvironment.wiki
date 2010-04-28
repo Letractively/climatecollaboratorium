@@ -11,7 +11,7 @@ We have not yet built any re-distributable wars for the main sources of the coll
   # Install Liferay's ext environment [http://sourceforge.net/projects/lportal/files/Liferay%20Portal/5.2.3/liferay-portal-ext-5.2.3.zip/download download]
   
 ===Configuring Liferay===
-    # Remove the Liferay demo application by deleting the seven-cogs wars (more info [https://www.liferay.com/community/wiki/-/wiki/Main/7Cogs+sample+data/maximized here])
+  # Remove the Liferay demo application by deleting the seven-cogs wars (more info [https://www.liferay.com/community/wiki/-/wiki/Main/7Cogs+sample+data/maximized here])
   # Configure Liferay ext environment according to instructions: [http://www.liferay.com/community/wiki/-/wiki/Main/Setting%20up%20the%20Extension%20Environment developer liferay wiki post],  [http://docs.liferay.com/portal/5.0/official/liferay-development-documentation-5.0.pdf developer docs]
 
 
