@@ -365,4 +365,11 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
         }
         return weight == null ? 0 : weight;       
     }
+    
+    public boolean getShowWeightField() {
+        if (item != null) {
+            return ! item.getDebatePostType().equals(DebateItemType.QUESTION.toString());
+        }
+        return false;
+    }
 }
