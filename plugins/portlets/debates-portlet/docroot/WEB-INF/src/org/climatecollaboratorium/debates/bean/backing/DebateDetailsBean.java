@@ -275,7 +275,11 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
         if (parent.getDebateItemId().equals(rootDebateItem.getDebateItemId())) {
             rootDebateItem = parent;
             itemNode = generateSubTree(item, debate);
-            positionTrees.add(new DefaultTreeModel(itemNode));
+            positionTrees.add(new DefaultTreeModel(itemNode));  
+            
+            if (item.getDebatePostType().equals(DebateItemType.POSITION.toString())) {
+                sortPositions();
+            }
         } else {
             DefaultMutableTreeNode parentItemNode = treeNodeByItemId.get(parent.getDebateItemId());
             // replace old item object with new one refering
@@ -286,6 +290,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
 
             itemNode = generateSubTree(item, debate);
             parentItemNode.add(itemNode);
+
 
             for (DefaultTreeModel tree : positionTrees) {
                 tree.nodeChanged(parentItemNode);
@@ -300,9 +305,6 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
             
             sortTreeNode(parentItemNode, false);
             
-            if (item.getDebatePostType().equals(DebateItemType.POSITION.toString())) {
-                sortPositions();
-            }
         }
         treeNodeByItemId.put(item.getDebateItemId(), itemNode);
         ((DebateItemUserObject) itemNode.getUserObject()).addSelectionListener(this);

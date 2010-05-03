@@ -168,7 +168,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
             } else if (type.equals(DebateItemType.POSITION)) {
                 Debate debate = debateDetailsBean.getDebate();
                 // USER ID has to be taken from the session
-                savedItem = debate.getCurrentRoot().addChild(title, content, userId, type.toString(), references);
+                savedItem = debate.getCurrentRoot().addChild(title, content, userId, type.toString(), references, weight);
                 debateDetailsBean.debateItemAdded(savedItem);
                 
                 /* activity */
@@ -178,7 +178,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
             }
             else {
                 DebateItem parent = debateDetailsBean.getSelectedDebateItem().getItem();
-                savedItem = parent.addChild(title, content, userId, type.toString(), references);
+                savedItem = parent.addChild(title, content, userId, type.toString(), references, weight);
                 debateDetailsBean.debateItemAdded(savedItem);
                 
                 /* activity */
