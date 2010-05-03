@@ -153,36 +153,18 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
             }
 
             setSelectedDebateItem(rootDebateItem);
-
-
             List<DebateItem> positions = rootDebateItem.getChildren();
+
 
             positionTrees = new ArrayList<DefaultTreeModel>();
             for (DebateItem position : positions) {
                 DefaultMutableTreeNode positionNode = generateSubTree(position, debate);
+                sortTreeNode(positionNode, true);
                 positionTrees.add(new DefaultTreeModel(positionNode));
 
                 totalVotes += Helper.getDebateItemVotes(position);
             }
-            Collections.sort(positionTrees, new Comparator<DefaultTreeModel>() {
-
-                @Override
-                public int compare(DefaultTreeModel posTree0, DefaultTreeModel posTree1) {
-                    DebateItem position0 = ((DebateItemUserObject) ((DefaultMutableTreeNode) posTree0.getRoot()).getUserObject()).getItem();
-                    DebateItem position1 = ((DebateItemUserObject) ((DefaultMutableTreeNode) posTree1.getRoot()).getUserObject()).getItem();
-                    try {
-                        if (position0.getVotesCount() > position1.getVotesCount()) {
-                            return -1;
-                        } else if (position0.getVotesCount() < position1.getVotesCount()) {
-                            return 1;
-                        }
-                    } catch (Exception e) {
-                        //ignore
-                    }
-                    return position0.getDebateSummary().compareTo(position1.getDebateSummary());
-                }
-
-            });
+            sortPositions();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } catch (Exception e2) {
@@ -191,6 +173,22 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
 
     }
 
+    public void sortPositions() {
+        
+        Collections.sort(positionTrees, new Comparator<DefaultTreeModel>() {
+
+            @Override
+            public int compare(DefaultTreeModel o1, DefaultTreeModel o2) {
+                DebateItemUserObject u1 = (DebateItemUserObject) ((DefaultMutableTreeNode) o1.getRoot()).getUserObject();
+                DebateItemUserObject u2 = (DebateItemUserObject) ((DefaultMutableTreeNode) o2.getRoot()).getUserObject();
+                
+                long w1 = u1.getItem().getWeight() == null ? 0 : u1.getItem().getWeight();
+                long w2 = u2.getItem().getWeight() == null ? 0 : u2.getItem().getWeight();
+                
+                return (int) (w1 - w2);
+            }
+        });
+    }
     public void debateItemUpdated(DebateItem item) throws SystemException, RenderingException, PortalException {
         if (item.getDebateItemId().equals(rootDebateItem.getDebateItemId())) {
             rootDebateItem = item;
@@ -199,13 +197,59 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
             DebateItemUserObject itemObject = new DebateItemUserObject(itemNode, item, debate, this);
             itemObject.addSelectionListener(this);
             itemNode.setUserObject(itemObject);
-
+            
+            if (item.getDebatePostType().equals(DebateItemType.POSITION.toString())) {
+                sortPositions();
+            }
+            
             for (DefaultTreeModel tree : positionTrees) {
                 tree.nodeChanged(itemNode);
             }
+            sortTreeNode((DefaultMutableTreeNode) itemNode.getParent(), false);            
+            if (itemNode.getChildCount() == 0) {
+                ((DebateItemUserObject) itemNode.getUserObject()).setLeaf(true);
+            }
+            else {
+                ((DebateItemUserObject) itemNode.getUserObject()).setExpanded(true);
+            }
+
         }
         setSelectedDebateItem(item);
         refresh();//state.executeAndRender();
+    }
+    
+    public void sortTreeNode(DefaultMutableTreeNode node, boolean recursive) {
+        if (node == null) {
+            return;
+        }
+        List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>();
+        while (node.getChildCount() > 0) {
+            DefaultMutableTreeNode child = (DefaultMutableTreeNode) node.getFirstChild(); 
+            children.add(child);
+            node.remove(child);
+        }
+        
+        Collections.sort(children, new Comparator<DefaultMutableTreeNode>() {
+
+            @Override
+            public int compare(DefaultMutableTreeNode o1, DefaultMutableTreeNode o2) {
+                DebateItemUserObject u1 = (DebateItemUserObject) o1.getUserObject();
+                DebateItemUserObject u2 = (DebateItemUserObject) o2.getUserObject();
+                
+                long w1 = u1.getItem().getWeight() == null ? 0 : u1.getItem().getWeight();
+                long w2 = u2.getItem().getWeight() == null ? 0 : u2.getItem().getWeight();
+                
+                return (int) (w1 - w2);
+            }
+        });
+        
+        for (DefaultMutableTreeNode newChild: children) {
+            node.add(newChild);
+
+            if (recursive) {
+                sortTreeNode(newChild, recursive);
+            }
+        }
     }
 
     public void debateItemRemoved(DebateItem item) throws RenderingException, SystemException, PortalException {
@@ -252,6 +296,12 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
             while (tmp != null) {
                 ((IceUserObject) tmp.getUserObject()).setExpanded(true);
                 tmp = (DefaultMutableTreeNode) tmp.getParent();
+            }
+            
+            sortTreeNode(parentItemNode, false);
+            
+            if (item.getDebatePostType().equals(DebateItemType.POSITION.toString())) {
+                sortPositions();
             }
         }
         treeNodeByItemId.put(item.getDebateItemId(), itemNode);
