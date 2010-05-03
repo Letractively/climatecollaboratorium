@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="acton-studio15" name="mit.excelwrapper.AllTests" tests="7" time="1.345" timestamp="2009-10-07T16:27:41">
+  <properties>
+    <property name="java.vendor" value="Sun Microsystems Inc." />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.management.compiler" value="HotSpot Client Compiler" />
+    <property name="os.name" value="Windows 7" />
+    <property name="sun.boot.class.path" value="C:\Java\JDK\jdk1.6.0_16_x86\jre\lib\resources.jar;C:\Java\JDK\jdk1.6.0_16_x86\jre\lib\rt.jar;C:\Java\JDK\jdk1.6.0_16_x86\jre\lib\sunrsasign.jar;C:\Java\JDK\jdk1.6.0_16_x86\jre\lib\jsse.jar;C:\Java\JDK\jdk1.6.0_16_x86\jre\lib\jce.jar;C:\Java\JDK\jdk1.6.0_16_x86\jre\lib\charsets.jar;C:\Java\JDK\jdk1.6.0_16_x86\jre\classes" />
+    <property name="sun.desktop" value="windows" />
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="ant.home" value="C:\Java\apache\ant\apache-ant-1.7.0" />
+    <property name="java.runtime.version" value="1.6.0_16-b01" />
+    <property name="ant.file.MIT Excel Wrapper Web Service Assembly v1.0" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\build.xml" />
+    <property name="user.name" value="acton" />
+    <property name="user.language" value="en" />
+    <property name="sun.boot.library.path" value="C:\Java\JDK\jdk1.6.0_16_x86\jre\bin" />
+    <property name="srcdir" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet/src" />
+    <property name="ant.project.name" value="MIT Excel Wrapper Web Service Assembly v1.0" />
+    <property name="java.version" value="1.6.0_16" />
+    <property name="user.timezone" value="" />
+    <property name="sun.arch.data.model" value="32" />
+    <property name="java.endorsed.dirs" value="C:\Java\JDK\jdk1.6.0_16_x86\jre\lib\endorsed" />
+    <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86" />
+    <property name="sun.jnu.encoding" value="Cp1252" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="file.separator" value="\" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="tomcat.deploy.path" value="C:/Java/tomcat/6.0.20_excel_wrapper/webapps" />
+    <property name="java.class.version" value="50.0" />
+    <property name="build_testclassdir" value="build/testClasses" />
+    <property name="user.country" value="US" />
+    <property name="java.home" value="C:\Java\JDK\jdk1.6.0_16_x86\jre" />
+    <property name="java.vm.info" value="mixed mode, sharing" />
+    <property name="ant.file" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\build.xml" />
+    <property name="os.version" value="6.1" />
+    <property name="build_distdir" value="build/dist" />
+    <property name="path.separator" value=";" />
+    <property name="java.vm.version" value="14.2-b01" />
+    <property name="testlogdir" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet/log" />
+    <property name="user.variant" value="" />
+    <property name="ant.library.dir" value="C:\Java\apache\ant\apache-ant-1.7.0\lib" />
+    <property name="javamain" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet/src/java/main" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="build_webdir_lib" value="build/web/lib" />
+    <property name="user.home" value="C:\Users\acton.EAIINTERNAL" />
+    <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="java.library.path" value="C:\Java\JDK\jdk1.6.0_16_x86\jre\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Java\apache\ant\apache-ant-1.7.0\bin;C:\Software\CollabNetSubversion_1.6.5;C:\ActivePerl\site\bin;C:\ActivePerl\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;c:\etc\bin;C:\TopCoder\bin;C:\database\MySQL\5.1\bin;C:\TopCoder\bin;c:\Program Files (x86)\Microsoft SQL Server\90\Tools\binn\;C:\Software\TortoiseSVN\bin;C:\Program Files (x86)\IDM Computer Solutions\UltraEdit\;C:\TopCoder\bin;C:\Software\Unix\UnxUtils\usr\local\wbin;C:\Program Files\Sun\VirtualBox;C:\Software\CVS_Suite\CVSNT Tools\" />
+    <property name="java.vendor.url" value="http://java.sun.com/" />
+    <property name="configdir" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet/conf" />
+    <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="java.class.path" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\build\testClasses;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\build\classes;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\ashwood-2.0.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\asm-3.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\asm-commons-3.0.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\cayenne-server-3.0M6.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\commons-codec-1.3.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\commons-collections-3.2.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\commons-fileupload-1.2.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\commons-httpclient-3.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\commons-io-1.4.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\commons-lang-2.3.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\commons-logging-1.1.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\excel_wrapper-core.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\geronimo-jpa_3.0_spec-1.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\jackson-lgpl-0.9.4.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\jersey-client-1.1.0-ea.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\jersey-core-1.1.0-ea.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\jersey-json-1.1.0-ea.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\jersey-server-1.1.0-ea.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\jettison-1.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\jsr311-api-1.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\log4j-1.2.15.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\mysql-connector-java-5.1.7-bin.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\poi-3.5-FINAL-20090928.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\poi-contrib-3.5-FINAL-20090928.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\poi-ooxml-3.5-FINAL-20090928.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\poi-scratchpad-3.5-FINAL-20090928.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\servlet-api.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\standard.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\velocity-1.3.1.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\test\junit-4.7.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\test\spring-core.jar;C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet\lib\test\spring-test.jar;C:\Java\apache\ant\apache-ant-1.7.0\lib\ant-launcher.jar;C:\Java\apache\ant\apache-ant-1.7.0\lib\ant.jar;C:\Java\apache\ant\apache-ant-1.7.0\lib\ant-junit.jar" />
+    <property name="ant.version" value="Apache Ant version 1.7.0 compiled on December 13 2006" />
+    <property name="builddir" value="build" />
+    <property name="app.name" value="excel_wrapper-servlet" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="java.vm.specification.version" value="1.0" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.os.patch.level" value="" />
+    <property name="cayennesrc" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet/src/cayenne" />
+    <property name="java.io.tmpdir" value="C:\Users\ACTON~1.EAI\AppData\Local\Temp\" />
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+    <property name="javatests" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet/src/java/tests" />
+    <property name="build_classdir" value="build/classes" />
+    <property name="os.arch" value="x86" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="build_webdir" value="build/web" />
+    <property name="java.ext.dirs" value="C:\Java\JDK\jdk1.6.0_16_x86\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" />
+    <property name="user.dir" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet" />
+    <property name="war.dir" value="build/dist/deploy" />
+    <property name="javasrc" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet/src/java" />
+    <property name="libdir" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet/lib" />
+    <property name="line.separator" value="
+" />
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM" />
+    <property name="basedir" value="C:\TopCoder\assembly\Liferay\excel_wrapper\svn_src\excel_wrapper-servlet" />
+    <property name="ant.java.version" value="1.6" />
+    <property name="ant.core.lib" value="C:\Java\apache\ant\apache-ant-1.7.0\lib\ant.jar" />
+    <property name="file.encoding" value="Cp1252" />
+    <property name="java.specification.version" value="1.6" />
+  </properties>
+  <testcase classname="mit.excelwrapper.resource.ExcelResourceTest" name="createSimulationFailure1" time="0.338" />
+  <testcase classname="mit.excelwrapper.resource.ExcelResourceTest" name="createSimulationFailure2" time="0.024" />
+  <testcase classname="mit.excelwrapper.resource.ExcelResourceTest" name="createSimulationFailure3" time="0.035" />
+  <testcase classname="mit.excelwrapper.resource.ExcelResourceTest" name="testCreateSimulation_Accuracy1" time="0.639" />
+  <testcase classname="mit.excelwrapper.resource.ExcelResourceTest" name="testCreateSimulation_Accuracy2" time="0.03" />
+  <testcase classname="mit.excelwrapper.resource.ExcelResourceTest" name="testRunSimulation_Accuracy1" time="0.096" />
+  <testcase classname="mit.excelwrapper.resource.ExcelResourceTest" name="testRunSimulation_Accuracy2" time="0.121" />
+  <system-out><![CDATA[0    [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - started configuration loading.
+8    [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - loaded domain: ExcelFiles
+121  [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - loaded <map name='ExcelFilesMap' location='ExcelFilesMap.map.xml'>.
+123  [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - loading <node name='ExcelFilesNode' datasource='ExcelFilesNode.driver.xml' factory='org.apache.cayenne.conf.DriverDataSourceFactory' schema-update-strategy='org.apache.cayenne.access.dbsync.SkipSchemaUpdateStrategy'>.
+131  [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - using factory: org.apache.cayenne.conf.DriverDataSourceFactory
+131  [main] INFO  org.apache.cayenne.conf.DriverDataSourceFactory  - loading driver information from 'ExcelFilesNode.driver.xml'.
+133  [main] INFO  org.apache.cayenne.conf.DriverDataSourceFactory  - loading driver com.mysql.jdbc.Driver
+139  [main] INFO  org.apache.cayenne.conf.DriverDataSourceFactory  - loading user name and password.
+143  [main] INFO  org.apache.cayenne.access.QueryLogger  - Created connection pool: jdbc:mysql://127.0.0.1:3306/exceldb
+	Driver class: com.mysql.jdbc.Driver
+	Min. connections in the pool: 1
+	Max. connections in the pool: 1
+151  [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - loaded datasource.
+151  [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - no adapter set, using automatic adapter.
+163  [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - loaded map-ref: ExcelFilesMap.
+164  [main] INFO  org.apache.cayenne.conf.RuntimeLoadDelegate  - finished configuration loading in 164 ms.
+231  [main] ERROR mit.excelwrapper.resource.ExcelResource  - Error occurred during the service : The name field should be specified.
+mit.excelwrapper.exception.ExcelWrapperException: The name field should be specified.
+	at mit.excelwrapper.resource.ExcelResource.getFormFields(ExcelResource.java:296)
+	at mit.excelwrapper.resource.ExcelResource.createSimulation(ExcelResource.java:178)
+	at mit.excelwrapper.resource.ExcelResourceTest.createSimulationFailure1(ExcelResourceTest.java:150)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:76)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:24)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
+258  [main] ERROR mit.excelwrapper.resource.ExcelResource  - Error occurred during the service : An excel file should be uploaded.
+mit.excelwrapper.exception.ExcelWrapperException: An excel file should be uploaded.
+	at mit.excelwrapper.resource.ExcelResource.getFormFields(ExcelResource.java:301)
+	at mit.excelwrapper.resource.ExcelResource.createSimulation(ExcelResource.java:178)
+	at mit.excelwrapper.resource.ExcelResourceTest.createSimulationFailure2(ExcelResourceTest.java:169)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:76)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:24)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
+294  [main] ERROR mit.excelwrapper.resource.ExcelResource  - Error occurred during the service : Unable to read entire header; 23 bytes read; expected 512 bytes
+java.io.IOException: Unable to read entire header; 23 bytes read; expected 512 bytes
+	at org.apache.poi.poifs.storage.HeaderBlockReader.alertShortRead(HeaderBlockReader.java:149)
+	at org.apache.poi.poifs.storage.HeaderBlockReader.<init>(HeaderBlockReader.java:85)
+	at org.apache.poi.poifs.filesystem.POIFSFileSystem.<init>(POIFSFileSystem.java:151)
+	at mit.excelwrapper.resource.ExcelResource.getWorkbook(ExcelResource.java:359)
+	at mit.excelwrapper.resource.ExcelResource.createSimulation(ExcelResource.java:184)
+	at mit.excelwrapper.resource.ExcelResourceTest.createSimulationFailure3(ExcelResourceTest.java:189)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:76)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChild(Suite.java:24)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
+588  [main] INFO  org.apache.cayenne.access.QueryLogger  - Opening connection: jdbc:mysql://127.0.0.1:3306/exceldb
+	Login: climatedb
+	Password: *******
+798  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ Connecting: SUCCESS.
+799  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+831  [main] INFO  org.apache.cayenne.access.QueryLogger  - Detected and installed adapter: org.apache.cayenne.dba.mysql.MySQLAdapter
+832  [main] INFO  org.apache.cayenne.access.QueryLogger  - LOCK TABLES AUTO_PK_SUPPORT WRITE
+832  [main] INFO  org.apache.cayenne.access.QueryLogger  - SELECT NEXT_ID FROM AUTO_PK_SUPPORT WHERE TABLE_NAME = 'ExcelModel'
+833  [main] INFO  org.apache.cayenne.access.QueryLogger  - UPDATE AUTO_PK_SUPPORT SET NEXT_ID = NEXT_ID + 20 WHERE TABLE_NAME = 'ExcelModel' AND NEXT_ID = 300
+834  [main] INFO  org.apache.cayenne.access.QueryLogger  - UNLOCK TABLES
+834  [main] INFO  org.apache.cayenne.access.QueryLogger  - LOCK TABLES AUTO_PK_SUPPORT WRITE
+835  [main] INFO  org.apache.cayenne.access.QueryLogger  - SELECT NEXT_ID FROM AUTO_PK_SUPPORT WHERE TABLE_NAME = 'InputParam'
+835  [main] INFO  org.apache.cayenne.access.QueryLogger  - UPDATE AUTO_PK_SUPPORT SET NEXT_ID = NEXT_ID + 20 WHERE TABLE_NAME = 'InputParam' AND NEXT_ID = 300
+835  [main] INFO  org.apache.cayenne.access.QueryLogger  - UNLOCK TABLES
+836  [main] INFO  org.apache.cayenne.access.QueryLogger  - LOCK TABLES AUTO_PK_SUPPORT WRITE
+836  [main] INFO  org.apache.cayenne.access.QueryLogger  - SELECT NEXT_ID FROM AUTO_PK_SUPPORT WHERE TABLE_NAME = 'OutputParam'
+837  [main] INFO  org.apache.cayenne.access.QueryLogger  - UPDATE AUTO_PK_SUPPORT SET NEXT_ID = NEXT_ID + 20 WHERE TABLE_NAME = 'OutputParam' AND NEXT_ID = 300
+838  [main] INFO  org.apache.cayenne.access.QueryLogger  - UNLOCK TABLES
+839  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 3 queries.
+847  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO ExcelModel (ID, Path, worksheet) VALUES (?, ?, ?)
+857  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:300, 2->Path:'', 3->worksheet:0]
+858  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+858  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO InputParam (ColNum, DataType, ID, InternalName, ModelID, RowNum) VALUES (?, ?, ?, ?, ?, ?)
+858  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:0, 2->DataType:'INTEGER', 3->ID:300, 4->InternalName:'Temperature_Change_input0', 5->ModelID:300, 6->RowNum:2]
+858  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+859  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO OutputParam (ColNum, ID, InternalName, ModelID, NumRows, RowNum) VALUES (?, ?, ?, ?, ?, ?)
+859  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:2, 2->ID:300, 3->InternalName:'Food_Impacts_output2', 4->ModelID:300, 5->NumRows:1, 6->RowNum:25]
+859  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+859  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:0, 2->ID:301, 3->InternalName:'Temperature_Change_output0', 4->ModelID:300, 5->NumRows:1, 6->RowNum:25]
+859  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+859  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:5, 2->ID:302, 3->InternalName:'Environment_Impacts_output5', 4->ModelID:300, 5->NumRows:1, 6->RowNum:25]
+860  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+860  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:3, 2->ID:303, 3->InternalName:'Health_Impacts_output3', 4->ModelID:300, 5->NumRows:1, 6->RowNum:25]
+860  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+860  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:1, 2->ID:304, 3->InternalName:'Water_Impacts_output1', 4->ModelID:300, 5->NumRows:1, 6->RowNum:25]
+860  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+860  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:6, 2->ID:305, 3->InternalName:'Abrupt_and_Large_Scale_Impacts...', 4->ModelID:300, 5->NumRows:1, 6->RowNum:25]
+860  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+860  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:4, 2->ID:306, 3->InternalName:'Land_Impacts_output4', 4->ModelID:300, 5->NumRows:1, 6->RowNum:25]
+861  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+865  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+918  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 1 query.
+918  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+919  [main] INFO  org.apache.cayenne.access.QueryLogger  - UPDATE ExcelModel SET Path = ? WHERE ID = ?
+919  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->Path:'/var/excelserver/STERN_300.xls', 2->ID:300]
+919  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+920  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+930  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 3 queries.
+931  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+931  [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM OutputParam WHERE ID = ?
+931  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:305]
+932  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+932  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:304]
+932  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+932  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:303]
+932  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+932  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:302]
+932  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+932  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:306]
+933  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+933  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:301]
+933  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+933  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:300]
+933  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+933  [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM InputParam WHERE ID = ?
+933  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:300]
+934  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+934  [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM ExcelModel WHERE ID = ?
+934  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:300]
+934  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+934  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+946  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 3 queries.
+946  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+946  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO ExcelModel (ID, Path, worksheet) VALUES (?, ?, ?)
+946  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:301, 2->Path:'', 3->worksheet:0]
+947  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+947  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO InputParam (ColNum, DataType, ID, InternalName, ModelID, RowNum) VALUES (?, ?, ?, ?, ?, ?)
+947  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:0, 2->DataType:'INTEGER', 3->ID:301, 4->InternalName:'Temperature_input0', 5->ModelID:301, 6->RowNum:2]
+947  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+947  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO OutputParam (ColNum, ID, InternalName, ModelID, NumRows, RowNum) VALUES (?, ?, ?, ?, ?, ?)
+947  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:0, 2->ID:307, 3->InternalName:'Sea_Level_Rise_output0', 4->ModelID:301, 5->NumRows:1, 6->RowNum:25]
+948  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+948  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+959  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 1 query.
+959  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+960  [main] INFO  org.apache.cayenne.access.QueryLogger  - UPDATE ExcelModel SET Path = ? WHERE ID = ?
+960  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->Path:'/var/excelserver/SEALEVEL_301....', 2->ID:301]
+960  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+961  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+963  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 3 queries.
+963  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+964  [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM OutputParam WHERE ID = ?
+964  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:307]
+964  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+964  [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM InputParam WHERE ID = ?
+964  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:301]
+964  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+964  [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM ExcelModel WHERE ID = ?
+965  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:301]
+965  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+965  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+972  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 3 queries.
+972  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+973  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO ExcelModel (ID, Path, worksheet) VALUES (?, ?, ?)
+973  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:302, 2->Path:'', 3->worksheet:0]
+973  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+973  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO InputParam (ColNum, DataType, ID, InternalName, ModelID, RowNum) VALUES (?, ?, ?, ?, ?, ?)
+974  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:0, 2->DataType:'INTEGER', 3->ID:302, 4->InternalName:'Temperature_input0', 5->ModelID:302, 6->RowNum:2]
+974  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+974  [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO OutputParam (ColNum, ID, InternalName, ModelID, NumRows, RowNum) VALUES (?, ?, ?, ?, ?, ?)
+975  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:0, 2->ID:308, 3->InternalName:'Sea_Level_Rise_output0', 4->ModelID:302, 5->NumRows:1, 6->RowNum:25]
+975  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+975  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+981  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 1 query.
+981  [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+981  [main] INFO  org.apache.cayenne.access.QueryLogger  - UPDATE ExcelModel SET Path = ? WHERE ID = ?
+982  [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->Path:'/var/excelserver/EXCEL_RUN_TES...', 2->ID:302]
+982  [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+982  [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+1060 [main] INFO  mit.excelwrapper.resource.ExcelResourceTest  - run result :<Temperature_input0>[[1]]<Sea_Level_Rise_output0>[[14.653999999999998]]
+1061 [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 3 queries.
+1061 [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+1061 [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM OutputParam WHERE ID = ?
+1061 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:308]
+1062 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1062 [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM InputParam WHERE ID = ?
+1062 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:302]
+1062 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1062 [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM ExcelModel WHERE ID = ?
+1062 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:302]
+1062 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1063 [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+1074 [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 3 queries.
+1074 [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+1077 [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO ExcelModel (ID, Path, worksheet) VALUES (?, ?, ?)
+1077 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:303, 2->Path:'', 3->worksheet:0]
+1077 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1077 [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO InputParam (ColNum, DataType, ID, InternalName, ModelID, RowNum) VALUES (?, ?, ?, ?, ?, ?)
+1077 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:0, 2->DataType:'INTEGER', 3->ID:303, 4->InternalName:'Temperature_Change_input0', 5->ModelID:303, 6->RowNum:2]
+1078 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1078 [main] INFO  org.apache.cayenne.access.QueryLogger  - INSERT INTO OutputParam (ColNum, ID, InternalName, ModelID, NumRows, RowNum) VALUES (?, ?, ?, ?, ?, ?)
+1078 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:6, 2->ID:309, 3->InternalName:'Abrupt_and_Large_Scale_Impacts...', 4->ModelID:303, 5->NumRows:1, 6->RowNum:25]
+1079 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1079 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:2, 2->ID:310, 3->InternalName:'Food_Impacts_output2', 4->ModelID:303, 5->NumRows:1, 6->RowNum:25]
+1079 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1079 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:4, 2->ID:311, 3->InternalName:'Land_Impacts_output4', 4->ModelID:303, 5->NumRows:1, 6->RowNum:25]
+1080 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1080 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:1, 2->ID:312, 3->InternalName:'Water_Impacts_output1', 4->ModelID:303, 5->NumRows:1, 6->RowNum:25]
+1080 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1080 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:0, 2->ID:313, 3->InternalName:'Temperature_Change_output0', 4->ModelID:303, 5->NumRows:1, 6->RowNum:25]
+1080 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1080 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:5, 2->ID:314, 3->InternalName:'Environment_Impacts_output5', 4->ModelID:303, 5->NumRows:1, 6->RowNum:25]
+1081 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1081 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ColNum:3, 2->ID:315, 3->InternalName:'Health_Impacts_output3', 4->ModelID:303, 5->NumRows:1, 6->RowNum:25]
+1083 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1084 [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+1091 [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 1 query.
+1092 [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+1092 [main] INFO  org.apache.cayenne.access.QueryLogger  - UPDATE ExcelModel SET Path = ? WHERE ID = ?
+1092 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->Path:'/var/excelserver/EXCEL_RUN_TES...', 2->ID:303]
+1092 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1093 [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+1179 [main] INFO  mit.excelwrapper.resource.ExcelResourceTest  - run result :<Temperature_Change_input0>[[1]]<Temperature_Change_output0>[[3.5-4.5]]<Water_Impacts_output1>[[In+Southern+Europe%2C+serious++droughts+occur+once+every+10+years.++1+-+4+billion+more+people+suffer+water+shortages%2C+while+1+%E2%80%93+5+billion+gain+water%2C+which+may+increase+flood+risk]]<Food_Impacts_output2>[[150+-+550+additional+millions+at+risk+of+hunger+%28if+carbon+fertilisation+weak%29.++Agricultural+yields+in+higher+latitudes+likely+to+peak]]<Health_Impacts_output3>[[1+%E2%80%93+3+million+more+people+die+from+malnutrition+%28if+carbon+fertilisation+weak%29]]<Land_Impacts_output4>[[1+%E2%80%93+170+million+more+people+affected+by+coastal+flooding+each+year]]<Environment_Impacts_output5>[[Loss+of+around+half+Arctic+tundra.++Around+half+of+all+the+world%E2%80%99s+nature+reserves+cannot+fulfill+objectives]]<Abrupt_and_Large_Scale_Impacts_output6>[[Potential+for+Greenland+ice+sheet+to+begin+melting+irreversibly%2C+accelerating+sea+level+rise+and+committing+world+to+an+eventual+7+m+sea+level+rise.++Rising+risk+of+abrupt+changes+to+atmospheric+circulations%2C+e.g.+the+monsoon.++Rising+risk+of+collapse+of+West+Antarctic+Ice+Sheet.++Rising+risk+of+collapse+of+Atlantic+Thermohaline+Circulation]]
+1181 [main] INFO  org.apache.cayenne.access.QueryLogger  - --- will run 3 queries.
+1181 [main] INFO  org.apache.cayenne.access.QueryLogger  - --- transaction started.
+1181 [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM OutputParam WHERE ID = ?
+1181 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:309]
+1182 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1182 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:314]
+1182 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1182 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:315]
+1182 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1182 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:310]
+1183 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1183 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:311]
+1183 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1183 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:312]
+1183 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1183 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:313]
+1183 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1183 [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM InputParam WHERE ID = ?
+1184 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:303]
+1184 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1184 [main] INFO  org.apache.cayenne.access.QueryLogger  - DELETE FROM ExcelModel WHERE ID = ?
+1184 [main] INFO  org.apache.cayenne.access.QueryLogger  - [bind: 1->ID:303]
+1184 [main] INFO  org.apache.cayenne.access.QueryLogger  - === updated 1 row.
+1185 [main] INFO  org.apache.cayenne.access.QueryLogger  - +++ transaction committed.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
