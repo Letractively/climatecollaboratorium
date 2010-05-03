@@ -123,14 +123,15 @@
                         </table>
                     </td>
                 </tr>
+                
                 <tr>
                     <td>
-                        <ice:outputLabel value="Weight:"/>
+                        <ice:outputLabel value="Weight:" rendered="#{editDebateItem.showWeightField}" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <ice:inputText value="#{editDebateItem.weight}" />
+                        <ice:inputText value="#{editDebateItem.weight}" rendered="#{editDebateItem.showWeightField}" />
                     </td>
                 </tr>
                 <tr>
