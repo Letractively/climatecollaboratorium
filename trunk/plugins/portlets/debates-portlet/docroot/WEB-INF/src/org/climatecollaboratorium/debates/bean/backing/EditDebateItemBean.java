@@ -39,6 +39,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
     private List<DebateItemReferenceWrapper> wrappedReferences;
     private ThemeDisplay td = Helper.getThemeDisplay();
     private DebateCategoryWrapper debateCategory;
+    private Long weight;
     
     private DebatesPermissionsBean permissions;
 
@@ -140,6 +141,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
     public void save(ActionEvent event) throws SystemException, PortalException, RenderingException {
 
         if (! permissions.getCanEditDebateMap() && ! permissions.getCanAdmin()) {
+            hideForms();
             return;
         }
         DebateItem savedItem = null;
@@ -186,7 +188,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
             }
         }
         else {
-            savedItem = item.update(title, content, references, userId);
+            savedItem = item.update(title, content, references, userId, weight == null ? 0 : weight);
             debateDetailsBean.debateItemUpdated(savedItem);
             type = DebateItemType.valueOf(savedItem.getDebatePostType());
             
@@ -299,6 +301,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
         referenceUrl = null;
         referenceText = null;
         item = null;
+        weight = 0L;
         selectedHistoryVersion = null;
     }
     public void removeReference(DebateItemReferenceWrapper debateItemReferenceWrapper) {
@@ -351,5 +354,15 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
         // TODO Auto-generated method stub
         
     }
+    
+    public void setWeight(Long weight) {
+        this.weight = weight;
+    }
 
+    public Long getWeight() {
+        if (selectedHistoryVersion != null && editing) {
+            return selectedHistoryVersion.getWeight() == null ? 0 : selectedHistoryVersion.getWeight();
+        }
+        return weight == null ? 0 : weight;       
+    }
 }
