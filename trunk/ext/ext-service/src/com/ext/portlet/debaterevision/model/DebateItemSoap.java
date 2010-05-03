@@ -34,6 +34,7 @@ public class DebateItemSoap implements Serializable {
     private String _debateDetail;
     private String _debatePostType;
     private Long _authorId;
+    private Long _weight;
     private Long _itemVersion;
     private Long _treeVersion;
     private Date _updated;
@@ -53,6 +54,7 @@ public class DebateItemSoap implements Serializable {
         soapModel.setDebateDetail(model.getDebateDetail());
         soapModel.setDebatePostType(model.getDebatePostType());
         soapModel.setAuthorId(model.getAuthorId());
+        soapModel.setWeight(model.getWeight());
         soapModel.setItemVersion(model.getItemVersion());
         soapModel.setTreeVersion(model.getTreeVersion());
         soapModel.setUpdated(model.getUpdated());
@@ -167,6 +169,14 @@ public class DebateItemSoap implements Serializable {
 
     public void setAuthorId(Long authorId) {
         _authorId = authorId;
+    }
+
+    public Long getWeight() {
+        return _weight;
+    }
+
+    public void setWeight(Long weight) {
+        _weight = weight;
     }
 
     public Long getItemVersion() {

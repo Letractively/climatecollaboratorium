@@ -4,6 +4,7 @@ import com.ext.portlet.debaterevision.model.DebateComment;
 import com.ext.portlet.debaterevision.model.DebateCommentSoap;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
@@ -219,9 +220,15 @@ public class DebateCommentModelImpl extends BaseModelImpl<DebateComment> {
     }
 
     public int compareTo(DebateComment debateComment) {
-        Long pk = debateComment.getPrimaryKey();
+        int value = 0;
 
-        return getPrimaryKey().compareTo(pk);
+        value = DateUtil.compareTo(getUpdated(), debateComment.getUpdated());
+
+        if (value != 0) {
+            return value;
+        }
+
+        return 0;
     }
 
     public boolean equals(Object obj) {

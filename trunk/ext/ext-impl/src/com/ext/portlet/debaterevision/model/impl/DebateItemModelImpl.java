@@ -66,6 +66,9 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
             { "authorId", new Integer(Types.BIGINT) },
             
 
+            { "weight", new Integer(Types.BIGINT) },
+            
+
             { "itemVersion", new Integer(Types.BIGINT) },
             
 
@@ -77,7 +80,7 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
 
             { "status", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table DebateItem (debateItemPK LONG not null primary key,debateItemId LONG,debateItemParentId LONG,debateId LONG,debateSummary VARCHAR(75) null,debateDetail VARCHAR(75) null,debatePostType VARCHAR(75) null,authorId LONG,itemVersion LONG,treeVersion LONG,updated DATE null,status VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table DebateItem (debateItemPK LONG not null primary key,debateItemId LONG,debateItemParentId LONG,debateId LONG,debateSummary VARCHAR(75) null,debateDetail VARCHAR(75) null,debatePostType VARCHAR(75) null,authorId LONG,weight LONG,itemVersion LONG,treeVersion LONG,updated DATE null,status VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table DebateItem";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -98,6 +101,7 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
     private String _debateDetail;
     private String _debatePostType;
     private Long _authorId;
+    private Long _weight;
     private Long _itemVersion;
     private Long _treeVersion;
     private Date _updated;
@@ -117,6 +121,7 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
         model.setDebateDetail(soapModel.getDebateDetail());
         model.setDebatePostType(soapModel.getDebatePostType());
         model.setAuthorId(soapModel.getAuthorId());
+        model.setWeight(soapModel.getWeight());
         model.setItemVersion(soapModel.getItemVersion());
         model.setTreeVersion(soapModel.getTreeVersion());
         model.setUpdated(soapModel.getUpdated());
@@ -211,6 +216,14 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
         _authorId = authorId;
     }
 
+    public Long getWeight() {
+        return _weight;
+    }
+
+    public void setWeight(Long weight) {
+        _weight = weight;
+    }
+
     public Long getItemVersion() {
         return _itemVersion;
     }
@@ -260,6 +273,7 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
             model.setDebateDetail(HtmlUtil.escape(getDebateDetail()));
             model.setDebatePostType(HtmlUtil.escape(getDebatePostType()));
             model.setAuthorId(getAuthorId());
+            model.setWeight(getWeight());
             model.setItemVersion(getItemVersion());
             model.setTreeVersion(getTreeVersion());
             model.setUpdated(getUpdated());
@@ -284,6 +298,7 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
         clone.setDebateDetail(getDebateDetail());
         clone.setDebatePostType(getDebatePostType());
         clone.setAuthorId(getAuthorId());
+        clone.setWeight(getWeight());
         clone.setItemVersion(getItemVersion());
         clone.setTreeVersion(getTreeVersion());
         clone.setUpdated(getUpdated());
@@ -296,6 +311,12 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
         int value = 0;
 
         value = getItemVersion().compareTo(debateItem.getItemVersion());
+
+        if (value != 0) {
+            return value;
+        }
+
+        value = getWeight().compareTo(debateItem.getWeight());
 
         if (value != 0) {
             return value;
@@ -349,6 +370,8 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
         sb.append(getDebatePostType());
         sb.append(", authorId=");
         sb.append(getAuthorId());
+        sb.append(", weight=");
+        sb.append(getWeight());
         sb.append(", itemVersion=");
         sb.append(getItemVersion());
         sb.append(", treeVersion=");
@@ -400,6 +423,10 @@ public class DebateItemModelImpl extends BaseModelImpl<DebateItem> {
         sb.append(
             "<column><column-name>authorId</column-name><column-value><![CDATA[");
         sb.append(getAuthorId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>weight</column-name><column-value><![CDATA[");
+        sb.append(getWeight());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>itemVersion</column-name><column-value><![CDATA[");

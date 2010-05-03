@@ -133,11 +133,13 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
 
 
 
-    public DebateItem update(String title, String detail, List<DebateItemReference> refs, long authorId) throws SystemException {
+    public DebateItem update(String title, String detail, List<DebateItemReference> refs, long authorId, long weight) throws SystemException {
         if (isMostRecent(this,true)) moveForeward();
         setAuthorId(authorId);
         setDebateSummary(title);
         setDebateDetail(detail);
+        setWeight(weight);
+        
         DebateItemLocalServiceUtil.updateDebateItem(this);
 
         updateReferences(this,refs);
@@ -165,6 +167,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
            result.setDebateDetail(getDebateDetail());
            result.setDebateSummary(getDebateSummary());
            result.setUpdated(getUpdated());
+           result.setWeight(getWeight());
            DebateItemLocalServiceUtil.updateDebateItem(result);
 
 
@@ -205,6 +208,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
            result.setDebateDetail(getDebateDetail());
            result.setDebateSummary(getDebateSummary());
            result.setUpdated(new Date());
+           result.setWeight(getWeight());
            DebateItemLocalServiceUtil.updateDebateItem(result);
 
            for (DebateItemReference ref:getReferences()) {

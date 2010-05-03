@@ -344,6 +344,7 @@
 		<property name="debateDetail" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="debatePostType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="authorId" />
+		<property name="weight" />
 		<property name="itemVersion" />
 		<property name="treeVersion" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />
