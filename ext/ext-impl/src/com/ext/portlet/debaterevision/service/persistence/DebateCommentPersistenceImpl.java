@@ -337,6 +337,10 @@ public class DebateCommentPersistenceImpl extends BasePersistenceImpl
 
                 query.append(" ");
 
+                query.append("ORDER BY ");
+
+                query.append("updated ASC");
+
                 Query q = session.createQuery(query.toString());
 
                 QueryPos qPos = QueryPos.getInstance(q);
@@ -403,6 +407,11 @@ public class DebateCommentPersistenceImpl extends BasePersistenceImpl
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("updated ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -507,6 +516,11 @@ public class DebateCommentPersistenceImpl extends BasePersistenceImpl
                 query.append("ORDER BY ");
                 query.append(obc.getOrderBy());
             }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("updated ASC");
+            }
 
             Query q = session.createQuery(query.toString());
 
@@ -601,6 +615,11 @@ public class DebateCommentPersistenceImpl extends BasePersistenceImpl
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("updated ASC");
                 }
 
                 Query q = session.createQuery(query.toString());

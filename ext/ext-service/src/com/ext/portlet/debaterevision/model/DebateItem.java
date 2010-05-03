@@ -51,7 +51,7 @@ public interface DebateItem extends DebateItemModel {
     public com.ext.portlet.debaterevision.model.DebateItem update(
         java.lang.String title, java.lang.String detail,
         java.util.List<com.ext.portlet.debaterevision.model.DebateItemReference> refs,
-        long authorId) throws com.liferay.portal.SystemException;
+        long authorId, long weight) throws com.liferay.portal.SystemException;
 
     public void moveForeward() throws com.liferay.portal.SystemException;
 

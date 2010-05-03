@@ -359,6 +359,7 @@ create table DebateItem (
 	debateDetail VARCHAR(75) null,
 	debatePostType VARCHAR(75) null,
 	authorId LONG,
+	weight LONG,
 	itemVersion LONG,
 	treeVersion LONG,
 	updated DATE null,

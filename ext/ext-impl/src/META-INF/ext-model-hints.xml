@@ -253,6 +253,7 @@
 		<field name="debateDetail" type="String" />
 		<field name="debatePostType" type="String" />
 		<field name="authorId" type="Long" />
+		<field name="weight" type="Long" />
 		<field name="itemVersion" type="Long" />
 		<field name="treeVersion" type="Long" />
 		<field name="updated" type="Date" />

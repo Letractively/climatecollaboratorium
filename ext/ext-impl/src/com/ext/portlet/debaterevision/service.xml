@@ -65,6 +65,7 @@
         <column name="debateDetail" type="String"/>
         <column name="debatePostType" type="String"/>
         <column name="authorId" type="Long" />
+        <column name="weight" type="Long" />
 
         <!-- The version of this item (monotonic) -->
         <column name="itemVersion" type="Long" />
@@ -86,6 +87,7 @@
 
 		<order by="asc">
 			<order-column name="itemVersion"/>
+            <order-column name="weight" />
 		</order>
 
 
@@ -177,8 +179,12 @@
         <column name="authorId" type="Long" />
         <column name="updated" type="Date" />
 
+        <order by="asc">
+            <order-column name="updated" />
+        </order>
         <finder name="commentForDebateItem" return-type="Collection">
                 <finder-column name="debateItemId" />
+                
         </finder>
 	</entity>
     

@@ -42,6 +42,7 @@ public class DebateItemJSONSerializer {
         jsonObj.put("debateDetail", model.getDebateDetail());
         jsonObj.put("debatePostType", model.getDebatePostType());
         jsonObj.put("authorId", model.getAuthorId());
+        jsonObj.put("weight", model.getWeight());
         jsonObj.put("itemVersion", model.getItemVersion());
         jsonObj.put("treeVersion", model.getTreeVersion());
 

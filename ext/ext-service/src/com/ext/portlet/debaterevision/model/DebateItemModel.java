@@ -62,6 +62,10 @@ public interface DebateItemModel extends BaseModel<DebateItem> {
 
     public void setAuthorId(Long authorId);
 
+    public Long getWeight();
+
+    public void setWeight(Long weight);
+
     public Long getItemVersion();
 
     public void setItemVersion(Long itemVersion);

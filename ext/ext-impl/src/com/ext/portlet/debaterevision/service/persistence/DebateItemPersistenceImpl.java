@@ -390,7 +390,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("itemVersion ASC");
+                query.append("itemVersion ASC, ");
+                query.append("weight ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -493,7 +494,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("itemVersion ASC");
+                    query.append("itemVersion ASC, ");
+                    query.append("weight ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -640,7 +642,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("itemVersion ASC");
+                query.append("itemVersion ASC, ");
+                query.append("weight ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -712,7 +715,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("itemVersion ASC");
+                query.append("itemVersion ASC, ");
+                query.append("weight ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -798,7 +802,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("itemVersion ASC");
+                    query.append("itemVersion ASC, ");
+                    query.append("weight ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -923,7 +928,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("itemVersion ASC");
+                query.append("itemVersion ASC, ");
+                query.append("weight ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -991,7 +997,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("itemVersion ASC");
+                query.append("itemVersion ASC, ");
+                query.append("weight ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -1078,7 +1085,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("itemVersion ASC");
+                    query.append("itemVersion ASC, ");
+                    query.append("weight ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -1204,7 +1212,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("itemVersion ASC");
+                query.append("itemVersion ASC, ");
+                query.append("weight ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -1308,7 +1317,8 @@ public class DebateItemPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("itemVersion ASC");
+                    query.append("itemVersion ASC, ");
+                    query.append("weight ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
