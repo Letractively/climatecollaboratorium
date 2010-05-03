@@ -75,7 +75,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
     // there should be a check for each of the below to make sure we are using only the most recent version of the tree
 
 
-    public DebateItem addChild(String title, String content, long userId, String type, List<DebateItemReference> refs) throws SystemException  {
+    public DebateItem addChild(String title, String content, long userId, String type, List<DebateItemReference> refs, long weight) throws SystemException  {
         isMostRecent(this,true);
 
         try {
@@ -96,6 +96,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
         item.setDebatePostType(type);
         item.setItemVersion(0L);
         item.setDebateId(getDebateId());
+        item.setWeight(weight);
 
         Debate mostRecent = DebateLocalServiceUtil.findLastVersion(getDebateId());
 

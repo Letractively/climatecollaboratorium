@@ -43,8 +43,8 @@ public interface DebateItem extends DebateItemModel {
     public com.ext.portlet.debaterevision.model.DebateItem addChild(
         java.lang.String title, java.lang.String content, long userId,
         java.lang.String type,
-        java.util.List<com.ext.portlet.debaterevision.model.DebateItemReference> refs)
-        throws com.liferay.portal.SystemException;
+        java.util.List<com.ext.portlet.debaterevision.model.DebateItemReference> refs,
+        long weight) throws com.liferay.portal.SystemException;
 
     public void delete(long authorId) throws com.liferay.portal.SystemException;
 
