@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PangaeaConnection with Vensim" default="jar">
+
+    <property name="srcdir" value="src" />
+    <property name="builddir" value="build" />
+    <property name="classesdir" value="${builddir}/classes" />
+    <property name="pangaea-core.jar" value="${builddir}/pangaea-core.jar" />
+
+    <path id="project.class.path">
+      <fileset dir="lib" includes="*.jar"/>
+    </path>
+    
+    <target name="prepare">
+        <mkdir dir="${classesdir}" />
+    </target>
+    
+    <target name="compile" depends="prepare">
+        <javac srcdir="${srcdir}" destdir="${classesdir}">
+            <classpath refid="project.class.path" />
+        </javac>
+    </target>
+    
+    <target name="jar" depends="compile">
+       <jar destfile="${pangaea-core.jar}" basedir="${classesdir}" />
+    </target>
+    
+    <target name="clean">
+        <delete dir="${builddir}" />
+    </target>
+</project>
