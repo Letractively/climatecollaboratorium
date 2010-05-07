@@ -15,7 +15,7 @@
     </target>
     
     <target name="compile" depends="prepare">
-        <javac srcdir="${srcdir}" destdir="${classesdir}">
+        <javac srcdir="${srcdir}" destdir="${classesdir}" debug="true">
             <classpath refid="project.class.path" />
         </javac>
     </target>
