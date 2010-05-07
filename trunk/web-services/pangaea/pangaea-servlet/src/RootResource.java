@@ -56,10 +56,8 @@ public class RootResource {
 		input.setVariable(SimulationInput.Variable.DEVELOPINGB_FF_START,devingBStart);
 		input.setVariable(SimulationInput.Variable.DEVELOPINGB_FF_TARGET,devingBTarget);
 		//input.setVariable(SimulationInput.Variable.AFFORESTATION,targSequestration);
-		//input.setVariable(SimulationInput.Variable., co2inAtm);
+		//input.setVariable(SimulationInput.Variable.C, co2inAtm);
 
-		File f = new File(".");
-		System.out.println(f.getAbsolutePath());
 		PangaeaConnection connection = new PangaeaConnection();
 		SimulationResults result = connection.submit(input);
 		Response r = Response.ok(createTextResult(result)).build();
