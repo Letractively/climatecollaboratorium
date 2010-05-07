@@ -1,6 +1,7 @@
 import javax.xml.bind.annotation.XmlElement;
 
-import mit.simulation.climate.proxy.pangaea.SimulationResults;
+import org.climatecollaboratorium.pangaea.vensim.SimulationResults;
+
 
 /**
  *
