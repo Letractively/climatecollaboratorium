@@ -110,6 +110,10 @@ img.userFace {
 
 }
 
+#Profile .password-buttons {
+     padding-left:40px;
+}
+
 
 #Profile .buttons {
       height: 40px;
