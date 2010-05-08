@@ -50,7 +50,7 @@
     <div class="PortletBox">
         <div class="content">
 
-            <div class="t"></div>
+           
             <div class="hd">
                  <c:if test="<%=mode==ActivityConstants.SubscriptionMode.PERSONAL%>">
 
@@ -78,12 +78,13 @@
                 </div>
 
             </div>
-
-        <div class="bd">
-
-            <%@ include file="/html/portlet/ext/wall/view_renderer.jspf" %>
+		 
+	        <div class="bd">
+	
+	            <%@ include file="/html/portlet/ext/wall/view_renderer.jspf" %>
+	        </div>
+			<div class="t"></div>
         </div>
-            </div>
         <div class="b">
             <div></div>
         </div>
