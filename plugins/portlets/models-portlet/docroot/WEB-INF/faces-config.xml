@@ -11,7 +11,6 @@
 		<view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
 	</application>
 	<factory/>
-	
 	<managed-bean>
 		<managed-bean-name>edit</managed-bean-name>
 		<managed-bean-class>com.liferay.util.bridges.jsf.common.PortletPreferencesManagedBean</managed-bean-class>
@@ -39,6 +38,11 @@
 	<managed-bean>
 		<managed-bean-name>themeDisplay</managed-bean-name>
 		<managed-bean-class>com.liferay.util.bridges.jsf.common.ThemeDisplayManagedBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>jsIntegration</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.models.JSIntegrationSampleBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 </faces-config>
