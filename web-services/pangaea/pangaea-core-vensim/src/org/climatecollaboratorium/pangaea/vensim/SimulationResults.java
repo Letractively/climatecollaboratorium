@@ -10,20 +10,22 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 public class SimulationResults {
+    
+    private static float DEFAULT_FF_DIVISOR = 3.66F;
 
 
 	public enum Variable {
-		DEVELOPED_COUNTRIES_FF_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2 FF emissions[Developed Countries]"),
-		DEVELOPINGA_COUNTRIES_FF_EMISSIONS("Developing A countries fossil fuel emissions","DevelopingAFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing A Countries]"),
-        DEVELOPINGB_COUNTRIES_FF_EMISSIONS("Developing B fossel fuel emissions","DevelopingBFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing B Countries]"),
-        CO2_CONCENTRATION("CO2 Concentration","AtmosphericCO2Concentration", "Atm conc CO2[\"2C\"]"),  
-        TEMP_CHANGE("Expected temperature change","GlobalTempChange", "Temperature change from preindustrial[\"2C\"]"),
-        BAU_CO2_CONCENTRATION("BAU CO2 Concentration","BAUCO2Concentration", "BAU atm conc CO2"),
-        BAU_TEMP_CHANGE("Expected BAU Temperature Change","ExpectedBAUTempChange", "BAU temperature change from preindustrial"),
-        CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions"), 
-        YEAR("Year","Year", "Time"),
+		DEVELOPED_COUNTRIES_FF_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2 FF emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
+		DEVELOPINGA_COUNTRIES_FF_EMISSIONS("Developing A countries fossil fuel emissions","DevelopingAFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing A Countries]", DEFAULT_FF_DIVISOR),
+        DEVELOPINGB_COUNTRIES_FF_EMISSIONS("Developing B fossel fuel emissions","DevelopingBFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing B Countries]", DEFAULT_FF_DIVISOR),
+        CO2_CONCENTRATION("CO2 Concentration","AtmosphericCO2Concentration", "Atm conc CO2[\"2C\"]", 1),  
+        TEMP_CHANGE("Expected temperature change","GlobalTempChange", "Temperature change from preindustrial[\"2C\"]", 1),
+        BAU_CO2_CONCENTRATION("BAU CO2 Concentration","BAUCO2Concentration", "BAU atm conc CO2", 1),
+        BAU_TEMP_CHANGE("Expected BAU Temperature Change","ExpectedBAUTempChange", "BAU temperature change from preindustrial", 1),
+        CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions", 1), 
+        YEAR("Year","Year", "Time", 1),
 		
-		DEVELOPED_COUNTRIES_FF_EQ_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2eq emissions[Developed Countries]"),
+		DEVELOPED_COUNTRIES_FF_EQ_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2eq emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
         ;
 		/*
 		
@@ -34,11 +36,13 @@ public class SimulationResults {
 		String name;
 		String internalName;
 		String vensimName;
+		float divisor;
 
-		private Variable(String name,String internalName, String vensimName) {
+		private Variable(String name,String internalName, String vensimName, float divisor) {
 			this.name = name;
 			this.internalName = internalName;
 			this.vensimName = vensimName;
+			this.divisor = divisor;
 		}
 
 		public String getInternalName() {
@@ -101,7 +105,7 @@ public class SimulationResults {
 		int idx = 0;
 
 			for (String v:vals) {
-				getCollection(variable).add(new ScalarElement(Float.parseFloat(v)));
+				getCollection(variable).add(new ScalarElement(Float.parseFloat(v)/variable.divisor));
 			}
 		}
 	
@@ -109,7 +113,7 @@ public class SimulationResults {
 	        int idx = 0;
 
 	            for (float v:vals) {
-	                getCollection(variable).add(new ScalarElement(v));
+	                getCollection(variable).add(new ScalarElement(v/variable.divisor));
 	            }
 	        }
 

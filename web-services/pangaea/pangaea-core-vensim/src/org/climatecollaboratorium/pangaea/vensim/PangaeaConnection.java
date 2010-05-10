@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.pangaea.vensim;
 
+import java.io.File;
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -76,6 +77,8 @@ public class PangaeaConnection {
         
             // this doesn't work
             //vensimHelper.setVariable("TIME STEP", 2);
+            File file = new File(".");
+            System.out.println(file.getAbsolutePath());
         
             vensimHelper.setVariable(INITIAL_TIME_VARNAME, INITIAL_TIME_VALUE);
             vensimHelper.setVariable(FINAL_TIME_VARNAME, FINAL_TIME_VALUE);
@@ -110,9 +113,12 @@ public class PangaeaConnection {
     	long before = System.currentTimeMillis();
 
         final String libName = "vendll32";
-    	final String modelPath = "/home/janusz/workdir/liferay/vensim/vensim_jni/VensimUtils_Josh_linux/clearn.vmf";
+    	final String modelPath = "/home/janusz/workdir/liferay/vensim/vensim_jni/clearn.vmf";
         System.setProperty(DLL_LIBNAME_PARAM, libName);
         System.setProperty(MODEL_PATH_PARAM, modelPath);
+        
+        File f = new File(".");
+        System.out.println(f.getAbsolutePath());
         
         PangaeaConnection conn = new PangaeaConnection();
         
