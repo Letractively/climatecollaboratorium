@@ -289,6 +289,10 @@ public class VensimHelper {
         return buf.toString();
     }
     
+    public String[] getVariables() {
+        return Vensim.CGetVarNames(ctxId, "*", Vensim.VARTYPE_ALL);
+    }
+    
     /**
      * Checks if Vensim context was properly initialized, throws
      * exception if it wasn't
