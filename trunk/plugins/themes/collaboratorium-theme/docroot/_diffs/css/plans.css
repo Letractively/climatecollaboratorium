@@ -90,7 +90,7 @@
 }
 
 
-.planactions .createNewPlan {
+.planactions .createNewPlan, .createNewPlan {
 	width:179px;
 	height:45px;
 	float:left;
