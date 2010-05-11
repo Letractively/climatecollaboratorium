@@ -26,6 +26,8 @@
 
 <%@ page import="com.ext.portlet.models.DebatesConstants" %>
 <%@ page import="com.liferay.util.LocalizationUtil" %>
+<%@ page import="com.ext.portlet.plans.model.PlanType" %>
+<%@ page import="com.ext.portlet.plans.PlanLocalServiceHelper" %>
 
 
 <%
@@ -133,6 +135,12 @@
           boolean showAddPositions =permissionChecker.hasPermission (themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(),
                  portletDisplay.getResourcePK(),
                 ModelConstants.ADD_POSITION);
+          
+          
+          PlanType defaultPlanType = PlanLocalServiceHelper.getDefaultPlanType();
+          Long defaultPlanTypeId = defaultPlanType.getPlanTypeId();
+          
+          pageContext.setAttribute("planTypeId", defaultPlanTypeId);
 
 %>
 

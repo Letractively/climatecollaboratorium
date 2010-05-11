@@ -36,15 +36,16 @@
 
 	function <portlet:namespace />runModel() {
 
-		$("#<portlet:namespace />runModel").attr("disabled", true);
-		$(".buttons-centered").addClass("single");
-		$("#<portlet:namespace />createNewPlan").hide();
+		jQuery("#<portlet:namespace />runModel").attr("disabled", true);
+		jQuery(".buttons-centered").addClass("single");
+		jQuery("#<portlet:namespace />createNewPlan").hide();
 		ModelUtils.scenarioReady(function(type, model, scenario) {
-			$("#<portlet:namespace />runModel").removeAttr("disabled");
+			jQuery("#<portlet:namespace />runModel").removeAttr("disabled");
 			if (type == "success") {
 				if (model.isComposite) {
-					$("#<portlet:namespace />createNewPlan").show();
-					$(".buttons-centered").removeClass("single");
+                    
+					jQuery("#<portlet:namespace />createNewPlan").show();
+					jQuery(".buttons-centered").removeClass("single");
 				}
 			}
 
@@ -146,6 +147,7 @@
     	<form action="/web/guest/plans?p_p_id=plans&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_plans_struts_action=%2Fext%2Fplans%2Fedit_plan" method="post" name="<portlet:namespace />fm" id="<portlet:namespace />createPlanForm">
 			<input type="hidden" name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
 			<input type="hidden" name="<%= PlanConstants.UPDATE_TYPE %>" value="<%= PlanConstants.ADD_PLAN %>" />
+            <input type="hidden" name="<%= PlanConstants.PLAN_TYPE_ID %>" value="${planTypeId}" />
 			<input type="hidden" id="<portlet:namespace />scenarioId" name="<%= PlanConstants.SCENARIO_ID %>" />
 			<input name="<%= PlanConstants.REDIRECT %>" type="hidden" value="<%= PlanConstants.PLAN_URL %>" />
 			<input type="hidden" name="modelId" value="<%= ParamUtil.getString(request, ModelConstants.MODEL_ID) %>" />
