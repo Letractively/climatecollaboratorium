@@ -116,9 +116,14 @@
     // booleans indicating what user can do with a plan
     Boolean canAddPlan = permissionChecker.hasPermission(themeDisplay.getPortletGroupId(),
             portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), PlanConstants.ADD_PLAN);
-    Boolean canEditPlan = plan!=null && (permissionChecker.isOmniadmin() || (!planPublished && (isPlanOwner || isPlanMember)));
+    Boolean canEditPlan = plan!=null && permissionChecker.hasPermission(themeDisplay.getPortletGroupId(),
+            portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), PlanConstants.EDIT_PLAN);
+            
+            
+            
+            //(permissionChecker.isOmniadmin() || (!planPublished && (isPlanOwner || isPlanMember)));
     Boolean canVote = permissionChecker.hasPermission(themeDisplay.getPortletGroupId(),
-            portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), PlanConstants.ADD_PLAN);
+            portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), PlanConstants.VOTE_FOR_PLAN);
     Boolean isLoggedIn = ! user.isDefaultUser();
 
 
