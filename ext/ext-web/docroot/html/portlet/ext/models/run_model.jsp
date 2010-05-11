@@ -41,7 +41,7 @@
 		jQuery("#<portlet:namespace />createNewPlan").hide();
 		ModelUtils.scenarioReady(function(type, model, scenario) {
 			jQuery("#<portlet:namespace />runModel").removeAttr("disabled");
-			if (type == "success") {
+			if (type == "success" && ${canAddPlan} == true) {
 				if (model.isComposite) {
                     
 					jQuery("#<portlet:namespace />createNewPlan").show();

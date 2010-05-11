@@ -19,6 +19,7 @@
 %>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="/html/portlet/init.jsp" %>
+<%@ include file="/html/common/init.jsp" %>
 <%@ include file="/html/portlet/ext/models/modules/init.jspf" %>
 
 <%@ page import="com.ext.portlet.debaterevision.model.DebateItem" %>
@@ -28,8 +29,11 @@
 <%@ page import="com.liferay.util.LocalizationUtil" %>
 <%@ page import="com.ext.portlet.plans.model.PlanType" %>
 <%@ page import="com.ext.portlet.plans.PlanLocalServiceHelper" %>
+<%@ page import="com.ext.portlet.plans.PlanConstants" %>
 
 
+
+<portlet:defineObjects />
 <%
 	//String planPositionURL = (String) request.getAttribute(PlanConstants.PLAN_POSITION_URL);
 	PortletPreferences preferences = renderRequest.getPreferences();
@@ -132,10 +136,16 @@
 
 
 
-          boolean showAddPositions =permissionChecker.hasPermission (themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(),
+          boolean showAddPositions = permissionChecker.hasPermission (themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(),
                  portletDisplay.getResourcePK(),
                 ModelConstants.ADD_POSITION);
           
+
+          boolean canAddPlan = permissionChecker.hasPermission(themeDisplay.getPortletGroupId(),
+                  portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), PlanConstants.ADD_PLAN);
+          
+
+          pageContext.setAttribute("canAddPlan", canAddPlan);
           
           PlanType defaultPlanType = PlanLocalServiceHelper.getDefaultPlanType();
           Long defaultPlanTypeId = defaultPlanType.getPlanTypeId();
@@ -162,6 +172,7 @@
         return result;
 
     }
+    
 
 %>
 
@@ -183,9 +194,6 @@ function <portlet:namespace/>closeDialog(dialogId) {
 
 </script>
 
-
-
-<portlet:defineObjects />
 
 <liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="viewModelsURL">
 	<portlet:param name="struts_action" value="/ext/models/view_models" />
