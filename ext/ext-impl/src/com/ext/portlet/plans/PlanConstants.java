@@ -1002,6 +1002,27 @@ public class PlanConstants {
      * Votes min request parameter.
      */
     public static final String VOTES_MIN = "votesMin";
+    
+    /**
+     * Plan edit action.
+     */
+    public static final String PLAN_EDIT = "PLAN_EDIT";
+    
+    /**
+     * Edit plan action.
+     */
+    public static final String EDIT_PLAN = "EDIT_PLAN";
+    
+
+    /**
+     * Edit plan action.
+     */
+    public static final String EDIT_ANY_PLAN = "EDIT_ANY_PLAN";
+
+    /**
+     * Vote for plan action.
+     */
+    public static final String VOTE_FOR_PLAN = "VOTE_FOR_PLAN";
 
 	public static final String MEMBERS_PARAMETER = "planMembersParameter";
 	
