@@ -15,7 +15,6 @@
             DateFormat dateFormatDate = DateFormats.getDate(locale, timeZone);
             Boolean deletePortrait = false;
             boolean editEnabled = (Boolean) request.getAttribute(CommunityConstants.EDIT_ENABLED_PARAMETER);
-
             boolean isMine = editEnabled && themeDisplay.isSignedIn() && themeDisplay.getUserId() == profileUser.getUserId();
             
             boolean canSendMessage = themeDisplay.isSignedIn() && themeDisplay.getUserId() != profileUser.getUserId();
@@ -195,11 +194,17 @@
                                             <portlet:param name="p_u_i_d" value="<%= String.valueOf(profileUser.getUserId())%>" />
                                             <portlet:param name="portrait_id" value="<%= String.valueOf(profileUser.getPortraitId())%>" />
                                         </liferay-portlet:renderURL>
-
-                                        <a class="change-avatar" href="javascript: <portlet:namespace />openEditUserPortraitWindow('<%= editUserPortraitURL%>');">
-                                            <img alt="<liferay-ui:message key="avatar" />" class="avatar userFace" id="<portlet:namespace />avatar" src='<%= themeDisplay.getPathImage()%>/user_<%= profileUser.isFemale() ? "female" : "male"%>_portrait?img_id=<%= deletePortrait ? 0 : profileUser.getPortraitId()%>&t=<%= ImageServletTokenUtil.getToken(profileUser.getPortraitId())%>' />
-                                        </a>
-
+										 
+										<c:choose>
+											<c:when test="<%=editEnabled%>">
+                            					<a class="change-avatar" href="javascript: <portlet:namespace />openEditUserPortraitWindow('<%= editUserPortraitURL%>');">
+                                              		<img alt="<liferay-ui:message key="avatar" />" class="avatar userFace" id="<portlet:namespace />avatar" src='<%= themeDisplay.getPathImage()%>/user_<%= profileUser.isFemale() ? "female" : "male"%>_portrait?img_id=<%= deletePortrait ? 0 : profileUser.getPortraitId()%>&t=<%= ImageServletTokenUtil.getToken(profileUser.getPortraitId())%>' />
+                                     	   		</a>
+                        					</c:when>
+											<c:otherwise>
+												<img alt="<liferay-ui:message key="avatar" />" class="avatar userFace" id="<portlet:namespace />avatar" src='<%= themeDisplay.getPathImage()%>/user_<%= profileUser.isFemale() ? "female" : "male"%>_portrait?img_id=<%= deletePortrait ? 0 : profileUser.getPortraitId()%>&t=<%= ImageServletTokenUtil.getToken(profileUser.getPortraitId())%>' />
+											</c:otherwise>
+										</c:choose>
                                         <div class="portrait-icons editView" style="display:none">
                                             <%
                                                         String taglibEditURL = "javascript: " + renderResponse.getNamespace() + "openEditUserPortraitWindow('" + editUserPortraitURL + "');";
