@@ -115,6 +115,9 @@
 	font-weight:bold;
 	color:#35a4af;
 }
+#banner #loginBox .register p{
+	margin-bottom:0px;
+}
 #banner .topLink{
 	padding:6px 0;
 	text-align:center;
