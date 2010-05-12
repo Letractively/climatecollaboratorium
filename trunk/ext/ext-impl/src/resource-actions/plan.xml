@@ -12,6 +12,7 @@
 		<supports>
 			<action-key>ADD_PLAN</action-key>
 			<action-key>VIEW</action-key>
+            <action-key>EDIT_ANY_PLAN</action-key>
 		</supports>
 		<community-defaults>
 			<action-key>VIEW</action-key>
