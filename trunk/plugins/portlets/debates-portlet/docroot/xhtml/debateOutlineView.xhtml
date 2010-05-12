@@ -4,7 +4,7 @@
                 xmlns:ice="http://www.icesoft.com/icefaces/component" styleClass="debateOutlineView">
     <ice:messages globalOnly="true" layout="table"/>
     <ice:form id="debate-map-form">
-        <div class="debateSummary #{debateDetails.rootItem == debateDetails.selectedDebateItem ? 'active' : ''} ">
+        <div class="debateSummary #{debateDetails.rootItem == debateDetails.selectedDebateItem.item? 'active' : ''} ">
             <ice:commandLink actionListener="#{debateDetails.selectRootItem}" styleClass="hidden"
                              value="#{debateDetails.rootItem.debateSummary}"
                              onclick="setFragment('#{debateDetails.rootItem.debateId}', #{debateDetails.rootItem.debateItemId});"
