@@ -36,25 +36,25 @@
 	padding-left: 40px;
 } 
 
-.wiki-body ol,
-.wiki-body ol ol ol ol,
-.wiki-body ol ol ol ol ol ol ol,
-.wiki-body ol ol ol ol ol ol ol ol ol ol {
+.wiki-body ol li,
+.wiki-body ol ol ol ol li,
+.wiki-body ol ol ol ol ol ol ol li,
+.wiki-body ol ol ol ol ol ol ol ol ol ol li{
     list-style-type: decimal;
 }
 
-.wiki-body ol ol,
-.wiki-body ol ol ol ol ol,
-.wiki-body ol ol ol ol ol ol ol ol,
-.wiki-body ol ol ol ol ol ol ol ol ol ol ol {
-    list-style-type: lower-alpha;
+.wiki-body ol ol li,
+.wiki-body ol ol ol ol ol li,
+.wiki-body ol ol ol ol ol ol ol ol li,
+.wiki-body ol ol ol ol ol ol ol ol ol ol ol li{
+    list-style-type: decimal;
 }
 
-.wiki-body ol ol ol,
-.wiki-body ol ol ol ol ol ol,
-.wiki-body ol ol ol ol ol ol ol ol ol,
-.wiki-body ol ol ol ol ol ol ol ol ol ol ol ol {
-    list-style-type: lower-roman;
+.wiki-body ol ol ol li,
+.wiki-body ol ol ol ol ol ol li,
+.wiki-body ol ol ol ol ol ol ol ol ol li,
+.wiki-body ol ol ol ol ol ol ol ol ol ol ol ol li{
+    list-style-type: decimal;
 }
 
 /*Needs the id selector because of the
