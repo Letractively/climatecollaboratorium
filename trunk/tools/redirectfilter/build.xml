@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RedirectFilter" default="war">
+
+    <property name="src" value="src" />
+    <property name="builddir" value="build" />
+    <property name="classesdir" value="${builddir}/classes" />
+    <property name="distdir" value="dist" />
+    <property name="deploydir" value="${distdir}/redirectfilter" />
+    <property name="redirectfilter.war" value="dist/redirectfilter.war" />
+    <property name="servlet-api.jar" value="lib/servlet-api.jar" />
+    <property name="war" value="war" />
+    <property name="tomcatdir" value="/home/janusz/programy/apache-tomcat-6.0.20/" />
+
+
+    <target name="prepare">
+        <mkdir dir="${classesdir}" />
+        <mkdir dir="${deploydir}" />
+    </target>
+    
+    <target name="compile" depends="prepare">
+        <javac srcdir="${src}" destdir="${classesdir}" classpath="${servlet-api.jar}" /> 
+    </target>
+    
+    <target name="war" depends="compile">
+        <copy todir="${deploydir}">
+            <fileset dir="${war}" />
+        </copy>
+        <copy todir="${deploydir}/WEB-INF">
+            <fileset dir="${builddir}" />
+        </copy>
+        <war destfile="${redirectfilter.war}" basedir="${deploydir}" />
+    </target>
+    
+    <target name="deploy" depends="war" >
+        <copy todir="${tomcatdir}/webapps" file="${redirectfilter.war}" />
+    </target>
+    
+    <target name="clean">
+        <delete dir="${builddir}" />
+        <delete dir="${deploydir}" />
+        <delete dir="${distdir}" />
+    </target>
+
+
+</project>
