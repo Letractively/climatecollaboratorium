@@ -7,6 +7,7 @@
         <filter-name>Redirect filter</filter-name>
         <filter-class>org.climatecollaboratorium.tools.redirect.RedirectFilter</filter-class>
         <init-param>
+            <!--  adjust value of this parameter to refer to new host name -->
             <param-name>redirectTargetHost</param-name>
             <param-value>http://climatecollaboratorium.org</param-value>
         </init-param>
