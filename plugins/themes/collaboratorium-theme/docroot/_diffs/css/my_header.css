@@ -173,6 +173,13 @@
 	padding:1px;
 	border:#05828e solid 1px;
 }
+
+#banner #loginArea .interactive-mode{
+	background: transparent none;
+	left: 50px;
+	top: 7px;
+	
+}
 /* end #loginBox */
 
 #mainNav{
@@ -181,6 +188,7 @@
 	margin:0 auto;
 	padding-right:20px;
 	padding-left: 20px;
+	line-height: normal;
 }
 #mainNav ul{
 	width:960px;
