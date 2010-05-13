@@ -161,7 +161,7 @@
     <div class="PortletBox">
             <div class="content">
 
-            <div class="t"></div>
+            
             <div class="hd">
                 <div id="editPanel" style="display:none" class="toolbar">
                         <c:if test="<%=editEnabled%>">
@@ -177,6 +177,7 @@
                         <h2><%=editEnabled ? "My" : screenName + "'s"%> Profile</h2>
                     </div>
             </div>
+			<div class="t"></div>
             <div class="bd">
 
                 <form action='${submitActionURL}' method="post" name="<portlet:namespace />fm">
@@ -341,9 +342,7 @@
 <div id="MyActivities" class="activities-wall single-col">
     <div class="PortletBox">
         <div class="content">
-
-            <div class="t"></div>
-            <div class="hd">
+			<div class="hd">
                 <div class="title">
                     <div class="name">
                         <h2> <%=editEnabled ? "My" : screenName + "'s"%> activities</h2>
@@ -359,7 +358,7 @@
             <div class="ft">
 
             </div>
-
+			 <div class="t"></div>
         </div>
         <div class="b">
             <div></div>
