@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="ext-impl/src"/>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="ext-service/src"/>
+	<classpathentry kind="src" path="ext-impl/test"/>
 	<classpathentry kind="lib" path="lib/development/activation.jar"/>
 	<classpathentry kind="lib" path="lib/development/ant-contrib.jar"/>
 	<classpathentry kind="lib" path="lib/development/antelope.jar"/>
