@@ -163,6 +163,8 @@
     height: 61px;
     padding-top: 0px;
     padding-left: 60px;
+    position: relative;
+    z-index: 1;
 }
 
 .PortletBox .hd h2 {
