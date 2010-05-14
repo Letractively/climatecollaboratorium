@@ -173,11 +173,10 @@
                             <span class="configure"><a href="<%= configurePortlet%>">configure</a></span>
                         </c:if>
                     </div>
-                <div class="name">
+                     <div class="name">
                         <h2><%=editEnabled ? "My" : screenName + "'s"%> Profile</h2>
                     </div>
             </div>
-			<div class="t"></div>
             <div class="bd">
 
                 <form action='${submitActionURL}' method="post" name="<portlet:namespace />fm">
@@ -311,7 +310,7 @@
 
             </div>
 
-
+			<div class="t"></div>
             <div class="ft">
                 <div class="editView buttons" style="display: none">
                     <div class="floatRight">
@@ -342,7 +341,9 @@
 <div id="MyActivities" class="activities-wall single-col">
     <div class="PortletBox">
         <div class="content">
-			<div class="hd">
+
+            
+            <div class="hd">
                 <div class="title">
                     <div class="name">
                         <h2> <%=editEnabled ? "My" : screenName + "'s"%> activities</h2>
@@ -354,11 +355,11 @@
 
             </div>
 
-
+			<div class="t"></div>
             <div class="ft">
 
             </div>
-			 <div class="t"></div>
+
         </div>
         <div class="b">
             <div></div>
