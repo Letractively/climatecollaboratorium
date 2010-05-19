@@ -1,4 +1,4 @@
-package com.ext;
+package org.climatecollaboratorium.test;
 
 import com.liferay.portal.kernel.jndi.JNDIUtil;
 import com.liferay.portal.kernel.log.Log;
