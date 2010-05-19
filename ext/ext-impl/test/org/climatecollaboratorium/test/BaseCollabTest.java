@@ -86,12 +86,21 @@ public abstract class BaseCollabTest extends TestCase {
 
         JavaProps.isJDK5();
 
-        String[] configLocations = { "META-INF/test-data-source-spring.xml", "META-INF/hibernate-spring.xml",
-                "META-INF/util-spring.xml", "META-INF/base-spring.xml", "META-INF/management-spring.xml",
+        String[] configLocations = { 
+                "META-INF/test-data-source-spring.xml", 
+                "META-INF/hibernate-spring.xml",
+                "META-INF/util-spring.xml", 
+                "META-INF/base-spring.xml", 
+                "META-INF/management-spring.xml",
 
-                "META-INF/lock-spring.xml", "META-INF/document-library-spring.xml", "META-INF/mail-spring.xml",
-                "META-INF/scheduler-spring.xml", "META-INF/counter-spring.xml", "META-INF/portal-spring.xml",
-                "META-INF/ext-spring.xml", };
+                "META-INF/lock-spring.xml", 
+                "META-INF/document-library-spring.xml", 
+                "META-INF/mail-spring.xml",
+                "META-INF/scheduler-spring.xml", 
+                "META-INF/counter-spring.xml", 
+                "META-INF/portal-spring.xml",
+                "META-INF/ext-spring.xml", 
+                };
 
         new ClassPathXmlApplicationContext(configLocations);
         ConfigurationFactoryUtil.setConfigurationFactory(new ConfigurationFactoryImpl());
