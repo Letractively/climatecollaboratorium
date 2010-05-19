@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
+
+<service-builder package-path="com.ext.portlet.Activity">
+	<namespace>Activity</namespace>
+	<entity name="ActivitySubscription" local-service="true" persistence-class="com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPersistenceImpl">
+	<!-- PK field -->
+		<column name="entityId" type="Long" primary="true" />
+		<column name="receiverId" type="Long" primary="true" />
+		<column name="activitytype" type="String" primary="true"/>
+		<column name="portletId" type="String" primary="true"/>
+		
+		<!-- Audit fields -->
+
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		
+	<!-- Finder methods -->
+
+
+		<finder name="entityId" return-type="Collection">
+			<finder-column name="entityId" />
+		</finder>
+
+		<finder name="receiverId" return-type="Collection">
+			<finder-column name="receiverId" />
+		</finder>
+		
+		<finder name="activitytype" return-type="Collection">
+			<finder-column name="activitytype" />
+		</finder>
+		
+		<finder name="entityreceiver" return-type="Collection">
+			<finder-column name="entityId" />
+			<finder-column name="receiverId" />
+		</finder>
+		
+		
+		
+		<finder name="entityreceivertype" return-type="Collection">
+			<finder-column name="entityId" />
+			<finder-column name="receiverId" />
+			<finder-column name="activitytype" />
+		</finder>
+		
+	</entity>
+	
+	
+	
+	<exceptions>
+
+		<exception>NoSuchActivitySubscription</exception>
+		<exception>NoSuchEntityId</exception>
+		
+	</exceptions>
+	
+	</service-builder>

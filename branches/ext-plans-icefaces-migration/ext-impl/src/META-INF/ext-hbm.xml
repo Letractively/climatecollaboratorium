@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<class name="com.ext.portlet.plans.model.impl.PlanImpl" table="Plan">
+		<cache usage="read-write" />
+		<id name="planId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="shortcontent" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="planTypeId" />
+		<property name="companyId" />
+		<property name="groupId" />
+		<property name="childGroupId" />
+		<property name="MBCategoryId" />
+		<property name="scenarioId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="topicId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="votes" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="publishDate" type="org.hibernate.type.TimestampType" />
+		<property name="userId" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="userScreenName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanAttributeImpl" table="PlanAttribute">
+		<cache usage="read-write" />
+		<id name="attributeId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planId" />
+		<property name="attributeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="attributeValue" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanPositionImpl" table="PlanPosition">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanPositionPK">
+			<key-property name="planId" />
+			<key-property name="positionId" />
+		</composite-id>
+		<property name="userId" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlansUserSettingsImpl" table="PlansUserSettings">
+		<cache usage="read-write" />
+		<id name="planUserSettingsId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+		<property name="planTypeId" />
+		<property name="sortColumn" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="sortDirection" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="filterEnabled" />
+		<property name="filterPositionsAll" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanVoteImpl" table="PlanVote">
+		<cache usage="read-write" />
+		<id name="userId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planId" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlansFilterImpl" table="PlansFilter">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlansFilterPK">
+			<key-property name="userId" />
+			<key-property name="planTypeId" />
+		</composite-id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="creator" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="CO2From" />
+		<property name="CO2To" />
+		<property name="votesFrom" />
+		<property name="votesTo" />
+		<property name="damageFrom" />
+		<property name="damageTo" />
+		<property name="mitigationFrom" />
+		<property name="mitigationTo" />
+		<property name="dateFrom" type="org.hibernate.type.TimestampType" />
+		<property name="dateTo" type="org.hibernate.type.TimestampType" />
+		<property name="filterPositionsAll" />
+		<property name="enabled" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanAttributeFilterImpl" table="PlanAttributeFilter">
+		<cache usage="read-write" />
+		<id name="planAttributeFilterId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="attributeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="planUserSettingsId" />
+		<property name="max" />
+		<property name="min" />
+		<property name="stringVal" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanPropertyFilterImpl" table="PlanPropertyFilter">
+		<cache usage="read-write" />
+		<id name="planPropertyFilterId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="propertyName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="planUserSettingsId" />
+		<property name="value" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanColumnSettingsImpl" table="PlanColumnSettings">
+		<cache usage="read-write" />
+		<id name="planColumnSettingsId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="columnName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="planUserSettingsId" />
+		<property name="visible" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlansFilterPositionImpl" table="PlansFilterPosition">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlansFilterPositionPK">
+			<key-property name="userId" />
+			<key-property name="planTypeId" />
+			<key-property name="positionId" />
+		</composite-id>
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanTypeImpl" table="PlanType">
+		<cache usage="read-write" />
+		<id name="planTypeId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelId" />
+		<property name="published" />
+		<property name="publishedCounterpartId" />
+		<property name="isDefault" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanTypeAttributeImpl" table="PlanTypeAttribute">
+		<cache usage="read-write" />
+		<id name="planTypeAttributeId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planTypeId" />
+		<property name="attributeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanTypeColumnImpl" table="PlanTypeColumn">
+		<cache usage="read-write" />
+		<id name="planTypeColumnId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planTypeId" />
+		<property name="weight" />
+		<property name="columnName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="visibleByDefault" />
+	</class>
+	<class name="com.ext.portlet.models.model.impl.ModelDiscussionImpl" table="ModelDiscussion">
+		<cache usage="read-write" />
+		<id name="modelDiscussionId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="modelId" />
+		<property name="categoryId" />
+	</class>
+	<class name="com.ext.portlet.models.model.impl.ModelPositionImpl" table="ModelPosition">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.models.service.persistence.ModelPositionPK">
+			<key-property name="modelId" />
+			<key-property name="positionId" />
+		</composite-id>
+		<property name="userId" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.Activity.model.impl.ActivitySubscriptionImpl" table="ActivitySubscription">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK">
+			<key-property name="entityId" />
+			<key-property name="receiverId" />
+			<key-property name="activitytype" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+			<key-property name="portletId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		</composite-id>
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.migration.model.impl.MigrationDataImpl" table="MigrationData">
+		<cache usage="read-write" />
+		<id name="migrationId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="xml" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="users" />
+		<property name="plans" />
+		<property name="questions" />
+		<property name="alternatives" />
+		<property name="arguments" />
+		<property name="votes" />
+		<property name="userId" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="createdDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.migration.model.impl.MigrationMappingImpl" table="MigrationMapping">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.migration.service.persistence.MigrationMappingPK">
+			<key-property name="entityName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+			<key-property name="oldId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		</composite-id>
+		<property name="newId" />
+		<property name="userId" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.debates.model.impl.DebateDiscussionMapImpl" table="DebateDiscussionMap">
+		<cache usage="read-write" />
+		<id name="debateMessageId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="discussionThreadId" />
+	</class>
+	<class name="com.ext.portlet.messaging.model.impl.MessageImpl" table="Message">
+		<cache usage="read-write" />
+		<id name="messageId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="fromId" />
+		<property name="repliesTo" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="subject" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.messaging.model.impl.MessageRecipientStatusImpl" table="MessageRecipientStatus">
+		<cache usage="read-write" />
+		<id name="messageRecipientId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="messageId" />
+		<property name="userId" />
+		<property name="opened" />
+		<property name="archived" />
+	</class>
+	<class name="com.ext.portlet.messaging.model.impl.MessagingUserPreferencesImpl" table="MessagingUserPreferences">
+		<cache usage="read-write" />
+		<id name="messagingPreferencesId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+		<property name="emailOnSend" />
+		<property name="emailOnReceipt" />
+	</class>
+	<class name="com.ext.portlet.mass_messaging.model.impl.MessagingMessageImpl" table="MessagingMessage">
+		<cache usage="read-write" />
+		<id name="messageId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="subject" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="body" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="replyTo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="sendToAll" />
+		<property name="conversionCount" />
+		<property name="redirectURL" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="creatorId" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.mass_messaging.model.impl.MessagingMessageRecipientImpl" table="MessagingMessageRecipient">
+		<cache usage="read-write" />
+		<id name="recipientId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="messageId" />
+		<property name="userId" />
+		<property name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.mass_messaging.model.impl.MessagingMessageConversionTypeImpl" table="MessagingMessageConversionType">
+		<cache usage="read-write" />
+		<id name="typeId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.mass_messaging.model.impl.MessagingMessageConversionImpl" table="MessagingMessageConversion">
+		<cache usage="read-write" />
+		<id name="conversionId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="conversionTypeId" />
+		<property name="messageId" />
+		<property name="ipAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="extraData" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="extraData2" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.mass_messaging.model.impl.MessagingRedirectLinkImpl" table="MessagingRedirectLink">
+		<cache usage="read-write" />
+		<id name="redirectId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="link" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="messageId" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.mass_messaging.model.impl.MessagingIgnoredRecipientsImpl" table="MessagingIgnoredRecipients">
+		<cache usage="read-write" />
+		<id name="ignoredRecipientId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="email" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="userId" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.debaterevision.model.impl.DebateImpl" table="Debate">
+		<cache usage="read-write" />
+		<id name="debatePK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateId" />
+		<property name="treeVersion" />
+		<property name="updated" type="org.hibernate.type.TimestampType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="rootCommentId" />
+		<property name="authorId" />
+	</class>
+	<class name="com.ext.portlet.debaterevision.model.impl.DebateItemImpl" table="DebateItem">
+		<cache usage="read-write" />
+		<id name="debateItemPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateItemId" />
+		<property name="debateItemParentId" />
+		<property name="debateId" />
+		<property name="debateSummary" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="debateDetail" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="debatePostType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="authorId" />
+		<property name="weight" />
+		<property name="itemVersion" />
+		<property name="treeVersion" />
+		<property name="updated" type="org.hibernate.type.TimestampType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.debaterevision.model.impl.DebateItemReferenceImpl" table="DebateItemReference">
+		<cache usage="read-write" />
+		<id name="debateItemReferencePK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateItemId" />
+		<property name="debateId" />
+		<property name="itemVersion" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="text" column="text_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="url" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.debaterevision.model.impl.DebateCategoryImpl" table="DebateCategory">
+		<cache usage="read-write" />
+		<id name="debateCategoryPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="authorId" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="brandingContentId" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="parentCategory" />
+		<property name="updated" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.debaterevision.model.impl.DebateCategoryMapImpl" table="DebateCategoryMap">
+		<cache usage="read-write" />
+		<id name="debateCategoryMapPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateCategoryPK" />
+		<property name="debateId" />
+	</class>
+	<class name="com.ext.portlet.debaterevision.model.impl.DebateCommentImpl" table="DebateComment">
+		<cache usage="read-write" />
+		<id name="debateCommentId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateItemId" />
+		<property name="debateCommentTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="debateCommentDetail" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="itemVersion" />
+		<property name="authorId" />
+		<property name="updated" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.debaterevision.model.impl.DebateItemVoteImpl" table="DebateItemVote">
+		<cache usage="read-write" />
+		<id name="debateItemVoteId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateItemId" />
+		<property name="userId" />
+	</class>
+	<class name="com.ext.portlet.debaterevision.model.impl.DebateItemVoteStatsImpl" table="DebateItemVoteStats">
+		<cache usage="read-write" />
+		<id name="debateItemVotesStats" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateItemId" />
+		<property name="votesCount" />
+	</class>
+	<class name="com.ext.portlet.debatemigration.model.impl.DebateMigrationImpl" table="DebateMigration">
+		<cache usage="read-write" />
+		<id name="debateMigrationPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="migrationDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.debatemigration.model.impl.DebateMigrationCategoryImpl" table="DebateMigrationCategory">
+		<cache usage="read-write" />
+		<id name="debateMigrationCategoryPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateMigrationId" />
+		<property name="oldMBCategoryId" />
+		<property name="newCategoryId" />
+	</class>
+	<class name="com.ext.portlet.debatemigration.model.impl.DebateMigrationDebateImpl" table="DebateMigrationDebate">
+		<cache usage="read-write" />
+		<id name="debateMigrationDebatePK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateMigrationId" />
+		<property name="oldMBCategoryId" />
+		<property name="newDebateId" />
+	</class>
+	<class name="com.ext.portlet.debatemigration.model.impl.DebateMigrationItemImpl" table="DebateMigrationItem">
+		<cache usage="read-write" />
+		<id name="debateMigrationItemPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateMigrationId" />
+		<property name="oldMBMessageId" />
+		<property name="newDebateItemId" />
+	</class>
+	<class name="com.ext.portlet.debatemigration.model.impl.DebateMigrationCommentImpl" table="DebateMigrationComment">
+		<cache usage="read-write" />
+		<id name="debateMigrationCommentPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateMigrationId" />
+		<property name="oldMBMessageId" />
+		<property name="oldMBThreadId" />
+		<property name="newDebateCommentId" />
+	</class>
+	<class name="com.ext.inlinehelp.model.impl.HelpUserSettingImpl" table="HelpUserSetting">
+		<cache usage="read-write" />
+		<id name="HelpUserSettingId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+		<property name="messageId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="visible" />
+	</class>
+</hibernate-mapping>

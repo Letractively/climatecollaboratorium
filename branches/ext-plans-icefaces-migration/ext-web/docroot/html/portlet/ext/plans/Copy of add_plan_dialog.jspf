@@ -1,0 +1,54 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * Add plan dialog box.
+ *
+ * @author TCSDEVELOPER
+ * @version 1.0
+ */
+ %>
+<!-- prepare form submit action URL -->
+<portlet:actionURL windowState="NORMAL" var="submitActionURL">
+	<portlet:param name="struts_action" value="/ext/plans/edit_plan" />
+	
+</portlet:actionURL>
+
+<portlet:renderURL windowState="NORMAL" var="viewPlanURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= PlanConstants.ID_PLACEHOLDER %>" />
+</portlet:renderURL>
+
+	<div class="selectModel">
+		<div class="selectModel_top">
+    		<div class="title"><h1 class="selectColumn">Add Plan</h1></div>
+    	</div>
+    	<div class="selectModel_bg addPlan">
+    		<form name="test"></form>
+			<form action="${submitActionURL}" method="post" name="<portlet:namespace />addPlanForm" id="addplan-form">
+				<div class="row">
+					<label><liferay-ui:message key="name" />:</label>
+					<input type="text" name="<portlet:namespace />name" />
+					<div class="clear"></div>
+				</div>
+
+
+			<input name="<portlet:namespace /><%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" id="COMMAND"/>
+			<input name="<portlet:namespace /><%= PlanConstants.REDIRECT %>" type="hidden" value="${viewPlanURL}" />
+			
+   </form>
+    	</div>
+     	<div class="selectModel_bottom">
+     		<div class="btnBox">
+        		<a href="javascript:;" class="checkBtn first" onClick="document.<portlet:namespace />addPlanForm.submit()" ><span class="hidden">Check</span></a>
+            	<a href="javascript:;" class="cancelBtn" onClick="<portlet:namespace />closeDialog('add-plan-dialog')"><span class="hidden">Cancel</span></a>
+	        </div>
+	     </div>
+	</div>
+

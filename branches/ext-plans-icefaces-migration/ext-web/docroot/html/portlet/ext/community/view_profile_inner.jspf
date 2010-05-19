@@ -1,0 +1,377 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+            User profileUser = (User) request.getAttribute(CommunityConstants.USER_PARAMETER);
+            String firstName = profileUser.getFirstName();
+            String lastName = profileUser.getLastName();
+            String email = profileUser.getEmailAddress();
+            String screenName = profileUser.getScreenName();
+            Date memberSince = profileUser.getCreateDate();
+            String aboutMe = HtmlUtil.escape(ExpandoValueLocalServiceUtil.getData(User.class.getName(), CommunityConstants.EXPANDO, CommunityConstants.BIO, profileUser.getUserId(), StringPool.BLANK));
+            DateFormat dateFormatDate = DateFormats.getDate(locale, timeZone);
+            Boolean deletePortrait = false;
+            boolean editEnabled = (Boolean) request.getAttribute(CommunityConstants.EDIT_ENABLED_PARAMETER);
+            boolean isMine = editEnabled && themeDisplay.isSignedIn() && themeDisplay.getUserId() == profileUser.getUserId();
+            
+            boolean canSendMessage = themeDisplay.isSignedIn() && themeDisplay.getUserId() != profileUser.getUserId();
+
+
+
+%>
+
+<liferay-portlet:actionURL windowState="<%= WindowState.NORMAL.toString()%>" var="submitActionURL">
+    <portlet:param name="struts_action" value="/ext/community/edit_profile" />
+    <portlet:param name="<%= CommunityConstants.REDIRECT%>" value="<%= currentURL%>" />
+</liferay-portlet:actionURL>
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString()%>" var="configurePortlet">
+    <portlet:param name="struts_action" value="/ext/community/portlet_prefs" />
+    <portlet:param name="<%= Constants.CMD%>" value="<%= Constants.VIEW%>" />
+    <portlet:param name="<%= CommunityConstants.REDIRECT%>" value="<%= currentURL%>" />
+</liferay-portlet:renderURL>
+
+<script type="text/javascript">
+
+    function setEditMode(edit) {
+        if (edit) {
+            setPasswordMode(false);
+            jQuery(".informationView").hide();
+            jQuery(".editView").show();
+        } else {
+            jQuery(".informationView").show();
+            jQuery(".editView").hide();
+        }
+    }
+
+    function setPasswordMode(change) {
+        if (change) {
+            jQuery(".password-change-link").hide();
+            jQuery(".password-change-form").show();
+        } else {
+            jQuery(".password-change-link").show();
+            jQuery(".password-change-form").hide();
+        }
+    }
+
+    function submitPasswordForm() {
+        document.<portlet:namespace/>passwordForm.submit();
+    }
+
+    function submitForm() {
+        document.<portlet:namespace />fm.submit();
+    }
+
+    function <portlet:namespace />changePortrait(newPortraitURL) {
+        jQuery('#<portlet:namespace />avatar').attr('src', newPortraitURL);
+        jQuery('.avatar').attr('src', newPortraitURL);
+        jQuery('#<portlet:namespace />deletePortrait').val(false);
+    }
+
+    function <portlet:namespace />deletePortrait(defaultPortraitURL) {
+        jQuery('#<portlet:namespace />deletePortrait').val(true);
+        jQuery('#<portlet:namespace />avatar').attr('src', defaultPortraitURL);
+        jQuery('.avatar').attr('src', defaultPortraitURL);
+    }
+
+    function <portlet:namespace />openEditUserPortraitWindow(editUserPortraitURL) {
+        var editUserPortraitWindow = window.open(editUserPortraitURL, '<liferay-ui:message key="change" />', 'directories=no,height=400,location=no,menubar=no,resizable=yes,scrollbars=yes,status=no,toolbar=no,width=500');
+
+        editUserPortraitWindow.focus();
+    }
+
+    jQuery(
+    function() {
+        jQuery('span.modify-link').bind(
+        'click',
+        function() {
+            jQuery(this).trigger('change');
+        }
+    );
+    }
+);
+
+    <%@ include file="/html/js/collaboratorium/cookies.js" %>
+
+        jQuery(document).ready(function() {
+            var cookie =Get_Cookie(LOCKED_LOGIN_NAME);
+            if ( !cookie) {
+                jQuery("#changePassword").show();
+                jQuery("#editPanel").show();
+            }
+        });
+
+        function <portlet:namespace />showDialog(dialogId, options) {
+            jQuery("#" + dialogId).dialog({ height: options.height, width: options.width, modal: true, resizable: false, draggable: false, dialogClass: 'collab-dialog' });
+            jQuery("#" + dialogId).show();
+        }
+
+        function <portlet:namespace />closeDialog(dialogId) {
+            jQuery("#" + dialogId).dialog("close");
+        }
+
+        function <portlet:namespace />showSendMessagePopup() {
+        	jQuery('#sendMessagePopup span.error').html('');
+        	jQuery('#sendMessagePopup input, #sendMessagePopup textarea').val('');
+            _user_info_showDialog("sendMessagePopup",{width:555,height:400});
+        }
+
+        function <portlet:namespace/>sendUserMessage() {
+            // validate form
+            var isValid = true;
+            var subject = jQuery.trim(jQuery('#sendMessagePopup input').val());
+            var content = jQuery.trim(jQuery('#sendMessagePopup textarea').val());
+
+            if (subject == "") {
+                isValid = false;
+                jQuery('#sendMessagePopup span.error.subject').html("this field can't be empty");
+            }
+
+            if (content == "") {
+                isValid = false;
+                jQuery('#sendMessagePopup span.error.content').html("this field can't be empty");
+            }
+
+            if (isValid) {
+            	Liferay.Service.Messaging.Message.addMessage({recipientId: <%= profileUser.getUserId() %>, subject: subject, content: content},  function(message) {
+                    var exception = message.exception;
+
+                    if (!exception) {
+                        // operation was successful 
+
+                        jQuery("#sendMessagePopup").dialog("close");
+                    }
+                    else {
+                        alert("An error occurred. Please try again.");
+                    }
+                });
+            }
+            
+        }
+
+
+
+</script>
+
+
+
+<div id="Profile" class="single-col">
+    <div class="PortletBox">
+            <div class="content">
+
+            
+            <div class="hd">
+                <div id="editPanel" style="display:none" class="toolbar">
+                        <c:if test="<%=editEnabled%>">
+                            <span class="edit">
+                                <a href="javascript:setEditMode(true);" class="editProfileBtn"><span>edit</span></a>
+                            </span>
+                        </c:if>
+                        <c:if test="<%=canConfigure%>">
+                            <span class="configure"><a href="<%= configurePortlet%>">configure</a></span>
+                        </c:if>
+                    </div>
+                     <div class="name">
+                        <h2><%=editEnabled ? "My" : screenName + "'s"%> Profile</h2>
+                    </div>
+            </div>
+            <div class="bd">
+
+                <form action='${submitActionURL}' method="post" name="<portlet:namespace />fm">
+                                    <input name="<portlet:namespace/><%= Constants.CMD%>" type="hidden" value="<%= Constants.UPDATE%>"/>
+                  <div class="content-inner">
+                                  <c:if test="<%= canSendMessage  %>">
+                                      <h4 class="send-user-a-message"><a href="#" onClick="<portlet:namespace />showSendMessagePopup()"> Send <%= screenName %> a message</a></h4>
+                                  </c:if>
+                                  <br class="clearfloat" />
+                                <div class="floatLeft userFace">
+                                    <c:if test="<%= profileUser != null%>">
+                                        <liferay-portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString()%>" var="editUserPortraitURL">
+                                            <portlet:param name="struts_action" value="/ext/community/edit_portrait" />
+                                            <portlet:param name="redirect" value="<%= currentURL%>" />
+                                            <portlet:param name="p_u_i_d" value="<%= String.valueOf(profileUser.getUserId())%>" />
+                                            <portlet:param name="portrait_id" value="<%= String.valueOf(profileUser.getPortraitId())%>" />
+                                        </liferay-portlet:renderURL>
+										 
+										<c:choose>
+											<c:when test="<%=editEnabled%>">
+                            					<a class="change-avatar" href="javascript: <portlet:namespace />openEditUserPortraitWindow('<%= editUserPortraitURL%>');">
+                                              		<img alt="<liferay-ui:message key="avatar" />" class="avatar userFace" id="<portlet:namespace />avatar" src='<%= themeDisplay.getPathImage()%>/user_<%= profileUser.isFemale() ? "female" : "male"%>_portrait?img_id=<%= deletePortrait ? 0 : profileUser.getPortraitId()%>&t=<%= ImageServletTokenUtil.getToken(profileUser.getPortraitId())%>' />
+                                     	   		</a>
+                        					</c:when>
+											<c:otherwise>
+												<img alt="<liferay-ui:message key="avatar" />" class="avatar userFace" id="<portlet:namespace />avatar" src='<%= themeDisplay.getPathImage()%>/user_<%= profileUser.isFemale() ? "female" : "male"%>_portrait?img_id=<%= deletePortrait ? 0 : profileUser.getPortraitId()%>&t=<%= ImageServletTokenUtil.getToken(profileUser.getPortraitId())%>' />
+											</c:otherwise>
+										</c:choose>
+                                        <div class="portrait-icons editView" style="display:none">
+                                            <%
+                                                        String taglibEditURL = "javascript: " + renderResponse.getNamespace() + "openEditUserPortraitWindow('" + editUserPortraitURL + "');";
+                                            %>
+
+                                            <liferay-ui:icon image="edit" message="change" url="<%= taglibEditURL%>" label="<%= true%>" />
+                                            <c:if test="<%= profileUser.getPortraitId() > 0%>">
+
+                                                <%
+                                                            String taglibDeleteURL = "javascript: " + renderResponse.getNamespace() + "deletePortrait('" + themeDisplay.getPathImage() + "/user_" + (profileUser.isFemale() ? "female" : "male") + "_portrait?img_id=0');";
+                                                %>
+
+                                                <liferay-ui:icon image="delete" url="<%= taglibDeleteURL%>" label="<%= true%>" cssClass="modify-link" />
+
+                                                <input id="<portlet:namespace />deletePortrait" name="<portlet:namespace />deletePortrait" type="hidden" value="<%= deletePortrait%>" />
+                                            </c:if>
+                                        </div>
+                                    </c:if>
+                                </div>
+                                <div class="floatLeft userProfileInfo">
+                                    <table class="user-info">
+                                        <tr>
+                                            <td class="first">Screen Name : </td>
+                                            <td>
+                                                <div class="informationView"><%=screenName%></div>
+                                                <div class="editView" style="display: none"><input class="lfr-input-text" name="<portlet:namespace />screenName"  type="text" value="<%=screenName%>" /></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="first">Member since : </td>
+                                            <td><%=dateFormatDate.format(memberSince)%></td>
+                                        </tr>
+                                        <c:if test="<%=isMine%>">
+                                            <tr>
+                                                <td class="first">First Name : </td>
+                                                <td>
+                                                    <div class="informationView"><%=firstName%></div>
+                                                    <div class="editView" style="display: none"><input class="lfr-input-text" name="<portlet:namespace />firstName"  type="text" value="<%=firstName%>" /></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="first">Last Name : </td>
+                                                <td>
+                                                    <div class="informationView"><%=lastName%></div>
+                                                    <div class="editView" style="display: none"><input class="lfr-input-text" name="<portlet:namespace />lastName"  type="text" value="<%=lastName%>" /></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="first">Email :</td>
+                                                <td>
+                                                    <div class="informationView"><%=email%></div>
+                                                    <div class="editView" style="display: none"><input class="lfr-input-text" name="<portlet:namespace />email"  type="text" value="<%=email%>" /></div>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                    </table>
+                                </div>
+                                <div class="clear"></div>
+
+                                <div class="aboutMe">
+                                    <h4>ABOUT ME</h4>
+                                    <div class="informationView">
+                                        <p>
+                                            <%= aboutMe%>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="editView" style="display: none">
+                                    <liferay-ui:input-textarea param="<%=CommunityConstants.BIO%>" defaultValue="<%= aboutMe%>" />
+                                </div>
+                            </div>
+                </form>
+                <div class="clear"></div>
+                 <c:if test="<%=editEnabled%>">
+
+                    <div id="changePassword" class="floatRight changePassword informationView" style="display:none">
+                        <div class="password-change-link">
+                            <a href="javascript:setPasswordMode(true)">Change password</a>
+                        </div>
+                        <div class="password-change-form" style="display: none">
+
+                            <form action='${submitActionURL}' method="post" name="<portlet:namespace />passwordForm">
+                                <input name="<portlet:namespace/><%= Constants.CMD%>" type="hidden" value="<%= CommunityConstants.UPDATE_PASSWORD%>"/>
+                                <table class="floatRight">
+                                    <tr>
+                                        <td>New Password:</td>
+                                        <td><input class="lfr-input-text" name="<portlet:namespace /><%=CommunityConstants.PASSWORD1%>"  type="password" value="" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Retype Password:</td>
+                                        <td><input class="lfr-input-text" name="<portlet:namespace /><%=CommunityConstants.PASSWORD2%>"  type="password" value="" /></td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <div class="password-buttons floatRight">
+                                <a href="javascript:submitPasswordForm();" id="submitPassword">Submit</a>
+                                <a href="javascript:setPasswordMode(false);" id="cancelPassword">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+
+
+            </div>
+
+			<div class="t"></div>
+            <div class="ft">
+                <div class="editView buttons" style="display: none">
+                    <div class="floatRight">
+                        <a href="javascript:submitForm();" id="saveProfileBtn"><span class="saveProfileBtn">&nbsp;</span></a>
+                        <a href="javascript:setEditMode(false);" id="cancelProfileBtn"><span class="cancelProfileBtn">&nbsp;</span></a>
+                    </div>
+                </div>
+               <div class="clear"></div>
+
+
+            </div>
+
+        </div>
+        <div class="b">
+            <div></div>
+        </div>
+    </div>
+</div>
+
+
+ <%
+                                int activitiesCount = (Integer) renderRequest.getAttribute(ActivityConstants.ACTIVITY_COUNT_PARAMETER);
+                                List<SocialActivity> activities = (List<SocialActivity>) renderRequest.getAttribute(ActivityConstants.ACTIVITIES_PARAMETER);
+                                String pageIteratorStrutsPath = "/ext/community/view";
+                                long userId = profileUser.getUserId();
+                    %>
+
+<div id="MyActivities" class="activities-wall single-col">
+    <div class="PortletBox">
+        <div class="content">
+
+            
+            <div class="hd">
+                <div class="title">
+                    <div class="name">
+                        <h2> <%=editEnabled ? "My" : screenName + "'s"%> activities</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+               <%@ include file="/html/portlet/ext/wall/view_renderer.jspf" %>
+
+            </div>
+
+			<div class="t"></div>
+            <div class="ft">
+
+            </div>
+
+        </div>
+        <div class="b">
+            <div></div>
+        </div>
+    </div>
+
+</div>
+
+<div id="sendMessagePopup" class="hidden">
+    <%@ include file="/html/portlet/ext/community/send_message_form.jspf" %>
+</div>
+
+
+
+

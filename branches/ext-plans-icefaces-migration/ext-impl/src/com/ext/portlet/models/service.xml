@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<service-builder package-path="com.ext.portlet.models">
+<namespace>Models</namespace>
+<entity name="ModelDiscussion" remote-service="true" local-service="true" persistence-class="com.ext.portlet.models.service.persistence.ModelDiscussionPersistenceImpl">
+		<!-- PK field -->
+		<column name="modelDiscussionId" type="Long" primary="true"/>
+		<column name="modelId" type="Long" />
+		<column name="categoryId" type="Long" />
+
+		<finder name="ModelId" return-type="Collection">
+			<finder-column name="modelId" />
+		</finder>
+
+		<finder name="DiscussionId" return-type="Collection">
+			<finder-column name="categoryId" />
+		</finder>
+</entity>
+
+<entity name="ModelPosition" local-service="true" persistence-class="com.ext.portlet.models.service.persistence.ModelPositionPersistenceImpl">
+
+		<!-- PK field -->
+		<column name="modelId" type="Long" primary="true" />
+		<column name="positionId" type="Long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="Long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Order columns -->
+
+		<order by="asc">
+			<order-column name="modelId" />
+			<order-column name="positionId" />
+		</order>
+
+		<!-- Finder methods -->
+
+
+		<finder name="PositionId" return-type="Collection">
+			<finder-column name="positionId" />
+		</finder>
+
+	</entity>
+
+
+
+	<exceptions>
+		<exception>ModelName</exception>
+		<exception>NoSuchModelPosition</exception>
+		<exception>NoSuchModel</exception>
+
+	</exceptions>
+
+	</service-builder>

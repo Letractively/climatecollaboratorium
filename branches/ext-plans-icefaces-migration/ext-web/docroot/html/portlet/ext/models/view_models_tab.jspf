@@ -1,0 +1,57 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ * The fragement for tabs
+ *
+ * version 1.1: themed to be consistent with collaboratorium theme
+ *
+ * @author BeBetter
+ * @version 1.1
+ */
+%>
+
+<%
+
+long localModelId =  Long.parseLong(ParamUtil.getString(request, ModelConstants.MODEL_ID,"-1"));
+boolean isDetail =localModelId < 0?false:true;
+String modelName = ParamUtil.getString(request,ModelConstants.MODEL_NAME,"No model selected");
+
+%>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="modelIndexTabURL">
+	<portlet:param name="struts_action" value="/ext/models/view_models" />
+	<portlet:param name="<%=ModelConstants.MODEL_NAME%>" value="<%=modelName%>"/>
+</liferay-portlet:renderURL>
+
+
+
+
+<div class="model">
+	<div class="inner">
+        <!-- end .tab -->
+        <div class="tabContent_top">
+            <div class="tabContent_bottom">
+        	<div class="tabContent">
+				<div class="tabinner">
+						<div class="topBtn">
+							<div class="modelIndex">
+									<h2 class="modelIndexLink">
+										<c:choose>
+											<c:when test="<%=isDetail %>" >
+												<a href="${modelIndexTabURL}">Model Index</a>
+												&gt;
+												<span class="modelName label"><%=modelName%></span>
+											</c:when>
+											<c:otherwise>
+												Model Index
+											</c:otherwise>
+											</c:choose>
+									</h2>
+							</div>
+						</div>

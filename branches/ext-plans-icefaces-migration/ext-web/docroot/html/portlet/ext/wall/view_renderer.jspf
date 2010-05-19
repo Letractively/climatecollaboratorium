@@ -1,0 +1,210 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+*  Fragment renders activities.  In addition to includes, requires, three two incoming parameters
+*  to be defined.
+*        - int  activitiesCount:  Total number of activities
+*		  - List<SocialActivity> activities:  The list of activities to be rendered in this page view.
+**/
+%>
+
+<%
+int pagerMax = ActivityConstants.PAGER_MAX_NUMBER;
+int pagerStart = ParamUtil.getInteger(request, ActivityConstants.PAGER_START, 0);
+int pagerNext = pagerStart + pagerMax;
+int pagerPrev = Math.max(pagerStart - pagerMax, 0);
+int pagerFirst = 0;
+int pagerLast = Math.max(activitiesCount - (activitiesCount % pagerMax), 0);
+
+boolean enableNext = pagerNext < activitiesCount;
+boolean enablePrev = pagerStart > 0;
+boolean enableLast = pagerStart < pagerLast;
+boolean enableFirst = pagerFirst < pagerStart;
+
+Group group = GroupLocalServiceUtil.getGroup(scopeGroupId);
+
+
+DateFormat timeFormatDate = new SimpleDateFormat("h:mm a z", Locale.getDefault());
+timeFormatDate.setTimeZone(TimeZone.getDefault());
+
+
+boolean hasActivities = false;
+boolean firstDaySeparator = true;
+Date now = new Date();
+int daysBetween = -1;
+String userparam = "&userId="+userId;
+    System.err.println("Company is "+company);
+
+%>
+<table class="activities-table lfr-table">
+
+<c:forEach var="tmpActivity" items="<%= activities%>">
+		<%
+		     
+			SocialActivity activity = (SocialActivity)pageContext.getAttribute("tmpActivity"); 
+			//System.out.println("Activity is "+activity);
+			SocialActivityFeedEntry activityFeedEntry = SocialActivityInterpreterLocalServiceUtil.interpret(activity, themeDisplay);
+    	%>
+         <c:if test="<%=activityFeedEntry!=null%>">
+        <%
+    		//System.out.println("Company is "+company);
+    		Portlet portlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), activityFeedEntry.getPortletId());
+    		
+			hasActivities = true;
+   			int curDaysBetween = DateUtil.getDaysBetween(activity.getCreateDate(), now, timeZone);
+   			
+   			String activitytxt = activityFeedEntry.getBody();
+   			if (activitytxt == null || activitytxt.trim().length() == 0) activitytxt = activityFeedEntry.getTitle();
+   			
+    	%>
+
+    
+      <c:if test="<%= curDaysBetween > daysBetween %>">
+        <%
+        daysBetween = curDaysBetween;
+        %>
+        <tr class="date"><td class="date" colspan="2">
+        <span class="date <%= firstDaySeparator ? "first-" : "" %>day-separator">
+          <c:choose>
+            <c:when test="<%= curDaysBetween == 0 %>">
+              <liferay-ui:message key="today" />
+            </c:when>
+            <c:when test="<%= curDaysBetween == 1 %>">
+              <liferay-ui:message key="yesterday" />
+            </c:when>
+            <c:otherwise>
+              <%= dateFormatDate.format(activity.getCreateDate()) %>
+            </c:otherwise>
+          </c:choose>
+        </span>
+        <%
+        firstDaySeparator = false;
+        %>
+        <div class="activity-separator"></div>
+      	</td></tr>
+  
+      </c:if>
+      
+      
+        <tr>
+          <td class="time">
+            <span class="time">
+                          <%= timeFormatDate.format(activity.getCreateDate()) %>
+              </span>
+          </td>
+          
+            <td class="activity-detail">
+            	<div class="activity-body">
+                        <%= activitytxt %>
+                 </div>
+            </td>
+       	</tr>
+       </c:if>
+ 
+	</c:forEach>
+	 </table>
+          <portlet:renderURL windowState="NORMAL" var="firstPageURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= ActivityConstants.PAGER_START %>" value="<%= String.valueOf(pagerFirst) %>" />
+          </portlet:renderURL>
+
+          <portlet:renderURL windowState="NORMAL" var="lastPageURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= ActivityConstants.PAGER_START %>" value="<%= String.valueOf(pagerLast) %>" />
+          </portlet:renderURL>
+
+          <portlet:renderURL windowState="NORMAL" var="nextPageURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= ActivityConstants.PAGER_START %>" value="<%= String.valueOf(pagerNext) %>" />
+          </portlet:renderURL>
+
+          <portlet:renderURL windowState="NORMAL" var="prevPageURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= ActivityConstants.PAGER_START %>" value="<%= String.valueOf(pagerPrev) %>" />
+          </portlet:renderURL>
+
+
+          <div class="clear">
+          </div>
+          <div class="pageBottom">
+            <div class="pageNum">
+              <div class="totalPage">
+                Displaying
+                <strong>
+                  <%= pagerStart + 1 %>
+                  -
+                  <%= Math.min(pagerStart + pagerMax, activitiesCount) %>
+                </strong>
+                of
+                <strong>
+                  <%= activitiesCount %>
+                </strong>
+                activities
+              </div>
+              <div class="clear"></div>
+              <div class="turnPage">
+                <c:choose>
+                  <c:when test="<%= enableFirst %>">
+                    <a class="firstPage black" href="${firstPageURL}<%=userparam%>">
+                      First Page
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <span class="firstPage">
+                      FirstPage
+                    </span>
+                  </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                  <c:when test="<%= enablePrev %>">
+                    <a class="previous black" href="${prevPageURL}<%=userparam%>">
+                      Previous
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <span class="previous">
+                      Previous
+                    </span>
+                  </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                  <c:when test="<%= enableNext %>">
+                    <a class="next black" href="${nextPageURL}<%=userparam%>">
+                      Next
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <span class="next">
+                      Next
+                    </span>
+                  </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                  <c:when test="<%= enableLast %>">
+                    <a class="lastPage black" href="${lastPageURL}<%=userparam%>">
+                      Last Page
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <span class="lastPage">
+                      Last Page
+                    </span>
+                  </c:otherwise>
+                </c:choose>
+
+              </div>
+              <div class="clear">
+              </div>
+            </div>
+            <div class="clear">
+            </div>
+          </div>
+

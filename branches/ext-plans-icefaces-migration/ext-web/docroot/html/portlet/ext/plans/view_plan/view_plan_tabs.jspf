@@ -1,0 +1,400 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * File responsible for rendering basic information about a plan together with tabs panel.
+ *
+ * version 1.1 : moved plan membership management to plan membership info box, added voting button (mock), fixed
+ *               permissions
+ * version 1.2 : added support for voting
+ *
+ * @author janusz.p, janusz.p
+ * @version 1.1, 1.2
+ * @since 1.0
+ */
+ %>
+<%
+	boolean votedForCurrentPlan = planVote != null ? planVote.getPlanId().equals(plan.getPlanId()) : false;
+	String selectedTab = ParamUtil.getString(request, PlanConstants.VIEW_PLAN_TABS, PlanConstants.SUMMARY_TAB);
+%>
+
+<!-- prepare link to plans list -->
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="backURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plans" />
+</liferay-portlet:renderURL>
+
+<!-- prepare general link for editing a plan  -->
+<liferay-portlet:actionURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="editURL">
+	<portlet:param name="struts_action" value="/ext/plans/edit_plan" />
+	<portlet:param name="<%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.UPDATE %>" />
+</liferay-portlet:actionURL>
+
+<!-- prepare general link for deleting a plan  -->
+<liferay-portlet:actionURL windowState="<%= WindowState.NORMAL.toString() %>" var="deleteURL">
+	<portlet:param name="struts_action" value="/ext/plans/edit_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+</liferay-portlet:actionURL>
+
+
+<!-- prepare link for publishing a plan  -->
+<liferay-portlet:actionURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="publishURL">
+	<portlet:param name="struts_action" value="/ext/plans/edit_plan" />
+	<portlet:param name="<%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.UPDATE_TYPE %>" value="<%= PlanConstants.UPDATE_PUBLISHED %>" />
+	<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.UPDATE %>" />
+</liferay-portlet:actionURL>
+
+<!-- prepare link for removing a vote  -->
+<liferay-portlet:actionURL var="unvoteURL">
+	<portlet:param name="struts_action" value="/ext/plans/plan_vote" />
+	<portlet:param name="<%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.UPDATE_TYPE %>" value="<%= PlanConstants.UNVOTE %>" />
+</liferay-portlet:actionURL>
+
+
+
+<!-- prepare link for removing vote from a plan  -->
+<liferay-portlet:actionURL var="voteURL">
+	<portlet:param name="struts_action" value="/ext/plans/plan_vote" />
+	<portlet:param name="<%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.UPDATE_TYPE %>" value="<%= PlanConstants.VOTE %>" />
+</liferay-portlet:actionURL>
+
+<!-- prepare link used to switch tabs -->
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="tabURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+</liferay-portlet:renderURL>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="summaryTabURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.VIEW_PLAN_TABS %>" value="<%= PlanConstants.SUMMARY_TAB %>" />
+</liferay-portlet:renderURL>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="descriptionTabURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.VIEW_PLAN_TABS %>" value="<%= PlanConstants.DESCRIPTION_TAB %>" />
+</liferay-portlet:renderURL>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="discussionTabURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.VIEW_PLAN_TABS %>" value="<%= PlanConstants.DISCUSSION_TAB %>" />
+</liferay-portlet:renderURL>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="actionsTabURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.VIEW_PLAN_TABS %>" value="<%= PlanConstants.ACTIONS_TAB %>" />
+</liferay-portlet:renderURL>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="impactsTabURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.VIEW_PLAN_TABS %>" value="<%= PlanConstants.IMPACTS_TAB %>" />
+</liferay-portlet:renderURL>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="membersTabURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.VIEW_PLAN_TABS %>" value="<%= PlanConstants.MEMBERS_TAB %>" />
+</liferay-portlet:renderURL>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="modelTabURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.VIEW_PLAN_TABS %>" value="<%= PlanConstants.MODEL_TAB %>" />
+</liferay-portlet:renderURL>
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>" var="subscriptionURL">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.UPDATE_TYPE %>" value="subscribe" />
+
+</liferay-portlet:renderURL>
+
+ <script type="text/javascript">
+ 	/**
+ 	 * Clears all warning messages.
+ 	 */
+ 	function <portlet:namespace/>clearWarnings() {
+		jQuery("#<portlet:namespace />planMessages").html("");
+	}
+
+	/**
+ 	 * Shows warning message to the user.
+ 	 * @param message warning message to be shown.
+ 	 */
+	function <portlet:namespace />showWarning(message) {
+		jQuery("#<portlet:namespace />planMessages").append("<span class=\"portlet-msg-alert\">" + message + "</span>");
+	}
+
+	/**
+	 * Function responsible for checking if all plan data have been entered. If plan
+	 * is incomplete appropriate message is presented to the user.
+	 *
+	 * @return true if plan is complete, false otherwise
+	 */
+ 	function <portlet:namespace />checkIfPlanComplete() {
+ 		<portlet:namespace />clearWarnings();
+ 	 	var complete = true;
+
+ 		<c:if test="<%= isContentMissing %>">
+			complete = false;
+ 			<portlet:namespace />showWarning('<liferay-ui:message key="plan-content-missing" />');
+ 		</c:if>
+
+		<c:if test="<%= areActionsMissing %>">
+			complete = false;
+			<portlet:namespace />showWarning('<liferay-ui:message key="plan-actions-missing" />');
+		</c:if>
+ 	 	return complete;
+ 	}
+ 	
+ 
+ 	/**
+ 	 * Function responsible for publishing a plan. Before publish request is sent function
+ 	 * validates if plan is complete.
+ 	 */
+ 	function <portlet:namespace />publishPlan() {
+ 	 	if (! <portlet:namespace />checkIfPlanComplete()) {
+ 	 	 	return;
+ 	 	}
+ 		if (confirm('<liferay-ui:message key="are-you-sure-you-want-to-publish-plan" />')) {
+ 			submitForm(document.hrefFm, '<%= publishURL %>');
+ 		} else {
+ 			self.focus();
+ 		}
+ 	}
+
+ 	/**
+ 	 * Function responsible for voting/unvoting on a plan.
+ 	 */
+ 	function <portlet:namespace />planVote(action) {
+ 	 	var url = '<%= voteURL %>';
+ 	 	var message = '<liferay-ui:message key="are-you-sure-you-want-to-vote-for-this-plan" />';
+ 	 	if (action == 'unvote') {
+ 	 	 	var url = '<%= unvoteURL %>';
+ 	 	 	var message = '<liferay-ui:message key="are-you-sure-you-want-to-remove-your-vote" />';
+ 	 	}
+ 		if (confirm(message)) {
+ 			submitForm(document.hrefFm, url);
+ 		} else {
+ 			self.focus();
+ 		}
+ 	}
+
+ 	function <portlet:namespace/>copyPlan() {
+		submitForm(document.hrefFm,'<%=copyURL%>');
+ 	}
+ 	
+ 	function <portlet:namespace/>deletePlan() {
+ 	     submitForm(document.hrefFm,'<%=deleteURL%>');
+ 	}
+ 	
+ 	function <portlet:namespace/>nameChangeMode(mode) {
+ 	     if (mode) {
+ 	          $(".editName").show();
+ 	          $(".viewName").hide();
+ 	     } else {
+ 	           $(".editName").hide();
+ 	          $(".viewName").show();
+ 	     }
+ 	}
+ 	
+ 	function <portlet:namespace/>submitNameChange() {
+ 	     document.<portlet:namespace />nameChangeForm.submit();
+ 	}
+
+ 	// set Java Script variable to know if user can update a plan
+	var canUpdatePlan = false;
+	<c:if test="<%= canEditPlan %>">
+		canUpdatePlan = true;
+	</c:if>
+</script>
+ </script>
+
+<div class="plan-detail"><div class="outLay">
+	<div class="top">
+    	<div class="bottom">
+			<div class="content">
+
+					<div class="planFunction">
+					     <span class="function copy">
+
+						<a href="#" onclick="deferUntilLogin(function() {
+                            <portlet:namespace />showDialog('copy-plan-dialog', {width: 300, height: 180});
+                            });return false;" class="createNewPlanunpublished">create new plan based on this<span class="hidden">Create a New Plan</span></a>
+                        </span>
+						<c:if test="<%= isLoggedIn%>">  |
+						    <span class="function subscribe"><a href="${subscriptionURL}">subscribe</a></span>
+					    </c:if>
+					  </div>
+
+				<div class="main-title">
+				
+				<span class="planName viewName"><h2><%=plan.getName()%></h2>
+				<c:if test="<%=isPlanMember%>">
+				     <a href="javascript:<portlet:namespace/>nameChangeMode(true)">rename</a>
+				 </c:if>
+				 </span>
+				<span class="planName editName" style="display:none">
+				     <form action='${editURL}' method="post" name="<portlet:namespace />nameChangeForm" class="editName">
+						<input name="<portlet:namespace/><%= PlanConstants.PLAN_NAME_FIELD %>" type="text" value="<%=HtmlUtil.escape(plan.getName())%>"/>
+						<input name="<portlet:namespace/><%= PlanConstants.UPDATE_TYPE %>" type="hidden" value="<%= PlanConstants.UPDATE_PLAN_NAME%>"/>
+					</form>
+					<a href="javascript:<portlet:namespace/>submitNameChange()">submit</a>
+					<a href="javascript:<portlet:namespace/>nameChangeMode(false)">cancel</a>
+				 </span>    							
+				<span class="planVotes">
+				<c:if test="<%= planPublished %>">
+                    	<%= plan.getVotes()+" (" + 100 * plan.getVotes() / votes  + "%) votes."%>
+                   </c:if>
+				<c:if test="<%= planPublished %>">
+                    			<c:choose>
+									<c:when test="<%= votedForCurrentPlan %>">
+										<a href="javascript:;" onClick="deferUntilLogin(
+                                            function() {
+                                                <portlet:namespace />planVote('unvote');
+                                            });" class="enableVote"> Remove your Vote</a>
+									</c:when>
+									<c:otherwise>
+										<a href="javascript:;" onClick="deferUntilLogin(
+                                            function() {
+                                              <portlet:namespace />planVote('vote');
+                                            });" class="disableVote"> Vote for this Plan</a>
+									</c:otherwise>
+								</c:choose>
+				</c:if>
+				</span>
+
+				 
+				</div>
+				<!-- 
+				<div class="btnList">
+					<div class="btn <%= planPublished ? "published" : "unpublished" %>" >
+						<div class="btninner">
+							This Plan is
+							<c:choose>
+								<c:when test="<%= planPublished %>" >
+									<strong class="blue">published</strong>.
+								</c:when>
+								<c:otherwise>
+									<strong class="blue">unpublished</strong>.
+									
+									<c:if test="<%= isPlanComplete && isPlanMember %>" >
+										<div class="portlet-climateplan-add-plan portlet-plans-action-link">
+											<a href="javascript:<portlet:namespace />publishPlan()" class="blue">
+												<liferay-ui:message key="publish-plan" />
+											</a>
+										</div>
+									</c:if>
+									<c:if test="<%= ! isPlanComplete %>">
+										<div>
+											<liferay-ui:message key="plan-incomplete" />.
+										</div>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
+					<div class="btn request <%= isPlanOwner ? "admin" : "" %>">
+						<div class="btninner">
+							<c:choose>
+								<c:when test="<%= isPlanOwner %>">
+									You have <strong class="blue">administrator</strong> access to this plan.
+									<a href="<%= planMangeMembersURL %>" target="_blank" class="blue">Manage Members</a>
+									<c:if test="<%= planPendingRequests > 0 %>">
+										,
+										<a href="<%= planManageMembershipRequestsURL %>" target="_blank" class="blue">
+											<%= planPendingRequests %> Membership Requests
+										</a>
+									</c:if>
+								</c:when>
+								<c:when test="<%= isPlanMember %>">
+									You have <strong class="blue">member</strong> access to this plan.<br /><br />
+								</c:when>
+								<c:otherwise>
+									You have <strong class="blue">guest</strong> access to this plan.
+									<c:choose>
+										<c:when test="<%= isLoggedIn %>">
+											<a class="blue" href="${planRequestMembershipURL}" target="_blank">
+												Request a Membership
+											</a>
+										</c:when>
+										<c:otherwise>
+											<br /><br />
+										</c:otherwise>
+									</c:choose>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
+                    <div class="btn vote <%= planPublished ? "enabled" : "" %>">
+                    	<div class="btninner">
+                    		<div>
+                    			<%= planMembersCount %> members ,
+                    			create date <fmt:formatDate value="<%= planCreateDate %>" dateStyle="long" type="date" />
+                    			<c:if test="<%= planPublished %>">
+                    				<br /><%= plan.getVotes() %> votes so far
+                    			</c:if>
+                    		</div>
+                    		<c:if test="<%= planPublished && isLoggedIn %>">
+                    			<c:choose>
+									<c:when test="<%= votedForCurrentPlan %>">
+										<a href="javascript:;" onClick="<portlet:namespace />planVote('unvote')" class="enableVote"> Remove your Vote</a>
+									</c:when>
+									<c:otherwise>
+										<a href="javascript:;" onClick="<portlet:namespace />planVote('vote')" class="disableVote"> Vote for this Plan</a>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+                    	</div>
+                    </div>
+                    <div class="clear"></div>
+					<a href="javascript:<portlet:namespace />showDialog('copy-plan-dialog', {width: 300, height: 180})" class="createNewPlanunpublished">Copy plan dialog<span class="hidden">Create a New Plan</span></a>
+				</div>
+				 -->
+				 
+
+				
+				<div class="tab" id="planDetailTab">
+					<ul>
+                    	<li class="<%= selectedTab.equals(PlanConstants.SUMMARY_TAB) ? "current" : "" %>" ><a href="${summaryTabURL}" >Summary</a></li>
+                        <li class="<%= selectedTab.equals(PlanConstants.DESCRIPTION_TAB) ? "current" : "" %>" ><a href="${descriptionTabURL}">Description</a></li>
+                        <li class="<%= selectedTab.equals(PlanConstants.ACTIONS_TAB) ? "current" : "" %>" ><a href="${actionsTabURL}">Actions</a></li>
+                        <li class="<%= selectedTab.equals(PlanConstants.MODEL_TAB) ? "current" : "" %>" ><a href="${modelTabURL}">Models</a></li>
+                        <li class="<%= selectedTab.equals(PlanConstants.IMPACTS_TAB) ? "current" : "" %>" ><a href="${impactsTabURL}">Impacts</a></li>
+                        <li class="<%= selectedTab.equals(PlanConstants.DISCUSSION_TAB) ? "current" : "" %>" ><a href="${discussionTabURL}">Discussion</a></li>
+                        <li class="<%= selectedTab.equals(PlanConstants.MEMBERS_TAB) ? "current" : "" %>" ><a href="${membersTabURL}">Administration</a></li>
+                    </ul>
+                	<div class="clear"></div>
+              	</div>
+              	<div class="tabContent_bottom">
+					<div id="planDetail" class="tabContent">
+						<div class="<%= selectedTab %>">
+
+
+
+<!-- tabs panel
+<liferay-ui:tabs
+   param="<%= PlanConstants.VIEW_PLAN_TABS %>"
+   names="<%= viewPlanTabNames %>"
+   url="${tabURL}"
+/>
+-->

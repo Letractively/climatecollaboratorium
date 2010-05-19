@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
+
+<service-builder package-path="com.ext.portlet.mass_messaging">
+	<namespace>mass_messaging</namespace>
+	<entity name="MessagingMessage" local-service="true" persistence-class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessagePersistenceImpl">
+	    <!-- PK field -->
+		<column name="messageId" type="Long" primary="true" />
+		
+		<!-- Meta data  -->
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		
+		<!-- Message details -->
+		<column name="subject" type="String" />
+		<column name="body" type="String" />
+		<column name="replyTo" type="String" />
+        <column name="sendToAll" type="Boolean" />
+        <column name="conversionCount" type="Long" />
+        
+        <column name="redirectURL" type="String" />
+		
+		<!-- Audit fields -->
+		<column name="creatorId" type="Long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+				
+	   <order by="desc">
+	       <order-column name="createDate" />
+	   </order>
+	</entity>
+	
+    <entity name="MessagingMessageRecipient" local-service="true" persistence-class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageRecipientPersistenceImpl">
+        <!-- PK field -->
+        <column name="recipientId" type="Long" primary="true" />
+        
+        
+        <!-- Recipient data, at least emailAddress should be filled -->
+        <column name="messageId" type="Long" />
+        <column name="userId" type="Long" />
+        <column name="emailAddress" type="String" />
+        
+    </entity>
+    
+    <entity name="MessagingMessageConversionType" local-service="true" persistence-class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionTypePersistenceImpl">
+        <!-- PK field -->
+        <column name="typeId" type="Long" primary="true" />
+        <column name="name" type="String" />
+        <column name="description" type="String" />
+        
+        <finder return-type="MessagingMessageConversionType" name="findByName">
+            <finder-column name="name" />
+        </finder>
+        
+    </entity>
+	
+	<entity name="MessagingMessageConversion" local-service="true" persistence-class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionPersistenceImpl">
+	
+        <!-- PK field -->
+        <column name="conversionId" type="Long" primary="true" />
+        
+        <!-- Id of conversion type -->
+        <column name="conversionTypeId" type="Long" />
+        <column name="messageId" type="Long" />
+        <column name="ipAddress" type="String" />
+        
+        <!-- Additional serialized data -->
+        <column name="extraData" type="String" />
+        <column name="extraData2" type="String" />
+        
+        
+        <column name="createDate" type="Date" />
+        
+        <finder return-type="Collection" name="findByType">
+            <finder-column name="messageId" />
+            <finder-column name="conversionTypeId" />
+        </finder>
+        
+    </entity>
+    
+    <entity name="MessagingRedirectLink" local-service="true" persistence-class="com.ext.portlet.mass_messaging.service.persistence.MessagingRedirectLinkPersistenceImpl">
+    
+        <!-- PK field -->
+        <column name="redirectId" type="Long" primary="true" />
+        
+        <column name="link" type="String" />
+        <column name="messageId" type="Long" />
+        
+        <column name="createDate" type="Date" />
+        
+    </entity>
+    
+    <entity name="MessagingIgnoredRecipients" local-service="true" persistence-class="com.ext.portlet.mass_messaging.service.persistence.MessagingIgnoredRecipientsPersistenceImpl">
+    
+        <!-- PK field -->
+        <column name="ignoredRecipientId" type="Long" primary="true" />
+        <column name="email" type="String" />
+        <column name="name" type="String" />
+        <column name="userId" type="Long" />
+        <column name="createDate" type="Date" />
+                
+                        
+       <order by="asc">
+           <order-column name="email" />
+       </order>
+       
+        <finder return-type="MessagingIgnoredRecipients" name="findByEmail">
+            <finder-column name="email" />
+        </finder>
+        
+        <finder return-type="MessagingIgnoredRecipients" name="findByUserId">
+            <finder-column name="userId" />
+        </finder>
+
+        
+    </entity>
+	
+	
+	<exceptions>
+
+		<exception>NoSuchMessagingMessage</exception>
+        <exception>NoSuchMessagingMessageRecipient</exception>
+        <exception>NoSuchMessagingMessageConversionType</exception>
+        <exception>NoSuchMessagingMessageConversion</exception>
+		<exception>NoSuchEntity</exception>
+		<exception>NoSuchMessagingIgnoredRecipientsException</exception>
+		
+	</exceptions>
+</service-builder>

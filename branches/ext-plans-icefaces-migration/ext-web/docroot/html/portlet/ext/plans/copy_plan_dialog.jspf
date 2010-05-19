@@ -1,0 +1,56 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * Add plan dialog box.
+ *
+ * @author TCSDEVELOPER
+ * @version 1.0
+ */
+ %>
+<!-- prepare form submit action URL -->
+<portlet:actionURL windowState="NORMAL" var="submitActionURL">
+	<portlet:param name="struts_action" value="/ext/plans/edit_plan" />
+
+</portlet:actionURL>
+
+<!-- prepare link for removing a vote  -->
+<liferay-portlet:actionURL var="copyURL">
+	<portlet:param name="struts_action" value="/ext/plans/edit_plan" />
+	<portlet:param name="<%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= planId %>" />
+	<portlet:param name="<%= PlanConstants.UPDATE_TYPE %>" value="<%= PlanConstants.COPY_PLAN %>" />
+</liferay-portlet:actionURL>
+
+	<div class="addPlan">
+		<div class="addPlan_top">
+    		<div class="title"><h4 >Copy Plan</h4></div>
+    	</div>
+    	<div class="interior">
+    		<form name="test"></form>
+			<form action="${copyURL}" method="post" name="<portlet:namespace />copyPlanForm" id="copyplan-form">
+				<div class="row">
+					<label><liferay-ui:message key="name" />:</label>
+					<input type="text" name="<portlet:namespace /><%= PlanConstants.NAME %>" />
+					<div class="note">Note: You can change the name of your plan after it's been created.</div>
+				</div>
+
+
+
+
+             </form>
+    	</div>
+     	<div class="addPlan_bottom">
+     		<div class="btnBox">
+        		<a href="#" class="checkBtn first" onClick="document.<portlet:namespace />copyPlanForm.submit(); return false;" ><span class="hidden">Check</span></a>
+            	<a href="javascript:;" class="cancelBtn" onClick="<portlet:namespace />closeDialog('copy-plan-dialog')"><span class="hidden">Cancel</span></a>
+	        </div>
+	     </div>
+	</div>
+

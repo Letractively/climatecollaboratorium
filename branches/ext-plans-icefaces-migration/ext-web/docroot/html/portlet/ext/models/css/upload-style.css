@@ -1,0 +1,95 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+@CHARSET "UTF-8"
+* { padding: 0; margin: 0; }
+
+span.step_num {
+	font-family: Impact,Charcoal,sans-serif;
+	font-size: 1.5em;
+	text-align: left;
+	float: left;
+	letter-spacing: 0.2em;
+	padding-right: 2px;
+}
+
+#nameField {
+	width: 250px;
+}
+
+HTML, BODY
+{
+padding: 0;
+border: 0px none;
+}
+
+/* Let's add some style to our fieldset & legend */
+
+fieldset
+{
+-moz-border-radius: 7px;
+border: 1px #dddddd solid;
+padding: 10px;
+width: 550px;
+margin-top: 10px;
+}
+
+fieldset legend
+{
+border: 1px #1a6f93 solid;
+color: black; 
+
+font-family: Verdana;
+font-weight: none;
+font-size: 13px;
+
+padding-right: 5px;
+padding-left: 5px;
+padding-top: 2px;
+padding-bottom: 2px;
+
+-moz-border-radius: 3px;
+}
+
+/* Label */
+.describeForm label
+{
+width: 180px;
+padding-left: 20px;
+margin: 5px;
+float: left;
+text-align: right;
+}
+
+/* Input, Textarea */
+.describeForm input, textarea
+{
+	margin: 5px;
+	padding: 0px;
+	float: left;
+}
+
+#modelName
+{
+	width: 295px;
+}
+
+.describeForm textarea
+{
+	height: 150px;
+	width: 300px;
+	overflow: auto;
+}
+
+.describeForm br
+{
+	clear: left;
+}
+
+#save
+{
+	margin-left: 210px;
+}

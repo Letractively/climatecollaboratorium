@@ -1,0 +1,152 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+@CHARSET "UTF-8"
+* { padding: 0; margin: 0; }
+
+body {
+ font-family: Verdana, sans-serif;
+ font-size: 13px;
+ padding:0;
+ margin:9px 9px 0 9px;
+}
+
+p {
+ padding-left: 30px;
+}
+
+#wrapper { 
+width: 85%;
+background-color:#FFFFFF;
+margin-top: 10px;
+margin-bottom: 50px;
+margin-left: auto;
+margin-right: auto;
+padding: 0px;
+border: none;
+}
+
+#content { 
+	margin-left: 170px;
+/*	margin-top: 1px;*/
+	padding: 5px;
+}
+
+#header {
+ margin: 0px;
+ margin-top: 45px;
+ height: 80px;
+ padding: 10px;
+}
+
+/* Logo */
+#logo {
+	background-image: url(../images/logo-small.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 79px;  /* same as height of image */
+}
+
+#logo h1, #logo h2 {
+	margin: 0;
+	padding-left: 100px; /* slightly larger than width of logo img */
+}
+
+#logo h1 {
+	display: block;
+	height:30px;
+	padding-top: 30px;
+}
+
+#logo h2 {
+	font-size: 16px;		
+}
+
+#logo h1 a:hover {
+	text-decoration: none;
+	background: none;
+}
+
+
+#content h1, h2, h3, h4 {
+	/*color: #156704;*/
+	color: #239911;
+}
+
+#leftnav { 
+	width: 150px;
+	padding: 10px;
+	margin-top: 1px;
+	float: left;
+}
+
+#leftnav h3 {
+	color: #239911;
+}
+
+#leftnav ul {
+	list-style: none;
+	padding-left: 0px;
+}
+
+#leftnav ul li {
+	color: #236B8E;
+}
+
+#leftnav h3 {
+	margin:0.5em 0 0 -0.5em;
+	font-size: 95%
+}
+
+#leftnav ul li .links {
+	font-weight: normal;
+}
+
+#leftnav .links a:hover {
+	color: #8AD9CE;
+	background: #034D43;
+	text-decoration: none;	
+}
+
+a:link {
+text-decoration: none;
+color: #0E907E;
+}
+
+
+a:visited {
+text-decoration: none;
+/*color: #0E907E;*/
+color: #236B8E;
+}
+a:hover {
+text-decoration: underline;
+color: #034D43;
+}
+a:active {
+text-decoration: none;
+}
+
+#footer {
+ padding: 20px;
+ margin-top: 50px;
+}
+
+#footer ul li{
+color : #000000;
+background-color : transparent;
+display: inline;
+}
+
+#footer ul li a{
+color : #115EAC;
+background-color : transparent;
+text-decoration : none;
+}
+
+#footer ul li a:hover{
+text-decoration : underline;
+}

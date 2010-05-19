@@ -1,0 +1,120 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+            /**
+             * Copyright (c) 2000-2009 Liferay, Inc. All rights reserved.
+             *
+             * Permission is hereby granted, free of charge, to any person obtaining a copy
+             * of this software and associated documentation files (the "Software"), to deal
+             * in the Software without restriction, including without limitation the rights
+             * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+             * copies of the Software, and to permit persons to whom the Software is
+             * furnished to do so, subject to the following conditions:
+             *
+             * The above copyright notice and this permission notice shall be included in
+             * all copies or substantial portions of the Software.
+             *
+             * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+             * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+             * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+             * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+             * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+             * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+             * SOFTWARE.
+             */
+%>
+<%            /**
+             * Message view for Debate Summary message.
+             *
+             * File based on message_boards/view_message.jspf
+             * * version 1.1: themed to be consistent with collaboratorium theme
+             *
+             * @author janusz.p, TCSDEVELOPER
+             * @version 1.1
+             */
+%>
+
+
+<%@page import="com.ext.portlet.debates.DebatesUtil"%>
+
+<%@page import="com.ext.portlet.debates.DebatesConstants"%>
+
+<%
+    boolean isPosition = debate_message_type.equals(DebatesConstants.POSITION_MSG_TYPE_NAME);
+    
+    long debateMsgId = ParamUtil.get(renderRequest,"debatePostId",-1);
+    List<MBMessage> lineage = new ArrayList<MBMessage>();
+
+    if (!DebatesUtil.getMessageTypeName(debateMsgId).equals(DebatesConstants.ISSUE_MSG_TYPE_NAME)) {
+
+        MBMessage msg = MBMessageLocalServiceUtil.getMBMessage(debateMsgId);
+        debateMsgId = msg.getParentMessageId();
+
+        while (!DebatesUtil.getMessageTypeName(debateMsgId).equals(DebatesConstants.ISSUE_MSG_TYPE_NAME)) {
+            msg = MBMessageLocalServiceUtil.getMBMessage(debateMsgId);
+            lineage.add(0,msg);
+            debateMsgId = msg.getParentMessageId();
+           
+        }
+    }
+
+
+
+%>
+
+<%!
+
+
+    public static String getMessageText(MBMessage msg) {
+        try {
+            String result = msg.getBody();
+            if (DebatesUtil.getMessageType(msg.getMessageId())==DebatesConstants.POSITION_MSG_TYPE) {
+                result = "<b>"+msg.getSubject().replaceFirst("^Comments on:\\s","")+"</b> - "+result;
+            }
+            return result;
+        } catch (Exception e) {
+            return "<i>Error retrieving message</i>";
+        }
+    }
+%>
+
+<portlet:renderURL var="replyURL">
+    <portlet:param name="struts_action" value="/ext/debates/edit_message" />
+    <portlet:param name="redirect" value="<%= currentURL%>" />
+    <portlet:param name="categoryId" value="<%= String.valueOf(debate_message.getCategoryId())%>" />
+    <portlet:param name="threadId" value="<%= String.valueOf(debate_message.getThreadId())%>" />
+    <portlet:param name="parentMessageId" value="<%= String.valueOf(debate_message.getMessageId())%>" />
+    <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>" value="<%= debatesIndexTab%>" />
+</portlet:renderURL>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+	
+        $(".rate-down ").hide();
+
+    });
+</script>
+
+
+<c:if test="<%= !debate_message_type.equals(DebatesConstants.ISSUE_MSG_TYPE_NAME)%>">
+    <div id="debate-lineage">
+    <c:forEach items="<%=lineage%>" var="msg" varStatus="idx">
+        <%
+            MBMessage msg = (MBMessage) pageContext.getAttribute("msg");
+        %>
+
+        <div class="<%=DebatesUtil.getMessageTypeName(msg.getMessageId())%>"><p><%=getMessageText(msg)%></p></div>
+    </c:forEach>
+    <div class="<%=DebatesUtil.getMessageTypeName(debate_message.getMessageId())%>"><p><%=getMessageText(debate_message)%></p></div>
+    </div>
+
+
+  </c:if>
+
+
+
+

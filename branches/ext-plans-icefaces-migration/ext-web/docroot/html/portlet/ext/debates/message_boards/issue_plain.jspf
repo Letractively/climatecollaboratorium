@@ -1,0 +1,19 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+                    <c:if test="<%=topDebateMessage!=null%>">
+
+
+                        <div class="debatesSummaryTitle"><h3><%=topDebateMessage.getSubject()%>
+                        </h3></div>
+                       
+                    </c:if>
+
