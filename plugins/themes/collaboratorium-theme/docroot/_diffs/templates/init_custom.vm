@@ -1,2 +1,0 @@
-#set ($userLocalService = $serviceLocator.findService("com.liferay.portal.service.UserLocalService"))
-#set ($userCount = $userLocalService.getUsersCount())

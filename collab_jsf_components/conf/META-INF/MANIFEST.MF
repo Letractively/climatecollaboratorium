@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Ant-Version: Apache Ant 1.7.1
-Created-By: 14.1-b02 (Sun Microsystems Inc.)
-
-Name: org.climatecollaboratorium.org
-Implementation-Title: Climate Collaboratorium
-Implementation-Version: x.x.x_x (2010-03-28 22:05 CEST)
-Implementation-Vendor: MIT
-
