@@ -7,12 +7,12 @@ Testing of services developed in Liferay's Ext environment takes lots of time as
  # lanuch application server
  # perform tests, often not related to jUnit in any way
 
-Performing all mentioned steps takes 2 - 3 mins or even more. Because of that, in order to make testing faster, separate "framework" has been developed. 
+Performing all mentioned steps takes 2 - 3 minutes or even more. Because of that, in order to make testing faster, separate "framework" has been developed. 
 
 
 = Details =
 
-The biggest problem with testing of Ext services is very long initialization of Liferay core. To make this process faster and to allow integration with jUnit framework special abstract TestCase has been developed - BaseCollabTest:
+The biggest problem with testing of Ext services is very long initialization of Liferay core. To make this process faster and to allow integration with jUnit framework special abstract !TestCase has been developed - !BaseCollabTest:
  * http://code.google.com/p/climatecollaboratorium/source/browse/trunk/ext/ext-impl/test/org/climatecollaboratorium/test/BaseCollabTest.java
 
 Mentioned class contains logic required to initialize minimal set of Liferay classes involved in handling persistence logic etc. All developed test cases should extend it. For examples on how to write unit tests please refer to:
