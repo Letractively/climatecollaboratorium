@@ -1,8 +1,10 @@
-package mit.simulation.climate.client.model;
+package mit.simulation.climate.client.model.impl;
 
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Tuple;
 import mit.simulation.climate.client.Variable;
+import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
+import mit.simulation.climate.client.model.jaxb.ClientTupleListAdapter;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

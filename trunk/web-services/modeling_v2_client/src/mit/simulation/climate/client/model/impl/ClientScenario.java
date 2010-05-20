@@ -1,9 +1,10 @@
-package mit.simulation.climate.client.model;
+package mit.simulation.climate.client.model.impl;
 
 import mit.simulation.climate.client.EntityState;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.Variable;
+import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

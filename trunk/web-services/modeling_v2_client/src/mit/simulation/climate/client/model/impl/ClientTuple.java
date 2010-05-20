@@ -1,4 +1,4 @@
-package mit.simulation.climate.client.model;
+package mit.simulation.climate.client.model.impl;
 
 import mit.simulation.climate.client.Tuple;
 

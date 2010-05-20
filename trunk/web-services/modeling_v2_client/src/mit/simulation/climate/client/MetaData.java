@@ -1,6 +1,6 @@
 package mit.simulation.climate.client;
 
-import mit.simulation.climate.client.model.ClientMetaData;
+import mit.simulation.climate.client.model.impl.ClientMetaData;
 
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;

@@ -1,4 +1,4 @@
-package mit.simulation.climate.client.model;
+package mit.simulation.climate.client.model.jaxb;
 
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;

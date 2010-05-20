@@ -1,6 +1,8 @@
 package mit.simulation.climate.client.model;
 
 import mit.simulation.climate.client.*;
+import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
+import mit.simulation.climate.client.model.jaxb.ResponseWrapper;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
