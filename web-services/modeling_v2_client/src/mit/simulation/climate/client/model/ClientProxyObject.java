@@ -1,6 +1,7 @@
 package mit.simulation.climate.client.model;
 
 import mit.simulation.climate.client.HasId;
+import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

@@ -1,6 +1,7 @@
-package mit.simulation.climate.client.model;
+package mit.simulation.climate.client.model.impl;
 
 import mit.simulation.climate.client.MetaData;
+import mit.simulation.climate.client.model.jaxb.ClientArrayAdapter;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlAttribute;
