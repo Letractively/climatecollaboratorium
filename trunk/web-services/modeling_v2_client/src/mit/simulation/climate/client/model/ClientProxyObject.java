@@ -1,4 +1,4 @@
-package mit.simulation.climate.client.client;
+package mit.simulation.climate.client.model;
 
 import mit.simulation.climate.client.HasId;
 

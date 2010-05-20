@@ -1,7 +1,7 @@
 package mit.simulation.climate.client;
 
 
-import mit.simulation.climate.client.client.RestAccessPoint;
+import mit.simulation.climate.client.model.RestAccessPoint;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
