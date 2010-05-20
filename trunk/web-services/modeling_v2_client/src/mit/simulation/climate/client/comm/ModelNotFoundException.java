@@ -1,4 +1,4 @@
-package mit.simulation.climate.client.model;
+package mit.simulation.climate.client.comm;
 
 /**
  * @author: jintrone

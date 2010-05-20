@@ -1,7 +1,7 @@
 package mit.simulation.climate.client.model.jaxb;
 
 import mit.simulation.climate.client.*;
-import mit.simulation.climate.client.model.ClientRepository;
+import mit.simulation.climate.client.comm.ClientRepository;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -78,7 +78,7 @@ public class ClientJaxbReference <T extends HasId> {
 
         @Override
         public Variable unmarshal(ClientJaxbReference arg0) throws Exception {
-            return (Variable)ClientRepository.instance().resolveOrDefer(arg0,MetaData.class);
+            return (Variable) ClientRepository.instance().resolveOrDefer(arg0,MetaData.class);
         }
     }
 

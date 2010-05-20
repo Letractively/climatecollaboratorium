@@ -1,4 +1,4 @@
-package mit.simulation.climate.client;
+package mit.simulation.climate.client.comm;
 
 import java.io.InputStream;
 

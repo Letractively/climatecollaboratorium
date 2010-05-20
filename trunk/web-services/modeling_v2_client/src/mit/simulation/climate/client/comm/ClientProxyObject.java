@@ -1,4 +1,4 @@
-package mit.simulation.climate.client.model;
+package mit.simulation.climate.client.comm;
 
 import mit.simulation.climate.client.HasId;
 import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
