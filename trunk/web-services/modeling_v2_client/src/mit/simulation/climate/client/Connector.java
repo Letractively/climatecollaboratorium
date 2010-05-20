@@ -1,7 +1,7 @@
-package mit.simulation.climate.model;
+package mit.simulation.climate.client;
 
 
-import mit.simulation.climate.model.client.RestAccessPoint;
+import mit.simulation.climate.client.client.RestAccessPoint;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -9,7 +9,6 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.Map;
 

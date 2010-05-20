@@ -1,4 +1,4 @@
-package mit.simulation.climate.model.client;
+package mit.simulation.climate.client.client;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;

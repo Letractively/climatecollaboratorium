@@ -1,9 +1,9 @@
-package mit.simulation.climate.model.client;
+package mit.simulation.climate.client.client;
 
-import mit.simulation.climate.model.EntityState;
-import mit.simulation.climate.model.Scenario;
-import mit.simulation.climate.model.Simulation;
-import mit.simulation.climate.model.Variable;
+import mit.simulation.climate.client.EntityState;
+import mit.simulation.climate.client.Scenario;
+import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.Variable;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

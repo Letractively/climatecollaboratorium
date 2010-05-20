@@ -1,8 +1,8 @@
-package mit.simulation.climate.model.client;
+package mit.simulation.climate.client.client;
 
-import mit.simulation.climate.model.EntityState;
-import mit.simulation.climate.model.MetaData;
-import mit.simulation.climate.model.Simulation;
+import mit.simulation.climate.client.EntityState;
+import mit.simulation.climate.client.MetaData;
+import mit.simulation.climate.client.Simulation;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

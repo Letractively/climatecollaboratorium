@@ -1,7 +1,7 @@
-package mit.simulation.climate.model.client;
+package mit.simulation.climate.client.client;
 
-import mit.simulation.climate.model.Scenario;
-import mit.simulation.climate.model.Simulation;
+import mit.simulation.climate.client.Scenario;
+import mit.simulation.climate.client.Simulation;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlElement;

@@ -1,11 +1,10 @@
-package mit.simulation.climate.model.client;
+package mit.simulation.climate.client.client;
 
-import mit.simulation.climate.model.*;
+import mit.simulation.climate.client.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-import java.lang.reflect.Proxy;
 
 @XmlRootElement(name="reference")
 public class ClientJaxbReference <T extends HasId> {
