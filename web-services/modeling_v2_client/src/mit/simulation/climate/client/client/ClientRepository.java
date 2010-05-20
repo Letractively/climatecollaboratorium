@@ -1,6 +1,6 @@
-package mit.simulation.climate.model.client;
+package mit.simulation.climate.client.client;
 
-import mit.simulation.climate.model.*;
+import mit.simulation.climate.client.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Proxy;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

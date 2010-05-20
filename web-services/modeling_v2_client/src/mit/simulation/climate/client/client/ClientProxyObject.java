@@ -1,10 +1,9 @@
-package mit.simulation.climate.model.client;
+package mit.simulation.climate.client.client;
 
-import mit.simulation.climate.model.HasId;
+import mit.simulation.climate.client.HasId;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 /**
  * @author: jintrone

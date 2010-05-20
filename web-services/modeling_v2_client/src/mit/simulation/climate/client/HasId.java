@@ -1,4 +1,4 @@
-package mit.simulation.climate.model;
+package mit.simulation.climate.client;
 
 public interface HasId {
 
