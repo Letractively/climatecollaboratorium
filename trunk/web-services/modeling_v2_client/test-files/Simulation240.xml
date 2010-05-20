@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<payload>
+    <timestamp>1274120504319</timestamp>
+    <simulations>
+        <simulation id="240" composite="false">
+            <children/>
+            <outputs>
+                <metadata vartype="RANGE" varcontext="INDEXED" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[null,null]</data>
+                    </defaults>
+                    <description>Amount of emissions per year for developed countries including US, EU (27 countries),
+                        Russia and former Soviet States, Japan, Canada, South Korea, and Australia.
+                    </description>
+                    <external>Amount of emissions per year for developed countries including US, EU (27 countries),
+                        Russia and former Soviet States, Japan, Canada, South Korea, and Australia.
+                    </external>
+                    <id>242</id>
+                    <internalname>DevelopedFossilFuelEmissions</internalname>
+                    <labels>
+                        <data>[Year,Fossil Fuel Emissions]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100,14]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000,0]</data>
+                    </mins>
+                    <name>Developed countries Fossil Fuel Emissions</name>
+                    <profile>
+                        <data>[class java.lang.Integer,class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Year,10^9 tons of Carbon]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="INDEXED" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[null,null]</data>
+                    </defaults>
+                    <description>Amount of emissions per year for non-developed and non-developing countries.
+                    </description>
+                    <external>Amount of emissions per year for non-developed and non-developing countries.</external>
+                    <id>246</id>
+                    <internalname>DevelopingBFossilFuelEmissions</internalname>
+                    <labels>
+                        <data>[Year,Fossil Fuel Emissions]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100,14]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000,0]</data>
+                    </mins>
+                    <name>Other developing countries Fossil Fuel Emissions</name>
+                    <profile>
+                        <data>[class java.lang.Integer,class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Year,10^9 tons of Carbon]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="INDEXED" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[null,null]</data>
+                    </defaults>
+                    <description>Amount of emissions per year for developing countries including China, India, South
+                        Africa, Mexico, Brazil, and Indonesia.
+                    </description>
+                    <external>Amount of emissions per year for developing countries including China, India, South
+                        Africa, Mexico, Brazil, and Indonesia.
+                    </external>
+                    <id>245</id>
+                    <internalname>DevelopingAFossilFuelEmissions</internalname>
+                    <labels>
+                        <data>[Year,Fossil Fuel Emissions]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100,14]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000,0]</data>
+                    </mins>
+                    <name>Rapidly developing countries Fossil Fuel Emissions</name>
+                    <profile>
+                        <data>[class java.lang.Integer,class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Year,10^9 tons of Carbon]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="INDEXED" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[null,null]</data>
+                    </defaults>
+                    <description>Concentration of CO2 in the atmosphere each year.</description>
+                    <external>Concentration of CO2 in the atmosphere each year.</external>
+                    <id>241</id>
+                    <internalname>AtmosphericCO2Concentration</internalname>
+                    <labels>
+                        <data>[Year,CO2 Concentration]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100,1000]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000,250]</data>
+                    </mins>
+                    <name>Atmospheric CO2 Concentration</name>
+                    <profile>
+                        <data>[class java.lang.Integer,class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Year,ppm]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="INDEXED" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[null,null]</data>
+                    </defaults>
+                    <description>Change in mean global temperature (Celsius) each year, relative to pre-industrial
+                        temperatures.
+                    </description>
+                    <external>Change in mean global temperature (Celsius) each year, relative to pre-industrial
+                        temperatures.
+                    </external>
+                    <id>263</id>
+                    <internalname>GlobalTempChange</internalname>
+                    <labels>
+                        <data>[Year,Temperature Change]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100,7]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000,0]</data>
+                    </mins>
+                    <name>Global mean temperature change above preindustrial values</name>
+                    <profile>
+                        <data>[class java.lang.Integer,class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Year,C]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="INDEX" index="true">
+                    <categories/>
+                    <defaults/>
+                    <description>Simulation Year</description>
+                    <id>271</id>
+                    <internalname>Year</internalname>
+                    <labels>
+                        <data>[Year]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000]</data>
+                    </mins>
+                    <name>Simulation Year</name>
+                    <profile>
+                        <data>[class java.lang.Integer]</data>
+                    </profile>
+                    <units>
+                        <data>[Year]</data>
+                    </units>
+                </metadata>
+            </outputs>
+            <creation>2009-08-30T19:02:33-04:00</creation>
+            <description>&lt;p&gt;&lt;a href='/web/guest/resources/-/wiki/Main/C-LEARN'&gt;C-LEARN&lt;/a&gt; is a
+                simplified, Web-accessible version of the Climate Rapid Overview and Decision Support (&lt;a href='
+                http://www.climateinteractive.org/simulations/C-ROADS'&gt;C-ROADS&lt;/a&gt;), a lightweight climate
+                simulator developed by the &lt;a href=' http://www.sustainer.org/'&gt;Sustainability Institute&lt;/a&gt;,
+                &lt;a href=' http://www.vensim.com'&gt;Ventana Systems&lt;/a&gt;, and the &lt;a href='
+                http://sdg.scripts.mit.edu'&gt;System Dynamics Group&lt;/a&gt; at the &lt;a href='
+                http://mitsloan.mit.edu'&gt;MIT Sloan School of Management&lt;/a&gt;, as part of the &lt;a href='
+                http://climateinteractive.org/'&gt;Climate Interactive&lt;/a&gt; effort.&lt;/p&gt;&lt;h4&gt;Further
+                information&lt;/h4&gt;For more, see &lt;a href='/web/guest/resources/-/wiki/Main/C-LEARN'&gt;C-LEARN&lt;/a&gt;.&lt;h4&gt;Evaluation&lt;/h4&gt;This
+                model has been evaluated by a review panel of respected scientists, see &lt;a href='
+                http://www.climateinteractive.org/simulations/C-ROADS/technical/scientific-review/C-ROADS%20Scientific%20Review%20Summary-1.pdf'&gt;Summary
+                Statement from C-ROADS Scientific Review Panel&lt;/a&gt;. From the summary statement: "This very rapid
+                simulation model reproduces the response properties of state-of-the-art three dimensional climate models
+                very well within the uncertainties of the high resolution models and with sufficient precision to
+                provide useful information for its intended audience."
+            </description>
+            <inputs>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults/>
+                    <description>Percentage value is a comparison of 2050 emission target vs. actual 2005 emissions.
+                        Other developing countries includes smaller developing nations in the Middle East, Latin
+                        America, Africa, and Asia.
+                    </description>
+                    <id>248</id>
+                    <internalname>D_Pct change in Developing B FF emissions</internalname>
+                    <labels>
+                        <data>[Fossil Fuel Emissions Change]</data>
+                    </labels>
+                    <maxes>
+                        <data>[3.5]</data>
+                    </maxes>
+                    <mins>
+                        <data>[-0.99]</data>
+                    </mins>
+                    <name>Other developing countries emissions change</name>
+                    <profile>
+                        <data>[class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Percentage of 2005 emissions]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults/>
+                    <description>Percentage value is a comparison of 2050 emission target vs. actual 2005 emissions.
+                        Developed countries includes many of the most developed nations: US, EU (27 countries), Norway
+                        and Sweden, Russia and the former Soviet States, Japan, Canada, South Korea, New Zealand, and
+                        Australia.
+                    </description>
+                    <id>243</id>
+                    <internalname>D_Pct change in Developed FF emissions</internalname>
+                    <labels>
+                        <data>[Fossil Fuel Emissions Change]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2.25]</data>
+                    </maxes>
+                    <mins>
+                        <data>[-0.99]</data>
+                    </mins>
+                    <name>Developed countries emissions change</name>
+                    <profile>
+                        <data>[class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Percentage of 2005 emissions]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults/>
+                    <description>This value is a 0-to-1 index for the annual removal of CO2 from the atmosphere due to
+                        the creation of new forests, starting in 2009 and continuing until 2050. A value of 1 delivers
+                        the IPCC estimated maximum of 1.6 billion tons of carbon removed per year, while 0.5 delivers
+                        half of the maximum, and 0 means no increase.
+                    </description>
+                    <id>244</id>
+                    <internalname>D_Target Sequestration</internalname>
+                    <labels>
+                        <data>[Afforestation]</data>
+                    </labels>
+                    <maxes>
+                        <data>[1]</data>
+                    </maxes>
+                    <mins>
+                        <data>[0]</data>
+                    </mins>
+                    <name>Sequestration due to Treegrowth</name>
+                    <profile>
+                        <data>[class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Fraction of max removal]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults/>
+                    <description>This value is a measure of deforestation and resulting CO2 land use emissions. It value
+                        is a 0-to-1 index where a value of 1 yields constant emissions through 2050, 0.5 yields a drop
+                        of 45% by 2050, and 0 yields a 90% drop by 2050.
+                    </description>
+                    <id>240</id>
+                    <internalname>D_Global land use emissions change</internalname>
+                    <labels>
+                        <data>[Deforestation]</data>
+                    </labels>
+                    <maxes>
+                        <data>[1]</data>
+                    </maxes>
+                    <mins>
+                        <data>[0]</data>
+                    </mins>
+                    <name>Emissions from Deforestation</name>
+                    <profile>
+                        <data>[class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Indexed fractional reduction]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults/>
+                    <description>Percentage value is a comparison of 2050 emission target vs. actual 2005 emissions.
+                        Rapidly developing countries includes many of the fastest developing and larger nations: China,
+                        India, South Africa, Mexico, Brazil, Indonesia, and other large developing Asian countries.
+                    </description>
+                    <id>247</id>
+                    <internalname>D_Pct change in Developing A FF emissions</internalname>
+                    <labels>
+                        <data>[Fossil Fuel Emissions Change]</data>
+                    </labels>
+                    <maxes>
+                        <data>[4.15]</data>
+                    </maxes>
+                    <mins>
+                        <data>[-0.99]</data>
+                    </mins>
+                    <name>Rapidly developing countries emissions change</name>
+                    <profile>
+                        <data>[class java.lang.Double]</data>
+                    </profile>
+                    <units>
+                        <data>[Percentage of 2005 emissions]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[2050]</data>
+                    </defaults>
+                    <description>Year at which other countries fossil fuel emissions reach target levels.</description>
+                    <id>262</id>
+                    <internalname>D_Developing B target year</internalname>
+                    <labels>
+                        <data>[Target Year]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000]</data>
+                    </mins>
+                    <name>Other developing countries target year</name>
+                    <profile>
+                        <data>[class java.lang.Integer]</data>
+                    </profile>
+                    <units>
+                        <data>[Year]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[2012]</data>
+                    </defaults>
+                    <description>Year at which other countries fossil fuel emissions begins to decrease.</description>
+                    <id>266</id>
+                    <internalname>D_Developing B start year</internalname>
+                    <labels>
+                        <data>[Start Year]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2010]</data>
+                    </mins>
+                    <name>Other developing countries start reduction year</name>
+                    <profile>
+                        <data>[class java.lang.Integer]</data>
+                    </profile>
+                    <units>
+                        <data>[Year]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[2050]</data>
+                    </defaults>
+                    <description>Year at which fossil fuel emissions reach target levels. US, EU (27 countries), Russia
+                        and former Soviet States, Japan, Canada, South Korea, and Australia.
+                    </description>
+                    <id>270</id>
+                    <internalname>D_Developed target year</internalname>
+                    <labels>
+                        <data>[Target Year]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000]</data>
+                    </mins>
+                    <name>Developed countries target year</name>
+                    <profile>
+                        <data>[class java.lang.Integer]</data>
+                    </profile>
+                    <units>
+                        <data>[Year]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[2050]</data>
+                    </defaults>
+                    <description>Year at which fossil fuel emissions reach target levels. China, India, South Africa,
+                        Mexico, Brazil, and Indonesia.
+                    </description>
+                    <id>268</id>
+                    <internalname>D_Developing A target year</internalname>
+                    <labels>
+                        <data>[Target Year]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2000]</data>
+                    </mins>
+                    <name>Rapidly developing countries target year</name>
+                    <profile>
+                        <data>[class java.lang.Integer]</data>
+                    </profile>
+                    <units>
+                        <data>[Year]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[2012]</data>
+                    </defaults>
+                    <description>Year at which fossil fuel emissions begins to decrease. US, EU (27 countries), Russia
+                        and former Soviet States, Japan, Canada, South Korea, and Australia.
+                    </description>
+                    <id>265</id>
+                    <internalname>D_Developed start year</internalname>
+                    <labels>
+                        <data>[Start Year]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2010]</data>
+                    </mins>
+                    <name>Developed countries start reduction year</name>
+                    <profile>
+                        <data>[class java.lang.Integer]</data>
+                    </profile>
+                    <units>
+                        <data>[Year]</data>
+                    </units>
+                </metadata>
+                <metadata vartype="RANGE" varcontext="SCALAR" index="false">
+                    <categories/>
+                    <defaults>
+                        <data>[2012]</data>
+                    </defaults>
+                    <description>Year at which fossil fuel emissions begins to decrease. China, India, South Africa,
+                        Mexico, Brazil, and Indonesia.
+                    </description>
+                    <id>264</id>
+                    <internalname>D_Developing A start year</internalname>
+                    <labels>
+                        <data>[Start Year]</data>
+                    </labels>
+                    <maxes>
+                        <data>[2100]</data>
+                    </maxes>
+                    <mins>
+                        <data>[2010]</data>
+                    </mins>
+                    <name>Rapidly developing countries start reduction year</name>
+                    <profile>
+                        <data>[class java.lang.Integer]</data>
+                    </profile>
+                    <units>
+                        <data>[Year]</data>
+                    </units>
+                </metadata>
+            </inputs>
+            <name>C-LEARN</name>
+            <state>PUBLIC</state>
+            <url>http://localhost:8080/pangaea-servlet/rest/</url>
+        </simulation>
+    </simulations>
+    <scenarios/>
+</payload>

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<payload>
+    <timestamp>1274239390135</timestamp>
+    <simulations/>
+    <scenarios>
+        <scenario id="2689">
+            <outputs>
+                <variable id="57862">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>242</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,3.78][2002,3.81][2004,3.91][2006,3.93][2008,4.03][2010,4.12][2012,4.28][2014,3.33][2016,2.59][2018,2.01][2020,1.57][2022,1.22][2024,0.95][2026,0.74][2028,0.57][2030,0.45][2032,0.35][2034,0.27][2036,0.21][2038,0.16][2040,0.13][2042,0.1][2044,0.08][2046,0.06][2048,0.05][2050,0.04][2052,0.04][2054,0.04][2056,0.04][2058,0.04][2060,0.04][2062,0.04][2064,0.04][2066,0.04][2068,0.04][2070,0.04][2072,0.04][2074,0.04][2076,0.04][2078,0.04][2080,0.04][2082,0.04][2084,0.04][2086,0.04][2088,0.04][2090,0.04][2092,0.04][2094,0.04][2096,0.04][2098,0.04][2100,0.04]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57863">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>246</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,0.85][2002,0.89][2004,0.95][2006,1.01][2008,1.07][2010,1.12][2012,1.2][2014,0.93][2016,0.72][2018,0.56][2020,0.43][2022,0.33][2024,0.26][2026,0.2][2028,0.15][2030,0.12][2032,0.09][2034,0.07][2036,0.06][2038,0.04][2040,0.03][2042,0.03][2044,0.02][2046,0.02][2048,0.01][2050,0.01][2052,0.01][2054,0.01][2056,0.01][2058,0.01][2060,0.01][2062,0.01][2064,0.01][2066,0.01][2068,0.01][2070,0.01][2072,0.01][2074,0.01][2076,0.01][2078,0.01][2080,0.01][2082,0.01][2084,0.01][2086,0.01][2088,0.01][2090,0.01][2092,0.01][2094,0.01][2096,0.01][2098,0.01][2100,0.01]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57864">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>245</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,1.81][2002,1.93][2004,2.42][2006,2.68][2008,2.87][2010,3.08][2012,3.34][2014,2.58][2016,1.99][2018,1.53][2020,1.18][2022,0.91][2024,0.7][2026,0.54][2028,0.42][2030,0.32][2032,0.25][2034,0.19][2036,0.15][2038,0.11][2040,0.09][2042,0.07][2044,0.05][2046,0.04][2048,0.03][2050,0.02][2052,0.02][2054,0.02][2056,0.02][2058,0.02][2060,0.02][2062,0.02][2064,0.02][2066,0.02][2068,0.02][2070,0.02][2072,0.02][2074,0.02][2076,0.02][2078,0.02][2080,0.02][2082,0.02][2084,0.02][2086,0.02][2088,0.02][2090,0.02][2092,0.02][2094,0.02][2096,0.02][2098,0.02][2100,0.02]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57865">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>241</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,373.0][2002,376.0][2004,379.0][2006,383.0][2008,387.0][2010,391.0][2012,396.0][2014,399.0][2016,401.0][2018,401.0][2020,400.0][2022,399.0][2024,397.0][2026,395.0][2028,393.0][2030,391.0][2032,389.0][2034,387.0][2036,385.0][2038,383.0][2040,381.0][2042,380.0][2044,378.0][2046,377.0][2048,375.0][2050,374.0][2052,373.0][2054,372.0][2056,371.0][2058,370.0][2060,369.0][2062,368.0][2064,367.0][2066,366.0][2068,365.0][2070,365.0][2072,364.0][2074,363.0][2076,363.0][2078,362.0][2080,361.0][2082,361.0][2084,360.0][2086,360.0][2088,359.0][2090,359.0][2092,358.0][2094,358.0][2096,357.0][2098,357.0][2100,356.0]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57866">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>263</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,0.65][2002,0.68][2004,0.72][2006,0.75][2008,0.79][2010,0.83][2012,0.87][2014,0.91][2016,0.95][2018,0.98][2020,1.02][2022,1.05][2024,1.08][2026,1.1][2028,1.12][2030,1.14][2032,1.16][2034,1.18][2036,1.2][2038,1.22][2040,1.23][2042,1.25][2044,1.28][2046,1.3][2048,1.33][2050,1.36][2052,1.39][2054,1.42][2056,1.45][2058,1.49][2060,1.52][2062,1.56][2064,1.59][2066,1.63][2068,1.66][2070,1.7][2072,1.73][2074,1.76][2076,1.79][2078,1.82][2080,1.85][2082,1.87][2084,1.9][2086,1.92][2088,1.94][2090,1.95][2092,1.97][2094,1.98][2096,2.0][2098,2.01][2100,2.02]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57867">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>271</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000][2002][2004][2006][2008][2010][2012][2014][2016][2018][2020][2022][2024][2026][2028][2030][2032][2034][2036][2038][2040][2042][2044][2046][2048][2050][2052][2054][2056][2058][2060][2062][2064][2066][2068][2070][2072][2074][2076][2078][2080][2082][2084][2086][2088][2090][2092][2094][2096][2098][2100]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57868">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2951</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,-0.13493000000000002][2002,-0.1471124][2004,-0.16412839999999998][2006,-0.17747][2008,-0.19603160000000003][2010,-0.21547639999999998][2012,-0.2358044][2014,-0.25701560000000007][2016,-0.27911][2018,-0.2962604][2020,-0.31990040000000003][2022,-0.33821000000000007][2024,-0.35701640000000007][2026,-0.3698300000000001][2028,-0.3828644000000001][2030,-0.3961196][2032,-0.4095956][2034,-0.4232924][2036,-0.43721000000000004][2038,-0.45134840000000004][2040,-0.45850040000000003][2042,-0.47297000000000006][2044,-0.4950884000000001][2046,-0.5101100000000001][2048,-0.5330564000000001][2050,-0.5564996000000001][2052,-0.5804395999999999][2054,-0.6048764000000001][2056,-0.6298100000000001][2058,-0.6638276000000001][2060,-0.6899204000000001][2062,-0.7254836000000001][2064,-0.7527356000000002][2066,-0.7898444][2068,-0.8182556000000001][2070,-0.8569100000000001][2072,-0.8864804000000002][2074,-0.9165476000000001][2076,-0.9471116000000002][2078,-0.9781724000000002][2080,-1.00973][2082,-1.0310444][2084,-1.0634299999999999][2086,-1.0852964][2088,-1.1073836][2090,-1.11851][2092,-1.1409284][2094,-1.1522204][2096,-1.17497][2098,-1.1864275999999996][2100,-1.1979404]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57919">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2952</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,-0.20075799867465602][2002,-0.19917972714500942][2004,-0.19778302654638327][2006,-0.19726624717809058][2008,-0.1972848694612696][2010,-0.1981122476769087][2012,-0.19974838182500787][2014,-0.20219327190556716][2016,-0.20544691791858655][2018,-0.20841789850902795][2020,-0.21308686740385252][2022,-0.21711934015564782][2024,-0.22160673811945197][2026,-0.22485107299088192][2028,-0.22829759684542678][2030,-0.23194630968308666][2032,-0.23579721150386168][2034,-0.23985030230775156][2036,-0.24410558209475663][2038,-0.24856305086487657][2040,-0.2508676061186047][2042,-0.2556283583633973][2044,-0.2631485910739268][2046,-0.26841481577650694][2048,-0.27669325717371773][2050,-0.28542662378293737][2052,-0.2946149156041658][2054,-0.3042581326374031][2056,-0.31435627488264906][2058,-0.3285281259838797][2060,-0.33968776039047954][2062,-0.35527493437351554][2064,-0.36749606094146925][2066,-0.38449855780631015][2068,-0.39778117653561784][2070,-0.41619899628226387][2072,-0.43054310717292554][2074,-0.44534214327559585][2076,-0.460596104590275][2078,-0.476304991116963][2080,-0.49246880285565964][2082,-0.503497413577018][2084,-0.5204194340023961][2086,-0.5319535171815418][2088,-0.5436897893438026][2090,-0.5496337462936012][2092,-0.5616733019305348][2094,-0.5677689006176695][2096,-0.5801117397292754][2098,-0.5863589801537464][2100,-0.5926567678239965]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57920">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2953</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,-0.12179355662140613][2002,-0.1214731320271892][2004,-0.12118957041301148][2006,-0.12108465258596182][2008,-0.12108843332800712][2010,-0.12125640970217985][2012,-0.12158858170848001][2014,-0.12208494934690763][2016,-0.12274551261746268][2018,-0.12334868845396259][2020,-0.12429659408074067][2022,-0.12511527668440786][2024,-0.12602631933114672][2026,-0.12668499223067914][2028,-0.1273847140382434][2030,-0.1281254847538395][2032,-0.1289073043774675][2034,-0.12973017290912733][2036,-0.13059409034881905][2038,-0.1314990566965426][2040,-0.13196693321091635][2042,-0.1329334729206877][2044,-0.13446024918790447][2046,-0.1355294111677555][2048,-0.1372101208400917][2050,-0.13898319055549965][2052,-0.14084862031397927][2054,-0.14280641011553058][2056,-0.14485655996015354][2058,-0.14773376426442902][2060,-0.14999942087621926][2062,-0.1531639675367178][2064,-0.15564513091567528][2066,-0.1590970199323968][2068,-0.1617936900785216][2070,-0.16553292145146611][2072,-0.16844509836475818][2074,-0.1714496353211219][2076,-0.17454653232055733][2078,-0.17773578936306444][2080,-0.18101740644864317][2082,-0.18325646230740222][2084,-0.1866920127981005][2086,-0.1890336909269391][2088,-0.19141641796380965][2090,-0.19262317482275682][2092,-0.19506747522167517][2094,-0.19630501876164627][2096,-0.19881089252261236][2098,-0.20007922274360734][2100,-0.20135781519161033]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="57921">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2954</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,-0.5642936458294385][2002,-0.5600848057073468][2004,-0.556360168084717][2006,-0.5549820517728637][2008,-0.5550317125638852][2010,-0.5572381153055643][2012,-0.5616012599979013][2014,-0.5681211466408962][2016,-0.5767977752345489][2018,-0.5847206085849074][2020,-0.5971715355922114][2022,-0.6079250927528084][2024,-0.6198918172606506][2026,-0.6285436154587927][2028,-0.6377345991445991][2030,-0.6474647683180699][2032,-0.6577341229792054][2034,-0.6685426631280049][2036,-0.6798903887644695][2038,-0.6917772998885979][2040,-0.6979229500085365][2042,-0.710618639364162][2044,-0.730673146186971][2046,-0.7447167992617577][2048,-0.7667932516633083][2050,-0.790082871412104][2052,-0.8145856585081448][2054,-0.8403016129514307][2056,-0.8672307347419612][2058,-0.9050233796694946][2060,-0.9347832252702636][2062,-0.9763501686114486][2064,-1.008940738022456][2066,-1.0542819797772915][2068,-1.0897032729985376][2070,-1.1388188131670245][2072,-1.177070830198509][2074,-1.2165360145772386][2076,-1.257214366303213][2078,-1.2991058853764328][2080,-1.3422105717968968][2082,-1.3716210112701208][2084,-1.416747643269327][2086,-1.4475060464617113][2088,-1.4788036351417604][2090,-1.4946546240396592][2092,-1.5267609909512057][2094,-1.5430163689648524][2096,-1.5759315141078951][2098,-1.5925912812372902][2100,-1.6093858447386022]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58105">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2889</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5]]</data>
+                    </values>
+                </variable>
+                <variable id="58072">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2955</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,0.0][2010,0.0][2020,-2.098620983792898][2030,-2.9825444495400006][2040,-4.13364028161277][2050,-5.422763973478936][2060,-6.734619557951987][2070,-8.179700411523868][2080,-10.066124989539048][2090,-12.644629351907952][2100,-16.045706999913023]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58083">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2956</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,0.0][2010,-4.85174738656724E-4][2020,-0.6181686350348627][2030,-1.0075278661755434][2040,-1.400881714797464][2050,-1.9759159100046446][2060,-2.229994718376986][2070,-2.1481500974698804][2080,-1.7547147188251238][2090,-1.6227647375012868][2100,-1.432519206754371]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58094">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2957</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,0.0][2010,-0.05569999999999986][2020,-0.22224459838867894][2030,-0.6486439331054612][2040,-1.1961999715169185][2050,-1.8073375488281247][2060,-1.8397933430989628][2070,-1.8574215332031265][2080,-1.9100789550781263][2090,-1.614679293314616][2100,-1.4427696010335276]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58106">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2890</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Potentially 20 - 30% decrease in water availability in some vulnerable regions,
+                            e.g. Southern Africa and Mediterranean]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58107">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2891</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Sharp declines in crop yield in tropical regions (5 - 10% in Africa)]]</data>
+                    </values>
+                </variable>
+                <variable id="58108">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2892</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,40 � 60 million more people exposed to malaria in Africa]]</data>
+                    </values>
+                </variable>
+                <variable id="58109">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2893</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Up to 10 million more people
+                            affected by coastal flooding each year]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58110">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2894</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,15 � 40% of species facing extinction (according to one estimate). High risk of
+                            extinction of Arctic species, including polar bear and caribou]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58111">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2895</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Potential for Greenland ice sheet to begin melting irreversibly, accelerating
+                            sea level rise and committing world to an eventual 7 m sea level rise. Rising risk of abrupt
+                            changes to atmospheric circulations, e.g. the monsoon. Rising risk of collapse of West
+                            Antarctic Ice Sheet. Rising risk of collapse of Atlantic Thermohaline Circulation]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58112">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>3009</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5]]</data>
+                    </values>
+                </variable>
+                <variable id="58113">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>3010</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Increased water availability in moist tropics and high latitudes. Decreasing
+                            water availability and increasing drought in mid-latitudes and semi-arid low latitudes. 1.0
+                            to 2.0 billion additional people with increased water stress.]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58114">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>3011</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Decreases for some cereals at low latitudes; increases for some cereals at
+                            mid-high latitudes.]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58115">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>3012</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Increasing burden from malnutrition, diarrhoeal, cardio-respiratory and
+                            infectious diseases. Increased morbidity and mortality from heatwaves, floods, and droughts.
+                            Changed distribution of some disease vectors.]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58116">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>3013</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Increased damage from floods and storms. 0 to 3 million additional people at
+                            risk of coastal flooding each year.]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58117">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>3014</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,By 1.5�C: About 20 to 30% species at increasingly high risks of extinction. Most
+                            corals bleached. Increasing species range shifts and wildfire risk.]]
+                        </data>
+                    </values>
+                </variable>
+                <variable id="58118">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>3015</id>
+                    </metadata>
+                    <values>
+                        <data>[[1.5-2.5,Local retreat of ice in Greenland and West Antarctic.]]</data>
+                    </values>
+                </variable>
+                <variable id="58119">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>2958</id>
+                    </metadata>
+                    <values>
+                        <data>
+                            [[2000,3.264][2002,6.63][2004,10.132][2006,13.736][2008,17.476][2010,21.351999999999997][2012,25.363999999999997][2014,29.511999999999997][2016,33.796][2018,38.182][2020,42.704][2022,47.328][2024,52.054][2026,56.848][2028,61.71][2030,66.64][2032,71.638][2034,76.70400000000001][2036,81.83800000000001][2038,87.04][2040,92.27600000000001][2042,97.58000000000001][2044,102.98600000000002][2046,108.46000000000002][2048,114.03600000000003][2050,119.71400000000003][2052,125.49400000000003][2054,131.37600000000003][2056,137.36000000000004][2058,143.48000000000005][2060,149.70200000000006][2062,156.06000000000006][2064,162.52000000000007][2066,169.11600000000007][2068,175.81400000000008][2070,182.64800000000008][2072,189.5840000000001][2074,196.6220000000001][2076,203.76200000000009][2078,211.00400000000008][2080,218.34800000000007][2082,225.76000000000008][2084,233.2740000000001][2086,240.85600000000008][2088,248.50600000000009][2090,256.1900000000001][2092,263.9420000000001][2094,271.7280000000001][2096,279.5820000000001][2098,287.4700000000001][2100,295.3920000000001]]
+                        </data>
+                    </values>
+                </variable>
+            </outputs>
+            <creation>2009-09-21T18:59:16-04:00</creation>
+            <description>&lt;TEXTFORMAT LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12"
+                COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;Model run by Jason Jay, MIT Sloan&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT
+                LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0"
+                KERNING="0"&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT LEADING="2"&gt;&lt;P
+                ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;This
+                plan attempts to achieve the Hansen/McKibben goal of 350 ppm stabilization. Hansen believes this will
+                avoid the worst impacts of climate change and actually be sustainable and stable, without triggering
+                positive feedback loops.&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT LEADING="2"&gt;&lt;P
+                ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT
+                LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0"
+                KERNING="0"&gt;This is evidenced in the temperature graph - this model run is one of the few (perhaps
+                the only) in which temperature actually starts to level off by 2100.&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT
+                LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0"
+                KERNING="0"&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT LEADING="2"&gt;&lt;P
+                ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;With
+                the C-ROADS model, the only way to get to 350 is to floor all the emissions parameters, taking 99% of
+                carbon out of the economy. This is not probable; it therefore highlights the limits of the model and the
+                gravity of the situation. What radical innovations are required to accomplish this? What is outside the
+                model boundary, for example carbon sequestration through agriculture and aquaculture, and
+                geo-engineering?&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT LEADING="2"&gt;&lt;P
+                ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT
+                LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0"
+                KERNING="0"&gt;Like the 80% model, this one necessarily involves radical cuts in emissions by 2050,
+                along with effective elimination of deforestation and substantial increases in natural CO2 sequestration
+                from the planting of new trees. &lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT LEADING="2"&gt;&lt;P
+                ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT
+                LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0"
+                KERNING="0"&gt;This plan addresses the concerns expressed by some experts, such as NASA climate
+                scientist James Hansen, that the 450 ppm stablization target advocated by the &lt;FONT COLOR="#0000FF"&gt;&lt;A
+                HREF="http://www.ipcc.ch/" TARGET="_blank"&gt;&lt;U&gt;IPCC&lt;/U&gt;&lt;/A&gt;&lt;/FONT&gt; and &lt;FONT
+                COLOR="#0000FF"&gt;&lt;U&gt;IEA&lt;/U&gt;&lt;/FONT&gt; is too high. &lt;FONT COLOR="#0000FF"&gt;&lt;A
+                HREF="http://www.columbia.edu/~jeh1/mailings/20081121_Obama.pdf" TARGET="_blank"&gt;&lt;U&gt;Hansen&lt;/U&gt;&lt;/A&gt;&lt;/FONT&gt;
+                and &lt;FONT COLOR="#0000FF"&gt;&lt;A HREF="http://www.350.org" TARGET="_blank"&gt;&lt;U&gt;others&lt;/U&gt;&lt;/A&gt;&lt;/FONT&gt;
+                have called for a return to the 350 ppm atmospheric concentration of CO2 that prevailed prior to the
+                industrial revolution. This is a tall order, since concentrations today are nearly 400 ppm. &lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT
+                LEADING="2"&gt;&lt;P ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="12" COLOR="#000000" LETTERSPACING="0"
+                KERNING="0"&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;&lt;TEXTFORMAT LEADING="2"&gt;&lt;P
+                ALIGN="LEFT"&gt;&lt;FONT FACE="Verdana" SIZE="10" COLOR="#000000" LETTERSPACING="0" KERNING="0"&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;/TEXTFORMAT&gt;</description>
+            <inputs>
+                <variable id="57851">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>243</id>
+                    </metadata>
+                    <values>
+                        <data>[[-0.99]]</data>
+                    </values>
+                </variable>
+                <variable id="57852">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>247</id>
+                    </metadata>
+                    <values>
+                        <data>[[-0.99]]</data>
+                    </values>
+                </variable>
+                <variable id="57853">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>248</id>
+                    </metadata>
+                    <values>
+                        <data>[[-0.99]]</data>
+                    </values>
+                </variable>
+                <variable id="57854">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>244</id>
+                    </metadata>
+                    <values>
+                        <data>[[1]]</data>
+                    </values>
+                </variable>
+                <variable id="57855">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>265</id>
+                    </metadata>
+                    <values>
+                        <data>[[2012]]</data>
+                    </values>
+                </variable>
+                <variable id="57856">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>262</id>
+                    </metadata>
+                    <values>
+                        <data>[[2050]]</data>
+                    </values>
+                </variable>
+                <variable id="57857">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>266</id>
+                    </metadata>
+                    <values>
+                        <data>[[2012]]</data>
+                    </values>
+                </variable>
+                <variable id="57858">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>240</id>
+                    </metadata>
+                    <values>
+                        <data>[[0]]</data>
+                    </values>
+                </variable>
+                <variable id="57859">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>268</id>
+                    </metadata>
+                    <values>
+                        <data>[[2050]]</data>
+                    </values>
+                </variable>
+                <variable id="57860">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>270</id>
+                    </metadata>
+                    <values>
+                        <data>[[2050]]</data>
+                    </values>
+                </variable>
+                <variable id="57861">
+                    <metadata>
+                        <type>metadata</type>
+                        <id>264</id>
+                    </metadata>
+                    <values>
+                        <data>[[2012]]</data>
+                    </values>
+                </variable>
+            </inputs>
+            <name>350 ppm or bust</name>
+            <simulation>
+                <type>simulation</type>
+                <id>623</id>
+            </simulation>
+            <state>PUBLIC</state>
+        </scenario>
+    </scenarios>
+</payload>
