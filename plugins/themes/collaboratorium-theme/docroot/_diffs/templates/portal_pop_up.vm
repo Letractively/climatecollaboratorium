@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+#parse ($init)
+
+<html dir="#language ("lang.dir")" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>$the_title</title>
+
+	<link href="/collaboratorium-theme/css/skin.css&tt=$themeTimestamp" rel="stylesheet" type="text/css" />
+
+	<!-- External CSS -->
+	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen.css?tt=$themeTimestamp" media="all" />
+	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/skin.css?tt=$themeTimestamp" media="all" />
+	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/prototype_additions.css?tt=$themeTimestamp" media="all" />
+	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/base.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/application.css?tt=$themeTimestamp" media="all" />
+    
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/layout.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/navigation.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/portlet.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/portlets-common.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/forms.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/custom.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/autoSuggest.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/messaging.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/icons.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/dialog.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/skin.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/my_header.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/plans.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wall.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/profile.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/model.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/debate.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wiki.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/prototype_additions.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/safari.css?tt=$themeTimestamp" media="all" />
+
+	<!--[if IE 6]>
+	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen-ie6.css?tt=$themeTimestamp" media="all" />
+	<![endif]-->
+	
+	$theme.include($top_head_include)
+
+	#css ($css_main_file)
+	#js ($js_main_file)
+</head>
+
+<body class="portal-popup $css_class">
+
+$theme.include($content_include)
+
+$theme.include($bottom_ext_include)
+
+</body>
+
+</html>
