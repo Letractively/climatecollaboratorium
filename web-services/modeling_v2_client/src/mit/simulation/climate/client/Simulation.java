@@ -1,6 +1,6 @@
 package mit.simulation.climate.client;
 
-import mit.simulation.climate.client.client.ClientSimulation;
+import mit.simulation.climate.client.model.ClientSimulation;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.net.URL;
