@@ -4,7 +4,7 @@
 #
 # Host: localhost (MySQL 5.1.42)
 # Database: exceldb2
-# Generation Time: 2010-05-21 11:51:45 -0400
+# Generation Time: 2010-05-21 12:14:55 -0400
 # ************************************************************
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -114,47 +114,6 @@ VALUES
 	(0,'Degrees Temperature Change','1680','Temperature','1001','Temperature',1,'DOUBLE');
 
 /*!40000 ALTER TABLE `InputParam` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table InputParam_copy
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `InputParam_copy`;
-
-CREATE TABLE `InputParam_copy` (
-  `ColNum` int(11) NOT NULL,
-  `Description` varchar(1024) DEFAULT NULL,
-  `ID` varchar(64) NOT NULL,
-  `InternalName` varchar(128) NOT NULL,
-  `ModelID` varchar(64) NOT NULL,
-  `Name` varchar(64) NOT NULL,
-  `RowNum` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
-LOCK TABLES `InputParam_copy` WRITE;
-/*!40000 ALTER TABLE `InputParam_copy` DISABLE KEYS */;
-INSERT INTO `InputParam_copy` (`ColNum`,`Description`,`ID`,`InternalName`,`ModelID`,`Name`,`RowNum`)
-VALUES
-	(0,'Degrees Temperature Change - not dependant on time','1741','Temperature_Change_input0','1061','Temperature Change',1),
-	(0,'Year','1615','Time','928','Time',1),
-	(1,'Atmospheric CO2 concentration','1616','Atmospheric_CO2_concentration','928','Atmospheric CO2 concentration',1),
-	(0,'Degrees Temperature Change - not dependant on time','1740','Temperature_Change_input0','1060','Temperature Change',1),
-	(1,'Atmospheric CO2 concentration','1641','Atmospheric_CO2_concentration','961','Atmospheric CO2 concentration',1),
-	(0,'Year','1642','Time','961','Time',1),
-	(1,'Atmospheric CO2 concentration','1643','Atmospheric_CO2_concentration','962','Atmospheric CO2 concentration',1),
-	(0,'Year','1644','Time','962','Time',1),
-	(1,'Atmospheric CO2 concentration','1645','Atmospheric_CO2_concentration','963','Atmospheric CO2 concentration',1),
-	(0,'Year','1646','Time','963','Time',1),
-	(0,'Degrees Temperature Change','1647','Temperature','964','Temperature',1),
-	(0,'Degrees Temperature Change','1648','Temperature','965','Temperature',1),
-	(0,'Degrees Temperature Change - not dependant on time','1649','Temperature_Change_input0','966','Temperature Change',1),
-	(0,'Degrees Temperature Change - not dependant on time','1720','Temperature_Change_input0','1040','Temperature Change',1),
-	(0,'Degrees Temperature Change - not dependant on time','1700','Temperature_Change_input0','1020','Temperature Change',1),
-	(0,'Degrees Temperature Change','1680','Temperature_input0','1001','Temperature',1);
-
-/*!40000 ALTER TABLE `InputParam_copy` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
