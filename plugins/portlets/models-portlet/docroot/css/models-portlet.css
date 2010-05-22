@@ -1,0 +1,80 @@
+.modelIndex {
+    position: relative;
+}
+
+.modelIndex .iceOutConStat {
+	position:absolute;
+    right:20px;
+    top:5px;
+}
+
+
+.model .modelsTable {
+	margin-top: 15px; 
+}
+
+.model .modelsTable, 
+.model .modelsTableCol1,
+.model .modelsTableCol2 {
+	border: none;
+}
+
+.model .modelsTable .name,
+.model .modelsTable .created,
+.model .modelsTable .description {
+	padding-top: 10px; 
+    padding-bottom: 10px;
+	border: 0;
+	vertical-align: top;
+}
+
+.model .modelsTable .name {
+	white-space: nowrap;
+	font-weight: bold;
+	text-align: left;
+	padding-top: 20px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.model .modelsTable .even {
+	background: #efefef;
+}
+
+
+.model .modelsTable .created {
+    white-space: nowrap;
+    padding: 10px;
+}
+
+
+.model .modelsTableHdr {
+    background-image:none;
+    background:transparent;
+    padding-top:3px;
+    padding-bottom:3px;
+    border-left:none;
+    border-right:none;
+    border-top:none;
+    border-bottom:1px #CCCCCC solid;
+    color: #777777;
+    font-weight:bold;
+
+}
+
+.pageTitle {
+    background-color:#CCD8DF;
+}
+
+.pageTitle h2 {
+	padding: 10px;
+	padding-left: 25px;
+}
+
+.tabinner .content {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+}

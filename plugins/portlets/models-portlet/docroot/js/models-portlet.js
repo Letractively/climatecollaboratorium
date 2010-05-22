@@ -23,7 +23,7 @@ var icefacesEventManager = new function() {
 	
 	this.deliverEventIfNew = function(event) {
 		try {
-		if (typeof(eventHandlers[event.id]) != "undefined") {
+		if (typeof(event) != "undefined" && typeof(eventHandlers[event.id]) != "undefined") {
 			if (eventTimestamps[event.id] < event.timestamp) {
 				//alert("delivering event: " + event.id + "\ttimestamp: " + event.timestamp);
 				eventTimestamps[event.id] = event.timestamp;

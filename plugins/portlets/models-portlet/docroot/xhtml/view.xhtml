@@ -10,34 +10,37 @@
     xmlns:collab="http://climatecollaboratorium.org/components" 
     xmlns:c="http://java.sun.com/jstl/core" >
     
-  <ice:portlet id="debates-portlet">
-    <h1> Ha ha!</h1>
-    <table width="100%">
-        <tr>
-            <td>Choose value for&amp;nbsp;&amp;nbsp;<b>A</b>:</td>
-            <td><div id="slider"></div></td>
-        </tr>
-        <tr>
-            <td>Jquery value (only on frontend):  </td>
-            <td><input id="sliderValue" type="text" /></td>
-        </tr>
-        <tr>
-            <td>Bean property value (read from backend):</td>
-            <td><ice:outputText value="#{jsIntegration.sliderVal}" /></td>
-        </tr>
-    </table>    
-    
-    <div id="integrationForm" class="hidden">
-        <ice:form id="myform">
-            <ice:inputText value="#{jsIntegration.sliderVal}" styleClass="sliderVal" />
-            <ice:inputTextarea value="#{jsIntegration.data}" styleClass="dataOutput" />
-            <ice:commandButton styleClass="submit" value="Submit" />
-        </ice:form>
-    </div> 
-    <h1>f(x) = x^A</h1>
-    <div id="graph1" style="width: 500px; margin: auto;"></div>
-    <div id="test"></div>
-    
-    
+  <ice:portlet id="models-portlet">
+  <f:subview id="navigation">
+    <ui:include src="./navigation.xhtml"/>
+  </f:subview>
+  <div class="model">
+    <div class="tabContent_top"></div>
+        <div class="tabContent_bottom">
+        <div class="tabContent">
+        <div class="tabinner">
+            <div class="topBtn">
+                <div class="modelIndex">
+                    <f:subview id="breadcrumb">
+                      <ui:include src="./breadcrumb.xhtml"/>
+                    </f:subview>
+                    
+                    <ice:outputConnectionStatus/>
+                </div>
+            </div>
+            <div class="content">
+                <f:subview id="modelIndex" rendered="#{navigation.currentPage == 'index'}">
+                    <ui:include src="./modelIndex.xhtml"/>
+                </f:subview>
+                
+                <f:subview id="modelDetails" rendered="#{navigation.currentPage == 'details'}">
+                    <ui:include src="./modelDetails.xhtml"/>
+                </f:subview>
+            </div>
+            <div class="contentWrapperBottom"></div>
+        </div>
+    </div>
+  </div>
+  </div>
   </ice:portlet>
 </f:view>
