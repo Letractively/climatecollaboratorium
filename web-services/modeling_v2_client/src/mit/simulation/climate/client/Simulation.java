@@ -1,5 +1,6 @@
 package mit.simulation.climate.client;
 
+import mit.simulation.climate.client.model.Updateable;
 import mit.simulation.climate.client.model.impl.ClientSimulation;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @XmlJavaTypeAdapter(ClientSimulation.Adapter.class)
-public interface Simulation extends HasId {
+public interface Simulation extends HasId, Updateable {
 
     public Long getId();
 

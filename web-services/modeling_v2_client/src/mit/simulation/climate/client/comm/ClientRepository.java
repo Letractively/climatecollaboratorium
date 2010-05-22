@@ -3,6 +3,7 @@ package mit.simulation.climate.client.comm;
 import mit.simulation.climate.client.*;
 import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
 import mit.simulation.climate.client.model.jaxb.ResponseWrapper;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -27,6 +28,8 @@ public class ClientRepository implements Deserializer {
     private JAXBContext context;
     private Unmarshaller um;
     private Connector<ResponseWrapper> connector;
+
+    private static Logger log = Logger.getLogger(ClientRepository.class);
 
 
     private ClientRepository() {
@@ -160,10 +163,15 @@ public class ClientRepository implements Deserializer {
         if (existing == null) {
             throw new ModelNotFoundException("Simulation with id "+s.getId()+" could not be found");
         }
-        ResponseWrapper wrapper = connector.post(ModelAccessPoint.EDIT_SIMULATION,inspect(existing,s),String.valueOf(s.getId()));
+        if (s.isDirty()) {
+        ResponseWrapper wrapper = connector.post(ModelAccessPoint.EDIT_SIMULATION,s.getUpdate(),String.valueOf(s.getId()));
         if (wrapper.sims.size()>0) {
             register(wrapper.sims.get(0));
         }
+        } else {
+           log.warn("No changes detected on updateable fields, not sending updates");
+        }
+
     }
 
     public void saveScenario(Scenario s) throws ScenarioNotFoundException, IOException {
@@ -220,23 +228,7 @@ public class ClientRepository implements Deserializer {
         }
     }
 
-    private static Map<String,String> inspect(Simulation existing, Simulation updated) {
-        Map<String,String> result = new HashMap<String,String>();
-        if (!existing.getName().equals(updated.getName())) {
-            result.put("name",updated.getName());
-        }
-        if (!existing.getDescription().equals(updated.getDescription())) {
-            result.put("description",updated.getDescription());
-        }
-        if (!existing.getState().equals(updated.getState())) {
-            result.put("state",updated.getState().name());
-        }
-
-        if (!existing.getURL().equals(updated.getURL())) {
-            result.put("url",updated.getURL().toExternalForm());
-        }
-        return result;
-    }
+   
 
 
     public static enum ModelAccessPoint implements RestAccessPoint {

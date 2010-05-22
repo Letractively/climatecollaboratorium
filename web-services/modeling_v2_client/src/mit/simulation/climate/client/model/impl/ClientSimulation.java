@@ -29,6 +29,8 @@ public class ClientSimulation implements Simulation {
     private Set<Simulation> children = null;
     private URL url;
 
+    private Map<String,String> updates = new HashMap<String,String>();
+    private List<String> updateable = new ArrayList<String>(Arrays.asList(new String[] {"url","description","name"}));
 
 
     public ClientSimulation() {
@@ -145,18 +147,39 @@ public class ClientSimulation implements Simulation {
 
     @Override
     public void setDescription(String description) {
+        if (unequal(description,this.description)) {
+            if (!updateable.contains("description")) {
+                updates.put("description",description==null?"":description);
+            } else {
+                updateable.remove("description");
+            }
+        }
         this.description = description;
 
     }
 
     @Override
     public void setName(String name) {
+        if (unequal(name,this.name)) {
+            if (!updateable.contains("name")) {
+                updates.put("name",name==null?"":name);
+            }  else {
+                updateable.remove("name");
+            }
+        }
         this.name = name;
 
     }
 
     @Override
     public void setURL(String url) {
+        if (unequal(url,this.url==null?"":this.url.toExternalForm())) {
+            if (!updateable.contains("url")) {
+                updates.put("url",url);
+            } else {
+                updateable.remove("url");
+            }
+        }
         try {
             this.url = new URL(url);
         } catch (MalformedURLException e) {
@@ -167,8 +190,26 @@ public class ClientSimulation implements Simulation {
 
     @Override
     public void setURL(URL url) {
+        if (unequal(url,this.url)) {
+            if (!updateable.contains("url")) {
+                updates.put("url",url.toExternalForm());
+            } else {
+               updateable.remove("url"); 
+            }
+        }
         this.url = url;
 
+    }
+
+    @Override
+    public Map<String, String> getUpdate() {
+        return updates;
+    }
+
+
+    @Override
+    public boolean isDirty() {
+        return updates.size() > 0;
     }
 
 
@@ -199,6 +240,11 @@ public class ClientSimulation implements Simulation {
     public void setCreation(Date d) {
        this.creation = d;
 
+    }
+
+    private static boolean unequal(Object a, Object b) {
+        if ((a != null && b ==null) || (a==null && b!=null)) return true;
+        else return ((a!=null && !a.equals(b)) || (b!=null && !b.equals(a)));
     }
 
 
