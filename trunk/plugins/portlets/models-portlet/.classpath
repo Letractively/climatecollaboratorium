@@ -5,8 +5,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Collaboratorium - Repo"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab - JSF comps"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/json-lib.jar"/>
+	<classpathentry kind="lib" path="/Collaboratorium - Repo/ext-lib/global/mit_collaboratorium_modeling_client_jar.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
