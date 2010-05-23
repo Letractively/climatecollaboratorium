@@ -6,10 +6,22 @@
     
     <div class="pageTitle">
         <h2>Model: #{simulationBean.simulation.name}</h2>
+        <div class="simulationActions">
+            <ice:form>
+                <ice:commandButton value="Edit" actionListener="#{simulationBean.editSimulation}"  rendered="#{not simulationBean.editing}" />
+            </ice:form>
+        </div>
+        <div class="clear"></div>
     </div>
     
-    <div class="modelDescription">
-        <p>#{simulationBean.simulation.description}</p> 
-    </div>
-    
+    <ice:panelGroup styleClass="modelDescription" rendered="#{not simulationBean.editing}">
+        <p>#{simulationBean.simulation.description}</p>
+    </ice:panelGroup>
+    <ice:panelGroup styleClass="modelDescription" rendered="#{simulationBean.editing}">
+        <ice:form>
+            <ice:inputTextarea value="#{simulationBean.description}" />
+            <ice:commandButton value="Cancel" actionListener="#{simulationBean.cancelEditing}" />
+            <ice:commandButton value="Submit" actionListener="#{simulationBean.updateSimulation}" />
+        </ice:form>
+    </ice:panelGroup>
 </f:view>

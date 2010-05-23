@@ -36,8 +36,6 @@ public class NavigationBean {
 
     public void setSimulationBean(SimulationBean simulationBean) throws IOException  {
         this.simulationBean = simulationBean;
-        
-        simulationBean.setSimulation(SimulationsHelper.getInstance().getSimulations().iterator().next());
     }
 
     public String getCurrentPage() {
