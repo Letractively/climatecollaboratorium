@@ -1,24 +1,23 @@
 package org.climatecollaboratorium.models;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.List;
 
-import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.comm.ClientRepository;
 
-import com.liferay.portal.SystemException;
+import org.climatecollaboratorium.models.support.SimulationDecorator;
+import org.climatecollaboratorium.models.support.SimulationsHelper;
 
 public class SimulationsBean {
     
     private ClientRepository r;
-    private Set<Simulation> simulations;
+    private List<SimulationDecorator> simulations;
     
-    public SimulationsBean() throws SystemException, IOException {
-        r = ClientRepository.instance("localhost", 8080);
-        simulations = r.getAllSimulations();
+    public SimulationsBean() throws IOException {
+        simulations = SimulationsHelper.getInstance().getSimulations();
     }
     
-    public Set<Simulation> getSimulations() {
+    public List<SimulationDecorator> getSimulations() {
         return simulations;
     }
 }
