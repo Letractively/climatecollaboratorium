@@ -1,0 +1,126 @@
+package com.ext.portlet.models.model;
+
+import java.io.Serializable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * <a href="ModelOutputChartOrderSoap.java.html"><b><i>View Source</i></b></a>
+ *
+ * <p>
+ * ServiceBuilder generated this class. Modifications in this class will be
+ * overwritten the next time is generated.
+ * </p>
+ *
+ * <p>
+ * This class is used by
+ * <code>com.ext.portlet.models.service.http.ModelOutputChartOrderServiceSoap</code>.
+ * </p>
+ *
+ * @author Brian Wing Shun Chan
+ *
+ * @see com.ext.portlet.models.service.http.ModelOutputChartOrderServiceSoap
+ *
+ */
+public class ModelOutputChartOrderSoap implements Serializable {
+    private Long _modelOutputChartOrderPK;
+    private Long _modelId;
+    private String _modelOutputLabel;
+    private Integer _modelOutputChartOrder;
+
+    public ModelOutputChartOrderSoap() {
+    }
+
+    public static ModelOutputChartOrderSoap toSoapModel(
+        ModelOutputChartOrder model) {
+        ModelOutputChartOrderSoap soapModel = new ModelOutputChartOrderSoap();
+
+        soapModel.setModelOutputChartOrderPK(model.getModelOutputChartOrderPK());
+        soapModel.setModelId(model.getModelId());
+        soapModel.setModelOutputLabel(model.getModelOutputLabel());
+        soapModel.setModelOutputChartOrder(model.getModelOutputChartOrder());
+
+        return soapModel;
+    }
+
+    public static ModelOutputChartOrderSoap[] toSoapModels(
+        ModelOutputChartOrder[] models) {
+        ModelOutputChartOrderSoap[] soapModels = new ModelOutputChartOrderSoap[models.length];
+
+        for (int i = 0; i < models.length; i++) {
+            soapModels[i] = toSoapModel(models[i]);
+        }
+
+        return soapModels;
+    }
+
+    public static ModelOutputChartOrderSoap[][] toSoapModels(
+        ModelOutputChartOrder[][] models) {
+        ModelOutputChartOrderSoap[][] soapModels = null;
+
+        if (models.length > 0) {
+            soapModels = new ModelOutputChartOrderSoap[models.length][models[0].length];
+        } else {
+            soapModels = new ModelOutputChartOrderSoap[0][0];
+        }
+
+        for (int i = 0; i < models.length; i++) {
+            soapModels[i] = toSoapModels(models[i]);
+        }
+
+        return soapModels;
+    }
+
+    public static ModelOutputChartOrderSoap[] toSoapModels(
+        List<ModelOutputChartOrder> models) {
+        List<ModelOutputChartOrderSoap> soapModels = new ArrayList<ModelOutputChartOrderSoap>(models.size());
+
+        for (ModelOutputChartOrder model : models) {
+            soapModels.add(toSoapModel(model));
+        }
+
+        return soapModels.toArray(new ModelOutputChartOrderSoap[soapModels.size()]);
+    }
+
+    public Long getPrimaryKey() {
+        return _modelOutputChartOrderPK;
+    }
+
+    public void setPrimaryKey(Long pk) {
+        setModelOutputChartOrderPK(pk);
+    }
+
+    public Long getModelOutputChartOrderPK() {
+        return _modelOutputChartOrderPK;
+    }
+
+    public void setModelOutputChartOrderPK(Long modelOutputChartOrderPK) {
+        _modelOutputChartOrderPK = modelOutputChartOrderPK;
+    }
+
+    public Long getModelId() {
+        return _modelId;
+    }
+
+    public void setModelId(Long modelId) {
+        _modelId = modelId;
+    }
+
+    public String getModelOutputLabel() {
+        return _modelOutputLabel;
+    }
+
+    public void setModelOutputLabel(String modelOutputLabel) {
+        _modelOutputLabel = modelOutputLabel;
+    }
+
+    public Integer getModelOutputChartOrder() {
+        return _modelOutputChartOrder;
+    }
+
+    public void setModelOutputChartOrder(Integer modelOutputChartOrder) {
+        _modelOutputChartOrder = modelOutputChartOrder;
+    }
+}

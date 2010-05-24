@@ -132,6 +132,42 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 	</model>
+	<model name="com.ext.portlet.models.model.ModelInputGroup">
+		<field name="modelInputGroupPK" type="Long" />
+		<field name="modelId" type="Long" />
+		<field name="nameAndDescriptionMetaDataId" type="Long" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="order" type="Integer" />
+	</model>
+	<model name="com.ext.portlet.models.model.ModelInputItem">
+		<field name="modelInputItemPK" type="Long" />
+		<field name="modelId" type="Long" />
+		<field name="modelInputItemID" type="Long" />
+		<field name="modelGroupId" type="Long" />
+		<field name="order" type="Integer" />
+		<field name="type" type="String" />
+	</model>
+	<model name="com.ext.portlet.models.model.ModelOutputChartOrder">
+		<field name="modelOutputChartOrderPK" type="Long" />
+		<field name="modelId" type="Long" />
+		<field name="modelOutputLabel" type="String" />
+		<field name="modelOutputChartOrder" type="Integer" />
+	</model>
+	<model name="com.ext.portlet.models.model.ModelOutputItemOrder">
+		<field name="modelOutputItemModifierPK" type="Long" />
+		<field name="modelId" type="Long" />
+		<field name="modelOutputItemId" type="Long" />
+		<field name="modelOutputItemOrder" type="Long" />
+		<field name="type" type="String" />
+	</model>
+	<model name="com.ext.portlet.models.model.ModelOutputItemModifier">
+		<field name="modelOutputItemModifierPK" type="Long" />
+		<field name="modelId" type="Long" />
+		<field name="modelOutputItemId" type="Long" />
+		<field name="sourceItemId" type="Long" />
+		<field name="type" type="String" />
+	</model>
 	<model name="com.ext.portlet.Activity.model.ActivitySubscription">
 		<field name="entityId" type="Long" />
 		<field name="receiverId" type="Long" />
