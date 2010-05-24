@@ -103,8 +103,8 @@
 
 
      <!-- this table is explicitly to indicate ordering of items in charts (e.g. for legends) -->
-    <entity name="ModelOutputItemModifier" local-service="true" remote-service="true"
-            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputGroup">
+    <entity name="ModelOutputItemOrder" local-service="true" remote-service="true"
+            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemOrder">
         <column name="modelOutputItemModifierPK" type="Long"/>
         <column name="modelId" type="Long"/>
 
@@ -122,7 +122,7 @@
     <!-- this table is explicitly to indicate a relationship between multiple output variables - e.g. a confidence interval; may ultimately move into the simulation
     servlet -->
     <entity name="ModelOutputItemModifier" local-service="true" remote-service="true"
-            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputGroup">
+            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemModifier">
         <column name="modelOutputItemModifierPK" type="Long"/>
         <column name="modelId" type="Long"/>
 
