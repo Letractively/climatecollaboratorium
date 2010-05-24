@@ -4,7 +4,7 @@
  * or the license.txt file included in this distribution for the full text of the license.
  */
 
-package com.ext.portlet.modeling;
+package com.ext.portlet.models;
 
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.events.SimpleAction;
