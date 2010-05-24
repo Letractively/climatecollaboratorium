@@ -89,8 +89,8 @@
 
 
     <entity name="ModelOutputChartOrder" local-service="true" remote-service="true"
-            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputChartOrder">
-        <column name="modelOutputChartOrderPK" type="Long"/>
+            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputChartOrderImpl">
+        <column name="modelOutputChartOrderPK" type="Long" primary="true"/>
         <column name="modelId" type="Long"/>
 
         <!-- variable "name" for the chart this entry describes; recall, output items are grouped into charts depending on the label name -->
@@ -104,8 +104,8 @@
 
      <!-- this table is explicitly to indicate ordering of items in charts (e.g. for legends) -->
     <entity name="ModelOutputItemOrder" local-service="true" remote-service="true"
-            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemOrder">
-        <column name="modelOutputItemModifierPK" type="Long"/>
+            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemOrderImpl">
+        <column name="modelOutputItemModifierPK" type="Long" primary="true"/>
         <column name="modelId" type="Long"/>
 
         <!-- id of the model item this entry describes -->
@@ -122,8 +122,8 @@
     <!-- this table is explicitly to indicate a relationship between multiple output variables - e.g. a confidence interval; may ultimately move into the simulation
     servlet -->
     <entity name="ModelOutputItemModifier" local-service="true" remote-service="true"
-            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemModifier">
-        <column name="modelOutputItemModifierPK" type="Long"/>
+            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemModifierImpl">
+        <column name="modelOutputItemModifierPK" type="Long" primary="true"/>
         <column name="modelId" type="Long"/>
 
         <!-- id of the model item this entry describes -->
@@ -146,6 +146,11 @@
 <exception>ModelName</exception>
 <exception>NoSuchModelPosition</exception>
 <exception>NoSuchModel</exception>
+    <exception>NoSuchModelInputGroup</exception>
+    <exception>NoSuchModelInputItem</exception>
+    <exception>NoSuchModelOutputChartOrder</exception>
+    <exception>NoSuchModelOutputItemOrder</exception>
+    <exception>NoSuchModelOutputItemModifier</exception>
 
 </exceptions>
         </service-builder>

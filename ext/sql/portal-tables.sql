@@ -854,6 +854,47 @@ create table MembershipRequest (
 	statusId INTEGER
 );
 
+create table ModelInputGroup (
+	modelInputGroupPK LONG not null primary key,
+	modelId LONG,
+	nameAndDescriptionMetaDataId LONG,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null,
+	order INTEGER
+);
+
+create table ModelInputItem (
+	modelInputItemPK LONG not null primary key,
+	modelId LONG,
+	modelInputItemID LONG,
+	modelGroupId LONG,
+	order INTEGER,
+	type_ VARCHAR(75) null
+);
+
+create table ModelOutputChartOrder (
+	modelOutputChartOrderPK LONG not null primary key,
+	modelId LONG,
+	modelOutputLabel VARCHAR(75) null,
+	modelOutputChartOrder INTEGER
+);
+
+create table ModelOutputItemModifier (
+	modelOutputItemModifierPK LONG not null primary key,
+	modelId LONG,
+	modelOutputItemId LONG,
+	sourceItemId LONG,
+	type_ VARCHAR(75) null
+);
+
+create table ModelOutputItemOrder (
+	modelOutputItemModifierPK LONG not null primary key,
+	modelId LONG,
+	modelOutputItemId LONG,
+	modelOutputItemOrder LONG,
+	type_ VARCHAR(75) null
+);
+
 create table Organization_ (
 	organizationId LONG not null primary key,
 	companyId LONG,

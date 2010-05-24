@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.models.service.persistence;
 
 import com.ext.portlet.models.NoSuchModelPositionException;
@@ -70,6 +64,16 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.models.service.persistence.ModelDiscussionPersistence modelDiscussionPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelPositionPersistence.impl")
     protected com.ext.portlet.models.service.persistence.ModelPositionPersistence modelPositionPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelInputGroupPersistence modelInputGroupPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelInputItemPersistence modelInputItemPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence modelOutputChartOrderPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence modelOutputItemOrderPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence modelOutputItemModifierPersistence;
 
     public void cacheResult(ModelPosition modelPosition) {
         EntityCacheUtil.putResult(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,

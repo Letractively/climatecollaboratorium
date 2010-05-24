@@ -277,6 +277,96 @@
 	<bean id="com.ext.portlet.models.service.persistence.ModelPositionUtil" class="com.ext.portlet.models.service.persistence.ModelPositionUtil">
 		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelPositionPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" class="com.ext.portlet.models.service.impl.ModelInputGroupLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil" class="com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputGroupService.impl" class="com.ext.portlet.models.service.impl.ModelInputGroupServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelInputGroupService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputGroupServiceUtil" class="com.ext.portlet.models.service.ModelInputGroupServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelInputGroupImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputGroupUtil" class="com.ext.portlet.models.service.persistence.ModelInputGroupUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputItemLocalService.impl" class="com.ext.portlet.models.service.impl.ModelInputItemLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelInputItemLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelInputItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputItemLocalServiceUtil" class="com.ext.portlet.models.service.ModelInputItemLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputItemService.impl" class="com.ext.portlet.models.service.impl.ModelInputItemServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelInputItemService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelInputItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputItemServiceUtil" class="com.ext.portlet.models.service.ModelInputItemServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelInputItemImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputItemUtil" class="com.ext.portlet.models.service.persistence.ModelInputItemUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderLocalService.impl" class="com.ext.portlet.models.service.impl.ModelOutputChartOrderLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputChartOrderLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderLocalServiceUtil" class="com.ext.portlet.models.service.ModelOutputChartOrderLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" class="com.ext.portlet.models.service.impl.ModelOutputChartOrderServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderServiceUtil" class="com.ext.portlet.models.service.ModelOutputChartOrderServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputChartOrderImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputChartOrderUtil" class="com.ext.portlet.models.service.persistence.ModelOutputChartOrderUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemOrderLocalService.impl" class="com.ext.portlet.models.service.impl.ModelOutputItemOrderLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputItemOrderLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputItemOrderLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemOrderLocalServiceUtil" class="com.ext.portlet.models.service.ModelOutputItemOrderLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemOrderLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemOrderService.impl" class="com.ext.portlet.models.service.impl.ModelOutputItemOrderServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputItemOrderService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputItemOrderService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemOrderServiceUtil" class="com.ext.portlet.models.service.ModelOutputItemOrderServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemOrderService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputItemOrderImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemOrderUtil" class="com.ext.portlet.models.service.persistence.ModelOutputItemOrderUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemModifierLocalService.impl" class="com.ext.portlet.models.service.impl.ModelOutputItemModifierLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputItemModifierLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputItemModifierLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemModifierLocalServiceUtil" class="com.ext.portlet.models.service.ModelOutputItemModifierLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemModifierLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemModifierService.impl" class="com.ext.portlet.models.service.impl.ModelOutputItemModifierServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputItemModifierService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputItemModifierService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemModifierServiceUtil" class="com.ext.portlet.models.service.ModelOutputItemModifierServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemModifierService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputItemModifierImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemModifierUtil" class="com.ext.portlet.models.service.persistence.ModelOutputItemModifierUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence.impl" />
+	</bean>
 	<bean id="com.ext.portlet.Activity.service.ActivitySubscriptionLocalService.impl" class="com.ext.portlet.Activity.service.impl.ActivitySubscriptionLocalServiceImpl" />
 	<bean id="com.ext.portlet.Activity.service.ActivitySubscriptionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.portlet.Activity.service.ActivitySubscriptionLocalService.impl" />
