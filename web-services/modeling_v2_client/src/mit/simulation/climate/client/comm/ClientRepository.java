@@ -156,6 +156,10 @@ public class ClientRepository implements Deserializer {
        return cacheLookup(id,Simulation.class);
     }
 
+    public MetaData getMetaData(Long id) {
+        return cacheLookup(id,MetaData.class);
+    }
+
 
 
     public void updateSimulation(Simulation s) throws ModelNotFoundException, IOException {
