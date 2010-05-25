@@ -61,6 +61,80 @@ public interface ModelInputItemPersistence extends BasePersistence {
         java.lang.Long modelInputItemPK)
         throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelGroupId(
+        java.lang.Long modelGroupId) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelGroupId(
+        java.lang.Long modelGroupId, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelGroupId(
+        java.lang.Long modelGroupId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem findByModelGroupId_First(
+        java.lang.Long modelGroupId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem findByModelGroupId_Last(
+        java.lang.Long modelGroupId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem[] findByModelGroupId_PrevAndNext(
+        java.lang.Long modelInputItemPK, java.lang.Long modelGroupId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem findByModelInputId(
+        java.lang.Long modelInputItemID)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem fetchByModelInputId(
+        java.lang.Long modelInputItemID)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem fetchByModelInputId(
+        java.lang.Long modelInputItemID, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
+        java.lang.Long modelInputItemID)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
+        java.lang.Long modelInputItemID, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
+        java.lang.Long modelInputItemID, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem findByModelId_First(
+        java.lang.Long modelInputItemID,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem findByModelId_Last(
+        java.lang.Long modelInputItemID,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem[] findByModelId_PrevAndNext(
+        java.lang.Long modelInputItemPK, java.lang.Long modelInputItemID,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -79,7 +153,26 @@ public interface ModelInputItemPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
+    public void removeByModelGroupId(java.lang.Long modelGroupId)
+        throws com.liferay.portal.SystemException;
+
+    public void removeByModelInputId(java.lang.Long modelInputItemID)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
+    public void removeByModelId(java.lang.Long modelInputItemID)
+        throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
+
+    public int countByModelGroupId(java.lang.Long modelGroupId)
+        throws com.liferay.portal.SystemException;
+
+    public int countByModelInputId(java.lang.Long modelInputItemID)
+        throws com.liferay.portal.SystemException;
+
+    public int countByModelId(java.lang.Long modelInputItemID)
+        throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

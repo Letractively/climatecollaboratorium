@@ -6,11 +6,26 @@
 
 package com.ext.portlet.models.model.impl;
 
+import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.model.ModelInputItem;
+import com.liferay.portal.SystemException;
+import mit.simulation.climate.client.MetaData;
+import mit.simulation.climate.client.Simulation;
 
 
 public class ModelInputItemImpl extends ModelInputItemModelImpl
     implements ModelInputItem {
     public ModelInputItemImpl() {
     }
+
+    public MetaData getMetaData() throws SystemException {
+        return CollaboratoriumModelingService.repository().getMetaData(getModelInputItemID());
+    }
+
+    public Simulation getModel() throws SystemException {
+        return CollaboratoriumModelingService.repository().getSimulation(getModelId());
+    }
 }
+
+
+

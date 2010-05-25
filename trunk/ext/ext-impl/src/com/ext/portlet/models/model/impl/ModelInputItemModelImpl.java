@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.models.model.impl;
 
 import com.ext.portlet.models.model.ModelInputItem;
@@ -80,6 +74,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
     private Long _modelInputItemPK;
     private Long _modelId;
     private Long _modelInputItemID;
+    private Long _originalModelInputItemID;
     private Long _modelGroupId;
     private Integer _order;
     private String _type;
@@ -144,6 +139,14 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
 
     public void setModelInputItemID(Long modelInputItemID) {
         _modelInputItemID = modelInputItemID;
+
+        if (_originalModelInputItemID == null) {
+            _originalModelInputItemID = modelInputItemID;
+        }
+    }
+
+    public Long getOriginalModelInputItemID() {
+        return _originalModelInputItemID;
     }
 
     public Long getModelGroupId() {

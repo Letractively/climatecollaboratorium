@@ -79,4 +79,16 @@ public interface ModelInputItemLocalService {
     public com.ext.portlet.models.model.ModelInputItem updateModelInputItem(
         com.ext.portlet.models.model.ModelInputItem modelInputItem,
         boolean merge) throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> getItemsForModel(
+        mit.simulation.climate.client.Simulation sim);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.models.model.ModelInputItem getItemForMetaData(
+        mit.simulation.climate.client.MetaData md);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> getItemForGroupId(
+        java.lang.Long groupid);
 }

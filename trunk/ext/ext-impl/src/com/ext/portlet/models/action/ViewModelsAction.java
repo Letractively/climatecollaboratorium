@@ -5,22 +5,19 @@
  */
 package com.ext.portlet.models.action;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletPreferences;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import com.ext.portlet.models.DebatesConstants;
 import com.ext.portlet.models.DebatesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.struts.PortletAction;
-import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.messageboards.model.MBCategory;
-import com.liferay.portlet.messageboards.service.MBCategoryLocalServiceUtil;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletPreferences;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 /**
  * <p>
@@ -62,6 +59,9 @@ public class ViewModelsAction extends PortletAction {
 
 		String tabParamValue = ParamUtil.getString(renderRequest,
 				"modelsTabParameter", "Models");
+
+       
+        
 		if ("Models".equals(tabParamValue)) {
 			return mapping.findForward("portlet.ext.models.view_models");
 		} else {

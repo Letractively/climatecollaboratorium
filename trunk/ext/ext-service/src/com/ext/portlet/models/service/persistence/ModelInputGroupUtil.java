@@ -82,6 +82,49 @@ public class ModelInputGroupUtil {
         return getPersistence().fetchByPrimaryKey(modelInputGroupPK);
     }
 
+    public static java.util.List<com.ext.portlet.models.model.ModelInputGroup> findByModelId(
+        java.lang.Long modelId) throws com.liferay.portal.SystemException {
+        return getPersistence().findByModelId(modelId);
+    }
+
+    public static java.util.List<com.ext.portlet.models.model.ModelInputGroup> findByModelId(
+        java.lang.Long modelId, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByModelId(modelId, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.models.model.ModelInputGroup> findByModelId(
+        java.lang.Long modelId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByModelId(modelId, start, end, obc);
+    }
+
+    public static com.ext.portlet.models.model.ModelInputGroup findByModelId_First(
+        java.lang.Long modelId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputGroupException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByModelId_First(modelId, obc);
+    }
+
+    public static com.ext.portlet.models.model.ModelInputGroup findByModelId_Last(
+        java.lang.Long modelId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputGroupException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByModelId_Last(modelId, obc);
+    }
+
+    public static com.ext.portlet.models.model.ModelInputGroup[] findByModelId_PrevAndNext(
+        java.lang.Long modelInputGroupPK, java.lang.Long modelId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputGroupException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByModelId_PrevAndNext(modelInputGroupPK, modelId, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -110,8 +153,18 @@ public class ModelInputGroupUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
+    public static void removeByModelId(java.lang.Long modelId)
+        throws com.liferay.portal.SystemException {
+        getPersistence().removeByModelId(modelId);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
+    }
+
+    public static int countByModelId(java.lang.Long modelId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByModelId(modelId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

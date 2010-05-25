@@ -27,4 +27,11 @@ package com.ext.portlet.models.model;
  *
  */
 public interface ModelInputGroup extends ModelInputGroupModel {
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> getInputItems();
+
+    public mit.simulation.climate.client.Simulation getModel()
+        throws com.liferay.portal.SystemException;
+
+    public mit.simulation.climate.client.MetaData getMetaData()
+        throws com.liferay.portal.SystemException;
 }

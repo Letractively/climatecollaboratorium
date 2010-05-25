@@ -340,6 +340,11 @@ create index IX_C7A33C0C on MigrationMapping (oldId);
 create index IX_E3FA804 on ModelDiscussion (categoryId);
 create index IX_54E7429D on ModelDiscussion (modelId);
 
+create index IX_560BFD0 on ModelInputGroup (modelId);
+
+create index IX_19199C7F on ModelInputItem (modelGroupId);
+create index IX_DDC86F5D on ModelInputItem (modelInputItemID);
+
 create index IX_64397830 on ModelPosition (positionId);
 
 create index IX_A425F71A on OrgGroupPermission (groupId);
