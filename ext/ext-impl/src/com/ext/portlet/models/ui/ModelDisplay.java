@@ -6,9 +6,12 @@
 
 package com.ext.portlet.models.ui;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +22,9 @@ public class ModelDisplay {
 
     List<ModelInputDisplayItem> inputs;
     List<ModelOutputDisplayItem> outputs;
+
+    private static Log _log = LogFactoryUtil.getLog(ModelDisplay.class);
+
 
     private Simulation sim;
 
@@ -34,7 +40,8 @@ public class ModelDisplay {
         try {
             setScenario(scenario);
         } catch (IncompatibleScenarioException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            _log.error("Cannot set scenario",e);
+
         }
     }
 
@@ -48,10 +55,12 @@ public class ModelDisplay {
     }
 
     public List<ModelInputDisplayItem> getInputs() {
+        Collections.sort(inputs);
         return inputs;
     }
 
     public List<ModelOutputDisplayItem> getOutputs() {
+        Collections.sort(outputs);
         return outputs;
     }
 

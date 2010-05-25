@@ -6,15 +6,19 @@
 
 package com.ext.portlet.models.ui;
 
+import com.ext.portlet.models.NoSuchModelOutputChartOrderException;
+import com.ext.portlet.models.model.ModelOutputChartOrder;
+import com.ext.portlet.models.service.ModelOutputChartOrderLocalServiceUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.Variable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: jintrone
@@ -27,14 +31,35 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
     private Scenario scenario;
     private String name;
     private MetaData index;
-    private List<MetaData> series = new ArrayList<MetaData>();
+    private List<ModelOutputSeriesDisplayItem> series = new ArrayList<ModelOutputSeriesDisplayItem>();
     private Map<MetaData, Variable> varmap = new HashMap<MetaData,Variable>();
     private ModelOutputChartType type = ModelOutputChartType.TIME_SERIES;
 
+    private static Log _log = LogFactoryUtil.getLog(ModelOutputIndexedDisplayItem.class);
 
-    public ModelOutputIndexedDisplayItem(Simulation s, String name) {
+    private ModelOutputChartOrder chartModel;
+
+
+
+    public ModelOutputIndexedDisplayItem(Simulation s, String name) throws SystemException {
         super(s);
         this.name = name;
+
+        try {
+            chartModel = ModelOutputChartOrderLocalServiceUtil.getChartOrder(s,name);
+        } catch (NoSuchModelOutputChartOrderException e) {
+            createPersistence();
+        } catch (SystemException e) {
+            _log.error(e);
+            throw(e);
+        }
+
+
+    }
+
+    private void createPersistence() throws SystemException {
+        Long pk = CounterLocalServiceUtil.increment(ModelOutputChartOrder.class.getName());
+        chartModel = ModelOutputChartOrderLocalServiceUtil.createModelOutputChartOrder(pk);
     }
 
     public String getName() {
@@ -45,7 +70,37 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
        return type;
     }
 
-    public void setChartType(ModelOutputChartType type) {
+    public Variable getIndexVariable() {
+        return varmap.get(getIndex());
+    }
+
+     public MetaData getIndex() {
+      return index;
+    }
+
+    public List<Variable> getSeriesVariables() {
+        List<Variable> result = new ArrayList<Variable>();
+        for (MetaData md:getSeriesMetaData()){
+          result.add(varmap.get(md));
+        }
+        return result;
+    }
+
+    public List<MetaData> getSeriesMetaData() {
+        List<MetaData> result = new ArrayList<MetaData>();
+        for (ModelOutputSeriesDisplayItem item:getSeries()) {
+            result.add(item.getMetaData());
+        }
+        return result;
+    }
+
+    public List<ModelOutputSeriesDisplayItem> getSeries() {
+        Collections.sort(series);
+        return series;
+    }
+
+
+    void setChartType(ModelOutputChartType type) {
        this.type=type;
     }
 
@@ -64,38 +119,31 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
     }
 
 
-    public MetaData getIndex() {
-      return index;
-    }
 
     void setIndex(MetaData md) {
         this.index = md;
     }
 
-
-
-    public void addSeriesData(MetaData md) {
-        series.add(md);       
-    }
-
-    public List<MetaData> getSeries() {
-        return new ArrayList<MetaData>(series);
+    void addSeriesData(MetaData md) throws SystemException {
+        series.add(new ModelOutputSeriesDisplayItem(getSimulation(),md));
     }
 
 
 
-    public Variable getIndexVariable() {
-        return varmap.get(getIndex());
+
+     @Override
+    public int order() {
+        return null == chartModel ?-1: chartModel.getModelOutputChartOrder();
+     }
+
+    @Override
+    public void setOrder(int o) throws SystemException {
+       if (null!= chartModel) {
+           chartModel.setModelOutputChartOrder(o);
+           ModelOutputChartOrderLocalServiceUtil.updateModelOutputChartOrder(chartModel);
+       }
     }
 
-    public List<Variable> getSeriesVariables() {
-        List<Variable> result = new ArrayList<Variable>();
-        for (MetaData md:getSeries()){
-          result.add(varmap.get(md));
-        }
-        return result;
-    }
-
-
+   
 
 }

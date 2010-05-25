@@ -8,13 +8,12 @@ package com.ext.portlet.models.ui;
 
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.Variable;
 
 /**
  * @author: jintrone
  * @date: May 24, 2010
  */
-public class ModelInputDisplayItem extends ModelDisplayItem {
+public abstract class ModelInputDisplayItem extends ModelDisplayItem {
 
     private MetaData md;
 
@@ -25,13 +24,6 @@ public class ModelInputDisplayItem extends ModelDisplayItem {
    
     public MetaData getMetaData() {
      return md;
-    }
-
-    public Variable getVariable() {
-        if (getScenario()!=null) {
-            return ModelUIFactory.getVariableForMetaData(getScenario(),getMetaData(),true);
-        }
-        return null;
     }
 
     @Override

@@ -6,15 +6,12 @@
 
 package com.ext.portlet.models.ui;
 
-import mit.simulation.climate.client.Simulation;
-
 /**
  * @author: jintrone
  * @date: May 25, 2010
  */
-public abstract class ModelOutputDisplayItem extends ModelDisplayItem {
+public enum ModelOutputSeriesType {
+   CONF_INTERVAL_95, CONF_INTERVAL_5, NORMAL
+    
 
-    public ModelOutputDisplayItem(Simulation s) {
-        super(s);
-    }
 }

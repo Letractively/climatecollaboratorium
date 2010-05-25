@@ -12,6 +12,8 @@ import com.ext.portlet.models.model.ModelInputItem;
 import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
@@ -26,6 +28,8 @@ import java.util.*;
 public class ModelUIFactory {
     private static ModelUIFactory ourInstance = new ModelUIFactory();
 
+    private static Log _log = LogFactoryUtil.getLog(ModelUIFactory.class);
+    
     public static ModelUIFactory getInstance() {
         return ourInstance;
     }
@@ -56,20 +60,39 @@ public class ModelUIFactory {
                 if (md.getVarType() == MetaData.VarType.FREE) {
                     item = (ModelOutputIndexedDisplayItem) found.get(md.getName());
                     if (item == null) {
-                        item = new ModelOutputIndexedDisplayItem(s, md.getName());
+                        try {
+                            item = new ModelOutputIndexedDisplayItem(s, md.getName());
+                        } catch (SystemException e) {
+                            _log.error(e);
+                        }
                         item.setChartType(ModelOutputChartType.FREE);
                         found.put(md.getName(), item);
                     }
-                    item.addSeriesData(md);
+                    try {
+                        item.addSeriesData(md);
+                    } catch (SystemException e) {
+                        _log.error(e);
+                    }
                 } else if (md.getVarType() == MetaData.VarType.RANGE) {
                     item = (ModelOutputIndexedDisplayItem) found.get(md.getLabels()[1]);
                     if (item == null) {
-                        item = new ModelOutputIndexedDisplayItem(s, md.getLabels()[1]);
+                        try {
+                            item = new ModelOutputIndexedDisplayItem(s, md.getLabels()[1]);
+                        } catch (SystemException e) {
+                            _log.error(e);
+                        }
                         item.setChartType(ModelOutputChartType.FREE);
                         found.put(md.getName(), item);
                     }
-                    item.addSeriesData(md);
+                    try {
+                        item.addSeriesData(md);
+                    } catch (SystemException e) {
+                        _log.error(e);
+                    }
 
+                } else {
+                  _log.warn("Unknown variable type "+md.getVarType());
+                   continue;
                 }
                 if (item.getIndex() == null) {
                     item.setIndex(md.getIndexingMetaData());
@@ -92,18 +115,17 @@ public class ModelUIFactory {
                 try {
                     grouped.add(item.getMetaData());
                 } catch (SystemException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    _log.error(e);
                 }
             }
             try {
                 result.add(new ModelInputGroupDisplayItem(group));
             } catch (SystemException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                _log.error(e);
             }
         }
         for (MetaData md : s.getInputs()) {
-            if (grouped.contains(md)) continue;
-            else {
+            if (!grouped.contains(md)) {
                 result.add(getInputItem(ModelInputItemLocalServiceUtil.getItemForMetaData(md)));
             }
         }
@@ -114,7 +136,7 @@ public class ModelUIFactory {
         try {
             return new ModelInputIndividualDisplayItem(item);
         } catch (SystemException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            _log.error(e);
         }
         return null;
 
