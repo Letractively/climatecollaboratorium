@@ -7,9 +7,12 @@
 package com.ext.portlet.models.ui;
 
 import com.ext.portlet.models.model.ModelInputItem;
+import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.Variable;
 
 /**
  * @author: jintrone
@@ -20,23 +23,45 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
     ModelInputWidgetType type = ModelInputWidgetType.TEXT_FIELD;
     ModelInputItem item;
 
-    public ModelInputIndividualDisplayItem(Simulation sim, MetaData md) {
-        super(sim, md);
-    }
 
     public ModelInputIndividualDisplayItem(ModelInputItem item) throws SystemException {
-        this(item.getModel(),item.getMetaData());
+        super(item.getModel(),item.getMetaData());
         this.item = item;
-        type = ModelInputWidgetType.valueOf(item.getType());
+    }
 
+     public Variable getVariable() {
+        if (getScenario()!=null) {
+            return ModelUIFactory.getVariableForMetaData(getScenario(),getMetaData(),true);
+        }
+        return null;
     }
 
 
     public ModelInputWidgetType getType() {
-      return type;
+      return item.getType()==null?ModelInputWidgetType.TEXT_FIELD:ModelInputWidgetType.valueOf(item.getType());
     }
 
-    public void setType(ModelInputWidgetType type) {
-        this.type = type;
+    public void setType(ModelInputWidgetType type) throws SystemException {
+         item.setType(type.name());
+         ModelInputItemLocalServiceUtil.updateModelInputItem(item);
+    }
+
+    public int order() {
+        return item.getOrder()==null?-1:item.getOrder();
+    }
+
+    public void setOrder(int order) throws SystemException {
+       item.setOrder(order);
+       ModelInputItemLocalServiceUtil.updateModelInputItem(item);
+    }
+
+    public static ModelInputIndividualDisplayItem create(Simulation sim, MetaData md, ModelInputWidgetType type) throws SystemException {
+         Long pk = CounterLocalServiceUtil.increment(ModelInputItem.class.getName());
+            ModelInputItem item = ModelInputItemLocalServiceUtil.createModelInputItem(pk);
+            item.setModelId(sim.getId());
+            item.setModelInputItemID(md.getId());
+            item.setType(type.name());
+            ModelInputItemLocalServiceUtil.updateModelInputItem(item);
+        return new ModelInputIndividualDisplayItem(item);
     }
 }

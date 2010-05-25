@@ -6,6 +6,7 @@
 
 package com.ext.portlet.models.ui;
 
+import com.liferay.portal.SystemException;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 
@@ -13,7 +14,7 @@ import mit.simulation.climate.client.Simulation;
  * @author: jintrone
  * @date: May 24, 2010
  */
-public abstract class ModelDisplayItem {
+public abstract class ModelDisplayItem implements Comparable<ModelDisplayItem> {
 
     public abstract String getName();
 
@@ -39,4 +40,14 @@ public abstract class ModelDisplayItem {
     public Scenario getScenario() {
       return scen;
     }
+
+
+
+     public int compareTo(ModelDisplayItem o) {
+         return this.order() - o.order();
+     }
+
+    public abstract int order();
+
+    public abstract void setOrder(int o) throws SystemException;
 }

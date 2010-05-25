@@ -12,14 +12,13 @@ import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author: jintrone
@@ -27,41 +26,94 @@ import java.util.Set;
  */
 public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
-    String name;
-    String description;
+    private static Log _log = LogFactoryUtil.getLog(ModelInputGroupDisplayItem.class);
+
 
     ModelInputGroup group;
 
     List<ModelInputDisplayItem> items = new ArrayList<ModelInputDisplayItem>();
     Set<MetaData> knownmd = new HashSet<MetaData>();
 
-    public ModelInputGroupDisplayItem(Simulation s, String name, String description) {
-        super(s,null);
-        this.name = name;
-        this.description = description;
-    }
-
-    public ModelInputGroupDisplayItem(Simulation s, MetaData m) {
-       super(s,m);
-        this.name = m.getName();
-        this.description = m.getDescription();
-    }
 
     public ModelInputGroupDisplayItem(ModelInputGroup group) throws SystemException {
-       super(group.getModel(),group.getMetaData());
+        super(group.getModel(), group.getMetaData());
         this.group = group;
-        if (group.getName()!=null) {
-           this.name = group.getName();
-       }
-       if (group.getDescription() !=null) {
-           this.description = group.getDescription();
-       }
+    }
 
-        for (ModelInputItem item:group.getInputItems()) {
+
+    private void populateChildren() throws SystemException {
+        knownmd = new HashSet<MetaData>();
+        items = new ArrayList<ModelInputDisplayItem>();
+        for (ModelInputItem item : group.getInputItems()) {
             knownmd.add(item.getMetaData());
             items.add(ModelUIFactory.getInstance().getInputItem(item));
         }
+    }
 
+
+    @Override
+    public String getName() {
+        try {
+            return group.getName() == null ? group.getMetaData().getName() : group.getName();
+        } catch (SystemException e) {
+            _log.error("Could not retrive group name", e);
+        }
+        return null;
+    }
+
+    @Override
+    public String getDescription() {
+        try {
+            return group.getDescription() == null ? group.getMetaData().getDescription() : group.getDescription();
+        } catch (SystemException e) {
+            _log.error("Could not retrive group description", e);
+        }
+        return null;
+    }
+
+    public void setScenario(Scenario s) throws IncompatibleScenarioException {
+        super.setScenario(s);
+        for (ModelInputDisplayItem item : getDisplayItems()) {
+            item.setScenario(s);
+        }
+    }
+
+    @Override
+    public int order() {
+        return group.getOrder();
+    }
+
+   
+    public void setOrder(int o) throws SystemException {
+        group.setOrder(o);
+        ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
+    }
+
+
+    public List<ModelInputDisplayItem> getDisplayItems() {
+        Collections.sort(items);
+        return items;
+     }
+
+    public void addDisplayItem(MetaData d, ModelInputWidgetType type) throws SystemException {
+        if (!knownmd.contains(d)) {
+            items.add(ModelInputIndividualDisplayItem.create(getSimulation(), d, type));
+        }
+    }
+
+    public void removeDisplayItem(MetaData d) throws SystemException {
+        ModelInputIndividualDisplayItem toremove = null;
+        for (ModelInputDisplayItem item : getDisplayItems()) {
+            if (item.getMetaData().equals(d)) {
+                toremove = (ModelInputIndividualDisplayItem) item;
+                break;
+            }
+        }
+        if (toremove != null) {
+            ModelInputItemLocalServiceUtil.deleteModelInputItem(toremove.item);
+
+        }
+        populateChildren();
 
     }
 
@@ -88,51 +140,4 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         return new ModelInputGroupDisplayItem(group);
     }
 
-
-
-
-    @Override
-    public String getName() {
-        try {
-            return group.getName()==null?group.getMetaData().getName():group.getName();
-        } catch (SystemException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return null;
-    }
-
-    @Override
-    public String getDescription() {
-        try {
-            return group.getDescription() == null?group.getMetaData().getDescription():group.getDescription();
-        } catch (SystemException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return null;
-    }
-
-    public void setScenario(Scenario s) throws IncompatibleScenarioException {
-        super.setScenario(s);
-        for (ModelInputDisplayItem item:getDisplayItems()) {
-            item.setScenario(s);
-        }
-    }
-
-
-
-    public List<ModelInputDisplayItem> getDisplayItems() {
-       return items;
-    }
-
-    public void addDisplayItem(MetaData d, ModelInputWidgetType type) throws SystemException {
-        if (!knownmd.contains(d)) {
-            Long pk = CounterLocalServiceUtil.increment(ModelInputItem.class.getName());
-            ModelInputItem item = ModelInputItemLocalServiceUtil.createModelInputItem(pk);
-            item.setModelId(getSimulation().getId());
-            item.setModelInputItemID(d.getId());
-            item.setType(type.name());
-            ModelInputItemLocalServiceUtil.updateModelInputItem(item);
-            items.add(ModelUIFactory.getInstance().getInputItem(item));
-        }
-    }
 }
