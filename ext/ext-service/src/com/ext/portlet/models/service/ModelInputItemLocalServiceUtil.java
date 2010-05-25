@@ -89,6 +89,21 @@ public class ModelInputItemLocalServiceUtil {
         return getService().updateModelInputItem(modelInputItem, merge);
     }
 
+    public static java.util.List<com.ext.portlet.models.model.ModelInputItem> getItemsForModel(
+        mit.simulation.climate.client.Simulation sim) {
+        return getService().getItemsForModel(sim);
+    }
+
+    public static com.ext.portlet.models.model.ModelInputItem getItemForMetaData(
+        mit.simulation.climate.client.MetaData md) {
+        return getService().getItemForMetaData(md);
+    }
+
+    public static java.util.List<com.ext.portlet.models.model.ModelInputItem> getItemForGroupId(
+        java.lang.Long groupid) {
+        return getService().getItemForGroupId(groupid);
+    }
+
     public static ModelInputItemLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("ModelInputItemLocalService is not set");

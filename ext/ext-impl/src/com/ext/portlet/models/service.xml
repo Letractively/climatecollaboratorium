@@ -64,6 +64,10 @@
 
         <!-- Sort order for this item in on the page -->
         <column name="order" type="Integer"/>
+
+        <finder name="ModelId" return-type="Collection">
+            <finder-column name="modelId"/>
+        </finder>
     </entity>
 
     <entity name="ModelInputItem" local-service="true" remote-service="true"
@@ -83,6 +87,19 @@
 
         <!-- Place holder for widget type - e.g. slider, textbox, etc. -->
         <column name="type" type="String"/>
+
+        <finder name="ModelGroupId" return-type="Collection">
+            <finder-column name="modelGroupId"/>
+        </finder>
+
+        <finder name="ModelInputId" return-type="ModelInputItem">
+            <finder-column name="modelInputItemID"/>
+        </finder>
+
+        <finder name="ModelId" return-type="Collection">
+            <finder-column name="modelInputItemID"/>
+        </finder>
+        
     </entity>
 
 

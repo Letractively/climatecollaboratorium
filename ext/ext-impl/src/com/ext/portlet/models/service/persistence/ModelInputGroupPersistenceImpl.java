@@ -13,12 +13,14 @@ import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
@@ -34,6 +36,23 @@ public class ModelInputGroupPersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = ModelInputGroupImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
+    public static final FinderPath FINDER_PATH_FIND_BY_MODELID = new FinderPath(ModelInputGroupModelImpl.ENTITY_CACHE_ENABLED,
+            ModelInputGroupModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByModelId",
+            new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_MODELID = new FinderPath(ModelInputGroupModelImpl.ENTITY_CACHE_ENABLED,
+            ModelInputGroupModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByModelId",
+            new String[] {
+                Long.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_MODELID = new FinderPath(ModelInputGroupModelImpl.ENTITY_CACHE_ENABLED,
+            ModelInputGroupModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByModelId",
+            new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ModelInputGroupModelImpl.ENTITY_CACHE_ENABLED,
             ModelInputGroupModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -291,6 +310,227 @@ public class ModelInputGroupPersistenceImpl extends BasePersistenceImpl
         return modelInputGroup;
     }
 
+    public List<ModelInputGroup> findByModelId(Long modelId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { modelId };
+
+        List<ModelInputGroup> list = (List<ModelInputGroup>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_MODELID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelInputGroup WHERE ");
+
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
+                } else {
+                    query.append("modelId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ModelInputGroup>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_MODELID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<ModelInputGroup> findByModelId(Long modelId, int start, int end)
+        throws SystemException {
+        return findByModelId(modelId, start, end, null);
+    }
+
+    public List<ModelInputGroup> findByModelId(Long modelId, int start,
+        int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                modelId,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<ModelInputGroup> list = (List<ModelInputGroup>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_MODELID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelInputGroup WHERE ");
+
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
+                } else {
+                    query.append("modelId = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
+                }
+
+                list = (List<ModelInputGroup>) QueryUtil.list(q, getDialect(),
+                        start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ModelInputGroup>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_MODELID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public ModelInputGroup findByModelId_First(Long modelId,
+        OrderByComparator obc)
+        throws NoSuchModelInputGroupException, SystemException {
+        List<ModelInputGroup> list = findByModelId(modelId, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ModelInputGroup exists with the key {");
+
+            msg.append("modelId=" + modelId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchModelInputGroupException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ModelInputGroup findByModelId_Last(Long modelId,
+        OrderByComparator obc)
+        throws NoSuchModelInputGroupException, SystemException {
+        int count = countByModelId(modelId);
+
+        List<ModelInputGroup> list = findByModelId(modelId, count - 1, count,
+                obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ModelInputGroup exists with the key {");
+
+            msg.append("modelId=" + modelId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchModelInputGroupException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ModelInputGroup[] findByModelId_PrevAndNext(Long modelInputGroupPK,
+        Long modelId, OrderByComparator obc)
+        throws NoSuchModelInputGroupException, SystemException {
+        ModelInputGroup modelInputGroup = findByPrimaryKey(modelInputGroupPK);
+
+        int count = countByModelId(modelId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.models.model.ModelInputGroup WHERE ");
+
+            if (modelId == null) {
+                query.append("modelId IS NULL");
+            } else {
+                query.append("modelId = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (modelId != null) {
+                qPos.add(modelId.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    modelInputGroup);
+
+            ModelInputGroup[] array = new ModelInputGroupImpl[3];
+
+            array[0] = (ModelInputGroup) objArray[0];
+            array[1] = (ModelInputGroup) objArray[1];
+            array[2] = (ModelInputGroup) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -390,10 +630,68 @@ public class ModelInputGroupPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
+    public void removeByModelId(Long modelId) throws SystemException {
+        for (ModelInputGroup modelInputGroup : findByModelId(modelId)) {
+            remove(modelInputGroup);
+        }
+    }
+
     public void removeAll() throws SystemException {
         for (ModelInputGroup modelInputGroup : findAll()) {
             remove(modelInputGroup);
         }
+    }
+
+    public int countByModelId(Long modelId) throws SystemException {
+        Object[] finderArgs = new Object[] { modelId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_MODELID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelInputGroup WHERE ");
+
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
+                } else {
+                    query.append("modelId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MODELID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
     }
 
     public int countAll() throws SystemException {

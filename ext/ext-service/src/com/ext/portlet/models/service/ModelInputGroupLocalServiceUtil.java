@@ -89,6 +89,11 @@ public class ModelInputGroupLocalServiceUtil {
         return getService().updateModelInputGroup(modelInputGroup, merge);
     }
 
+    public static java.util.List<com.ext.portlet.models.model.ModelInputGroup> getInputGroups(
+        mit.simulation.climate.client.Simulation sim) {
+        return getService().getInputGroups(sim);
+    }
+
     public static ModelInputGroupLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("ModelInputGroupLocalService is not set");

@@ -79,4 +79,8 @@ public interface ModelInputGroupLocalService {
     public com.ext.portlet.models.model.ModelInputGroup updateModelInputGroup(
         com.ext.portlet.models.model.ModelInputGroup modelInputGroup,
         boolean merge) throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.models.model.ModelInputGroup> getInputGroups(
+        mit.simulation.climate.client.Simulation sim);
 }

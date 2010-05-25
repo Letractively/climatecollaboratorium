@@ -27,4 +27,9 @@ package com.ext.portlet.models.model;
  *
  */
 public interface ModelInputItem extends ModelInputItemModel {
+    public mit.simulation.climate.client.MetaData getMetaData()
+        throws com.liferay.portal.SystemException;
+
+    public mit.simulation.climate.client.Simulation getModel()
+        throws com.liferay.portal.SystemException;
 }

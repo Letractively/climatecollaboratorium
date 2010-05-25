@@ -153,7 +153,7 @@ var ModelUtils = new function() {
 	        	});
 	        	min *= -1;
 	        	max = Math.min(0,max)*-1;
-	        	
+
 	        	return "From "+max.toFixed(2)+"% to "+min.toFixed(2)+"% decrease in projected baseline GDP";
 	       }],
 	       "Range of damage costs": [
@@ -161,7 +161,7 @@ var ModelUtils = new function() {
                function(scenario) {
 	            var maxdamage = scenario.variableForName("PercentChange5_output");
 	            var mindamage = scenario.variableForName("PercentChange95_output");
-	            
+
 	            var min = mindamage.values[mindamage.values.length-1][1];
 	            var max = maxdamage.values[maxdamage.values.length-1][1];
 	            min *= -1;
