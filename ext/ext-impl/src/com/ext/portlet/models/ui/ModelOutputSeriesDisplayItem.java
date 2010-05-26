@@ -6,6 +6,7 @@
 
 package com.ext.portlet.models.ui;
 
+import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.NoSuchModelOutputItemException;
 import com.ext.portlet.models.model.ModelOutputItem;
 import com.ext.portlet.models.service.ModelOutputItemLocalServiceUtil;
@@ -17,6 +18,10 @@ import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
 
 /**
+ * Wrapper around series metadata; series metadata is merely that
+ * data that is indexed by some other metadata (e.g. in a time series).  It is always part of a {@link
+ * com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem}
+ *
  * @author: jintrone
  * @date: May 25, 2010
  */
@@ -30,7 +35,17 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
 
     private static Log _log = LogFactoryUtil.getLog(ModelOutputSeriesDisplayItem.class);
 
-    public ModelOutputSeriesDisplayItem(Simulation s, MetaData md) throws SystemException {
+    /**
+     * Clients should not need to call this method directly.  Instead, {@link com.ext.portlet.models.ui.ModelUIFactory}
+     * should be used to generate the display classes, and any subsequent modifications made there.
+     *
+     * Note that this constructor implicitly creates a backing store.
+     *
+     * @param s
+     * @param md
+     * @throws SystemException
+     */
+    ModelOutputSeriesDisplayItem(Simulation s, MetaData md) throws SystemException {
         super(s);
         this.md = md;
         try {
@@ -63,21 +78,61 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
         return item!=null && item.getModelOutputItemOrder()!=null?item.getModelOutputItemOrder():-1;
     }
 
+    /**
+     * Sets the display order for this display item within its parent container.  Generally
+     * this will boil down to the order in the legend.
+     *
+     * @param i
+     * @throws SystemException
+     */
     public void setOrder(int i) throws SystemException {
         item.setModelOutputItemOrder(i);
         ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
     }
 
+
+    /**
+     * Get additional information about this series
+     *
+     * @return
+     */
     public ModelOutputSeriesType getSeriesType() {
         return (item.getItemType() == null?ModelOutputSeriesType.NORMAL:ModelOutputSeriesType.valueOf(item.getItemType()));
     }
 
+
+    /**
+     * Sets additional information about this series; this setting is persisted
+     * in the backing store.
+     *
+     * @return
+     */
     public void setSeriesType(ModelOutputSeriesType type) throws SystemException {
         if (item!=null) {
             item.setItemType(type.name());
             ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
         }
     }
+
+
+    /**
+     * If this metadata is "about" another piece of meta data within the same simulation,
+     * this method will return that metadata.
+     *
+     * @return
+     * @throws SystemException
+     */
+    public MetaData getAssociatedMetaData() throws SystemException {
+            Long l = item.getRelatedOutputItem();
+           return l==null?null:CollaboratoriumModelingService.repository().getMetaData(item.getRelatedOutputItem());
+    }
+
+    public void setAssociatedMetaData(MetaData md) throws SystemException {
+        item.setRelatedOutputItem(md.getId());
+        ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
+    }
+
+
 
 
 }

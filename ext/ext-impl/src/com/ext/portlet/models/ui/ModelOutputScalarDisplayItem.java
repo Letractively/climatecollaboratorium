@@ -14,6 +14,10 @@ import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.Variable;
 
 /**
+ * Very simple wrapper class around a singleton output variable.  Not backed,
+ * no additional display information is necessary (currently).
+ *
+ *
  * @author: jintrone
  * @date: May 25, 2010
  */
@@ -24,7 +28,14 @@ public class ModelOutputScalarDisplayItem extends ModelOutputDisplayItem {
     private static Log _log = LogFactoryUtil.getLog(ModelOutputScalarDisplayItem.class);
 
 
-    public ModelOutputScalarDisplayItem(Simulation s, MetaData d) {
+    /**
+     * Clients should not need to call this constructor directly.
+     * 
+     * @param s
+     * @param d
+     */
+
+    ModelOutputScalarDisplayItem(Simulation s, MetaData d) {
         super(s);
         this.md = d;
     }

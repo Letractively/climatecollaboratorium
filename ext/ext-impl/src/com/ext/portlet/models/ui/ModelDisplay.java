@@ -8,11 +8,11 @@ package com.ext.portlet.models.ui;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author: jintrone
@@ -26,11 +26,23 @@ public class ModelDisplay {
     private static Log _log = LogFactoryUtil.getLog(ModelDisplay.class);
 
 
+    private List<ModelInputGroupDisplayItem> groups = new ArrayList<ModelInputGroupDisplayItem>();
+    private Map<MetaData,ModelInputIndividualDisplayItem> individuals = new HashMap<MetaData,ModelInputIndividualDisplayItem>();
+
+            
+
     private Simulation sim;
 
     public ModelDisplay(Simulation sim) {
         this.sim = sim;
         inputs = ModelUIFactory.getInstance().parseInputs(sim);
+        for (ModelInputDisplayItem item:inputs) {
+            if (item instanceof ModelInputGroupDisplayItem) {
+                groups.add((ModelInputGroupDisplayItem) item);
+            } else if (item instanceof ModelInputIndividualDisplayItem) {
+               individuals.put(item.getMetaData(),(ModelInputIndividualDisplayItem)item);
+            }
+        }
         outputs = ModelUIFactory.getInstance().parseOutputs(sim);
 
     }
@@ -58,6 +70,10 @@ public class ModelDisplay {
         Collections.sort(inputs);
         return inputs;
     }
+
+
+
+
 
     public List<ModelOutputDisplayItem> getOutputs() {
         Collections.sort(outputs);

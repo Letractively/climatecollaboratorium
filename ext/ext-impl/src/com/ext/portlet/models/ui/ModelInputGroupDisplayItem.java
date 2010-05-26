@@ -21,6 +21,10 @@ import mit.simulation.climate.client.Simulation;
 import java.util.*;
 
 /**
+ * Encapsulates a "group" of input elements to be displayed together.  This
+ * element is backed by an {@link ModelInputGroup}
+ *
+ *
  * @author: jintrone
  * @date: May 24, 2010
  */
@@ -34,7 +38,14 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
     List<ModelInputDisplayItem> items = new ArrayList<ModelInputDisplayItem>();
     Set<MetaData> knownmd = new HashSet<MetaData>();
 
-
+    /**
+     * Public constructor requires an existing backed dao. Generally, clients
+     * will not call this directly, and the factory will take care of instantiating groups
+     * or the static factory method on this class is called.
+     *
+     * @param group
+     * @throws SystemException
+     */
     public ModelInputGroupDisplayItem(ModelInputGroup group) throws SystemException {
         super(group.getModel(), group.getMetaData());
         this.group = group;
@@ -52,6 +63,11 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
 
     @Override
+    /**
+     * Returns the name on the metadata, or if present, the name stored in the backing data for this elemtn
+     * A non-null name in the dao will always override the metadata name.
+     *
+     */
     public String getName() {
         try {
             return group.getName() == null ? group.getMetaData().getName() : group.getName();
@@ -61,7 +77,24 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         return null;
     }
 
+/**
+     * Sets the name for this element.  Will override any name in the metadata.  This method
+     * sets a value in the backing store.
+     *
+     * @param name
+     */
+    public void setName(String name) throws SystemException {
+        group.setName(name);
+        ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
+    }
+
+
     @Override
+    /**
+     * Returns the description on the metadata, or if present the description stored in the backing data for this element
+     * A non-null description in the dao will always override the metadata description.
+     *
+     */
     public String getDescription() {
         try {
             return group.getDescription() == null ? group.getMetaData().getDescription() : group.getDescription();
@@ -71,6 +104,22 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         return null;
     }
 
+    /**
+     * Sets the description for this element.  Will override any description in the metadata.  This method
+     * sets a value in the backing store.
+     *
+     * @param desc
+     */
+    public void setDescription(String desc) throws SystemException {
+        group.setDescription(desc);
+        ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
+    }
+
+    /**
+     * Sets the scdenario for this display group; sets the scenario for all children
+     * @param s
+     * @throws IncompatibleScenarioException
+     */
     public void setScenario(Scenario s) throws IncompatibleScenarioException {
         super.setScenario(s);
         for (ModelInputDisplayItem item : getDisplayItems()) {
@@ -83,24 +132,55 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         return group.getOrder();
     }
 
-   
+    /**
+     * Set the index of this (group) element in the parent contains.  **Currently the
+     * parent container is always the top most simulation display.
+     *
+     * @param o
+     * @throws SystemException
+     */
     public void setOrder(int o) throws SystemException {
         group.setOrder(o);
         ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
     }
 
 
+    /**
+     * Get all display items contained by this group.  Items sorted according to their order
+     * **Currently, each of these will be
+     * a {@link com.ext.portlet.models.ui.ModelInputIndividualDisplayItem}
+     * @return
+     */
     public List<ModelInputDisplayItem> getDisplayItems() {
         Collections.sort(items);
         return items;
      }
 
-    public void addDisplayItem(MetaData d, ModelInputWidgetType type) throws SystemException {
+
+    /**
+     * This method will add a new element to this group, and create a new dao for this item.
+     * This is the primary means by which new groups can be formed.
+     *
+     * @param d
+     * @param type
+     * @throws SystemException
+     */
+    public ModelInputDisplayItem addDisplayItem(MetaData d, ModelInputWidgetType type) throws SystemException {
         if (!knownmd.contains(d)) {
-            items.add(ModelInputIndividualDisplayItem.create(getSimulation(), d, type));
+            ModelInputIndividualDisplayItem item = ModelInputIndividualDisplayItem.create(getSimulation(), d, type);
+            item.item.setModelGroupId(group.getModelInputGroupPK());
+            ModelInputItemLocalServiceUtil.updateModelInputItem(item.item);
+            items.add(item);
+            return item;
         }
+        return null;
     }
 
+    /**
+     * This method will remove a display item from this group, and update the backing store accordingly
+     * @param d
+     * @throws SystemException
+     */
     public void removeDisplayItem(MetaData d) throws SystemException {
         ModelInputIndividualDisplayItem toremove = null;
         for (ModelInputDisplayItem item : getDisplayItems()) {
@@ -110,6 +190,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
             }
         }
         if (toremove != null) {
+             knownmd.remove(toremove.getMetaData());
             ModelInputItemLocalServiceUtil.deleteModelInputItem(toremove.item);
 
         }
@@ -117,7 +198,15 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
     }
 
-
+    /**
+     * This is the preferred means for creating a new group with a specifc name / description
+     *
+     * @param s
+     * @param name
+     * @param description
+     * @return
+     * @throws SystemException
+     */
     public static ModelInputGroupDisplayItem create(Simulation s, String name, String description) throws SystemException {
         Long pk = CounterLocalServiceUtil.increment(ModelInputGroup.class.getName());
         ModelInputGroup group = ModelInputGroupLocalServiceUtil.createModelInputGroup(pk);
@@ -131,6 +220,12 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
     }
 
+
+    /**
+     * This is the preferred means for creating a new group with a piece of metadata to be used for the
+     * name and description
+     *
+     */
     public static ModelInputGroupDisplayItem create(Simulation s, MetaData md) throws SystemException {
         Long pk = CounterLocalServiceUtil.increment(ModelInputGroup.class.getName());
         ModelInputGroup group = ModelInputGroupLocalServiceUtil.createModelInputGroup(pk);
