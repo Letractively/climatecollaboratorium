@@ -7,6 +7,9 @@
 package com.ext.portlet.models.ui;
 
 /**
+ * Only two types of output charts are currently supported
+ *
+ *
  * @author: jintrone
  * @date: May 24, 2010
  */

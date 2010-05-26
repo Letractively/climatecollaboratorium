@@ -10,6 +10,9 @@ import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
 
 /**
+ * Top level class for all input elements in a model / simulation
+ *
+ *
  * @author: jintrone
  * @date: May 24, 2010
  */
@@ -21,16 +24,30 @@ public abstract class ModelInputDisplayItem extends ModelDisplayItem {
       super(sim);
       this.md = md;
     }
-   
+
+
+    /**
+     * All input elements may have meta data associated with them.
+     *
+     * @return
+     */
     public MetaData getMetaData() {
      return md;
     }
 
-    @Override
+    /**
+     * Convenience method - reaches through to associated metadata
+     * @return
+     */
     public String getName() {
         return md.getName();
     }
 
+
+    /**
+     * Convenience method - reaches through to associated metadata
+     * @return
+     */
     public String getDescription() {
        return md.getDescription();
     }

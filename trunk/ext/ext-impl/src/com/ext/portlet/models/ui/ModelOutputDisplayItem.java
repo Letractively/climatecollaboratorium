@@ -9,6 +9,10 @@ package com.ext.portlet.models.ui;
 import mit.simulation.climate.client.Simulation;
 
 /**
+ * All model output display items (charts, scalar items, and series items) extend
+ * from this class.
+ * 
+ *
  * @author: jintrone
  * @date: May 25, 2010
  */

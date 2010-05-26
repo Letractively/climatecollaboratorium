@@ -11,6 +11,11 @@ import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 
 /**
+ * Top level class for a layout element in a simulation.  All visual elements in
+ * a model (aka simulation) inherit from this class
+ *
+ *
+ *
  * @author: jintrone
  * @date: May 24, 2010
  */
@@ -30,6 +35,14 @@ public abstract class ModelDisplayItem implements Comparable<ModelDisplayItem> {
        return sim;
     }
 
+
+    /**
+     * Setting the scenario is merely a convenience function, enabling functions
+     * for retrieving scenario data via these layout classes.
+     *
+     * @param s
+     * @throws IncompatibleScenarioException
+     */
     public void setScenario(Scenario s) throws IncompatibleScenarioException {
         if (!scen.getSimulation().equals(sim)) {
             throw new IncompatibleScenarioException("Simulation "+sim.getName()+" does not generate scenario "+scen.getId());
