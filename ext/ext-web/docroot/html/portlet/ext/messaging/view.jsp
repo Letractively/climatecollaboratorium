@@ -410,7 +410,7 @@
 
                         </table>
                             <div id="messagebody">
-                                <%=HtmlUtil.stripHtml(selectedMessage.getContent())%>
+                                <%=HtmlUtil.stripHtml(selectedMessage.getContent()).replaceAll("\n","<br/>")%>
                             </div>
                             <div id="messagelowerpanel">
                                 <ul class="horizontal">
