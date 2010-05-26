@@ -36,7 +36,7 @@ public class ModelInputItemJSONSerializer {
         jsonObj.put("modelId", model.getModelId());
         jsonObj.put("modelInputItemID", model.getModelInputItemID());
         jsonObj.put("modelGroupId", model.getModelGroupId());
-        jsonObj.put("itemOrder", model.getItemOrder());
+        jsonObj.put("order", model.getOrder());
         jsonObj.put("type", model.getType());
 
         return jsonObj;

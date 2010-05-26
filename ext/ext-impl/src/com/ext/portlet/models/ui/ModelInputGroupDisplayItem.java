@@ -129,7 +129,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
     @Override
     public int order() {
-        return group.getGroupOrder();
+        return group.getOrder();
     }
 
     /**
@@ -140,7 +140,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      * @throws SystemException
      */
     public void setOrder(int o) throws SystemException {
-        group.setGroupOrder(o);
+        group.setOrder(o);
         ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
     }
 

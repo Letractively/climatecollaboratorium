@@ -56,9 +56,9 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
             { "description", new Integer(Types.VARCHAR) },
             
 
-            { "groupOrder", new Integer(Types.INTEGER) }
+            { "order", new Integer(Types.INTEGER) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelInputGroup (modelInputGroupPK LONG not null primary key,modelId LONG,nameAndDescriptionMetaDataId LONG,name VARCHAR(75) null,description VARCHAR(75) null,groupOrder INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table ModelInputGroup (modelInputGroupPK LONG not null primary key,modelId LONG,nameAndDescriptionMetaDataId LONG,name VARCHAR(75) null,description VARCHAR(75) null,order INTEGER)";
     public static final String TABLE_SQL_DROP = "drop table ModelInputGroup";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -76,7 +76,7 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
     private Long _nameAndDescriptionMetaDataId;
     private String _name;
     private String _description;
-    private Integer _groupOrder;
+    private Integer _order;
 
     public ModelInputGroupModelImpl() {
     }
@@ -89,7 +89,7 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         model.setNameAndDescriptionMetaDataId(soapModel.getNameAndDescriptionMetaDataId());
         model.setName(soapModel.getName());
         model.setDescription(soapModel.getDescription());
-        model.setGroupOrder(soapModel.getGroupOrder());
+        model.setOrder(soapModel.getOrder());
 
         return model;
     }
@@ -158,12 +158,12 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         _description = description;
     }
 
-    public Integer getGroupOrder() {
-        return _groupOrder;
+    public Integer getOrder() {
+        return _order;
     }
 
-    public void setGroupOrder(Integer groupOrder) {
-        _groupOrder = groupOrder;
+    public void setOrder(Integer order) {
+        _order = order;
     }
 
     public ModelInputGroup toEscapedModel() {
@@ -180,7 +180,7 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
             model.setNameAndDescriptionMetaDataId(getNameAndDescriptionMetaDataId());
             model.setName(HtmlUtil.escape(getName()));
             model.setDescription(HtmlUtil.escape(getDescription()));
-            model.setGroupOrder(getGroupOrder());
+            model.setOrder(getOrder());
 
             model = (ModelInputGroup) Proxy.newProxyInstance(ModelInputGroup.class.getClassLoader(),
                     new Class[] { ModelInputGroup.class },
@@ -198,7 +198,7 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         clone.setNameAndDescriptionMetaDataId(getNameAndDescriptionMetaDataId());
         clone.setName(getName());
         clone.setDescription(getDescription());
-        clone.setGroupOrder(getGroupOrder());
+        clone.setOrder(getOrder());
 
         return clone;
     }
@@ -248,8 +248,8 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         sb.append(getName());
         sb.append(", description=");
         sb.append(getDescription());
-        sb.append(", groupOrder=");
-        sb.append(getGroupOrder());
+        sb.append(", order=");
+        sb.append(getOrder());
         sb.append("}");
 
         return sb.toString();
@@ -283,8 +283,8 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         sb.append(getDescription());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>groupOrder</column-name><column-value><![CDATA[");
-        sb.append(getGroupOrder());
+            "<column><column-name>order</column-name><column-value><![CDATA[");
+        sb.append(getOrder());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

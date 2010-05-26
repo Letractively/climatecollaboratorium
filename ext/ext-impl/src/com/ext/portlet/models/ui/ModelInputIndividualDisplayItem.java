@@ -73,7 +73,7 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
      * @return
      */
     public int order() {
-        return item.getItemOrder()==null?-1:item.getItemOrder();
+        return item.getOrder()==null?-1:item.getOrder();
     }
 
     /**
@@ -83,7 +83,7 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
      * @throws SystemException
      */
     public void setOrder(int order) throws SystemException {
-       item.setItemOrder(order);
+       item.setOrder(order);
        ModelInputItemLocalServiceUtil.updateModelInputItem(item);
     }
 
