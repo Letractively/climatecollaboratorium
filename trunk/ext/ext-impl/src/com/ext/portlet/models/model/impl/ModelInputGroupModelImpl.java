@@ -56,9 +56,9 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
             { "description", new Integer(Types.VARCHAR) },
             
 
-            { "order", new Integer(Types.INTEGER) }
+            { "displayItemOrder", new Integer(Types.INTEGER) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelInputGroup (modelInputGroupPK LONG not null primary key,modelId LONG,nameAndDescriptionMetaDataId LONG,name VARCHAR(75) null,description VARCHAR(75) null,order INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table ModelInputGroup (modelInputGroupPK LONG not null primary key,modelId LONG,nameAndDescriptionMetaDataId LONG,name VARCHAR(75) null,description VARCHAR(75) null,displayItemOrder INTEGER)";
     public static final String TABLE_SQL_DROP = "drop table ModelInputGroup";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -76,7 +76,7 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
     private Long _nameAndDescriptionMetaDataId;
     private String _name;
     private String _description;
-    private Integer _order;
+    private Integer _displayItemOrder;
 
     public ModelInputGroupModelImpl() {
     }
@@ -89,7 +89,7 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         model.setNameAndDescriptionMetaDataId(soapModel.getNameAndDescriptionMetaDataId());
         model.setName(soapModel.getName());
         model.setDescription(soapModel.getDescription());
-        model.setOrder(soapModel.getOrder());
+        model.setDisplayItemOrder(soapModel.getDisplayItemOrder());
 
         return model;
     }
@@ -158,12 +158,12 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         _description = description;
     }
 
-    public Integer getOrder() {
-        return _order;
+    public Integer getDisplayItemOrder() {
+        return _displayItemOrder;
     }
 
-    public void setOrder(Integer order) {
-        _order = order;
+    public void setDisplayItemOrder(Integer displayItemOrder) {
+        _displayItemOrder = displayItemOrder;
     }
 
     public ModelInputGroup toEscapedModel() {
@@ -180,7 +180,7 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
             model.setNameAndDescriptionMetaDataId(getNameAndDescriptionMetaDataId());
             model.setName(HtmlUtil.escape(getName()));
             model.setDescription(HtmlUtil.escape(getDescription()));
-            model.setOrder(getOrder());
+            model.setDisplayItemOrder(getDisplayItemOrder());
 
             model = (ModelInputGroup) Proxy.newProxyInstance(ModelInputGroup.class.getClassLoader(),
                     new Class[] { ModelInputGroup.class },
@@ -198,7 +198,7 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         clone.setNameAndDescriptionMetaDataId(getNameAndDescriptionMetaDataId());
         clone.setName(getName());
         clone.setDescription(getDescription());
-        clone.setOrder(getOrder());
+        clone.setDisplayItemOrder(getDisplayItemOrder());
 
         return clone;
     }
@@ -248,8 +248,8 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         sb.append(getName());
         sb.append(", description=");
         sb.append(getDescription());
-        sb.append(", order=");
-        sb.append(getOrder());
+        sb.append(", displayItemOrder=");
+        sb.append(getDisplayItemOrder());
         sb.append("}");
 
         return sb.toString();
@@ -283,8 +283,8 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         sb.append(getDescription());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>order</column-name><column-value><![CDATA[");
-        sb.append(getOrder());
+            "<column><column-name>displayItemOrder</column-name><column-value><![CDATA[");
+        sb.append(getDisplayItemOrder());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

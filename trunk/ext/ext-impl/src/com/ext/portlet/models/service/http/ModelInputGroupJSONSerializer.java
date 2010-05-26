@@ -38,7 +38,7 @@ public class ModelInputGroupJSONSerializer {
             model.getNameAndDescriptionMetaDataId());
         jsonObj.put("name", model.getName());
         jsonObj.put("description", model.getDescription());
-        jsonObj.put("order", model.getOrder());
+        jsonObj.put("displayItemOrder", model.getDisplayItemOrder());
 
         return jsonObj;
     }
