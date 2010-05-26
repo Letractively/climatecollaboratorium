@@ -291,7 +291,7 @@
 	<bean id="com.ext.portlet.models.service.ModelInputGroupServiceUtil" class="com.ext.portlet.models.service.ModelInputGroupServiceUtil">
 		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelInputGroupPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelInputGroupImpl" parent="basePersistence" />
 	<bean id="com.ext.portlet.models.service.persistence.ModelInputGroupUtil" class="com.ext.portlet.models.service.persistence.ModelInputGroupUtil">
 		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl" />
 	</bean>
@@ -309,7 +309,7 @@
 	<bean id="com.ext.portlet.models.service.ModelInputItemServiceUtil" class="com.ext.portlet.models.service.ModelInputItemServiceUtil">
 		<property name="service" ref="com.ext.portlet.models.service.ModelInputItemService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelInputItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelInputItemImpl" parent="basePersistence" />
 	<bean id="com.ext.portlet.models.service.persistence.ModelInputItemUtil" class="com.ext.portlet.models.service.persistence.ModelInputItemUtil">
 		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl" />
 	</bean>
@@ -327,7 +327,7 @@
 	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderServiceUtil" class="com.ext.portlet.models.service.ModelOutputChartOrderServiceUtil">
 		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputChartOrderImpl" parent="basePersistence" />
 	<bean id="com.ext.portlet.models.service.persistence.ModelOutputChartOrderUtil" class="com.ext.portlet.models.service.persistence.ModelOutputChartOrderUtil">
 		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl" />
 	</bean>
@@ -345,7 +345,7 @@
 	<bean id="com.ext.portlet.models.service.ModelOutputItemServiceUtil" class="com.ext.portlet.models.service.ModelOutputItemServiceUtil">
 		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputItemImpl" parent="basePersistence" />
 	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemUtil" class="com.ext.portlet.models.service.persistence.ModelOutputItemUtil">
 		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl" />
 	</bean>

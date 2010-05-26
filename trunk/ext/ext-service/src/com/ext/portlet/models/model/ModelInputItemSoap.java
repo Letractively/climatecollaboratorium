@@ -29,7 +29,7 @@ public class ModelInputItemSoap implements Serializable {
     private Long _modelId;
     private Long _modelInputItemID;
     private Long _modelGroupId;
-    private Integer _itemOrder;
+    private Integer _order;
     private String _type;
 
     public ModelInputItemSoap() {
@@ -42,7 +42,7 @@ public class ModelInputItemSoap implements Serializable {
         soapModel.setModelId(model.getModelId());
         soapModel.setModelInputItemID(model.getModelInputItemID());
         soapModel.setModelGroupId(model.getModelGroupId());
-        soapModel.setItemOrder(model.getItemOrder());
+        soapModel.setOrder(model.getOrder());
         soapModel.setType(model.getType());
 
         return soapModel;
@@ -124,12 +124,12 @@ public class ModelInputItemSoap implements Serializable {
         _modelGroupId = modelGroupId;
     }
 
-    public Integer getItemOrder() {
-        return _itemOrder;
+    public Integer getOrder() {
+        return _order;
     }
 
-    public void setItemOrder(Integer itemOrder) {
-        _itemOrder = itemOrder;
+    public void setOrder(Integer order) {
+        _order = order;
     }
 
     public String getType() {

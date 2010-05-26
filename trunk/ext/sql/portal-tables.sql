@@ -860,7 +860,7 @@ create table ModelInputGroup (
 	nameAndDescriptionMetaDataId LONG,
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,
-	groupOrder INTEGER
+	order INTEGER
 );
 
 create table ModelInputItem (
@@ -868,7 +868,7 @@ create table ModelInputItem (
 	modelId LONG,
 	modelInputItemID LONG,
 	modelGroupId LONG,
-	itemOrder INTEGER,
+	order INTEGER,
 	type_ VARCHAR(75) null
 );
 
