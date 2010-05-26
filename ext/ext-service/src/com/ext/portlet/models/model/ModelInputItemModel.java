@@ -44,9 +44,9 @@ public interface ModelInputItemModel extends BaseModel<ModelInputItem> {
 
     public void setModelGroupId(Long modelGroupId);
 
-    public Integer getOrder();
+    public Integer getItemOrder();
 
-    public void setOrder(Integer order);
+    public void setItemOrder(Integer itemOrder);
 
     public String getType();
 
