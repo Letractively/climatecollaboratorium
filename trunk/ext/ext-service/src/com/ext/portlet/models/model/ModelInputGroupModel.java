@@ -49,9 +49,9 @@ public interface ModelInputGroupModel extends BaseModel<ModelInputGroup> {
 
     public void setDescription(String description);
 
-    public Integer getOrder();
+    public Integer getGroupOrder();
 
-    public void setOrder(Integer order);
+    public void setGroupOrder(Integer groupOrder);
 
     public ModelInputGroup toEscapedModel();
 }
