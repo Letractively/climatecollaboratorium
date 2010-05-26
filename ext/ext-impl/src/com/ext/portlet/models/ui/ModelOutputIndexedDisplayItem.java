@@ -199,7 +199,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
 
 
     //following are determined directly from the underlying model, and
-    //should not be called
+    //should not be called from outside of this package
 
 
     void setChartType(ModelOutputChartType type) {
