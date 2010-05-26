@@ -223,29 +223,17 @@
 		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputChartOrderService" />
 	</bean>
-	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemOrderService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
-		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemOrderService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemOrderService" />
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemService" />
 	</bean>
-	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemOrderService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
-		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemOrderService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemOrderService" />
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemService" />
 	</bean>
-	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemOrderService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemOrderService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemOrderService" />
-	</bean>
-	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemModifierService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
-		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemModifierService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemModifierService" />
-	</bean>
-	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemModifierService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
-		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemModifierService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemModifierService" />
-	</bean>
-	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemModifierService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemModifierService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemModifierService" />
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemService" />
 	</bean>
 	<bean name="/com_ext_portlet_Activity_service_spring_ActivitySubscriptionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.Activity.service.ActivitySubscriptionService.impl" />

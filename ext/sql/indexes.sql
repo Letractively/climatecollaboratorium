@@ -345,6 +345,10 @@ create index IX_560BFD0 on ModelInputGroup (modelId);
 create index IX_19199C7F on ModelInputItem (modelGroupId);
 create index IX_DDC86F5D on ModelInputItem (modelInputItemID);
 
+create index IX_47DEFCF2 on ModelOutputChartOrder (modelId, modelOutputLabel);
+
+create index IX_46EED065 on ModelOutputItem (modelOutputItemId);
+
 create index IX_64397830 on ModelPosition (positionId);
 
 create index IX_A425F71A on OrgGroupPermission (groupId);

@@ -116,12 +116,17 @@
         <!-- Sort order for this chart -->
         <column name="modelOutputChartOrder" type="Integer"/>
 
+        <finder name="ModelIdAndLabel" return-type="ModelOutputChartOrder">
+            <finder-column name="modelId"/>
+            <finder-column name="modelOutputLabel"/>
+        </finder>
+
     </entity>
 
 
      <!-- this table is explicitly to indicate ordering of items in charts (e.g. for legends) -->
-    <entity name="ModelOutputItemOrder" local-service="true" remote-service="true"
-            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemOrderImpl">
+    <entity name="ModelOutputItem" local-service="true" remote-service="true"
+            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemImpl">
         <column name="modelOutputItemModifierPK" type="Long" primary="true"/>
         <column name="modelId" type="Long"/>
 
@@ -129,31 +134,21 @@
         <column name="modelOutputItemId" type="Long"/>
 
         <!-- id of the model item this entry is applied to -->
-        <column name="modelOutputItemOrder" type="Long"/>
+        <column name="modelOutputItemOrder" type="Integer"/>
 
         <!-- Sort order for this chart -->
-        <column name="type"  type="String"/>
+        <column name="itemType"  type="String"/>
+
+        <!-- id of another item that this item is "about"; e.g. this may be a confidece interval -->
+        <column name="relatedOutputItem" type="Long"/>
+
+        <finder name="ModelOutputId" return-type="ModelOutputItem">
+            <finder-column name="modelOutputItemId"/>
+        </finder>
 
     </entity>
 
-    <!-- this table is explicitly to indicate a relationship between multiple output variables - e.g. a confidence interval; may ultimately move into the simulation
-    servlet -->
-    <entity name="ModelOutputItemModifier" local-service="true" remote-service="true"
-            persistence-class="com.ext.portlet.models.service.persistence.ModelOutputItemModifierImpl">
-        <column name="modelOutputItemModifierPK" type="Long" primary="true"/>
-        <column name="modelId" type="Long"/>
 
-        <!-- id of the model item this entry describes -->
-        <column name="modelOutputItemId" type="Long"/>
-
-        <!-- id of the model item this entry is applied to -->
-        <column name="sourceItemId" type="Long"/>
-
-
-        <!-- type of relationship between this and the source item; presumably something like 5PercentConfidenceInterval or 95PercentConfidenceInterval-->
-        <column name="type"  type="String"/>
-
-    </entity>
 
 
 
@@ -166,8 +161,7 @@
     <exception>NoSuchModelInputGroup</exception>
     <exception>NoSuchModelInputItem</exception>
     <exception>NoSuchModelOutputChartOrder</exception>
-    <exception>NoSuchModelOutputItemOrder</exception>
-    <exception>NoSuchModelOutputItemModifier</exception>
+    <exception>NoSuchModelOutputItem</exception>
 
 </exceptions>
         </service-builder>

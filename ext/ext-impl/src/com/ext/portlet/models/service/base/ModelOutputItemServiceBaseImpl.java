@@ -1,6 +1,5 @@
 package com.ext.portlet.models.service.base;
 
-import com.ext.portlet.models.model.ModelInputItem;
 import com.ext.portlet.models.service.ModelDiscussionLocalService;
 import com.ext.portlet.models.service.ModelDiscussionService;
 import com.ext.portlet.models.service.ModelInputGroupLocalService;
@@ -20,17 +19,14 @@ import com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersisten
 import com.ext.portlet.models.service.persistence.ModelOutputItemPersistence;
 import com.ext.portlet.models.service.persistence.ModelPositionPersistence;
 
-import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.annotation.BeanReference;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.service.base.PrincipalBean;
 import com.liferay.portal.util.PortalUtil;
 
-import java.util.List;
 
-
-public abstract class ModelInputItemLocalServiceBaseImpl
-    implements ModelInputItemLocalService {
+public abstract class ModelOutputItemServiceBaseImpl extends PrincipalBean
+    implements ModelOutputItemService {
     @BeanReference(name = "com.ext.portlet.models.service.ModelDiscussionLocalService.impl")
     protected ModelDiscussionLocalService modelDiscussionLocalService;
     @BeanReference(name = "com.ext.portlet.models.service.ModelDiscussionService.impl")
@@ -67,66 +63,6 @@ public abstract class ModelInputItemLocalServiceBaseImpl
     protected ModelOutputItemService modelOutputItemService;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl")
     protected ModelOutputItemPersistence modelOutputItemPersistence;
-
-    public ModelInputItem addModelInputItem(ModelInputItem modelInputItem)
-        throws SystemException {
-        modelInputItem.setNew(true);
-
-        return modelInputItemPersistence.update(modelInputItem, false);
-    }
-
-    public ModelInputItem createModelInputItem(Long modelInputItemPK) {
-        return modelInputItemPersistence.create(modelInputItemPK);
-    }
-
-    public void deleteModelInputItem(Long modelInputItemPK)
-        throws PortalException, SystemException {
-        modelInputItemPersistence.remove(modelInputItemPK);
-    }
-
-    public void deleteModelInputItem(ModelInputItem modelInputItem)
-        throws SystemException {
-        modelInputItemPersistence.remove(modelInputItem);
-    }
-
-    public List<Object> dynamicQuery(DynamicQuery dynamicQuery)
-        throws SystemException {
-        return modelInputItemPersistence.findWithDynamicQuery(dynamicQuery);
-    }
-
-    public List<Object> dynamicQuery(DynamicQuery dynamicQuery, int start,
-        int end) throws SystemException {
-        return modelInputItemPersistence.findWithDynamicQuery(dynamicQuery,
-            start, end);
-    }
-
-    public ModelInputItem getModelInputItem(Long modelInputItemPK)
-        throws PortalException, SystemException {
-        return modelInputItemPersistence.findByPrimaryKey(modelInputItemPK);
-    }
-
-    public List<ModelInputItem> getModelInputItems(int start, int end)
-        throws SystemException {
-        return modelInputItemPersistence.findAll(start, end);
-    }
-
-    public int getModelInputItemsCount() throws SystemException {
-        return modelInputItemPersistence.countAll();
-    }
-
-    public ModelInputItem updateModelInputItem(ModelInputItem modelInputItem)
-        throws SystemException {
-        modelInputItem.setNew(false);
-
-        return modelInputItemPersistence.update(modelInputItem, true);
-    }
-
-    public ModelInputItem updateModelInputItem(ModelInputItem modelInputItem,
-        boolean merge) throws SystemException {
-        modelInputItem.setNew(false);
-
-        return modelInputItemPersistence.update(modelInputItem, merge);
-    }
 
     public ModelDiscussionLocalService getModelDiscussionLocalService() {
         return modelDiscussionLocalService;

@@ -9,18 +9,15 @@ import com.ext.portlet.models.service.ModelInputItemLocalService;
 import com.ext.portlet.models.service.ModelInputItemService;
 import com.ext.portlet.models.service.ModelOutputChartOrderLocalService;
 import com.ext.portlet.models.service.ModelOutputChartOrderService;
-import com.ext.portlet.models.service.ModelOutputItemModifierLocalService;
-import com.ext.portlet.models.service.ModelOutputItemModifierService;
-import com.ext.portlet.models.service.ModelOutputItemOrderLocalService;
-import com.ext.portlet.models.service.ModelOutputItemOrderService;
+import com.ext.portlet.models.service.ModelOutputItemLocalService;
+import com.ext.portlet.models.service.ModelOutputItemService;
 import com.ext.portlet.models.service.ModelPositionLocalService;
 import com.ext.portlet.models.service.ModelPositionService;
 import com.ext.portlet.models.service.persistence.ModelDiscussionPersistence;
 import com.ext.portlet.models.service.persistence.ModelInputGroupPersistence;
 import com.ext.portlet.models.service.persistence.ModelInputItemPersistence;
 import com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence;
-import com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence;
-import com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence;
+import com.ext.portlet.models.service.persistence.ModelOutputItemPersistence;
 import com.ext.portlet.models.service.persistence.ModelPositionPersistence;
 
 import com.liferay.portal.PortalException;
@@ -64,18 +61,12 @@ public abstract class ModelOutputChartOrderLocalServiceBaseImpl
     protected ModelOutputChartOrderService modelOutputChartOrderService;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl")
     protected ModelOutputChartOrderPersistence modelOutputChartOrderPersistence;
-    @BeanReference(name = "com.ext.portlet.models.service.ModelOutputItemOrderLocalService.impl")
-    protected ModelOutputItemOrderLocalService modelOutputItemOrderLocalService;
-    @BeanReference(name = "com.ext.portlet.models.service.ModelOutputItemOrderService.impl")
-    protected ModelOutputItemOrderService modelOutputItemOrderService;
-    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence.impl")
-    protected ModelOutputItemOrderPersistence modelOutputItemOrderPersistence;
-    @BeanReference(name = "com.ext.portlet.models.service.ModelOutputItemModifierLocalService.impl")
-    protected ModelOutputItemModifierLocalService modelOutputItemModifierLocalService;
-    @BeanReference(name = "com.ext.portlet.models.service.ModelOutputItemModifierService.impl")
-    protected ModelOutputItemModifierService modelOutputItemModifierService;
-    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence.impl")
-    protected ModelOutputItemModifierPersistence modelOutputItemModifierPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.ModelOutputItemLocalService.impl")
+    protected ModelOutputItemLocalService modelOutputItemLocalService;
+    @BeanReference(name = "com.ext.portlet.models.service.ModelOutputItemService.impl")
+    protected ModelOutputItemService modelOutputItemService;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl")
+    protected ModelOutputItemPersistence modelOutputItemPersistence;
 
     public ModelOutputChartOrder addModelOutputChartOrder(
         ModelOutputChartOrder modelOutputChartOrder) throws SystemException {
@@ -277,58 +268,31 @@ public abstract class ModelOutputChartOrderLocalServiceBaseImpl
         this.modelOutputChartOrderPersistence = modelOutputChartOrderPersistence;
     }
 
-    public ModelOutputItemOrderLocalService getModelOutputItemOrderLocalService() {
-        return modelOutputItemOrderLocalService;
+    public ModelOutputItemLocalService getModelOutputItemLocalService() {
+        return modelOutputItemLocalService;
     }
 
-    public void setModelOutputItemOrderLocalService(
-        ModelOutputItemOrderLocalService modelOutputItemOrderLocalService) {
-        this.modelOutputItemOrderLocalService = modelOutputItemOrderLocalService;
+    public void setModelOutputItemLocalService(
+        ModelOutputItemLocalService modelOutputItemLocalService) {
+        this.modelOutputItemLocalService = modelOutputItemLocalService;
     }
 
-    public ModelOutputItemOrderService getModelOutputItemOrderService() {
-        return modelOutputItemOrderService;
+    public ModelOutputItemService getModelOutputItemService() {
+        return modelOutputItemService;
     }
 
-    public void setModelOutputItemOrderService(
-        ModelOutputItemOrderService modelOutputItemOrderService) {
-        this.modelOutputItemOrderService = modelOutputItemOrderService;
+    public void setModelOutputItemService(
+        ModelOutputItemService modelOutputItemService) {
+        this.modelOutputItemService = modelOutputItemService;
     }
 
-    public ModelOutputItemOrderPersistence getModelOutputItemOrderPersistence() {
-        return modelOutputItemOrderPersistence;
+    public ModelOutputItemPersistence getModelOutputItemPersistence() {
+        return modelOutputItemPersistence;
     }
 
-    public void setModelOutputItemOrderPersistence(
-        ModelOutputItemOrderPersistence modelOutputItemOrderPersistence) {
-        this.modelOutputItemOrderPersistence = modelOutputItemOrderPersistence;
-    }
-
-    public ModelOutputItemModifierLocalService getModelOutputItemModifierLocalService() {
-        return modelOutputItemModifierLocalService;
-    }
-
-    public void setModelOutputItemModifierLocalService(
-        ModelOutputItemModifierLocalService modelOutputItemModifierLocalService) {
-        this.modelOutputItemModifierLocalService = modelOutputItemModifierLocalService;
-    }
-
-    public ModelOutputItemModifierService getModelOutputItemModifierService() {
-        return modelOutputItemModifierService;
-    }
-
-    public void setModelOutputItemModifierService(
-        ModelOutputItemModifierService modelOutputItemModifierService) {
-        this.modelOutputItemModifierService = modelOutputItemModifierService;
-    }
-
-    public ModelOutputItemModifierPersistence getModelOutputItemModifierPersistence() {
-        return modelOutputItemModifierPersistence;
-    }
-
-    public void setModelOutputItemModifierPersistence(
-        ModelOutputItemModifierPersistence modelOutputItemModifierPersistence) {
-        this.modelOutputItemModifierPersistence = modelOutputItemModifierPersistence;
+    public void setModelOutputItemPersistence(
+        ModelOutputItemPersistence modelOutputItemPersistence) {
+        this.modelOutputItemPersistence = modelOutputItemPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {

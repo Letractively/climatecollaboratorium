@@ -67,7 +67,9 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
                 "lock.expiration.time.com.ext.portlet.models.model.ModelOutputChartOrder"));
     private Long _modelOutputChartOrderPK;
     private Long _modelId;
+    private Long _originalModelId;
     private String _modelOutputLabel;
+    private String _originalModelOutputLabel;
     private Integer _modelOutputChartOrder;
 
     public ModelOutputChartOrderModelImpl() {
@@ -122,6 +124,14 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
 
     public void setModelId(Long modelId) {
         _modelId = modelId;
+
+        if (_originalModelId == null) {
+            _originalModelId = modelId;
+        }
+    }
+
+    public Long getOriginalModelId() {
+        return _originalModelId;
     }
 
     public String getModelOutputLabel() {
@@ -130,6 +140,14 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
 
     public void setModelOutputLabel(String modelOutputLabel) {
         _modelOutputLabel = modelOutputLabel;
+
+        if (_originalModelOutputLabel == null) {
+            _originalModelOutputLabel = modelOutputLabel;
+        }
+    }
+
+    public String getOriginalModelOutputLabel() {
+        return GetterUtil.getString(_originalModelOutputLabel);
     }
 
     public Integer getModelOutputChartOrder() {
