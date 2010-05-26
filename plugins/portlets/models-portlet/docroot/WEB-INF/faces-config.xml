@@ -42,8 +42,8 @@
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>jsIntegration</managed-bean-name>
-		<managed-bean-class>org.climatecollaboratorium.models.JSIntegrationSampleBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-class>org.climatecollaboratorium.jsintegration.JSIntegrationBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>sim</managed-bean-name>
@@ -59,6 +59,10 @@
 		<managed-bean-name>simulationBean</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.models.SimulationBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>JSEventManager</property-name>
+			<value>#{jsIntegration}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>navigation</managed-bean-name>

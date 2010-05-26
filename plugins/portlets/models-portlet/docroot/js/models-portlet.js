@@ -17,6 +17,7 @@ var icefacesEventManager = new function() {
 	var eventTimestamps = {};
 	
 	this.registerHandler = function(eventId, callback) {
+		alert("registering handler for: " + eventId);
 		eventHandlers[eventId] = callback;
 		eventTimestamps[eventId] = 0;
 	}
@@ -60,7 +61,7 @@ jQuery(document).ready(function() {
 	
 	
 	Ice.onAsynchronousReceive("mainContent", function() {
-			var val = jQuery("#integrationForm .dataOutput").val();
+			var val = jQuery("#integrationForm .eventOutput").val();
 			if (val == "") {
 				return;
 			}

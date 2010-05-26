@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.ext.portlet.models.ui.ModelDisplay;
+import com.ext.portlet.models.ui.ModelUIFactory;
+
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.comm.ClientRepository;
 
@@ -22,9 +25,12 @@ public class SimulationsHelper {
     
     private SimulationsHelper() throws IOException {
         repository = ClientRepository.instance("localhost", 8080);
+        
         simulations = new ArrayList<SimulationDecorator>();
         for (Simulation sim: repository.getAllSimulations()) {
             simulations.add(new SimulationDecorator(sim));
+            System.out.println("simulation: " + sim.getId());
+            ModelDisplay md = ModelUIFactory.getInstance().getDisplay(sim);
         }
         
         for (SimulationDecorator sim: simulations) {

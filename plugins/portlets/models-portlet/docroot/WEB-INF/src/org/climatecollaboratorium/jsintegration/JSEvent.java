@@ -1,19 +1,19 @@
-package org.climatecollaboratorium.models;
+package org.climatecollaboratorium.jsintegration;
 
-public class JSDataTransport {
+public class JSEvent {
     private String id;
     private long timestamp;
     private Object payload;
-    
-    public JSDataTransport(String id, long timestamp, Object payload) {
+
+    public JSEvent(String id, long timestamp, Object payload) {
         this.id = id;
         this.timestamp = timestamp;
         this.payload = payload;
     }
-    
-    public JSDataTransport() {
+
+    public JSEvent() {
     }
-    
+
     public String getId() {
         return id;
     }
@@ -32,6 +32,5 @@ public class JSDataTransport {
     public void setPayload(Object payload) {
         this.payload = payload;
     }
-    
 
 }
