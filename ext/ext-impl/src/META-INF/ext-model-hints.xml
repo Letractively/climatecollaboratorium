@@ -138,14 +138,14 @@
 		<field name="nameAndDescriptionMetaDataId" type="Long" />
 		<field name="name" type="String" />
 		<field name="description" type="String" />
-		<field name="order" type="Integer" />
+		<field name="displayItemOrder" type="Integer" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelInputItem">
 		<field name="modelInputItemPK" type="Long" />
 		<field name="modelId" type="Long" />
 		<field name="modelInputItemID" type="Long" />
 		<field name="modelGroupId" type="Long" />
-		<field name="order" type="Integer" />
+		<field name="displayItemOrder" type="Integer" />
 		<field name="type" type="String" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelOutputChartOrder">

@@ -30,7 +30,7 @@ public class ModelInputGroupSoap implements Serializable {
     private Long _nameAndDescriptionMetaDataId;
     private String _name;
     private String _description;
-    private Integer _order;
+    private Integer _displayItemOrder;
 
     public ModelInputGroupSoap() {
     }
@@ -43,7 +43,7 @@ public class ModelInputGroupSoap implements Serializable {
         soapModel.setNameAndDescriptionMetaDataId(model.getNameAndDescriptionMetaDataId());
         soapModel.setName(model.getName());
         soapModel.setDescription(model.getDescription());
-        soapModel.setOrder(model.getOrder());
+        soapModel.setDisplayItemOrder(model.getDisplayItemOrder());
 
         return soapModel;
     }
@@ -135,11 +135,11 @@ public class ModelInputGroupSoap implements Serializable {
         _description = description;
     }
 
-    public Integer getOrder() {
-        return _order;
+    public Integer getDisplayItemOrder() {
+        return _displayItemOrder;
     }
 
-    public void setOrder(Integer order) {
-        _order = order;
+    public void setDisplayItemOrder(Integer displayItemOrder) {
+        _displayItemOrder = displayItemOrder;
     }
 }

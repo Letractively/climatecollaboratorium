@@ -53,12 +53,12 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
             { "modelGroupId", new Integer(Types.BIGINT) },
             
 
-            { "order", new Integer(Types.INTEGER) },
+            { "displayItemOrder", new Integer(Types.INTEGER) },
             
 
             { "type_", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelInputItem (modelInputItemPK LONG not null primary key,modelId LONG,modelInputItemID LONG,modelGroupId LONG,order INTEGER,type_ VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table ModelInputItem (modelInputItemPK LONG not null primary key,modelId LONG,modelInputItemID LONG,modelGroupId LONG,displayItemOrder INTEGER,type_ VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table ModelInputItem";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -76,7 +76,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
     private Long _modelInputItemID;
     private Long _originalModelInputItemID;
     private Long _modelGroupId;
-    private Integer _order;
+    private Integer _displayItemOrder;
     private String _type;
 
     public ModelInputItemModelImpl() {
@@ -89,7 +89,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         model.setModelId(soapModel.getModelId());
         model.setModelInputItemID(soapModel.getModelInputItemID());
         model.setModelGroupId(soapModel.getModelGroupId());
-        model.setOrder(soapModel.getOrder());
+        model.setDisplayItemOrder(soapModel.getDisplayItemOrder());
         model.setType(soapModel.getType());
 
         return model;
@@ -157,12 +157,12 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         _modelGroupId = modelGroupId;
     }
 
-    public Integer getOrder() {
-        return _order;
+    public Integer getDisplayItemOrder() {
+        return _displayItemOrder;
     }
 
-    public void setOrder(Integer order) {
-        _order = order;
+    public void setDisplayItemOrder(Integer displayItemOrder) {
+        _displayItemOrder = displayItemOrder;
     }
 
     public String getType() {
@@ -186,7 +186,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
             model.setModelId(getModelId());
             model.setModelInputItemID(getModelInputItemID());
             model.setModelGroupId(getModelGroupId());
-            model.setOrder(getOrder());
+            model.setDisplayItemOrder(getDisplayItemOrder());
             model.setType(HtmlUtil.escape(getType()));
 
             model = (ModelInputItem) Proxy.newProxyInstance(ModelInputItem.class.getClassLoader(),
@@ -204,7 +204,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         clone.setModelId(getModelId());
         clone.setModelInputItemID(getModelInputItemID());
         clone.setModelGroupId(getModelGroupId());
-        clone.setOrder(getOrder());
+        clone.setDisplayItemOrder(getDisplayItemOrder());
         clone.setType(getType());
 
         return clone;
@@ -253,8 +253,8 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         sb.append(getModelInputItemID());
         sb.append(", modelGroupId=");
         sb.append(getModelGroupId());
-        sb.append(", order=");
-        sb.append(getOrder());
+        sb.append(", displayItemOrder=");
+        sb.append(getDisplayItemOrder());
         sb.append(", type=");
         sb.append(getType());
         sb.append("}");
@@ -286,8 +286,8 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         sb.append(getModelGroupId());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>order</column-name><column-value><![CDATA[");
-        sb.append(getOrder());
+            "<column><column-name>displayItemOrder</column-name><column-value><![CDATA[");
+        sb.append(getDisplayItemOrder());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>type</column-name><column-value><![CDATA[");
