@@ -82,6 +82,27 @@ public class ModelOutputChartOrderUtil {
         return getPersistence().fetchByPrimaryKey(modelOutputChartOrderPK);
     }
 
+    public static com.ext.portlet.models.model.ModelOutputChartOrder findByModelIdAndLabel(
+        java.lang.Long modelId, java.lang.String modelOutputLabel)
+        throws com.ext.portlet.models.NoSuchModelOutputChartOrderException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByModelIdAndLabel(modelId, modelOutputLabel);
+    }
+
+    public static com.ext.portlet.models.model.ModelOutputChartOrder fetchByModelIdAndLabel(
+        java.lang.Long modelId, java.lang.String modelOutputLabel)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().fetchByModelIdAndLabel(modelId, modelOutputLabel);
+    }
+
+    public static com.ext.portlet.models.model.ModelOutputChartOrder fetchByModelIdAndLabel(
+        java.lang.Long modelId, java.lang.String modelOutputLabel,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByModelIdAndLabel(modelId, modelOutputLabel,
+            retrieveFromCache);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -110,8 +131,21 @@ public class ModelOutputChartOrderUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
+    public static void removeByModelIdAndLabel(java.lang.Long modelId,
+        java.lang.String modelOutputLabel)
+        throws com.ext.portlet.models.NoSuchModelOutputChartOrderException,
+            com.liferay.portal.SystemException {
+        getPersistence().removeByModelIdAndLabel(modelId, modelOutputLabel);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
+    }
+
+    public static int countByModelIdAndLabel(java.lang.Long modelId,
+        java.lang.String modelOutputLabel)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByModelIdAndLabel(modelId, modelOutputLabel);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

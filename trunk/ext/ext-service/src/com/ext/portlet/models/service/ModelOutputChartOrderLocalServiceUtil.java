@@ -91,6 +91,13 @@ public class ModelOutputChartOrderLocalServiceUtil {
                    .updateModelOutputChartOrder(modelOutputChartOrder, merge);
     }
 
+    public static com.ext.portlet.models.model.ModelOutputChartOrder getChartOrder(
+        mit.simulation.climate.client.Simulation sim, java.lang.String label)
+        throws com.ext.portlet.models.NoSuchModelOutputChartOrderException,
+            com.liferay.portal.SystemException {
+        return getService().getChartOrder(sim, label);
+    }
+
     public static ModelOutputChartOrderLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

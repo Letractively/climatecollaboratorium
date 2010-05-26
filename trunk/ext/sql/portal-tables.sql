@@ -879,6 +879,15 @@ create table ModelOutputChartOrder (
 	modelOutputChartOrder INTEGER
 );
 
+create table ModelOutputItem (
+	modelOutputItemModifierPK LONG not null primary key,
+	modelId LONG,
+	modelOutputItemId LONG,
+	modelOutputItemOrder INTEGER,
+	itemType VARCHAR(75) null,
+	relatedOutputItem LONG
+);
+
 create table ModelOutputItemModifier (
 	modelOutputItemModifierPK LONG not null primary key,
 	modelId LONG,

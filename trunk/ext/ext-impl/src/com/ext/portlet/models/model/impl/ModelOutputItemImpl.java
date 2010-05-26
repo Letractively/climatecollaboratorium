@@ -4,11 +4,13 @@
  * or the license.txt file included in this distribution for the full text of the license.
  */
 
-package com.ext.portlet.models.service.impl;
+package com.ext.portlet.models.model.impl;
 
-import com.ext.portlet.models.service.base.ModelOutputItemOrderServiceBaseImpl;
+import com.ext.portlet.models.model.ModelOutputItem;
 
 
-public class ModelOutputItemOrderServiceImpl
-    extends ModelOutputItemOrderServiceBaseImpl {
+public class ModelOutputItemImpl extends ModelOutputItemModelImpl
+    implements ModelOutputItem {
+    public ModelOutputItemImpl() {
+    }
 }

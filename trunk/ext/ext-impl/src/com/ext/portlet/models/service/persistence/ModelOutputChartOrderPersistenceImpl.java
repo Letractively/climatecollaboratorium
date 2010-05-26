@@ -13,13 +13,16 @@ import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -34,6 +37,14 @@ public class ModelOutputChartOrderPersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = ModelOutputChartOrderImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
+    public static final FinderPath FINDER_PATH_FETCH_BY_MODELIDANDLABEL = new FinderPath(ModelOutputChartOrderModelImpl.ENTITY_CACHE_ENABLED,
+            ModelOutputChartOrderModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_ENTITY, "fetchByModelIdAndLabel",
+            new String[] { Long.class.getName(), String.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_MODELIDANDLABEL = new FinderPath(ModelOutputChartOrderModelImpl.ENTITY_CACHE_ENABLED,
+            ModelOutputChartOrderModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByModelIdAndLabel",
+            new String[] { Long.class.getName(), String.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ModelOutputChartOrderModelImpl.ENTITY_CACHE_ENABLED,
             ModelOutputChartOrderModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -51,15 +62,20 @@ public class ModelOutputChartOrderPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.models.service.persistence.ModelInputItemPersistence modelInputItemPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl")
     protected com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence modelOutputChartOrderPersistence;
-    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence.impl")
-    protected com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence modelOutputItemOrderPersistence;
-    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence.impl")
-    protected com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence modelOutputItemModifierPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelOutputItemPersistence modelOutputItemPersistence;
 
     public void cacheResult(ModelOutputChartOrder modelOutputChartOrder) {
         EntityCacheUtil.putResult(ModelOutputChartOrderModelImpl.ENTITY_CACHE_ENABLED,
             ModelOutputChartOrderImpl.class,
             modelOutputChartOrder.getPrimaryKey(), modelOutputChartOrder);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDANDLABEL,
+            new Object[] {
+                modelOutputChartOrder.getModelId(),
+                
+            modelOutputChartOrder.getModelOutputLabel()
+            }, modelOutputChartOrder);
     }
 
     public void cacheResult(List<ModelOutputChartOrder> modelOutputChartOrders) {
@@ -164,6 +180,15 @@ public class ModelOutputChartOrderPersistenceImpl extends BasePersistenceImpl
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
 
+        ModelOutputChartOrderModelImpl modelOutputChartOrderModelImpl = (ModelOutputChartOrderModelImpl) modelOutputChartOrder;
+
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MODELIDANDLABEL,
+            new Object[] {
+                modelOutputChartOrderModelImpl.getOriginalModelId(),
+                
+            modelOutputChartOrderModelImpl.getOriginalModelOutputLabel()
+            });
+
         EntityCacheUtil.removeResult(ModelOutputChartOrderModelImpl.ENTITY_CACHE_ENABLED,
             ModelOutputChartOrderImpl.class,
             modelOutputChartOrder.getPrimaryKey());
@@ -226,6 +251,10 @@ public class ModelOutputChartOrderPersistenceImpl extends BasePersistenceImpl
     public ModelOutputChartOrder updateImpl(
         com.ext.portlet.models.model.ModelOutputChartOrder modelOutputChartOrder,
         boolean merge) throws SystemException {
+        boolean isNew = modelOutputChartOrder.isNew();
+
+        ModelOutputChartOrderModelImpl modelOutputChartOrderModelImpl = (ModelOutputChartOrderModelImpl) modelOutputChartOrder;
+
         Session session = null;
 
         try {
@@ -245,6 +274,32 @@ public class ModelOutputChartOrderPersistenceImpl extends BasePersistenceImpl
         EntityCacheUtil.putResult(ModelOutputChartOrderModelImpl.ENTITY_CACHE_ENABLED,
             ModelOutputChartOrderImpl.class,
             modelOutputChartOrder.getPrimaryKey(), modelOutputChartOrder);
+
+        if (!isNew &&
+                (!Validator.equals(modelOutputChartOrder.getModelId(),
+                    modelOutputChartOrderModelImpl.getOriginalModelId()) ||
+                !Validator.equals(modelOutputChartOrder.getModelOutputLabel(),
+                    modelOutputChartOrderModelImpl.getOriginalModelOutputLabel()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MODELIDANDLABEL,
+                new Object[] {
+                    modelOutputChartOrderModelImpl.getOriginalModelId(),
+                    
+                modelOutputChartOrderModelImpl.getOriginalModelOutputLabel()
+                });
+        }
+
+        if (isNew ||
+                (!Validator.equals(modelOutputChartOrder.getModelId(),
+                    modelOutputChartOrderModelImpl.getOriginalModelId()) ||
+                !Validator.equals(modelOutputChartOrder.getModelOutputLabel(),
+                    modelOutputChartOrderModelImpl.getOriginalModelOutputLabel()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDANDLABEL,
+                new Object[] {
+                    modelOutputChartOrder.getModelId(),
+                    
+                modelOutputChartOrder.getModelOutputLabel()
+                }, modelOutputChartOrder);
+        }
 
         return modelOutputChartOrder;
     }
@@ -293,6 +348,134 @@ public class ModelOutputChartOrderPersistenceImpl extends BasePersistenceImpl
         }
 
         return modelOutputChartOrder;
+    }
+
+    public ModelOutputChartOrder findByModelIdAndLabel(Long modelId,
+        String modelOutputLabel)
+        throws NoSuchModelOutputChartOrderException, SystemException {
+        ModelOutputChartOrder modelOutputChartOrder = fetchByModelIdAndLabel(modelId,
+                modelOutputLabel);
+
+        if (modelOutputChartOrder == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ModelOutputChartOrder exists with the key {");
+
+            msg.append("modelId=" + modelId);
+
+            msg.append(", ");
+            msg.append("modelOutputLabel=" + modelOutputLabel);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchModelOutputChartOrderException(msg.toString());
+        }
+
+        return modelOutputChartOrder;
+    }
+
+    public ModelOutputChartOrder fetchByModelIdAndLabel(Long modelId,
+        String modelOutputLabel) throws SystemException {
+        return fetchByModelIdAndLabel(modelId, modelOutputLabel, true);
+    }
+
+    public ModelOutputChartOrder fetchByModelIdAndLabel(Long modelId,
+        String modelOutputLabel, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { modelId, modelOutputLabel };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_MODELIDANDLABEL,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelOutputChartOrder WHERE ");
+
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
+                } else {
+                    query.append("modelId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (modelOutputLabel == null) {
+                    query.append("modelOutputLabel IS NULL");
+                } else {
+                    query.append("modelOutputLabel = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
+                }
+
+                if (modelOutputLabel != null) {
+                    qPos.add(modelOutputLabel);
+                }
+
+                List<ModelOutputChartOrder> list = q.list();
+
+                result = list;
+
+                ModelOutputChartOrder modelOutputChartOrder = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDANDLABEL,
+                        finderArgs, list);
+                } else {
+                    modelOutputChartOrder = list.get(0);
+
+                    cacheResult(modelOutputChartOrder);
+
+                    if ((modelOutputChartOrder.getModelId() == null) ||
+                            !modelOutputChartOrder.getModelId().equals(modelId) ||
+                            (modelOutputChartOrder.getModelOutputLabel() == null) ||
+                            !modelOutputChartOrder.getModelOutputLabel()
+                                                      .equals(modelOutputLabel)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDANDLABEL,
+                            finderArgs, modelOutputChartOrder);
+                    }
+                }
+
+                return modelOutputChartOrder;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDANDLABEL,
+                        finderArgs, new ArrayList<ModelOutputChartOrder>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (ModelOutputChartOrder) result;
+            }
+        }
     }
 
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
@@ -394,10 +577,83 @@ public class ModelOutputChartOrderPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
+    public void removeByModelIdAndLabel(Long modelId, String modelOutputLabel)
+        throws NoSuchModelOutputChartOrderException, SystemException {
+        ModelOutputChartOrder modelOutputChartOrder = findByModelIdAndLabel(modelId,
+                modelOutputLabel);
+
+        remove(modelOutputChartOrder);
+    }
+
     public void removeAll() throws SystemException {
         for (ModelOutputChartOrder modelOutputChartOrder : findAll()) {
             remove(modelOutputChartOrder);
         }
+    }
+
+    public int countByModelIdAndLabel(Long modelId, String modelOutputLabel)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { modelId, modelOutputLabel };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_MODELIDANDLABEL,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelOutputChartOrder WHERE ");
+
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
+                } else {
+                    query.append("modelId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (modelOutputLabel == null) {
+                    query.append("modelOutputLabel IS NULL");
+                } else {
+                    query.append("modelOutputLabel = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
+                }
+
+                if (modelOutputLabel != null) {
+                    qPos.add(modelOutputLabel);
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MODELIDANDLABEL,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
     }
 
     public int countAll() throws SystemException {

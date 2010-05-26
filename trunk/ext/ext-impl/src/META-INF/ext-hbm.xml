@@ -209,7 +209,7 @@
 		<property name="modelOutputLabel" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="modelOutputChartOrder" />
 	</class>
-	<class name="com.ext.portlet.models.model.impl.ModelOutputItemOrderImpl" table="ModelOutputItemOrder">
+	<class name="com.ext.portlet.models.model.impl.ModelOutputItemImpl" table="ModelOutputItem">
 		<cache usage="read-write" />
 		<id name="modelOutputItemModifierPK" type="java.lang.Long">
 			<generator class="assigned" />
@@ -217,17 +217,8 @@
 		<property name="modelId" />
 		<property name="modelOutputItemId" />
 		<property name="modelOutputItemOrder" />
-		<property name="type" column="type_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-	</class>
-	<class name="com.ext.portlet.models.model.impl.ModelOutputItemModifierImpl" table="ModelOutputItemModifier">
-		<cache usage="read-write" />
-		<id name="modelOutputItemModifierPK" type="java.lang.Long">
-			<generator class="assigned" />
-		</id>
-		<property name="modelId" />
-		<property name="modelOutputItemId" />
-		<property name="sourceItemId" />
-		<property name="type" column="type_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="itemType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="relatedOutputItem" />
 	</class>
 	<class name="com.ext.portlet.Activity.model.impl.ActivitySubscriptionImpl" table="ActivitySubscription">
 		<cache usage="read-write" />

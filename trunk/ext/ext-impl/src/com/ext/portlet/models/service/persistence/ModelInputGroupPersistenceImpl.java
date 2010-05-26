@@ -70,10 +70,8 @@ public class ModelInputGroupPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.models.service.persistence.ModelInputItemPersistence modelInputItemPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl")
     protected com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence modelOutputChartOrderPersistence;
-    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence.impl")
-    protected com.ext.portlet.models.service.persistence.ModelOutputItemOrderPersistence modelOutputItemOrderPersistence;
-    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence.impl")
-    protected com.ext.portlet.models.service.persistence.ModelOutputItemModifierPersistence modelOutputItemModifierPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelOutputItemPersistence modelOutputItemPersistence;
 
     public void cacheResult(ModelInputGroup modelInputGroup) {
         EntityCacheUtil.putResult(ModelInputGroupModelImpl.ENTITY_CACHE_ENABLED,

@@ -154,19 +154,13 @@
 		<field name="modelOutputLabel" type="String" />
 		<field name="modelOutputChartOrder" type="Integer" />
 	</model>
-	<model name="com.ext.portlet.models.model.ModelOutputItemOrder">
+	<model name="com.ext.portlet.models.model.ModelOutputItem">
 		<field name="modelOutputItemModifierPK" type="Long" />
 		<field name="modelId" type="Long" />
 		<field name="modelOutputItemId" type="Long" />
-		<field name="modelOutputItemOrder" type="Long" />
-		<field name="type" type="String" />
-	</model>
-	<model name="com.ext.portlet.models.model.ModelOutputItemModifier">
-		<field name="modelOutputItemModifierPK" type="Long" />
-		<field name="modelId" type="Long" />
-		<field name="modelOutputItemId" type="Long" />
-		<field name="sourceItemId" type="Long" />
-		<field name="type" type="String" />
+		<field name="modelOutputItemOrder" type="Integer" />
+		<field name="itemType" type="String" />
+		<field name="relatedOutputItem" type="Long" />
 	</model>
 	<model name="com.ext.portlet.Activity.model.ActivitySubscription">
 		<field name="entityId" type="Long" />
