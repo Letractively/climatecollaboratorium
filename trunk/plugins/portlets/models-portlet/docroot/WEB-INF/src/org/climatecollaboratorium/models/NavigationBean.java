@@ -11,13 +11,13 @@ import org.climatecollaboratorium.models.support.SimulationsHelper;
 public class NavigationBean {
     private final static String INDEX_PAGE = "index";
     private final static String DETAILS_PAGE = "details";
-    
+
     private String currentPage = INDEX_PAGE;
-    
+
     private BreadcrumbBean breadcrumbBean;
     private SimulationBean simulationBean;
     private Simulation selectedSimulation;
-    
+
     private long modelId;
 
     public BreadcrumbBean getBreadcrumbBean() {
@@ -27,7 +27,7 @@ public class NavigationBean {
     public void setBreadcrumbBean(BreadcrumbBean breadcrumbBean){
         this.breadcrumbBean = breadcrumbBean;
         updateBreadcrumb();
-        
+
     }
 
     public SimulationBean getSimulationBean() {
@@ -53,7 +53,7 @@ public class NavigationBean {
     public void setModelId(long modelId) {
         this.modelId = modelId;
     }
-    
+
     public void update(ActionEvent event) throws IOException {
         selectedSimulation = SimulationsHelper.getInstance().getSimulationById(modelId);
         if (selectedSimulation != null) {
@@ -65,16 +65,15 @@ public class NavigationBean {
         }
         updateBreadcrumb();
     }
-    
+
     private void updateBreadcrumb() {
         breadcrumbBean.clear();
         breadcrumbBean.addItem("Model index", "#");
-        
+
         if (selectedSimulation != null) {
             breadcrumbBean.addItem(selectedSimulation.getName(), "#modelId=" + selectedSimulation.getId());
         }
     }
-    
-    
+
 
 }

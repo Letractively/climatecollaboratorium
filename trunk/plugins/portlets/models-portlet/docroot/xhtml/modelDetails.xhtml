@@ -2,6 +2,7 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     
     <div class="pageTitle">
@@ -24,4 +25,92 @@
             <ice:commandButton value="Submit" actionListener="#{simulationBean.updateSimulation}" />
         </ice:form>
     </ice:panelGroup>
+    <ice:panelGroup>
+        <table style="vertical-align: top"><tr>
+        
+        <td style="vertical-align: top">
+        <h2>Inputs</h2>
+        <ice:form>
+        <ice:panelSeries value="#{simulationBean.simulation.inputs}" var="input">
+            <h3>#{input.name}</h3>
+                        
+                <f:subview id="modelIndex" rendered="#{input.varContext == 'SCALAR' and input.varType == 'RANGE'}">
+                    <ui:include src="./inputs/scalarRange.xhtml"/>
+                </f:subview>
+            <table>
+                <tr>
+                    <td>varcontext</td>
+                    <td>#{input.varContext}</td>
+                </tr>
+                <tr>
+                    <td>vartype</td>
+                    <td>#{input.varType}</td>
+                </tr>
+                <tr>
+                    <td>min</td>
+                    <td>#{input.min[0]}</td>
+                </tr>
+                <tr>
+                    <td>max</td>
+                    <td>#{input.max[0]}</td>
+                </tr>
+                <tr>
+                    <td>units</td>
+                    <td>#{input.units[0]}</td>
+                </tr>
+                <tr>
+                    <td>default</td>
+                    <td>#{input.default[0]}</td>
+                </tr>
+                <tr>
+                    <td>labels</td>
+                    <td>#{input.labels[0]}</td>
+                </tr>
+            </table>
+        
+        </ice:panelSeries>
+        </ice:form>
+        </td>
+        <td>
+        <h2>Outputs</h2>
+        <ice:panelSeries value="#{simulationBean.simulation.outputs}" var="input">
+            <h3>#{input.name}</h3>
+
+            <!-- 
+            <table>
+                <tr>
+                    <td>varcontext</td>
+                    <td>#{input.varContext}</td>
+                </tr>
+                <tr>
+                    <td>vartype</td>
+                    <td>#{input.varType}</td>
+                </tr>
+                <tr>
+                    <td>min</td>
+                    <td>#{input.min[0]}</td>
+                </tr>
+                <tr>
+                    <td>max</td>
+                    <td>#{input.max[0]}</td>
+                </tr>
+                <tr>
+                    <td>units</td>
+                    <td>#{input.units[0]}</td>
+                </tr>
+                <tr>
+                    <td>default</td>
+                    <td>#{input.default[0]}</td>
+                </tr>
+                <tr>
+                    <td>labels</td>
+                    <td>#{input.labels[0]}</td>
+                </tr>
+            </table>
+        -->
+        </ice:panelSeries>
+        </td>
+        </tr></table>
+    </ice:panelGroup>
+    <ice:inputTextarea value="#{simulationBean.inputsJSON}" style="width: 100%; height: 200px"/>
 </f:view>
