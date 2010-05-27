@@ -9,17 +9,10 @@ import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.comm.ClientRepository;
 import mit.simulation.climate.client.comm.ModelNotFoundException;
 import mit.simulation.climate.client.comm.ScenarioNotFoundException;
+import junit.framework.TestCase;
 
-import org.climatecollaboratorium.test.BaseCollabTest;
-
-import com.ext.portlet.models.ui.ModelDisplay;
-import com.ext.portlet.models.ui.ModelOutputDisplayItem;
-import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
-import com.ext.portlet.models.ui.ModelUIFactory;
-
-public class ModelsUIFactoryTest extends BaseCollabTest {
-    
-    public void testModel() throws IOException, ScenarioNotFoundException, ModelNotFoundException {
+public class LightweightTest extends TestCase {
+    public void testStupid() throws IOException, ScenarioNotFoundException, ModelNotFoundException {
 
         ClientRepository repository = ClientRepository.instance("localhost", 8080);
         
@@ -39,20 +32,5 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
         
         Scenario scenario = repository.runModel(sim, inputs, 1L, false);
         System.out.println("##############: " + scenario.getId());
-        ModelDisplay modelDisplay = ModelUIFactory.getInstance().getDisplay(scenario);
-        
-        for (ModelOutputDisplayItem item: modelDisplay.getOutputs()) {
-            if (item instanceof ModelOutputIndexedDisplayItem) {
-                ModelOutputIndexedDisplayItem indexedItem = (ModelOutputIndexedDisplayItem) item;
-
-                assertTrue(indexedItem.getSeriesVariables().size() > 0);
-                
-                System.out.println(String.valueOf(indexedItem.getSeriesVariables().get(0)));
-            }
-        }
-        
-        
-        
     }
-
 }
