@@ -51,4 +51,10 @@ public abstract class ModelInputDisplayItem extends ModelDisplayItem {
     public String getDescription() {
        return md.getDescription();
     }
+    
+    /**
+     * Returns display item type.
+     * @return ModelDisplayItemType
+     */
+    public abstract ModelInputDisplayItemType getDisplayItemType();
 }

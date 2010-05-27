@@ -131,6 +131,12 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
         item.setRelatedOutputItem(md.getId());
         ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
     }
+    
+
+    @Override
+    public ModelOutputDisplayItemType getDisplayItemType() {
+        return ModelOutputDisplayItemType.SERIES;
+    }
 
 
 

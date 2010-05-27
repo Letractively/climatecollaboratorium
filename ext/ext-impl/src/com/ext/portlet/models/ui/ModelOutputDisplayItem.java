@@ -21,4 +21,7 @@ public abstract class ModelOutputDisplayItem extends ModelDisplayItem {
     public ModelOutputDisplayItem(Simulation s) {
         super(s);
     }
+    
+    public abstract ModelOutputDisplayItemType getDisplayItemType();
+    
 }

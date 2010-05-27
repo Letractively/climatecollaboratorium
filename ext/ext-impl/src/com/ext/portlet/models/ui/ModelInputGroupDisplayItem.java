@@ -235,4 +235,13 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         return new ModelInputGroupDisplayItem(group);
     }
 
+
+    /**
+     * Returns display item type.
+     */
+    @Override
+    public ModelInputDisplayItemType getDisplayItemType() {
+        return ModelInputDisplayItemType.GROUP;
+    }
+
 }
