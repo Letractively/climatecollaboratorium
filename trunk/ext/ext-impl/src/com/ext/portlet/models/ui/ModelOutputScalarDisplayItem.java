@@ -65,4 +65,10 @@ public class ModelOutputScalarDisplayItem extends ModelOutputDisplayItem {
     public void setOrder(int o) throws SystemException {
        _log.warn("Setting order on scalar items is not currently supported");
     }
+    
+
+    @Override
+    public ModelOutputDisplayItemType getDisplayItemType() {
+        return ModelOutputDisplayItemType.SCALAR;
+    }
 }

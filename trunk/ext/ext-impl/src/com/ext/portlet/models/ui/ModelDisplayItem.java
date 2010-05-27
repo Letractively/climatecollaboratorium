@@ -44,7 +44,7 @@ public abstract class ModelDisplayItem implements Comparable<ModelDisplayItem> {
      * @throws IncompatibleScenarioException
      */
     public void setScenario(Scenario s) throws IncompatibleScenarioException {
-        if (!scen.getSimulation().equals(sim)) {
+        if (scen != null && !scen.getSimulation().equals(sim)) {
             throw new IncompatibleScenarioException("Simulation "+sim.getName()+" does not generate scenario "+scen.getId());
         }
       this.scen = s;
