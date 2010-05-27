@@ -82,6 +82,14 @@ public class ClientVariable implements Variable {
 
     }
 
+     public boolean equals(Object o) {
+       return (o instanceof Variable && ((Variable)o).getId().equals(getId()));
+    }
+
+    public int hashCode() {
+        return (Variable.class.hashCode() * getId().hashCode())%13;
+    }
+
 
 
 }

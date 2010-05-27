@@ -45,7 +45,7 @@ public class ClientProxyObject<T> implements InvocationHandler {
             }
         } else if ("equals".equals(method.getName())) {
             Object o = args[0];
-            return (o.getClass().isAssignableFrom(clz) && ((HasId)o).getId().equals(refid));
+            return (clz.isAssignableFrom(o.getClass()) && ((HasId)o).getId().equals(refid));
         } else {
             T object = getObject();
             return method.invoke(object, args);
@@ -54,7 +54,7 @@ public class ClientProxyObject<T> implements InvocationHandler {
     }
 
     public int proxiedHashCode() {
-        return ref.hashCode() * 13 +7;
+        return (clz.hashCode() * refid.hashCode())%13;
     }
 
     private synchronized T getObject()
