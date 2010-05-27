@@ -168,6 +168,16 @@ public class ClientScenario implements Scenario {
 
     }
 
+    public boolean equals(Object o) {
+       return (o instanceof Scenario && ((Scenario)o).getId().equals(getId()));
+    }
+
+    public int hashCode() {
+        return (Scenario.class.hashCode() * getId().hashCode())%13;
+    }
+
+    
+
 
 
 

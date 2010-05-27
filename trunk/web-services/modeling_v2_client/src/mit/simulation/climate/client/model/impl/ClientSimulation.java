@@ -180,10 +180,13 @@ public class ClientSimulation implements Simulation {
                 updateable.remove("url");
             }
         }
+        if (url==null) this.url = null;
+        else {
         try {
             this.url = new URL(url);
         } catch (MalformedURLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         }
 
     }
@@ -192,7 +195,7 @@ public class ClientSimulation implements Simulation {
     public void setURL(URL url) {
         if (unequal(url,this.url)) {
             if (!updateable.contains("url")) {
-                updates.put("url",url.toExternalForm());
+                updates.put("url",url!=null?url.toExternalForm():"");
             } else {
                updateable.remove("url"); 
             }
@@ -245,6 +248,14 @@ public class ClientSimulation implements Simulation {
     private static boolean unequal(Object a, Object b) {
         if ((a != null && b ==null) || (a==null && b!=null)) return true;
         else return ((a!=null && !a.equals(b)) || (b!=null && !b.equals(a)));
+    }
+
+    public boolean equals(Object o) {
+       return (o instanceof Simulation && ((Simulation)o).getId().equals(getId()));
+    }
+
+    public int hashCode() {
+        return (Simulation.class.hashCode() * getId().hashCode())%13;
     }
 
 

@@ -247,6 +247,14 @@ public class ClientMetaData implements MetaData {
 
     }
 
+    public boolean equals(Object o) {
+       return (o instanceof MetaData && ((MetaData)o).getId().equals(getId()));
+    }
+
+    public int hashCode() {
+        return (MetaData.class.hashCode() * getId().hashCode())%13;
+    }
+
 
 
 
