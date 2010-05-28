@@ -133,26 +133,36 @@ public class SimulationBean implements JSEventHandler {
             inputsValues.put(md.getId(), value.toString());
         }
         try {
+            
+            System.out.println("Running the simulation");
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
+            
+            System.out.println("Simulation run was successful, scenario id: " + scenario.getId());
+
+            outputDisplay = ModelUIFactory.getInstance().getDisplay(scenario);
+            //outputDisplay = display;
+            
+            System.out.println("On js event: " + event);
+           // SimulationsHelper.getInstance().runSimulation(simulation, inputs);
+            
+
+            event.setId("modelRunSuccessful");
+            event.setTimestamp(System.currentTimeMillis());
+            event.setPayload(simulation.getInputs());
+
+            jsEventManager.sendEvent(event);
+            
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ScenarioNotFoundException e) {
             e.printStackTrace();
         } catch (ModelNotFoundException e) {
             e.printStackTrace();
+        } catch (Throwable e) {
+            System.out.println("This shouldn't happen");
+            // FIXME
+            e.printStackTrace();
         }
-        outputDisplay = ModelUIFactory.getInstance().getDisplay(scenario);
-        //outputDisplay = display;
-        
-        System.out.println("On js event: " + event);
-       // SimulationsHelper.getInstance().runSimulation(simulation, inputs);
-        
-
-        event.setId("modelRunSuccessful");
-        event.setTimestamp(System.currentTimeMillis());
-        event.setPayload(simulation.getInputs());
-
-        jsEventManager.sendEvent(event);
     }
     
     public Map<Long, String> getInputValues() {
