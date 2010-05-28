@@ -1,6 +1,7 @@
 package org.climatecollaboratorium.models;
 
 import com.ext.portlet.models.ui.ModelDisplay;
+import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 
@@ -151,6 +152,10 @@ public class SimulationBean implements JSEventHandler {
             event.setPayload(simulation.getInputs());
 
             jsEventManager.sendEvent(event);
+            
+            outputDisplay.getOutputs().get(0);
+            ModelOutputIndexedDisplayItem i;
+            //i.getSeries().get(0).getMetaData();
             
         } catch (IOException e) {
             e.printStackTrace();
