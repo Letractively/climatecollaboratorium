@@ -1,9 +1,3 @@
-function updateFrontendField(event, ui) {
-	jQuery("#sliderValue").val(ui.value);
-	jQuery("#integrationForm .sliderVal").val(ui.value);
-	jQuery("#integrationForm .submit").click();
-	
-}
 /**
  * Object that will be sent by ICEFaces backend will consist of following fields:
  * id: id of an event/data set, String, not null
@@ -17,7 +11,6 @@ var icefacesEventManager = new function() {
 	var eventTimestamps = {};
 	
 	this.registerHandler = function(eventId, callback) {
-		alert("registering handler for: " + eventId);
 		eventHandlers[eventId] = callback;
 		eventTimestamps[eventId] = 0;
 	}
@@ -36,29 +29,22 @@ var icefacesEventManager = new function() {
 		}
 	}
 	
+	this.sendEventToTheBackend = function(eventId, payload) {
+		var event = {
+				timestamp: (new Date()).getTime(),
+				id: eventId, 
+				payload: payload
+		};
+		
+				
+		jQuery(".eventInput").val(jQuery.toJSON(event));
+		jQuery("#integrationForm .submit").click();
+	}
+	
 };
 
-function simpleCallback(event) {
-	jQuery('#graph1').html("");
-	plot1 = jQuery.jqplot('graph1', [event.payload], { 
-	    title:'Line Style Options', 
-	    series:[ 
-	        {lineWidth:2, markerOptions:{style:'dimaond'}}, 
-	        {showLine:false, markerOptions:{size: 7, style:'x'}}, 
-	        {markerOptions:{style:'circle'}}, 
-	        {lineWidth:5, markerOptions:{style:'filledSquare', size:14}}
-	    ]
-	});
-	
-}
 
 jQuery(document).ready(function() {
-	
-	jQuery("#slider").slider({
-		stop: updateFrontendField
-	});
-	icefacesEventManager.registerHandler("graph1", simpleCallback);
-	
 	
 	Ice.onAsynchronousReceive("mainContent", function() {
 			var val = jQuery("#integrationForm .eventOutput").val();
@@ -68,28 +54,8 @@ jQuery(document).ready(function() {
 			var event = eval("(" + val + ")");
 			icefacesEventManager.deliverEventIfNew(event);
 			//jQuery("#test").prepend("<h3>async: " + obj.payload + "</h3>" + "<h4>" + icefacesEventManager.registerHandler + "</h4>");
+
 		});
-	
-	var tmpPoints = [];
-	var a = 10;
-	
-	for (var i=-100; i < 100; i+= 1) {
-		tmpPoints.push([i, Math.pow(i, a)]);
-	}
-	
-
-	jQuery("#sliderValue").blur(function() {
-		var max = jQuery("#slider").slider("option", "max");
-		var min = jQuery("#slider").slider("option", "min");
-		var val = jQuery("#sliderValue").val();
-		var max = jQuery( "#slider" ).slider( "option", "max" );
-
-		jQuery("#slider").slider("moveTo", jQuery("#sliderValue").val());
-		return true;
-	});
-		
-		
-	
 
 	
 });

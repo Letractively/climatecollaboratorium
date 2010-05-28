@@ -17,6 +17,7 @@
 		<!-- <footer-portlet-javascript>/js/jquery-1.3.2.min.js</footer-portlet-javascript>-->
 		<footer-portlet-javascript>/js/jquery.jqplot.min.js</footer-portlet-javascript>
 		<footer-portlet-javascript>/js/jquery.history.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/jquery.json.js</footer-portlet-javascript>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

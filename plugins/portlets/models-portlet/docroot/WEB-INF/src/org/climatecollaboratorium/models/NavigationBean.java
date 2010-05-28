@@ -61,6 +61,7 @@ public class NavigationBean {
             currentPage = DETAILS_PAGE;
         }
         else {
+            simulationBean.setSimulation(null);
             currentPage = INDEX_PAGE;
         }
         updateBreadcrumb();

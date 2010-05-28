@@ -35,6 +35,7 @@ public class JSIntegrationBean implements JSEventManager {
             }
             lastEventTimestamp = event.getTimestamp();
         }
+        eventInput = "";
     }
 
     public void sendEvent(JSEvent event) {

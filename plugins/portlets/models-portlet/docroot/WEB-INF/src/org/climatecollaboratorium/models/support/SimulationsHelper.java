@@ -11,9 +11,13 @@ import java.util.Set;
 
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelUIFactory;
+import com.sun.corba.se.spi.activation.Repository;
 
+import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.comm.ClientRepository;
+import mit.simulation.climate.client.comm.ModelNotFoundException;
+import mit.simulation.climate.client.comm.ScenarioNotFoundException;
 
 public class SimulationsHelper {
     
@@ -26,6 +30,7 @@ public class SimulationsHelper {
     private SimulationsHelper() throws IOException {
         repository = ClientRepository.instance("localhost", 8080);
         
+        //repository.
         simulations = new ArrayList<SimulationDecorator>();
         for (Simulation sim: repository.getAllSimulations()) {
             simulations.add(new SimulationDecorator(sim));
@@ -46,6 +51,7 @@ public class SimulationsHelper {
         });
     }
     
+    
     public static synchronized SimulationsHelper getInstance() throws IOException {
         if (instance == null) {
             instance = new SimulationsHelper();
@@ -63,5 +69,10 @@ public class SimulationsHelper {
     
     public ClientRepository getRepository() {
         return repository;
+    }
+    
+
+    public Scenario runSimulation(Simulation sim, Map<Long, Object> inputs) throws IOException, ScenarioNotFoundException, ModelNotFoundException {
+        return repository.runModel(sim, inputs, 10144L, false);
     }
 }
