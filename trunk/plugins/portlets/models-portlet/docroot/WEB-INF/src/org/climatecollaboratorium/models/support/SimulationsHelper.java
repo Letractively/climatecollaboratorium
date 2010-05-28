@@ -34,8 +34,6 @@ public class SimulationsHelper {
         simulations = new ArrayList<SimulationDecorator>();
         for (Simulation sim: repository.getAllSimulations()) {
             simulations.add(new SimulationDecorator(sim));
-            System.out.println("simulation: " + sim.getId());
-            ModelDisplay md = ModelUIFactory.getInstance().getDisplay(sim);
         }
         
         for (SimulationDecorator sim: simulations) {
