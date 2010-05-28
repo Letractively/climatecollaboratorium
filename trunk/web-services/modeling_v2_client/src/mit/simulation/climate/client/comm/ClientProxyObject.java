@@ -31,12 +31,7 @@ public class ClientProxyObject<T> implements InvocationHandler {
         if ("getId".equals(method.getName())) {
             return refid;
 
-            //This is so dramatically bad it makes my teeth hurt.  Why is this here? I'll tell you.
-            //Somehow, somewhere, JAXB is calling hashcode on the object during unmarshalling - which in turn
-            //would cause the proxy object to try to get the actual object, thus defeating the purpose of delaying
-            //reference resolution until after everything has been unmarshalled.  So, the horribly incorrect quick
-            //swap.  Just don't try to stick the proxy in a map (or a set for that matter)!  Which you shouldn't be doing anyways.
-            
+                 
         } else if ("hashCode".equals(method.getName())) {
             if (loadedObject!=null) {
                 return loadedObject.hashCode();
@@ -44,8 +39,13 @@ public class ClientProxyObject<T> implements InvocationHandler {
                 return proxiedHashCode();
             }
         } else if ("equals".equals(method.getName())) {
-            Object o = args[0];
-            return (clz.isAssignableFrom(o.getClass()) && ((HasId)o).getId().equals(refid));
+            if (loadedObject!=null) {
+                return loadedObject.equals(args[0]);
+            } else {
+                return proxiedEquals(args[0]);
+            }
+
+
         } else {
             T object = getObject();
             return method.invoke(object, args);
@@ -55,6 +55,10 @@ public class ClientProxyObject<T> implements InvocationHandler {
 
     public int proxiedHashCode() {
         return (clz.hashCode() * refid.hashCode())%13;
+    }
+
+    public boolean proxiedEquals(Object o) {
+        return (clz.isInstance(o) && ((HasId)o).getId().equals(refid));
     }
 
     private synchronized T getObject()

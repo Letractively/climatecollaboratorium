@@ -31,7 +31,7 @@ public class ClientVariable implements Variable {
     }
 
     public void setId(Long id) {
-
+      this.id = id;
     }
 
     @XmlElement(name="metadata")
