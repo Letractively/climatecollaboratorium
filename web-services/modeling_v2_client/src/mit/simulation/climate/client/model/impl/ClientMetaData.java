@@ -237,7 +237,7 @@ public class ClientMetaData implements MetaData {
 
     @XmlTransient
     public MetaData getIndexingMetaData() {
-        log.debug("Somone is calling me! Argh!");
+        //log.debug("Somone is calling me! Argh!");
         return null;
     }
 
