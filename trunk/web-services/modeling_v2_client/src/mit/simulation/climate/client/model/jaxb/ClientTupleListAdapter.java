@@ -5,6 +5,9 @@ import mit.simulation.climate.client.model.impl.ClientTuple;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -44,8 +47,16 @@ public class ClientTupleListAdapter {
         Matcher m = p.matcher(stripped);
         List<Tuple> result = new ArrayList<Tuple>();
         while (m.find()) {
-            String tmp = m.group(1);
-            result.add(new ClientTuple(m.group(1).split(",")));
+            String[] splited = m.group(1).split(",");
+            for (int i=0; i < splited.length; i++) {
+                try {
+                    splited[i] = URLDecoder.decode(splited[i], "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            result.add(new ClientTuple(splited));
         }
         return result;
     }
