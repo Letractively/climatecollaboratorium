@@ -15,7 +15,9 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import mit.simulation.climate.client.MetaData;
+import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.Variable;
 
 /**
  * Wrapper around series metadata; series metadata is merely that
@@ -61,10 +63,16 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
     private void createPersistence() throws SystemException {
         Long pk = CounterLocalServiceUtil.increment(ModelOutputItem.class.getName());
         item = ModelOutputItemLocalServiceUtil.createModelOutputItem(pk);
+        ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
     }
 
     public MetaData getMetaData() {
         return md;
+    }
+   
+
+    public Variable getVariable() {
+        return ModelUIFactory.getVariableForMetaData(getScenario(),getMetaData(),false);
     }
 
     @Override

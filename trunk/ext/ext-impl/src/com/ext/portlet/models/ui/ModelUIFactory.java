@@ -100,8 +100,8 @@ public class ModelUIFactory {
                         } catch (SystemException e) {
                             _log.error(e);
                         }
-                        item.setChartType(ModelOutputChartType.FREE);
-                        found.put(md.getName(), item);
+                        item.setChartType(ModelOutputChartType.TIME_SERIES);
+                        found.put(md.getLabels()[1], item);
                     }
                     try {
                         item.addSeriesData(md);
@@ -152,9 +152,9 @@ public class ModelUIFactory {
         for (MetaData md : s.getInputs()) {
             if (!grouped.contains(md)) {
                 try {
-                ModelInputItem item = ModelInputItemLocalServiceUtil.getItemForMetaData(md);
-                ModelInputDisplayItem toadd = item==null?ModelInputIndividualDisplayItem.create(s,md,ModelInputWidgetType.TEXT_FIELD):getInputItem(item);
-                result.add(toadd);
+                    ModelInputItem item = ModelInputItemLocalServiceUtil.getItemForMetaData(md);
+                    ModelInputDisplayItem toadd = item==null?ModelInputIndividualDisplayItem.create(s,md,ModelInputWidgetType.TEXT_FIELD):getInputItem(item);
+                    result.add(toadd);
 
 
                 } catch (SystemException e) {
