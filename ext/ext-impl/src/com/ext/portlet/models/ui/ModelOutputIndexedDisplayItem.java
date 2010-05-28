@@ -83,6 +83,10 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
     private void createPersistence() throws SystemException {
         Long pk = CounterLocalServiceUtil.increment(ModelOutputChartOrder.class.getName());
         chartModel = ModelOutputChartOrderLocalServiceUtil.createModelOutputChartOrder(pk);
+        
+        ModelOutputChartOrderLocalServiceUtil.updateModelOutputChartOrder(chartModel);
+        
+
     }
 
     public String getName() {
@@ -196,6 +200,9 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
         this.scenario = s;
         for (Variable v:scenario.getOutputSet()) {
             varmap.put(v.getMetaData(),v);
+        }
+        for (ModelOutputSeriesDisplayItem item:getSeries()) {
+            item.setScenario(s);
         }
 
     }

@@ -2,10 +2,13 @@ package com.ext.portlet.models;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.Variable;
 import mit.simulation.climate.client.comm.ClientRepository;
 import mit.simulation.climate.client.comm.ModelNotFoundException;
 import mit.simulation.climate.client.comm.ScenarioNotFoundException;
@@ -22,7 +25,7 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
     public void testModel() throws IOException, ScenarioNotFoundException, ModelNotFoundException {
 
         ClientRepository repository = ClientRepository.instance("localhost", 8080);
-        
+
         Simulation sim = repository.getSimulation(623L);
         Map<Long, Object> inputs = new HashMap<Long, Object>();
         inputs.put(262L, "2050");
@@ -36,23 +39,38 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
         inputs.put(243L, "0.63");
         inputs.put(268L, "2050");
         inputs.put(240L, "0.50");
-        
+
         Scenario scenario = repository.runModel(sim, inputs, 1L, false);
         System.out.println("##############: " + scenario.getId());
         ModelDisplay modelDisplay = ModelUIFactory.getInstance().getDisplay(scenario);
-        
+
         for (ModelOutputDisplayItem item: modelDisplay.getOutputs()) {
             if (item instanceof ModelOutputIndexedDisplayItem) {
                 ModelOutputIndexedDisplayItem indexedItem = (ModelOutputIndexedDisplayItem) item;
+                System.out.println("Display item : "+indexedItem.getName());
+                List<MetaData> seriesmetadata=indexedItem.getSeriesMetaData();
 
-                assertTrue(indexedItem.getSeriesVariables().size() > 0);
-                
-                System.out.println(String.valueOf(indexedItem.getSeriesVariables().get(0)));
+                assertTrue(seriesmetadata.size() > 0);
+                System.out.println(seriesmetadata.size()+" variables");
+                for (MetaData v:seriesmetadata) {
+                   if (v == null) {
+                      System.out.println("---->Missing metadata for "+indexedItem.getName());
+                   } else {
+                       System.out.print(v.getName()+"("+v.getId()+"):");
+                       Variable v1 = indexedItem.getSeriesForMetaData(v).getVariable();
+                       if (v1 ==null) {
+                           System.out.println("Missing");
+                       } else {
+                           System.out.println("OK");
+                       }
+                   }
+                }
+
             }
         }
         
         
-        
     }
+
 
 }
