@@ -5,6 +5,8 @@ import mit.simulation.climate.client.Tuple;
 import mit.simulation.climate.client.Variable;
 import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
 import mit.simulation.climate.client.model.jaxb.ClientTupleListAdapter;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -31,7 +33,7 @@ public class ClientVariable implements Variable {
     }
 
     public void setId(Long id) {
-      this.id = id;
+        this.id = id;
     }
 
     @XmlElement(name="metadata")
@@ -48,6 +50,16 @@ public class ClientVariable implements Variable {
             values = new ArrayList<Tuple>();
         }
         return values;
+    }
+    
+    public String getValueAsJSON() {
+        List<Tuple> value = getValue();
+        String[][] valueForJSON = new String[value.size()][2];
+        int i=0;
+        for (Tuple val: value) {
+            valueForJSON[i++] = val.getValues();
+        }
+        return JSONArray.fromObject(valueForJSON).toString();
     }
 
     public void setValue(List<Tuple> t) {

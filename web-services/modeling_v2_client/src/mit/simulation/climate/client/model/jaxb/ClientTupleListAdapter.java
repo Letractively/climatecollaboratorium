@@ -40,11 +40,12 @@ public class ClientTupleListAdapter {
 
     public static List<Tuple> parse(String data) {
         String stripped =  data.substring(1,data.length()-1);
-        Pattern p = Pattern.compile("\\[.*?\\]");
+        Pattern p = Pattern.compile("\\[(.*?)\\]");
         Matcher m = p.matcher(stripped);
         List<Tuple> result = new ArrayList<Tuple>();
         while (m.find()) {
-          result.add(new ClientTuple(m.group().split(",")));
+            String tmp = m.group(1);
+            result.add(new ClientTuple(m.group(1).split(",")));
         }
         return result;
     }
