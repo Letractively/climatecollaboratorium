@@ -133,10 +133,54 @@ function renderModelInputs(event) {
 
 function modelRunSuccessful(event) {
 	showSliders();
+	
+	
 	jQuery(".outputDef").each(function() {
+		
 	try {
-	var val = jQuery(this).find(".value").val();
-	if (jQuery.trim(val) != "") {
+		var chartType = jQuery(this).find(".chartType").val();
+		if (typeof(chartType) == 'undefined' || chartType != "TIME_SERIES") {
+			return;
+		}
+		var def = jQuery(this);
+		var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
+		var chartTitle = def.find(".chartTitle").val();
+		var values = [];
+		var series = [];
+		def.find(".serieDef").each(function() {
+			var val = eval("(" + jQuery(this).find(".value").val() + ")" );
+			var label = jQuery(this).find(".label").val();
+			
+			for (var i = 0; i < val.length; i++) {
+				val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
+			}
+			values.push(val);
+			series.push({showMarker: false, label: label});
+		});
+		
+		//alert(chartPlaceholderId + "\n" + test + "\n" + values);
+		
+		var plot = jQuery.jqplot(chartPlaceholderId, values, 
+				{title: chartTitle, 
+				series: series,
+			    axes:{
+					xaxis:{
+		        		label:'Year',
+		        		autoscale: true
+		      		},
+		    	},
+		    	legend : {
+					show :true,
+					location :'nw',
+					yoffset :280,
+					xoffset:0
+				}
+		});
+		
+		jQuery("#" + chartPlaceholderId).parent().css("height", (320 + (18 * values.length)) + "px");
+		//
+		/*
+		
 		var id = jQuery(this).find(".id").val();
 		val = eval("(" + val + ")");
 		for (var i = 0; i < val.length; i++) {
@@ -147,7 +191,7 @@ function modelRunSuccessful(event) {
 		    title:'wow',
 		    series:[{showMarker:false}]
 		});
-	}
+		*/
 	}
 	catch(e) {
 		alert(e);

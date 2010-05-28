@@ -3,7 +3,8 @@
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:jstl="http://java.sun.com/jsp/jstl/functions" >
     <!-- TODO -->
 <ice:form>
 <ice:panelGroup rendered="#{simulationBean.display != null}">
@@ -16,9 +17,7 @@
                     <h3><span class="hidden">Impacts</span></h3>
                 </div>
                 <div class="impactsContent">
-            <h2>Outputs</h2>
             <ice:panelSeries value="#{simulationBean.outputDisplay.outputs}" var="output" >
-            <div class="outputDef">
                 <h3>#{output.name}</h3>
                 <ice:panelGroup rendered="#{output.displayItemType == 'SERIES'}" >
                     <h4>Series</h4>
@@ -34,16 +33,32 @@
                     Value: #{output.variable.value[0].values[0]}
                 </ice:panelGroup>
                 <ice:panelGroup rendered="#{output.displayItemType == 'INDEXED'}" >
-                    <h4>Indexed #{output.chartType}</h4>
-                    <input type="hidden" class="value" value="#{output.seriesVariables[0].valueAsJSON}" />
-                    <input type="hidden" class="id" value="#{output.seriesVariables[0].id}" />
-                    <div id="output_chart_#{output.seriesVariables[0].id}"></div>
+                    <div class="outputDef">
+                        <input type="hidden" class="chartType" value="#{output.chartType}" />
+                        <input type="hidden" class="chartTitle" value="#{output.name}" />
+                    <h4>Indexed #{output.chartType} Ile? #{jstl:length(output.series)}</h4>
+                        <ice:panelSeries value="#{output.series}" var="serie">
+                            <div class="serieDef">
+                            <!-- 
+                            Serie: #{serie}<br />
+                            Name: #{serie.name}<br />
+                            value: <textarea>#{serie.variable.valueAsJSON}</textarea><br />
+                            label #{jstl:length(serie.metaData.labels)} 1: #{serie.metaData.labels[0]} 2: #{serie.metaData.labels[1]}<br />
+                             -->
+                            <input type="hidden" class="value" value="#{serie.variable.valueAsJSON}" />
+                            <input type="hidden" class="label" value="#{serie.name}" />
+                            </div>
+                        </ice:panelSeries>
+                        <div class="chartContainer">
+                            <div id="output_chart_#{output.seriesVariables[0].id}" class="chartPlaceholder"></div>
+                        </div>
+                    </div>
                 </ice:panelGroup>
-                </div>
                
             </ice:panelSeries>
             </div>
-            </div></div></div></div></div>
+            </div></div></div></div>
+            </div>
         </ice:panelGroup>
 </ice:form>
 </f:view>
