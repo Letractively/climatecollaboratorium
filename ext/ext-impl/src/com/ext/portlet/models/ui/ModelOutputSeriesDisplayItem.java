@@ -53,18 +53,17 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
         try {
             ModelOutputItemLocalServiceUtil.getOutputItem(md);
         } catch (NoSuchModelOutputItemException e) {
-            createPersistence(s, md);
+            createPersistence();
         } catch (SystemException e) {
            _log.error(e);
             throw(e);
         }
     }
 
-    private void createPersistence(Simulation s, MetaData md) throws SystemException {
+    private void createPersistence() throws SystemException {
         Long pk = CounterLocalServiceUtil.increment(ModelOutputItem.class.getName());
-        
         item = ModelOutputItemLocalServiceUtil.createModelOutputItem(pk);
-        item.setModelId(s.getId());
+        item.setModelId(getSimulation().getId());
         item.setModelOutputItemId(md.getId());
         
         ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);

@@ -71,7 +71,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
         try {
             chartModel = ModelOutputChartOrderLocalServiceUtil.getChartOrder(s,name);
         } catch (NoSuchModelOutputChartOrderException e) {
-            createPersistence(s, name);
+            createPersistence();
         } catch (SystemException e) {
             _log.error(e);
             throw(e);
@@ -80,13 +80,15 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
 
     }
 
-    private void createPersistence(Simulation s, String name) throws SystemException {
+    private void createPersistence() throws SystemException {
         Long pk = CounterLocalServiceUtil.increment(ModelOutputChartOrder.class.getName());
         chartModel = ModelOutputChartOrderLocalServiceUtil.createModelOutputChartOrder(pk);
-        chartModel.setModelId(s.getId());
+        chartModel.setModelId(getSimulation().getId());
         chartModel.setModelOutputLabel(name);
         
         ModelOutputChartOrderLocalServiceUtil.updateModelOutputChartOrder(chartModel);
+        
+
     }
 
     public String getName() {
