@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <!-- TODO -->
+<ice:form>
+<ice:panelGroup rendered="#{simulationBean.display != null}">
+ <div class="right-content floatLeft">
+                <div class="impacts">
+                <div class="corcen_top">
+                <div class="corcen_bottom">
+                <div class="corcen">
+                <div class="title">
+                    <h3><span class="hidden">Impacts</span></h3>
+                </div>
+                <div class="impactsContent">
+            <h2>Outputs</h2>
+            <ice:panelSeries value="#{simulationBean.outputDisplay.outputs}" var="output" >
+            <div class="outputDef">
+                <h3>#{output.name}</h3>
+                <ice:panelGroup rendered="#{output.displayItemType == 'SERIES'}" >
+                    <h4>Series</h4>
+                    #{output.chartType}
+                    if #{output.type}
+                    #{output.series[0].name}
+                    #{output.series[0].metaData}
+                    Value: #{output.seriesVariables[0].value[0].values[1]}
+                    #{output.index}
+                </ice:panelGroup>
+                <ice:panelGroup rendered="#{output.displayItemType == 'SCALAR'}" >
+                    <h4>Scalar</h4>
+                    Value: #{output.variable.value[0].values[0]}
+                </ice:panelGroup>
+                <ice:panelGroup rendered="#{output.displayItemType == 'INDEXED'}" >
+                    <h4>Indexed #{output.chartType}</h4>
+                    <input type="hidden" class="value" value="#{output.seriesVariables[0].valueAsJSON}" />
+                    <input type="hidden" class="id" value="#{output.seriesVariables[0].id}" />
+                    <div id="output_chart_#{output.seriesVariables[0].id}"></div>
+                </ice:panelGroup>
+                </div>
+               
+            </ice:panelSeries>
+            </div>
+            </div></div></div></div></div>
+        </ice:panelGroup>
+</ice:form>
+</f:view>

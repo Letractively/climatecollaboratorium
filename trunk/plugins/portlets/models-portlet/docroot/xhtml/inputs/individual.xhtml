@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    
+    <td>
+        <div class="slider"></div>
+    </td>
+        <!-- 
+        <input type="hidden" class="default" value="#{input.metaData.default[0]}' />
+        <input type="hidden" class="min" value="#{input.metaData.min[0]}" />
+        <input type="hidden" class="max" value="#{input.metaData.max[0]}" />
+        <input type="hidden" class="dataType" value="#{input.metaData.profile[0].name}" />
+        <input type="hidden" class="id" value="#{input.metaData.id}" />
+        <input type="hidden" class="fieldValue" value="#{simulationBean.inputValues[input.metaData.id]}" />
+ -->
+    <td>
+        <ice:inputText styleClass="id hidden" value="#{input.metaData.id}" /> 
+        <ice:inputText styleClass="default hidden" value="#{input.metaData.default[0]}" /> 
+        <ice:inputText styleClass="min hidden" value="#{input.metaData.min[0]}" /> 
+        <ice:inputText styleClass="max hidden" value="#{input.metaData.max[0]}" /> 
+        <ice:inputText styleClass="dataType hidden" value="#{input.metaData.profile[0].name}" /> 
+        <ice:inputText styleClass="fieldValue hidden" value="#{simulationBean.inputValues[input.metaData.id]}" /> 
+        
+        <input type="text" class="value" />
+    </td>
+</f:view>

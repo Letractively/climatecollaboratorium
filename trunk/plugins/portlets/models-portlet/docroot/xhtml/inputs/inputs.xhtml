@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <!-- TODO -->
+    
+<button id="runModel" >Run the model</button>
+<ice:form>
+<div class="left-content floatLeft">
+    <div class="actions">
+        <div class="corcen_top">
+            <div class="corcen_bottom">
+                <div class="corcen">
+                    <div class="title">
+                        <h3><span class="hidden">Actions Input</span></h3>
+                    </div>
+                    <div class="tableContent">
+                        <table>
+                           <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" varStatus="status">
+                                <tr class="#{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}">
+                                    <td colspan="2" class="first"><span>#{input.name}</span> 
+                                        <a class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)" href="javascript:;">
+                                            <img alt="question" src="/collaboratorium-theme/images/qustion_icon.png" />
+                                        </a>
+                                        <p class="hidden inputDescription">#{input.description}</p>
+        
+                                    </td>
+                                </tr>
+                                <tr class="sliderDef #{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}"> 
+                                        <f:subview id="inputView" >
+                                            <!-- <ui:include src="./inputDef.xhtml" />-->
+                                            <ui:include src="./individual.xhtml" />
+                                        </f:subview>
+                                </tr>
+                            </ice:panelSeries>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</ice:form>
+</f:view>
