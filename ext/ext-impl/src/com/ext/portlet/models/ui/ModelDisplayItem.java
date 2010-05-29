@@ -57,10 +57,10 @@ public abstract class ModelDisplayItem implements Comparable<ModelDisplayItem> {
 
 
      public int compareTo(ModelDisplayItem o) {
-         return this.order() - o.order();
+         return this.getOrder() - o.getOrder();
      }
 
-    public abstract int order();
+    public abstract int getOrder();
 
     public abstract void setOrder(int o) throws SystemException;
 }

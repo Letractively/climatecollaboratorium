@@ -85,7 +85,7 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
 
 
     @Override
-    public int order() {
+    public int getOrder() {
         return item!=null && item.getModelOutputItemOrder()!=null?item.getModelOutputItemOrder():-1;
     }
 

@@ -128,7 +128,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
     }
 
     @Override
-    public int order() {
+    public int getOrder() {
         return group.getDisplayItemOrder();
     }
 
