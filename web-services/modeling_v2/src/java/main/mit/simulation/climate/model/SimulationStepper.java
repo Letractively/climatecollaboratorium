@@ -165,6 +165,9 @@ public class SimulationStepper {
                 } else {
                     // single value mapping, so just pick the last one and use it
                     Variable v = vars.get(l.output);
+                    if (v == null) {
+                        
+                    }
                     List<Tuple> tuples = v.getValue();
                     if (tuples.size() == 0) {
                         log.warn("Output variable " + l.output + " has no values; expecting one; skipping");
