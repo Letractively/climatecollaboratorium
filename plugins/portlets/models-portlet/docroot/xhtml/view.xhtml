@@ -10,40 +10,39 @@
     xmlns:collab="http://climatecollaboratorium.org/components" 
     xmlns:c="http://java.sun.com/jstl/core" >
     
-  <ice:portlet id="models-portlet">
-  <f:subview id="navigation">
-    <ui:include src="./navigation.xhtml"/>
-  </f:subview>
-  <f:subview id="navigation">
-    <ui:include src="./icefacesJSintegration.xhtml"/>
-  </f:subview>
-  <div class="model">
-    <div class="tabContent_top"></div>
-        <div class="tabContent_bottom">
-        <div class="tabContent">
-        <div class="tabinner">
-            <div class="topBtn">
-                <div class="modelIndex">
-                    <f:subview id="breadcrumb">
-                      <ui:include src="./breadcrumb.xhtml"/>
-                    </f:subview>
-                    
-                    <ice:outputConnectionStatus/>
+<ice:portlet id="models-portlet">
+    <f:subview id="navigation">
+        <ui:include src="./navigation.xhtml"/>
+    </f:subview>
+    <f:subview id="navigation">
+        <ui:include src="./icefacesJSIntegration.xhtml"/>
+    </f:subview>
+    <div class="model">
+        <div class="tabContent_top"></div>
+            <div class="tabContent_bottom">
+                <div class="tabContent">
+                    <div class="tabinner">
+                        <div class="topBtn">
+                            <div class="modelIndex">
+                                <f:subview id="breadcrumb">
+                                    <ui:include src="./breadcrumb.xhtml"/>
+                                </f:subview>
+                                <ice:outputConnectionStatus/>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <f:subview id="modelIndex" rendered="#{navigation.currentPage == 'index'}">
+                                <ui:include src="./modelIndex.xhtml"/>
+                            </f:subview>
+                
+                            <f:subview id="modelDetails" rendered="#{navigation.currentPage == 'details'}">
+                                <ui:include src="./modelDetails.xhtml"/>
+                            </f:subview>
+                        </div>
+                        <div class="contentWrapperBottom"></div>
+                    </div>
                 </div>
             </div>
-            <div class="content">
-                <f:subview id="modelIndex" rendered="#{navigation.currentPage == 'index'}">
-                    <ui:include src="./modelIndex.xhtml"/>
-                </f:subview>
-                
-                <f:subview id="modelDetails" rendered="#{navigation.currentPage == 'details'}">
-                    <ui:include src="./modelDetails.xhtml"/>
-                </f:subview>
-            </div>
-            <div class="contentWrapperBottom"></div>
         </div>
-    </div>
-  </div>
-  </div>
-  </ice:portlet>
+    </ice:portlet>
 </f:view>

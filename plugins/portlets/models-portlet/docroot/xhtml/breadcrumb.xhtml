@@ -3,10 +3,10 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-  <h2 class="modelIndexLink">
-    <ice:panelSeries value="#{navigation.breadcrumbBean.items}" var="item" varStatus="status">
-        <a href="#{item.link}">#{item.name}</a> 
-        <ice:outputText value="&gt;" rendered="#{not status.last}" />
-    </ice:panelSeries>
-  </h2>
+    <h2 class="modelIndexLink">
+        <ice:panelSeries value="#{navigation.breadcrumbBean.items}" var="item" varStatus="status">
+            <a href="#{item.link}">#{item.name}</a> 
+            <ice:outputText value="&gt;" rendered="#{not status.last}" />
+        </ice:panelSeries>
+    </h2>
 </f:view>

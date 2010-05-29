@@ -11,6 +11,7 @@ var icefacesEventManager = new function() {
 	var eventTimestamps = {};
 	
 	this.registerHandler = function(eventId, callback) {
+		log.debug("registering handler for event " + eventId);
 		eventHandlers[eventId] = callback;
 		eventTimestamps[eventId] = 0;
 	}
@@ -19,13 +20,13 @@ var icefacesEventManager = new function() {
 		try {
 		if (typeof(event) != "undefined" && typeof(eventHandlers[event.id]) != "undefined") {
 			if (eventTimestamps[event.id] < event.timestamp) {
-				//alert("delivering event: " + event.id + "\ttimestamp: " + event.timestamp);
+				log.debug("delivering event: " + event.id + "\ttimestamp: " + event.timestamp);
 				eventTimestamps[event.id] = event.timestamp;
 				eventHandlers[event.id](event);
 			}
 		}
 		} catch (e) {
-			alert(e);
+			log.error(e);
 		}
 	}
 	
@@ -36,26 +37,27 @@ var icefacesEventManager = new function() {
 				payload: payload
 		};
 		
-				
+		log.debug("Sending event to the backend: " + eventId + " timestamp: " + event.timestamp + "\npayload: " + payload);
+		
 		jQuery(".eventInput").val(jQuery.toJSON(event));
 		jQuery("#integrationForm .submit").click();
 	}
-	
 };
 
 
 jQuery(document).ready(function() {
-	
-	Ice.onAsynchronousReceive("mainContent", function() {
+	Ice.onAsynchronousReceive("mainContent", function(obj, obj1, obj2) {
+		try {
 			var val = jQuery("#integrationForm .eventOutput").val();
 			if (val == "") {
 				return;
 			}
 			var event = eval("(" + val + ")");
 			icefacesEventManager.deliverEventIfNew(event);
-			//jQuery("#test").prepend("<h3>async: " + obj.payload + "</h3>" + "<h4>" + icefacesEventManager.registerHandler + "</h4>");
-
+		}
+		catch (e) {
+			log.error("onAsynchronousReceive: " + e);
+		}
 		});
-
-	
 });
+

@@ -8,11 +8,15 @@
 		<instanceable>true</instanceable>
 		<render-weight>1</render-weight>
 		<ajaxable>false</ajaxable>
-		<header-portlet-css>/css/models-portlet.css</header-portlet-css>
 		<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>
 		<header-portlet-css>/css/jquery.jqplot.min.css</header-portlet-css>
+		<header-portlet-css>/js/dev/blackbird.css</header-portlet-css>
 		<header-portlet-javascript>/js/jqueryCompatibility.js</header-portlet-javascript>
-		<footer-portlet-javascript>/js/models-portlet.js</footer-portlet-javascript>
+		<header-portlet-javascript>/js/jquery.log.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/dev/blackbird.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/dev/utils.js</header-portlet-javascript>
+		<footer-portlet-css>/css/models-portlet.css</footer-portlet-css>
+		<footer-portlet-javascript>/js/icefacesJSIntegration.js</footer-portlet-javascript>
 		<footer-portlet-javascript>/js/model-inputs-render.js</footer-portlet-javascript>
 		<!-- <footer-portlet-javascript>/js/jquery-1.3.2.min.js</footer-portlet-javascript>-->
 		<footer-portlet-javascript>/js/jquery.jqplot.min.js</footer-portlet-javascript>

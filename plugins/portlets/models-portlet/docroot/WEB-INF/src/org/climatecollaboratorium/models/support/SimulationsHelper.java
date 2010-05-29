@@ -7,11 +7,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import com.ext.portlet.models.ui.ModelDisplay;
-import com.ext.portlet.models.ui.ModelUIFactory;
-import com.sun.corba.se.spi.activation.Repository;
 
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;

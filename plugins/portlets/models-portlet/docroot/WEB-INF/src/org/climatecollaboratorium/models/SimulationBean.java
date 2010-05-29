@@ -23,6 +23,7 @@ import org.apache.commons.beanutils.DynaBean;
 import org.climatecollaboratorium.jsintegration.JSEvent;
 import org.climatecollaboratorium.jsintegration.JSEventHandler;
 import org.climatecollaboratorium.jsintegration.JSEventManager;
+import org.climatecollaboratorium.models.event.UpdateOutputsOrderHandler;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 
 public class SimulationBean implements JSEventHandler {
@@ -33,7 +34,6 @@ public class SimulationBean implements JSEventHandler {
     private String description;
     private JSEventManager jsEventManager;
     private ModelDisplay display;
-    private ModelDisplay outputDisplay;
     
     private Map<Long, String> inputsValues = new HashMap<Long, String>();
 
@@ -44,12 +44,12 @@ public class SimulationBean implements JSEventHandler {
         return simulation;
     }
     
-    public ModelDisplay getDisplay() {
-        return display;
+    public Scenario getScenario() {
+        return scenario;
     }
     
-    public ModelDisplay getOutputDisplay() {
-        return outputDisplay;
+    public ModelDisplay getDisplay() {
+        return display;
     }
 
     public void setSimulation(Simulation simulation) {
@@ -62,7 +62,6 @@ public class SimulationBean implements JSEventHandler {
             System.out.println("simulation change " + (simulation == null ? "null" : simulation.getId()) + " " + (this.simulation == null ? "null" : this.simulation.getId()));
             this.simulation = simulation;
             scenario = null;
-            outputDisplay = null;
             inputsValues.clear();
             
             display = ModelUIFactory.getInstance().getDisplay(simulation);
@@ -119,6 +118,8 @@ public class SimulationBean implements JSEventHandler {
         this.jsEventManager = jsEventManager;
         jsEventManager.addJsEventHandler(this, "simulationInputsDefined");
         jsEventManager.addJsEventHandler(this, "modelRun");
+        UpdateOutputsOrderHandler outputsOrderHandler = new UpdateOutputsOrderHandler();
+        jsEventManager.addJsEventHandler(outputsOrderHandler, "updateOutputsOrder");
     }
 
     public void onJsEvent(JSEvent event) {
@@ -140,7 +141,7 @@ public class SimulationBean implements JSEventHandler {
             
             System.out.println("Simulation run was successful, scenario id: " + scenario.getId());
 
-            outputDisplay = ModelUIFactory.getInstance().getDisplay(scenario);
+            display = ModelUIFactory.getInstance().getDisplay(scenario);
             //outputDisplay = display;
             
             System.out.println("On js event: " + event);
@@ -153,9 +154,7 @@ public class SimulationBean implements JSEventHandler {
 
             jsEventManager.sendEvent(event);
             
-            outputDisplay.getOutputs().get(0);
-            ModelOutputIndexedDisplayItem i;
-            //i.getSeries().get(0).getMetaData();
+            //i.getSeriesVariables().get(0).getValue().get(0);
             
         } catch (IOException e) {
             e.printStackTrace();
