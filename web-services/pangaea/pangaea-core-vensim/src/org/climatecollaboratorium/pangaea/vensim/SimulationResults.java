@@ -17,10 +17,9 @@ public class SimulationResults {
         BAU_CO2_CONCENTRATION("BAU CO2 Concentration","BAUCO2Concentration", "BAU atm conc CO2", 1),
         BAU_TEMP_CHANGE("Expected BAU Temperature Change","ExpectedBAUTempChange", "BAU temperature change from preindustrial", 1),
         CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions", 1),
-        RADIATIVE_FORCING("Total Radiative Forcing","RadiativeForcing","Radiative Forcing[\"\2C\"]",1),
+        RADIATIVE_FORCING("Total Radiative Forcing","RadiativeForcing","Radiative Forcing[\"2C\"]",1),
         YEAR("Year","Year", "Time", 1),
-		
-		DEVELOPED_COUNTRIES_FF_EQ_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2eq emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
+		DEVELOPED_COUNTRIES_FF_EQ_EMISSIONS("Developed countries fossil fuel emissions (CO2eq)","DevelopedFossilFuelEmissions", "Aggregated CO2eq emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
         ;
 		/*
 		
