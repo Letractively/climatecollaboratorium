@@ -199,8 +199,8 @@ function renderModelOutputs() {
 
 
 		jQuery(".impactsContent").append("<div class='outputDef hidden physicalImpactsTab' ><h3><a href='javascript:;' class='activator'>Physical impacts</a>" +  
-				'<a class="folder" href="javascript:;" tabindex="-1"><span class="hidden">Folder/unFolder</span></a></h3>' + 
-				'<ul class="tabsContainer"></ul><div class="contentsContainer"></div><div class="clear"></div></div>');
+				'<a class="folder" href="javascript:;" tabindex="-1"><span class="hidden">Folder/unFolder</span></a></h3><div>' + 
+				'<ul class="tabsContainer"></ul><div class="contentsContainer"></div><div class="clear"></div></div></div>');
 		
 		var tabsContainer = jQuery(".physicalImpactsTab .tabsContainer");
 		var contentsContainer = jQuery(".physicalImpactsTab .contentsContainer");
@@ -223,7 +223,11 @@ function renderModelOutputs() {
 			*/
 			
 		});
+
+		jQuery(".impactsContent .physicalImpact").remove();
 		
+
+		contentsContainer.find(".tabContent").hide();
 		tabsContainer.find("li").click(function() { 
 			var name = jQuery(this).attr("title");
 			jQuery(this).parent().find(".active").removeClass("active");
@@ -233,9 +237,9 @@ function renderModelOutputs() {
 			contentsContainer.find(".tabContent").hide(200);
 			jQuery("#" + name).show(200); 
 		});
-
-		contentsContainer.find(".tabContent").hide();
-		jQuery(".impactsContent .physicalImpact").remove();
+		
+		contentsContainer.find(".tabContent").eq(0).show();
+		tabsContainer.find("li").eq(0).click();
 
 		
 		//jQuery(".physicalImpactsTab .container").tabs().addClass('ui-tabs-vertical ui-helper-clearfix').find("li").removeClass('ui-corner-top').addClass('ui-corner-left');
