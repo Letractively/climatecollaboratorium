@@ -164,7 +164,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
     }
 
 
-    public int order() {
+    public int getOrder() {
         
         return null == chartModel ? -1: (chartModel.getModelOutputChartOrder() == null ? -1 : chartModel.getModelOutputChartOrder());
      }

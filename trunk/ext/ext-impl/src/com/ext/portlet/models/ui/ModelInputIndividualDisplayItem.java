@@ -72,7 +72,7 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
      *
      * @return
      */
-    public int order() {
+    public int getOrder() {
         return item.getDisplayItemOrder()==null?-1:item.getDisplayItemOrder();
     }
 

@@ -57,7 +57,7 @@ public class ModelOutputScalarDisplayItem extends ModelOutputDisplayItem {
     }
 
     @Override
-    public int order() {
+    public int getOrder() {
        return -1;
     }
 

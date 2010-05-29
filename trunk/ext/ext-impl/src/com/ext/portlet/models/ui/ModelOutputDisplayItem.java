@@ -24,4 +24,7 @@ public abstract class ModelOutputDisplayItem extends ModelDisplayItem {
     
     public abstract ModelOutputDisplayItemType getDisplayItemType();
     
+    public ModelOutputChartType getChartType() {
+        return ModelOutputChartType.FREE;
+    }
 }
