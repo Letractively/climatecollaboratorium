@@ -1,5 +1,6 @@
 Ice.onSendReceive("mainContent",function() {}, function() {
 	log.debug("onReceive");
+	
 	showSliders();
 	renderModelOutputs();
 	showEditForm();
@@ -154,18 +155,52 @@ function renderModelOutputs() {
 			var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
 			var chartTitle = def.find(".chartTitle").val();
 			var values = [];
+			var valuesById = {};
+			var labelsById = {};
+			var confIntervalById = {};
+			
 			var series = [];
 			def.find(".serieDef").each(function() {
 				var val = eval("(" + jQuery(this).find(".value").val() + ")" );
 				var label = jQuery(this).find(".label").val();
+				var id = jQuery(this).find(".id").val();
+				var associatedId = jQuery(this).find(".associatedId").val();
 
 				for (var i = 0; i < val.length; i++) {
 					val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
 				}
-				values.push(val);
-				series.push({showMarker: false, label: label});
+				valuesById[id] = val;
+				labelsById[id] = label;
+				
+				if (parseInt(associatedId) > 0) {
+					if (typeof(confIntervalById[associatedId]) == 'undefined') {
+						confIntervalById[associatedId] = [];
+					}
+					confIntervalById[associatedId].push(id);
+				} else {
+					values.push(val);
+					series.push({showMarker: false, label: label});
+				}
 			});
+			
+			for (var x in confIntervalById) {
+				log.debug("intervals for id: " + x);
+				var valMain = valuesById[x];
+				var valConf1 = valuesById[confIntervalById[x][0]];
+				var valConf2 = valuesById[confIntervalById[x][1]];
+				var intervalVal = [];
+				for (var i = 0; i < valMain.length; i++) {
+					//intervalVal[i] = [valMain[i][0], valConf2[1], valMain[i][1], valConf1[1]];
+					intervalVal[i] = [valMain[i][0], valConf1[i][1], valConf2[i][1], valMain[i][1]];
+				}
+				
+				values.push(intervalVal);
+				series.push({showMarker: false, showLabel: true, label: "90% Confidence interval for " + labelsById[x], 
+					renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
+				log.debug("renderer: " + typeof(jQuery.jqplot.OHLCRenderer));
+			}
 
+			log.debug("values.length: " + values.length);
 			var plot = jQuery.jqplot(chartPlaceholderId, values, 
 					{title: chartTitle, 
 				series: series,
