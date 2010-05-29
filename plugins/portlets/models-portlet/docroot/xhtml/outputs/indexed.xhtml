@@ -16,6 +16,9 @@
         <input type="hidden" class="chartTitle" value="#{output.name}" />
         <ice:panelSeries value="#{output.series}" var="serie">
             <div class="serieDef">
+                <input type="hidden" class="seriesType" value="#{serie.seriesType}" />
+                <input type="hidden" class="id" value="#{serie.metaData.id}" />
+                <input type="hidden" class="associatedId" value="#{serie.associatedMetaData.id}" />
                 <input type="hidden" class="value" value="#{serie.variable.valueAsJSON}" />            
                 <input type="hidden" class="label" value="#{serie.name}" />
             </div>
