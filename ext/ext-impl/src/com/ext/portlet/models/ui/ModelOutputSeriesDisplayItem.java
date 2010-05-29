@@ -18,6 +18,7 @@ import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.Variable;
+import mit.simulation.climate.client.comm.ClientRepository;
 
 /**
  * Wrapper around series metadata; series metadata is merely that
@@ -51,7 +52,7 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
         super(s);
         this.md = md;
         try {
-            ModelOutputItemLocalServiceUtil.getOutputItem(md);
+            item = ModelOutputItemLocalServiceUtil.getOutputItem(md);
         } catch (NoSuchModelOutputItemException e) {
             createPersistence();
         } catch (SystemException e) {
@@ -108,7 +109,7 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
      * @return
      */
     public ModelOutputSeriesType getSeriesType() {
-        return (item.getItemType() == null?ModelOutputSeriesType.NORMAL:ModelOutputSeriesType.valueOf(item.getItemType()));
+         return (item.getItemType() == null || item.getItemType().trim().equals("")) ? ModelOutputSeriesType.NORMAL:ModelOutputSeriesType.valueOf(item.getItemType());
     }
 
 
@@ -135,7 +136,9 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
      */
     public MetaData getAssociatedMetaData() throws SystemException {
             Long l = item.getRelatedOutputItem();
-           return l==null?null:CollaboratoriumModelingService.repository().getMetaData(item.getRelatedOutputItem());
+            // FIXME CollaboratoriumModelingService won't work as PropsUtil can't be found from portlet
+            //return l==null?null:CollaboratoriumModelingService.repository().getMetaData(item.getRelatedOutputItem());
+            return l==null?null:ClientRepository.instance().getMetaData(item.getRelatedOutputItem());
     }
 
     public void setAssociatedMetaData(MetaData md) throws SystemException {
