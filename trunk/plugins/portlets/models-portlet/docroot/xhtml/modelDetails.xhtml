@@ -4,7 +4,6 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    
     <div class="pageTitle">
         <h2>Model: #{simulationBean.simulation.name}</h2>
         <div class="simulationActions">
@@ -18,25 +17,28 @@
     <ice:panelGroup styleClass="modelDescription" rendered="#{not simulationBean.editing}">
         <p class="hidden">#{simulationBean.simulation.description}</p>
     </ice:panelGroup>
+    
     <ice:panelGroup styleClass="modelDescription" rendered="#{simulationBean.editing}">
-        <ice:form>
-            <ice:inputTextarea value="#{simulationBean.description}" />
-            <ice:commandButton value="Cancel" actionListener="#{simulationBean.cancelEditing}" />
-            <ice:commandButton value="Submit" actionListener="#{simulationBean.updateSimulation}" />
-        </ice:form>
+        <f:subview>
+            <ui:include src="./editSimulation.xhtml" />
+        </f:subview>
     </ice:panelGroup>
     
-    <ice:panelGroup>
+    <ice:panelGroup rendered="#{not simulationBean.editing}">
         <div class="model-information">
             <div class="bottom-content">
-            
                 <f:subview id="inputsView">
                     <ui:include src="./inputs/inputs.xhtml" />
                 </f:subview>
                 <f:subview id="outputsView">
                     <ui:include src="./outputs/outputs.xhtml" />
                 </f:subview>
-        </div>
+                
+                <div class="clear"></div>
+                <div class="modelActions">
+                    <button id="runModel" ></button>
+                </div>
+            </div>
         </div>
     </ice:panelGroup>
 </f:view>

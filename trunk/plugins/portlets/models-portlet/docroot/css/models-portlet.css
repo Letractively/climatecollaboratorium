@@ -91,3 +91,154 @@
     float:right;
     margin: 10px;
 }
+
+
+/* ADMIN AREA */
+.sortableOutputDisplay li {
+    background: #FAF1D7;
+    padding: 5px;
+    width: 260px;
+    border: 1px solid #E6DDC5;
+    margin-bottom: 5px;
+}
+
+.subSortableOutputDisplay li {
+    margin-left: 20px;
+    margin-bottom: 5px;
+    background: #E4F2D0;
+    padding: 2px;
+    width: 200px;
+    border: 1px solid #D8E6C5;
+}
+
+.impactsContent h3.ui-accordion-header a.activator {
+    margin: 0;
+    padding: 0;
+    padding-top: 8px;
+    padding-left: 15px;
+}
+
+.impactsContent h3.ui-accordion-header {
+	cursor: pointer;
+}
+
+.model-information .actions table td {
+    height: 38px;
+}
+
+#runModel {
+    background-color:transparent;
+    background-image:url("/collaboratorium-theme/images/runModel_btn.gif");
+    background-position:0 0;
+    background-repeat:no-repeat;
+    height:49px;
+    width:211px;
+    border: 0;
+}
+
+.modelActions {
+    text-align: center;
+}
+
+
+/* vertical tabs */
+.ui-tabs {
+    border-bottom: 0;
+    padding: 0 0 0 0;
+}
+
+.ui-tabs-vertical {
+    width: 400px;
+}
+.ui-tabs-vertical .ui-tabs-nav {
+    float: left;
+    width: 120px;
+}
+.ui-tabs-vertical .ui-tabs-nav li {
+    clear: left;
+    width: 100%;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li a {
+    display:block;
+    width: 120px;
+    height: auto;
+    padding-top: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected {
+    padding-bottom: 0;
+    padding-right: .1em;
+    border-right-width: 1px;
+    border-right-width: 1px;
+}
+
+.ui-tabs-vertical .ui-tabs-panel {
+    padding: 1em;
+    float: left;
+    width: 200px;
+    border: none;
+}
+
+.ui-tabs-panel .ui-widget-content h4 {
+     margin-top:10px;
+}
+
+.physicalImpactsTab .tabsContainer,
+.physicalImpactsTab .contentsContainer {
+    float: left;
+}
+
+
+.physicalImpactsTab .contentsContainer {
+    width: 270px;
+    padding: 5px;
+    background: #fff;
+}
+
+.physicalImpactsTab .contentsContainer .tabContent {
+	background: #fff;
+}
+
+
+.physicalImpactsTab .tabsContainer {
+    width: 120px;
+}
+
+.physicalImpactsTab .tabsContainer a {
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+
+.physicalImpactsTab .tabsContainer a:hover {
+	color: #ddd;
+}
+
+.physicalImpactsTab .tabsContainer li {
+    background-image:url("/collaboratorium-theme/images/blue_table_bg_header.png");
+    background-position:left center;
+    background-repeat: no-repeat;
+    color:#FFFFFF;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:bold;
+    height:33px;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    margin-top: 6px;
+    padding-top:5px;
+    text-align:center;
+    width:120px;
+}
+
+.physicalImpactsTab .tabsContainer li.active {
+    background-attachment:scroll;
+    background-color:transparent;
+    background-image:url("/collaboratorium-theme/images/blue_table_th_bg.gif");
+    background-position:left center;
+    background-repeat:no-repeat;
+}
