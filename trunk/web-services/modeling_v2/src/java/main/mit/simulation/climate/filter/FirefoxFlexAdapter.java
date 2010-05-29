@@ -1,18 +1,12 @@
 package mit.simulation.climate.filter;
 
-import java.io.IOException;
-import java.util.Enumeration;
+import org.apache.log4j.Logger;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-
-import org.apache.log4j.Logger;
+import java.io.IOException;
+import java.util.Enumeration;
 
 /**
  * Fixes two known issues:
@@ -100,11 +94,11 @@ public class FirefoxFlexAdapter implements Filter {
     }
 
     public void dumpRequest(HttpServletRequest req) {
-//		logger.info("Request for "+req.getRequestURL());
-//		logger.info("Request type "+req.getMethod());
+		logger.info("Request for "+req.getRequestURL());
+		logger.info("Request type "+req.getMethod());
         for (Enumeration e = req.getHeaderNames();e.hasMoreElements();) {
             String elt = e.nextElement().toString();
-//			logger.info(elt+" = "+req.getHeader(elt));
+			logger.info(elt+" = "+req.getHeader(elt));
         }
 
     }

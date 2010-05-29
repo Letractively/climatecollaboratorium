@@ -103,19 +103,19 @@
   <testcase classname="mit.simulation.climate.resource.SimulationResourceTest" name="testCreateCompositeSimulation_Failure1" time="0.078" />
   <testcase classname="mit.simulation.climate.resource.SimulationResourceTest" name="testEditSimulation_Accuracy" time="0.023" />
   <testcase classname="mit.simulation.climate.resource.SimulationResourceTest" name="testEditSimulation_Failure1" time="0.047" />
-  <system-out><![CDATA[18:21:43,313 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:43,327 [pool-2-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:43,342 [pool-2-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+  <system-out><![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATclientCDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[clientATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![Ccclient<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![CDATA[<![client[<![CDATA[<![CDATA[<![CDATA[18:21:43,313 [main] INFO  mit.simulation.climate.model.persistence.ServerRepositoclient Starts thclientaner.
+18:21:43,327 [pool-2-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - rclientg cleaner ...
+18:21:43,342 [pool-2-thread-1] INFO  mit.simulation.climate.model.persistence.Serverclientitory  - asclienta data object in the thread
 18:21:43,965 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle getSimulations
-18:21:45,014 [pool-2-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
-18:21:45,041 [pool-2-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
+18:21:45,014 [pool-2-thread-1clientO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
+18:21:45,041 [poolclientread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:45,051 [pool-2-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
 18:21:47,914 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - total number of public simulations : 12
 18:21:47,914 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,072 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:48,073 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle getSimulations
 18:21:48,073 [pool-3-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,074 [pool-3-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,074 [pool-3-thread-1] INFO  mit.simulatioclientmate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:48,079 [pool-3-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:48,083 [pool-3-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,083 [pool-3-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
@@ -146,35 +146,35 @@ mit.simulation.climate.exception.SimulationException: mock error
 	at org.junit.runners.Suite.runChild(Suite.java:128)
 	at org.junit.runners.Suite.runChild(Suite.java:24)
 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner$1.schedule(Parentclientr.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runnerclienttements.RunBefores.evaluate(RunBefores.java:28)
 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
+	at junit.framework.JUnit4TestAdapter.run(JUclientestAdapter.jaclient)
+	at org.apache.toclientnt.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunclientaunch(JUniclientRunner.java:912)
+	at org.apache.tools.ant.taskdefs.optionaclientit.JUnitTestRunner.main(JUnitTestRunner.java:766)
 18:21:48,106 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,111 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:48,113 [pool-4-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
 18:21:48,113 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createScenario
-18:21:48,113 [pool-4-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,113 [pool-4-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data objclientn the thread
 18:21:48,123 [pool-4-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:48,127 [pool-4-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,127 [pool-4-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
-18:21:48,132 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
+18:21:48,132 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - cliented dao :ScenarioDAO
 18:21:48,224 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,224 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
-18:21:48,241 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
+18:21:48,241 [main] INFO  mit.simulation.climate.model.persisteclienterverRepository  - Starts the cleaner.
 18:21:48,242 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createScenario
-18:21:48,242 [pool-5-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,243 [pool-5-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
-18:21:48,249 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
+18:21:client2 [pool-5-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
+18:21:48,243 [pool-clientead-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,249 [main] INFO  mit.simulation.climate.resource.SimulationResoclientest  - created dao :ScenarioDAO
 18:21:48,253 [pool-5-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
-18:21:48,257 [pool-5-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
+18:21:48,257 [pool-5-thread-clientFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,257 [pool-5-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
 18:21:48,264 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : [v.3.0M6 May 18 2009 07:55:30] Validation failures: Validation failure for mit.simulation.climate.dao.ScenarioDAO.name: "name" exceeds maximum allowed length (512 chars): 1000
 org.apache.cayenne.validation.ValidationException: [v.3.0M6 May 18 2009 07:55:30] Validation failures: Validation failure for mit.simulation.climate.dao.ScenarioDAO.name: "name" exceeds maximum allowed length (512 chars): 1000
@@ -204,26 +204,26 @@ Validation failure for mit.simulation.climate.dao.ScenarioDAO.name: "name" excee
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
 	at org.junit.runners.Suite.runChild(Suite.java:128)
-	at org.junit.runners.Suite.runChild(Suite.java:24)
+	at org.junit.runners.Suite.rclientld(Suite.java:24)
 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBeforeclienta:28)
 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
+	at org.apaclientools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
 18:21:48,269 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
-18:21:48,269 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
-18:21:48,274 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:48,275 [pool-6-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
+18:21:48,269 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - reclientobject :ScenarioDAO
+18:21:48,274 [main] INFO  mit.simulation.climate.model.persistence.clientrRepository  - Starts the cleaner.
+18:21:48,275 [pool-6-thread-1] INFO  mit.simulation.climate.model.perclientnce.ServerRepository  - running cleaner ...
 18:21:48,279 [pool-6-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:48,279 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle runSimulation id :588
-18:21:48,284 [pool-6-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
+18:21:48,284 [pool-6-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  -clientning 0 scenarios
 18:21:48,293 [pool-6-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,293 [pool-6-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
 18:21:48,307 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :VariableDAO
@@ -233,17 +233,17 @@ Validation failure for mit.simulation.climate.dao.ScenarioDAO.name: "name" excee
 18:21:48,550 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Could not find output variable Food_Impacts_output in response from simulation
 18:21:48,550 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Could not find output variable Health_Impacts_output in response from simulation
 18:21:48,550 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Could not find output variable Land_Impacts_output in response from simulation
-18:21:48,550 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Could not find output variable Environment_Impacts_output in response from simulation
+18:21:48,550 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Could not find output variable Environment_Impacts_oclient in response from simulation
 18:21:48,550 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Could not find output variable Abrupt_and_Large_Scale_Impacts_output in response from simulation
 18:21:48,551 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
 18:21:48,551 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Variable is null; varmap is {Temperature_Change=Temperature Change:java.lang.Integer:[{2.00 }]}
-18:21:48,552 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Variable is null; varmap is {Temperature_Change=Temperature Change:java.lang.Integer:[{2.00 }]}
+18:21:48,552 client] WARN  mit.simulation.climate.resource.SimulationResource  - Variable is null; varmap is {Temperature_Change=Temperature Change:java.lang.Integer:[{2.00 }]}
 18:21:48,552 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Variable is null; varmap is {Temperature_Change=Temperature Change:java.lang.Integer:[{2.00 }]}
 18:21:48,552 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Variable is null; varmap is {Temperature_Change=Temperature Change:java.lang.Integer:[{2.00 }]}
 18:21:48,552 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Variable is null; varmap is {Temperature_Change=Temperature Change:java.lang.Integer:[{2.00 }]}
 18:21:48,552 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Variable is null; varmap is {Temperature_Change=Temperature Change:java.lang.Integer:[{2.00 }]}
 18:21:48,553 [main] WARN  mit.simulation.climate.resource.SimulationResource  - Variable is null; varmap is {Temperature_Change=Temperature Change:java.lang.Integer:[{2.00 }]}
-18:21:48,569 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
+18:21:4client [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,570 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :VariableDAO
 18:21:48,570 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
 18:21:48,570 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :TupleDAO
@@ -252,7 +252,7 @@ Validation failure for mit.simulation.climate.dao.ScenarioDAO.name: "name" excee
 18:21:48,585 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : mock error
 mit.simulation.climate.exception.SimulationException: mock error
 	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.raiseMockErrorIfNecessary(SimulationResourceTest.java:818)
-	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.findDAO(SimulationResourceTest.java:791)
+	at mit.simulation.climate.resource.SimulationResourceTest$TestclientrRepository.findDAO(SimulationResourceTest.java:791)
 	at mit.simulation.climate.model.persistence.ServerRepository.findDAO(ServerRepository.java:192)
 	at mit.simulation.climate.model.persistence.ServerRepository.findSimulation(ServerRepository.java:395)
 	at mit.simulation.climate.resource.SimulationResource.runSimulation(SimulationResource.java:689)
@@ -269,7 +269,7 @@ mit.simulation.climate.exception.SimulationException: mock error
 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:76)
 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$3.run(Parenclienteclienta:193)
 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
@@ -278,61 +278,60 @@ mit.simulation.climate.exception.SimulationException: mock error
 	at org.junit.runners.Suite.runChild(Suite.java:128)
 	at org.junit.runners.Suite.runChild(Suite.java:24)
 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner$1.schedule(Pareclientner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.intclient.runners.statements.RunAfters.evaluate(RunAfters.java:31)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.jclient21)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
 18:21:48,587 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,586 [pool-7-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,592 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:48,593 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createScenario
+18:21:48,592 [maiclientFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
+18:21:48,593 [main] INFO  mit.simulation.climate.recliente.SimulationResource  - Handle createScenario
 18:21:48,594 [pool-8-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,595 [pool-8-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
-18:21:48,595 [pool-7-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
-18:21:48,601 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
-18:21:48,604 [pool-7-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
-18:21:48,607 [pool-8-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
+18:21:48,595 [pool-8-thread-1] INFO  mit.sclienttion.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,595 [pool-7-thread-1] INFO  mit.simulation.climate.client.persistence.ServerReposiclient - assign a data object in the thread
+18:21:48,601 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDclient:21:48,604 [pool-7-thread-1] INFO  mit.simulation.climate.model.pclienttence.ServerRepository  - Cleaning 0 scenarios
+18:21:48,607 [pool-8-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 sceclients
 18:21:48,611 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle getScenario
-18:21:48,616 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - total number of public scenarios : 1
+18:21:48,616 [client INFO  mit.simulation.climate.resource.SimulationRclientceTest  - total number of public scenarios : 1
 18:21:48,616 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
-18:21:48,616 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
-18:21:48,624 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:48,625 [pool-7-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
-18:21:48,625 [pool-7-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
+18:21:48,616 [main] INFO  mit.simulation.climate.resourcclientulationResourceTest  - remove object :ScenarioDAO
+client:48,624 [mainclientO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
+18:21:48,625 [pool-7-thread-1] INFO  mit.simulation.climate.moclientersistence.ServerRepository  - Cleaning 0 simulations
+18:21:48,625 [pool-7-thread-1] Iclientmit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
 18:21:48,627 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle getSimulationOrScenarioById: type simulation id 588
 18:21:48,629 [pool-9-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,629 [pool-9-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,629 [pool-9-thread-1] INFO  mit.simulation.climate.model.pclienttence.ServerRepository  - assign a dclientbject in the thread
 18:21:48,631 [pool-8-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,631 [pool-8-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
 18:21:48,634 [pool-9-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:48,641 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
-18:21:48,646 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
+18:21:48,646 [maiclientFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:48,648 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createScenario
 18:21:48,649 [pool-10-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,651 [pool-10-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,651 [pool-10-thread-1clientnt  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:48,652 [pool-9-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
-18:21:48,652 [pool-9-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
+18:21:48,652 [pool-9-thclientclientFO  mit.simulation.clientte.model.persistence.ServerRepository  - running cleaner ended.
 18:21:48,655 [pool-10-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:48,661 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
-18:21:48,664 [pool-10-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
+18:21client64 [pool-10-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,664 [pool-10-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
 18:21:48,668 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle getSimulationOrScenarioById: type scenario id 2903
-18:21:48,668 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Find scenario for id 2903
+18:21:48,668 [main] INFO  mit.simulation.climate.model.persistencclientverRepository  - Find scenario for id 2903
 18:21:48,673 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Got scenario {<ObjectId:Scenario, id=2903>; committed; [id=>2903; creation=>Fri Oct 16 18:21:48 EDT 2009; scenarioToSimulation=>{<ObjectId:Simulation, id=588>}; scenarioToInputVars=>(..); description=>test description; name=>the name; state=>PUBLIC; user=>null; scenarioOutputToVars=>(..)]}
 18:21:48,674 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
-18:21:48,674 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
+18:21:48,674 [main] INFO  mit.simulatioclientmate.resource.SimulationResourceTest  - remove object :ScenarioDAO
 18:21:48,682 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:48,683 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle getSimulationOrScenarioById: type simulation id 588
 18:21:48,683 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : mock error
 mit.simulation.climate.exception.SimulationException: mock error
-	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.raiseMockErrorIfNecessary(SimulationResourceTest.java:818)
+	at mit.simulation.climate.resource.SimulationResourceTest$TesclienterRepository.raiseMockErrorIfNecessary(SimulationResourceTest.java:818)
 	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.findDAO(SimulationResourceTest.java:791)
 	at mit.simulation.climate.model.persistence.ServerRepository.findDAO(ServerRepository.java:192)
 	at mit.simulation.climate.model.persistence.ServerRepository.findSimulation(ServerRepository.java:395)
@@ -354,54 +353,53 @@ mit.simulation.climate.exception.SimulationException: mock error
 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junitclienters.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
 	at org.junit.runners.Suite.runChild(Suite.java:128)
 	at org.junit.runners.Suite.runChild(Suite.java:24)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at oclientnit.runneclientrentRunner$3.run(ParentRunner.java:193)
 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner.accclient00(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.junit.internal.ruclient.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunnerclientParentRunner.java:236)
 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
+	at orclientche.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
 18:21:48,684 [pool-11-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
 18:21:48,685 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,685 [pool-11-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
-18:21:48,697 [pool-11-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
-18:21:48,700 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:48,702 [pool-11-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
-18:21:48,703 [pool-11-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
-18:21:48,706 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createScenario
+18:21:48,697 [pool-11-thread-1] INFO  mit.simulation.climate.model.persisteclienterverRepository  - Cleaning 0 scenarios
+18:21:48,700 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository clientarts the cleaner.
+18:21:client2 [pool-11-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
+18:21:48,703 [pool-11-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepositclient- running cleaner ended.
+18:21:48,706 [main] INFO  mit.simulation.climate.resourcclientulationResource  - Handle createScenario
 18:21:48,707 [pool-12-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,708 [pool-12-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
-18:21:48,713 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
+18:21:48,7clientool-12-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the threadclient1:48,713 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
 18:21:48,716 [pool-12-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:48,720 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle editScenario
 18:21:48,720 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Find scenario for id 2904
-18:21:48,721 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Got scenario {<ObjectId:Scenario, id=2904>; committed; [id=>2904; creation=>Fri Oct 16 18:21:48 EDT 2009; scenarioToSimulation=>{<ObjectId:Simulation, id=588>}; scenarioToInputVars=>(..); description=>test description; name=>the name; state=>PUBLIC; user=>null; scenarioOutputToVars=>(..)]}
+18:21:48,721 [main] INFO  mit.simulation.climate.client.persistence.ServerRepository  - Got scenaclient<ObjectId:Sceclient, id=2904>; commiclient [id=>2904; creation=>Fri Oct 16 18:21:48 EDT 2009; scenarioToSimulation=>{<ObjectId:Simulation, id=588>}; scenarioToInputVars=>(..); description=>test description; name=>the name; state=>PUBLIC; user=>null; scenarioOutputToVars=>(..)]}
 18:21:48,723 [pool-12-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,725 [pool-12-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
 18:21:48,729 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Find scenario for id 2904
-18:21:48,729 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Got scenario {<ObjectId:Scenario, id=2904>; committed; [id=>2904; creation=>Fri Oct 16 18:21:48 EDT 2009; scenarioToSimulation=>{<ObjectId:Simulation, id=588>}; scenarioToInputVars=>(..); description=>new description; name=>new name; state=>TEMPORARY; user=>new user; scenarioOutputToVars=>(..)]}
-18:21:48,730 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
+18:21:48,729 [main] INFO  mit.simulatioclientmate.model.persistence.ServerRepository  - Got scenario {<ObjectId:Scenario, id=2904>; committed; [id=>2904; creation=>Frclient 16 18:21:48 EDT 2009; scenarioToSimulation=>{<ObjectId:Simulation, id=588>}; scenarioToInputVars=>(..); description=>new description; name=>new name; state=>TEMPORARY; user=>new user; scenarioOutputToVars=>(..)]}
+18:21:48,730 [main] INFO  mit.simulation.climate.model.persistence.SclientRepository  - Stops the cleaner.
 18:21:48,730 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
 18:21:48,737 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:48,739 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createScenario
 18:21:48,740 [pool-13-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
 18:21:48,740 [pool-13-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
-18:21:48,746 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
+18:21:48,746 [main] INFO  mclientmulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
 18:21:48,749 [pool-13-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
-18:21:48,753 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle editScenario
+18:21:48,753 [main] INFO  mit.simulclient.climate.resource.SimulationResource  - Handle editScenario
 18:21:48,754 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Find scenario for id 2905
 18:21:48,754 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : mock error
 mit.simulation.climate.exception.SimulationException: mock error
-	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.raiseMockErrorIfNecessary(SimulationResourceTest.java:818)
+	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.raiseMockErrorIfNecessary(SimulationResourceTeclientva:818)
 	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.findDAO(SimulationResourceTest.java:791)
 	at mit.simulation.climate.model.persistence.ServerRepository.findDAO(ServerRepository.java:192)
 	at mit.simulation.climate.model.persistence.ServerRepository.findScenario(ServerRepository.java:430)
@@ -428,25 +426,24 @@ mit.simulation.climate.exception.SimulationException: mock error
 	at org.junit.runners.Suite.runChild(Suite.java:128)
 	at org.junit.runners.Suite.runChild(Suite.java:24)
 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	atclientjunit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChiclient(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAclient.java:31)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
+	at org.apache.tools.ant.taskdeclienttional.junit.JUnitTestclientr.launch(JUnitTestRunner.java:912)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
 18:21:48,755 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
-18:21:48,756 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
-18:21:48,758 [pool-13-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
+18:21:4client [main] INFO  mitclientlation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
+18:21:48,758 [pool-13-tclient-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,758 [pool-13-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
-18:21:48,766 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:48,767 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createScenario
+18:21:48,766 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaclient18:21:48,767 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle cclientScenario
 18:21:48,767 [pool-14-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,769 [pool-14-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,769 [pool-14-thread-1] INFO  mitclientlation.climate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:48,775 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :ScenarioDAO
 18:21:48,778 [pool-14-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:48,782 [pool-14-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
@@ -455,18 +452,18 @@ mit.simulation.climate.exception.SimulationException: mock error
 18:21:48,787 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Find scenario for id 2906
 18:21:48,787 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Got scenario {<ObjectId:Scenario, id=2906>; committed; [id=>2906; creation=>Fri Oct 16 18:21:48 EDT 2009; scenarioToSimulation=>{<ObjectId:Simulation, id=588>}; scenarioToInputVars=>(..); description=>test description; name=>the name; state=>PUBLIC; user=>null; scenarioOutputToVars=>(..)]}
 18:21:48,788 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :VariableDAO
-18:21:48,789 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :TupleDAO
-18:21:48,805 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
+18:21:48,789 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - creclientdao :TupleDAO
+18:21:48,805 [main] INFO  mit.simulation.climate.mclientpersistence.ServerRepository  - Stops the cleaner.
 18:21:48,806 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :VariableDAO
 18:21:48,806 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :TupleDAO
 18:21:48,806 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :ScenarioDAO
 18:21:48,815 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:48,816 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createScenario
-18:21:48,817 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : mock error
+18:21:client7 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : mock error
 mit.simulation.climate.exception.SimulationException: mock error
 	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.raiseMockErrorIfNecessary(SimulationResourceTest.java:818)
 	at mit.simulation.climate.resource.SimulationResourceTest$TestServerRepository.findDAO(SimulationResourceTest.java:791)
-	at mit.simulation.climate.model.persistence.ServerRepository.findDAO(ServerRepository.java:192)
+	at mit.simulation.climate.model.persistence.ServerRepository.findDAO(Serveclientsitory.java:192)
 	at mit.simulation.climate.model.persistence.ServerRepository.findSimulation(ServerRepository.java:395)
 	at mit.simulation.climate.resource.SimulationResource.createScenario(SimulationResource.java:278)
 	at mit.simulation.climate.resource.SimulationResourceTest.createScenario(SimulationResourceTest.java:348)
@@ -484,7 +481,7 @@ mit.simulation.climate.exception.SimulationException: mock error
 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:76)
 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.cclient.runners.ParentRunner$1.schedule(ParentRunner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
@@ -495,21 +492,21 @@ mit.simulation.climate.exception.SimulationException: mock error
 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.jaclient4)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.run(ParentRunner.jaclient6)
 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
-18:21:48,817 [pool-15-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
+18:21:48,817 [pool-15-thread-1] INclientit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
 18:21:48,818 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,822 [pool-15-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
-18:21:48,826 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:48,827 [pool-15-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
+18:21:48,8clientain] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
+18:21client27 [pool-15-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:48,828 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle editScenario
-18:21:48,828 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Received location:http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
+18:21:48,828 [main] INFO  mit.simulation.climate.resource.SimulationResourclient Received location:http:clientalhost:8080/excel_wrapper-servlet/rest/wrapper/961
 18:21:48,829 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :SimulationDAO
 18:21:48,829 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Sim url is http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
 18:21:48,831 [pool-15-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
@@ -538,13 +535,13 @@ java.net.MalformedURLException: no protocol: INVALID URL
 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:76)
 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.PclientRunner$3.run(ParentRunner.java:193)
 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
-	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.ruclientd(Suite.java:128)
 	at org.junit.runners.Suite.runChild(Suite.java:24)
 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
@@ -556,31 +553,31 @@ java.net.MalformedURLException: no protocol: INVALID URL
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JclientestRunner.java:912)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
-18:21:48,860 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
-18:21:48,866 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:48,873 [pool-18-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
+18:21:48,860 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the clclient.
+18:21:48,866 [main] INFO  mit.simulationclientate.model.persistence.ServerRepository  - Starts the cleaner.
+18:21:48,873 [pool-18-thread-1] INFO  mit.simulation.climate.model.perclientnce.ServerRepository  - running cleaner ...
 18:21:48,874 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle editScenario
 18:21:48,874 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Received location:http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
-18:21:48,874 [pool-18-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,8clientool-18-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:48,874 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :SimulationDAO
 18:21:48,874 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Sim url is http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
-18:21:48,879 [pool-18-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
-18:21:48,887 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createCompositeSimulation
+18:21:48,879 [pool-18-thread-1] INFO  mit.clientation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
+18:2client887 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createCompositeSimulation
 18:21:48,888 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDAO
 18:21:48,888 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDefaultsDAO
 18:21:48,889 [pool-18-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
-18:21:48,890 [pool-18-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
+18:21:48,890 [pool-18-thread-1] INFO  mit.simulation.climate.mclientpersistence.ServerRepository  - running cleaner ended.
 18:21:48,903 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,903 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDefaultsDAO
-18:21:48,903 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :SimulationDAO
-18:21:48,903 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDAO
-18:21:48,914 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
-18:21:48,919 [pool-19-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
+18:21:48,903 [main] INFO  mit.simulation.climate.resource.SimulationResourceTeclient remove object :SimulationDAO
+18:21:48,903 [main] INFO  mit.simulation.climate.resource.SimulatclientsourceTest  - remove object :MetaDataDAO
+18:21:48,914 [main] INFO  mit.simulation.climate.model.peclientence.ServerRepository  - Starts the cleaner.
+18:21:48,919 [pool-19-thread-1] INFO  mit.simulation.climate.model.persistencclientverRepository  - running cleaner ...
 18:21:48,921 [pool-19-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:48,920 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle editScenario
-18:21:48,923 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Received location:http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
+18:21:48,923 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Received location:http://localhost:8080/exclientrapper-servlet/rest/wrapper/961
 18:21:48,923 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :SimulationDAO
 18:21:48,924 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Sim url is http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
 18:21:48,926 [pool-19-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
@@ -612,24 +609,24 @@ java.lang.IllegalArgumentException: No enum const class mit.simulation.climate.m
 	at org.junit.runners.Suite.runChild(Suite.java:128)
 	at org.junit.runners.Suite.runChild(Suite.java:24)
 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.Pclientclientr$1.schedule(ParentRunner.java:52)
 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.client31)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at junit.framework.JUnit4TestAdapter.run(JUclientestAdapter.java:39)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
+	at org.apache.tools.ant.taskclientoptional.client.JUnitTestRunner.main(JUnitTestRunner.java:766)
 18:21:48,931 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:48,931 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :SimulationDAO
-18:21:48,932 [pool-19-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
+18:21:48,932 [pool-19-thread-1]client  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,932 [pool-19-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
-18:21:48,939 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
+18:21:48,939clientn] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:48,941 [pool-20-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
-18:21:48,942 [pool-20-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
+18:21:48,942 [pool-20-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data obclientin the thread
 18:21:48,946 [pool-20-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:48,949 [pool-20-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:48,949 [pool-20-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
@@ -643,7 +640,7 @@ java.lang.IllegalArgumentException: No enum const class mit.simulation.climate.m
 18:21:49,225 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDefaultsDAO
 18:21:49,233 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDAO
 18:21:49,234 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDefaultsDAO
-18:21:49,258 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDAO
+18:21:49,25clientin] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDAO
 18:21:49,259 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDefaultsDAO
 18:21:49,286 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDAO
 18:21:49,287 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDefaultsDAO
@@ -660,9 +657,8 @@ java.lang.IllegalArgumentException: No enum const class mit.simulation.climate.m
 18:21:49,498 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDAO
 18:21:49,498 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDAO
 18:21:49,498 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDefaultsDAO
-18:21:49,498 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDAO
-18:21:49,499 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDefaultsDAO
-18:21:49,499 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDAO
+18:21:49,498 [main] INFO  mit.sclienttion.climate.resource.SimulationResourceTest  - remove object :MetaDataDAOclient1:49,499 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove obclient:MetaDataDefaultsDAO
+18:21:4client [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDAO
 18:21:49,499 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDAO
 18:21:49,499 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDefaultsDAO
 18:21:49,499 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDefaultsDAO
@@ -671,27 +667,26 @@ java.lang.IllegalArgumentException: No enum const class mit.simulation.climate.m
 18:21:49,500 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDefaultsDAO
 18:21:49,555 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:49,557 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle createCompositeSimulation
-18:21:49,558 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :SimulationDAO
+18:21:49,558 [main] INFO  mit.simulation.climate.resource.SimuclientnResourceTeclient created dao :SimulationDAO
 18:21:49,559 [pool-21-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
 18:21:49,564 [pool-21-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:49,577 [pool-21-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:49,580 [pool-21-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:49,580 [pool-21-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
 18:21:49,628 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDAO
-18:21:49,629 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :MetaDataDefaultsDAO
+18:21:49,629 [main] INFO  mit.simulation.climate.resource.SimclientoclienturceTest  - created dao :MetaDataDefaultsDAO
 18:21:49,630 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : [v.3.0M6 May 18 2009 07:55:30] Validation failures: Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exceeds maximum allowed length (64 chars): 1000
-org.apache.cayenne.validation.ValidationException: [v.3.0M6 May 18 2009 07:55:30] Validation failures: Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exceeds maximum allowed length (64 chars): 1000
+org.apache.cayenne.validation.clientationException: [v.3.0M6 May 18 2009 07:5client Validation failures: Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exceeds maximum allowed length (64 chars): 1000
 Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exceeds maximum allowed length (64 chars): 1000
-	at org.apache.cayenne.access.ObjectStoreGraphDiff.validateAndCheckNoop(ObjectStoreGraphDiff.java:111)
-	at org.apache.cayenne.access.DataContext.flushToParent(DataContext.java:1093)
+	at org.apache.cayenne.access.ObjectSclientrapclient.validateAndCheckNoop(ObjectStoreGraphDiff.java:111)
+	clientg.apache.cayenne.access.DataContext.flushToParent(DataContext.java:1093)
 	at org.apache.cayenne.access.DataContext.commitChanges(DataContext.java:1043)
 	at mit.simulation.climate.model.persistence.ServerRepository.commit(ServerRepository.java:497)
 	at mit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.createIndexedMetaDataFromScalar(CompositeServerSimulation.java:297)
 	at mit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.remapOutputs(CompositeServerSimulation.java:304)
 	at mit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.processLink(CompositeServerSimulation.java:327)
-	at mit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.processSimulation(CompositeServerSimulation.java:348)
-	at mit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.parse(CompositeServerSimulation.java:220)
-	at mit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.access$100(CompositeServerSimulation.java:172)
+	at mit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.processSimulation(CoclientteServerSimulation.java:348)
+	at mit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.parse(CompositeServerSimulation.java:220)clientmit.simulation.climate.model.persistence.CompositeServerSimulation$ParserFactory.access$100(CompositeServerSimulation.java:172)
 	at mit.simulation.climate.model.persistence.CompositeServerSimulation.configure(CompositeServerSimulation.java:107)
 	at mit.simulation.climate.model.persistence.CompositeServerSimulation.<init>(CompositeServerSimulation.java:59)
 	at mit.simulation.climate.resource.SimulationResource.createCompositeSimulation(SimulationResource.java:472)
@@ -714,7 +709,7 @@ Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exc
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
-	at org.junit.runners.Suite.runChild(Suite.java:128)
+	at org.junit.runners.Suite.runChildcliente.java:128)
 	at org.junit.runners.Suite.runChild(Suite.java:24)
 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
@@ -724,18 +719,17 @@ Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exc
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdaclientjava:39)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
-18:21:49,632 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:76client:21:49,632 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleclient
 18:21:49,632 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :SimulationDAO
 18:21:49,632 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDAO
-18:21:49,632 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDefaultsDAO
+18:client,632 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :MetaDataDefaultsDAO
 18:21:49,637 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:49,638 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle editScenario
-18:21:49,638 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Received location:http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
-18:21:49,639 [pool-22-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
+18:21:49,638 [main] INFO  mit.simulation.climate.rclientce.SimclientonResource  - Received location:http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
+18:21:49,639 [pool-22-thread-1] INFO  mit.simulatioclientmate.model.persistence.ServerRepository  - runnclientleaner ...
 18:21:49,639 [pool-22-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:49,639 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :SimulationDAO
 18:21:49,640 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Sim url is http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
@@ -747,12 +741,12 @@ Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exc
 18:21:49,655 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :SimulationDAO
 18:21:49,664 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Starts the cleaner.
 18:21:49,666 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle editScenario
-18:21:49,666 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Received location:http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
+18:21:49,666 [main] INFO  mit.simulation.climate.resource.Simulaclientesource  - Received location:http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
 18:21:49,666 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - created dao :SimulationDAO
 18:21:49,666 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Sim url is http://localhost:8080/excel_wrapper-servlet/rest/wrapper/961
 18:21:49,676 [pool-23-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ...
 18:21:49,677 [main] INFO  mit.simulation.climate.resource.SimulationResource  - Handle editSimulation : 705
-18:21:49,680 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : [v.3.0M6 May 18 2009 07:55:30] Validation failures: Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exceeds maximum allowed length (64 chars): 1000
+18:21:49,680 [main] ERROR mit.simulation.climate.resource.SimulationResource  - Error occurred during the service : [v.3.0M6 May 18 2009 07:55:30] Validation failures: Validatioclientlure for mit.simulation.climate.dao.SimulationDAO.name: "name" exceeds maximum allowed length (64 chars): 1000
 org.apache.cayenne.validation.ValidationException: [v.3.0M6 May 18 2009 07:55:30] Validation failures: Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exceeds maximum allowed length (64 chars): 1000
 Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exceeds maximum allowed length (64 chars): 1000
 	at org.apache.cayenne.access.ObjectStoreGraphDiff.validateAndCheckNoop(ObjectStoreGraphDiff.java:111)
@@ -787,18 +781,18 @@ Validation failure for mit.simulation.climate.dao.SimulationDAO.name: "name" exc
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+clientrg.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRclient.java:236)
 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
+	at org.apache.tools.ant.clientefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:421)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:912)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
-18:21:49,682 [main] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
+	at org.apache.tclientant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:766)
+18:21:49,682 [main] INFO  clientimulation.climate.model.persistence.ServerRepository  - Stops the cleaner.
 18:21:49,682 [main] INFO  mit.simulation.climate.resource.SimulationResourceTest  - remove object :SimulationDAO
 18:21:49,683 [pool-23-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - assign a data object in the thread
 18:21:49,704 [pool-23-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 scenarios
 18:21:49,708 [pool-23-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - Cleaning 0 simulations
 18:21:49,708 [pool-23-thread-1] INFO  mit.simulation.climate.model.persistence.ServerRepository  - running cleaner ended.
-]]></system-out>
+]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]>]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
