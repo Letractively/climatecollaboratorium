@@ -27,9 +27,9 @@
 </ice:panelGroup>
                    
 <ice:panelGroup rendered="#{output.chartType == 'FREE'}" style="display: none" styleClass="physicalImpact">
-    <div class="title"><a href="javascript:;" rel="physicalImpact_#{output.seriesVariables[0].metaData.id}">#{output.name}</a></div>
+    <div class="title"><a href="javascript:;" rel="physicalImpact_#{output.seriesVariables[1].metaData.id}">#{output.name}</a></div>
     <div  class="content">
-        <div id="physicalImpact_#{output.seriesVariables[0].metaData.id}" class="tabContent">
+        <div id="physicalImpact_#{output.seriesVariables[1].metaData.id}" class="tabContent">
             <dl>
                 <dt><strong>#{output.seriesVariables[0].metaData.labels[1]} impacts at °C #{output.seriesVariables[0].value[0].values[0]}</strong></dt>
                 <dd><p>#{output.seriesVariables[0].value[0].values[1]}</p></dd>
