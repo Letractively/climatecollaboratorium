@@ -144,35 +144,36 @@ function renderModelOutputs() {
 	 */
 	log.debug("ploting outputs");
 	jQuery(".outputDef").each(function() {
+		try {
 
-		var chartType = jQuery(this).find(".chartType").val();
-		if (typeof(chartType) == 'undefined' || chartType != "TIME_SERIES") {
-			return;
-		}
-		var def = jQuery(this);
-		var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
-		var chartTitle = def.find(".chartTitle").val();
-		var values = [];
-		var series = [];
-		def.find(".serieDef").each(function() {
-			var val = eval("(" + jQuery(this).find(".value").val() + ")" );
-			var label = jQuery(this).find(".label").val();
-
-			for (var i = 0; i < val.length; i++) {
-				val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
+			var chartType = jQuery(this).find(".chartType").val();
+			if (typeof(chartType) == 'undefined' || chartType != "TIME_SERIES") {
+				return;
 			}
-			values.push(val);
-			series.push({showMarker: false, label: label});
-		});
+			var def = jQuery(this);
+			var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
+			var chartTitle = def.find(".chartTitle").val();
+			var values = [];
+			var series = [];
+			def.find(".serieDef").each(function() {
+				var val = eval("(" + jQuery(this).find(".value").val() + ")" );
+				var label = jQuery(this).find(".label").val();
 
-		var plot = jQuery.jqplot(chartPlaceholderId, values, 
-				{title: chartTitle, 
-			series: series,
-			axes:{
+				for (var i = 0; i < val.length; i++) {
+					val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
+				}
+				values.push(val);
+				series.push({showMarker: false, label: label});
+			});
+
+			var plot = jQuery.jqplot(chartPlaceholderId, values, 
+					{title: chartTitle, 
+				series: series,
+				axes:{
 				xaxis:{
-					label:'Year',
-					autoscale: true
-				},
+				label:'Year',
+				autoscale: true
+			},
 			},
 			legend : {
 				show :true,
@@ -180,7 +181,11 @@ function renderModelOutputs() {
 				yoffset :280,
 				xoffset:0
 			}
-		});
+					});
+		}
+		catch (e) {
+			log.error(e);
+		}
 		
 		/* Legend is positioned absolutely thus it is hard to determine how long the chart will be, I'm assuming
 		 * that graph will take around 320 px and I'm giving 18 px for each item in the legend.
