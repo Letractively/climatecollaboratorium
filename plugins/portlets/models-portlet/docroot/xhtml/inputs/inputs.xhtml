@@ -16,25 +16,12 @@
                         <h3><span class="hidden">Actions Input</span></h3>
                     </div>
                     <div class="tableContent">
-                        <table>
-                           <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" varStatus="status">
-                                <tr class="#{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}">
-                                    <td colspan="2" class="first"><span>#{input.name}</span> 
-                                        <a class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)" href="javascript:;">
-                                            <img alt="question" src="/collaboratorium-theme/images/qustion_icon.png" />
-                                        </a>
-                                        <p class="hidden inputDescription">#{input.description}</p>
-        
-                                    </td>
-                                </tr>
-                                <tr class="sliderDef #{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}"> 
-                                        <f:subview id="inputView" >
-                                            <!-- <ui:include src="./inputDef.xhtml" />-->
-                                            <ui:include src="./individual.xhtml" />
-                                        </f:subview>
-                                </tr>
-                            </ice:panelSeries>
-                        </table>
+                        <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" varStatus="status"> 
+                            <f:subview id="inputView" >
+                                <ui:include src="./inputDef.xhtml" />
+                                <!-- <ui:include src="./individual.xhtml" />-->
+                            </f:subview>
+                        </ice:panelSeries>
                     </div>
                 </div>
             </div>
