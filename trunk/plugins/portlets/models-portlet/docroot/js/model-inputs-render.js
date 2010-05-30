@@ -26,6 +26,7 @@ function modelRunSuccessful(event) {
 function showSliders() {
 	var msg = "";
 	
+	try {
 	if (jQuery(".sliderDef").length == 0 || jQuery(".sliderDef").hasClass("processed")) {
 		return;
 	}
@@ -42,6 +43,22 @@ function showSliders() {
 		if (dataType == "java.lang.Double") return true;
 		if (dataType == "java.lang.Float") return true;
 	}
+	
+	function formatFieldValue(value, unit) {
+		log.debug(unit + "\t" + unit.toLowerCase().indexOf("percent"));
+		if (unit.toLowerCase().indexOf("percent") >= 0) {
+			log.debug("returning percents: " + (value*100) + "%");
+			return (value * 100).toFixed(0) + "%";
+		}
+		return value;
+	}
+	
+	function parseFieldValue(value, unit) {
+		if (unit.toLowerCase().indexOf("percent") >= 0) {
+			return value.replace("%") / 100;
+		}
+		return value;
+	}
 
 	jQuery(".sliderDef").each(function() {
 		var min = parseFloat(jQuery(this).find(".min").val());
@@ -49,6 +66,11 @@ function showSliders() {
 		var defaultVal = parseFloat(jQuery(this).find(".default").val());
 		var dataType = jQuery(this).find(".dataType").val();
 		var currentValue = jQuery(this).find(".fieldValue").val();
+		var type = jQuery(this).find(".type").val();
+		var unit = jQuery(this).find(".unit").val();
+		
+		log.debug("type: " + type + "\tunit: " + unit + "\tdata type: " + dataType);
+
 		if (! isNaN(parseFloat(currentValue))) {
 			defaultVal = currentValue;
 		}
@@ -70,13 +92,17 @@ function showSliders() {
 		}
 
 		var valueField = jQuery(this).find(".value");
+		valueField.val(formatFieldValue(defaultVal, unit));
+
+		if (type != "SLIDER") {
+			return;
+		}
+
 		var slider = jQuery(this).find(".slider");
 		var sliderStep = (max-min)/(sliderMax - sliderMin);
 
-
 		slider.slider('destroy');
 
-		valueField.val(defaultVal);
 
 
 		slider.slider({ 
@@ -84,10 +110,10 @@ function showSliders() {
 			max: sliderMax, 
 			slide: function(event, ui) {
 			if (isInteger(dataType)) {
-				valueField.val((ui.value));
+				valueField.val(formatFieldValue(ui.value, unit));
 			}
 			else if (isDouble(dataType)) {
-				valueField.val((min + sliderStep * (ui.value)).toFixed(2));
+				valueField.val(formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit));
 			}
 		}
 		});
@@ -99,7 +125,7 @@ function showSliders() {
 		slider.slider("moveTo", sliderVal);
 
 		valueField.blur(function() {
-			var sliderVal = valueField.val();
+			var sliderVal = parseFieldValue(valueField.val(), unit);
 
 			if (isDouble(dataType)) {
 				sliderVal = ((sliderVal - min) / (max-min)) * (sliderMax - sliderMin);
@@ -118,12 +144,14 @@ function showSliders() {
 		jQuery(".sliderDef").each(function() {
 			var id = jQuery(this).find('.id').val();
 			var val = jQuery(this).find('.value').val();
-			values[id] = val;
+			var unit = jQuery(this).find('.unit').val();
+			values[id] = parseFieldValue(val, unit);
 		});
 		
 		icefacesEventManager.sendEventToTheBackend("modelRun", values);
 	});
-	
+	}
+	catch (e) {log.error(e);}
 
 	jQuery(".sliderDef").eq(0).addClass("processed");
 
