@@ -57,4 +57,11 @@ public abstract class ModelInputDisplayItem extends ModelDisplayItem {
      * @return ModelDisplayItemType
      */
     public abstract ModelInputDisplayItemType getDisplayItemType();
+    
+    /**
+     * Gets input widget type
+     */
+    public ModelInputWidgetType getType() {
+        return ModelInputWidgetType.TEXT_FIELD;
+    }
 }

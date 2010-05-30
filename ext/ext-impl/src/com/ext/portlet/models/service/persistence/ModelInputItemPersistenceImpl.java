@@ -79,6 +79,14 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
             ModelInputItemModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countByModelId",
             new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID = new FinderPath(ModelInputItemModelImpl.ENTITY_CACHE_ENABLED,
+            ModelInputItemModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_ENTITY, "fetchByModelIdModelInputId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_MODELIDMODELINPUTID = new FinderPath(ModelInputItemModelImpl.ENTITY_CACHE_ENABLED,
+            ModelInputItemModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByModelIdModelInputId",
+            new String[] { Long.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ModelInputItemModelImpl.ENTITY_CACHE_ENABLED,
             ModelInputItemModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -107,6 +115,13 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
         FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELINPUTID,
             new Object[] { modelInputItem.getModelInputItemID() },
             modelInputItem);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID,
+            new Object[] {
+                modelInputItem.getModelId(),
+                
+            modelInputItem.getModelInputItemID()
+            }, modelInputItem);
     }
 
     public void cacheResult(List<ModelInputItem> modelInputItems) {
@@ -214,6 +229,13 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
         FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MODELINPUTID,
             new Object[] { modelInputItemModelImpl.getOriginalModelInputItemID() });
 
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID,
+            new Object[] {
+                modelInputItemModelImpl.getOriginalModelId(),
+                
+            modelInputItemModelImpl.getOriginalModelInputItemID()
+            });
+
         EntityCacheUtil.removeResult(ModelInputItemModelImpl.ENTITY_CACHE_ENABLED,
             ModelInputItemImpl.class, modelInputItem.getPrimaryKey());
 
@@ -313,6 +335,32 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
             FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELINPUTID,
                 new Object[] { modelInputItem.getModelInputItemID() },
                 modelInputItem);
+        }
+
+        if (!isNew &&
+                (!Validator.equals(modelInputItem.getModelId(),
+                    modelInputItemModelImpl.getOriginalModelId()) ||
+                !Validator.equals(modelInputItem.getModelInputItemID(),
+                    modelInputItemModelImpl.getOriginalModelInputItemID()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID,
+                new Object[] {
+                    modelInputItemModelImpl.getOriginalModelId(),
+                    
+                modelInputItemModelImpl.getOriginalModelInputItemID()
+                });
+        }
+
+        if (isNew ||
+                (!Validator.equals(modelInputItem.getModelId(),
+                    modelInputItemModelImpl.getOriginalModelId()) ||
+                !Validator.equals(modelInputItem.getModelInputItemID(),
+                    modelInputItemModelImpl.getOriginalModelInputItemID()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID,
+                new Object[] {
+                    modelInputItem.getModelId(),
+                    
+                modelInputItem.getModelInputItemID()
+                }, modelInputItem);
         }
 
         return modelInputItem;
@@ -692,9 +740,9 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public List<ModelInputItem> findByModelId(Long modelInputItemID)
+    public List<ModelInputItem> findByModelId(Long modelId)
         throws SystemException {
-        Object[] finderArgs = new Object[] { modelInputItemID };
+        Object[] finderArgs = new Object[] { modelId };
 
         List<ModelInputItem> list = (List<ModelInputItem>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_MODELID,
                 finderArgs, this);
@@ -710,10 +758,10 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.models.model.ModelInputItem WHERE ");
 
-                if (modelInputItemID == null) {
-                    query.append("modelInputItemID IS NULL");
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
                 } else {
-                    query.append("modelInputItemID = ?");
+                    query.append("modelId = ?");
                 }
 
                 query.append(" ");
@@ -722,8 +770,8 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (modelInputItemID != null) {
-                    qPos.add(modelInputItemID.longValue());
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
                 }
 
                 list = q.list();
@@ -746,15 +794,15 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public List<ModelInputItem> findByModelId(Long modelInputItemID, int start,
-        int end) throws SystemException {
-        return findByModelId(modelInputItemID, start, end, null);
+    public List<ModelInputItem> findByModelId(Long modelId, int start, int end)
+        throws SystemException {
+        return findByModelId(modelId, start, end, null);
     }
 
-    public List<ModelInputItem> findByModelId(Long modelInputItemID, int start,
-        int end, OrderByComparator obc) throws SystemException {
+    public List<ModelInputItem> findByModelId(Long modelId, int start, int end,
+        OrderByComparator obc) throws SystemException {
         Object[] finderArgs = new Object[] {
-                modelInputItemID,
+                modelId,
                 
                 String.valueOf(start), String.valueOf(end), String.valueOf(obc)
             };
@@ -773,10 +821,10 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.models.model.ModelInputItem WHERE ");
 
-                if (modelInputItemID == null) {
-                    query.append("modelInputItemID IS NULL");
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
                 } else {
-                    query.append("modelInputItemID = ?");
+                    query.append("modelId = ?");
                 }
 
                 query.append(" ");
@@ -790,8 +838,8 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (modelInputItemID != null) {
-                    qPos.add(modelInputItemID.longValue());
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
                 }
 
                 list = (List<ModelInputItem>) QueryUtil.list(q, getDialect(),
@@ -815,17 +863,17 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public ModelInputItem findByModelId_First(Long modelInputItemID,
+    public ModelInputItem findByModelId_First(Long modelId,
         OrderByComparator obc)
         throws NoSuchModelInputItemException, SystemException {
-        List<ModelInputItem> list = findByModelId(modelInputItemID, 0, 1, obc);
+        List<ModelInputItem> list = findByModelId(modelId, 0, 1, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No ModelInputItem exists with the key {");
 
-            msg.append("modelInputItemID=" + modelInputItemID);
+            msg.append("modelId=" + modelId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -835,20 +883,18 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ModelInputItem findByModelId_Last(Long modelInputItemID,
-        OrderByComparator obc)
+    public ModelInputItem findByModelId_Last(Long modelId, OrderByComparator obc)
         throws NoSuchModelInputItemException, SystemException {
-        int count = countByModelId(modelInputItemID);
+        int count = countByModelId(modelId);
 
-        List<ModelInputItem> list = findByModelId(modelInputItemID, count - 1,
-                count, obc);
+        List<ModelInputItem> list = findByModelId(modelId, count - 1, count, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No ModelInputItem exists with the key {");
 
-            msg.append("modelInputItemID=" + modelInputItemID);
+            msg.append("modelId=" + modelId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -859,11 +905,11 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
     }
 
     public ModelInputItem[] findByModelId_PrevAndNext(Long modelInputItemPK,
-        Long modelInputItemID, OrderByComparator obc)
+        Long modelId, OrderByComparator obc)
         throws NoSuchModelInputItemException, SystemException {
         ModelInputItem modelInputItem = findByPrimaryKey(modelInputItemPK);
 
-        int count = countByModelId(modelInputItemID);
+        int count = countByModelId(modelId);
 
         Session session = null;
 
@@ -875,10 +921,10 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
             query.append(
                 "FROM com.ext.portlet.models.model.ModelInputItem WHERE ");
 
-            if (modelInputItemID == null) {
-                query.append("modelInputItemID IS NULL");
+            if (modelId == null) {
+                query.append("modelId IS NULL");
             } else {
-                query.append("modelInputItemID = ?");
+                query.append("modelId = ?");
             }
 
             query.append(" ");
@@ -892,8 +938,8 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
 
             QueryPos qPos = QueryPos.getInstance(q);
 
-            if (modelInputItemID != null) {
-                qPos.add(modelInputItemID.longValue());
+            if (modelId != null) {
+                qPos.add(modelId.longValue());
             }
 
             Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
@@ -910,6 +956,134 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
             throw processException(e);
         } finally {
             closeSession(session);
+        }
+    }
+
+    public ModelInputItem findByModelIdModelInputId(Long modelId,
+        Long modelInputItemID)
+        throws NoSuchModelInputItemException, SystemException {
+        ModelInputItem modelInputItem = fetchByModelIdModelInputId(modelId,
+                modelInputItemID);
+
+        if (modelInputItem == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ModelInputItem exists with the key {");
+
+            msg.append("modelId=" + modelId);
+
+            msg.append(", ");
+            msg.append("modelInputItemID=" + modelInputItemID);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchModelInputItemException(msg.toString());
+        }
+
+        return modelInputItem;
+    }
+
+    public ModelInputItem fetchByModelIdModelInputId(Long modelId,
+        Long modelInputItemID) throws SystemException {
+        return fetchByModelIdModelInputId(modelId, modelInputItemID, true);
+    }
+
+    public ModelInputItem fetchByModelIdModelInputId(Long modelId,
+        Long modelInputItemID, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { modelId, modelInputItemID };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelInputItem WHERE ");
+
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
+                } else {
+                    query.append("modelId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (modelInputItemID == null) {
+                    query.append("modelInputItemID IS NULL");
+                } else {
+                    query.append("modelInputItemID = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
+                }
+
+                if (modelInputItemID != null) {
+                    qPos.add(modelInputItemID.longValue());
+                }
+
+                List<ModelInputItem> list = q.list();
+
+                result = list;
+
+                ModelInputItem modelInputItem = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID,
+                        finderArgs, list);
+                } else {
+                    modelInputItem = list.get(0);
+
+                    cacheResult(modelInputItem);
+
+                    if ((modelInputItem.getModelId() == null) ||
+                            !modelInputItem.getModelId().equals(modelId) ||
+                            (modelInputItem.getModelInputItemID() == null) ||
+                            !modelInputItem.getModelInputItemID()
+                                               .equals(modelInputItemID)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID,
+                            finderArgs, modelInputItem);
+                    }
+                }
+
+                return modelInputItem;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MODELIDMODELINPUTID,
+                        finderArgs, new ArrayList<ModelInputItem>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (ModelInputItem) result;
+            }
         }
     }
 
@@ -1026,11 +1200,18 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
         remove(modelInputItem);
     }
 
-    public void removeByModelId(Long modelInputItemID)
-        throws SystemException {
-        for (ModelInputItem modelInputItem : findByModelId(modelInputItemID)) {
+    public void removeByModelId(Long modelId) throws SystemException {
+        for (ModelInputItem modelInputItem : findByModelId(modelId)) {
             remove(modelInputItem);
         }
+    }
+
+    public void removeByModelIdModelInputId(Long modelId, Long modelInputItemID)
+        throws NoSuchModelInputItemException, SystemException {
+        ModelInputItem modelInputItem = findByModelIdModelInputId(modelId,
+                modelInputItemID);
+
+        remove(modelInputItem);
     }
 
     public void removeAll() throws SystemException {
@@ -1144,8 +1325,8 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
         return count.intValue();
     }
 
-    public int countByModelId(Long modelInputItemID) throws SystemException {
-        Object[] finderArgs = new Object[] { modelInputItemID };
+    public int countByModelId(Long modelId) throws SystemException {
+        Object[] finderArgs = new Object[] { modelId };
 
         Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_MODELID,
                 finderArgs, this);
@@ -1162,6 +1343,67 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.models.model.ModelInputItem WHERE ");
 
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
+                } else {
+                    query.append("modelId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MODELID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByModelIdModelInputId(Long modelId, Long modelInputItemID)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { modelId, modelInputItemID };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_MODELIDMODELINPUTID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelInputItem WHERE ");
+
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
+                } else {
+                    query.append("modelId = ?");
+                }
+
+                query.append(" AND ");
+
                 if (modelInputItemID == null) {
                     query.append("modelInputItemID IS NULL");
                 } else {
@@ -1173,6 +1415,10 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
                 Query q = session.createQuery(query.toString());
 
                 QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
+                }
 
                 if (modelInputItemID != null) {
                     qPos.add(modelInputItemID.longValue());
@@ -1186,7 +1432,7 @@ public class ModelInputItemPersistenceImpl extends BasePersistenceImpl
                     count = Long.valueOf(0);
                 }
 
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MODELID,
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MODELIDMODELINPUTID,
                     finderArgs, count);
 
                 closeSession(session);

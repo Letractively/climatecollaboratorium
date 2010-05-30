@@ -49,6 +49,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
     public ModelInputGroupDisplayItem(ModelInputGroup group) throws SystemException {
         super(group.getModel(), group.getMetaData());
         this.group = group;
+        populateChildren();
     }
 
 
@@ -70,7 +71,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      */
     public String getName() {
         try {
-            return group.getName() == null ? group.getMetaData().getName() : group.getName();
+            return group.getName() == null || group.getName().trim().equals("") ? group.getMetaData().getName() : group.getName();
         } catch (SystemException e) {
             _log.error("Could not retrive group name", e);
         }
@@ -97,7 +98,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      */
     public String getDescription() {
         try {
-            return group.getDescription() == null ? group.getMetaData().getDescription() : group.getDescription();
+            return group.getDescription() == null || group.getDescription().trim().equals("") ? group.getMetaData().getDescription() : group.getDescription();
         } catch (SystemException e) {
             _log.error("Could not retrive group description", e);
         }

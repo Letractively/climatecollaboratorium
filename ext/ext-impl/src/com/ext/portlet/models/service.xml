@@ -93,6 +93,11 @@
         </finder>
 
         <finder name="ModelId" return-type="Collection">
+            <finder-column name="modelId"/>
+        </finder>
+        
+        <finder name="ModelIdModelInputId" return-type="ModelInputItem">
+            <finder-column name="modelId"/>
             <finder-column name="modelInputItemID"/>
         </finder>
         

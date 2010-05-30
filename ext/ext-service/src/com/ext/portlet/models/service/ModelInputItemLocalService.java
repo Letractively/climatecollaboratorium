@@ -86,7 +86,7 @@ public interface ModelInputItemLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.models.model.ModelInputItem getItemForMetaData(
-        mit.simulation.climate.client.MetaData md);
+        java.lang.Long modelId, mit.simulation.climate.client.MetaData md);
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.models.model.ModelInputItem> getItemForGroupId(

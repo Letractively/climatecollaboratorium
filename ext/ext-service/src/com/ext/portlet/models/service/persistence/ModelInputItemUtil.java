@@ -147,48 +147,69 @@ public class ModelInputItemUtil {
     }
 
     public static java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
-        java.lang.Long modelInputItemID)
-        throws com.liferay.portal.SystemException {
-        return getPersistence().findByModelId(modelInputItemID);
+        java.lang.Long modelId) throws com.liferay.portal.SystemException {
+        return getPersistence().findByModelId(modelId);
     }
 
     public static java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
-        java.lang.Long modelInputItemID, int start, int end)
+        java.lang.Long modelId, int start, int end)
         throws com.liferay.portal.SystemException {
-        return getPersistence().findByModelId(modelInputItemID, start, end);
+        return getPersistence().findByModelId(modelId, start, end);
     }
 
     public static java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
-        java.lang.Long modelInputItemID, int start, int end,
+        java.lang.Long modelId, int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException {
-        return getPersistence().findByModelId(modelInputItemID, start, end, obc);
+        return getPersistence().findByModelId(modelId, start, end, obc);
     }
 
     public static com.ext.portlet.models.model.ModelInputItem findByModelId_First(
-        java.lang.Long modelInputItemID,
+        java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelInputItemException,
             com.liferay.portal.SystemException {
-        return getPersistence().findByModelId_First(modelInputItemID, obc);
+        return getPersistence().findByModelId_First(modelId, obc);
     }
 
     public static com.ext.portlet.models.model.ModelInputItem findByModelId_Last(
-        java.lang.Long modelInputItemID,
+        java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelInputItemException,
             com.liferay.portal.SystemException {
-        return getPersistence().findByModelId_Last(modelInputItemID, obc);
+        return getPersistence().findByModelId_Last(modelId, obc);
     }
 
     public static com.ext.portlet.models.model.ModelInputItem[] findByModelId_PrevAndNext(
-        java.lang.Long modelInputItemPK, java.lang.Long modelInputItemID,
+        java.lang.Long modelInputItemPK, java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelInputItemException,
             com.liferay.portal.SystemException {
         return getPersistence()
-                   .findByModelId_PrevAndNext(modelInputItemPK,
-            modelInputItemID, obc);
+                   .findByModelId_PrevAndNext(modelInputItemPK, modelId, obc);
+    }
+
+    public static com.ext.portlet.models.model.ModelInputItem findByModelIdModelInputId(
+        java.lang.Long modelId, java.lang.Long modelInputItemID)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByModelIdModelInputId(modelId, modelInputItemID);
+    }
+
+    public static com.ext.portlet.models.model.ModelInputItem fetchByModelIdModelInputId(
+        java.lang.Long modelId, java.lang.Long modelInputItemID)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByModelIdModelInputId(modelId, modelInputItemID);
+    }
+
+    public static com.ext.portlet.models.model.ModelInputItem fetchByModelIdModelInputId(
+        java.lang.Long modelId, java.lang.Long modelInputItemID,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByModelIdModelInputId(modelId, modelInputItemID,
+            retrieveFromCache);
     }
 
     public static java.util.List<Object> findWithDynamicQuery(
@@ -230,9 +251,16 @@ public class ModelInputItemUtil {
         getPersistence().removeByModelInputId(modelInputItemID);
     }
 
-    public static void removeByModelId(java.lang.Long modelInputItemID)
+    public static void removeByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException {
-        getPersistence().removeByModelId(modelInputItemID);
+        getPersistence().removeByModelId(modelId);
+    }
+
+    public static void removeByModelIdModelInputId(java.lang.Long modelId,
+        java.lang.Long modelInputItemID)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException {
+        getPersistence().removeByModelIdModelInputId(modelId, modelInputItemID);
     }
 
     public static void removeAll() throws com.liferay.portal.SystemException {
@@ -249,9 +277,16 @@ public class ModelInputItemUtil {
         return getPersistence().countByModelInputId(modelInputItemID);
     }
 
-    public static int countByModelId(java.lang.Long modelInputItemID)
+    public static int countByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException {
-        return getPersistence().countByModelId(modelInputItemID);
+        return getPersistence().countByModelId(modelId);
+    }
+
+    public static int countByModelIdModelInputId(java.lang.Long modelId,
+        java.lang.Long modelInputItemID)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .countByModelIdModelInputId(modelId, modelInputItemID);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {
