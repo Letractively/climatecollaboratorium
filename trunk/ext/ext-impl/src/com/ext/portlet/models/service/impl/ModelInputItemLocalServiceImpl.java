@@ -31,13 +31,13 @@ public class ModelInputItemLocalServiceImpl
 
     }
 
-    public ModelInputItem getItemForMetaData(MetaData md) {
+    public ModelInputItem getItemForMetaData(Long modelId, MetaData md) {
         try {
-            return modelInputItemPersistence.findByModelInputId(md.getId());
-        } catch (NoSuchModelInputItemException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            return modelInputItemPersistence.findByModelIdModelInputId(modelId, md.getId());
         } catch (SystemException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
         return null;
 

@@ -22,7 +22,7 @@ import mit.simulation.climate.client.Variable;
  */
 public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
 
-    ModelInputWidgetType type = ModelInputWidgetType.SLIDER;
+    ModelInputWidgetType type = ModelInputWidgetType.TEXT_FIELD;
     ModelInputItem item;
 
 
@@ -105,7 +105,7 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
             item.setModelId(sim.getId());
             item.setModelInputItemID(md.getId());
             item.setType(type.name());
-            ModelInputItemLocalServiceUtil.updateModelInputItem(item);
+            ModelInputItemLocalServiceUtil.addModelInputItem(item);
         return new ModelInputIndividualDisplayItem(item);
     }
     

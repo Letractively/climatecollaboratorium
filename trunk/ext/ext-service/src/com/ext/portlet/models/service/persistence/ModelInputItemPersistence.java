@@ -105,35 +105,47 @@ public interface ModelInputItemPersistence extends BasePersistence {
         throws com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
-        java.lang.Long modelInputItemID)
+        java.lang.Long modelId) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
+        java.lang.Long modelId, int start, int end)
         throws com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
-        java.lang.Long modelInputItemID, int start, int end)
-        throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.models.model.ModelInputItem> findByModelId(
-        java.lang.Long modelInputItemID, int start, int end,
+        java.lang.Long modelId, int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.models.model.ModelInputItem findByModelId_First(
-        java.lang.Long modelInputItemID,
+        java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelInputItemException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.models.model.ModelInputItem findByModelId_Last(
-        java.lang.Long modelInputItemID,
+        java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelInputItemException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.models.model.ModelInputItem[] findByModelId_PrevAndNext(
-        java.lang.Long modelInputItemPK, java.lang.Long modelInputItemID,
+        java.lang.Long modelInputItemPK, java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelInputItemException,
             com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem findByModelIdModelInputId(
+        java.lang.Long modelId, java.lang.Long modelInputItemID)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem fetchByModelIdModelInputId(
+        java.lang.Long modelId, java.lang.Long modelInputItemID)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputItem fetchByModelIdModelInputId(
+        java.lang.Long modelId, java.lang.Long modelInputItemID,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException;
 
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -160,8 +172,13 @@ public interface ModelInputItemPersistence extends BasePersistence {
         throws com.ext.portlet.models.NoSuchModelInputItemException,
             com.liferay.portal.SystemException;
 
-    public void removeByModelId(java.lang.Long modelInputItemID)
+    public void removeByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException;
+
+    public void removeByModelIdModelInputId(java.lang.Long modelId,
+        java.lang.Long modelInputItemID)
+        throws com.ext.portlet.models.NoSuchModelInputItemException,
+            com.liferay.portal.SystemException;
 
     public void removeAll() throws com.liferay.portal.SystemException;
 
@@ -171,7 +188,11 @@ public interface ModelInputItemPersistence extends BasePersistence {
     public int countByModelInputId(java.lang.Long modelInputItemID)
         throws com.liferay.portal.SystemException;
 
-    public int countByModelId(java.lang.Long modelInputItemID)
+    public int countByModelId(java.lang.Long modelId)
+        throws com.liferay.portal.SystemException;
+
+    public int countByModelIdModelInputId(java.lang.Long modelId,
+        java.lang.Long modelInputItemID)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

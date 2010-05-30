@@ -152,7 +152,7 @@ public class ModelUIFactory {
         for (MetaData md : s.getInputs()) {
             if (!grouped.contains(md)) {
                 try {
-                    ModelInputItem item = ModelInputItemLocalServiceUtil.getItemForMetaData(md);
+                    ModelInputItem item = ModelInputItemLocalServiceUtil.getItemForMetaData(s.getId(), md);
                     ModelInputDisplayItem toadd = item==null?ModelInputIndividualDisplayItem.create(s,md,ModelInputWidgetType.TEXT_FIELD):getInputItem(item);
                     result.add(toadd);
 

@@ -343,6 +343,8 @@ create index IX_54E7429D on ModelDiscussion (modelId);
 create index IX_560BFD0 on ModelInputGroup (modelId);
 
 create index IX_19199C7F on ModelInputItem (modelGroupId);
+create index IX_8E60CDDA on ModelInputItem (modelId);
+create index IX_69E49D7D on ModelInputItem (modelId, modelInputItemID);
 create index IX_DDC86F5D on ModelInputItem (modelInputItemID);
 
 create index IX_47DEFCF2 on ModelOutputChartOrder (modelId, modelOutputLabel);

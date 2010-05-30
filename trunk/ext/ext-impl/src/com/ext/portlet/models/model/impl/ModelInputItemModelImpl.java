@@ -73,6 +73,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
                 "lock.expiration.time.com.ext.portlet.models.model.ModelInputItem"));
     private Long _modelInputItemPK;
     private Long _modelId;
+    private Long _originalModelId;
     private Long _modelInputItemID;
     private Long _originalModelInputItemID;
     private Long _modelGroupId;
@@ -131,6 +132,14 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
 
     public void setModelId(Long modelId) {
         _modelId = modelId;
+
+        if (_originalModelId == null) {
+            _originalModelId = modelId;
+        }
+    }
+
+    public Long getOriginalModelId() {
+        return _originalModelId;
     }
 
     public Long getModelInputItemID() {
