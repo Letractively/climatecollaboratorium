@@ -15,6 +15,7 @@
 		<header-portlet-javascript>/js/jquery.log.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/dev/blackbird.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/dev/utils.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery.blockUI.js</header-portlet-javascript>
 		<footer-portlet-css>/css/models-portlet.css</footer-portlet-css>
 		<footer-portlet-javascript>/js/icefacesJSIntegration.js</footer-portlet-javascript>
 		<footer-portlet-javascript>/js/model-inputs-render.js</footer-portlet-javascript>

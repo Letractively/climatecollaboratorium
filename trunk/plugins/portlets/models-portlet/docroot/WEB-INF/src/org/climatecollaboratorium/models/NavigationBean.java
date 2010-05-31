@@ -76,5 +76,8 @@ public class NavigationBean {
         }
     }
 
+    public Simulation getSelectedSimulation() {
+        return selectedSimulation;
+    }
 
 }

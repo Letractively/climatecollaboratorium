@@ -6,7 +6,9 @@ import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.event.ActionEvent;
@@ -23,6 +25,7 @@ import org.apache.commons.beanutils.DynaBean;
 import org.climatecollaboratorium.jsintegration.JSEvent;
 import org.climatecollaboratorium.jsintegration.JSEventHandler;
 import org.climatecollaboratorium.jsintegration.JSEventManager;
+import org.climatecollaboratorium.models.event.UpdateInputWidgetsHandler;
 import org.climatecollaboratorium.models.event.UpdateOutputsOrderHandler;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 
@@ -34,6 +37,8 @@ public class SimulationBean implements JSEventHandler {
     private String description;
     private JSEventManager jsEventManager;
     private ModelDisplay display;
+    
+    private List<SimulationChangedListener> simulationChangedListeners = new ArrayList<SimulationChangedListener>();
     
     private Map<Long, String> inputsValues = new HashMap<Long, String>();
 
@@ -63,6 +68,8 @@ public class SimulationBean implements JSEventHandler {
             this.simulation = simulation;
             scenario = null;
             inputsValues.clear();
+            editing = false;
+            
             
             display = ModelUIFactory.getInstance().getDisplay(simulation);
         
@@ -73,7 +80,9 @@ public class SimulationBean implements JSEventHandler {
 
             jsEventManager.sendEvent(event);
         
-            display.getInputs().get(0).getMetaData().getProfile();
+            for (SimulationChangedListener listener: simulationChangedListeners) {
+                listener.onSimulationChanged(simulation, display);
+            }
         }
     }
 
@@ -118,8 +127,20 @@ public class SimulationBean implements JSEventHandler {
         this.jsEventManager = jsEventManager;
         jsEventManager.addJsEventHandler(this, "simulationInputsDefined");
         jsEventManager.addJsEventHandler(this, "modelRun");
+        
+        
         UpdateOutputsOrderHandler outputsOrderHandler = new UpdateOutputsOrderHandler();
         jsEventManager.addJsEventHandler(outputsOrderHandler, "updateOutputsOrder");
+        
+
+        UpdateInputWidgetsHandler updateInputsWidgetsHandler = new UpdateInputWidgetsHandler();
+        simulationChangedListeners.add(updateInputsWidgetsHandler);
+        
+        jsEventManager.addJsEventHandler(updateInputsWidgetsHandler, "updateInputWidgets");
+        
+        
+        
+        //simulationChangedListeners.add(e)
     }
 
     public void onJsEvent(JSEvent event) {
@@ -128,7 +149,6 @@ public class SimulationBean implements JSEventHandler {
         System.out.println(event.getPayload().getClass().getName());
         DynaBean bean = (DynaBean) event.getPayload();
         Map<Long, Object> inputs = new HashMap<Long, Object>();
-        
         for (MetaData md: simulation.getInputs()) {
             Object value = bean.get(md.getId().toString());
             inputs.put(md.getId(), value);
