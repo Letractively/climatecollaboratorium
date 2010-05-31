@@ -1,25 +1,31 @@
 <?xml version="1.0"?>
 <f:view xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"  
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     
     <div id="editModel">
         <ul>
             <li><a href="#tabs-1">Basic info</a></li>
-            <li><a href="#tabs-2">Order of outputs</a></li>
+            <li><a href="#tabs-2">Input widgets</a></li>
+            <li><a href="#tabs-3">Order of outputs</a></li>
         </ul>
         <div class="clear"></div>
     
         <div id="tabs-1">
-            <ice:form>
+        <ice:form>
                 <ice:inputTextarea value="#{simulationBean.description}" />
-                <ice:commandButton value="Cancel" actionListener="#{simulationBean.cancelEditing}" />
                 <ice:commandButton value="Submit" actionListener="#{simulationBean.updateSimulation}" />
-            </ice:form>
+    </ice:form>
         
         </div>
-        <div id="tabs-2" style="display: none">
+        <div id="tabs-2">
+            <f:subview>
+                <ui:include src="simulationEdit/inputsWidgets.xhtml" />
+            </f:subview>
+        </div>
+        <div id="tabs-3">
             <ice:panelGroup>
                 <h1>Output groups order</h1>
                 <ice:panelSeries value="#{simulationBean.display.outputs}" var="output" styleClass="sortableOutputDisplay">
@@ -32,6 +38,7 @@
             </ice:panelGroup>
             <button id="showOrder">show order</button>
         </div>
-    </div>    
+    </div>
+    <ice:commandButton value="Cancel" actionListener="#{simulationBean.cancelEditing}" />
         
 </f:view>

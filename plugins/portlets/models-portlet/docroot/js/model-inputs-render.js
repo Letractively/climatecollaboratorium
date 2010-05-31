@@ -55,7 +55,7 @@ function showSliders() {
 	
 	function parseFieldValue(value, unit) {
 		if (unit.toLowerCase().indexOf("percent") >= 0) {
-			return value.replace("%") / 100;
+			return parseFloat(value.replace("%")) / 100;
 		}
 		return value;
 	}
@@ -138,15 +138,20 @@ function showSliders() {
 
 	jQuery("#runModel").unbind();
 	jQuery("#runModel").click(function() {
+		showLoadingScreen();
 		// get data for all model inputs
 		var values = new Object();
 
 		jQuery(".sliderDef").each(function() {
+			try {
 			var id = jQuery(this).find('.id').val();
 			var val = jQuery(this).find('.value').val();
 			var unit = jQuery(this).find('.unit').val();
+			log.debug("adding input value, id: " + id + "\tval: " + val + "\tunit: " + unit + "\tparsedval: " + parseFieldValue(val, unit));
 			values[id] = parseFieldValue(val, unit);
+			} catch (e) { log.error(e) }
 		});
+		
 		
 		icefacesEventManager.sendEventToTheBackend("modelRun", values);
 	});
@@ -158,6 +163,7 @@ function showSliders() {
 }
 
 function renderModelOutputs() {
+	unlockImpactsScreen();
 
 	log.profile("renderModelOutputs");
 	/* Check if outputs have been already processed, if they have been then there is no need
@@ -189,7 +195,9 @@ function renderModelOutputs() {
 			
 			var series = [];
 			def.find(".serieDef").each(function() {
+				log.debug("przed eval: " + jQuery(this).find(".value").val());
 				var val = eval("(" + jQuery(this).find(".value").val() + ")" );
+				log.debug("po eval");
 				var label = jQuery(this).find(".label").val();
 				var id = jQuery(this).find(".id").val();
 				var associatedId = jQuery(this).find(".associatedId").val();
@@ -360,47 +368,101 @@ function initAccordion() {
 }
 
 function showEditForm() {
-	//jQuery("#editModel").tabs();
+	try {
+	log.debug("HAHAHAHAHA jestem glupia funkcja" + jQuery(".sortableOutputDisplay").length );
+	jQuery(".sortableOutputDisplay").each(function() {
+		log.debug("sortable output display - liczba: " + jQuery(this).length);
+		var subContent = jQuery(this).find(".subSortableOutputDisplay").html();
+		jQuery(this).find("subSortableOutputDisplay").html("<ul>" + content + "</ul>");
+
+		var content = jQuery(".sortableOutputDisplay").html();
+		jQuery(this).html("<ul>" + content + "</ul>");
+
+
+		jQuery(this).find("ul").sortable();
+		jQuery(this).find("ul").disableSelection();
+
+		jQuery(this).find(".subSortableOutputDisplay").sortable();
+		
+	});
+	} catch(e) {log.error(e) };
+
+
+	jQuery(".inputsWidgetsUpdate").unbind();
+	jQuery(".inputsWidgetsUpdate").click(function() {
+		alert("test");
+	});
+	
+
+	jQuery("#showOrder").click(function() {
+		var items = jQuery(".sortableOutputDisplay .outputId");
+		var order = [];
+		items.each(function() {
+			order.push(this.value);
+		});
+	});
+	
+	jQuery("#editModel").tabs();
+	
 }
 
+
+function updateInputsWidgets() {
+}
+
+
+setTimeout(function() {
+	jQuery("#showOrder").click(function() {alert("alasdfasdfasd")});
+}, 5000);
+
+
+
+function showLoadingScreen() {
+	var impactsPlaceholder = jQuery(".impactsContent");
+	if (impactsPlaceholder.length > 0) {
+		impactsPlaceholder.css( {
+			'display' :'block'
+		});
+		impactsPlaceholder.unblock();
+		impactsPlaceholder.block(
+						{
+							message :'<img src="/html/portlet/ext/models/images/ajax-loader.gif"/>'
+						});
+	}
+}
+
+function unlockImpactsScreen() {
+	var impactsPlaceholder = jQuery(".impactsContent");
+	impactsPlaceholder.unblock();
+}
+	
 
 
 /**
 edit form related stuff 
 */
-/*
-jQuery("#showOrder").click(function() {
-var items = jQuery(".sortableOutputDisplay .outputId");
-var order = [];
-items.each(function() {
-	order.push(this.value);
-});
+
 //alert(order);
 
 icefacesEventManager.sendEventToTheBackend("updateOutputsOrder", order);
-});	jQuery(function() {
-jQuery(".sortableOutputDisplay").each(function() {
-	var subContent = jQuery(this).find(".subSortableOutputDisplay").html();
-	jQuery(this).find("subSortableOutputDisplay").html("<ul>" + content + "</ul>");
+/*
+jQuery(function() {
+	log.debug("HAHAHAHAHA jestem glupia funkcja" + jQuery(".sortableOutputDisplay").length );
+	jQuery(".sortableOutputDisplay").each(function() {
+		log.debug("sortable output display - liczba: " + jQuery(this).length);
+		var subContent = jQuery(this).find(".subSortableOutputDisplay").html();
+		jQuery(this).find("subSortableOutputDisplay").html("<ul>" + content + "</ul>");
 
-	var content = jQuery(".sortableOutputDisplay").html();
-	jQuery(this).html("<ul>" + content + "</ul>");
+		var content = jQuery(".sortableOutputDisplay").html();
+		jQuery(this).html("<ul>" + content + "</ul>");
 
 
-	jQuery(this).find("ul").sortable();
-	jQuery(this).find("ul").disableSelection();
+		jQuery(this).find("ul").sortable();
+		jQuery(this).find("ul").disableSelection();
 
-	jQuery(this).find(".subSortableOutputDisplay").sortable();
+		jQuery(this).find(".subSortableOutputDisplay").sortable();
 });
 
 });
-
-
-
-setTimeout(function() {
-	jQuery("#editModel").tabs();
-}, 5000);
-
-
 */
 
