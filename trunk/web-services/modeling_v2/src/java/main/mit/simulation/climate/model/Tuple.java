@@ -11,4 +11,7 @@ public interface Tuple {
 
 	public String[] getValues();
 	public void setValues(String[] vals);
+
+    public TupleStatus getStatus();
+
 }

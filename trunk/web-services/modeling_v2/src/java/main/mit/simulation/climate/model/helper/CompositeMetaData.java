@@ -152,6 +152,11 @@ public class CompositeMetaData implements MetaData {
     }
 
     @Override
+    public boolean isInRange(String[] values) {
+        return primary.isInRange(values);
+    }
+
+    @Override
     public void setCategories(String[] categories) {
         throw new RuntimeException("Operation not supported on combined MetaData");
 

@@ -1,12 +1,10 @@
 package mit.simulation.climate.model.persistence;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
 import mit.simulation.climate.dao.MetaDataDAO;
 import mit.simulation.climate.dao.MetaDataDefaultsDAO;
+import mit.simulation.climate.exception.SimulationException;
 import mit.simulation.climate.model.MetaData;
+import org.apache.log4j.Logger;
 
 public class ServerMetaData extends ServerObject<MetaDataDAO> implements
         MetaData {
@@ -18,9 +16,9 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
     }
 
     public ServerMetaData(String printname, String internalname,
-            String description, VarType vtype, VarContext t, String[] labels, String[] units,
-            Class<Object>[] profile, String[] min, String[] max,
-            String[] categories, String[] defaults, String external) {
+                          String description, VarType vtype, VarContext t, String[] labels, String[] units,
+                          Class<Object>[] profile, String[] min, String[] max,
+                          String[] categories, String[] defaults, String external) {
         super();
         MetaDataDefaultsDAO defaultsdao = ServerRepository.instance().createDAO(MetaDataDefaultsDAO.class);
         dao.setMetaToDefaults(defaultsdao);
@@ -45,8 +43,6 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
         if (external != null) {
             setExternalInfo(external);
         }
-
-
 
 
     }
@@ -86,13 +82,13 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
 
     @Override
     public Class<Object>[] getProfile() {
-            try {
-                return new Class[] {Class.forName(dao.getProfile())};
-            } catch (ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
+        try {
+            return new Class[]{Class.forName(dao.getProfile())};
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
 //		String[] sprofile = dao.getProfile().split(";");
 //		Class<Object>[] result = new Class[sprofile.length];
 //		int i = 0;
@@ -143,7 +139,7 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
         if (dao.getUnits() == null) {
             return null;
         }
-        return new String[] {dao.getUnits()};
+        return new String[]{dao.getUnits()};
     }
 
     @Override
@@ -185,7 +181,7 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
 
     @Override
     public String[] getDefault() {
-        return dao.getMetaToDefaults().getDefault()==null?null:new String[] {dao.getMetaToDefaults().getDefault()};
+        return dao.getMetaToDefaults().getDefault() == null ? null : new String[]{dao.getMetaToDefaults().getDefault()};
 
     }
 
@@ -197,12 +193,12 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
 
     @Override
     public String[] getMax() {
-        return dao.getMetaToDefaults().getMax()==null?null:new String[] {dao.getMetaToDefaults().getMax()};
+        return dao.getMetaToDefaults().getMax() == null ? null : new String[]{dao.getMetaToDefaults().getMax()};
     }
 
     @Override
     public String[] getMin() {
-        return dao.getMetaToDefaults().getMin()==null?null:new String[] {dao.getMetaToDefaults().getMin()};
+        return dao.getMetaToDefaults().getMin() == null ? null : new String[]{dao.getMetaToDefaults().getMin()};
     }
 
 
@@ -229,12 +225,58 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
         return VarContext.INDEX.equals(getVarContext());
     }
 
+    @Override
+    public boolean isInRange(String[] values) {
+        if (values.length > 1) {
+            throw new SimulationException("Cannot handle bounds checking for tuple arrays of more than one element");
+        }
+        Class cls = getProfile()[0];
+
+        if (cls.equals(Double.class) || cls.equals(Float.class)) {
+            Double dval = MetaData.Utils.convertToValue(Double.class, values[0]);
+            if (getMin() != null && ! isEmpty(getMin()[0])) {
+                Double dmin = MetaData.Utils.convertToValue(Double.class, getMin()[0]);
+                if (dval < dmin) {
+                    return false;
+                }
+            }
+            if (getMax() != null && ! isEmpty(getMax()[0])) {
+                Double dmax = MetaData.Utils.convertToValue(Double.class, getMax()[0]);
+                if (dval > dmax) {
+                    return false;
+                }
+            }
+
+        } else if (cls.equals(Integer.class)) {
+            Integer ival = MetaData.Utils.convertToValue(Integer.class, values[0]);
+            if (getMin() != null) {
+                Integer imin = MetaData.Utils.convertToValue(Integer.class, getMin()[0]);
+                if (ival < imin) {
+                    return false;
+                }
+            }
+            if (getMax() != null) {
+                Integer imax = MetaData.Utils.convertToValue(Integer.class, getMax()[0]);
+                if (ival > imax) {
+                    return false;
+                }
+            }
+
+
+        }
+
+        return true;
+    }
+
+    private static boolean isEmpty(String s) {
+        return s.trim().length()==0;
+    }
 
 
     @Override
     public String[] getCategories() {
-        if (dao.getMetaToDefaults() == null) log.error("Warning - no meta data defaults for "+dao.getId());
-        return dao.getMetaToDefaults().getCategories()==null?null:dao.getMetaToDefaults().getCategories().split(";");
+        if (dao.getMetaToDefaults() == null) log.error("Warning - no meta data defaults for " + dao.getId());
+        return dao.getMetaToDefaults().getCategories() == null ? null : dao.getMetaToDefaults().getCategories().split(";");
     }
 
     @Override
@@ -246,7 +288,7 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
     public void setCategories(String[] categories) {
         StringBuffer b = new StringBuffer();
         String sep = "";
-        for (String c:categories) {
+        for (String c : categories) {
             b.append(sep);
             b.append(c);
             sep = ";";
@@ -254,7 +296,6 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
         dao.getMetaToDefaults().setCategories(b.toString());
 
     }
-
 
 
     @Override
@@ -269,12 +310,9 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
 
     @Override
     public void setIndexingMetaData(MetaData md) {
-        dao.setToIndexingId(((ServerMetaData)md).dao);
+        dao.setToIndexingId(((ServerMetaData) md).dao);
 
     }
-
-
-
 
 
 }

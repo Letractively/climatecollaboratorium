@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import mit.simulation.climate.model.Tuple;
+import mit.simulation.climate.model.TupleStatus;
 
 @XmlRootElement
 public class TupleJAXBDelegate implements Tuple {
@@ -23,7 +24,12 @@ public class TupleJAXBDelegate implements Tuple {
 		// TODO Auto-generated method stub
 	}
 
-	public static class Adapter extends XmlAdapter<TupleJAXBDelegate, Tuple> {
+    @Override
+    public TupleStatus getStatus() {
+        return src.getStatus();
+    }
+
+    public static class Adapter extends XmlAdapter<TupleJAXBDelegate, Tuple> {
 
 		@Override
 		public TupleJAXBDelegate marshal(Tuple arg0) throws Exception {

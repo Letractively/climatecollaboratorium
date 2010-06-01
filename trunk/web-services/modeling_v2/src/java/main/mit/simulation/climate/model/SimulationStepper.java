@@ -303,7 +303,7 @@ public class SimulationStepper {
                             existingvar.addValue(new ServerTuple(result));
                         } else {
                             // just add the value
-                            existingvar.addValue(new ServerTuple(t.getValues()));
+                            existingvar.addValue(new ServerTuple(t));
                         }
                         // make sure to clean up
                         ServerRepository.instance().remove(((ServerTuple) t).dao);

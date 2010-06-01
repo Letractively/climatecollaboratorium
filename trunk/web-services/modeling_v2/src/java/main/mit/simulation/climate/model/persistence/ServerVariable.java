@@ -9,6 +9,7 @@ import mit.simulation.climate.dao.TupleDAO;
 import mit.simulation.climate.dao.VariableDAO;
 import mit.simulation.climate.model.MetaData;
 import mit.simulation.climate.model.Tuple;
+import mit.simulation.climate.model.TupleStatus;
 import mit.simulation.climate.model.Variable;
 
 public class ServerVariable extends ServerObject<VariableDAO> implements
@@ -29,9 +30,17 @@ public class ServerVariable extends ServerObject<VariableDAO> implements
     public void addValue(Tuple t) {
         TupleDAO tdao = ((ServerTuple)t).getDataObject();
         tdao.setSeq(dao.getVariableToTuples().size());
+        checkBounds(t);
         dao.addToVariableToTuples(tdao);
     }
 
+    private void checkBounds(Tuple t) {
+        if (t.getValues() == null || t.getValues()[0] == null) return;
+        if (!getMetaData().isInRange(t.getValues())) {
+          ((ServerTuple)t).setStatus(TupleStatus.OUT_OF_RANGE);
+        }
+    }
+     
     @Override
     public Long getId() {
         return dao.getId();

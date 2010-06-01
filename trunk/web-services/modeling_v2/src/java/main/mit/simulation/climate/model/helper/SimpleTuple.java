@@ -1,6 +1,7 @@
 package mit.simulation.climate.model.helper;
 
 import mit.simulation.climate.model.Tuple;
+import mit.simulation.climate.model.TupleStatus;
 
 public class SimpleTuple implements Tuple{
 
@@ -20,7 +21,12 @@ public class SimpleTuple implements Tuple{
 
 	}
 
-	public String toString() {
+    @Override
+    public TupleStatus getStatus() {
+        return TupleStatus.OK;
+    }
+
+    public String toString() {
 		StringBuffer buffer=new StringBuffer();
 		String sep = "";
 		for (String v:values) {
