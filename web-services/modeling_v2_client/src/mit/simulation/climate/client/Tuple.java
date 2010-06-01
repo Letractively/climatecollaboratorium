@@ -1,5 +1,8 @@
 package mit.simulation.climate.client;
 
+import java.util.Collection;
+import java.util.List;
+
 
 /**
  * Simple array of values
@@ -11,4 +14,8 @@ public interface Tuple {
 
 	public String[] getValues();
 	public void setValues(String[] vals);
+    public TupleStatus getStatus(int index);
+    public List<TupleStatus> getAllStatuses();
+    
+
 }
