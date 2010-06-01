@@ -137,40 +137,64 @@ public interface MetaData extends HasId {
     public boolean isIndex();
 
 
+    public boolean isInRange(String[] values);
+
     public static class Utils {
 
-        public static String formatNumber(String actual) {
-//			if (cls == null || actual==null) return null;
-//			if (cls == java.lang.Integer.class) {
-//				return actual.intValue();
-//			} else if (cls == java.lang.Float.class) {
-//				return actual.floatValue();
-//			} else if (cls == java.lang.Double.class) {
-//				return actual.doubleValue();
-//			}
+        public static String formatNumber(Class cls, String actual) {
+			if (cls == null || actual == null) return actual;
+
+			if (cls.equals(java.lang.Integer.class)) {
+				return ((Double)Double.parseDouble(actual)).intValue()+"";
+			} else if (cls == java.lang.Float.class | cls==java.lang.Double.class) {
+				return Double.parseDouble(actual)+"";
+			}
             return actual;
         }
 
-//		public static Number[] convertArray(String[] array, MetaData md) {
-//			Number[] result = new Number[array.length];
-//
-//			for (int i =0;i<array.length;i++) {
-//				result[i] = formatNumber(md.getProfile()[i],new Double(array[i]));
-//			}
-//			return result;
-//		}
+
+        public static <T> T convertToValue(Class<T> cls, String number) {
+           if (cls.equals(java.lang.Integer.class)) {
+			   try {
+                return (T)((Integer)((Double)Double.parseDouble(number)).intValue());
+               } catch (NumberFormatException e) {
+                   return null;
+               }
+			} else if (cls == java.lang.Float.class || cls==java.lang.Double.class) {
+               try {
+				return (T)((Double)Double.parseDouble(number));
+               } catch (NumberFormatException e) {
+                   return null;
+               }
+			} else if (cls.equals(String.class)) {
+               return (T)number;
+           } else return null;
+        }
+
+		public static String[] convertArray(String[] array, MetaData md) {
+			String[] result = new String[array.length];
+
+			for (int i =0;i<array.length;i++) {
+				result[i] = formatNumber(md.getProfile()[i],array[i]);
+			}
+			return result;
+		}
 
         // new edit
-        public static String[] convertArray(String[] array, MetaData md) {
-            String[] result = new String[array.length];
-            for (int i =0;i<array.length;i++) {
-                result[i] = formatNumber(new String(array[i]));
-            }
-            return result;
-        }
+//        public static String[] convertArray(String[] array, MetaData md) {
+//            String[] result = new String[array.length];
+//            for (int i =0;i<array.length;i++) {
+//                result[i] = formatNumber(new String(array[i]));
+//            }
+//            return result;
+//        }
+
+       
     }
 
     void setCategories(String[] categories);
+
+
 
 
 }

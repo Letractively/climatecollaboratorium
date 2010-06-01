@@ -3,6 +3,7 @@ package mit.simulation.climate.model.helper;
 import java.util.ArrayList;
 import java.util.List;
 
+import mit.simulation.climate.model.TupleStatus;
 import org.apache.log4j.Logger;
 
 import mit.simulation.climate.model.MetaData;
@@ -90,16 +91,17 @@ public class CompositeVariable implements Variable {
                 Tuple t = srcs[j].size() > i? srcs[j].get(i):null;
                 if (t == null) {
                     log.error("Not enough tuples (non-existent index"+i+" in variable "+vars.get(j).getMetaData().getId()+":"+vars.get(j).getMetaData().getName()+") to index; skipping "+this.getMetaData().getName()+":"+this.getMetaData().getId());
+                    continue;
                 }
 
 
                 String[] val =  srcs[j].get(i).getValues();
-                if (val.length == 0 || val[0] == null) {
+                if (val.length == 0 || val[0] == null && t.getStatus()== TupleStatus.OK) {
                     log.debug("Detected filler, skipping");
                     skip = true;
                     break;
                 } else {
-                    vals[j] =val[0];
+                    vals[j] =t.getStatus()!=TupleStatus.OK?t.getStatus().getCode():val[0];
                 }
             }
             if (!skip) result.add(new SimpleTuple(vals));

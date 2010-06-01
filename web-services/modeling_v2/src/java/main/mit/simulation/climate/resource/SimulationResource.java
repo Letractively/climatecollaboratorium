@@ -35,13 +35,7 @@ import javax.xml.namespace.QName;
 
 import mit.simulation.climate.Utils;
 import mit.simulation.climate.exception.SimulationException;
-import mit.simulation.climate.model.EntityState;
-import mit.simulation.climate.model.MetaData;
-import mit.simulation.climate.model.Scenario;
-import mit.simulation.climate.model.Simulation;
-import mit.simulation.climate.model.SimulationStepper;
-import mit.simulation.climate.model.Tuple;
-import mit.simulation.climate.model.Variable;
+import mit.simulation.climate.model.*;
 import mit.simulation.climate.model.MetaData.VarContext;
 import mit.simulation.climate.model.MetaData.VarType;
 import mit.simulation.climate.model.SimulationStepper.SimulationRunner;
@@ -775,7 +769,11 @@ public class SimulationResource {
 
     /**
      * <p>
-     * Parse the response string.
+     * Parse the response string.  Response string of the form:
+     * <code>
+     * <variblename>[[val1,val2,...,valn][val1,val2,...,valn]]
+     * </code>
+     *
      * </p>
      *
      * @param sim the simulation
@@ -866,7 +864,7 @@ public class SimulationResource {
      * @param value the value
      * @return the variable object
      */
-    private Variable createVariableFromForm(Simulation sim, String internalname, String value) {
+    private static Variable createVariableFromForm(Simulation sim, String internalname, String value) {
         LOGGER.debug("Setting " + internalname + " to " + value);
         MetaData targmd = null;
         for (MetaData md : sim.getInputs()) {
@@ -892,14 +890,17 @@ public class SimulationResource {
      * @param data the data
      * @return the variable
      */
-    private Variable createVariableFromString(MetaData md, String data) {
+    private static Variable createVariableFromString(MetaData md, String data) {
         ServerVariable result = new ServerVariable(md);
         data = data.substring(1, data.length() - 1);
         Pattern p = Pattern.compile("\\[([^\\[^\\]]+)\\]");
         Matcher m = p.matcher(data);
         while (m.find()) {
             String match = m.group(1);
-            if (md.getProfile()[0].equals(java.lang.String.class)) {
+            if (match.contains(TupleStatus.INVALID.getCode())) {
+                ServerTuple tpl = new ServerTuple(new String[]{null});
+                tpl.setStatus(TupleStatus.INVALID);
+            } else if (md.getProfile()[0].equals(java.lang.String.class)) {
                 result.addValue(new ServerTuple(new String[] {match}));
             } else {
                 result.addValue(new ServerTuple(MetaData.Utils.convertArray(match.split(","), md)));
@@ -907,6 +908,15 @@ public class SimulationResource {
         }
         return result;
     }
+
+    private static Variable createOutOfRangeVariable(MetaData md) {
+        ServerVariable result = new ServerVariable(md);
+        ServerTuple value = new ServerTuple(new String[] {null});
+        value.setStatus(TupleStatus.OUT_OF_RANGE);
+        result.addValue(value);
+        return result;
+    }
+
 
     /**
      * <p>
@@ -1008,13 +1018,35 @@ public class SimulationResource {
 
             List<MetaData> inputs = sim.getInputs();
             NameValuePair[] params = new NameValuePair[inputs.size()];
+            List<MetaData> outofrange = new ArrayList<MetaData>();
             int i = 0;
             for (MetaData md : inputs) {
-                params[i++] = new NameValuePair(md.getInternalName(), getInputValue(md, strinputs, varinputs));
+                String ival = getInputValue(md,strinputs,varinputs);
+                if (!md.isInRange(new String[] {ival})) {
+                        LOGGER.warn(ival+" in variable "+md.getInternalName()+" in "+sim.getName()+" is out of range.");
+                  outofrange.add(md);
+                }
+                params[i++] = new NameValuePair(md.getInternalName(), ival);
             }
-            String result = executePost(sim, params);
-            return parseResponseString(sim, result);
 
+            if (outofrange.isEmpty()) {
+                String result = executePost(sim, params);
+                return parseResponseString(sim, result);
+            } else {
+                LOGGER.info("Build out of range result for "+sim.getName());
+                return buildOutOfRangeResult(sim);
+            }
+
+
+        }
+
+        private Map<String,Variable> buildOutOfRangeResult(Simulation sim) {
+            Map<String,Variable> result = new HashMap<String,Variable>();
+
+            for (MetaData md:sim.getOutputs()) {
+                result.put(md.getInternalName(),createOutOfRangeVariable(md));
+            }
+            return result;
         }
 
         private Map<String, Variable> combine(Map<String, Variable> existing, Map<String, Variable> toadd) {
@@ -1024,7 +1056,9 @@ public class SimulationResource {
 
                 List<Tuple> tuplelist = nvar.getValue();
                 for (Tuple t : tuplelist) {
-                    evar.addValue(new ServerTuple(t.getValues()));
+                    ServerTuple st = new ServerTuple(t.getValues());
+                    st.setStatus(t.getStatus());
+                    evar.addValue(st);
                     repo.remove(((ServerTuple) t).dao);
                 }
                 ServerVariable sv = (ServerVariable) nvar;

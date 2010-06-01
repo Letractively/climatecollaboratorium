@@ -114,6 +114,11 @@ public class MetaDataJAXBDelegate implements MetaData {
         return src.isIndex();
     }
 
+    @Override
+    public boolean isInRange(String[] values) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     @XmlElement(name="categories")
     @XmlJavaTypeAdapter(ArrayAdapter.Adapter.class)
     public String[] getCategories() {

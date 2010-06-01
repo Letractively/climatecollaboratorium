@@ -14,6 +14,7 @@ public abstract class _TupleDAO extends CayenneDataObject {
 
     public static final String ID_PROPERTY = "id";
     public static final String SEQ_PROPERTY = "seq";
+    public static final String STATUS_PROPERTY = "status";
     public static final String VALUE_PROPERTY = "value";
     public static final String TUPLES_TO_VARIABLE_PROPERTY = "tuplesToVariable";
 
@@ -31,6 +32,13 @@ public abstract class _TupleDAO extends CayenneDataObject {
     }
     public Integer getSeq() {
         return (Integer)readProperty("seq");
+    }
+
+    public void setStatus(String status) {
+        writeProperty("status", status);
+    }
+    public String getStatus() {
+        return (String)readProperty("status");
     }
 
     public void setValue(String value) {
