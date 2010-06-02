@@ -1586,11 +1586,12 @@ text-align:center;
 */
 .plans .model-information .right {
      width: 304px;    
+     margin-top: 15px;
 }
 
 .plans .model-information .left {
      width: 521px;
-     padding: 14px 25px;
+     padding: 14px 10px;
 
 }
 
