@@ -14,10 +14,10 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.Variable;
+import mit.simulation.climate.client.*;
+
+import java.util.HashMap;
+import java.util.Map;
 import mit.simulation.climate.client.comm.ClientRepository;
 
 /**
@@ -35,6 +35,7 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
 
     private MetaData md;
 
+    private Map<TupleStatus,ModelOutputErrorBehavior> errorBehaviors = new HashMap<TupleStatus,ModelOutputErrorBehavior>();
 
     private static Log _log = LogFactoryUtil.getLog(ModelOutputSeriesDisplayItem.class);
 
@@ -66,8 +67,8 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
         item = ModelOutputItemLocalServiceUtil.createModelOutputItem(pk);
         item.setModelId(getSimulation().getId());
         item.setModelOutputItemId(md.getId());
-        
-        ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
+        item.setModelItemIsVisible(true);
+        ModelOutputItemLocalServiceUtil.addModelOutputItem(item);
     }
 
     public MetaData getMetaData() {
@@ -152,7 +153,46 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
         return ModelOutputDisplayItemType.SERIES;
     }
 
+    public void setErrorBehavior(TupleStatus status, ErrorPolicy policy, String msg) throws SystemException {
+      if (status == TupleStatus.OUT_OF_RANGE) {
+          item.setModelItemRangeMessage(msg);
+          item.setModelItemRangePolicy(policy!=null?policy.name():null);
+      } else if (status == TupleStatus.INVALID) {
+          item.setModelItemErrorMessage(msg);
+          item.setModelItemErrorPolicy(policy!=null?policy.name():null);
+      }
+        errorBehaviors.remove(status);
+        ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
+    }
 
+    @Override
+    public ModelOutputErrorBehavior getErrorBehavior(TupleStatus status) {
+       ModelOutputErrorBehavior behavior = null;
+       if (!errorBehaviors.containsKey(status)) {
+         behavior = ModelOutputErrorBehavior.getBehavior(status,item);
+         errorBehaviors.put(status,behavior);
+       }
+       return errorBehaviors.get(status);
+    }
+
+     public void setVisible(boolean b) throws SystemException {
+        item.setModelItemIsVisible(b);
+        ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
+
+    }
+
+    @Override
+    public boolean isVisible() {
+        if (item.getModelItemIsVisible() == null) {
+            try {
+                setVisible(true);
+            } catch(SystemException e) {
+                _log.error("Error setting chart visibility to default of true",e);
+            }
+        }
+
+        return item.getModelItemIsVisible()==null || item.getModelItemIsVisible();
+    }
 
 
 }

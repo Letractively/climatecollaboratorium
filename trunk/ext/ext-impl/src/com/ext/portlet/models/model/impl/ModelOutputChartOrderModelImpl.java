@@ -50,9 +50,24 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
             { "modelOutputLabel", new Integer(Types.VARCHAR) },
             
 
-            { "modelOutputChartOrder", new Integer(Types.INTEGER) }
+            { "modelOutputChartOrder", new Integer(Types.INTEGER) },
+            
+
+            { "modelIndexRangePolicy", new Integer(Types.VARCHAR) },
+            
+
+            { "modelIndexRangeMessage", new Integer(Types.VARCHAR) },
+            
+
+            { "modelIndexErrorPolicy", new Integer(Types.VARCHAR) },
+            
+
+            { "modelIndexErrorMessage", new Integer(Types.VARCHAR) },
+            
+
+            { "modelChartIsVisible", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelOutputChartOrder (modelOutputChartOrderPK LONG not null primary key,modelId LONG,modelOutputLabel VARCHAR(75) null,modelOutputChartOrder INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table ModelOutputChartOrder (modelOutputChartOrderPK LONG not null primary key,modelId LONG,modelOutputLabel VARCHAR(75) null,modelOutputChartOrder INTEGER,modelIndexRangePolicy VARCHAR(75) null,modelIndexRangeMessage VARCHAR(75) null,modelIndexErrorPolicy VARCHAR(75) null,modelIndexErrorMessage VARCHAR(75) null,modelChartIsVisible BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table ModelOutputChartOrder";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -71,6 +86,11 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
     private String _modelOutputLabel;
     private String _originalModelOutputLabel;
     private Integer _modelOutputChartOrder;
+    private String _modelIndexRangePolicy;
+    private String _modelIndexRangeMessage;
+    private String _modelIndexErrorPolicy;
+    private String _modelIndexErrorMessage;
+    private Boolean _modelChartIsVisible;
 
     public ModelOutputChartOrderModelImpl() {
     }
@@ -83,6 +103,11 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
         model.setModelId(soapModel.getModelId());
         model.setModelOutputLabel(soapModel.getModelOutputLabel());
         model.setModelOutputChartOrder(soapModel.getModelOutputChartOrder());
+        model.setModelIndexRangePolicy(soapModel.getModelIndexRangePolicy());
+        model.setModelIndexRangeMessage(soapModel.getModelIndexRangeMessage());
+        model.setModelIndexErrorPolicy(soapModel.getModelIndexErrorPolicy());
+        model.setModelIndexErrorMessage(soapModel.getModelIndexErrorMessage());
+        model.setModelChartIsVisible(soapModel.getModelChartIsVisible());
 
         return model;
     }
@@ -158,6 +183,46 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
         _modelOutputChartOrder = modelOutputChartOrder;
     }
 
+    public String getModelIndexRangePolicy() {
+        return GetterUtil.getString(_modelIndexRangePolicy);
+    }
+
+    public void setModelIndexRangePolicy(String modelIndexRangePolicy) {
+        _modelIndexRangePolicy = modelIndexRangePolicy;
+    }
+
+    public String getModelIndexRangeMessage() {
+        return GetterUtil.getString(_modelIndexRangeMessage);
+    }
+
+    public void setModelIndexRangeMessage(String modelIndexRangeMessage) {
+        _modelIndexRangeMessage = modelIndexRangeMessage;
+    }
+
+    public String getModelIndexErrorPolicy() {
+        return GetterUtil.getString(_modelIndexErrorPolicy);
+    }
+
+    public void setModelIndexErrorPolicy(String modelIndexErrorPolicy) {
+        _modelIndexErrorPolicy = modelIndexErrorPolicy;
+    }
+
+    public String getModelIndexErrorMessage() {
+        return GetterUtil.getString(_modelIndexErrorMessage);
+    }
+
+    public void setModelIndexErrorMessage(String modelIndexErrorMessage) {
+        _modelIndexErrorMessage = modelIndexErrorMessage;
+    }
+
+    public Boolean getModelChartIsVisible() {
+        return _modelChartIsVisible;
+    }
+
+    public void setModelChartIsVisible(Boolean modelChartIsVisible) {
+        _modelChartIsVisible = modelChartIsVisible;
+    }
+
     public ModelOutputChartOrder toEscapedModel() {
         if (isEscapedModel()) {
             return (ModelOutputChartOrder) this;
@@ -171,6 +236,15 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
             model.setModelId(getModelId());
             model.setModelOutputLabel(HtmlUtil.escape(getModelOutputLabel()));
             model.setModelOutputChartOrder(getModelOutputChartOrder());
+            model.setModelIndexRangePolicy(HtmlUtil.escape(
+                    getModelIndexRangePolicy()));
+            model.setModelIndexRangeMessage(HtmlUtil.escape(
+                    getModelIndexRangeMessage()));
+            model.setModelIndexErrorPolicy(HtmlUtil.escape(
+                    getModelIndexErrorPolicy()));
+            model.setModelIndexErrorMessage(HtmlUtil.escape(
+                    getModelIndexErrorMessage()));
+            model.setModelChartIsVisible(getModelChartIsVisible());
 
             model = (ModelOutputChartOrder) Proxy.newProxyInstance(ModelOutputChartOrder.class.getClassLoader(),
                     new Class[] { ModelOutputChartOrder.class },
@@ -187,6 +261,11 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
         clone.setModelId(getModelId());
         clone.setModelOutputLabel(getModelOutputLabel());
         clone.setModelOutputChartOrder(getModelOutputChartOrder());
+        clone.setModelIndexRangePolicy(getModelIndexRangePolicy());
+        clone.setModelIndexRangeMessage(getModelIndexRangeMessage());
+        clone.setModelIndexErrorPolicy(getModelIndexErrorPolicy());
+        clone.setModelIndexErrorMessage(getModelIndexErrorMessage());
+        clone.setModelChartIsVisible(getModelChartIsVisible());
 
         return clone;
     }
@@ -234,6 +313,16 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
         sb.append(getModelOutputLabel());
         sb.append(", modelOutputChartOrder=");
         sb.append(getModelOutputChartOrder());
+        sb.append(", modelIndexRangePolicy=");
+        sb.append(getModelIndexRangePolicy());
+        sb.append(", modelIndexRangeMessage=");
+        sb.append(getModelIndexRangeMessage());
+        sb.append(", modelIndexErrorPolicy=");
+        sb.append(getModelIndexErrorPolicy());
+        sb.append(", modelIndexErrorMessage=");
+        sb.append(getModelIndexErrorMessage());
+        sb.append(", modelChartIsVisible=");
+        sb.append(getModelChartIsVisible());
         sb.append("}");
 
         return sb.toString();
@@ -261,6 +350,26 @@ public class ModelOutputChartOrderModelImpl extends BaseModelImpl<ModelOutputCha
         sb.append(
             "<column><column-name>modelOutputChartOrder</column-name><column-value><![CDATA[");
         sb.append(getModelOutputChartOrder());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>modelIndexRangePolicy</column-name><column-value><![CDATA[");
+        sb.append(getModelIndexRangePolicy());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>modelIndexRangeMessage</column-name><column-value><![CDATA[");
+        sb.append(getModelIndexRangeMessage());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>modelIndexErrorPolicy</column-name><column-value><![CDATA[");
+        sb.append(getModelIndexErrorPolicy());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>modelIndexErrorMessage</column-name><column-value><![CDATA[");
+        sb.append(getModelIndexErrorMessage());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>modelChartIsVisible</column-name><column-value><![CDATA[");
+        sb.append(getModelChartIsVisible());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

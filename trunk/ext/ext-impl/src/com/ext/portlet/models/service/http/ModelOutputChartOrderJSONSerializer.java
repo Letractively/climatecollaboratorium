@@ -37,6 +37,11 @@ public class ModelOutputChartOrderJSONSerializer {
         jsonObj.put("modelId", model.getModelId());
         jsonObj.put("modelOutputLabel", model.getModelOutputLabel());
         jsonObj.put("modelOutputChartOrder", model.getModelOutputChartOrder());
+        jsonObj.put("modelIndexRangePolicy", model.getModelIndexRangePolicy());
+        jsonObj.put("modelIndexRangeMessage", model.getModelIndexRangeMessage());
+        jsonObj.put("modelIndexErrorPolicy", model.getModelIndexErrorPolicy());
+        jsonObj.put("modelIndexErrorMessage", model.getModelIndexErrorMessage());
+        jsonObj.put("modelChartIsVisible", model.getModelChartIsVisible());
 
         return jsonObj;
     }

@@ -44,5 +44,25 @@ public interface ModelOutputChartOrderModel extends BaseModel<ModelOutputChartOr
 
     public void setModelOutputChartOrder(Integer modelOutputChartOrder);
 
+    public String getModelIndexRangePolicy();
+
+    public void setModelIndexRangePolicy(String modelIndexRangePolicy);
+
+    public String getModelIndexRangeMessage();
+
+    public void setModelIndexRangeMessage(String modelIndexRangeMessage);
+
+    public String getModelIndexErrorPolicy();
+
+    public void setModelIndexErrorPolicy(String modelIndexErrorPolicy);
+
+    public String getModelIndexErrorMessage();
+
+    public void setModelIndexErrorMessage(String modelIndexErrorMessage);
+
+    public Boolean getModelChartIsVisible();
+
+    public void setModelChartIsVisible(Boolean modelChartIsVisible);
+
     public ModelOutputChartOrder toEscapedModel();
 }

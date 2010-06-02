@@ -29,6 +29,11 @@ public class ModelOutputChartOrderSoap implements Serializable {
     private Long _modelId;
     private String _modelOutputLabel;
     private Integer _modelOutputChartOrder;
+    private String _modelIndexRangePolicy;
+    private String _modelIndexRangeMessage;
+    private String _modelIndexErrorPolicy;
+    private String _modelIndexErrorMessage;
+    private Boolean _modelChartIsVisible;
 
     public ModelOutputChartOrderSoap() {
     }
@@ -41,6 +46,11 @@ public class ModelOutputChartOrderSoap implements Serializable {
         soapModel.setModelId(model.getModelId());
         soapModel.setModelOutputLabel(model.getModelOutputLabel());
         soapModel.setModelOutputChartOrder(model.getModelOutputChartOrder());
+        soapModel.setModelIndexRangePolicy(model.getModelIndexRangePolicy());
+        soapModel.setModelIndexRangeMessage(model.getModelIndexRangeMessage());
+        soapModel.setModelIndexErrorPolicy(model.getModelIndexErrorPolicy());
+        soapModel.setModelIndexErrorMessage(model.getModelIndexErrorMessage());
+        soapModel.setModelChartIsVisible(model.getModelChartIsVisible());
 
         return soapModel;
     }
@@ -122,5 +132,45 @@ public class ModelOutputChartOrderSoap implements Serializable {
 
     public void setModelOutputChartOrder(Integer modelOutputChartOrder) {
         _modelOutputChartOrder = modelOutputChartOrder;
+    }
+
+    public String getModelIndexRangePolicy() {
+        return _modelIndexRangePolicy;
+    }
+
+    public void setModelIndexRangePolicy(String modelIndexRangePolicy) {
+        _modelIndexRangePolicy = modelIndexRangePolicy;
+    }
+
+    public String getModelIndexRangeMessage() {
+        return _modelIndexRangeMessage;
+    }
+
+    public void setModelIndexRangeMessage(String modelIndexRangeMessage) {
+        _modelIndexRangeMessage = modelIndexRangeMessage;
+    }
+
+    public String getModelIndexErrorPolicy() {
+        return _modelIndexErrorPolicy;
+    }
+
+    public void setModelIndexErrorPolicy(String modelIndexErrorPolicy) {
+        _modelIndexErrorPolicy = modelIndexErrorPolicy;
+    }
+
+    public String getModelIndexErrorMessage() {
+        return _modelIndexErrorMessage;
+    }
+
+    public void setModelIndexErrorMessage(String modelIndexErrorMessage) {
+        _modelIndexErrorMessage = modelIndexErrorMessage;
+    }
+
+    public Boolean getModelChartIsVisible() {
+        return _modelChartIsVisible;
+    }
+
+    public void setModelChartIsVisible(Boolean modelChartIsVisible) {
+        _modelChartIsVisible = modelChartIsVisible;
     }
 }

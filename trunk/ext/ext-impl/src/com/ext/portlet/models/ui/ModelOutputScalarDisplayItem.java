@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.TupleStatus;
 import mit.simulation.climate.client.Variable;
 
 /**
@@ -70,5 +71,15 @@ public class ModelOutputScalarDisplayItem extends ModelOutputDisplayItem {
     @Override
     public ModelOutputDisplayItemType getDisplayItemType() {
         return ModelOutputDisplayItemType.SCALAR;
+    }
+
+    @Override
+    public ModelOutputErrorBehavior getErrorBehavior(TupleStatus status) {
+        return ModelOutputErrorBehavior.createEmptyBehavior(status);
+    }
+
+    @Override
+    public boolean isVisible() {
+        return true;
     }
 }
