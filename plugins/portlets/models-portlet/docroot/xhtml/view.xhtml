@@ -11,12 +11,13 @@
     xmlns:c="http://java.sun.com/jstl/core" >
     
 <ice:portlet id="models-portlet">
-    <f:subview id="navigation">
+    <f:subview id="navigation" rendered="#{navigation.viewType == 'default'}">
         <ui:include src="./navigation.xhtml"/>
     </f:subview>
-    <f:subview id="navigation">
-        <ui:include src="./icefacesJSIntegration.xhtml"/>
+    <f:subview id="jsIntegration">
+        <ui:include src="./icefacesJSIntegration.xhtml" />
     </f:subview>
+    <ice:panelGroup rendered="#{navigation.viewType == 'default'}">
     <div class="model">
         <div class="tabContent_top"></div>
             <div class="tabContent_bottom">
@@ -44,5 +45,20 @@
                 </div>
             </div>
         </div>
+        </ice:panelGroup>
+        <ice:panelGroup rendered="#{navigation.viewType == 'embedded'}">
+            <f:subview id="actions" rendered="#{navigation.page == 'actions'}">
+                <ui:include src="./embedded/embeddedActions.xhtml"/>
+            </f:subview>
+            
+            <f:subview id="modelDetails" rendered="#{navigation.page == 'model'}">
+                <ui:include src="./embedded/embeddedModel.xhtml"/>
+            </f:subview>
+            
+            <f:subview id="impacts" rendered="#{navigation.page == 'impacts'}">
+                <ui:include src="./embedded/embeddedImpacts.xhtml"/>
+            </f:subview>
+            
+        </ice:panelGroup>
     </ice:portlet>
 </f:view>

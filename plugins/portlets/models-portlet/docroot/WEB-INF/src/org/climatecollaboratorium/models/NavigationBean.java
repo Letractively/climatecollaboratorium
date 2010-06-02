@@ -2,8 +2,12 @@ package org.climatecollaboratorium.models;
 
 import java.io.IOException;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 
+import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 
 import org.climatecollaboratorium.models.support.SimulationsHelper;
@@ -17,8 +21,39 @@ public class NavigationBean {
     private BreadcrumbBean breadcrumbBean;
     private SimulationBean simulationBean;
     private Simulation selectedSimulation;
+    private Scenario selectedScenario;
+    private String page = null;
+    private String viewType = "default";
 
     private long modelId;
+    private long scenarioId;
+    private Long planId;
+    
+    public NavigationBean() {
+        // get request parameters
+        ExternalContext ctx = FacesContext.getCurrentInstance().getExternalContext();//.getRequestPathInfo())
+
+        if (ctx.getRequestParameterMap().containsKey("modelId")) {
+            modelId = Long.parseLong(ctx.getRequestParameterMap().get("modelId").toString());
+        }
+        
+        if (ctx.getRequestParameterMap().containsKey("viewType")) {
+            viewType = ctx.getRequestParameterMap().get("viewType").toString();
+        }
+        
+        if (ctx.getRequestParameterMap().containsKey("scenarioId")) {
+            scenarioId = Long.parseLong(ctx.getRequestParameterMap().get("scenarioId").toString());
+        }
+        
+        if (ctx.getRequestParameterMap().containsKey("planId")) {
+            planId = Long.parseLong(ctx.getRequestParameterMap().get("planId").toString());
+        }
+        
+        if (ctx.getRequestParameterMap().containsKey("page")) {
+            page = ctx.getRequestParameterMap().get("page").toString();
+        }
+        
+    }
 
     public BreadcrumbBean getBreadcrumbBean() {
         return breadcrumbBean;
@@ -27,7 +62,6 @@ public class NavigationBean {
     public void setBreadcrumbBean(BreadcrumbBean breadcrumbBean){
         this.breadcrumbBean = breadcrumbBean;
         updateBreadcrumb();
-
     }
 
     public SimulationBean getSimulationBean() {
@@ -36,6 +70,7 @@ public class NavigationBean {
 
     public void setSimulationBean(SimulationBean simulationBean) throws IOException  {
         this.simulationBean = simulationBean;
+        useModel();
     }
 
     public String getCurrentPage() {
@@ -55,8 +90,18 @@ public class NavigationBean {
     }
 
     public void update(ActionEvent event) throws IOException {
+        useModel();
+    }
+    
+    private void useModel() throws IOException {
+        selectedScenario = SimulationsHelper.getInstance().getScenarioById(scenarioId);
         selectedSimulation = SimulationsHelper.getInstance().getSimulationById(modelId);
-        if (selectedSimulation != null) {
+        
+        if (selectedScenario != null) {
+            simulationBean.setScenario(selectedScenario);
+            currentPage = DETAILS_PAGE;
+        }
+        else if (selectedSimulation != null) {
             simulationBean.setSimulation(selectedSimulation);
             currentPage = DETAILS_PAGE;
         }
@@ -65,6 +110,7 @@ public class NavigationBean {
             currentPage = INDEX_PAGE;
         }
         updateBreadcrumb();
+        
     }
 
     private void updateBreadcrumb() {
@@ -78,6 +124,22 @@ public class NavigationBean {
 
     public Simulation getSelectedSimulation() {
         return selectedSimulation;
+    }
+    
+    public String getViewType() {
+        return viewType;
+    }
+    
+    public String getPage() {
+        return page;
+    }
+
+    public Long getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 
 }

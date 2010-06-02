@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    
+    
+        <div class="model-information actions">
+            <div class="bottom-content">
+    <f:subview id="actions-display" rendered="#{not simulationBean.embeddedEditing}">
+        <ui:include src="../inputs/inputs.xhtml"/>
+        <div class="clear"></div>
+        <ice:form>
+            <ice:commandLink styleClass="editBtn" actionListener="#{simulationBean.editActions}" />
+        </ice:form>
+        <ui:include src="./initInputs.xhtml" />
+    </f:subview>
+    
+    <f:subview id="actions-edit" rendered="#{simulationBean.embeddedEditing}">
+        <f:subview>
+            <ui:include src="../inputs/inputs.xhtml" />
+        </f:subview>
+        <f:subview>
+            <ui:include src="../outputs/outputs.xhtml" />
+        </f:subview>
+        <div class="clear"></div>
+            <ice:form styleClass="actions">
+                <ice:commandLink styleClass="saveChanges" actionListener="#{simulationBean.saveScenario}" />
+                <button id="runModel" ></button>
+                <ice:commandLink styleClass="cancel" actionListener="#{simulationBean.editActions}" />
+            </ice:form>
+
+        <ui:include src="./initInputs.xhtml" />
+    </f:subview>
+    </div></div>
+</f:view>

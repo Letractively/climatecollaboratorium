@@ -122,7 +122,7 @@ function showSliders() {
 		if (isDouble(dataType)) {
 			sliderVal = parseInt(((defaultVal-min) / (max-min)) * (sliderMax - sliderMin));
 		}
-		slider.slider("moveTo", sliderVal);
+		slider.slider("option", "value", sliderVal);
 
 		valueField.blur(function() {
 			var sliderVal = parseFieldValue(valueField.val(), unit);
@@ -131,7 +131,7 @@ function showSliders() {
 				sliderVal = ((sliderVal - min) / (max-min)) * (sliderMax - sliderMin);
 			}
 
-			slider.slider("moveTo", sliderVal);
+			slider.slider("option", "value", sliderVal);
 			return true;
 		});
 	});
@@ -444,7 +444,7 @@ edit form related stuff
 
 //alert(order);
 
-icefacesEventManager.sendEventToTheBackend("updateOutputsOrder", order);
+//icefacesEventManager.sendEventToTheBackend("updateOutputsOrder", order);
 /*
 jQuery(function() {
 	log.debug("HAHAHAHAHA jestem glupia funkcja" + jQuery(".sortableOutputDisplay").length );
