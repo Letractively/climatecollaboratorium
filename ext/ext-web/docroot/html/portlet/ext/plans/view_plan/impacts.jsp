@@ -23,19 +23,46 @@
 
 <!-- Tabs panel -->
 <%@ include file="/html/portlet/ext/plans/view_plan/view_plan_tabs.jspf" %>
-
+<div id="plans-model-impacts-container" style="position: relative; left: -2000px; padding: 10px; padding-right: 20px; margin: auto;">
+<script src="/html/js/liferay/widget.js" type="text/javascript"></script>
 <script type="text/javascript">
 
 	// currently there is no dynamic association between plan and a scenario/model,
 	// static reference used, please refer to requirements doc
 	
 	var scenarioId = '<%= plan.getScenarioId() %>';
+
+    function portletModelImpactsInnerPortlet() {
+        // update iframe height to wrap entire document, this prevents from displaying additional scrollbar
+        var frame = document.getElementById("portlet-model-impacts");
+        var frameContent =  (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+        jQuery(frame).attr("scrolling", "no");
+        var contentDocument = jQuery(frameContent);
+              
+        
+        frame.height = frameContent.body.scrollHeight + 500;
+        jQuery(frame).css("overflow", "hidden");
+        jQuery(frame).css("border", "0");
+        
+        jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
+        frame.contentWindow.jQuery.history.init(function() {});
+
+        //alert("should show..." + jQuery("#plans-model-impacts-container").length);
+        
+        jQuery("#plans-model-impacts-container").css("left", "0").css("position", "normal");
+    }
+
+    
+    /**
+    Function responsible for attaching portletPlansModifyInnerPortlet to iframe's onload event 
+    */ 
+    jQuery(document).ready(function() {
+        var frame = jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
+    });
+
+    Liferay.Widget({ url: "/widget/web/guest/test/-/models_WAR_modelsportlet_INSTANCE_ULd7?modelId=623&viewType=embedded&page=impacts&scenarioId=<%= plan.getScenarioId() %>" ,  id: "portlet-model-impacts", scrolling: "no", FRAMEBORDER: 0});
 	
 </script>
-<%@ include file="/html/portlet/ext/models/modules/init.jspf" %>
-
-<div class="impactsTab">
-	<%@ include file="/html/portlet/ext/models/modules/impacts.jspf" %>	
 </div>
 <div class="clear"></div>
 

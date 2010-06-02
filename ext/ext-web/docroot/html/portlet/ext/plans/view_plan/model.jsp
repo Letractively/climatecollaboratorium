@@ -31,34 +31,46 @@
     boolean showAddPositions = false;
 %>
 
-<%@ include file="/html/portlet/ext/models/modules/init.jspf" %>
+<div id="plans-model-impacts-container" style="position: relative; left: -2000px; padding: 10px; padding-right: 20px;">
+<script src="/html/js/liferay/widget.js" type="text/javascript"></script>
 <script type="text/javascript">
-	// currently there is no dynamic association between plan and a scenario/model,
-	// static reference used, please refer to requirements doc
-	var modelId = '<%= plan.getPlanType().getModelId() %>';
-	
-	function <portlet:namespace />runModel(modelId, modelName) {
-		location.href = "<%=planModelURL%>&_models_<%=ModelConstants.MODEL_NAME%>="+modelName;
-      }
-	
-     ModelUtils.modelReady(function(type, model) {
-	if (type == "success") {
-		$("#modelName").html("<a href='javascript:;' onClick='<portlet:namespace />runModel(" + model.id +",\""+model.name+ "\")'>" + model.name + "</a>");
-	}
-});
 
+    // currently there is no dynamic association between plan and a scenario/model,
+    // static reference used, please refer to requirements doc
+    
+    var scenarioId = '<%= plan.getScenarioId() %>';
+
+    function portletModelImpactsInnerPortlet() {
+        // update iframe height to wrap entire document, this prevents from displaying additional scrollbar
+        var frame = document.getElementById("portlet-model-impacts");
+        var frameContent =  (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+        jQuery(frame).attr("scrolling", "no");
+        var contentDocument = jQuery(frameContent);
+              
+        
+        frame.height = frameContent.body.scrollHeight;
+        jQuery(frame).css("overflow", "hidden");
+        jQuery(frame).css("border", "0");
+        
+        jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
+        frame.contentWindow.jQuery.history.init(function() {});
+
+        //alert("should show..." + jQuery("#plans-model-impacts-container").length);
+        
+        jQuery("#plans-model-impacts-container").css("left", "0").css("position", "normal");
+    }
+
+    
+    /**
+    Function responsible for attaching portletPlansModifyInnerPortlet to iframe's onload event 
+    */ 
+    jQuery(document).ready(function() {
+        var frame = jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
+    });
+
+    Liferay.Widget({ url: "/widget/web/guest/test/-/models_WAR_modelsportlet_INSTANCE_ULd7?modelId=623&viewType=embedded&page=model" ,  id: "portlet-model-impacts", scrolling: "no", FRAMEBORDER: 0});
+    
 </script>
-<div class="model-information-container">
-	<div class="model-information">
-		<h2 class="selectedModelName">Selected Model: <strong class='blue' id='modelName'></strong> </h2>	
-		<div class="left floatLeft">  
-			<%@ include file="/html/portlet/ext/models/modules/model.jspf" %>
-		</div>
-		<div class="right floatRight">
-			<%@ include file="/html/portlet/ext/models/modules/positions.jspf" %>
-		</div>
-	</div>
-	
 </div>
 
 
