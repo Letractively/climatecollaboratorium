@@ -10,6 +10,8 @@ import com.ext.portlet.models.NoSuchModelInputItemException;
 import com.ext.portlet.models.model.ModelInputItem;
 import com.ext.portlet.models.service.base.ModelInputItemLocalServiceBaseImpl;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
 
@@ -21,11 +23,13 @@ public class ModelInputItemLocalServiceImpl
     extends ModelInputItemLocalServiceBaseImpl {
 
 
+    private static Log _log = LogFactoryUtil.getLog(ModelInputItemLocalServiceImpl.class);
+
     public List<ModelInputItem> getItemsForModel(Simulation sim) {
         try {
             return modelInputItemPersistence.findByModelId(sim.getId());
         } catch (SystemException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            _log.error("WTF now",e);
         }
         return Collections.emptyList();
 
@@ -34,10 +38,10 @@ public class ModelInputItemLocalServiceImpl
     public ModelInputItem getItemForMetaData(Long modelId, MetaData md) {
         try {
             return modelInputItemPersistence.findByModelIdModelInputId(modelId, md.getId());
+        } catch (NoSuchModelInputItemException e) {
+            //ignore
         } catch (SystemException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (Throwable e) {
-            e.printStackTrace();
+            _log.error("Unexpected error",e);
         }
         return null;
 
@@ -47,7 +51,7 @@ public class ModelInputItemLocalServiceImpl
         try {
             return modelInputItemPersistence.findByModelGroupId(groupid);
         } catch (SystemException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            _log.error("goddamn!",e);
         }
         return null;
 
