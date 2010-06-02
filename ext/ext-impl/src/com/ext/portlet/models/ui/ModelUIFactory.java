@@ -74,6 +74,7 @@ public class ModelUIFactory {
     List<ModelOutputDisplayItem> parseOutputs(Simulation s) {
         Map<String, ModelOutputDisplayItem> found = new HashMap<String, ModelOutputDisplayItem>();
         for (MetaData md : s.getOutputs()) {
+
             if (md.getVarContext() == MetaData.VarContext.INDEXED) {
                 ModelOutputIndexedDisplayItem item = null;
                 if (md.getVarType() == MetaData.VarType.FREE) {
@@ -93,6 +94,9 @@ public class ModelUIFactory {
                         _log.error(e);
                     }
                 } else if (md.getVarType() == MetaData.VarType.RANGE) {
+                    if (md.getLabels().length < 2) {
+                        _log.warn("Metadata "+md.getName()+" only has one element");
+                    }
                     item = (ModelOutputIndexedDisplayItem) found.get(md.getLabels()[1]);
                     if (item == null) {
                         try {

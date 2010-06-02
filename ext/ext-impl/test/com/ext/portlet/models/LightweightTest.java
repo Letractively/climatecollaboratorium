@@ -16,7 +16,7 @@ public class LightweightTest extends TestCase {
 
         ClientRepository repository = ClientRepository.instance("localhost", 8080);
         
-        Simulation sim = repository.getSimulation(623L);
+        Simulation sim = repository.getSimulation(760L);
         Map<Long, Object> inputs = new HashMap<Long, Object>();
         inputs.put(262L, "2050");
         inputs.put(248L, "1.26");

@@ -13,10 +13,7 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.Variable;
+import mit.simulation.climate.client.*;
 
 import java.util.*;
 
@@ -48,6 +45,8 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
     private static Log _log = LogFactoryUtil.getLog(ModelOutputIndexedDisplayItem.class);
 
     private ModelOutputChartOrder chartModel;
+
+    private Map<TupleStatus,ModelOutputErrorBehavior> errorBehaviors;
 
 
     /**
@@ -85,8 +84,8 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
         chartModel = ModelOutputChartOrderLocalServiceUtil.createModelOutputChartOrder(pk);
         chartModel.setModelId(getSimulation().getId());
         chartModel.setModelOutputLabel(name);
-        
-        ModelOutputChartOrderLocalServiceUtil.updateModelOutputChartOrder(chartModel);
+        chartModel.setModelChartIsVisible(true);
+        ModelOutputChartOrderLocalServiceUtil.addModelOutputChartOrder(chartModel);
         
 
     }
@@ -236,10 +235,47 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
     }
 
 
+    public void setErrorBehavior(TupleStatus status, ErrorPolicy policy, String msg) throws SystemException {
+      if (status == TupleStatus.OUT_OF_RANGE) {
+          chartModel.setModelIndexRangeMessage(msg);
+          chartModel.setModelIndexRangePolicy(policy!=null?policy.name():null);
+      } else if (status == TupleStatus.INVALID) {
+          chartModel.setModelIndexErrorMessage(msg);
+          chartModel.setModelIndexErrorPolicy(policy!=null?policy.name():null);
+
+      }
+        errorBehaviors.remove(status);
+        ModelOutputChartOrderLocalServiceUtil.updateModelOutputChartOrder(chartModel);
+    }
 
 
+    public ModelOutputErrorBehavior getErrorBehavior(TupleStatus status) {
+       ModelOutputErrorBehavior behavior = null;
+       if (!errorBehaviors.containsKey(status)) {
+         behavior = ModelOutputErrorBehavior.getBehavior(status,chartModel);
+         errorBehaviors.put(status,behavior);
+       }
+       return errorBehaviors.get(status);
+    }
 
+    public void setVisible(boolean b) throws SystemException {
+        chartModel.setModelChartIsVisible(b);
+        ModelOutputChartOrderLocalServiceUtil.updateModelOutputChartOrder(chartModel);
 
-   
+    }
+
+    @Override
+    public boolean isVisible() {
+        if (chartModel.getModelChartIsVisible() == null) {
+            try {
+                setVisible(true);
+            } catch(SystemException e) {
+                _log.error("Error setting chart visibility to default of true",e);
+            }
+        }
+
+        return chartModel.getModelChartIsVisible()==null || chartModel.getModelChartIsVisible();
+    }
+
 
 }

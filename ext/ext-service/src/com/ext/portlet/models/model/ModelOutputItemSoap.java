@@ -29,6 +29,11 @@ public class ModelOutputItemSoap implements Serializable {
     private Long _modelId;
     private Long _modelOutputItemId;
     private Integer _modelOutputItemOrder;
+    private String _modelItemRangePolicy;
+    private String _modelItemRangeMessage;
+    private String _modelItemErrorPolicy;
+    private String _modelItemErrorMessage;
+    private Boolean _modelItemIsVisible;
     private String _itemType;
     private Long _relatedOutputItem;
 
@@ -42,6 +47,11 @@ public class ModelOutputItemSoap implements Serializable {
         soapModel.setModelId(model.getModelId());
         soapModel.setModelOutputItemId(model.getModelOutputItemId());
         soapModel.setModelOutputItemOrder(model.getModelOutputItemOrder());
+        soapModel.setModelItemRangePolicy(model.getModelItemRangePolicy());
+        soapModel.setModelItemRangeMessage(model.getModelItemRangeMessage());
+        soapModel.setModelItemErrorPolicy(model.getModelItemErrorPolicy());
+        soapModel.setModelItemErrorMessage(model.getModelItemErrorMessage());
+        soapModel.setModelItemIsVisible(model.getModelItemIsVisible());
         soapModel.setItemType(model.getItemType());
         soapModel.setRelatedOutputItem(model.getRelatedOutputItem());
 
@@ -124,6 +134,46 @@ public class ModelOutputItemSoap implements Serializable {
 
     public void setModelOutputItemOrder(Integer modelOutputItemOrder) {
         _modelOutputItemOrder = modelOutputItemOrder;
+    }
+
+    public String getModelItemRangePolicy() {
+        return _modelItemRangePolicy;
+    }
+
+    public void setModelItemRangePolicy(String modelItemRangePolicy) {
+        _modelItemRangePolicy = modelItemRangePolicy;
+    }
+
+    public String getModelItemRangeMessage() {
+        return _modelItemRangeMessage;
+    }
+
+    public void setModelItemRangeMessage(String modelItemRangeMessage) {
+        _modelItemRangeMessage = modelItemRangeMessage;
+    }
+
+    public String getModelItemErrorPolicy() {
+        return _modelItemErrorPolicy;
+    }
+
+    public void setModelItemErrorPolicy(String modelItemErrorPolicy) {
+        _modelItemErrorPolicy = modelItemErrorPolicy;
+    }
+
+    public String getModelItemErrorMessage() {
+        return _modelItemErrorMessage;
+    }
+
+    public void setModelItemErrorMessage(String modelItemErrorMessage) {
+        _modelItemErrorMessage = modelItemErrorMessage;
+    }
+
+    public Boolean getModelItemIsVisible() {
+        return _modelItemIsVisible;
+    }
+
+    public void setModelItemIsVisible(Boolean modelItemIsVisible) {
+        _modelItemIsVisible = modelItemIsVisible;
     }
 
     public String getItemType() {

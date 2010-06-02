@@ -44,6 +44,26 @@ public interface ModelOutputItemModel extends BaseModel<ModelOutputItem> {
 
     public void setModelOutputItemOrder(Integer modelOutputItemOrder);
 
+    public String getModelItemRangePolicy();
+
+    public void setModelItemRangePolicy(String modelItemRangePolicy);
+
+    public String getModelItemRangeMessage();
+
+    public void setModelItemRangeMessage(String modelItemRangeMessage);
+
+    public String getModelItemErrorPolicy();
+
+    public void setModelItemErrorPolicy(String modelItemErrorPolicy);
+
+    public String getModelItemErrorMessage();
+
+    public void setModelItemErrorMessage(String modelItemErrorMessage);
+
+    public Boolean getModelItemIsVisible();
+
+    public void setModelItemIsVisible(Boolean modelItemIsVisible);
+
     public String getItemType();
 
     public void setItemType(String itemType);

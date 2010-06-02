@@ -116,6 +116,18 @@
         <!-- Sort order for this chart -->
         <column name="modelOutputChartOrder" type="Integer"/>
 
+        <column name="modelIndexRangePolicy" type="String"/>
+
+        <column name="modelIndexRangeMessage" type="String"/>
+
+        <column name="modelIndexErrorPolicy" type="String"/>
+
+        <column name="modelIndexErrorMessage" type="String"/>
+
+        <column name="modelChartIsVisible" type="Boolean"/>
+
+
+
         <finder name="ModelIdAndLabel" return-type="ModelOutputChartOrder">
             <finder-column name="modelId"/>
             <finder-column name="modelOutputLabel"/>
@@ -134,6 +146,16 @@
 
         <!-- id of the model item this entry is applied to -->
         <column name="modelOutputItemOrder" type="Integer"/>
+
+        <column name="modelItemRangePolicy" type="String"/>
+
+        <column name="modelItemRangeMessage" type="String"/>
+
+        <column name="modelItemErrorPolicy" type="String"/>
+
+        <column name="modelItemErrorMessage" type="String"/>
+
+        <column name="modelItemIsVisible" type="Boolean"/>
 
         <!-- Sort order for this chart -->
         <column name="itemType"  type="String"/>

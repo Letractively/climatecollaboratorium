@@ -7,6 +7,7 @@
 package com.ext.portlet.models.ui;
 
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.TupleStatus;
 
 /**
  * All model output display items (charts, scalar items, and series items) extend
@@ -23,6 +24,14 @@ public abstract class ModelOutputDisplayItem extends ModelDisplayItem {
     }
     
     public abstract ModelOutputDisplayItemType getDisplayItemType();
+
+
+    public abstract ModelOutputErrorBehavior getErrorBehavior(TupleStatus status);
+
+    public abstract boolean isVisible();
+
+   
+
     
     public ModelOutputChartType getChartType() {
         return ModelOutputChartType.FREE;

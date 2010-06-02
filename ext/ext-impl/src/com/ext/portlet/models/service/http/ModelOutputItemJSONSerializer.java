@@ -37,6 +37,11 @@ public class ModelOutputItemJSONSerializer {
         jsonObj.put("modelId", model.getModelId());
         jsonObj.put("modelOutputItemId", model.getModelOutputItemId());
         jsonObj.put("modelOutputItemOrder", model.getModelOutputItemOrder());
+        jsonObj.put("modelItemRangePolicy", model.getModelItemRangePolicy());
+        jsonObj.put("modelItemRangeMessage", model.getModelItemRangeMessage());
+        jsonObj.put("modelItemErrorPolicy", model.getModelItemErrorPolicy());
+        jsonObj.put("modelItemErrorMessage", model.getModelItemErrorMessage());
+        jsonObj.put("modelItemIsVisible", model.getModelItemIsVisible());
         jsonObj.put("itemType", model.getItemType());
         jsonObj.put("relatedOutputItem", model.getRelatedOutputItem());
 
