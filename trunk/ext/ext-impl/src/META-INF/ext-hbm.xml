@@ -208,6 +208,11 @@
 		<property name="modelId" />
 		<property name="modelOutputLabel" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="modelOutputChartOrder" />
+		<property name="modelIndexRangePolicy" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelIndexRangeMessage" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelIndexErrorPolicy" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelIndexErrorMessage" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelChartIsVisible" />
 	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelOutputItemImpl" table="ModelOutputItem">
 		<cache usage="read-write" />
@@ -217,6 +222,11 @@
 		<property name="modelId" />
 		<property name="modelOutputItemId" />
 		<property name="modelOutputItemOrder" />
+		<property name="modelItemRangePolicy" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelItemRangeMessage" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelItemErrorPolicy" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelItemErrorMessage" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelItemIsVisible" />
 		<property name="itemType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="relatedOutputItem" />
 	</class>

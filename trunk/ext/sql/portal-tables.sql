@@ -876,7 +876,12 @@ create table ModelOutputChartOrder (
 	modelOutputChartOrderPK LONG not null primary key,
 	modelId LONG,
 	modelOutputLabel VARCHAR(75) null,
-	modelOutputChartOrder INTEGER
+	modelOutputChartOrder INTEGER,
+	modelIndexRangePolicy VARCHAR(75) null,
+	modelIndexRangeMessage VARCHAR(75) null,
+	modelIndexErrorPolicy VARCHAR(75) null,
+	modelIndexErrorMessage VARCHAR(75) null,
+	modelChartIsVisible BOOLEAN
 );
 
 create table ModelOutputItem (
@@ -884,6 +889,11 @@ create table ModelOutputItem (
 	modelId LONG,
 	modelOutputItemId LONG,
 	modelOutputItemOrder INTEGER,
+	modelItemRangePolicy VARCHAR(75) null,
+	modelItemRangeMessage VARCHAR(75) null,
+	modelItemErrorPolicy VARCHAR(75) null,
+	modelItemErrorMessage VARCHAR(75) null,
+	modelItemIsVisible BOOLEAN,
 	itemType VARCHAR(75) null,
 	relatedOutputItem LONG
 );

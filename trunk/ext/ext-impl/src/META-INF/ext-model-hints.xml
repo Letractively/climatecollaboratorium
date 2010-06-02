@@ -153,12 +153,22 @@
 		<field name="modelId" type="Long" />
 		<field name="modelOutputLabel" type="String" />
 		<field name="modelOutputChartOrder" type="Integer" />
+		<field name="modelIndexRangePolicy" type="String" />
+		<field name="modelIndexRangeMessage" type="String" />
+		<field name="modelIndexErrorPolicy" type="String" />
+		<field name="modelIndexErrorMessage" type="String" />
+		<field name="modelChartIsVisible" type="Boolean" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelOutputItem">
 		<field name="modelOutputItemModifierPK" type="Long" />
 		<field name="modelId" type="Long" />
 		<field name="modelOutputItemId" type="Long" />
 		<field name="modelOutputItemOrder" type="Integer" />
+		<field name="modelItemRangePolicy" type="String" />
+		<field name="modelItemRangeMessage" type="String" />
+		<field name="modelItemErrorPolicy" type="String" />
+		<field name="modelItemErrorMessage" type="String" />
+		<field name="modelItemIsVisible" type="Boolean" />
 		<field name="itemType" type="String" />
 		<field name="relatedOutputItem" type="Long" />
 	</model>
