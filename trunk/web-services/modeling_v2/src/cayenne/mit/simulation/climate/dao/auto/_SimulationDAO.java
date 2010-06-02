@@ -19,6 +19,7 @@ import mit.simulation.climate.dao.SimulationDAO;
 public abstract class _SimulationDAO extends CayenneDataObject {
 
     public static final String COMPOSITE_DESCRIPTOR_PROPERTY = "compositeDescriptor";
+    public static final String CONFIGURED_PROPERTY = "configured";
     public static final String CREATION_PROPERTY = "creation";
     public static final String DESCRIPTION_PROPERTY = "description";
     public static final String ID_PROPERTY = "id";
@@ -40,6 +41,13 @@ public abstract class _SimulationDAO extends CayenneDataObject {
     }
     public String getCompositeDescriptor() {
         return (String)readProperty("compositeDescriptor");
+    }
+
+    public void setConfigured(Boolean configured) {
+        writeProperty("configured", configured);
+    }
+    public Boolean getConfigured() {
+        return (Boolean)readProperty("configured");
     }
 
     public void setCreation(Date creation) {
