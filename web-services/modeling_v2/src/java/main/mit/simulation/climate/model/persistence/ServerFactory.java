@@ -5,6 +5,7 @@ import mit.simulation.climate.dao.ScenarioDAO;
 import mit.simulation.climate.dao.SimulationDAO;
 import mit.simulation.climate.dao.TupleDAO;
 import mit.simulation.climate.dao.VariableDAO;
+import mit.simulation.climate.model.CompositeSimulation;
 import mit.simulation.climate.model.MetaData;
 import mit.simulation.climate.model.Simulation;
 
@@ -40,9 +41,9 @@ public class ServerFactory {
 
     public Simulation get(SimulationDAO dao) {
         if (dao == null) return null;
-        if (dao.getToChildren() == null || dao.getToChildren().size() ==0) {
-            return new ServerSimulation(dao);
-        } else return new CompositeServerSimulation(dao);
+        if (dao.getCompositeDescriptor() != null) {
+            return new CompositeServerSimulation(dao);
+        } else return new ServerSimulation(dao);
     }
 
     public ServerTuple get(TupleDAO dao) {

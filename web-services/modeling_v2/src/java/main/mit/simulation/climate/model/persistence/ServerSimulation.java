@@ -71,6 +71,7 @@ public class ServerSimulation extends ServerObject<SimulationDAO> implements
     @Override
     public void addInput(MetaData md) {
         dao.addToInputs(((ServerMetaData) md).getDataObject());
+        
     }
 
     @Override
