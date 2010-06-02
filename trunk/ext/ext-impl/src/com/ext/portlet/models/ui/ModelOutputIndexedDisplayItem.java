@@ -46,7 +46,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
 
     private ModelOutputChartOrder chartModel;
 
-    private Map<TupleStatus,ModelOutputErrorBehavior> errorBehaviors;
+    private Map<TupleStatus,ModelOutputErrorBehavior> errorBehaviors = new HashMap<TupleStatus,ModelOutputErrorBehavior>();
 
 
     /**
