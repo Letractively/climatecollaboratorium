@@ -6,12 +6,18 @@
 
 package com.ext.portlet.plans.attributes;
 
+import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ModelingServiceClient;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PropsUtil;
+import mit.simulation.climate.client.MetaData;
+import mit.simulation.climate.client.Scenario;
+import mit.simulation.climate.client.Simulation;
 
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -46,7 +52,7 @@ public class AttributeFunctionFactory {
         return new AttributeFunction<T>() {
             public T process(String scenarioId) throws SystemException {
                 List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
-                data = getData(scenarioId, variableId);
+                data = getDataWithInternalName(scenarioId, variableId);
                 T result = null;
                 for (ModelingServiceClient.IndexedEntry<String, String> ent : data) {
                     T candidate = null;
@@ -69,7 +75,7 @@ public class AttributeFunctionFactory {
         return new AttributeFunction<T>() {
             public T process(String scenarioId) throws SystemException {
                 List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
-                data = getData(scenarioId, variableId);
+                data = getDataWithInternalName(scenarioId, variableId);
 
                 T result = null;
                 for (ModelingServiceClient.IndexedEntry<String, String> ent : data) {
@@ -93,7 +99,7 @@ public class AttributeFunctionFactory {
         return new AttributeFunction<T>() {
             public T process(String scenarioId) throws SystemException {
                 List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
-                data = getData(scenarioId, variableId);
+                data = getDataWithInternalName(scenarioId, variableId);
 
                 String val = data.get(0).getValue();
                 try {
@@ -112,7 +118,7 @@ public class AttributeFunctionFactory {
             public T process(String scenarioId) throws SystemException {
                 List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
 
-                data = getData(scenarioId, variableId);
+                data = getDataWithInternalName(scenarioId, variableId);
 
                 String val = data.get(data.size() - 1).getValue();
                 try {
@@ -128,6 +134,38 @@ public class AttributeFunctionFactory {
 
     public List<ModelingServiceClient.IndexedEntry<String, String>> getData(String scenarioId, String variableId) throws SystemException {
         return client.extractIndexedVariableData(client.readScenario(scenarioId), variableId);
+
+    }
+
+    public List<ModelingServiceClient.IndexedEntry<String, String>> getDataWithInternalName(String scenarioId, String name) throws SystemException {
+
+        Scenario s = null;
+        try {
+            s = CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+        } catch (IOException e) {
+            throw new SystemException(e);
+        }
+        Simulation sim = s.getSimulation();
+        String variableid = null;
+
+        for (MetaData md:sim.getInputs()) {
+            if (name.equals(md.getInternalName())) {
+                variableid = ""+md.getId();
+                break;
+            }
+        }
+
+
+        if (variableid == null) {
+            for (MetaData md:sim.getOutputs()) {
+                if (name.equals(md.getInternalName())) {
+                variableid = ""+md.getId();
+                break;
+            }
+            }
+        }
+
+        return client.extractIndexedVariableData(client.readScenario(scenarioId), variableid);
 
     }
 

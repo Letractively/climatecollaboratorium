@@ -50,8 +50,51 @@ public class PlanConstants {
     }
 
 	
-	public static enum Attribute {
-		CO2(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("241", Double.class), false, new MinMaxFilter() {
+//	public static enum Attribute {
+//		CO2(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("241", Double.class), false, new MinMaxFilter() {
+//
+//			@Override
+//			public String getMax(PlanAttributeFilter filter) {
+//                return String.valueOf(filter.getMax() != null ? filter.getMax() : Integer.MAX_VALUE);
+//			}
+//			@Override
+//			public String getMin(PlanAttributeFilter filter) {
+//				return String.valueOf(filter.getMin() != null ? filter.getMin() : Integer.MIN_VALUE);
+//			}
+//
+//		}),
+//		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("263", Double.class), true, null),
+//		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"2955", "2956", "2957"}, Double.class),
+//		        true, new MoreThanFilter() {
+//			@Override
+//			public String getValue(PlanAttributeFilter filter) {
+//                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
+//			}
+//
+//		}),
+//		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"2955", "2956", "2957"}, Double.class),
+//		        true, new LessThanFilter() {
+//			public String getValue(PlanAttributeFilter filter) {
+//                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
+//			}
+//		}),
+//		EMISSIONS_DEVELOPED(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("242", Double.class),true, null),
+//		EMISSIONS_DEVELOPING_A(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("245", Double.class), true, null),
+//		EMISSIONS_DEVELOPING_B(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("246", Double.class), true, null),
+//		SEA_LEVEL(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("2958", Double.class), true, null),
+//		MAX_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("2954", Double.class), true, new LessThanFilter() {
+//			public String getValue(PlanAttributeFilter filter) {
+//                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
+//			}
+//		}),
+//		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("2953", Double.class), true, new MoreThanFilter() {
+//			public String getValue(PlanAttributeFilter filter) {
+//                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
+//			}
+//		});
+
+        public static enum Attribute {
+		CO2(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("AtmosphericCO2Concentration", Double.class), false, new MinMaxFilter() {
 
 			@Override
 			public String getMax(PlanAttributeFilter filter) {
@@ -61,33 +104,33 @@ public class PlanConstants {
 			public String getMin(PlanAttributeFilter filter) {
 				return String.valueOf(filter.getMin() != null ? filter.getMin() : Integer.MIN_VALUE);
 			}
-			
+
 		}),
-		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("263", Double.class), true, null),
-		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"2955", "2956", "2957"}, Double.class), 
+		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("GlobalTempChange", Double.class), true, null),
+		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output", "_Change_in_GDP_vs__baseline_minicam_output"}, Double.class),
 		        true, new MoreThanFilter() {
 			@Override
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
 			}
-			
+
 		}),
-		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"2955", "2956", "2957"}, Double.class), 
+		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output", "_Change_in_GDP_vs__baseline_minicam_output"}, Double.class),
 		        true, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
 		}),
-		EMISSIONS_DEVELOPED(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("242", Double.class),true, null),
-		EMISSIONS_DEVELOPING_A(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("245", Double.class), true, null),
-		EMISSIONS_DEVELOPING_B(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("246", Double.class), true, null),
-		SEA_LEVEL(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("2958", Double.class), true, null),
-		MAX_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("2954", Double.class), true, new LessThanFilter() {
+		EMISSIONS_DEVELOPED(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopedFossilFuelEmissions", Double.class),true, null),
+		EMISSIONS_DEVELOPING_A(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingAFossilFuelEmissions", Double.class), true, null),
+		EMISSIONS_DEVELOPING_B(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingBFossilFuelEmissions", Double.class), true, null),
+		SEA_LEVEL(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("Sea_Level_Rise_output", Double.class), true, null),
+		MAX_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange95_output", Double.class), true, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
 		}),
-		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("2953", Double.class), true, new MoreThanFilter() {
+		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange5_output", Double.class), true, new MoreThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
 			}
