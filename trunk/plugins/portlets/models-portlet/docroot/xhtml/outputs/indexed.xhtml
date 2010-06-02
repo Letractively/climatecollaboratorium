@@ -12,6 +12,8 @@
         <a class="folder" href="javascript:;" tabindex="-1"><span class="hidden">Folder/unFolder</span></a>
     </h3>
     <div>
+        <h1> #{output}</h1>
+        <h1>Index: #{output.indexVariable}</h1>
         <input type="hidden" class="chartType" value="#{output.chartType}" />
         <input type="hidden" class="chartTitle" value="#{output.name}" />
         <ice:panelSeries value="#{output.series}" var="serie">

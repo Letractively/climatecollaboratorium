@@ -60,6 +60,17 @@ public class SimulationsHelper {
         return simulationsById.get(id);
     }
     
+    public Scenario getScenarioById(long id) {
+        Scenario scenario = null;
+        try {
+            scenario = repository.getScenario(id);
+        } catch (Throwable e) {
+            // ignore
+            e.printStackTrace();
+        }
+        return scenario;
+    }
+    
     public ClientRepository getRepository() {
         return repository;
     }
@@ -67,5 +78,10 @@ public class SimulationsHelper {
 
     public Scenario runSimulation(Simulation sim, Map<Long, Object> inputs) throws IOException, ScenarioNotFoundException, ModelNotFoundException {
         return repository.runModel(sim, inputs, 10144L, false);
+    }
+
+
+    public void saveScenario(Scenario scenario) throws ScenarioNotFoundException, IOException {
+        repository.saveScenario(scenario);
     }
 }

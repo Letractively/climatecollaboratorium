@@ -1,10 +1,5 @@
 package org.climatecollaboratorium.models;
 
-import com.ext.portlet.models.ui.ModelDisplay;
-import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
-import com.ext.portlet.models.ui.ModelUIFactory;
-import com.liferay.portal.kernel.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +13,6 @@ import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.comm.ModelNotFoundException;
 import mit.simulation.climate.client.comm.ScenarioNotFoundException;
-
 import net.sf.json.JSONArray;
 
 import org.apache.commons.beanutils.DynaBean;
@@ -29,6 +23,9 @@ import org.climatecollaboratorium.models.event.UpdateInputWidgetsHandler;
 import org.climatecollaboratorium.models.event.UpdateOutputsOrderHandler;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 
+import com.ext.portlet.models.ui.ModelDisplay;
+import com.ext.portlet.models.ui.ModelUIFactory;
+
 public class SimulationBean implements JSEventHandler {
 
     private Simulation simulation;
@@ -37,10 +34,20 @@ public class SimulationBean implements JSEventHandler {
     private String description;
     private JSEventManager jsEventManager;
     private ModelDisplay display;
+    private boolean embeddedEditing;
     
+    public boolean isEmbeddedEditing() {
+        return embeddedEditing;
+    }
+
+    public void setEmbeddedEditing(boolean embeddedEditing) {
+        this.embeddedEditing = embeddedEditing;
+    }
+
     private List<SimulationChangedListener> simulationChangedListeners = new ArrayList<SimulationChangedListener>();
     
     private Map<Long, String> inputsValues = new HashMap<Long, String>();
+    private boolean scenarioSaved;
 
     public SimulationBean() {
     }
@@ -64,7 +71,6 @@ public class SimulationBean implements JSEventHandler {
                 return;
             }
             
-            System.out.println("simulation change " + (simulation == null ? "null" : simulation.getId()) + " " + (this.simulation == null ? "null" : this.simulation.getId()));
             this.simulation = simulation;
             scenario = null;
             inputsValues.clear();
@@ -75,6 +81,37 @@ public class SimulationBean implements JSEventHandler {
         
             JSEvent event = new JSEvent();
             event.setId("renderModelInputs");
+            event.setTimestamp(System.currentTimeMillis());
+            event.setPayload(simulation.getInputs());
+
+            jsEventManager.sendEvent(event);
+        
+            for (SimulationChangedListener listener: simulationChangedListeners) {
+                listener.onSimulationChanged(simulation, display);
+            }
+        }
+    }
+    
+    public void setScenario(Scenario scenario) {
+        if (this.scenario != scenario) {
+            if (scenario == null) {
+                this.simulation = null;
+                this.scenario = null;
+                return;
+            }
+            
+            this.scenario = scenario;
+            this.simulation = scenario.getSimulation();
+            scenarioSaved = false;
+            
+            inputsValues.clear();
+            editing = false;
+            
+            
+            display = ModelUIFactory.getInstance().getDisplay(scenario);
+        
+            JSEvent event = new JSEvent();
+            event.setId("modelRunSuccessful");
             event.setTimestamp(System.currentTimeMillis());
             event.setPayload(simulation.getInputs());
 
@@ -173,6 +210,7 @@ public class SimulationBean implements JSEventHandler {
             event.setPayload(simulation.getInputs());
 
             jsEventManager.sendEvent(event);
+            scenarioSaved = false;
             
             //i.getSeriesVariables().get(0).getValue().get(0);
             
@@ -191,5 +229,23 @@ public class SimulationBean implements JSEventHandler {
     
     public Map<Long, String> getInputValues() {
         return inputsValues;
+    }
+    
+    public void editActions(ActionEvent e) {
+        embeddedEditing = !embeddedEditing;
+        scenarioSaved = false;
+    }
+    
+    public void saveScenario(ActionEvent e) throws ScenarioNotFoundException, IOException {
+        SimulationsHelper.getInstance().saveScenario(scenario);
+        scenarioSaved = true;
+    }
+
+    public boolean isScenarioSaved() {
+        return scenarioSaved;
+    }
+
+    public void setScenarioSaved(boolean scenarioSaved) {
+        this.scenarioSaved = scenarioSaved;
     }
 }
