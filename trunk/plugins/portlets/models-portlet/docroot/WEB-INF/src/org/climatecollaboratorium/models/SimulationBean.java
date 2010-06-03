@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.faces.event.ActionEvent;
 
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.Variable;
 import mit.simulation.climate.client.comm.ModelNotFoundException;
 import mit.simulation.climate.client.comm.ScenarioNotFoundException;
 import net.sf.json.JSONArray;
@@ -25,6 +27,9 @@ import org.climatecollaboratorium.models.support.SimulationsHelper;
 
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelUIFactory;
+import com.liferay.portal.SystemException;
+import com.liferay.portal.util.PropsUtil;
+import com.liferay.util.portlet.PortletProps;
 
 public class SimulationBean implements JSEventHandler {
 
@@ -35,7 +40,7 @@ public class SimulationBean implements JSEventHandler {
     private JSEventManager jsEventManager;
     private ModelDisplay display;
     private boolean embeddedEditing;
-    
+
     public boolean isEmbeddedEditing() {
         return embeddedEditing;
     }
@@ -45,7 +50,7 @@ public class SimulationBean implements JSEventHandler {
     }
 
     private List<SimulationChangedListener> simulationChangedListeners = new ArrayList<SimulationChangedListener>();
-    
+
     private Map<Long, String> inputsValues = new HashMap<Long, String>();
     private boolean scenarioSaved;
 
@@ -55,71 +60,67 @@ public class SimulationBean implements JSEventHandler {
     public Simulation getSimulation() {
         return simulation;
     }
-    
+
     public Scenario getScenario() {
         return scenario;
     }
-    
+
     public ModelDisplay getDisplay() {
         return display;
     }
 
     public void setSimulation(Simulation simulation) {
-        if (this.simulation != simulation) {
-            if (simulation == null) {
-                this.simulation = null;
-                return;
-            }
-            
-            this.simulation = simulation;
-            scenario = null;
-            inputsValues.clear();
-            editing = false;
-            
-            
-            display = ModelUIFactory.getInstance().getDisplay(simulation);
-        
-            JSEvent event = new JSEvent();
-            event.setId("renderModelInputs");
-            event.setTimestamp(System.currentTimeMillis());
-            event.setPayload(simulation.getInputs());
+        if (simulation == null) {
+            this.simulation = null;
+            return;
+        }
 
-            jsEventManager.sendEvent(event);
-        
-            for (SimulationChangedListener listener: simulationChangedListeners) {
-                listener.onSimulationChanged(simulation, display);
-            }
+        this.simulation = simulation;
+        scenario = null;
+        inputsValues.clear();
+        editing = false;
+
+        display = ModelUIFactory.getInstance().getDisplay(simulation);
+
+        JSEvent event = new JSEvent();
+        event.setId("renderModelInputs");
+        event.setTimestamp(System.currentTimeMillis());
+        event.setPayload(simulation.getInputs());
+
+        jsEventManager.sendEvent(event);
+
+        for (SimulationChangedListener listener : simulationChangedListeners) {
+            listener.onSimulationChanged(simulation, display);
         }
     }
-    
-    public void setScenario(Scenario scenario) {
-        if (this.scenario != scenario) {
-            if (scenario == null) {
-                this.simulation = null;
-                this.scenario = null;
-                return;
-            }
-            
-            this.scenario = scenario;
-            this.simulation = scenario.getSimulation();
-            scenarioSaved = false;
-            
-            inputsValues.clear();
-            editing = false;
-            
-            
-            display = ModelUIFactory.getInstance().getDisplay(scenario);
-        
-            JSEvent event = new JSEvent();
-            event.setId("modelRunSuccessful");
-            event.setTimestamp(System.currentTimeMillis());
-            event.setPayload(simulation.getInputs());
 
-            jsEventManager.sendEvent(event);
-        
-            for (SimulationChangedListener listener: simulationChangedListeners) {
-                listener.onSimulationChanged(simulation, display);
-            }
+    public void setScenario(Scenario scenario) {
+        if (scenario == null) {
+            this.simulation = null;
+            this.scenario = null;
+            return;
+        }
+
+        this.scenario = scenario;
+        this.simulation = scenario.getSimulation();
+        scenarioSaved = false;
+
+        inputsValues.clear();
+        editing = false;
+
+        display = ModelUIFactory.getInstance().getDisplay(scenario);
+        for (Variable var: scenario.getInputSet()) {
+            inputsValues.put(var.getMetaData().getId(), var.getValue().get(0).getValues()[0]);
+        }
+        JSEvent event = new JSEvent();
+        event.setId("modelRunSuccessful");
+        event.setTimestamp(System.currentTimeMillis());
+        event.setPayload(simulation.getInputs());
+
+        jsEventManager.sendEvent(event);
+
+        for (SimulationChangedListener listener : simulationChangedListeners) {
+            listener.onSimulationChanged(simulation, display);
         }
     }
 
@@ -139,7 +140,7 @@ public class SimulationBean implements JSEventHandler {
         this.description = description;
     }
 
-    public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException {
+    public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException, SystemException {
         simulation.setDescription(description);
         SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
         editing = false;
@@ -164,46 +165,38 @@ public class SimulationBean implements JSEventHandler {
         this.jsEventManager = jsEventManager;
         jsEventManager.addJsEventHandler(this, "simulationInputsDefined");
         jsEventManager.addJsEventHandler(this, "modelRun");
-        
-        
+
         UpdateOutputsOrderHandler outputsOrderHandler = new UpdateOutputsOrderHandler();
         jsEventManager.addJsEventHandler(outputsOrderHandler, "updateOutputsOrder");
-        
 
         UpdateInputWidgetsHandler updateInputsWidgetsHandler = new UpdateInputWidgetsHandler();
         simulationChangedListeners.add(updateInputsWidgetsHandler);
-        
+
         jsEventManager.addJsEventHandler(updateInputsWidgetsHandler, "updateInputWidgets");
-        
-        
-        
-        //simulationChangedListeners.add(e)
+
+        // simulationChangedListeners.add(e)
     }
 
     public void onJsEvent(JSEvent event) {
-        //JSONObject.fromevent.getPayload();
-        
-        System.out.println(event.getPayload().getClass().getName());
+        // JSONObject.fromevent.getPayload();
+
         DynaBean bean = (DynaBean) event.getPayload();
         Map<Long, Object> inputs = new HashMap<Long, Object>();
-        for (MetaData md: simulation.getInputs()) {
+        for (MetaData md : simulation.getInputs()) {
             Object value = bean.get(md.getId().toString());
             inputs.put(md.getId(), value);
             inputsValues.put(md.getId(), value.toString());
         }
         try {
-            
-            System.out.println("Running the simulation");
+
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
             
-            System.out.println("Simulation run was successful, scenario id: " + scenario.getId());
+            for (Variable var: scenario.getInputSet()) {
+                inputsValues.put(var.getId(), var.getValue().get(0).getValues()[0]);
+            }
+
 
             display = ModelUIFactory.getInstance().getDisplay(scenario);
-            //outputDisplay = display;
-            
-            System.out.println("On js event: " + event);
-           // SimulationsHelper.getInstance().runSimulation(simulation, inputs);
-            
 
             event.setId("modelRunSuccessful");
             event.setTimestamp(System.currentTimeMillis());
@@ -211,9 +204,8 @@ public class SimulationBean implements JSEventHandler {
 
             jsEventManager.sendEvent(event);
             scenarioSaved = false;
-            
-            //i.getSeriesVariables().get(0).getValue().get(0);
-            
+
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ScenarioNotFoundException e) {
@@ -221,24 +213,32 @@ public class SimulationBean implements JSEventHandler {
         } catch (ModelNotFoundException e) {
             e.printStackTrace();
         } catch (Throwable e) {
-            System.out.println("This shouldn't happen");
             // FIXME
             e.printStackTrace();
         }
     }
-    
+
     public Map<Long, String> getInputValues() {
         return inputsValues;
     }
-    
+
     public void editActions(ActionEvent e) {
         embeddedEditing = !embeddedEditing;
         scenarioSaved = false;
     }
-    
-    public void saveScenario(ActionEvent e) throws ScenarioNotFoundException, IOException {
+
+    public void saveScenario(ActionEvent e) throws ScenarioNotFoundException, IOException, SystemException {
         SimulationsHelper.getInstance().saveScenario(scenario);
-        scenarioSaved = true;
+
+        JSEvent event = new JSEvent();
+
+        event.setId("modelSaved");
+        event.setTimestamp(System.currentTimeMillis());
+        event.setPayload("");
+
+        jsEventManager.sendEvent(event);
+        embeddedEditing = false;
+
     }
 
     public boolean isScenarioSaved() {

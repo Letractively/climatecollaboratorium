@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ext.portlet.models.CollaboratoriumModelingService;
+import com.liferay.portal.SystemException;
+
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.comm.ClientRepository;
@@ -22,8 +25,8 @@ public class SimulationsHelper {
     private List<SimulationDecorator> simulations;
     private Map<Long, SimulationDecorator> simulationsById = new HashMap<Long, SimulationDecorator>();
     
-    private SimulationsHelper() throws IOException {
-        repository = ClientRepository.instance("localhost", 8080);
+    private SimulationsHelper() throws IOException, SystemException {
+        repository = CollaboratoriumModelingService.repository();
         
         //repository.
         simulations = new ArrayList<SimulationDecorator>();
@@ -45,7 +48,7 @@ public class SimulationsHelper {
     }
     
     
-    public static synchronized SimulationsHelper getInstance() throws IOException {
+    public static synchronized SimulationsHelper getInstance() throws IOException, SystemException {
         if (instance == null) {
             instance = new SimulationsHelper();
         }
@@ -61,6 +64,9 @@ public class SimulationsHelper {
     }
     
     public Scenario getScenarioById(long id) {
+        if (id <= 0) {
+            return null;
+        }
         Scenario scenario = null;
         try {
             scenario = repository.getScenario(id);
