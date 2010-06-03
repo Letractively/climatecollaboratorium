@@ -652,7 +652,7 @@ public class SimulationResourceTest {
         SimulationDAO simulation = createSimulation("testEditSimulation_Accuracy");
         String newUrl = "http://localhost:8080/excel_wrapper-servlet/rest/wrapper/1001";
         resource.editSimulation(request, simulation.getId() + "", "new name", "new description", EntityState.PUBLIC
-            + "", newUrl);
+            + "", newUrl,null);
         Simulation updatedSimulation = repository.findSimulation(simulation.getId() + "");
         Assert.assertEquals("new name", updatedSimulation.getName());
         Assert.assertEquals("new description", updatedSimulation.getDescription());
@@ -675,7 +675,7 @@ public class SimulationResourceTest {
             SimulationDAO simulation = createSimulation("testEditSimulation_Failure1");
             String newUrl = "http://localhost:8080/excel_wrapper-servlet/rest/wrapper/1001";
             resource.editSimulation(request, simulation.getId() + "", LONG_NAME, "new description",
-                EntityState.PUBLIC + "", newUrl);
+                EntityState.PUBLIC + "", newUrl,null);
             Assert.fail("SimulationException should be thrown.");
         } catch (SimulationException e) {
             // pass

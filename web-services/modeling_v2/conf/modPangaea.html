@@ -6,12 +6,12 @@
 	$(function(){
 		//onload function
 		$("#runButton").click(function(){
-			//var idValue = $("#idBox").val();
-			//if(idValue == "") {
-			//	alert("Please enter an id value!");
-			//	return;
-			//}
-			$("#createSimulation").attr("action","http://localhost:8080/simulation-servlet/rest/createsim/240");
+			var idValue = $("#idBox").val();
+			if(idValue == "") {
+				alert("Please enter an id value!");
+				return;
+			}
+			$("#createSimulation").attr("action","http://localhost:8080/simulation-servlet/rest/createsim/"+idValue);
 			$("#createSimulation").submit();
 		});
 
@@ -28,6 +28,7 @@ font-size:14px;
 	<body>
 		<h1>Add Radiative Forcing to Pangaea</h1>
 
+        Simulation Id:<input id="idBox" type="text" name="id" value="720"  /> <br/>
 
 
 		<form id="createSimulation" name="createSimulation"

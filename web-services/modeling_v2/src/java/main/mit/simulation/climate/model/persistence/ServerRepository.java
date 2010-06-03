@@ -379,7 +379,15 @@ public class ServerRepository {
     public void deleteSimulation(long id) {
         SimulationDAO simulation = findDAO(SimulationDAO.class, id);
         if (simulation != null) {
+            //do this in steps to avoid infinite loop due to cyclical cascading
+
+            for (ScenarioDAO scenario:simulation.getSimulationToScenario()) {
+                getDataContext().deleteObject(scenario);
+                commit();
+            }
+
             getDataContext().deleteObject(simulation);
+            commit();
         }
     }
 
