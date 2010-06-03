@@ -3,6 +3,7 @@
     <property file="${basedir}/build.properties"/>
 
     <!-- directory set up -->
+    <property  name="htmldir" value="${basedir}/html"/>
     <property name="srcdir" value="${basedir}/src" />
     <property name="libdir" value="${basedir}/lib" />
     <property name="configdir" value="${basedir}/conf" />
@@ -103,6 +104,7 @@
            webxml="${configdir}/WEB-INF/web.xml">
         <lib dir="${build_webdir_lib}" />
         <classes dir="${build_classdir}"/>
+          <fileset  dir="${htmldir}"/>
       </war>    
     </target>
     
