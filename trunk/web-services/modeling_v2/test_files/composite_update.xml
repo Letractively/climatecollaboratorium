@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
     <inputs>
-        <simulation id="240"/>
+        <simulation id="720"/>
     </inputs>
     <step>
-        <simulation id="240"/>
+        <simulation id="720"/>
     </step>
     <step>
         <simulation id="586">
-            <input internalname="Temperature" map="all" source="240.GlobalTempChange"/>
+            <input internalname="Temperature" map="all" source="720.GlobalTempChange"/>
         </simulation>
         <simulation id="587">
-            <input internalname="Temperature" map="all" source="240.GlobalTempChange"/>
+            <input internalname="Temperature" map="all" source="720.GlobalTempChange"/>
         </simulation>
         <simulation id="583">
-            <input internalname="Atmospheric_CO2_concentration" map="all" source="240.AtmosphericCO2Concentration"/>
-            <input internalname="Time" interval="10" map="some" source="240.Year"/>
+            <input internalname="Atmospheric_CO2_concentration" map="all" source="720.AtmosphericCO2Concentration"/>
+            <input internalname="Time" interval="10" map="some" source="720.Year"/>
         </simulation>
         <simulation id="584">
-            <input internalname="Atmospheric_CO2_concentration" map="all" source="240.AtmosphericCO2Concentration"/>
-            <input internalname="Time" interval="10" map="some" source="240.Year"/>
+            <input internalname="Atmospheric_CO2_concentration" map="all" source="720.AtmosphericCO2Concentration"/>
+            <input internalname="Time" interval="10" map="some" source="720.Year"/>
         </simulation>
-        <simulation id="585">
-            <input internalname="Atmospheric_CO2_concentration" map="all" source="240.AtmosphericCO2Concentration"/>
-            <input internalname="Time" interval="10" map="some" source="240.Year"/>
-        </simulation>
-        <simulation id="720">
-            <input internalname="Radiative_Forcing_input1" map="all" source="240.RadiativeForcing"/>
-            <input internalname="Time_input0" interval="10" map="some" source="240.Year"/>
+        <simulation id="740">
+            <input internalname="Radiative_Forcing_input1" map="all" source="720.RadiativeForcing"/>
+            <input internalname="Time_input0" interval="10" map="some" source="720.Year"/>
         </simulation>
         <simulation id="588">
-            <input internalname="Temperature_Change" map="max" source="240.GlobalTempChange"/>
+            <input internalname="Temperature_Change" map="max" source="720.GlobalTempChange"/>
         </simulation>
         <simulation id="681">
-            <input internalname="Temperature_Change" map="max" source="240.GlobalTempChange"/>
+            <input internalname="Temperature_Change" map="max" source="720.GlobalTempChange"/>
         </simulation>
         <simulation accumulate="true" id="621">
-            <input internalname="Temperature" map="all" source="240.GlobalTempChange"/>
+            <input internalname="Temperature" map="all" source="720.GlobalTempChange"/>
         </simulation>
     </step>
     <outputs>
-        <simulation id="240"/>
+        <simulation id="720"/>
         <simulation id="621"/>
         <simulation id="583"/>
         <simulation id="584"/>
@@ -49,6 +45,6 @@
         <simulation id="587"/>
         <simulation id="681"/>
         <simulation id="588"/>
-        <simulation id="720"/>
+        <simulation id="740"/>
     </outputs>
 </root>

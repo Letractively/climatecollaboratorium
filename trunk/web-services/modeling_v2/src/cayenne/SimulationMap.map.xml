@@ -192,19 +192,19 @@
 	</db-relationship>
 	<obj-relationship name="toSimChildren" source="CompositeMap" target="Simulation" db-relationship-path="toSimChildren"/>
 	<obj-relationship name="toSimParent" source="CompositeMap" target="Simulation" db-relationship-path="toSimParent"/>
-	<obj-relationship name="metaToDefaults" source="MetaData" target="MetaDataDefaults" db-relationship-path="toDefaults"/>
+	<obj-relationship name="metaToDefaults" source="MetaData" target="MetaDataDefaults" deleteRule="Cascade" db-relationship-path="toDefaults"/>
 	<obj-relationship name="metaToVariable" source="MetaData" target="Variable" db-relationship-path="metaToVariable"/>
-	<obj-relationship name="toIndexed" source="MetaData" target="MetaData" db-relationship-path="toIndexed"/>
-	<obj-relationship name="toIndexingId" source="MetaData" target="MetaData" db-relationship-path="toIndex"/>
+	<obj-relationship name="toIndexed" source="MetaData" target="MetaData" deleteRule="Nullify" db-relationship-path="toIndexed"/>
+	<obj-relationship name="toIndexingId" source="MetaData" target="MetaData" deleteRule="Nullify" db-relationship-path="toIndex"/>
 	<obj-relationship name="toMetaData" source="MetaDataDefaults" target="MetaData" db-relationship-path="toMetaData"/>
 	<obj-relationship name="scenarioOutputToVars" source="Scenario" target="Variable" deleteRule="Cascade" db-relationship-path="scenarioOutputToVars"/>
 	<obj-relationship name="scenarioToInputVars" source="Scenario" target="Variable" deleteRule="Cascade" db-relationship-path="scenarioInputToVars"/>
 	<obj-relationship name="scenarioToSimulation" source="Scenario" target="Simulation" db-relationship-path="scenarioToSimulation"/>
 	<obj-relationship name="inputs" source="Simulation" target="MetaData" db-relationship-path="inputsToMetaData.simulationToMeta"/>
 	<obj-relationship name="outputs" source="Simulation" target="MetaData" db-relationship-path="outputsToMetaData.simulationToMeta"/>
-	<obj-relationship name="simulationToChildren" source="Simulation" target="CompositeMap" deleteRule="Deny" db-relationship-path="simulationToChildren"/>
-	<obj-relationship name="simulationToParent" source="Simulation" target="CompositeMap" deleteRule="Deny" db-relationship-path="simulationToParent"/>
-	<obj-relationship name="simulationToScenario" source="Simulation" target="Scenario" db-relationship-path="simulationToScenario"/>
+	<obj-relationship name="simulationToChildren" source="Simulation" target="CompositeMap" db-relationship-path="simulationToChildren"/>
+	<obj-relationship name="simulationToParent" source="Simulation" target="CompositeMap" db-relationship-path="simulationToParent"/>
+	<obj-relationship name="simulationToScenario" source="Simulation" target="Scenario" deleteRule="Cascade" db-relationship-path="simulationToScenario"/>
 	<obj-relationship name="toChildren" source="Simulation" target="Simulation" db-relationship-path="simulationToChildren.toSimChildren"/>
 	<obj-relationship name="toParent" source="Simulation" target="Simulation" db-relationship-path="simulationToParent.toSimChildren"/>
 	<obj-relationship name="tuplesToVariable" source="Tuple" target="Variable" db-relationship-path="tuplesToVariable"/>

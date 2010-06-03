@@ -599,6 +599,12 @@ public class SimulationResource {
         return s.split(";");
     }
 
+    private void deleteSimulation(Simulation sim) {
+        repo.deleteSimulation(sim.getId());
+        //repo.commit();
+       
+    }
+
     /**
      * <p>
      * Edits the simulation.
@@ -608,7 +614,7 @@ public class SimulationResource {
      * @param id the id of simulation to be edited
      * @param name the name
      * @param description the description
-     * @param action the action
+     * @param state_ the action
      * @param url the url
      * @return the response which redirect to current simulation information
      *
@@ -618,13 +624,18 @@ public class SimulationResource {
     @Path("/editsim/{id}")
     public Response editSimulation(@Context HttpServletRequest request, @PathParam("id") String id,
         @FormParam("name") String name, @FormParam("description") String description,
-        @FormParam("state") String action, @FormParam("url") String url) {
+        @FormParam("state") String state_, @FormParam("url") String url, @FormParam("command") String action) {
         LOGGER.info("Handle editSimulation : " + id);
 
         try {
             Simulation sim = repo.findSimulation(id);
             if (sim == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
+            if (action!=null && "delete".equals(action)) {
+               deleteSimulation(sim);
+               return Response.status(Response.Status.OK).build();
             }
 
             if (name != null) {
@@ -634,8 +645,8 @@ public class SimulationResource {
                 sim.setDescription(description);
             }
             EntityState state = null;
-            if (action != null) {
-                state = (action == null) ? null : EntityState.valueOf(action);
+            if (state_ != null) {
+                state = (state_ == null) ? null : EntityState.valueOf(state_);
                 if (state == null) {
                     return Response.status(Response.Status.BAD_REQUEST).build();
                 }

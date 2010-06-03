@@ -123,6 +123,16 @@
         <echo message="deploy ${build_distdir}/${app.name}.war into ${tomcat.deploy.path} successfully!" />
     </target>
 
+    <target name="migration.06.10" description="copies pangaea" depends="compile">
+        <java classname="mit.simulation.climate.MigrationUtils">
+            <arg line="copy ${pangaea.id}"/>
+           <classpath>
+            <pathelement path="${build_classdir}"/>
+            <path refid="buildlibs"/>   
+           </classpath>
+        </java>
+     </target>
+
     
     <target name="undeploy" description="undeploy the application from tomcat server" >
         <delete file="${tomcat.deploy.path}/../conf/Catalina/localhost/simulation-servlet.xml"/>
