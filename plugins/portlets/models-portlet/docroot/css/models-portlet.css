@@ -136,6 +136,12 @@
     border: 0;
 }
 
+#runModel.embedded {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
 .modelActions {
     text-align: center;
 }
@@ -278,4 +284,30 @@ ul.ui-tabs-nav li.ui-state-active a{
     border-width:1px 1px medium;
     color:#336699;
     font-weight:bold;
+}
+
+.embeddedActions {
+	padding-left: 220px;
+}
+
+.embeddedActions a.saveChanges {
+    background:url("/collaboratorium-theme/images/saveChange_btn.gif") no-repeat scroll 0 0 transparent;
+    display:inline;
+    float:left;
+    height:45px;
+    margin-top:4px;
+    width:106px;
+}
+
+.embeddedActions a.cancel {
+    background:url("/collaboratorium-theme/images/tabAciont_cancel_btn.png") no-repeat scroll 0 0 transparent;
+    display:inline;
+    float:left;
+    height:45px;
+    margin-top:4px;
+    width:106px;
+}
+
+.embedded-inputs-disabled {
+    padding-left: 220px;
 }

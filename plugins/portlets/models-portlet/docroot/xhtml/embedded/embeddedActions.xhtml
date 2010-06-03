@@ -9,10 +9,12 @@
         <div class="model-information actions">
             <div class="bottom-content">
     <f:subview id="actions-display" rendered="#{not simulationBean.embeddedEditing}">
-        <ui:include src="../inputs/inputs.xhtml"/>
-        <div class="clear"></div>
+        <div class="embedded-inputs-disabled">
+            <ui:include src="../inputs/inputs.xhtml"/>
+            <div class="clear"></div>
+        </div>
         <ice:form>
-            <ice:commandLink styleClass="editBtn" actionListener="#{simulationBean.editActions}" />
+            <ice:commandLink styleClass="editBtn" style="display: none" actionListener="#{simulationBean.editActions}" />
         </ice:form>
         <ui:include src="./initInputs.xhtml" />
     </f:subview>
@@ -25,11 +27,14 @@
             <ui:include src="../outputs/outputs.xhtml" />
         </f:subview>
         <div class="clear"></div>
-            <ice:form styleClass="actions">
+        <div class="embeddedActions">
+            <ice:form>
                 <ice:commandLink styleClass="saveChanges" actionListener="#{simulationBean.saveScenario}" />
-                <button id="runModel" ></button>
+                <button id="runModel" class="embedded"></button>
                 <ice:commandLink styleClass="cancel" actionListener="#{simulationBean.editActions}" />
+                <div class="clear"></div>
             </ice:form>
+        </div>
 
         <ui:include src="./initInputs.xhtml" />
     </f:subview>

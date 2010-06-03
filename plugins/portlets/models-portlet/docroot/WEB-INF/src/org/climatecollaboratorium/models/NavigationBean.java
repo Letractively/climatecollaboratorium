@@ -12,6 +12,8 @@ import mit.simulation.climate.client.Simulation;
 
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 
+import com.liferay.portal.SystemException;
+
 public class NavigationBean {
     private final static String INDEX_PAGE = "index";
     private final static String DETAILS_PAGE = "details";
@@ -68,7 +70,7 @@ public class NavigationBean {
         return simulationBean;
     }
 
-    public void setSimulationBean(SimulationBean simulationBean) throws IOException  {
+    public void setSimulationBean(SimulationBean simulationBean) throws IOException, SystemException  {
         this.simulationBean = simulationBean;
         useModel();
     }
@@ -89,11 +91,11 @@ public class NavigationBean {
         this.modelId = modelId;
     }
 
-    public void update(ActionEvent event) throws IOException {
+    public void update(ActionEvent event) throws IOException, SystemException {
         useModel();
     }
     
-    private void useModel() throws IOException {
+    private void useModel() throws IOException, SystemException {
         selectedScenario = SimulationsHelper.getInstance().getScenarioById(scenarioId);
         selectedSimulation = SimulationsHelper.getInstance().getSimulationById(modelId);
         

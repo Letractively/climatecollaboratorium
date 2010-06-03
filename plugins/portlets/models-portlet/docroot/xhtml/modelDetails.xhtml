@@ -8,7 +8,7 @@
         <h2>Model: #{simulationBean.simulation.name}</h2>
         <div class="simulationActions">
             <ice:form>
-                <ice:commandButton value="Edit" actionListener="#{simulationBean.editSimulation}"  rendered="#{not simulationBean.editing}" />
+                <ice:commandButton value="Edit" actionListener="#{simulationBean.editSimulation}" rendered="#{(not simulationBean.editing) and permissions.canEditModel}" />
             </ice:form>
         </div>
         <div class="clear"></div>
