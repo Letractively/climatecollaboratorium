@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html">
+    
+<ice:portlet>
+    <ice:panelGroup>
+        <h1>Migration</h1>
+        
+        <ice:form>
+            <ice:selectOneMenu value="#{migrationManager.targetModelId}">
+                <f:selectItems value="#{migrationManager.simulationsItems}" /> 
+            </ice:selectOneMenu>
+            <ice:commandButton value="Start migration" actionListener="#{migrationManager.startMigration}" />
+        </ice:form>
+        
+    </ice:panelGroup>
+    <ice:panelGroup>
+    <h2>Plan models</h2>
+    
+    <ice:dataTable value="#{migrationManager.plans}" var="plan" >
+        <ice:column>
+            <f:facet name="header">
+                <ice:outputText value="Plan name"/>
+            </f:facet>
+            <ice:outputText value="#{plan.name}"/>
+        </ice:column>
+        <ice:column>
+            <f:facet name="header">
+                <ice:outputText value="Model ID"/>
+            </f:facet>
+            <ice:outputText value="#{plan.planType.modelId}"/>
+        </ice:column>
+        <ice:column>
+            <f:facet name="header">
+                <ice:outputText value="Migration status"/>
+            </f:facet>
+            <ice:outputText value="#{migrationManager.migrationStatuses[plan.planId]}"/>
+        </ice:column>
+        <ice:column>
+            <f:facet name="header">
+                <ice:outputText value="Migration messages"/>
+            </f:facet>
+            <ice:outputText value="#{migrationManager.migrationMessages[plan.planId]}"/>
+        </ice:column>
+    </ice:dataTable>
+    </ice:panelGroup>
+    
+</ice:portlet>
+</f:view>
