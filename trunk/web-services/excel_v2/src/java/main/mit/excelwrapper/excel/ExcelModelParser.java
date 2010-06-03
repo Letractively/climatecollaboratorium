@@ -11,11 +11,13 @@ import mit.excelwrapper.DataType;
 import mit.excelwrapper.Utils;
 import mit.excelwrapper.dao.ExcelWrapperDAO;
 import mit.excelwrapper.exception.ExcelWrapperException;
+import mit.excelwrapper.exception.FormulaComputationException;
 import mit.excelwrapper.model.ExcelModel;
 import mit.excelwrapper.model.InputParam;
 import mit.excelwrapper.model.OutputParam;
 
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -33,6 +35,9 @@ import org.apache.poi.ss.usermodel.Row;
  * @version 1.0
  */
 public class ExcelModelParser {
+
+    private static Logger log = Logger.getLogger(ExcelModelParser.class);
+
     /**
      * <p>
      * The parameter property name list. It follows the order it is supposed to appear in the excel sheet.
@@ -211,7 +216,12 @@ public class ExcelModelParser {
                     pairs.add(new NameValuePair(propertyName, null));
                     continue;
                 }
-                String propertyValue = Utils.getCellValueAsString(sheet, rowCounter, colCounter, "");
+                String propertyValue = null;
+                try {
+                    propertyValue = Utils.getCellValueAsString(sheet, rowCounter, colCounter, "");
+                } catch (FormulaComputationException e) {
+                    log.error("Should not encounter this error on initial parse",e);
+                }
                 propertyValue = validateAndGetValue(propertyName, propertyValue, isInput);
 
                 pairs.add(new NameValuePair(propertyName, propertyValue));

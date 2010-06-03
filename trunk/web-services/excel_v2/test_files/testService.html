@@ -16,7 +16,7 @@ font-size:14px;
 				alert("Please enter an id value!");
 				return;
 			}
-			$("#runSimulation").attr("action","http://localhost:8080/excel_wrapper-servlet/rest/wrapper/"+idValue);
+			$("#runSimulation").attr("action","http://localhost:8080/excel-servlet/rest/wrapper/"+idValue);
 			$("#runSimulation").submit();
 		});
 
@@ -26,7 +26,7 @@ font-size:14px;
 				alert("Please enter an id value!");
 				return;
 			}
-			$("#runSimulation2").attr("action","http://localhost:8080/excel_wrapper-servlet/rest/wrapper/"+idValue);
+			$("#runSimulation2").attr("action","http://localhost:8080/excel-servlet/rest/wrapper/"+idValue);
 			$("#runSimulation2").submit();
 		});
 	});
@@ -38,7 +38,7 @@ font-size:14px;
 		
 		<h1>Test Create Simulation</h1>
 		<form id="createSimulation" name="createSimulation"  
-			action="http://localhost:8080/excel_wrapper-servlet/rest/createsim"
+			action="http://localhost:8080/excel-servlet/rest/createsim"
 			method="post" enctype="multipart/form-data">
 			name: <input type="text" name="name" value=""  /> <br/>
 			description: <input type="text" name="description" value=""  /> <br/>

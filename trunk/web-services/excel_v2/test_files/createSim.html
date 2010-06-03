@@ -1,0 +1,21 @@
+<html>
+<head>
+<style type="text/css">
+body {
+font-family:Arial,Verdana,Helvetica,sans-serif;
+font-size:14px;
+}
+</style>
+	</head>
+	<body>
+		<h1>Create Simulation</h1>
+		<form id="createSimulation" name="createSimulation"
+			action="http://localhost:8080/excel_wrapper-servlet/rest/createsim"
+			method="post" enctype="multipart/form-data">
+			name: <input type="text" name="name" value=""  /> <br/>
+			description: <input type="text" name="description" value=""  /> <br/>
+			model excel file: <input type="file" name="excel_file"/> <br/>
+			<input type="submit" value="Create Simulation"/>
+		</form>
+	</body>
+</html>

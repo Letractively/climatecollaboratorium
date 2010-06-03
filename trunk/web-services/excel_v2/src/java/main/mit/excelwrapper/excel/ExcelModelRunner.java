@@ -3,27 +3,25 @@
  */
 package mit.excelwrapper.excel;
 
-import org.apache.log4j.Logger;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.ws.rs.core.MultivaluedMap;
-
 import mit.excelwrapper.DataType;
 import mit.excelwrapper.Utils;
 import mit.excelwrapper.exception.ExcelWrapperException;
+import mit.excelwrapper.exception.FormulaComputationException;
 import mit.excelwrapper.model.ExcelModel;
 import mit.excelwrapper.model.InputParam;
 import mit.excelwrapper.model.OutputParam;
-
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
+
+import javax.ws.rs.core.MultivaluedMap;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -142,8 +140,15 @@ public class ExcelModelRunner {
             int colCounter = outputParam.getColNum();
             int numOfValues = outputParam.getNumRows();
             for (int i = startRow; i < startRow + numOfValues; i++) {
-                String outputValue = Utils.getCellValueAsString(worksheet, i, colCounter, "");
-                sb.append("[").append(encodeValue(outputValue)).append("]");
+                String outputValue = null;
+                try {
+                    outputValue = Utils.getCellValueAsString(worksheet, i, colCounter, "");
+                    sb.append("[").append(encodeValue(outputValue)).append("]");
+                } catch (FormulaComputationException e) {
+                    LOGGER.info("Error executing formula in cell "+colCounter+","+i);
+                    sb.append("[").append("@ERROR").append("]");
+                }
+
             }
             sb.append("]");
         }
@@ -180,6 +185,7 @@ public class ExcelModelRunner {
             for (Cell c : r) {
                 if (c.getCellType() == Cell.CELL_TYPE_FORMULA) {
                     evaluator.evaluateFormulaCell(c);
+                   
                 }
             }
         }
