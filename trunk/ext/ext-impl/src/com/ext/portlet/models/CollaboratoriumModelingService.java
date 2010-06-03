@@ -10,6 +10,8 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PropsUtil;
+import com.liferay.util.portlet.PortletProps;
+
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.comm.ClientRepository;
 
@@ -28,8 +30,17 @@ public class CollaboratoriumModelingService {
     public static ClientRepository repository() throws SystemException {
         if (instance == null) {
 
+            // try to read configuration from default location (portal-ext.properties)
             String host = PropsUtil.get("climatecollaboratorium.model.server");
-            int port = Integer.parseInt(PropsUtil.get("climatecollaboratorium.model.port"));
+            int port = 0;
+            if (host != null) {
+                port = Integer.parseInt(PropsUtil.get("climatecollaboratorium.model.port"));
+                
+            } else {
+                // if configuration isn't available try to load it from portlet preferences
+                host = PortletProps.get("climatecollaboratorium.model.server");
+                port = Integer.parseInt(PortletProps.get("climatecollaboratorium.model.port"));
+            }
              _log.info("Starting up modeling client ("+host+":"+port+")");
             try {
                 instance = ClientRepository.instance(host, port);

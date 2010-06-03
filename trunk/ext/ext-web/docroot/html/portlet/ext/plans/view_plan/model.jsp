@@ -68,7 +68,7 @@
         var frame = jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
     });
 
-    Liferay.Widget({ url: "/widget/web/guest/test/-/models_WAR_modelsportlet_INSTANCE_ULd7?modelId=623&viewType=embedded&page=model" ,  id: "portlet-model-impacts", scrolling: "no", FRAMEBORDER: 0});
+    Liferay.Widget({ url: "/widget/web/guest/test/-/models_WAR_modelsportlet_INSTANCE_ULd7?modelId=<%= plan.getPlanType().getModelId() %><%= plan.getScenarioId() != null ? "&scenarioId=" + plan.getScenarioId() : "" %>&viewType=embedded&page=model" ,  id: "portlet-model-impacts", scrolling: "no", FRAMEBORDER: 0});
     
 </script>
 </div>

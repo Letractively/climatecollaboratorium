@@ -56,21 +56,28 @@
 
         frameContent.saveScenarioFunction = function(scenarioId) {
             jQuery("#<portlet:namespace />scenarioId").val(scenarioId);
-            alert(document + " mam save scenario!" + jQuery(document).find("#<portlet:namespace />editActionsForm").length);
             jQuery("#<portlet:namespace />editActionsForm").submit();
-        };
+        }
+
+        frameContent.updateFrameHeight = function() {
+            frame.height = frameContent.body.scrollHeight + 50;
+        }
+            
      
+
+        frame.height = frameContent.body.scrollHeight + 50;
         
-        frame.height = frameContent.body.scrollHeight + 500;
         jQuery(frame).css("overflow", "hidden");
         jQuery(frame).css("border", "0");
         
         jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
-        frame.contentWindow.jQuery.history.init(function() {});
 
         //alert("should show..." + jQuery("#plans-model-impacts-container").length);
         
         jQuery("#plans-model-impacts-container").css("left", "0").css("position", "normal");
+        if (<%= canEditPlan %>) {
+            setTimeout(function() {contentDocument.find(".editBtn").show();}, 10);
+        }
     }
 
     
@@ -81,143 +88,10 @@
         var frame = jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
     });
 
-    Liferay.Widget({ url: "/widget/web/guest/test/-/models_WAR_modelsportlet_INSTANCE_ULd7?modelId=760&viewType=embedded&page=actions&planId=<%= plan.getPlanId() %>" ,  id: "portlet-model-impacts", scrolling: "no", FRAMEBORDER: 0});
+    Liferay.Widget({ url: "/widget/web/guest/test/-/models_WAR_modelsportlet_INSTANCE_ULd7?modelId=<%= plan.getPlanType().getModelId() %>&viewType=embedded&page=actions&planId=<%= plan.getPlanId() %><%= plan.getScenarioId() != null ? "&scenarioId=" + plan.getScenarioId() : "" %>" ,  id: "portlet-model-impacts", scrolling: "no", FRAMEBORDER: 0});
     
 </script>
 </div>
 
-<%@ include file="/html/portlet/ext/models/modules/init.jspf" %>
-
-<script type="text/javascript">
-
-	// currently there is no dynamic association between plan and a scenario/model,
-    // static reference used, please refer to requirements doc
-
-	var scenarioId = '<%= plan.getScenarioId() %>';
-	var modelId = '<%= plan.getPlanType().getModelId() %>';
-	
-	var actionsReadonly = scenarioId > 0;
-	var showImpactsLazy = scenarioId > 0;
-	var showProgress = true;
-
-<c:if test="<%=canEditPlan%>">
-
-	/**
-	 * If called it refreshes the page, used to cancel actions editing.
-	 */
-	function <portlet:namespace />cancel() {
-		location.href = "<%= currentURL %>";
-	}
-
-	/**
-	 * Enables editing of actions form.
-	 */
-	function <portlet:namespace />editActions() {
-		jQuery("#action").css('margin-left', '10px');
-		
-		jQuery("#actions-panel").removeClass("hide-impacts");
-		jQuery("#actions-panel").removeClass("hide-impacts-actions");
-		jQuery("#impacts-panel").removeClass("hide-impacts");
-		jQuery("#impacts-panel").removeClass("hide-impacts-impacts");
-		
-		jQuery("#actions-panel").addClass("show-impacts");
-		jQuery("#impacts-panel").addClass("show-impacts");
-		
-		jQuery(".btnBox").show();
-		jQuery("#<portlet:namespace />editActions").hide();
-		jQuery("#<portlet:namespace />runModel").show();
-		jQuery("#<portlet:namespace />save").show();
-		jQuery("#<portlet:namespace />cancel").show();
-		if (scenarioId > 0) {
-			ModelUtils.showScenario('impactsContent');
-		} else {
-			jQuery(".run-the-model-to-see-inputs").show();
-		}
-		ModelUtils.enableModelForm();
-	}
-
-	/**
-	 * Runs model with specified actions.
-	 */
-	function <portlet:namespace />runModel() {
-		jQuery("#<portlet:namespace />runModel").attr("disabled", true);
-		jQuery("#<portlet:namespace />save").attr("disabled", true);
-		ModelUtils.scenarioReady(function(type) {
-			jQuery("#<portlet:namespace />runModel").removeAttr("disabled");
-			if (type == "success") {
-				jQuery("#<portlet:namespace />save").removeAttr("disabled");
-				jQuery("#<portlet:namespace />save").show();
-			}
-			
-		});
-		showImpactsLazy = false;
-		ModelUtils.runModel();
-		
-	}
-
-	/**
-	 * Saves the scenario. Currently a mock up.
-	 */
-     /*
-	function <portlet:namespace />save() {
-		var scenario = ModelUtils.getScenario();
-        editActionsForm.submit();
-		ModelUtils.saveScenario(function(result) {
-			if ("success"==result) {
-				var editActionsForm = jQuery("#<portlet:namespace />editActionsForm");
-				jQuery("#<portlet:namespace />scenarioId").val(scenario.id);
-				editActionsForm.submit();
-			} else {
-				<portlet:namespace />cancel();
-			}
-
-		});
-    	
-	}*/
-
-	/**
-	 *  Edit button should be shown when model has been loaded and it's ready.
-	 */
-	ModelUtils.modelReady(function() {
-		if (scenarioId > 0) { 
-			jQuery("#<portlet:namespace />editActions").show();
-		} else {
-			<portlet:namespace />editActions();
-		}
-	});
-
-</c:if>
-	
-</script>
-
-
-<div class="model-information">
-	<div class="model-information-container-centered">
-                  <div class="hide-impacts hide-impacts-actions" id="actions-panel">
-				     <%@ include file="/html/portlet/ext/models/modules/actions.jspf" %>
-		        </div>
-			    <div class="hide-impacts hide-impacts-impacts" id="impacts-panel">
-			          <%@ include file="/html/portlet/ext/models/modules/impacts.jspf" %>
-		        </div>
-		<div class="clear"></div>
-	</div>
-</div>
-<c:if test="<%=canEditPlan%>">
-	<div class="run-model-actions">
-		
-
-	
-		<div style='width: 100%; margin: auto'>
-			<a href="javascript:;" id="<portlet:namespace />editActions" onClick="<portlet:namespace />editActions()" style="display: none" class="editBtn"><span class="hidden">Edit</span></a>
-			<div class='buttons-centered'>        		
-        		<a href="#" id="<portlet:namespace />runModel" class="saveChanges" style="display: none" onClick="<portlet:namespace />save(); return false;"><span class="hidden">Save changes</span></a>
-        		<a href="javascript:;" id="<portlet:namespace />save" class="runModel" style="display: none" onClick="<portlet:namespace />runModel()"><span class="hidden">run model</span></a>
-        		<a href="javascript:;" id="<portlet:namespace />cancel" class="cancel" style="display: none" onClick="<portlet:namespace />cancel()"><span class="hidden">cancel</span></a>
-        		<div class="clear"></div>
-        	</div>
-        </div>
-	</div>
-	
-</c:if>
 
 <%@ include file="/html/portlet/ext/plans/view_plan/bottom.jspf" %>
