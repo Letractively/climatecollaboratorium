@@ -3,6 +3,7 @@
  */
 package mit.excelwrapper;
 
+import mit.excelwrapper.exception.FormulaComputationException;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -113,9 +114,10 @@ public final class Utils {
      *
      * @throws IllegalArgumentException if the worksheet is null
      * @throws ExcelWrapperException if cell type is not as indicated above
+     * @throws FormulaComputationException if the formula resulted in an error
      */
     public static String getCellValueAsString(HSSFSheet worksheet, int rowCounter, int colCounter,
-        String defaultValue) {
+        String defaultValue) throws FormulaComputationException {
         checkNull(worksheet, "worksheet");
 
         Row row = worksheet.getRow(rowCounter);
@@ -138,6 +140,8 @@ public final class Utils {
                 return cell.getStringCellValue();
             } else if (cell.getCachedFormulaResultType() == Cell.CELL_TYPE_NUMERIC) {
                 return cell.getNumericCellValue() + "";
+            } else if (cell.getCachedFormulaResultType() == Cell.CELL_TYPE_ERROR) {
+                throw new FormulaComputationException("Error computing fomula");
             } else {
                 throw new ExcelWrapperException("invalid formula type with cached type of  "
                     + cell.getCachedFormulaResultType() + " for row of " + rowCounter + " and col of " + colCounter);
