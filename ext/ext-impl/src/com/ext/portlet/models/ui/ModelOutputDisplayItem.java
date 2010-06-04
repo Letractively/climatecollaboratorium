@@ -25,9 +25,33 @@ public abstract class ModelOutputDisplayItem extends ModelDisplayItem {
     
     public abstract ModelOutputDisplayItemType getDisplayItemType();
 
-
+    /**
+     * Specifies the error behavior for this display item given an error status.
+     * Returns null if no associated behavior.
+     *
+     * @param status
+     * @return
+     */
     public abstract ModelOutputErrorBehavior getErrorBehavior(TupleStatus status);
 
+
+    /**
+     * If the scenario is set, returns the current error on this set.  This method
+     * walks the list of tuples, searching for errors and returns the appropriate behavior
+     * if an error that has an associated behavior is encountered.
+     *
+     * Returns null if no error is found or no behavior is found for an encountered error
+     *
+     * @return
+     */
+
+    public abstract ModelOutputErrorBehavior getError();
+
+    /**
+     * Whether or not this display element should be displayed
+     *
+     * @return
+     */
     public abstract boolean isVisible();
 
    
@@ -36,4 +60,6 @@ public abstract class ModelOutputDisplayItem extends ModelDisplayItem {
     public ModelOutputChartType getChartType() {
         return ModelOutputChartType.FREE;
     }
+
+
 }

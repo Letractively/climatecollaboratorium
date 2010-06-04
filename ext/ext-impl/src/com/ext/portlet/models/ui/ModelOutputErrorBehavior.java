@@ -62,7 +62,7 @@ public class ModelOutputErrorBehavior {
             String msg = item.getModelIndexErrorMessage();
            return new ModelOutputErrorBehavior(status,ErrorPolicy.valueOf(policyName),msg);
 
-        } else return createEmptyBehavior(status);
+        } else return null;
     }
 
      public static ModelOutputErrorBehavior getBehavior(TupleStatus status, ModelOutputItem item) {
@@ -81,8 +81,11 @@ public class ModelOutputErrorBehavior {
             String msg = item.getModelItemErrorMessage();
            return new ModelOutputErrorBehavior(status,ErrorPolicy.valueOf(policyName),msg);
 
-        } else return createEmptyBehavior(status);
+        } else return null;
     }
+
+
+    
 
 
 

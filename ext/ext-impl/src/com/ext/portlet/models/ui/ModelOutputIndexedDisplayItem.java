@@ -264,6 +264,17 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
 
     }
 
+    public ModelOutputErrorBehavior getError() {
+        if (getScenario() == null) return null;
+        for (Tuple e:getIndexVariable().getValue()) {
+            if (e.getStatus(0)!=null && e.getStatus(0)!=TupleStatus.NORMAL && getErrorBehavior(e.getStatus(0))!=null) {
+              return getErrorBehavior(e.getStatus(0));
+            }
+        }
+        return null;
+    }
+
+
     @Override
     public boolean isVisible() {
         if (chartModel.getModelChartIsVisible() == null) {

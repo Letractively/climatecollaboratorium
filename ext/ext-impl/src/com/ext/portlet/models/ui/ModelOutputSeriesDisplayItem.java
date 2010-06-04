@@ -175,6 +175,16 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
        return errorBehaviors.get(status);
     }
 
+    public ModelOutputErrorBehavior getError() {
+        if (getScenario() == null) return null;
+        for (Tuple e:getVariable().getValue()) {
+            if (e.getStatus(1)==null && e.getStatus(1)!=TupleStatus.NORMAL && getErrorBehavior(e.getStatus(0))!=null) {
+              return getErrorBehavior(e.getStatus(1));
+            }
+        }
+        return null;
+    }
+
      public void setVisible(boolean b) throws SystemException {
         item.setModelItemIsVisible(b);
         ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);

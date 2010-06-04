@@ -75,7 +75,12 @@ public class ModelOutputScalarDisplayItem extends ModelOutputDisplayItem {
 
     @Override
     public ModelOutputErrorBehavior getErrorBehavior(TupleStatus status) {
-        return ModelOutputErrorBehavior.createEmptyBehavior(status);
+        return null;
+    }
+
+    @Override
+    public ModelOutputErrorBehavior getError() {
+        return null;
     }
 
     @Override
