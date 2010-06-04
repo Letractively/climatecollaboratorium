@@ -178,7 +178,7 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
     public ModelOutputErrorBehavior getError() {
         if (getScenario() == null) return null;
         for (Tuple e:getVariable().getValue()) {
-            if (e.getStatus(1)==null && e.getStatus(1)!=TupleStatus.NORMAL && getErrorBehavior(e.getStatus(0))!=null) {
+            if (e.getStatus(1)==null && e.getStatus(1)!=TupleStatus.NORMAL && getErrorBehavior(e.getStatus(1))!=null) {
               return getErrorBehavior(e.getStatus(1));
             }
         }
