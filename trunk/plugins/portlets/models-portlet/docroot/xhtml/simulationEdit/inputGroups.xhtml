@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:jstl="http://java.sun.com/jsp/jstl/functions" >
+
+<table>
+<tr>
+<td>
+    <ice:commandButton value="Add new group" />
+    <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" styleClass="inputGroupDef">
+        <ice:panelGroup rendered="#{input.displayItemType == 'GROUP'}" styleClass="inputGroup">
+            <h3><ice:outputText value="#{input.name}" />
+                <ice:commandButton value="Edit" />
+                <ice:commandButton value="Delete" />
+            </h3>
+            <p>
+                <ice:outputText value="#{input.description}" />
+            </p>
+            <h4>Grouped inputs</h4>
+            <ul class="groupedInputs" title="#{input.metaData.id}" >
+            <ice:panelSeries value="#{input.displayItems}" var="item" styleClass="containerForRemoval">
+                <ice:panelGroup styleClass="containerForRemoval">
+                    <li class="individualInput"><ice:outputText value="#{item.name}" /> <ice:inputText value="#{item.groupId}" /></li>
+                </ice:panelGroup> 
+            </ice:panelSeries>
+            </ul> 
+        </ice:panelGroup> 
+    </ice:panelSeries>
+</td>
+<td>
+    <ul class="availableGroupItems">
+        <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" styleClass="containerForRemoval">
+            <ice:panelGroup rendered="#{input.displayItemType == 'INDIVIDUAL'}" styleClass="containerForRemoval">
+                <li class="individualInput"><ice:outputText value="#{input.name}" /> <ice:inputText value="#{input.groupId}" /></li>
+            </ice:panelGroup> 
+        </ice:panelSeries>
+    </ul>
+</td>
+</tr>
+</table>
+
+    <ice:commandButton value="Update" actionListener="#{simulationBean.updateInputs}" styleClass="inputsWidgetsUpdate"/>
+
+
+    <f:subview>
+        <ui:include src="editJsWidgets.xhtml" />
+    </f:subview>
+</f:view>

@@ -311,3 +311,45 @@ ul.ui-tabs-nav li.ui-state-active a{
 .embedded-inputs-disabled {
     padding-left: 220px;
 }
+
+.singleInputOrderDef {
+	position: relative;
+    border: 1px solid #FAD978;
+    background: #FFF3CF;
+    padding: 5px;
+    width: 400px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    cursor: move;
+    z-index: 5;
+}
+
+
+.subInputsOrder {
+	position: relative;
+}
+
+.subInputsOrder li {
+    border: 1px solid #99FFB1;
+    background: #D1FFDC;
+    padding: 3px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    cursor: move;
+    z-index: 10;
+}
+
+#inputsOrder {
+    position: relative;
+}
+
+.inputGroup {
+    width: 70%;
+}
+
+.inputGroup .groupedInputs {
+    border: 1px solid #99FFB1;
+    background: #D1FFDC;
+    padding: 5px;
+}
