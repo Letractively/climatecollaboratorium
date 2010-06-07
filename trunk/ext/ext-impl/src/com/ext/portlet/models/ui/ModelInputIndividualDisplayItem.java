@@ -116,5 +116,12 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
     public ModelInputDisplayItemType getDisplayItemType() {
         return ModelInputDisplayItemType.INDIVIDUAL;
     }
+    
+    /**
+     * Returns group ID for given input (can be null). 
+     */
+    public Long getGroupId() {
+        return item.getModelGroupId();
+    }
 
 }
