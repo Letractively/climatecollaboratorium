@@ -136,7 +136,9 @@ public interface MetaData extends HasId {
     public void setExternalInfo(String info);
     public String getExternalInfo();
 
-    public boolean isIndex();
+    //public boolean isIndex();
+    public boolean getIndex();
+    public void setIndex(boolean b);
 
 
     public static class Utils {

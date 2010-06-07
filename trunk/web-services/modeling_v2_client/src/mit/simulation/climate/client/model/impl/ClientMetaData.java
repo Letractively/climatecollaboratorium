@@ -30,6 +30,7 @@ public class ClientMetaData implements MetaData {
     private boolean index;
     private String external;
     private String[] categories;
+    private MetaData indexingMetaData;
 
 
 
@@ -124,7 +125,7 @@ public class ClientMetaData implements MetaData {
 
 
     @XmlAttribute(name="index")
-    public boolean isIndex() {
+    public boolean getIndex() {
         return index;
     }
 
@@ -139,7 +140,8 @@ public class ClientMetaData implements MetaData {
     public void setIsIndex(boolean b) {
         this.index = b;
     }
-
+    
+    @Override
     public void setIndex(boolean b) {
         this.index = b;
     }
@@ -237,14 +239,12 @@ public class ClientMetaData implements MetaData {
 
     @XmlTransient
     public MetaData getIndexingMetaData() {
-        //log.debug("Somone is calling me! Argh!");
-        return null;
+        return indexingMetaData;
     }
 
     @Override
     public void setIndexingMetaData(MetaData md) {
-        // TODO Auto-generated method stub
-
+        indexingMetaData = md;
     }
 
     public boolean equals(Object o) {
