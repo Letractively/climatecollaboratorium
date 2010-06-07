@@ -1,9 +1,11 @@
+try {
 Ice.onSendReceive("mainContent",function() {}, function() {
 	log.debug("onReceive");
-	
+	setTimeout(function() {
 	showSliders();
 	renderModelOutputs();
-	showEditForm();
+	initEditForms();
+	}, 100);
 });
 
 jQuery(document).ready(function() {
@@ -188,18 +190,34 @@ function renderModelOutputs() {
 			var def = jQuery(this);
 			var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
 			var chartTitle = def.find(".chartTitle").val();
+			var indexMin = parseFloat(def.find(".indexMin").val());
+			var indexMax = parseFloat(def.find(".indexMax").val());
+			if (isNaN(indexMin) || isNaN(indexMax)) {
+				indexMin = null;
+				indexMax = null;
+			}
+			
 			var values = [];
 			var valuesById = {};
 			var labelsById = {};
 			var confIntervalById = {};
+			var min = null;
+			var max = null;
+			var yaxis = {};
+			var xaxis = {label:'Year', autoscale: true};
+			
 			
 			var series = [];
 			def.find(".serieDef").each(function() {
-				log.debug("przed eval: " + jQuery(this).find(".value").val());
 				var val = eval("(" + jQuery(this).find(".value").val() + ")" );
-				log.debug("po eval");
 				var label = jQuery(this).find(".label").val();
 				var id = jQuery(this).find(".id").val();
+				min = jQuery(this).find(".min").val();
+				max = jQuery(this).find(".max").val();
+				if (isNaN(parseFloat(min)) || isNaN(parseFloat(max))) {
+					min = null;
+					max = null;
+				}
 				var associatedId = jQuery(this).find(".associatedId").val();
 
 				for (var i = 0; i < val.length; i++) {
@@ -219,8 +237,19 @@ function renderModelOutputs() {
 				}
 			});
 			
+			// set min/max
+			
+			if (min != null && max != null) {
+				yaxis.min = min;
+				yaxis.max = max;
+			}
+			if (indexMin != null && indexMax != null) {
+				xaxis.min = indexMin;
+				xaxis.max = indexMax;
+			}
+			
+			
 			for (var x in confIntervalById) {
-				log.debug("intervals for id: " + x);
 				var valMain = valuesById[x];
 				var valConf1 = valuesById[confIntervalById[x][0]];
 				var valConf2 = valuesById[confIntervalById[x][1]];
@@ -233,26 +262,22 @@ function renderModelOutputs() {
 				values.push(intervalVal);
 				series.push({showMarker: false, showLabel: true, label: "90% Confidence interval for " + labelsById[x], 
 					renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
-				log.debug("renderer: " + typeof(jQuery.jqplot.OHLCRenderer));
 			}
 
-			log.debug("values.length: " + values.length);
 			var plot = jQuery.jqplot(chartPlaceholderId, values, 
 					{title: chartTitle, 
 				series: series,
 				axes:{
-				xaxis:{
-				label:'Year',
-				autoscale: true
-			},
-			},
-			legend : {
-				show :true,
-				location :'nw',
-				yoffset :280,
-				xoffset:0
-			}
-					});
+					xaxis: xaxis,
+					yaxis: yaxis
+				},
+				legend : {
+					show :true,
+					location :'nw',
+					yoffset :280,
+					xoffset:0
+				}
+			});
 		}
 		catch (e) {
 			log.error(e);
@@ -310,8 +335,8 @@ function renderModelOutputs() {
 			
 			jQuery(this).addClass("active");
 			
-			contentsContainer.find(".tabContent").hide(200);
-			jQuery("#" + name).show(200); 
+			contentsContainer.find(".tabContent").hide();
+			jQuery("#" + name).show(); 
 		});
 		
 		contentsContainer.find(".tabContent").eq(0).show();
@@ -322,7 +347,6 @@ function renderModelOutputs() {
 	}
 	
 	/* end of physical impacts hack */
-	
 	
 	initAccordion();
 	
@@ -342,12 +366,12 @@ function initAccordion() {
 		var prevActive = container.find(".ui-state-active");
 		prevActive.removeClass("ui-state-active");
 		prevActive.addClass("ui-state-default");
-		prevActive.next().hide(400);
+		prevActive.next().slideUp();
 		prevActive.attr("tabindex", "-1");
 
 		jQuery(this).addClass("ui-state-active");
 		jQuery(this).removeClass("ui-state-default");
-		jQuery(this).next().show(400);
+		jQuery(this).next().slideDown(200);
 		jQuery(this).attr("tabindex", "0");
 	});
 
@@ -368,6 +392,7 @@ function initAccordion() {
 }
 
 function showEditForm() {
+	/*
 	try {
 	log.debug("HAHAHAHAHA jestem glupia funkcja" + jQuery(".sortableOutputDisplay").length );
 	jQuery(".sortableOutputDisplay").each(function() {
@@ -387,11 +412,6 @@ function showEditForm() {
 	});
 	} catch(e) {log.error(e) };
 
-
-	jQuery(".inputsWidgetsUpdate").unbind();
-	jQuery(".inputsWidgetsUpdate").click(function() {
-		alert("test");
-	});
 	
 
 	jQuery("#showOrder").click(function() {
@@ -403,17 +423,8 @@ function showEditForm() {
 	});
 	
 	jQuery("#editModel").tabs();
-	
+	*/
 }
-
-
-function updateInputsWidgets() {
-}
-
-
-setTimeout(function() {
-	jQuery("#showOrder").click(function() {alert("alasdfasdfasd")});
-}, 5000);
 
 
 
@@ -466,3 +477,59 @@ jQuery(function() {
 });
 */
 
+
+
+function initEditForms() {
+	/* Inputs ordering */
+	if (!jQuery("#inputsOrder").length) {
+    jQuery(".subInputsOrder").each(function() {
+    	var ul = jQuery(this);
+    	var itemsContainer = ul.next();
+    	ul.html(itemsContainer.html());
+    	itemsContainer.remove();
+    });
+
+    var inputsForOrdering = jQuery(".inputOrderDef").html();
+    jQuery(".inputOrderDef").html('<ul id="inputsOrder">' + inputsForOrdering + "</ul>");
+    
+    jQuery("#inputsOrder, .subInputsOrder").sortable({stop: function() {
+    
+    	var counter = 0; 
+    	jQuery(".singleInputOrderDef input").each(function() {
+    		this.value = counter++;
+    	});
+    }});
+	}
+	
+	/* Inputs grouping */
+	if (true) {
+		jQuery(".containerForRemoval").each(function() {
+			var content = jQuery(this).html();
+			var parent = jQuery(this).parent();
+			jQuery(this).remove();
+			parent.append(content);
+		});
+		
+		jQuery(".individualInput").draggable({helper: "original"});
+		jQuery(".groupedInputs").droppable({
+			drop: function(event, ui) {
+				jQuery(this).find(".placeholder").remove();
+				/*
+				jQuery("<li></li>").text(ui.draggable.text()).appendTo(this);
+				*/
+				log.debug("position przed: " + ui.draggable.css("position"));
+				log.debug(ui.draggable.css("position"));
+				ui.draggable.css("top", null);
+				ui.draggable.css("left", null);
+				ui.draggable.appendTo(this);
+				//ui.draggable.draggable();
+				
+		}});
+
+		
+	}
+    
+}
+} catch (e) {
+	alert(e);
+}

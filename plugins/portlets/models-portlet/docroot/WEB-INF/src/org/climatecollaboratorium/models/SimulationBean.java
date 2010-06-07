@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.faces.event.ActionEvent;
 
@@ -28,8 +27,6 @@ import org.climatecollaboratorium.models.support.SimulationsHelper;
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.util.PropsUtil;
-import com.liferay.util.portlet.PortletProps;
 
 public class SimulationBean implements JSEventHandler {
 
@@ -247,5 +244,15 @@ public class SimulationBean implements JSEventHandler {
 
     public void setScenarioSaved(boolean scenarioSaved) {
         this.scenarioSaved = scenarioSaved;
+    }
+    
+    public void updateInputs(ActionEvent e) {
+        if (scenario != null) {
+            display = ModelUIFactory.getInstance().getDisplay(scenario);
+        }
+        else {
+            display = ModelUIFactory.getInstance().getDisplay(simulation);
+        }
+        // do nothing
     }
 }
