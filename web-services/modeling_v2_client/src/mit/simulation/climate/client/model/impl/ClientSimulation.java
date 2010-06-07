@@ -3,6 +3,8 @@ package mit.simulation.climate.client.model.impl;
 import mit.simulation.climate.client.EntityState;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.MetaData.VarContext;
+import mit.simulation.climate.client.MetaData.VarType;
 import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -114,7 +116,20 @@ public class ClientSimulation implements Simulation {
        if (outputs == null) {
            outputs = new ArrayList<MetaData>();
        }
-        return outputs;
+       // process outputs, set indexed variables
+       Map<VarType, MetaData> indexForVarType = new HashMap<VarType, MetaData>();
+       for (MetaData md: outputs) {
+           if (md.getIndex()) {
+               indexForVarType.put(md.getVarType(), md);
+           }
+       }
+       for (MetaData md: outputs) {
+           if (md.getVarContext() == VarContext.INDEXED) {
+               md.setIndexingMetaData(indexForVarType.get(md.getVarType()));
+           }
+       }
+       
+       return outputs;
     }
 
     @XmlElement(name="url")
