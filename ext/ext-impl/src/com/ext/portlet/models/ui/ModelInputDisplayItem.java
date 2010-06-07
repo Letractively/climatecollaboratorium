@@ -6,6 +6,8 @@
 
 package com.ext.portlet.models.ui;
 
+import com.liferay.portal.SystemException;
+
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
 
@@ -63,5 +65,13 @@ public abstract class ModelInputDisplayItem extends ModelDisplayItem {
      */
     public ModelInputWidgetType getType() {
         return ModelInputWidgetType.TEXT_FIELD;
+    }
+    
+    /**
+     * Sets input widget type
+     * @throws SystemException 
+     */
+    public void setType(ModelInputWidgetType type) throws SystemException{
+        // by default do nothing, in individual display item appropriate action should be taken
     }
 }
