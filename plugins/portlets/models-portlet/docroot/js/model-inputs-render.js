@@ -490,7 +490,7 @@ function initEditForms() {
     });
 
     var inputsForOrdering = jQuery(".inputOrderDef").html();
-    jQuery(".inputOrderDef").html('<ul id="inputsOrder">' + inputsForOrdering + "</ul>");
+    jQuery(".inputOrderDef").html('<ul id="inputsOrder" class="inputsOrder">' + inputsForOrdering + "</ul>");
     
     jQuery("#inputsOrder, .subInputsOrder").sortable({stop: function() {
     
@@ -558,6 +558,24 @@ function initEditForms() {
 		}});
 
 		
+	}
+	
+	if (true) {
+
+	    //var inputsForOrdering = jQuery(".inputOrderDef").html();
+	    //jQuery(".inputOrderDef").html('<ul id="inputsOrder" class="inputsOrder">' + inputsForOrdering + "</ul>");
+	    function updateItemsOrder() {
+	    	var counter = 0; 
+	    	jQuery(".orderList li input").each(function() {
+	    		this.value = counter++;
+	    	});
+	    }
+	    	
+	    jQuery(".orderList, .orderSubList").sortable({stop: function() {
+	    	updateItemsOrder();
+	    }});
+	    
+	    updateItemsOrder();
 	}
     
 }

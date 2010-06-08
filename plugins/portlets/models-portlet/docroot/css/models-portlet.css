@@ -340,7 +340,7 @@ ul.ui-tabs-nav li.ui-state-active a{
     z-index: 10;
 }
 
-#inputsOrder {
+.inputsOrder {
     position: relative;
 }
 
@@ -401,3 +401,23 @@ ul.ui-tabs-nav li.ui-state-active a{
 .inputGroup .inputTitle .actions input {
 	margin-left: 5px;
 }
+
+.orderListItem {
+    border: 1px solid #FAD978;
+    background: #FFF3CF;
+    padding: 3px;
+    width: 400px;
+    margin-bottom: 4px;
+    cursor: move;
+}   
+.orderSubListItem {
+    border: 1px solid #99FFB1;
+    background: #D1FFDC;
+    padding: 1px;
+    width: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 2px;
+    cursor: move;
+}
+
