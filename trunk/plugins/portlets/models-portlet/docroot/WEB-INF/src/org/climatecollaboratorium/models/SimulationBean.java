@@ -33,6 +33,10 @@ import com.ext.portlet.models.ui.ModelDisplayItem;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputDisplayItemType;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputDisplayItemType;
+import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.SystemException;
 
@@ -301,5 +305,32 @@ public class SimulationBean implements JSEventHandler {
             }
         }
         return inputs;
+    }
+    
+    public List<ModelOutputDisplayItem> getAllOutputsFromDisplay() {
+        List<ModelOutputDisplayItem> outputs = new ArrayList<ModelOutputDisplayItem>();
+        for (ModelOutputDisplayItem output: display.getOutputs()) {
+            outputs.add(output);
+            if (output.getDisplayItemType() == ModelOutputDisplayItemType.INDEXED) {
+                for (ModelOutputDisplayItem serie: ((ModelOutputIndexedDisplayItem) output).getSeries()) {
+                    outputs.add(serie);
+                }
+            }
+        }
+        return outputs;
+    }
+    
+    public Map<ModelOutputDisplayItem, List<SelectItem>> getOutputAssociationOptions() {
+        Map<ModelOutputDisplayItem, List<SelectItem>> itemsMap = new HashMap<ModelOutputDisplayItem, List<SelectItem>>();
+        for (ModelOutputDisplayItem output: display.getOutputs()) {
+            if (output.getDisplayItemType() == ModelOutputDisplayItemType.INDEXED) {
+                List<SelectItem> options = new ArrayList<SelectItem>();
+                for (ModelOutputDisplayItem serie: ((ModelOutputIndexedDisplayItem) output).getSeries()) {
+                    itemsMap.put(serie, options);
+                    options.add(new SelectItem( ((ModelOutputSeriesDisplayItem) serie).getMetaData().getId(), serie.getName()));
+                }
+            }
+        }
+        return itemsMap;
     }
 }
