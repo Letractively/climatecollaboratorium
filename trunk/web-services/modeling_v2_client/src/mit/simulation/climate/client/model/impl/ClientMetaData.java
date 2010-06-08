@@ -2,6 +2,7 @@ package mit.simulation.climate.client.model.impl;
 
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.model.jaxb.ClientArrayAdapter;
+import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -237,7 +238,8 @@ public class ClientMetaData implements MetaData {
 
     }
 
-    @XmlTransient
+    @XmlElement(name="indexingmetadata")
+    @XmlJavaTypeAdapter(ClientJaxbReference.MetaDataAdapter.class)
     public MetaData getIndexingMetaData() {
         return indexingMetaData;
     }
