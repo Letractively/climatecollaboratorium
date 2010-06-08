@@ -114,6 +114,12 @@ public class MetaDataJAXBDelegate implements MetaData {
         return src.isIndex();
     }
 
+    @XmlElement(name="indexingmetadata")
+    @XmlJavaTypeAdapter(JaxbReference.Adapter.class)
+    public MetaData getIndexingMetaData() {
+        return src.getIndexingMetaData();
+    }
+
     @Override
     public boolean isInRange(String[] values) {
         return false;  //To change body of implemented methods use File | Settings | File Templates.
@@ -217,11 +223,7 @@ public class MetaDataJAXBDelegate implements MetaData {
 
     }
 
-    @XmlTransient
-    public MetaData getIndexingMetaData() {
-        log.debug("Somone is calling me! Argh!");
-        return null;
-    }
+
 
     @Override
     public void setIndexingMetaData(MetaData md) {

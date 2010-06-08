@@ -238,8 +238,7 @@ public class CompositeMetaData implements MetaData {
 
     @Override
     public MetaData getIndexingMetaData() {
-        throw new RuntimeException("Operation not supported on combined MetaData");
-        //return primary.getIndexingMetaData();
+        return primary.getIndexingMetaData();
     }
 
     @Override
