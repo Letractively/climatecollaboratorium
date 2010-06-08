@@ -123,5 +123,17 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
     public Long getGroupId() {
         return item.getModelGroupId();
     }
+    
+    /**
+     * Sets group ID.
+     * @throws SystemException 
+     */
+    public void setGroupId(Long modelGroupId) throws SystemException {
+        if (modelGroupId <= 0) {
+            modelGroupId = 0L;
+        }
+        item.setModelGroupId(modelGroupId);
+        ModelInputItemLocalServiceUtil.updateModelInputItem(item);
+    }
 
 }

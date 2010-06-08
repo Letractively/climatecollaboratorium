@@ -11,6 +11,7 @@ import com.ext.portlet.models.model.ModelInputItem;
 import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -71,7 +72,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      */
     public String getName() {
         try {
-            return group.getName() == null || group.getName().trim().equals("") ? group.getMetaData().getName() : group.getName();
+            return group.getName() == null || group.getName().trim().equals("") ? group.getMetaData() == null ? null : group.getMetaData().getName() : group.getName();
         } catch (SystemException e) {
             _log.error("Could not retrive group name", e);
         }
@@ -98,7 +99,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      */
     public String getDescription() {
         try {
-            return group.getDescription() == null || group.getDescription().trim().equals("") ? group.getMetaData().getDescription() : group.getDescription();
+            return group.getDescription() == null || group.getDescription().trim().equals("") ? group.getMetaData() == null ? null : group.getMetaData().getDescription() : group.getDescription();
         } catch (SystemException e) {
             _log.error("Could not retrive group description", e);
         }
@@ -130,7 +131,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
     @Override
     public int getOrder() {
-        return group.getDisplayItemOrder();
+        return group.getDisplayItemOrder() != null ? group.getDisplayItemOrder() : 0;
     }
 
     /**
@@ -235,6 +236,15 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
         return new ModelInputGroupDisplayItem(group);
     }
+    
+    /**
+     * Removes given group from the model.
+     * @throws SystemException 
+     * @throws PortalException 
+     */
+    public void delete() throws PortalException, SystemException {
+        ModelInputGroupLocalServiceUtil.deleteModelInputGroup(group.getModelInputGroupPK());
+    }
 
 
     /**
@@ -244,5 +254,36 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
     public ModelInputDisplayItemType getDisplayItemType() {
         return ModelInputDisplayItemType.GROUP;
     }
+    
+    /**
+     * Returns group ID. 
+     */
+    public Long getGroupId() {
+        return group.getModelInputGroupPK();
+    }
+    
+    /** 
+     * Returns original value of name property (from db).
+     */
+    public String getOriginalName() {
+        return group.getName();
+    }
+    
+    /** 
+     * Returns original value of description property (from db).
+     */
+    public String getOriginalDescription() {
+        return group.getDescription();
+    }
 
+
+    /**
+     * Sets meta data to passed value
+     * @param md meta data
+     * @throws SystemException 
+     */
+    public void setMetaData(MetaData md) throws SystemException {
+        group.setNameAndDescriptionMetaDataId(md == null ? null : md.getId());
+        ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
+    }
 }
