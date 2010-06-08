@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h1>input: #{input}</h1>
+    <h1>new gr#{simulationBean.newGroupWrapper}</h1>
+    <table>
+        <tr>
+            <td>Name:</td><td> <ice:inputText /> </td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td> <ice:inputTextarea /> </td>
+        </tr>
+        <tr>
+            <td>Associated metadata:</td>
+            <td>
+                <h:selectOneMenu value="#{input.metaData}" styleClass="type">
+                    <f:selectItems value="#{simulationBean.modelInputsOptions}" />
+                </h:selectOneMenu>
+            </td>
+        </tr>
+    </table>
+    <ice:commandButton value="Save" actionListener="#{input.update}" />
+    <ice:commandButton value="Cancel" actionListener="#{input.cancel}" />
+    
+</f:view>

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
@@ -22,9 +23,17 @@ import org.climatecollaboratorium.jsintegration.JSEventHandler;
 import org.climatecollaboratorium.jsintegration.JSEventManager;
 import org.climatecollaboratorium.models.event.UpdateInputWidgetsHandler;
 import org.climatecollaboratorium.models.event.UpdateOutputsOrderHandler;
+import org.climatecollaboratorium.models.support.ModelDisplayWrapper;
+import org.climatecollaboratorium.models.support.ModelInputDisplayItemWrapper;
+import org.climatecollaboratorium.models.support.ModelInputGroupDisplayItemWrapper;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
+import org.climatecollaboratorium.models.support.SupportBean;
 
 import com.ext.portlet.models.ui.ModelDisplay;
+import com.ext.portlet.models.ui.ModelDisplayItem;
+import com.ext.portlet.models.ui.ModelInputDisplayItem;
+import com.ext.portlet.models.ui.ModelInputDisplayItemType;
+import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.SystemException;
 
@@ -37,6 +46,7 @@ public class SimulationBean implements JSEventHandler {
     private JSEventManager jsEventManager;
     private ModelDisplay display;
     private boolean embeddedEditing;
+    private Map<ModelInputDisplayItem, ModelInputDisplayItemWrapper> wrappedInputs = new HashMap<ModelInputDisplayItem, ModelInputDisplayItemWrapper>();
 
     public boolean isEmbeddedEditing() {
         return embeddedEditing;
@@ -77,7 +87,7 @@ public class SimulationBean implements JSEventHandler {
         inputsValues.clear();
         editing = false;
 
-        display = ModelUIFactory.getInstance().getDisplay(simulation);
+        updateDisplay();
 
         JSEvent event = new JSEvent();
         event.setId("renderModelInputs");
@@ -105,7 +115,7 @@ public class SimulationBean implements JSEventHandler {
         inputsValues.clear();
         editing = false;
 
-        display = ModelUIFactory.getInstance().getDisplay(scenario);
+        updateDisplay();
         for (Variable var: scenario.getInputSet()) {
             inputsValues.put(var.getMetaData().getId(), var.getValue().get(0).getValues()[0]);
         }
@@ -193,7 +203,7 @@ public class SimulationBean implements JSEventHandler {
             }
 
 
-            display = ModelUIFactory.getInstance().getDisplay(scenario);
+            updateDisplay();
 
             event.setId("modelRunSuccessful");
             event.setTimestamp(System.currentTimeMillis());
@@ -247,12 +257,35 @@ public class SimulationBean implements JSEventHandler {
     }
     
     public void updateInputs(ActionEvent e) {
+        updateDisplay();
+    }
+    
+    public ModelDisplayWrapper getWrappedDisplay() {
+        return new ModelDisplayWrapper(display);
+    }
+    
+    public Map<ModelInputDisplayItem, ModelInputDisplayItemWrapper> getWrappedInputs() {
+        return wrappedInputs;
+    }
+    
+    private void updateDisplay() {
         if (scenario != null) {
             display = ModelUIFactory.getInstance().getDisplay(scenario);
         }
         else {
             display = ModelUIFactory.getInstance().getDisplay(simulation);
+        } 
+        wrappedInputs.clear();
+        for (ModelInputDisplayItem item: display.getInputs()) {
+            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item));
         }
-        // do nothing
+    }
+    
+    public List<SelectItem> getModelInputsOptions() {
+        return SupportBean.getModelInputsOptions(display);
+    }
+    
+    public ModelInputGroupDisplayItemWrapper getNewGroupWrapper() {
+        return new ModelInputGroupDisplayItemWrapper(simulation);
     }
 }
