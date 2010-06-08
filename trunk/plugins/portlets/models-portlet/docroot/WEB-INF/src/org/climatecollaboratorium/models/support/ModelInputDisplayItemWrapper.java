@@ -1,5 +1,7 @@
 package org.climatecollaboratorium.models.support;
 
+import org.climatecollaboratorium.models.SimulationBean;
+
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputDisplayItemType;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
@@ -10,9 +12,9 @@ public class ModelInputDisplayItemWrapper {
     protected ModelInputDisplayItem wrappedItem;
 
 
-    public static ModelInputDisplayItemWrapper getInputWrapper(ModelInputDisplayItem input) {
+    public static ModelInputDisplayItemWrapper getInputWrapper(ModelInputDisplayItem input, SimulationBean bean) {
         if (input.getDisplayItemType() == ModelInputDisplayItemType.GROUP) {
-            return new ModelInputGroupDisplayItemWrapper((ModelInputGroupDisplayItem) input);
+            return new ModelInputGroupDisplayItemWrapper((ModelInputGroupDisplayItem) input, bean);
         }
         return new ModelInputDisplayItemWrapper(input);
     }
