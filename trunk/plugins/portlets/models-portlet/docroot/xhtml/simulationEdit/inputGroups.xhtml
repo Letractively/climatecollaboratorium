@@ -5,47 +5,57 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:jstl="http://java.sun.com/jsp/jstl/functions" >
+    xmlns:jstl="http://java.sun.com/jsp/jstl/functions" 
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<table>
-<tr>
-<td>
-    <ice:commandButton value="Add new group" />
-    <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" styleClass="inputGroupDef">
-        <ice:panelGroup rendered="#{input.displayItemType == 'GROUP'}" styleClass="inputGroup">
-            <h3><ice:outputText value="#{input.name}" />
-                <ice:commandButton value="Edit" />
-                <ice:commandButton value="Delete" />
-            </h3>
-            <p>
-                <ice:outputText value="#{input.description}" />
-            </p>
-            <h4>Grouped inputs</h4>
-            <ul class="groupedInputs" title="#{input.metaData.id}" >
-            <ice:panelSeries value="#{input.displayItems}" var="item" styleClass="containerForRemoval">
-                <ice:panelGroup styleClass="containerForRemoval">
-                    <li class="individualInput"><ice:outputText value="#{item.name}" /> <ice:inputText value="#{item.groupId}" /></li>
-                </ice:panelGroup> 
-            </ice:panelSeries>
-            </ul> 
-        </ice:panelGroup> 
-    </ice:panelSeries>
-</td>
-<td>
-    <ul class="availableGroupItems">
-        <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" styleClass="containerForRemoval">
-            <ice:panelGroup rendered="#{input.displayItemType == 'INDIVIDUAL'}" styleClass="containerForRemoval">
-                <li class="individualInput"><ice:outputText value="#{input.name}" /> <ice:inputText value="#{input.groupId}" /></li>
-            </ice:panelGroup> 
-        </ice:panelSeries>
-    </ul>
-</td>
-</tr>
-</table>
 
+    <table class="inputGroupsContainer">
+        <tr>
+            <td class="groupsCell">
+                <ice:commandButton value="Add new group" />
+                    <f:subview id="subview">
+                        <ui:include src="inputGroupEdit.xhtml">
+                            <ui:param name="input" value="#{simulationBean.newGroupWrapper}" />
+                        </ui:include>
+                    </f:subview>
+                <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" styleClass="inputGroupDef">
+                    <ice:panelGroup rendered="#{input.displayItemType == 'GROUP'}" styleClass="inputGroup" >
+                        <h3>#{input.name}
+                            <ice:commandButton value="Edit" actionListener="#{simulationBean.wrappedInputs[input].edit}"/>
+                            <ice:commandButton value="Delete" actionListener="#{simulationBean.wrappedInputs[input].delete}"/>
+                        </h3>
+                        <p>
+                            #{input.description}
+                        </p>
+                        <h4>Grouped inputs</h4>
+                        <ul class="groupedInputs ui-widget-content ui-corner-all" title="#{input.groupId}">
+                            <ui:repeat value="#{input.displayItems}" var="item">
+                                <li class="individualInput">
+                                    <ice:outputText value="#{item.name}"/> 
+                                    <ice:inputText value="#{item.groupId}" styleClass="hidden"/>
+                                </li>
+                            </ui:repeat>
+                            <li class="individualInputPlaceholder"></li>
+                        </ul>
+                    </ice:panelGroup> 
+                </ice:panelSeries>
+            </td>
+            <td class="availableItemsCell">
+                <h4>Available inputs</h4>
+                <ul class="availableGroupItems ui-widget-content ui-corner-all" title="#{input.groupId}">
+                    <ui:repeat value="#{simulationBean.display.inputs}" var="item">
+                        <li class="#{item.displayItemType == 'INDIVIDUAL' ? 'individualInput' : ''}">
+                            <ice:outputText value="#{item.name}"  rendered="#{item.displayItemType == 'INDIVIDUAL'}" /> 
+                            <ice:inputText value="#{item.groupId}"  rendered="#{item.displayItemType == 'INDIVIDUAL'}" styleClass="hidden" />
+                        </li>
+                    </ui:repeat>
+                    <li class="individualInputPlaceholder"></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
     <ice:commandButton value="Update" actionListener="#{simulationBean.updateInputs}" styleClass="inputsWidgetsUpdate"/>
-
-
     <f:subview>
         <ui:include src="editJsWidgets.xhtml" />
     </f:subview>

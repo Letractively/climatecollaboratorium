@@ -345,11 +345,43 @@ ul.ui-tabs-nav li.ui-state-active a{
 }
 
 .inputGroup {
-    width: 70%;
+    width: 100%;
+}
+.inputGroupsContainer {
+	width: 98%;
+}
+
+.inputGroupsContainer td {
+    vertical-align: top;
+}
+
+.inputGroupsContainer .groupsCell {
+	width: 70%;
+}
+
+.inputGroupsContainer .availableItemsCell {
+    width: 30%;
+}
+
+.availableGroupItems {
+    padding: 5px;
+    border: 1px solid #FAD978;
+    background: #FFF3CF;
+    width: 100%;
 }
 
 .inputGroup .groupedInputs {
-    border: 1px solid #99FFB1;
-    background: #D1FFDC;
     padding: 5px;
+}
+
+.individualInputPlaceholder {
+    height: 10px;
+    width: 100%;
+}
+
+.individualInput {
+    padding: 3px;
+    border: 1px solid green;
+    background: #C4FFD2;
+    margin-bottom: 5px;
 }

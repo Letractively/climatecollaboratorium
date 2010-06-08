@@ -502,26 +502,57 @@ function initEditForms() {
 	}
 	
 	/* Inputs grouping */
-	if (true) {
-		jQuery(".containerForRemoval").each(function() {
-			var content = jQuery(this).html();
-			var parent = jQuery(this).parent();
-			jQuery(this).remove();
-			parent.append(content);
+	if (! jQuery(".availableGroupItemsa").length) {
+		log.debug("starting to render: " +  jQuery(".availableGroupItems").length);
+		
+		jQuery(".availableItemsCell .listItems").each(function() {
+			//var container = jQuery(this);
+			//ul.html("");
+			//container.html("<ul class='availableGroupItems ui-widget-content ui-corner-all'>" + container.html() + "</ul>");
+			
+			//log.debug("creating available items ");
+		});
+		
+		jQuery(".inputGroup .listItems").each(function() {
+			//var container = jQuery(this);
+			//var parentId = container.attr("class").replace(/[^\d]*/, "");
+			//container.append("<ul class='groupedInputs ui-widget-header' title='" + parentId + "'>" + container.html() + "</ul>");
+
+			//log.debug("creating grouped items ");
+			
+		});
+		
+		//, .inputGroup
+		jQuery(".individualInput").each(function(){
+			var parentId = 0;
+			var input = jQuery(this);
+			if (input.parent().hasClass("groupedInputs")) {
+				parentId = input.parent().attr("title");
+			}
+			input.find("input").val(parentId);
 		});
 		
 		jQuery(".individualInput").draggable({helper: "original"});
-		jQuery(".groupedInputs").droppable({
+		jQuery(".groupedInputs, .availableGroupItems").droppable({
+			activeClass: 'ui-state-highlight',
 			drop: function(event, ui) {
-				jQuery(this).find(".placeholder").remove();
-				/*
-				jQuery("<li></li>").text(ui.draggable.text()).appendTo(this);
-				*/
-				log.debug("position przed: " + ui.draggable.css("position"));
-				log.debug(ui.draggable.css("position"));
+				jQuery(this).find(".individualInputPlaceholder").remove();
 				ui.draggable.css("top", null);
 				ui.draggable.css("left", null);
 				ui.draggable.appendTo(this);
+
+				// input has been added to concrete group, set its input to group id
+				var parentId = -1;
+				try {
+				if (ui.draggable.parent().hasClass("groupedInputs")) {
+					parentId = ui.draggable.parent().attr("title");
+				}
+				ui.draggable.find("input").val(parentId);
+				}
+				catch (e) {
+					log.error(e);
+				}
+				jQuery(this).append("<li class='individualInputPlaceholder'></li>");
 				//ui.draggable.draggable();
 				
 		}});
