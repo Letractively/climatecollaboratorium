@@ -23,7 +23,6 @@ import org.climatecollaboratorium.jsintegration.JSEventHandler;
 import org.climatecollaboratorium.jsintegration.JSEventManager;
 import org.climatecollaboratorium.models.event.UpdateInputWidgetsHandler;
 import org.climatecollaboratorium.models.event.UpdateOutputsOrderHandler;
-import org.climatecollaboratorium.models.support.ModelDisplayWrapper;
 import org.climatecollaboratorium.models.support.ModelInputDisplayItemWrapper;
 import org.climatecollaboratorium.models.support.ModelInputGroupDisplayItemWrapper;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
@@ -60,6 +59,7 @@ public class SimulationBean implements JSEventHandler {
 
     private Map<Long, String> inputsValues = new HashMap<Long, String>();
     private boolean scenarioSaved;
+    private ModelInputGroupDisplayItemWrapper newGroupWrapper;
 
     public SimulationBean() {
     }
@@ -260,15 +260,12 @@ public class SimulationBean implements JSEventHandler {
         updateDisplay();
     }
     
-    public ModelDisplayWrapper getWrappedDisplay() {
-        return new ModelDisplayWrapper(display);
-    }
     
     public Map<ModelInputDisplayItem, ModelInputDisplayItemWrapper> getWrappedInputs() {
         return wrappedInputs;
     }
     
-    private void updateDisplay() {
+    public void updateDisplay() {
         if (scenario != null) {
             display = ModelUIFactory.getInstance().getDisplay(scenario);
         }
@@ -277,8 +274,10 @@ public class SimulationBean implements JSEventHandler {
         } 
         wrappedInputs.clear();
         for (ModelInputDisplayItem item: display.getInputs()) {
-            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item));
+            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this));
         }
+        
+        newGroupWrapper = new ModelInputGroupDisplayItemWrapper(this);
     }
     
     public List<SelectItem> getModelInputsOptions() {
@@ -286,6 +285,21 @@ public class SimulationBean implements JSEventHandler {
     }
     
     public ModelInputGroupDisplayItemWrapper getNewGroupWrapper() {
-        return new ModelInputGroupDisplayItemWrapper(simulation);
+        return newGroupWrapper;
+    }
+    
+    public List<ModelInputDisplayItem> getIndividualInputsFromDisplay() {
+        List<ModelInputDisplayItem> inputs = new ArrayList<ModelInputDisplayItem>();
+        for (ModelInputDisplayItem input: display.getInputs()) {
+            if (input.getDisplayItemType() == ModelInputDisplayItemType.INDIVIDUAL) {
+                inputs.add(input);
+            }
+            else {
+                for (ModelInputDisplayItem groupedInput: ((ModelInputGroupDisplayItem) input).getDisplayItems()) {
+                    inputs.add(groupedInput);
+                }
+            }
+        }
+        return inputs;
     }
 }

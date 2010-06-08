@@ -357,10 +357,12 @@ ul.ui-tabs-nav li.ui-state-active a{
 
 .inputGroupsContainer .groupsCell {
 	width: 70%;
+	padding: 5px;
 }
 
 .inputGroupsContainer .availableItemsCell {
     width: 30%;
+    padding: 5px;
 }
 
 .availableGroupItems {
@@ -384,4 +386,18 @@ ul.ui-tabs-nav li.ui-state-active a{
     border: 1px solid green;
     background: #C4FFD2;
     margin-bottom: 5px;
+    cursor: move;
+}
+
+.inputGroup .inputTitle h3 {
+    display: inline;
+}
+.inputGroup .inputTitle .actions {
+    float: right;
+    margin-right: 15px;
+}
+
+
+.inputGroup .inputTitle .actions input {
+	margin-left: 5px;
 }

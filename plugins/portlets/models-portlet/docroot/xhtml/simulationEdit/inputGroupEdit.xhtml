@@ -6,15 +6,14 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    <h1>input: #{input}</h1>
-    <h1>new gr#{simulationBean.newGroupWrapper}</h1>
-    <table>
+    <h3><ice:outputText value="Adding new group" rendered="#{input.adding}" /></h3>
+    <table class="groupEditForm">
         <tr>
-            <td>Name:</td><td> <ice:inputText /> </td>
+            <td>Name:</td><td> <ice:inputText value="#{input.name}" /> </td>
         </tr>
         <tr>
             <td>Description:</td>
-            <td> <ice:inputTextarea /> </td>
+            <td><ice:inputTextarea value="#{input.description}" /> </td>
         </tr>
         <tr>
             <td>Associated metadata:</td>
