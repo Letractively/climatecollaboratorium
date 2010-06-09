@@ -6,6 +6,7 @@
 
 <head>
 	<title>$the_title</title>
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery/jquery.css?tt=$themeTimestamp" media="all" />
 
 	<link href="/collaboratorium-theme/css/skin.css&tt=$themeTimestamp" rel="stylesheet" type="text/css" />
 

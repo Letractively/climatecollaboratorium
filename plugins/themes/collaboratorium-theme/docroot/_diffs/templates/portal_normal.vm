@@ -6,6 +6,7 @@
 <head>
     <title>$the_title - $company_name</title>
 
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery/jquery.css?tt=$themeTimestamp" media="all" />
     $theme.include($top_head_include)
 
     <link href="/collaboratorium-theme/css/skin.css&tt=$themeTimestamp" rel="stylesheet" type="text/css" />
@@ -38,6 +39,7 @@
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wiki.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/prototype_additions.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/safari.css?tt=$themeTimestamp" media="all" />
+	
 
 	<!--[if IE 6]>
 	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen-ie6.css?tt=$themeTimestamp" media="all" />
