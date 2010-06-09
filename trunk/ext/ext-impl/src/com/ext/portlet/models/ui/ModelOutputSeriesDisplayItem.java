@@ -147,6 +147,15 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
         ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
     }
     
+    public Long getAssociatedMetaDataId() {
+        return item.getRelatedOutputItem();
+    }
+    
+    public void setAssociatedMetaDataId(Long id) throws SystemException {
+        item.setRelatedOutputItem(id);
+        ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);   
+    }
+    
 
     @Override
     public ModelOutputDisplayItemType getDisplayItemType() {
