@@ -421,3 +421,28 @@ ul.ui-tabs-nav li.ui-state-active a{
     cursor: move;
 }
 
+.chartMessagePlaceholder {
+	border: 1px solid red;
+	background: #FAD2D7;
+	padding: 5px;
+	margin: 5px;
+}
+
+.chartMessagePlaceholder li {
+    color: #571B22;
+}
+
+
+.impactsContent .ui-accordion-header a.folder {
+	padding: 0;
+
+}
+
+.ui-accordion .ui-accordion-header {
+    margin-top: 0;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-default, 
+.ui-accordion .ui-accordion-header.ui-state-active {
+	border: 0;/*1px solid #CCCCCC;*/
+}

@@ -12,6 +12,7 @@ import javax.faces.model.SelectItem;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.TupleStatus;
 import mit.simulation.climate.client.Variable;
 import mit.simulation.climate.client.comm.ModelNotFoundException;
 import mit.simulation.climate.client.comm.ScenarioNotFoundException;
@@ -25,6 +26,7 @@ import org.climatecollaboratorium.models.event.UpdateInputWidgetsHandler;
 import org.climatecollaboratorium.models.event.UpdateOutputsOrderHandler;
 import org.climatecollaboratorium.models.support.ModelInputDisplayItemWrapper;
 import org.climatecollaboratorium.models.support.ModelInputGroupDisplayItemWrapper;
+import org.climatecollaboratorium.models.support.ModelOutputErrorSettingWrapper;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 import org.climatecollaboratorium.models.support.SupportBean;
 
@@ -50,6 +52,7 @@ public class SimulationBean implements JSEventHandler {
     private ModelDisplay display;
     private boolean embeddedEditing;
     private Map<ModelInputDisplayItem, ModelInputDisplayItemWrapper> wrappedInputs = new HashMap<ModelInputDisplayItem, ModelInputDisplayItemWrapper>();
+    private List<ModelOutputErrorSettingWrapper> outputErrorSettingWrappers = new ArrayList<ModelOutputErrorSettingWrapper>();
 
     public boolean isEmbeddedEditing() {
         return embeddedEditing;
@@ -159,6 +162,17 @@ public class SimulationBean implements JSEventHandler {
 
     public void editSimulation(ActionEvent event) {
         editing = true;
+        outputErrorSettingWrappers.clear();
+        for (ModelOutputDisplayItem item: getAllOutputsFromDisplay()) {
+            if (item instanceof ModelOutputSeriesDisplayItem || item instanceof ModelOutputIndexedDisplayItem) {
+                for (TupleStatus status: TupleStatus.values()) {
+                    if (status.getCode() != null) {
+                        outputErrorSettingWrappers.add(new ModelOutputErrorSettingWrapper(item, status, this));
+                    }
+                }
+            }
+        }
+        System.out.println(outputErrorSettingWrappers);
     }
 
     public void cancelEditing(ActionEvent event) {
@@ -332,5 +346,9 @@ public class SimulationBean implements JSEventHandler {
             }
         }
         return itemsMap;
+    }
+    
+    public List<ModelOutputErrorSettingWrapper> getOutputErrorSettingWrappers() {
+        return outputErrorSettingWrappers;
     }
 }
