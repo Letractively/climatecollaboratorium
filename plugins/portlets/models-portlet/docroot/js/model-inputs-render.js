@@ -1,6 +1,5 @@
 try {
 Ice.onSendReceive("mainContent",function() {}, function() {
-	log.debug("onReceive");
 	setTimeout(function() {
 	showSliders();
 	renderModelOutputs();
@@ -14,13 +13,11 @@ jQuery(document).ready(function() {
 });
 
 function renderModelInputs(event) {
-	log.debug("render model inputs event");
 	showSliders();
 }
 
 
 function modelRunSuccessful(event) {
-	log.debug("model run successful");
 	renderModelOutputs();
 }
 
@@ -47,9 +44,7 @@ function showSliders() {
 	}
 	
 	function formatFieldValue(value, unit) {
-		log.debug(unit + "\t" + unit.toLowerCase().indexOf("percent"));
 		if (unit.toLowerCase().indexOf("percent") >= 0) {
-			log.debug("returning percents: " + (value*100) + "%");
 			return (value * 100).toFixed(0) + "%";
 		}
 		return value;
@@ -70,8 +65,6 @@ function showSliders() {
 		var currentValue = jQuery(this).find(".fieldValue").val();
 		var type = jQuery(this).find(".type").val();
 		var unit = jQuery(this).find(".unit").val();
-		
-		log.debug("type: " + type + "\tunit: " + unit + "\tdata type: " + dataType);
 
 		if (! isNaN(parseFloat(currentValue))) {
 			defaultVal = currentValue;
@@ -149,7 +142,6 @@ function showSliders() {
 			var id = jQuery(this).find('.id').val();
 			var val = jQuery(this).find('.value').val();
 			var unit = jQuery(this).find('.unit').val();
-			log.debug("adding input value, id: " + id + "\tval: " + val + "\tunit: " + unit + "\tparsedval: " + parseFieldValue(val, unit));
 			values[id] = parseFieldValue(val, unit);
 			} catch (e) { log.error(e) }
 		});
@@ -167,7 +159,6 @@ function showSliders() {
 function renderModelOutputs() {
 	unlockImpactsScreen();
 
-	log.profile("renderModelOutputs");
 	/* Check if outputs have been already processed, if they have been then there is no need
 	 * to rerender graphs.
 	 */
@@ -179,7 +170,6 @@ function renderModelOutputs() {
 	/*
 	 * Render graphs
 	 */
-	log.debug("ploting outputs");
 	jQuery(".outputDef").each(function() {
 		try {
 
@@ -188,6 +178,7 @@ function renderModelOutputs() {
 				return;
 			}
 			var def = jQuery(this);
+			var errorMessagesPlaceholder = def.find(".chartMessagePlaceholder");
 			var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
 			var chartTitle = def.find(".chartTitle").val();
 			var indexMin = parseFloat(def.find(".indexMin").val());
@@ -205,6 +196,7 @@ function renderModelOutputs() {
 			var max = null;
 			var yaxis = {};
 			var xaxis = {label:'Year', autoscale: true};
+			var errorMessages = [];
 			
 			
 			var series = [];
@@ -212,33 +204,44 @@ function renderModelOutputs() {
 				var val = eval("(" + jQuery(this).find(".value").val() + ")" );
 				var label = jQuery(this).find(".label").val();
 				var id = jQuery(this).find(".id").val();
-				min = jQuery(this).find(".min").val();
-				max = jQuery(this).find(".max").val();
-				if (isNaN(parseFloat(min)) || isNaN(parseFloat(max))) {
-					min = null;
-					max = null;
-				}
-				var associatedId = jQuery(this).find(".associatedId").val();
-
-				for (var i = 0; i < val.length; i++) {
-					val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
-				}
-				valuesById[id] = val;
-				labelsById[id] = label;
-				
-				if (parseInt(associatedId) > 0) {
-					if (typeof(confIntervalById[associatedId]) == 'undefined') {
-						confIntervalById[associatedId] = [];
+				var error = jQuery(this).find(".error").val();
+				var errorMessage = jQuery(this).find(".errorMessage").val();
+				var errorPolicy = jQuery(this).find(".errorPolicy").val();
+				if (error == 'NORMAL' || errorPolicy != 'NO_DISPLAY_WITH_MSG') { 
+					min = jQuery(this).find(".min").val();
+					max = jQuery(this).find(".max").val();
+					if (isNaN(parseFloat(min)) || isNaN(parseFloat(max))) {
+						min = null;
+						max = null;
 					}
-					confIntervalById[associatedId].push(id);
-				} else {
-					values.push(val);
-					series.push({showMarker: false, label: label});
+					var associatedId = jQuery(this).find(".associatedId").val();
+
+					for (var i = 0; i < val.length; i++) {
+						if (isNaN(parseFloat(val[i][0])) || isNaN(parseFloat(val[i][1]))) {
+							continue;
+						}
+						val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
+					}
+					valuesById[id] = val;
+					labelsById[id] = label;
+				
+					if (parseInt(associatedId) > 0) {
+						if (typeof(confIntervalById[associatedId]) == 'undefined') {
+							confIntervalById[associatedId] = [];
+						}
+						confIntervalById[associatedId].push(id);
+					} else {
+						values.push(val);
+						series.push({showMarker: false, label: label});
+					}
+				}
+				if (error != 'NORMAL' && errorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(errorMessage) != "") {
+					errorMessages.push(errorMessage);
 				}
 			});
 			
-			// set min/max
-			
+			// 	set min/max
+		
 			if (min != null && max != null) {
 				yaxis.min = min;
 				yaxis.max = max;
@@ -247,8 +250,8 @@ function renderModelOutputs() {
 				xaxis.min = indexMin;
 				xaxis.max = indexMax;
 			}
-			
-			
+		
+		
 			for (var x in confIntervalById) {
 				var valMain = valuesById[x];
 				var valConf1 = valuesById[confIntervalById[x][0]];
@@ -258,14 +261,13 @@ function renderModelOutputs() {
 					//intervalVal[i] = [valMain[i][0], valConf2[1], valMain[i][1], valConf1[1]];
 					intervalVal[i] = [valMain[i][0], valConf1[i][1], valConf2[i][1], valMain[i][1]];
 				}
-				
+			
 				values.push(intervalVal);
 				series.push({showMarker: false, showLabel: true, label: "90% Confidence interval for " + labelsById[x], 
 					renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
 			}
-
 			var plot = jQuery.jqplot(chartPlaceholderId, values, 
-					{title: chartTitle, 
+				{title: chartTitle, 
 				series: series,
 				axes:{
 					xaxis: xaxis,
@@ -278,6 +280,13 @@ function renderModelOutputs() {
 					xoffset:0
 				}
 			});
+			for (var i=0; i < errorMessages.length; i++) {
+				errorMessagesPlaceholder.append("<li>" + errorMessages[i] + "</li>");
+			}
+			if (errorMessages.length > 0) {
+				log.debug("Showing error messages: " + errorMessages);
+				errorMessagesPlaceholder.show();
+			}
 		}
 		catch (e) {
 			log.error(e);
@@ -287,7 +296,7 @@ function renderModelOutputs() {
 		 * that graph will take around 320 px and I'm giving 18 px for each item in the legend.
 		 */
 
-		jQuery("#" + chartPlaceholderId).parent().css("height", (320 + (18 * values.length)) + "px");
+		jQuery("#" + chartPlaceholderId).parent().css("height", (320 + (18 * values.length) + (22 * errorMessages.length)) + "px");
 	});
 	
 	
@@ -352,7 +361,6 @@ function renderModelOutputs() {
 	
 	jQuery(".outputDef").eq(0).addClass("processed");
 	jQuery(".outputDef").show();
-	log.profile("renderModelOutputs");
 	
 }
 
@@ -392,38 +400,6 @@ function initAccordion() {
 }
 
 function showEditForm() {
-	/*
-	try {
-	log.debug("HAHAHAHAHA jestem glupia funkcja" + jQuery(".sortableOutputDisplay").length );
-	jQuery(".sortableOutputDisplay").each(function() {
-		log.debug("sortable output display - liczba: " + jQuery(this).length);
-		var subContent = jQuery(this).find(".subSortableOutputDisplay").html();
-		jQuery(this).find("subSortableOutputDisplay").html("<ul>" + content + "</ul>");
-
-		var content = jQuery(".sortableOutputDisplay").html();
-		jQuery(this).html("<ul>" + content + "</ul>");
-
-
-		jQuery(this).find("ul").sortable();
-		jQuery(this).find("ul").disableSelection();
-
-		jQuery(this).find(".subSortableOutputDisplay").sortable();
-		
-	});
-	} catch(e) {log.error(e) };
-
-	
-
-	jQuery("#showOrder").click(function() {
-		var items = jQuery(".sortableOutputDisplay .outputId");
-		var order = [];
-		items.each(function() {
-			order.push(this.value);
-		});
-	});
-	
-	jQuery("#editModel").tabs();
-	*/
 }
 
 
@@ -453,31 +429,6 @@ function unlockImpactsScreen() {
 edit form related stuff 
 */
 
-//alert(order);
-
-//icefacesEventManager.sendEventToTheBackend("updateOutputsOrder", order);
-/*
-jQuery(function() {
-	log.debug("HAHAHAHAHA jestem glupia funkcja" + jQuery(".sortableOutputDisplay").length );
-	jQuery(".sortableOutputDisplay").each(function() {
-		log.debug("sortable output display - liczba: " + jQuery(this).length);
-		var subContent = jQuery(this).find(".subSortableOutputDisplay").html();
-		jQuery(this).find("subSortableOutputDisplay").html("<ul>" + content + "</ul>");
-
-		var content = jQuery(".sortableOutputDisplay").html();
-		jQuery(this).html("<ul>" + content + "</ul>");
-
-
-		jQuery(this).find("ul").sortable();
-		jQuery(this).find("ul").disableSelection();
-
-		jQuery(this).find(".subSortableOutputDisplay").sortable();
-});
-
-});
-*/
-
-
 
 function initEditForms() {
 	/* Inputs ordering */
@@ -503,7 +454,6 @@ function initEditForms() {
 	
 	/* Inputs grouping */
 	if (! jQuery(".availableGroupItemsa").length) {
-		log.debug("starting to render: " +  jQuery(".availableGroupItems").length);
 		
 		jQuery(".availableItemsCell .listItems").each(function() {
 			//var container = jQuery(this);

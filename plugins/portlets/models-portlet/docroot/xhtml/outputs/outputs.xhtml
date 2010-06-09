@@ -18,7 +18,6 @@
                         
                         <div class="impactsContent">
                             <ice:panelGroup rendered="#{simulationBean.scenario != null}">
-                                <h1>Scenario id: #{simulationBean.scenario.id}</h1>
                                 <div class="ui-accordion ui-widget ui-helper-reset">
                                     <ice:panelSeries value="#{simulationBean.display.outputs}" var="output" >
                                         <ice:panelGroup rendered="#{output.visible and output.displayItemType == 'SCALAR'}" >

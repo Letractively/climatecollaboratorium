@@ -12,7 +12,9 @@
         <a class="folder" href="javascript:;" tabindex="-1"><span class="hidden">Folder/unFolder</span></a>
     </h3>
     <div>
-        <h1>Index: #{output.index}</h1>
+        <input type="hidden" class="indexError" value="#{output.error.status}" />
+        <input type="hidden" class="indexErrorMessage" value="#{output.error.message}" />
+        <input type="hidden" class="indexErrorPolicy" value="#{output.error.policy}" />
         <input type="hidden" class="chartType" value="#{output.chartType}" />
         <input type="hidden" class="chartTitle" value="#{output.name}" />
         <input type="hidden" class="indexMin" value="#{output.index.min[0]}" />
@@ -26,9 +28,15 @@
                 <input type="hidden" class="label" value="#{serie.name}" />  
                 <input type="hidden" class="min" value="#{serie.variable.metaData.min[1]}" />  
                 <input type="hidden" class="max" value="#{serie.variable.metaData.max[1]}" />
+                <input type="hidden" class="error" value="#{serie.error.status}" />
+                <input type="hidden" class="errorMessage" value="#{serie.error.message}" />
+                <input type="hidden" class="errorPolicy" value="#{serie.error.policy}" />
             </div>
         </ice:panelSeries>
         <div class="chartContainer">
+            <div class="errorMessages">
+                <ul class="chartMessagePlaceholder" style="display: none"></ul>
+            </div>
             <div id="output_chart_#{output.seriesVariables[0].id}" class="chartPlaceholder"></div>
         </div>
     </div>
