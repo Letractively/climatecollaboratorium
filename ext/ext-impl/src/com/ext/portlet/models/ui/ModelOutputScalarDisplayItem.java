@@ -59,7 +59,7 @@ public class ModelOutputScalarDisplayItem extends ModelOutputDisplayItem {
 
     @Override
     public int getOrder() {
-       return -1;
+       return 1000;
     }
 
     @Override
@@ -86,5 +86,9 @@ public class ModelOutputScalarDisplayItem extends ModelOutputDisplayItem {
     @Override
     public boolean isVisible() {
         return true;
+    }
+    
+    public void setVisible(boolean visible) throws SystemException {
+       _log.warn("Setting visibility on scalar items is not currently supported");
     }
 }
