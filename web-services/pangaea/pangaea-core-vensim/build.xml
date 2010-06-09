@@ -21,7 +21,12 @@
     </target>
     
     <target name="jar" depends="compile">
-       <jar destfile="${pangaea-core.jar}" basedir="${classesdir}" />
+       <copy todir="${classesdir}">
+       	  <fileset dir=".">
+            <include name="META-INF/*" />
+          </fileset>
+       </copy>
+       <jar destfile="${pangaea-core.jar}" basedir="${classesdir}" manifest="META-INF/MANIFEST.MF" />
     </target>
     
     <target name="clean">
