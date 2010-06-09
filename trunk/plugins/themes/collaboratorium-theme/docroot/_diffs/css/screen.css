@@ -31,7 +31,7 @@ li{
 a{
 	text-decoration:none;
 }
-a:hover{
+a:hover {
 	text-decoration:underline;
 }
 .black{
@@ -879,7 +879,7 @@ fieldset{
 	background-repeat: repeat-x;
 	background-position: 0 50%;
 }
-.ui-slider-handle {
+.ui-widget-content a.ui-slider-handle {
 	position: absolute;
 	z-index: 2;
 	top: -3px;
@@ -889,7 +889,7 @@ fieldset{
 	margin-left: -6px;
 	background:url(../images/textures_glass.gif) no-repeat
 }
-.ui-slider-handle-active, .ui-slider-handle-active:hover {
+.ui-widget-content a.ui-slider-handle-active, .ui-widget-content a.ui-slider-handle-active:hover {
 	width: 11px;
 	height: 16px;
 	position: absolute;
