@@ -18,14 +18,15 @@
                         
                         <div class="impactsContent">
                             <ice:panelGroup rendered="#{simulationBean.scenario != null}">
+                                <h1>Scenario id: #{simulationBean.scenario.id}</h1>
                                 <div class="ui-accordion ui-widget ui-helper-reset">
                                     <ice:panelSeries value="#{simulationBean.display.outputs}" var="output" >
-                                        <ice:panelGroup rendered="#{output.displayItemType == 'SCALAR'}" >
+                                        <ice:panelGroup rendered="#{output.visible and output.displayItemType == 'SCALAR'}" >
                                             <f:subview>
                                                 <ui:include src="scalar.xhtml" />
                                             </f:subview>
                                         </ice:panelGroup>
-                                        <ice:panelGroup rendered="#{output.displayItemType == 'INDEXED'}" >
+                                        <ice:panelGroup rendered="#{output.visible and output.displayItemType == 'INDEXED'}" >
                                             <f:subview>
                                                 <ui:include src="indexed.xhtml" />
                                             </f:subview>
