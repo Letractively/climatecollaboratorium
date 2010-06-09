@@ -23,6 +23,9 @@ public class ModelOutputErrorSettingWrapper {
         this.item = item;
         this.status = status;
         this.bean = bean;
+        
+        policy = item.getErrorBehavior(status).getPolicy();
+        msg = item.getErrorBehavior(status).getMessage(); 
     }
     
     public ModelOutputDisplayItem getItem() {
