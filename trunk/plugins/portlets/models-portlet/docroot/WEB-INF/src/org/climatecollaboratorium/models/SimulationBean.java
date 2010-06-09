@@ -215,9 +215,7 @@ public class SimulationBean implements JSEventHandler {
         try {
 
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
-            System.out.println("scenario after run: ");
-            System.out.println(scenario.getId());
-            System.out.println("outputsetsize: " + scenario.getOutputSet().size());
+            System.out.println("scenario id after run: " + scenario.getId());
             
             for (Variable var: scenario.getInputSet()) {
                 inputsValues.put(var.getId(), var.getValue().get(0).getValues()[0]);
