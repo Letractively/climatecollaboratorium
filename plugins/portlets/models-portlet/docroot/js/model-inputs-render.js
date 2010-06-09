@@ -296,7 +296,7 @@ function renderModelOutputs() {
 		 * that graph will take around 320 px and I'm giving 18 px for each item in the legend.
 		 */
 
-		jQuery("#" + chartPlaceholderId).parent().css("height", (320 + (18 * values.length) + (22 * errorMessages.length)) + "px");
+		jQuery("#" + chartPlaceholderId).parent().css("height", (320 + (18 * values.length) + (errorMessages.length > 0 ? 30 + 16 * errorMessages.length : 0)) + "px");
 	});
 	
 	
