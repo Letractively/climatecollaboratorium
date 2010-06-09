@@ -49,14 +49,14 @@ public class ModelOutputErrorBehavior {
     public static ModelOutputErrorBehavior getBehavior(TupleStatus status, ModelOutputChartOrder item) {
         if (status == TupleStatus.OUT_OF_RANGE) {
             String policyName = item.getModelIndexRangePolicy();
-            if (policyName == null) {
+            if (policyName == null || policyName.trim().equals("")) {
                 return createEmptyBehavior(status);
             }
             String msg = item.getModelIndexRangeMessage();
            return new ModelOutputErrorBehavior(status,ErrorPolicy.valueOf(policyName),msg);
         } else if (status == TupleStatus.INVALID) {
             String policyName = item.getModelIndexErrorPolicy();
-            if (policyName == null) {
+            if (policyName == null || policyName.trim().equals("")) {
                 return createEmptyBehavior(status);
             }
             String msg = item.getModelIndexErrorMessage();
