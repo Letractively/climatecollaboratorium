@@ -17,11 +17,9 @@ public class JSIntegrationBean implements JSEventManager {
     private long lastEventTimestamp;
 
     public JSIntegrationBean() {
-        System.out.println(" ##################### tworze integration bean #########################");
     }
 
     public void processEvent(ActionEvent _e) {
-        System.out.println("Processing input");
 
         JSONObject jsonObject = JSONObject.fromObject(eventInput);
         JSEvent event = (JSEvent) JSONObject.toBean(jsonObject, JSEvent.class);
