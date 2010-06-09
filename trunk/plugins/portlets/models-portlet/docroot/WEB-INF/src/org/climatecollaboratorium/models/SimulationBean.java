@@ -172,7 +172,6 @@ public class SimulationBean implements JSEventHandler {
                 }
             }
         }
-        System.out.println(outputErrorSettingWrappers);
     }
 
     public void cancelEditing(ActionEvent event) {
