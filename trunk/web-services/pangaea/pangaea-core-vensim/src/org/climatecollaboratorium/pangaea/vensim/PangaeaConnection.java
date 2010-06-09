@@ -53,10 +53,13 @@ public class PangaeaConnection {
         String libName = System.getProperty(DLL_LIBNAME_PARAM);
         String modelPath = System.getProperty(MODEL_PATH_PARAM);
         try {
+		System.out.println("creating new vensim helper");
             vensimHelper = new VensimHelper(libName, modelPath);
+		System.out.println("creating new vensim helper " + vensimHelper);
         }
         catch (VensimException e) {
             log.error("An exception was thrown when initializing Vensim", e);
+		e.printStackTrace();
             // exception should be thrown, but in order to be consistent with old interface nothing happens
             //throw new PangaeaException("An exception was thrown when initializing Vensim", e);
         }
@@ -72,6 +75,8 @@ public class PangaeaConnection {
         SimulationResults result = new SimulationResults();
         try {
             for (Variable var: input.getAllVariables().keySet()) {
+		System.out.println(var.internalName + " " +  input.getValue(var));
+		System.out.println("vensim helper: " + vensimHelper);
                 vensimHelper.setVariable(var.internalName, input.getValue(var).floatValue());
             }
         
@@ -111,9 +116,12 @@ public class PangaeaConnection {
     public static void main(String[] args) throws VensimException {
 
     	long before = System.currentTimeMillis();
+        String libName = System.getProperty(DLL_LIBNAME_PARAM);
+        String modelPath = System.getProperty(MODEL_PATH_PARAM);
 
-        final String libName = "vendll32";
-    	final String modelPath = "/home/janusz/workdir/liferay/vensim/vensim_jni/clearn.vmf";
+        if (libName == null) {libName = "vendll32";}
+	if (modelPath == null) {modelPath = "/home/janusz/workdir/liferay/vensim/vensim_jni/clearn.vmf";}
+
         System.setProperty(DLL_LIBNAME_PARAM, libName);
         System.setProperty(MODEL_PATH_PARAM, modelPath);
         
