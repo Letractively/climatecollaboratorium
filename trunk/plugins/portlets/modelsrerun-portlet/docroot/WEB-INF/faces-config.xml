@@ -2,6 +2,7 @@
 
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
 	<!-- application related managed beans -->
+	<factory/>
 	<managed-bean>
 		<managed-bean-name>edit</managed-bean-name>
 		<managed-bean-class>com.liferay.util.bridges.jsf.common.PortletPreferencesManagedBean</managed-bean-class>
@@ -31,10 +32,9 @@
 		<managed-bean-class>com.liferay.util.bridges.jsf.common.ThemeDisplayManagedBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-    <managed-bean>
-        <managed-bean-name>migrationManager</managed-bean-name>
-        <managed-bean-class>org.climatecollaboratorium.modelsmigration.MigrationManager</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-
+	<managed-bean>
+		<managed-bean-name>migrationManager</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.modelsmigration.MigrationManager</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 </faces-config>

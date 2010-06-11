@@ -8,6 +8,8 @@
 		<control-panel-entry-weight>150.0</control-panel-entry-weight>
 		<use-default-template>false</use-default-template>
 		<instanceable>false</instanceable>
+		<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>
+		<footer-portlet-css>/css/models-rerun-portlet.css</footer-portlet-css>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
