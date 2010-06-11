@@ -85,8 +85,8 @@ public class PangaeaConnection {
             File file = new File(".");
             System.out.println(file.getAbsolutePath());
         
-            vensimHelper.setVariable(INITIAL_TIME_VARNAME, INITIAL_TIME_VALUE);
-            vensimHelper.setVariable(FINAL_TIME_VARNAME, FINAL_TIME_VALUE);
+            //vensimHelper.setVariable(INITIAL_TIME_VARNAME, INITIAL_TIME_VALUE);
+            //vensimHelper.setVariable(FINAL_TIME_VARNAME, FINAL_TIME_VALUE);
         
             vensimHelper.run();
         
