@@ -13,8 +13,6 @@ import java.util.Set;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
-
-
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
@@ -24,23 +22,29 @@ import mit.simulation.climate.client.comm.ModelNotFoundException;
 import mit.simulation.climate.client.comm.ScenarioNotFoundException;
 
 import com.ext.portlet.plans.model.Plan;
+import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 public class MigrationManager {
+    private static final String REPOSITORY_HOST = "localhost";
+    private static final int REPOSITORY_PORT = 8080;
+    private List<PlanTypeWrapper> wrappedPlanTypes;
     Map<Long, Boolean> migrationStatuses = new HashMap<Long, Boolean>();
     Map<Long, String> migrationMessages = new HashMap<Long, String>();
     
     private Long targetModelId = 623L;
+    private String serviceHost = REPOSITORY_HOST;
+    private Integer servicePort = REPOSITORY_PORT;
     
     public List<Plan> getPlans() throws SystemException {
-        Plan p;
         return PlanLocalServiceUtil.getPlans(0, Integer.MAX_VALUE);
     }
     
     public Set<Simulation> getSimulations() throws IOException {
-        ClientRepository repository = ClientRepository.instance("localhost", 8080);
+        ClientRepository repository = ClientRepository.instance(serviceHost, servicePort);
         return repository.getAllSimulations();
     }
     
@@ -75,7 +79,9 @@ public class MigrationManager {
     public void startMigration(ActionEvent e) throws IOException, SystemException, PortalException, ScenarioNotFoundException, ModelNotFoundException {
         migrationMessages = new HashMap<Long, String>();
         migrationStatuses = new HashMap<Long, Boolean>();
-        ClientRepository repository = ClientRepository.instance("localhost", 8080);
+        // sadly this doesn't work ;/
+        // ClientRepository repository = CollaboratoriumModelingService.repository();
+        ClientRepository repository = ClientRepository.instance(serviceHost, servicePort);
         
         Simulation targetSimulation = repository.getSimulation(targetModelId);
         List<Plan> plans = getPlans();
@@ -91,16 +97,21 @@ public class MigrationManager {
                 Simulation fromSimulation = scenario.getSimulation();
                 
                 if (!checkIfSimulationsCompatible(fromSimulation, targetSimulation)) {
-                    migrationMessages.put(plan.getPlanId(), "Simulations aren't compatible (target simulation has inputs not defined in source simulation");
+                    migrationMessages.put(plan.getPlanId(), "Simulations aren't compatible (target simulation has inputs not defined in source simulation)");
                     migrationStatuses.put(plan.getPlanId(), false);
                     continue;
                 }
-            
+                
+                Map<Long, Long> inputsMapping = getSourceToTargetInputsMapping(fromSimulation, targetSimulation);
+           
                 Map<Long, Object> values = new HashMap<Long, Object>();
                 for (Variable v: scenario.getInputSet()) {
-                    values.put(v.getMetaData().getId(), v.getValue().get(0).getValues()[0]);
+                    values.put(inputsMapping.get(v.getMetaData().getId()), v.getValue().get(0).getValues()[0]);
                 }
-                repository.runModel(targetSimulation, values, plan.getUserId(), true);
+                Scenario newScenario = repository.runModel(targetSimulation, values, plan.getUserId(), true);
+                plan.setScenarioId(newScenario.getId().toString());
+                PlanLocalServiceUtil.updatePlan(plan);
+                
             } catch (Throwable exception) {
                 migrationMessages.put(plan.getPlanId(), "Exception has been thrown: " + exception.getClass().getName() + exception.getMessage());
                 migrationStatuses.put(plan.getPlanId(), false);
@@ -111,22 +122,76 @@ public class MigrationManager {
     }
     
     private boolean checkIfSimulationsCompatible(Simulation from, Simulation to) {
-        Set<Long> toInputsIds = new HashSet<Long>();
+        Set<String> toInputsNames = new HashSet<String>();
         for (MetaData md: to.getInputs()) {
-            toInputsIds.add(md.getId());
+            toInputsNames.add(md.getName());
         }
         
         // check if all inputs have been defined
         for (MetaData md: from.getInputs()) {
-            if (!toInputsIds.contains(md.getId())) {
+            if (!toInputsNames.contains(md.getName())) {
                 return false;
             }
         }
         return true;
     }
+    
+    private Map<Long, Long> getSourceToTargetInputsMapping(Simulation from, Simulation to) {
+        Map<Long, Long> fromIdsToIds = new HashMap<Long, Long>();
+        Map<String, MetaData> toInputs = new HashMap<String, MetaData>();
+        for (MetaData md: to.getInputs()) {
+            toInputs.put(md.getName(), md);
+        }
+        
+        // check if all inputs have been defined
+        for (MetaData md: from.getInputs()) {
+            fromIdsToIds.put(md.getId(), toInputs.get(md.getName()).getId());
+        }
+        return fromIdsToIds;
+    }
 
     public Map<Long, String> getMigrationMessages() {
         return migrationMessages;
+    }
+    
+    public List<PlanTypeWrapper> getPlanTypes() throws SystemException {
+        if (wrappedPlanTypes == null) {
+            wrappedPlanTypes = new ArrayList<PlanTypeWrapper>();
+            for (PlanType planType :PlanTypeLocalServiceUtil.getPlanTypes(0, Integer.MAX_VALUE)) {
+                wrappedPlanTypes.add(new PlanTypeWrapper(planType));
+            }
+        }
+        return wrappedPlanTypes;
+    }
+    
+    public List<SelectItem> getAvailableModels() throws SystemException, IOException {
+        ClientRepository repository = ClientRepository.instance(serviceHost, servicePort);
+        List<SelectItem> ret = new ArrayList<SelectItem>();
+        
+        for (Simulation simulation: repository.getAllSimulations()) {
+            ret.add(new SelectItem(simulation.getId(), simulation.getId() + ": " + simulation.getName()));
+        }
+        return ret;
+    }
+    
+    public String getServiceHost() {
+        return serviceHost;
+    }
+    
+    public Integer getServicePort() {
+        return servicePort;
+    }
+    
+    public void setServiceHost(String host) {
+        serviceHost = host;
+    }
+    
+    public void setServicePort(Integer port) {
+        servicePort = port;
+    }
+    
+    public void updateServiceHost(ActionEvent e) {
+        // do nothing
     }
     
 }
