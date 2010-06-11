@@ -49,7 +49,7 @@
 	#js ($js_main_file)
 </head>
 
-<body class="portal-popup $css_class">
+<body class="portal-popup $css_class" id="mainContent">
 
 $theme.include($content_include)
 
