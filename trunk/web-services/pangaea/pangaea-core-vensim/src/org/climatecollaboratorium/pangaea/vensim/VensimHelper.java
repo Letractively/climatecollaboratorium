@@ -174,7 +174,7 @@ public class VensimHelper {
             return new float[0]; 
         }
         log.debug("Found " + ret + " values for variable " + name);
-        return Arrays.copyOf(varVal, ret);
+        return Arrays.copyOfRange(varVal, 150, ret);
     }
     
     /**
