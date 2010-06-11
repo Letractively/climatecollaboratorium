@@ -82,6 +82,9 @@ public class ExcelResource {
      */
     private static final String FIELD_DESCRIPTION = "description";
 
+
+    private static final String FIELD_WORKSHEET = "worksheet";
+
     /**
      * <p>
      * Default value for the excel file directory.
@@ -195,10 +198,11 @@ public class ExcelResource {
             String name = (String) formFields[0];
             String description = (String) formFields[1];
             FileItem excelFile = (FileItem) formFields[2];
+            int worksheet = (Integer)formFields[3];
 
             // Parses the excel
             HSSFWorkbook workbook = getWorkbook(excelFile.getInputStream());
-            ExcelModelParser parser = new ExcelModelParser(workbook, dao);
+            ExcelModelParser parser = new ExcelModelParser(workbook, dao, worksheet);
             model = parser.parse();
             // persist it first
             dao.commit();
@@ -291,6 +295,7 @@ public class ExcelResource {
     private Object[] getFormFields(HttpServletRequest request) throws FileUploadException {
         String name = "";
         String description = "";
+        int worksheet = 0;
         FileItem file = null;
 
         List<? extends FileItem> items = requestParser.parseRequest(request);
@@ -301,6 +306,9 @@ public class ExcelResource {
                 }
                 if (FIELD_DESCRIPTION.equals(item.getFieldName())) {
                     description = item.getString();
+                }
+                if (FIELD_WORKSHEET.equals(item.getFieldName())) {
+                    worksheet = Integer.parseInt(item.getString());
                 }
             } else {
                 file = item;
@@ -317,7 +325,7 @@ public class ExcelResource {
             throw new ExcelWrapperException("An excel file should be uploaded.");
         }
 
-        return new Object[] {name, description, file};
+        return new Object[] {name, description, file, worksheet};
     }
 
     /**

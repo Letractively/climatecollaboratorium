@@ -137,7 +137,7 @@ public class ExcelModelParser {
      *
      * @throws IllegalArgumentException if any parameter is null or workbook doesn't have sheet assoicated
      */
-    public ExcelModelParser(HSSFWorkbook workbook, ExcelWrapperDAO dao) {
+    public ExcelModelParser(HSSFWorkbook workbook, ExcelWrapperDAO dao, int worksheet) {
         Utils.checkNull(workbook, "workbook");
         Utils.checkNull(dao, "dao");
 
@@ -146,8 +146,12 @@ public class ExcelModelParser {
             throw new IllegalArgumentException("the workbook should at least contain 1 sheet.");
         }
 
-        sheet = workbook.getSheetAt(0);
+        sheet = workbook.getSheetAt(worksheet);
         this.dao = dao;
+    }
+
+     public ExcelModelParser(HSSFWorkbook workbook, ExcelWrapperDAO dao) {
+        this(workbook,dao,0);
     }
 
     /**
