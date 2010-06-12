@@ -47,6 +47,7 @@
 
 	#css ($css_main_file)
 	#js ($js_main_file)
+	<script type="text/javascript" src="/collaboratorium-theme/javascript/script.js?tt=$themeTimestamp"></script>
 </head>
 
 <body class="portal-popup $css_class" id="mainContent">
