@@ -446,3 +446,9 @@ ul.ui-tabs-nav li.ui-state-active a{
 .ui-accordion .ui-accordion-header.ui-state-active {
 	border: 0;/*1px solid #CCCCCC;*/
 }
+
+.scalarOutput {
+    padding: 0;
+    line-height: normal;
+    margin: 0;
+}
