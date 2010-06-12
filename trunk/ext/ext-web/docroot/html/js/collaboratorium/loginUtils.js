@@ -13,3 +13,14 @@ function deferUntilLogin(fn) {
             return false;
         }
 }
+
+function iframe_DeferUntilLogin(fn) {
+	if (Liferay.ThemeDisplay.isSignedIn()) {
+        if (fn) fn();
+        return true;
+    } else {
+    	setRedirectionLogin();
+    	jQuery("#login").show();
+        return false;
+    }
+}
