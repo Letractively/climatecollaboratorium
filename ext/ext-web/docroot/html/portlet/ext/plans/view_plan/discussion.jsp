@@ -54,7 +54,7 @@
 		searchBoxContainer = contentDocument.find("#_19_keywords2").parent();
 		searchBoxContainer.html('<div class="searchInputBox"><input class="text" type="text"/>' + 
 				'<a class="searchBtn" href="javascript:;" onClick="document._19_fm2.submit()" ><span class="hidden">Search</span></a></div>' + 
-				'<a class="newThread" href="javascript:;" onClick="_19_addMessage();"><span class="hidden">Post New Thread</span></a><div class="clear"/>');
+				'<a class="newThread" href="javascript:;" onClick="iframe_DeferUntilLogin(function () {_19_addMessage(); });"><span class="hidden">Post New Thread</span></a><div class="clear"/>');
 
 		contentDocument.find("th.col-1").addClass("first");
 		contentDocument.find("th.col-6").addClass("last");
