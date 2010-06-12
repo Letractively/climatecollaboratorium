@@ -7,7 +7,7 @@
     xmlns:jstl="http://java.sun.com/jsp/jstl/functions" >
  
     <!-- <h3 class="scalar">#{output.name}</h3>-->
-    <ice:outputText value="#{output.variable.value[0].values[0]}">
+    <ice:outputText value="#{output.variable.value[0].values[0]}" styleClass="scalarOutput">
         <f:convertNumber type="number" minFractionDigits="3"  maxFractionDigits="3"/>
     </ice:outputText>
 </f:view>
