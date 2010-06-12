@@ -79,7 +79,7 @@ public class PlanLocalServiceHelper {
     /**
      * Default guest permissions for community forum category.
      */
-    public static final String[] DEFAULT_CATEGORY_GUEST_PERMISSIONS = DEFAULT_CATEGORY_COMMUNITY_PERMISSIONS;
+    public static final String[] DEFAULT_CATEGORY_GUEST_PERMISSIONS = {ActionKeys.VIEW, ActionKeys.SUBSCRIBE};
 
     /**
      * Default description of group working on a plan.
