@@ -36,7 +36,11 @@ public class NavigationBean {
         ExternalContext ctx = FacesContext.getCurrentInstance().getExternalContext();//.getRequestPathInfo())
 
         if (ctx.getRequestParameterMap().containsKey("modelId")) {
-            modelId = Long.parseLong(ctx.getRequestParameterMap().get("modelId").toString());
+            try {
+                modelId = Long.parseLong(ctx.getRequestParameterMap().get("modelId").toString());
+            } catch (NumberFormatException e) {
+                // ignore
+            }
         }
         
         if (ctx.getRequestParameterMap().containsKey("viewType")) {
@@ -44,11 +48,20 @@ public class NavigationBean {
         }
         
         if (ctx.getRequestParameterMap().containsKey("scenarioId")) {
-            scenarioId = Long.parseLong(ctx.getRequestParameterMap().get("scenarioId").toString());
+            try {
+                scenarioId = Long.parseLong(ctx.getRequestParameterMap().get("scenarioId").toString());
+            } catch (NumberFormatException e) {
+                // ignore
+            }
         }
         
         if (ctx.getRequestParameterMap().containsKey("planId")) {
-            planId = Long.parseLong(ctx.getRequestParameterMap().get("planId").toString());
+            try {
+                planId = Long.parseLong(ctx.getRequestParameterMap().get("planId").toString());
+            }
+            catch (NumberFormatException e) {
+                // ignore
+            }
         }
         
         if (ctx.getRequestParameterMap().containsKey("page")) {
