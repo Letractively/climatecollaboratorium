@@ -1648,7 +1648,7 @@ var ModelUtils = new function() {
 			parentTableId = "#" + parentTableId;
 			for ( var i = 0; i < variables.length; i++) {
 				var variable = variables[i];
-				if(!variable.values[variable.values.length - 1] || isNaN(parseFloat(variable.values[variable.values.length - 1]))) {
+				if(!variable.values[variable.values.length - 1] || !variable.values[variable.values.length - 1][1] || isNaN(parseFloat(variable.values[variable.values.length - 1][1]))) {
 					continue;
 				}
 				$(parentTableId)
