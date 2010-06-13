@@ -116,8 +116,8 @@ var ModelUtils = new function() {
 	
 	
 	
-	var shortActionsDisplay = ["D_Pct change in Developed FF emissions","D_Pct change in Developing A FF emissions",
-	     "D_Pct change in Developing B FF emissions","D_Global land use emissions change","D_Target Sequestration"];
+	var shortActionsDisplay = ["Pct change in Developed FF emissions","Pct change in Developing A FF emissions",
+	     "Pct change in Developing B FF emissions","Global land use emissions change","Target Sequestration"];
 	
 	var shortOutputDisplay = {
 	       "CO2 Concentration in 2100" : [
@@ -648,7 +648,7 @@ var ModelUtils = new function() {
 	}
 	
 	function formatInputValue(input,value) {
-	     if (input.units[0].search(/percent/i) > -1) {
+	     if (input.units && input.units[0].search(/percent/i) > -1) {
 	          return (value*100).toFixed(0)+"%";
 	     } else {
 	          return Number(value).toFixed(2);     
@@ -1355,7 +1355,7 @@ var ModelUtils = new function() {
 				"defaults > data").text());
 		this.description = metadataDef.find("description").text();
 		this.external = metadataDef.find("external").text();
-		this.id = metadataDef.find("id").text();
+		this.id = metadataDef.children("id").text();
 		this.name = metadataDef.find("name").text();
 		this.internalName = metadataDef.find("internalname").text();
 		this.labels = ModelUtils.parseValues(metadataDef.find("labels > data")
@@ -1648,6 +1648,9 @@ var ModelUtils = new function() {
 			parentTableId = "#" + parentTableId;
 			for ( var i = 0; i < variables.length; i++) {
 				var variable = variables[i];
+				if(!variable.values[variable.values.length - 1] || isNaN(parseFloat(variable.values[variable.values.length - 1]))) {
+					continue;
+				}
 				$(parentTableId)
 						.append(
 								"<tr class='"
