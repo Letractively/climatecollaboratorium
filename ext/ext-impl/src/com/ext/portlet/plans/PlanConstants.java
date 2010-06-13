@@ -107,7 +107,7 @@ public class PlanConstants {
 
 		}),
 		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("GlobalTempChange", Double.class), true, null),
-		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output", "_Change_in_GDP_vs__baseline_minicam_output"}, Double.class),
+		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
 		        true, new MoreThanFilter() {
 			@Override
 			public String getValue(PlanAttributeFilter filter) {
@@ -115,7 +115,7 @@ public class PlanConstants {
 			}
 
 		}),
-		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output", "_Change_in_GDP_vs__baseline_minicam_output"}, Double.class),
+		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
 		        true, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
