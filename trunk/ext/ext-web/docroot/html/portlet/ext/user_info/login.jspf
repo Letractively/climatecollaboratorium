@@ -14,6 +14,7 @@
  * @version 1.0
  */
 %>
+<%@page import="com.liferay.portlet.login.util.LoginUtil"%>
 <%
 	//String redirect = ParamUtil.getString(renderRequest, "redirect");
 

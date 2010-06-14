@@ -72,10 +72,11 @@
 		contentDocument.find(".delta-selector").remove();
 		contentDocument.find(".taglib-search-iterator-page-iterator-top").remove();
 		
-
 		
 		frame.height = frameContent.body.scrollHeight + 50;
-		frame.css("overflow", "hidden");
+		jQuery(frame).css("overflow", "hidden");
+
+        contentDocument.find("#banner").remove();
 		jQuery("#portlet-plans-inner-portlet").load(portletPlansModifyMessageBoardsInnerPortlet);
 	}
 
