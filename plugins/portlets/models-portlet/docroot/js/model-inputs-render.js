@@ -415,6 +415,7 @@ function showEditForm() {
 
 
 function showLoadingScreen() {
+	
 	var impactsPlaceholder = jQuery(".impactsContent");
 	if (impactsPlaceholder.length > 0) {
 		impactsPlaceholder.css( {
@@ -426,11 +427,14 @@ function showLoadingScreen() {
 							message :'<img src="/html/portlet/ext/models/images/ajax-loader.gif"/>'
 						});
 	}
+	
 }
 
 function unlockImpactsScreen() {
+	
 	var impactsPlaceholder = jQuery(".impactsContent");
 	impactsPlaceholder.unblock();
+	
 }
 	
 
