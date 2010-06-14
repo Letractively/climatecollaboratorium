@@ -181,11 +181,18 @@ function renderModelOutputs() {
 			var errorMessagesPlaceholder = def.find(".chartMessagePlaceholder");
 			var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
 			var chartTitle = def.find(".chartTitle").val();
-			var indexMin = parseFloat(def.find(".indexMin").val());
-			var indexMax = parseFloat(def.find(".indexMax").val());
+			var indexMin = parseInt(def.find(".indexMin").val());
+			var indexMax = parseInt(def.find(".indexMax").val());
+			var xaxisTicks; 
 			if (isNaN(indexMin) || isNaN(indexMax)) {
 				indexMin = null;
 				indexMax = null;
+			}
+			else {
+				xaxisTicks = [];
+				for (var i=indexMin; i<=indexMax; i+=10) {
+					xaxisTicks.push(i);
+				}
 			}
 			
 			var values = [];
@@ -194,8 +201,10 @@ function renderModelOutputs() {
 			var confIntervalById = {};
 			var min = null;
 			var max = null;
+			
+			
 			var yaxis = {};
-			var xaxis = {label:'Year', autoscale: true};
+			var xaxis = {label:'Year', autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks};
 			var errorMessages = [];
 			
 			
@@ -203,6 +212,7 @@ function renderModelOutputs() {
 			def.find(".serieDef").each(function() {
 				var val = eval("(" + jQuery(this).find(".value").val() + ")" );
 				var label = jQuery(this).find(".label").val();
+				var unit = jQuery(this).find(".unit").val();
 				var id = jQuery(this).find(".id").val();
 				var error = jQuery(this).find(".error").val();
 				var errorMessage = jQuery(this).find(".errorMessage").val();
@@ -232,7 +242,7 @@ function renderModelOutputs() {
 						confIntervalById[associatedId].push(id);
 					} else {
 						values.push(val);
-						series.push({showMarker: false, label: label});
+						series.push({showMarker: false, label: label + " (" + unit + ")"});
 					}
 				}
 				if (error != 'NORMAL' && errorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(errorMessage) != "") {
