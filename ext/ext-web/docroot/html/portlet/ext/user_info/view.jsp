@@ -18,7 +18,6 @@
 
 <portlet:defineObjects />
 <%
-
     String redirect = PortalUtil.getCurrentURL(request);
 	List<Role> userRoles = RoleServiceUtil.getUserRoles(user.getUserId());
 	boolean isAdmin = false;

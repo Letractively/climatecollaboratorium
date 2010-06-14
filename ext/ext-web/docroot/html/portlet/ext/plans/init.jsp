@@ -117,8 +117,7 @@
     Boolean canAddPlan = permissionChecker.hasPermission(themeDisplay.getPortletGroupId(),
             portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), PlanConstants.ADD_PLAN);
     Boolean canEditPlan = plan!=null && (
-            permissionChecker.hasPermission(themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), PlanConstants.EDIT_PLAN) ||
-            
+            isPlanOwner || isPlanMember ||
             permissionChecker.hasPermission(themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), PlanConstants.EDIT_ANY_PLAN));
             
             

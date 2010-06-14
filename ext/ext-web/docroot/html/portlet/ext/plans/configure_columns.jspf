@@ -33,7 +33,7 @@ function doSubmit() {
 }
 
 function <portlet:namespace/>addSelected() {
-     jQuery("#available-columns option[selected]").appendTo("#selected-columns");
+     jQuery("#available-columns option:selected").appendTo("#selected-columns");
 }
 
 function <portlet:namespace/>removeSelected() {
