@@ -49,7 +49,7 @@ public class EditDebateCategoryBean {
         this.debateCategory = debateCategory;
         if (debateCategory != null) {
             setTitle(debateCategory.getTitle());
-            setContent(debateCategory.getDescription());
+            setContent(debateCategory.getDelegate().getDescription());
             for (Debate d : debateCategory.getDebates()) {
                 selected.get(d.getDebateId()).setInModel(true);
             }
