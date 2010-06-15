@@ -212,6 +212,15 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
 
         return item.getModelItemIsVisible()==null || item.getModelItemIsVisible();
     }
+    
+    public String getLabelFormatString() {
+        return item.getModelItemLabelFormat();
+    }
+    
+    public void setLabelFormatString(String format) throws SystemException {
+        item.setModelItemLabelFormat(format);
+        ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);
+    }
 
 
 }

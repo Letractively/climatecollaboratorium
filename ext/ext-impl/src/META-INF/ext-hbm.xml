@@ -226,6 +226,7 @@
 		<property name="modelItemRangeMessage" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="modelItemErrorPolicy" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="modelItemErrorMessage" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelItemLabelFormat" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="modelItemIsVisible" />
 		<property name="itemType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="relatedOutputItem" />

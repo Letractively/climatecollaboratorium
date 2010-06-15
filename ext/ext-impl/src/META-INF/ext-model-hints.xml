@@ -168,6 +168,7 @@
 		<field name="modelItemRangeMessage" type="String" />
 		<field name="modelItemErrorPolicy" type="String" />
 		<field name="modelItemErrorMessage" type="String" />
+		<field name="modelItemLabelFormat" type="String" />
 		<field name="modelItemIsVisible" type="Boolean" />
 		<field name="itemType" type="String" />
 		<field name="relatedOutputItem" type="Long" />

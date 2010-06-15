@@ -33,6 +33,7 @@ public class ModelOutputItemSoap implements Serializable {
     private String _modelItemRangeMessage;
     private String _modelItemErrorPolicy;
     private String _modelItemErrorMessage;
+    private String _modelItemLabelFormat;
     private Boolean _modelItemIsVisible;
     private String _itemType;
     private Long _relatedOutputItem;
@@ -51,6 +52,7 @@ public class ModelOutputItemSoap implements Serializable {
         soapModel.setModelItemRangeMessage(model.getModelItemRangeMessage());
         soapModel.setModelItemErrorPolicy(model.getModelItemErrorPolicy());
         soapModel.setModelItemErrorMessage(model.getModelItemErrorMessage());
+        soapModel.setModelItemLabelFormat(model.getModelItemLabelFormat());
         soapModel.setModelItemIsVisible(model.getModelItemIsVisible());
         soapModel.setItemType(model.getItemType());
         soapModel.setRelatedOutputItem(model.getRelatedOutputItem());
@@ -166,6 +168,14 @@ public class ModelOutputItemSoap implements Serializable {
 
     public void setModelItemErrorMessage(String modelItemErrorMessage) {
         _modelItemErrorMessage = modelItemErrorMessage;
+    }
+
+    public String getModelItemLabelFormat() {
+        return _modelItemLabelFormat;
+    }
+
+    public void setModelItemLabelFormat(String modelItemLabelFormat) {
+        _modelItemLabelFormat = modelItemLabelFormat;
     }
 
     public Boolean getModelItemIsVisible() {

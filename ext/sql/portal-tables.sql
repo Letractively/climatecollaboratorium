@@ -893,6 +893,7 @@ create table ModelOutputItem (
 	modelItemRangeMessage VARCHAR(75) null,
 	modelItemErrorPolicy VARCHAR(75) null,
 	modelItemErrorMessage VARCHAR(75) null,
+	modelItemLabelFormat VARCHAR(75) null,
 	modelItemIsVisible BOOLEAN,
 	itemType VARCHAR(75) null,
 	relatedOutputItem LONG
