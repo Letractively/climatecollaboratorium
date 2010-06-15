@@ -217,6 +217,7 @@ function renderModelOutputs() {
 				var error = jQuery(this).find(".error").val();
 				var errorMessage = jQuery(this).find(".errorMessage").val();
 				var errorPolicy = jQuery(this).find(".errorPolicy").val();
+				var labelFormatString = jQuery(this).find(".labelFormatString").val();
 				if (error == 'NORMAL' || errorPolicy != 'NO_DISPLAY_WITH_MSG') { 
 					min = jQuery(this).find(".min").val();
 					max = jQuery(this).find(".max").val();
@@ -225,6 +226,7 @@ function renderModelOutputs() {
 						max = null;
 					}
 					var associatedId = jQuery(this).find(".associatedId").val();
+					var seriesType = jQuery(this).find(".seriesType").val();
 
 					for (var i = 0; i < val.length; i++) {
 						if (isNaN(parseFloat(val[i][0])) || isNaN(parseFloat(val[i][1]))) {
@@ -235,14 +237,18 @@ function renderModelOutputs() {
 					valuesById[id] = val;
 					labelsById[id] = label;
 				
-					if (parseInt(associatedId) > 0) {
+					if (seriesType != 'NORMAL' && parseInt(associatedId) > 0) {
 						if (typeof(confIntervalById[associatedId]) == 'undefined') {
 							confIntervalById[associatedId] = [];
 						}
 						confIntervalById[associatedId].push(id);
 					} else {
 						values.push(val);
-						series.push({showMarker: false, label: label + " (" + unit + ")"});
+						// prepare label
+						if (!(!labelFormatString || jQuery.trim(labelFormatString) == "")) {
+							label = labelFormatString.replace(/%label/g, label).replace(/%unit/g, unit);
+						}
+						series.push({showMarker: false, label: label});
 					}
 				}
 				if (error != 'NORMAL' && errorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(errorMessage) != "") {
@@ -273,7 +279,7 @@ function renderModelOutputs() {
 				}
 			
 				values.push(intervalVal);
-				series.push({showMarker: false, showLabel: true, label: "90% Confidence interval for " + labelsById[x], 
+				series.push({showMarker: false, showLabel: false, 
 					renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
 			}
 			var plot = jQuery.jqplot(chartPlaceholderId, values, 
