@@ -58,7 +58,7 @@
         //alert("should show..." + jQuery("#plans-model-impacts-container").length);
         
         jQuery("#plans-model-impacts-container").css("left", "0").css("position", "normal");
-        jQuery(frame).find("#modelName").click(document.location = "/web/guest/models/#modelId=<%= plan.getPlanType().getModelId() %>");
+        jQuery(frameContent).find("#modelName").click(function() {document.location = "/web/guest/models/#modelId=<%= plan.getPlanType().getModelId() %>"});
     }
 
     

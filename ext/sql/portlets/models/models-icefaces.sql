@@ -43,7 +43,7 @@ create table ModelOutputItem (
 	modelItemErrorPolicy VARCHAR(75) null,
 	modelItemErrorMessage LONGTEXT,
 	modelItemIsVisible binary(1) null default '1',
-	modelItemLabelFormat VARCHAR(75) null,
+	modelItemLabelFormat VARCHAR(255) null,
 	relatedOutputItem BIGINT
 );
 
