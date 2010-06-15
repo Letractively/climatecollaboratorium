@@ -65,6 +65,9 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
             { "modelItemErrorMessage", new Integer(Types.VARCHAR) },
             
 
+            { "modelItemLabelFormat", new Integer(Types.VARCHAR) },
+            
+
             { "modelItemIsVisible", new Integer(Types.BOOLEAN) },
             
 
@@ -73,7 +76,7 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
 
             { "relatedOutputItem", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelOutputItem (modelOutputItemModifierPK LONG not null primary key,modelId LONG,modelOutputItemId LONG,modelOutputItemOrder INTEGER,modelItemRangePolicy VARCHAR(75) null,modelItemRangeMessage VARCHAR(75) null,modelItemErrorPolicy VARCHAR(75) null,modelItemErrorMessage VARCHAR(75) null,modelItemIsVisible BOOLEAN,itemType VARCHAR(75) null,relatedOutputItem LONG)";
+    public static final String TABLE_SQL_CREATE = "create table ModelOutputItem (modelOutputItemModifierPK LONG not null primary key,modelId LONG,modelOutputItemId LONG,modelOutputItemOrder INTEGER,modelItemRangePolicy VARCHAR(75) null,modelItemRangeMessage VARCHAR(75) null,modelItemErrorPolicy VARCHAR(75) null,modelItemErrorMessage VARCHAR(75) null,modelItemLabelFormat VARCHAR(75) null,modelItemIsVisible BOOLEAN,itemType VARCHAR(75) null,relatedOutputItem LONG)";
     public static final String TABLE_SQL_DROP = "drop table ModelOutputItem";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -95,6 +98,7 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
     private String _modelItemRangeMessage;
     private String _modelItemErrorPolicy;
     private String _modelItemErrorMessage;
+    private String _modelItemLabelFormat;
     private Boolean _modelItemIsVisible;
     private String _itemType;
     private Long _relatedOutputItem;
@@ -113,6 +117,7 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
         model.setModelItemRangeMessage(soapModel.getModelItemRangeMessage());
         model.setModelItemErrorPolicy(soapModel.getModelItemErrorPolicy());
         model.setModelItemErrorMessage(soapModel.getModelItemErrorMessage());
+        model.setModelItemLabelFormat(soapModel.getModelItemLabelFormat());
         model.setModelItemIsVisible(soapModel.getModelItemIsVisible());
         model.setItemType(soapModel.getItemType());
         model.setRelatedOutputItem(soapModel.getRelatedOutputItem());
@@ -215,6 +220,14 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
         _modelItemErrorMessage = modelItemErrorMessage;
     }
 
+    public String getModelItemLabelFormat() {
+        return GetterUtil.getString(_modelItemLabelFormat);
+    }
+
+    public void setModelItemLabelFormat(String modelItemLabelFormat) {
+        _modelItemLabelFormat = modelItemLabelFormat;
+    }
+
     public Boolean getModelItemIsVisible() {
         return _modelItemIsVisible;
     }
@@ -260,6 +273,8 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
                     getModelItemErrorPolicy()));
             model.setModelItemErrorMessage(HtmlUtil.escape(
                     getModelItemErrorMessage()));
+            model.setModelItemLabelFormat(HtmlUtil.escape(
+                    getModelItemLabelFormat()));
             model.setModelItemIsVisible(getModelItemIsVisible());
             model.setItemType(HtmlUtil.escape(getItemType()));
             model.setRelatedOutputItem(getRelatedOutputItem());
@@ -283,6 +298,7 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
         clone.setModelItemRangeMessage(getModelItemRangeMessage());
         clone.setModelItemErrorPolicy(getModelItemErrorPolicy());
         clone.setModelItemErrorMessage(getModelItemErrorMessage());
+        clone.setModelItemLabelFormat(getModelItemLabelFormat());
         clone.setModelItemIsVisible(getModelItemIsVisible());
         clone.setItemType(getItemType());
         clone.setRelatedOutputItem(getRelatedOutputItem());
@@ -341,6 +357,8 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
         sb.append(getModelItemErrorPolicy());
         sb.append(", modelItemErrorMessage=");
         sb.append(getModelItemErrorMessage());
+        sb.append(", modelItemLabelFormat=");
+        sb.append(getModelItemLabelFormat());
         sb.append(", modelItemIsVisible=");
         sb.append(getModelItemIsVisible());
         sb.append(", itemType=");
@@ -390,6 +408,10 @@ public class ModelOutputItemModelImpl extends BaseModelImpl<ModelOutputItem> {
         sb.append(
             "<column><column-name>modelItemErrorMessage</column-name><column-value><![CDATA[");
         sb.append(getModelItemErrorMessage());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>modelItemLabelFormat</column-name><column-value><![CDATA[");
+        sb.append(getModelItemLabelFormat());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>modelItemIsVisible</column-name><column-value><![CDATA[");

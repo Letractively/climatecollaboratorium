@@ -60,6 +60,10 @@ public interface ModelOutputItemModel extends BaseModel<ModelOutputItem> {
 
     public void setModelItemErrorMessage(String modelItemErrorMessage);
 
+    public String getModelItemLabelFormat();
+
+    public void setModelItemLabelFormat(String modelItemLabelFormat);
+
     public Boolean getModelItemIsVisible();
 
     public void setModelItemIsVisible(Boolean modelItemIsVisible);

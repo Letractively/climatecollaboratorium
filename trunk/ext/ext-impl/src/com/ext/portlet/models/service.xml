@@ -154,6 +154,8 @@
         <column name="modelItemErrorPolicy" type="String"/>
 
         <column name="modelItemErrorMessage" type="String"/>
+        
+        <column name="modelItemLabelFormat" type="String"/>
 
         <column name="modelItemIsVisible" type="Boolean"/>
 
