@@ -18,7 +18,7 @@
         <input type="hidden" class="chartType" value="#{output.chartType}" />
         <input type="hidden" class="chartTitle" value="#{output.name}" />
         <input type="hidden" class="indexMin" value="#{output.index.min[0]}" />
-        <input type="hidden" class="indexMax" value="#{output.index.max[0]}" />
+        <input type="hidden" class="indexMax" value="#{output.index.max[0]}" /> 
         <ice:panelSeries value="#{output.series}" var="serie">
             <div class="serieDef">
                 <input type="hidden" class="seriesType" value="#{serie.seriesType}" />
@@ -33,6 +33,7 @@
                 <input type="hidden" class="errorPolicy" value="#{serie.error.policy}" />
                 <input type="hidden" class="labelFormatString" value="#{serie.labelFormatString}" />
                 <input type="hidden" class="unit" value="#{serie.variable.metaData.units[1]}" />
+                <input type="hidden" class="dataType hidden" value="#{serie.variable.metaData.profile[0].name}" /> 
             </div>
         </ice:panelSeries>
         <div class="chartContainer">

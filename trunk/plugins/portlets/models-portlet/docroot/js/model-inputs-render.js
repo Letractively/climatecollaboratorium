@@ -183,6 +183,8 @@ function renderModelOutputs() {
 			var chartTitle = def.find(".chartTitle").val();
 			var indexMin = parseInt(def.find(".indexMin").val());
 			var indexMax = parseInt(def.find(".indexMax").val());
+			var dataType = jQuery(this).find(".dataType").val();
+			
 			var xaxisTicks; 
 			if (isNaN(indexMin) || isNaN(indexMax)) {
 				indexMin = null;
@@ -221,7 +223,17 @@ function renderModelOutputs() {
 				if (error == 'NORMAL' || errorPolicy != 'NO_DISPLAY_WITH_MSG') { 
 					min = jQuery(this).find(".min").val();
 					max = jQuery(this).find(".max").val();
-					if (isNaN(parseFloat(min)) || isNaN(parseFloat(max))) {
+					
+					if (dataType == 'java.lang.Integer') {
+						min = parseInt(min);
+						max = parseInt(max);
+					}
+					else {
+						min = parseFloat(min);
+						max = parseFloat(max);
+					}
+					
+					if (isNaN(min) || isNaN(max)) {
 						min = null;
 						max = null;
 					}
@@ -261,6 +273,10 @@ function renderModelOutputs() {
 			if (min != null && max != null) {
 				yaxis.min = min;
 				yaxis.max = max;
+				if (dataType == 'java.lang.Integer') {
+					log.debug("MAMY INTEGER!");
+					yaxis.tickOptions = {formatString:'%d'};
+				}
 			}
 			if (indexMin != null && indexMax != null) {
 				xaxis.min = indexMin;
