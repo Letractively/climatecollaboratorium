@@ -911,6 +911,7 @@ public class SimulationResource {
             if (match.contains(TupleStatus.INVALID.getCode())) {
                 ServerTuple tpl = new ServerTuple(new String[]{null});
                 tpl.setStatus(TupleStatus.INVALID);
+                result.addValue(tpl);
             } else if (md.getProfile()[0].equals(java.lang.String.class)) {
                 result.addValue(new ServerTuple(new String[] {match}));
             } else {
