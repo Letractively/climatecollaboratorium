@@ -156,6 +156,16 @@ function showSliders() {
 
 }
 
+function getOutputValue(val, unit) {
+	if (unit.indexOf("%") < 0) {
+		return val;
+	}
+	else {
+		return 100*val;
+	}
+}
+		
+
 function renderModelOutputs() {
 	unlockImpactsScreen();
 
@@ -244,7 +254,7 @@ function renderModelOutputs() {
 						if (isNaN(parseFloat(val[i][0])) || isNaN(parseFloat(val[i][1]))) {
 							continue;
 						}
-						val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
+						val[i] = [parseFloat(val[i][0]), getOutputValue(parseFloat(val[i][1]), unit)];
 					}
 					valuesById[id] = val;
 					labelsById[id] = label;
