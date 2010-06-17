@@ -206,7 +206,7 @@ function renderModelOutputs() {
 			var globalInvalidMessage = jQuery(this).find(".indexedInvalidMessage").val();
 			var globalInvalidPolicy = jQuery(this).find(".indexedInvalidPolicy").val();
 			var seriesWithInvalidError = [];
-			jQuery(this).find(".serieWithOutOfRnage").each(function() {
+			jQuery(this).find(".serieWithInvalid").each(function() {
 				seriesWithInvalidError.push(jQuery(this).val());
 			});
 			
