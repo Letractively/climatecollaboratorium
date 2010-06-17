@@ -390,11 +390,20 @@ create index IX_579669EF on Plan (published);
 create index IX_397097F1 on PlanAttribute (planId);
 create index IX_FE2BD626 on PlanAttribute (planId, attributeName);
 
+create index IX_DE35A5E0 on PlanAttributeFilter (planUserSettingsId, attributeName);
+
+create index IX_B607C303 on PlanColumnSettings (planUserSettingsId, columnName);
+
 create index IX_B365BC70 on PlanPosition (positionId);
+
+create index IX_74EB9856 on PlanPropertyFilter (planUserSettingsId, propertyName);
+
+create index IX_7F5652DE on PlanType (isDefault);
 
 create index IX_33130471 on PlanVote (planId);
 create index IX_B3D04413 on PlanVote (userId);
 
+create index IX_1A42ADEA on PlansUserSettings (userId, planTypeId);
 create index IX_EA35DAA6 on PlansUserSettings (userId, published);
 
 create index IX_B9746445 on PluginSetting (companyId);
