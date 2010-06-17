@@ -273,6 +273,34 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
         }
         return null;
     }
+    
+    public ModelOutputErrorBehavior getOutOfRangeError() {
+        return getErrorBehavior(TupleStatus.OUT_OF_RANGE);
+    }
+    
+    public ModelOutputErrorBehavior getInvalidError() {
+        return getErrorBehavior(TupleStatus.INVALID);
+    }
+    
+    public List<ModelOutputSeriesDisplayItem> getSeriesWithOutOfRangeError() {
+        List<ModelOutputSeriesDisplayItem> ret = new ArrayList<ModelOutputSeriesDisplayItem>();
+        for (ModelOutputSeriesDisplayItem item: series) {
+            if (item.getError() != null && item.getError().getStatus() == TupleStatus.OUT_OF_RANGE) {
+                ret.add(item);
+            }
+        }
+        return ret;
+    }
+
+    public List<ModelOutputSeriesDisplayItem> getSeriesWithInvalidError() {
+        List<ModelOutputSeriesDisplayItem> ret = new ArrayList<ModelOutputSeriesDisplayItem>();
+        for (ModelOutputSeriesDisplayItem item: series) {
+            if (item.getError() != null && item.getError().getStatus() == TupleStatus.INVALID) {
+                ret.add(item);
+            }
+        }
+        return ret;
+    }
 
 
     @Override
