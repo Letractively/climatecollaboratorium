@@ -195,6 +195,33 @@ function renderModelOutputs() {
 			var indexMax = parseInt(def.find(".indexMax").val());
 			var dataType = jQuery(this).find(".dataType").val();
 			
+
+			var globalOutOfRangeMessage = jQuery(this).find(".indexedOutOfRangeMessage").val();
+			var globalOutOfRangePolicy = jQuery(this).find(".indexedOutOfRangePolicy").val();
+			var seriesWithOutOfRangeError = [];
+			jQuery(this).find(".serieWithOutOfRnage").each(function() {
+				seriesWithOutOfRangeError.push(jQuery(this).val());
+			});
+			
+			var globalInvalidMessage = jQuery(this).find(".indexedInvalidMessage").val();
+			var globalInvalidPolicy = jQuery(this).find(".indexedInvalidPolicy").val();
+			var seriesWithInvalidError = [];
+			jQuery(this).find(".serieWithOutOfRnage").each(function() {
+				seriesWithInvalidError.push(jQuery(this).val());
+			});
+			
+
+			var errorMessages = [];
+			
+			if (jQuery.trim(globalInvalidMessage) != "" && seriesWithInvalidError.length > 0) {
+				var msg = globalInvalidMessage.replace("%outputs", seriesWithInvalidError.join(", "));
+				errorMessages.push(msg);
+			}
+			if (globalOutOfRangeMessage != "" && seriesWithOutOfRangeError.length > 0) {
+				var msg = globalOutOfRangeMessage.replace("%outputs", seriesWithOutOfRangeError.join(", "));
+				errorMessages.push(msg);
+			}
+			
 			var xaxisTicks; 
 			if (isNaN(indexMin) || isNaN(indexMax)) {
 				indexMin = null;
@@ -217,7 +244,6 @@ function renderModelOutputs() {
 			
 			var yaxis = {};
 			var xaxis = {label:'Year', autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks};
-			var errorMessages = [];
 			
 			
 			var series = [];
@@ -308,20 +334,22 @@ function renderModelOutputs() {
 				series.push({showMarker: false, showLabel: false, 
 					renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
 			}
-			var plot = jQuery.jqplot(chartPlaceholderId, values, 
-				{title: chartTitle, 
-				series: series,
-				axes:{
-					xaxis: xaxis,
-					yaxis: yaxis
-				},
-				legend : {
-					show :true,
-					location :'nw',
-					yoffset :280,
-					xoffset:0
-				}
-			});
+			if (values.length > 0) {
+				var plot = jQuery.jqplot(chartPlaceholderId, values, 
+					{title: chartTitle, 
+					series: series,
+					axes:{
+						xaxis: xaxis,
+						yaxis: yaxis
+					},
+					legend : {
+						show :true,
+						location :'nw',
+						yoffset :280,
+						xoffset:0
+					}
+				});
+			}
 			for (var i=0; i < errorMessages.length; i++) {
 				errorMessagesPlaceholder.append("<li>" + errorMessages[i] + "</li>");
 			}
