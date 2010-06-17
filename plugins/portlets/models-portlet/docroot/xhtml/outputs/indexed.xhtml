@@ -12,9 +12,19 @@
         <a class="folder" href="javascript:;" tabindex="-1"><span class="hidden">Folder/unFolder</span></a>
     </h3>
     <div>
-        <input type="hidden" class="indexError" value="#{output.error.status}" />
-        <input type="hidden" class="indexErrorMessage" value="#{output.error.message}" />
-        <input type="hidden" class="indexErrorPolicy" value="#{output.error.policy}" />
+        <input type="hidden" class="indexedOutOfRangeMessage" value="#{output.outOfRangeError.message}" />
+        <input type="hidden" class="indexedOutOfRangePolicy" value="#{output.outOfRangeError.policy}"  />
+        <ui:repeat value="#{output.seriesWithOutOfRangeError}" var="serie">
+            <input type="hidden" class="serieWithOutOfRnage" value="#{serie.name}" />
+        </ui:repeat>
+        
+        <input type="hidden" class="indexedInvalidMessage" value="#{output.invalidError.message}" />
+        <input type="hidden" class="indexedInvalidPolicy" value="#{output.invalidError.policy}"  />
+        
+        <ui:repeat value="#{output.seriesWithInvalidError}" var="serie">
+            <input type="hidden" class="serieWithInvalid" value="#{serie.name}" />
+        </ui:repeat>
+        
         <input type="hidden" class="chartType" value="#{output.chartType}" />
         <input type="hidden" class="chartTitle" value="#{output.name}" />
         <input type="hidden" class="indexMin" value="#{output.index.min[0]}" />

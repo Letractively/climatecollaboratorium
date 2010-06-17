@@ -5,23 +5,28 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
 
 <div class="pageTitle">
-    <h2>Model index</h2>
+    <h2>Model index</h2>        
+    <div class="simulationActions">
+        <ice:form>
+            <ice:commandButton value="Edit" actionListener="#{sim.edit}" rendered="#{permissions.canEditModel and not sim.editing}" />
+        </ice:form>
+    </div>
 </div>
 
-<ice:dataTable var="simulation" value="#{sim.simulations}" styleClass="modelsTable" columnClasses="name,description,created" rowClasses="odd,even">
-    <ice:column>
+<ice:dataTable var="simulation" value="#{sim.simulations}" styleClass="modelsTable" columnClasses="name,description,created" rowClasses="odd,even" rendered="#{not sim.editing}">
+    <ice:column rendered="#{simulation.visible}">
         <f:facet name="header">
             Name
         </f:facet>
         <a href="#modelId=#{simulation.id}">#{simulation.name}</a>
     </ice:column>
-    <ice:column>
+    <ice:column rendered="#{simulation.visible}">
         <f:facet name="header">
            Description
         </f:facet>
         #{simulation.firstParagraph}
     </ice:column>
-    <ice:column>
+    <ice:column rendered="#{simulation.visible}">
         <f:facet name="header">
             Created
         </f:facet>
@@ -30,5 +35,39 @@
         </ice:outputText>
     </ice:column>
 </ice:dataTable>
+
+<ice:panelGroup rendered="#{sim.editing}">
+<ice:form>
+<ice:dataTable var="simulation" value="#{sim.simulations}" styleClass="modelsTable" columnClasses="name,description,created" rowClasses="odd,even">
+
+    <ice:column>
+        <f:facet name="header">
+            Name
+        </f:facet>
+        <a href="#modelId=#{simulation.id}">#{simulation.name}</a>
+    </ice:column>
+    <ice:column>
+        <f:facet name="header">
+           Id
+        </f:facet>
+        #{simulation.id}
+    </ice:column>
+    <ice:column>
+        <f:facet name="header">
+            Visible
+        </f:facet>
+        <ice:selectOneMenu value="#{simulation.visible}">
+            <f:selectItem itemValue="#{true}" itemLabel="true" />
+            <f:selectItem itemValue="#{false}" itemLabel="false" />
+        </ice:selectOneMenu>
+    </ice:column>
+</ice:dataTable>
+
+<ice:commandButton value="Update" actionListener="#{sim.edit}" rendered="#{permissions.canEditModel}" />
+</ice:form>
+<ice:form>
+<ice:commandButton value="Cancel" actionListener="#{sim.edit}" rendered="#{permissions.canEditModel}" />
+</ice:form>
+</ice:panelGroup>
 
 </f:view>
