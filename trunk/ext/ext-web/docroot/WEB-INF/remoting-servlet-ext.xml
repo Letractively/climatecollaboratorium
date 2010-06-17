@@ -187,6 +187,18 @@
 		<property name="service" ref="com.ext.portlet.models.service.ModelPositionService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelPositionService" />
 	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelGlobalPreferenceService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelGlobalPreferenceService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelGlobalPreferenceService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelGlobalPreferenceService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelGlobalPreferenceService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelGlobalPreferenceService" />
+	</bean>
 	<bean name="/com_ext_portlet_models_service_spring_ModelInputGroupService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelInputGroupService" />

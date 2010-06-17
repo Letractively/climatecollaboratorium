@@ -7,6 +7,7 @@
 
 <service-builder package-path="com.ext.portlet.models">
     <namespace>Models</namespace>
+
     <entity name="ModelDiscussion" remote-service="true" local-service="true">
         <!-- PK field -->
         <column name="modelDiscussionId" type="Long" primary="true"/>
@@ -50,6 +51,15 @@
         </finder>
     </entity>
 
+    <entity name="ModelGlobalPreference" local-service="true" remove-service="true">
+        <column name="modelGlobalPreferencePK" type="Long" primary="true"/>
+        <column name="modelId" type="Long"/>
+        <column name="visible" type="Boolean"/>
+        <finder name="ModelId" return-type="ModelGlobalPreference">
+            <finder-column name="modelId"/>
+        </finder>
+    </entity>
+    
     <entity name="ModelInputGroup" local-service="true" remote-service="true">
         <column name="modelInputGroupPK" type="Long" primary="true"/>
         <column name="modelId" type="Long"/>

@@ -277,6 +277,24 @@
 	<bean id="com.ext.portlet.models.service.persistence.ModelPositionUtil" class="com.ext.portlet.models.service.persistence.ModelPositionUtil">
 		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelPositionPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.impl" class="com.ext.portlet.models.service.impl.ModelGlobalPreferenceLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil" class="com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" class="com.ext.portlet.models.service.impl.ModelGlobalPreferenceServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceServiceUtil" class="com.ext.portlet.models.service.ModelGlobalPreferenceServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl" class="com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelGlobalPreferenceUtil" class="com.ext.portlet.models.service.persistence.ModelGlobalPreferenceUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl" />
+	</bean>
 	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" class="com.ext.portlet.models.service.impl.ModelInputGroupLocalServiceImpl" />
 	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" />
