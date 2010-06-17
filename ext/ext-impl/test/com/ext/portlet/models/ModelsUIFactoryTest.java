@@ -1,9 +1,7 @@
 package com.ext.portlet.models;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.ext.portlet.models.ui.*;
 import com.liferay.portal.SystemException;
@@ -78,6 +76,39 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
 
        }
 
+
+    public void testModelGlobalPreference() throws IOException, SystemException {
+        ClientRepository repository = ClientRepository.instance("localhost", 8080);
+
+
+        Set<Simulation> sims = repository.getAllSimulations();
+        assertTrue("Need at least 2 simulations to run test",sims.size()>=2);
+
+        //check one simulation
+        Iterator<Simulation> i = sims.iterator();
+        Simulation sim = i.next();
+
+        boolean vis1 = ModelUIFactory.isSimulationVisible(sim);
+
+        ModelUIFactory.setSimulationVisible(sim,!vis1);
+        boolean vis2 = ModelUIFactory.isSimulationVisible(sim);
+
+        assertTrue(vis1!=vis2);
+        ModelUIFactory.setSimulationVisible(sim,vis1);
+        vis2 = ModelUIFactory.isSimulationVisible(sim);
+        assertTrue(vis1==vis2);
+
+        //check another one, to make sure persistence creation is working
+        Simulation sim2 = i.next();
+        boolean vis1a = ModelUIFactory.isSimulationVisible(sim2);
+        ModelUIFactory.setSimulationVisible(sim2,!ModelUIFactory.isSimulationVisible(sim));
+
+        
+        assertTrue(ModelUIFactory.isSimulationVisible(sim)!=ModelUIFactory.isSimulationVisible(sim2));
+        ModelUIFactory.setSimulationVisible(sim2,vis1a);
+        assertTrue(ModelUIFactory.isSimulationVisible(sim2)==vis1a);
+
+    }
 
     public void testExistingScenario() throws IOException, ScenarioNotFoundException, ModelNotFoundException, SystemException {
 

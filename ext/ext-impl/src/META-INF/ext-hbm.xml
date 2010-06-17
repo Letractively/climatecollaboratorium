@@ -178,6 +178,14 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 	</class>
+	<class name="com.ext.portlet.models.model.impl.ModelGlobalPreferenceImpl" table="ModelGlobalPreference">
+		<cache usage="read-write" />
+		<id name="modelGlobalPreferencePK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="modelId" />
+		<property name="visible" />
+	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelInputGroupImpl" table="ModelInputGroup">
 		<cache usage="read-write" />
 		<id name="modelInputGroupPK" type="java.lang.Long">

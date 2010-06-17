@@ -10,6 +10,7 @@ package com.ext.portlet.models.ui;
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.model.ModelInputGroup;
 import com.ext.portlet.models.model.ModelInputItem;
+import com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
 import com.liferay.portal.SystemException;
@@ -179,6 +180,14 @@ public class ModelUIFactory {
 
     }
 
+    public static boolean isSimulationVisible(Simulation sim) throws SystemException {
+        return ModelGlobalPreferenceLocalServiceUtil.isVisible(sim);
+    }
+
+     public static void setSimulationVisible(Simulation sim, boolean b) throws SystemException {
+        ModelGlobalPreferenceLocalServiceUtil.setVisible(sim,b);
+    }
+
     /**
      * Helper function, returns variable for a scenario given its associated metadata
      *
@@ -196,6 +205,8 @@ public class ModelUIFactory {
         }
         return result;
     }
+
+
 
     //this is just sample code - could be made into a test case with apppriate mocks
     // (unless of course 999 is actually the id of a model)

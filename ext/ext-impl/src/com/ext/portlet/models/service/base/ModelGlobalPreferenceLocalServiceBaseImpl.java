@@ -1,5 +1,6 @@
 package com.ext.portlet.models.service.base;
 
+import com.ext.portlet.models.model.ModelGlobalPreference;
 import com.ext.portlet.models.service.ModelDiscussionLocalService;
 import com.ext.portlet.models.service.ModelDiscussionService;
 import com.ext.portlet.models.service.ModelGlobalPreferenceLocalService;
@@ -22,14 +23,17 @@ import com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersisten
 import com.ext.portlet.models.service.persistence.ModelOutputItemPersistence;
 import com.ext.portlet.models.service.persistence.ModelPositionPersistence;
 
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.annotation.BeanReference;
-import com.liferay.portal.service.base.PrincipalBean;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.util.PortalUtil;
 
+import java.util.List;
 
-public abstract class ModelInputItemServiceBaseImpl extends PrincipalBean
-    implements ModelInputItemService {
+
+public abstract class ModelGlobalPreferenceLocalServiceBaseImpl
+    implements ModelGlobalPreferenceLocalService {
     @BeanReference(name = "com.ext.portlet.models.service.ModelDiscussionLocalService.impl")
     protected ModelDiscussionLocalService modelDiscussionLocalService;
     @BeanReference(name = "com.ext.portlet.models.service.ModelDiscussionService.impl")
@@ -72,6 +76,71 @@ public abstract class ModelInputItemServiceBaseImpl extends PrincipalBean
     protected ModelOutputItemService modelOutputItemService;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl")
     protected ModelOutputItemPersistence modelOutputItemPersistence;
+
+    public ModelGlobalPreference addModelGlobalPreference(
+        ModelGlobalPreference modelGlobalPreference) throws SystemException {
+        modelGlobalPreference.setNew(true);
+
+        return modelGlobalPreferencePersistence.update(modelGlobalPreference,
+            false);
+    }
+
+    public ModelGlobalPreference createModelGlobalPreference(
+        Long modelGlobalPreferencePK) {
+        return modelGlobalPreferencePersistence.create(modelGlobalPreferencePK);
+    }
+
+    public void deleteModelGlobalPreference(Long modelGlobalPreferencePK)
+        throws PortalException, SystemException {
+        modelGlobalPreferencePersistence.remove(modelGlobalPreferencePK);
+    }
+
+    public void deleteModelGlobalPreference(
+        ModelGlobalPreference modelGlobalPreference) throws SystemException {
+        modelGlobalPreferencePersistence.remove(modelGlobalPreference);
+    }
+
+    public List<Object> dynamicQuery(DynamicQuery dynamicQuery)
+        throws SystemException {
+        return modelGlobalPreferencePersistence.findWithDynamicQuery(dynamicQuery);
+    }
+
+    public List<Object> dynamicQuery(DynamicQuery dynamicQuery, int start,
+        int end) throws SystemException {
+        return modelGlobalPreferencePersistence.findWithDynamicQuery(dynamicQuery,
+            start, end);
+    }
+
+    public ModelGlobalPreference getModelGlobalPreference(
+        Long modelGlobalPreferencePK) throws PortalException, SystemException {
+        return modelGlobalPreferencePersistence.findByPrimaryKey(modelGlobalPreferencePK);
+    }
+
+    public List<ModelGlobalPreference> getModelGlobalPreferences(int start,
+        int end) throws SystemException {
+        return modelGlobalPreferencePersistence.findAll(start, end);
+    }
+
+    public int getModelGlobalPreferencesCount() throws SystemException {
+        return modelGlobalPreferencePersistence.countAll();
+    }
+
+    public ModelGlobalPreference updateModelGlobalPreference(
+        ModelGlobalPreference modelGlobalPreference) throws SystemException {
+        modelGlobalPreference.setNew(false);
+
+        return modelGlobalPreferencePersistence.update(modelGlobalPreference,
+            true);
+    }
+
+    public ModelGlobalPreference updateModelGlobalPreference(
+        ModelGlobalPreference modelGlobalPreference, boolean merge)
+        throws SystemException {
+        modelGlobalPreference.setNew(false);
+
+        return modelGlobalPreferencePersistence.update(modelGlobalPreference,
+            merge);
+    }
 
     public ModelDiscussionLocalService getModelDiscussionLocalService() {
         return modelDiscussionLocalService;

@@ -3,6 +3,8 @@ package com.ext.portlet.models.service.base;
 import com.ext.portlet.models.model.ModelInputGroup;
 import com.ext.portlet.models.service.ModelDiscussionLocalService;
 import com.ext.portlet.models.service.ModelDiscussionService;
+import com.ext.portlet.models.service.ModelGlobalPreferenceLocalService;
+import com.ext.portlet.models.service.ModelGlobalPreferenceService;
 import com.ext.portlet.models.service.ModelInputGroupLocalService;
 import com.ext.portlet.models.service.ModelInputGroupService;
 import com.ext.portlet.models.service.ModelInputItemLocalService;
@@ -14,6 +16,7 @@ import com.ext.portlet.models.service.ModelOutputItemService;
 import com.ext.portlet.models.service.ModelPositionLocalService;
 import com.ext.portlet.models.service.ModelPositionService;
 import com.ext.portlet.models.service.persistence.ModelDiscussionPersistence;
+import com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence;
 import com.ext.portlet.models.service.persistence.ModelInputGroupPersistence;
 import com.ext.portlet.models.service.persistence.ModelInputItemPersistence;
 import com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence;
@@ -43,6 +46,12 @@ public abstract class ModelInputGroupLocalServiceBaseImpl
     protected ModelPositionService modelPositionService;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelPositionPersistence.impl")
     protected ModelPositionPersistence modelPositionPersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.impl")
+    protected ModelGlobalPreferenceLocalService modelGlobalPreferenceLocalService;
+    @BeanReference(name = "com.ext.portlet.models.service.ModelGlobalPreferenceService.impl")
+    protected ModelGlobalPreferenceService modelGlobalPreferenceService;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl")
+    protected ModelGlobalPreferencePersistence modelGlobalPreferencePersistence;
     @BeanReference(name = "com.ext.portlet.models.service.ModelInputGroupLocalService.impl")
     protected ModelInputGroupLocalService modelInputGroupLocalService;
     @BeanReference(name = "com.ext.portlet.models.service.ModelInputGroupService.impl")
@@ -181,6 +190,33 @@ public abstract class ModelInputGroupLocalServiceBaseImpl
     public void setModelPositionPersistence(
         ModelPositionPersistence modelPositionPersistence) {
         this.modelPositionPersistence = modelPositionPersistence;
+    }
+
+    public ModelGlobalPreferenceLocalService getModelGlobalPreferenceLocalService() {
+        return modelGlobalPreferenceLocalService;
+    }
+
+    public void setModelGlobalPreferenceLocalService(
+        ModelGlobalPreferenceLocalService modelGlobalPreferenceLocalService) {
+        this.modelGlobalPreferenceLocalService = modelGlobalPreferenceLocalService;
+    }
+
+    public ModelGlobalPreferenceService getModelGlobalPreferenceService() {
+        return modelGlobalPreferenceService;
+    }
+
+    public void setModelGlobalPreferenceService(
+        ModelGlobalPreferenceService modelGlobalPreferenceService) {
+        this.modelGlobalPreferenceService = modelGlobalPreferenceService;
+    }
+
+    public ModelGlobalPreferencePersistence getModelGlobalPreferencePersistence() {
+        return modelGlobalPreferencePersistence;
+    }
+
+    public void setModelGlobalPreferencePersistence(
+        ModelGlobalPreferencePersistence modelGlobalPreferencePersistence) {
+        this.modelGlobalPreferencePersistence = modelGlobalPreferencePersistence;
     }
 
     public ModelInputGroupLocalService getModelInputGroupLocalService() {

@@ -854,6 +854,12 @@ create table MembershipRequest (
 	statusId INTEGER
 );
 
+create table ModelGlobalPreference (
+	modelGlobalPreferencePK LONG not null primary key,
+	modelId LONG,
+	visible BOOLEAN
+);
+
 create table ModelInputGroup (
 	modelInputGroupPK LONG not null primary key,
 	modelId LONG,

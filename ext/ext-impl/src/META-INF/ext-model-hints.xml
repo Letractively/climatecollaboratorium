@@ -132,6 +132,11 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 	</model>
+	<model name="com.ext.portlet.models.model.ModelGlobalPreference">
+		<field name="modelGlobalPreferencePK" type="Long" />
+		<field name="modelId" type="Long" />
+		<field name="visible" type="Boolean" />
+	</model>
 	<model name="com.ext.portlet.models.model.ModelInputGroup">
 		<field name="modelInputGroupPK" type="Long" />
 		<field name="modelId" type="Long" />

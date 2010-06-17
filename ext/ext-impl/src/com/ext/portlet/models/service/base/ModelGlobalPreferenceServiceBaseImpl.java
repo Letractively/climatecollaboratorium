@@ -28,8 +28,8 @@ import com.liferay.portal.service.base.PrincipalBean;
 import com.liferay.portal.util.PortalUtil;
 
 
-public abstract class ModelInputItemServiceBaseImpl extends PrincipalBean
-    implements ModelInputItemService {
+public abstract class ModelGlobalPreferenceServiceBaseImpl extends PrincipalBean
+    implements ModelGlobalPreferenceService {
     @BeanReference(name = "com.ext.portlet.models.service.ModelDiscussionLocalService.impl")
     protected ModelDiscussionLocalService modelDiscussionLocalService;
     @BeanReference(name = "com.ext.portlet.models.service.ModelDiscussionService.impl")
