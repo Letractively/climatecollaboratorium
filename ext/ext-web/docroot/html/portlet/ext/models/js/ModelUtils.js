@@ -488,7 +488,7 @@ var ModelUtils = new function() {
 						"<table id='impacts-short'><thead><tr><th>Impact</th><th>Value</th></tr></thead></table>");
           //TODO
           
-        if (model.id == "623") {
+        //if (model.id == "623") {
              var event = false;
             var parentTableId = "#impacts-short";
 			jQuery.each(shortOutputDisplay,function(i,val) {
@@ -514,7 +514,7 @@ var ModelUtils = new function() {
         
         
         
-        
+        /*
         } else {  
 			var sortedGroups = outputGroups.slice();
 	
@@ -530,7 +530,7 @@ var ModelUtils = new function() {
 				}
 	
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -545,7 +545,7 @@ var ModelUtils = new function() {
 						"<table id='actions-short'><thead><tr><th class='first'>Action</th><th>Value</th></tr></thead></table>");
 		var container = $('#actions-short');
 		var even = false;
-		if (model.id == "623") {
+		//if (model.id == "623") {
 		         jQuery.each(shortActionsDisplay,function(i,data) {
 		              var input = scenario.variableForName(data);
 		              container.append("<tr class='" + (even ? "even" : "")
@@ -562,7 +562,7 @@ var ModelUtils = new function() {
 			          even = !even;
 		              
 		         });
-		} else {
+		/*} else {
 		for ( var inputId in scenario.inputs) {
 			var input = scenario.inputs[inputId];
 			container.append("<tr class='" + (even ? "even" : "")
@@ -570,6 +570,7 @@ var ModelUtils = new function() {
 					+ "</td><td>" + formatInputValue(input,input.values[0]) + "</td></tr>");
 			even = !even;
 		}}
+		*/
 
 	}
 
