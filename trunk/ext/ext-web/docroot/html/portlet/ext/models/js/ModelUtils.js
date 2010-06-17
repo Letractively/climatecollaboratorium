@@ -487,9 +487,9 @@ var ModelUtils = new function() {
 				.prepend(
 						"<table id='impacts-short'><thead><tr><th>Impact</th><th>Value</th></tr></thead></table>");
           //TODO
-          
+
+        var even = false;
         //if (model.id == "623") {
-             var event = false;
             var parentTableId = "#impacts-short";
 			jQuery.each(shortOutputDisplay,function(i,val) {
 				var id = i.replace(/\s/g,"_");

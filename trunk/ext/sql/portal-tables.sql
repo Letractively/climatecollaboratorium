@@ -1035,6 +1035,94 @@ create table Phone (
 	primary_ BOOLEAN
 );
 
+create table PlanAttributeFilter (
+	planAttributeFilterId LONG not null primary key,
+	attributeName VARCHAR(75) null,
+	planUserSettingsId LONG,
+	max DOUBLE,
+	min DOUBLE,
+	stringVal VARCHAR(75) null
+);
+
+create table PlanColumnSettings (
+	planColumnSettingsId LONG not null primary key,
+	columnName VARCHAR(75) null,
+	planUserSettingsId LONG,
+	visible BOOLEAN
+);
+
+create table PlanDescription (
+	id_ LONG not null primary key,
+	planId LONG,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null,
+	version LONG,
+	planVersion LONG,
+	created DATE null
+);
+
+create table PlanItem (
+	id_ LONG not null primary key,
+	planId LONG,
+	state VARCHAR(75) null,
+	updated DATE null,
+	updateAuthorId LONG,
+	updateType VARCHAR(75) null,
+	version LONG
+);
+
+create table PlanMeta (
+	id_ LONG not null primary key,
+	planId LONG,
+	planTypeId LONG,
+	planCreated LONG,
+	planGroupId LONG,
+	mbCategoryId LONG,
+	version LONG,
+	planVersion LONG,
+	created DATE null
+);
+
+create table PlanModelRun (
+	id_ LONG not null primary key,
+	planId LONG,
+	scenarioId LONG,
+	planVersion LONG,
+	version LONG,
+	created DATE null
+);
+
+create table PlanPropertyFilter (
+	planPropertyFilterId LONG not null primary key,
+	propertyName VARCHAR(75) null,
+	planUserSettingsId LONG,
+	value VARCHAR(75) null
+);
+
+create table PlanType (
+	planTypeId LONG not null primary key,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null,
+	modelId LONG,
+	published BOOLEAN,
+	publishedCounterpartId LONG,
+	isDefault BOOLEAN
+);
+
+create table PlanTypeAttribute (
+	planTypeAttributeId LONG not null primary key,
+	planTypeId LONG,
+	attributeName VARCHAR(75) null
+);
+
+create table PlanTypeColumn (
+	planTypeColumnId LONG not null primary key,
+	planTypeId LONG,
+	weight INTEGER,
+	columnName VARCHAR(75) null,
+	visibleByDefault BOOLEAN
+);
+
 create table PluginSetting (
 	pluginSettingId LONG not null primary key,
 	companyId LONG,
@@ -2812,26 +2900,14 @@ create table Plan (
 	name VARCHAR(75) null,
 	content VARCHAR(75) null,
 	shortcontent VARCHAR(75) null,
-	published BOOLEAN,
+	planTypeId LONG,
 	companyId LONG,
 	groupId LONG,
 	childGroupId LONG,
 	MBCategoryId LONG,
-	modelId VARCHAR(75) null,
 	scenarioId VARCHAR(75) null,
 	topicId VARCHAR(75) null,
 	votes INTEGER,
-	damageCostAvg DOUBLE,
-	damageCostStdDev DOUBLE,
-	mitigationCostAvg DOUBLE,
-	mitigationCostStdDev DOUBLE,
-	developedEmissions DOUBLE,
-	developingAEmissions DOUBLE,
-	developingBEmissions DOUBLE,
-	globalEmissions DOUBLE,
-	temperatureChange DOUBLE,
-	CO2 DOUBLE,
-	seaLevelRise INTEGER,
 	createDate DATE null,
 	publishDate DATE null,
 	userId LONG,
@@ -2865,7 +2941,7 @@ create table PlanVote (
 
 create table PlansFilter (
 	userId LONG not null,
-	published BOOLEAN not null,
+	planTypeId LONG not null,
 	name VARCHAR(75) null,
 	creator VARCHAR(75) null,
 	description VARCHAR(75) null,
@@ -2881,34 +2957,24 @@ create table PlansFilter (
 	dateTo DATE null,
 	filterPositionsAll BOOLEAN,
 	enabled BOOLEAN,
-	primary key (userId, published)
+	primary key (userId, planTypeId)
 );
 
 create table PlansFilterPosition (
 	userId LONG not null,
-	published BOOLEAN not null,
+	planTypeId LONG not null,
 	positionId LONG not null,
-	primary key (userId, published, positionId)
+	primary key (userId, planTypeId, positionId)
 );
 
 create table PlansUserSettings (
-	userId LONG not null,
-	published BOOLEAN not null,
-	showName BOOLEAN,
-	showDate BOOLEAN,
-	showCO2 BOOLEAN,
-	showMitigationCost BOOLEAN,
-	showDamageCost BOOLEAN,
-	showPositions BOOLEAN,
-	showVotes BOOLEAN,
-	showDevelopedEmissions BOOLEAN,
-	showDevelopingAEmissions BOOLEAN,
-	showDevelopingBEmissions BOOLEAN,
-	showGlobalEmissions BOOLEAN,
-	showTemperatureChange BOOLEAN,
-	showSeaLevelRise BOOLEAN,
-	showCreator BOOLEAN,
-	primary key (userId, published)
+	planUserSettingsId LONG not null primary key,
+	userId LONG,
+	planTypeId LONG,
+	sortColumn VARCHAR(75) null,
+	sortDirection VARCHAR(75) null,
+	filterEnabled BOOLEAN,
+	filterPositionsAll BOOLEAN
 );
 
 create table PluginSetting (
