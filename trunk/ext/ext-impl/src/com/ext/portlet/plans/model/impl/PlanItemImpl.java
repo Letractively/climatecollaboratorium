@@ -42,16 +42,16 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return PlanDescriptionLocalServiceUtil.getCurrentForPlan(this).getName();
     }
     
-    public void setDescription(String description) throws SystemException {
-        newVersion(UpdateType.DESCRIPTION_UPDATED);
+    public void setDescription(String description, Long updateAuthorId) throws SystemException {
+        newVersion(UpdateType.DESCRIPTION_UPDATED, updateAuthorId);
         
         PlanDescription planDescription = PlanDescriptionLocalServiceUtil.createNewVersionForPlan(this);
         planDescription.setDescription(description);
         planDescription.store();
     }
     
-    public void setName(String name) throws SystemException {
-        newVersion(UpdateType.NAME_UPDATED);
+    public void setName(String name, Long updateAuthorId) throws SystemException {
+        newVersion(UpdateType.NAME_UPDATED, updateAuthorId);
         
         PlanDescription planDescription = PlanDescriptionLocalServiceUtil.createNewVersionForPlan(this);
         planDescription.setName(name);
@@ -75,8 +75,8 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return PlanModelRunLocalServiceUtil.getCurrentForPlan(this).getScenarioId();
     }
     
-    public void setScenarioId(Long scenarioId) throws SystemException {
-        newVersion(UpdateType.SCENARIO_UPDATED);
+    public void setScenarioId(Long scenarioId, Long authorId) throws SystemException {
+        newVersion(UpdateType.SCENARIO_UPDATED, authorId);
         
         PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.createNewVersionForPlan(this);
         planModelRun.setScenarioId(scenarioId);
@@ -96,8 +96,8 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     }
     
     
-    public void setPlanTypeId(Long planTypeId) throws SystemException {
-        newVersion(UpdateType.PLAN_TYPE_UPDATED);
+    public void setPlanTypeId(Long planTypeId, Long updateAuthorId) throws SystemException {
+        newVersion(UpdateType.PLAN_TYPE_UPDATED, updateAuthorId);
         
         PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
         planMeta.setPlanTypeId(planTypeId);
@@ -108,8 +108,8 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getMbCategoryId();
     }
     
-    public void setMBCategoryId(Long mbCategoryId) throws SystemException {
-        newVersion(UpdateType.MB_GROUP_UPDATED);
+    public void setMBCategoryId(Long mbCategoryId, Long updateAuthorId) throws SystemException {
+        newVersion(UpdateType.MB_GROUP_UPDATED, updateAuthorId);
         
         PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
         planMeta.setMbCategoryId(mbCategoryId);
@@ -120,8 +120,8 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
        return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getPlanGroupId();
    }
    
-   public void setPlanGroupId(Long groupId) throws SystemException {        
-       newVersion(UpdateType.PLAN_GROUP_UPDATED);
+   public void setPlanGroupId(Long groupId, Long updateAuthorId) throws SystemException {        
+       newVersion(UpdateType.PLAN_GROUP_UPDATED, updateAuthorId);
    
        PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
        planMeta.setPlanGroupId(groupId);
@@ -136,8 +136,8 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
        return UserLocalServiceUtil.getUser(getAuthorId());
    }
    
-   public void setAuthorId(Long authorId) throws SystemException {        
-       newVersion(UpdateType.PLAN_GROUP_UPDATED);
+   public void setAuthorId(Long authorId, Long updateAuthorId) throws SystemException {        
+       newVersion(UpdateType.PLAN_GROUP_UPDATED, updateAuthorId);
    
        PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
        planMeta.setAuthorId(authorId);
@@ -159,13 +159,14 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     
     
     
-    private PlanItem newVersion(UpdateType updateType) throws SystemException {
+    private PlanItem newVersion(UpdateType updateType, Long updateAuthorId) throws SystemException {
         PlanItem newVersion = (PlanItem) this.clone();
 
         newVersion.setId(CounterUtil.increment(PlanItem.class.getName()));
         newVersion.setVersion(this.getVersion()+1);
         newVersion.setUpdated(new Date());
         newVersion.setUpdateType(updateType.name());
+        newVersion.setUpdateAuthorId(updateAuthorId);
         
         newVersion.store();
         

@@ -32,10 +32,11 @@ public interface PlanItem extends PlanItemModel {
 
     public java.lang.String getName() throws com.liferay.portal.SystemException;
 
-    public void setDescription(java.lang.String description)
+    public void setDescription(java.lang.String description,
+        java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
-    public void setName(java.lang.String name)
+    public void setName(java.lang.String name, java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.plans.model.PlanDescription> getPlanDescriptions()
@@ -44,7 +45,7 @@ public interface PlanItem extends PlanItemModel {
     public java.lang.Long getScenarioId()
         throws com.liferay.portal.SystemException;
 
-    public void setScenarioId(java.lang.Long scenarioId)
+    public void setScenarioId(java.lang.Long scenarioId, java.lang.Long authorId)
         throws com.liferay.portal.SystemException;
 
     public java.lang.Long getPlanTypeId()
@@ -54,19 +55,22 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
-    public void setPlanTypeId(java.lang.Long planTypeId)
+    public void setPlanTypeId(java.lang.Long planTypeId,
+        java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
     public java.lang.Long getMBCategoryId()
         throws com.liferay.portal.SystemException;
 
-    public void setMBCategoryId(java.lang.Long mbCategoryId)
+    public void setMBCategoryId(java.lang.Long mbCategoryId,
+        java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
     public java.lang.Long getPlanGroupId()
         throws com.liferay.portal.SystemException;
 
-    public void setPlanGroupId(java.lang.Long groupId)
+    public void setPlanGroupId(java.lang.Long groupId,
+        java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
     public java.lang.Long getAuthorId()
@@ -76,7 +80,8 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
-    public void setAuthorId(java.lang.Long authorId)
+    public void setAuthorId(java.lang.Long authorId,
+        java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
     public void store() throws com.liferay.portal.SystemException;
