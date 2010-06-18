@@ -6,7 +6,15 @@ import com.ext.portlet.plans.service.PlanAttributeLocalService;
 import com.ext.portlet.plans.service.PlanAttributeService;
 import com.ext.portlet.plans.service.PlanColumnSettingsLocalService;
 import com.ext.portlet.plans.service.PlanColumnSettingsService;
+import com.ext.portlet.plans.service.PlanDescriptionLocalService;
+import com.ext.portlet.plans.service.PlanDescriptionService;
+import com.ext.portlet.plans.service.PlanItemLocalService;
+import com.ext.portlet.plans.service.PlanItemService;
 import com.ext.portlet.plans.service.PlanLocalService;
+import com.ext.portlet.plans.service.PlanMetaLocalService;
+import com.ext.portlet.plans.service.PlanMetaService;
+import com.ext.portlet.plans.service.PlanModelRunLocalService;
+import com.ext.portlet.plans.service.PlanModelRunService;
 import com.ext.portlet.plans.service.PlanPositionLocalService;
 import com.ext.portlet.plans.service.PlanPositionService;
 import com.ext.portlet.plans.service.PlanPropertyFilterLocalService;
@@ -29,6 +37,11 @@ import com.ext.portlet.plans.service.PlansUserSettingsService;
 import com.ext.portlet.plans.service.persistence.PlanAttributeFilterPersistence;
 import com.ext.portlet.plans.service.persistence.PlanAttributePersistence;
 import com.ext.portlet.plans.service.persistence.PlanColumnSettingsPersistence;
+import com.ext.portlet.plans.service.persistence.PlanDescriptionPersistence;
+import com.ext.portlet.plans.service.persistence.PlanItemFinder;
+import com.ext.portlet.plans.service.persistence.PlanItemPersistence;
+import com.ext.portlet.plans.service.persistence.PlanMetaPersistence;
+import com.ext.portlet.plans.service.persistence.PlanModelRunPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPositionPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistence;
@@ -126,6 +139,32 @@ public abstract class PlanPositionServiceBaseImpl extends PrincipalBean
     protected PlanTypeColumnService planTypeColumnService;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence.impl")
     protected PlanTypeColumnPersistence planTypeColumnPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanItemLocalService.impl")
+    protected PlanItemLocalService planItemLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanItemService.impl")
+    protected PlanItemService planItemService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanItemPersistence.impl")
+    protected PlanItemPersistence planItemPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanItemFinder.impl")
+    protected PlanItemFinder planItemFinder;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanDescriptionLocalService.impl")
+    protected PlanDescriptionLocalService planDescriptionLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanDescriptionService.impl")
+    protected PlanDescriptionService planDescriptionService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanDescriptionPersistence.impl")
+    protected PlanDescriptionPersistence planDescriptionPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanMetaLocalService.impl")
+    protected PlanMetaLocalService planMetaLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanMetaService.impl")
+    protected PlanMetaService planMetaService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanMetaPersistence.impl")
+    protected PlanMetaPersistence planMetaPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanModelRunLocalService.impl")
+    protected PlanModelRunLocalService planModelRunLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanModelRunService.impl")
+    protected PlanModelRunService planModelRunService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanModelRunPersistence.impl")
+    protected PlanModelRunPersistence planModelRunPersistence;
 
     public PlanLocalService getPlanLocalService() {
         return planLocalService;
@@ -467,6 +506,117 @@ public abstract class PlanPositionServiceBaseImpl extends PrincipalBean
     public void setPlanTypeColumnPersistence(
         PlanTypeColumnPersistence planTypeColumnPersistence) {
         this.planTypeColumnPersistence = planTypeColumnPersistence;
+    }
+
+    public PlanItemLocalService getPlanItemLocalService() {
+        return planItemLocalService;
+    }
+
+    public void setPlanItemLocalService(
+        PlanItemLocalService planItemLocalService) {
+        this.planItemLocalService = planItemLocalService;
+    }
+
+    public PlanItemService getPlanItemService() {
+        return planItemService;
+    }
+
+    public void setPlanItemService(PlanItemService planItemService) {
+        this.planItemService = planItemService;
+    }
+
+    public PlanItemPersistence getPlanItemPersistence() {
+        return planItemPersistence;
+    }
+
+    public void setPlanItemPersistence(PlanItemPersistence planItemPersistence) {
+        this.planItemPersistence = planItemPersistence;
+    }
+
+    public PlanItemFinder getPlanItemFinder() {
+        return planItemFinder;
+    }
+
+    public void setPlanItemFinder(PlanItemFinder planItemFinder) {
+        this.planItemFinder = planItemFinder;
+    }
+
+    public PlanDescriptionLocalService getPlanDescriptionLocalService() {
+        return planDescriptionLocalService;
+    }
+
+    public void setPlanDescriptionLocalService(
+        PlanDescriptionLocalService planDescriptionLocalService) {
+        this.planDescriptionLocalService = planDescriptionLocalService;
+    }
+
+    public PlanDescriptionService getPlanDescriptionService() {
+        return planDescriptionService;
+    }
+
+    public void setPlanDescriptionService(
+        PlanDescriptionService planDescriptionService) {
+        this.planDescriptionService = planDescriptionService;
+    }
+
+    public PlanDescriptionPersistence getPlanDescriptionPersistence() {
+        return planDescriptionPersistence;
+    }
+
+    public void setPlanDescriptionPersistence(
+        PlanDescriptionPersistence planDescriptionPersistence) {
+        this.planDescriptionPersistence = planDescriptionPersistence;
+    }
+
+    public PlanMetaLocalService getPlanMetaLocalService() {
+        return planMetaLocalService;
+    }
+
+    public void setPlanMetaLocalService(
+        PlanMetaLocalService planMetaLocalService) {
+        this.planMetaLocalService = planMetaLocalService;
+    }
+
+    public PlanMetaService getPlanMetaService() {
+        return planMetaService;
+    }
+
+    public void setPlanMetaService(PlanMetaService planMetaService) {
+        this.planMetaService = planMetaService;
+    }
+
+    public PlanMetaPersistence getPlanMetaPersistence() {
+        return planMetaPersistence;
+    }
+
+    public void setPlanMetaPersistence(PlanMetaPersistence planMetaPersistence) {
+        this.planMetaPersistence = planMetaPersistence;
+    }
+
+    public PlanModelRunLocalService getPlanModelRunLocalService() {
+        return planModelRunLocalService;
+    }
+
+    public void setPlanModelRunLocalService(
+        PlanModelRunLocalService planModelRunLocalService) {
+        this.planModelRunLocalService = planModelRunLocalService;
+    }
+
+    public PlanModelRunService getPlanModelRunService() {
+        return planModelRunService;
+    }
+
+    public void setPlanModelRunService(PlanModelRunService planModelRunService) {
+        this.planModelRunService = planModelRunService;
+    }
+
+    public PlanModelRunPersistence getPlanModelRunPersistence() {
+        return planModelRunPersistence;
+    }
+
+    public void setPlanModelRunPersistence(
+        PlanModelRunPersistence planModelRunPersistence) {
+        this.planModelRunPersistence = planModelRunPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {

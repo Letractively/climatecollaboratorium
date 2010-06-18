@@ -119,6 +119,47 @@
 		<field name="columnName" type="String" />
 		<field name="visibleByDefault" type="Boolean" />
 	</model>
+	<model name="com.ext.portlet.plans.model.PlanItem">
+		<field name="id" type="Long" />
+		<field name="planId" type="Long" />
+		<field name="state" type="String" />
+		<field name="updated" type="Date" />
+		<field name="updateAuthorId" type="Long" />
+		<field name="updateType" type="String" />
+		<field name="version" type="Long" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanDescription">
+		<field name="id" type="Long" />
+		<field name="planId" type="Long" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="version" type="Long" />
+		<field name="planVersion" type="Long" />
+		<field name="created" type="Date" />
+		<field name="updateAuthorId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanMeta">
+		<field name="id" type="Long" />
+		<field name="planId" type="Long" />
+		<field name="planTypeId" type="Long" />
+		<field name="planCreated" type="Long" />
+		<field name="authorId" type="Long" />
+		<field name="planGroupId" type="Long" />
+		<field name="mbCategoryId" type="Long" />
+		<field name="version" type="Long" />
+		<field name="planVersion" type="Long" />
+		<field name="created" type="Date" />
+		<field name="updateAuthorId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanModelRun">
+		<field name="id" type="Long" />
+		<field name="planId" type="Long" />
+		<field name="scenarioId" type="Long" />
+		<field name="planVersion" type="Long" />
+		<field name="version" type="Long" />
+		<field name="created" type="Date" />
+		<field name="updateAuthorId" type="Long" />
+	</model>
 	<model name="com.ext.portlet.models.model.ModelDiscussion">
 		<field name="modelDiscussionId" type="Long" />
 		<field name="modelId" type="Long" />

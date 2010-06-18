@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<custom-sql>
+
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getPlans">
+        <![CDATA[
+            SELECT
+                {PlanItem.*}
+            FROM
+                PlanItem
+                INNER JOIN (
+                    SELECT max(PlanItem.id_) as itemId, PlanItem.planId planId
+                    FROM PlanItem
+                    GROUP BY PlanItem.planId
+                ) as t2
+                ON (PlanItem.id_ = t2.itemId)
+        ]]>
+        
+</sql>
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.removePlanWithHistory">
+        <![CDATA[
+            DELETE 
+                PlanItem, PlanDescription, PlanMeta, PlanModelRun 
+            FROM 
+                PlanModelRun, PlanMeta, PlanItem, PlanDescription 
+            WHERE 
+                PlanItem.planId = PlanDescription.planId AND 
+                PlanItem.planId = PlanMeta.planId AND
+                PlanItem.planId = PlanModelRun.planId AND
+                PlanItem.planId = ?
+        ]]>
+        
+</sql>
+</custom-sql>

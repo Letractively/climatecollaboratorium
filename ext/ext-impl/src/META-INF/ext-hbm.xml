@@ -159,6 +159,59 @@
 		<property name="columnName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="visibleByDefault" />
 	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanItemImpl" table="PlanItem">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planId" />
+		<property name="state" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="updated" type="org.hibernate.type.TimestampType" />
+		<property name="updateAuthorId" />
+		<property name="updateType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="version" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanDescriptionImpl" table="PlanDescription">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planId" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="version" />
+		<property name="planVersion" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="updateAuthorId" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanMetaImpl" table="PlanMeta">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planId" />
+		<property name="planTypeId" />
+		<property name="planCreated" />
+		<property name="authorId" />
+		<property name="planGroupId" />
+		<property name="mbCategoryId" />
+		<property name="version" />
+		<property name="planVersion" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="updateAuthorId" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanModelRunImpl" table="PlanModelRun">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planId" />
+		<property name="scenarioId" />
+		<property name="planVersion" />
+		<property name="version" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="updateAuthorId" />
+	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelDiscussionImpl" table="ModelDiscussion">
 		<cache usage="read-write" />
 		<id name="modelDiscussionId" type="java.lang.Long">

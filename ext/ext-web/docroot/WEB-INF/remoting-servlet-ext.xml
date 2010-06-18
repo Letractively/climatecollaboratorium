@@ -163,6 +163,54 @@
 		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeColumnService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeColumnService" />
 	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanDescriptionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanDescriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanDescriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanDescriptionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanDescriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanDescriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanDescriptionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanDescriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanDescriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanMetaService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanMetaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanMetaService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanMetaService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanMetaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanMetaService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanMetaService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanMetaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanMetaService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanModelRunService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanModelRunService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanModelRunService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanModelRunService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanModelRunService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanModelRunService" />
+	</bean>
 	<bean name="/com_ext_portlet_models_service_spring_ModelDiscussionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.models.service.ModelDiscussionService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelDiscussionService" />

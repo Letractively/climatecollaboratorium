@@ -394,6 +394,12 @@ create index IX_DE35A5E0 on PlanAttributeFilter (planUserSettingsId, attributeNa
 
 create index IX_B607C303 on PlanColumnSettings (planUserSettingsId, columnName);
 
+create index IX_DAB9791 on PlanDescription (planId);
+
+create index IX_9D95E1CC on PlanMeta (planId);
+
+create index IX_792779A9 on PlanModelRun (planId);
+
 create index IX_B365BC70 on PlanPosition (positionId);
 
 create index IX_74EB9856 on PlanPropertyFilter (planUserSettingsId, propertyName);

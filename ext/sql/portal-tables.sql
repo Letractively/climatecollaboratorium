@@ -1058,7 +1058,8 @@ create table PlanDescription (
 	description VARCHAR(75) null,
 	version LONG,
 	planVersion LONG,
-	created DATE null
+	created DATE null,
+	updateAuthorId LONG
 );
 
 create table PlanItem (
@@ -1076,11 +1077,13 @@ create table PlanMeta (
 	planId LONG,
 	planTypeId LONG,
 	planCreated LONG,
+	authorId LONG,
 	planGroupId LONG,
 	mbCategoryId LONG,
 	version LONG,
 	planVersion LONG,
-	created DATE null
+	created DATE null,
+	updateAuthorId LONG
 );
 
 create table PlanModelRun (
@@ -1089,7 +1092,8 @@ create table PlanModelRun (
 	scenarioId LONG,
 	planVersion LONG,
 	version LONG,
-	created DATE null
+	created DATE null,
+	updateAuthorId LONG
 );
 
 create table PlanPropertyFilter (
