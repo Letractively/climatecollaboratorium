@@ -280,7 +280,8 @@ function renderModelOutputs() {
 						if (isNaN(parseFloat(val[i][0])) || isNaN(parseFloat(val[i][1]))) {
 							continue;
 						}
-						val[i] = [parseFloat(val[i][0]), getOutputValue(parseFloat(val[i][1]), unit)];
+						//val[i] = [parseFloat(val[i][0]), getOutputValue(parseFloat(val[i][1]), unit)];
+						val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
 					}
 					valuesById[id] = val;
 					labelsById[id] = label;
