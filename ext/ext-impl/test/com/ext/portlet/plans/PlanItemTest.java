@@ -44,10 +44,7 @@ public class PlanItemTest extends BaseCollabTest {
         // remove plan
         PlanItemLocalServiceUtil.removePlanWithEntireHistory(planItemFromDb.getPlanId());
         List<PlanItem> plansAfterRemoval = PlanItemLocalServiceUtil.getPlans();
-        assertEquals(plansBefore, plansAfterRemoval);
-        
-        
-        
+        assertEquals(plansBefore, plansAfterRemoval);    
     }
     
     // test for description updating
@@ -57,11 +54,12 @@ public class PlanItemTest extends BaseCollabTest {
         String descriptionBefore = planItemFromDb.getDescription();
         String newDescription = String.valueOf(rand.nextLong());
         List<PlanItem> plansBefore = PlanItemLocalServiceUtil.getPlans();
+        Long changeAuthorId = rand.nextLong();
         
         
         List<PlanDescription> oldDescriptions = planItemFromDb.getPlanDescriptions();
         
-        planItemFromDb.setDescription(newDescription);
+        planItemFromDb.setDescription(newDescription, changeAuthorId);
         List<PlanDescription> newDescriptions = planItemFromDb.getPlanDescriptions();
         
         assertEquals(new Long(versionBefore+1), planItemFromDb.getVersion());
@@ -72,6 +70,7 @@ public class PlanItemTest extends BaseCollabTest {
         assertEquals(newDescription, newDescriptions.get(0).getDescription());
         assertEquals(planItemFromDb.getVersion(), newDescriptions.get(0).getPlanVersion());
         assertEquals(UpdateType.DESCRIPTION_UPDATED.name(), planItemFromDb.getUpdateType());
+        assertEquals(changeAuthorId, newDescriptions.get(0).getUpdateAuthorId());
         
 
         List<PlanItem> plansAfter = PlanItemLocalServiceUtil.getPlans();
@@ -96,10 +95,11 @@ public class PlanItemTest extends BaseCollabTest {
         PlanItem planItemFromDb = PlanItemLocalServiceUtil.createPlan(1L);
         Long versionBefore = planItemFromDb.getVersion();
         String newName = String.valueOf(rand.nextLong());
+        Long changeAuthorId = rand.nextLong();
         
         List<PlanDescription> oldDescriptions = planItemFromDb.getPlanDescriptions();
         
-        planItemFromDb.setName(newName);
+        planItemFromDb.setName(newName, changeAuthorId);
         List<PlanDescription> newDescriptions = planItemFromDb.getPlanDescriptions();
         
         assertEquals(new Long(versionBefore+1), planItemFromDb.getVersion());
@@ -110,6 +110,7 @@ public class PlanItemTest extends BaseCollabTest {
         assertEquals(newName, newDescriptions.get(0).getName());
         assertEquals(planItemFromDb.getVersion(), newDescriptions.get(0).getPlanVersion());
         assertEquals(UpdateType.NAME_UPDATED.name(), planItemFromDb.getUpdateType());
+        assertEquals(changeAuthorId, newDescriptions.get(0).getUpdateAuthorId());
         
         //cleanup 
         PlanItemLocalServiceUtil.removePlanWithEntireHistory(planItemFromDb.getPlanId());

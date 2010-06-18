@@ -26,6 +26,7 @@ public class PlanDescriptionLocalServiceImpl
         description.setPlanVersion(plan.getVersion());
         description.setCreated(new Date());
         description.setVersion(0L);
+        
         if (store) {
             description = PlanDescriptionLocalServiceUtil.addPlanDescription(description);
         }
@@ -52,6 +53,7 @@ public class PlanDescriptionLocalServiceImpl
         newDescription.setVersion(currentDescription.getVersion()+1);
         newDescription.setId(CounterUtil.increment(PlanDescription.class.getName()));
         newDescription.setPlanVersion(plan.getVersion());
+        newDescription.setUpdateAuthorId(plan.getUpdateAuthorId());
 
         if (store) {
             newDescription = PlanDescriptionLocalServiceUtil.addPlanDescription(newDescription);
