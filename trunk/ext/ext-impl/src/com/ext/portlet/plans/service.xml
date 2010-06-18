@@ -252,6 +252,88 @@
         </order>
         
     </entity>
+    
+    <entity name="PlanItem" local-service="true" remote-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="planId" type="Long" />
+        <column name="state" type="String" />
+        <column name="updated" type="Date" />
+        <column name="updateAuthorId" type="Long" />
+        <column name="updateType" type="String" />
+        <column name="version" type="Long" />
+    </entity>
+    
+    <entity name="PlanDescription" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="planId" type="Long" />
+        <column name="name" type="String" />
+        <column name="description" type="String" />
+        <column name="version" type="Long" />
+        <column name="planVersion" type="Long" />
+        <column name="created" type="Date" />
+        <column name="updateAuthorId" type="Long" />
+        
+        <order by="desc">
+            <order-column name="version" />
+            <order-column name="created" />
+        </order>
+        <finder name="CurrentByPlanId" return-type="PlanDescription">
+            <finder-column name="planId" />
+        </finder>
+        
+        <finder name="AllByPlanId" return-type="Collection">
+            <finder-column name="planId" />
+        </finder>
+    </entity>
+    
+    <entity name="PlanMeta" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="planId" type="Long" />
+        <column name="planTypeId" type="Long" />
+        <column name="planCreated" type="Long" />
+        <column name="authorId" type="Long" />
+        <!-- ID of community related to a plan -->
+        <column name="planGroupId" type="Long" />
+        <!-- message boards category -->
+        <column name="mbCategoryId" type="Long" />
+        <column name="version" type="Long" />
+        <column name="planVersion" type="Long" />
+        <column name="created" type="Date" />
+        <column name="updateAuthorId" type="Long" />
+        
+        <order by="desc">
+            <order-column name="version" />
+            <order-column name="created" />
+        </order>
+        <finder name="CurrentByPlanId" return-type="PlanMeta">
+            <finder-column name="planId" />
+        </finder>
+        <finder name="AllByPlanId" return-type="Collection">
+            <finder-column name="planId" />
+        </finder>
+    </entity>
+    
+    <entity name="PlanModelRun" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="planId" type="Long" />
+        <column name="scenarioId" type="Long" />
+        <column name="planVersion" type="Long" />
+        <column name="version" type="Long" />
+        <column name="created" type="Date" /> 
+        <column name="updateAuthorId" type="Long" />
+        
+        <order by="desc">
+            <order-column name="version" />
+            <order-column name="created" />
+        </order>
+        
+        <finder name="CurrentByPlanId" return-type="PlanModelRun">
+            <finder-column name="planId" />
+        </finder>   
+        <finder name="AllByPlanId" return-type="Collection">
+            <finder-column name="planId" />
+        </finder>
+    </entity>
 
 	<exceptions>
 		<exception>PlanName</exception>

@@ -123,6 +123,14 @@ public class PlanTypePersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanTypeAttributePersistence planTypeAttributePersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence planTypeColumnPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanItemPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanItemPersistence planItemPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanDescriptionPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanDescriptionPersistence planDescriptionPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanMetaPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanMetaPersistence planMetaPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanModelRunPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanModelRunPersistence planModelRunPersistence;
     protected ContainsPlanTypeAttribute containsPlanTypeAttribute;
     protected ContainsPlanTypeColumn containsPlanTypeColumn;
 
