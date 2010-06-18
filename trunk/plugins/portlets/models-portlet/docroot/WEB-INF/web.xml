@@ -305,9 +305,9 @@
 		<servlet-name>models</servlet-name>
 		<url-pattern>/models/*</url-pattern>
 	</servlet-mapping>
-	<session-config>
-		<session-timeout>60</session-timeout>
-	</session-config>
+    <session-config>
+        <session-timeout>3600</session-timeout>
+    </session-config>
 	<jsp-config>
 		<taglib>
 			<taglib-uri>http://java.sun.com/portlet_2_0</taglib-uri>
