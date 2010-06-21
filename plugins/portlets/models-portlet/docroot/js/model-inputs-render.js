@@ -3,8 +3,7 @@
  * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
  * or the license.txt file included in this distribution for the full text of the license.
  */
-setTimeout(function() { log.toggle(); }, 1000);
-//log.toggle();
+//setTimeout(function() { log.toggle(); }, 1000);
 
 try {
 Ice.onSendReceive("mainContent",function() {}, function() {
