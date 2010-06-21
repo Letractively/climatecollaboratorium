@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+setTimeout(function() { log.toggle(); }, 1000);
+//log.toggle();
+
 try {
 Ice.onSendReceive("mainContent",function() {}, function() {
 	setTimeout(function() {
@@ -11,6 +19,7 @@ jQuery(document).ready(function() {
 	icefacesEventManager.registerHandler("renderModelInputs", renderModelInputs);
 	icefacesEventManager.registerHandler("modelRunSuccessful", modelRunSuccessful);
 });
+
 
 function renderModelInputs(event) {
 	showSliders();
@@ -201,13 +210,15 @@ function renderModelOutputs() {
 			var seriesWithOutOfRangeError = [];
 			jQuery(this).find(".serieWithOutOfRnage").each(function() {
 				seriesWithOutOfRangeError.push(jQuery(this).val());
-			});
+			    log.debug("Pushing series range error"+jQuery(this).val());
+            });
 			
 			var globalInvalidMessage = jQuery(this).find(".indexedInvalidMessage").val();
 			var globalInvalidPolicy = jQuery(this).find(".indexedInvalidPolicy").val();
 			var seriesWithInvalidError = [];
 			jQuery(this).find(".serieWithInvalid").each(function() {
 				seriesWithInvalidError.push(jQuery(this).val());
+                 log.debug("Pushing series invalid error"+jQuery(this).val());
 			});
 			
 
@@ -221,6 +232,8 @@ function renderModelOutputs() {
 				var msg = globalOutOfRangeMessage.replace("%outputs", seriesWithOutOfRangeError.join(", "));
 				errorMessages.push(msg);
 			}
+
+            log.debug("Error messages are now "+errorMessages);
 			
 			var xaxisTicks; 
 			if (isNaN(indexMin) || isNaN(indexMax)) {
@@ -252,11 +265,17 @@ function renderModelOutputs() {
 				var label = jQuery(this).find(".label").val();
 				var unit = jQuery(this).find(".unit").val();
 				var id = jQuery(this).find(".id").val();
-				var error = jQuery(this).find(".error").val();
-				var errorMessage = jQuery(this).find(".errorMessage").val();
-				var errorPolicy = jQuery(this).find(".errorPolicy").val();
-				var labelFormatString = jQuery(this).find(".labelFormatString").val();
-				if (error == 'NORMAL' || errorPolicy != 'NO_DISPLAY_WITH_MSG') { 
+				//var error = jQuery(this).find(".error").val();
+
+                var invalidErrorMessage = jQuery(this).find(".invalidErrorMessage").val();
+				var invalidErrorPolicy = jQuery(this).find(".invalidErrorPolicy").val();
+
+                var rangeErrorMessage = jQuery(this).find(".rangeErrorMessage").val();
+				var rangeErrorPolicy = jQuery(this).find(".rangeErrorPolicy").val();
+
+
+                var labelFormatString = jQuery(this).find(".labelFormatString").val();
+				if (rangeErrorPolicy != 'NO_DISPLAY_WITH_MSG' && invalidErrorPolicy!= 'NO_DISPLAY_WITH_MSG') {
 					min = jQuery(this).find(".min").val();
 					max = jQuery(this).find(".max").val();
 					
@@ -300,9 +319,21 @@ function renderModelOutputs() {
 						series.push({showMarker: false, label: label});
 					}
 				}
-				if (error != 'NORMAL' && errorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(errorMessage) != "") {
-					errorMessages.push(errorMessage);
-				}
+				if (rangeErrorPolicy) {
+                    log.debug("Range error policy is not null");
+                    if (rangeErrorPolicy != 'NORMAL' && rangeErrorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(rangeErrorMessage) != "") {
+
+					    errorMessages.push(rangeErrorMessage);
+				    }
+                }
+
+                if (invalidErrorPolicy) {
+                    log.debug("invalid error policy is not null");
+                    if (invalidErrorPolicy != 'NORMAL' && invalidErrorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(rangeErrorMessage) != "") {
+
+					    errorMessages.push(invalidErrorMessage);
+				    }
+                }
 			});
 			
 			// 	set min/max
@@ -336,6 +367,7 @@ function renderModelOutputs() {
 					renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
 			}
 			if (values.length > 0) {
+                log.debug(chartTitle+":"+series+":"+values);
 				var plot = jQuery.jqplot(chartPlaceholderId, values, 
 					{title: chartTitle, 
 					series: series,
