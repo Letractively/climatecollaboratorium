@@ -294,15 +294,16 @@ function renderModelOutputs() {
 					var associatedId = jQuery(this).find(".associatedId").val();
 					var seriesType = jQuery(this).find(".seriesType").val();
 
+					var chartVals = [];
 					for (var i = 0; i < val.length; i++) {
 						if (isNaN(parseFloat(val[i][0])) || isNaN(parseFloat(val[i][1]))) {
 							continue;
 						}
 						//val[i] = [parseFloat(val[i][0]), getOutputValue(parseFloat(val[i][1]), unit)];
+						chartVals.push([parseFloat(val[i][0]), parseFloat(val[i][1])]);
 						val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
 					}
-					log.debug("values to be drawn: " + val);
-					valuesById[id] = val;
+					valuesById[id] = chartVals;
 					labelsById[id] = label;
 				
 					if (seriesType != 'NORMAL' && parseInt(associatedId) > 0) {
@@ -311,7 +312,7 @@ function renderModelOutputs() {
 						}
 						confIntervalById[associatedId].push(id);
 					} else {
-						values.push(val);
+						values.push(chartVals);
 						// prepare label
 						if (!(!labelFormatString || jQuery.trim(labelFormatString) == "")) {
 							label = labelFormatString.replace(/%label/g, label).replace(/%unit/g, unit);
@@ -641,4 +642,3 @@ function initEditForms() {
 }
 
 
-setTimeout(function() { log.toggle(); }, 1500);
