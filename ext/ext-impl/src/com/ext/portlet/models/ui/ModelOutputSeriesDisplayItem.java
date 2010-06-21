@@ -16,8 +16,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import mit.simulation.climate.client.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 import mit.simulation.climate.client.comm.ClientRepository;
 
 /**
@@ -184,17 +184,16 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
        return errorBehaviors.get(status);
     }
 
-    public ModelOutputErrorBehavior getError() {
-        // get variable shouldn't be null... ever
-        if (getScenario() == null || getVariable() == null || getVariable().getValue() == null) return null;
-        for (Tuple e:getVariable().getValue()) {
-            if (e.getStatus(1)!=null && e.getStatus(1)!=TupleStatus.NORMAL && getErrorBehavior(e.getStatus(1))!=null) {
-              return getErrorBehavior(e.getStatus(1));
-            }
-        }
-        return null;
+     @Override
+    public ModelOutputErrorBehavior getRangeError() {
+        return getError(getVariable(),TupleStatus.OUT_OF_RANGE,1);
     }
 
+    public ModelOutputErrorBehavior getInvalidError() {
+        return getError(getVariable(),TupleStatus.INVALID,1);
+    }
+
+    
      public void setVisible(boolean b) throws SystemException {
         item.setModelItemIsVisible(b);
         ModelOutputItemLocalServiceUtil.updateModelOutputItem(item);

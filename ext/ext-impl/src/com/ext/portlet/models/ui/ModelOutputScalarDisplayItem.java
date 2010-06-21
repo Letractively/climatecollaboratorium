@@ -14,6 +14,9 @@ import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.TupleStatus;
 import mit.simulation.climate.client.Variable;
 
+import java.util.Collections;
+import java.util.Map;
+
 /**
  * Very simple wrapper class around a singleton output variable.  Not backed,
  * no additional display information is necessary (currently).
@@ -79,9 +82,15 @@ public class ModelOutputScalarDisplayItem extends ModelOutputDisplayItem {
     }
 
     @Override
-    public ModelOutputErrorBehavior getError() {
+    public ModelOutputErrorBehavior getRangeError() {
         return null;
     }
+
+    @Override
+    public ModelOutputErrorBehavior getInvalidError() {
+        return null;
+    }
+
 
     @Override
     public boolean isVisible() {

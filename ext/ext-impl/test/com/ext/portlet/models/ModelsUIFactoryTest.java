@@ -76,6 +76,92 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
 
        }
 
+    public void testErrorHandling() throws IOException, SystemException, ScenarioNotFoundException, ModelNotFoundException {
+        ClientRepository repo = ClientRepository.instance("localhost", 8080);
+        Simulation sim = repo.getSimulation(760L);
+        Scenario scenario = repo.runModel(sim, getErrorProducingInput(), 1L, false);
+        ModelDisplay modelDisplay = ModelUIFactory.getInstance().getDisplay(scenario);
+        Map<Long,ModelOutputErrorBehavior[]> cleanup = new HashMap<Long,ModelOutputErrorBehavior[]>();
+        TupleStatus[] statuses = new TupleStatus[] {TupleStatus.OUT_OF_RANGE,TupleStatus.INVALID};
+
+        for (ModelOutputDisplayItem item:modelDisplay.getOutputs()) {
+            if (item instanceof ModelOutputIndexedDisplayItem) {
+                ModelOutputIndexedDisplayItem moid = (ModelOutputIndexedDisplayItem)item;
+                cleanup.put(moid.getIndex().getId(),new ModelOutputErrorBehavior[] {moid.getErrorBehavior(statuses[0]),moid.getErrorBehavior(statuses[1])});
+                moid.setErrorBehavior(TupleStatus.OUT_OF_RANGE,ErrorPolicy.NO_DISPLAY_WITH_MSG,"Indexed range error");
+                moid.setErrorBehavior(TupleStatus.INVALID,ErrorPolicy.NO_DISPLAY_WITH_MSG,"Indexed invalid error");
+
+                if (moid.getRangeError() != null) {
+                    debug("Range error in index : "+moid.getName());
+                    debug("Message "+moid.getRangeError().getMessage());
+                }
+
+                if (moid.getInvalidError() != null) {
+                    debug("Invalid error in index : "+moid.getName());
+                    debug("Message "+moid.getInvalidError().getMessage());
+                }
+
+
+                Set<ModelOutputSeriesDisplayItem> rangeerrors = new HashSet<ModelOutputSeriesDisplayItem>();
+                Set<ModelOutputSeriesDisplayItem> invaliderrors = new HashSet<ModelOutputSeriesDisplayItem>();
+
+
+                for (ModelOutputDisplayItem subitem:moid.getSeries()) {
+                    if (subitem instanceof ModelOutputSeriesDisplayItem) {
+                        ModelOutputSeriesDisplayItem mosdi = (ModelOutputSeriesDisplayItem)subitem;
+                        cleanup.put(mosdi.getMetaData().getId(),new ModelOutputErrorBehavior[] {mosdi.getErrorBehavior(statuses[0]),mosdi.getErrorBehavior(statuses[1])});
+                        mosdi.setErrorBehavior(TupleStatus.OUT_OF_RANGE,ErrorPolicy.NO_DISPLAY_WITH_MSG,"Series range error");
+                        mosdi.setErrorBehavior(TupleStatus.INVALID,ErrorPolicy.NO_DISPLAY_WITH_MSG,"Series invalid error");
+
+                       if (mosdi.getRangeError() != null) {
+                            debug("Range error in series : "+mosdi.getName());
+                            debug("Message "+mosdi.getRangeError().getMessage());
+                           rangeerrors.add(mosdi);
+                       }
+
+                        if (mosdi.getInvalidError() != null) {
+                            debug("Invalid error in series : "+mosdi.getName());
+                            debug("Message "+mosdi.getInvalidError().getMessage());
+                            invaliderrors.add(mosdi);
+                        }
+                    }
+                }
+
+                assertTrue(moid.getSeriesWithInvalidError().containsAll(invaliderrors));
+                assertTrue(moid.getSeriesWithOutOfRangeError().containsAll(rangeerrors));
+                assertTrue(rangeerrors.containsAll(moid.getSeriesWithOutOfRangeError()));
+                assertTrue(invaliderrors.containsAll(moid.getSeriesWithInvalidError()));
+
+
+            }
+        }
+
+         for (ModelOutputDisplayItem item:modelDisplay.getOutputs()) {
+            if (item instanceof ModelOutputIndexedDisplayItem) {
+                ModelOutputIndexedDisplayItem moid = (ModelOutputIndexedDisplayItem)item;
+                ModelOutputErrorBehavior[] behaviors = cleanup.get(moid.getIndex().getId());
+                moid.setErrorBehavior(statuses[0],behaviors[0]!=null?behaviors[0].getPolicy():null,behaviors[0]!=null?behaviors[0].getMessage():null);
+                moid.setErrorBehavior(statuses[1],behaviors[1]!=null?behaviors[1].getPolicy():null,behaviors[1]!=null?behaviors[1].getMessage():null);
+
+                for (ModelOutputDisplayItem subitem:moid.getSeries()) {
+                    if (subitem instanceof ModelOutputSeriesDisplayItem) {
+                        ModelOutputSeriesDisplayItem mosdi = (ModelOutputSeriesDisplayItem)subitem;
+                        behaviors = cleanup.get(mosdi.getMetaData().getId());
+                        mosdi.setErrorBehavior(statuses[0],behaviors[0]!=null?behaviors[0].getPolicy():null,behaviors[0]!=null?behaviors[0].getMessage():null);
+                        mosdi.setErrorBehavior(statuses[1],behaviors[1]!=null?behaviors[1].getPolicy():null,behaviors[1]!=null?behaviors[1].getMessage():null);
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    private static void debug(String msg) {
+      System.out.println(msg);
+    }
+
 
     public void testModelGlobalPreference() throws IOException, SystemException {
         ClientRepository repository = ClientRepository.instance("localhost", 8080);
@@ -87,7 +173,6 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
         //check one simulation
         Iterator<Simulation> i = sims.iterator();
         Simulation sim = i.next();
-
         boolean vis1 = ModelUIFactory.isSimulationVisible(sim);
 
         ModelUIFactory.setSimulationVisible(sim,!vis1);
@@ -108,6 +193,29 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
         ModelUIFactory.setSimulationVisible(sim2,vis1a);
         assertTrue(ModelUIFactory.isSimulationVisible(sim2)==vis1a);
 
+    }
+
+    private static Map<Long,Object> getErrorProducingInput() {
+        Map<Long, Object> inputs = new HashMap<Long, Object>();
+                //developed
+                inputs.put(3027L, "2012");  //start year
+                inputs.put(3022L, "2013");  //target year
+                inputs.put(3028L, "-.5");   //target
+
+                //developing a
+                inputs.put(3024L, "2012");
+                inputs.put(3020L, "2013");
+                inputs.put(3029L, "-.5");
+
+                //developing b
+                inputs.put(3031L, "2012");
+                inputs.put(3026L, "2013");
+                inputs.put(3032L, "0");
+
+
+                inputs.put(3034L, "0.50");  //sequestration (afforestation)
+                inputs.put(3030L, "0.50");  //deforestation
+        return inputs;
     }
 
     public void testExistingScenario() throws IOException, ScenarioNotFoundException, ModelNotFoundException, SystemException {
