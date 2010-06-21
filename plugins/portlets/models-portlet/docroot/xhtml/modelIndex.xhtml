@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<ice:dataTable var="simulation" value="#{sim.simulations}" styleClass="modelsTable" columnClasses="name,description,created" rowClasses="odd,even" rendered="#{not sim.editing}">
+<ice:dataTable var="simulation" value="#{sim.visibleSimulations}" styleClass="modelsTable" columnClasses="name,description,created" rowClasses="odd,even" rendered="#{not sim.editing}">
     <ice:column rendered="#{simulation.visible}">
         <f:facet name="header">
             Name

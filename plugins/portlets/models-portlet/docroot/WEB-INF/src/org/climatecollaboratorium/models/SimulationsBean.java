@@ -2,6 +2,7 @@ package org.climatecollaboratorium.models;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -20,11 +21,27 @@ import com.liferay.portal.SystemException;
 public class SimulationsBean {
 
     private ClientRepository r;
+    public List<SimulationDecorator> getVisibleSimulations() {
+        return visibleSimulations;
+    }
+
     private List<SimulationDecorator> simulations;
+    private List<SimulationDecorator> visibleSimulations = new ArrayList<SimulationDecorator>();
     private boolean editing;
 
     public SimulationsBean() throws IOException, SystemException {
         simulations = SimulationsHelper.getInstance().getSimulations();
+        updateVisible();
+    }
+
+    private void updateVisible() throws SystemException {
+        visibleSimulations.clear();
+        for (SimulationDecorator sim: simulations) {
+            if (sim.isVisible()) {
+                visibleSimulations.add(sim);
+            }
+        }
+        
     }
 
     public List<SimulationDecorator> getSimulations() {
@@ -39,25 +56,8 @@ public class SimulationsBean {
         this.editing = editing;
     }
 
-    public void edit(ActionEvent e) {
+    public void edit(ActionEvent e) throws SystemException {
         editing = !editing;
-        Collections.sort(simulations, new Comparator<SimulationDecorator>() {
-
-            @Override
-            public int compare(SimulationDecorator o1, SimulationDecorator o2) {
-
-                try {
-                    if (!o1.isVisible()) {
-                        return 1;
-                    } else if (!o2.isVisible()) {
-                        return -1;
-                    }
-                } catch (SystemException e) {
-                    // ignore
-                }
-                return o1.getName().compareTo(o2.getName());
-            }
-
-        });
+        updateVisible();
     }
 }
