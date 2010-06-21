@@ -258,34 +258,35 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
        return errorBehaviors.get(status);
     }
 
+    @Override
+    public ModelOutputErrorBehavior getRangeError() {
+        return getError(getIndexVariable(),TupleStatus.OUT_OF_RANGE,0);
+    }
+
+    public ModelOutputErrorBehavior getInvalidError() {
+        return getError(getIndexVariable(),TupleStatus.INVALID,0);
+    }
+
     public void setVisible(boolean b) throws SystemException {
         chartModel.setModelChartIsVisible(b);
         ModelOutputChartOrderLocalServiceUtil.updateModelOutputChartOrder(chartModel);
 
     }
 
-    public ModelOutputErrorBehavior getError() {
-        if (getScenario() == null) return null;
-        for (Tuple e:getIndexVariable().getValue()) {
-            if (e.getStatus(0)!=null && e.getStatus(0)!=TupleStatus.NORMAL && getErrorBehavior(e.getStatus(0))!=null) {
-              return getErrorBehavior(e.getStatus(0));
-            }
-        }
-        return null;
-    }
     
-    public ModelOutputErrorBehavior getOutOfRangeError() {
+    
+    public ModelOutputErrorBehavior getOutOfRangeErrorBehavior() {
         return getErrorBehavior(TupleStatus.OUT_OF_RANGE);
     }
     
-    public ModelOutputErrorBehavior getInvalidError() {
+    public ModelOutputErrorBehavior getInvalidErrorBehavior() {
         return getErrorBehavior(TupleStatus.INVALID);
     }
     
     public List<ModelOutputSeriesDisplayItem> getSeriesWithOutOfRangeError() {
         List<ModelOutputSeriesDisplayItem> ret = new ArrayList<ModelOutputSeriesDisplayItem>();
         for (ModelOutputSeriesDisplayItem item: series) {
-            if (item.getError() != null && item.getError().getStatus() == TupleStatus.OUT_OF_RANGE) {
+            if (item.getRangeError()!=null) {
                 ret.add(item);
             }
         }
@@ -295,7 +296,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
     public List<ModelOutputSeriesDisplayItem> getSeriesWithInvalidError() {
         List<ModelOutputSeriesDisplayItem> ret = new ArrayList<ModelOutputSeriesDisplayItem>();
         for (ModelOutputSeriesDisplayItem item: series) {
-            if (item.getError() != null && item.getError().getStatus() == TupleStatus.INVALID) {
+            if (item.getInvalidError()!=null) {
                 ret.add(item);
             }
         }

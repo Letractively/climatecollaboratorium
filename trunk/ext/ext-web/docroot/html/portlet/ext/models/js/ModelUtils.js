@@ -47,7 +47,8 @@ var ModelUtils = new function() {
 	
 	var legendInfoURL = "<a href='/web/guest/resources/-/wiki/Main/Plan+index+definitions'><img src='/collaboratorium-theme/images/qustion_icon.png' alt='question' /></a>";
 	
-	var warningText = "<div id='model-warning-message'>WARNING: Model parameters out of range. Displayed results may be innaccurate. <a href='/web/guest/resources/-/wiki/Main/Mitigation+Cost+Model+Ranges'><img src='/collaboratorium-theme/images/qustion_icon.png' alt='question' /></a> </div>"
+	var warningText = "<div id='model-warning-message'>" +
+            " <a href='/web/guest/resources/-/wiki/Main/Mitigation+Cost+Model+Ranges'><img src='/collaboratorium-theme/images/qustion_icon.png' alt='question' /></a> </div>"
 	
 	var warningFlag = false;
 
