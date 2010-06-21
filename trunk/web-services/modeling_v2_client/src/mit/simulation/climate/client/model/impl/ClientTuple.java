@@ -29,8 +29,11 @@ public class ClientTuple implements Tuple {
 
     public String toString() {
        StringBuffer buf = new StringBuffer();
+        int i = 0;
         for (String val:getValues()) {
-            buf.append("[").append(val).append("]");
+            TupleStatus status = getStatus(i);
+            buf.append("[").append(val).append(status!=null?status.getCode():"").append("]");
+            i++;
         }
         return buf.toString();
     }
