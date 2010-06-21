@@ -301,6 +301,7 @@ function renderModelOutputs() {
 						//val[i] = [parseFloat(val[i][0]), getOutputValue(parseFloat(val[i][1]), unit)];
 						val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
 					}
+					log.debug("values to be drawn: " + val);
 					valuesById[id] = val;
 					labelsById[id] = label;
 				
@@ -403,7 +404,7 @@ function renderModelOutputs() {
 	
 	
 	/* this is rather ugly hack, used because there is no good handling of output grouping */
-	
+	jQuery(".physicalImpactsTab").remove();
 	if (jQuery(".impactsContent .physicalImpact").length > 0) {
 		var physicalImpacts = [];
 		var tabs = "<div class='tabsContainer'><ul>";
@@ -638,3 +639,6 @@ function initEditForms() {
 } catch (e) {
 	alert(e);
 }
+
+
+setTimeout(function() { log.toggle(); }, 1500);
