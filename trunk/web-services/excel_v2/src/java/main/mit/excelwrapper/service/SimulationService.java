@@ -30,7 +30,7 @@ public interface SimulationService {
      *
      * @throws Exception if any error occurs during the process
      */
-    public String createExcelModelSimulation(ExcelModel model, String name, String description, String serverURLPrefix)
+    public String createExcelModelSimulation(ExcelModel model, String name, String description, String type, String serverURLPrefix)
         throws Exception;
 
     /**

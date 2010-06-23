@@ -85,6 +85,8 @@ public class ExcelResource {
 
     private static final String FIELD_WORKSHEET = "worksheet";
 
+    private static final String FIELD_TYPE="type";
+
     /**
      * <p>
      * Default value for the excel file directory.
@@ -199,7 +201,7 @@ public class ExcelResource {
             String description = (String) formFields[1];
             FileItem excelFile = (FileItem) formFields[2];
             int worksheet = (Integer)formFields[3];
-
+            String type = (String)formFields[4];
             // Parses the excel
             HSSFWorkbook workbook = getWorkbook(excelFile.getInputStream());
             ExcelModelParser parser = new ExcelModelParser(workbook, dao, worksheet);
@@ -212,7 +214,7 @@ public class ExcelResource {
 
             // Creates the simulation
             setServerURLPrefix(request);
-            String simulationId = simulationService.createExcelModelSimulation(model, name, description,
+            String simulationId = simulationService.createExcelModelSimulation(model, name, description,type,
                 serverURLPrefix);
             success = true;
             return Response
@@ -295,6 +297,7 @@ public class ExcelResource {
     private Object[] getFormFields(HttpServletRequest request) throws FileUploadException {
         String name = "";
         String description = "";
+        String type = null;
         int worksheet = 0;
         FileItem file = null;
 
@@ -309,6 +312,9 @@ public class ExcelResource {
                 }
                 if (FIELD_WORKSHEET.equals(item.getFieldName())) {
                     worksheet = Integer.parseInt(item.getString());
+                }
+                if (FIELD_TYPE.equals(item.getFieldName())) {
+                    type = item.getString();
                 }
             } else {
                 file = item;
@@ -325,7 +331,7 @@ public class ExcelResource {
             throw new ExcelWrapperException("An excel file should be uploaded.");
         }
 
-        return new Object[] {name, description, file, worksheet};
+        return new Object[] {name, description, file, worksheet, type};
     }
 
     /**
