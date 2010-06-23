@@ -242,20 +242,20 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
             }
             if (getMax() != null && ! isEmpty(getMax()[0])) {
                 Double dmax = MetaData.Utils.convertToValue(Double.class, getMax()[0]);
-                if (dval > dmax) {
+                if (dmax !=null && dval > dmax) {
                     return false;
                 }
             }
 
         } else if (cls.equals(Integer.class)) {
             Integer ival = MetaData.Utils.convertToValue(Integer.class, values[0]);
-            if (getMin() != null) {
+            if (getMin() != null && ! isEmpty(getMin()[0])) {
                 Integer imin = MetaData.Utils.convertToValue(Integer.class, getMin()[0]);
                 if (ival < imin) {
                     return false;
                 }
             }
-            if (getMax() != null) {
+            if (getMax() != null && !isEmpty(getMax()[0])) {
                 Integer imax = MetaData.Utils.convertToValue(Integer.class, getMax()[0]);
                 if (ival > imax) {
                     return false;

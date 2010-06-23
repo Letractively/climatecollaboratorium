@@ -9,7 +9,6 @@ import mit.simulation.climate.model.persistence.ServerSimulation;
 import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.access.DataContext;
 
-import java.net.URL;
 import java.util.Collections;
 
 /**
@@ -32,7 +31,7 @@ public class MigrationUtils {
         ServerSimulation nsim = new ServerSimulation(sim.getName(),
                 sim.getDescription(),
                 sim.getURL(), Collections.<MetaData>emptyList(), Collections.<MetaData>emptyList(),
-                EntityState.PUBLIC);
+                EntityState.PUBLIC, null);
 
         for (MetaData md:sim.getInputs()) {
             nsim.addInput(copyMetaData(md));

@@ -31,10 +31,11 @@ public class ServerSimulation extends ServerObject<SimulationDAO> implements
     }
 
     public ServerSimulation(String name, String description, URL url,
-            List<MetaData> inputs, List<MetaData> outputs, EntityState state) {
+                            List<MetaData> inputs, List<MetaData> outputs, EntityState state, String type) {
         setName(name);
         setDescription(description);
         setURL(url);
+        setType(type);
         setCreation(new Date());
 
         if (inputs != null) {
@@ -49,6 +50,7 @@ public class ServerSimulation extends ServerObject<SimulationDAO> implements
         }
 
         setState(state != null ? state : EntityState.PUBLIC);
+
         configure();
 
     }
@@ -205,6 +207,16 @@ public class ServerSimulation extends ServerObject<SimulationDAO> implements
     public EntityState getState() {
         String state = dao.getState();
         return state == null ? EntityState.PUBLIC : EntityState.valueOf(state);
+    }
+
+    @Override
+    public void setType(String type) {
+        dao.setType(type);
+    }
+
+    @Override
+    public String getType() {
+        return dao.getType();
     }
 
     public void setState(EntityState state) {

@@ -42,4 +42,6 @@ public interface Simulation extends HasId {
 
     //public boolean isComposite();
 
+    public void setType(String type);
+    public String getType();
 }
