@@ -30,6 +30,7 @@ public class ClientSimulation implements Simulation {
     private String description;
     private Set<Simulation> children = null;
     private URL url;
+    private String type;
 
     private Map<String,String> updates = new HashMap<String,String>();
     private List<String> updateable = new ArrayList<String>(Arrays.asList(new String[] {"url","description","name"}));
@@ -129,6 +130,16 @@ public class ClientSimulation implements Simulation {
     @XmlElement(name="state")
     public EntityState getState() {
         return state;
+    }
+
+    @Override
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @XmlElement(name="type")
+    public String getType() {
+       return type;
     }
 
 

@@ -39,6 +39,9 @@ public interface Simulation extends HasId, Updateable {
     public void setState(EntityState name);
     public EntityState getState();
 
+    public void setType(String type);
+    public String getType();
+
     public Set<Simulation> getChildren();
 
     //public boolean isComposite();
