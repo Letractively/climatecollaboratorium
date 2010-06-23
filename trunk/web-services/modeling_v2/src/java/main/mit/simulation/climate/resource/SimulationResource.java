@@ -412,14 +412,14 @@ public class SimulationResource {
     @POST
     @Path("/simulation")
     public String createSimulation(@FormParam("description") String information, @FormParam("name") String name,
-        @FormParam("state") String action, @FormParam("url") String location) {
+        @FormParam("state") String action, @FormParam("url") String location, @FormParam("type") String type) {
         LOGGER.info("Handle editScenario");
         try {
             LOGGER.info("Received location:" + location);
             List<MetaData> empty = new ArrayList<MetaData>();
             EntityState estate = action == null ? null : EntityState.valueOf(action);
             ServerSimulation sim = new ServerSimulation(name, information, new URL(location), empty, empty,
-                (estate == null) ? EntityState.PUBLIC : estate);
+                (estate == null) ? EntityState.PUBLIC : estate, type);
             LOGGER.info("Sim url is " + sim.getURL());
             repo.commit();
             return sim.getId() + "";
@@ -465,7 +465,7 @@ public class SimulationResource {
             }
 
             sim = new CompositeServerSimulation(fields.get("name"), fields.get("description"), descriptor, Utils
-                .getEntityStateFromString(fields.get("state")));
+                .getEntityStateFromString(fields.get("state")), fields.get("type"));
             repo.commit();
             return sim.getId() + "";
         } catch (Exception e) {
@@ -624,7 +624,7 @@ public class SimulationResource {
     @Path("/editsim/{id}")
     public Response editSimulation(@Context HttpServletRequest request, @PathParam("id") String id,
         @FormParam("name") String name, @FormParam("description") String description,
-        @FormParam("state") String state_, @FormParam("url") String url, @FormParam("command") String action) {
+        @FormParam("state") String state_, @FormParam("url") String url, @FormParam("type") String type,@FormParam("command") String action) {
         LOGGER.info("Handle editSimulation : " + id);
 
         try {
@@ -657,6 +657,9 @@ public class SimulationResource {
             }
             if (url != null) {
                 sim.setURL(url);
+            }
+            if (type!=null) {
+                sim.setType(type);
             }
 
             repo.commit();

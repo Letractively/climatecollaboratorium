@@ -47,6 +47,7 @@
 		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="name" type="VARCHAR" length="64"/>
 		<db-attribute name="state" type="VARCHAR" length="64"/>
+		<db-attribute name="type" type="VARCHAR" length="1024"/>
 		<db-attribute name="url" type="VARCHAR" length="512"/>
 	</db-entity>
 	<db-entity name="SimulationToMetaDataMapping">
@@ -105,6 +106,7 @@
 		<obj-attribute name="id" type="java.lang.Long" db-attribute-path="id"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 		<obj-attribute name="state" type="java.lang.String" db-attribute-path="state"/>
+		<obj-attribute name="type" type="java.lang.String" db-attribute-path="type"/>
 		<obj-attribute name="url" type="java.lang.String" db-attribute-path="url"/>
 	</obj-entity>
 	<obj-entity name="Tuple" className="mit.simulation.climate.dao.TupleDAO" dbEntityName="Tuple">

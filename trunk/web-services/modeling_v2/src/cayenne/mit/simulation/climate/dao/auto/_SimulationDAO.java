@@ -25,6 +25,7 @@ public abstract class _SimulationDAO extends CayenneDataObject {
     public static final String ID_PROPERTY = "id";
     public static final String NAME_PROPERTY = "name";
     public static final String STATE_PROPERTY = "state";
+    public static final String TYPE_PROPERTY = "type";
     public static final String URL_PROPERTY = "url";
     public static final String INPUTS_PROPERTY = "inputs";
     public static final String OUTPUTS_PROPERTY = "outputs";
@@ -83,6 +84,13 @@ public abstract class _SimulationDAO extends CayenneDataObject {
     }
     public String getState() {
         return (String)readProperty("state");
+    }
+
+    public void setType(String type) {
+        writeProperty("type", type);
+    }
+    public String getType() {
+        return (String)readProperty("type");
     }
 
     public void setUrl(String url) {

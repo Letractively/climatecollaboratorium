@@ -34,11 +34,12 @@ font-size:14px;
 		<form id="createSimulation" name="createSimulation"
 			action="../conf"
 			method="post" enctype="multipart/form-data">
-            >
+
             name:<input type="text" name="name" value=""  /><br/>
             description: <input type="text" name="description" value=""  /><br/>
 			<input type="hidden" name="state" value="PUBLIC"  /> <br/>
-            file:<input type="file" name="descriptor"/>
+            type: <input type="text" name="type" value=""  /><br/>
+			file:<input type="file" name="descriptor"/>
 		</form>
         <button value="Create Simulation" id="runButton">Add Simulation</button>
 

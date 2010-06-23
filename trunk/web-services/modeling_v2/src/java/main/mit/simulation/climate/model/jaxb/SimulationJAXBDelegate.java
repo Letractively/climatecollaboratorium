@@ -91,6 +91,16 @@ public class SimulationJAXBDelegate implements Simulation {
         return src.getState();
     }
 
+    @Override
+    public void setType(String type) {
+        //do nothing
+    }
+
+    @XmlElement(name="type")
+    public String getType() {
+        return src.getType();
+    }
+
 
     @XmlElement(name="creation")
     public Date getCreation() {

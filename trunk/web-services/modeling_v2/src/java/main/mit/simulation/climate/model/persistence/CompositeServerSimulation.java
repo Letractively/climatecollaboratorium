@@ -45,8 +45,8 @@ public class CompositeServerSimulation extends ServerSimulation implements
     }
 
     public CompositeServerSimulation(String name, String description,
-                                     String compositeString, EntityState state) {
-        super(name, description, null, null, null, state);
+                                     String compositeString, EntityState state, String type) {
+        super(name, description, null, null, null, state, null);
         dao.setCompositeDescriptor(configure(compositeString));
 
     }
@@ -219,8 +219,19 @@ public class CompositeServerSimulation extends ServerSimulation implements
             for (int i = 0; i < inputSection.getLength(); i++) {
                 NodeList inputSims = inputSection.item(0).getChildNodes();
                 for (int j = 0; j < inputSims.getLength(); j++) {
-                    Simulation sim = getSimulation(inputSims.item(j));
+                    Node simnode =  inputSims.item(j);
+                    Set<String> excluded = new HashSet<String>();
+                    NodeList simchildren = simnode.getChildNodes();
+                    for (int cidx = 0;cidx<simchildren.getLength();cidx++) {
+                        Node excludedchild = simchildren.item(cidx);
+                        if (excludedchild.getAttributes().getNamedItem("included").getNodeValue().equals("false")) {
+                            excluded.add(excludedchild.getAttributes().getNamedItem("internalname").getNodeValue());
+                        }
+                    }
+                    Simulation sim = getSimulation(simnode);
+
                     for (MetaData input : sim.getInputs()) {
+                        if (excluded.contains(input.getInternalName())) continue;
                         hasIndex |= input.isIndex();
                         if (!serverConfigured()) _addInput(input);
                     }
@@ -263,8 +274,20 @@ public class CompositeServerSimulation extends ServerSimulation implements
                 NodeList outputSims = outputSection.item(0).getChildNodes();
                 for (int j = 0; j < outputSims.getLength(); j++) {
                     Node simnode = outputSims.item(j);
-                    Simulation sim = getSimulation(outputSims.item(j));
+                    Set<String> excluded = new HashSet<String>();
+                    NodeList simchildren = simnode.getChildNodes();
+                    for (int cidx = 0;cidx<simchildren.getLength();cidx++) {
+                        Node excludedchild = simchildren.item(cidx);
+                        if (!"output".equals(excludedchild.getNodeName())) {
+                            continue;
+                        }
+                        if (excludedchild.getAttributes().getNamedItem("included").getNodeValue().equals("false")) {
+                            excluded.add(excludedchild.getAttributes().getNamedItem("internalname").getNodeValue());
+                        }
+                    }
+                    Simulation sim = getSimulation(simnode);
                     for (MetaData output : sim.getOutputs()) {
+                        if (excluded.contains(output.getInternalName())) continue;
                         if (remapping.containsKey(output)) {
                              if (!serverConfigured()) _addOutput(remapping.get(output));
                             if (shouldRemap) {
