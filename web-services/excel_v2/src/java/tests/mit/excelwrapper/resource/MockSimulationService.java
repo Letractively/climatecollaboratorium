@@ -35,7 +35,7 @@ public class MockSimulationService implements SimulationService {
      * @throws IOException if any IO error occurs during the process
      * @throws IllegalArgumentException if model or param list is null
      */
-    public String createExcelModelSimulation(ExcelModel model, String name, String description, String serverURLPrefix)
+    public String createExcelModelSimulation(ExcelModel model, String name, String description, String type, String serverURLPrefix)
         throws IOException {
         return new Random().nextInt() + "";
     }

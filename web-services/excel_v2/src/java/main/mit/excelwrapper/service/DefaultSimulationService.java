@@ -82,7 +82,7 @@ public class DefaultSimulationService implements SimulationService {
      * @throws IOException if any IO error occurs during the process
      * @throws IllegalArgumentException if model or param list is null
      */
-    public String createExcelModelSimulation(ExcelModel model, String name, String description, String serverURLPrefix)
+    public String createExcelModelSimulation(ExcelModel model, String name, String description, String type, String serverURLPrefix)
         throws IOException {
         Utils.checkNull(model, "model");
         Utils.checkNull(model.getParamList(), "param list");
@@ -95,8 +95,8 @@ public class DefaultSimulationService implements SimulationService {
         // creates the simulation
         PostMethod post = new PostMethod(simulationURL);
         NameValuePair[] postValues = new NameValuePair[] {new NameValuePair("name", name),
-            new NameValuePair("description", description), new NameValuePair("state", "TEMPORARY"),
-            new NameValuePair("url", excelRunURL)};
+            new NameValuePair("description", description), new NameValuePair("state", "PUBLIC"),
+            new NameValuePair("url", excelRunURL), new NameValuePair("type",type)};
         post.setRequestBody(postValues);
         try {
             client.executeMethod(post);
