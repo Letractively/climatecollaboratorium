@@ -338,14 +338,41 @@ function renderModelOutputs() {
 			});
 			
 			// 	set min/max
+			
+			function pickTickInterval(min, max,preferredTicks) {
+				// probably here...
+			     var interval = (max - min)/preferredTicks;
+			    
+			    var divideback = .1;
+			     while (interval != Math.floor(interval)) {
+			    	 log.debug("loop: " + interval + "\tdivideback: " + divideback);
+			          interval*=10;
+			          divideback*=10;
+			     }
+			     interval=(Math.round((interval / 10)*2)/2)/divideback ;
+			     return interval;
+			}
 		
 			if (min != null && max != null) {
 				yaxis.min = min;
 				yaxis.max = max;
-				if (dataType == 'java.lang.Integer') {
-					log.debug("MAMY INTEGER!");
-					yaxis.tickOptions = {formatString:'%d'};
+
+				if (max - min > 100) {
+					yaxis.tickInterval = 100;
+					yaxis.tickOptions = {formatString:"%d"};
 				}
+				else if (max - min > 5 && max - min < 20) {
+					//yaxis.tickInterval = pickTickInterval(min, max, parseInt(max-min));//((label == "Atmospheric CO2 Concentration") ? 100 : 30);// pickTickInterval(min,max,5)
+					yaxis.tickInterval = 1;
+					yaxis.tickOptions = {formatString:"%d"};
+				}
+				else {
+					yaxis.tickInterval = pickTickInterval(min, max, 10);
+					yaxis.tickOptions = {formatString:"%.1f"};
+				}
+					
+				//yaxis.tickInterval = 1;
+				
 			}
 			if (indexMin != null && indexMax != null) {
 				xaxis.min = indexMin;
