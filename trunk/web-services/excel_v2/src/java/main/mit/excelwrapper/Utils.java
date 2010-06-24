@@ -10,6 +10,11 @@ import org.apache.poi.ss.usermodel.Row;
 
 import mit.excelwrapper.exception.ExcelWrapperException;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * <p>
  * Utils class.
@@ -150,6 +155,19 @@ public final class Utils {
             throw new ExcelWrapperException("invalid type with type of  " + cell.getCellType() + " for rowr of "
                 + rowCounter + " and col of " + colCounter);
         }
+
+    }
+
+    public static List<String> parseList(String name, String value, DataType dataType) {
+        List<String> result = new ArrayList<String>();
+        Pattern p = Pattern.compile("([^\\[^\\]]+)");
+        Matcher m = p.matcher(value);
+        while (m.find()) {
+            String match = m.group(1);
+            checkInputParamValue(name,match,dataType);
+            result.add(match);
+        }
+        return result;
 
     }
 }

@@ -26,6 +26,7 @@ import javax.ws.rs.core.Response;
 
 import mit.excelwrapper.Utils;
 import mit.excelwrapper.dao.ExcelWrapperDAO;
+import mit.excelwrapper.excel.ExcelConstants;
 import mit.excelwrapper.excel.ExcelModelParser;
 import mit.excelwrapper.excel.ExcelModelRunner;
 import mit.excelwrapper.exception.ExcelWrapperException;
@@ -86,6 +87,8 @@ public class ExcelResource {
     private static final String FIELD_WORKSHEET = "worksheet";
 
     private static final String FIELD_TYPE="type";
+
+      private static final String FIELD_FORMAT="format";
 
     /**
      * <p>
@@ -202,9 +205,10 @@ public class ExcelResource {
             FileItem excelFile = (FileItem) formFields[2];
             int worksheet = (Integer)formFields[3];
             String type = (String)formFields[4];
+            ExcelConstants.Format format = (ExcelConstants.Format)formFields[5];
             // Parses the excel
             HSSFWorkbook workbook = getWorkbook(excelFile.getInputStream());
-            ExcelModelParser parser = new ExcelModelParser(workbook, dao, worksheet);
+            ExcelModelParser parser = new ExcelModelParser(workbook, dao, worksheet,format);
             model = parser.parse();
             // persist it first
             dao.commit();
@@ -299,6 +303,8 @@ public class ExcelResource {
         String description = "";
         String type = null;
         int worksheet = 0;
+        ExcelConstants.Format format = ExcelConstants.Format.SINGLE_SHEET;
+
         FileItem file = null;
 
         List<? extends FileItem> items = requestParser.parseRequest(request);
@@ -316,6 +322,9 @@ public class ExcelResource {
                 if (FIELD_TYPE.equals(item.getFieldName())) {
                     type = item.getString();
                 }
+                if (FIELD_FORMAT.equals(item.getFieldName())) {
+                    format = ExcelConstants.Format.valueOf(item.getString());
+                }
             } else {
                 file = item;
             }
@@ -331,7 +340,7 @@ public class ExcelResource {
             throw new ExcelWrapperException("An excel file should be uploaded.");
         }
 
-        return new Object[] {name, description, file, worksheet, type};
+        return new Object[] {name, description, file, worksheet, type,format};
     }
 
     /**

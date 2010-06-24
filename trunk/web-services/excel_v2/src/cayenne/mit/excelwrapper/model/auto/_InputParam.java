@@ -15,6 +15,7 @@ public abstract class _InputParam extends CayenneDataObject {
     public static final String COL_NUM_PROPERTY = "colNum";
     public static final String DATA_TYPE_PROPERTY = "dataType";
     public static final String INTERNAL_NAME_PROPERTY = "internalName";
+    public static final String NUM_ROWS_PROPERTY = "numRows";
     public static final String ROW_NUM_PROPERTY = "rowNum";
     public static final String MODEL_PROPERTY = "model";
 
@@ -39,6 +40,13 @@ public abstract class _InputParam extends CayenneDataObject {
     }
     public String getInternalName() {
         return (String)readProperty("internalName");
+    }
+
+    public void setNumRows(Integer numRows) {
+        writeProperty("numRows", numRows);
+    }
+    public Integer getNumRows() {
+        return (Integer)readProperty("numRows");
     }
 
     public void setRowNum(Integer rowNum) {
