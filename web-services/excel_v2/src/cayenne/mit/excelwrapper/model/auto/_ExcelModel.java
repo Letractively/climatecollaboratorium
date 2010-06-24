@@ -15,6 +15,7 @@ import mit.excelwrapper.model.OutputParam;
  */
 public abstract class _ExcelModel extends CayenneDataObject {
 
+    public static final String FORMAT_PROPERTY = "format";
     public static final String ID_PROPERTY = "id";
     public static final String PATH_PROPERTY = "path";
     public static final String WORKSHEET_PROPERTY = "worksheet";
@@ -22,6 +23,13 @@ public abstract class _ExcelModel extends CayenneDataObject {
     public static final String OUTPUT_PARAMS_PROPERTY = "outputParams";
 
     public static final String ID_PK_COLUMN = "ID";
+
+    public void setFormat(String format) {
+        writeProperty("format", format);
+    }
+    public String getFormat() {
+        return (String)readProperty("format");
+    }
 
     public void setId(Integer id) {
         writeProperty("id", id);

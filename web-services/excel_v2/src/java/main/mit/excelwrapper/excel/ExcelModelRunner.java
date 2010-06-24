@@ -20,7 +20,9 @@ import org.apache.poi.ss.usermodel.Row;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,7 +56,7 @@ public class ExcelModelRunner {
      * The worksheet worked on.
      * </p>
      */
-    private final HSSFSheet worksheet;
+    private HSSFSheet currentWorksheet;
 
     /**
      * <p>
@@ -87,7 +89,7 @@ public class ExcelModelRunner {
         Utils.checkNull(formFields, "formFields");
 
         this.workbook = workbook;
-        this.worksheet = workbook.getSheetAt(model.getWorksheet());
+        //this.worksheet = workbook.getSheetAt(model.getWorksheet());
         this.model = model;
         this.formFields = formFields;
     }
@@ -103,12 +105,14 @@ public class ExcelModelRunner {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Runs the model with if of " + model.getId());
         }
+        ExcelConstants.Format format = ExcelConstants.Format.valueOf(model.getFormat());
+        currentWorksheet = workbook.getSheetAt(format.getWorksheetIndex(model.getWorksheet(),true));
 
-        Map<String, String> inputValues = validateAndGetInputValues();
-
+        Map<String, List<String>> inputValues = validateAndGetInputValues();
         // assign the value
         updateInputCells(inputValues);
-
+        int outputidx =format.getWorksheetIndex(model.getWorksheet(),false);
+        currentWorksheet = workbook.getSheetAt(outputidx);
         // run formulas
         runFormulas();
 
@@ -124,12 +128,16 @@ public class ExcelModelRunner {
      * @param inputValues the input values used in latest run
      * @return the result
      */
-    private String getResult(Map<String, String> inputValues) {
+    private String getResult(Map<String, List<String>> inputValues) {
         // inputs
         StringBuilder sb = new StringBuilder();
         for (String paramName : inputValues.keySet()) {
-            String paramValue = inputValues.get(paramName);
-            sb.append("<").append(paramName).append(">[[").append(encodeValue(paramValue)).append("]]");
+            List<String> paramValue = inputValues.get(paramName);
+            sb.append("<").append(paramName).append(">[");
+            for (String s:paramValue) {
+                sb.append("[").append(encodeValue(s)).append("]");
+            }
+            sb.append("]");
         }
 
         // outputs
@@ -142,7 +150,7 @@ public class ExcelModelRunner {
             for (int i = startRow; i < startRow + numOfValues; i++) {
                 String outputValue = null;
                 try {
-                    outputValue = Utils.getCellValueAsString(worksheet, i, colCounter, "");
+                    outputValue = Utils.getCellValueAsString(currentWorksheet, i, colCounter, "");
                     sb.append("[").append(encodeValue(outputValue)).append("]");
                 } catch (FormulaComputationException e) {
                     LOGGER.info("Error executing formula in cell "+colCounter+","+i);
@@ -181,7 +189,7 @@ public class ExcelModelRunner {
         // updates all of the formula cells in the excel file to display the
         // changes that were made to the parameter values
         FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
-        for (Row r : worksheet) {
+        for (Row r : currentWorksheet) {
             for (Cell c : r) {
                 if (c.getCellType() == Cell.CELL_TYPE_FORMULA) {
                     evaluator.evaluateFormulaCell(c);
@@ -198,8 +206,8 @@ public class ExcelModelRunner {
      *
      * @return input values
      */
-    private Map<String, String> validateAndGetInputValues() {
-        Map<String, String> inputValues = new HashMap<String, String>();
+    private Map<String, List<String>> validateAndGetInputValues() {
+        Map<String, List<String>> inputValues = new HashMap<String, List<String>>();
         // initiate the map using model input parameters.
         Map<String, InputParam> paramMap = model.getInputParamMap();
 
@@ -209,13 +217,21 @@ public class ExcelModelRunner {
         }
 
         for (String fieldName : formFields.keySet()) {
+            List<String> values = new ArrayList<String>();
             String fieldValue = formFields.getFirst(fieldName);
             InputParam inputParam = paramMap.get(fieldName);
             if (inputParam == null) {
                 throw new ExcelWrapperException("unrecognzied form field of " + fieldName);
             }
-            Utils.checkInputParamValue(fieldName, fieldValue, inputParam.getDataTypeEnum());
-            inputValues.put(fieldName, fieldValue);
+
+            if (inputParam.getNumRows()>1) {
+                values = Utils.parseList(fieldName,fieldValue,inputParam.getDataTypeEnum());
+            } else {
+                Utils.checkInputParamValue(fieldName, fieldValue, inputParam.getDataTypeEnum());
+                values.add(fieldValue);
+            }
+
+            inputValues.put(fieldName, values);
         }
 
         return inputValues;
@@ -228,12 +244,12 @@ public class ExcelModelRunner {
      *
      * @param inputValues the input values
      */
-    private void updateInputCells(Map<String, String> inputValues) {
+    private void updateInputCells(Map<String, List<String>> inputValues) {
         Map<String, InputParam> paramMap = model.getInputParamMap();
         for (String paramName : inputValues.keySet()) {
-            String paramValue = inputValues.get(paramName);
+            List<String> paramValues = inputValues.get(paramName);
             InputParam inputParam = paramMap.get(paramName);
-            updateInputCellValue(inputParam, paramValue);
+            updateInputCellValue(inputParam, paramValues);
         }
 
     }
@@ -244,14 +260,20 @@ public class ExcelModelRunner {
      * </p>
      *
      * @param inputParam the input parameter
-     * @param paramValue the parameter value
+     * @param paramValues the parameter values
      */
-    private void updateInputCellValue(InputParam inputParam, String paramValue) {
-        Cell cell = worksheet.getRow(inputParam.getRowNum()).getCell(inputParam.getColNum());
+    private void updateInputCellValue(InputParam inputParam, List<String> paramValues) {
+        if (paramValues.size() != inputParam.getNumRows()) {
+            LOGGER.warn("Number of inputs provided != number of inputs expected!");
+        }
+        for (int i = 0;i<inputParam.getNumRows() && i<paramValues.size();i++) {
+            Cell cell = currentWorksheet.getRow(i).getCell(inputParam.getColNum());
+        
         if (inputParam.getDataTypeEnum() != DataType.TEXT) {
-            cell.setCellValue(Double.parseDouble(paramValue));
+            cell.setCellValue(Double.parseDouble(paramValues.get(i)));
         } else {
-            cell.setCellValue(paramValue);
+            cell.setCellValue(paramValues.get(i));
+        }
         }
     }
 }

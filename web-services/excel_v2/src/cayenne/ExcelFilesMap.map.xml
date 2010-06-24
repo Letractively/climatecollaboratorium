@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap"
-  project-version="3.0">
+  xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+  project-version="3.0.0.1">
 	<property name="defaultPackage" value="mit.excelwrapper.model"/>
 	<db-entity name="ExcelModel">
 		<db-attribute name="ID" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="128"/>
 		<db-attribute name="Path" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="format" type="VARCHAR" length="64"/>
 		<db-attribute name="worksheet" type="INTEGER"/>
 	</db-entity>
 	<db-entity name="InputParam">
@@ -26,6 +27,7 @@
 		<db-attribute name="RowNum" type="INTEGER" isMandatory="true" length="64"/>
 	</db-entity>
 	<obj-entity name="ExcelModel" className="mit.excelwrapper.model.ExcelModel" dbEntityName="ExcelModel">
+		<obj-attribute name="format" type="java.lang.String" db-attribute-path="format"/>
 		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="ID"/>
 		<obj-attribute name="path" type="java.lang.String" db-attribute-path="Path"/>
 		<obj-attribute name="worksheet" type="java.lang.Integer" db-attribute-path="worksheet"/>

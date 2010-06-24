@@ -6,6 +6,7 @@ package mit.excelwrapper.resource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import junit.framework.Assert;
 import mit.excelwrapper.dao.ExcelWrapperDAO;
+import mit.excelwrapper.excel.ExcelConstants;
 import mit.excelwrapper.exception.ExcelWrapperException;
 import mit.excelwrapper.model.ExcelModel;
 import mit.excelwrapper.model.InputParam;
@@ -247,7 +248,7 @@ public class ExcelResourceTest {
      */
     private void testCreateSimulation(String name, String excelFile, int numInputParams, int numOutputParams,
         int outputNumRows) {
-        ExcelModel model = createModel(name, excelFile);
+        ExcelModel model = createModel(name, excelFile,ExcelConstants.Format.SINGLE_SHEET);
         Assert.assertNotNull(model);
         Assert.assertEquals(numInputParams, model.getInputParams().size());
         Assert.assertEquals(numOutputParams, model.getOutputParams().size());
@@ -265,9 +266,9 @@ public class ExcelResourceTest {
      * @param excelFile the excel file
      * @return the model created
      */
-    private ExcelModel createModel(String name, String excelFile) {
+    private ExcelModel createModel(String name, String excelFile, ExcelConstants.Format format) {
         requestParser.setFileItems(Arrays.asList(new MockFileItem("name", true, name, null), new MockFileItem(
-            "excel file", false, null, TEST_FILES_DIR + excelFile)));
+            "excel file", false, null, TEST_FILES_DIR + excelFile),new MockFileItem("format",true,format.name(),null)));
         resource.createSimulation(request);
         return dao.getModel();
     }
@@ -285,7 +286,7 @@ public class ExcelResourceTest {
     @Test
     public void testRunSimulation_Failure1() throws Exception {
         try {
-            runSimulation("SEALEVEL.xls", "not a number");
+            runSimulation("SEALEVEL.xls", "not a number",null);
             Assert.fail("ExcelWrapperException should be thrown.");
         } catch (ExcelWrapperException e) {
             Assert.assertTrue((e.getResponse().getEntity() + "").contains("the value should be integer"));
@@ -302,7 +303,7 @@ public class ExcelResourceTest {
      */
     @Test
     public void testRunSimulation_Accuracy1() {
-        runSimulation("SEALEVEL.xls", null);
+        runSimulation("SEALEVEL.xls", null,null);
     }
 
     /**
@@ -315,7 +316,20 @@ public class ExcelResourceTest {
      */
     @Test
     public void testRunSimulation_Accuracy2() {
-        runSimulation("STERN.xls", "5");
+        runSimulation("STERN.xls", "5",null);
+    }
+
+     /**
+     * <p>
+     * Accuracy test for <code>runSimulation(MultivaluedMap&lt;,String&gt;,int)</code>.
+     * </p>
+     * <p>
+     * Passes in valid value. No exception should be thrown.
+     * </p>
+     */
+    @Test
+    public void testRunTwoWorksheetSimulation_Accuracy2() {
+        runSimulation("2WorksheetTest.xls", "[4][5][6][7]",ExcelConstants.Format.TWO_SHEET);
     }
 
     /**
@@ -326,8 +340,8 @@ public class ExcelResourceTest {
      * @param fileName the file used to create the simulation for testing
      * @param paramValue the parameter value
      */
-    private void runSimulation(String fileName, String paramValue) {
-        ExcelModel model = createModel("EXCEL RUN TEST", fileName);
+    private void runSimulation(String fileName, String paramValue,ExcelConstants.Format format) {
+        ExcelModel model = createModel("EXCEL RUN TEST", fileName,format==null?ExcelConstants.Format.SINGLE_SHEET:format);
 
         if (paramValue == null) {
             // it is safe to just give number string

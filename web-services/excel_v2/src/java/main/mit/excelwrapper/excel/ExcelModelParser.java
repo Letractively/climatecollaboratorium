@@ -38,13 +38,6 @@ public class ExcelModelParser {
 
     private static Logger log = Logger.getLogger(ExcelModelParser.class);
 
-    /**
-     * <p>
-     * The parameter property name list. It follows the order it is supposed to appear in the excel sheet.
-     * </p>
-     */
-    private static final String[] PARAM_PROPERTY_NAMES = new String[] {"name", "value", "label", "description",
-        "units", "varcontext", "type2", "datatype", "external", "min", "max", "categories"};
 
     /**
      * <p>
@@ -92,26 +85,6 @@ public class ExcelModelParser {
      */
     private static final int START_ROW_INPUT_PARAM = 0;
 
-    /**
-     * <p>
-     * Constant for row counter for input value.
-     * </p>
-     */
-    private static final int ROW_COUNTER_INPUT_VALUE = START_ROW_INPUT_PARAM + 1;
-
-    /**
-     * <p>
-     * Constant for row counter for start row for output parameter.
-     * </p>
-     */
-    private static final int START_ROW_OUTPUT_PARAM = PARAM_PROPERTY_NAMES.length;
-
-    /**
-     * <p>
-     * Constant for row counter for start row for input value.
-     * </p>
-     */
-    private static final int START_ROW_OUTPUT_VALUES = PARAM_PROPERTY_NAMES.length * 2 + 1;
 
     /**
      * <p>
@@ -125,7 +98,13 @@ public class ExcelModelParser {
      * worksheet instance.
      * </p>
      */
-    private final HSSFSheet sheet;
+    private final int baseWorksheetIndex;
+
+    private final HSSFWorkbook workbook;
+
+    private HSSFSheet currentSheet;
+
+    private final ExcelConstants.Format parserFormat;
 
     /**
      * <p>
@@ -137,21 +116,25 @@ public class ExcelModelParser {
      *
      * @throws IllegalArgumentException if any parameter is null or workbook doesn't have sheet assoicated
      */
-    public ExcelModelParser(HSSFWorkbook workbook, ExcelWrapperDAO dao, int worksheet) {
+    public ExcelModelParser(HSSFWorkbook workbook, ExcelWrapperDAO dao, int worksheet, ExcelConstants.Format parserFormat) {
         Utils.checkNull(workbook, "workbook");
         Utils.checkNull(dao, "dao");
+        this.workbook = workbook;
+        this.parserFormat = parserFormat;
 
         // Gets the first sheet
-        if (workbook.getNumberOfSheets() < 1) {
-            throw new IllegalArgumentException("the workbook should at least contain 1 sheet.");
+        if (workbook.getNumberOfSheets() < parserFormat.getNumSheets()+worksheet) {
+            throw new IllegalArgumentException("the workbook should at least contain at least "+(parserFormat.getNumSheets()+worksheet)+" sheet.");
         }
 
-        sheet = workbook.getSheetAt(worksheet);
+       // currentSheet = workbook.getSheetAt(worksheet);
+        baseWorksheetIndex = worksheet;
         this.dao = dao;
+
     }
 
      public ExcelModelParser(HSSFWorkbook workbook, ExcelWrapperDAO dao) {
-        this(workbook,dao,0);
+        this(workbook,dao,0, ExcelConstants.Format.SINGLE_SHEET);
     }
 
     /**
@@ -163,7 +146,8 @@ public class ExcelModelParser {
      */
     public ExcelModel parse() {
         ExcelModel excelModel = dao.newExcelModel();
-        excelModel.setWorksheet(0);
+        excelModel.setWorksheet(baseWorksheetIndex);
+        excelModel.setFormat(parserFormat.name());
         // it will be updated later
         excelModel.setPath("");
         List<List<NameValuePair>> paramList = new ArrayList<List<NameValuePair>>();
@@ -184,6 +168,11 @@ public class ExcelModelParser {
         return excelModel;
     }
 
+
+    private void updateWorksheet(boolean isInput) {
+        currentSheet = workbook.getSheetAt(parserFormat.getWorksheetIndex(baseWorksheetIndex,isInput));
+    }
+
     /**
      * <p>
      * Parses to get parameters.
@@ -194,12 +183,18 @@ public class ExcelModelParser {
      * @param isInput indicates if it is input parameter or now
      */
     private void parseParameters(ExcelModel excelModel, List<List<NameValuePair>> paramList, boolean isInput) {
-        final int firstRow = (isInput) ? START_ROW_INPUT_PARAM : START_ROW_OUTPUT_PARAM;
-        int colCounter = 0;
 
+        updateWorksheet(isInput);
+        final int firstRow = parserFormat.getStartRow(isInput);
+
+        int colCounter = 0;
         int countOutputValues = 0;
+        int countInputValues = 1;
+        if (isInput && parserFormat==ExcelConstants.Format.TWO_SHEET) {
+            countInputValues = countValues(isInput);
+        }
         if (!isInput) {
-            countOutputValues = countOutputValues();
+            countOutputValues = countValues(isInput);
         }
 
         // scan parameter from left to right
@@ -213,29 +208,29 @@ public class ExcelModelParser {
             pairs.add(new NameValuePair("type", (isInput) ? "input" : "output"));
             String internalName = "";
             String dataType = "";
-            for (int i = 0; i < PARAM_PROPERTY_NAMES.length; i++) {
+            for (int i = 0; i < ExcelConstants.Params.values().length; i++) {
                 int rowCounter = i + firstRow;
-                String propertyName = PARAM_PROPERTY_NAMES[i];
-                if ("value".equals(propertyName)) {
-                    pairs.add(new NameValuePair(propertyName, null));
+                ExcelConstants.Params property = ExcelConstants.Params.values()[i];
+                if (ExcelConstants.Params.VALUE == property) {
+                    pairs.add(new NameValuePair(property.toFieldName(), null));
                     continue;
                 }
                 String propertyValue = null;
                 try {
-                    propertyValue = Utils.getCellValueAsString(sheet, rowCounter, colCounter, "");
+                    propertyValue = Utils.getCellValueAsString(currentSheet, rowCounter, colCounter, "");
                 } catch (FormulaComputationException e) {
                     log.error("Should not encounter this error on initial parse",e);
                 }
-                propertyValue = validateAndGetValue(propertyName, propertyValue, isInput);
+                propertyValue = validateAndGetValue(property, propertyValue, isInput);
 
-                pairs.add(new NameValuePair(propertyName, propertyValue));
+                pairs.add(new NameValuePair(property.toFieldName(), propertyValue));
 
                 // derived internal name
-                if ("name".equals(propertyName)) {
+                if (ExcelConstants.Params.NAME == property) {
                     // internalName = Utils.normalizeStringValue(propertyValue);
                     internalName = getInternalName(propertyValue, isInput, colCounter);
                 }
-                if ("datatype".equals(propertyName)) {
+                if (ExcelConstants.Params.DATATYPE==property) {
                     dataType = propertyValue;
                 }
             }
@@ -245,14 +240,15 @@ public class ExcelModelParser {
             if (isInput) {
                 InputParam input = dao.newInputParam();
                 input.setColNum(colCounter);
-                input.setRowNum(ROW_COUNTER_INPUT_VALUE);
+                input.setRowNum(parserFormat.getValueRow(isInput));
+                input.setNumRows(countInputValues);
                 input.setInternalName(internalName);
                 input.setDataType(dataType);
                 excelModel.addToInputParams(input);
             } else {
                 OutputParam output = dao.newOutputParam();
                 output.setColNum(colCounter);
-                output.setRowNum(START_ROW_OUTPUT_VALUES);
+                output.setRowNum(parserFormat.getValueRow(isInput));
                 output.setNumRows(countOutputValues);
                 output.setInternalName(internalName);
                 excelModel.addToOutputParams(output);
@@ -282,22 +278,22 @@ public class ExcelModelParser {
      * Validates and gets the property value.
      * </p>
      *
-     * @param propertyName the property name
+     * @param param the property
      * @param propertyValue the property value
      * @param isInput indicates if it is input or output
      * @return the validated property name
      *
      * @throws ExcelWrapperException if the value is invalid
      */
-    private String validateAndGetValue(String propertyName, String propertyValue, boolean isInput) {
-        if ("varcontext".equals(propertyName)) {
+    private String validateAndGetValue(ExcelConstants.Params param, String propertyValue, boolean isInput) {
+        if (ExcelConstants.Params.VARCONTEXT == param) {
             propertyValue = propertyValue.toUpperCase();
             if (!VAR_CONTEXT_VALUE_SET.contains(propertyValue)) {
                 throw new ExcelWrapperException("VarContext value is invalid : " + propertyValue);
             }
         }
 
-        if ("type2".equals(propertyName)) {
+        if (ExcelConstants.Params.TYPE2 == param) {
             List<String> testSet = (isInput) ? VAR_TYPE_VALUE_SET_INPUT : VAR_TYPE_VALUE_SET_OUTPUT;
             propertyValue = propertyValue.toUpperCase();
             if (!testSet.contains(propertyValue)) {
@@ -305,7 +301,7 @@ public class ExcelModelParser {
             }
         }
 
-        if ("datatype".equals(propertyName)) {
+        if (ExcelConstants.Params.DATATYPE == param) {
             propertyValue = propertyValue.toUpperCase();
             if (!DATA_TYPE_VALUE_SET.contains(propertyValue)) {
                 throw new ExcelWrapperException("DataType value is invalid : " + propertyValue);
@@ -322,10 +318,10 @@ public class ExcelModelParser {
      *
      * @return the number of output values
      */
-    private int countOutputValues() {
+    private int countValues(boolean isInput) {
         int count = 0;
         while (true) {
-            if (isCellBlank(START_ROW_OUTPUT_VALUES + count, 0)) {
+            if (isCellBlank(parserFormat.getValueRow(isInput) + count, 0)) {
                 break;
             }
             ++count;
@@ -343,7 +339,7 @@ public class ExcelModelParser {
      * @return true if the cell is blank or doesn't exist otherwise false
      */
     private boolean isCellBlank(int rowCounter, int colCounter) {
-        Row row = sheet.getRow(rowCounter);
+        Row row = currentSheet.getRow(rowCounter);
         return (row == null || row.getCell(colCounter) == null || row.getCell(colCounter).getCellType() == Cell.CELL_TYPE_BLANK);
     }
 
