@@ -78,7 +78,7 @@ public interface PlanMetaLocalService {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanMeta createPlanMeta(
-        com.ext.portlet.plans.model.PlanItem plan)
+        com.ext.portlet.plans.model.PlanItem plan, java.lang.Long planTypeId)
         throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

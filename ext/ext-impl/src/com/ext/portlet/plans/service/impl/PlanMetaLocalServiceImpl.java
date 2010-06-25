@@ -17,19 +17,22 @@ import com.liferay.portal.SystemException;
 
 public class PlanMetaLocalServiceImpl extends PlanMetaLocalServiceBaseImpl {
     
-    public PlanMeta createPlanMeta(PlanItem plan) throws SystemException {
+    public PlanMeta createPlanMeta(PlanItem plan, Long planTypeId) throws SystemException {
         Long planMetaId = CounterUtil.increment(PlanMeta.class.getName());
         PlanMeta planMeta = PlanMetaLocalServiceUtil.createPlanMeta(planMetaId);
         planMeta.setPlanId(plan.getPlanId());
+        planMeta.setPlanTypeId(planTypeId);
         planMeta.setPlanVersion(plan.getVersion());
         planMeta.setCreated(new Date());
+        planMeta.setUpdateAuthorId(plan.getUpdateAuthorId());
+        planMeta.setAuthorId(plan.getUpdateAuthorId());
         planMeta.setVersion(0L);
         
         return PlanMetaLocalServiceUtil.addPlanMeta(planMeta);
     }
     
     public PlanMeta getCurrentForPlan(PlanItem plan) throws SystemException {
-        return this.planMetaPersistence.fetchByCurrentByPlanId(plan.getId());
+        return this.planMetaPersistence.fetchByCurrentByPlanId(plan.getPlanId());
     }
     
     public List<PlanMeta> getAllForPlan(PlanItem plan) throws SystemException {

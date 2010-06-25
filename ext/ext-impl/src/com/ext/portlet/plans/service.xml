@@ -232,6 +232,8 @@
        </finder>
        
 	</entity>
+    
+
 	
 	<entity name="PlanTypeAttribute" local-service="true">
 	   <column name="planTypeAttributeId" type="Long" primary="true" />
@@ -261,6 +263,14 @@
         <column name="updateAuthorId" type="Long" />
         <column name="updateType" type="String" />
         <column name="version" type="Long" />
+        
+        <order by="desc">
+            <order-column name="version" />
+        </order>
+        
+        <finder name="AllByPlanId" return-type="Collection">
+            <finder-column name="planId" />
+        </finder>
     </entity>
     
     <entity name="PlanDescription" local-service="true">
@@ -332,6 +342,37 @@
         </finder>   
         <finder name="AllByPlanId" return-type="Collection">
             <finder-column name="planId" />
+        </finder>
+    </entity>
+    
+    <entity name="PlanPositions" local-service="true">
+        <column name="id" primary="true" type="Long" />
+        <column name="planId" type="Long" />
+        <column name="planVersion" type="Long" />
+        <column name="version" type="Long" />
+        <column name="created" type="Date" /> 
+        <column name="updateAuthorId" type="Long" />
+        
+        <order by="desc">
+            <order-column name="version" />
+            <order-column name="created" />
+        </order>
+        
+        <finder name="CurrentByPlanId" return-type="PlanPositions">
+            <finder-column name="planId" />
+        </finder>   
+        <finder name="AllByPlanId" return-type="Collection">
+            <finder-column name="planId" />
+        </finder>
+    </entity>
+    
+    <entity name="PlanPositionItem" local-service="true">
+        <!-- PK field -->
+        <column name="planPositionsId" type="Long" primary="true" />
+        <column name="positionId" type="Long" primary="true" />
+
+        <finder name="AllByPlanPositionsId" return-type="Collection">
+            <finder-column name="planPositionsId" />
         </finder>
     </entity>
 

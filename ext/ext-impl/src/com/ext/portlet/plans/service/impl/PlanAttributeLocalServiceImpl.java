@@ -6,6 +6,8 @@
 
 package com.ext.portlet.plans.service.impl;
 
+import java.util.List;
+
 import com.ext.portlet.plans.NoSuchPlanAttributeException;
 import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanAttribute;
@@ -34,5 +36,9 @@ public class PlanAttributeLocalServiceImpl
 		} catch (NoSuchPlanAttributeException e) {
 			return null;
 		} 
+	}
+	
+	public List<PlanAttribute> getPlanAttributes(Long planId) throws SystemException {
+	    return planAttributePersistence.findByplanAttributes(planId);
 	}
 }

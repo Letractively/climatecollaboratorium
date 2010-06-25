@@ -78,11 +78,30 @@ public interface PlanItemLocalService {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanItem createPlan(
+        java.lang.String name, java.lang.Long planTypeId,
         java.lang.Long authorId) throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans()
         throws com.liferay.portal.SystemException;
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans(
+        java.util.Map sessionMap, java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlanType planType, int start, int end,
+        java.lang.String sortColumn, java.lang.String sortDirection)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public void removePlanWithEntireHistory(java.lang.Long planId);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getAllVersions(
+        com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanAttribute> getPlanAttributes(
+        com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException;
 }

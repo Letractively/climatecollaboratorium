@@ -81,12 +81,12 @@ public interface PlanDescriptionLocalService {
         boolean merge) throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanDescription createPlanDescription(
-        com.ext.portlet.plans.model.PlanItem plan)
+        com.ext.portlet.plans.model.PlanItem plan, java.lang.String name)
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanDescription createPlanDescription(
-        com.ext.portlet.plans.model.PlanItem plan, boolean store)
-        throws com.liferay.portal.SystemException;
+        com.ext.portlet.plans.model.PlanItem plan, java.lang.String name,
+        boolean store) throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.plans.model.PlanDescription getCurrentForPlan(

@@ -37,4 +37,32 @@
         ]]>
         
 </sql>
+
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getPlansForType">
+        <![CDATA[
+            SELECT
+                {PlanItem.*},
+                PLAN_ATTRIBUTE_NAME_PLACEHOLDER
+            FROM
+                PlanItem
+                INNER JOIN (
+                    SELECT max(PlanItem.id_) as itemId, PlanItem.planId planId
+                    FROM PlanItem
+                    GROUP BY PlanItem.planId
+                ) as t2
+                ON (PlanItem.id_ = t2.itemId)
+                INNER JOIN (
+                    SELECT max(PlanMeta.id_) as metaId, PlanMeta.planId planId, PlanMeta.planTypeId
+                    FROM PlanMeta
+                    GROUP BY PlanMeta.planId
+                ) as t3
+                ON (PlanItem.planId = t3.planId)
+                PLAN_ATTRIBUTE_VALUE_PLACEHOLDER
+            WHERE
+                t3.planTypeId = ?
+            ORDER BY
+                SORT_COLUMNS_PLACEHOLDER
+        ]]>
+        
+</sql>
 </custom-sql>

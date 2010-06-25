@@ -87,4 +87,8 @@ public interface PlanAttributeLocalService {
     public com.ext.portlet.plans.model.PlanAttribute findPlanAttribute(
         long planId, java.lang.String attributeName)
         throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanAttribute> getPlanAttributes(
+        java.lang.Long planId) throws com.liferay.portal.SystemException;
 }

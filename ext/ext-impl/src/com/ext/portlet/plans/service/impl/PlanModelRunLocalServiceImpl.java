@@ -21,6 +21,7 @@ public class PlanModelRunLocalServiceImpl
         planModelRun.setPlanId(plan.getPlanId());
         planModelRun.setPlanVersion(plan.getVersion());
         planModelRun.setVersion(0L);
+        planModelRun.setUpdateAuthorId(plan.getUpdateAuthorId());
         planModelRun.setCreated(new Date());
         
         return PlanModelRunLocalServiceUtil.addPlanModelRun(planModelRun);

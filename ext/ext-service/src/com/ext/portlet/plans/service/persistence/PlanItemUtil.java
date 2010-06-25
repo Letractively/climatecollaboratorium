@@ -79,6 +79,48 @@ public class PlanItemUtil {
         return getPersistence().fetchByPrimaryKey(id);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByPlanId(
+        java.lang.Long planId) throws com.liferay.portal.SystemException {
+        return getPersistence().findByAllByPlanId(planId);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByPlanId(
+        java.lang.Long planId, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByAllByPlanId(planId, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByPlanId(
+        java.lang.Long planId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByAllByPlanId(planId, start, end, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlanItem findByAllByPlanId_First(
+        java.lang.Long planId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByAllByPlanId_First(planId, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlanItem findByAllByPlanId_Last(
+        java.lang.Long planId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByAllByPlanId_Last(planId, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlanItem[] findByAllByPlanId_PrevAndNext(
+        java.lang.Long id, java.lang.Long planId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByAllByPlanId_PrevAndNext(id, planId, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -107,8 +149,18 @@ public class PlanItemUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
+    public static void removeByAllByPlanId(java.lang.Long planId)
+        throws com.liferay.portal.SystemException {
+        getPersistence().removeByAllByPlanId(planId);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
+    }
+
+    public static int countByAllByPlanId(java.lang.Long planId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByAllByPlanId(planId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

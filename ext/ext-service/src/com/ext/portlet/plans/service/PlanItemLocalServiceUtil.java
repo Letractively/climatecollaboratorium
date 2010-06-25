@@ -90,8 +90,9 @@ public class PlanItemLocalServiceUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanItem createPlan(
+        java.lang.String name, java.lang.Long planTypeId,
         java.lang.Long authorId) throws com.liferay.portal.SystemException {
-        return getService().createPlan(authorId);
+        return getService().createPlan(name, planTypeId, authorId);
     }
 
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans()
@@ -99,8 +100,31 @@ public class PlanItemLocalServiceUtil {
         return getService().getPlans();
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans(
+        java.util.Map sessionMap, java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlanType planType, int start, int end,
+        java.lang.String sortColumn, java.lang.String sortDirection)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService()
+                   .getPlans(sessionMap, requestMap, planType, start, end,
+            sortColumn, sortDirection);
+    }
+
     public static void removePlanWithEntireHistory(java.lang.Long planId) {
         getService().removePlanWithEntireHistory(planId);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> getAllVersions(
+        com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException {
+        return getService().getAllVersions(plan);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanAttribute> getPlanAttributes(
+        com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException {
+        return getService().getPlanAttributes(plan);
     }
 
     public static PlanItemLocalService getService() {

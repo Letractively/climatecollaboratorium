@@ -218,9 +218,17 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
     }
 
     public int compareTo(PlanItem planItem) {
-        Long pk = planItem.getPrimaryKey();
+        int value = 0;
 
-        return getPrimaryKey().compareTo(pk);
+        value = getVersion().compareTo(planItem.getVersion());
+
+        value = value * -1;
+
+        if (value != 0) {
+            return value;
+        }
+
+        return 0;
     }
 
     public boolean equals(Object obj) {

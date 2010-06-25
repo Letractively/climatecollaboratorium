@@ -160,6 +160,18 @@
 		<field name="created" type="Date" />
 		<field name="updateAuthorId" type="Long" />
 	</model>
+	<model name="com.ext.portlet.plans.model.PlanPositions">
+		<field name="id" type="Long" />
+		<field name="planId" type="Long" />
+		<field name="planVersion" type="Long" />
+		<field name="version" type="Long" />
+		<field name="created" type="Date" />
+		<field name="updateAuthorId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanPositionItem">
+		<field name="planPositionsId" type="Long" />
+		<field name="positionId" type="Long" />
+	</model>
 	<model name="com.ext.portlet.models.model.ModelDiscussion">
 		<field name="modelDiscussionId" type="Long" />
 		<field name="modelId" type="Long" />

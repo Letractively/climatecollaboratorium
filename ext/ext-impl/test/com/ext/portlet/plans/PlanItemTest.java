@@ -1,75 +1,150 @@
 package com.ext.portlet.plans;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.climatecollaboratorium.test.BaseCollabTest;
 
+import com.ext.portlet.plans.PlanConstants.Attribute;
+import com.ext.portlet.plans.PlanConstants.Columns;
+import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanPositions;
+import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.model.impl.UserImpl;
+import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.WebKeys;
+
+import edu.emory.mathcs.backport.java.util.Collections;
+
 
 public class PlanItemTest extends BaseCollabTest {
-    public Random rand = new Random();
+    private static final Random rand = new Random();
+    private static final Long defaultAuthorId = 10144L;
+    private static final Long defaultPlanTypeId = 1L;
+    private String name;
+    private PlanItem plan;
+    
+    public void setUp() {
+        name = String.valueOf(rand.nextLong());
+        try {
+            plan = PlanItemLocalServiceUtil.createPlan(name, defaultPlanTypeId, defaultAuthorId);
+        } catch (SystemException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void tearDown() {
+        PlanItemLocalServiceUtil.removePlanWithEntireHistory(plan.getPlanId());
+    }
     
     
-    
-    
-    // simple creation test that checks if db was set up correctly 
+    /**
+     * simple creation test that checks if db was set up correctly 
+     * @throws SystemException
+     * @throws PortalException
+     */
     public void testCreation() throws SystemException, PortalException {
         // plans before
         List<PlanItem> plansBefore = PlanItemLocalServiceUtil.getPlans();
+        PlanItem plan = PlanItemLocalServiceUtil.createPlan(name, defaultPlanTypeId, defaultAuthorId);
         
-        PlanItem planItemFromDb = PlanItemLocalServiceUtil.createPlan(1L);
+        // check if version is properly set
+        assertEquals(new Long(0), plan.getVersion());
+        // check author
+        assertEquals(defaultAuthorId, plan.getAuthorId());
+        // check update author
+        assertEquals(defaultAuthorId, plan.getUpdateAuthorId());
+        // description should be empty
+        assertEquals("", plan.getDescription());
+        // check name
+        assertEquals(name, plan.getName());
+        // check plan type
+        assertEquals(defaultPlanTypeId, plan.getPlanTypeId());
+        assertEquals(defaultPlanTypeId, plan.getPlanType().getPlanTypeId());
         
+        // check attributes
+        List<PlanAttribute> attributes =  plan.getPlanAttributes();
+        Map<String, String> attributeValues = new HashMap<String, String>();
+        for (PlanAttribute attr: attributes) {
+            attributeValues.put(attr.getAttributeName(), attr.getAttributeValue());
+        }
+        assertTrue("Plan doesn't have name attribute set", attributeValues.containsKey(Attribute.NAME.name()));
+        assertTrue("Plan doesn't have createDate attribute set", attributeValues.containsKey(Attribute.CREATE_DATE.name()));
+        assertTrue("Plan doesn't have creator attribute set", attributeValues.containsKey(Attribute.CREATOR.name()));
         
-        assertEquals(new Long(0), planItemFromDb.getVersion());
-        assertEquals(new Long(1), planItemFromDb.getUpdateAuthorId());
-        assertEquals("", planItemFromDb.getDescription());
-
+        // name
+        assertEquals(plan.getName(), attributeValues.get(Attribute.NAME.name()));
+        
+        // author
+        assertEquals(plan.getCreator(), attributeValues.get(Attribute.CREATOR.name()));
+        assertEquals(plan.getAuthor().getScreenName(), attributeValues.get(Attribute.CREATOR.name()));
+        
+        // create date
+        assertEquals(plan.getCreateDate().toString(), attributeValues.get(Attribute.CREATE_DATE.name()));
+        assertEquals(plan.getUpdated().toString(), attributeValues.get(Attribute.CREATE_DATE.name()));
+        
+        // check if only one plan has been created
         List<PlanItem> plansAfter = PlanItemLocalServiceUtil.getPlans();
-        
         assertEquals(plansBefore.size() + 1, plansAfter.size());
         
+        // check if newly created plan can be found in list of plans
         boolean itemFound = false;
         for (PlanItem item: plansAfter) {
-            if (item.equals(planItemFromDb)) {
+            if (item.equals(plan)) {
                 itemFound = true;
             }
         }
-        assertTrue(itemFound);
-        // remove plan
-        PlanItemLocalServiceUtil.removePlanWithEntireHistory(planItemFromDb.getPlanId());
+        assertTrue("Newly created plan can't be found in the list of available plans", itemFound);
+
+        // clean up
+        PlanItemLocalServiceUtil.removePlanWithEntireHistory(plan.getPlanId());
+        
+        // check if plan has been removed
         List<PlanItem> plansAfterRemoval = PlanItemLocalServiceUtil.getPlans();
         assertEquals(plansBefore, plansAfterRemoval);    
     }
     
-    // test for description updating
+    /**
+     * test for description updating, checks if versions are updated properly 
+     * @throws SystemException
+     */
     public void testSetDescription() throws SystemException {
-        PlanItem planItemFromDb = PlanItemLocalServiceUtil.createPlan(1L);
-        Long versionBefore = planItemFromDb.getVersion();
-        String descriptionBefore = planItemFromDb.getDescription();
+        
+        Long versionBefore = plan.getVersion();
         String newDescription = String.valueOf(rand.nextLong());
+        
         List<PlanItem> plansBefore = PlanItemLocalServiceUtil.getPlans();
+        
         Long changeAuthorId = rand.nextLong();
         
+        List<PlanDescription> oldDescriptions = plan.getPlanDescriptions();
         
-        List<PlanDescription> oldDescriptions = planItemFromDb.getPlanDescriptions();
+        plan.setDescription(newDescription, changeAuthorId);
+        List<PlanDescription> newDescriptions = plan.getPlanDescriptions();
         
-        planItemFromDb.setDescription(newDescription, changeAuthorId);
-        List<PlanDescription> newDescriptions = planItemFromDb.getPlanDescriptions();
-        
-        assertEquals(new Long(versionBefore+1), planItemFromDb.getVersion());
-        assertEquals(newDescription, planItemFromDb.getDescription());
+        assertEquals(new Long(versionBefore+1), plan.getVersion());
+        assertEquals(newDescription, plan.getDescription());
         
         assertEquals(oldDescriptions.size()+1, newDescriptions.size());
         assertEquals(new Long(oldDescriptions.get(0).getVersion()+1), newDescriptions.get(0).getVersion());
         assertEquals(newDescription, newDescriptions.get(0).getDescription());
-        assertEquals(planItemFromDb.getVersion(), newDescriptions.get(0).getPlanVersion());
-        assertEquals(UpdateType.DESCRIPTION_UPDATED.name(), planItemFromDb.getUpdateType());
+        assertEquals(plan.getVersion(), newDescriptions.get(0).getPlanVersion());
+        assertEquals(UpdateType.DESCRIPTION_UPDATED.name(), plan.getUpdateType());
         assertEquals(changeAuthorId, newDescriptions.get(0).getUpdateAuthorId());
         
 
@@ -79,7 +154,7 @@ public class PlanItemTest extends BaseCollabTest {
         
         boolean hasCorrectVersion = false;
         for (PlanItem item: plansAfter) {
-            if (item.getId().equals(planItemFromDb.getId())) {
+            if (item.getId().equals(plan.getId())) {
                 assertEquals(new Long(versionBefore + 1), item.getVersion());
                 hasCorrectVersion = true;
             }
@@ -87,32 +162,100 @@ public class PlanItemTest extends BaseCollabTest {
         
         assertTrue(hasCorrectVersion);
         // cleanup
-        PlanItemLocalServiceUtil.removePlanWithEntireHistory(planItemFromDb.getPlanId());
+        PlanItemLocalServiceUtil.removePlanWithEntireHistory(plan.getPlanId());
     }
     
-    // test for description updating
+    // test for name updating
     public void testSetName() throws SystemException {
-        PlanItem planItemFromDb = PlanItemLocalServiceUtil.createPlan(1L);
-        Long versionBefore = planItemFromDb.getVersion();
+        Long versionBefore = plan.getVersion();
         String newName = String.valueOf(rand.nextLong());
         Long changeAuthorId = rand.nextLong();
         
-        List<PlanDescription> oldDescriptions = planItemFromDb.getPlanDescriptions();
+        List<PlanDescription> oldDescriptions = plan.getPlanDescriptions();
         
-        planItemFromDb.setName(newName, changeAuthorId);
-        List<PlanDescription> newDescriptions = planItemFromDb.getPlanDescriptions();
+        plan.setName(newName, changeAuthorId);
+        List<PlanDescription> newDescriptions = plan.getPlanDescriptions();
         
-        assertEquals(new Long(versionBefore+1), planItemFromDb.getVersion());
-        assertEquals(newName, planItemFromDb.getName());
+        assertEquals(new Long(versionBefore+1), plan.getVersion());
+        assertEquals(newName, plan.getName());
         
         assertEquals(oldDescriptions.size()+1, newDescriptions.size());
         assertEquals(new Long(oldDescriptions.get(0).getVersion()+1), newDescriptions.get(0).getVersion());
         assertEquals(newName, newDescriptions.get(0).getName());
-        assertEquals(planItemFromDb.getVersion(), newDescriptions.get(0).getPlanVersion());
-        assertEquals(UpdateType.NAME_UPDATED.name(), planItemFromDb.getUpdateType());
+        assertEquals(plan.getVersion(), newDescriptions.get(0).getPlanVersion());
+        assertEquals(UpdateType.NAME_UPDATED.name(), plan.getUpdateType());
         assertEquals(changeAuthorId, newDescriptions.get(0).getUpdateAuthorId());
         
+        boolean hasNameAttribute = false;
+        for(PlanAttribute attr: plan.getPlanAttributes()) {
+            if (Attribute.valueOf(attr.getAttributeName()) == Attribute.NAME) {
+                hasNameAttribute = true;
+                assertEquals(newName, attr.getAttributeValue());
+            }
+        }
+        assertTrue(hasNameAttribute);
+        
+        
         //cleanup 
-        PlanItemLocalServiceUtil.removePlanWithEntireHistory(planItemFromDb.getPlanId());
+        PlanItemLocalServiceUtil.removePlanWithEntireHistory(plan.getPlanId());
     }
+    
+    // test for positions updating
+    public void testSetPositions() throws SystemException, PortalException {
+        Long versionBefore = plan.getVersion();
+        Long changeAuthorId = rand.nextLong();
+        
+        List<Long> positionsIds = Arrays.asList(1L, 2L, 3L, 4L);
+        plan.setPositions(positionsIds, changeAuthorId);
+        List<PlanPositions> positions = PlanPositionsLocalServiceUtil.getPlanPositionses(0, 1000);
+        
+        assertEquals(new Long(versionBefore+1), plan.getVersion());
+        assertEquals(positionsIds, plan.getPositionsIds());
+        
+        assertEquals(UpdateType.PLAN_POSITIONS_UPDATED.name(), plan.getUpdateType());
+        
+        //cleanup 
+        PlanItemLocalServiceUtil.removePlanWithEntireHistory(plan.getPlanId());
+    }
+    
+    @SuppressWarnings("unchecked")
+    public void testPlanFinder1() throws PortalException, SystemException {
+        ThemeDisplay td = new ThemeDisplay();
+        User user = UserLocalServiceUtil.getUser(10144L);
+        user.setUserId(10L);
+        td.setUser(user);
+        
+        PlanType planType = PlanTypeLocalServiceUtil.getPlanTypes(0, 2).get(0);
+        Map requestMap = new HashMap();
+        Map sessionMap = new HashMap();
+        requestMap.put(WebKeys.THEME_DISPLAY, td);
+
+        List<PlanItem> plansDesc = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType, 0, 1000, Columns.NAME.name(), "DESC");   
+        List<PlanItem> plansAsc = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType, 0, 1000, Columns.NAME.name(), "ASC");
+        
+        assertTrue("There should be more than 1 plan", plansAsc.size() > 0);
+        
+        System.out.println("Desc: ");
+        for (PlanItem plan: plansDesc) {
+            System.out.println(plan.getPlanId() + "\t" + plan.getName());
+        }
+        
+        System.out.println("\nAsc: ");
+        for (PlanItem plan: plansAsc) {
+            System.out.println(plan.getPlanId() + "\t" + plan.getName());
+        }
+        assertEquals(plansDesc.size(), plansAsc.size());
+        
+        // copy to allow modifications
+        plansDesc = new ArrayList<PlanItem>(plansDesc);
+        Collections.reverse(plansDesc);
+        assertEquals(plansDesc, plansAsc);
+        
+        //System.out.println("Plans: " + plans.size());
+    }
+    
+    public static void main(String args[]) {
+        System.out.println(String.format("%0$ta-%tb", new Date(), new Date()));
+    }
+    
 }

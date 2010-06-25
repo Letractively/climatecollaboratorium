@@ -88,6 +88,10 @@ public class PlanColumnSettingsPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanMetaPersistence planMetaPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanModelRunPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanModelRunPersistence planModelRunPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanPositionsPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanPositionsPersistence planPositionsPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence planPositionItemPersistence;
 
     public void cacheResult(PlanColumnSettings planColumnSettings) {
         EntityCacheUtil.putResult(PlanColumnSettingsModelImpl.ENTITY_CACHE_ENABLED,

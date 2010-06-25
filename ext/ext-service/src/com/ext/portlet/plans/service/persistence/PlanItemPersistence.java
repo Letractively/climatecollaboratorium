@@ -57,6 +57,36 @@ public interface PlanItemPersistence extends BasePersistence {
     public com.ext.portlet.plans.model.PlanItem fetchByPrimaryKey(
         java.lang.Long id) throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByPlanId(
+        java.lang.Long planId) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByPlanId(
+        java.lang.Long planId, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByPlanId(
+        java.lang.Long planId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanItem findByAllByPlanId_First(
+        java.lang.Long planId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanItem findByAllByPlanId_Last(
+        java.lang.Long planId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanItem[] findByAllByPlanId_PrevAndNext(
+        java.lang.Long id, java.lang.Long planId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -75,7 +105,13 @@ public interface PlanItemPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
+    public void removeByAllByPlanId(java.lang.Long planId)
+        throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
+
+    public int countByAllByPlanId(java.lang.Long planId)
+        throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }
