@@ -9,29 +9,34 @@ package com.ext.portlet.plans.model.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.ext.portlet.plans.NoSuchPlanPositionsException;
+import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.UpdateType;
+import com.ext.portlet.plans.PlanConstants.Attribute;
+import com.ext.portlet.plans.PlanConstants.Columns;
+import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.model.PlanModelRun;
+import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanDescriptionLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
 
 public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
-    
-    public static PlanItem createPlan(Long authorId) throws SystemException {
-        return PlanItemLocalServiceUtil.createPlan(1L);
-    }
     
     public static List<PlanItem> getPlans() throws SystemException {
         return PlanItemLocalServiceUtil.getPlans();
@@ -58,12 +63,15 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     
     public void setName(String name, Long updateAuthorId) throws SystemException {
         newVersion(UpdateType.NAME_UPDATED, updateAuthorId);
+        // update plan name attribute
         
         PlanDescription planDescription = PlanDescriptionLocalServiceUtil.createNewVersionForPlan(this);
         planDescription.setName(name);
         planDescription.store();
+        updateAttribute(Attribute.NAME);
     }
-    
+
+
     /** 
      * List of all versions of PlanDescription objects related to given plan
      * @see com.ext.portlet.plans.model.PlanItem#getPlanDescriptions()
@@ -81,17 +89,28 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return PlanModelRunLocalServiceUtil.getCurrentForPlan(this).getScenarioId();
     }
     
-    public void setScenarioId(Long scenarioId, Long authorId) throws SystemException {
+    public void setScenarioId(Long scenarioId, Long authorId) throws SystemException, PortalException {
         newVersion(UpdateType.SCENARIO_UPDATED, authorId);
         
         PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.createNewVersionForPlan(this);
         planModelRun.setScenarioId(scenarioId);
         planModelRun.store();
+        
+        // update plan attributes to reflect values from new scenario
+        PlanType planType = getPlanType();
+        
+        for (PlanConstants.Attribute attribute:PlanConstants.Attribute.getPlanTypeAttributes(planType)) {
+            updateAttribute(attribute);
+        }
     }
     
     /*
      * Plan meta informations.
      */
+    
+    public PlanMeta getPlanMeta() throws SystemException {
+        return PlanMetaLocalServiceUtil.getCurrentForPlan(this);
+    }
     
     public Long getPlanTypeId() throws SystemException {
         return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getPlanTypeId();
@@ -135,7 +154,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
    }
    
    public Long getAuthorId() throws SystemException {
-       return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getPlanGroupId();
+       return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getAuthorId();
    }
    
    public User getAuthor() throws PortalException, SystemException {
@@ -149,6 +168,37 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
        planMeta.setAuthorId(authorId);
        planMeta.store();
    }
+   
+   public Date getCreateDate() throws SystemException {
+       return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getCreated();
+   }
+   
+   public Date getPublishDate() throws SystemException {
+       return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getCreated();
+   }
+   
+   public String getCreator() throws PortalException, SystemException {
+       return getAuthor().getScreenName();
+       
+   }
+    
+    
+   /*
+    * POSITIONS
+    */
+    
+   public List<Long> getPositionsIds() throws SystemException, NoSuchPlanPositionsException {
+       PlanPositions x = PlanPositionsLocalServiceUtil.getCurrentForPlan(this);
+       return x.getPositionsIds();
+   }
+   
+   public void setPositions(List<Long> positionsIds, Long updateAuthorId) throws PortalException, SystemException {        
+       newVersion(UpdateType.PLAN_POSITIONS_UPDATED, updateAuthorId);
+       
+       PlanPositions planPositions = PlanPositionsLocalServiceUtil.createNewVersionForPlan(this);
+       planPositions.store();
+       planPositions.setPositionsIds(positionsIds);
+   } 
     
     
     
@@ -156,11 +206,9 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     
     
     
-    
-    
-    
-    
-    
+    public List<PlanItem> getAllVersions() throws SystemException {
+        return PlanItemLocalServiceUtil.getAllVersions(this);
+    }
     
     
     
@@ -197,4 +245,42 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
             PlanItemLocalServiceUtil.updatePlanItem(this);
         }
     }
+    
+
+    /**
+     * Updates value of a given attribute, should be used only for property attributes.
+     * @param attribute attribute which value should be updated
+     * @throws SystemException in case of any error
+     */
+    public void updateAttribute(String attributeName) throws SystemException {
+        updateAttribute(Attribute.valueOf(attributeName));
+    }
+    
+    /**
+     * Updates value of a given attribute, should be used only for property attributes.
+     * @param attribute attribute which value should be updated
+     * @throws SystemException in case of any error
+     */
+    private void updateAttribute(Attribute attribute) throws SystemException {
+        String value = attribute.calculateValue(this).toString();
+        PlanAttribute att = PlanAttributeLocalServiceUtil.findPlanAttribute(getPlanId(), attribute.name());
+        if (att!=null) {
+            att.setAttributeValue(value);
+            PlanAttributeLocalServiceUtil.updatePlanAttribute(att);
+        } else {
+            PlanAttributeLocalServiceUtil.addPlanAttribute(getPlanId(), attribute.name(),value);
+        }
+        
+    }
+    
+    
+    
+    public List<PlanAttribute> getPlanAttributes() throws SystemException {
+        return PlanItemLocalServiceUtil.getPlanAttributes(this);
+    }
+    
+    
+    
+    
+    
 }

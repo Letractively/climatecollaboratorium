@@ -1096,6 +1096,21 @@ create table PlanModelRun (
 	updateAuthorId LONG
 );
 
+create table PlanPositionItem (
+	planPositionsId LONG not null,
+	positionId LONG not null,
+	primary key (planPositionsId, positionId)
+);
+
+create table PlanPositions (
+	id_ LONG not null primary key,
+	planId LONG,
+	planVersion LONG,
+	version LONG,
+	created DATE null,
+	updateAuthorId LONG
+);
+
 create table PlanPropertyFilter (
 	planPropertyFilterId LONG not null primary key,
 	propertyName VARCHAR(75) null,

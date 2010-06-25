@@ -212,6 +212,24 @@
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updateAuthorId" />
 	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanPositionsImpl" table="PlanPositions">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planId" />
+		<property name="planVersion" />
+		<property name="version" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="updateAuthorId" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanPositionItemImpl" table="PlanPositionItem">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanPositionItemPK">
+			<key-property name="planPositionsId" />
+			<key-property name="positionId" />
+		</composite-id>
+	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelDiscussionImpl" table="ModelDiscussion">
 		<cache usage="read-write" />
 		<id name="modelDiscussionId" type="java.lang.Long">

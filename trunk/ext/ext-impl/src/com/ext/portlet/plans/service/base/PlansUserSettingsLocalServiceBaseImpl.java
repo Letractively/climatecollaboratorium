@@ -16,8 +16,12 @@ import com.ext.portlet.plans.service.PlanMetaLocalService;
 import com.ext.portlet.plans.service.PlanMetaService;
 import com.ext.portlet.plans.service.PlanModelRunLocalService;
 import com.ext.portlet.plans.service.PlanModelRunService;
+import com.ext.portlet.plans.service.PlanPositionItemLocalService;
+import com.ext.portlet.plans.service.PlanPositionItemService;
 import com.ext.portlet.plans.service.PlanPositionLocalService;
 import com.ext.portlet.plans.service.PlanPositionService;
+import com.ext.portlet.plans.service.PlanPositionsLocalService;
+import com.ext.portlet.plans.service.PlanPositionsService;
 import com.ext.portlet.plans.service.PlanPropertyFilterLocalService;
 import com.ext.portlet.plans.service.PlanPropertyFilterService;
 import com.ext.portlet.plans.service.PlanService;
@@ -44,7 +48,9 @@ import com.ext.portlet.plans.service.persistence.PlanItemPersistence;
 import com.ext.portlet.plans.service.persistence.PlanMetaPersistence;
 import com.ext.portlet.plans.service.persistence.PlanModelRunPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPersistence;
+import com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPositionPersistence;
+import com.ext.portlet.plans.service.persistence.PlanPositionsPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypeAttributePersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence;
@@ -169,6 +175,18 @@ public abstract class PlansUserSettingsLocalServiceBaseImpl
     protected PlanModelRunService planModelRunService;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanModelRunPersistence.impl")
     protected PlanModelRunPersistence planModelRunPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanPositionsLocalService.impl")
+    protected PlanPositionsLocalService planPositionsLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanPositionsService.impl")
+    protected PlanPositionsService planPositionsService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanPositionsPersistence.impl")
+    protected PlanPositionsPersistence planPositionsPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanPositionItemLocalService.impl")
+    protected PlanPositionItemLocalService planPositionItemLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanPositionItemService.impl")
+    protected PlanPositionItemService planPositionItemService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence.impl")
+    protected PlanPositionItemPersistence planPositionItemPersistence;
 
     public PlansUserSettings addPlansUserSettings(
         PlansUserSettings plansUserSettings) throws SystemException {
@@ -682,6 +700,60 @@ public abstract class PlansUserSettingsLocalServiceBaseImpl
     public void setPlanModelRunPersistence(
         PlanModelRunPersistence planModelRunPersistence) {
         this.planModelRunPersistence = planModelRunPersistence;
+    }
+
+    public PlanPositionsLocalService getPlanPositionsLocalService() {
+        return planPositionsLocalService;
+    }
+
+    public void setPlanPositionsLocalService(
+        PlanPositionsLocalService planPositionsLocalService) {
+        this.planPositionsLocalService = planPositionsLocalService;
+    }
+
+    public PlanPositionsService getPlanPositionsService() {
+        return planPositionsService;
+    }
+
+    public void setPlanPositionsService(
+        PlanPositionsService planPositionsService) {
+        this.planPositionsService = planPositionsService;
+    }
+
+    public PlanPositionsPersistence getPlanPositionsPersistence() {
+        return planPositionsPersistence;
+    }
+
+    public void setPlanPositionsPersistence(
+        PlanPositionsPersistence planPositionsPersistence) {
+        this.planPositionsPersistence = planPositionsPersistence;
+    }
+
+    public PlanPositionItemLocalService getPlanPositionItemLocalService() {
+        return planPositionItemLocalService;
+    }
+
+    public void setPlanPositionItemLocalService(
+        PlanPositionItemLocalService planPositionItemLocalService) {
+        this.planPositionItemLocalService = planPositionItemLocalService;
+    }
+
+    public PlanPositionItemService getPlanPositionItemService() {
+        return planPositionItemService;
+    }
+
+    public void setPlanPositionItemService(
+        PlanPositionItemService planPositionItemService) {
+        this.planPositionItemService = planPositionItemService;
+    }
+
+    public PlanPositionItemPersistence getPlanPositionItemPersistence() {
+        return planPositionItemPersistence;
+    }
+
+    public void setPlanPositionItemPersistence(
+        PlanPositionItemPersistence planPositionItemPersistence) {
+        this.planPositionItemPersistence = planPositionItemPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {

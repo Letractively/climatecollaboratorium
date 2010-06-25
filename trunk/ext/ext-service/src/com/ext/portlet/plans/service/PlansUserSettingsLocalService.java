@@ -85,4 +85,17 @@ public interface PlansUserSettingsLocalService {
         java.lang.Long userId, java.lang.Long planTypeId)
         throws com.ext.portlet.plans.NoSuchUserSettingsException,
             com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlansUserSettings getPlanUserSettings(
+        java.util.Map sessionMap, java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlanType planType)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlansUserSettings getPlanUserSettings(
+        java.util.Map sessionMap, java.util.Map requestMap, long planTypeId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

@@ -49,50 +49,6 @@ public class PlanConstants {
 
     }
 
-	
-//	public static enum Attribute {
-//		CO2(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("241", Double.class), false, new MinMaxFilter() {
-//
-//			@Override
-//			public String getMax(PlanAttributeFilter filter) {
-//                return String.valueOf(filter.getMax() != null ? filter.getMax() : Integer.MAX_VALUE);
-//			}
-//			@Override
-//			public String getMin(PlanAttributeFilter filter) {
-//				return String.valueOf(filter.getMin() != null ? filter.getMin() : Integer.MIN_VALUE);
-//			}
-//
-//		}),
-//		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("263", Double.class), true, null),
-//		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"2955", "2956", "2957"}, Double.class),
-//		        true, new MoreThanFilter() {
-//			@Override
-//			public String getValue(PlanAttributeFilter filter) {
-//                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
-//			}
-//
-//		}),
-//		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"2955", "2956", "2957"}, Double.class),
-//		        true, new LessThanFilter() {
-//			public String getValue(PlanAttributeFilter filter) {
-//                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
-//			}
-//		}),
-//		EMISSIONS_DEVELOPED(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("242", Double.class),true, null),
-//		EMISSIONS_DEVELOPING_A(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("245", Double.class), true, null),
-//		EMISSIONS_DEVELOPING_B(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("246", Double.class), true, null),
-//		SEA_LEVEL(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("2958", Double.class), true, null),
-//		MAX_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("2954", Double.class), true, new LessThanFilter() {
-//			public String getValue(PlanAttributeFilter filter) {
-//                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
-//			}
-//		}),
-//		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("2953", Double.class), true, new MoreThanFilter() {
-//			public String getValue(PlanAttributeFilter filter) {
-//                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
-//			}
-//		});
-
         public static enum Attribute {
 		CO2(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("AtmosphericCO2Concentration", Double.class), false, new MinMaxFilter() {
 
@@ -130,21 +86,27 @@ public class PlanConstants {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
 		}),
+		
 		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange5_output", Double.class), true, new MoreThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
 			}
-		});
+		}),
 		
+		NAME(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("name"), true, null),
+        VOTES(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("votes"), true, null),
+        CREATE_DATE(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("createDate"), true, null), 
+        PUBLISH_DATE(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("publishDate"), true, null),
+        CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, null);
 		
-		private Class<? extends Number> clasz;
+		private Class<?> clasz;
 		private String format;
 		private PlanFilterFactory factory;
 		private boolean filterSingleValue;
 		private String variableId;
 		private AttributeFunction<?> attributeFunction;
 		
-		Attribute(Class<? extends Number> c, String format, AttributeFunction<?> attributeFunction,
+		Attribute(Class<?> c, String format, AttributeFunction<?> attributeFunction,
 		        boolean filterSingleValue, PlanFilterFactory factory) {
 			this.clasz = c;
 			this.format = format;
@@ -157,7 +119,7 @@ public class PlanConstants {
 			return factory!=null;
 		}
 		
-		public Number getValue(Plan plan) throws SystemException {
+		public Object getValue(Plan plan) throws SystemException {
 			PlanAttribute attribute =  PlanAttributeLocalServiceUtil.findPlanAttribute(plan.getPlanId(), this.name()); 
 			String s =(attribute==null || attribute.getAttributeValue() == null)?"0":attribute.getAttributeValue();
 			if (s == null || s.trim().length() ==0) s ="0";
@@ -169,9 +131,29 @@ public class PlanConstants {
 			return null;
 		}
 		
+	      public Object getValue(PlanItem plan) throws SystemException {
+	            PlanAttribute attribute =  PlanAttributeLocalServiceUtil.findPlanAttribute(plan.getPlanId(), this.name()); 
+	            String s = attribute == null || attribute.getAttributeValue() == null ? null : attribute.getAttributeValue();
+	            if (s == null || s.trim().length() ==0) s ="0";
+	            if (clasz == Double.class) {
+	                if (s == null || s.trim().length() ==0) s ="0";
+	                return Double.parseDouble(s);
+	            } else if (clasz == Integer.class) {
+	                if (s == null || s.trim().length() ==0) s ="0";
+	                return new Double(Double.parseDouble(s)).intValue();
+	            } else if (clasz == String.class) {
+	                return s;
+	            }
+	            return null;
+	        }
+		
 		public String format(Plan plan) throws SystemException {
 			return String.format(format, getValue(plan));
 		}
+		
+	      public String format(PlanItem plan) throws SystemException {
+	            return String.format(format, getValue(plan));
+	        }
 		
 		public StringBuilder getFilterString(StringBuilder builder, PlansUserSettings planUserSettings) 
 		throws NoSuchPlanAttributeFilterException, SystemException {
@@ -214,6 +196,10 @@ public class PlanConstants {
 		    return attributeFunction.process(scenarioId).toString();
 		}
 		
+	    public Object calculateValue(PlanItem plan) throws SystemException {
+	        return attributeFunction.process(plan).toString();
+	    }
+		
 		public static List<Attribute> getPlanTypeAttributes(PlanType planType) throws SystemException {
             List<PlanTypeAttribute> planTypeAttributes = planType.getAttributes();
             
@@ -242,6 +228,12 @@ public class PlanConstants {
 //					(plan.getVotes()+" ("+String.valueOf(100*plan.getVotes() / votes)+"%)");
 				return String.valueOf(100*plan.getVotes()/votes)+"%";
 			}
+
+            @Override
+            public String getValue(PlanItem plan) throws SystemException, PortalException {
+                PlanValueFactory pvf = new AttributeGetter("%s",Attribute.VOTES);
+                return pvf.getValue(plan);
+            }
 			
 		}),
 		CREATOR("Creator","Creator of this plan","ShowCreator",false,new PlanValueFactory() {
@@ -253,7 +245,13 @@ public class PlanConstants {
 					throw new SystemException(ex);
 				}
 			}
-			
+			@Override
+			public String getValue(PlanItem plan) throws SystemException, PortalException {
+			    PlanValueFactory pvf = new AttributeGetter("%s",Attribute.CREATOR);
+			    return pvf.getValue(plan);
+			}
+
+
 		}),
 		CREATE_DATE("Date created","Date this plan was created","ShowDate",false, new PlanValueFactory() {
 
@@ -261,6 +259,12 @@ public class PlanConstants {
 				Date d = plan.getPlanType().getPublished()?plan.getPublishDate():plan.getCreateDate();
 				return DateFormats.getDate(LocaleUtil.getDefault()).format(d);
 			}
+
+            @Override
+            public String getValue(PlanItem plan) throws SystemException, PortalException {
+                PlanValueFactory pvf = new AttributeGetter("%s",Attribute.CREATE_DATE);
+                return pvf.getValue(plan);
+            }
 			
 		}),
 		PUBLISH_DATE("Date published","Date this plan was published","Published",false,new PlanValueFactory() {
@@ -268,6 +272,12 @@ public class PlanConstants {
 				Date d = plan.getPlanType().getPublished()?plan.getPublishDate():plan.getCreateDate();	
 				return DateFormats.getDate(LocaleUtil.getDefault()).format(d);
 			}
+
+            @Override
+            public String getValue(PlanItem plan) throws SystemException, PortalException {
+                PlanValueFactory pvf = new AttributeGetter("%s",Attribute.PUBLISH_DATE);
+                return pvf.getValue(plan);
+            }
 		}),
 		POSITIONS("Positions","Positions on key issues that are emboded by this plan","ShowPositions",false, new EmptyFactory()),		
 		
@@ -367,6 +377,10 @@ public class PlanConstants {
 		public String getValue(Plan plan) throws SystemException, PortalException {
 			return value.getValue(plan);
 		}
+		
+		public String getValue(PlanItem plan) throws SystemException, PortalException {
+            return value.getValue(plan);
+        }
 		
 		public static List<Columns> defaults() {
 			if (!initialized) {

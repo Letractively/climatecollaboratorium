@@ -8,17 +8,24 @@ package com.ext.portlet.plans.attributes;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ModelingServiceClient;
+import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PropsUtil;
+import com.mchange.v2.codegen.bean.BeangenUtils;
+
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.core.ParameterNameDiscoverer;
 
 
 /**
@@ -32,8 +39,13 @@ public class AttributeFunctionFactory {
     private static Log _log = LogFactoryUtil.getLog(AttributeFunctionFactory.class);
 
     public static AttributeFunctionFactory getFromEnvironment() {
+        // FIXME
+        /*
         String host = PropsUtil.get("climatecollaboratorium.model.server");
         int port = Integer.parseInt(PropsUtil.get("climatecollaboratorium.model.port"));
+        */
+        String host = "localhost";
+        int port = 8080;
         _log.info("Modeling server from properties is "+host+":"+port);
         return new AttributeFunctionFactory(host,port);
     }
@@ -67,6 +79,21 @@ public class AttributeFunctionFactory {
                 return result;
 
             }
+
+            @Override
+            public boolean isFromPlan() {
+                return false;
+            }
+
+            @Override
+            public boolean isFromScenario() {
+                return true;
+            }
+
+            @Override
+            public T process(PlanItem plan) throws SystemException {
+                return process(plan.getScenarioId().toString());
+            }
         };
     }
 
@@ -91,6 +118,21 @@ public class AttributeFunctionFactory {
                 return result;
 
             }
+
+            @Override
+            public boolean isFromPlan() {
+                return false;
+            }
+
+            @Override
+            public boolean isFromScenario() {
+                return true;
+            }
+
+            @Override
+            public T process(PlanItem plan) throws SystemException {
+                return process(plan.getScenarioId().toString());
+            }
         };
     }
 
@@ -107,6 +149,21 @@ public class AttributeFunctionFactory {
                 } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
                     throw (new SystemException(unsupportedTypeOperation));
                 }
+            }
+
+            @Override
+            public boolean isFromPlan() {
+                return false;
+            }
+
+            @Override
+            public boolean isFromScenario() {
+                return true;
+            }
+
+            @Override
+            public T process(PlanItem plan) throws SystemException {
+                throw new SystemException("This attribute function can be used to fetch scenario values only");
             }
 
         };
@@ -126,6 +183,21 @@ public class AttributeFunctionFactory {
                 } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
                     throw (new SystemException(unsupportedTypeOperation));
                 }
+            }
+
+            @Override
+            public boolean isFromPlan() {
+                return false;
+            }
+
+            @Override
+            public boolean isFromScenario() {
+                return true;
+            }
+
+            @Override
+            public T process(PlanItem plan) throws SystemException {
+                return process(plan.getScenarioId().toString());
             }
 
         };
@@ -200,6 +272,21 @@ public class AttributeFunctionFactory {
                 }
                 return result;
             }
+
+            @Override
+            public boolean isFromScenario() {
+                return true;
+            }
+
+            @Override
+            public boolean isFromPlan() {
+                return false;
+            }
+
+            @Override
+            public T process(PlanItem plan) throws SystemException {
+                return process(plan.getScenarioId().toString());
+            }
         };
     }
     
@@ -214,7 +301,55 @@ public class AttributeFunctionFactory {
                 }
                 return result;
             }
+
+            @Override
+            public boolean isFromScenario() {
+                return true;
+            }
+
+            @Override
+            public boolean isFromPlan() {
+                return false;
+            }
+
+            @Override
+            public T process(PlanItem plan) throws SystemException {
+                return process(plan.getScenarioId().toString());
+            }
         };
+    }
+    
+    public <T> AttributeFunction<T> getPlanPropertyFunction(final String propertyName) {
+        return new AttributeFunction<T>() {
+
+            @Override
+            public boolean isFromPlan() {
+                return true;
+            }
+
+            @Override
+            public boolean isFromScenario() {
+                return false;
+            }
+
+            @Override
+            public T process(String scenarioId) throws SystemException {
+                throw new SystemException("This attribute function can be used to fetch value of plan property only");
+            }
+
+            @Override
+            public T process(PlanItem plan) throws SystemException {
+                String getterMethod = "get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+                try {
+                    return (T)BeanUtils.getProperty(plan, propertyName);
+                }
+                catch (Throwable e) {
+                    throw new SystemException("Illegal property: " + propertyName, e);
+                }
+            }
+            
+        };
+        
     }
 
 

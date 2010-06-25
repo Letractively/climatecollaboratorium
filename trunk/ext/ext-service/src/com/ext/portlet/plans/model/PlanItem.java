@@ -46,6 +46,10 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.SystemException;
 
     public void setScenarioId(java.lang.Long scenarioId, java.lang.Long authorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanMeta getPlanMeta()
         throws com.liferay.portal.SystemException;
 
     public java.lang.Long getPlanTypeId()
@@ -84,5 +88,33 @@ public interface PlanItem extends PlanItemModel {
         java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
+    public java.util.Date getCreateDate()
+        throws com.liferay.portal.SystemException;
+
+    public java.util.Date getPublishDate()
+        throws com.liferay.portal.SystemException;
+
+    public java.lang.String getCreator()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<Long> getPositionsIds()
+        throws com.ext.portlet.plans.NoSuchPlanPositionsException,
+            com.liferay.portal.SystemException;
+
+    public void setPositions(java.util.List<Long> positionsIds,
+        java.lang.Long updateAuthorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getAllVersions()
+        throws com.liferay.portal.SystemException;
+
     public void store() throws com.liferay.portal.SystemException;
+
+    public void updateAttribute(java.lang.String attributeName)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanAttribute> getPlanAttributes()
+        throws com.liferay.portal.SystemException;
 }

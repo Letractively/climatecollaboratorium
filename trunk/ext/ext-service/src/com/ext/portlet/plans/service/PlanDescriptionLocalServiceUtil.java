@@ -90,15 +90,15 @@ public class PlanDescriptionLocalServiceUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanDescription createPlanDescription(
-        com.ext.portlet.plans.model.PlanItem plan)
+        com.ext.portlet.plans.model.PlanItem plan, java.lang.String name)
         throws com.liferay.portal.SystemException {
-        return getService().createPlanDescription(plan);
+        return getService().createPlanDescription(plan, name);
     }
 
     public static com.ext.portlet.plans.model.PlanDescription createPlanDescription(
-        com.ext.portlet.plans.model.PlanItem plan, boolean store)
-        throws com.liferay.portal.SystemException {
-        return getService().createPlanDescription(plan, store);
+        com.ext.portlet.plans.model.PlanItem plan, java.lang.String name,
+        boolean store) throws com.liferay.portal.SystemException {
+        return getService().createPlanDescription(plan, name, store);
     }
 
     public static com.ext.portlet.plans.model.PlanDescription getCurrentForPlan(

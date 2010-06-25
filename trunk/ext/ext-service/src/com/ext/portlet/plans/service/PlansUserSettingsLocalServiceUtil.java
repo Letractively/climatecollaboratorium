@@ -97,6 +97,22 @@ public class PlansUserSettingsLocalServiceUtil {
         return getService().getByUserIdPlanTypeId(userId, planTypeId);
     }
 
+    public static com.ext.portlet.plans.model.PlansUserSettings getPlanUserSettings(
+        java.util.Map sessionMap, java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlanType planType)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().getPlanUserSettings(sessionMap, requestMap, planType);
+    }
+
+    public static com.ext.portlet.plans.model.PlansUserSettings getPlanUserSettings(
+        java.util.Map sessionMap, java.util.Map requestMap, long planTypeId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService()
+                   .getPlanUserSettings(sessionMap, requestMap, planTypeId);
+    }
+
     public static PlansUserSettingsLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

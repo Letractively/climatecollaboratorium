@@ -46,3 +46,20 @@ create table PlanModelRun (
 	updateAuthorId BIGINT,
 	created TIMESTAMP null
 );
+
+drop table if exists PlanPositionItem;
+create table PlanPositionItem (
+	planPositionsId BIGINT not null,
+	positionId BIGINT not null,
+	primary key (planPositionsId, positionId)
+);
+
+drop table if exists PlanPositions;
+create table PlanPositions (
+	id_ BIGINT not null primary key,
+	planId BIGINT,
+	planVersion BIGINT,
+	version BIGINT,
+	created DATE null,
+	updateAuthorId BIGINT
+);

@@ -15,16 +15,18 @@ import com.liferay.portal.SystemException;
 public class PlanDescriptionLocalServiceImpl
     extends PlanDescriptionLocalServiceBaseImpl {
     
-    public PlanDescription createPlanDescription(PlanItem plan) throws SystemException {
-        return createPlanDescription(plan, true);
+    public PlanDescription createPlanDescription(PlanItem plan, String name) throws SystemException {
+        return createPlanDescription(plan, name, true);
     }
         
-    public PlanDescription createPlanDescription(PlanItem plan, boolean store) throws SystemException {
+    public PlanDescription createPlanDescription(PlanItem plan, String name, boolean store) throws SystemException {
         long planDescriptionId = CounterUtil.increment(PlanDescription.class.getName());
         PlanDescription description = PlanDescriptionLocalServiceUtil.createPlanDescription(planDescriptionId);
         description.setPlanId(plan.getPlanId());
         description.setPlanVersion(plan.getVersion());
         description.setCreated(new Date());
+        description.setUpdateAuthorId(plan.getUpdateAuthorId());
+        description.setName(name);
         description.setVersion(0L);
         
         if (store) {

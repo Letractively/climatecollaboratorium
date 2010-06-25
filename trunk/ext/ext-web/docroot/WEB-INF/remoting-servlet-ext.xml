@@ -211,6 +211,30 @@
 		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanModelRunService" />
 	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionsService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionsService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionsService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionItemService" />
+	</bean>
 	<bean name="/com_ext_portlet_models_service_spring_ModelDiscussionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.models.service.ModelDiscussionService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelDiscussionService" />
