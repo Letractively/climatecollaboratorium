@@ -30,6 +30,7 @@
 <%@ page import="com.ext.portlet.plans.model.PlanType" %>
 <%@ page import="com.ext.portlet.plans.PlanConstants" %>
 <%@ page import="com.ext.portlet.plans.PlanConstants.Columns" %>
+<%@ page import="com.ext.portlet.plans.PlanConstants.Attribute" %>
 <%@ page import="com.ext.portlet.plans.PlanLocalServiceHelper" %>
 <%@page import="com.liferay.portal.security.auth.PrincipalException"%>
 <%@ page import="com.ext.portlet.plans.PlanFinder" %>

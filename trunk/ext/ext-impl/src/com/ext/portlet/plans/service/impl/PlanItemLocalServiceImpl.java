@@ -91,6 +91,11 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             plans = planItemFinder.getPlans(planType.getPlanTypeId(), start, end, sortColumn, sortDirection);
             
         } else {
+            try {
+                plans = planItemFinder.getFilteredPlans(planUserSettings, start, end, sortColumn, sortDirection);
+            } catch (Throwable e) {
+                throw new SystemException(e);
+            }
             /*
             plans = PlanLocalServiceUtil.getFilteredPlans(planUserSettings, start, end, sortColumn, sortDirection);
             */

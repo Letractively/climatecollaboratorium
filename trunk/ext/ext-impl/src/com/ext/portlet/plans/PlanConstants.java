@@ -8,6 +8,7 @@ package com.ext.portlet.plans;
 
 import com.ext.portlet.community.CommunityUtil;
 import com.ext.portlet.plans.PlanFilterFactory.LessThanFilter;
+import com.ext.portlet.plans.PlanFilterFactory.LikeFilter;
 import com.ext.portlet.plans.PlanFilterFactory.MinMaxFilter;
 import com.ext.portlet.plans.PlanFilterFactory.MoreThanFilter;
 import com.ext.portlet.plans.PlanValueFactory.AttributeGetter;
@@ -63,7 +64,7 @@ public class PlanConstants {
 
 		}),
 		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("GlobalTempChange", Double.class), true, null),
-		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
+		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_minicam_output", "_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
 		        true, new MoreThanFilter() {
 			@Override
 			public String getValue(PlanAttributeFilter filter) {
@@ -71,7 +72,7 @@ public class PlanConstants {
 			}
 
 		}),
-		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
+		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_minicam_output", "_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
 		        true, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
@@ -93,11 +94,19 @@ public class PlanConstants {
 			}
 		}),
 		
-		NAME(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("name"), true, null),
+		
+		NAME(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("name"), true, new LikeFilter() {
+            public String getValue(PlanAttributeFilter filter) {
+                return filter.getStringVal();
+            }
+		    
+		}),
         VOTES(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("votes"), true, null),
         CREATE_DATE(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("createDate"), true, null), 
         PUBLISH_DATE(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("publishDate"), true, null),
-        CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, null);
+        CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, null),
+	    MITIGATION_COST_ERROR(String.class, "%s", attributeFunctionFactory.getIndexedOutputErrors("Mitigation Cost"), true, null);
+		
 		
 		private Class<?> clasz;
 		private String format;
@@ -121,13 +130,16 @@ public class PlanConstants {
 		
 		public Object getValue(Plan plan) throws SystemException {
 			PlanAttribute attribute =  PlanAttributeLocalServiceUtil.findPlanAttribute(plan.getPlanId(), this.name()); 
-			String s =(attribute==null || attribute.getAttributeValue() == null)?"0":attribute.getAttributeValue();
-			if (s == null || s.trim().length() ==0) s ="0";
+			String s =(attribute==null || attribute.getAttributeValue() == null) ? "" : attribute.getAttributeValue();
 			if (clasz == Double.class) {
+	            if (s == null || s.trim().length() ==0) return null;
 				return Double.parseDouble(s);
 			} else if (clasz == Integer.class) {
+	            if (s == null || s.trim().length() ==0) return null;
 				return new Double(Double.parseDouble(s)).intValue();
-			} 
+			} else if (clasz == String.class) {
+                return s;
+            }
 			return null;
 		}
 		
@@ -148,6 +160,9 @@ public class PlanConstants {
 	        }
 		
 		public String format(Plan plan) throws SystemException {
+		    if (getValue(plan) == null) {
+		        return "N/A";
+		    }
 			return String.format(format, getValue(plan));
 		}
 		
@@ -193,11 +208,13 @@ public class PlanConstants {
 		}
 		
 		public Object calculateValue(String scenarioId) throws SystemException {
-		    return attributeFunction.process(scenarioId).toString();
+		    Object val = attributeFunction.process(scenarioId);
+		    return val != null ? val.toString() : "";
 		}
 		
 	    public Object calculateValue(PlanItem plan) throws SystemException {
-	        return attributeFunction.process(plan).toString();
+	        Object val = attributeFunction.process(plan);
+	        return val != null ? val.toString() : "";
 	    }
 		
 		public static List<Attribute> getPlanTypeAttributes(PlanType planType) throws SystemException {
@@ -304,7 +321,7 @@ public class PlanConstants {
 		
 		MITIGATION_COST("Mitigation cost<br/>(%GDP in 2100)","Cost of efforts to prevent climate change (e.g., by reducing emissions). " +
 				"Costs are shown as a % of World GDP (Gross Domestic Product).	Values shown are the lowest and highest of the estimates " +
-				"produced by three models of these costs.","ShowMitigationCost",true, new AttributeGetter("%s to %s",Attribute.MIN_MITIGATION_COST, Attribute.MAX_MITIGATION_COST)),
+				"produced by three models of these costs.","ShowMitigationCost",true, new AttributeGetter("%s to %s <div class='errors popup-info-box' style='display: none; position: absolute; width: 150px;'>%s</div>",Attribute.MIN_MITIGATION_COST, Attribute.MAX_MITIGATION_COST, Attribute.MITIGATION_COST_ERROR)),
 				
 		DAMAGE_COST("Damage cost<br/>(%GDP in 2100)","Cost of damages caused by climate change (e.g., damages from rising sea level, hurricanes, " +
 				"droughts, etc.). Costs are shown as a % of World GDP (Gross Domestic Product). Values shown are estimates of the " +

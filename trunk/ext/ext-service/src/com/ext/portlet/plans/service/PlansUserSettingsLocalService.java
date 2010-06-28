@@ -93,6 +93,12 @@ public interface PlansUserSettingsLocalService {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public void saveUserSettings(java.util.Map sessionMap,
+        java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlansUserSettings plansUserSettings)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.plans.model.PlansUserSettings getPlanUserSettings(
         java.util.Map sessionMap, java.util.Map requestMap, long planTypeId)

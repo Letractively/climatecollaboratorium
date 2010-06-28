@@ -105,6 +105,14 @@ public class PlansUserSettingsLocalServiceUtil {
         return getService().getPlanUserSettings(sessionMap, requestMap, planType);
     }
 
+    public static void saveUserSettings(java.util.Map sessionMap,
+        java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlansUserSettings plansUserSettings)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        getService().saveUserSettings(sessionMap, requestMap, plansUserSettings);
+    }
+
     public static com.ext.portlet.plans.model.PlansUserSettings getPlanUserSettings(
         java.util.Map sessionMap, java.util.Map requestMap, long planTypeId)
         throws com.liferay.portal.PortalException,

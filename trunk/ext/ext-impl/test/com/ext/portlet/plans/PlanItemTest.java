@@ -13,14 +13,18 @@ import org.climatecollaboratorium.test.BaseCollabTest;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.PlanConstants.Columns;
 import com.ext.portlet.plans.model.PlanAttribute;
+import com.ext.portlet.plans.model.PlanAttributeFilter;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.model.PlansUserSettings;
+import com.ext.portlet.plans.service.PlanAttributeFilterLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
+import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
@@ -253,6 +257,39 @@ public class PlanItemTest extends BaseCollabTest {
         
         //System.out.println("Plans: " + plans.size());
     }
+    
+    public void testPlanFinderFiltered() throws PortalException, SystemException {        
+        ThemeDisplay td = new ThemeDisplay();
+        User user = UserLocalServiceUtil.getUser(10144L);
+        user.setUserId(10L);
+        td.setUser(user);
+        
+        PlanType planType = PlanTypeLocalServiceUtil.getPlanTypes(0, 2).get(0);
+        Map requestMap = new HashMap();
+        Map sessionMap = new HashMap();
+        requestMap.put(WebKeys.THEME_DISPLAY, td);
+        
+        PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
+        
+        List<PlanItem> plansBefore = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType, 0, 1000, Columns.NAME.name(), "ASC");
+        assertTrue("Not enough plans to do filters testing, need at least 2 plans", plansBefore.size() > 0);
+        
+        plansUserSettings.setFilterEnabled(true);
+        PlanAttributeFilter filter = plansUserSettings.getAttributeFilter(Attribute.NAME.name());
+        if (filter == null) {
+            filter = PlanAttributeFilterLocalServiceUtil.createPlanAttributeFilter(null);
+            filter.setAttributeName(Attribute.NAME.toString());
+            filter.setPlanUserSettingsId(plansUserSettings.getPlanUserSettingsId());
+        }
+        filter.setStringVal(plansBefore.get(0).getName());
+        
+        plansUserSettings.addPlanAttributeFilter(filter);
+        List<PlanItem> plansAfter = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType, 0, 1000, Columns.NAME.name(), "ASC");
+        assertEquals("There should be only one plan after applying filters", 1, plansAfter.size());
+        
+        
+    }
+    
     
     public static void main(String args[]) {
         System.out.println(String.format("%0$ta-%tb", new Date(), new Date()));
