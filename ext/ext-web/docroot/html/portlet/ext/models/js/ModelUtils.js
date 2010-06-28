@@ -138,6 +138,7 @@ var ModelUtils = new function() {
                 "Global average temperature change in degrees Celsius (C) from pre-industrial values"
                 ,function(scenario) {
 	            var variable = scenario.variableForName("GlobalTempChange");
+	            var val = variable.values[variable.values.length-1][1];
 	            if (isNaN(parseFloat(variable.values[variable.values.length-1][1]))) {
 	            	  val = "N/A";
 	              }
@@ -150,8 +151,9 @@ var ModelUtils = new function() {
                "Sea level change in millimeters (mm) from 2000",
                function(scenario) {
 	            var variable = scenario.variableForName("Sea_Level_Rise_output");
+	            var val = variable.values[variable.values.length-1][1];
 	            if (isNaN(parseFloat(variable.values[variable.values.length-1][1]))) {
-	            	  val = "N/A";
+	            	  val += "N/A";
 	              }
 	              else {
 	            	  val = val.toFixed(1) + " mm";
@@ -167,15 +169,37 @@ var ModelUtils = new function() {
 	            var min = NaN;
 	            var max = NaN;
 	        	jQuery.each(mitigation,function(i,data) {
-	        	     var val = data.values[data.values.length-1][1];
-	        	     if (isNaN(min) || val < min) min = val;
-	        	     if (isNaN(max) || val > max) max = val;
+	        		 // check if there is an error
+	        		for (var i = 0; i < data.values.length; i++) {
+	        			if (data.values[i][1] == "@ERROR") {
+	        				// error detected, return
+	        				return;
+	        			}
+	        		}
+	        	    var val = data.values[data.values.length-1][1];
+	        	    if (isNaN(min) || val < min) min = val;
+	        	    if (isNaN(max) || val > max) max = val;
 	        	});
 	        	min *= -1;
 	        	max = Math.min(0,max)*-1;
-
+	        	if (isNaN(min)) {
+	        		min = "N/A";
+	        	}
+	        	else {
+		        	if (max == min) {
+		        		max = "N/A";
+		        	}
+	        		min = min.toFixed(2);
+	        	}
+	        	if (isNaN(max)) {
+	        		max = "N/A";
+	        	}
+	        	else {
+	        		max = max.toFixed(2);
+	        	}
+	        	
 	        	var errors = jQuery.trim(jQuery(".mitigation-errors").text());
-	        	var val = "From "+max.toFixed(2)+"% to "+min.toFixed(2)+"% decrease in projected baseline GDP";
+	        	var val = "From " + max +"% to "+ min + "% decrease in projected baseline GDP";
 	        	if (errors.length > 0) {
 	        		val += ' <img class="output-errors-trigger" src="/html/icons/quick_note.png" /><div class="errors popup-info-box" style="display: none; width: 150px; position: absolute">' + errors + '</div>';
 	        	}
