@@ -55,6 +55,7 @@
         <column name="modelGlobalPreferencePK" type="Long" primary="true"/>
         <column name="modelId" type="Long"/>
         <column name="visible" type="Boolean"/>
+        <column name="weight" type="Integer"/>
         <finder name="ModelId" return-type="ModelGlobalPreference">
             <finder-column name="modelId"/>
         </finder>

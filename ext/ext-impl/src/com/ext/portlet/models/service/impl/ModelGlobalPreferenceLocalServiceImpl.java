@@ -47,5 +47,37 @@ public class ModelGlobalPreferenceLocalServiceImpl
         updateModelGlobalPreference(pref);
 
     }
+    
+
+    public int getWeight(Simulation s) throws SystemException {
+        ModelGlobalPreference pref = null;
+        try {
+            pref = modelGlobalPreferencePersistence.findByModelId(s.getId());
+        } catch (NoSuchModelGlobalPreferenceException e) {
+          //no worries
+        }
+        int weight = 0;
+        if (pref !=null && pref.getWeight()!=null) {
+            weight = pref.getWeight();
+        }
+        return weight;
+    }
+    
+    public void setWeight(Simulation s, int weight) throws SystemException {
+        ModelGlobalPreference pref = null;
+       try {
+           pref = modelGlobalPreferencePersistence.findByModelId(s.getId());
+       } catch (NoSuchModelGlobalPreferenceException e) {
+         //no worries
+       }
+       if (pref == null) {
+           Long pk = CounterLocalServiceUtil.increment(ModelGlobalPreference.class.getName());
+           pref = createModelGlobalPreference(pk);
+           pref.setModelId(s.getId());
+           addModelGlobalPreference(pref);
+       }
+       pref.setWeight(weight);
+       updateModelGlobalPreference(pref);
+   }
 
 }

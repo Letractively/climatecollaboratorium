@@ -40,5 +40,9 @@ public interface ModelGlobalPreferenceModel extends BaseModel<ModelGlobalPrefere
 
     public void setVisible(Boolean visible);
 
+    public Integer getWeight();
+
+    public void setWeight(Integer weight);
+
     public ModelGlobalPreference toEscapedModel();
 }

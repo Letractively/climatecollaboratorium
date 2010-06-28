@@ -111,6 +111,13 @@ public class PlanItemLocalServiceUtil {
             sortColumn, sortDirection);
     }
 
+    public static int getPlansCount(java.util.Map sessionMap,
+        java.util.Map requestMap, com.ext.portlet.plans.model.PlanType planType)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().getPlansCount(sessionMap, requestMap, planType);
+    }
+
     public static void removePlanWithEntireHistory(java.lang.Long planId) {
         getService().removePlanWithEntireHistory(planId);
     }

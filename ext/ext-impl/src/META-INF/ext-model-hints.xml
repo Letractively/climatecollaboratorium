@@ -189,6 +189,7 @@
 		<field name="modelGlobalPreferencePK" type="Long" />
 		<field name="modelId" type="Long" />
 		<field name="visible" type="Boolean" />
+		<field name="weight" type="Integer" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelInputGroup">
 		<field name="modelInputGroupPK" type="Long" />

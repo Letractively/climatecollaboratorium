@@ -46,9 +46,12 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
             { "modelId", new Integer(Types.BIGINT) },
             
 
-            { "visible", new Integer(Types.BOOLEAN) }
+            { "visible", new Integer(Types.BOOLEAN) },
+            
+
+            { "weight", new Integer(Types.INTEGER) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelGlobalPreference (modelGlobalPreferencePK LONG not null primary key,modelId LONG,visible BOOLEAN)";
+    public static final String TABLE_SQL_CREATE = "create table ModelGlobalPreference (modelGlobalPreferencePK LONG not null primary key,modelId LONG,visible BOOLEAN,weight INTEGER)";
     public static final String TABLE_SQL_DROP = "drop table ModelGlobalPreference";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -65,6 +68,7 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
     private Long _modelId;
     private Long _originalModelId;
     private Boolean _visible;
+    private Integer _weight;
 
     public ModelGlobalPreferenceModelImpl() {
     }
@@ -76,6 +80,7 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         model.setModelGlobalPreferencePK(soapModel.getModelGlobalPreferencePK());
         model.setModelId(soapModel.getModelId());
         model.setVisible(soapModel.getVisible());
+        model.setWeight(soapModel.getWeight());
 
         return model;
     }
@@ -135,6 +140,14 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         _visible = visible;
     }
 
+    public Integer getWeight() {
+        return _weight;
+    }
+
+    public void setWeight(Integer weight) {
+        _weight = weight;
+    }
+
     public ModelGlobalPreference toEscapedModel() {
         if (isEscapedModel()) {
             return (ModelGlobalPreference) this;
@@ -147,6 +160,7 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
             model.setModelGlobalPreferencePK(getModelGlobalPreferencePK());
             model.setModelId(getModelId());
             model.setVisible(getVisible());
+            model.setWeight(getWeight());
 
             model = (ModelGlobalPreference) Proxy.newProxyInstance(ModelGlobalPreference.class.getClassLoader(),
                     new Class[] { ModelGlobalPreference.class },
@@ -162,6 +176,7 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         clone.setModelGlobalPreferencePK(getModelGlobalPreferencePK());
         clone.setModelId(getModelId());
         clone.setVisible(getVisible());
+        clone.setWeight(getWeight());
 
         return clone;
     }
@@ -207,6 +222,8 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         sb.append(getModelId());
         sb.append(", visible=");
         sb.append(getVisible());
+        sb.append(", weight=");
+        sb.append(getWeight());
         sb.append("}");
 
         return sb.toString();
@@ -230,6 +247,10 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         sb.append(
             "<column><column-name>visible</column-name><column-value><![CDATA[");
         sb.append(getVisible());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>weight</column-name><column-value><![CDATA[");
+        sb.append(getWeight());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");
