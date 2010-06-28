@@ -20,6 +20,7 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PropsUtil;
+import com.liferay.util.portlet.PortletProps;
 import com.mchange.v2.codegen.bean.BeangenUtils;
 
 import mit.simulation.climate.client.MetaData;
@@ -46,13 +47,24 @@ public class AttributeFunctionFactory {
     private static Log _log = LogFactoryUtil.getLog(AttributeFunctionFactory.class);
 
     public static AttributeFunctionFactory getFromEnvironment() {
-        // FIXME
-        /*
-        String host = PropsUtil.get("climatecollaboratorium.model.server");
-        int port = Integer.parseInt(PropsUtil.get("climatecollaboratorium.model.port"));
-        */
-        String host = "localhost";
-        int port = 8080;
+        
+     // try to read configuration from default location (portal-ext.properties)
+        String host = null;
+        int port = 0;
+        try {
+            host = PropsUtil.get("climatecollaboratorium.model.server");
+            if (host != null) {
+                port = Integer.parseInt(PropsUtil.get("climatecollaboratorium.model.port"));
+            }
+            
+        } catch (Throwable e) {
+            _log.error("Exception has been thrown when trying to access PropsUtil: " + e.getClass().getName());
+        }
+        if (host == null) {
+            // if configuration isn't available try to load it from portlet preferences
+            host = PortletProps.get("climatecollaboratorium.model.server");
+            port = Integer.parseInt(PortletProps.get("climatecollaboratorium.model.port"));
+        }
         _log.info("Modeling server from properties is "+host+":"+port);
         return new AttributeFunctionFactory(host,port);
     }
