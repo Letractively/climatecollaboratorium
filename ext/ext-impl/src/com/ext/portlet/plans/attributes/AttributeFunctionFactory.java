@@ -8,6 +8,13 @@ package com.ext.portlet.plans.attributes;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ModelingServiceClient;
+import com.ext.portlet.models.ui.ModelDisplay;
+import com.ext.portlet.models.ui.ModelDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputDisplayItemType;
+import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
+import com.ext.portlet.models.ui.ModelUIFactory;
 import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -176,7 +183,9 @@ public class AttributeFunctionFactory {
                 List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
 
                 data = getDataWithInternalName(scenarioId, variableId);
-
+                if (data.size() == 0) {
+                    return null;
+                }
                 String val = data.get(data.size() - 1).getValue();
                 try {
                     return parseStringAsType(val, resultType);
@@ -242,6 +251,9 @@ public class AttributeFunctionFactory {
     }
 
     private static <T> T parseStringAsType(String input, Class<T> type) throws UnsupportedTypeOperation {
+        if (input.equals("@ERROR")) {
+            return null;
+        }
         if (type == Double.class) {
             return (T) Double.valueOf(input);
         } else if (type == Float.class) {
@@ -297,7 +309,7 @@ public class AttributeFunctionFactory {
                 T result = null;
                 for(String variableId: variableIds) {
                     T candidate = getLastValueFunction(variableId, resultType).process(scenarioId);
-                    result = result == null || result.doubleValue() < candidate.doubleValue() ? candidate : result;
+                    result = candidate != null && (result == null || result.doubleValue() < candidate.doubleValue()) ? candidate : result;
                 }
                 return result;
             }
@@ -351,6 +363,82 @@ public class AttributeFunctionFactory {
         };
         
     }
+    
+
+    public AttributeFunction<String> getIndexedOutputErrors(final String outputName) {
+        return new AttributeFunction<String>() {
+            
+            @Override
+            public String process(PlanItem plan) throws SystemException {
+                // TODO Auto-generated method stub
+                return null;
+            }
+            
+            @Override
+            public String process(String scenarioId) throws SystemException {
+                try {
+                    Scenario scenario = CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+                    ModelDisplay display = ModelUIFactory.getInstance().getDisplay(scenario);
+                    StringBuilder errors = new StringBuilder();
+                    for (ModelOutputDisplayItem item: display.getOutputs()) {
+                        if (item.getName().trim().equals(outputName)) {
+                            if (item.getDisplayItemType().equals(ModelOutputDisplayItemType.INDEXED)) {
+                                ModelOutputIndexedDisplayItem indexedItem = (ModelOutputIndexedDisplayItem) item;
+                                if (indexedItem.getSeriesWithInvalidError().size() > 0) {
+                                    String msg = indexedItem.getInvalidErrorBehavior().getMessage();
+                                    if (msg == null) {
+                                        continue;
+                                    }
+                                    StringBuilder outputs = new StringBuilder();
+                                    for (int i = 0; i < indexedItem.getSeriesWithInvalidError().size(); i++) {
+                                        ModelOutputSeriesDisplayItem serieItem = indexedItem.getSeriesWithInvalidError().get(i);
+                                        outputs.append(serieItem.getName());
+                                        if (i < indexedItem.getSeriesWithInvalidError().size() - 1) {
+                                            outputs.append(",");
+                                        }
+                                    }
+                                    errors.append(msg.replaceAll("%outputs", outputs.toString()));
+                                    errors.append("\n");
+                                }
+                                if (indexedItem.getSeriesWithOutOfRangeError().size() > 0) {
+                                    String msg = indexedItem.getOutOfRangeErrorBehavior().getMessage();
+                                    if (msg == null) {
+                                        continue;
+                                    }
+                                    StringBuilder outputs = new StringBuilder();
+                                    for (int i = 0; i < indexedItem.getSeriesWithOutOfRangeError().size() ; i++) {
+                                        ModelOutputSeriesDisplayItem serieItem = indexedItem.getSeriesWithOutOfRangeError().get(i);
+                                        outputs.append(serieItem.getName());
+                                        if (i < indexedItem.getSeriesWithOutOfRangeError().size() - 1) {
+                                            outputs.append(", ");
+                                        }
+                                    }
+                                    errors.append(msg.replaceAll("%outputs", outputs.toString()));
+                                    errors.append("\n");
+                                }
+                            }
+                        }
+                    }
+                    return errors.toString();
+                    
+                } catch (NumberFormatException e) {
+                    throw new SystemException(e);
+                } catch (IOException e) {
+                    throw new SystemException(e);
+                }
+            }
+            
+            @Override
+            public boolean isFromScenario() {
+                return true;
+            }
+            
+            @Override
+            public boolean isFromPlan() {
+                return false;
+            }
+        };
+    }
 
 
 
@@ -362,6 +450,8 @@ public class AttributeFunctionFactory {
         System.err.println(factory.getLastValueFunction("242", Double.class).process("2900"));
 
     }
+
+
 
 
 }

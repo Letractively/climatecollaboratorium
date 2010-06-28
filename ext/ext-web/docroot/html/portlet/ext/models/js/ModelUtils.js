@@ -125,7 +125,14 @@ var ModelUtils = new function() {
                "Atmospheric CO2 concentration in parts per million (ppm)",
                function(scenario) {
 	              var variable = scenario.variableForName("AtmosphericCO2Concentration");
-	              return variable.values[variable.values.length-1][1].toFixed(1)+"ppm";
+	              val = variable.values[variable.values.length-1][1];
+	              if (isNaN(parseFloat(variable.values[variable.values.length-1][1]))) {
+	            	  val = "N/A";
+	              }
+	              else {
+	            	  val = val.toFixed(1) + "ppm";
+	              }
+	              return val;
 	       }],
 	       "Change in GMT for 2100" : [
                 "Global average temperature change in degrees Celsius (C) from pre-industrial values"
@@ -155,7 +162,13 @@ var ModelUtils = new function() {
 	        	min *= -1;
 	        	max = Math.min(0,max)*-1;
 
-	        	return "From "+max.toFixed(2)+"% to "+min.toFixed(2)+"% decrease in projected baseline GDP";
+	        	var errors = jQuery.trim(jQuery(".mitigation-errors").text());
+	        	var val = "From "+max.toFixed(2)+"% to "+min.toFixed(2)+"% decrease in projected baseline GDP";
+	        	if (errors.length > 0) {
+	        		val += ' <img class="output-errors-trigger" src="/html/icons/quick_note.png" /><div class="errors popup-info-box" style="display: none; width: 150px; position: absolute">' + errors + '</div>';
+	        	}
+	        		
+	        	return val;
 	       }],
 	       "Range of damage costs": [
                "Cost of damages caused by climate change (e.g., damages from rising sea level, hurricanes, droughts, etc.). Costs are shown as a % of World GDP (Gross Domestic Product).",
@@ -511,6 +524,12 @@ var ModelUtils = new function() {
 										+ "</td><td>"
 										+ val[1](scenario) + "</td></tr>");
 				even = !even;
+			});
+			
+			jQuery(".output-errors-trigger").hover(function() {
+				jQuery(this).parent().find(".popup-info-box").fadeIn("medium");
+			}, function() {
+				jQuery(this).parent().find(".popup-info-box").fadeOut("medium");
 			});
         
         

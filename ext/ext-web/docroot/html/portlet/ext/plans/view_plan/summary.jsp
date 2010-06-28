@@ -97,6 +97,9 @@
     </div>
     <div class="clear"></div>
 </div>
+<div class="mitigation-errors" style="position: absolute; width: 150px; display: none">
+    <%= Attribute.MITIGATION_COST_ERROR.format(plan) %>
+</div>
 
 <div class="bottomContent">
     <div class="floatLeft leftTxt">

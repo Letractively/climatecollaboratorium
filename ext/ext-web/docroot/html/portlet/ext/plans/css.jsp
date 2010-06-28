@@ -223,3 +223,8 @@ a.ui-dialog-titlebar-close span {
 div.ui-dialog div.ui-dialog-container a.ui-dialog-titlebar-close span
 	display: none;
 }
+
+.plansTable td .errors {
+    display: none;
+    position: relative;   
+}

@@ -91,7 +91,7 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      * Name of custom SQL statement that is responsible for counting filtered
      * plans.
      */
-    public static final String GET_FILTERED_PLANS = PlanItemFinderImpl.class.getName() + ".getFilteredPlans4";
+    public static final String GET_FILTERED_PLANS = PlanItemFinderImpl.class.getName() + ".getFilteredPlans";
 
     /**
      * Name of custom SQL statement that is responsible for retrieval of user vote position.
@@ -433,7 +433,7 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      * @return list of retrieved plans
      * @throws Exception 
      */
-    public List<Plan> getFilteredPlans(PlansUserSettings planUserSettings, int start, int end, String sortColumn,
+    public List<PlanItem> getFilteredPlans(PlansUserSettings planUserSettings, int start, int end, String sortColumn,
             String sortDirection) throws Exception {
         Session session = openSession();
 
@@ -445,10 +445,11 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
         //System.out.println("Query "+sql);
         SQLQuery query = session.createSQLQuery(sql);
 
-        query.addEntity("Plan", PlanImpl.class);
-        addFilterParameters(query, planUserSettings);
+        query.addEntity("PlanItem", PlanItemImpl.class);
+        query.setLong(PARAM_PLAN_TYPE_ID, planUserSettings.getPlanTypeId());
+        //addFilterParameters(query, planUserSettings);
 
-        return (List<Plan>) QueryUtil.list(query, getDialect(), start, end);
+        return (List<PlanItem>) QueryUtil.list(query, getDialect(), start, end);
     }
     
     
@@ -574,7 +575,7 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      * @throws Exception 
      */
     public int getFilteredUserVotePosition(PlansUserSettings planUserSettings, long userId, String sortColumn, String sortDirection) throws Exception {
-        List<Plan> plans = getFilteredPlans(planUserSettings,0,Integer.MAX_VALUE,sortColumn,sortDirection);
+        List<PlanItem> plans = getFilteredPlans(planUserSettings,0,Integer.MAX_VALUE,sortColumn,sortDirection);
         PlanVote vote = null;
         try {
             vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
@@ -583,7 +584,7 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
             return -1;
         }
         int count = 0;
-        for (Plan p:plans) {
+        for (PlanItem p:plans) {
             if (vote.getPlanId() == p.getPlanId()) {
                 return count;
             }

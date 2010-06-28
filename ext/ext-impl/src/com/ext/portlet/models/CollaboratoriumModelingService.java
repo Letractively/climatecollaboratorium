@@ -31,12 +31,18 @@ public class CollaboratoriumModelingService {
         if (instance == null) {
 
             // try to read configuration from default location (portal-ext.properties)
-            String host = PropsUtil.get("climatecollaboratorium.model.server");
+            String host = null;
             int port = 0;
-            if (host != null) {
-                port = Integer.parseInt(PropsUtil.get("climatecollaboratorium.model.port"));
+            try {
+                host = PropsUtil.get("climatecollaboratorium.model.server");
+                if (host != null) {
+                    port = Integer.parseInt(PropsUtil.get("climatecollaboratorium.model.port"));
+                }
                 
-            } else {
+            } catch (Throwable e) {
+                _log.error("Exception has been thrown when trying to access PropsUtil: " + e.getClass().getName());
+            }
+            if (host == null) {
                 // if configuration isn't available try to load it from portlet preferences
                 host = PortletProps.get("climatecollaboratorium.model.server");
                 port = Integer.parseInt(PortletProps.get("climatecollaboratorium.model.port"));

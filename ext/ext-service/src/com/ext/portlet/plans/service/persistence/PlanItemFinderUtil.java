@@ -17,7 +17,7 @@ public class PlanItemFinderUtil {
         return getFinder().countFilteredPlans(planUserSettings);
     }
 
-    public static java.util.List<com.ext.portlet.plans.model.Plan> getFilteredPlans(
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> getFilteredPlans(
         com.ext.portlet.plans.model.PlansUserSettings planUserSettings,
         int start, int end, java.lang.String sortColumn,
         java.lang.String sortDirection) throws java.lang.Exception {

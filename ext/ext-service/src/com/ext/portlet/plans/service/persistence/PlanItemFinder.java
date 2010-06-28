@@ -9,7 +9,7 @@ public interface PlanItemFinder {
         com.ext.portlet.plans.model.PlansUserSettings planUserSettings)
         throws java.lang.Exception;
 
-    public java.util.List<com.ext.portlet.plans.model.Plan> getFilteredPlans(
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getFilteredPlans(
         com.ext.portlet.plans.model.PlansUserSettings planUserSettings,
         int start, int end, java.lang.String sortColumn,
         java.lang.String sortDirection) throws java.lang.Exception;

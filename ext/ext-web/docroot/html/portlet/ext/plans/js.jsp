@@ -103,3 +103,25 @@ function _plans_showCopyDialog(dialogId, options) {
 function _plans_closeDialog(dialogId) {
 	jQuery("#" + dialogId).dialog("close");
 }
+
+jQuery(document).ready(function() {
+    jQuery(".plansTable td .errors").each(function() {
+        var text = jQuery.trim(jQuery(this).text());
+        if (text.length != 0) {
+            jQuery(this).parent().append('<img class="note" src="/html/icons/quick_note.png" />');
+        }
+    });
+    
+    jQuery(".plansTable td .note").hover(function() {
+        var errors = jQuery(this).parent().find(".errors");
+            if (errors.length > 0 && jQuery.trim(errors.text()).length != 0) {
+                errors.fadeIn("medium");
+            }
+        }, function() {
+            var errors = jQuery(this).parent().find(".errors");
+            errors.fadeOut("medium");
+        }
+    );
+});
+                                    
+                       
