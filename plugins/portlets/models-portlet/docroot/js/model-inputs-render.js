@@ -418,16 +418,22 @@ function renderModelOutputs() {
 				log.debug("Showing error messages: " + errorMessages);
 				errorMessagesPlaceholder.show();
 			}
-		}
-		catch (e) {
-			log.error(e);
-		}
 		
 		/* Legend is positioned absolutely thus it is hard to determine how long the chart will be, I'm assuming
 		 * that graph will take around 320 px and I'm giving 18 px for each item in the legend.
 		 */
 
-		jQuery("#" + chartPlaceholderId).parent().css("height", (320 + (24 * values.length) + (errorMessages.length > 0 ? 30 + 20 * errorMessages.length : 0)) + "px");
+			var height = jQuery("#" + chartPlaceholderId).height();
+			if (jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").length > 0) {
+				height += jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").height();
+			}
+			height +=  errorMessagesPlaceholder.height();
+			
+			jQuery("#" + chartPlaceholderId).parent().height(height + 40);
+
+		} catch (e) {
+			log.error(e);
+		}
 	});
 	
 	
