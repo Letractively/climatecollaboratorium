@@ -14,6 +14,14 @@
 /** HISTORY MANAGEMENT STUFF */
 
 function pageload() {
+    var fragment = window.location.hash;
+    if (fragment.indexOf("?") >= 0) {
+        var query = fragment.substring(fragment.indexOf("?"), fragment.length);
+        var hash = fragment.substring(0, fragment.indexOf("?"));
+        var location = window.location.href.substring(0, window.location.href.indexOf("#"));
+        window.location = location + query + hash;
+        return;
+    }
     var frag = getFragments();
     if (!frag) {
         forceNav(0);
