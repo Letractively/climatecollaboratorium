@@ -21,12 +21,17 @@ import mit.simulation.climate.client.comm.ClientRepository;
 import mit.simulation.climate.client.comm.ModelNotFoundException;
 import mit.simulation.climate.client.comm.ScenarioNotFoundException;
 
+import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.Plan;
+import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class MigrationManager {
     private static final String REPOSITORY_HOST = "localhost";
@@ -38,6 +43,8 @@ public class MigrationManager {
     private Long targetModelId = 623L;
     private String serviceHost = REPOSITORY_HOST;
     private Integer servicePort = REPOSITORY_PORT;
+    
+    private static Log _log = LogFactoryUtil.getLog(MigrationManager.class);
     
     public List<Plan> getPlans() throws SystemException {
         return PlanLocalServiceUtil.getPlans(0, Integer.MAX_VALUE);
@@ -85,9 +92,17 @@ public class MigrationManager {
         
         Simulation targetSimulation = repository.getSimulation(targetModelId);
         List<Plan> plans = getPlans();
+        _log.info("########################### PLANS MIGRATION ###########################");
+        _log.info("Will be reruning models in " + plans.size() + " plans");
+        int planNo = 0;
         for (Plan plan: plans) {
+            planNo++;
+            _log.info("Migrating plan " + plan.getPlanId() + " (" + planNo + " of " + plans.size() + ")");
             if (plan.getScenarioId() == null || plan.getScenarioId().trim().equals("")) {
-                migrationMessages.put(plan.getPlanId(), "Plan " + plan.getName() + " (" + plan.getPlanId() + ") doesn't have scenario defined");
+                String msg = "Plan " + plan.getName() + " (" + plan.getPlanId() + ") doesn't have scenario defined";
+                migrationMessages.put(plan.getPlanId(), msg);
+                _log.info(planNo + " / " + plans.size() + ":  " + msg);
+                
                 migrationStatuses.put(plan.getPlanId(), false);
                 continue;   
             }
@@ -97,8 +112,10 @@ public class MigrationManager {
                 Simulation fromSimulation = scenario.getSimulation();
                 
                 if (!checkIfSimulationsCompatible(fromSimulation, targetSimulation)) {
-                    migrationMessages.put(plan.getPlanId(), "Simulations aren't compatible (target simulation has inputs not defined in source simulation)");
+                    String msg = "Simulations aren't compatible (target simulation has inputs not defined in source simulation)";
+                    migrationMessages.put(plan.getPlanId(), msg);
                     migrationStatuses.put(plan.getPlanId(), false);
+                    _log.info(planNo + " / " + plans.size() + ":  " + msg);
                     continue;
                 }
                 
@@ -111,10 +128,15 @@ public class MigrationManager {
                 Scenario newScenario = repository.runModel(targetSimulation, values, plan.getUserId(), true);
                 plan.setScenarioId(newScenario.getId().toString());
                 PlanLocalServiceUtil.updatePlan(plan);
+                _log.info(planNo + " / " + plans.size() + ": reruning model successful, new oldScenarioId: " + scenarioId + "\tnewScenarioId: " + scenarioId);
+                updatePlanScenarioValues(plan, newScenario.getId());
+                _log.info(planNo + " / " + plans.size() + ": attributes updated, plan migration complete");
                 
             } catch (Throwable exception) {
-                migrationMessages.put(plan.getPlanId(), "Exception has been thrown: " + exception.getClass().getName() + exception.getMessage());
+                String msg = "Exception has been thrown: " + exception.getClass().getName() + exception.getMessage();
+                migrationMessages.put(plan.getPlanId(), msg);
                 migrationStatuses.put(plan.getPlanId(), false);
+                _log.info(planNo + " / " + plans.size() + ":  " + msg);
                 exception.printStackTrace();
             }
             migrationStatuses.put(plan.getPlanId(), true);
@@ -192,6 +214,30 @@ public class MigrationManager {
     
     public void updateServiceHost(ActionEvent e) {
         // do nothing
+    }
+    
+    
+    /**
+     * Updates all plan values that are related to referenced scenario.
+     *
+     * @param request request from which values are taken
+     * @param plan plan which value are to be updated
+     * @throws PortalException 
+     */
+    private void updatePlanScenarioValues(Plan plan, Long scenarioId) throws SystemException, PortalException {
+        long planId = plan.getPlanId();
+        PlanType planType = plan.getPlanType();
+        
+        for (PlanConstants.Attribute attribute:PlanConstants.Attribute.getPlanTypeAttributes(planType)) {
+            String value = attribute.calculateValue(scenarioId.toString()).toString();
+            PlanAttribute att = PlanAttributeLocalServiceUtil.findPlanAttribute(planId,attribute.name());
+            if (att!=null) {
+                att.setAttributeValue(value);
+                PlanAttributeLocalServiceUtil.updatePlanAttribute(att);
+            } else {
+                PlanAttributeLocalServiceUtil.addPlanAttribute(planId, attribute.name(),value);
+            }
+        }
     }
     
 }
