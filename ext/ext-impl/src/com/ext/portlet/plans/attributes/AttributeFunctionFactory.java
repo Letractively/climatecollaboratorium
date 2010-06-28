@@ -264,7 +264,7 @@ public class AttributeFunctionFactory {
     }
 
     private static <T> T parseStringAsType(String input, Class<T> type) throws UnsupportedTypeOperation {
-        if (input.equals("@ERROR")) {
+        if (input.equals("@ERROR") || input.equals("@RANGE")) {
             return null;
         }
         if (type == Double.class) {
