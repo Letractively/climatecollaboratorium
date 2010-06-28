@@ -471,7 +471,9 @@ public class AttributeFunctionFactory {
                 data = getDataWithInternalName(scenarioId, variableId);
                 
                 for (IndexedEntry<String, String> entry: data) {
-                    if (entry.getValue().startsWith("@ERROR")) {
+                    System.out.println(">>>> Comparing: '" + entry.getValue() + "' with: '@ERROR'");
+                    if (entry.getValue().trim().startsWith("@ERROR")) {
+                        System.out.println("Returning true, there is an error");
                         return true;
                     }
                 }
