@@ -19,11 +19,13 @@ import mit.simulation.climate.client.Simulation;
 public class SimulationDecorator implements Simulation {
     private Simulation wrapped;
     private boolean visible;
+    private int weight;
 
     public SimulationDecorator(Simulation wrapped) throws SystemException {
         this.wrapped = wrapped;
         
         this.visible = ModelUIFactory.isSimulationVisible(wrapped);
+        this.weight = ModelUIFactory.getSimulationWeight(wrapped);
     }
 
     @Override
@@ -163,6 +165,15 @@ public class SimulationDecorator implements Simulation {
     public void setVisible(boolean visible) throws SystemException {
         ModelUIFactory.setSimulationVisible(wrapped, visible);
         this.visible = visible;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) throws SystemException {
+        ModelUIFactory.setSimulationWeight(wrapped, weight);
+        this.weight = weight;
     }
     
 

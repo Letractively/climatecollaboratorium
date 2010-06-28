@@ -35,13 +35,25 @@ public class SimulationsBean {
     }
 
     private void updateVisible() throws SystemException {
+        Collections.sort(simulations, new Comparator<SimulationDecorator>() {
+
+            @Override
+            public int compare(SimulationDecorator arg0, SimulationDecorator arg1) {
+                try {
+                    return ModelUIFactory.getSimulationWeight(arg0.getWrapped()) - ModelUIFactory.getSimulationWeight(arg1);
+                } catch (SystemException e) {
+                    // ignore
+                }
+                return 0;
+            }
+        });
+        
         visibleSimulations.clear();
         for (SimulationDecorator sim: simulations) {
             if (sim.isVisible()) {
                 visibleSimulations.add(sim);
             }
         }
-        
     }
 
     public List<SimulationDecorator> getSimulations() {
