@@ -130,7 +130,7 @@ var ModelUtils = new function() {
 	            	  val = "N/A";
 	              }
 	              else {
-	            	  val = val.toFixed(1) + "ppm";
+	            	  val = val.toFixed(1) + " ppm";
 	              }
 	              return val;
 	       }],
@@ -138,13 +138,25 @@ var ModelUtils = new function() {
                 "Global average temperature change in degrees Celsius (C) from pre-industrial values"
                 ,function(scenario) {
 	            var variable = scenario.variableForName("GlobalTempChange");
-	            return variable.values[variable.values.length-1][1].toFixed(1)+" "+degreeStr;
+	            if (isNaN(parseFloat(variable.values[variable.values.length-1][1]))) {
+	            	  val = "N/A";
+	              }
+	              else {
+	            	  val = val.toFixed(1) + " " + degreeStr;
+	              }
+	              return val;
 	       }],
 	       "Sea Level Rise": [
                "Sea level change in millimeters (mm) from 2000",
                function(scenario) {
 	            var variable = scenario.variableForName("Sea_Level_Rise_output");
-	            return variable.values[variable.values.length-1][1].toFixed(0)+" mm";
+	            if (isNaN(parseFloat(variable.values[variable.values.length-1][1]))) {
+	            	  val = "N/A";
+	              }
+	              else {
+	            	  val = val.toFixed(1) + " mm";
+	              }
+	              return val;
 	       }],
 	       "Range of mitigation costs": [
                " Cost of efforts to prevent climate change (e.g., by reducing emissions). Costs are shown as a % of World GDP (Gross Domestic Product).",
