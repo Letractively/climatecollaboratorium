@@ -36,6 +36,7 @@ public class ModelGlobalPreferenceJSONSerializer {
             model.getModelGlobalPreferencePK());
         jsonObj.put("modelId", model.getModelId());
         jsonObj.put("visible", model.getVisible());
+        jsonObj.put("weight", model.getWeight());
 
         return jsonObj;
     }

@@ -256,6 +256,7 @@
 		</id>
 		<property name="modelId" />
 		<property name="visible" />
+		<property name="weight" />
 	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelInputGroupImpl" table="ModelInputGroup">
 		<cache usage="read-write" />

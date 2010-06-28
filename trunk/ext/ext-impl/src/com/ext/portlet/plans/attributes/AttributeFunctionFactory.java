@@ -8,6 +8,7 @@ package com.ext.portlet.plans.attributes;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ModelingServiceClient;
+import com.ext.portlet.models.ModelingServiceClient.IndexedEntry;
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelDisplayItem;
 import com.ext.portlet.models.ui.ModelOutputDisplayItem;
@@ -291,8 +292,10 @@ public class AttributeFunctionFactory {
             public T process(String scenarioId) throws SystemException {
                 T result = null;
                 for(String variableId: variableIds) {
-                    T candidate = getLastValueFunction(variableId, resultType).process(scenarioId);
-                    result = result == null || result.doubleValue() > candidate.doubleValue() ? candidate : result;
+                    if (! getHasErrorsFunction(variableId, Boolean.class).process(scenarioId)) {
+                        T candidate = getLastValueFunction(variableId, resultType).process(scenarioId);
+                        result = result == null || result.doubleValue() > candidate.doubleValue() ? candidate : result;
+                    }
                 }
                 return result;
             }
@@ -320,8 +323,10 @@ public class AttributeFunctionFactory {
             public T process(String scenarioId) throws SystemException {
                 T result = null;
                 for(String variableId: variableIds) {
-                    T candidate = getLastValueFunction(variableId, resultType).process(scenarioId);
-                    result = candidate != null && (result == null || result.doubleValue() < candidate.doubleValue()) ? candidate : result;
+                    if (! getHasErrorsFunction(variableId, Boolean.class).process(scenarioId)) {
+                        T candidate = getLastValueFunction(variableId, resultType).process(scenarioId);
+                        result = candidate != null && (result == null || result.doubleValue() < candidate.doubleValue()) ? candidate : result;
+                    }
                 }
                 return result;
             }
@@ -451,6 +456,43 @@ public class AttributeFunctionFactory {
             }
         };
     }
+    
+    public AttributeFunction<Boolean> getHasErrorsFunction(final String variableId, final Class<Boolean> resultType) {
+        return new AttributeFunction<Boolean>() {
+            
+            @Override
+            public Boolean process(PlanItem plan) throws SystemException {
+                // TODO Auto-generated method stub
+                return null;
+            }
+            
+            public Boolean process(String scenarioId) throws SystemException {
+                List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
+                data = getDataWithInternalName(scenarioId, variableId);
+                
+                for (IndexedEntry<String, String> entry: data) {
+                    if (entry.getValue().startsWith("@ERROR")) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            
+            @Override
+            public boolean isFromScenario() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            
+            @Override
+            public boolean isFromPlan() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+        };
+        
+    }
+        
 
 
 

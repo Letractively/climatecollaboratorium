@@ -28,6 +28,7 @@ public class ModelGlobalPreferenceSoap implements Serializable {
     private Long _modelGlobalPreferencePK;
     private Long _modelId;
     private Boolean _visible;
+    private Integer _weight;
 
     public ModelGlobalPreferenceSoap() {
     }
@@ -39,6 +40,7 @@ public class ModelGlobalPreferenceSoap implements Serializable {
         soapModel.setModelGlobalPreferencePK(model.getModelGlobalPreferencePK());
         soapModel.setModelId(model.getModelId());
         soapModel.setVisible(model.getVisible());
+        soapModel.setWeight(model.getWeight());
 
         return soapModel;
     }
@@ -112,5 +114,13 @@ public class ModelGlobalPreferenceSoap implements Serializable {
 
     public void setVisible(Boolean visible) {
         _visible = visible;
+    }
+
+    public Integer getWeight() {
+        return _weight;
+    }
+
+    public void setWeight(Integer weight) {
+        _weight = weight;
     }
 }

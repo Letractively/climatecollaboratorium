@@ -113,13 +113,35 @@ jQuery(document).ready(function() {
     });
     
     jQuery(".plansTable td .note").hover(function() {
+        jQuery(this).parent().addClass("note-hover");
         var errors = jQuery(this).parent().find(".errors");
             if (errors.length > 0 && jQuery.trim(errors.text()).length != 0) {
                 errors.fadeIn("medium");
             }
         }, function() {
+            jQuery(this).parent().removeClass("note-hover");
             var errors = jQuery(this).parent().find(".errors");
-            errors.fadeOut("medium");
+            setTimeout(function() {
+                if (! errors.parent().hasClass("note-hover") && !errors.parent().hasClass("popup-hover")) {
+                    errors.fadeOut("medium");
+                }
+                }, 200);
+        }
+    );
+    jQuery(".plansTable td .popup-info-box").hover(function() {
+        jQuery(this).parent().addClass("popup-hover");
+        var errors = jQuery(this).parent().find(".errors");
+            if (errors.length > 0 && jQuery.trim(errors.text()).length != 0) {
+                errors.fadeIn("medium");
+            }
+        }, function() {
+            jQuery(this).parent().removeClass("popup-hover");
+            var errors = jQuery(this).parent().find(".errors");
+            setTimeout(function() {
+                if (! errors.parent().hasClass("note-hover") && !errors.parent().hasClass("popup-hover")) {
+                    errors.fadeOut("medium");
+                }
+                }, 200);
         }
     );
 });

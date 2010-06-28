@@ -187,6 +187,14 @@ public class ModelUIFactory {
      public static void setSimulationVisible(Simulation sim, boolean b) throws SystemException {
         ModelGlobalPreferenceLocalServiceUtil.setVisible(sim,b);
     }
+     
+    public static int getSimulationWeight(Simulation sim) throws SystemException {
+        return ModelGlobalPreferenceLocalServiceUtil.getWeight(sim);
+    }
+    
+    public static void setSimulationWeight(Simulation sim, int weight) throws SystemException {
+        ModelGlobalPreferenceLocalServiceUtil.setWeight(sim, weight);
+    }
 
     /**
      * Helper function, returns variable for a scenario given its associated metadata

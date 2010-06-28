@@ -528,10 +528,29 @@ var ModelUtils = new function() {
 			
 			jQuery(".output-errors-trigger").hover(function() {
 				jQuery(this).parent().find(".popup-info-box").fadeIn("medium");
+		        jQuery(this).parent().addClass("note-hover");
 			}, function() {
-				jQuery(this).parent().find(".popup-info-box").fadeOut("medium");
+		        jQuery(this).parent().removeClass("note-hover");
+		        var parent = jQuery(this).parent();
+	            setTimeout(function() {
+	                if (! parent.hasClass("note-hover") && !parent.hasClass("popup-hover")) {
+	                    parent.find(".popup-info-box").fadeOut("medium");
+	                }
+	                }, 200);
 			});
-        
+			
+			jQuery(".popup-info-box").hover(function() {
+				jQuery(this).parent().find(".popup-info-box").fadeIn("medium");
+		        jQuery(this).parent().addClass("popup-hover");
+			}, function() {
+		        jQuery(this).parent().removeClass("popup-hover");
+		        var parent = jQuery(this).parent();
+	            setTimeout(function() {
+	                if (! parent.hasClass("note-hover") && !parent.hasClass("popup-hover")) {
+	                    parent.find(".popup-info-box").fadeOut("medium");
+	                }
+	                }, 200);
+			});
         
         
         /*

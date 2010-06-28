@@ -8,6 +8,7 @@ import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.UpdateType;
 //import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.PlanConstants.Attribute;
+import com.ext.portlet.plans.PlanConstants.Columns;
 import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanDescription;
@@ -85,9 +86,6 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         
         List<PlanItem> plans = null;
         if (planUserSettings == null || !planUserSettings.getFilterEnabled()) {
-            /*
-            plans = PlanItemLocalServiceUtil.get
-            */
             plans = planItemFinder.getPlans(planType.getPlanTypeId(), start, end, sortColumn, sortDirection);
             
         } else {
@@ -96,11 +94,12 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             } catch (Throwable e) {
                 throw new SystemException(e);
             }
-            /*
-            plans = PlanLocalServiceUtil.getFilteredPlans(planUserSettings, start, end, sortColumn, sortDirection);
-            */
         }
         return plans;
+    }
+    
+    public int getPlansCount(Map sessionMap, Map requestMap, PlanType planType) throws SystemException, PortalException  {
+        return  getPlans(sessionMap, requestMap, planType, 0, Integer.MAX_VALUE, Columns.NAME.name(), "ASC").size();
     }
     
     public void removePlanWithEntireHistory(Long planId) {

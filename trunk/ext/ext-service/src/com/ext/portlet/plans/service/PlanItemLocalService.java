@@ -93,6 +93,12 @@ public interface PlanItemLocalService {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public int getPlansCount(java.util.Map sessionMap,
+        java.util.Map requestMap, com.ext.portlet.plans.model.PlanType planType)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public void removePlanWithEntireHistory(java.lang.Long planId);
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
