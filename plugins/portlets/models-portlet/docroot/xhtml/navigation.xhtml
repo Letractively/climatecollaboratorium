@@ -39,6 +39,10 @@ function updateIfNew(debate, item) {
 
 function getFragments() {
     var fragment = window.location.hash;
+    // remove everything after question mark
+    if (fragment.indexOf("?") >= 0) {
+        fragment = fragment.substring(0, fragment.indexOf("?"));
+    }
     if (fragment.length == 0) return false;
     var result = new Object();
     var segments = fragment.substring(1).split(";");
