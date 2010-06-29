@@ -6,6 +6,7 @@
 
 package com.ext.portlet.plans.attributes;
 
+import com.ext.portlet.community.tags.ClimateUserTag;
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ModelingServiceClient;
 import com.ext.portlet.models.ModelingServiceClient.IndexedEntry;
@@ -27,6 +28,7 @@ import com.mchange.v2.codegen.bean.BeangenUtils;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.Variable;
 
 
 import java.io.IOException;
@@ -469,18 +471,38 @@ public class AttributeFunctionFactory {
             public Boolean process(String scenarioId) throws SystemException {
                 List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
                 data = getDataWithInternalName(scenarioId, variableId);
+                try {
+                    Scenario scenario = CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+                    ModelDisplay display = ModelUIFactory.getInstance().getDisplay(scenario);
+                    
+                    for (ModelOutputDisplayItem item: display.getOutputs()) {
+                        if (item instanceof ModelOutputIndexedDisplayItem) {
+                            ModelOutputIndexedDisplayItem indexedItem = (ModelOutputIndexedDisplayItem) item;
+                            for (ModelOutputSeriesDisplayItem seriesItem: indexedItem.getSeries()) {
+                                if (seriesItem.getMetaData().getInternalName().equals(variableId)) {
+                                    if (seriesItem.getInvalidError() != null) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (Variable var: scenario.getOutputSet()) {
+                        if (var.getMetaData().getInternalName().trim().equals(variableId)) {
+                            
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    throw new SystemException(e);
+                } catch (IOException e) {
+                    throw new SystemException(e);
+                }
                 
-                System.out.println("                >>>> Will be checking values from data list: " + data.size());
-                System.out.println("         " + data);
                 for (IndexedEntry<String, String> entry: data) {
-                    System.out.println("             >>>> Comparing: '" + entry.getIndex() + ": " + entry.getValue() + "' with: '@ERROR'");
                     if (entry.getValue().trim().startsWith("@ERROR")) {
-                        System.out.println("Returning true, there is an error");
                         return true;
                     }
                 }
-
-                System.out.println("There is no error!");
                 return false;
             }
             
