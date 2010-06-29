@@ -473,12 +473,14 @@ public class AttributeFunctionFactory {
                 System.out.println("                >>>> Will be checking values from data list: " + data.size());
                 System.out.println("         " + data);
                 for (IndexedEntry<String, String> entry: data) {
-                    System.out.println("             >>>> Comparing: '" + entry.getValue() + "' with: '@ERROR'");
+                    System.out.println("             >>>> Comparing: '" + entry.getIndex() + ": " + entry.getValue() + "' with: '@ERROR'");
                     if (entry.getValue().trim().startsWith("@ERROR")) {
                         System.out.println("Returning true, there is an error");
                         return true;
                     }
                 }
+
+                System.out.println("There is no error!");
                 return false;
             }
             
