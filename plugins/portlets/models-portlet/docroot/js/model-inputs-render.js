@@ -438,7 +438,7 @@ function renderModelOutputs() {
 	
 	
 	/* this is rather ugly hack, used because there is no good handling of output grouping */
-	jQuery(".physicalImpactsTab").remove();
+	//jQuery(".impactsContent").html("");
 	if (jQuery(".impactsContent .physicalImpact").length > 0) {
 		var physicalImpacts = [];
 		var tabs = "<div class='tabsContainer'><ul>";
