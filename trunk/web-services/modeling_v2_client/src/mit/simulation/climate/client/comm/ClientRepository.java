@@ -213,6 +213,29 @@ public class ClientRepository implements Deserializer {
         return result;
     }
 
+     public Scenario runModelWithInputNames(Simulation s, Map<String,Object> inputs, Long userid, boolean save) throws ModelNotFoundException, IOException, ScenarioNotFoundException, MetaDataNotFoundException {
+        Simulation existing = getSimulation(s.getId());
+        Scenario result = null;
+        if (existing == null) {
+            throw new ModelNotFoundException("Simulation with id "+s.getId()+" could not be found");
+        }
+
+        Map<String,Long> inputX = new HashMap<String,Long>();
+        for (MetaData m:s.getInputs()) {
+          inputX.put(m.getInternalName(),m.getId());
+        }
+
+         Map<Long,Object> ninputs = new HashMap<Long,Object>();
+         for (Map.Entry<String,Object> ent:inputs.entrySet()) {
+             Long id = inputX.get(ent.getKey());
+             if (id == null) throw new MetaDataNotFoundException("Metadata with internalname "+ent.getKey()+" not found on simulation "+s.getName());
+             ninputs.put(id,ent.getValue());
+         }
+
+         return runModel(s,ninputs,userid,save);
+     }
+
+    
     public Scenario getScenario(Long id) throws IOException {
         ResponseWrapper wrapper = connector.get(ModelAccessPoint.GET_SCENARIO,null,String.valueOf(id));
         if (wrapper.scenarios.size() > 0) {

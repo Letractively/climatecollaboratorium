@@ -176,6 +176,21 @@ public class ClientScenario implements Scenario {
         return (Scenario.class.hashCode() * getId().hashCode())%13;
     }
 
+    public Variable getVariableForInternalname(String internalname) {
+        if (internalname==null) return null;
+        for (Variable input:getInputSet()) {
+            if (internalname.equals(input.getMetaData().getInternalName())) {
+                return input;
+            }
+        }
+        for (Variable output:getOutputSet()) {
+            if (internalname.equals(output.getMetaData().getInternalName())) {
+                return output;
+            }
+        }
+        return null;
+    }
+
     
 
 

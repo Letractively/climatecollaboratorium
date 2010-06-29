@@ -2,6 +2,7 @@ package mit.simulation.climate.client.model.impl;
 
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Tuple;
+import mit.simulation.climate.client.TupleStatus;
 import mit.simulation.climate.client.Variable;
 import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
 import mit.simulation.climate.client.model.jaxb.ClientTupleListAdapter;
@@ -100,6 +101,13 @@ public class ClientVariable implements Variable {
 
     public int hashCode() {
         return (Variable.class.hashCode() * getId().hashCode())%13;
+    }
+
+    public boolean hasError(TupleStatus status) {
+        for (Tuple t:getValue()) {
+            if (t.getAllStatuses().contains(status)) return true;
+        }
+        return false;
     }
 
 
