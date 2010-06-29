@@ -49,7 +49,7 @@ public class ClientTupleListAdapter {
         Matcher m = p.matcher(stripped);
         List<Tuple> result = new ArrayList<Tuple>();
         while (m.find()) {
-            String[] splited = m.group(1).split(",");
+            String[] splited = m.group(1).contains(",")?m.group(1).split(","):new String[]{m.group(1)};
             ClientTuple tuple = new ClientTuple();
             for (int i = 0; i < splited.length; i++) {
                 TupleStatus status = TupleStatus.lookup(splited[i]);
