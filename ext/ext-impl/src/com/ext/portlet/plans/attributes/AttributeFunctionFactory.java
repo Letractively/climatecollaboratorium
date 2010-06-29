@@ -324,11 +324,17 @@ public class AttributeFunctionFactory {
             @Override 
             public T process(String scenarioId) throws SystemException {
                 T result = null;
+                int outputsWithoutErrors = 0;
                 for(String variableId: variableIds) {
                     if (! getHasErrorsFunction(variableId, Boolean.class).process(scenarioId)) {
                         T candidate = getLastValueFunction(variableId, resultType).process(scenarioId);
                         result = candidate != null && (result == null || result.doubleValue() < candidate.doubleValue()) ? candidate : result;
+                        outputsWithoutErrors++;
                     }
+                }
+                if (outputsWithoutErrors == 1) {
+                    // value will be shown as a min, it doesn't need to be shown as a max value
+                    return null;
                 }
                 return result;
             }
