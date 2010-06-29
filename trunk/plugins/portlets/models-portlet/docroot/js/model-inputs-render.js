@@ -429,7 +429,7 @@ function renderModelOutputs() {
 			}
 			height +=  errorMessagesPlaceholder.height();
 			
-			jQuery("#" + chartPlaceholderId).parent().height(height + 40);
+			jQuery("#" + chartPlaceholderId).parent().height(height + 60);
 
 		} catch (e) {
 			log.error(e);
