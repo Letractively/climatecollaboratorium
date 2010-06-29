@@ -84,6 +84,51 @@ public interface PlanValueFactory {
 		
 	}
 	
+	public static class MinMaxAttributeGetter implements PlanValueFactory {
+        
+        Attribute att1, att2;
+        String format;
+        
+        public MinMaxAttributeGetter(String format, Attribute att1, Attribute att2) {
+            this.format = format;
+            this.att1 = att1;
+            this.att2 = att2;
+        }
+        
+        public String getValue(Plan plan) throws SystemException {
+            String[] params = new String[2];
+            Object val1 = att1.getValue(plan);
+            Object val2 = att2.getValue(plan);
+            if (val1 != null && val2 != null && val1.getClass() == Double.class && val2.getClass() == Double.class) {
+                if ((Double) val1 > (Double) val2) {
+                    Attribute tmp = att1;
+                    att1 = att2;
+                    att2 = tmp;
+                }
+            }
+            params[0]=att1.format(plan);
+            params[1]=att2.format(plan);
+            return String.format(format,(Object[])params);
+        }
+
+        @Override
+        public String getValue(PlanItem plan) throws SystemException, PortalException {
+            String[] params = new String[2];
+            Object val1 = att1.getValue(plan);
+            Object val2 = att2.getValue(plan);
+            if (val1 != null && val2 != null && val1.getClass() == Double.class && val2.getClass() == Double.class) {
+                if ((Double) val1 > (Double) val2) {
+                    Attribute tmp = att1;
+                    att1 = att2;
+                    att2 = tmp;
+                }
+            }
+            params[0]=att1.format(plan);
+            params[1]=att2.format(plan);
+            return String.format(format,(Object[])params);
+        }
+    }
+	
 	public static class EmptyFactory implements PlanValueFactory {
 
 		public String getValue(Plan plan) throws SystemException {

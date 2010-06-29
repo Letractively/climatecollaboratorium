@@ -168,15 +168,23 @@ var ModelUtils = new function() {
 	            mitigation.push(scenario.variableForName("_Change_in_GDP_vs__baseline_minicam_output"));
 	            var min = NaN;
 	            var max = NaN;
+	            var resultsWithoutErrors = 0;
 	        	jQuery.each(mitigation,function(i,data) {
 	        		 // check if there is an error
 	        		for (var i = 0; i < data.values.length; i++) {
 	        			if (data.values[i][1] == "@ERROR") {
 	        				// error detected, return
 	        				return;
+	        				
 	        			}
 	        		}
-	        	    var val = data.values[data.values.length-1][1];
+	        	    var val = parseFloat(data.values[data.values.length-1][1]);
+	        	    if (isNaN(val)) {
+	        	    	// try with previous value
+		        	    val = parseFloat(data.values[data.values.length-2][1]);
+	        	    }
+
+    				resultsWithoutErrors++;
 	        	    if (isNaN(min) || val < min) min = val;
 	        	    if (isNaN(max) || val > max) max = val;
 	        	});
@@ -186,7 +194,7 @@ var ModelUtils = new function() {
 	        		min = "N/A";
 	        	}
 	        	else {
-		        	if (max == min) {
+		        	if (resultsWithoutErrors == 1) {
 		        		max = "N/A";
 		        	}
 	        		min = min.toFixed(2);

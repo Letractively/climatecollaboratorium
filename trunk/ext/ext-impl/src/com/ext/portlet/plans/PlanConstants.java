@@ -13,6 +13,7 @@ import com.ext.portlet.plans.PlanFilterFactory.MinMaxFilter;
 import com.ext.portlet.plans.PlanFilterFactory.MoreThanFilter;
 import com.ext.portlet.plans.PlanValueFactory.AttributeGetter;
 import com.ext.portlet.plans.PlanValueFactory.EmptyFactory;
+import com.ext.portlet.plans.PlanValueFactory.MinMaxAttributeGetter;
 import com.ext.portlet.plans.PlanValueFactory.PojoGetter;
 import com.ext.portlet.plans.attributes.AttributeFunction;
 import com.ext.portlet.plans.attributes.AttributeFunctionFactory;
@@ -326,7 +327,7 @@ public class PlanConstants {
 		DAMAGE_COST("Damage cost<br/>(%GDP in 2100)","Cost of damages caused by climate change (e.g., damages from rising sea level, hurricanes, " +
 				"droughts, etc.). Costs are shown as a % of World GDP (Gross Domestic Product). Values shown are estimates of the " +
 				"90% confidence interval for these costs. That is, the models predict there is only a 5% chance that the costs would be l" +
-				"ess than the lower number and a 5% chance that the costs would be greater than the higher number.","ShowDamageCost",true, new AttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST,Attribute.MAX_DAMAGE_COST));
+				"ess than the lower number and a 5% chance that the costs would be greater than the higher number.","ShowDamageCost",true, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST,Attribute.MAX_DAMAGE_COST));
 		
 		private String name;
 		private String description;
