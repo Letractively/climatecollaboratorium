@@ -30,7 +30,12 @@ public interface MetaData extends HasId {
         /**
          * Indicates that the variable is a standalone value
          */
-        SCALAR
+        SCALAR,
+
+        /**
+         * Indicates that this variable is a list
+         */
+        LIST
     }
 
     /**

@@ -29,7 +29,11 @@ public class ServerVariable extends ServerObject<VariableDAO> implements
     @Override
     public void addValue(Tuple t) {
         TupleDAO tdao = ((ServerTuple)t).getDataObject();
+
+
         tdao.setSeq(dao.getVariableToTuples().size());
+
+        //@TODO only do this for input variables
         checkBounds(t);
         dao.addToVariableToTuples(tdao);
     }

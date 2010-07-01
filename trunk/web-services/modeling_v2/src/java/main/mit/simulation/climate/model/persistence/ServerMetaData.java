@@ -225,15 +225,16 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
         return VarContext.INDEX.equals(getVarContext());
     }
 
-    @Override
+
+
+
     public boolean isInRange(String[] values) {
-        if (values.length > 1) {
-            throw new SimulationException("Cannot handle bounds checking for tuple arrays of more than one element");
-        }
+
         Class cls = getProfile()[0];
 
+        for (String val:values) {
         if (cls.equals(Double.class) || cls.equals(Float.class)) {
-            Double dval = MetaData.Utils.convertToValue(Double.class, values[0]);
+            Double dval = MetaData.Utils.convertToValue(Double.class,val);
             if (getMin() != null && ! isEmpty(getMin()[0])) {
                 Double dmin = MetaData.Utils.convertToValue(Double.class, getMin()[0]);
                 if (dval < dmin) {
@@ -248,7 +249,7 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
             }
 
         } else if (cls.equals(Integer.class)) {
-            Integer ival = MetaData.Utils.convertToValue(Integer.class, values[0]);
+            Integer ival = MetaData.Utils.convertToValue(Integer.class, val);
             if (getMin() != null && ! isEmpty(getMin()[0])) {
                 Integer imin = MetaData.Utils.convertToValue(Integer.class, getMin()[0]);
                 if (ival < imin) {
@@ -263,6 +264,7 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
             }
 
 
+        }
         }
 
         return true;
