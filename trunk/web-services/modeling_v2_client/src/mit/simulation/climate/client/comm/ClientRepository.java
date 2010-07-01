@@ -12,10 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Proxy;
 import java.net.InetAddress;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author: jintrone
@@ -23,16 +20,33 @@ import java.util.Set;
  */
 public class ClientRepository implements Deserializer {
 
+    public static String CACHE_PROPERTY = "mit.simulation.climate.client.cachesize";
 
     private static ClientRepository instance;
     private JAXBContext context;
     private Unmarshaller um;
     private Connector<ResponseWrapper> connector;
+    private int DEFAULT_SCENARIO_CACHE_SIZE = 100;
 
+    //package scoped for testing
+    int currentScenarioCacheSize;
+    LinkedHashMap<Long, Scenario> scenarioCache;
     private static Logger log = Logger.getLogger(ClientRepository.class);
 
 
     private ClientRepository() {
+        String cachesize = System.getProperty("mit.simulation.climate.client.cachesize");
+        currentScenarioCacheSize = cachesize==null?DEFAULT_SCENARIO_CACHE_SIZE:Integer.parseInt(cachesize);
+
+        //LRU cache
+        scenarioCache = new LinkedHashMap<Long,Scenario>(currentScenarioCacheSize+5,.15f,true) {
+
+            @Override
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                return (scenarioCache.size() > currentScenarioCacheSize);
+            }
+        };
+
         try {
             context = JAXBContext.newInstance(ResponseWrapper.class);
             um= context.createUnmarshaller();
@@ -56,15 +70,16 @@ public class ClientRepository implements Deserializer {
         return instance;
     }
 
-    private Map<String,HasId> cache = new HashMap<String,HasId>();
+    private Map<String,HasId> simulationCache = new HashMap<String,HasId>();
+
 
 
     private <T> T cacheLookup(ClientJaxbReference ref, Class<T> clz) {
-        return (T) cache.get(type(ref).getName()+ref.id);
+        return (T) simulationCache.get(type(ref).getName()+ref.id);
     }
 
     private <T> T cacheLookup(Long id, Class<T> clz) {
-        return (T) cache.get(clz.getName()+id);
+        return (T) simulationCache.get(clz.getName()+id);
     }
 
 
@@ -87,6 +102,8 @@ public class ClientRepository implements Deserializer {
         }
         return result;
     }
+
+
     
 
     public static Class type(ClientJaxbReference ref) {
@@ -118,7 +135,7 @@ public class ClientRepository implements Deserializer {
             type = Variable.class;
         } else throw new RuntimeException("Cannot register object "+object);
 
-        cache.put(type.getName()+object.getId(),object);
+        simulationCache.put(type.getName()+object.getId(),object);
     }
 
 
@@ -146,7 +163,7 @@ public class ClientRepository implements Deserializer {
     public Set<Simulation> getAllSimulations() {
 
         Set<Simulation> result = new HashSet<Simulation>();
-        for (HasId elt:cache.values()) {
+        for (HasId elt: simulationCache.values()) {
            if (elt instanceof Simulation) result.add((Simulation) elt);
         }
         return result;
@@ -210,6 +227,7 @@ public class ClientRepository implements Deserializer {
         if (result!=null && save) {
             saveScenario(result);
         }
+        scenarioCache.put(result.getId(),result);
         return result;
     }
 
@@ -237,9 +255,15 @@ public class ClientRepository implements Deserializer {
 
     
     public Scenario getScenario(Long id) throws IOException {
+        Scenario result = scenarioCache.get(id);
+        if (result !=null) {
+            return result;
+        }
         ResponseWrapper wrapper = connector.get(ModelAccessPoint.GET_SCENARIO,null,String.valueOf(id));
         if (wrapper.scenarios.size() > 0) {
-            return wrapper.scenarios.get(0);
+             result = wrapper.scenarios.get(0);
+             scenarioCache.put(result.getId(),result);
+            return result;
         } else {
             return null;
         }
