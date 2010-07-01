@@ -189,12 +189,10 @@ public class ExcelModelParser {
 
         int colCounter = 0;
         int countOutputValues = 0;
-        int countInputValues = 1;
-        if (isInput && parserFormat==ExcelConstants.Format.TWO_SHEET) {
-            countInputValues = countValues(isInput);
-        }
+
+
         if (!isInput) {
-            countOutputValues = countValues(isInput);
+            countOutputValues = countValues(isInput, 0);
         }
 
         // scan parameter from left to right
@@ -241,7 +239,8 @@ public class ExcelModelParser {
                 InputParam input = dao.newInputParam();
                 input.setColNum(colCounter);
                 input.setRowNum(parserFormat.getValueRow(isInput));
-                input.setNumRows(countInputValues);
+                int numRows = parserFormat==ExcelConstants.Format.TWO_SHEET?countValues(true, colCounter):1;
+                input.setNumRows(numRows);
                 input.setInternalName(internalName);
                 input.setDataType(dataType);
                 excelModel.addToInputParams(input);
@@ -318,10 +317,10 @@ public class ExcelModelParser {
      *
      * @return the number of output values
      */
-    private int countValues(boolean isInput) {
+    private int countValues(boolean isInput, int colNum) {
         int count = 0;
         while (true) {
-            if (isCellBlank(parserFormat.getValueRow(isInput) + count, 0)) {
+            if (isCellBlank(parserFormat.getValueRow(isInput) + count, colNum)) {
                 break;
             }
             ++count;

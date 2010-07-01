@@ -105,7 +105,7 @@ public class ExcelModelRunner {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Runs the model with if of " + model.getId());
         }
-        ExcelConstants.Format format = ExcelConstants.Format.valueOf(model.getFormat());
+        ExcelConstants.Format format = model.getFormat()==null?ExcelConstants.Format.SINGLE_SHEET:ExcelConstants.Format.valueOf(model.getFormat());
         currentWorksheet = workbook.getSheetAt(format.getWorksheetIndex(model.getWorksheet(),true));
 
         Map<String, List<String>> inputValues = validateAndGetInputValues();
@@ -192,7 +192,11 @@ public class ExcelModelRunner {
         for (Row r : currentWorksheet) {
             for (Cell c : r) {
                 if (c.getCellType() == Cell.CELL_TYPE_FORMULA) {
+                    try {
                     evaluator.evaluateFormulaCell(c);
+                    } catch (Throwable t) {
+                        t.printStackTrace();
+                    }
                    
                 }
             }
@@ -224,7 +228,8 @@ public class ExcelModelRunner {
                 throw new ExcelWrapperException("unrecognzied form field of " + fieldName);
             }
 
-            if (inputParam.getNumRows()>1) {
+            int numrows = inputParam.getNumRows()==null?1:inputParam.getNumRows();
+            if (numrows>1) {
                 values = Utils.parseList(fieldName,fieldValue,inputParam.getDataTypeEnum());
             } else {
                 Utils.checkInputParamValue(fieldName, fieldValue, inputParam.getDataTypeEnum());
@@ -266,8 +271,10 @@ public class ExcelModelRunner {
         if (paramValues.size() != inputParam.getNumRows()) {
             LOGGER.warn("Number of inputs provided != number of inputs expected!");
         }
+        int offset = inputParam.getRowNum();
+
         for (int i = 0;i<inputParam.getNumRows() && i<paramValues.size();i++) {
-            Cell cell = currentWorksheet.getRow(i).getCell(inputParam.getColNum());
+            Cell cell = currentWorksheet.getRow(i+offset).getCell(inputParam.getColNum());
         
         if (inputParam.getDataTypeEnum() != DataType.TEXT) {
             cell.setCellValue(Double.parseDouble(paramValues.get(i)));
