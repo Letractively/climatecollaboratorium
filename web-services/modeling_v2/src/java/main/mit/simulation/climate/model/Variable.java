@@ -16,4 +16,6 @@ public interface Variable extends HasId {
 
     public List<Tuple> getValue();
     public void addValue(Tuple t);
+
+    
 }

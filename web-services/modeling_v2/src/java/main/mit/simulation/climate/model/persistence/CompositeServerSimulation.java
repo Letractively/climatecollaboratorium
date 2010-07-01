@@ -384,6 +384,9 @@ public class CompositeServerSimulation extends ServerSimulation implements
                     if (intervalnode != null) {
                         interval = Double.parseDouble(intervalnode.getNodeValue());
                     }
+                } else if (attr.getNodeValue().equals("toOne")) {
+                    type = LinkType.TO_ONE;
+
                 }
             } else {
                 type = LinkType.MAX;

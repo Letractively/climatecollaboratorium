@@ -3,9 +3,16 @@
  */
 package mit.simulation.climate;
 
+import mit.simulation.climate.model.Tuple;
 import org.apache.commons.lang.StringUtils;
 
 import mit.simulation.climate.model.EntityState;
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -24,6 +31,10 @@ public final class Utils {
      * Private ctor.
      * </p>
      */
+    private static Logger log = Logger.getLogger(Utils.class);
+
+
+
     private Utils() {
         // do nothing
     }
@@ -63,5 +74,28 @@ public final class Utils {
             // ignore and we will use PUBLIC value
             return EntityState.PUBLIC;
         }
+    }
+
+    public static String extractTupleListString(List<Tuple> vals, int idx) {
+        StringBuffer buffer = new StringBuffer();
+        for (Tuple t:vals) {
+            if (t.getValues()[idx]==null) {
+                log.info("Encountered a null tuple value, skipping");
+                continue;
+            }
+           buffer.append("[").append(t.getValues()[idx]).append("]");
+        }
+        return buffer.toString();
+
+    }
+
+    public static String[] parseBracketedString(String s) {
+        Pattern p = Pattern.compile("\\[([^\\[^\\]]+)\\]");
+        Matcher m = p.matcher(s);
+        List<String> result = new ArrayList<String>();
+        while (m.find()) {
+            result.add(m.group(1));
+        }
+        return (String[]) result.toArray(new String[0]);
     }
 }

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import mit.simulation.climate.Utils;
 import mit.simulation.climate.model.persistence.ServerRepository;
 import mit.simulation.climate.model.persistence.ServerTuple;
 import mit.simulation.climate.model.persistence.ServerVariable;
@@ -99,7 +100,7 @@ public class SimulationStepper {
         private boolean accumulate = false;
 
         /**
-         * Used to remap output MetaData from {@link MetaData.VarContext.SCALAR} to
+         * Used to remap output MetaData from {@link mit.simulation.climate.model.MetaData.VarContext.SCALAR} to
          * {@link MetaData.VarContext.INDEXED}. This may be necessary if this simulation produces a single (scalar)
          * value, but is linked (via a {@link Link}) to a variable which is a vector. In this case, there will be a
          * range of output values, and in order for the client to handle these properly, they must be marked as
@@ -162,6 +163,24 @@ public class SimulationStepper {
                     // accumulate links which require iteration, process these later
                     varlinks.add(l);
                     continue;
+                } else if (l.type == LinkType.TO_ONE) {
+                    Variable v = vars.get(l.output);
+
+                    //handle errors - this behavior should be configurable
+                    boolean err = false;
+                    for (Tuple t:v.getValue()) {
+                        if (t.getStatus()==TupleStatus.INVALID) {
+                            err = true;
+                            break;
+                        }
+                    }
+                    if (err) {
+                        inputs.put(l.getInput(),"[#N/A]");
+                    } else {
+                        inputs.put(l.getInput(), Utils.extractTupleListString(v.getValue(),0));
+
+                    }
+
                 } else {
                     // single value mapping, so just pick the last one and use it
                     Variable v = vars.get(l.output);
@@ -410,7 +429,12 @@ public class SimulationStepper {
         /**
          * Map only the last value in the source to the specified input variable in the target
          */
-        MAX
+        MAX,
+        /**
+         * Map all of the values in the source to the specified input variable in the target
+         *
+         */
+        TO_ONE
     }
 
 }
