@@ -1,6 +1,6 @@
 package mit.simulation.climate.client;
 
-import mit.simulation.climate.model.client.ClientTupleListAdapter;
+import mit.simulation.climate.client.model.jaxb.ClientTupleListAdapter;
 import org.junit.Assert;
 import org.junit.Test;
 
