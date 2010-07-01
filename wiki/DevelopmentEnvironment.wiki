@@ -4,7 +4,7 @@ The Climate Collaboratorium is based upon v.5.2.3 of the [http://liferay.com Lif
 
 ===Environment===
 
-We have not yet built any re-distributable wars for the main sources of the collaboratorium, so it will be necessary to deploy your own from the "ext" environment.  Instructions on setting up the ext environment may be found in the Liferay developer docs.
+We have not yet built any re-distributable wars for the main sources of the collaboratorium, so it will be necessary to deploy your own from the "ext" environment.  Instructions on setting up the ext environment may be found in the Liferay developer docs. _Note:  The Collaboratorium has been built and tested against Sun's JVM 1.6.  [http://groups.google.com/group/climate-collaboratorium-developers/browse_thread/thread/b4b2592491798a3c Anecdotal reports] are that the Blackdown JDK (default on Debian) will not work._
 
   # Install MySQL 5.1.
   # Install the Liferay Tomcat bundle [http://sourceforge.net/projects/lportal/files/Liferay%20Portal/liferay-portal-tomcat-6.0-5.2.3.zip download]
