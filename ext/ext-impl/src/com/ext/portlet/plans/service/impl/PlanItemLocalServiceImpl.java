@@ -88,7 +88,12 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         
         */
         
-        List<PlanItem> plans = new ArrayList(planItemFinder.getPlans());
+        List<PlanItem> plans = new ArrayList<PlanItem>();
+        for (PlanItem planItem: planItemFinder.getPlans()) {
+            if (planItem.getPlanTypeId().equals(planType.getPlanTypeId())) {
+                plans.add(planItem);
+            }
+        }
         final int directionModifier = sortDirection.equals("DESC") ? -1 : 1;
         Collections.sort(plans, new Comparator<PlanItem>() {
 

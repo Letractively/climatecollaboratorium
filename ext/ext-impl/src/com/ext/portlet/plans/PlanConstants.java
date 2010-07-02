@@ -102,7 +102,7 @@ public class PlanConstants {
             }
 		    
 		}),
-        VOTES(Double.class, "%d", attributeFunctionFactory.getPlanPropertyFunction("votes"), true, PlanFilterOperatorType.MIN_MAX,  null),
+        VOTES(Double.class, "%.0f", attributeFunctionFactory.getPlanPropertyFunction("votes"), true, PlanFilterOperatorType.MIN_MAX,  null),
         CREATE_DATE(Date.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("createDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null), 
         PUBLISH_DATE(Date.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("publishDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null),
         CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, PlanFilterOperatorType.LIKE, null),
