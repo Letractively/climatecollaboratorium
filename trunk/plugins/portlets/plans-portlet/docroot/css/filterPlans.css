@@ -1,0 +1,133 @@
+.filterPlans {
+    width: 563px;
+    height:489px;
+}
+
+.filterPlans_top {
+    background:url("/collaboratorium-theme/images/planFilter_top.png") no-repeat scroll 0 0 transparent;
+    height:49px;
+    width:100%;
+}
+
+
+
+.filterPlans_top .title {
+    background:url("/collaboratorium-theme/images/pop_line.gif") repeat-x scroll center bottom transparent;
+    height:49px;
+    margin:0 21px;
+    width:auto;
+}
+
+.filterPlans_top .title {
+    background:url("/collaboratorium-theme/images/pop_line.gif") repeat-x scroll center bottom transparent;
+    height:49px;
+    margin:0 21px;
+    width:auto;
+}
+
+.filterPlans_content {
+    background:url("/collaboratorium-theme/images/planFilter_bg.png") no-repeat scroll 0 0 transparent;
+    height:379px;
+    width:100%;
+    padding-left: 10px;
+}
+
+.filterPlans_content .mainTable {
+	width: 530px;
+}
+
+.filterPlans_content .mainTable td.widgets,
+.filterPlans_content .mainTable td.positionsSelect {
+    width: 50%;
+    padding-left: 10px;
+}
+
+.filterPlans_content .widgets_row td {
+    overflow:hidden;
+    padding-bottom:5px;
+    padding-top:6px;
+}
+
+.filterPlans_content .label {
+    color:#333333;
+    display:inline;
+    font-family:"Times New Roman",Times,serif;
+    font-size:14px;
+    font-weight:bold;
+    padding-right:8px;
+    text-align:right;
+    vertical-align: middle;
+}
+
+.filterPlans_content .widgets_row input {
+    background:url("/collaboratorium-theme/images/inputBg.gif") repeat-x scroll 0 0 transparent;
+    border:1px solid #05828E;
+    display:inline;
+    float:left;
+    height:16px;
+    padding:1px;
+    width:144px;
+}
+
+.filterPlans_content .widgets_row .inputFrom, 
+.filterPlans_content .widgets_row .inputTo {
+    background:url("/collaboratorium-theme/images/inputBg.gif") repeat-x scroll 0 0 transparent;
+    border:1px solid #05828E;
+    display:inline;
+    float:left;
+    height:16px;
+    padding:1px;
+    width:144px;
+    margin-bottom:8px;
+    text-align:center;
+    width:63px;
+    font: 0.9em Arial,Helvetica,Verdana,sans-serif;
+}
+.filterPlans_content .widgets_row .inputTo {
+    margin-left: 13px;
+}
+
+.filterPlans .positionsSelect {
+	text-align: left;
+	vertical-align: top;
+}
+
+.filterPlans .positionsSelectWidget {
+	background: white;
+	overflow: auto;
+	height: 300px;
+	width: 100%;
+	margin-top: 5px;
+}
+
+.positionsFilterOperator {
+    text-align: center;
+    font-size: 1.2em;
+    padding-top: 10px;
+    
+}
+
+.positionsFilterOperator input {
+    margin-left: 20px;
+}
+
+.filterPlans_bottom {
+    background:url("/collaboratorium-theme/images/planFilter_bottom.png") no-repeat scroll 0 0 transparent;
+    height:49px;
+    width:100%;
+    text-align: center;
+}
+.filterPlans_bottom .actions {
+    padding-left: 250px;
+}
+	
+
+.filterPlans_bottom a {
+    margin-right: 20px;
+}
+.filterPlans_bottom .line {
+    background:url("/collaboratorium-theme/images/pop_line.gif") repeat-x scroll center bottom transparent;
+    height: 3px;
+    width:auto;
+    margin: 0 21px;
+}
