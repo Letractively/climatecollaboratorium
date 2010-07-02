@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+    <div class="plan-question">
+        <h2>
+            <a href="/web/guest/resources/-/wiki/Main/Background+on+Copenhagen">
+                What plan should be adopted at the UN climate talks?
+            </a>
+        </h2>
+    </div>
+    <div class="page-context-help-container">
+        <a href="/web/guest/resources/-/wiki/Main/Plans">What are plans?</a>
+    </div>
+    
+    <ice:form>
+        <ui:include src="./configureColumns.xhtml" >
+            <ui:param value="#{plansIndexBean.columnsConfiguration}" name="columnsConfiguration" />
+        </ui:include>
+        <ui:include src="./filterPlans.xhtml" >
+             <ui:param value="#{plansIndexBean.filterPlansBean}" name="filterPlans" /> 
+        </ui:include>
+         <div class="tab">
+            <div class="tabs floatRight">
+                <a class="finalizedHover"><span class="hidden">Finalized Plans (For Voting)</span></a>
+                <a class="development"><span class="hidden">Plans Under Development1</span></a>
+            </div>
+            <div class="planactions floatLeft">
+                <a class="createNewPlan"><span class="hidden">Create a New Plan</span></a>
+                <a class="findMyVoteBtn"><span class="hidden">Find my Vote</span></a>
+            </div>
+         </div>
+         
+         <div class="clear"></div>
+         <div class="tabContent_bottom">
+            <div class="topBtn">
+                <h3 class="floatRight">XX finalized plans, YY total votes</h3>
+                <div class="floatLeft linkbox">
+                    <a class="configuration black" href="javascript:;" onclick="showConfigureColumnsDialog()">Select Columns</a>
+                    <span>|</span>
+                    <a class="preferences black" onclick="showFilterPlansDialog()">Filter Plans</a>
+                    <span>|</span>
+                    <span class="enable-filters">
+                        <input type="checkbox" /> Enable filter
+                    </span>
+                </div>
+            </div>
+            <div class="clear"></div>
+                <ice:dataTable value="#{plansIndexBean.plans}" styleClass="plansTable" rowClasses="odd,even" var="singlePlan" sortColumn="#{plansIndexBean.sortColumn}"
+                    sortAscending="#{plansIndexBean.sortAscending}" id="plansIndex" rows="10">
+                    <ice:columns value="#{plansIndexBean.columns}" var="column">
+                            <f:facet name="header">
+                                <div>
+                                <ice:commandSortHeader columnName="#{column}">
+                                         <ice:outputText value="#{column.name}" escape="false"/>
+                                </ice:commandSortHeader>
+                                </div>
+                            </f:facet>
+                            <ice:outputLink value="?p_p_id=#{navigation.portletId}&amp;planId=#{singlePlan.planId}" rendered="#{column == 'NAME'}">
+                                <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
+                            </ice:outputLink>
+                            
+                            <ice:outputText value="#{singlePlan.columnValues[column]}" rendered="#{column != 'NAME'}" escape="false"/>
+                    </ice:columns>
+                </ice:dataTable>
+                
+        <div class="pageBottom">
+        
+            <div class="pageNum">
+                
+                
+          <ice:dataPaginator id="dataScroll_2" for="plansIndex" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="paginatorInfo">
+                <ice:outputFormat value="Displaying &lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt; Plans" styleClass="paginatorInfo" escape="false">
+                    <f:param value="#{firstRowIndex}" />
+                    <f:param value="#{lastRowIndex}" />
+                    <f:param value="#{rowsCount}" />
+                </ice:outputFormat>
+            </ice:dataPaginator> 
+            
+            <ice:dataPaginator id="dataScroll_1" rendered="true" for="plansIndex" paginator="true" paginatorMaxPages="1" styleClass="paginator"> 
+                <f:facet name="first" rendered="true">
+                    <ice:panelGroup>
+                        <ice:outputText value="First Page" styleClass="first" />
+                    </ice:panelGroup>
+                </f:facet>
+                <f:facet name="last" rendered="true">
+                    <ice:panelGroup>
+                        <ice:outputText value="Last Page" styleClass="last" />
+                    </ice:panelGroup>
+                </f:facet>
+                <f:facet name="previous" rendered="true">
+                    <ice:panelGroup> 
+                        <ice:outputText value="Previous" styleClass="prev"/>
+                    </ice:panelGroup>
+                </f:facet>
+                <f:facet name="next">
+                    <ice:panelGroup>
+                        <ice:outputText value="Next" styleClass="next"/>
+                    </ice:panelGroup>
+                </f:facet>
+            </ice:dataPaginator>
+                <div class="clear"></div>
+        </div>
+                <div class="clear"></div>
+        </div> 
+        
+        
+                <div class="clear"></div>       
+                </div>
+        
+        
+        
+        
+    </ice:form>
+
+
+
+</f:view>

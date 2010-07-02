@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+<div id="filterPlans" class="filterPlans">
+    <div class="filterPlans_top">
+        <div class="title">
+            <!-- <h4>Filter plans</h4>-->
+        </div>
+    </div>
+    <div class="filterPlans_content">
+    <table class="mainTable">
+    <tr>
+        <td class="widgets">
+    <table>
+        <tr class="widgets_row">
+            <td class="label">Name:</td>
+            <td><ice:inputText value="#{filterPlans.name}" />
+                <div class="clear"></div>
+            </td>
+        </tr>
+        <tr class="widgets_row">    
+            <td class="label">Creator:</td>
+            <td><ice:inputText value="#{filterPlans.creator}" />
+                <div class="clear"></div>
+            </td>
+        </tr>
+        <tr class="widgets_row">    
+            <td class="label">Description:</td>
+            <td><ice:inputText value="#{filterPlans.description}" />
+                <div class="clear"></div>
+            </td>
+            
+        </tr>
+    
+        <tr class="widgets_row">    
+            <td class="label">Date:</td>
+        
+            <td class="inputWithSlider">
+                <ice:inputText value="#{filterPlans.dateFrom}" styleClass="inputFrom">
+                    <f:convertDateTime  pattern="MM-dd-yyyy"/>
+                </ice:inputText>
+            
+             
+                <ice:inputText value="#{filterPlans.dateTo}" styleClass="inputTo">
+                    <f:convertDateTime pattern="MM-dd-yyyy"/>
+                </ice:inputText>
+                <div class="clear"></div>
+            
+             
+                <div class="slider"></div>
+                <div class="sliderDef">
+                    <input type="hidden" class="min" name="min" value="Jan 1, 2009" />
+                    <input type="hidden" class="max" name="max" value="Dec 31, 2010" />
+                    <!-- step is one day in milliseconds -->
+                    <input type="hidden" class="step" name="step" value="86400000" />
+                    <input type="hidden" class="type" name="type" value="Date" />
+                </div>
+            </td>
+        </tr>
+        <tr class="widgets_row">    
+        <td class="label">Votes:</td>
+            <td class="inputWithSlider">
+                <ice:inputText value="#{filterPlans.votesFrom}" styleClass="inputFrom" /> 
+                <ice:inputText value="#{filterPlans.votesTo}" styleClass="inputTo" />
+                <div class="clear"></div>
+            
+                <div class="slider"></div>
+            
+                <div class="sliderDef">
+                    <input type="hidden" class="min" name="min" value="-300" />
+                    <input type="hidden" class="max" name="max" value="200" />
+                    <input type="hidden" class="step" name="step" value="1" />
+                    <input type="hidden" class="type" name="type" value="Integer" />
+                </div>
+            </td>
+        </tr>
+        <tr class="widgets_row">    
+            <td class="label">Mitigation cost:</td>
+            <td class="inputWithSlider">
+                <ice:inputText value="#{filterPlans.mitigationCostFrom}" styleClass="inputFrom" />
+                <ice:inputText value="#{filterPlans.mitigationCostTo}" styleClass="inputTo" />
+                <div class="clear"></div>
+            
+                <div class="slider"></div>
+                <div class="sliderDef">
+                    <input type="hidden" class="min" name="min" value="-300" />
+                    <input type="hidden" class="max" name="max" value="200" />
+                    <input type="hidden" class="step" name="step" value="1" />
+                    <input type="hidden" class="type" name="type" value="Integer" />
+                </div>
+            </td>
+        </tr>
+    
+        <tr class="widgets_row">    
+            <td class="label">Damage cost:</td>
+            <td class="inputWithSlider">
+                <ice:inputText value="#{filterPlans.damageCostFrom}" styleClass="inputFrom" />
+                <ice:inputText value="#{filterPlans.damageCostTo}" styleClass="inputTo" />
+                <div class="clear"></div>
+            
+                <div class="slider"></div>
+                <div class="sliderDef">
+                    <input type="hidden" class="min" name="min" value="-200" />
+                    <input type="hidden" class="max" name="max" value="400" />
+                    <input type="hidden" class="step" name="step" value="1" />
+                    <input type="hidden" class="type" name="type" value="Integer" />
+                </div>
+            </td>
+        </tr>
+        <tr class="widgets_row">    
+            <td class="label">CO2:</td>
+            <td class="inputWithSlider">
+                <ice:inputText value="#{filterPlans.co2From}" styleClass="inputFrom" />
+                <ice:inputText value="#{filterPlans.co2To}" styleClass="inputTo" />
+                <div class="clear"></div>
+            
+                <div class="slider"></div>
+                <div class="sliderDef">
+                    <input type="hidden" class="min" name="min" value="-100" />
+                    <input type="hidden" class="max" name="max" value="2000" />
+                    <input type="hidden" class="step" name="step" value="1" />
+                    <input type="hidden" class="type" name="type" value="Integer" />
+                </div>
+            </td>
+        </tr>
+    </table>
+    </td>
+    <td class="positionsSelect">
+        <div class="label">Positions:</div>
+        <div class="positionsSelectWidget">
+        </div>
+        <div class="positionsFilterOperator">
+            <input type='radio' name='positionsOperator' value="any" />Any
+            <input type='radio' name='positionsOperator' value="all" />All
+        </div>
+    
+    
+    </td>
+    </tr>
+    </table>
+    
+    <script language="javascript">
+    jQuery(document).ready(function() {
+        initFiltersWidget();
+    });
+    </script>
+    </div>
+    <div class="filterPlans_bottom">
+        <div class="line"></div>
+        <div class="actions">
+            <a class="checkBtn"></a>
+            <a class="cancelBtn"></a>
+        <div class="clear"></div>
+        </div>
+    </div>
+        <ice:selectBooleanCheckbox value="#{filterPlans.enabled}" />
+        <ice:commandButton value="Update" actionListener="#{filterPlans.update}" />
+</div>
+<div id="filterPlansDialog" style="display: none"></div>
+</f:view>
