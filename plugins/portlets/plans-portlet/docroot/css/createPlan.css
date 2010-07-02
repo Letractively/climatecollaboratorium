@@ -1,0 +1,33 @@
+.createPlan {
+	background: url("/collaboratorium-theme/images/add_plan_dialog.png") no-repeat scroll 0 0 transparent;
+	width: 300px;
+	height: 152px;
+}
+
+.createPlan_top {
+    padding-left: 18px;
+    padding-top: 10px;
+    color:#333333;
+}
+
+.createPlan_top h4 {
+	font-size:1.1em;
+}
+
+.createPlan_content {
+	padding-left: 18px;
+	padding-top: 10px;
+	padding-right: 10px;
+}
+.createPlan_content .note {
+    font-style: italic;
+    padding-top: 10px;
+}
+
+.createPlan_bottom {
+	padding-left: 100px;
+	padding-top: 23px;
+}
+.createPlan_bottom a {
+    margin-right: 20px;
+}

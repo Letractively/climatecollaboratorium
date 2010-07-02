@@ -155,6 +155,16 @@
     width:100%;
 }
 
+
+.tabs .finalized {
+    background:url("/collaboratorium-theme/images/plan_finalized.gif") no-repeat scroll 0 0 transparent;
+    display:inline;
+    float:left;
+    height:60px;
+    margin-right:2px;
+    width:301px;
+}
+
 .tabs .finalizedHover {
     background:url("/collaboratorium-theme/images/plan_finalized_hover.gif") no-repeat scroll 0 0 transparent;
     display:inline;
@@ -173,6 +183,14 @@
     width:259px;
 }
 
+.tabs .developmentHover {
+    background:url("/collaboratorium-theme/images/plan_development_hover.gif") no-repeat scroll 0 0 transparent;
+    display:inline;
+    float:left;
+    height:60px;
+    margin-right:2px;
+    width:259px;
+}
 .createNewPlan {
     background:url("/collaboratorium-theme/images/createNewPlan_btn.png") no-repeat scroll 0 0 transparent;
     display:inline;
@@ -322,4 +340,10 @@
 
 .paginator .iceDatPgrTbl {
     display: none;
+}
+
+.iceOutConStat {
+	margin-left: 10px;
+    display: inline;
+    float: right;
 }

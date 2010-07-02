@@ -56,6 +56,8 @@ public class FilterPlansBean {
         damageCostTo = (Double) getFilterValue(Attribute.MAX_DAMAGE_COST);
         co2From = (Double) getFilterValue(Attribute.CO2, false, false, true);
         co2To = (Double) getFilterValue(Attribute.CO2, false, false, false);
+        
+        enabled = plansUserSettings.getFilterEnabled();
     }
     
     public String getName() {
