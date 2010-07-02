@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    
+<script type="text/javascript">
+
+    // currently there is no dynamic association between plan and a scenario/model,
+    // static reference used, please refer to requirements doc
+    
+
+    function portletModelImpactsInnerPortlet() {
+        jQuery("#loadingNotification").hide();
+        // update iframe height to wrap entire document, this prevents from displaying additional scrollbar
+        var frame = document.getElementById("portlet-model");
+        var frameContent =  (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+        jQuery(frame).attr("scrolling", "no");
+        var contentDocument = jQuery(frameContent);
+              
+        
+        frame.height = frameContent.body.scrollHeight;
+        //jQuery(frame).css("overflow", "hidden");
+        jQuery(frame).css("border", "0");
+        
+        jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
+        frame.contentWindow.jQuery.history.init(function() {});
+
+        //alert("should show..." + jQuery("#plans-model-impacts-container").length);
+        
+        jQuery("#plans-model-impacts-container").css("left", "0").css("position", "normal");
+
+        frameContent.saveScenarioFunction = function(scenarioId) {
+            jQuery(".scenarioInput").val(scenarioId);
+            jQuery(".scenarioUpdateButton").click();
+        }
+
+        frameContent.updateFrameHeight = function() {
+            frame.height = frameContent.body.scrollHeight;
+            jQuery(frameContent).scrollTop(0);
+            frame.scrollTop(0);
+        }
+    }
+
+    
+    /**
+    Function responsible for attaching portletPlansModifyInnerPortlet to iframe's onload event 
+    */ 
+    jQuery(document).ready(function() {
+        var frame = jQuery("#portlet-model").load(portletModelImpactsInnerPortlet);
+    });
+    
+</script>
+    <div style="width: 100%; height: 50px; text-align: center" id="loadingNotification">
+        <img src="/collaboratorium-theme/images/ajax-loader.gif" style="margin-top: 50px"/>
+    </div>
+    <iframe id="portlet-model" style="border: 0; width: 100%;" src="/widget/web/guest/models/-/models_WAR_modelsportlet_INSTANCE_28Id?modelId=760&amp;viewType=embedded&amp;page=actions&amp;canEdit=true" />
+    
+    <ice:inputText value="#{planBean.simulationBean.scenario}" styleClass="scenarioInput" style="display: none" />
+    <ice:commandButton actionListener="#{planBean.simulationBean.update}" style="display: none" styleClass="scenarioUpdateButton" />
+</f:view>
