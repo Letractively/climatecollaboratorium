@@ -93,9 +93,10 @@ public interface PlanItemLocalService {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public int getPlansCount(java.util.Map sessionMap,
-        java.util.Map requestMap, com.ext.portlet.plans.model.PlanType planType)
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> applyFilters(
+        java.util.Map sessionMap, java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlanType planType,
+        java.util.List<com.ext.portlet.plans.model.PlanItem> plans)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
@@ -109,5 +110,10 @@ public interface PlanItemLocalService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.plans.model.PlanAttribute> getPlanAttributes(
         com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanAttribute getPlanAttribute(
+        com.ext.portlet.plans.model.PlanItem plan, java.lang.String name)
         throws com.liferay.portal.SystemException;
 }

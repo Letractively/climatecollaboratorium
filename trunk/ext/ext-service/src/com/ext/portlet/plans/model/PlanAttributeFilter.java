@@ -27,4 +27,7 @@ package com.ext.portlet.plans.model;
  *
  */
 public interface PlanAttributeFilter extends PlanAttributeFilterModel {
+    public java.lang.Object getTypedValue();
+
+    public void setStringVal(java.lang.String stringVal);
 }

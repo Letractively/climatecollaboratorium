@@ -30,6 +30,7 @@ create table PlanMeta (
 	planCreated BIGINT,
 	planGroupId BIGINT,
 	mbCategoryId BIGINT,
+	votes int,
 	version BIGINT,
 	planVersion BIGINT,
 	updateAuthorId BIGINT,

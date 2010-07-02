@@ -52,7 +52,7 @@ public class PlanConstants {
     }
 
         public static enum Attribute {
-		CO2(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("AtmosphericCO2Concentration", Double.class), false, new MinMaxFilter() {
+		CO2(Double.class,"%.0f", attributeFunctionFactory.getLastValueFunction("AtmosphericCO2Concentration", Double.class), false, PlanFilterOperatorType.MIN_MAX, new MinMaxFilter() {
 
 			@Override
 			public String getMax(PlanAttributeFilter filter) {
@@ -64,9 +64,9 @@ public class PlanConstants {
 			}
 
 		}),
-		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("GlobalTempChange", Double.class), true, null),
+		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("GlobalTempChange", Double.class), true, null, null),
 		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_minicam_output", "_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
-		        true, new MoreThanFilter() {
+		        true, PlanFilterOperatorType.GREATER_THAN, new MoreThanFilter() {
 			@Override
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
@@ -74,39 +74,40 @@ public class PlanConstants {
 
 		}),
 		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_minicam_output", "_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
-		        true, new LessThanFilter() {
+		        true, PlanFilterOperatorType.LESS_THAN, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
 		}),
-		EMISSIONS_DEVELOPED(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopedFossilFuelEmissions", Double.class),true, null),
-		EMISSIONS_DEVELOPING_A(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingAFossilFuelEmissions", Double.class), true, null),
-		EMISSIONS_DEVELOPING_B(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingBFossilFuelEmissions", Double.class), true, null),
-		SEA_LEVEL(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("Sea_Level_Rise_output", Double.class), true, null),
-		MAX_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange95_output", Double.class), true, new LessThanFilter() {
+		EMISSIONS_DEVELOPED(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopedFossilFuelEmissions", Double.class),true, null, null),
+		EMISSIONS_DEVELOPING_A(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingAFossilFuelEmissions", Double.class), true, null, null),
+		EMISSIONS_DEVELOPING_B(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingBFossilFuelEmissions", Double.class), true, null, null),
+		SEA_LEVEL(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("Sea_Level_Rise_output", Double.class), true, null, null),
+		MAX_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange95_output", Double.class), true, PlanFilterOperatorType.LESS_THAN, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
 		}),
 		
-		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange5_output", Double.class), true, new MoreThanFilter() {
+		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange5_output", Double.class), true, PlanFilterOperatorType.GREATER_THAN, new MoreThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
 			}
 		}),
 		
 		
-		NAME(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("name"), true, new LikeFilter() {
+		NAME(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("name"), true, PlanFilterOperatorType.LIKE, new LikeFilter() {
             public String getValue(PlanAttributeFilter filter) {
                 return filter.getStringVal();
             }
 		    
 		}),
-        VOTES(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("votes"), true, null),
-        CREATE_DATE(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("createDate"), true, null), 
-        PUBLISH_DATE(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("publishDate"), true, null),
-        CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, null),
-	    MITIGATION_COST_ERROR(String.class, "%s", attributeFunctionFactory.getIndexedOutputErrors("Mitigation Cost"), true, null);
+        VOTES(Double.class, "%d", attributeFunctionFactory.getPlanPropertyFunction("votes"), true, PlanFilterOperatorType.MIN_MAX,  null),
+        CREATE_DATE(Date.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("createDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null), 
+        PUBLISH_DATE(Date.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("publishDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null),
+        CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, PlanFilterOperatorType.LIKE, null),
+	    MITIGATION_COST_ERROR(String.class, "%s", attributeFunctionFactory.getIndexedOutputErrors("Mitigation Cost"), true, null, null), 
+	    DESCRIPTION(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("description"), true, PlanFilterOperatorType.LIKE, null);
 		
 		
 		private Class<?> clasz;
@@ -115,14 +116,16 @@ public class PlanConstants {
 		private boolean filterSingleValue;
 		private String variableId;
 		private AttributeFunction<?> attributeFunction;
+        private PlanFilterOperatorType planFilterOperatorType;
 		
 		Attribute(Class<?> c, String format, AttributeFunction<?> attributeFunction,
-		        boolean filterSingleValue, PlanFilterFactory factory) {
+		        boolean filterSingleValue, PlanFilterOperatorType operatorType, PlanFilterFactory factory) {
 			this.clasz = c;
 			this.format = format;
 			this.factory = factory;
 			this.filterSingleValue = filterSingleValue;
 			this.attributeFunction = attributeFunction;
+			this.planFilterOperatorType = operatorType;
 		}
 		
 		public boolean isFiltered() {
@@ -138,6 +141,9 @@ public class PlanConstants {
 			} else if (clasz == Integer.class) {
 	            if (s == null || s.trim().length() ==0) return null;
 				return new Double(Double.parseDouble(s)).intValue();
+			}
+			else if (clasz == Date.class) {
+			    return TypedValueConverter.getValue(Date.class, s);
 			} else if (clasz == String.class) {
                 return s;
             }
@@ -154,6 +160,8 @@ public class PlanConstants {
 	            } else if (clasz == Integer.class) {
 	                if (s == null || s.trim().length() ==0) s ="0";
 	                return new Double(Double.parseDouble(s)).intValue();
+	            } else if (clasz == Date.class) {
+	                    return TypedValueConverter.getValue(Date.class, s);
 	            } else if (clasz == String.class) {
 	                return s;
 	            }
@@ -215,7 +223,7 @@ public class PlanConstants {
 		
 	    public Object calculateValue(PlanItem plan) throws SystemException {
 	        Object val = attributeFunction.process(plan);
-	        return val != null ? val.toString() : "";
+	        return TypedValueConverter.getString(val);
 	    }
 		
 		public static List<Attribute> getPlanTypeAttributes(PlanType planType) throws SystemException {
@@ -228,6 +236,37 @@ public class PlanConstants {
             
             return attributes;
         }
+		
+		public Class<?> getAttributeClass() {
+		    return clasz;
+		}
+		
+		public PlanFilterOperatorType getOperatorType() {
+		    return planFilterOperatorType;
+		}
+		
+		public boolean isInFilteredSet(PlansUserSettings userSettings, PlanItem plan) throws NoSuchPlanAttributeFilterException, SystemException {
+		    if (planFilterOperatorType == null) {
+		        return true;
+		    }
+		    try {
+		        PlanAttributeFilter planAttributeFilter = userSettings.getAttributeFilter(this.name());
+		        PlanAttribute planAttribute = plan.getPlanAttribute(this.name());
+		        if (planAttributeFilter == null) {
+		            return true;
+		        }
+		        else if (planAttribute == null) {
+		            return false;
+		        }
+		        return planFilterOperatorType.isInFilteredSet(planAttributeFilter, planAttribute);
+		    } 
+		    catch (NoSuchPlanAttributeFilterException e) {
+		        // ignore
+		        return true;
+		    }
+		    
+		    
+		}
 	}
 	
 	

@@ -59,6 +59,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         PlanDescription planDescription = PlanDescriptionLocalServiceUtil.createNewVersionForPlan(this);
         planDescription.setDescription(description);
         planDescription.store();
+        updateAttribute(Attribute.DESCRIPTION);
     }
     
     public void setName(String name, Long updateAuthorId) throws SystemException {
@@ -181,6 +182,13 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
        return getAuthor().getScreenName();
        
    }
+   
+   
+   public Integer getVotes() throws SystemException {
+       return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getVotes();
+   }
+   
+   
     
     
    /*
@@ -246,6 +254,16 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         }
     }
     
+    /**
+     * Updates values of all available attributes.
+     * @throws SystemException
+     */
+    
+    public void updateAllAttributes() throws SystemException {
+        for (Attribute attribute: Attribute.values()) {
+            updateAttribute(attribute);
+        }
+    }
 
     /**
      * Updates value of a given attribute, should be used only for property attributes.
@@ -270,7 +288,6 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         } else {
             PlanAttributeLocalServiceUtil.addPlanAttribute(getPlanId(), attribute.name(),value);
         }
-        
     }
     
     
@@ -279,8 +296,11 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return PlanItemLocalServiceUtil.getPlanAttributes(this);
     }
     
+    public PlanAttribute getPlanAttribute(String name) throws SystemException {
+        return PlanItemLocalServiceUtil.getPlanAttribute(this, name);
+    }
     
-    
+
     
     
 }

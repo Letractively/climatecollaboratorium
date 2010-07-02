@@ -302,6 +302,7 @@
         <column name="planTypeId" type="Long" />
         <column name="planCreated" type="Long" />
         <column name="authorId" type="Long" />
+        <column name="votes" type="Integer" />
         <!-- ID of community related to a plan -->
         <column name="planGroupId" type="Long" />
         <!-- message boards category -->

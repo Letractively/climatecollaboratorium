@@ -39,6 +39,7 @@ public class PlanMetaJSONSerializer {
         jsonObj.put("planTypeId", model.getPlanTypeId());
         jsonObj.put("planCreated", model.getPlanCreated());
         jsonObj.put("authorId", model.getAuthorId());
+        jsonObj.put("votes", model.getVotes());
         jsonObj.put("planGroupId", model.getPlanGroupId());
         jsonObj.put("mbCategoryId", model.getMbCategoryId());
         jsonObj.put("version", model.getVersion());

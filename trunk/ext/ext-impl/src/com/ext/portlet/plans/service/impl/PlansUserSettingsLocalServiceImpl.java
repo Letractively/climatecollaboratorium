@@ -8,8 +8,6 @@ package com.ext.portlet.plans.service.impl;
 
 import java.util.Map;
 
-import javax.portlet.PortletRequest;
-
 import com.ext.portlet.plans.NoSuchUserSettingsException;
 import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanAttributeFilter;

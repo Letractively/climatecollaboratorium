@@ -1079,6 +1079,7 @@ create table PlanMeta (
 	planTypeId LONG,
 	planCreated LONG,
 	authorId LONG,
+	votes INTEGER,
 	planGroupId LONG,
 	mbCategoryId LONG,
 	version LONG,
