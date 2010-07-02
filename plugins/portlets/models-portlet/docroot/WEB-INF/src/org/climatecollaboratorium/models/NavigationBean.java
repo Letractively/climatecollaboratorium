@@ -30,6 +30,7 @@ public class NavigationBean {
     private long modelId;
     private long scenarioId;
     private Long planId;
+    private boolean embeddedCanEdit;
     
     public NavigationBean() {
         // get request parameters
@@ -66,6 +67,9 @@ public class NavigationBean {
         
         if (ctx.getRequestParameterMap().containsKey("page")) {
             page = ctx.getRequestParameterMap().get("page").toString();
+        }
+        if (ctx.getRequestParameterMap().containsKey("canEdit")) {
+            embeddedCanEdit = Boolean.parseBoolean(ctx.getRequestParameterMap().get("canEdit").toString());
         }
         
     }
@@ -155,6 +159,10 @@ public class NavigationBean {
 
     public void setPlanId(Long planId) {
         this.planId = planId;
+    }
+
+    public boolean isEmbeddedCanEdit() {
+        return embeddedCanEdit;
     }
 
 }

@@ -14,7 +14,7 @@
             <div class="clear"></div>
         </div>
         <ice:form>
-            <ice:commandLink styleClass="editBtn" style="display: none" actionListener="#{simulationBean.editActions}" />
+            <ice:commandLink styleClass="editBtn" actionListener="#{simulationBean.editActions}"/> <!--  rendered="#{navigation.embeddedCanEdit}"/> -->
         </ice:form>
         <ui:include src="./initInputs.xhtml" />
     </f:subview>
