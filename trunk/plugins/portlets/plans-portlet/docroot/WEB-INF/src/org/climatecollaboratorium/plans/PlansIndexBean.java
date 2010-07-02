@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 
 import org.climatecollaboratorium.plans.utils.DataPage;
@@ -33,13 +34,11 @@ public class PlansIndexBean {
     private boolean updatePlansList = true;
     private int pageSize = 3;
     
-    private List<List<String>> columnsValues = new ArrayList<List<String>>();
-
 
     private List<PlanIndexItemWrapper> plans = new ArrayList<PlanIndexItemWrapper>();
     
     public PlansIndexBean() throws SystemException, PortalException {
-        planType = PlanTypeLocalServiceUtil.getPlanTypes(0, 2).get(0);
+        planType = PlanTypeLocalServiceUtil.getDefaultPlanType();
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), planType);
         columnsUpdate();
@@ -61,9 +60,6 @@ public class PlansIndexBean {
         return columns;
     }
     
-    public List<List<String>> getColumnsValues() {
-        return columnsValues;
-    }
 
     public String getSortColumn() {
         return sortColumn;
@@ -193,6 +189,26 @@ public class PlansIndexBean {
             }
         }
         updatePlansList = true;
+    }
+    
+    public void usePublishedPlans(ActionEvent e) throws PortalException, SystemException {
+        if (!planType.getPublished()) {
+            planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
+            updatePlansList = true;
+            filterPlansBean = null;
+            columnsConfiguration = null;
+            columnsUpdate();
+        }
+    }
+    
+    public void useUnPublishedPlans(ActionEvent e) throws PortalException, SystemException {
+        if (planType.getPublished()) {
+            planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
+            updatePlansList = true;
+            filterPlansBean = null;
+            columnsConfiguration = null;
+            columnsUpdate();
+        }
     }
 
 }

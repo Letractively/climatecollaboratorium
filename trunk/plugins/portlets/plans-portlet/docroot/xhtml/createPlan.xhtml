@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+<div id="createPlanContainer">
+    <div id="createPlan" class="createPlan">
+        <div class="createPlan_top">
+            <h4>Add Plan</h4>
+        </div>
+        <div class="createPlan_content">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="note">
+                        Note: You can change the name of your plan after it's been created.
+                    </td>
+                </tr>
+            </table>
+        
+        </div>
+        <div class="createPlan_bottom">
+            <div class="actions">
+                <a class="checkBtn" href="javascript:;" onclick="createPlan()"></a>
+                <a class="cancelBtn"  href="javascript:;" onclick="hideCreatePlanDialog()" ></a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    </div>
+</div>
+<div id="createPlanDialog"></div>
+</f:view>

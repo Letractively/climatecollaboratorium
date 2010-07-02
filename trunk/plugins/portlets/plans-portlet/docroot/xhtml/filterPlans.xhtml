@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
-<div id="filterPlans" class="filterPlans">
+<div id="filterPlansContainer">
+<div id="filterPlans" class="filterPlans hidden">
     <div class="filterPlans_top">
         <div class="title">
             <!-- <h4>Filter plans</h4>-->
@@ -147,13 +148,15 @@
     <div class="filterPlans_bottom">
         <div class="line"></div>
         <div class="actions">
-            <a class="checkBtn"></a>
-            <a class="cancelBtn"></a>
+            <a class="checkBtn" href="javascript:;" onclick="updateFilters()"></a>
+            <a class="cancelBtn"  href="javascript:;" onclick="hideFilterPlansDialog()" ></a>
         <div class="clear"></div>
         </div>
     </div>
-        <ice:selectBooleanCheckbox value="#{filterPlans.enabled}" />
-        <ice:commandButton value="Update" actionListener="#{filterPlans.update}" />
+    <div style="display: none">
+        <ice:commandButton value="Update" actionListener="#{filterPlans.update}" styleClass="updateFiltersButton" />
+    </div>
+</div>
 </div>
 <div id="filterPlansDialog" style="display: none"></div>
 </f:view>

@@ -44,10 +44,15 @@ function portletPlansModifyMessageBoardsInnerPortlet() {
 var columns = [];
 function drawColumnsConfigurationScreen() {
 	if (columns.length > 0) {
-		return;
+		for (var i=0; i < columns.length; i++) {
+			columns[i].option.remove();
+		}
 	}
+	columns = [];
 	var columnsVisibleList = jQuery(".columnsConfigurationWidget .columnsVisible");
 	var columnsNotVisibleList = jQuery(".columnsConfigurationWidget .columnsNotVisible");
+	columnsVisibleList.html("");
+	columnsNotVisibleList.html("");
 	jQuery(".columnConfig").each(function() {
 		var columnIdx = columns.length;
 		
@@ -101,7 +106,16 @@ function initFiltersWidget() {
 	}
 	
 	function parseDate(dateStr) {
+		if (dateStr.match(/\d\d.\d\d.\d\d\d\d/)) {
+			// date format mm-dd-yyyy
+			var month =(dateStr.substring(0, 2));
+			var day = (dateStr.substring(3, 5))
+			var year = (dateStr.substring(6, 10));
+			date = new Date(year, month-1, day);
+			return date.getTime();
+		}
 		// date format MMM dd, yyyy
+			
 		return parseInt(Date.parse(dateStr));
 	}
 	
@@ -222,8 +236,10 @@ function initFiltersWidget() {
 	});
 }
 
+var configureColumnsDialog = false;
 function showConfigureColumnsDialog() {
-	var dialog = jQuery("#configure_columns_dialog").dialog({width: 770, modal: true, height: 400, draggable: false, resizable: false, dialogClass: 'configureColumnsDialog'});
+	drawColumnsConfigurationScreen();
+	configureColumnsDialog = jQuery("#configure_columns_dialog").dialog({width: 770, modal: true, height: 400, draggable: false, resizable: false, dialogClass: 'configureColumnsDialog'});
 	dialog.find(".ui-dialog-titlebar").hide();
 }
 
@@ -231,11 +247,34 @@ function closeDialog(id) {
 	jQuery(id).dialog("close");
 }
 
+function hideConfigureColumnsDialog() {
+	configureColumnsDialog.dialog("destroy");
+}
+
 function updateColumns() {
 	jQuery(".updateColumnsSubmit").click();
-	jQuery("#configure_columns_dialog").dialog("close");
+	configureColumnsDialog.dialog("destroy");
 }
 
 function showFilterPlansDialog() {
-	var dialog = jQuery("#filterPlansDialog").dialog({width: 580, modal: true, height: 500, draggable: false, resizable: false, dialogClass: 'filterPlansDialog'});
+	jQuery("#filterPlans").appendTo(jQuery("#filterPlansDialog"));
+	jQuery("#filterPlansDialog").dialog("destroy");
+	var dialog = jQuery("#filterPlansDialog").dialog({width: 630, modal: true, height: 530, draggable: false, resizable: false, dialogClass: 'filterPlansDialog'});
+}
+
+function hideFilterPlansDialog() {
+	jQuery("#filterPlansDialog").dialog("close");
+	jQuery("#filterPlans").hide();
+	jQuery("#filterPlans").appendTo(jQuery("#filterPlansContainer"));
+	
+}
+
+function updateFilters() {
+	hideFilterPlansDialog();
+	jQuery(".filtersEnabledCheckbox").attr("checked", "true");
+	jQuery(".updateFiltersButton").click();
+}
+
+function toogleFiltersEnabled() {
+	jQuery(".updateFiltersButton").click();	
 }

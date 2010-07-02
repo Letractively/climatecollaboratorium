@@ -18,28 +18,35 @@
         <ui:include src="./filterPlans.xhtml" >
              <ui:param value="#{plansIndexBean.filterPlansBean}" name="filterPlans" /> 
         </ui:include>
+        <ui:include src="./createPlan.xhtml" />
          <div class="tab">
             <div class="tabs floatRight">
-                <a class="finalizedHover"><span class="hidden">Finalized Plans (For Voting)</span></a>
-                <a class="development"><span class="hidden">Plans Under Development1</span></a>
+                <ice:commandLink styleClass="#{plansIndexBean.planType.published ? 'finalizedHover' : 'finalized'}" actionListener="#{plansIndexBean.usePublishedPlans}"><span class="hidden">Finalized Plans (For Voting)</span></ice:commandLink>
+                <ice:commandLink styleClass="#{plansIndexBean.planType.published ? 'development' : 'developmentHover'}" actionListener="#{plansIndexBean.useUnPublishedPlans}"><span class="hidden">Plans Under Development</span></ice:commandLink>
             </div>
             <div class="planactions floatLeft">
                 <a class="createNewPlan"><span class="hidden">Create a New Plan</span></a>
-                <a class="findMyVoteBtn"><span class="hidden">Find my Vote</span></a>
+                
+                <f:subview rendered="#{plansIndexBean.planType.published}"><a class="findMyVoteBtn"><span class="hidden">Find my Vote</span></a></f:subview>
             </div>
          </div>
          
          <div class="clear"></div>
          <div class="tabContent_bottom">
             <div class="topBtn">
-                <h3 class="floatRight">XX finalized plans, YY total votes</h3>
+                <h3 class="floatRight">
+                    XX finalized plans, YY total votes
+                    <ice:outputConnectionStatus/>
+                </h3>
                 <div class="floatLeft linkbox">
                     <a class="configuration black" href="javascript:;" onclick="showConfigureColumnsDialog()">Select Columns</a>
                     <span>|</span>
-                    <a class="preferences black" onclick="showFilterPlansDialog()">Filter Plans</a>
+                    <a class="preferences black" href="javascript:;" onclick="showFilterPlansDialog()">Filter Plans</a>
                     <span>|</span>
                     <span class="enable-filters">
-                        <input type="checkbox" /> Enable filter
+                        <ice:selectBooleanCheckbox value="#{plansIndexBean.filterPlansBean.enabled}" styleClass="filtersEnabledCheckbox" onclick="toogleFiltersEnabled()">
+                            Enable filter
+                        </ice:selectBooleanCheckbox>
                     </span>
                 </div>
             </div>

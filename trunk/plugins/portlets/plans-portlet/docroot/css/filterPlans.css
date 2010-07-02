@@ -131,3 +131,14 @@
     width:auto;
     margin: 0 21px;
 }
+
+
+.filterPlansDialog {
+    background: none;
+    border: 0;
+}
+
+.filterPlansDialog .ui-dialog-titlebar {
+    display: none;
+    
+}
