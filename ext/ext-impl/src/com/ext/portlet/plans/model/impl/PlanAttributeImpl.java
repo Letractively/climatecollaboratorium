@@ -6,11 +6,32 @@
 
 package com.ext.portlet.plans.model.impl;
 
+import com.ext.portlet.plans.TypedValueConverter;
+import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.PlanAttribute;
 
 
 public class PlanAttributeImpl extends PlanAttributeModelImpl
     implements PlanAttribute {
+    
+    private Object typedValue;
+    
     public PlanAttributeImpl() {
     }
+    
+    public Object getTypedValue() {
+        if (typedValue != null) {
+            return typedValue;
+        }
+        Attribute attribute = Attribute.valueOf(getAttributeName());
+        typedValue = TypedValueConverter.getValue(attribute.getAttributeClass(), getAttributeValue());
+        return typedValue;
+    }
+    
+    @Override
+    public void setAttributeValue(String attributeValue) {
+        typedValue = null;
+        super.setAttributeValue(attributeValue);
+    }
+
 }

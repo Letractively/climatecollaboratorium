@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Set;
 
 
+import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 
@@ -14,8 +15,9 @@ import junit.framework.TestSuite;
 
 public class PlanAllTests extends TestSuite {
     private static final Random rand = new Random();
-    private static final Long defaultAuthorId = 10144L;
-    private static final Long defaultPlanTypeId = 1L;
+    private static final Long[] defaultAuthorIds = {10144L, 22964L, 10115L, 21112L};
+    private static final Long[] defaultPlanTypeId = {1L, 2L};
+    private static final Long[] defaultScenarioIds = {5159L, 5160L, 5161L, 5162L, 5163L, 5164L, 5165L, 5166L};
     private static List<PlanItem> plansBefore;
     private static Set<Long> plansIdsBefore = new HashSet<Long>();
 
@@ -27,9 +29,13 @@ public class PlanAllTests extends TestSuite {
                 try {
                 plansBefore = PlanItemLocalServiceUtil.getPlans();
                 // create few plans that will be used during testing
-                PlanItemLocalServiceUtil.createPlan(String.valueOf(rand.nextLong()), defaultPlanTypeId, defaultAuthorId);
-                PlanItemLocalServiceUtil.createPlan(String.valueOf(rand.nextLong()), defaultPlanTypeId, defaultAuthorId);
-                PlanItemLocalServiceUtil.createPlan(String.valueOf(rand.nextLong()), defaultPlanTypeId, defaultAuthorId);
+                for (int i=0; i < 50; i++) {
+                    PlanItem plan = PlanItemLocalServiceUtil.createPlan(String.valueOf(rand.nextLong()), 
+                            defaultPlanTypeId[rand.nextInt(defaultPlanTypeId.length)], 
+                            defaultAuthorIds[rand.nextInt(defaultAuthorIds.length)]);
+                }
+                
+                
                 
                 for (PlanItem plan: plansBefore) {
                     plansIdsBefore.add(plan.getPlanId());

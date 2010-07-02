@@ -1,26 +1,23 @@
 package com.ext.portlet.plans.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.UpdateType;
-//import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.PlanConstants.Attribute;
-import com.ext.portlet.plans.PlanConstants.Columns;
-import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanAttribute;
-import com.ext.portlet.plans.model.PlanDescription;
+import com.ext.portlet.plans.model.PlanAttributeFilter;
 import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.model.PlanMeta;
-import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlansUserSettings;
 import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanDescriptionLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
@@ -29,8 +26,6 @@ import com.ext.portlet.plans.service.base.PlanItemLocalServiceBaseImpl;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.model.User;
-
 
 public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     /*
@@ -64,10 +59,14 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         PlanMetaLocalServiceUtil.createPlanMeta(planItem, planTypeId);
         PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
         
-        // update default attributes
+        /* update/create all attributes */
+        //planItem.updateAllAttributes();
         planItem.updateAttribute(Attribute.CREATOR.name());
         planItem.updateAttribute(Attribute.NAME.name());
+        planItem.updateAttribute(Attribute.DESCRIPTION.name());
         planItem.updateAttribute(Attribute.CREATE_DATE.name());
+        planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
+        planItem.updateAttribute(Attribute.VOTES.name());
         
         
         // populate fields with default values
@@ -80,27 +79,76 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     }
     
     public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, int start, int end, 
-            String sortColumn, String sortDirection) 
+            final String sortColumn, String sortDirection) 
     throws SystemException, PortalException  {
+        /*
         PlansUserSettings planUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
         
-        List<PlanItem> plans = null;
-        if (planUserSettings == null || !planUserSettings.getFilterEnabled()) {
-            plans = planItemFinder.getPlans(planType.getPlanTypeId(), start, end, sortColumn, sortDirection);
-            
-        } else {
-            try {
-                plans = planItemFinder.getFilteredPlans(planUserSettings, start, end, sortColumn, sortDirection);
-            } catch (Throwable e) {
-                throw new SystemException(e);
+        return planItemFinder.getPlans(planUserSettings, planType.getPlanTypeId(), start, end, sortColumn, sortDirection);
+        
+        */
+        
+        List<PlanItem> plans = new ArrayList(planItemFinder.getPlans());
+        final int directionModifier = sortDirection.equals("DESC") ? -1 : 1;
+        Collections.sort(plans, new Comparator<PlanItem>() {
+
+            @Override
+            public int compare(PlanItem arg0, PlanItem arg1) {
+                try {
+                    PlanAttribute plan1Attr = arg0.getPlanAttribute(sortColumn);
+                    PlanAttribute plan2Attr = arg1.getPlanAttribute(sortColumn);
+                    Comparable val1 = (Comparable) (plan1Attr != null ? plan1Attr.getTypedValue() : null);
+                    Comparable val2 = (Comparable) (plan2Attr != null ? plan2Attr.getTypedValue() : null);
+                    if (val1 != null) {
+                        if (val2 != null) {
+                            return val1.compareTo(val2) * directionModifier;
+                        }
+                        else {
+                            return -1 * directionModifier;
+                        }
+                    }
+                    else {
+                        return 1 * directionModifier;
+                    } 
+                } catch (SystemException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+        return applyFilters(sessionMap, requestMap, planType, plans);
+    }
+    /*
+    public int getPlansCount(Map sessionMap, Map requestMap, PlanType planType) throws SystemException, PortalException  {
+        PlansUserSettings planUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
+        return  planItemFinder.countPlans(planUserSettings, planType);
+    }
+    */
+    
+    public List<PlanItem> applyFilters(Map sessionMap, Map requestMap, PlanType planType, List<PlanItem> plans) throws PortalException, SystemException {
+        PlansUserSettings planUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
+        if (! planUserSettings.getFilterEnabled()) {
+            return plans;
+        }
+        
+        List<PlanItem> filteredPlans = new ArrayList<PlanItem>();
+        
+        for (PlanItem plan: plans) {
+            boolean inFilteredSet = true;
+            for (Attribute attribute: Attribute.values()) {
+                if (!attribute.isInFilteredSet(planUserSettings, plan)) {
+                    inFilteredSet = false;
+                    break;
+                }
+            }
+            if (inFilteredSet) {
+                filteredPlans.add(plan);
             }
         }
-        return plans;
+        
+        return filteredPlans;
     }
     
-    public int getPlansCount(Map sessionMap, Map requestMap, PlanType planType) throws SystemException, PortalException  {
-        return  getPlans(sessionMap, requestMap, planType, 0, Integer.MAX_VALUE, Columns.NAME.name(), "ASC").size();
-    }
     
     public void removePlanWithEntireHistory(Long planId) {
         this.planItemFinder.removePlanWithHistory(planId);
@@ -112,5 +160,60 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     
     public List<PlanAttribute> getPlanAttributes(PlanItem plan) throws SystemException {
         return PlanAttributeLocalServiceUtil.getPlanAttributes(plan.getPlanId());
+    }
+    
+    public PlanAttribute getPlanAttribute(PlanItem plan, String name) throws SystemException {
+        return PlanAttributeLocalServiceUtil.findPlanAttribute(plan.getPlanId(), name);
+    }
+    
+    private class PlanFilter {
+        private Attribute attribute;
+        private String valueStr;
+        private Double valueDbl;
+        private Double valueMin;
+        private Double valueMax;
+        private Integer valueInt;
+        boolean doubleVal = false;
+        boolean intVal = false;
+        boolean stringVal = true;
+        boolean singleValue = true;
+        
+        boolean enabled;
+        
+        public PlanFilter(PlanAttributeFilter filter) {
+            this.attribute = Attribute.valueOf(filter.getAttributeName());
+            if (attribute.isFiltered()) {
+                enabled = false;
+            }
+            else {
+                enabled = true;
+                if (attribute.isFilterSingleValue()) {
+                    if (attribute.getAttributeClass() == Double.class) {
+                        valueDbl = Double.parseDouble((filter.getStringVal() != null ? filter.getStringVal() : String.valueOf(Double.MIN_VALUE)));
+                        doubleVal = true;
+                        stringVal = false;
+                    }
+                    else if (attribute.getAttributeClass() == Integer.class) {
+                        valueInt = Integer.parseInt((filter.getStringVal() != null ? filter.getStringVal() : String.valueOf(Integer.MIN_VALUE)));
+                        intVal = true;
+                        stringVal = false;
+                    }
+                }
+                else {
+                    valueMin = filter.getMin();
+                    valueMax = filter.getMax();
+                    doubleVal = true;
+                    stringVal = false;
+                    singleValue = false;
+                }
+            }
+            
+            /*
+            public boolean isFilteredOut(PlanItem plan) {
+                PlanAttribute attriplan.getPlanAttribute(attribute.name());
+            }
+            */
+            
+        }
     }
 }

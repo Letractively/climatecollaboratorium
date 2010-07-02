@@ -33,6 +33,7 @@ import mit.simulation.climate.client.Variable;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -378,7 +379,8 @@ public class AttributeFunctionFactory {
             public T process(PlanItem plan) throws SystemException {
                 String getterMethod = "get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
                 try {
-                    return (T)BeanUtils.getProperty(plan, propertyName);
+                    Method getter = PlanItem.class.getMethod(getterMethod);
+                    return (T)getter.invoke(plan);
                 }
                 catch (Throwable e) {
                     throw new SystemException("Illegal property: " + propertyName, e);

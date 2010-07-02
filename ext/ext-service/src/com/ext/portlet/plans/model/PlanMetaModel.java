@@ -50,6 +50,10 @@ public interface PlanMetaModel extends BaseModel<PlanMeta> {
 
     public void setAuthorId(Long authorId);
 
+    public Integer getVotes();
+
+    public void setVotes(Integer votes);
+
     public Long getPlanGroupId();
 
     public void setPlanGroupId(Long planGroupId);

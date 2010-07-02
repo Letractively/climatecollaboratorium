@@ -111,11 +111,13 @@ public class PlanItemLocalServiceUtil {
             sortColumn, sortDirection);
     }
 
-    public static int getPlansCount(java.util.Map sessionMap,
-        java.util.Map requestMap, com.ext.portlet.plans.model.PlanType planType)
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> applyFilters(
+        java.util.Map sessionMap, java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlanType planType,
+        java.util.List<com.ext.portlet.plans.model.PlanItem> plans)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        return getService().getPlansCount(sessionMap, requestMap, planType);
+        return getService().applyFilters(sessionMap, requestMap, planType, plans);
     }
 
     public static void removePlanWithEntireHistory(java.lang.Long planId) {
@@ -132,6 +134,12 @@ public class PlanItemLocalServiceUtil {
         com.ext.portlet.plans.model.PlanItem plan)
         throws com.liferay.portal.SystemException {
         return getService().getPlanAttributes(plan);
+    }
+
+    public static com.ext.portlet.plans.model.PlanAttribute getPlanAttribute(
+        com.ext.portlet.plans.model.PlanItem plan, java.lang.String name)
+        throws com.liferay.portal.SystemException {
+        return getService().getPlanAttribute(plan, name);
     }
 
     public static PlanItemLocalService getService() {

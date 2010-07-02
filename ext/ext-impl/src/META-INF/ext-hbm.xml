@@ -193,6 +193,7 @@
 		<property name="planTypeId" />
 		<property name="planCreated" />
 		<property name="authorId" />
+		<property name="votes" />
 		<property name="planGroupId" />
 		<property name="mbCategoryId" />
 		<property name="version" />

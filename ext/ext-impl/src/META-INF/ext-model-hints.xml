@@ -144,6 +144,7 @@
 		<field name="planTypeId" type="Long" />
 		<field name="planCreated" type="Long" />
 		<field name="authorId" type="Long" />
+		<field name="votes" type="Integer" />
 		<field name="planGroupId" type="Long" />
 		<field name="mbCategoryId" type="Long" />
 		<field name="version" type="Long" />

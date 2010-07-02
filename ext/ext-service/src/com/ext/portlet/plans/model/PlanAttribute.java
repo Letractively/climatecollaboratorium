@@ -27,4 +27,7 @@ package com.ext.portlet.plans.model;
  *
  */
 public interface PlanAttribute extends PlanAttributeModel {
+    public java.lang.Object getTypedValue();
+
+    public void setAttributeValue(java.lang.String attributeValue);
 }

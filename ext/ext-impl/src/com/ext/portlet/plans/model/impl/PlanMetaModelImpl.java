@@ -57,6 +57,9 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             { "authorId", new Integer(Types.BIGINT) },
             
 
+            { "votes", new Integer(Types.INTEGER) },
+            
+
             { "planGroupId", new Integer(Types.BIGINT) },
             
 
@@ -74,7 +77,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
 
             { "updateAuthorId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,planGroupId LONG,mbCategoryId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,mbCategoryId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanMeta";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -93,6 +96,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
     private Long _planTypeId;
     private Long _planCreated;
     private Long _authorId;
+    private Integer _votes;
     private Long _planGroupId;
     private Long _mbCategoryId;
     private Long _version;
@@ -111,6 +115,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         model.setPlanTypeId(soapModel.getPlanTypeId());
         model.setPlanCreated(soapModel.getPlanCreated());
         model.setAuthorId(soapModel.getAuthorId());
+        model.setVotes(soapModel.getVotes());
         model.setPlanGroupId(soapModel.getPlanGroupId());
         model.setMbCategoryId(soapModel.getMbCategoryId());
         model.setVersion(soapModel.getVersion());
@@ -191,6 +196,14 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         _authorId = authorId;
     }
 
+    public Integer getVotes() {
+        return _votes;
+    }
+
+    public void setVotes(Integer votes) {
+        _votes = votes;
+    }
+
     public Long getPlanGroupId() {
         return _planGroupId;
     }
@@ -253,6 +266,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             model.setPlanTypeId(getPlanTypeId());
             model.setPlanCreated(getPlanCreated());
             model.setAuthorId(getAuthorId());
+            model.setVotes(getVotes());
             model.setPlanGroupId(getPlanGroupId());
             model.setMbCategoryId(getMbCategoryId());
             model.setVersion(getVersion());
@@ -276,6 +290,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         clone.setPlanTypeId(getPlanTypeId());
         clone.setPlanCreated(getPlanCreated());
         clone.setAuthorId(getAuthorId());
+        clone.setVotes(getVotes());
         clone.setPlanGroupId(getPlanGroupId());
         clone.setMbCategoryId(getMbCategoryId());
         clone.setVersion(getVersion());
@@ -347,6 +362,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(getPlanCreated());
         sb.append(", authorId=");
         sb.append(getAuthorId());
+        sb.append(", votes=");
+        sb.append(getVotes());
         sb.append(", planGroupId=");
         sb.append(getPlanGroupId());
         sb.append(", mbCategoryId=");
@@ -390,6 +407,10 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(
             "<column><column-name>authorId</column-name><column-value><![CDATA[");
         sb.append(getAuthorId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>votes</column-name><column-value><![CDATA[");
+        sb.append(getVotes());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>planGroupId</column-name><column-value><![CDATA[");

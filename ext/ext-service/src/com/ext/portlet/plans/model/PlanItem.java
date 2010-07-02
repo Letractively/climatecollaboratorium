@@ -98,6 +98,9 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public java.lang.Integer getVotes()
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<Long> getPositionsIds()
         throws com.ext.portlet.plans.NoSuchPlanPositionsException,
             com.liferay.portal.SystemException;
@@ -112,9 +115,14 @@ public interface PlanItem extends PlanItemModel {
 
     public void store() throws com.liferay.portal.SystemException;
 
+    public void updateAllAttributes() throws com.liferay.portal.SystemException;
+
     public void updateAttribute(java.lang.String attributeName)
         throws com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.plans.model.PlanAttribute> getPlanAttributes()
         throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanAttribute getPlanAttribute(
+        java.lang.String name) throws com.liferay.portal.SystemException;
 }
