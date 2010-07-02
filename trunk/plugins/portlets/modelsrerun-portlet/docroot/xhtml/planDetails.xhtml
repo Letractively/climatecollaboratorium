@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"  >
+    
+    <ice:panelGroup styleClass="portlet">
+        <div class="container">
+            <div class="container_top">
+                <div class="title">
+                    <div class="icon">
+                        <ice:form>
+                            <f:subview rendered="#{not planBean.editingName}">
+                                <h2><ice:outputText value="#{planBean.plan.name}" /></h2>
+                                <ice:commandLink value="rename" actionListener="#{planBean.editName}"/>
+                            </f:subview>
+                            <f:subview rendered="#{planBean.editingName}">
+                                <ice:inputText value="#{planBean.plan.name}" />
+                                <ice:commandLink value="cancel" actionListener="#{planBean.editName}"/>
+                                <ice:commandLink value="submit" actionListener="#{planBean.plan.saveName}"/>
+                            </f:subview>
+                        </ice:form>
+                        <a href="/web/guest/test">Back to index</a>
+                    </div>
+                    
+                    <ice:outputConnectionStatus/>
+                </div>
+            </div>
+            <div class="container_middle">
+                <div class="content">
+                    <ice:form>
+                        <ice:panelTabSet styleClass="mainTabs">
+                            <ice:panelTab label="Description">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/description.xhtml" />
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="Assumptions">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/assumptions.xhtml" />
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="Models">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/models.xhtml" />
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="Actions &amp; Impacts">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/actionsImpacts.xhtml" />
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="Discussion">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/discussion.xhtml" />
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="People">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/people.xhtml" />
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="History">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/history.xhtml" />
+                                </f:subview>
+                            </ice:panelTab>
+                        </ice:panelTabSet>
+                    </ice:form>
+                </div>
+            </div> <!-- .container_middle -->
+            <div class="container_bottom"></div>
+        </div> <!-- .container -->
+    </ice:panelGroup>
+</f:view>
