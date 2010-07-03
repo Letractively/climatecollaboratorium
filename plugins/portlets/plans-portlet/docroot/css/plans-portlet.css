@@ -213,7 +213,6 @@
     border:0 none;
     border-collapse:collapse;
     width:100%;
-    text-align: center;
     margin: 7px 2px;
 }
 
@@ -225,14 +224,14 @@
     border-top:1px solid #3E5B7B;
     color:#FFFFFF;
     font-weight:normal;
-    height:36px;
-    padding-bottom:5px;
+    height:44px;
+    vertical-align: top;
 }
 
-.plansTable td {
-	text-align: center;
+.plansTable .iceDatTblRow td {
 	border: 0;
 	height:44px;
+    text-align: center;
 }
 
 .plansTable td .NAME {
@@ -346,4 +345,53 @@
 	margin-left: 10px;
     display: inline;
     float: right;
+}
+
+.plansIndexDialog {
+    background: none;
+    border: 0;
+}
+.plansIndexDialog  .ui-dialog-titlebar {
+    display: none;
+}
+
+th.voteForPlan {
+    background-color:#B0E0FA;
+    color:#3E5B7B;
+    width: auto;
+    height: 100%;
+    border-right: 1px solid #3E5B7B;
+}
+
+.plansTableHdr .voteForPlan span {
+	padding-top:  16px;
+	display: block;
+}
+
+.popup-info-box {
+    width: 250px;
+}
+
+
+.plansTable .iceCmdSrtHdr {
+	height: auto;
+	display: inline;
+}
+
+.plansTable tr.active td {
+	background: #FCFFB3;
+}
+.indexVoteForPlan {
+	width: 21px;
+	height: 21px;
+	display: block;
+	margin: auto;
+}
+
+.indexVoteForPlan.en {
+	background: url("/collaboratorium-theme/images/check_btn.gif") no-repeat scroll 0 center transparent;
+}
+
+.indexVoteForPlan.dis {
+    background: url("/collaboratorium-theme/images/check_disable_btn.gif") no-repeat scroll 0 center transparent;
 }

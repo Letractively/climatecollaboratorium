@@ -30,6 +30,7 @@ public class NavigationBean {
 
 
     private Long planId;
+    private CreatePlanBean createPlanBean;
     
 
     private static Log _log = LogFactoryUtil.getLog(NavigationBean.class);
@@ -44,34 +45,29 @@ public class NavigationBean {
         if (ctx.getRequestParameterMap().containsKey("planId")) {
             try {
                 planId = Long.parseLong(ctx.getRequestParameterMap().get("planId").toString());
-                try {
-                    // FIXME   
-                    PlanItem plan = null;
-                    List<PlanItem> plans = PlanItemLocalServiceUtil.getPlans();
-                    for (PlanItem item: PlanItemLocalServiceUtil.getPlans()) {
-                        if (item.getPlanId().equals(planId)) {
-                            plan = item;
-                        }
-                    }
-                    planBean = new PlanBean(plan);
-                } 
-                catch (Throwable e) {
-                    _log.error("Can't retrieve plan with id: " + planId, e);
-                }
-                
+                updateView();
             } catch (NumberFormatException e) {
                 // ignore
             }
         }
-        updateView();
     }
 
 
     private void updateView() {
-        if (planId != null && planBean != null) {
-            
+        try {
+            // FIXME 
+            PlanItem plan = null;
+            List<PlanItem> plans = PlanItemLocalServiceUtil.getPlans();
+            for (PlanItem item: PlanItemLocalServiceUtil.getPlans()) {
+                if (item.getPlanId().equals(planId)) {
+                    plan = item;
+                }
+            }
+            planBean = new PlanBean(plan);
+        } 
+        catch (Throwable e) {
+            _log.error("Can't retrieve plan with id: " + planId, e);
         }
-        
     }
     
     public String getPageType() {
@@ -88,6 +84,7 @@ public class NavigationBean {
 
     public void setPlanId(Long planId) {
         this.planId = planId;
+        updateView();
     }
 
 
@@ -103,6 +100,13 @@ public class NavigationBean {
     
     public String getPortletId() {
         return PORTLET_ID;
+    }
+    
+    public CreatePlanBean getCreatePlanBean() {
+        if (createPlanBean == null) {
+            createPlanBean = new CreatePlanBean(this, plansIndex);
+        }
+        return createPlanBean;
     }
 
 }
