@@ -90,7 +90,8 @@ public class PlanVoteLocalServiceUtil {
     }
 
     public static void voteForPlan(java.lang.Long planId, java.lang.Long userId)
-        throws com.liferay.portal.SystemException {
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
         getService().voteForPlan(planId, userId);
     }
 

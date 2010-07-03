@@ -218,7 +218,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
    public boolean hasUserVoted(Long userId) throws PortalException, SystemException {
        try {
            PlanVote vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
-           return vote.getPlanId() == getPlanId();
+           return vote.getPlanId().equals(getPlanId());
        } catch (NoSuchPlanVoteException e) {
            // ignore
        }
@@ -227,10 +227,12 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
    
    public void vote(Long userId) throws PortalException, SystemException  {
        PlanVoteLocalServiceUtil.voteForPlan(getPlanId(), userId);
+       updateAttribute(Attribute.VOTES);
    }
    
    public void unvote(Long userId) throws PortalException, SystemException  {
        PlanVoteLocalServiceUtil.unvote(userId);
+       updateAttribute(Attribute.VOTES);
    }
     
     

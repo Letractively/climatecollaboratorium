@@ -79,7 +79,8 @@ public interface PlanVoteLocalService {
         throws com.liferay.portal.SystemException;
 
     public void voteForPlan(java.lang.Long planId, java.lang.Long userId)
-        throws com.liferay.portal.SystemException;
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 
     public void unvote(java.lang.Long userId)
         throws com.liferay.portal.PortalException,
