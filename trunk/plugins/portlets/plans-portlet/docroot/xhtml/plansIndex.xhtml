@@ -78,7 +78,7 @@
                                 </ice:commandSortHeader>
                                 </div>
                             </f:facet>
-                            <ice:outputLink value="?p_p_id=#{navigation.portletId}&amp;planId=#{singlePlan.planId}" rendered="#{column == 'NAME'}">
+                            <ice:outputLink value="#planId=#{singlePlan.planId}" rendered="#{column == 'NAME'}">
                                 <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
                             </ice:outputLink>
                             

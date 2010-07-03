@@ -7,6 +7,7 @@
     xmlns:h="http://java.sun.com/jsf/html"  >
     
 <ice:portlet>
+    <ui:include src="./navigation.xhtml" />
     <f:subview name="index" rendered="#{navigation.pageType == 'INDEX'}">
         <ui:include src="plansIndex.xhtml">
             <ui:param value="#{navigation.plansIndex}" name="plansIndexBean" />
