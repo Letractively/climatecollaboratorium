@@ -39,7 +39,7 @@ public class ConfigureColumnsBean {
             colWrapper.getWrapped().setUserSetting(plansUserSettings, colWrapper.getVisible());
         }
         PlansUserSettingsLocalServiceUtil.saveUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansUserSettings);
-        plansIndexBean.columnsUpdate();
+        plansIndexBean.refresh();
     }
 
 }

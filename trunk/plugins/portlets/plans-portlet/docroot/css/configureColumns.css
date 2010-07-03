@@ -32,13 +32,3 @@
 .columnsConfigurationWidget .actions a {
     margin-right: 30px;
 }
-
-.configureColumnsDialog {
-    background: none;
-    border: 0;
-}
-
-.configureColumnsDialog .ui-dialog-titlebar {
-    display: none;
-    
-}

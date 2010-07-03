@@ -236,10 +236,10 @@ function initFiltersWidget() {
 	});
 }
 
-var configureColumnsDialog = false;
+var configureColumnsDialog;
 function showConfigureColumnsDialog() {
 	drawColumnsConfigurationScreen();
-	configureColumnsDialog = jQuery("#configure_columns_dialog").dialog({width: 770, modal: true, height: 400, draggable: false, resizable: false, dialogClass: 'configureColumnsDialog'});
+	configureColumnsDialog = jQuery("#configure_columns_dialog").dialog({width: 770, modal: true, height: 400, draggable: false, resizable: false, dialogClass: 'plansIndexDialog configureColumnsDialog'});
 	dialog.find(".ui-dialog-titlebar").hide();
 }
 
@@ -259,7 +259,8 @@ function updateColumns() {
 function showFilterPlansDialog() {
 	jQuery("#filterPlans").appendTo(jQuery("#filterPlansDialog"));
 	jQuery("#filterPlansDialog").dialog("destroy");
-	var dialog = jQuery("#filterPlansDialog").dialog({width: 630, modal: true, height: 530, draggable: false, resizable: false, dialogClass: 'filterPlansDialog'});
+	jQuery("#filterPlans").show();
+	var dialog = jQuery("#filterPlansDialog").dialog({width: 630, modal: true, height: 530, draggable: false, resizable: false, dialogClass: 'plansIndexDialog filterPlansDialog'});
 }
 
 function hideFilterPlansDialog() {
@@ -277,4 +278,65 @@ function updateFilters() {
 
 function toogleFiltersEnabled() {
 	jQuery(".updateFiltersButton").click();	
+}
+
+var createPlanDialog = false;
+function showCreatePlanDialog() {
+	jQuery("#createPlan").appendTo(jQuery("#createPlanDialog"));
+	createPlanDialog = jQuery("#createPlanDialog").dialog({width: 320, modal: true, height: 175, draggable: false, resizable: false, dialogClass: 'plansIndexDialog createPlanDialog'});
+}
+
+function hideCreatePlanDialog() {
+	createPlanDialog.dialog("close");
+	jQuery("#createPlan").appendTo(jQuery("#createPlanContainer"));
+	createPlanDialog.dialog("destroy");
+}
+
+
+function createPlan() {
+	hideCreatePlanDialog();
+	jQuery(".createPlanButton").click();
+}
+
+
+function initializeColumnsInfo() {
+	jQuery(".popup-info-button").each(function() {
+		var button = jQuery(this);
+		var cont = button.parent().find(".popup-info-box");
+		button.hover(function() {
+			cont.css({'position': 'absolute', 'left': '-1000'});
+			cont.show();
+			
+            var pos = button.parent().position();
+            var width = button.parent().width();
+            var height = cont.height();
+            
+            
+            var xpos = pos.left + width/2.0 - 125;
+            var ypos = pos.top-height-20;
+            
+            cont.css({'position': 'absolute', 'top':ypos,'left':xpos, "width":'250px'});
+            cont.fadeIn("medium");
+			
+		}, function() {
+			cont.fadeOut('medium');
+		});
+	});
+	
+	jQuery(".voteForPlan").parent().addClass("voteForPlan");
+}
+
+function findUserVote(id) {
+	
+	jQuery(".userVote").parent().parent().addClass("active");
+	jQuery.scrollTo(jQuery(".userVote"));
+}
+
+function deferUntilLogin() {
+    if (Liferay.ThemeDisplay.isSignedIn()) {
+        return true;
+    } else {
+        _user_info_showLoginPopup();
+        return false;
+    }
 }

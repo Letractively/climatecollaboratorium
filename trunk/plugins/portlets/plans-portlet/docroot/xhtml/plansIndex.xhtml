@@ -18,16 +18,24 @@
         <ui:include src="./filterPlans.xhtml" >
              <ui:param value="#{plansIndexBean.filterPlansBean}" name="filterPlans" /> 
         </ui:include>
-        <ui:include src="./createPlan.xhtml" />
+        <ui:include src="./createPlan.xhtml">
+             <ui:param value="#{navigation.createPlanBean}" name="createPlanBean" />
+        </ui:include>
+        
+        <f:subview rendered="#{plansIndexBean.findUserVote}">
+            <ui:include src="./findUserVote.xhtml" />
+        </f:subview>
          <div class="tab">
             <div class="tabs floatRight">
                 <ice:commandLink styleClass="#{plansIndexBean.planType.published ? 'finalizedHover' : 'finalized'}" actionListener="#{plansIndexBean.usePublishedPlans}"><span class="hidden">Finalized Plans (For Voting)</span></ice:commandLink>
                 <ice:commandLink styleClass="#{plansIndexBean.planType.published ? 'development' : 'developmentHover'}" actionListener="#{plansIndexBean.useUnPublishedPlans}"><span class="hidden">Plans Under Development</span></ice:commandLink>
             </div>
             <div class="planactions floatLeft">
-                <a class="createNewPlan"><span class="hidden">Create a New Plan</span></a>
+                <a class="createNewPlan" href="javascript:;" onclick="if(!deferUntilLogin()) return false; showCreatePlanDialog()" ><span class="hidden">Create a New Plan</span></a>
                 
-                <f:subview rendered="#{plansIndexBean.planType.published}"><a class="findMyVoteBtn"><span class="hidden">Find my Vote</span></a></f:subview>
+                <f:subview rendered="#{plansIndexBean.planType.published and plansIndexBean.hasUserVoted}">
+                    <ice:commandLink styleClass="findMyVoteBtn" actionListener="#{plansIndexBean.findUserVote}"><span class="hidden">Find my Vote</span></ice:commandLink>
+                </f:subview>
             </div>
          </div>
          
@@ -35,7 +43,13 @@
          <div class="tabContent_bottom">
             <div class="topBtn">
                 <h3 class="floatRight">
-                    XX finalized plans, YY total votes
+                    <f:subview rendered="#{plansIndexBean.planType.published}">
+                        #{plansIndexBean.plansCount} finalized plans, #{plansIndexBean.votesCount} total votes
+                    </f:subview>
+                    <f:subview rendered="#{not plansIndexBean.planType.published}">
+                        #{plansIndexBean.plansCount} plans under development
+                    </f:subview>
+                    
                     <ice:outputConnectionStatus/>
                 </h3>
                 <div class="floatLeft linkbox">
@@ -52,10 +66,13 @@
             </div>
             <div class="clear"></div>
                 <ice:dataTable value="#{plansIndexBean.plans}" styleClass="plansTable" rowClasses="odd,even" var="singlePlan" sortColumn="#{plansIndexBean.sortColumn}"
-                    sortAscending="#{plansIndexBean.sortAscending}" id="plansIndex" rows="10">
+                    sortAscending="#{plansIndexBean.sortAscending}" id="plansIndex" rows="#{plansIndexBean.pageSize}" headerClass="#{plansIndexBean.columns}">
                     <ice:columns value="#{plansIndexBean.columns}" var="column">
                             <f:facet name="header">
                                 <div>
+                                <div class="popup-info-box hidden" id="info-popup-#{column}">#{column.description}</div>
+                                <div class="popup-info-button" id="info-button-#{column}"><span class="hidden">Info</span></div>
+                                <div class="clear"></div>
                                 <ice:commandSortHeader columnName="#{column}">
                                          <ice:outputText value="#{column.name}" escape="false"/>
                                 </ice:commandSortHeader>
@@ -67,7 +84,14 @@
                             
                             <ice:outputText value="#{singlePlan.columnValues[column]}" rendered="#{column != 'NAME'}" escape="false"/>
                     </ice:columns>
+                    <ice:column rendered="#{plansIndexBean.planType.published}">
+                        <f:facet name="header"><div class="voteForPlan"><span>Vote for Plan</span></div></f:facet>
+                        <ice:commandLink actionListener="#{singlePlan.vote}" onclick="if(! deferUntilLogin()) return false; " styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} "></ice:commandLink>
+                    </ice:column>
                 </ice:dataTable>
+                <script language="javascript">
+                jQuery(document).ready(initializeColumnsInfo);
+                </script>
                 
         <div class="pageBottom">
         
@@ -82,7 +106,7 @@
                 </ice:outputFormat>
             </ice:dataPaginator> 
             
-            <ice:dataPaginator id="dataScroll_1" rendered="true" for="plansIndex" paginator="true" paginatorMaxPages="1" styleClass="paginator"> 
+            <ice:dataPaginator id="dataScroll_1" rendered="true" for="plansIndex" paginator="true" paginatorMaxPages="1" styleClass="paginator" binding="#{plansIndexBean.dataPaginator}"> 
                 <f:facet name="first" rendered="true">
                     <ice:panelGroup>
                         <ice:outputText value="First Page" styleClass="first" />

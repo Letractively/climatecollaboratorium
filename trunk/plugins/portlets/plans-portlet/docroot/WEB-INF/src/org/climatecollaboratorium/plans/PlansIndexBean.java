@@ -13,15 +13,20 @@ import javax.faces.model.DataModel;
 import org.climatecollaboratorium.plans.utils.DataPage;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 
+import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.PlanLocalServiceHelper;
 import com.ext.portlet.plans.PlanConstants.Columns;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.model.PlanVote;
 import com.ext.portlet.plans.model.PlansUserSettings;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
+import com.icesoft.faces.component.datapaginator.DataPaginator;
+import com.icesoft.faces.component.datapaginator.PaginatorActionEvent;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
@@ -32,16 +37,34 @@ public class PlansIndexBean {
     private String sortColumn = "NAME";
     private boolean sortAscending = true;
     private boolean updatePlansList = true;
-    private int pageSize = 3;
+    private int pageSize = 10;
+    // Current items in ui
+    private List uiCustomerBeans = new ArrayList(pageSize);
+
+    private PagedListDataModel plansDataModel;
+
+    private PlanType planType;
+
+    private ConfigureColumnsBean columnsConfiguration;
+
+    private FilterPlansBean filterPlansBean;
+
+    private Long userVote;
+
+    private boolean findUserVote;
     
 
     private List<PlanIndexItemWrapper> plans = new ArrayList<PlanIndexItemWrapper>();
+
+    private DataPaginator dataPaginator;
     
     public PlansIndexBean() throws SystemException, PortalException {
         planType = PlanTypeLocalServiceUtil.getDefaultPlanType();
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), planType);
-        columnsUpdate();
+        
+        dataPaginator = new DataPaginator();
+        refresh();
     }
 
     public List<PlanIndexItemWrapper> getPlans() throws SystemException, PortalException {
@@ -50,7 +73,7 @@ public class PlansIndexBean {
             plans.clear();
             updatePlansList = false;
             for(PlanItem plan: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, 100, sortColumn, sortAscending ? "ASC" : "DESC")) {
-                plans.add(new PlanIndexItemWrapper(plan, columns));
+                plans.add(new PlanIndexItemWrapper(plan, this));
             }
         }
         return plans;
@@ -59,6 +82,15 @@ public class PlansIndexBean {
     public List<Columns> getColumns() {
         return columns;
     }
+    
+
+    public DataPaginator getDataPaginator() { 
+        return dataPaginator; 
+    }
+    public void setDataPaginator(DataPaginator dataPaginator) { 
+        this.dataPaginator = dataPaginator; 
+    }
+
     
 
     public String getSortColumn() {
@@ -79,16 +111,7 @@ public class PlansIndexBean {
         updatePlansList = true;
     }
     
-    // Current items in ui
-    private List uiCustomerBeans = new ArrayList(pageSize);
 
-    private PagedListDataModel plansDataModel;
-
-    private PlanType planType;
-
-    private ConfigureColumnsBean columnsConfiguration;
-
-    private FilterPlansBean filterPlansBean;
 
     /**
      * Bound to DataTable value in the ui.
@@ -124,7 +147,7 @@ public class PlansIndexBean {
         plans.clear();
         
         for (PlanItem item: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, startRow, endIndex, sortColumn, sortAscending ? "ASC" : "DESC")) {
-            plans.add(new PlanIndexItemWrapper(item, columns));
+            plans.add(new PlanIndexItemWrapper(item, this));
         }
         // FIXME this isn't correct, appropriate value should be calculated.
         int totalNumberPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, Integer.MAX_VALUE, sortColumn, sortAscending ? "ASC" : "DESC").size();
@@ -179,7 +202,7 @@ public class PlansIndexBean {
         return filterPlansBean;
     }
 
-    public void columnsUpdate() throws PortalException, SystemException {
+    private void columnsUpdate() throws PortalException, SystemException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), planType);
         columns = new ArrayList<Columns>();
@@ -194,21 +217,65 @@ public class PlansIndexBean {
     public void usePublishedPlans(ActionEvent e) throws PortalException, SystemException {
         if (!planType.getPublished()) {
             planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
-            updatePlansList = true;
-            filterPlansBean = null;
-            columnsConfiguration = null;
-            columnsUpdate();
+            refresh();
         }
     }
     
     public void useUnPublishedPlans(ActionEvent e) throws PortalException, SystemException {
         if (planType.getPublished()) {
             planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
-            updatePlansList = true;
-            filterPlansBean = null;
-            columnsConfiguration = null;
-            columnsUpdate();
+            refresh();
         }
+    }
+
+    public void refresh() throws PortalException, SystemException {
+        updatePlansList = true;
+        filterPlansBean = null;
+        columnsConfiguration = null;
+        columnsUpdate();
+        dataPaginator = new DataPaginator();
+        getPlans();
+    }
+    
+    public int getVotesCount() throws SystemException {
+        return PlanVoteLocalServiceUtil.getPlanVotesCount();
+    }
+    
+    public int getPlansCount() {
+        return plans.size();
+    }
+    
+    public void findUserVote(ActionEvent e) throws PortalException, SystemException {
+        findUserVote = true;
+        refresh();
+    }
+    
+    public boolean isFindUserVote() {
+        if (findUserVote) {
+            findUserVote = false;
+            return true;
+        }
+        return false;
+    }
+    
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+    
+    public boolean getHasUserVoted() throws PortalException, SystemException {
+        if (Helper.isUserLoggedIn()) {
+            try {
+                PlanVote vote = PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId());
+                return vote != null;
+            }
+            catch (NoSuchPlanVoteException e) {
+            }
+        }
+        return false; 
     }
 
 }
