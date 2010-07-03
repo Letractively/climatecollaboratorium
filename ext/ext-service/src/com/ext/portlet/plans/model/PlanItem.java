@@ -110,6 +110,18 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public boolean hasUserVoted(java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void vote(java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void unvote(java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.plans.model.PlanItem> getAllVersions()
         throws com.liferay.portal.SystemException;
 

@@ -89,6 +89,17 @@ public class PlanVoteLocalServiceUtil {
         return getService().updatePlanVote(planVote, merge);
     }
 
+    public static void voteForPlan(java.lang.Long planId, java.lang.Long userId)
+        throws com.liferay.portal.SystemException {
+        getService().voteForPlan(planId, userId);
+    }
+
+    public static void unvote(java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        getService().unvote(userId);
+    }
+
     public static PlanVoteLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanVoteLocalService is not set");

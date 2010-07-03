@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
+import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.UpdateType;
 import com.ext.portlet.plans.PlanConstants.Attribute;
@@ -21,6 +22,7 @@ import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.model.PlanVote;
 import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanDescriptionLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
@@ -28,6 +30,7 @@ import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -209,7 +212,26 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
    } 
     
     
-    
+    /*
+     * VOTES
+     */
+   public boolean hasUserVoted(Long userId) throws PortalException, SystemException {
+       try {
+           PlanVote vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
+           return vote.getPlanId() == getPlanId();
+       } catch (NoSuchPlanVoteException e) {
+           // ignore
+       }
+       return false;
+   }
+   
+   public void vote(Long userId) throws PortalException, SystemException  {
+       PlanVoteLocalServiceUtil.voteForPlan(getPlanId(), userId);
+   }
+   
+   public void unvote(Long userId) throws PortalException, SystemException  {
+       PlanVoteLocalServiceUtil.unvote(userId);
+   }
     
     
     
