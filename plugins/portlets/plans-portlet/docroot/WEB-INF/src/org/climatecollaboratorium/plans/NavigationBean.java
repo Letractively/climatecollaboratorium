@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
@@ -63,7 +64,12 @@ public class NavigationBean {
                     plan = item;
                 }
             }
-            planBean = new PlanBean(plan);
+            if (plan != null) {
+                planBean = new PlanBean(plan);
+            }
+            else {
+                planBean = null;
+            }
         } 
         catch (Throwable e) {
             _log.error("Can't retrieve plan with id: " + planId, e);
@@ -107,6 +113,10 @@ public class NavigationBean {
             createPlanBean = new CreatePlanBean(this, plansIndex);
         }
         return createPlanBean;
+    }
+    
+    public void update(ActionEvent e) {
+        updateView();
     }
 
 }
