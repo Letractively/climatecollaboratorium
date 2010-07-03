@@ -77,4 +77,11 @@ public interface PlanVoteLocalService {
     public com.ext.portlet.plans.model.PlanVote updatePlanVote(
         com.ext.portlet.plans.model.PlanVote planVote, boolean merge)
         throws com.liferay.portal.SystemException;
+
+    public void voteForPlan(java.lang.Long planId, java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    public void unvote(java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

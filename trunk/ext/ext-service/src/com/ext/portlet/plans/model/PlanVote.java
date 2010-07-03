@@ -27,4 +27,5 @@ package com.ext.portlet.plans.model;
  *
  */
 public interface PlanVote extends PlanVoteModel {
+    public void store() throws com.liferay.portal.SystemException;
 }

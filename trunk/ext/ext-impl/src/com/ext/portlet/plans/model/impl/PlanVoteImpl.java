@@ -7,9 +7,20 @@
 package com.ext.portlet.plans.model.impl;
 
 import com.ext.portlet.plans.model.PlanVote;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
+import com.liferay.portal.SystemException;
 
 
 public class PlanVoteImpl extends PlanVoteModelImpl implements PlanVote {
     public PlanVoteImpl() {
+    }
+    
+    public void store() throws SystemException {
+        if (isNew()) {
+            PlanVoteLocalServiceUtil.addPlanVote(this);
+        }
+        else {
+            PlanVoteLocalServiceUtil.updatePlanVote(this);
+        }
     }
 }
