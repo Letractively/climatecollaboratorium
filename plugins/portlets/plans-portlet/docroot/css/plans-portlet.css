@@ -3,7 +3,11 @@
 .container_top {
     background:url("/collaboratorium-theme/images/tabContent_top.gif") no-repeat scroll center top transparent;
     background-color: #E7E7E7;
-    padding-top:25px;
+}
+
+.container_top .topActions {
+	text-align: right;
+	padding: 5px;
 }
 
 
@@ -25,12 +29,39 @@
     margin-top:-5px;
     padding-left:61px;
     padding-top:11px;
+    width: auto;
 }
 
 .title .iceOutConStat {
 	float: right;
 	margin-top: 5px;
 	margin-right: 10px;
+}
+
+
+.title .icon h2, 
+.title .icon input {
+	float: left;
+	margin-right: 10px;
+}
+
+
+.title .icon input {
+	width: 700px;
+}
+
+.title .icon .actions {
+	float: left;
+}
+
+.title .icon .actions.textual {
+	padding-top: 7px;
+}
+
+.title .planVotes {
+	float: right;
+	font-size: 1.6em;
+	padding-top: 5px;
 }
 
 /*

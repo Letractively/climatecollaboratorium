@@ -19,6 +19,7 @@
                 </tr>
             </table>
             
+            
             <ice:commandLink value="Create" actionListener="#{createPlanBean.createPlan}" styleClass="hidden createPlanButton" />
         </div>
         <div class="createPlan_bottom">
@@ -31,4 +32,7 @@
     </div>
 </div>
 <div id="createPlanDialog"></div>
+<f:subview rendered="#{createPlanBean.navigateToPlan}">
+    <ui:include src="./navigateToPlan.xhtml" />
+</f:subview>
 </f:view>

@@ -56,24 +56,20 @@ public class NavigationBean {
 
     private void updateView() {
         try {
-            // FIXME 
             PlanItem plan = null;
-            List<PlanItem> plans = PlanItemLocalServiceUtil.getPlans();
-            for (PlanItem item: PlanItemLocalServiceUtil.getPlans()) {
-                if (item.getPlanId().equals(planId)) {
-                    plan = item;
-                }
+            if (planId > 0) {
+                plan = PlanItemLocalServiceUtil.getPlan(planId);
             }
+            
             if (plan != null) {
                 planBean = new PlanBean(plan);
-            }
-            else {
-                planBean = null;
+                return;
             }
         } 
         catch (Throwable e) {
             _log.error("Can't retrieve plan with id: " + planId, e);
         }
+        planBean = null;
     }
     
     public String getPageType() {
@@ -110,7 +106,7 @@ public class NavigationBean {
     
     public CreatePlanBean getCreatePlanBean() {
         if (createPlanBean == null) {
-            createPlanBean = new CreatePlanBean(this, plansIndex);
+            createPlanBean = new CreatePlanBean(plansIndex);
         }
         return createPlanBean;
     }

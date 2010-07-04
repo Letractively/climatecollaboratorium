@@ -38,7 +38,6 @@ public class PlanIndexItemWrapper {
     }
     
     public boolean isVotedOn() throws PortalException, SystemException {
-        System.out.print("Has user voted: " + " " + wrapped.getPlanId() + " '" + wrapped.getName() + "' ");
         boolean voted = false;
         if (Helper.isUserLoggedIn()) {
             voted = wrapped.hasUserVoted(Helper.getLiferayUser().getUserId());
