@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -51,6 +52,12 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_ALLBYPLANID = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
             PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countByAllByPlanId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FETCH_BY_PLANID = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
+            PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_ENTITY,
+            "fetchByPlanId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_PLANID = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
+            PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByPlanId", new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
             PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -100,6 +107,9 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
     public void cacheResult(PlanItem planItem) {
         EntityCacheUtil.putResult(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
             PlanItemImpl.class, planItem.getPrimaryKey(), planItem);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+            new Object[] { planItem.getPlanId() }, planItem);
     }
 
     public void cacheResult(List<PlanItem> planItems) {
@@ -196,6 +206,11 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
 
+        PlanItemModelImpl planItemModelImpl = (PlanItemModelImpl) planItem;
+
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANID,
+            new Object[] { planItemModelImpl.getOriginalPlanId() });
+
         EntityCacheUtil.removeResult(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
             PlanItemImpl.class, planItem.getPrimaryKey());
 
@@ -254,6 +269,10 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
 
     public PlanItem updateImpl(com.ext.portlet.plans.model.PlanItem planItem,
         boolean merge) throws SystemException {
+        boolean isNew = planItem.isNew();
+
+        PlanItemModelImpl planItemModelImpl = (PlanItemModelImpl) planItem;
+
         Session session = null;
 
         try {
@@ -272,6 +291,20 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
 
         EntityCacheUtil.putResult(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
             PlanItemImpl.class, planItem.getPrimaryKey(), planItem);
+
+        if (!isNew &&
+                (!Validator.equals(planItem.getPlanId(),
+                    planItemModelImpl.getOriginalPlanId()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANID,
+                new Object[] { planItemModelImpl.getOriginalPlanId() });
+        }
+
+        if (isNew ||
+                (!Validator.equals(planItem.getPlanId(),
+                    planItemModelImpl.getOriginalPlanId()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+                new Object[] { planItem.getPlanId() }, planItem);
+        }
 
         return planItem;
     }
@@ -544,6 +577,115 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public PlanItem findByPlanId(Long planId)
+        throws NoSuchPlanItemException, SystemException {
+        PlanItem planItem = fetchByPlanId(planId);
+
+        if (planItem == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanItem exists with the key {");
+
+            msg.append("planId=" + planId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchPlanItemException(msg.toString());
+        }
+
+        return planItem;
+    }
+
+    public PlanItem fetchByPlanId(Long planId) throws SystemException {
+        return fetchByPlanId(planId, true);
+    }
+
+    public PlanItem fetchByPlanId(Long planId, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { planId };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_PLANID,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("FROM com.ext.portlet.plans.model.PlanItem WHERE ");
+
+                if (planId == null) {
+                    query.append("planId IS NULL");
+                } else {
+                    query.append("planId = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("version DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planId != null) {
+                    qPos.add(planId.longValue());
+                }
+
+                List<PlanItem> list = q.list();
+
+                result = list;
+
+                PlanItem planItem = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+                        finderArgs, list);
+                } else {
+                    planItem = list.get(0);
+
+                    cacheResult(planItem);
+
+                    if ((planItem.getPlanId() == null) ||
+                            !planItem.getPlanId().equals(planId)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+                            finderArgs, planItem);
+                    }
+                }
+
+                return planItem;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+                        finderArgs, new ArrayList<PlanItem>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (PlanItem) result;
+            }
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -652,6 +794,13 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public void removeByPlanId(Long planId)
+        throws NoSuchPlanItemException, SystemException {
+        PlanItem planItem = findByPlanId(planId);
+
+        remove(planItem);
+    }
+
     public void removeAll() throws SystemException {
         for (PlanItem planItem : findAll()) {
             remove(planItem);
@@ -700,6 +849,57 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ALLBYPLANID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByPlanId(Long planId) throws SystemException {
+        Object[] finderArgs = new Object[] { planId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PLANID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append("FROM com.ext.portlet.plans.model.PlanItem WHERE ");
+
+                if (planId == null) {
+                    query.append("planId IS NULL");
+                } else {
+                    query.append("planId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planId != null) {
+                    qPos.add(planId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PLANID,
                     finderArgs, count);
 
                 closeSession(session);

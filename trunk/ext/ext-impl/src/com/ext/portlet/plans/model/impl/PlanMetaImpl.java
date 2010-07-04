@@ -23,4 +23,16 @@ public class PlanMetaImpl extends PlanMetaModelImpl implements PlanMeta {
             PlanMetaLocalServiceUtil.updatePlanMeta(this);
         }
     }
+    
+    public void vote() throws SystemException {
+        int votes = this.getVotes();
+        this.setVotes(votes + 1);
+        store();
+    }
+    
+    public void unvote() throws SystemException {
+        int votes = this.getVotes();
+        this.setVotes(votes - 1);
+        store();
+    }
 }

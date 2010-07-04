@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.ext.portlet.plans.EntityState;
+import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.UpdateType;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanAttributeFilter;
+import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlansUserSettings;
@@ -74,8 +76,28 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         return planItem;
     }
     
+    public PlanItem createPlan(String name, PlanItem basePlan, Long authorId) throws SystemException, PortalException {
+        long type = basePlan.getPlanTypeId();
+        if (basePlan.getPlanType().getPublished()) {
+            type = basePlan.getPlanType().getPublishedCounterpartId();
+        }
+        PlanItem plan = createPlan(basePlan.getName(), type, authorId);
+        PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
+        description.setDescription(basePlan.getDescription());
+        description.setName(name);
+        plan.updateAttribute(Attribute.DESCRIPTION.name());
+        plan.updateAttribute(Attribute.NAME.name());
+        
+        
+        return plan;
+    }
+    
     public List<PlanItem> getPlans() throws SystemException {
         return this.planItemFinder.getPlans();
+    }
+    
+    public PlanItem getPlan(Long planId) throws NoSuchPlanItemException, SystemException {
+        return this.planItemPersistence.findByPlanId(planId);
     }
     
     public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, int start, int end, 

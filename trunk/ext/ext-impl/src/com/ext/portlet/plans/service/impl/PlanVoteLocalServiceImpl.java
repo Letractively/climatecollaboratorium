@@ -9,7 +9,9 @@ package com.ext.portlet.plans.service.impl;
 import java.util.Date;
 
 import com.ext.portlet.plans.NoSuchPlanVoteException;
+import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanVote;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlanVoteLocalServiceBaseImpl;
 import com.liferay.portal.PortalException;
@@ -17,21 +19,36 @@ import com.liferay.portal.SystemException;
 
 
 public class PlanVoteLocalServiceImpl extends PlanVoteLocalServiceBaseImpl {
-    
-    public void voteForPlan(Long planId, Long userId) throws SystemException, PortalException {
-        deletePlanVote(userId);
+    /**
+     * Votes for a plan, if user has already voted for given plan returns false, true otherwise.
+     */
+    public boolean voteForPlan(Long planId, Long userId) throws SystemException, PortalException {
+        try {
+            PlanVote vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
+            if (vote.getPlanId() == planId) {
+                return false;
+            }
+            PlanItem plan = PlanItemLocalServiceUtil.getPlan(vote.getPlanId());
+            plan.unvote(userId);
+            deletePlanVote(userId);
+        }
+        catch (NoSuchPlanVoteException e) {
+            // ignore
+        }
         PlanVote vote = createPlanVote(userId);
         vote.setPlanId(planId);
         vote.setCreateDate(new Date());
         addPlanVote(vote);
+        return true;
     }
     
-    public void unvote(Long userId) throws SystemException, PortalException {
+    public boolean unvote(Long userId) throws SystemException, PortalException {
         try {
-            PlanVote vote = planVotePersistence.findByuserId(userId);
-            PlanVoteLocalServiceUtil.deletePlanVote(vote);
+            PlanVoteLocalServiceUtil.deletePlanVote(userId);
+            return true;
         } catch (NoSuchPlanVoteException e) {
             // ignore
         }
+        return false;
     }
 }

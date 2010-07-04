@@ -121,6 +121,24 @@ public class PlanItemUtil {
         return getPersistence().findByAllByPlanId_PrevAndNext(id, planId, obc);
     }
 
+    public static com.ext.portlet.plans.model.PlanItem findByPlanId(
+        java.lang.Long planId)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByPlanId(planId);
+    }
+
+    public static com.ext.portlet.plans.model.PlanItem fetchByPlanId(
+        java.lang.Long planId) throws com.liferay.portal.SystemException {
+        return getPersistence().fetchByPlanId(planId);
+    }
+
+    public static com.ext.portlet.plans.model.PlanItem fetchByPlanId(
+        java.lang.Long planId, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().fetchByPlanId(planId, retrieveFromCache);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -154,6 +172,12 @@ public class PlanItemUtil {
         getPersistence().removeByAllByPlanId(planId);
     }
 
+    public static void removeByPlanId(java.lang.Long planId)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException {
+        getPersistence().removeByPlanId(planId);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -161,6 +185,11 @@ public class PlanItemUtil {
     public static int countByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByAllByPlanId(planId);
+    }
+
+    public static int countByPlanId(java.lang.Long planId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByPlanId(planId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

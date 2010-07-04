@@ -74,6 +74,10 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planDescription.store();
         updateAttribute(Attribute.NAME);
     }
+    
+    public List<PlanDescription> getAllDescriptionVersions() throws SystemException {
+        return PlanDescriptionLocalServiceUtil.getAllForPlan(this);
+    }
 
 
     /** 
@@ -226,12 +230,16 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
    }
    
    public void vote(Long userId) throws PortalException, SystemException  {
-       PlanVoteLocalServiceUtil.voteForPlan(getPlanId(), userId);
+       if (PlanVoteLocalServiceUtil.voteForPlan(getPlanId(), userId)) {
+           PlanMetaLocalServiceUtil.getCurrentForPlan(this).vote();
+       }
        updateAttribute(Attribute.VOTES);
    }
    
    public void unvote(Long userId) throws PortalException, SystemException  {
-       PlanVoteLocalServiceUtil.unvote(userId);
+       if (PlanVoteLocalServiceUtil.unvote(userId)) {
+           PlanMetaLocalServiceUtil.getCurrentForPlan(this).unvote();
+       }
        updateAttribute(Attribute.VOTES);
    }
     
