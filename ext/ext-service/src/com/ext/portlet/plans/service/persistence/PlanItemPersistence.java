@@ -87,6 +87,18 @@ public interface PlanItemPersistence extends BasePersistence {
         throws com.ext.portlet.plans.NoSuchPlanItemException,
             com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanItem findByPlanId(
+        java.lang.Long planId)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanItem fetchByPlanId(
+        java.lang.Long planId) throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanItem fetchByPlanId(
+        java.lang.Long planId, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -108,9 +120,16 @@ public interface PlanItemPersistence extends BasePersistence {
     public void removeByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
 
+    public void removeByPlanId(java.lang.Long planId)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByAllByPlanId(java.lang.Long planId)
+        throws com.liferay.portal.SystemException;
+
+    public int countByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

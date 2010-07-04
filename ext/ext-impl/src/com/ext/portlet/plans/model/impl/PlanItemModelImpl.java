@@ -77,6 +77,7 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
                 "lock.expiration.time.com.ext.portlet.plans.model.PlanItem"));
     private Long _id;
     private Long _planId;
+    private Long _originalPlanId;
     private String _state;
     private Date _updated;
     private Long _updateAuthorId;
@@ -136,6 +137,14 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
 
     public void setPlanId(Long planId) {
         _planId = planId;
+
+        if (_originalPlanId == null) {
+            _originalPlanId = planId;
+        }
+    }
+
+    public Long getOriginalPlanId() {
+        return _originalPlanId;
     }
 
     public String getState() {

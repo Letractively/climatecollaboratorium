@@ -271,6 +271,9 @@
         <finder name="AllByPlanId" return-type="Collection">
             <finder-column name="planId" />
         </finder>
+        <finder name="PlanId" return-type="PlanItem">
+            <finder-column name="planId" />
+        </finder>
     </entity>
     
     <entity name="PlanDescription" local-service="true">

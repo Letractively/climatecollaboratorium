@@ -81,9 +81,20 @@ public interface PlanItemLocalService {
         java.lang.String name, java.lang.Long planTypeId,
         java.lang.Long authorId) throws com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanItem createPlan(
+        java.lang.String name, com.ext.portlet.plans.model.PlanItem basePlan,
+        java.lang.Long authorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans()
         throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanItem getPlan(java.lang.Long planId)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans(

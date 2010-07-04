@@ -28,4 +28,8 @@ package com.ext.portlet.plans.model;
  */
 public interface PlanMeta extends PlanMetaModel {
     public void store() throws com.liferay.portal.SystemException;
+
+    public void vote() throws com.liferay.portal.SystemException;
+
+    public void unvote() throws com.liferay.portal.SystemException;
 }

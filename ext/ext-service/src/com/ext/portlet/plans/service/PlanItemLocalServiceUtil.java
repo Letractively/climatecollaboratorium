@@ -95,9 +95,24 @@ public class PlanItemLocalServiceUtil {
         return getService().createPlan(name, planTypeId, authorId);
     }
 
+    public static com.ext.portlet.plans.model.PlanItem createPlan(
+        java.lang.String name, com.ext.portlet.plans.model.PlanItem basePlan,
+        java.lang.Long authorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().createPlan(name, basePlan, authorId);
+    }
+
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans()
         throws com.liferay.portal.SystemException {
         return getService().getPlans();
+    }
+
+    public static com.ext.portlet.plans.model.PlanItem getPlan(
+        java.lang.Long planId)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException {
+        return getService().getPlan(planId);
     }
 
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans(

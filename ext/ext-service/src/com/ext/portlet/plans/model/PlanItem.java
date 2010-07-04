@@ -39,6 +39,9 @@ public interface PlanItem extends PlanItemModel {
     public void setName(java.lang.String name, java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.plans.model.PlanDescription> getAllDescriptionVersions()
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.plans.model.PlanDescription> getPlanDescriptions()
         throws com.liferay.portal.SystemException;
 
