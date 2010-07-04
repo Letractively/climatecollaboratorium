@@ -340,3 +340,34 @@ function deferUntilLogin() {
         return false;
     }
 }
+
+function navigateToPlan(planId) {
+	window.location.hash = "#planId=" + planId;
+}
+
+function initVersionChoosingBox() {
+	var container = jQuery(".versionsContainer");
+	var versions = container.find(".versions");
+	var trigger = container.find(".versionsTrigger");
+	var hidden = true;
+	var oryginalPos = container.position();
+	var hiddenWidth = container.width();
+	
+	trigger.click(function() {
+		if (! versions.is(':visible')) {
+			container.css({'width': "auto"});
+			trigger.html("H I D E");
+			versions.show("slide", "right");
+			container.draggable();
+		}
+		else {
+			/*
+			container.draggable('destroy');
+			container.css({'top': pos.top, 'left': pos.left});
+			*/
+			versions.hide();//"slide", {direction: "left"});
+			container.css({'width': hiddenWidth + "px"});
+			trigger.html("V E R S I O N S");
+		}
+	});
+}

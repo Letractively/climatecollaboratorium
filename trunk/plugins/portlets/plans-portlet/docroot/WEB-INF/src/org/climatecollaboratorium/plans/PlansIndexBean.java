@@ -233,7 +233,6 @@ public class PlansIndexBean {
         filterPlansBean = null;
         columnsConfiguration = null;
         columnsUpdate();
-        dataPaginator = new DataPaginator();
         getPlans();
     }
     

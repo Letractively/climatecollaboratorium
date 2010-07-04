@@ -11,6 +11,23 @@
     </ice:panelGroup>
     
     <ice:panelGroup rendered="#{planBean.editingDescription}">
-        <ice:inputRichText value="#{planBean.plan.description}" toolbar="Basic" />
+        <div class="versionsContainer relative">
+                <div class="versions">
+                    <ice:selectOneListbox  immediate="true" value="#{planBean.plan.descriptionVersion}"
+                                      valueChangeListener="#{planBean.plan.descriptionVersion}" partialSubmit="true">
+                        <f:selectItems value="#{planBean.plan.allDescriptionVersions}"/> 
+                    </ice:selectOneListbox>
+                </div>
+                <div class="versionsTrigger">V<br />E<br />R<br />S<br />I<br />O<br />N<br />S<br /></div>
+                <div class="clear"></div>
+                
+        </div>
+        <div class="descriptionInput">
+            <ice:inputRichText value="#{planBean.plan.description}" toolbar="Basic"  saveOnSubmit="true" />
+            <ice:commandButton value="Save" actionListener="#{planBean.plan.saveDescription}"/>
+        </div>
     </ice:panelGroup>
+    <script language="javascript">
+    jQuery(document).ready(initVersionChoosingBox);
+    </script>
 </f:view>
