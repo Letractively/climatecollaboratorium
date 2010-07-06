@@ -257,8 +257,10 @@ public class ClientRepository implements Deserializer {
     public Scenario getScenario(Long id) throws IOException {
         Scenario result = scenarioCache.get(id);
         if (result !=null) {
+            log.debug("Found scenario in cache:"+id);
             return result;
         }
+        log.debug("Could not find scenario in cache:"+id);
         ResponseWrapper wrapper = connector.get(ModelAccessPoint.GET_SCENARIO,null,String.valueOf(id));
         if (wrapper.scenarios.size() > 0) {
              result = wrapper.scenarios.get(0);
