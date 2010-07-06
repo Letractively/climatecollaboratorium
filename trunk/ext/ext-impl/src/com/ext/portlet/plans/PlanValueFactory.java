@@ -83,6 +83,58 @@ public interface PlanValueFactory {
         }
 		
 	}
+
+    public static class CustomizedAttributeGetter implements PlanValueFactory {
+
+		Attribute[] atts;
+		SelectingFormatFunction formatfunction;
+
+		public CustomizedAttributeGetter(SelectingFormatFunction function, Attribute... atts) {
+			this.formatfunction = function;
+			this.atts = atts;
+		}
+
+		public String getValue(Plan plan) throws SystemException {
+			String[] params = new String[atts.length];
+			int i = 0;
+			for (Attribute att:atts) {
+				params[i++]=att.format(plan);
+			}
+			return formatfunction.format((Object[])params);
+		}
+
+        @Override
+        public String getValue(PlanItem plan) throws SystemException, PortalException {
+            String[] params = new String[atts.length];
+            int i = 0;
+            for (Attribute att:atts) {
+                params[i++]=att.format(plan);
+            }
+           return formatfunction.format((Object[])params);
+        }
+
+	}
+
+
+    public abstract static class SelectingFormatFunction {
+
+        public String[] formats;
+
+        public SelectingFormatFunction(String... formats) {
+            this.formats = formats;
+        }
+
+        public String format(Object[] params) {
+            int i = messageIndex(params);
+            if (i>=formats.length) {
+                return "N/A";
+            } else return String.format(formats[i],params);
+        }
+
+        public abstract int messageIndex(Object[] params);
+
+    }
+
 	
 	public static class MinMaxAttributeGetter implements PlanValueFactory {
         
