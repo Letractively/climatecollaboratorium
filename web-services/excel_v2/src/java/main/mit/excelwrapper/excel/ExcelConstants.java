@@ -18,7 +18,7 @@ public class ExcelConstants {
     }
 
 
-private static final String[] PARAM_PROPERTY_NAMES = new String[] {"name", "label", "description",
+    private static final String[] PARAM_PROPERTY_NAMES = new String[] {"name", "label", "description",
         "units", "varcontext", "type2", "datatype", "external", "default","min", "max", "categories", "value"};
 
 
