@@ -45,7 +45,7 @@ import java.util.List;
  */
 public class PlanConstants {
 	
-    private static AttributeFunctionFactory attributeFunctionFactory = AttributeFunctionFactory.getFromEnvironment();
+    private static AttributeFunctionFactory attributeFunctionFactory = new AttributeFunctionFactory();
 
     static {
 
@@ -361,7 +361,19 @@ public class PlanConstants {
 		
 		MITIGATION_COST("Mitigation cost<br/>(%GDP in 2100)","Cost of efforts to prevent climate change (e.g., by reducing emissions). " +
 				"Costs are shown as a % of World GDP (Gross Domestic Product).	Values shown are the lowest and highest of the estimates " +
-				"produced by three models of these costs.","ShowMitigationCost",true, new AttributeGetter("%s to %s <div class='errors popup-info-box' style='display: none; position: absolute; width: 150px;'>%s</div>",Attribute.MIN_MITIGATION_COST, Attribute.MAX_MITIGATION_COST, Attribute.MITIGATION_COST_ERROR)),
+				"produced by three models of these costs.","ShowMitigationCost",true,
+                new PlanValueFactory.CustomizedAttributeGetter(
+                        new PlanValueFactory.SelectingFormatFunction(
+                                "%s to %s <div class='errors popup-info-box' style='display: none;" +
+                                        " position: absolute; width: 150px;'>%s</div>",
+                                "N/A <div class='errors popup-info-box' style='display: none;" +
+                                        " position: absolute; width: 150px;'>%3$s</div>") {
+                            @Override
+                            public int messageIndex(Object[] params) {
+                                return "N/A".equals(params[0]) && "N/A".equals(params[1])?1:0;
+                            }
+                        },Attribute.MIN_MITIGATION_COST, Attribute.MAX_MITIGATION_COST, Attribute.MITIGATION_COST_ERROR)),
+
 				
 		DAMAGE_COST("Damage cost<br/>(%GDP in 2100)","Cost of damages caused by climate change (e.g., damages from rising sea level, hurricanes, " +
 				"droughts, etc.). Costs are shown as a % of World GDP (Gross Domestic Product). Values shown are estimates of the " +
@@ -384,7 +396,8 @@ public class PlanConstants {
 			this.name = name;
 			this.description =description;
 			this.getter = "get"+methodroot;
-			this.setter = "set"+methodroot;			this.defaultDisplay = defaultDisplay;
+			this.setter = "set"+methodroot;
+            this.defaultDisplay = defaultDisplay;
 			this.value = factory;
 		}
 		
