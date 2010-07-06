@@ -8,36 +8,22 @@ package com.ext.portlet.plans.attributes;
 
 import com.ext.portlet.community.tags.ClimateUserTag;
 import com.ext.portlet.models.CollaboratoriumModelingService;
-import com.ext.portlet.models.ModelingServiceClient;
-import com.ext.portlet.models.ModelingServiceClient.IndexedEntry;
-import com.ext.portlet.models.ui.ModelDisplay;
-import com.ext.portlet.models.ui.ModelDisplayItem;
-import com.ext.portlet.models.ui.ModelOutputDisplayItem;
-import com.ext.portlet.models.ui.ModelOutputDisplayItemType;
-import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
-import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
-import com.ext.portlet.models.ui.ModelUIFactory;
+import com.ext.portlet.models.ui.*;
 import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.util.PropsUtil;
-import com.liferay.util.portlet.PortletProps;
-import com.mchange.v2.codegen.bean.BeangenUtils;
-
-import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.Tuple;
+import mit.simulation.climate.client.TupleStatus;
 import mit.simulation.climate.client.Variable;
-
+import mit.simulation.climate.client.model.impl.ClientScenario;
+import mit.simulation.climate.client.model.impl.ClientVariable;
+import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.core.ParameterNameDiscoverer;
 
 
 /**
@@ -46,53 +32,21 @@ import org.springframework.core.ParameterNameDiscoverer;
  */
 public class AttributeFunctionFactory {
 
-    private ModelingServiceClient client = null;
 
     private static Log _log = LogFactoryUtil.getLog(AttributeFunctionFactory.class);
 
-    public static AttributeFunctionFactory getFromEnvironment() {
-        
-     // try to read configuration from default location (portal-ext.properties)
-        String host = null;
-        int port = 0;
-        try {
-            host = PropsUtil.get("climatecollaboratorium.model.server");
-            if (host != null) {
-                port = Integer.parseInt(PropsUtil.get("climatecollaboratorium.model.port"));
-            }
-            
-        } catch (Throwable e) {
-            _log.error("Exception has been thrown when trying to access PropsUtil: " + e.getClass().getName());
-        }
-        if (host == null) {
-            // if configuration isn't available try to load it from portlet preferences
-            host = PortletProps.get("climatecollaboratorium.model.server");
-            port = Integer.parseInt(PortletProps.get("climatecollaboratorium.model.port"));
-        }
-        _log.info("Modeling server from properties is "+host+":"+port);
-        return new AttributeFunctionFactory(host,port);
-    }
-
-
-    public AttributeFunctionFactory(String hostname, int port) {
-        try {
-            client = new ModelingServiceClient(hostname, port);
-        } catch (SystemException e) {
-            throw new RuntimeException("An error occurred when creating modeling service client", e);
-        }
-    }
 
     public <T extends Number> AttributeFunction<T> getMaxValueFunction(final String variableId, final Class<T> resultType) {
 
         return new AttributeFunction<T>() {
             public T process(String scenarioId) throws SystemException {
-                List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
-                data = getDataWithInternalName(scenarioId, variableId);
+                Variable data = getVariableFromInternalName(scenarioId, variableId);
+
                 T result = null;
-                for (ModelingServiceClient.IndexedEntry<String, String> ent : data) {
+                for (Tuple ent : data.getValue()) {
                     T candidate = null;
                     try {
-                        candidate = parseStringAsType(ent.getValue(), resultType);
+                        candidate = parseStringAsType(ent.getValues()[1], resultType);
                     } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
                         _log.error(unsupportedTypeOperation);
                         throw (new SystemException(unsupportedTypeOperation));
@@ -124,14 +78,13 @@ public class AttributeFunctionFactory {
 
         return new AttributeFunction<T>() {
             public T process(String scenarioId) throws SystemException {
-                List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
-                data = getDataWithInternalName(scenarioId, variableId);
+                Variable data = getVariableFromInternalName(scenarioId, variableId);
 
                 T result = null;
-                for (ModelingServiceClient.IndexedEntry<String, String> ent : data) {
+                for (Tuple ent : data.getValue()) {
                     T candidate = null;
                     try {
-                        candidate = parseStringAsType(ent.getValue(), resultType);
+                        candidate = parseStringAsType(ent.getValues()[1], resultType);
                     } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
                         _log.error(unsupportedTypeOperation);
                         throw (new SystemException(unsupportedTypeOperation));
@@ -163,10 +116,9 @@ public class AttributeFunctionFactory {
 
         return new AttributeFunction<T>() {
             public T process(String scenarioId) throws SystemException {
-                List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
-                data = getDataWithInternalName(scenarioId, variableId);
+                Variable v = getVariableFromInternalName(scenarioId, variableId);
 
-                String val = data.get(0).getValue();
+                String val = v.getValue().get(0).getValues()[1];
                 try {
                     return parseStringAsType(val, resultType);
                 } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
@@ -196,13 +148,14 @@ public class AttributeFunctionFactory {
 
         return new AttributeFunction<T>() {
             public T process(String scenarioId) throws SystemException {
-                List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
+                 Variable v = getVariableFromInternalName(scenarioId, variableId);
 
-                data = getDataWithInternalName(scenarioId, variableId);
-                if (data.size() == 0) {
+                List<Tuple> tuples = v.getValue();
+                if (tuples.size() == 0) {
                     return null;
                 }
-                String val = data.get(data.size() - 1).getValue();
+
+                String val = tuples.get(tuples.size() - 1).getValues()[1];
                 try {
                     return parseStringAsType(val, resultType);
                 } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
@@ -229,41 +182,17 @@ public class AttributeFunctionFactory {
     }
 
 
-    public List<ModelingServiceClient.IndexedEntry<String, String>> getData(String scenarioId, String variableId) throws SystemException {
-        return client.extractIndexedVariableData(client.readScenario(scenarioId), variableId);
 
-    }
 
-    public List<ModelingServiceClient.IndexedEntry<String, String>> getDataWithInternalName(String scenarioId, String name) throws SystemException {
+    public Variable getVariableFromInternalName(String scenarioId, String name) throws SystemException {
 
-        Scenario s = null;
+        ClientScenario s = null;
         try {
-            s = CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+            s = (ClientScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
         } catch (IOException e) {
             throw new SystemException(e);
         }
-        Simulation sim = s.getSimulation();
-        String variableid = null;
-
-        for (MetaData md:sim.getInputs()) {
-            if (name.equals(md.getInternalName())) {
-                variableid = ""+md.getId();
-                break;
-            }
-        }
-
-
-        if (variableid == null) {
-            for (MetaData md:sim.getOutputs()) {
-                if (name.equals(md.getInternalName())) {
-                variableid = ""+md.getId();
-                break;
-            }
-            }
-        }
-
-        return client.extractIndexedVariableData(client.readScenario(scenarioId), variableid);
-
+        return s.getVariableForInternalname(name);
     }
 
     private static <T> T parseStringAsType(String input, Class<T> type) throws UnsupportedTypeOperation {
@@ -289,14 +218,23 @@ public class AttributeFunctionFactory {
 
     }
     
-    public <T extends Number> AttributeFunction<T> getMinFromLastValuesFunction(final String[] variableIds, final Class<T> resultType) {
+    public <T extends Number> AttributeFunction<T> getMinFromLastValuesFunction(final String[] variableNames, final Class<T> resultType) {
         return new AttributeFunction<T>() {
             @Override
             public T process(String scenarioId) throws SystemException {
                 T result = null;
-                for(String variableId: variableIds) {
-                    if (! getHasErrorsFunction(variableId, Boolean.class).process(scenarioId)) {
-                        T candidate = getLastValueFunction(variableId, resultType).process(scenarioId);
+                ClientScenario s = null;
+                try {
+                    s = (ClientScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+                } catch (IOException e) {
+                    throw new SystemException(e);
+                }
+
+
+                for(String variableName: variableNames) {
+                    ClientVariable v = (ClientVariable) s.getVariableForInternalname(variableName);
+                    if (!v.hasError(TupleStatus.INVALID)) {
+                        T candidate = getLastValueFunction(variableName, resultType).process(scenarioId);
                         result = result == null || result.doubleValue() > candidate.doubleValue() ? candidate : result;
                     }
                 }
@@ -320,15 +258,22 @@ public class AttributeFunctionFactory {
         };
     }
     
-    public <T extends Number> AttributeFunction<T> getMaxFromLastValuesFunction(final String[] variableIds, final Class<T> resultType) {
+    public <T extends Number> AttributeFunction<T> getMaxFromLastValuesFunction(final String[] variableNames, final Class<T> resultType) {
         return new AttributeFunction<T>() {
             @Override 
             public T process(String scenarioId) throws SystemException {
                 T result = null;
+                ClientScenario s = null;
+                try {
+                    s = (ClientScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+                } catch (IOException e) {
+                    throw new SystemException(e);
+                }
                 int outputsWithoutErrors = 0;
-                for(String variableId: variableIds) {
-                    if (! getHasErrorsFunction(variableId, Boolean.class).process(scenarioId)) {
-                        T candidate = getLastValueFunction(variableId, resultType).process(scenarioId);
+                for(String variableName: variableNames) {
+                   ClientVariable v = (ClientVariable) s.getVariableForInternalname(variableName);
+                    if (!v.hasError(TupleStatus.INVALID)) {
+                        T candidate = getLastValueFunction(variableName, resultType).process(scenarioId);
                         result = candidate != null && (result == null || result.doubleValue() < candidate.doubleValue()) ? candidate : result;
                         outputsWithoutErrors++;
                     }
@@ -378,6 +323,7 @@ public class AttributeFunctionFactory {
             @Override
             public T process(PlanItem plan) throws SystemException {
                 String getterMethod = "get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+
                 try {
                     Method getter = PlanItem.class.getMethod(getterMethod);
                     return (T)getter.invoke(plan);
@@ -467,73 +413,13 @@ public class AttributeFunctionFactory {
         };
     }
     
-    public AttributeFunction<Boolean> getHasErrorsFunction(final String variableId, final Class<Boolean> resultType) {
-        return new AttributeFunction<Boolean>() {
-            
-            @Override
-            public Boolean process(PlanItem plan) throws SystemException {
-                // TODO Auto-generated method stub
-                return null;
-            }
-            
-            public Boolean process(String scenarioId) throws SystemException {
-                List<ModelingServiceClient.IndexedEntry<String, String>> data = null;
-                data = getDataWithInternalName(scenarioId, variableId);
-                try {
-                    Scenario scenario = CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
-                    ModelDisplay display = ModelUIFactory.getInstance().getDisplay(scenario);
-                    
-                    for (ModelOutputDisplayItem item: display.getOutputs()) {
-                        if (item instanceof ModelOutputIndexedDisplayItem) {
-                            ModelOutputIndexedDisplayItem indexedItem = (ModelOutputIndexedDisplayItem) item;
-                            for (ModelOutputSeriesDisplayItem seriesItem: indexedItem.getSeries()) {
-                                if (seriesItem.getMetaData().getInternalName().equals(variableId)) {
-                                    if (seriesItem.getInvalidError() != null) {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    for (Variable var: scenario.getOutputSet()) {
-                        if (var.getMetaData().getInternalName().trim().equals(variableId)) {
-                            
-                        }
-                    }
-                } catch (NumberFormatException e) {
-                    throw new SystemException(e);
-                } catch (IOException e) {
-                    throw new SystemException(e);
-                }
-                
-                for (IndexedEntry<String, String> entry: data) {
-                    if (entry.getValue().trim().startsWith("@ERROR")) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            
-            @Override
-            public boolean isFromScenario() {
-                // TODO Auto-generated method stub
-                return false;
-            }
-            
-            @Override
-            public boolean isFromPlan() {
-                // TODO Auto-generated method stub
-                return false;
-            }
-        };
-        
-    }
+
         
 
 
 
     public static void main(String[] args) throws SystemException {
-        AttributeFunctionFactory factory = new AttributeFunctionFactory("127.0.0.1", 8080);
+        AttributeFunctionFactory factory = new AttributeFunctionFactory();
         System.err.println(factory.getMaxValueFunction("242", Double.class).process("2900"));
         System.err.println(factory.getMinValueFunction("242", Double.class).process("2900"));
         System.err.println(factory.getFirstValueFunction("242", Double.class).process("2900"));
