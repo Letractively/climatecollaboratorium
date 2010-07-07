@@ -16,7 +16,9 @@ public class SimulationBean {
     }
     
     public void update(ActionEvent e) throws SystemException, PortalException {
-        plan.setScenarioId(scenario, 10L);
+        if (Helper.isUserLoggedIn()) {
+            plan.setScenarioId(scenario, Helper.getLiferayUser().getUserId());
+        }
     }
     
     public Long getScenario() {

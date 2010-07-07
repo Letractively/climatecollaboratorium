@@ -371,3 +371,31 @@ function initVersionChoosingBox() {
 		}
 	});
 }
+
+
+function updatePositionsSelection(positionsArray) {
+	var selectedPositionsMap = {};
+	for (var i = 0; i < positionsArray.length; i++) {
+		selectedPositionsMap[positionsArray[i]] = true;
+	}
+	jQuery(".versionedRadio input").each(function() {
+		var input = jQuery(this);
+		if (selectedPositionsMap[input.val()]) {
+			input.attr("checked", "checked");
+		}
+		else {
+			input.removeAttr("checked");
+		}
+		
+	});
+	
+}
+
+function switchToScenario(scenarioId) {
+	var src = jQuery("#actionsAndImpacts").attr("src");
+	src = src.replace(/scenarioId.*/, "");
+	if (scenarioId) {
+		src += "scenarioId=" + scenarioId;
+	}
+	jQuery("#actionsAndImpacts").attr("src", src);
+}
