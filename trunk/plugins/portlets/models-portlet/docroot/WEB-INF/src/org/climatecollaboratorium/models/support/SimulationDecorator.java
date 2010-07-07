@@ -175,6 +175,18 @@ public class SimulationDecorator implements Simulation {
         ModelUIFactory.setSimulationWeight(wrapped, weight);
         this.weight = weight;
     }
+
+    @Override
+    public String getType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setType(String arg0) {
+        // TODO Auto-generated method stub
+        
+    }
     
 
 }
