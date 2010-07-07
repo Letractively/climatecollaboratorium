@@ -136,7 +136,9 @@ public class ClientMetaData implements MetaData {
         return categories;
     }
 
-
+    public boolean getIsIndex() {
+        return this.index;
+    }
 
     public void setIsIndex(boolean b) {
         this.index = b;
