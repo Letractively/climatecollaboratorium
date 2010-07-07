@@ -5,21 +5,42 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     <h1>Assumptions</h1>
     <ice:panelGroup rendered="#{not planBean.planPositionsBean.editing}">
-        <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
+        <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question" styleClass="assumptionsInput">
             <h4>#{question.debateSummary}</h4>
             <p>#{question.selectedPosition.debateSummary}</p>
         </ice:panelSeries>
         <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" />
     </ice:panelGroup>
-    
+    <ice:messages />
     
     <ice:panelGroup rendered="#{planBean.planPositionsBean.editing}">
-        <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
-            <h1>#{question.debateSummary}</h1>
-            <ice:selectOneRadio value="#{question.position}">
-                <f:selectItems value="#{question.positions}" />
-            </ice:selectOneRadio>
-        </ice:panelSeries>
-        <ice:commandButton actionListener="#{planBean.planPositionsBean.updatePositions}" value="Save" />
+        <div class="versionsContainer relative">
+                <div class="versions">
+                    <ice:selectOneListbox value="#{planBean.planPositionsBean.planPositionsVersion}" onchange="iceSubmit(form, this, event);">
+                        <f:selectItems value="#{planBean.planPositionsBean.planPositionsVersions}"/> 
+                    </ice:selectOneListbox>
+                </div>
+                <div class="versionsTrigger">V<br />E<br />R<br />S<br />I<br />O<br />N<br />S<br /></div>
+                <div class="clear"></div>
+                
+        </div>
+        <ice:panelGroup styleClass="descriptionInput">
+            <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
+                <h1>#{question.debateSummary}</h1>
+                <ice:selectOneRadio value="#{question.position}" styleClass="versionedRadio">
+                    <f:selectItems value="#{question.positions}" />
+                </ice:selectOneRadio>
+             
+            </ice:panelSeries>
+            <ice:panelGroup>
+                <script language="javascript">
+                    updatePositionsSelection(#{planBean.planPositionsBean.selectedPositionsIds});
+                </script>
+            </ice:panelGroup>
+            <ice:commandButton actionListener="#{planBean.planPositionsBean.updatePositions}" value="Save" />
+        </ice:panelGroup>
     </ice:panelGroup>
+    <script language="javascript">
+    jQuery(document).ready(initVersionChoosingBox);
+    </script>
 </f:view>

@@ -1,12 +1,9 @@
 package org.climatecollaboratorium.plans;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -16,10 +13,11 @@ import com.ext.portlet.Activity.ActivityUtil;
 import com.ext.portlet.plans.PlanActivityKeys;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanModelRun;
+import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.model.User;
 
 public class PlanItemWrapper {
     private PlanItem wrapped;
@@ -27,21 +25,31 @@ public class PlanItemWrapper {
     private String candidateName;
     private String candidateDescription;
     private List<PlanDescription> planDescriptions;
+    private List<PlanPositions> planPositions;
+    private List<PlanModelRun> planModelRuns;
+    
     private Map<Long, PlanDescription> planDescriptionsById = new HashMap<Long, PlanDescription>();
     private List<SelectItem> planDescriptionItems = new ArrayList<SelectItem>();
-    private Long currentDescriptionVersion;
+    private List<SelectItem> planModelRunItems = new ArrayList<SelectItem>();
+    private Map<Long, PlanPositions> planPositionsById = new HashMap<Long, PlanPositions>();
+    private Map<Long, PlanModelRun> planModelRunsById = new HashMap<Long, PlanModelRun>();
+    private List<SelectItem> planPositionItems = new ArrayList<SelectItem>();
 
+    private Long currentDescriptionVersion;
+    private Long planPositionsVersion;
+    private Long currentPlanModelRunVersion;
+    
     public PlanItemWrapper(PlanItem plan, PlanBean planBean) throws SystemException, PortalException {
         wrapped = plan;
         this.planBean = planBean;
         planDescriptions = wrapped.getAllDescriptionVersions();
-
+        
         for (PlanDescription planDescription: planDescriptions) {
             planDescriptionsById.put(planDescription.getId(), planDescription);
             planDescriptionItems.add(new SelectItem(planDescription.getId(), planDescription.getCreated() + " by " + planDescription.getUpdateAuthor().getScreenName()));
         }
-        
         currentDescriptionVersion = planDescriptions.get(0).getId();
+        
         
         
     }
@@ -55,9 +63,8 @@ public class PlanItemWrapper {
         candidateDescription = description;
     }
 
-
     public String getName() throws SystemException {
-        return planDescriptionsById.get(currentDescriptionVersion).getName();
+        return wrapped.getName();//planDescriptionsById.get(currentDescriptionVersion).getName();
     }
 
     public void setName(String name) {
@@ -121,6 +128,7 @@ public class PlanItemWrapper {
         return planDescriptionItems;
     }
     
+    
     public Long getDescriptionVersion() {
         return currentDescriptionVersion;
     }
@@ -138,4 +146,43 @@ public class PlanItemWrapper {
         System.out.println("currentDesc ver: " + currentDescriptionVersion + "\t " + candidateDescription);
         
     }
+    
+    public List<PlanItem> getAllVersions() throws SystemException {
+        return wrapped.getAllVersions();
+    }
+    
+    public PlanType getPlanType() throws PortalException, SystemException {
+        return wrapped.getPlanType();
+    }
+    
+    public Long getScenarioId() throws SystemException {
+        return wrapped.getScenarioId();
+    }
+
+    public List<SelectItem> getPlanModelRunVersionItems() throws PortalException, SystemException {
+        planModelRuns = wrapped.getAllPlanModelRuns();
+        planModelRunsById.clear();
+        planModelRunItems.clear();
+        
+        for (PlanModelRun planModelRun: planModelRuns) {
+            planModelRunsById.put(planModelRun.getId(), planModelRun);
+            planModelRunItems.add(new SelectItem(planModelRun.getId(), planModelRun.getCreated() + " by " + planModelRun.getUpdateAuthor().getScreenName()));
+        }
+        return planModelRunItems;
+    }
+    
+    public Long getCurrentPlanModelRunVersion() {
+        return currentPlanModelRunVersion;
+    }
+    
+    public void setCurrentPlanModelRunVersion(Long selectedVersion) {
+        currentPlanModelRunVersion = selectedVersion;
+    }
+    
+    public Long getPlanModelRunScenarioId() {
+        return planModelRuns != null && currentPlanModelRunVersion != null ? planModelRunsById.get(currentPlanModelRunVersion).getScenarioId() : null; 
+    }
+    
+    
+
 }

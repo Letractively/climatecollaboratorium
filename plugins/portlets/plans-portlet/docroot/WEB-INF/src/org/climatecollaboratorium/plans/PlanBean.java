@@ -4,6 +4,7 @@ import javax.faces.event.ActionEvent;
 
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -20,13 +21,14 @@ public class PlanBean {
     
     public PlanBean(PlanItem planItem) throws SystemException, PortalException {
         this.planItem = planItem;
-        planPositionsBean = new PlanPositionsBean(planItem);
+        planPositionsBean = new PlanPositionsBean(planItem, this);
         plan = new PlanItemWrapper(planItem, this);
         simulationBean = new SimulationBean(planItem);
     }
     
     public void refresh() throws SystemException, PortalException {
-        planPositionsBean = new PlanPositionsBean(planItem);
+        planItem = PlanItemLocalServiceUtil.getPlan(planItem.getPlanId());
+        planPositionsBean = new PlanPositionsBean(planItem, this);
         plan = new PlanItemWrapper(planItem, this);
         simulationBean = new SimulationBean(planItem);
     }
