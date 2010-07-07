@@ -35,4 +35,8 @@ public interface PlanPositions extends PlanPositionsModel {
     public void setPositionsIds(java.util.List<Long> positionsIds)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public com.liferay.portal.model.User getUpdateAuthor()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }
