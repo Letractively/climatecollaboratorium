@@ -38,8 +38,8 @@ public class AttributeFunctionFactory {
 
     public <T extends Number> AttributeFunction<T> getMaxValueFunction(final String variableId, final Class<T> resultType) {
 
-        return new AttributeFunction<T>() {
-            public T process(String scenarioId) throws SystemException {
+        return new ScenarioAttributeFunction<T>() {
+            public T _process(String scenarioId) throws SystemException {
                 Variable data = getVariableFromInternalName(scenarioId, variableId);
 
                 T result = null;
@@ -57,27 +57,14 @@ public class AttributeFunctionFactory {
 
             }
 
-            @Override
-            public boolean isFromPlan() {
-                return false;
-            }
 
-            @Override
-            public boolean isFromScenario() {
-                return true;
-            }
-
-            @Override
-            public T process(PlanItem plan) throws SystemException {
-                return process(plan.getScenarioId().toString());
-            }
         };
     }
 
     public <T extends Number> AttributeFunction<T> getMinValueFunction(final String variableId, final Class<T> resultType) {
 
-        return new AttributeFunction<T>() {
-            public T process(String scenarioId) throws SystemException {
+        return new ScenarioAttributeFunction<T>() {
+            public T _process(String scenarioId) throws SystemException {
                 Variable data = getVariableFromInternalName(scenarioId, variableId);
 
                 T result = null;
@@ -95,27 +82,14 @@ public class AttributeFunctionFactory {
 
             }
 
-            @Override
-            public boolean isFromPlan() {
-                return false;
-            }
 
-            @Override
-            public boolean isFromScenario() {
-                return true;
-            }
-
-            @Override
-            public T process(PlanItem plan) throws SystemException {
-                return process(plan.getScenarioId().toString());
-            }
         };
     }
 
     public <T> AttributeFunction<T> getFirstValueFunction(final String variableId, final Class<T> resultType) {
 
-        return new AttributeFunction<T>() {
-            public T process(String scenarioId) throws SystemException {
+        return new ScenarioAttributeFunction<T>() {
+            public T _process(String scenarioId) throws SystemException {
                 Variable v = getVariableFromInternalName(scenarioId, variableId);
 
                 String val = v.getValue().get(0).getValues()[1];
@@ -126,15 +100,6 @@ public class AttributeFunctionFactory {
                 }
             }
 
-            @Override
-            public boolean isFromPlan() {
-                return false;
-            }
-
-            @Override
-            public boolean isFromScenario() {
-                return true;
-            }
 
             @Override
             public T process(PlanItem plan) throws SystemException {
@@ -146,8 +111,8 @@ public class AttributeFunctionFactory {
 
     public <T> AttributeFunction<T> getLastValueFunction(final String variableId, final Class<T> resultType) {
 
-        return new AttributeFunction<T>() {
-            public T process(String scenarioId) throws SystemException {
+        return new ScenarioAttributeFunction<T>() {
+            public T _process(String scenarioId) throws SystemException {
                  Variable v = getVariableFromInternalName(scenarioId, variableId);
 
                 List<Tuple> tuples = v.getValue();
@@ -163,20 +128,7 @@ public class AttributeFunctionFactory {
                 }
             }
 
-            @Override
-            public boolean isFromPlan() {
-                return false;
-            }
 
-            @Override
-            public boolean isFromScenario() {
-                return true;
-            }
-
-            @Override
-            public T process(PlanItem plan) throws SystemException {
-                return process(plan.getScenarioId().toString());
-            }
 
         };
     }
@@ -219,9 +171,9 @@ public class AttributeFunctionFactory {
     }
     
     public <T extends Number> AttributeFunction<T> getMinFromLastValuesFunction(final String[] variableNames, final Class<T> resultType) {
-        return new AttributeFunction<T>() {
+        return new ScenarioAttributeFunction<T>() {
             @Override
-            public T process(String scenarioId) throws SystemException {
+            public T _process(String scenarioId) throws SystemException {
                 T result = null;
                 ClientScenario s = null;
                 try {
@@ -241,27 +193,14 @@ public class AttributeFunctionFactory {
                 return result;
             }
 
-            @Override
-            public boolean isFromScenario() {
-                return true;
-            }
 
-            @Override
-            public boolean isFromPlan() {
-                return false;
-            }
-
-            @Override
-            public T process(PlanItem plan) throws SystemException {
-                return process(plan.getScenarioId().toString());
-            }
         };
     }
     
     public <T extends Number> AttributeFunction<T> getMaxFromLastValuesFunction(final String[] variableNames, final Class<T> resultType) {
-        return new AttributeFunction<T>() {
+        return new ScenarioAttributeFunction<T>() {
             @Override 
-            public T process(String scenarioId) throws SystemException {
+            public T _process(String scenarioId) throws SystemException {
                 T result = null;
                 ClientScenario s = null;
                 try {
@@ -285,20 +224,7 @@ public class AttributeFunctionFactory {
                 return result;
             }
 
-            @Override
-            public boolean isFromScenario() {
-                return true;
-            }
 
-            @Override
-            public boolean isFromPlan() {
-                return false;
-            }
-
-            @Override
-            public T process(PlanItem plan) throws SystemException {
-                return process(plan.getScenarioId().toString());
-            }
         };
     }
     
@@ -336,19 +262,40 @@ public class AttributeFunctionFactory {
         };
         
     }
+
+    public static abstract class ScenarioAttributeFunction<T> implements AttributeFunction<T> {
+
+       public boolean isFromPlan() {
+           return false;
+       }
+
+        public boolean isFromScenario() {
+            return true;
+        }
+
+        public final T process(String scenarioId) throws SystemException{
+            if (scenarioId==null) {
+                return null;
+            } else {
+                return _process(scenarioId);
+            }
+        }
+
+        public abstract T _process(String scenarioId) throws SystemException;
+
+
+            public T process(PlanItem plan) throws SystemException {
+                return process(plan.getScenarioId()==null?null:plan.getScenarioId().toString());
+            }
+    }
     
 
     public AttributeFunction<String> getIndexedOutputErrors(final String outputName) {
-        return new AttributeFunction<String>() {
+        return new ScenarioAttributeFunction<String>() {
+
             
             @Override
-            public String process(PlanItem plan) throws SystemException {
-                // TODO Auto-generated method stub
-                return null;
-            }
-            
-            @Override
-            public String process(String scenarioId) throws SystemException {
+            public String _process(String scenarioId) throws SystemException {
                 try {
                     Scenario scenario = CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
                     ModelDisplay display = ModelUIFactory.getInstance().getDisplay(scenario);
@@ -401,15 +348,7 @@ public class AttributeFunctionFactory {
                 }
             }
             
-            @Override
-            public boolean isFromScenario() {
-                return true;
-            }
-            
-            @Override
-            public boolean isFromPlan() {
-                return false;
-            }
+
         };
     }
     
