@@ -28,4 +28,8 @@ package com.ext.portlet.plans.model;
  */
 public interface PlanModelRun extends PlanModelRunModel {
     public void store() throws com.liferay.portal.SystemException;
+
+    public com.liferay.portal.model.User getUpdateAuthor()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

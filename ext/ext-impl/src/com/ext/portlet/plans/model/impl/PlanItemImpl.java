@@ -9,12 +9,12 @@ package com.ext.portlet.plans.model.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.UpdateType;
 import com.ext.portlet.plans.PlanConstants.Attribute;
-import com.ext.portlet.plans.PlanConstants.Columns;
 import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
@@ -112,6 +112,10 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         }
     }
     
+    public List<PlanModelRun> getAllPlanModelRuns() throws SystemException {
+        return PlanModelRunLocalServiceUtil.getAllForPlan(this);
+    }
+    
     /*
      * Plan meta informations.
      */
@@ -201,6 +205,10 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
    /*
     * POSITIONS
     */
+   
+   public PlanPositions getPlanPositions() throws NoSuchPlanPositionsException, SystemException {
+       return PlanPositionsLocalServiceUtil.getCurrentForPlan(this);
+   }
     
    public List<Long> getPositionsIds() throws SystemException, NoSuchPlanPositionsException {
        PlanPositions x = PlanPositionsLocalServiceUtil.getCurrentForPlan(this);
@@ -213,7 +221,11 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
        PlanPositions planPositions = PlanPositionsLocalServiceUtil.createNewVersionForPlan(this);
        planPositions.store();
        planPositions.setPositionsIds(positionsIds);
-   } 
+   }
+   
+   public List<PlanPositions> getAllPositionsVersions() throws SystemException {
+       return PlanPositionsLocalServiceUtil.getAllForPlan(this);
+   }
     
     
     /*
@@ -254,10 +266,16 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     
     
     private PlanItem newVersion(UpdateType updateType, Long updateAuthorId) throws SystemException {
-        PlanItem newVersion = (PlanItem) this.clone();
+        PlanItem latestVersion = this;
+        try {
+            latestVersion = PlanItemLocalServiceUtil.getPlan(this.getPlanId());
+        } catch (NoSuchPlanItemException e) {
+            // ignore
+        }
+        PlanItem newVersion = (PlanItem) latestVersion.clone();
 
         newVersion.setId(CounterUtil.increment(PlanItem.class.getName()));
-        newVersion.setVersion(this.getVersion()+1);
+        newVersion.setVersion(latestVersion.getVersion()+1);
         newVersion.setUpdated(new Date());
         newVersion.setUpdateType(updateType.name());
         newVersion.setUpdateAuthorId(updateAuthorId);

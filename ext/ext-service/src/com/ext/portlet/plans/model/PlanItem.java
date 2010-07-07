@@ -52,6 +52,9 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.plans.model.PlanModelRun> getAllPlanModelRuns()
+        throws com.liferay.portal.SystemException;
+
     public com.ext.portlet.plans.model.PlanMeta getPlanMeta()
         throws com.liferay.portal.SystemException;
 
@@ -104,6 +107,10 @@ public interface PlanItem extends PlanItemModel {
     public java.lang.Integer getVotes()
         throws com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanPositions getPlanPositions()
+        throws com.ext.portlet.plans.NoSuchPlanPositionsException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Long> getPositionsIds()
         throws com.ext.portlet.plans.NoSuchPlanPositionsException,
             com.liferay.portal.SystemException;
@@ -112,6 +119,9 @@ public interface PlanItem extends PlanItemModel {
         java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanPositions> getAllPositionsVersions()
+        throws com.liferay.portal.SystemException;
 
     public boolean hasUserVoted(java.lang.Long userId)
         throws com.liferay.portal.PortalException,

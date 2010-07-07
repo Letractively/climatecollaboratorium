@@ -11,6 +11,8 @@ import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
 import com.ext.portlet.plans.service.persistence.PlanPositionItemPK;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserLocalServiceUtil;
 
 
 public class PlanPositionsImpl extends PlanPositionsModelImpl
@@ -49,6 +51,9 @@ public class PlanPositionsImpl extends PlanPositionsModelImpl
             PlanPositionItem planPositionItem = PlanPositionItemLocalServiceUtil.createPlanPositionItem(new PlanPositionItemPK(this.getId(), id));
             PlanPositionItemLocalServiceUtil.addPlanPositionItem(planPositionItem);       
         }
-        
+    }
+    
+    public User getUpdateAuthor() throws PortalException, SystemException {
+        return UserLocalServiceUtil.getUser(getUpdateAuthorId());
     }
 }

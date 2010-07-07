@@ -264,8 +264,8 @@
         <column name="updateType" type="String" />
         <column name="version" type="Long" />
         
-        <order by="desc">
-            <order-column name="version" />
+        <order by="asc">
+            <order-column name="updated" />
         </order>
         
         <finder name="AllByPlanId" return-type="Collection">
