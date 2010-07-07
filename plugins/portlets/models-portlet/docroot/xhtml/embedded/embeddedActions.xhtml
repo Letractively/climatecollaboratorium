@@ -9,10 +9,13 @@
         <div class="model-information actions">
             <div class="bottom-content">
     <f:subview id="actions-display" rendered="#{not simulationBean.embeddedEditing}">
-        <div class="embedded-inputs-disabled">
-            <ui:include src="../inputs/inputs.xhtml"/>
+            <f:subview>
+                <ui:include src="../inputs/inputs.xhtml" />
+            </f:subview>
+            <f:subview>
+                <ui:include src="../outputs/outputs.xhtml" />
+            </f:subview>
             <div class="clear"></div>
-        </div>
         <ice:form>
             <ice:commandLink styleClass="editBtn" actionListener="#{simulationBean.editActions}"/> <!--  rendered="#{navigation.embeddedCanEdit}"/> -->
         </ice:form>
