@@ -38,6 +38,7 @@ public class PlanMetaSoap implements Serializable {
     private Long _planVersion;
     private Date _created;
     private Long _updateAuthorId;
+    private Long _modelId;
 
     public PlanMetaSoap() {
     }
@@ -57,6 +58,7 @@ public class PlanMetaSoap implements Serializable {
         soapModel.setPlanVersion(model.getPlanVersion());
         soapModel.setCreated(model.getCreated());
         soapModel.setUpdateAuthorId(model.getUpdateAuthorId());
+        soapModel.setModelId(model.getModelId());
 
         return soapModel;
     }
@@ -199,5 +201,13 @@ public class PlanMetaSoap implements Serializable {
 
     public void setUpdateAuthorId(Long updateAuthorId) {
         _updateAuthorId = updateAuthorId;
+    }
+
+    public Long getModelId() {
+        return _modelId;
+    }
+
+    public void setModelId(Long modelId) {
+        _modelId = modelId;
     }
 }

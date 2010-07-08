@@ -4,7 +4,6 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanItemSoap;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
-import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
@@ -230,7 +229,7 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
     public int compareTo(PlanItem planItem) {
         int value = 0;
 
-        value = DateUtil.compareTo(getUpdated(), planItem.getUpdated());
+        value = getVersion().compareTo(planItem.getVersion());
 
         if (value != 0) {
             return value;

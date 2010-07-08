@@ -53,6 +53,9 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
             { "modelId", new Integer(Types.BIGINT) },
             
 
+            { "modelTypeName", new Integer(Types.VARCHAR) },
+            
+
             { "published", new Integer(Types.BOOLEAN) },
             
 
@@ -61,7 +64,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
 
             { "isDefault", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanType (planTypeId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,modelId LONG,published BOOLEAN,publishedCounterpartId LONG,isDefault BOOLEAN)";
+    public static final String TABLE_SQL_CREATE = "create table PlanType (planTypeId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,modelId LONG,modelTypeName VARCHAR(75) null,published BOOLEAN,publishedCounterpartId LONG,isDefault BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table PlanType";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -78,6 +81,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
     private String _name;
     private String _description;
     private Long _modelId;
+    private String _modelTypeName;
     private Boolean _published;
     private Long _publishedCounterpartId;
     private Boolean _isDefault;
@@ -93,6 +97,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         model.setName(soapModel.getName());
         model.setDescription(soapModel.getDescription());
         model.setModelId(soapModel.getModelId());
+        model.setModelTypeName(soapModel.getModelTypeName());
         model.setPublished(soapModel.getPublished());
         model.setPublishedCounterpartId(soapModel.getPublishedCounterpartId());
         model.setIsDefault(soapModel.getIsDefault());
@@ -154,6 +159,14 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         _modelId = modelId;
     }
 
+    public String getModelTypeName() {
+        return GetterUtil.getString(_modelTypeName);
+    }
+
+    public void setModelTypeName(String modelTypeName) {
+        _modelTypeName = modelTypeName;
+    }
+
     public Boolean getPublished() {
         return _published;
     }
@@ -199,6 +212,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
             model.setName(HtmlUtil.escape(getName()));
             model.setDescription(HtmlUtil.escape(getDescription()));
             model.setModelId(getModelId());
+            model.setModelTypeName(HtmlUtil.escape(getModelTypeName()));
             model.setPublished(getPublished());
             model.setPublishedCounterpartId(getPublishedCounterpartId());
             model.setIsDefault(getIsDefault());
@@ -218,6 +232,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         clone.setName(getName());
         clone.setDescription(getDescription());
         clone.setModelId(getModelId());
+        clone.setModelTypeName(getModelTypeName());
         clone.setPublished(getPublished());
         clone.setPublishedCounterpartId(getPublishedCounterpartId());
         clone.setIsDefault(getIsDefault());
@@ -268,6 +283,8 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         sb.append(getDescription());
         sb.append(", modelId=");
         sb.append(getModelId());
+        sb.append(", modelTypeName=");
+        sb.append(getModelTypeName());
         sb.append(", published=");
         sb.append(getPublished());
         sb.append(", publishedCounterpartId=");
@@ -301,6 +318,10 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         sb.append(
             "<column><column-name>modelId</column-name><column-value><![CDATA[");
         sb.append(getModelId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>modelTypeName</column-name><column-value><![CDATA[");
+        sb.append(getModelTypeName());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>published</column-name><column-value><![CDATA[");

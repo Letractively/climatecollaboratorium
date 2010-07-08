@@ -1,24 +1,40 @@
 package com.ext.portlet.plans.model.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlanTypeAttribute;
 import com.ext.portlet.plans.model.PlanTypeColumn;
 import com.ext.portlet.plans.service.PlanTypeColumnLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.liferay.portal.SystemException;
+import mit.simulation.climate.client.Simulation;
 
 
 public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
     public PlanTypeImpl() {
     }
+
+    public List<Simulation> getAvailableModels() throws SystemException {
+           if (this.getModelId()!=null) {
+                return Collections.singletonList(CollaboratoriumModelingService.repository().getSimulation(this.getModelId()));
+           } else if (this.getModelTypeName()!=null) {
+               return new ArrayList<Simulation>(CollaboratoriumModelingService.repository().getSimulationsOfType(this.getModelTypeName()));
+
+           } else return Collections.emptyList();
+       }
+
     
     public List<PlanTypeColumn> getColumns() throws SystemException {
-        return PlanTypeLocalServiceUtil.getColumnsByPlanTypeId(this.getPlanTypeId());
+        List<PlanTypeColumn> cols= PlanTypeLocalServiceUtil.getColumnsByPlanTypeId(this.getPlanTypeId());
+        return cols == null?Collections.<PlanTypeColumn>emptyList():cols;
     }
     
     public List<PlanTypeAttribute> getAttributes() throws SystemException {
-        return PlanTypeLocalServiceUtil.getAttributesByPlanTypeId(this.getPlanTypeId());
+        List<PlanTypeAttribute> atts = PlanTypeLocalServiceUtil.getAttributesByPlanTypeId(this.getPlanTypeId());
+        return atts==null? Collections.<PlanTypeAttribute>emptyList() :atts;
     }
 }

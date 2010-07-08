@@ -52,6 +52,10 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public void setModelId(java.lang.Long simulationId, java.lang.Long authorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.plans.model.PlanModelRun> getAllPlanModelRuns()
         throws com.liferay.portal.SystemException;
 

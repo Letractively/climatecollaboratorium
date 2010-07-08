@@ -37,6 +37,7 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import mit.simulation.climate.client.Simulation;
 
 
 public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
@@ -110,6 +111,30 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         for (PlanConstants.Attribute attribute:PlanConstants.Attribute.getPlanTypeAttributes(planType)) {
             updateAttribute(attribute);
         }
+    }
+
+    public void setModelId(Long simulationId, Long authorId) throws SystemException, PortalException {
+
+        PlanType planType = getPlanType();
+        List<Simulation> sims = planType.getAvailableModels();
+        boolean found = false;
+        for (Simulation sim:sims) {
+            if (simulationId.equals(sim.getId())) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            throw new SystemException("Model id "+simulationId+" not valid for planType");
+        }
+
+
+        newVersion(UpdateType.MODEL_UPDATED,authorId);
+        PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
+        planMeta.setModelId(simulationId);
+        planMeta.store();
+
+        setScenarioId(null,authorId);
     }
     
     public List<PlanModelRun> getAllPlanModelRuns() throws SystemException {
@@ -268,30 +293,24 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     private PlanItem newVersion(UpdateType updateType, Long updateAuthorId) throws SystemException {
         PlanItem latestVersion = this;
         try {
-            latestVersion = PlanItemLocalServiceUtil.getPlan(this.getPlanId());
+            if (!latestVersion.equals(PlanItemLocalServiceUtil.getPlan(this.getPlanId()))) {
+                throw new SystemException("Can only create a new version of a plan from the latest version in existence");
+            }
         } catch (NoSuchPlanItemException e) {
             // ignore
         }
         PlanItem newVersion = (PlanItem) latestVersion.clone();
-
         newVersion.setId(CounterUtil.increment(PlanItem.class.getName()));
-        newVersion.setVersion(latestVersion.getVersion()+1);
-        newVersion.setUpdated(new Date());
-        newVersion.setUpdateType(updateType.name());
-        newVersion.setUpdateAuthorId(updateAuthorId);
-        
         newVersion.store();
+
+
+        this.setVersion(getVersion()+1);
+        this.setUpdated(new Date());
+        this.setUpdateType(updateType.name());
+        this.setUpdateAuthorId(updateAuthorId);
+        this.store();
         
-        // promote current instance to new version
-        this.setId(newVersion.getId());
-        this.setPlanId(newVersion.getPlanId());
-        this.setState(newVersion.getState());
-        this.setUpdated(newVersion.getUpdated());
-        this.setUpdateAuthorId(newVersion.getUpdateAuthorId());
-        this.setUpdateType(newVersion.getUpdateType());
-        this.setVersion(newVersion.getVersion());
-        
-        return newVersion;
+        return this;
     }
  
     
@@ -317,7 +336,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
 
     /**
      * Updates value of a given attribute, should be used only for property attributes.
-     * @param attribute attribute which value should be updated
+     * @param attributeName attribute which value should be updated
      * @throws SystemException in case of any error
      */
     public void updateAttribute(String attributeName) throws SystemException {

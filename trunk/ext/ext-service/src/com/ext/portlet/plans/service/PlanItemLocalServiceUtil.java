@@ -91,7 +91,9 @@ public class PlanItemLocalServiceUtil {
 
     public static com.ext.portlet.plans.model.PlanItem createPlan(
         java.lang.String name, java.lang.Long planTypeId,
-        java.lang.Long authorId) throws com.liferay.portal.SystemException {
+        java.lang.Long authorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
         return getService().createPlan(name, planTypeId, authorId);
     }
 

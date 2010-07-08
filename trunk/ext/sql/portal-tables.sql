@@ -1085,7 +1085,8 @@ create table PlanMeta (
 	version LONG,
 	planVersion LONG,
 	created DATE null,
-	updateAuthorId LONG
+	updateAuthorId LONG,
+	modelId LONG
 );
 
 create table PlanModelRun (
@@ -1125,6 +1126,7 @@ create table PlanType (
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,
 	modelId LONG,
+	modelTypeName VARCHAR(75) null,
 	published BOOLEAN,
 	publishedCounterpartId LONG,
 	isDefault BOOLEAN

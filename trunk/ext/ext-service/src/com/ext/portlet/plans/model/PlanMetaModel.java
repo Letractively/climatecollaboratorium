@@ -78,5 +78,9 @@ public interface PlanMetaModel extends BaseModel<PlanMeta> {
 
     public void setUpdateAuthorId(Long updateAuthorId);
 
+    public Long getModelId();
+
+    public void setModelId(Long modelId);
+
     public PlanMeta toEscapedModel();
 }

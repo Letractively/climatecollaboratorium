@@ -75,9 +75,12 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             { "created", new Integer(Types.TIMESTAMP) },
             
 
-            { "updateAuthorId", new Integer(Types.BIGINT) }
+            { "updateAuthorId", new Integer(Types.BIGINT) },
+            
+
+            { "modelId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,mbCategoryId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,mbCategoryId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanMeta";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -103,6 +106,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
     private Long _planVersion;
     private Date _created;
     private Long _updateAuthorId;
+    private Long _modelId;
 
     public PlanMetaModelImpl() {
     }
@@ -122,6 +126,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         model.setPlanVersion(soapModel.getPlanVersion());
         model.setCreated(soapModel.getCreated());
         model.setUpdateAuthorId(soapModel.getUpdateAuthorId());
+        model.setModelId(soapModel.getModelId());
 
         return model;
     }
@@ -252,6 +257,14 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         _updateAuthorId = updateAuthorId;
     }
 
+    public Long getModelId() {
+        return _modelId;
+    }
+
+    public void setModelId(Long modelId) {
+        _modelId = modelId;
+    }
+
     public PlanMeta toEscapedModel() {
         if (isEscapedModel()) {
             return (PlanMeta) this;
@@ -273,6 +286,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             model.setPlanVersion(getPlanVersion());
             model.setCreated(getCreated());
             model.setUpdateAuthorId(getUpdateAuthorId());
+            model.setModelId(getModelId());
 
             model = (PlanMeta) Proxy.newProxyInstance(PlanMeta.class.getClassLoader(),
                     new Class[] { PlanMeta.class },
@@ -297,6 +311,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         clone.setPlanVersion(getPlanVersion());
         clone.setCreated(getCreated());
         clone.setUpdateAuthorId(getUpdateAuthorId());
+        clone.setModelId(getModelId());
 
         return clone;
     }
@@ -376,6 +391,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(getCreated());
         sb.append(", updateAuthorId=");
         sb.append(getUpdateAuthorId());
+        sb.append(", modelId=");
+        sb.append(getModelId());
         sb.append("}");
 
         return sb.toString();
@@ -435,6 +452,10 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(
             "<column><column-name>updateAuthorId</column-name><column-value><![CDATA[");
         sb.append(getUpdateAuthorId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>modelId</column-name><column-value><![CDATA[");
+        sb.append(getModelId());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

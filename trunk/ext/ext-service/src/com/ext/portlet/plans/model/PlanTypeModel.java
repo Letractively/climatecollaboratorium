@@ -44,6 +44,10 @@ public interface PlanTypeModel extends BaseModel<PlanType> {
 
     public void setModelId(Long modelId);
 
+    public String getModelTypeName();
+
+    public void setModelTypeName(String modelTypeName);
+
     public Boolean getPublished();
 
     public void setPublished(Boolean published);

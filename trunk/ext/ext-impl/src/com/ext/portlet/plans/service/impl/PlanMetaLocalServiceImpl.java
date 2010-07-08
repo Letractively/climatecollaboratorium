@@ -1,27 +1,33 @@
 package com.ext.portlet.plans.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
-import com.ext.portlet.plans.model.PlanModelRun;
-import com.ext.portlet.plans.service.PlanLocalServiceUtil;
+import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlanMetaLocalServiceBaseImpl;
 import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import mit.simulation.climate.client.Simulation;
+
+import java.util.Date;
+import java.util.List;
 
 
 public class PlanMetaLocalServiceImpl extends PlanMetaLocalServiceBaseImpl {
     
-    public PlanMeta createPlanMeta(PlanItem plan, Long planTypeId) throws SystemException {
+    public PlanMeta createPlanMeta(PlanItem plan, Long planTypeId) throws SystemException, PortalException {
         Long planMetaId = CounterUtil.increment(PlanMeta.class.getName());
         PlanMeta planMeta = PlanMetaLocalServiceUtil.createPlanMeta(planMetaId);
         planMeta.setPlanId(plan.getPlanId());
         planMeta.setPlanTypeId(planTypeId);
+         //set a default model
+
+
+            PlanType type = PlanTypeLocalServiceUtil.getPlanType(planTypeId);
+            List<Simulation> models = type.getAvailableModels();
+            if (models.size() > 0) planMeta.setModelId(models.get(0).getId());
         planMeta.setPlanVersion(plan.getVersion());
         planMeta.setCreated(new Date());
         planMeta.setVotes(0);

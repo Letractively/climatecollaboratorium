@@ -41,7 +41,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
      * All necessary id's are generated, version is set to 0.
      * @param authorId Id of user that is creating new plan
      */
-    public PlanItem createPlan(String name, Long planTypeId, Long authorId) throws SystemException {
+    public PlanItem createPlan(String name, Long planTypeId, Long authorId) throws SystemException, PortalException {
         long planItemId = CounterUtil.increment(PlanItem.class.getName());
         long planId = CounterUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
         

@@ -377,7 +377,7 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("updated ASC");
+                query.append("version ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -448,7 +448,7 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("updated ASC");
+                    query.append("version ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -550,7 +550,7 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("updated ASC");
+                query.append("version ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -635,7 +635,7 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("updated ASC");
+                query.append("version ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -756,7 +756,7 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("updated ASC");
+                    query.append("version ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
