@@ -103,6 +103,7 @@
 		<field name="name" type="String" />
 		<field name="description" type="String" />
 		<field name="modelId" type="Long" />
+		<field name="modelTypeName" type="String" />
 		<field name="published" type="Boolean" />
 		<field name="publishedCounterpartId" type="Long" />
 		<field name="isDefault" type="Boolean" />
@@ -151,6 +152,7 @@
 		<field name="planVersion" type="Long" />
 		<field name="created" type="Date" />
 		<field name="updateAuthorId" type="Long" />
+		<field name="modelId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanModelRun">
 		<field name="id" type="Long" />

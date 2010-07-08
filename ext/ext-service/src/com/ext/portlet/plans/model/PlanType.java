@@ -27,6 +27,9 @@ package com.ext.portlet.plans.model;
  *
  */
 public interface PlanType extends PlanTypeModel {
+    public java.util.List<mit.simulation.climate.client.Simulation> getAvailableModels()
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.plans.model.PlanTypeColumn> getColumns()
         throws com.liferay.portal.SystemException;
 

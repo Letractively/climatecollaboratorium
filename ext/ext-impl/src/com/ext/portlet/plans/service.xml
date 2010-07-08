@@ -220,6 +220,7 @@
 	   <column name="name" type="String" />
 	   <column name="description" type="String" />
 	   <column name="modelId" type="Long" />
+       <column name="modelTypeName" type="String"/>
 	   <column name="published" type="Boolean" />
 	   <column name="publishedCounterpartId" type="Long" />
 	   <column name="isDefault" type="Boolean" />
@@ -265,11 +266,12 @@
         <column name="version" type="Long" />
         
         <order by="asc">
-            <order-column name="updated" />
+            <order-column name="version" />
         </order>
         
         <finder name="AllByPlanId" return-type="Collection">
             <finder-column name="planId" />
+
         </finder>
         <finder name="PlanId" return-type="PlanItem">
             <finder-column name="planId" />
@@ -314,6 +316,8 @@
         <column name="planVersion" type="Long" />
         <column name="created" type="Date" />
         <column name="updateAuthorId" type="Long" />
+        <!-- selected model -->
+        <column name="modelId" type="Long"/>
         
         <order by="desc">
             <order-column name="version" />

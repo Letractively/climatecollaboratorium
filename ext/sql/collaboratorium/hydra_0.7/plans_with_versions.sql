@@ -34,6 +34,7 @@ create table PlanMeta (
 	version BIGINT,
 	planVersion BIGINT,
 	updateAuthorId BIGINT,
+	modelId BIGINT,
 	created TIMESTAMP null
 );
 
@@ -64,3 +65,5 @@ create table PlanPositions (
 	created DATE null,
 	updateAuthorId BIGINT
 );
+
+ALTER TABLE `PlanType` ADD `modelTypeName` varchar(255);

@@ -29,6 +29,7 @@ public class PlanTypeSoap implements Serializable {
     private String _name;
     private String _description;
     private Long _modelId;
+    private String _modelTypeName;
     private Boolean _published;
     private Long _publishedCounterpartId;
     private Boolean _isDefault;
@@ -43,6 +44,7 @@ public class PlanTypeSoap implements Serializable {
         soapModel.setName(model.getName());
         soapModel.setDescription(model.getDescription());
         soapModel.setModelId(model.getModelId());
+        soapModel.setModelTypeName(model.getModelTypeName());
         soapModel.setPublished(model.getPublished());
         soapModel.setPublishedCounterpartId(model.getPublishedCounterpartId());
         soapModel.setIsDefault(model.getIsDefault());
@@ -124,6 +126,14 @@ public class PlanTypeSoap implements Serializable {
 
     public void setModelId(Long modelId) {
         _modelId = modelId;
+    }
+
+    public String getModelTypeName() {
+        return _modelTypeName;
+    }
+
+    public void setModelTypeName(String modelTypeName) {
+        _modelTypeName = modelTypeName;
     }
 
     public Boolean getPublished() {

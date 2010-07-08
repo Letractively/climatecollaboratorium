@@ -49,6 +49,8 @@ public class PlanItemTest extends BaseCollabTest {
             plan = PlanItemLocalServiceUtil.createPlan(name, defaultPlanTypeId, defaultAuthorId);
         } catch (SystemException e) {
             e.printStackTrace();
+        } catch (PortalException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
     

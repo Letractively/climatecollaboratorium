@@ -91,7 +91,8 @@ public class PlanMetaLocalServiceUtil {
 
     public static com.ext.portlet.plans.model.PlanMeta createPlanMeta(
         com.ext.portlet.plans.model.PlanItem plan, java.lang.Long planTypeId)
-        throws com.liferay.portal.SystemException {
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
         return getService().createPlanMeta(plan, planTypeId);
     }
 

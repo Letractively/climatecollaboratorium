@@ -36,6 +36,7 @@ public class PlanTypeJSONSerializer {
         jsonObj.put("name", model.getName());
         jsonObj.put("description", model.getDescription());
         jsonObj.put("modelId", model.getModelId());
+        jsonObj.put("modelTypeName", model.getModelTypeName());
         jsonObj.put("published", model.getPublished());
         jsonObj.put("publishedCounterpartId", model.getPublishedCounterpartId());
         jsonObj.put("isDefault", model.getIsDefault());

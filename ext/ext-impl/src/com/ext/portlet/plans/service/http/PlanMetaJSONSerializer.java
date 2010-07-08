@@ -55,6 +55,7 @@ public class PlanMetaJSONSerializer {
 
         jsonObj.put("created", createdJSON);
         jsonObj.put("updateAuthorId", model.getUpdateAuthorId());
+        jsonObj.put("modelId", model.getModelId());
 
         return jsonObj;
     }
