@@ -18,19 +18,24 @@ public class PlanBean {
     private boolean editingDescription;
     private boolean editingName;
     private CreatePlanBean createPlanBean;
+    private PlanMembershipBean membershipBean;
+    private PlansPermissionsBean permissions;
+    
     
     public PlanBean(PlanItem planItem) throws SystemException, PortalException {
         this.planItem = planItem;
+        this.permissions = new PlansPermissionsBean(planItem);
         planPositionsBean = new PlanPositionsBean(planItem, this);
-        plan = new PlanItemWrapper(planItem, this);
-        simulationBean = new SimulationBean(planItem);
+        plan = new PlanItemWrapper(planItem, this, permissions);
+        simulationBean = new SimulationBean(planItem, this);
     }
     
     public void refresh() throws SystemException, PortalException {
         planItem = PlanItemLocalServiceUtil.getPlan(planItem.getPlanId());
         planPositionsBean = new PlanPositionsBean(planItem, this);
-        plan = new PlanItemWrapper(planItem, this);
-        simulationBean = new SimulationBean(planItem);
+        plan = new PlanItemWrapper(planItem, this, permissions);
+        simulationBean = new SimulationBean(planItem, this);
+        membershipBean = new PlanMembershipBean(planItem, this, permissions);
     }
 
     public PlanItemWrapper getPlan() {
@@ -87,6 +92,13 @@ public class PlanBean {
             createPlanBean = new CreatePlanBean(this);
         }
         return createPlanBean;
+    }
+    
+    public PlanMembershipBean getMembershipBean() throws PortalException, SystemException {
+        if (membershipBean == null) {
+            membershipBean = new PlanMembershipBean(plan.getWrapped(), this, permissions);
+        }
+        return membershipBean;
     }
     
 

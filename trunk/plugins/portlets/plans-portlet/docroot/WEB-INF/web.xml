@@ -273,6 +273,15 @@
 		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
+	<servlet>
+		<servlet-name>plansportlet</servlet-name>
+		<servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
+		<init-param>
+			<param-name>portlet-class</param-name>
+			<param-value>com.icesoft.faces.webapp.http.portlet.MainPortlet</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Blocking Servlet</servlet-name>
 		<url-pattern>/block/*</url-pattern>
@@ -304,6 +313,10 @@
 	<servlet-mapping>
 		<servlet-name>plans</servlet-name>
 		<url-pattern>/plans/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>plansportlet</servlet-name>
+		<url-pattern>/plansportlet/*</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>60</session-timeout>

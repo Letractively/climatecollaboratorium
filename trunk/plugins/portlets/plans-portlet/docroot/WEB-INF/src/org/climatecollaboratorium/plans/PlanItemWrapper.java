@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import java.security.Permissions;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,8 +10,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+
 import com.ext.portlet.Activity.ActivityUtil;
 import com.ext.portlet.plans.PlanActivityKeys;
+import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanModelRun;
@@ -18,6 +21,10 @@ import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.MembershipRequest;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
 
 public class PlanItemWrapper {
     private PlanItem wrapped;
@@ -27,6 +34,7 @@ public class PlanItemWrapper {
     private List<PlanDescription> planDescriptions;
     private List<PlanPositions> planPositions;
     private List<PlanModelRun> planModelRuns;
+    private List<PlanHistoryItem> planVersions = new ArrayList<PlanHistoryItem>();
     
     private Map<Long, PlanDescription> planDescriptionsById = new HashMap<Long, PlanDescription>();
     private List<SelectItem> planDescriptionItems = new ArrayList<SelectItem>();
@@ -38,8 +46,10 @@ public class PlanItemWrapper {
     private Long currentDescriptionVersion;
     private Long planPositionsVersion;
     private Long currentPlanModelRunVersion;
+    private PlansPermissionsBean permissions;
+    private boolean descriptionSet;
     
-    public PlanItemWrapper(PlanItem plan, PlanBean planBean) throws SystemException, PortalException {
+    public PlanItemWrapper(PlanItem plan, PlanBean planBean, PlansPermissionsBean permissions) throws SystemException, PortalException {
         wrapped = plan;
         this.planBean = planBean;
         planDescriptions = wrapped.getAllDescriptionVersions();
@@ -50,8 +60,24 @@ public class PlanItemWrapper {
         }
         currentDescriptionVersion = planDescriptions.get(0).getId();
         
+        planModelRuns = wrapped.getAllPlanModelRuns();
+        planModelRunsById.clear();
+        planModelRunItems.clear();
+        
+        for (PlanModelRun planModelRun: planModelRuns) {
+            planModelRunsById.put(planModelRun.getId(), planModelRun);
+            planModelRunItems.add(new SelectItem(planModelRun.getId(), planModelRun.getCreated() + " by " + planModelRun.getUpdateAuthor().getScreenName()));
+        }
+        currentPlanModelRunVersion = planModelRuns.get(0).getId();
+        
+        this.permissions = permissions;
         
         
+        for (PlanItem planVersion: plan.getAllVersions()) {
+            planVersions.add(new PlanHistoryItem(planVersion));
+        }
+        
+        setDescriptionSet(plan.getDescription().trim().length() != 0);
     }
     
 
@@ -147,8 +173,8 @@ public class PlanItemWrapper {
         
     }
     
-    public List<PlanItem> getAllVersions() throws SystemException {
-        return wrapped.getAllVersions();
+    public List<PlanHistoryItem> getAllVersions() throws SystemException {
+        return planVersions;
     }
     
     public PlanType getPlanType() throws PortalException, SystemException {
@@ -160,14 +186,6 @@ public class PlanItemWrapper {
     }
 
     public List<SelectItem> getPlanModelRunVersionItems() throws PortalException, SystemException {
-        planModelRuns = wrapped.getAllPlanModelRuns();
-        planModelRunsById.clear();
-        planModelRunItems.clear();
-        
-        for (PlanModelRun planModelRun: planModelRuns) {
-            planModelRunsById.put(planModelRun.getId(), planModelRun);
-            planModelRunItems.add(new SelectItem(planModelRun.getId(), planModelRun.getCreated() + " by " + planModelRun.getUpdateAuthor().getScreenName()));
-        }
         return planModelRunItems;
     }
     
@@ -184,5 +202,35 @@ public class PlanItemWrapper {
     }
     
     
+    public Long getMbCategoryId() throws SystemException {
+        return wrapped.getMBCategoryId();
+    }
+
+    
+    public boolean isPublished() throws PortalException, SystemException {
+        return wrapped.getPlanType().getPublished();
+    }
+    
+    public void publish(ActionEvent e) throws PortalException, SystemException {
+        if (permissions.getCanAdmin()) {
+            wrapped.publish(Helper.getLiferayUser().getUserId());
+        }
+    }
+    
+    public void delete(ActionEvent e) throws SystemException {
+        if (permissions.getCanAdmin()) {
+            wrapped.delete(Helper.getLiferayUser().getUserId());
+        }
+    }
+
+
+    public void setDescriptionSet(boolean descriptionSet) {
+        this.descriptionSet = descriptionSet;
+    }
+
+
+    public boolean isDescriptionSet() {
+        return descriptionSet;
+    }
 
 }

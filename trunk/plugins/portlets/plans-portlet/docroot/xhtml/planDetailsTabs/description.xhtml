@@ -3,30 +3,44 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <ice:panelGroup rendered="#{not planBean.editingDescription}">
+    <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}">
         <ice:outputText value="#{planBean.plan.description}" escape="false"/>
         <div>
             <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}"/>
         </div>
     </ice:panelGroup>
+    <h1>Can admin: #{permissions.canAdmin}</h1>
+    <h1>Can edit: #{permissions.canEdit}</h1>
+    <h1>Can view: #{permissions.canView}</h1>
+    <h1>Can admin all: #{permissions.canAdminAll}</h1>
     
-    <ice:panelGroup rendered="#{planBean.editingDescription}">
-        <div class="versionsContainer relative">
-                <div class="versions">
-                    <ice:selectOneListbox  immediate="true" value="#{planBean.plan.descriptionVersion}"
-                                      valueChangeListener="#{planBean.plan.descriptionVersion}" partialSubmit="true">
-                        <f:selectItems value="#{planBean.plan.allDescriptionVersions}"/> 
-                    </ice:selectOneListbox>
-                </div>
-                <div class="versionsTrigger">V<br />E<br />R<br />S<br />I<br />O<br />N<br />S<br /></div>
-                <div class="clear"></div>
-                
+    <ice:panelGroup rendered="#{planBean.editingDescription}" styleClass="editWithVersions descriptionEditContainer">
+        <div class="chooseVersionWidget">
+            <input type="button" value="Versions" class="versionsTrigger expand" />
+                <div class="versionsContainer relative">
+                    <div class="versions">
+                        <ice:selectOneListbox value="#{planBean.plan.descriptionVersion}" partialSubmit="true">
+                            <f:selectItems value="#{planBean.plan.allDescriptionVersions}"/> 
+                        </ice:selectOneListbox>
+                        <br />
+                        <input type="button" value="Hide" class="versionsTrigger collapse" />
+                    </div>
+                    <div class="clear"></div>    
+            </div>
         </div>
         <div class="descriptionInput">
             <ice:inputRichText value="#{planBean.plan.description}" toolbar="Basic"  saveOnSubmit="true" />
             <ice:commandButton value="Save" actionListener="#{planBean.plan.saveDescription}"/>
+            <ice:commandButton value="Cancel" actionListener="#{planBean.editDescription}"/>
         </div>
     </ice:panelGroup>
+    
+        <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}">
+            <div class="nothingSetInfo">
+                <div class="nothingSetMessage">No description set.</div>
+            </div>
+            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}"/>
+        </ice:panelGroup>
     <script language="javascript">
     jQuery(document).ready(initVersionChoosingBox);
     </script>

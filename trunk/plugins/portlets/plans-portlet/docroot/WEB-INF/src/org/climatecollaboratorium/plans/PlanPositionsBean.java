@@ -28,6 +28,7 @@ public class PlanPositionsBean {
     private List<SelectItem> planPositionItems = new ArrayList<SelectItem>();
     private Long planPositionsVersion;
     private Long lastPositionsVersion;
+    private boolean positionsSet;
 
     public PlanPositionsBean(PlanItem plan, PlanBean planBean) throws SystemException, PortalException {
 
@@ -42,6 +43,9 @@ public class PlanPositionsBean {
         }
         planPositionsVersion = planPositions.get(0).getId();
         lastPositionsVersion = -1L;
+        if (plan.getPositionsIds().size() > 0) {
+            positionsSet = true;
+        }
     }
     
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
@@ -103,6 +107,14 @@ public class PlanPositionsBean {
     public void setSelectedPositionsIds(String value) {
         // ignore
         
+    }
+
+    public boolean isPositionsSet() {
+        return positionsSet;
+    }
+
+    public void setPositionsSet(boolean empty) {
+        this.positionsSet = empty;
     }
 
 }

@@ -348,26 +348,18 @@ function navigateToPlan(planId) {
 function initVersionChoosingBox() {
 	var container = jQuery(".versionsContainer");
 	var versions = container.find(".versions");
-	var trigger = container.find(".versionsTrigger");
+	var trigger = jQuery(".versionsTrigger");
+	var expandTrigger = jQuery(".versionsTrigger.expand");
 	var hidden = true;
-	var oryginalPos = container.position();
-	var hiddenWidth = container.width();
 	
 	trigger.click(function() {
-		if (! versions.is(':visible')) {
-			container.css({'width': "auto"});
-			trigger.html("H I D E");
-			versions.show("slide", "right");
-			container.draggable();
+		if (! container.is(':visible')) {
+			expandTrigger.hide();
+			container.show("slide", {direction: "up"});
 		}
 		else {
-			/*
-			container.draggable('destroy');
-			container.css({'top': pos.top, 'left': pos.left});
-			*/
-			versions.hide();//"slide", {direction: "left"});
-			container.css({'width': hiddenWidth + "px"});
-			trigger.html("V E R S I O N S");
+			container.hide("slide", {direction: "up"}, 'medium', function() { expandTrigger.show() });
+			
 		}
 	});
 }
@@ -398,4 +390,52 @@ function switchToScenario(scenarioId) {
 		src += "scenarioId=" + scenarioId;
 	}
 	jQuery("#actionsAndImpacts").attr("src", src);
+}
+
+var requestMembershipDialog;
+function showRequestMembershipDialog() {
+	jQuery("#request_membership_dialog").dialog("destroy");
+	jQuery("#request_membership_dialog_contents").appendTo(jQuery("#request_membership_dialog"));
+	requestMembershipDialog = jQuery("#request_membership_dialog").dialog({width: 380, modal: true, height: 360, draggable: false, resizable: false, dialogClass: 'plansIndexDialog manageMembersDialog'});
+}
+
+function hideRequestMembershipDialog() {
+	jQuery("#request_membership_dialog_contents").appendTo(jQuery("#request_membership"));
+	jQuery("#request_membership_dialog").dialog("destroy");
+}
+
+function requestMembership() {
+	jQuery("#request_membership_dialog_contents").appendTo(jQuery("#request_membership"));
+	jQuery(".requestMembershipSubmitButton").click();
+	hideRequestMembershipDialog();	
+}
+
+function showManageMembershipRequestDialog(contentContainerId) {
+	var container = jQuery("#" + contentContainerId);
+	var dialog = jQuery("#manage_membership_request_dialog");
+	var content = container.find(".content");
+	
+	dialog.dialog("destroy");
+	content.appendTo(dialog);
+	content.show();
+	dialog.show();
+	dialog = dialog.dialog({width: 380, modal: true, height: 360, draggable: false, resizable: false, dialogClass: 'plansIndexDialog manageMembersDialog'});	
+}
+
+function hideManageMembershipRequestDialog(contentContainerId) {
+	var container = jQuery("#" + contentContainerId);
+	var dialog = jQuery("#manage_membership_request_dialog");
+	var content = dialog.find(".content");
+
+	content.hide();
+	content.appendTo(container);
+	dialog.dialog("destroy");
+}
+
+function respondToMembershipRequest(contentContainerId) {
+	var container = jQuery("#" + contentContainerId);
+	var dialog = jQuery("#manage_membership_request_dialog");
+	var content = container.find(".content");
+	hideManageMembershipRequestDialog(contentContainerId);
+	container.find(".membershipRequestResponseSubmitButton").click();
 }
