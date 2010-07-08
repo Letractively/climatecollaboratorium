@@ -154,4 +154,38 @@ public interface PlanItem extends PlanItemModel {
 
     public com.ext.portlet.plans.model.PlanAttribute getPlanAttribute(
         java.lang.String name) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.liferay.portal.model.User> getMembers()
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.liferay.portal.model.MembershipRequest> getMembershipRequests()
+        throws com.liferay.portal.SystemException;
+
+    public void addMembershipRequest(java.lang.Long userId,
+        java.lang.String comments)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void dennyMembershipRequest(java.lang.Long userId,
+        com.liferay.portal.model.MembershipRequest request,
+        java.lang.String reply)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void approveMembershipRequest(java.lang.Long userId,
+        com.liferay.portal.model.MembershipRequest request,
+        java.lang.String reply)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void publish(java.lang.Long updateAuthorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void delete(java.lang.Long updateAuthorId)
+        throws com.liferay.portal.SystemException;
+
+    public com.liferay.portal.model.User getUpdateAuthor()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

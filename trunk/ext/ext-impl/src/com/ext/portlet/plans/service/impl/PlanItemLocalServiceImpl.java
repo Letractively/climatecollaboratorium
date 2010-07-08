@@ -15,6 +15,7 @@ import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanAttributeFilter;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlansUserSettings;
 import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
@@ -28,12 +29,50 @@ import com.ext.portlet.plans.service.base.PlanItemLocalServiceBaseImpl;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.model.GroupConstants;
+import com.liferay.portal.model.User;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.security.permission.PermissionCheckerUtil;
+import com.liferay.portal.service.GroupServiceUtil;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextFactory;
+import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portlet.messageboards.model.MBCategory;
+import com.liferay.portlet.messageboards.service.MBCategoryServiceUtil;
 
 public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
-    /*
+    /**
      * Suffix that should be added to PlanItem class name to get name for plan id counter
      */
     private final String PLAN_ID_NAME_SUFFIX = ".Plan";
+    
+    /**
+     * Default community permissions for community forum category.
+     */
+    public static final String[] DEFAULT_CATEGORY_COMMUNITY_PERMISSIONS = {ActionKeys.VIEW, ActionKeys.SUBSCRIBE,
+            ActionKeys.REPLY_TO_MESSAGE, ActionKeys.ADD_MESSAGE};
+
+    /**
+     * Default guest permissions for community forum category.
+     */
+    public static final String[] DEFAULT_CATEGORY_GUEST_PERMISSIONS = {ActionKeys.VIEW, ActionKeys.SUBSCRIBE};
+
+    /**
+     * Default description of group working on a plan.
+     */
+    public static final String DEFAULT_GROUP_DESCRIPTION = "Group working on plan %s";
+
+    /**
+     * Default forum category name.
+     */
+    public static final String DEFAULT_FORUM_CATEGORY_NAME = "General discussion";
+
+    /**
+     * Default forum category description.
+     */
+    public static final String DEFAULT_FORUM_CATEGORY_DESCRIPTION = "General discussion about plan %s";
+
     
     /**
      * Creates and initializes new instance of a PlanItem. 
@@ -60,6 +99,9 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         PlanModelRunLocalServiceUtil.createPlanModelRun(planItem);
         PlanMetaLocalServiceUtil.createPlanMeta(planItem, planTypeId);
         PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
+        
+        // create community, Message Boards category
+        initPlan(planItem);
         
         /* update/create all attributes */
         //planItem.updateAllAttributes();
@@ -90,6 +132,39 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         
         
         return plan;
+    }
+    
+    private void initPlan(PlanItem plan) throws PortalException, SystemException {
+        User user = UserLocalServiceUtil.getUser(plan.getUpdateAuthorId());
+        PermissionCheckerUtil.setThreadValues(user);
+        
+        ServiceContext categoryServiceContext = new ServiceContext();
+        // ServiceContextFactoryServiceContextFactory.getInstance(MBCategory.class.getName(), actionRequest);
+        categoryServiceContext.setUserId(plan.getUpdateAuthorId());
+
+        ServiceContext groupServiceContext = new ServiceContext(); 
+        groupServiceContext.setUserId(plan.getUpdateAuthorId());
+            // ServiceContextFactory.getInstance(Group.class.getName(), actionRequest);
+        Group group = GroupServiceUtil.addGroup(plan.getName(), String.format(DEFAULT_GROUP_DESCRIPTION, plan.getName()),
+                GroupConstants.TYPE_COMMUNITY_RESTRICTED, null, true, groupServiceContext);
+
+        Long parentCategoryId = 0L;
+
+        // create new category in group's forum
+        categoryServiceContext.setCommunityPermissions(DEFAULT_CATEGORY_COMMUNITY_PERMISSIONS);
+        categoryServiceContext.setGuestPermissions(DEFAULT_CATEGORY_GUEST_PERMISSIONS);
+        categoryServiceContext.setScopeGroupId(group.getGroupId());
+
+        MBCategory category = MBCategoryServiceUtil.addCategory(parentCategoryId, DEFAULT_FORUM_CATEGORY_NAME,
+                String.format(DEFAULT_FORUM_CATEGORY_DESCRIPTION, plan.getName()), null, null, null, 0, false, null,
+                null, 0, null, false, null, 0, false, null, null, false, categoryServiceContext);
+
+        // populate plan with id of created group, category
+        PlanMeta planMeta = plan.getPlanMeta();
+        
+        planMeta.setMbCategoryId(category.getCategoryId());
+        planMeta.setPlanGroupId(group.getGroupId());
+        planMeta.store();
     }
     
     public List<PlanItem> getPlans() throws SystemException {
