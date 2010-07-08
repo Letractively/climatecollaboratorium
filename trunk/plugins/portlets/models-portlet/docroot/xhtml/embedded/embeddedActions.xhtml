@@ -8,7 +8,7 @@
     
         <div class="model-information actions">
             <div class="bottom-content">
-    <f:subview id="actions-display" rendered="#{not simulationBean.embeddedEditing}">
+    <f:subview id="actions-display" rendered="#{not navigation.embeddedCanEdit}">
             <f:subview>
                 <ui:include src="../inputs/inputs.xhtml" />
             </f:subview>
@@ -17,12 +17,12 @@
             </f:subview>
             <div class="clear"></div>
         <ice:form>
-            <ice:commandLink styleClass="editBtn" actionListener="#{simulationBean.editActions}"/> <!--  rendered="#{navigation.embeddedCanEdit}"/> -->
+            <!-- <ice:commandLink styleClass="editBtn" actionListener="#{simulationBean.editActions}"/>   rendered="#{navigation.embeddedCanEdit}"/> -->
         </ice:form>
         <ui:include src="./initInputs.xhtml" />
     </f:subview>
     
-    <f:subview id="actions-edit" rendered="#{simulationBean.embeddedEditing}">
+    <f:subview id="actions-edit" rendered="#{navigation.embeddedCanEdit}">
         <f:subview>
             <ui:include src="../inputs/inputs.xhtml" />
         </f:subview>
@@ -34,7 +34,7 @@
             <ice:form>
                 <ice:commandLink styleClass="saveChanges" actionListener="#{simulationBean.saveScenario}" />
                 <button id="runModel" class="embedded"></button>
-                <ice:commandLink styleClass="cancel" actionListener="#{simulationBean.editActions}" />
+                <ice:commandLink styleClass="cancel" onclick="document.cancelEditingFunction();" />
                 <div class="clear"></div>
             </ice:form>
         </div>

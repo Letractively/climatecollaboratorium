@@ -11,7 +11,7 @@
 jQuery(document).ready(function() {
     showSliders();
     renderModelOutputs();
-    if (! #{simulationBean.embeddedEditing}) {
+    if (! #{navigation.embeddedCanEdit}) {
         jQuery(".actions input").attr('disabled', 'true');
         jQuery(".actions .slider").slider("option", "disabled", true);
     }
