@@ -231,6 +231,8 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
 
         value = getVersion().compareTo(planItem.getVersion());
 
+        value = value * -1;
+
         if (value != 0) {
             return value;
         }

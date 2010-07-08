@@ -265,7 +265,7 @@
         <column name="updateType" type="String" />
         <column name="version" type="Long" />
         
-        <order by="asc">
+        <order by="desc">
             <order-column name="version" />
         </order>
         

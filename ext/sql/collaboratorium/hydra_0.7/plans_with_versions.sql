@@ -62,7 +62,7 @@ create table PlanPositions (
 	planId BIGINT,
 	planVersion BIGINT,
 	version BIGINT,
-	created DATE null,
+	created TIMESTAMP null,
 	updateAuthorId BIGINT
 );
 

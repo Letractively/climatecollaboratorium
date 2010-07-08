@@ -20,6 +20,7 @@
                     GROUP BY PlanItem.planId
                 ) as t2
                 ON (PlanItem.id_ = t2.itemId)
+                WHERE PlanItem.state = 'ACTIVE'
         ]]>
         
 </sql>

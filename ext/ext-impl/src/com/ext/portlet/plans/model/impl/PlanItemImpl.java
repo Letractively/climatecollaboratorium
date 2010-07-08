@@ -9,6 +9,7 @@ package com.ext.portlet.plans.model.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
@@ -35,7 +36,10 @@ import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.User;
+import com.liferay.portal.model.impl.MembershipRequestImpl;
+import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import mit.simulation.climate.client.Simulation;
 
@@ -370,6 +374,52 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     }
     
 
+    /*
+     * Plan membership related stuff
+     */
     
+    /**
+     * Returns list of plan members.
+     */
+    public List<User> getMembers() throws SystemException {
+        return UserLocalServiceUtil.getGroupUsers(getPlanGroupId());
+    }
+    
+    public List<MembershipRequest> getMembershipRequests() throws SystemException {
+        return MembershipRequestLocalServiceUtil.search(getPlanGroupId(), MembershipRequestImpl.STATUS_PENDING, 0, Integer.MAX_VALUE);
+    }
+    
+    public void addMembershipRequest(Long userId, String comments) throws PortalException, SystemException {
+        MembershipRequestLocalServiceUtil.addMembershipRequest(userId, getPlanGroupId(), comments);
+    }
+    
+    public void dennyMembershipRequest(Long userId, MembershipRequest request, String reply) throws PortalException, SystemException {
+        MembershipRequestLocalServiceUtil.updateStatus(userId, request.getMembershipRequestId(), reply, MembershipRequestImpl.STATUS_DENIED);
+    }
+    
+    public void approveMembershipRequest(Long userId, MembershipRequest request, String reply) throws PortalException, SystemException {
+        MembershipRequestLocalServiceUtil.updateStatus(userId, request.getMembershipRequestId(), reply, MembershipRequestImpl.STATUS_APPROVED);
+    }
+    
+    /*
+     * Plan actions, publishing/deleting
+     */
+    public void publish(Long updateAuthorId) throws SystemException, PortalException {
+        newVersion(UpdateType.PLAN_PUBLISHED, updateAuthorId);
+        
+        PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
+        planMeta.setPlanTypeId(getPlanType().getPublishedCounterpartId());
+        planMeta.store(); 
+    }
+    
+    public void delete(Long updateAuthorId) throws SystemException {
+        newVersion(UpdateType.PLAN_DELETED, updateAuthorId);
+        this.setState(EntityState.DELETED.name());
+        this.store();
+    }
+    
+    public User getUpdateAuthor() throws PortalException, SystemException {
+        return UserLocalServiceUtil.getUser(getUpdateAuthorId());
+    }
     
 }
