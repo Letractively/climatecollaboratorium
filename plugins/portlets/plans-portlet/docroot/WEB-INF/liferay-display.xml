@@ -3,6 +3,6 @@
 
 <display>
 	<category name="category.mitcollaboratorium">
-		<portlet id="plans"></portlet>
+		<portlet id="plansportlet"></portlet>
 	</category>
 </display>

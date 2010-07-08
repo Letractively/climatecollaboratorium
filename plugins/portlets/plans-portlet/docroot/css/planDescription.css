@@ -1,30 +1,12 @@
-.versionsContainer {
-    float: left;
-    background: #d8d8d8;
-    padding: 5px;
-    padding-top: 15px;
+
+
+.descriptionEditContainer .versionsTrigger.expand {
+    padding: 2px 5px;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+
+.descriptionEditContainer .chooseVersionWidget {
     position: absolute;
-}
-
-.versionsContainer .absolute {
-	position: absolute;
-}
-
-.versionsContainer .versions {
-    display: none;
-}
-
-.versionsContainer .versionsTrigger {
-    font-weight: bold;
-    line-height: 1.5em;
-    font-size: 1.2em;
-    background: #c0d9d0;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.descriptionInput {
-	float: right;
-	width: 850px;
+    right: 0px;
 }

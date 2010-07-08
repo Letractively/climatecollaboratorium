@@ -10,15 +10,24 @@ public class SimulationBean {
     private Long scenario;
 
     private PlanItem plan;
+    private PlanBean planBean;
+    private boolean editing;
     
-    public SimulationBean(PlanItem plan) {
+    public SimulationBean(PlanItem plan, PlanBean planBean) {
         this.plan = plan;
+        this.planBean = planBean;
     }
     
     public void update(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             plan.setScenarioId(scenario, Helper.getLiferayUser().getUserId());
+            planBean.refresh();
         }
+        editing = false;
+    }
+    
+    public void cancel(ActionEvent e) throws SystemException, PortalException {
+        editing = false;
     }
     
     public Long getScenario() {
@@ -27,6 +36,14 @@ public class SimulationBean {
 
     public void setScenario(Long scenario) {
         this.scenario = scenario;
+    }
+    
+    public boolean isEditing() {
+        return editing;
+    }
+    
+    public void edit(ActionEvent e) {
+        editing = true;
     }
 
 }

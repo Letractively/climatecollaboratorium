@@ -40,4 +40,13 @@
 		<managed-bean-class>org.climatecollaboratorium.plans.NavigationBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>permissions</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.plans.PlansPermissionsBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>plan</property-name>
+			<value>#{navigation.planBean.plan.wrapped}</value>
+		</managed-property>
+	</managed-bean>
 </faces-config>
