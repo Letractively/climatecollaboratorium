@@ -19,6 +19,8 @@
 		</init-param>
 		<supports>
 			<mime-type>text/html</mime-type>
+			<portlet-mode>edit</portlet-mode>
+			<portlet-mode>help</portlet-mode>
 		</supports>
 		<portlet-info>
 			<title>Mit Climate Collaboratorium Plans Portlet</title>

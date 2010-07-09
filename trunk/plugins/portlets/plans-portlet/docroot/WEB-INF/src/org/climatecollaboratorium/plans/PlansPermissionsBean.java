@@ -5,8 +5,10 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
 
 public class PlansPermissionsBean {
+    
     private final PermissionChecker permissionChecker;
     private final String portletId;
     private final long groupId;
@@ -16,9 +18,9 @@ public class PlansPermissionsBean {
     
     public PlansPermissionsBean() {
         permissionChecker = Helper.getPermissionChecker();
-        groupId = Helper.getThemeDisplay().getScopeGroupId();
-        primKey = Helper.getThemeDisplay().getPortletDisplay().getResourcePK();
-        portletId = Helper.getThemeDisplay().getPortletDisplay().getRootPortletId();
+        groupId = Helper.groupId;
+        primKey = Helper.primKey;
+        portletId = Helper.portletId;
         
         planGroupId = groupId;
     }
@@ -55,7 +57,8 @@ public class PlansPermissionsBean {
     
     public boolean getPlanMember() throws SystemException {
         if (Helper.isUserLoggedIn() && plan != null) {
-            return GroupLocalServiceUtil.hasUserGroup(Helper.getLiferayUser().getUserId(), planGroupId);
+            boolean x = GroupLocalServiceUtil.hasUserGroup(Helper.getLiferayUser().getUserId(), planGroupId); 
+            return x;
         }
         return false;
     }

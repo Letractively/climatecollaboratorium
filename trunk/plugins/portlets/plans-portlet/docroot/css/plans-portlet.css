@@ -442,3 +442,7 @@ th.voteForPlan {
     color: #999;
     text-align: center;
 }
+
+.DialogBox .content {
+    background: transparent;
+}

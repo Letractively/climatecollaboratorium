@@ -10,7 +10,7 @@
                 <h4 class="position">#{question.selectedPosition.debateSummary}</h4>
             </div>
         </ice:panelSeries>
-        <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" />
+        <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" rendered="#{permissions.canEdit}" />
     </ice:panelGroup>
     <ice:messages />
     
@@ -56,6 +56,6 @@
             <div class="nothingSetInfo">
                 <div class="nothingSetMessage">No assumptions set.</div>
             </div>
-            <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" />
+            <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" rendered="#{permissions.canEdit}" />
         </ice:panelGroup>
 </f:view>
