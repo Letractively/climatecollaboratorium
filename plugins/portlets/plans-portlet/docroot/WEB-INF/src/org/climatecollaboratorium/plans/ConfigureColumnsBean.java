@@ -17,14 +17,18 @@ import com.liferay.portal.SystemException;
 public class ConfigureColumnsBean {
     private PlansIndexBean plansIndexBean;
     private List<ColumnsBean> availableColumns = new ArrayList<ColumnsBean>();
+    private PlansUserSettings plansUserSettings;
 
     public ConfigureColumnsBean(PlansIndexBean plansIndexBean) throws SystemException, PortalException {
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         this.plansIndexBean = plansIndexBean;
         PlanType planType = plansIndexBean.getPlanType();
         
         for (Columns col: Columns.getPlanTypeColumns(planType)) {
             availableColumns.add(new ColumnsBean(col, plansIndexBean));
         }
+
+        plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndexBean.getPlanType());
     }
     
     public List<ColumnsBean> getColumns() {
@@ -33,9 +37,7 @@ public class ConfigureColumnsBean {
     
     public void update(ActionEvent e) throws PortalException, SystemException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndexBean.getPlanType());
         for (ColumnsBean colWrapper: availableColumns) {
-            System.out.println(colWrapper.getName() + ": " + colWrapper.getVisible());
             colWrapper.getWrapped().setUserSetting(plansUserSettings, colWrapper.getVisible());
         }
         PlansUserSettingsLocalServiceUtil.saveUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansUserSettings);

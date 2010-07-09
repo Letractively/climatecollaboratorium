@@ -49,4 +49,14 @@
 			<value>#{navigation.planBean.plan.wrapped}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>preferences</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.plans.PlansPreferencesBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>migrationTool</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.plans.migration.MigrationTool</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 </faces-config>

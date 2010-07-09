@@ -2,6 +2,7 @@ package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.community.action.CommunityConstants;
 import com.ext.portlet.debaterevision.model.DebateItem;
+import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -116,6 +117,10 @@ public class Helper {
         PortletRequest pReq = (PortletRequest)ec.getRequest();
         PortletPreferences prefs = pReq.getPreferences();
         return prefs;
+    }
+
+    public static String getPlanURL(PlanItem p) {
+        return "/web/guest/plans#planId=" + p.getPlanId();
     }
     
 }
