@@ -220,7 +220,6 @@ public class PlansIndexBean {
         plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), planType);
         columns = new ArrayList<Columns>();
         for (Columns col: Columns.getPlanTypeColumns(planType)) {
-            System.out.println(col.getName() + col.getUserSetting(plansUserSettings));
             if (col.getUserSetting(plansUserSettings)) {
                 columns.add(col);
             }
