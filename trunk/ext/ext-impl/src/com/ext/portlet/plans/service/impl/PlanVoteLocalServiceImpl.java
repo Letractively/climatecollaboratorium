@@ -8,6 +8,7 @@ package com.ext.portlet.plans.service.impl;
 
 import java.util.Date;
 
+import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanVote;
@@ -28,8 +29,13 @@ public class PlanVoteLocalServiceImpl extends PlanVoteLocalServiceBaseImpl {
             if (vote.getPlanId() == planId) {
                 return false;
             }
-            PlanItem plan = PlanItemLocalServiceUtil.getPlan(vote.getPlanId());
-            plan.unvote(userId);
+            try {
+                PlanItem plan = PlanItemLocalServiceUtil.getPlan(vote.getPlanId());
+                plan.unvote(userId);
+            }
+            catch (NoSuchPlanItemException e) {
+                // ignore
+            }
             deletePlanVote(userId);
         }
         catch (NoSuchPlanVoteException e) {

@@ -62,6 +62,9 @@ public interface PlanItem extends PlanItemModel {
     public com.ext.portlet.plans.model.PlanMeta getPlanMeta()
         throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.plans.model.PlanMeta> getAllPlanMetas()
+        throws com.liferay.portal.SystemException;
+
     public java.lang.Long getPlanTypeId()
         throws com.liferay.portal.SystemException;
 

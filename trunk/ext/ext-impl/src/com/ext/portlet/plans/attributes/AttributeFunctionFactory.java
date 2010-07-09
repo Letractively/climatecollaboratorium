@@ -119,8 +119,10 @@ public class AttributeFunctionFactory {
                 if (tuples.size() == 0) {
                     return null;
                 }
-
-                String val = tuples.get(tuples.size() - 1).getValues()[1];
+                String val = null;
+                if (tuples.get(tuples.size() - 1).getValues().length > 1) {
+                    val = tuples.get(tuples.size() - 1).getValues()[1];
+                }
                 try {
                     return parseStringAsType(val, resultType);
                 } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
@@ -148,7 +150,7 @@ public class AttributeFunctionFactory {
     }
 
     private static <T> T parseStringAsType(String input, Class<T> type) throws UnsupportedTypeOperation {
-        if (input.equals("@ERROR") || input.equals("@RANGE")) {
+        if (input == null || input.equals("@ERROR") || input.equals("@RANGE")) {
             return null;
         }
         if (type == Double.class) {

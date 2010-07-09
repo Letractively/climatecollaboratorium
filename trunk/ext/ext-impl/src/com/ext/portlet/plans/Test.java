@@ -6,9 +6,13 @@
 
 package com.ext.portlet.plans;
 
+import java.util.Date;
+
 public class Test {
 	
 	public static void main(String[] args) {
+	    Date now = new Date();
+	    System.out.println(String.format("%1$tm/%1$te/%1$ty", now));
 		String val = "345";
 		System.err.println(Double.parseDouble(val));
 	}

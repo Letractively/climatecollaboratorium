@@ -7,15 +7,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanItemException;
+import com.ext.portlet.plans.PlanLocalServiceHelper;
 import com.ext.portlet.plans.UpdateType;
 import com.ext.portlet.plans.PlanConstants.Attribute;
+import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanAttributeFilter;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
+import com.ext.portlet.plans.model.PlanModelRun;
+import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlansUserSettings;
 import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
@@ -132,6 +137,92 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         
         
         return plan;
+    }
+    
+    public PlanItem createPlan(Plan basePlan) throws SystemException, PortalException {
+        long planItemId = CounterUtil.increment(PlanItem.class.getName());
+        long planId = basePlan.getPlanId();
+        long authorId = basePlan.getUserId();
+        long planTypeId = basePlan.getPlanTypeId();
+        String name = basePlan.getName();
+        
+        String description = "";
+        if (basePlan.getShortcontent().trim().length() > 0) {
+            description += "<div>" + basePlan.getShortcontent() + "</div>";   
+        }
+        if (basePlan.getContent().trim().length() > 0) {
+            description += "<div>" + basePlan.getContent() + "</div>";
+        }
+        
+        
+        PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
+        planItem.setPlanId(planId);
+        planItem.setVersion(0L);
+        planItem.setUpdated(new Date());
+        planItem.setUpdateAuthorId(authorId);
+        planItem.setState(EntityState.ACTIVE.name());
+        planItem.setUpdateType(UpdateType.CREATED.name());
+        
+        planItem = PlanItemLocalServiceUtil.addPlanItem(planItem);
+        
+        // create related entities, plan description, meta, model run
+        PlanDescription planDescription = PlanDescriptionLocalServiceUtil.createPlanDescription(planItem, name);
+        PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.createPlanModelRun(planItem);
+        PlanMeta planMeta = PlanMetaLocalServiceUtil.createPlanMeta(planItem, planTypeId);
+        PlanPositions planPositions = PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
+        
+        
+        
+        planDescription.setDescription(basePlan.getShortcontent() + basePlan.getContent());
+        planDescription.setName(basePlan.getName());
+        
+        boolean hasScenario = false;
+
+        planDescription.setDescription(description);
+
+        planMeta.setModelId(planItem.getPlanType().getModelId());
+        planMeta.setMbCategoryId(basePlan.getMBCategoryId());
+        planMeta.setPlanGroupId(basePlan.getChildGroupId());
+        if (planItem.getPlanType().getPublished()) {
+            planMeta.setCreated(basePlan.getPublishDate());
+        } else {
+            planMeta.setCreated(basePlan.getCreateDate());
+        }
+
+        if (basePlan.getScenarioId().trim().length() > 0) {
+            hasScenario = true;
+            planModelRun.setScenarioId(Long.parseLong(basePlan.getScenarioId()));
+        }
+
+
+        // positions
+        List<Long> positions = new ArrayList<Long>();
+        for (DebateItem position :PlanLocalServiceHelper.getPlanPositionsDebateRevision(basePlan.getPlanId())) {
+            positions.add(position.getDebateItemId());
+        }
+        planPositions.setPositionsIds(positions);
+        
+
+        planItem.store();
+        planDescription.store();
+        planMeta.store();
+        planModelRun.store();
+        planPositions.store();
+
+        // attributes
+        if (hasScenario) {
+            planItem.updateAllAttributes();
+        } else {
+            planItem.updateAttribute(Attribute.CREATOR.name());
+            planItem.updateAttribute(Attribute.NAME.name());
+            planItem.updateAttribute(Attribute.DESCRIPTION.name());
+            planItem.updateAttribute(Attribute.CREATE_DATE.name());
+            planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
+            planItem.updateAttribute(Attribute.VOTES.name());
+        }
+        
+        
+        return planItem;
     }
     
     private void initPlan(PlanItem plan) throws PortalException, SystemException {
