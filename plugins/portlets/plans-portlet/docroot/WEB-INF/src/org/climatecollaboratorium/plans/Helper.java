@@ -26,10 +26,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Helper {
-    private final static ThemeDisplay themeDisplay = getThemeDisplay();
-    private final static String portletId = themeDisplay.getPortletDisplay().getRootPortletId();
-    private final static long groupId = themeDisplay.getScopeGroupId();
-    private final static String primKey = themeDisplay.getPortletDisplay().getResourcePK();
+    public final static ThemeDisplay themeDisplay = getThemeDisplay();
+    public final static String portletId = themeDisplay.getPortletDisplay().getRootPortletId();
+    public final static long groupId = themeDisplay.getScopeGroupId();
+    public final static String primKey = themeDisplay.getPortletDisplay().getResourcePK();
 
     public static int getDebateItemVotes(DebateItem debateItem) throws SystemException {
         RatingsStats ratingsStats =

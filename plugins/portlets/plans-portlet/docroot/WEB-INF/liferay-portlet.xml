@@ -4,7 +4,7 @@
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>plansportlet</portlet-name>
-		<use-default-template>false</use-default-template>
+		<icon>/icon.png</icon>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>
 		<header-portlet-javascript>/js/plans-portlet.js</header-portlet-javascript>

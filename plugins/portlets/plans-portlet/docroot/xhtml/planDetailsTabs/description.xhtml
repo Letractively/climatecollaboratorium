@@ -6,13 +6,9 @@
     <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}">
         <ice:outputText value="#{planBean.plan.description}" escape="false"/>
         <div>
-            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}"/>
+            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit}" />
         </div>
     </ice:panelGroup>
-    <h1>Can admin: #{permissions.canAdmin}</h1>
-    <h1>Can edit: #{permissions.canEdit}</h1>
-    <h1>Can view: #{permissions.canView}</h1>
-    <h1>Can admin all: #{permissions.canAdminAll}</h1>
     
     <ice:panelGroup rendered="#{planBean.editingDescription}" styleClass="editWithVersions descriptionEditContainer">
         <div class="chooseVersionWidget">
@@ -39,7 +35,7 @@
             <div class="nothingSetInfo">
                 <div class="nothingSetMessage">No description set.</div>
             </div>
-            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}"/>
+            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit}" />
         </ice:panelGroup>
     <script language="javascript">
     jQuery(document).ready(initVersionChoosingBox);

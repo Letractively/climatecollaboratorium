@@ -84,7 +84,7 @@
     <ice:inputText value="#{planBean.simulationBean.scenario}" styleClass="scenarioInput" style="display: none" />
     <ice:commandButton actionListener="#{planBean.simulationBean.update}" style="display: none" styleClass="scenarioUpdateButton" />
     <ice:commandButton actionListener="#{planBean.simulationBean.cancel}" style="display: none" styleClass="scenarioCancelEditingButton" />
-    <ice:commandLink actionListener="#{planBean.simulationBean.edit}" styleClass="editBtn" rendered="#{not planBean.simulationBean.editing}" />
+    <ice:commandLink actionListener="#{planBean.simulationBean.edit}" styleClass="editBtn" rendered="#{not planBean.simulationBean.editing and permissions.canEdit}"  />
     
     <script language="javascript">
         jQuery(document).ready(initVersionChoosingBox);
