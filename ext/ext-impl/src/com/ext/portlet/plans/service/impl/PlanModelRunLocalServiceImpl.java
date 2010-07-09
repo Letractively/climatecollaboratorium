@@ -28,7 +28,7 @@ public class PlanModelRunLocalServiceImpl
     }
     
     public PlanModelRun getCurrentForPlan(PlanItem plan) throws SystemException {
-        return this.planModelRunPersistence.fetchByCurrentByPlanId(plan.getPlanId());
+        return this.planModelRunPersistence.fetchByCurrentByPlanId(plan.getPlanId(), false);
     }
     
     public List<PlanModelRun> getAllForPlan(PlanItem plan) throws SystemException {

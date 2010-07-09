@@ -103,8 +103,8 @@ public class PlanConstants {
 		    
 		}),
         VOTES(Double.class, "%.0f", attributeFunctionFactory.getPlanPropertyFunction("votes"), true, PlanFilterOperatorType.MIN_MAX,  null),
-        CREATE_DATE(Date.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("createDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null), 
-        PUBLISH_DATE(Date.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("publishDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null),
+        CREATE_DATE(Date.class, "%1$tm/%1$te/%1$ty", attributeFunctionFactory.getPlanPropertyFunction("createDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null), 
+        PUBLISH_DATE(Date.class, "%1$tm/%1$te/%1$ty", attributeFunctionFactory.getPlanPropertyFunction("publishDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null),
         CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, PlanFilterOperatorType.LIKE, null),
 	    MITIGATION_COST_ERROR(String.class, "%s", attributeFunctionFactory.getIndexedOutputErrors("Mitigation Cost"), true, null, null), 
 	    DESCRIPTION(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("description"), true, PlanFilterOperatorType.LIKE, null);
@@ -274,8 +274,8 @@ public class PlanConstants {
 	
 	public static enum Columns {
 		
-		NAME("Name","Name of the plan","ShowName",true,new PojoGetter("Name","%s")),
-		VOTES("Votes","% of votes for this plan","ShowVotes",true,new PlanValueFactory() {
+		NAME("Name","Name of the plan","ShowName",true, Attribute.NAME, new PojoGetter("Name","%s")),
+		VOTES("Votes","% of votes for this plan","ShowVotes",true, Attribute.VOTES,new PlanValueFactory() {
 
 			public String getValue(Plan plan) throws SystemException {
 				long votes = PlanVoteLocalServiceUtil.getPlanVotesCount();
@@ -293,7 +293,7 @@ public class PlanConstants {
             }
 			
 		}),
-		CREATOR("Creator","Creator of this plan","ShowCreator",false,new PlanValueFactory() {
+		CREATOR("Creator","Creator of this plan","ShowCreator",false, Attribute.CREATOR,new PlanValueFactory() {
 
 			public String getValue(Plan plan) throws SystemException {
 				try {
@@ -310,7 +310,7 @@ public class PlanConstants {
 
 
 		}),
-		CREATE_DATE("Date created","Date this plan was created","ShowDate",false, new PlanValueFactory() {
+		CREATE_DATE("Date created","Date this plan was created","ShowDate",false, Attribute.CREATE_DATE, new PlanValueFactory() {
 
 			public String getValue(Plan plan) throws SystemException, PortalException {
 				Date d = plan.getPlanType().getPublished()?plan.getPublishDate():plan.getCreateDate();
@@ -324,7 +324,7 @@ public class PlanConstants {
             }
 			
 		}),
-		PUBLISH_DATE("Date published","Date this plan was published","Published",false,new PlanValueFactory() {
+		PUBLISH_DATE("Date published","Date this plan was published","Published",false, Attribute.PUBLISH_DATE,new PlanValueFactory() {
 			public String getValue(Plan plan) throws SystemException, PortalException {
 				Date d = plan.getPlanType().getPublished()?plan.getPublishDate():plan.getCreateDate();	
 				return DateFormats.getDate(LocaleUtil.getDefault()).format(d);
@@ -336,32 +336,32 @@ public class PlanConstants {
                 return pvf.getValue(plan);
             }
 		}),
-		POSITIONS("Positions","Positions on key issues that are emboded by this plan","ShowPositions",false, new EmptyFactory()),		
+		POSITIONS("Positions","Positions on key issues that are emboded by this plan","ShowPositions",false, null, new EmptyFactory()),		
 		
 		COLUMN_DEVELOPED_EMISSIONS("Emissions change for developed countries<br/>(10^9 tons Carbon in 2050))","% change in emissions from 2005 to [2050?] in " +
 				"the developed countries.	Developed countries includes many of the most developed nations: US, EU (27 countries), " +
 				"Norway and Sweden, Russia and the former Soviet States, Japan, Canada, South Korea, New Zealand, and Australia",
-				"ShowDevelopedEmissions",false, new AttributeGetter("%s",Attribute.EMISSIONS_DEVELOPED)),
+				"ShowDevelopedEmissions",false, Attribute.EMISSIONS_DEVELOPED, new AttributeGetter("%s",Attribute.EMISSIONS_DEVELOPED)),
 				
 		COLUMN_DEVELOPING_A_EMISSIONS("Emissions change for rapidly developing countries<br/>(10^9 tons Carbon in 2050)"," % change in emissions from 2005 to [2050?] in " +
 				"the rapidly developing countries.Rapidly developing countries include many of the fastest developing and larger nations: China, " +
 				"India, South Africa, Mexico, Brazil, Indonesia, and other large developing Asian countries.","ShowDevelopingAEmissions",
-				false, new AttributeGetter("%s",Attribute.EMISSIONS_DEVELOPING_A)),
+				false, Attribute.EMISSIONS_DEVELOPING_A, new AttributeGetter("%s",Attribute.EMISSIONS_DEVELOPING_A)),
 				
 		COLUMN_DEVELOPING_B_EMISSIONS("Emissions change for other developing countries<br/>(10^9 tons Carbon in 2050)","%  change in emissions from 2005 to [2050?] in the " +
 				"rapidly developing countries. Other developing countries includes smaller developing nations in the Middle East, Latin America, Africa, " +
-				"and Asia.","ShowDevelopingBEmissions",false, new AttributeGetter("%s",Attribute.EMISSIONS_DEVELOPING_B)),
+				"and Asia.","ShowDevelopingBEmissions",false, Attribute.EMISSIONS_DEVELOPING_B, new AttributeGetter("%s",Attribute.EMISSIONS_DEVELOPING_B)),
 		
-		CO2_CONCENTRATION("CO2 Concentration<br/>(ppm in 2100)","Atmospheric CO2 concentration in parts per million (ppm) in 2100","ShowCO2", true, new AttributeGetter("%s",Attribute.CO2)),
+		CO2_CONCENTRATION("CO2 Concentration<br/>(ppm in 2100)","Atmospheric CO2 concentration in parts per million (ppm) in 2100","ShowCO2", true, Attribute.CO2, new AttributeGetter("%s",Attribute.CO2)),
 				
 		TEMP_CHANGE("Temperature Change<br/>(&#176;C in 2100)","Global average temperature change in degrees Celsius (C) from pre-industrial " +
-				"values to 2100","ShowTemperatureChange",true,new AttributeGetter("%s",Attribute.TEMP)),
+				"values to 2100","ShowTemperatureChange",true, Attribute.TEMP ,new AttributeGetter("%s",Attribute.TEMP)),
 				
-		SEA_LEVEL_CHANGE("Sea level change<br/>(mm in 2100)","Sea level change in millimeters (mm) from 2000 to 2100","ShowSeaLevelRise",false, new AttributeGetter("%s",Attribute.SEA_LEVEL)),
+		SEA_LEVEL_CHANGE("Sea level change<br/>(mm in 2100)","Sea level change in millimeters (mm) from 2000 to 2100","ShowSeaLevelRise",false, Attribute.SEA_LEVEL, new AttributeGetter("%s",Attribute.SEA_LEVEL)),
 		
 		MITIGATION_COST("Mitigation cost<br/>(%GDP in 2100)","Cost of efforts to prevent climate change (e.g., by reducing emissions). " +
 				"Costs are shown as a % of World GDP (Gross Domestic Product).	Values shown are the lowest and highest of the estimates " +
-				"produced by three models of these costs.","ShowMitigationCost",true,
+				"produced by three models of these costs.","ShowMitigationCost",true, Attribute.MIN_MITIGATION_COST,
                 new PlanValueFactory.CustomizedAttributeGetter(
                         new PlanValueFactory.SelectingFormatFunction(
                                 "%s to %s <div class='errors popup-info-box' style='display: none;" +
@@ -378,7 +378,8 @@ public class PlanConstants {
 		DAMAGE_COST("Damage cost<br/>(%GDP in 2100)","Cost of damages caused by climate change (e.g., damages from rising sea level, hurricanes, " +
 				"droughts, etc.). Costs are shown as a % of World GDP (Gross Domestic Product). Values shown are estimates of the " +
 				"90% confidence interval for these costs. That is, the models predict there is only a 5% chance that the costs would be l" +
-				"ess than the lower number and a 5% chance that the costs would be greater than the higher number.","ShowDamageCost",true, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST,Attribute.MAX_DAMAGE_COST));
+				"ess than the lower number and a 5% chance that the costs would be greater than the higher number.","ShowDamageCost",true, 
+				Attribute.MIN_DAMAGE_COST, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST,Attribute.MAX_DAMAGE_COST));
 		
 		private String name;
 		private String description;
@@ -387,18 +388,20 @@ public class PlanConstants {
 		private static boolean initialized = false;
 		private String setter;
 		private String getter;
+		private PlanConstants.Attribute sortAttribute;
 		
 		private PlanValueFactory value;
 		
 		private static List<Columns> defaults = new ArrayList<Columns> ();
 		
-		Columns(String name, String description, String methodroot, boolean defaultDisplay, PlanValueFactory factory) {
+		Columns(String name, String description, String methodroot, boolean defaultDisplay, PlanConstants.Attribute sortAttribute, PlanValueFactory factory) {
 			this.name = name;
 			this.description =description;
 			this.getter = "get"+methodroot;
 			this.setter = "set"+methodroot;
             this.defaultDisplay = defaultDisplay;
 			this.value = factory;
+			this.sortAttribute = sortAttribute;
 		}
 		
 		
@@ -473,6 +476,14 @@ public class PlanConstants {
 		    }
 		    
 		    return columns;
+		}
+		
+		public boolean isSortable() {
+		    return sortAttribute != null;
+		}
+		
+		public Attribute getSortAttribute() {
+		    return sortAttribute;
 		}
 		
 		

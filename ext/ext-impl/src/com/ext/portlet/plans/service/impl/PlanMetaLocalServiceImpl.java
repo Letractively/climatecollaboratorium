@@ -39,7 +39,7 @@ public class PlanMetaLocalServiceImpl extends PlanMetaLocalServiceBaseImpl {
     }
     
     public PlanMeta getCurrentForPlan(PlanItem plan) throws SystemException {
-        return this.planMetaPersistence.fetchByCurrentByPlanId(plan.getPlanId());
+        return this.planMetaPersistence.fetchByCurrentByPlanId(plan.getPlanId(), false);
     }
     
     public List<PlanMeta> getAllForPlan(PlanItem plan) throws SystemException {

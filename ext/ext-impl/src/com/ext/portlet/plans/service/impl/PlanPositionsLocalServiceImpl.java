@@ -17,7 +17,7 @@ public class PlanPositionsLocalServiceImpl
     extends PlanPositionsLocalServiceBaseImpl {
     
     public PlanPositions getCurrentForPlan(PlanItem plan) throws SystemException, NoSuchPlanPositionsException {
-        return this.planPositionsPersistence.findByCurrentByPlanId(plan.getPlanId());
+        return this.planPositionsPersistence.fetchByCurrentByPlanId(plan.getPlanId(), false);
     }
     
     public PlanPositions createPlanPositions(PlanItem plan) throws SystemException {

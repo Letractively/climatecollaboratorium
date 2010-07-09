@@ -114,9 +114,9 @@ public class PlansUserSettingsLocalServiceImpl extends PlansUserSettingsLocalSer
                 add = true;
             }
             if (add) {
-                PlansUserSettingsLocalServiceUtil.addPlansUserSettings(plansUserSettings);
+                addPlansUserSettings(plansUserSettings);
             } else {
-                PlansUserSettingsLocalServiceUtil.updatePlansUserSettings(plansUserSettings);
+                updatePlansUserSettings(plansUserSettings);
             }
 
             for (PlanColumnSettings columnSettings : plansUserSettings.getUpdatedColumnSettings()) {

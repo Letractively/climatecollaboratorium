@@ -153,6 +153,10 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return PlanMetaLocalServiceUtil.getCurrentForPlan(this);
     }
     
+    public List<PlanMeta> getAllPlanMetas() throws SystemException {
+        return PlanMetaLocalServiceUtil.getAllForPlan(this);
+    }
+    
     public Long getPlanTypeId() throws SystemException {
         return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getPlanTypeId();
     }

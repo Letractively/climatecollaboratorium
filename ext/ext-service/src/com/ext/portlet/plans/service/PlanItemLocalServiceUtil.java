@@ -105,6 +105,13 @@ public class PlanItemLocalServiceUtil {
         return getService().createPlan(name, basePlan, authorId);
     }
 
+    public static com.ext.portlet.plans.model.PlanItem createPlan(
+        com.ext.portlet.plans.model.Plan basePlan)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().createPlan(basePlan);
+    }
+
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans()
         throws com.liferay.portal.SystemException {
         return getService().getPlans();

@@ -36,7 +36,7 @@ public class PlanDescriptionLocalServiceImpl
     }
     
     public PlanDescription getCurrentForPlan(PlanItem plan) throws SystemException {
-        return this.planDescriptionPersistence.fetchByCurrentByPlanId(plan.getPlanId());
+        return this.planDescriptionPersistence.fetchByCurrentByPlanId(plan.getPlanId(), false);
     }
     
     public List<PlanDescription> getAllForPlan(PlanItem plan) throws SystemException {
