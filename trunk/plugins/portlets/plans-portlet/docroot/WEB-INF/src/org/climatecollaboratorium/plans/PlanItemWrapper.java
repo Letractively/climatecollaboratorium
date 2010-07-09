@@ -10,21 +10,28 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
+
+
 
 import com.ext.portlet.Activity.ActivityUtil;
-import com.ext.portlet.plans.PlanActivityKeys;
+import com.ext.portlet.debaterevision.model.DebateCategory;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.service.PlanVoteLocalService;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 public class PlanItemWrapper {
     private PlanItem wrapped;
@@ -48,6 +55,8 @@ public class PlanItemWrapper {
     private Long currentPlanModelRunVersion;
     private PlansPermissionsBean permissions;
     private boolean descriptionSet;
+
+    private ThemeDisplay td = Helper.getThemeDisplay();
     
     public PlanItemWrapper(PlanItem plan, PlanBean planBean, PlansPermissionsBean permissions) throws SystemException, PortalException {
         wrapped = plan;
@@ -101,6 +110,8 @@ public class PlanItemWrapper {
         if (Helper.isUserLoggedIn()) {
             if (candidateDescription != null) {
                 wrapped.setDescription(candidateDescription, Helper.getLiferayUser().getUserId());
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_DESCRIPTION.id(),null, 0);
             }
         }
         planBean.setEditingDescription(false);
@@ -110,6 +121,8 @@ public class PlanItemWrapper {
         if (Helper.isUserLoggedIn()) {
             if (candidateName != null) {
                 wrapped.setName(candidateName, Helper.getLiferayUser().getUserId());
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                        PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_NAME.id(),null, 0);
             }
         }
         planBean.setEditingName(false);
@@ -122,12 +135,27 @@ public class PlanItemWrapper {
     public void vote(ActionEvent e) throws PortalException, SystemException {
         if (Helper.isUserLoggedIn()) {
             wrapped.vote(Helper.getLiferayUser().getUserId());
+            PlanActivityKeys activityKey = PlanActivityKeys.VOTE_FOR_PLAN;
+            try {
+                    if (PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId()) != null) {
+                        activityKey = PlanActivityKeys.SWICTH_VOTE_FOR_PLAN;
+                    }
+            }
+            catch (Throwable ex) {
+                // ignore
+            }
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), activityKey.id(),null, 0);
         }
+        
     }
     
     public void unvote(ActionEvent e) throws PortalException, SystemException {
         if (Helper.isUserLoggedIn()) {
             wrapped.unvote(Helper.getLiferayUser().getUserId());
+
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.RETRACT_VOTE_FOR_PLAN.id(),null, 0);
         }
     }
     
@@ -214,12 +242,18 @@ public class PlanItemWrapper {
     public void publish(ActionEvent e) throws PortalException, SystemException {
         if (permissions.getCanAdmin()) {
             wrapped.publish(Helper.getLiferayUser().getUserId());
+
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.PUBLISH_UPDATES.id(),null, 0);
         }
     }
     
-    public void delete(ActionEvent e) throws SystemException {
+    public void delete(ActionEvent e) throws SystemException, PortalException {
         if (permissions.getCanAdmin()) {
             wrapped.delete(Helper.getLiferayUser().getUserId());
+
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.REMOVE_PLAN.id(),null, 0);
         }
     }
 

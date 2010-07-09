@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
+
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.service.DebateCategoryLocalServiceUtil;
@@ -17,6 +19,8 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 public class PlanPositionsBean {
     private List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
@@ -29,6 +33,8 @@ public class PlanPositionsBean {
     private Long planPositionsVersion;
     private Long lastPositionsVersion;
     private boolean positionsSet;
+    private List<Debate> availableDebates;
+    private ThemeDisplay td = Helper.getThemeDisplay();
 
     public PlanPositionsBean(PlanItem plan, PlanBean planBean) throws SystemException, PortalException {
 
@@ -46,18 +52,14 @@ public class PlanPositionsBean {
         if (plan.getPositionsIds().size() > 0) {
             positionsSet = true;
         }
+        availableDebates = PlansPreferencesBean.getQuestionDebates();
     }
     
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
         if (! lastPositionsVersion.equals(planPositionsVersion)) {
-            List<Debate> debates = DebateLocalServiceUtil.getDebates();
             questions.clear();
-            int i=0;
-            for (Debate d : debates) {
+            for (Debate d : availableDebates) {
                 questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), plan.getPositionsIds()));
-                if (i++ >= 4) {
-                    break;
-                }
             }
             lastPositionsVersion = planPositionsVersion;
         }
@@ -81,6 +83,9 @@ public class PlanPositionsBean {
                 }
             }
             plan.setPositions(positions, Helper.getLiferayUser().getUserId());
+
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), plan.getPlanId(), PlanActivityKeys.EDIT_POSITIONS.id(),null, 0);
         }
         editing = false;
         planBean.refresh();

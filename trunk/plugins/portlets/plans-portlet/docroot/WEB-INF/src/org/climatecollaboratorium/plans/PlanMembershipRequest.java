@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.faces.event.ActionEvent;
 
+import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
+
 import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -11,6 +13,8 @@ import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 public class PlanMembershipRequest {
     private MembershipRequest request;
@@ -20,6 +24,7 @@ public class PlanMembershipRequest {
     private PlansPermissionsBean permissions;
     private boolean approve = true;
     private PlanBean planBean;
+    private ThemeDisplay td = Helper.getThemeDisplay();
     
     public PlanMembershipRequest(MembershipRequest request, PlanItem plan, PlanBean planBean, PlansPermissionsBean permissions) throws PortalException, SystemException {
         this.request = request;
@@ -65,9 +70,14 @@ public class PlanMembershipRequest {
         if (permissions.getCanAdmin()) { 
             if (approve) {
                 plan.approveMembershipRequest(Helper.getLiferayUser().getUserId(), request, response);
+
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                        PlanItem.class.getName(), plan.getPlanId(), PlanActivityKeys.USER_ADDED_TO_PLAN.id(),null, 0);
             }
             else {
                 plan.dennyMembershipRequest(Helper.getLiferayUser().getUserId(), request, response);
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                        PlanItem.class.getName(), plan.getPlanId(), PlanActivityKeys.USER_REMOVED_FROM_PLAN.id(),null, 0);
             }
         }
         planBean.refresh();

@@ -15,6 +15,7 @@ import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.PlanLocalServiceHelper;
+import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.PlanConstants.Columns;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanType;
@@ -37,7 +38,7 @@ public class PlansIndexBean {
     private String sortColumn = "NAME";
     private boolean sortAscending = true;
     private boolean updatePlansList = true;
-    private int pageSize = 10;
+    private int pageSize = 50;
     // Current items in ui
     private List uiCustomerBeans = new ArrayList(pageSize);
 
@@ -48,6 +49,7 @@ public class PlansIndexBean {
     private ConfigureColumnsBean columnsConfiguration;
 
     private FilterPlansBean filterPlansBean;
+    private PlansUserSettings plansUserSettings;
 
     private Long userVote;
 
@@ -61,7 +63,6 @@ public class PlansIndexBean {
     public PlansIndexBean() throws SystemException, PortalException {
         planType = PlanTypeLocalServiceUtil.getDefaultPlanType();
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), planType);
         
         dataPaginator = new DataPaginator();
         refresh();
@@ -72,7 +73,13 @@ public class PlansIndexBean {
         if (updatePlansList) {
             plans.clear();
             updatePlansList = false;
-            for(PlanItem plan: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, 100, sortColumn, sortAscending ? "ASC" : "DESC")) {
+            Columns sortCol = Columns.valueOf(sortColumn);
+
+            String sortAttribute = Attribute.NAME.name();
+            if (sortCol.isSortable()) {
+                sortAttribute = sortCol.getSortAttribute().name();
+            }
+            for(PlanItem plan: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, 100, sortAttribute, sortAscending ? "ASC" : "DESC")) {
                 plans.add(new PlanIndexItemWrapper(plan, this));
             }
         }
@@ -146,11 +153,17 @@ public class PlansIndexBean {
         
         plans.clear();
         
-        for (PlanItem item: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, startRow, endIndex, sortColumn, sortAscending ? "ASC" : "DESC")) {
+        Columns sortCol = Columns.valueOf(sortColumn);
+
+        String sortAttribute = Attribute.NAME.name();
+        if (sortCol.isSortable()) {
+            sortAttribute = sortCol.getSortAttribute().name();
+        }
+        for (PlanItem item: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, startRow, endIndex, sortAttribute, sortAscending ? "ASC" : "DESC")) {
             plans.add(new PlanIndexItemWrapper(item, this));
         }
         // FIXME this isn't correct, appropriate value should be calculated.
-        int totalNumberPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, Integer.MAX_VALUE, sortColumn, sortAscending ? "ASC" : "DESC").size();
+        int totalNumberPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, Integer.MAX_VALUE, sortAttribute, sortAscending ? "ASC" : "DESC").size();
 
         plansDataModel.setDirtyData(false);
 
@@ -204,9 +217,10 @@ public class PlansIndexBean {
 
     private void columnsUpdate() throws PortalException, SystemException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), planType);
+        plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), planType);
         columns = new ArrayList<Columns>();
         for (Columns col: Columns.getPlanTypeColumns(planType)) {
+            System.out.println(col.getName() + col.getUserSetting(plansUserSettings));
             if (col.getUserSetting(plansUserSettings)) {
                 columns.add(col);
             }
