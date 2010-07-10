@@ -81,8 +81,29 @@
                             <ice:outputLink value="#planId=#{singlePlan.planId}" rendered="#{column == 'NAME'}">
                                 <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
                             </ice:outputLink>
+                            <f:subview rendered="#{column == 'POSITIONS'}">
+                                <a href="javascript:;" class="showPositions" onclick="showPositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}')"/>
+                                <div class="hidden" id="plan_positions_#{singlePlan.planId}">
+                                    <div class="positionsDialog">
+                                        <div class="positionsDialog_top">
+                                            <div class="title"><h1>Positions</h1></div>
+                                        </div>
+                                        <div class="positionsDialog_bg">
+                                            <ice:panelSeries value="#{singlePlan.positions}" var="question">
+                                                <div class="assumption">
+                                                    <h3 class="question">#{question.debateSummary}</h3>
+                                                    <h4 class="position">#{question.selectedPosition.debateSummary}</h4>
+                                                </div>
+                                            </ice:panelSeries>
+                                        </div>
+                                        <div class="positionsDialog_bottom">
+                                            <a class="cancelBtn"  href="javascript:;" onclick="hidePositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}')" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </f:subview>
                             
-                            <ice:outputText value="#{singlePlan.columnValues[column]}" rendered="#{column != 'NAME'}" escape="false"/>
+                            <ice:outputText value="#{singlePlan.columnValues[column]}" rendered="#{column != 'NAME' and column != 'POSITIONS'}" escape="false"/>
                     </ice:columns>
                     <ice:column rendered="#{plansIndexBean.planType.published}">
                         <f:facet name="header"><div class="voteForPlan"><span>Vote for Plan</span></div></f:facet>

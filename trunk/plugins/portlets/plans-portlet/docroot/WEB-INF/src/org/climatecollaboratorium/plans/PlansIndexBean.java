@@ -13,6 +13,7 @@ import javax.faces.model.DataModel;
 import org.climatecollaboratorium.plans.utils.DataPage;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 
+import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.PlanLocalServiceHelper;
 import com.ext.portlet.plans.PlanConstants.Attribute;
@@ -59,6 +60,7 @@ public class PlansIndexBean {
     private List<PlanIndexItemWrapper> plans = new ArrayList<PlanIndexItemWrapper>();
 
     private DataPaginator dataPaginator;
+    private List<Debate> availableDebates;
     
     public PlansIndexBean() throws SystemException, PortalException {
         planType = PlanTypeLocalServiceUtil.getDefaultPlanType();
@@ -70,6 +72,7 @@ public class PlansIndexBean {
 
     public List<PlanIndexItemWrapper> getPlans() throws SystemException, PortalException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        availableDebates = PlansPreferencesBean.getQuestionDebates();
         if (updatePlansList) {
             plans.clear();
             updatePlansList = false;
@@ -80,7 +83,7 @@ public class PlansIndexBean {
                 sortAttribute = sortCol.getSortAttribute().name();
             }
             for(PlanItem plan: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, 100, sortAttribute, sortAscending ? "ASC" : "DESC")) {
-                plans.add(new PlanIndexItemWrapper(plan, this));
+                plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
             }
         }
         return plans;
@@ -160,7 +163,7 @@ public class PlansIndexBean {
             sortAttribute = sortCol.getSortAttribute().name();
         }
         for (PlanItem item: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, startRow, endIndex, sortAttribute, sortAscending ? "ASC" : "DESC")) {
-            plans.add(new PlanIndexItemWrapper(item, this));
+            plans.add(new PlanIndexItemWrapper(item, this, availableDebates));
         }
         // FIXME this isn't correct, appropriate value should be calculated.
         int totalNumberPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, Integer.MAX_VALUE, sortAttribute, sortAscending ? "ASC" : "DESC").size();

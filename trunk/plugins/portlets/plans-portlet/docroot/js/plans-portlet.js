@@ -439,3 +439,15 @@ function respondToMembershipRequest(contentContainerId) {
 	hideManageMembershipRequestDialog(contentContainerId);
 	container.find(".membershipRequestResponseSubmitButton").click();
 }
+
+var positionsDialog;
+function showPositionsOnIndexPageDialog(positionsContainerId) {
+	var positions = jQuery("#" + positionsContainerId);
+	positionsDialog = positions.dialog({width: 500, modal: true, height: 500, draggable: false, resizable: false, dialogClass: 'plansIndexDialog positionsDialog'});	
+}
+
+function hidePositionsOnIndexPageDialog(positionsContainerId) {
+	var positions = jQuery("#" + positionsContainerId);
+	positionsDialog.dialog("destroy");
+	positions.dialog("destroy");
+}
