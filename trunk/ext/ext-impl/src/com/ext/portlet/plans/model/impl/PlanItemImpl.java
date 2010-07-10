@@ -248,12 +248,19 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
        return x.getPositionsIds();
    }
    
+   public Long[] getPositionsIdsArray() throws SystemException, NoSuchPlanPositionsException {
+       List<Long> idsList = getPositionsIds();
+       Long[] ret = new Long[idsList.size()];
+       return idsList.toArray(ret);
+   }
+   
    public void setPositions(List<Long> positionsIds, Long updateAuthorId) throws PortalException, SystemException {        
        newVersion(UpdateType.PLAN_POSITIONS_UPDATED, updateAuthorId);
        
        PlanPositions planPositions = PlanPositionsLocalServiceUtil.createNewVersionForPlan(this);
        planPositions.store();
        planPositions.setPositionsIds(positionsIds);
+       updateAttribute(Attribute.POSITIONS);
    }
    
    public List<PlanPositions> getAllPositionsVersions() throws SystemException {

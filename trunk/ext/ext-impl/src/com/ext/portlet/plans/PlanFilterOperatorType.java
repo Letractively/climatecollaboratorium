@@ -13,7 +13,8 @@ public enum PlanFilterOperatorType {
     GREATER_THAN(new PlanFilterOperator.MoreThanOperator()),
     MIN_MAX(new PlanFilterOperator.MinMaxOperator()),
     DATE_FROM_TO(new PlanFilterOperator.DateFromToOperator()),
-    DUMMY(new PlanFilterOperator.DummyOperator());
+    DUMMY(new PlanFilterOperator.DummyOperator()), 
+    POSITIONS_FILTER(new PlanFilterOperator.PositionsFilterOperator());
     
     private PlanFilterOperator operator;
 
@@ -111,6 +112,13 @@ public enum PlanFilterOperatorType {
         }
         
         public class DummyOperator implements PlanFilterOperator {
+            @Override
+            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+                return true;
+            }
+        }
+        
+        public class PositionsFilterOperator implements PlanFilterOperator {
             @Override
             public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 return true;

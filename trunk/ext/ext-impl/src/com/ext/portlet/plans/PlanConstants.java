@@ -107,7 +107,8 @@ public class PlanConstants {
         PUBLISH_DATE(Date.class, "%1$tm/%1$te/%1$ty", attributeFunctionFactory.getPlanPropertyFunction("publishDate"), true, PlanFilterOperatorType.DATE_FROM_TO, null),
         CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, PlanFilterOperatorType.LIKE, null),
 	    MITIGATION_COST_ERROR(String.class, "%s", attributeFunctionFactory.getIndexedOutputErrors("Mitigation Cost"), true, null, null), 
-	    DESCRIPTION(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("description"), true, PlanFilterOperatorType.LIKE, null);
+	    DESCRIPTION(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("description"), true, PlanFilterOperatorType.LIKE, null),
+        POSITIONS(Long[].class, "%s", attributeFunctionFactory.getPlanPropertyFunction("positionsIdsArray"), true, PlanFilterOperatorType.POSITIONS_FILTER, null);
 		
 		
 		private Class<?> clasz;
@@ -164,6 +165,9 @@ public class PlanConstants {
 	                    return TypedValueConverter.getValue(Date.class, s);
 	            } else if (clasz == String.class) {
 	                return s;
+	            }
+	            else if (clasz.isArray()) {
+	                return TypedValueConverter.getValues(clasz.getComponentType(), s);
 	            }
 	            return null;
 	        }
@@ -223,6 +227,10 @@ public class PlanConstants {
 		
 	    public Object calculateValue(PlanItem plan) throws SystemException {
 	        Object val = attributeFunction.process(plan);
+	        if (clasz.isArray()) {
+	            return TypedValueConverter.getStringForMultipleValues(val);
+	        }
+	        
 	        return TypedValueConverter.getString(val);
 	    }
 		
