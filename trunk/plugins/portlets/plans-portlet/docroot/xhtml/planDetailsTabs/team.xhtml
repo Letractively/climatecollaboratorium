@@ -70,12 +70,12 @@
                                     <p class="userComment">
                                         <ice:outputText value="#{membershipRequest.comment}" />
                                     </p>
-                                    Optional comment:<br />
+                                    Optional message to requestor:<br />
                                     <ice:inputTextarea value="#{membershipRequest.response}" styleClass="membershipRequestResponse" />
                                     Action:
                                     <ice:selectOneRadio value="#{membershipRequest.approve}">
                                         <f:selectItem itemValue="true" itemLabel="approve" />
-                                        <f:selectItem itemValue="false" itemLabel="denny" />
+                                        <f:selectItem itemValue="false" itemLabel="deny" />
                                     </ice:selectOneRadio>
                                 </div>
                                 <div class="manageMembersActions">
