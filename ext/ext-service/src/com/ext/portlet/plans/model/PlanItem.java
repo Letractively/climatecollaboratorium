@@ -122,6 +122,10 @@ public interface PlanItem extends PlanItemModel {
         throws com.ext.portlet.plans.NoSuchPlanPositionsException,
             com.liferay.portal.SystemException;
 
+    public java.lang.Long[] getPositionsIdsArray()
+        throws com.ext.portlet.plans.NoSuchPlanPositionsException,
+            com.liferay.portal.SystemException;
+
     public void setPositions(java.util.List<Long> positionsIds,
         java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,

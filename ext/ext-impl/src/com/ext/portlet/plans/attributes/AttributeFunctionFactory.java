@@ -251,7 +251,6 @@ public class AttributeFunctionFactory {
             @Override
             public T process(PlanItem plan) throws SystemException {
                 String getterMethod = "get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
-
                 try {
                     Method getter = PlanItem.class.getMethod(getterMethod);
                     return (T)getter.invoke(plan);

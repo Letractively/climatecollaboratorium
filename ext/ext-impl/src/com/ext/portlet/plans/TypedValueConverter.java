@@ -1,5 +1,6 @@
 package com.ext.portlet.plans;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,7 @@ public class TypedValueConverter {
     }
     
     private static DateFormat defaultDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-    private static final String MULTI_VALUED_SEPARATOR = "\\|";
+    private static final String MULTI_VALUED_SEPARATOR = "|";
     
     public static Object getValue(Class<?> clasz, String value, String defaultVal) {
         Object convertedVal = null;
@@ -76,15 +77,15 @@ public class TypedValueConverter {
         return getValue(clasz, value, null);
     }
     
-    public static Object[] getValues(Class<?> clasz, String value) {
+    public static <T> T[] getValues(Class<T> clasz, String value) {
         if (value == null) {
-            return new Object[0];
+            return (T[]) Array.newInstance(clasz, 0);
         }
         String[] values = value.split(MULTI_VALUED_SEPARATOR);
-        Object[] ret = new Object[values.length];
+        T[] ret = (T[]) Array.newInstance(clasz, values.length);
         
         for (int i=0; i < values.length; i++) {
-            ret[i] = getValue(clasz, values[i]);
+            ret[i] = (T) getValue(clasz, values[i]);
         }
         return ret;
     }
@@ -99,14 +100,16 @@ public class TypedValueConverter {
         return val.toString();
     }
     
-    public static String getStringForMultipleValues(Object[] values) {
+    public static String getStringForMultipleValues(Object values) {
         if (values == null) {
             return "";
         }
+        System.out.println("values: " + values + "\tarray?: " + values.getClass().isArray());
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i < values.length; i++) {
-            sb.append(getString(values[i]));
-            if (i < values.length -1) {
+        int length = Array.getLength(values);
+        for (int i=0; i < length; i++) {
+            sb.append(getString(Array.get(values, i)));
+            if (i < length -1) {
                 sb.append(MULTI_VALUED_SEPARATOR);
             }
         }
