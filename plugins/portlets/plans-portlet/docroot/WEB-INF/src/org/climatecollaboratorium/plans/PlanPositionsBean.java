@@ -37,6 +37,7 @@ public class PlanPositionsBean {
     private boolean positionsSet;
     private List<Debate> availableDebates;
     private ThemeDisplay td = Helper.getThemeDisplay();
+    private boolean updatePositions;
 
     public PlanPositionsBean(PlanItem plan, PlanBean planBean) throws SystemException, PortalException {
 
@@ -58,7 +59,7 @@ public class PlanPositionsBean {
     }
     
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
-        if (! lastPositionsVersion.equals(planPositionsVersion)) {
+        if (! lastPositionsVersion.equals(planPositionsVersion) || updatePositions) {
             Set<Long> planPositionsIds = new HashSet<Long>(plan.getPositionsIds());
             questions.clear();
             if (editing) {
@@ -83,12 +84,14 @@ public class PlanPositionsBean {
                 }
             }
             lastPositionsVersion = planPositionsVersion;
+            updatePositions = false;
         }
         return questions;
     }
 
     public void edit(ActionEvent e) {
         editing = !editing;
+        updatePositions = true;
     }
 
     public boolean isEditing() {

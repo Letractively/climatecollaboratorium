@@ -373,18 +373,61 @@ function updatePositionsSelection(positionsArray) {
 	jQuery(".versionedRadio input").each(function() {
 		var input = jQuery(this);
 		if (selectedPositionsMap[input.val()]) {
-			input.attr("checked", "checked");
+			input.attr("checked", "true");
+			input.addClass("positionChecked");
 		}
 		else {
 			input.removeAttr("checked");
+			input.removeClass("positionChecked");
 		}
 		
 	});
 	
+	// add behaviour that allows deselecting an input when clicked
+	jQuery(".versionedRadio input").unbind("click");
+	jQuery(".versionedRadio input").click(function() {
+		var input = jQuery(this);
+		//alert('lll' + input.attr("checked"));
+		if (input.attr("checked")) {
+			//alert("disable");
+			if (input.hasClass("positionChecked")) {
+				input.removeAttr("checked");
+				input.removeClass("positionChecked");
+			}
+			else {
+				var parent = input.parent();
+				while (! parent.hasClass("positionItem")) {
+					parent = parent.parent();
+				}
+				// remove checked class from previously selected position
+				parent.find(".positionChecked").removeClass("positionChecked");
+				// mark this position as selected
+				input.addClass("positionChecked");
+			}
+				
+		}
+		else {
+			input.attr("checked", "true");
+			input.addClass("positionChecked");
+		}
+	});
 }
 
 function switchToScenario(scenarioId) {
+	if (typeof(scenarioId) == 'undefined') {
+		scenarioId = '';
+	}
 	var src = jQuery("#actionsAndImpacts").attr("src");
+	
+	var currentScenarioId = '';
+	if (src.indexOf("scenarioId=") >= 0) {
+		var currentScenarioId = src.replace(/^.*scenarioId=/g, "");
+	}
+	
+	// if currentScenarioId is the same as requested then do nothing
+	if (currentScenarioId == scenarioId) {
+		return;
+	}
 	src = src.replace(/scenarioId.*/, "");
 	if (scenarioId) {
 		src += "scenarioId=" + scenarioId;
