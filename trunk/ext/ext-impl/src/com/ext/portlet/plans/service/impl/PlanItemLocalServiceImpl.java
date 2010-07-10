@@ -131,11 +131,30 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         }
         PlanItem plan = createPlan(name, type, authorId);
         PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
-        description.setDescription(basePlan.getDescription());
-        description.setName(name);
-        plan.updateAttribute(Attribute.DESCRIPTION.name());
-        plan.updateAttribute(Attribute.NAME.name());
+        PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
+        PlanPositions planPositions = PlanPositionsLocalServiceUtil.getCurrentForPlan(plan);
         
+        // copy description
+        description.setDescription(basePlan.getDescription());
+        description.store();
+        
+        // copy scenario id
+        planModelRun.setScenarioId(basePlan.getScenarioId());
+        planModelRun.store();
+        
+        // copy positions
+        planPositions.setPositionsIds(basePlan.getPositionsIds());
+        planPositions.store();
+        
+        if (basePlan.getScenarioId() != null) {
+            // update all attributes
+            plan.updateAllAttributes();
+        }
+        else {
+            // update only attributes related to new values
+            plan.updateAttribute(Attribute.DESCRIPTION.name());
+            plan.updateAttribute(Attribute.POSITIONS.name());
+        }
         
         return plan;
     }
@@ -323,7 +342,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     */
     
     public boolean isNameAvailable(String planName) throws SystemException {
-        return PlanAttributeLocalServiceUtil.getPlanAttributesByNameValue(Attribute.NAME.name(), planName).size() > 0;
+        return PlanAttributeLocalServiceUtil.getPlanAttributesByNameValue(Attribute.NAME.name(), planName).size() == 0;
     }
     
     public List<PlanItem> applyFilters(Map sessionMap, Map requestMap, PlanType planType, List<PlanItem> plans) throws PortalException, SystemException {
