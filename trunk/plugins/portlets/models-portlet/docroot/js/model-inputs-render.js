@@ -175,7 +175,6 @@ function getOutputValue(val, unit) {
 		
 
 function renderModelOutputs() {
-	unlockImpactsScreen();
 
 	/* Check if outputs have been already processed, if they have been then there is no need
 	 * to rerender graphs.
@@ -495,6 +494,7 @@ function renderModelOutputs() {
 	/* end of physical impacts hack */
 	
 	initAccordion();
+	unlockImpactsScreen();
 	
 	jQuery(".outputDef").eq(0).addClass("processed");
 	jQuery(".outputDef").show();
@@ -558,7 +558,6 @@ function showLoadingScreen() {
 }
 
 function unlockImpactsScreen() {
-	
 	var impactsPlaceholder = jQuery(".impactsContent");
 	impactsPlaceholder.unblock();
 	
