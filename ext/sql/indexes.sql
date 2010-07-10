@@ -387,6 +387,7 @@ create index IX_F202B9CE on Phone (userId);
 create index IX_7E988D4E on Plan (name);
 create index IX_579669EF on Plan (published);
 
+create index IX_4477AD27 on PlanAttribute (attributeName, attributeValue);
 create index IX_397097F1 on PlanAttribute (planId);
 create index IX_FE2BD626 on PlanAttribute (planId, attributeName);
 

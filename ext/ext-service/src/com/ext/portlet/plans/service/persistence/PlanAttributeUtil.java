@@ -145,6 +145,61 @@ public class PlanAttributeUtil {
             retrieveFromCache);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanAttribute> findByattributeByNameValue(
+        java.lang.String attributeName, java.lang.String attributeValue)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByattributeByNameValue(attributeName, attributeValue);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanAttribute> findByattributeByNameValue(
+        java.lang.String attributeName, java.lang.String attributeValue,
+        int start, int end) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByattributeByNameValue(attributeName, attributeValue,
+            start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanAttribute> findByattributeByNameValue(
+        java.lang.String attributeName, java.lang.String attributeValue,
+        int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByattributeByNameValue(attributeName, attributeValue,
+            start, end, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlanAttribute findByattributeByNameValue_First(
+        java.lang.String attributeName, java.lang.String attributeValue,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanAttributeException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByattributeByNameValue_First(attributeName,
+            attributeValue, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlanAttribute findByattributeByNameValue_Last(
+        java.lang.String attributeName, java.lang.String attributeValue,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanAttributeException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByattributeByNameValue_Last(attributeName,
+            attributeValue, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlanAttribute[] findByattributeByNameValue_PrevAndNext(
+        java.lang.Long attributeId, java.lang.String attributeName,
+        java.lang.String attributeValue,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanAttributeException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByattributeByNameValue_PrevAndNext(attributeId,
+            attributeName, attributeValue, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -185,6 +240,13 @@ public class PlanAttributeUtil {
         getPersistence().removeByattributeForPlan(planId, attributeName);
     }
 
+    public static void removeByattributeByNameValue(
+        java.lang.String attributeName, java.lang.String attributeValue)
+        throws com.liferay.portal.SystemException {
+        getPersistence()
+            .removeByattributeByNameValue(attributeName, attributeValue);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -198,6 +260,13 @@ public class PlanAttributeUtil {
         java.lang.String attributeName)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByattributeForPlan(planId, attributeName);
+    }
+
+    public static int countByattributeByNameValue(
+        java.lang.String attributeName, java.lang.String attributeValue)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .countByattributeByNameValue(attributeName, attributeValue);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {
