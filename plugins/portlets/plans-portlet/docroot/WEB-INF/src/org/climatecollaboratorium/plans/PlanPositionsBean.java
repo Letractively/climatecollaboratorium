@@ -2,8 +2,10 @@ package org.climatecollaboratorium.plans;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -57,9 +59,28 @@ public class PlanPositionsBean {
     
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
         if (! lastPositionsVersion.equals(planPositionsVersion)) {
+            Set<Long> planPositionsIds = new HashSet<Long>(plan.getPositionsIds());
             questions.clear();
-            for (Debate d : availableDebates) {
-                questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), plan.getPositionsIds()));
+            if (editing) {
+                // we are editing all debates should be shown
+                for (Debate d : availableDebates) {
+                    questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), planPositionsIds));
+                }
+            }
+            else {
+                // we are viewing, show only debates that have position set
+                for (Debate d : availableDebates) {
+                    boolean positionFromDebateSelected = false;
+                    for (DebateItem position: d.getCurrentRoot().getChildren()) {
+                        if (planPositionsIds.contains(position.getDebateItemId())) {
+                            positionFromDebateSelected = true;
+                            break;
+                        }
+                    }
+                    if (positionFromDebateSelected) {
+                        questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), planPositionsIds));
+                    }
+                }
             }
             lastPositionsVersion = planPositionsVersion;
         }

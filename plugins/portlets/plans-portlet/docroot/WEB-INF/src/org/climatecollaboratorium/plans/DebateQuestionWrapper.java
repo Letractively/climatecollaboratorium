@@ -20,17 +20,18 @@ public class DebateQuestionWrapper {
     private Long position;
     private DebateItem selectedPosition;
     
+    /*
     public DebateQuestionWrapper(DebateItem wrapped, PlanPositions planPositions) throws SystemException, NoSuchPlanPositionsException {
         this(wrapped, planPositions.getPositionsIds());
     }
-    public DebateQuestionWrapper(DebateItem wrapped, List<Long> planPositionsIds) {
+    */
+    public DebateQuestionWrapper(DebateItem wrapped, Set<Long> planPositionsIds) {
         
         this.wrapped = wrapped;
-        Set<Long> selectedPositionsSet = new HashSet<Long>(planPositionsIds);
         
         for (DebateItem position: wrapped.getChildren()) {
             positions.add(new SelectItem(position.getDebateItemId(), position.getDebateSummary()));
-            if (selectedPositionsSet.contains(position.getDebateItemId())) {
+            if (planPositionsIds.contains(position.getDebateItemId())) {
                 this.position = position.getDebateItemId();
             }
         }
