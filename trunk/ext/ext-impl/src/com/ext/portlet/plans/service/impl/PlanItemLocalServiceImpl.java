@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.plans.EntityState;
@@ -128,7 +129,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         if (basePlan.getPlanType().getPublished()) {
             type = basePlan.getPlanType().getPublishedCounterpartId();
         }
-        PlanItem plan = createPlan(basePlan.getName(), type, authorId);
+        PlanItem plan = createPlan(name, type, authorId);
         PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
         description.setDescription(basePlan.getDescription());
         description.setName(name);
@@ -230,13 +231,15 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         PermissionCheckerUtil.setThreadValues(user);
         
         ServiceContext categoryServiceContext = new ServiceContext();
-        // ServiceContextFactoryServiceContextFactory.getInstance(MBCategory.class.getName(), actionRequest);
         categoryServiceContext.setUserId(plan.getUpdateAuthorId());
 
         ServiceContext groupServiceContext = new ServiceContext(); 
         groupServiceContext.setUserId(plan.getUpdateAuthorId());
-            // ServiceContextFactory.getInstance(Group.class.getName(), actionRequest);
-        Group group = GroupServiceUtil.addGroup(plan.getName(), String.format(DEFAULT_GROUP_DESCRIPTION, plan.getName()),
+        
+        // in order to prevent group name conflicts, 
+        // add random long value to plan name when setting group name
+        Random rand = new Random();
+        Group group = GroupServiceUtil.addGroup(plan.getName(), String.format(DEFAULT_GROUP_DESCRIPTION, plan.getName() + rand.nextLong()),
                 GroupConstants.TYPE_COMMUNITY_RESTRICTED, null, true, groupServiceContext);
 
         Long parentCategoryId = 0L;
@@ -311,12 +314,17 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         });
         return applyFilters(sessionMap, requestMap, planType, plans);
     }
+    
     /*
     public int getPlansCount(Map sessionMap, Map requestMap, PlanType planType) throws SystemException, PortalException  {
         PlansUserSettings planUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
         return  planItemFinder.countPlans(planUserSettings, planType);
     }
     */
+    
+    public boolean isNameAvailable(String planName) throws SystemException {
+        return PlanAttributeLocalServiceUtil.getPlanAttributesByNameValue(Attribute.NAME.name(), planName).size() > 0;
+    }
     
     public List<PlanItem> applyFilters(Map sessionMap, Map requestMap, PlanType planType, List<PlanItem> plans) throws PortalException, SystemException {
         PlansUserSettings planUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);

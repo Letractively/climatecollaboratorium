@@ -135,6 +135,11 @@ public class PlanItemLocalServiceUtil {
             sortColumn, sortDirection);
     }
 
+    public static boolean isNameAvailable(java.lang.String planName)
+        throws com.liferay.portal.SystemException {
+        return getService().isNameAvailable(planName);
+    }
+
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> applyFilters(
         java.util.Map sessionMap, java.util.Map requestMap,
         com.ext.portlet.plans.model.PlanType planType,

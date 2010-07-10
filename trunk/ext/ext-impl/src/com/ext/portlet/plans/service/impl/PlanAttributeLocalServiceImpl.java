@@ -41,4 +41,10 @@ public class PlanAttributeLocalServiceImpl
 	public List<PlanAttribute> getPlanAttributes(Long planId) throws SystemException {
 	    return planAttributePersistence.findByplanAttributes(planId);
 	}
+	
+	public List<PlanAttribute> getPlanAttributesByNameValue(String attributeName, String attributeValue) throws SystemException {
+	    return planAttributePersistence.findByattributeByNameValue(attributeName, attributeValue);
+	}
+	
+	
 }

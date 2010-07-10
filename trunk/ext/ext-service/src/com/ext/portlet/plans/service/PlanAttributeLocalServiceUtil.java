@@ -106,6 +106,13 @@ public class PlanAttributeLocalServiceUtil {
         return getService().getPlanAttributes(planId);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanAttribute> getPlanAttributesByNameValue(
+        java.lang.String attributeName, java.lang.String attributeValue)
+        throws com.liferay.portal.SystemException {
+        return getService()
+                   .getPlanAttributesByNameValue(attributeName, attributeValue);
+    }
+
     public static PlanAttributeLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanAttributeLocalService is not set");

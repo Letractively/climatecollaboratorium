@@ -83,6 +83,10 @@
 			<finder-column name="planId"/>
 			<finder-column name="attributeName"/>
 		</finder>
+        <finder name="attributeByNameValue" return-type="Collection">
+            <finder-column name="attributeName"/>
+            <finder-column name="attributeValue"/>
+        </finder>
 	</entity>
 	
 	
