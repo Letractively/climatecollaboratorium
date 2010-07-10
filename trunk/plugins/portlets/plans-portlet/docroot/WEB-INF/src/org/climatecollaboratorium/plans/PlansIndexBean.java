@@ -61,10 +61,18 @@ public class PlansIndexBean {
 
     private DataPaginator dataPaginator;
     private List<Debate> availableDebates;
+    private static final String PLAN_TYPE_SESSION_PARAM = "PLAN_TYPE_SESSION_PARAM";
     
     public PlansIndexBean() throws SystemException, PortalException {
-        planType = PlanTypeLocalServiceUtil.getDefaultPlanType();
+        // we should start from "published" plans tab
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        if (ectx.getSessionMap().containsKey(PLAN_TYPE_SESSION_PARAM)) {
+            planType = (PlanType) ectx.getSessionMap().get(PLAN_TYPE_SESSION_PARAM);
+        }
+        else {
+            planType = PlanTypeLocalServiceUtil.getPlanType(PlanTypeLocalServiceUtil.getDefaultPlanType().getPublishedCounterpartId());
+            ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
+        }
         
         dataPaginator = new DataPaginator();
         refresh();
@@ -233,6 +241,9 @@ public class PlansIndexBean {
     public void usePublishedPlans(ActionEvent e) throws PortalException, SystemException {
         if (!planType.getPublished()) {
             planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
+            ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+            ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
+            
             refresh();
         }
     }
@@ -240,6 +251,9 @@ public class PlansIndexBean {
     public void useUnPublishedPlans(ActionEvent e) throws PortalException, SystemException {
         if (planType.getPublished()) {
             planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
+            ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+            ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
+            
             refresh();
         }
     }
