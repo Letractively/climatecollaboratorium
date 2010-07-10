@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -22,6 +24,7 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalService;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
@@ -99,7 +102,7 @@ public class PlanItemWrapper {
     }
 
     public String getName() throws SystemException {
-        return wrapped.getName();//planDescriptionsById.get(currentDescriptionVersion).getName();
+        return candidateName;//planDescriptionsById.get(currentDescriptionVersion).getName();
     }
 
     public void setName(String name) {
@@ -120,10 +123,24 @@ public class PlanItemWrapper {
     public void saveName(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             if (candidateName != null) {
+                if (! PlanItemLocalServiceUtil.isNameAvailable(candidateName)) {
+                    FacesMessage message = new FacesMessage();
+                    message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    message.setSummary("Name \"" + candidateName + "\" is already taken, please choose different one.");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                    return;
+                    
+                }
                 wrapped.setName(candidateName, Helper.getLiferayUser().getUserId());
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                         PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_NAME.id(),null, 0);
+                
+                FacesMessage message = new FacesMessage();
+                message.setSeverity(FacesMessage.SEVERITY_INFO);
+                message.setSummary("Name changed.");
+                FacesContext.getCurrentInstance().addMessage(null, message);
             }
+            
         }
         planBean.setEditingName(false);
     }
