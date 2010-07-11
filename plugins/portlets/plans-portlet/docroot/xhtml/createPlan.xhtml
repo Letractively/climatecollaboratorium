@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+    <h1>Create plan container</h1>
 <div id="createPlanContainer" class="hidden">
+    <h1>Create plan container</h1>
+    <div class="">CreatePlan BeaN: #{createPlanBean}</div>
     <div id="createPlan" class="createPlan">
         <div class="createPlan_top">
             <h4>Add Plan</h4>
@@ -9,7 +12,16 @@
             <table>
                 <tr>
                     <td>Name:</td>
-                    <td><ice:inputText value="#{createPlanBean.name}" /></td>
+                    <td>
+                        <ice:inputText value="#{createPlanBean.name}" id="planName" >
+                            <f:validator validatorId="planNameValidator" />
+                        </ice:inputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ice:message for="planName" />
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2" class="note">
@@ -30,8 +42,11 @@
     </div>
     </div>
 </div>
-<div id="createPlanDialog"></div>
-<f:subview rendered="#{createPlanBean.navigateToPlan}">
-    <ui:include src="./navigateToPlan.xhtml" />
+<div id="createPlanDialog" class="dialogdialog"></div>
+<f:subview rendered="#{createPlanBean.navigateToPlan}">    
+    <script language="javascript">
+        navigateToPlan(#{createPlanBean.planId});
+        hideCreatePlanDialog();
+    </script>
 </f:subview>
 </f:view>

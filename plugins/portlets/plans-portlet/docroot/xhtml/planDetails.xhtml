@@ -7,44 +7,44 @@
     xmlns:h="http://java.sun.com/jsf/html"  >
     
     <ice:panelGroup styleClass="portlet">
-        <ice:form>
-            <ui:include src="./createPlan.xhtml">
-                 <ui:param value="#{planBean.createPlanBean}" name="createPlanBean" />
-            </ui:include>
-        </ice:form>
         <div class="container">
             <h4><a href="/web/guest/plans">&amp;lt;&amp;lt; Back to plans index</a></h4>
             <div class="container_top">
                 <div class="topActions">
                     <ice:form>
+                        <ui:include src="./createPlan.xhtml">
+                            <ui:param value="#{planBean.createPlanBean}" name="createPlanBean" />
+                        </ui:include>
+                        
                         <a href="javascript:;" onclick="if(!deferUntilLogin()) return false; showCreatePlanDialog()" >create new plan based on this</a> |&amp;nbsp;
                         <ice:commandLink value="subscribe" onclickactionListener="#{planBean.plan.subscribe}" />
                     </ice:form>
-                    <ice:messages globalOnly="false" layout="table" />
                 </div>
-                <div class="title">
-                    <div class="icon">
-                        <ice:form>
+                <ice:form>
+                    <div class="title">
+                        <div class="icon">
                             <f:subview rendered="#{not planBean.editingName}">
                                 <h2><ice:outputText value="#{planBean.plan.name}" /></h2>
                                 <div class="actions textual">
-                                    <ice:commandLink value="rename" actionListener="#{planBean.editName}"/>
+                                    <ice:commandLink value="rename" actionListener="#{planBean.editName}" rendered="#{permissions.canEdit}"/>
                                 </div>
                                 
                             </f:subview>
                             <f:subview rendered="#{planBean.editingName}">
                                 
-                                <ice:inputText value="#{planBean.plan.name}" />
+                                <ice:inputText value="#{planBean.plan.name}" id="renamePlanName">
+                                    <f:validator validatorId="planNameValidator" />
+                                </ice:inputText>
                                 <div class="actions">
                                     <ice:commandLink actionListener="#{planBean.plan.saveName}" styleClass="checkBtn"/>&amp;nbsp;&amp;nbsp;
-                                    <ice:commandLink actionListener="#{planBean.editName}" styleClass="cancelBtn"/>
+                                    <ice:commandLink actionListener="#{planBean.editName}" styleClass="cancelBtn" immediate="true" />
                                 </div>
+                                <ice:message for="renamePlanName" styleClass="renamePlanMessage" />
                             </f:subview>
                         
-                        </ice:form>
                         <div class="clear"></div>
-                    </div>
-                    <ice:form>
+                        </div>
+                    
                     <ice:outputConnectionStatus/>
                     <f:subview rendered="#{not planBean.editingName}">
                         <div class="planVotes">
@@ -53,9 +53,8 @@
                             <ice:commandLink value="Retract your vote for this plan" actionListener="#{planBean.plan.unvote}" rendered="#{planBean.plan.votedOn}" />
                         </div>
                     </f:subview>
-                    </ice:form>
-                    
                 </div>
+                </ice:form>
             </div>
             <div class="container_middle">
                 <div class="content">
