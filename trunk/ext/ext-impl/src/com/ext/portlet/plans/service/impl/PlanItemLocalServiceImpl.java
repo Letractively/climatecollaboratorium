@@ -256,9 +256,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         groupServiceContext.setUserId(plan.getUpdateAuthorId());
         
         // in order to prevent group name conflicts, 
-        // add random long value to plan name when setting group name
+        // add timestamp and random long value to plan name when setting group name
         Random rand = new Random();
-        Group group = GroupServiceUtil.addGroup(plan.getName(), String.format(DEFAULT_GROUP_DESCRIPTION, plan.getName() + rand.nextLong()),
+        String groupName = plan.getName() + "_" + System.currentTimeMillis() + "_" + rand.nextLong();
+        Group group = GroupServiceUtil.addGroup(plan.getName(), String.format(DEFAULT_GROUP_DESCRIPTION, groupName),
                 GroupConstants.TYPE_COMMUNITY_RESTRICTED, null, true, groupServiceContext);
 
         Long parentCategoryId = 0L;
