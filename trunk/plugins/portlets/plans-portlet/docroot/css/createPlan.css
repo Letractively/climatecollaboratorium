@@ -1,7 +1,8 @@
 .createPlan {
-	background: url("/collaboratorium-theme/images/add_plan_dialog.png") no-repeat scroll 0 0 transparent;
+	background: url("/collaboratorium-theme/images/add_plan_dialog_big.png") no-repeat scroll 0 0 transparent;
 	width: 300px;
-	height: 152px;
+	height: 252px;
+	overflow: hidden;
 }
 
 .createPlan_top {
@@ -15,6 +16,7 @@
 }
 
 .createPlan_content {
+	height: 160px;
 	padding-left: 18px;
 	padding-top: 10px;
 	padding-right: 10px;

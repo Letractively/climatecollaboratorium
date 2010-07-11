@@ -90,6 +90,7 @@ public class PlanItemWrapper {
         }
         
         setDescriptionSet(plan.getDescription().trim().length() != 0);
+        candidateName = plan.getName();
     }
     
 

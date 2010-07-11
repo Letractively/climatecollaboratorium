@@ -283,19 +283,23 @@ function toogleFiltersEnabled() {
 var createPlanDialog = false;
 function showCreatePlanDialog() {
 	jQuery("#createPlan").appendTo(jQuery("#createPlanDialog"));
-	createPlanDialog = jQuery("#createPlanDialog").dialog({width: 320, modal: true, height: 175, draggable: false, resizable: false, dialogClass: 'plansIndexDialog createPlanDialog'});
+	createPlanDialog = jQuery("#createPlanDialog").dialog({width: 350, height: 275, modal: true, draggable: false, resizable: false, dialogClass: 'plansIndexDialog createPlanDialog'});
 }
 
 function hideCreatePlanDialog() {
 	createPlanDialog.dialog("close");
-	jQuery("#createPlan").appendTo(jQuery("#createPlanContainer"));
 	createPlanDialog.dialog("destroy");
+	jQuery("#createPlanContainer").html("");
+	jQuery("#createPlan").appendTo(jQuery("#createPlanContainer"));
+	createPlanDialog.remove();
+	
 }
 
 
 function createPlan() {
-	hideCreatePlanDialog();
+	jQuery("#createPlan").appendTo(jQuery("#createPlanContainer"));
 	jQuery(".createPlanButton").click();
+	jQuery("#createPlan").appendTo(jQuery("#createPlanDialog"));
 }
 
 

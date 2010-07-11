@@ -59,4 +59,8 @@
 		<managed-bean-class>org.climatecollaboratorium.plans.migration.MigrationTool</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+    <validator>
+        <validator-id>planNameValidator</validator-id>
+        <validator-class>org.climatecollaboratorium.plans.validators.PlanNameValidator</validator-class>
+    </validator>
 </faces-config>

@@ -97,7 +97,6 @@ public class NavigationBean {
 
     public void setPlanBean(PlanBean planBean) {
         this.planBean = planBean;
-        updateView();
     }
     
     public String getPortletId() {
