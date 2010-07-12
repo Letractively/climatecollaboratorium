@@ -272,6 +272,7 @@ function hideFilterPlansDialog() {
 
 function updateFilters() {
 	hideFilterPlansDialog();
+   
 	jQuery(".filtersEnabledCheckbox").attr("checked", "true");
 	jQuery(".updateFiltersButton").click();
 }

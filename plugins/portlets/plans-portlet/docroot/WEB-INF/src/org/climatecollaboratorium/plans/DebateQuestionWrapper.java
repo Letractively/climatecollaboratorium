@@ -1,9 +1,6 @@
 package org.climatecollaboratorium.plans;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -18,8 +15,11 @@ public class DebateQuestionWrapper {
     private DebateItem wrapped;
     private List<SelectItem> positions = new ArrayList<SelectItem>();
     private Long position;
+   private List<Long> multiplePositions = new ArrayList<Long>();
+
     private DebateItem selectedPosition;
-    
+    private List<DebateItem> multipleSelectedPositions = new ArrayList<DebateItem>();
+
     /*
     public DebateQuestionWrapper(DebateItem wrapped, PlanPositions planPositions) throws SystemException, NoSuchPlanPositionsException {
         this(wrapped, planPositions.getPositionsIds());
@@ -33,6 +33,8 @@ public class DebateQuestionWrapper {
             positions.add(new SelectItem(position.getDebateItemId(), position.getDebateSummary()));
             if (planPositionsIds.contains(position.getDebateItemId())) {
                 this.position = position.getDebateItemId();
+                //sorry about this - fugly code
+                multiplePositions.add(position.getDebateItemId());
             }
         }
         updateSelectedPosition();
@@ -43,7 +45,7 @@ public class DebateQuestionWrapper {
         return wrapped.getDebateSummary();
     }
     
-    public List<DebateItem> getChildren() {
+      public List<DebateItem> getChildren() {
         return wrapped.getChildren();
     }
     
@@ -64,7 +66,34 @@ public class DebateQuestionWrapper {
         return selectedPosition;
     }
 
-    
+    public void setMultiplePositions(String[] positions) {
+        this.multiplePositions.clear();
+        for (String s:positions) {
+            multiplePositions.add(Long.parseLong(s));
+        }
+
+
+    }
+
+    public List<SelectItem> getMultiplePositions() {
+        List<SelectItem> result = new ArrayList<SelectItem>();
+
+        for (Long l:multiplePositions) {
+         result.add(new SelectItem(l.toString()));
+        }
+        return result;
+    }
+
+
+//    private void updateMultipleSelection() {
+//        multipleSelectedPositions.clear();
+//        for (DebateItem item: wrapped.getChildren()) {
+//            if (multiplePositions.contains(item.getDebateItemId())) {
+//                multipleSelectedPositions.add(item);
+//            }
+//        }
+//    }
+//    
     private void updateSelectedPosition() {
         for (DebateItem item: wrapped.getChildren()) {
             if (item.getDebateItemId().equals(position)) {
