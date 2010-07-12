@@ -61,6 +61,38 @@ public interface PlansFilterPositionPersistence extends BasePersistence {
         com.ext.portlet.plans.service.persistence.PlansFilterPositionPK plansFilterPositionPK)
         throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.plans.model.PlansFilterPosition> findByUserIdPlanTypeId(
+        java.lang.Long userId, java.lang.Long planTypeId)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlansFilterPosition> findByUserIdPlanTypeId(
+        java.lang.Long userId, java.lang.Long planTypeId, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlansFilterPosition> findByUserIdPlanTypeId(
+        java.lang.Long userId, java.lang.Long planTypeId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlansFilterPosition findByUserIdPlanTypeId_First(
+        java.lang.Long userId, java.lang.Long planTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchFilterPositionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlansFilterPosition findByUserIdPlanTypeId_Last(
+        java.lang.Long userId, java.lang.Long planTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchFilterPositionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlansFilterPosition[] findByUserIdPlanTypeId_PrevAndNext(
+        com.ext.portlet.plans.service.persistence.PlansFilterPositionPK plansFilterPositionPK,
+        java.lang.Long userId, java.lang.Long planTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchFilterPositionException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -79,7 +111,13 @@ public interface PlansFilterPositionPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
+    public void removeByUserIdPlanTypeId(java.lang.Long userId,
+        java.lang.Long planTypeId) throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
+
+    public int countByUserIdPlanTypeId(java.lang.Long userId,
+        java.lang.Long planTypeId) throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

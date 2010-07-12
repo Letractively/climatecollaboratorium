@@ -217,6 +217,11 @@
 		<column name="userId" type="Long" primary="true" />
         <column name="planTypeId" type="Long" primary="true" />
 		<column name="positionId" type="Long" primary="true" />
+                
+        <finder name="UserIdPlanTypeId" return-type="Collection">
+            <finder-column name="userId" />
+            <finder-column name="planTypeId" />
+        </finder>
 	</entity>
 	
 	<entity name="PlanType" local-service="true">

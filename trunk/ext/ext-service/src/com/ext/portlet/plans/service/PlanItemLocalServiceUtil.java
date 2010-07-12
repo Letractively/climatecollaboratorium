@@ -135,6 +135,18 @@ public class PlanItemLocalServiceUtil {
             sortColumn, sortDirection);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans(
+        java.util.Map sessionMap, java.util.Map requestMap,
+        com.ext.portlet.plans.model.PlanType planType, int start, int end,
+        java.lang.String sortColumn, java.lang.String sortDirection,
+        boolean applyFilters)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService()
+                   .getPlans(sessionMap, requestMap, planType, start, end,
+            sortColumn, sortDirection, applyFilters);
+    }
+
     public static boolean isNameAvailable(java.lang.String planName)
         throws com.liferay.portal.SystemException {
         return getService().isNameAvailable(planName);

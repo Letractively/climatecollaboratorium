@@ -416,6 +416,10 @@ create index IX_7F5652DE on PlanType (isDefault);
 create index IX_33130471 on PlanVote (planId);
 create index IX_B3D04413 on PlanVote (userId);
 
+create index IX_ECD01454 on PlansFilter (userId, planTypeId);
+
+create index IX_381402DD on PlansFilterPosition (userId, planTypeId);
+
 create index IX_1A42ADEA on PlansUserSettings (userId, planTypeId);
 create index IX_EA35DAA6 on PlansUserSettings (userId, published);
 

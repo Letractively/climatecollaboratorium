@@ -14,6 +14,7 @@ public class TypedValueConverter {
     
     private static DateFormat defaultDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
     public static final String MULTI_VALUED_SEPARATOR = "|";
+    public static final String MULTI_VALUED_SEPARATOR_FOR_SPLIT = "\\|";
     public static final String NULL_VALUE="NULL";
 
     public static Object getValue(Class<?> clasz, String value, String defaultVal) {
@@ -53,6 +54,19 @@ public class TypedValueConverter {
             }
             convertedVal = defaultVal != null && useDefault ? Integer.parseInt(defaultVal) : convertedVal;
         }
+        else if (clasz == Long.class){
+            if (value.trim().length() != 0) { 
+                try {
+                    convertedVal = checkNullString(value)?null:Long.parseLong(value);
+                } catch (NumberFormatException e) {
+                    useDefault = true;
+                }
+            }
+            else {
+                useDefault = true;
+            }
+            convertedVal = defaultVal != null && useDefault ? Long.parseLong(defaultVal) : convertedVal;
+        }
         else if (clasz == Date.class) {
             if (value.trim().length() != 0) {
                 try {
@@ -79,17 +93,21 @@ public class TypedValueConverter {
     }
     
     public static Object getValue(Class<?> clasz, String value) {
+        if (clasz.isArray()) {
+            return getValues(clasz.getComponentType(), value);
+        }
         return getValue(clasz, value, null);
     }
     
     public static <T> T[] getValues(Class<T> clasz, String value) {
-        if (value == null) {
+        if (value == null || value.trim().length() == 0) {
             return (T[]) Array.newInstance(clasz, 0);
         }
-        String[] values = value.split(MULTI_VALUED_SEPARATOR);
+        String[] values = value.split(MULTI_VALUED_SEPARATOR_FOR_SPLIT);
         T[] ret = (T[]) Array.newInstance(clasz, values.length);
         
         for (int i=0; i < values.length; i++) {
+            
             ret[i] = (T) getValue(clasz, values[i]);
         }
         return ret;

@@ -30,6 +30,7 @@ import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlanItemLocalServiceBaseImpl;
 import com.liferay.counter.service.persistence.CounterUtil;
@@ -192,7 +193,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         PlanPositions planPositions = PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
         
         
-        
+        // description
         planDescription.setDescription(basePlan.getShortcontent() + basePlan.getContent());
         planDescription.setName(basePlan.getName());
         
@@ -200,6 +201,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
         planDescription.setDescription(description);
 
+        // meta
         planMeta.setModelId(planItem.getPlanType().getModelId());
         planMeta.setMbCategoryId(basePlan.getMBCategoryId());
         planMeta.setPlanGroupId(basePlan.getChildGroupId());
@@ -213,6 +215,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             hasScenario = true;
             planModelRun.setScenarioId(Long.parseLong(basePlan.getScenarioId()));
         }
+        planMeta.setVotes(PlanVoteLocalServiceUtil.coutPlanVotes(basePlan.getPlanId()));
 
 
         // positions
@@ -290,7 +293,12 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     }
     
     public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, int start, int end, 
-            final String sortColumn, String sortDirection) 
+            final String sortColumn, String sortDirection) throws SystemException, PortalException {
+        return getPlans(sessionMap, requestMap, planType, start, end, sortColumn, sortDirection, true);
+    }
+    
+    public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, int start, int end, 
+            final String sortColumn, String sortDirection, boolean applyFilters) 
     throws SystemException, PortalException  {
         /*
         PlansUserSettings planUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
@@ -332,7 +340,12 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
                 return 0;
             }
         });
-        return applyFilters(sessionMap, requestMap, planType, plans);
+        if (applyFilters) {
+            return applyFilters(sessionMap, requestMap, planType, plans);
+        }
+        else { 
+            return plans;
+        }
     }
     
     /*

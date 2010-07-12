@@ -157,10 +157,9 @@ public class PlanConstants {
 		
 	      public Object getValue(PlanItem plan) throws SystemException {
 	            PlanAttribute attribute =  PlanAttributeLocalServiceUtil.findPlanAttribute(plan.getPlanId(), this.name()); 
-	            String s = attribute == null || attribute.getAttributeValue() == null ? null : attribute.getAttributeValue();
-	            if (s == null || s.trim().length() ==0) s ="0";
+	            String s =(attribute==null || attribute.getAttributeValue() == null) ? "" : attribute.getAttributeValue();
 	            if (clasz == Double.class) {
-	                if (s == null || s.trim().length() ==0) s ="0";
+	                if (s == null || s.trim().length() ==0) return null;
 	                return Double.parseDouble(s);
 	            } else if (clasz == Integer.class) {
 	                if (s == null || s.trim().length() ==0) s ="0";
@@ -183,8 +182,11 @@ public class PlanConstants {
 			return String.format(format, getValue(plan));
 		}
 		
-	      public String format(PlanItem plan) throws SystemException {
-	            return String.format(format, getValue(plan));
+	      public String format(PlanItem plan) throws SystemException {        
+	          if (getValue(plan) == null) {
+	              return "N/A";
+	          }
+	          return String.format(format, getValue(plan));
 	        }
 		
 		public StringBuilder getFilterString(StringBuilder builder, PlansUserSettings planUserSettings) 
@@ -271,7 +273,7 @@ public class PlanConstants {
 		        else if (planAttribute == null) {
 		            return false;
 		        }
-		        return planFilterOperatorType.isInFilteredSet(planAttributeFilter, planAttribute);
+		        return planFilterOperatorType.isInFilteredSet(userSettings, planAttributeFilter, planAttribute);
 		    } 
 		    catch (NoSuchPlanAttributeFilterException e) {
 		        // ignore

@@ -82,6 +82,56 @@ public class PlansFilterPositionUtil {
         return getPersistence().fetchByPrimaryKey(plansFilterPositionPK);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlansFilterPosition> findByUserIdPlanTypeId(
+        java.lang.Long userId, java.lang.Long planTypeId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByUserIdPlanTypeId(userId, planTypeId);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlansFilterPosition> findByUserIdPlanTypeId(
+        java.lang.Long userId, java.lang.Long planTypeId, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByUserIdPlanTypeId(userId, planTypeId, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlansFilterPosition> findByUserIdPlanTypeId(
+        java.lang.Long userId, java.lang.Long planTypeId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByUserIdPlanTypeId(userId, planTypeId, start, end, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlansFilterPosition findByUserIdPlanTypeId_First(
+        java.lang.Long userId, java.lang.Long planTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchFilterPositionException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByUserIdPlanTypeId_First(userId, planTypeId, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlansFilterPosition findByUserIdPlanTypeId_Last(
+        java.lang.Long userId, java.lang.Long planTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchFilterPositionException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByUserIdPlanTypeId_Last(userId, planTypeId, obc);
+    }
+
+    public static com.ext.portlet.plans.model.PlansFilterPosition[] findByUserIdPlanTypeId_PrevAndNext(
+        com.ext.portlet.plans.service.persistence.PlansFilterPositionPK plansFilterPositionPK,
+        java.lang.Long userId, java.lang.Long planTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchFilterPositionException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByUserIdPlanTypeId_PrevAndNext(plansFilterPositionPK,
+            userId, planTypeId, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -110,8 +160,18 @@ public class PlansFilterPositionUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
+    public static void removeByUserIdPlanTypeId(java.lang.Long userId,
+        java.lang.Long planTypeId) throws com.liferay.portal.SystemException {
+        getPersistence().removeByUserIdPlanTypeId(userId, planTypeId);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
+    }
+
+    public static int countByUserIdPlanTypeId(java.lang.Long userId,
+        java.lang.Long planTypeId) throws com.liferay.portal.SystemException {
+        return getPersistence().countByUserIdPlanTypeId(userId, planTypeId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

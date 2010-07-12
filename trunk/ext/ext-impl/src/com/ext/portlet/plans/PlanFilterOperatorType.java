@@ -5,7 +5,17 @@ import java.util.regex.Pattern;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanAttributeFilter;
+import com.ext.portlet.plans.model.PlansUserSettings;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public enum PlanFilterOperatorType {
     LIKE(new PlanFilterOperator.LikeOperator()),
@@ -24,17 +34,17 @@ public enum PlanFilterOperatorType {
         this.operator = operator;
     }
 
-    public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
-        return operator.isInFilteredSet(planAttributeFilter, planAttribute);
+    public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+        return operator.isInFilteredSet(userSettings, planAttributeFilter, planAttribute);
     }
     
     interface PlanFilterOperator {
-        boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute);
+        boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute);
         
         public class LikeOperator implements PlanFilterOperator {
 
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 String val = planAttribute.getAttributeValue();
                 String filterVal = planAttributeFilter.getStringVal();
                 if (filterVal == null || filterVal.trim().length() == 0) {
@@ -49,7 +59,7 @@ public enum PlanFilterOperatorType {
         public class LessThanOperator implements PlanFilterOperator {
 
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 if (planAttributeFilter.getTypedValue() == null) {
                     return true;
                 }
@@ -61,7 +71,7 @@ public enum PlanFilterOperatorType {
         public class LessThanOrNullOperator extends LessThanOperator {
 
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 Object[] filterValues = TypedValueConverter.getValues(Attribute.valueOf(planAttribute.getAttributeName()).getAttributeClass(),
                         planAttributeFilter.getStringVal());
                 if (filterValues.length > 1) {
@@ -70,7 +80,7 @@ public enum PlanFilterOperatorType {
 
                    return filterVal == null ? true : attributeVal==null?filterValues[1] == null:attributeVal.compareTo(filterVal) <= 0;
                 } else {
-                    return super.isInFilteredSet(planAttributeFilter,planAttribute);
+                    return super.isInFilteredSet(userSettings, planAttributeFilter,planAttribute);
                 }
 
             }
@@ -79,7 +89,7 @@ public enum PlanFilterOperatorType {
         public class MoreThanOperator implements PlanFilterOperator {
 
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 if (planAttributeFilter.getTypedValue() == null) {
                     return true;
                 }
@@ -91,7 +101,7 @@ public enum PlanFilterOperatorType {
         public class MoreThanOrNullOperator extends MoreThanOperator {
 
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 Object[] filterValues = TypedValueConverter.getValues(Attribute.valueOf(planAttribute.getAttributeName()).getAttributeClass(),
                         planAttributeFilter.getStringVal());
                 if (filterValues.length > 1) {
@@ -100,7 +110,7 @@ public enum PlanFilterOperatorType {
 
                    return filterVal == null ? true : attributeVal==null?filterValues[1] == null:attributeVal.compareTo(filterVal) >= 0;
                 } else {
-                    return super.isInFilteredSet(planAttributeFilter,planAttribute);
+                    return super.isInFilteredSet(userSettings, planAttributeFilter,planAttribute);
                 }
 
             }
@@ -110,7 +120,7 @@ public enum PlanFilterOperatorType {
         public class MinMaxOperator implements PlanFilterOperator {
 
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 if (planAttributeFilter.getMin() == null || planAttributeFilter.getMax() == null) {
                     return true;
                 }
@@ -125,7 +135,7 @@ public enum PlanFilterOperatorType {
         public class DateFromToOperator implements PlanFilterOperator {
 
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 Date dateFrom = null;
                 Date dateTo = null;
 
@@ -154,15 +164,32 @@ public enum PlanFilterOperatorType {
         
         public class DummyOperator implements PlanFilterOperator {
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
                 return true;
             }
         }
         
         public class PositionsFilterOperator implements PlanFilterOperator {
             @Override
-            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
-                return true;
+            public boolean isInFilteredSet(PlansUserSettings userSettings, PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+                boolean operatorAll = userSettings.getFilterPositionsAll();
+                if (userSettings.getPositionsIds().size() == 0) {
+                    return true;
+                }
+                Set<Long> positionsIds = new HashSet<Long>(userSettings.getPositionsIds());
+                Object typedValue = planAttribute.getTypedValue();
+                if (typedValue == null) {
+                    typedValue = new Long[0];
+                }
+                Set<Long> planPositions = new HashSet<Long>(Arrays.asList((Object[]) typedValue));
+                
+                if (operatorAll) {
+                    return planPositions.containsAll(positionsIds);
+                }
+                else {
+                    positionsIds.retainAll(planPositions);
+                    return positionsIds.size() > 0;
+                }
             }
         }
         
