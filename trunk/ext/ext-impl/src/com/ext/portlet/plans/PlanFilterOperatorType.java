@@ -10,7 +10,9 @@ import java.util.Date;
 public enum PlanFilterOperatorType {
     LIKE(new PlanFilterOperator.LikeOperator()),
     LESS_THAN(new PlanFilterOperator.LessThanOperator()),
+    LESS_THAN_OR_NULL(new PlanFilterOperator.LessThanOrNullOperator()),
     GREATER_THAN(new PlanFilterOperator.MoreThanOperator()),
+    GREATER_THAN_OR_NULL(new PlanFilterOperator.MoreThanOrNullOperator()),
     MIN_MAX(new PlanFilterOperator.MinMaxOperator()),
     DATE_FROM_TO(new PlanFilterOperator.DateFromToOperator()),
     DUMMY(new PlanFilterOperator.DummyOperator()), 
@@ -55,6 +57,24 @@ public enum PlanFilterOperatorType {
                 return attributeVal == null ? false : attributeVal.compareTo(planAttributeFilter.getTypedValue()) <= 0;
             }
         }
+
+        public class LessThanOrNullOperator extends LessThanOperator {
+
+            @Override
+            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+                Object[] filterValues = TypedValueConverter.getValues(Attribute.valueOf(planAttribute.getAttributeName()).getAttributeClass(),
+                        planAttributeFilter.getStringVal());
+                if (filterValues.length > 1) {
+                   Comparable filterVal = (Comparable) filterValues[0];
+                    Comparable attributeVal = (Comparable) planAttribute.getTypedValue();
+
+                   return filterVal == null ? true : attributeVal==null?filterValues[1] == null:attributeVal.compareTo(filterVal) <= 0;
+                } else {
+                    return super.isInFilteredSet(planAttributeFilter,planAttribute);
+                }
+
+            }
+        }
         
         public class MoreThanOperator implements PlanFilterOperator {
 
@@ -67,6 +87,25 @@ public enum PlanFilterOperatorType {
                 return attributeVal == null ? false : attributeVal.compareTo(planAttributeFilter.getTypedValue()) >= 0;
             }
         }
+
+        public class MoreThanOrNullOperator extends MoreThanOperator {
+
+            @Override
+            public boolean isInFilteredSet(PlanAttributeFilter planAttributeFilter, PlanAttribute planAttribute) {
+                Object[] filterValues = TypedValueConverter.getValues(Attribute.valueOf(planAttribute.getAttributeName()).getAttributeClass(),
+                        planAttributeFilter.getStringVal());
+                if (filterValues.length > 1) {
+                   Comparable filterVal = (Comparable) filterValues[0];
+                    Comparable attributeVal = (Comparable) planAttribute.getTypedValue();
+
+                   return filterVal == null ? true : attributeVal==null?filterValues[1] == null:attributeVal.compareTo(filterVal) >= 0;
+                } else {
+                    return super.isInFilteredSet(planAttributeFilter,planAttribute);
+                }
+
+            }
+        }
+
         
         public class MinMaxOperator implements PlanFilterOperator {
 
@@ -80,6 +119,8 @@ public enum PlanFilterOperatorType {
                     attributeVal.compareTo(planAttributeFilter.getMin()) >= 0;
             }
         }
+
+
         
         public class DateFromToOperator implements PlanFilterOperator {
 
