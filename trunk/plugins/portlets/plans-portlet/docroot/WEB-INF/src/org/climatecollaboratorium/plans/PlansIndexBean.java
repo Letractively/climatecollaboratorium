@@ -57,6 +57,7 @@ public class PlansIndexBean {
     private boolean findUserVote;
     
 
+    private List<PlanItem> notFilteredPlans;
     private List<PlanIndexItemWrapper> plans = new ArrayList<PlanIndexItemWrapper>();
 
     private DataPaginator dataPaginator;
@@ -90,7 +91,8 @@ public class PlansIndexBean {
             if (sortCol.isSortable()) {
                 sortAttribute = sortCol.getSortAttribute().name();
             }
-            for(PlanItem plan: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, 100, sortAttribute, sortAscending ? "ASC" : "DESC")) {
+            notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
+            for(PlanItem plan: PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), planType, notFilteredPlans)) {
                 plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
             }
         }
@@ -165,7 +167,7 @@ public class PlansIndexBean {
         plans.clear();
         
         Columns sortCol = Columns.valueOf(sortColumn);
-
+/*
         String sortAttribute = Attribute.NAME.name();
         if (sortCol.isSortable()) {
             sortAttribute = sortCol.getSortAttribute().name();
@@ -175,7 +177,7 @@ public class PlansIndexBean {
         }
         // FIXME this isn't correct, appropriate value should be calculated.
         int totalNumberPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, Integer.MAX_VALUE, sortAttribute, sortAscending ? "ASC" : "DESC").size();
-
+*/
         plansDataModel.setDirtyData(false);
 
         // This is required when using Hibernate JPA.  If the EntityManager is not
@@ -185,7 +187,7 @@ public class PlansIndexBean {
         // This call is not required with TopLink JPA, which uses a Query Hint
         // to clear the l2 cache in CustomerDAO.
 
-        return new DataPage(totalNumberPlans,startRow,plans);
+        return new DataPage(/*totalNumberOfPlans*/0,startRow,plans);
     }
 
     private class LocalDataModel extends PagedListDataModel {
@@ -271,7 +273,7 @@ public class PlansIndexBean {
     }
     
     public int getPlansCount() {
-        return plans.size();
+        return notFilteredPlans.size();
     }
     
     public void findUserVote(ActionEvent e) throws PortalException, SystemException {

@@ -22,7 +22,6 @@
         <ui:include src="./filterPlans.xhtml" >
              <ui:param value="#{plansIndexBean.filterPlansBean}" name="filterPlans" /> 
         </ui:include>
-        <h1>Include from index</h1>
         <ui:include src="./createPlan.xhtml">
              <ui:param value="#{navigation.createPlanBean}" name="createPlanBean" />
         </ui:include>
@@ -122,6 +121,7 @@
                 </ice:dataTable>
                 <script language="javascript">
                 jQuery(document).ready(initializeColumnsInfo);
+                jQuery(document).ready(makeNANotesVisible);
                 </script>
                 
         <div class="pageBottom">

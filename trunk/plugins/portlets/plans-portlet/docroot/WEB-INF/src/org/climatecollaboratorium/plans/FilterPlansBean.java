@@ -25,6 +25,7 @@ import com.liferay.portal.SystemException;
 public class FilterPlansBean {
 
     private static DateFormat format = DateFormat.getDateInstance();
+    private static DateFormat format2 = new SimpleDateFormat("MM-dd-yyyy");
     private String name;
     private String creator;
     private String description;
@@ -36,8 +37,20 @@ public class FilterPlansBean {
           dateBounds =  new Date[]{format.parse("Sep 1, 2009"),new Date()};
         } catch (Exception e) {
           //should never happen
-          dateBounds = new Date[]{new Date(),new Date()};
-      }
+            try {
+                dateBounds = new Date[]{format2.parse("09-01-2009") ,new Date()};
+            }
+            catch (Exception ex) {
+                Date from = new Date();
+                from.setMonth(8);
+                from.setDate(1);
+                from.setYear(2009);
+                dateBounds = new Date[]{from, new Date()};
+            }
+          // it happened...
+      } 
+        
+        
     }
 
     private Double votesFrom;
@@ -55,6 +68,8 @@ public class FilterPlansBean {
 
     private Double co2From;
     private Double co2To;
+    
+    private boolean filterPositionsAll;
 
    private final Set<Long> positions = new HashSet<Long>();
 
@@ -70,6 +85,7 @@ public class FilterPlansBean {
 
     private PlansIndexBean plansIndexBean;
     private PlansUserSettings plansUserSettings;
+    List<DebateQuestionWrapper> questions;
 
     private boolean enabled;
     
@@ -99,6 +115,7 @@ public class FilterPlansBean {
 
             positions.addAll(Arrays.asList((Long[])plansUserSettings.getAttributeFilter(Attribute.POSITIONS.name()).getTypedValue()));
         }
+        filterPositionsAll = plansUserSettings.getFilterPositionsAll();
         
         enabled = plansUserSettings.getFilterEnabled();
 
@@ -108,10 +125,13 @@ public class FilterPlansBean {
 
     
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
-        List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
-        for (Debate d:PlansPreferencesBean.getQuestionDebates()) {
-            questions.add(new DebateQuestionWrapper(d.getCurrentRoot(),Collections.<Long>emptySet()));
+        if (questions == null) {
+            Set<Long> positionsIds = new HashSet<Long>(plansUserSettings.getPositionsIds());
+            questions = new ArrayList<DebateQuestionWrapper>();
+            for (Debate d:PlansPreferencesBean.getQuestionDebates()) {
+                questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), positionsIds));
 
+            }
         }
         return questions;
     }
@@ -172,9 +192,6 @@ public class FilterPlansBean {
         return votesFrom;
     }
     
-    public void setVotesFrom(Object votesFrom) {
-        System.out.println("votes from: " + votesFrom);
-    }
     public void setVotesFrom(Double votesFrom) {
         this.votesFrom = votesFrom;
     }
@@ -286,6 +303,21 @@ public class FilterPlansBean {
         PlanAttributeFilter co2filter = getFilter(Attribute.CO2);
         co2filter.setMin(co2From);
         co2filter.setMax(co2To);
+        
+        // positions
+        
+        List<Long> positionsIds = new ArrayList<Long>();
+        for (DebateQuestionWrapper question: questions) {
+            positionsIds.addAll(Arrays.asList(question.getMultiplePositions()));
+        }
+        plansUserSettings.setPositionsIds(positionsIds);
+        
+        PlanAttributeFilter positionsFilter = getFilter(Attribute.POSITIONS);
+        positionsFilter.setStringVal(TypedValueConverter.getStringForMultipleValues(positionsIds.toArray()));
+        
+        // set positions filter operator
+        plansUserSettings.setFilterPositionsAll(filterPositionsAll);
+        
 
 //        PlanAttributeFilter positionsFilter = getFilter(Attribute.POSITIONS);
 //        positionsFilter.setStringVal(convertCollectionToMultistring(positions));
@@ -293,6 +325,8 @@ public class FilterPlansBean {
         plansUserSettings.setFilterEnabled(enabled);
 
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        
+        
         try {
             PlansUserSettingsLocalServiceUtil.saveUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansUserSettings);
         } catch (Throwable t) {
@@ -355,6 +389,16 @@ public class FilterPlansBean {
     public static void main(String[] s) throws ParseException {
         System.err.println(DateFormat.getDateInstance().format(new Date()));
         System.err.println(DateFormat.getDateInstance().parse("Sep 1, 2009"));
+    }
+
+
+    public boolean isFilterPositionsAll() {
+        return filterPositionsAll;
+    }
+
+
+    public void setFilterPositionsAll(boolean filterPositionsAll) {
+        this.filterPositionsAll = filterPositionsAll;
     }
     
 

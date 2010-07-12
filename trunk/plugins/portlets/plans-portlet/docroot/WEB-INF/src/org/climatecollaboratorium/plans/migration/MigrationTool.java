@@ -2,23 +2,13 @@ package org.climatecollaboratorium.plans.migration;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 
-import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.plans.NoSuchPlanItemException;
-import com.ext.portlet.plans.PlanLocalServiceHelper;
-import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.Plan;
-import com.ext.portlet.plans.model.PlanDescription;
-import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.model.PlanMeta;
-import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
 
 public class MigrationTool {
     private static Logger _log = Logger.getLogger(MigrationTool.class);

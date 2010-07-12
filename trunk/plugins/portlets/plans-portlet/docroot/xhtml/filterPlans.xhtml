@@ -4,6 +4,7 @@
          xmlns:ice="http://www.icesoft.com/icefaces/component"
          xmlns:liferay-faces="http://liferay.com/tld/faces"
          xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+<div id="filterPlans_box">
 <div id="filterPlansContainer">
 <div id="filterPlans" class="filterPlans hidden">
     <div class="filterPlans_top">
@@ -135,16 +136,18 @@
          <ice:panelSeries value="#{filterPlans.availablePositions}" var="question">
                 <div class="assumption">
                     <h4 class="question">#{question.debateSummary}</h4>
-                    <ice:selectOneRadio value="#{question.position}" styleClass="versionedRadio positionItem" layout="pageDirection">
+                    <ice:selectManyCheckbox value="#{question.multiplePositions}" styleClass="versionedRadio positionItem" layout="pageDirection">
                         <f:selectItems value="#{question.positions}"><br /></f:selectItems>
-                    </ice:selectOneRadio>
+                    </ice:selectManyCheckbox>
                 </div>
 
             </ice:panelSeries>
         </div>
         <div class="positionsFilterOperator">
-            <input type='radio' name='positionsOperator' value="any" />Any
-            <input type='radio' name='positionsOperator' value="all" />All
+            <ice:selectOneRadio styleClass="positionsOperator" value="#{filterPlans.filterPositionsAll}">
+                <f:selectItem itemValue="#{false}" itemLabel="Any" />
+                <f:selectItem itemValue="#{true}" itemLabel="All" />
+            </ice:selectOneRadio> 
         </div>
     
     
@@ -171,5 +174,6 @@
     </div>
 </div>
 </div>
-<div id="filterPlansDialog" style="display: none"></div>
+<div id="filterPlansDialog" class='filterPlansDialogC' style="display: none"></div>
+</div>
 </f:view>

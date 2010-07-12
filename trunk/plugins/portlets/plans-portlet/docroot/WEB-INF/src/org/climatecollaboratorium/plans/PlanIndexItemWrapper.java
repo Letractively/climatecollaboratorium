@@ -90,7 +90,6 @@ public class PlanIndexItemWrapper {
         if (Helper.isUserLoggedIn()) {
             voted = wrapped.hasUserVoted(Helper.getLiferayUser().getUserId());
         }
-        System.out.println(voted);
         return voted;
     }
 
