@@ -51,12 +51,12 @@
 .filterPlans_content .label {
     color:#333333;
     display:inline;
-    font-family:"Times New Roman",Times,serif;
-    font-size:14px;
+    font-size:12px;
     font-weight:bold;
     padding-right:8px;
     text-align:right;
     vertical-align: middle;
+    height:100%;
 }
 
 .filterPlans_content .widgets_row input {
@@ -96,7 +96,7 @@
 	background: white;
 	overflow: auto;
 	height: 300px;
-	width: 100%;
+	width: 255px;
 	margin-top: 5px;
 }
 
@@ -141,4 +141,17 @@
 .filterPlansDialog .ui-dialog-titlebar {
     display: none;
     
+}
+
+
+.positionsSelectWidget .assumption {
+    margin: 10px;
+}
+
+.positionsSelectWidget .iceSelMnyCb {
+    white-space:normal;
+}
+
+.positionsSelectWidget .fieldSet {
+    padding:0px;
 }

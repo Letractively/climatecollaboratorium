@@ -1,12 +1,18 @@
 package org.climatecollaboratorium.plans;
 
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.plans.NoSuchPlanAttributeFilterException;
+import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.TypedValueConverter;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.PlanAttributeFilter;
@@ -17,34 +23,66 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 public class FilterPlansBean {
+
+    private static DateFormat format = DateFormat.getDateInstance();
     private String name;
     private String creator;
     private String description;
     private Date dateFrom;
     private Date dateTo;
+    private Date[] dateBounds;
+    {
+      try {
+          dateBounds =  new Date[]{format.parse("Sep 1, 2009"),new Date()};
+        } catch (Exception e) {
+          //should never happen
+          dateBounds = new Date[]{new Date(),new Date()};
+      }
+    }
+
     private Double votesFrom;
     private Double votesTo;
+    private Double[] voteBounds = new Double[] {0.0,100.0};
+
+
     private Double mitigationCostFrom;
     private Double mitigationCostTo;
+    private Double[] mitigationCostBounds = new Double[] {-17.0,0.0};
+
     private Double damageCostFrom; 
     private Double damageCostTo;
+    private Double[] damageCostBounds = new Double[] {-10.0,0.0};
+
     private Double co2From;
     private Double co2To;
+
+   private final Set<Long> positions = new HashSet<Long>();
+
+    public static DateFormat getFormat() {
+        return format;
+    }
+
+
+
+
+
+    private Double[] co2Bounds = new Double[] {200.0,1200.0};
+
     private PlansIndexBean plansIndexBean;
     private PlansUserSettings plansUserSettings;
+
     private boolean enabled;
     
     public FilterPlansBean(PlansIndexBean plansIndexBean) throws PortalException, SystemException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         this.plansIndexBean = plansIndexBean;
         plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndexBean.getPlanType());
-        if (plansUserSettings.getAttributeFilter("NAME") != null) {
-            name = plansUserSettings.getAttributeFilter("NAME").getStringVal();
-        }
+
         
-        name = (String) getFilterValue(Attribute.NAME);
-        creator = (String) getFilterValue(Attribute.CREATOR);
-        description = (String) getFilterValue(Attribute.DESCRIPTION);
+        name = (String) getFilterValue(Attribute.NAME,false,true,false);
+
+        creator = (String) getFilterValue(Attribute.CREATOR,false,true,false);
+        description = (String) getFilterValue(Attribute.DESCRIPTION,false,true,false);
         Object[] dates = TypedValueConverter.getValues(Date.class, (String) getFilterValue(Attribute.CREATE_DATE, false, false, false));
         dateFrom = (Date) (dates.length > 0 ? dates[0] : null);
         dateTo = (Date) (dates.length > 1 ? dates[1] : null); 
@@ -56,8 +94,48 @@ public class FilterPlansBean {
         damageCostTo = (Double) getFilterValue(Attribute.MAX_DAMAGE_COST);
         co2From = (Double) getFilterValue(Attribute.CO2, false, false, true);
         co2To = (Double) getFilterValue(Attribute.CO2, false, false, false);
+        positions.clear();
+        if (plansUserSettings.getAttributeFilter(Attribute.POSITIONS.name())!=null) {
+
+            positions.addAll(Arrays.asList((Long[])plansUserSettings.getAttributeFilter(Attribute.POSITIONS.name()).getTypedValue()));
+        }
         
         enabled = plansUserSettings.getFilterEnabled();
+
+
+
+    }
+
+    
+    public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
+        List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
+        for (Debate d:PlansPreferencesBean.getQuestionDebates()) {
+            questions.add(new DebateQuestionWrapper(d.getCurrentRoot(),Collections.<Long>emptySet()));
+
+        }
+        return questions;
+    }
+
+
+
+    public Date[] getDateBounds() {
+        return dateBounds;
+    }
+
+    public Double[] getVoteBounds() {
+        return voteBounds;
+    }
+
+    public Double[] getMitigationCostBounds() {
+        return mitigationCostBounds;
+    }
+
+    public Double[] getDamageCostBounds() {
+        return damageCostBounds;
+    }
+
+    public Double[] getCo2Bounds() {
+        return co2Bounds;
     }
     
     public String getName() {
@@ -142,6 +220,15 @@ public class FilterPlansBean {
     public void setCo2To(Double co2To) {
         this.co2To = co2To;
     }
+
+    public void setPositions(Long[] positions) {
+        this.positions.clear();
+        this.positions.addAll(Arrays.asList(positions));
+    }
+
+    public Long[] getPositions() {
+        return (Long[]) positions.toArray();
+    }
     
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -151,9 +238,10 @@ public class FilterPlansBean {
         return enabled;
     }
 
+
+
     public void update(ActionEvent e) throws PortalException, SystemException {
-        
-        PlanAttributeFilter nameFilter = getFilter(Attribute.NAME);
+       PlanAttributeFilter nameFilter = getFilter(Attribute.NAME);
         nameFilter.setStringVal(name);
         
         // creator
@@ -182,10 +270,10 @@ public class FilterPlansBean {
 
         // mitigation cost
         PlanAttributeFilter mitigationMinFilter = getFilter(Attribute.MIN_MITIGATION_COST);
-        mitigationMinFilter.setStringVal(String.valueOf(mitigationCostFrom));
+        mitigationMinFilter.setStringVal(String.valueOf(mitigationCostFrom)+"|NULL");
 
         PlanAttributeFilter mitigationMaxFilter = getFilter(Attribute.MAX_MITIGATION_COST);
-        mitigationMaxFilter.setStringVal(String.valueOf(mitigationCostTo));
+        mitigationMaxFilter.setStringVal(String.valueOf(mitigationCostTo)+"|NULL");
         
         
         // damage cost
@@ -198,12 +286,20 @@ public class FilterPlansBean {
         PlanAttributeFilter co2filter = getFilter(Attribute.CO2);
         co2filter.setMin(co2From);
         co2filter.setMax(co2To);
-        
+
+//        PlanAttributeFilter positionsFilter = getFilter(Attribute.POSITIONS);
+//        positionsFilter.setStringVal(convertCollectionToMultistring(positions));
+//        
         plansUserSettings.setFilterEnabled(enabled);
 
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        PlansUserSettingsLocalServiceUtil.saveUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansUserSettings);
+        try {
+            PlansUserSettingsLocalServiceUtil.saveUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansUserSettings);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
         plansIndexBean.filtersUpdate();
+
     }
     
     private PlanAttributeFilter getFilter(Attribute attribute) throws NoSuchPlanAttributeFilterException, SystemException {
@@ -212,9 +308,9 @@ public class FilterPlansBean {
             filter = PlanAttributeFilterLocalServiceUtil.createPlanAttributeFilter(null);
             filter.setAttributeName(attribute.name());
             filter.setPlanUserSettingsId(plansUserSettings.getPlanUserSettingsId());
-            
             plansUserSettings.addPlanAttributeFilter(filter);
         }
+
         return filter;
     }
     
@@ -240,6 +336,25 @@ public class FilterPlansBean {
             }
         }
         return null;
+    }
+
+    private static String convertCollectionToMultistring(Collection c) {
+        StringBuffer result = new StringBuffer();
+        String sep = null;
+        for (Object o:c) {
+            result.append(o.toString());
+            if (sep!=null) {
+                result.append(sep);
+            }
+            sep="|";
+
+        }
+        return result.toString();
+    }
+
+    public static void main(String[] s) throws ParseException {
+        System.err.println(DateFormat.getDateInstance().format(new Date()));
+        System.err.println(DateFormat.getDateInstance().parse("Sep 1, 2009"));
     }
     
 

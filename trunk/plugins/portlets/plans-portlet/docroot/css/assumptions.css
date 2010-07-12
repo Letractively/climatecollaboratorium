@@ -4,6 +4,8 @@
     padding: 10px;
 }
 
+
+
 .assumption .question {
     background:url("../img/question_icon_small.png") no-repeat scroll 3px 3px transparent;
     padding:3px 9px;
@@ -33,3 +35,4 @@
     position: absolute;
     right: 0px;
 }
+
