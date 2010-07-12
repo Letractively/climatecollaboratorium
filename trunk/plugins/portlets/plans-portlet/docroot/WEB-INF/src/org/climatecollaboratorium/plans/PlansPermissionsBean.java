@@ -36,19 +36,19 @@ public class PlansPermissionsBean {
     
     
     public boolean getCanEdit() throws SystemException {
-        return getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_EDIT);
+        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_EDIT)) || getCanAdmin();
     }
     
     public boolean getCanAdmin() throws SystemException {
-        return getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN);
+        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN)) || getCanAdminAll() ;
     }
     
     public boolean getCanAdminAll() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN_ALL);
+        return permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN_ALL) || permissionChecker.isCommunityAdmin(groupId);
     }
     
     public boolean getCanDelete() throws SystemException {
-        return getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_DELETE);
+        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_DELETE)) || getCanAdmin();
     }
     
     public boolean getPlanOwner() {
