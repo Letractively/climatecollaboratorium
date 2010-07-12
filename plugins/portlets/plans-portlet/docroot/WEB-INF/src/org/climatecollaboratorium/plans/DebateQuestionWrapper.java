@@ -66,22 +66,18 @@ public class DebateQuestionWrapper {
         return selectedPosition;
     }
 
-    public void setMultiplePositions(String[] positions) {
+    public void setMultiplePositions(Long[] positions) {
         this.multiplePositions.clear();
-        for (String s:positions) {
-            multiplePositions.add(Long.parseLong(s));
+        for (Long s:positions) {
+            multiplePositions.add(s);
         }
 
 
     }
 
-    public List<SelectItem> getMultiplePositions() {
-        List<SelectItem> result = new ArrayList<SelectItem>();
-
-        for (Long l:multiplePositions) {
-         result.add(new SelectItem(l.toString()));
-        }
-        return result;
+    public Long[] getMultiplePositions() {
+        Long[] ret = new Long[multiplePositions.size()];
+        return multiplePositions.toArray(ret);
     }
 
 

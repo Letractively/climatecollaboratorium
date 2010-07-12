@@ -256,15 +256,18 @@ function updateColumns() {
 	configureColumnsDialog.dialog("destroy");
 }
 
+var filterPlansDialog;
 function showFilterPlansDialog() {
 	jQuery("#filterPlans").appendTo(jQuery("#filterPlansDialog"));
 	jQuery("#filterPlansDialog").dialog("destroy");
 	jQuery("#filterPlans").show();
-	var dialog = jQuery("#filterPlansDialog").dialog({width: 630, modal: true, height: 530, draggable: false, resizable: false, dialogClass: 'plansIndexDialog filterPlansDialog'});
+	filterPlansDialog = jQuery("#filterPlansDialog").dialog({width: 630, modal: true, height: 530, draggable: false, resizable: false, dialogClass: 'plansIndexDialog filterPlansDialog'});
 }
 
 function hideFilterPlansDialog() {
-	jQuery("#filterPlansDialog").dialog("close");
+	filterPlansDialog.dialog("close");
+	filterPlansDialog.dialog("destroy");
+	filterPlansDialog.appendTo(jQuery("#filterPlans_box"));
 	jQuery("#filterPlans").hide();
 	jQuery("#filterPlans").appendTo(jQuery("#filterPlansContainer"));
 	
@@ -274,6 +277,7 @@ function updateFilters() {
 	hideFilterPlansDialog();
    
 	jQuery(".filtersEnabledCheckbox").attr("checked", "true");
+	//filterPlansDialog.remove();
 	jQuery(".updateFiltersButton").click();
 }
 
@@ -332,9 +336,11 @@ function initializeColumnsInfo() {
 }
 
 function findUserVote(id) {
-	
+	//alert('looking for user vote' + jQuery(".userVote").length);
 	jQuery(".userVote").parent().parent().addClass("active");
 	jQuery.scrollTo(jQuery(".userVote"));
+	jQuery(".userVote").focus();
+	//alert('vote found\n' + findUserVote);
 }
 
 function deferUntilLogin() {
@@ -498,4 +504,46 @@ function hidePositionsOnIndexPageDialog(positionsContainerId) {
 	var positions = jQuery("#" + positionsContainerId);
 	positionsDialog.dialog("destroy");
 	positions.dialog("destroy");
+}
+
+function makeNANotesVisible() {
+	    jQuery(".plansTable td .errors").each(function() {
+	        var text = jQuery.trim(jQuery(this).text());
+	        if (text.length != 0) {
+	            jQuery(this).parent().append('<img class="note" src="/html/icons/quick_note.png" />');
+	        }
+	    });
+	    
+	    jQuery(".plansTable td .note").hover(function() {
+	        jQuery(this).parent().addClass("note-hover");
+	        var errors = jQuery(this).parent().find(".errors");
+	            if (errors.length > 0 && jQuery.trim(errors.text()).length != 0) {
+	                errors.fadeIn("medium");
+	            }
+	        }, function() {
+	            jQuery(this).parent().removeClass("note-hover");
+	            var errors = jQuery(this).parent().find(".errors");
+	            setTimeout(function() {
+	                if (! errors.parent().hasClass("note-hover") && !errors.parent().hasClass("popup-hover")) {
+	                    errors.fadeOut("medium");
+	                }
+	                }, 200);
+	        }
+	    );
+	    jQuery(".plansTable td .popup-info-box").hover(function() {
+	        jQuery(this).parent().addClass("popup-hover");
+	        var errors = jQuery(this).parent().find(".errors");
+	            if (errors.length > 0 && jQuery.trim(errors.text()).length != 0) {
+	                errors.fadeIn("medium");
+	            }
+	        }, function() {
+	            jQuery(this).parent().removeClass("popup-hover");
+	            var errors = jQuery(this).parent().find(".errors");
+	            setTimeout(function() {
+	                if (! errors.parent().hasClass("note-hover") && !errors.parent().hasClass("popup-hover")) {
+	                    errors.fadeOut("medium");
+	                }
+	                }, 200);
+	        }
+	    );
 }

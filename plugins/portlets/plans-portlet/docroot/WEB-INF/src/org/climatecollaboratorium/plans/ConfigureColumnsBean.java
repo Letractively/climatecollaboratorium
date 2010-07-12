@@ -38,7 +38,9 @@ public class ConfigureColumnsBean {
     public void update(ActionEvent e) throws PortalException, SystemException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         for (ColumnsBean colWrapper: availableColumns) {
+            System.out.println(colWrapper.getName() + "\t: " + colWrapper.getVisible() + "\told: " + colWrapper.getWrapped().getUserSetting(plansUserSettings));
             colWrapper.getWrapped().setUserSetting(plansUserSettings, colWrapper.getVisible());
+            System.out.println(colWrapper.getName() + "\t: " + colWrapper.getVisible() + "\tnew: " + colWrapper.getWrapped().getUserSetting(plansUserSettings));
         }
         PlansUserSettingsLocalServiceUtil.saveUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansUserSettings);
         plansIndexBean.refresh();
