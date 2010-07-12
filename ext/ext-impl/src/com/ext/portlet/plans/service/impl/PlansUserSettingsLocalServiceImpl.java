@@ -6,6 +6,8 @@
 
 package com.ext.portlet.plans.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.ext.portlet.plans.NoSuchUserSettingsException;
@@ -15,11 +17,14 @@ import com.ext.portlet.plans.model.PlanColumnSettings;
 import com.ext.portlet.plans.model.PlanPropertyFilter;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlanTypeColumn;
+import com.ext.portlet.plans.model.PlansFilterPosition;
 import com.ext.portlet.plans.model.PlansUserSettings;
+import com.ext.portlet.plans.model.impl.PlansUserSettingsModelImpl;
 import com.ext.portlet.plans.service.PlanAttributeFilterLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanColumnSettingsLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanPropertyFilterLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
+import com.ext.portlet.plans.service.PlansFilterPositionLocalServiceUtil;
 import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlansUserSettingsLocalServiceBaseImpl;
 import com.liferay.counter.service.CounterLocalServiceUtil;
@@ -55,10 +60,13 @@ public class PlansUserSettingsLocalServiceImpl extends PlansUserSettingsLocalSer
 
             if (!user.isDefaultUser()) {
                 try {
-                    userSettings = PlansUserSettingsLocalServiceUtil.getByUserIdPlanTypeId(userId, planType
+                    userSettings = getByUserIdPlanTypeId(userId, planType
                             .getPlanTypeId());
+                    // get positions from db and store them in the object
                     if (userSettings != null) {
-                        // setPlansFilterPositionsIds(userSettings);
+                        List<Long> positionsIds = 
+                            PlansFilterPositionLocalServiceUtil.getPositionsIds(userId, planType.getPlanTypeId());
+                        userSettings.setPositionsIds(positionsIds);
                     }
 
                 } catch (NoSuchUserSettingsException e) {
@@ -67,7 +75,7 @@ public class PlansUserSettingsLocalServiceImpl extends PlansUserSettingsLocalSer
             }
 
             if (userSettings == null || user.isDefaultUser()) {
-                userSettings = PlansUserSettingsLocalServiceUtil.createPlansUserSettings(null);
+                userSettings = createPlansUserSettings(null);
                 userSettings.setPlanTypeId(planType.getPlanTypeId());
                 userSettings.setUserId(userId);
                 userSettings.setFilterEnabled(false);
@@ -108,6 +116,13 @@ public class PlansUserSettingsLocalServiceImpl extends PlansUserSettingsLocalSer
         User user = UserLocalServiceUtil.getUser(userId);
         boolean add = false;
         if (!user.isDefaultUser()) {
+            System.out.println(plansUserSettings.getClass().getName());
+            System.out.println(plansUserSettings.getClass().getSuperclass().getName());
+            System.out.println(PlansUserSettingsModelImpl.class.getName());
+            System.out.println(PlansUserSettingsModelImpl.class + "\t" + plansUserSettings.getClass().getSuperclass() + "\t" + plansUserSettings.getClass().getSuperclass().equals(PlansUserSettingsModelImpl.class));
+            System.out.println(PlansUserSettingsModelImpl.class.getClassLoader().hashCode() + " " + plansUserSettings.getClass().getClassLoader().hashCode() + " " + this.getClass().getClassLoader().hashCode());
+            PlansUserSettingsModelImpl plansUserSettingsModelImpl = (PlansUserSettingsModelImpl) plansUserSettings;
+            
             if (plansUserSettings.getPlanUserSettingsId() == null) {
                 long planUserSettingsId = CounterLocalServiceUtil.increment(Plan.class.getName());
                 plansUserSettings.setPlanUserSettingsId(planUserSettingsId);
@@ -163,6 +178,9 @@ public class PlansUserSettingsLocalServiceImpl extends PlansUserSettingsLocalSer
                     PlanPropertyFilterLocalServiceUtil.updatePlanPropertyFilter(propertyFilter);
                 }
             }
+            
+            // store positions ids
+            PlansFilterPositionLocalServiceUtil.storeFilterPositionsIds(userId, plansUserSettings.getPlanTypeId(), plansUserSettings.getPositionsIds());
 
             //storePlansFilterPositionsIds(plansUserSettings);
         }

@@ -15,6 +15,7 @@ import java.util.Map;
 import com.ext.portlet.plans.NoSuchPlanAttributeFilterException;
 import com.ext.portlet.plans.NoSuchPlanColumnSettingsException;
 import com.ext.portlet.plans.NoSuchPlanPropertyFilterException;
+import com.ext.portlet.plans.PlanConstants.Columns;
 import com.ext.portlet.plans.model.PlanAttributeFilter;
 import com.ext.portlet.plans.model.PlanColumnSettings;
 import com.ext.portlet.plans.model.PlanPropertyFilter;
@@ -44,12 +45,18 @@ public class PlansUserSettingsImpl extends PlansUserSettingsModelImpl
         PlanColumnSettings columnSettings = null;
         if (!columnSettingsCache.containsKey(name)) {
             try {
-                return PlanColumnSettingsLocalServiceUtil.findByPlanUserSettingsIdColumnName(this.getPlanUserSettingsId(), name);
+                columnSettings = PlanColumnSettingsLocalServiceUtil.findByPlanUserSettingsIdColumnName(this.getPlanUserSettingsId(), name);
             }
             catch (NoSuchPlanColumnSettingsException e) {
-                return null;
+                // ignore
             }
-            //columnSettingsCache.put(columnSettings.getColumnName(), columnSettings);
+            if (columnSettings == null) {
+                // get default value
+                columnSettings = PlanColumnSettingsLocalServiceUtil.createPlanColumnSettings(null);
+                columnSettings.setColumnName(name);
+                columnSettings.setVisible(Columns.valueOf(name).isDefault());
+            }
+            columnSettingsCache.put(columnSettings.getColumnName(), columnSettings);
         }
         
         return columnSettingsCache.get(name);

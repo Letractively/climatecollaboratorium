@@ -90,6 +90,23 @@ public class PlansFilterPositionLocalServiceUtil {
         return getService().updatePlansFilterPosition(plansFilterPosition, merge);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlansFilterPosition> getPositionsForUserPlanType(
+        java.lang.Long userId, java.lang.Long planTypeId)
+        throws com.liferay.portal.SystemException {
+        return getService().getPositionsForUserPlanType(userId, planTypeId);
+    }
+
+    public static java.util.List<Long> getPositionsIds(java.lang.Long userId,
+        java.lang.Long planTypeId) throws com.liferay.portal.SystemException {
+        return getService().getPositionsIds(userId, planTypeId);
+    }
+
+    public static void storeFilterPositionsIds(java.lang.Long userId,
+        java.lang.Long planTypeId, java.util.List<Long> positionsIds)
+        throws com.liferay.portal.SystemException {
+        getService().storeFilterPositionsIds(userId, planTypeId, positionsIds);
+    }
+
     public static PlansFilterPositionLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

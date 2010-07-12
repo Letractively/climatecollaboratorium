@@ -57,4 +57,8 @@ public class PlanVoteLocalServiceImpl extends PlanVoteLocalServiceBaseImpl {
         }
         return false;
     }
+    
+    public int coutPlanVotes(Long planId) throws SystemException {
+        return planVotePersistence.countByplanId(planId);   
+    }
 }

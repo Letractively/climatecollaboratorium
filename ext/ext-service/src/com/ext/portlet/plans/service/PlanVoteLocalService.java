@@ -85,4 +85,7 @@ public interface PlanVoteLocalService {
     public boolean unvote(java.lang.Long userId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public int coutPlanVotes(java.lang.Long planId)
+        throws com.liferay.portal.SystemException;
 }

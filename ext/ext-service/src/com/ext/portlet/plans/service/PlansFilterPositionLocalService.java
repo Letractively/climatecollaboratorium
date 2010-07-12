@@ -80,4 +80,17 @@ public interface PlansFilterPositionLocalService {
     public com.ext.portlet.plans.model.PlansFilterPosition updatePlansFilterPosition(
         com.ext.portlet.plans.model.PlansFilterPosition plansFilterPosition,
         boolean merge) throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlansFilterPosition> getPositionsForUserPlanType(
+        java.lang.Long userId, java.lang.Long planTypeId)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<Long> getPositionsIds(java.lang.Long userId,
+        java.lang.Long planTypeId) throws com.liferay.portal.SystemException;
+
+    public void storeFilterPositionsIds(java.lang.Long userId,
+        java.lang.Long planTypeId, java.util.List<Long> positionsIds)
+        throws com.liferay.portal.SystemException;
 }
