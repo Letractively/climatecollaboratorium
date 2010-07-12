@@ -102,7 +102,7 @@ public class PlanPositionsBean {
         if (Helper.isUserLoggedIn()) {
             List<Long> positions = new ArrayList<Long>();
             for (DebateQuestionWrapper question : questions) {
-                if (question.getPosition() != null) {
+                if (question.getPosition() != null && question.getPosition() != 0L) {
                     positions.add(question.getPosition());
                 }
             }
