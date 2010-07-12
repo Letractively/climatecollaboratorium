@@ -510,7 +510,7 @@ function makeNANotesVisible() {
 	    jQuery(".plansTable td .errors").each(function() {
 	        var text = jQuery.trim(jQuery(this).text());
 	        if (text.length != 0) {
-	            jQuery(this).parent().append('<img class="note" src="/html/icons/quick_note.png" />');
+	            jQuery(this).parent().append('<img class="note" src="/plans-portlet/img/warning_icon16x16.png" />');
 	        }
 	    });
 	    
