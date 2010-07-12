@@ -242,6 +242,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             planItem.updateAttribute(Attribute.CREATE_DATE.name());
             planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
             planItem.updateAttribute(Attribute.VOTES.name());
+            planItem.updateAttribute(Attribute.POSITIONS.name());
         }
         
         
