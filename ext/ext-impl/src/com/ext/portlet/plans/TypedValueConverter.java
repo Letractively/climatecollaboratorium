@@ -13,8 +13,9 @@ public class TypedValueConverter {
     }
     
     private static DateFormat defaultDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-    private static final String MULTI_VALUED_SEPARATOR = "|";
-    
+    public static final String MULTI_VALUED_SEPARATOR = "|";
+    public static final String NULL_VALUE="NULL";
+
     public static Object getValue(Class<?> clasz, String value, String defaultVal) {
         Object convertedVal = null;
         boolean useDefault = false;
@@ -29,7 +30,7 @@ public class TypedValueConverter {
         else if (clasz == Double.class) {
             if (value.trim().length() != 0) { 
                 try {
-                    convertedVal = Double.parseDouble(value);
+                    convertedVal = checkNullString(value)?null:Double.parseDouble(value);
                 } catch (NumberFormatException e) {
                     useDefault = true;
                 }
@@ -42,7 +43,7 @@ public class TypedValueConverter {
         else if (clasz == Integer.class){
             if (value.trim().length() != 0) { 
                 try {
-                    convertedVal = Integer.parseInt(value);
+                    convertedVal = checkNullString(value)?null:Integer.parseInt(value);
                 } catch (NumberFormatException e) {
                     useDefault = true;
                 }
@@ -71,6 +72,10 @@ public class TypedValueConverter {
             }
         }
         return convertedVal;
+    }
+
+    public static boolean checkNullString(String value) {
+        return NULL_VALUE.equals(value);
     }
     
     public static Object getValue(Class<?> clasz, String value) {

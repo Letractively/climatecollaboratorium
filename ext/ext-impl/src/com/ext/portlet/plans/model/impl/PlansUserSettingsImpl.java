@@ -84,12 +84,13 @@ public class PlansUserSettingsImpl extends PlansUserSettingsModelImpl
         PlanAttributeFilter filter = null;
         if (!attributeFiltersCache.containsKey(name)) {
             try {
-                return PlanAttributeFilterLocalServiceUtil.getByPlansUserSettingsIdAttributeName(this.getPlanUserSettingsId(), name);
+                attributeFiltersCache.put(name,PlanAttributeFilterLocalServiceUtil.getByPlansUserSettingsIdAttributeName(this.getPlanUserSettingsId(), name));
+
             }
             catch (NoSuchPlanAttributeFilterException e) {
                 return null;
             }
-            //attributeFiltersCache.put(name, filter);
+
         }
         return attributeFiltersCache.get(name);
     }

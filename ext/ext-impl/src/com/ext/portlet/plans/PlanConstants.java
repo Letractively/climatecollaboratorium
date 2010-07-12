@@ -23,6 +23,8 @@ import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.DateFormats;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.model.impl.MembershipRequestImpl;
@@ -47,6 +49,8 @@ public class PlanConstants {
 	
     private static AttributeFunctionFactory attributeFunctionFactory = new AttributeFunctionFactory();
 
+    private static Log _log = LogFactoryUtil.getLog(PlanConstants.class);
+
     static {
 
     }
@@ -66,7 +70,7 @@ public class PlanConstants {
 		}),
 		TEMP(Double.class,"%.1f", attributeFunctionFactory.getLastValueFunction("GlobalTempChange", Double.class), true, null, null),
 		MIN_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_minicam_output", "_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
-		        true, PlanFilterOperatorType.GREATER_THAN, new MoreThanFilter() {
+		        true, PlanFilterOperatorType.GREATER_THAN_OR_NULL, new MoreThanFilter() {
 			@Override
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
@@ -74,7 +78,7 @@ public class PlanConstants {
 
 		}),
 		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_minicam_output", "_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
-		        true, PlanFilterOperatorType.LESS_THAN, new LessThanFilter() {
+		        true, PlanFilterOperatorType.LESS_THAN_OR_NULL, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
@@ -254,7 +258,8 @@ public class PlanConstants {
 		}
 		
 		public boolean isInFilteredSet(PlansUserSettings userSettings, PlanItem plan) throws NoSuchPlanAttributeFilterException, SystemException {
-		    if (planFilterOperatorType == null) {
+		    _log.debug("Checking attribute "+this.name()+"in plan "+plan.getName());
+            if (planFilterOperatorType == null) {
 		        return true;
 		    }
 		    try {
