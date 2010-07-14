@@ -115,16 +115,21 @@ public class PangaeaConnection {
      */
     public static void main(String[] args) throws VensimException {
 
+
     	long before = System.currentTimeMillis();
         String libName = System.getProperty(DLL_LIBNAME_PARAM);
         String modelPath = System.getProperty(MODEL_PATH_PARAM);
 
         if (libName == null) {libName = "vendll32";}
-	if (modelPath == null) {modelPath = "/home/janusz/workdir/liferay/vensim/vensim_jni/clearn.vmf";}
+	    if (modelPath == null) {modelPath = "/home/janusz/workdir/liferay/vensim/vensim_jni/clearn.vmf";}
 
         System.setProperty(DLL_LIBNAME_PARAM, libName);
         System.setProperty(MODEL_PATH_PARAM, modelPath);
-        
+
+        if (args.length > 0 && args[0].equals("info")) {
+          new VensimHelper(libName,modelPath).getVensimInfo();  
+        } else {
+
         File f = new File(".");
         System.out.println(f.getAbsolutePath());
         
@@ -144,7 +149,7 @@ public class PangaeaConnection {
             System.out.println("]");
         }
         
-            	
+        }
     	System.out.println("Execution time: " + (System.currentTimeMillis() - before));
     }
     
