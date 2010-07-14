@@ -19,10 +19,9 @@ public class SimulationResults {
         CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions", 1),
         RADIATIVE_FORCING("Total Radiative Forcing","RadiativeForcing","Radiative Forcing[\"Deterministic\"]",1),
         CO2_RADIATIVE_FORCING("CO2 Radiative Forcing","CO2RadiativeForcing","CO2 Radiative Forcing[\"2C\"]",1),
-        DEVELOPED_COUNTRIES_FF_EQ_EMISSIONS("Developed countries fossil fuel emissions (CO2eq)","DevelopedFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
-        DEVELOPINGA_COUNTRIES_FF_EQ_EMISSIONS("Developing A countries fossil fuel emissions (CO2eq)","DevelopingAFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developing A Countries]", DEFAULT_FF_DIVISOR),
-        DEVELOPINGB_COUNTRIES_FF_EQ_EMISSIONS("Developing B countries fossil fuel emissions (CO2eq)","DevelopingBFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developing B Countries]", DEFAULT_FF_DIVISOR),
-        TEST_CH4("Testing CH4, OECDUS","CO2eq emissions US","CO2eq emissions from CH4[OECD US]",DEFAULT_FF_DIVISOR),       
+        GLOBAL_CH4_EMISSIONS_CO2E("Global CO2e emissions from CH4","GlobalCH4EmissionsCO2e", "Global CO2eq emissions from CH4", 1),
+        GLOBAL_N2O_EMISSIONS_CO2E("Global CO2e emissions from N2O","GlobalCH4EmissionsN2O", "Global CO2eq emissions from N2O", 1),
+        GLOBAL_FF_EMISSIONS_CO2E("Global CO2e FF emissions","GlobalCO2FFEmissions", "Global CO2 FF emissions", 1),
         YEAR("Year","Year", "Time", 1),
 		;
 		/*
