@@ -127,7 +127,7 @@ public class PangaeaConnection {
         System.setProperty(MODEL_PATH_PARAM, modelPath);
 
         if (args.length > 0 && args[0].equals("info")) {
-          new VensimHelper(libName,modelPath).getVensimInfo();  
+          System.out.println(new VensimHelper(libName,modelPath).getVensimInfo());  
         } else {
 
         File f = new File(".");
