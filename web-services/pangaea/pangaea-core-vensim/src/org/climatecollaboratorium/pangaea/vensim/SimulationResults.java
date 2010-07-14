@@ -22,7 +22,7 @@ public class SimulationResults {
         DEVELOPED_COUNTRIES_FF_EQ_EMISSIONS("Developed countries fossil fuel emissions (CO2eq)","DevelopedFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
         DEVELOPINGA_COUNTRIES_FF_EQ_EMISSIONS("Developing A countries fossil fuel emissions (CO2eq)","DevelopingAFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developing A Countries]", DEFAULT_FF_DIVISOR),
         DEVELOPINGB_COUNTRIES_FF_EQ_EMISSIONS("Developing B countries fossil fuel emissions (CO2eq)","DevelopingBFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developing B Countries]", DEFAULT_FF_DIVISOR),
-                
+        TEST_CH4("Testing CH4, OECDUS","CO2eq emissions US","CO2eq emissions from CH4[OECD US]",DEFAULT_FF_DIVISOR),       
         YEAR("Year","Year", "Time", 1),
 		;
 		/*
