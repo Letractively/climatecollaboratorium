@@ -132,7 +132,7 @@ public class PangaeaConnection {
 
         if (args.length > 0 && args[0].equals("info")) {
             System.out.println(new VensimHelper(libName, modelPath).getVensimInfo());
-        } else if (args[0].equals("vars")) {
+        } else if (args.length > 0 && args[0].equals("vars")) {
             VensimHelper helper = new VensimHelper(libName, modelPath);
             String[] vars = helper.getVariables();
             for (String var : vars) {
