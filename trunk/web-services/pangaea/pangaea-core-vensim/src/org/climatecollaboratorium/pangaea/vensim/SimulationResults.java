@@ -18,14 +18,19 @@ public class SimulationResults {
         BAU_TEMP_CHANGE("Expected BAU Temperature Change","ExpectedBAUTempChange", "BAU temperature change from preindustrial", 1),
         CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions", 1),
         RADIATIVE_FORCING("Total Radiative Forcing","RadiativeForcing","Radiative Forcing[\"Deterministic\"]",1),
+        CO2_RADIATIVE_FORCING("CO2 Radiative Forcing","CO2RadiativeForcing","CO2 Radiative Forcing[\"2C\"]",1),
+        DEVELOPED_COUNTRIES_FF_EQ_EMISSIONS("Developed countries fossil fuel emissions (CO2eq)","DevelopedFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
+        DEVELOPINGA_COUNTRIES_FF_EQ_EMISSIONS("Developing A countries fossil fuel emissions (CO2eq)","DevelopingAFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developing A Countries]", DEFAULT_FF_DIVISOR),
+        DEVELOPINGB_COUNTRIES_FF_EQ_EMISSIONS("Developing B countries fossil fuel emissions (CO2eq)","DevelopingBFossilFuelEmissionsCO2e", "Aggregated CO2eq emissions[Developing B Countries]", DEFAULT_FF_DIVISOR),
+                
         YEAR("Year","Year", "Time", 1),
-	DEVELOPED_COUNTRIES_FF_EQ_EMISSIONS("Developed countries fossil fuel emissions (CO2eq)","DevelopedFossilFuelEmissions", "Aggregated CO2eq emissions[Developed Countries]", DEFAULT_FF_DIVISOR);
+		;
 		/*
 		
 		CO2_TARGET("CO2 Target","CO2Target"), 
 		YEAR("Year","Year");
 		*/
-
+;
 		String name;
 		String internalName;
 		String vensimName;
