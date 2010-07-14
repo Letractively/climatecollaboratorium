@@ -509,11 +509,12 @@ function hidePositionsOnIndexPageDialog(positionsContainerId) {
 function makeNANotesVisible() {
 	    jQuery(".plansTable td .errors").each(function() {
 	        var text = jQuery.trim(jQuery(this).text());
-	        if (text.length != 0) {
+	        if (text.length != 0 && !jQuery(this).hasClass('errorsSetUp')) {
 	            jQuery(this).parent().append('<img class="note" src="/plans-portlet/img/warning_icon16x16.png" />');
+	            jQuery(this).addClass('errorsSetUp');
 	        }
 	    });
-	    
+	    jQuery(".plansTable td .note").unbind('hover');
 	    jQuery(".plansTable td .note").hover(function() {
 	        jQuery(this).parent().addClass("note-hover");
 	        var errors = jQuery(this).parent().find(".errors");
@@ -530,6 +531,7 @@ function makeNANotesVisible() {
 	                }, 200);
 	        }
 	    );
+	    jQuery(".plansTable td .popup-info-box").unbind('hover');
 	    jQuery(".plansTable td .popup-info-box").hover(function() {
 	        jQuery(this).parent().addClass("popup-hover");
 	        var errors = jQuery(this).parent().find(".errors");

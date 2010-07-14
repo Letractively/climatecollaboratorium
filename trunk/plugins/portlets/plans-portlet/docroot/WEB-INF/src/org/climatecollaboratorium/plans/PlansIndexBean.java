@@ -55,6 +55,7 @@ public class PlansIndexBean {
     private Long userVote;
 
     private boolean findUserVote;
+    private boolean updateErrorNotes;
     
 
     private List<PlanItem> notFilteredPlans;
@@ -95,6 +96,7 @@ public class PlansIndexBean {
             for(PlanItem plan: PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), planType, notFilteredPlans)) {
                 plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
             }
+            updateErrorNotes = true;
         }
         return plans;
     }
@@ -307,6 +309,15 @@ public class PlansIndexBean {
             }
         }
         return false; 
+    }
+
+    public boolean isUpdateErrorNotes() {
+        System.out.println("******************: " + updateErrorNotes);
+        if (updateErrorNotes) {
+            updateErrorNotes = false;
+            return true;
+        }
+        return updateErrorNotes;
     }
 
 }

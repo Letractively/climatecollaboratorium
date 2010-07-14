@@ -119,10 +119,13 @@
                         <ice:commandLink actionListener="#{singlePlan.vote}" onclick="if(! deferUntilLogin()) return false; " styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} "></ice:commandLink>
                     </ice:column>
                 </ice:dataTable>
+                <ice:panelGroup styleClass="hidden">
+                    #{plansIndexBean.plans}
                 <script language="javascript">
-                jQuery(document).ready(initializeColumnsInfo);
-                jQuery(document).ready(makeNANotesVisible);
-                </script>
+                        initializeColumnsInfo();
+                        makeNANotesVisible();
+                    </script>
+                </ice:panelGroup>
                 
         <div class="pageBottom">
         
