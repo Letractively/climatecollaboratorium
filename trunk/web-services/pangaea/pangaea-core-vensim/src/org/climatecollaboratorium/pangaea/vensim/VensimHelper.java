@@ -170,7 +170,7 @@ public class VensimHelper {
         log.debug("Looking for value of variable " + name);
         int ret = Vensim.CGetData(ctxId, V_RUNNAME, name, "", varVal, timeVal, maxVal);
         if (ret == 0) {
-            log.debug("Variable " + name + " wasn't found");
+            log.debug("VensimVariable " + name + " wasn't found");
             return new float[0]; 
         }
         log.debug("Found " + ret + " values for variable " + name);
