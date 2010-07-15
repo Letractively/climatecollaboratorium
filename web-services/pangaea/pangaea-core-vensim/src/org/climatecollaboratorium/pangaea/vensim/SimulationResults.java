@@ -7,8 +7,9 @@ public class SimulationResults {
     
     private static float DEFAULT_FF_DIVISOR = 3.66F;
 
+    private static float CUMULATIVE_EMISSIONS_2005 = 40.548074f;
 
-	public enum Variable {
+	public enum Variable implements VensimVariable {
 		DEVELOPED_COUNTRIES_FF_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2 FF emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
 		DEVELOPINGA_COUNTRIES_FF_EMISSIONS("Developing A countries fossil fuel emissions","DevelopingAFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing A Countries]", DEFAULT_FF_DIVISOR),
         DEVELOPINGB_COUNTRIES_FF_EMISSIONS("Developing B fossel fuel emissions","DevelopingBFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing B Countries]", DEFAULT_FF_DIVISOR),
@@ -42,7 +43,8 @@ public class SimulationResults {
 			this.divisor = divisor;
 		}
 
-		public String getInternalName() {
+		@Override
+        public String getInternalName() {
 			return internalName;
 		}
 
@@ -53,7 +55,51 @@ public class SimulationResults {
 
 	}
 
-	private Map<Variable, List<ScalarElement>> data = new HashMap<Variable, List<ScalarElement>>();
+    public static interface F {
+        public float[] process(Map<VensimVariable,float[]> vars, VensimVariable... toprocess);
+    }
+
+    public enum CompositeVariable {
+
+        CUMULATIVE_EMISSIONS_N2O_CH4_CO2("Cumulative emissions (CO2, N2O, CH4) rel. to 2005","CumulativeEmissions",new
+                VensimVariable[]{Variable.GLOBAL_CH4_EMISSIONS_CO2E,
+                           Variable.GLOBAL_N2O_EMISSIONS_CO2E,
+                           Variable.GLOBAL_FF_EMISSIONS_CO2E}, new F() {
+            public float[] process(Map<VensimVariable,float[]> vars, VensimVariable... toprocess) {
+                float[] result = new float[vars.size()];
+                int idx = 0;
+                while (idx<vars.get(toprocess).length) {
+                    for (VensimVariable v:toprocess) {
+                        result[idx]+=vars.get(v)[idx];
+                    }
+                    result[idx]= 1.0f- result[idx]/ CUMULATIVE_EMISSIONS_2005;
+                    idx++;
+                }
+                return result;
+            }
+        });
+
+        String name;
+		String internalName;
+
+        CompositeVariable(String name,String internalName, VensimVariable[] vars, F function) {
+            this.name = name;
+            this.internalName = internalName;
+        }
+
+        public String getInternalName() {
+			return internalName;
+		}
+
+
+		public String toString() {
+			return name;
+		}
+
+
+    }
+
+	private Map<VensimVariable, List<ScalarElement>> data = new HashMap<VensimVariable, List<ScalarElement>>();
 
 	private List<ScalarElement> getCollection(Variable v) {
 		if (!data.containsKey(v)) {
@@ -74,11 +120,11 @@ public class SimulationResults {
 			idx.add(new ScalarElement(min));
 			min += inc;
 		}
-		//data.put(Variable.YEAR, idx);
+		//data.put(VensimVariable.YEAR, idx);
 
 	}
 
-	// public void updateIndices(Variable v, int min, int max) {
+	// public void updateIndices(VensimVariable v, int min, int max) {
 	// List<IndexedElement> elts = getCollection(v);
 	//
 	// int inc = (max - min) / (elts.size() - 1);
@@ -89,7 +135,7 @@ public class SimulationResults {
 	// }
 	// }
 	//
-	// public void updateIndices(Variable v, float min, float max) {
+	// public void updateIndices(VensimVariable v, float min, float max) {
 	// List<IndexedElement> elts = getCollection(v);
 	// float inc = (max - min) / (float) elts.size();
 	// for (IndexedElement elt : elts) {
@@ -116,17 +162,17 @@ public class SimulationResults {
 
 
 
-	public List<ScalarElement> get(Variable v) {
+	public List<ScalarElement> get(VensimVariable v) {
 		return data.get(v);
 	}
 
-	public Set<Variable> getPopulatedVariables() {
+	public Set<VensimVariable> getPopulatedVariables() {
 		return data.keySet();
 	}
 
 	public String toString() {
 		String result = "";
-		for (Variable v : data.keySet()) {
+		for (VensimVariable v : data.keySet()) {
 			result += v + ":" + data.get(v) + "\n";
 		}
 		return result;
