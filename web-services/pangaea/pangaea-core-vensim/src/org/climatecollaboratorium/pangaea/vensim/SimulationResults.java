@@ -23,7 +23,7 @@ public class SimulationResults {
         RADIATIVE_FORCING("Total Radiative Forcing","RadiativeForcing","Radiative Forcing[\"Deterministic\"]"),
         CO2_RADIATIVE_FORCING("CO2 Radiative Forcing","CO2RadiativeForcing","CO2 Radiative Forcing[\"2C\"]"),
         GLOBAL_CH4_EMISSIONS_CO2E("Global CO2e emissions from CH4","GlobalCH4EmissionsCO2e", "Global CO2eq emissions from CH4"),
-        GLOBAL_N2O_EMISSIONS_CO2E("Global CO2e emissions from N2O","GlobalCH4EmissionsN2O", "Global CO2eq emissions from N2O"),
+        GLOBAL_N2O_EMISSIONS_CO2E("Global CO2e emissions from N2O","GlobalN2OEmissionsCO2e", "Global CO2eq emissions from N2O"),
         GLOBAL_FF_EMISSIONS_CO2E("Global CO2e FF emissions","GlobalCO2FFEmissions", "Global CO2 FF emissions"),
         YEAR("Year","Year", "Time"),
 		;
@@ -90,7 +90,7 @@ public class SimulationResults {
 
     public enum CompositeVariable implements Variable {
 
-        CUMULATIVE_EMISSIONS_N2O_CH4_CO2("Cumulative emissions (CO2, N2O, CH4) rel. to 2005","CumulativeEmissions",new
+        CUMULATIVE_EMISSIONS_N2O_CH4_CO2("Cumulative emissions (CO2+N2O+CH4) rel. to 2005","CumulativeEmissionsRel2005",new
                 Variable[]{VensimVariable.GLOBAL_CH4_EMISSIONS_CO2E,
                            VensimVariable.GLOBAL_N2O_EMISSIONS_CO2E,
                            VensimVariable.GLOBAL_FF_EMISSIONS_CO2E}, new F() {
