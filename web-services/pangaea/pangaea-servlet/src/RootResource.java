@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -7,21 +6,19 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 
 
 import org.climatecollaboratorium.pangaea.vensim.PangaeaConnection;
 import org.climatecollaboratorium.pangaea.vensim.SimulationResults.ScalarElement;
 import org.climatecollaboratorium.pangaea.vensim.SimulationInput;
 import org.climatecollaboratorium.pangaea.vensim.SimulationResults;
-import org.climatecollaboratorium.pangaea.vensim.SimulationResults.Variable;
 import org.apache.log4j.Logger;
+import org.climatecollaboratorium.pangaea.vensim.Variable;
 
 
 @Path("/")
 @Produces("text/plain")
-public class RootResource {
+public class  RootResource {
 
 	public static Logger log = Logger.getLogger(RootResource.class);
 
@@ -44,19 +41,19 @@ public class RootResource {
 			@FormParam("Goal for CO2 in the atmosphere") Double co2inAtm) {
 
 		SimulationInput input = new SimulationInput();
-		input.setVariable(SimulationInput.Variable.DEVELOPED_FF_CHANGE, devdchange*100.0d);
-		input.setVariable(SimulationInput.Variable.DEVELOPINGA_FF_CHANGE, devingchange*100.0d);
-		input.setVariable(SimulationInput.Variable.DEVELOPINGB_FF_CHANGE,nonchange*100.0d);
-		input.setVariable(SimulationInput.Variable.DEFORESTATION, landUseChange);
-		input.setVariable(SimulationInput.Variable.AFFORESTATION,targSequestration);
-		input.setVariable(SimulationInput.Variable.DEVELOPED_FF_START,devdStart);
-		input.setVariable(SimulationInput.Variable.DEVELOPED_FF_TARGET,devdTarget);
-		input.setVariable(SimulationInput.Variable.DEVELOPINGA_FF_START,devingAStart);
-		input.setVariable(SimulationInput.Variable.DEVELOPINGA_FF_TARGET,devingATarget);
-		input.setVariable(SimulationInput.Variable.DEVELOPINGB_FF_START,devingBStart);
-		input.setVariable(SimulationInput.Variable.DEVELOPINGB_FF_TARGET,devingBTarget);
-		//input.setVariable(SimulationInput.Variable.AFFORESTATION,targSequestration);
-		//input.setVariable(SimulationInput.Variable.C, co2inAtm);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPED_FF_CHANGE, devdchange*100.0d);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPINGA_FF_CHANGE, devingchange*100.0d);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPINGB_FF_CHANGE,nonchange*100.0d);
+		input.setVariable(SimulationInput.InputVariable.DEFORESTATION, landUseChange);
+		input.setVariable(SimulationInput.InputVariable.AFFORESTATION,targSequestration);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPED_FF_START,devdStart);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPED_FF_TARGET,devdTarget);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPINGA_FF_START,devingAStart);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPINGA_FF_TARGET,devingATarget);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPINGB_FF_START,devingBStart);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPINGB_FF_TARGET,devingBTarget);
+		//input.setVariable(SimulationInput.VensimVariable.AFFORESTATION,targSequestration);
+		//input.setVariable(SimulationInput.VensimVariable.C, co2inAtm);
 
 		PangaeaConnection connection = new PangaeaConnection();
 		SimulationResults result = connection.submit(input);
