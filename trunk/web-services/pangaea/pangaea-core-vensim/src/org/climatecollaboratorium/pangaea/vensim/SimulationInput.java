@@ -6,9 +6,9 @@ import java.util.Map;
 public class SimulationInput {
 
 
-	private static final Map<String,Variable> nameVarMap = new HashMap<String,Variable>();
+	private static final Map<String, InputVariable> nameVarMap = new HashMap<String, InputVariable>();
 
-	public enum Variable {
+	public enum InputVariable {
 
 		DEVELOPED_FF_CHANGE("Developed countries fossil fuel emissions","Pct change in Developed FF emissions",234),
 		DEVELOPED_FF_START("Developed countries fossil fuel emissions start reduction year","Developed start year",2012),
@@ -37,7 +37,7 @@ public class SimulationInput {
 		Number defvalue;
 
 
-		private Variable(String name, String internalName, Number val) {
+		private InputVariable(String name, String internalName, Number val) {
 			this.name = name;
 			this.internalName = internalName;
 			this.defvalue = val;
@@ -59,24 +59,24 @@ public class SimulationInput {
 	}
 
 
-	private Map<Variable,Number> data = new HashMap<Variable,Number>();
+	private Map<InputVariable,Number> data = new HashMap<InputVariable,Number>();
 
 	public SimulationInput() {
-		for (Variable v:Variable.values()) {
+		for (InputVariable v: InputVariable.values()) {
 			setVariable(v,null);
 		}
 	}
 
 
-	public void setVariable(Variable v, Number val) {
+	public void setVariable(InputVariable v, Number val) {
 		data.put(v, val);
 	}
 
-	public Number getValue(Variable v) {
+	public Number getValue(InputVariable v) {
 		return data.get(v)==null?v.defvalue:data.get(v);
 	}
 
-	public Map<Variable,Number> getAllVariables() {
+	public Map<InputVariable,Number> getAllVariables() {
 		return data;
 	}
 

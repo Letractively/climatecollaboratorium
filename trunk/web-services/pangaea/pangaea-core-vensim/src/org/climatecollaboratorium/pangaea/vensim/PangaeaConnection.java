@@ -1,7 +1,6 @@
 package org.climatecollaboratorium.pangaea.vensim;
 
 import org.apache.log4j.Logger;
-import org.climatecollaboratorium.pangaea.vensim.SimulationInput.Variable;
 import org.climatecollaboratorium.pangaea.vensim.SimulationResults.ScalarElement;
 
 import java.io.File;
@@ -74,7 +73,7 @@ public class PangaeaConnection {
     public SimulationResults submit(SimulationInput input) {
         SimulationResults result = new SimulationResults();
         try {
-            for (Variable var : input.getAllVariables().keySet()) {
+            for (SimulationInput.InputVariable var : input.getAllVariables().keySet()) {
                 System.out.println(var.internalName + " " + input.getValue(var));
                 System.out.println("vensim helper: " + vensimHelper);
                 vensimHelper.setVariable(var.internalName, input.getValue(var).floatValue());
@@ -91,10 +90,11 @@ public class PangaeaConnection {
             vensimHelper.run();
 
             log.debug("Retrieving results");
-            for (org.climatecollaboratorium.pangaea.vensim.Variable v : SimulationResults.variables) {
+            for (Variable v : SimulationResults.variables) {
                 if (v instanceof SimulationResults.VensimVariable) {
                     SimulationResults.VensimVariable vv = (SimulationResults.VensimVariable)v;
                     float[] val = vensimHelper.getVariable(vv.vensimName);
+                    System.out.println("Adding data points for "+v);
                     result.addDataPoints(v, val);
 
                     log.debug(printArray(vv.vensimName, val));
@@ -153,9 +153,9 @@ public class PangaeaConnection {
             System.out.println("Retrieving results");
             SimulationResults results = conn.submit(new SimulationInput());
 
-            for (SimulationResults.VensimVariable v : SimulationResults.VensimVariable.values()) {
+            for (org.climatecollaboratorium.pangaea.vensim.Variable v : SimulationResults.variables) {
                 List<ScalarElement> values = results.get(v);
-                System.out.print(v.internalName + ": [");
+                System.out.print(v.getInternalName() + ": [");
                 if (values != null) {
                     for (ScalarElement val : values) {
                         System.out.print(val + ", ");
