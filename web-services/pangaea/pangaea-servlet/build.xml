@@ -3,7 +3,7 @@
     Simple pangaea servlet build
   </description>
   <!-- set global properties for this build -->
-  <property name="CATALINA_HOME" location="../../bundles/tomcat-6.0.18/" />
+  <property name="CATALINA_HOME" location="../../apache-tomcat-6.0.26" />
   <property name="webapp" value="${CATALINA_HOME}/webapps8080/${ant.project.name}" />
   <property name="src" location="src" />
   <property name="build" location="build" />
