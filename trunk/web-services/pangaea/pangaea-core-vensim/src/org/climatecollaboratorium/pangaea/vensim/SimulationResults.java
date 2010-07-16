@@ -101,7 +101,7 @@ public class SimulationResults {
                     for (Variable v:toprocess) {
                         result[idx]+=(Float)vars.get(v).get(idx).val;
                     }
-                    result[idx]= 1.0f- result[idx]/ CUMULATIVE_EMISSIONS_2005;
+                    result[idx]= (result[idx]-CUMULATIVE_EMISSIONS_2005)/ CUMULATIVE_EMISSIONS_2005;
                     idx++;
                 }
                 return result;
