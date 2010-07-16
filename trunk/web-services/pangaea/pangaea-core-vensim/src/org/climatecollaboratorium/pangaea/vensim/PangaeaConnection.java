@@ -91,11 +91,16 @@ public class PangaeaConnection {
             vensimHelper.run();
 
             log.debug("Retrieving results");
-            for (SimulationResults.Variable v : SimulationResults.Variable.values()) {
-                float[] val = vensimHelper.getVariable(v.vensimName);
-                result.addDataPoints(v, val);
+            for (org.climatecollaboratorium.pangaea.vensim.Variable v : SimulationResults.variables) {
+                if (v instanceof SimulationResults.VensimVariable) {
+                    SimulationResults.VensimVariable vv = (SimulationResults.VensimVariable)v;
+                    float[] val = vensimHelper.getVariable(vv.vensimName);
+                    result.addDataPoints(v, val);
 
-                log.debug(printArray(v.vensimName, val));
+                    log.debug(printArray(vv.vensimName, val));
+                } else {
+                    result.addDataPoints(v,((SimulationResults.CompositeVariable)v).process(result));
+                }
             }
             vensimHelper.end();
         } catch (VensimException e) {
@@ -148,7 +153,7 @@ public class PangaeaConnection {
             System.out.println("Retrieving results");
             SimulationResults results = conn.submit(new SimulationInput());
 
-            for (SimulationResults.Variable v : SimulationResults.Variable.values()) {
+            for (SimulationResults.VensimVariable v : SimulationResults.VensimVariable.values()) {
                 List<ScalarElement> values = results.get(v);
                 System.out.print(v.internalName + ": [");
                 if (values != null) {

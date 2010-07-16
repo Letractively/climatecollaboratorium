@@ -9,21 +9,23 @@ public class SimulationResults {
 
     private static float CUMULATIVE_EMISSIONS_2005 = 40.548074f;
 
-	public enum Variable implements VensimVariable {
-		DEVELOPED_COUNTRIES_FF_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2 FF emissions[Developed Countries]", DEFAULT_FF_DIVISOR),
-		DEVELOPINGA_COUNTRIES_FF_EMISSIONS("Developing A countries fossil fuel emissions","DevelopingAFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing A Countries]", DEFAULT_FF_DIVISOR),
-        DEVELOPINGB_COUNTRIES_FF_EMISSIONS("Developing B fossel fuel emissions","DevelopingBFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing B Countries]", DEFAULT_FF_DIVISOR),
-        CO2_CONCENTRATION("CO2 Concentration","AtmosphericCO2Concentration", "Atm conc CO2[\"2C\"]", 1),  
-        TEMP_CHANGE("Expected temperature change","GlobalTempChange", "Temperature change from preindustrial[\"2C\"]", 1),
-        BAU_CO2_CONCENTRATION("BAU CO2 Concentration","BAUCO2Concentration", "BAU atm conc CO2", 1),
-        BAU_TEMP_CHANGE("Expected BAU Temperature Change","ExpectedBAUTempChange", "BAU temperature change from preindustrial", 1),
-        CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions", 1),
-        RADIATIVE_FORCING("Total Radiative Forcing","RadiativeForcing","Radiative Forcing[\"Deterministic\"]",1),
-        CO2_RADIATIVE_FORCING("CO2 Radiative Forcing","CO2RadiativeForcing","CO2 Radiative Forcing[\"2C\"]",1),
-        GLOBAL_CH4_EMISSIONS_CO2E("Global CO2e emissions from CH4","GlobalCH4EmissionsCO2e", "Global CO2eq emissions from CH4", 1),
-        GLOBAL_N2O_EMISSIONS_CO2E("Global CO2e emissions from N2O","GlobalCH4EmissionsN2O", "Global CO2eq emissions from N2O", 1),
-        GLOBAL_FF_EMISSIONS_CO2E("Global CO2e FF emissions","GlobalCO2FFEmissions", "Global CO2 FF emissions", 1),
-        YEAR("Year","Year", "Time", 1),
+    public static List<Variable> variables = new ArrayList();
+
+	public enum VensimVariable implements Variable {
+		DEVELOPED_COUNTRIES_FF_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2 FF emissions[Developed Countries]", new Divider(DEFAULT_FF_DIVISOR)),
+		DEVELOPINGA_COUNTRIES_FF_EMISSIONS("Developing A countries fossil fuel emissions","DevelopingAFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing A Countries]", new Divider(DEFAULT_FF_DIVISOR)),
+        DEVELOPINGB_COUNTRIES_FF_EMISSIONS("Developing B fossel fuel emissions","DevelopingBFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing B Countries]", new Divider(DEFAULT_FF_DIVISOR)),
+        CO2_CONCENTRATION("CO2 Concentration","AtmosphericCO2Concentration", "Atm conc CO2[\"2C\"]"),
+        TEMP_CHANGE("Expected temperature change","GlobalTempChange", "Temperature change from preindustrial[\"2C\"]"),
+        BAU_CO2_CONCENTRATION("BAU CO2 Concentration","BAUCO2Concentration", "BAU atm conc CO2"),
+        BAU_TEMP_CHANGE("Expected BAU Temperature Change","ExpectedBAUTempChange", "BAU temperature change from preindustrial"),
+        CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions"),
+        RADIATIVE_FORCING("Total Radiative Forcing","RadiativeForcing","Radiative Forcing[\"Deterministic\"]"),
+        CO2_RADIATIVE_FORCING("CO2 Radiative Forcing","CO2RadiativeForcing","CO2 Radiative Forcing[\"2C\"]"),
+        GLOBAL_CH4_EMISSIONS_CO2E("Global CO2e emissions from CH4","GlobalCH4EmissionsCO2e", "Global CO2eq emissions from CH4"),
+        GLOBAL_N2O_EMISSIONS_CO2E("Global CO2e emissions from N2O","GlobalCH4EmissionsN2O", "Global CO2eq emissions from N2O"),
+        GLOBAL_FF_EMISSIONS_CO2E("Global CO2e FF emissions","GlobalCO2FFEmissions", "Global CO2 FF emissions"),
+        YEAR("Year","Year", "Time"),
 		;
 		/*
 		
@@ -34,14 +36,24 @@ public class SimulationResults {
 		String name;
 		String internalName;
 		String vensimName;
-		float divisor;
+		G processor;
 
-		private Variable(String name,String internalName, String vensimName, float divisor) {
+		private VensimVariable(String name,String internalName, String vensimName) {
 			this.name = name;
 			this.internalName = internalName;
 			this.vensimName = vensimName;
-			this.divisor = divisor;
+
+            variables.add(this);
 		}
+
+        private VensimVariable(String name,String internalName, String vensimName, G processor) {
+            this(name,internalName,vensimName);
+            this.processor = processor;
+        }
+
+        public float modify(float input) {
+           return processor==null?input:processor.process(input);
+        }
 
 		@Override
         public String getInternalName() {
@@ -56,40 +68,73 @@ public class SimulationResults {
 	}
 
     public static interface F {
-        public float[] process(Map<VensimVariable,float[]> vars, VensimVariable... toprocess);
+        public float[] process(SimulationResults vars, Variable... toprocess);
     }
 
-    public enum CompositeVariable {
+    public static interface G {
+        public float process(float f);
+    }
+
+    public static class Divider implements G {
+
+        float denominator;
+
+        public Divider(float denominator) {
+          this.denominator=denominator;
+        }
+
+        public float process(float f) {
+            return f/denominator;
+        }
+    }
+
+
+    public enum CompositeVariable implements Variable {
 
         CUMULATIVE_EMISSIONS_N2O_CH4_CO2("Cumulative emissions (CO2, N2O, CH4) rel. to 2005","CumulativeEmissions",new
-                VensimVariable[]{Variable.GLOBAL_CH4_EMISSIONS_CO2E,
-                           Variable.GLOBAL_N2O_EMISSIONS_CO2E,
-                           Variable.GLOBAL_FF_EMISSIONS_CO2E}, new F() {
-            public float[] process(Map<VensimVariable,float[]> vars, VensimVariable... toprocess) {
-                float[] result = new float[vars.size()];
+                Variable[]{VensimVariable.GLOBAL_CH4_EMISSIONS_CO2E,
+                           VensimVariable.GLOBAL_N2O_EMISSIONS_CO2E,
+                           VensimVariable.GLOBAL_FF_EMISSIONS_CO2E}, new F() {
+            public float[] process(SimulationResults vars, Variable... toprocess) {
+                float[] result = new float[vars.get(toprocess[0]).size()];
                 int idx = 0;
-                while (idx<vars.get(toprocess).length) {
-                    for (VensimVariable v:toprocess) {
-                        result[idx]+=vars.get(v)[idx];
+                while (idx<result.length) {
+                    for (Variable v:toprocess) {
+                        result[idx]+=(Float)vars.get(v).get(idx).val;
                     }
                     result[idx]= 1.0f- result[idx]/ CUMULATIVE_EMISSIONS_2005;
                     idx++;
                 }
                 return result;
             }
+
+
         });
 
         String name;
 		String internalName;
+        Variable[] vars;
+        F function;
 
-        CompositeVariable(String name,String internalName, VensimVariable[] vars, F function) {
+        CompositeVariable(String name,String internalName, Variable[] vars, F function) {
             this.name = name;
             this.internalName = internalName;
+            this.vars = vars;
+            this.function = function;
+             variables.add(this);
         }
 
         public String getInternalName() {
 			return internalName;
 		}
+
+         public float modify(float v) {
+                return v;
+            }
+
+        public float[] process(SimulationResults map) {
+            return function.process(map,vars);
+        }
 
 
 		public String toString() {
@@ -99,7 +144,7 @@ public class SimulationResults {
 
     }
 
-	private Map<VensimVariable, List<ScalarElement>> data = new HashMap<VensimVariable, List<ScalarElement>>();
+	private Map<Variable, List<ScalarElement>> data = new HashMap<Variable, List<ScalarElement>>();
 
 	private List<ScalarElement> getCollection(Variable v) {
 		if (!data.containsKey(v)) {
@@ -124,31 +169,13 @@ public class SimulationResults {
 
 	}
 
-	// public void updateIndices(VensimVariable v, int min, int max) {
-	// List<IndexedElement> elts = getCollection(v);
-	//
-	// int inc = (max - min) / (elts.size() - 1);
-	// log.debug("Num elements = " + elts.size());
-	// for (IndexedElement elt : elts) {
-	// elt.idx = min;
-	// min += inc;
-	// }
-	// }
-	//
-	// public void updateIndices(VensimVariable v, float min, float max) {
-	// List<IndexedElement> elts = getCollection(v);
-	// float inc = (max - min) / (float) elts.size();
-	// for (IndexedElement elt : elts) {
-	// elt.idx = min;
-	// min += inc;
-	// }
-	// }
+	
 
 	public void addDataPoints(Variable variable,String[] vals) {
 		int idx = 0;
 
 			for (String v:vals) {
-				getCollection(variable).add(new ScalarElement(Float.parseFloat(v)/variable.divisor));
+				getCollection(variable).add(new ScalarElement(variable.modify(Float.parseFloat(v))));
 			}
 		}
 	
@@ -156,23 +183,23 @@ public class SimulationResults {
 	        int idx = 0;
 
 	            for (float v:vals) {
-	                getCollection(variable).add(new ScalarElement(v/variable.divisor));
+	                getCollection(variable).add(new ScalarElement(variable.modify(v)));
 	            }
 	        }
 
 
 
-	public List<ScalarElement> get(VensimVariable v) {
+	public List<ScalarElement> get(Variable v) {
 		return data.get(v);
 	}
 
-	public Set<VensimVariable> getPopulatedVariables() {
+	public Set<Variable> getPopulatedVariables() {
 		return data.keySet();
 	}
 
 	public String toString() {
 		String result = "";
-		for (VensimVariable v : data.keySet()) {
+		for (Variable v : data.keySet()) {
 			result += v + ":" + data.get(v) + "\n";
 		}
 		return result;
