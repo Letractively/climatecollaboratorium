@@ -9,7 +9,7 @@ public class SimulationResults {
 
     private static float CUMULATIVE_EMISSIONS_2005 = 40.548074f;
 
-    public static List<Variable> variables = new ArrayList();
+    
 
 	public enum VensimVariable implements Variable {
 		DEVELOPED_COUNTRIES_FF_EMISSIONS("Developed countries fossil fuel emissions","DevelopedFossilFuelEmissions", "Aggregated CO2 FF emissions[Developed Countries]", new Divider(DEFAULT_FF_DIVISOR)),
@@ -42,8 +42,7 @@ public class SimulationResults {
 			this.name = name;
 			this.internalName = internalName;
 			this.vensimName = vensimName;
-
-            variables.add(this);
+			
 		}
 
         private VensimVariable(String name,String internalName, String vensimName, G processor) {
