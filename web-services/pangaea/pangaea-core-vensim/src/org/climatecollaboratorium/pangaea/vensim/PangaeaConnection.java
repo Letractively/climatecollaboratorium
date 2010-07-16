@@ -90,6 +90,7 @@ public class PangaeaConnection {
             vensimHelper.run();
 
             log.debug("Retrieving results");
+            System.out.println("Will get variables "+SimulationResults.variables);
             for (Variable v : SimulationResults.variables) {
                 if (v instanceof SimulationResults.VensimVariable) {
                     SimulationResults.VensimVariable vv = (SimulationResults.VensimVariable)v;
