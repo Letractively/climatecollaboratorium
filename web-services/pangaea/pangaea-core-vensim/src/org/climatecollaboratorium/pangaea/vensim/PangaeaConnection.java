@@ -53,7 +53,8 @@ public class PangaeaConnection {
         String libName = System.getProperty(DLL_LIBNAME_PARAM);
         String modelPath = System.getProperty(MODEL_PATH_PARAM);
         try {
-            System.out.println("creating new vensim helper");
+            System.out.println("creating new vensim helper with lib"+libName+" and path "+modelPath);
+
             vensimHelper = new VensimHelper(libName, modelPath);
             System.out.println("creating new vensim helper " + vensimHelper);
         }
