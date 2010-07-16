@@ -5,6 +5,8 @@ import org.climatecollaboratorium.pangaea.vensim.SimulationResults.ScalarElement
 
 import java.io.File;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -90,20 +92,19 @@ public class PangaeaConnection {
             vensimHelper.run();
 
             log.debug("Retrieving results");
-            System.out.println("Will get variables "+SimulationResults.variables);
-            for (Variable v : SimulationResults.variables) {
-                if (v instanceof SimulationResults.VensimVariable) {
-                    SimulationResults.VensimVariable vv = (SimulationResults.VensimVariable)v;
+            for (SimulationResults.VensimVariable vv : SimulationResults.VensimVariable.values()) {
                     float[] val = vensimHelper.getVariable(vv.vensimName);
-                    System.out.println("Adding data points for "+v);
-                    result.addDataPoints(v, val);
+                    System.out.println("Adding data points for "+vv);
+                    result.addDataPoints(vv, val);
 
                     log.debug(printArray(vv.vensimName, val));
-                } else {
-                    result.addDataPoints(v,((SimulationResults.CompositeVariable)v).process(result));
                 }
-            }
+
             vensimHelper.end();
+
+            for (SimulationResults.CompositeVariable cv: SimulationResults.CompositeVariable.values()) {
+                result.addDataPoints(cv,cv.process(result));
+            }
         } catch (VensimException e) {
 
             log.error("An exception was thrown when accessing Vensim", e);
@@ -153,8 +154,10 @@ public class PangaeaConnection {
 
             System.out.println("Retrieving results");
             SimulationResults results = conn.submit(new SimulationInput());
+            List<Variable> vars = new ArrayList(Arrays.asList(SimulationResults.VensimVariable.values()));
+            vars.addAll(Arrays.asList(SimulationResults.CompositeVariable.values()));
 
-            for (org.climatecollaboratorium.pangaea.vensim.Variable v : SimulationResults.variables) {
+            for (org.climatecollaboratorium.pangaea.vensim.Variable v : vars) {
                 List<ScalarElement> values = results.get(v);
                 System.out.print(v.getInternalName() + ": [");
                 if (values != null) {

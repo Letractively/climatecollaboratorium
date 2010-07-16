@@ -120,7 +120,7 @@ public class SimulationResults {
             this.internalName = internalName;
             this.vars = vars;
             this.function = function;
-             variables.add(this);
+
         }
 
         public String getInternalName() {
