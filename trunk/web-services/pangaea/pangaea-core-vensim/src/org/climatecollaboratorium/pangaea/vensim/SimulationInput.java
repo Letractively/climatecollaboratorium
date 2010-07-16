@@ -10,18 +10,18 @@ public class SimulationInput {
 
 	public enum InputVariable {
 
-		DEVELOPED_FF_CHANGE("Developed countries fossil fuel emissions","Pct change in Developed FF emissions",234),
+		DEVELOPED_FF_CHANGE("Developed countries fossil fuel emissions","Pct change in Developed FF emissions",150),
 		DEVELOPED_FF_START("Developed countries fossil fuel emissions start reduction year","Developed start year",2012),
 		DEVELOPED_FF_TARGET("Developed countries fossil fuel emissions target reduction year","Developed target year",2050),
 		DEVELOPED_REFERENCE_YEAR("Developed countries reference year", "Developed reference year", 2000),
 
 		
-		DEVELOPINGA_FF_CHANGE("Developing countries fossil fuel emissions","Pct change in Developing A FF emissions",123),
+		DEVELOPINGA_FF_CHANGE("Developing countries fossil fuel emissions","Pct change in Developing A FF emissions",150),
 		DEVELOPINGA_FF_START("Developing countries fossil fuel emissions start reduction year","Developing A start year",2012),
 		DEVELOPINGA_FF_TARGET("Developing countries fossil fuel emissions target reduction year","Developing A target year",2050),
         DEVELOPINGA_REFERENCE_YEAR("Developing A countries reference year", "Developing A reference year", 2000),
 
-		DEVELOPINGB_FF_CHANGE("Rest of the world fossel fuel emissions","Pct change in Developing B FF emissions",-86),
+		DEVELOPINGB_FF_CHANGE("Rest of the world fossel fuel emissions","Pct change in Developing B FF emissions",150),
 		DEVELOPINGB_FF_START("Rest of the world fossil fuel emissions start reduction year","Developing B start year",2012),
 		DEVELOPINGB_FF_TARGET("Rest of the world fossil fuel emissions target reduction year","Developing B target year",2050),
         DEVELOPINGB_REFERENCE_YEAR("Developing B countries reference year", "Developing B reference year", 2000),
