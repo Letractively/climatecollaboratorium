@@ -40,7 +40,7 @@ public class PlansPermissionsBean {
     }
     
     public boolean getCanAdmin() throws SystemException {
-        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN)) || getCanAdminAll() ;
+        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN)) || getPlanOwner() || getCanAdminAll() ;
     }
     
     public boolean getCanAdminAll() {
