@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+
+<script type="text/javascript">
+
+
+jQuery(document).ready(function() {
+    showSliders();
+    renderModelOutputs();
+    if (! #{navigation.embeddedCanEdit}) {
+        jQuery(".actions input").attr('disabled', 'true');
+        jQuery(".actions .slider").slider("option", "disabled", true);
+    }
+
+
+    icefacesEventManager.registerHandler("modelSaved", function() {
+        // we need to wait for frame to load fully
+        setTimeout(function() {document.saveScenarioFunction(#{simulationBean.scenario.id})}, 200);
+    });
+
+    // update frame height
+    setTimeout(function() { if (document.updateFrameHeight) document.updateFrameHeight()}, 200);
+});
+
+</script>
+    
+</f:view>

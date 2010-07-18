@@ -1,0 +1,206 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+
+
+
+
+
+<liferay-portlet:renderURL windowState="<%= WindowState.NORMAL.toString() %>"  var="configurePortlet1">
+	<portlet:param name="struts_action" value="/ext/community/portlet_prefs" />
+	<portlet:param name="<%= Constants.CMD %>"
+		value="<%= Constants.VIEW %>" />
+	<portlet:param name="<%= CommunityConstants.REDIRECT %>"
+		value="<%= currentURL %>" />
+</liferay-portlet:renderURL>
+
+<c:if test="<%canConfigure%>">
+ <a href="<%= configurePortlet1%>">configure</a>
+</c:if>
+
+<%
+PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setWindowState(WindowState.NORMAL);
+
+portletURL.setParameter("struts_action", "/ext/community/search");
+
+
+pageContext.setAttribute("portletURL", portletURL);
+
+String portletURLString = portletURL.toString();
+DateFormat dateFormat = DateFormats.getDate(locale, timeZone);
+
+request.setAttribute("view.jsp-portletURL", portletURL);
+request.setAttribute("view.jsp-portletURLString", portletURLString);
+
+%>
+<form action="<%= portletURLString %>" method="get" name="<portlet:namespace />fm" onSubmit="submitForm(this); return false;">
+<liferay-portlet:renderURLParams varImpl="portletURL" />
+<input name="<portlet:namespace /><%= Constants.CMD %>" type="hidden" value="" />
+<input name="<portlet:namespace />redirect" type="hidden" value="<%= portletURLString %>" />
+
+<%
+String viewUsersRedirect = ParamUtil.getString(request, "viewUsersRedirect");
+
+if (Validator.isNotNull(viewUsersRedirect)) {
+	portletURL.setParameter("viewUsersRedirect", viewUsersRedirect);
+}
+%>
+
+<c:if test="<%= Validator.isNotNull(viewUsersRedirect) %>">
+	<input name="<portlet:namespace />viewUsersRedirect" type="hidden" value="<%= HtmlUtil.escape(viewUsersRedirect) %>" />
+</c:if>
+
+<liferay-ui:search-container
+	searchContainer="<%= new UserSearch(renderRequest, portletURL) %>"
+>
+	<input name="<portlet:namespace />usersRedirect" type="hidden" value="<%= portletURL.toString() %>" />
+
+	<%
+	UserSearchTerms searchTerms = (UserSearchTerms)searchContainer.getSearchTerms();
+
+	long organizationId = searchTerms.getOrganizationId();
+	long userGroupId = searchTerms.getUserGroupId();
+
+	Organization organization = null;
+
+	if ((organizationId > 0)) {
+		try {
+			organization = OrganizationLocalServiceUtil.getOrganization(organizationId);
+		}
+		catch (NoSuchOrganizationException nsoe) {
+		}
+	}
+
+	UserGroup userGroup = null;
+
+	if (userGroupId > 0) {
+		try {
+			userGroup = UserGroupLocalServiceUtil.getUserGroup(userGroupId);
+		}
+		catch (NoSuchUserGroupException nsuge) {
+		}
+	}
+	%>
+
+	<c:if test="<%= organization != null %>">
+		<input name="<portlet:namespace /><%= UserDisplayTerms.ORGANIZATION_ID %>" type="hidden" value="<%= organization.getOrganizationId() %>" />
+
+		<h3><%= HtmlUtil.escape(LanguageUtil.format(pageContext, "users-of-x", organization.getName())) %></h3>
+	</c:if>
+
+	<c:if test="<%= userGroup != null %>">
+		<input name="<portlet:namespace /><%= UserDisplayTerms.USER_GROUP_ID %>" type="hidden" value="<%= userGroup.getUserGroupId() %>" />
+
+		<h3><%= LanguageUtil.format(pageContext, "users-of-x", userGroup.getName()) %></h3>
+	</c:if>
+
+	<liferay-ui:search-form
+		page="/html/portlet/directory/user_search.jsp"
+	/>
+
+
+
+		<%
+		LinkedHashMap userParams = new LinkedHashMap();
+
+		if (organizationId > 0) {
+			userParams.put("usersOrgs", new Long(organizationId));
+		}
+
+		if (userGroupId > 0) {
+			userParams.put("usersUserGroups", new Long(userGroupId));
+		}
+		%>
+
+		<liferay-ui:search-container-results>
+		     <%
+		    
+		    OrderByComparator comp = "screen-name".equals(searchContainer.getOrderByCol())?searchContainer.getOrderByComparator():new UserCreateDateComparator(!"asc".equalsIgnoreCase(searchContainer.getOrderByType()));
+		     
+if (searchTerms.isAdvancedSearch()) {
+	results = UserLocalServiceUtil.search(company.getCompanyId(), searchTerms.getFirstName(), searchTerms.getMiddleName(), searchTerms.getLastName(), searchTerms.getScreenName(), searchTerms.getEmailAddress(), searchTerms.getActive(), userParams, searchTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), comp);
+}
+else {
+	results = UserLocalServiceUtil.search(company.getCompanyId(), searchTerms.getKeywords(), searchTerms.getActive(), userParams, searchContainer.getStart(), searchContainer.getEnd(), comp);
+}
+
+if (searchTerms.isAdvancedSearch()) {
+	total = UserLocalServiceUtil.searchCount(company.getCompanyId(), searchTerms.getFirstName(), searchTerms.getMiddleName(), searchTerms.getLastName(), searchTerms.getScreenName(), searchTerms.getEmailAddress(), searchTerms.getActive(), userParams, searchTerms.isAndOperator());
+}
+else {
+	total = UserLocalServiceUtil.searchCount(company.getCompanyId(), searchTerms.getKeywords(), searchTerms.getActive(), userParams);
+}
+
+pageContext.setAttribute("results", results);
+pageContext.setAttribute("total", total);
+%>
+		
+		</liferay-ui:search-container-results>
+
+		<liferay-ui:search-container-row
+			className="com.liferay.portal.model.User"
+			escapedModel="<%= true %>"
+			keyProperty="userId"
+			modelVar="user2"
+		>
+		
+			
+		<%
+			String rowURL = "/web/guest/members?userId="+user2.getUserId();
+			
+		%>
+		
+
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="screen-name"
+			orderable="<%= true %>"
+			property="screenName"
+		/>
+		
+		<liferay-ui:search-container-column-text
+			href="<%= rowURL %>"
+			name="Member Since"
+			orderable="<%= true %>"
+		    value="<%=dateFormat.format(user2.getCreateDate())%>"
+		    orderableProperty="createDate"
+		/>
+		
+		<liferay-ui:search-container-column-text
+            href="<%= rowURL %>"
+            name="Number of Activities"
+            orderable="<%= false %>"
+            value="<%= String.valueOf(SocialActivityLocalServiceUtil.getUserActivitiesCount(user2.getUserId())) %>"
+            orderableProperty="createDate"
+        />
+		
+		
+		</liferay-ui:search-container-row>
+
+		<c:if test="<%= (organization != null) || (userGroup != null) %>">
+			<br />
+		</c:if>
+
+		<c:if test="<%= organization != null %>">
+			<input name="<portlet:namespace /><%= UserDisplayTerms.ORGANIZATION_ID %>" type="hidden" value="<%= organization.getOrganizationId() %>" />
+
+			<liferay-ui:message key="filter-by-organization" />: <%= HtmlUtil.escape(organization.getName()) %><br />
+		</c:if>
+
+		<c:if test="<%= userGroup != null %>">
+			<input name="<portlet:namespace /><%= UserDisplayTerms.USER_GROUP_ID %>" type="hidden" value="<%= userGroup.getUserGroupId() %>" />
+
+			<liferay-ui:message key="filter-by-user-group" />: <%= userGroup.getName() %><br />
+		</c:if>
+
+		<div class="separator"><!-- --></div>
+
+		<liferay-ui:search-iterator />
+
+</liferay-ui:search-container>
+</form>

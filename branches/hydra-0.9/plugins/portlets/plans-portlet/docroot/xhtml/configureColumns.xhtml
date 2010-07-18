@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+
+<div id="configure_columns_dialog" style="display: none">
+<div class="configureColumns">
+    <table class="columnsConfigurationWidget">
+        <tr>
+            <td><h3>Available Columns</h3></td>
+            <td></td>
+            <td><h3>Displayed Columns</h3></td>
+        </tr>
+        <tr>
+            <td>
+                <select multiple="multiple" class="columnsNotVisible"></select>
+            </td>
+            <td class="moveColumnActions">
+                <a href="javascript:;" class="add">&gt;&gt;</a>
+                <br />
+                <a href="javascript:;" class="remove">&lt;&lt;</a>
+            
+            </td>
+            <td>
+                <select multiple="multiple" class="columnsVisible"></select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="actions">
+                <a class="checkBtn first" href="javascript:;" onclick="updateColumns()"></a>
+                <a class="cancelBtn"  href="javascript:;" onclick="hideConfigureColumnsDialog()"></a>
+            </td>
+        </tr>
+    </table>
+    </div></div>
+    <!-- This is hidden as it serves only for providing data to JS generated widgets -->
+    <table class="columnsConfiguration" style="display: none">
+        <ui:repeat value="#{columnsConfiguration.columns}" var="column">
+            <tr>
+                <td class="columnConfig column-#{column}">
+                    <span class="name"><ice:outputText value="#{column.name}" escape="false"/></span>
+                    <ice:selectBooleanCheckbox value="#{column.visible}" styleClass="trigger" />
+                </td>
+            </tr>
+        </ui:repeat>
+        <tr><td>
+            <ice:commandButton actionListener="#{columnsConfiguration.update}" value="Update" styleClass='updateColumnsSubmit'/>
+        </td></tr>
+    </table>
+    
+    <!-- Launches drawing of configuration screen -->
+    <script language="javascript">
+    jQuery(document).ready(function() {
+    	drawColumnsConfigurationScreen();
+    });
+    </script>
+</f:view>

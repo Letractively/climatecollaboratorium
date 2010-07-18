@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:portlet>
+		<ice:form>
+			<ice:outputStyle href="/xmlhttp/css/xp/xp-portlet.css" />
+			<ice:panelTabSet styleClass="componentPanelTabSetLayout">
+				<ice:panelTab label="Questions for assumptions">
+        <ice:messages globalOnly="false" layout="table" />
+                    <strong><ice:outputLabel for="questions" value="Select questions that should be available when choosing assumptions:" /></strong>
+                        <ice:selectManyListbox styleClass="selectVersion" value="#{preferences.questions}">
+                            <f:selectItems id="questions" value="#{preferences.questionsItems}"/>
+                        </ice:selectManyListbox>
+                        <ice:message for="questions" />
+                        <ice:commandButton action="#{preferences.submit}" value="#{language['submit']}" />
+				</ice:panelTab>
+                <ice:panelTab label="Migration">
+                    <ice:messages globalOnly="false" layout="table" />
+                    <ice:commandButton action="#{migrationTool.migrate}" value="MIGRATE" onclick="if(!confirm('Are you sure you want to proceed with migration?')){ return false; }"/>
+                </ice:panelTab>
+			</ice:panelTabSet>
+		</ice:form>
+	</ice:portlet>
+</f:view>

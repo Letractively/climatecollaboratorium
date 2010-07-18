@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces" 
+    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:t="http://myfaces.apache.org/tomahawk" 
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:collab="http://climatecollaboratorium.org/components" 
+    xmlns:c="http://java.sun.com/jstl/core" >
+    
+<ice:portlet id="models-portlet">
+    <f:subview id="navigation" rendered="#{navigation.viewType == 'default'}">
+        <ui:include src="./navigation.xhtml"/>
+    </f:subview>
+    <f:subview id="jsIntegration">
+        <ui:include src="./icefacesJSIntegration.xhtml" />
+    </f:subview>
+    <ice:panelGroup rendered="#{navigation.viewType == 'default'}">
+    <div class="model">
+        <div class="tabContent_top"></div>
+            <div class="tabContent_bottom">
+                <div class="tabContent">
+                    <div class="tabinner">
+                        <div class="topBtn">
+                            <div class="modelIndex">
+                                <f:subview id="breadcrumb">
+                                    <ui:include src="./breadcrumb.xhtml"/>
+                                </f:subview>
+                                <ice:outputConnectionStatus/>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <f:subview id="modelIndex" rendered="#{navigation.currentPage == 'index'}">
+                                <ui:include src="./modelIndex.xhtml"/>
+                            </f:subview>
+                
+                            <f:subview id="modelDetails" rendered="#{navigation.currentPage == 'details'}">
+                                <ui:include src="./modelDetails.xhtml"/>
+                            </f:subview>
+                        </div>
+                        <div class="contentWrapperBottom"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </ice:panelGroup>
+        <ice:panelGroup rendered="#{navigation.viewType == 'embedded'}">
+            <f:subview id="actions" rendered="#{navigation.page == 'actions'}">
+                <ui:include src="./embedded/embeddedActions.xhtml"/>
+            </f:subview>
+            
+            <f:subview id="modelDetails" rendered="#{navigation.page == 'model'}">
+                <ui:include src="./embedded/embeddedModel.xhtml"/>
+            </f:subview>
+            
+            <f:subview id="impacts" rendered="#{navigation.page == 'impacts'}">
+                <ui:include src="./embedded/embeddedImpacts.xhtml"/>
+            </f:subview>
+            
+        </ice:panelGroup>
+    </ice:portlet>
+</f:view>

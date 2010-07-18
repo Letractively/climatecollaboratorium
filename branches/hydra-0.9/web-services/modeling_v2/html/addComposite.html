@@ -1,0 +1,47 @@
+<html>
+<head>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+	$(function(){
+		//onload function
+		$("#runButton").click(function(){
+			//var idValue = $("#idBox").val();
+			//if(idValue == "") {
+			//	alert("Please enter an id value!");
+			//	return;
+			//}
+			$("#createSimulation").attr("action","http://localhost:8080/simulation-servlet/rest/compositesimulation");
+			
+            $("#createSimulation").submit();
+		});
+
+
+	});
+</script>
+<style type="text/css">
+body {
+font-family:Arial,Verdana,Helvetica,sans-serif;
+font-size:14px;
+}
+</style>
+	</head>
+	<body>
+		<h1>Upload new composite simulation</h1>
+
+
+
+		<form id="createSimulation" name="createSimulation"
+			action="../conf"
+			method="post" enctype="multipart/form-data">
+
+            name:<input type="text" name="name" value=""  /><br/>
+            description: <input type="text" name="description" value=""  /><br/>
+			<input type="hidden" name="state" value="PUBLIC"  /> <br/>
+            type: <input type="text" name="type" value=""  /><br/>
+			file:<input type="file" name="descriptor"/>
+		</form>
+        <button value="Create Simulation" id="runButton">Add Simulation</button>
+
+	</body>
+</html>

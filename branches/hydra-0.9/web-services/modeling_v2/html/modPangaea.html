@@ -1,0 +1,57 @@
+<html>
+<head>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+	$(function(){
+		//onload function
+		$("#runButton").click(function(){
+			var idValue = $("#idBox").val();
+			if(idValue == "") {
+				alert("Please enter an id value!");
+				return;
+			}
+			$("#createSimulation").attr("action","http://localhost:8080/simulation-servlet/rest/createsim/"+idValue);
+			$("#createSimulation").submit();
+		});
+
+
+	});
+</script>
+<style type="text/css">
+body {
+font-family:Arial,Verdana,Helvetica,sans-serif;
+font-size:14px;
+}
+</style>
+	</head>
+	<body>
+		<h1>Add Radiative Forcing to Pangaea</h1>
+
+        Simulation Id:<input id="idBox" type="text" name="id" value="720"  /> <br/>
+
+
+		<form id="createSimulation" name="createSimulation"
+			action="../conf"
+			method="post"
+            >
+            type (input|output):<input type="text" name="type" value="output"  /><br/>
+            vartype (RANGE|FREE|CATAGORICAL): <input type="text" name="type2" value="RANGE"  /><br/>
+			varcontext (SCALAR|INDEXED|INDEX): <input type="text" name="varcontext" value="INDEXED"  /> <br/>
+            datatype (DOUBLE|INTEGER|TEXT): <input type="text" name="datatype" value="DOUBLE"  /> <br/>
+            internalname: <input type="text" name="intName" value="RadiativeForcing"  /> <br/>
+			description: <input type="text" name="description" value="Total radiative forcing due to all GHGs"  /> <br/>
+			name: <input type="text" name="name" value="Radiative Forcing"  /> <br/>
+            units: <input type="text" name="units" value="W/m^2"  /> <br/>
+            label: <input type="text" name="label" value="RF"  /> <br/>
+            min: <input type="text" name="min" value="0"  /> <br/>
+            max: <input type="text" name="max" value="10.0"  /> <br/>
+            categories: <input type="text" name="categories" value=""  /> <br/>
+            defaultvalue:<input type="text" name="value" value="5.0"  /> <br/>
+            externalinfo: <input type="text" name="external"/> <br/>
+
+		</form>
+        <button value="Create Simulation" id="runButton">Add Metadata</button>
+
+	</body>
+</html>

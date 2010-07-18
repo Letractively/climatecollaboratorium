@@ -1,0 +1,113 @@
+package com.ext.portlet.plans.model;
+
+import java.io.Serializable;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * <a href="PlanVoteSoap.java.html"><b><i>View Source</i></b></a>
+ *
+ * <p>
+ * ServiceBuilder generated this class. Modifications in this class will be
+ * overwritten the next time is generated.
+ * </p>
+ *
+ * <p>
+ * This class is used by
+ * <code>com.ext.portlet.plans.service.http.PlanVoteServiceSoap</code>.
+ * </p>
+ *
+ * @author Brian Wing Shun Chan
+ *
+ * @see com.ext.portlet.plans.service.http.PlanVoteServiceSoap
+ *
+ */
+public class PlanVoteSoap implements Serializable {
+    private Long _userId;
+    private Long _planId;
+    private Date _createDate;
+
+    public PlanVoteSoap() {
+    }
+
+    public static PlanVoteSoap toSoapModel(PlanVote model) {
+        PlanVoteSoap soapModel = new PlanVoteSoap();
+
+        soapModel.setUserId(model.getUserId());
+        soapModel.setPlanId(model.getPlanId());
+        soapModel.setCreateDate(model.getCreateDate());
+
+        return soapModel;
+    }
+
+    public static PlanVoteSoap[] toSoapModels(PlanVote[] models) {
+        PlanVoteSoap[] soapModels = new PlanVoteSoap[models.length];
+
+        for (int i = 0; i < models.length; i++) {
+            soapModels[i] = toSoapModel(models[i]);
+        }
+
+        return soapModels;
+    }
+
+    public static PlanVoteSoap[][] toSoapModels(PlanVote[][] models) {
+        PlanVoteSoap[][] soapModels = null;
+
+        if (models.length > 0) {
+            soapModels = new PlanVoteSoap[models.length][models[0].length];
+        } else {
+            soapModels = new PlanVoteSoap[0][0];
+        }
+
+        for (int i = 0; i < models.length; i++) {
+            soapModels[i] = toSoapModels(models[i]);
+        }
+
+        return soapModels;
+    }
+
+    public static PlanVoteSoap[] toSoapModels(List<PlanVote> models) {
+        List<PlanVoteSoap> soapModels = new ArrayList<PlanVoteSoap>(models.size());
+
+        for (PlanVote model : models) {
+            soapModels.add(toSoapModel(model));
+        }
+
+        return soapModels.toArray(new PlanVoteSoap[soapModels.size()]);
+    }
+
+    public Long getPrimaryKey() {
+        return _userId;
+    }
+
+    public void setPrimaryKey(Long pk) {
+        setUserId(pk);
+    }
+
+    public Long getUserId() {
+        return _userId;
+    }
+
+    public void setUserId(Long userId) {
+        _userId = userId;
+    }
+
+    public Long getPlanId() {
+        return _planId;
+    }
+
+    public void setPlanId(Long planId) {
+        _planId = planId;
+    }
+
+    public Date getCreateDate() {
+        return _createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        _createDate = createDate;
+    }
+}

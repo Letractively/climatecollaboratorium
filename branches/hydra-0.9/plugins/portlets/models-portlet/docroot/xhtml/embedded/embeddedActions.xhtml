@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    
+    
+        <div class="model-information actions">
+            <div class="bottom-content">
+    <f:subview id="actions-display" rendered="#{not navigation.embeddedCanEdit}">
+            <f:subview>
+                <ui:include src="../inputs/inputs.xhtml" />
+            </f:subview>
+            <f:subview>
+                <ui:include src="../outputs/outputs.xhtml" />
+            </f:subview>
+            <div class="clear"></div>
+        <ice:form>
+            <!-- <ice:commandLink styleClass="editBtn" actionListener="#{simulationBean.editActions}"/>   rendered="#{navigation.embeddedCanEdit}"/> -->
+        </ice:form>
+        <ui:include src="./initInputs.xhtml" />
+    </f:subview>
+    
+    <f:subview id="actions-edit" rendered="#{navigation.embeddedCanEdit}">
+        <f:subview>
+            <ui:include src="../inputs/inputs.xhtml" />
+        </f:subview>
+        <f:subview>
+            <ui:include src="../outputs/outputs.xhtml" />
+        </f:subview>
+        <div class="clear"></div>
+        <div class="embeddedActions">
+            <ice:form>
+                <ice:commandLink styleClass="saveChanges" actionListener="#{simulationBean.saveScenario}" />
+                <button id="runModel" class="embedded"></button>
+                <ice:commandLink styleClass="cancel" onclick="document.cancelEditingFunction();" />
+                <div class="clear"></div>
+            </ice:form>
+        </div>
+
+        <ui:include src="./initInputs.xhtml" />
+    </f:subview>
+    </div></div>
+</f:view>

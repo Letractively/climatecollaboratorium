@@ -1,0 +1,90 @@
+.itemsTable td,
+.itemsTable th {
+	border: 0;
+}
+	
+
+.itemsTable th {
+    background-image: url("/collaboratorium-theme/images/blue_table_bg_header_short.png");
+    background-repeat: no-repeat;
+    background-position: -12px 0 transparent;
+    border-left:1px solid #3E5B7B;
+    color:#FFFFFF;
+    font-weight:normal;
+    height:23px;
+    padding: 2px 10px;
+}
+
+.teamGrid {
+	width: 100%;
+}
+
+.teamGrid td {
+	vertical-align: top;
+}
+.teamGrid table {
+	width: 100%;
+	border: 0;
+}
+
+.teamGrid table td {
+    text-align: center;
+}
+
+	
+    
+.teamGrid td.left {
+    width: 40%;
+}
+
+.teamGrid td.right {
+    width: 50%;
+    padding-left: 30px;
+}
+
+.sectionTitle {
+    border-bottom: 1px dotted #bbb;
+    margin-bottom: 10px
+}
+
+.manageMembersDialog {
+    background:url("/collaboratorium-theme/images/manage_members.png") no-repeat scroll 0 0 transparent;
+    height:100%;
+    width:100%;
+}
+
+.manageMembersDialog .content {
+	background: transparent;
+}
+
+.requestComment {
+    width: 90%;
+    height: 200px;
+}
+
+.manageMembersTop {
+    padding-top: 15px;
+}
+
+.manageMembersActions {
+    padding-left: 135px;
+}
+
+.manageMembersActions a {
+    margin-right: 20px;
+}
+
+.manageMembersContent {
+    height: 265px;
+    margin-top: 10px;
+}
+
+.membershipRequestResponse {
+    width: 90%;
+    height: 100px;
+}
+
+.manageMembersContent .userComment {
+    padding-left: 10px;
+    font-style: italic;
+}

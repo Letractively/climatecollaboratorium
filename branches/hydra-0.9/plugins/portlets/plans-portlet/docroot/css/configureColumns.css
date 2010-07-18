@@ -1,0 +1,40 @@
+.configureColumns  {
+    background:url("/collaboratorium-theme/images/column_dialog.png") no-repeat scroll 0 0 transparent;
+    width:100%;
+    height: 372px;
+    overflow: hidden;
+}
+
+.configureColumns select {
+	bakcground-image: none;
+	background: white;
+}
+
+.columnsConfigurationWidget {
+    margin-left: 55px;
+    margin-top: 55px;
+    height: 300px;
+    border: 0;
+}
+
+.columnsConfigurationWidget .moveColumnActions {
+	width: 30px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.columnsConfigurationWidget select {
+    width:315px;
+    height: 230px;
+}
+
+.columnsConfigurationWidget .actions {
+    text-align: center;
+    padding-top: 20px;
+    padding-left: 275px;
+}
+
+.columnsConfigurationWidget .actions a {
+    margin-right: 30px;
+}

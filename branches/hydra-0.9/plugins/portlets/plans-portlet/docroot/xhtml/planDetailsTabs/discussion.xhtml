@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    
+<script type="text/javascript">
+
+
+/**
+Function responsible for attaching portletPlansModifyInnerPortlet to iframe's onload event 
+*/ 
+jQuery(document).ready(function() {
+    var frame = jQuery("#portlet_discussion").load(portletPlansModifyMessageBoardsInnerPortlet);
+    frame.load(function() { jQuery("#loadingNotification").hide(); });
+});
+    
+</script>
+    <div style="width: 100%; height: 150px; text-align: center" id="loadingNotification">
+        <img src="/collaboratorium-theme/images/ajax-loader.gif" style="margin-top: 50px"/>
+    </div>
+    
+    <iframe id="portlet_discussion" style="border: 0; overflow: hidden; width: 100%;" src="/widget/web//350-ppm-or-bust/home/-/message_boards/category/#{planBean.plan.mbCategoryId}" />
+    
+</f:view>

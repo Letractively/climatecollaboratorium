@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:jstl="http://java.sun.com/jsp/jstl/functions" >
+    <!-- TODO -->
+<ice:form>
+    <div class="right-content floatLeft">
+        <div class="impacts">
+            <div class="corcen_top">
+                <div class="corcen_bottom">
+                    <div class="corcen">
+                        <div class="title">
+                            <h3><span class="hidden">Impacts</span></h3>
+                        </div>
+                        
+                        <div class="impactsContent">
+                            <ice:panelGroup rendered="#{simulationBean.scenario != null}">
+                                <div class="ui-accordion ui-widget ui-helper-reset">
+                                    <ice:panelSeries value="#{simulationBean.display.outputs}" var="output" >
+                                        <ice:panelGroup rendered="#{output.visible and output.displayItemType == 'SCALAR'}" >
+                                            <f:subview>
+                                                <ui:include src="scalar.xhtml" />
+                                            </f:subview>
+                                        </ice:panelGroup>
+                                        <ice:panelGroup rendered="#{output.visible and output.displayItemType == 'INDEXED'}" >
+                                            <f:subview>
+                                                <ui:include src="indexed.xhtml" />
+                                            </f:subview>
+                                        </ice:panelGroup>
+                                    </ice:panelSeries>
+                                </div>
+               
+                            </ice:panelGroup>
+                            
+                            <ice:panelGroup styleClass='run-the-model-to-see-inputs' rendered="#{simulationBean.scenario == null}">
+                                Run the model to see some impacts.
+                            </ice:panelGroup>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ice:form>
+</f:view>

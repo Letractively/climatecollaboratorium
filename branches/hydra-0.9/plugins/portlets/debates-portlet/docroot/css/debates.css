@@ -1,0 +1,1171 @@
+.debateSummaryOutlineRow {
+    position: relative;
+}
+
+.debateSummaryOutline {
+    width: 300px;
+}
+
+.positionVotesProgressBar {
+    margin: 0;
+    height: 20px;
+}
+
+
+.positionVotesProgressBar .iceOutProgBg {
+    width: 50px;
+    height: 20px;
+    margin-left: 10px;
+    
+}
+.positionVotesProgressBarFill {
+    height: 100%;
+}
+
+.votesColumn {
+    width: 100px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.actionColumn {
+    width: 40px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.debateDetails .contentWrapperTop {
+    background: transparent url("../img/tabContent_top.gif") no-repeat scroll center top;
+    width: 100%;
+    padding-top: 4px;
+}
+
+.debateDetails .contentWrapperBottom {
+    background: transparent url(../img/tabContent_bottom.gif) no-repeat scroll left bottom;
+    width: 100%;
+    padding-bottom: 4px;
+}
+
+.debateDetails .header {
+    background: transparent url(../img/headerslice.png) repeat-x scroll 0 10px;
+    height:49px;
+    position: relative;
+}
+.debateDetails .header .iceOutConStat {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.debateDetails .header h2 {
+    background: transparent url(../img/debate_icon.png) no-repeat scroll 0 0;
+    font-style:italic;
+    height:58px;
+    margin-left:31px;
+    padding-left:60px;
+    padding-top:14px;
+}
+
+.debateDetails .contentWrapperMiddle, 
+.debateDetails .layoutPanelCenter,
+.debateDetails .layoutPanelEast, 
+.debateDetails .layoutPanelWest, 
+.debateDetails .layoutPanelSouth {
+    background: #EDEDED none repeat scroll 0 0;
+    font-family: Arial,Helvetica,Verdana,sans-serif;
+    font-size: 12px;
+}
+
+
+.debateDetails .contentWrapperMiddle .content {
+    padding: 15px;
+}
+
+
+
+
+
+
+ 
+.icePnlBrdrCenter {
+    padding: 0;
+}
+
+.icePnlBrdrSouth {
+    color: #000;
+}
+
+.whoAndWhen {
+    color: #777;
+    font-size: 0.8em;
+}
+
+.whoAndWhen .author {
+    
+    font-weight: bold;
+}
+
+.whoAndWhen a,
+.whoAndWhen a:hover {
+	text-decoration: none;
+}
+
+.whoAndWhen .date {
+    font-weight: bold;
+}
+
+.topButtons {
+    padding-bottom:5px;
+}
+
+.subscriptionButton {
+    float:right;
+}
+
+.mappingModeButton {
+    float:right;
+}
+
+.debateItemDetails h2.titlebody {
+    padding: 9px 10px 7px 29px;
+}
+
+.debateItemDetails h4.metatitle {
+    font-style:italic;
+    font-weight:normal;
+    padding-left:29px;
+    padding-top:4px;
+    color: #775137;
+}
+
+.editDebateItemForm h2 {
+    padding: 7px 10px 7px 35px;
+    font-size: 1.2em;
+}
+
+.editDebateItemForm h2 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+.debateItemDetails .POSITION,
+.editDebateItemForm .POSITION {
+    background: transparent url(../img/position_icon_large.png) no-repeat scroll 4px 1px;
+}
+
+.debateItemDetails .ARGUMENT_PRO,
+.editDebateItemForm .ARGUMENT_PRO {
+    background: transparent url(../img/pro_icon_large.png) no-repeat scroll 4px 1px;
+}
+
+.debateItemDetails .ARGUMENT_CON,
+.editDebateItemForm .ARGUMENT_CON {
+    background: transparent url(../img/con_icon_large.png) no-repeat scroll 4px 1px;
+}
+
+.debateItemDetails .QUESTION,
+.editDebateItemForm .QUESTION {
+    background: transparent url(../img/question_icon_big.png) no-repeat scroll 4px 1px;
+}
+
+.debateMap .icePnlGrp {
+    white-space: normal;
+}
+
+
+.debateMap .iceTreeRow a {
+    text-decoration: none;
+    outline: none;
+    white-space: normal;
+} 
+    
+.debateMap .iceTreeRow .itemLink {
+	background-repeat: no-repeat;
+}
+.debateMap .iceTreeRow .itemLink.POSITION {
+    background-image:  url(../img/position_icon_small.png);
+}
+
+.debateMap .iceTreeRow .itemLink.ARGUMENT_CON {
+    background-image:  url(../img/con_icon_small.png);
+}
+
+.debateMap .iceTreeRow .itemLink.ARGUMENT_PRO {
+    background-image: url(../img/pro_icon_small.png);
+}
+
+
+
+.clear {
+    clear: both;
+}
+
+.addDebateItemPopup,
+.sendSuggestionPopup {
+    position: absolute;
+    top: 20px;
+    margin-left: 200px;
+}
+
+.editDebateItemForm label {
+    color: #000;
+    font-weight: bold;
+}
+
+.addDebateItemPopupHdr,
+.sendSuggestionPopupHdr  {
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 20px;
+}
+
+
+
+
+.debateMap .unvoteButton {
+    background: transparent url(../img/check_btn.png) no-repeat scroll;
+    display: block;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0
+}
+
+.debateMap .voteButton {
+    background: transparent url(../img/check_disable_btn.png) no-repeat scroll;
+    display: block;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0
+}
+.debateMap .voteButton:hover {
+    background: transparent url(../img/check_btn.png) no-repeat scroll;
+}
+
+.hidden {
+    display: none;
+}
+.iceTreeRow {
+    white-space:normal;
+}
+	
+
+.iceTreeRow .iceTreeNodeChild {
+    background: url("../img/tree_line_middle_node.gif") no-repeat;
+    width: 15px;
+}
+
+.iceTreeNodeChild.iceTreeNodeLastChild {
+	background: url("/debates-portlet/xmlhttp/css/xp/css-images/tree_line_last_node.gif") no-repeat;
+}
+
+/* niceEdit Module Fixes */
+
+.nicEdit-main {
+	background: white;
+	overflow: hidden;
+	scroll-x: auto;
+	white-space: normal;
+}
+
+
+
+.editDebateItemContent .nicEditEditorContainer {
+    height: 250px;
+    overflow: hidden;
+    scroll-x: auto;
+    scroll-y: hidden;
+    white-space: normal;
+}
+
+
+/* Required to render dialog close button properly */
+.ui-dialog .ui-dialog-title .ui-dialog-titlebar-close {
+	display: none;
+}
+
+.debateMap .iceTreeRow .itemLink {
+    padding: 3px 2px 2px 22px;
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
+    outline: none;
+    background-position: left center;
+    display: block;
+    border: 1px solid #FFFFFF;
+   
+}
+
+
+.iceTreeRow {
+	vertical-align: top;
+}
+
+.iceTreeRow div {
+    padding-left: 15px;
+}
+
+.iceTreeRow {
+}
+
+
+
+.treeNodeNavigation {
+	width: 15px;
+	vertical-align: top;
+}
+
+.debateMap .iceTreeRow td {
+	padding: 0;
+}
+	   
+
+/***** Rework of css *****/
+
+.pageContainer {
+    width:100%;
+}
+
+
+/***** Popup dialogs *****/
+
+.collaboratoriumPopup {
+    position: absolute;
+    top: 20px;
+    margin-left: 200px;
+}
+
+.icePnlPopBody.collaboratoriumPopupBody {
+  background-color: #F0F0F0;  
+}
+
+.editDebateItemForm label {
+    color: #000;
+    font-weight: bold;
+}
+
+.collaboratoriumPopupHdr {
+    color: #fff;
+    background-image: none;
+    background-color: #5588AA;
+    font-weight: bold;
+    padding: 5px 20px;
+}
+
+
+
+/** MAIN LAYOUT OF DEBATE DETAILS **/
+.layoutPanel {
+    width: 100%;
+}
+
+  .layoutPanel .West {
+      width: 380px;
+      background-color: #ffffff;
+  }
+
+  .layoutPanel .Center {
+	  width: 10px;
+      border: 1px solid #EDEDED;
+	  
+  }
+
+   .layoutPanel .South {
+       border: none;
+   }
+
+  .layoutPanel .East {
+      padding: 0px;
+      background-color: #EDEDED;
+      width: 530px;
+      height: 100%;
+  }
+
+  table.layoutPanel * tr {
+      height:100%
+  }
+  
+/** DEBATE ITEM DETAILS **/
+
+.detailContainer {
+    height:100%;
+}
+
+.debateItemDetails {
+    background: #ffffff;
+    margin-left: 5px;
+    height:100%;
+}
+
+div.combined>.debateItemDetails {
+    height:auto;
+}
+
+
+.debateItemDetailsInterior {
+    padding:10px
+}
+
+.debateItemDetailsInterior .buttonsContainer {
+    padding-top:3px;
+    padding-right:5px;
+}
+
+
+input[type="submit"].iconButton {
+  background: scroll no-repeat 3px center #F0F0F0;
+    padding-left: 20px;
+}
+
+input[type="submit"].iconButton:hover {
+  background: scroll no-repeat 3px center #e7ffff;
+    padding-left: 20px;
+}
+
+
+.debateItemDetailsInterior .buttonsContainer input[type="submit"].argumentPro {
+     background-image:  url(../img/pro_icon_small.png);
+}
+
+.debateItemDetailsInterior .buttonsContainer input[type="submit"].argumentCon {
+   background-image:  url(../img/con_icon_small.png);
+}
+
+.debateItemDetailsInterior .buttonsContainer input[type="submit"].position {
+    background-image:  url(../img/position_icon_small.png);
+
+}
+
+.debateItemDetailsInterior input[type="submit"].retractVote {
+      background-image: url(../img/check_disable_btn.png);
+     padding-left: 25px;
+
+}
+
+.debateItemDetailsInterior input[type="submit"].addVote {
+    background-image: url(../img/check_btn.png);
+     padding-left: 25px;
+}
+
+
+p.debateDetailsOutput {
+    padding: 5px;
+}
+
+p.debateDetailsOutput span {
+    font-family:Times New Roman, serif;
+    font-size: 12pt;
+}
+
+/** COMMENTS **/
+
+
+.commentDetails {
+    margin-top: 12px;
+    background: #ffffff;
+    padding: 10px;
+
+}
+
+.commentHeader {
+    background: url("../img/chat_large_icon.png") transparent 0px 2px no-repeat;
+    border-bottom: 1px solid #AAAAAA;
+    margin-bottom:10px;
+    padding-left:28px;
+    padding-bottom:3px;
+}
+
+.commentEditForm {
+    margin-top:15px;
+    padding-right:5px;
+}
+
+.commentEditForm table,
+.editDebateItemForm table {
+    width: 100%;
+}
+.commentEditForm .commentTitle,
+.commentEditForm .commentContent {
+    width: 100%;
+    padding: 2px;
+}
+
+.commentEditForm .commentContent {
+
+    height: 150px;
+}
+
+p.commentBody {
+    padding-right: 24px;
+}
+
+p.commentBody span {
+    font-family: Times New Roman, serif;
+    font-size: 10pt;
+}
+
+.commentDetails p.whoAndWhen {
+    font-size:12px;
+    font-style:italic;
+    padding-top:5px;
+    float:right;
+}
+
+
+/** RIGHT COMMENTS **/
+
+.rightComments {
+  margin-top:20px;
+  margin-left:5px;
+    height:100%;
+}
+
+
+
+.buttonsContainer {
+	float: right;
+}
+
+.buttonsContainer input {
+	margin-left: 5px;
+}
+
+.itemReferences {
+    margin: 25px 0;
+}
+
+.debateItemDetails .title {
+    margin-bottom: 5px;
+}
+
+/** Edit debate form **/
+
+
+.editContainer {
+    float:right;
+}
+
+.editItemLayoutTable {
+    height:100%;
+}
+
+
+.editItemLayoutTable td {
+  height:100%
+}
+
+div.editDebateItemForm {
+    padding:10px;
+}
+
+td.editDebateItemContent {
+    padding-right:6px;
+}
+
+.editDebateItemForm .debateItemTitle {
+    width: 100%;
+    padding: 2px;
+    margin-left: 5px;
+}
+
+.editDebateItemForm .debateItemContent.edit {
+    height: 200px;
+    max-height: 200px;
+    width: 100%;
+}
+
+.editDebateItemForm .debateItemContent.add {
+    height: 200px;
+    max-height: 200px;
+    width: 100%;
+}
+
+.versionBox {
+    background-color:#F0F0F0;
+    height:300px;  
+    padding:9px;
+    padding-bottom:30px;
+    margin-right:10px;
+    width:95px;
+    float: left;
+}
+
+.selectVersion {
+    height: 100%;
+    background-position: -2px 0;
+    border:none;
+    width:100%;
+
+}
+
+#debateItemeditor td {
+	vertical-align: middle;
+}
+
+
+
+
+
+
+
+.referencesTable {
+	border: 0;
+	margin-top: 5px;
+}
+
+.referencesTable td {
+	border: 0;
+    padding: 5px 0;
+    word-wrap:break-word;
+}
+
+.referencesTable td div,
+.referencesTable td div a{ 
+    word-wrap:break-word;
+}
+
+.referencesTable td.even {
+	background: #fafafa;
+}
+
+.referencesTable td.odd {
+    background: #f0f0f0;
+}
+
+.referencesTable .text {
+	width: 145px;
+}
+
+.referencesTable .url {
+    width: 145px;
+}
+
+.referencesTable .action {
+    width: 50px;
+    text-align: center;
+}
+
+.referencesTable input {
+	width: 100%;
+}
+
+.referencesTable .Hdr {
+	background: transparent;
+	background-image: none;
+	border: 0;
+	border-bottom: 1px solid black;
+	font-weight: bold;
+}
+
+.referencesTable .addForm td {
+	background: #FCFFDE;
+}
+
+.editFormButtons {
+	padding-top: 40px;
+}
+
+.referencesLabel {
+	padding-top: 15px;
+}
+
+.editDebateItemForm.add {
+	background: transparent;
+	padding: 10px;
+}
+
+.addDebateItemPopupBody,
+.sendSuggestionPopup  {
+	padding: 3px;
+}
+
+.sendSuggestionPopup .content {
+	background: #ffffff;
+	padding: 10px;
+}
+
+.sendSuggestionPopup textarea {
+    width: 100%;
+    height: 200px;
+}
+
+.sendSuggestionPopup .Body {
+	padding: 2px;
+}
+
+.addLinkDialog {
+    background-color: #FCFFDE;
+    padding:8px;
+    
+}
+
+.addLinkDialog input[type='text'] {
+    width:100%;
+    padding-right:4px;
+
+}
+
+.addLinkDialog td {
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.addLinkDialog td.right {
+    padding-right:10px;
+}
+
+
+/** Debate map **/
+
+
+.debateMap {
+    width: 100%;
+    border: 0;
+    white-space: normal;
+}
+
+.debateMap tbody  {
+   font-family: Times New Roman, serif;
+   font-size:10pt;
+}
+
+.debateMap td {
+    border: 0;
+    padding-bottom: 3px;
+}
+
+
+
+.debateMapHdr {
+    border: 0;
+    background: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid black;
+    font-size:10pt;
+}
+
+
+.debateOutlineView {
+    background: #fff;
+    padding: 10px;
+    width: 400px;
+}
+
+.debateMap .votes {
+	width: 70px;
+}
+
+.debateMap .votes .iceOutProgBg{
+	margin-left: 5px;
+}
+.debateMap .action a{
+	margin-left: 10px;
+}
+
+.debateMap .firstRow {
+    padding-top: 5px;
+}
+
+.debateMapUglyHeader {
+    width: 100%;
+}
+
+.debateMapUglyHeader .position {
+    text-align: center;
+    padding-top: 3px;
+
+}
+
+.debateMapUglyHeader .comments {
+    text-align: right;
+    padding-top: 3px;
+    width: 50px;
+}
+
+.debateMapUglyHeader .comments div {
+    background: url("../img/chat_small_icon.png") transparent 0 0;
+    height:19px;
+    width:18px;
+}
+
+.debateMapColHdr,
+.debateMapColHdr span {
+    font-family: Times New Roman,serif;
+}
+
+.debateMap .iceTreeRow td.commentsCount {
+   padding-top:3px;
+   vertical-align:top;
+}
+
+
+.debateSummary a {
+    background: url("../img/question_icon_big.png") no-repeat scroll 2px 3px transparent;
+    padding: 2px 24px 7px;
+    display: block;
+   
+    font-size: 1.7em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.debateSummary a.debateQuestion:hover {
+    text-decoration: none;
+}
+
+.suggestionButton {
+    margin-top:20px;
+    text-align:center;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.positionVotesProgressBarFill {
+    background-color: #95B5D5;
+    
+}
+
+/** CATEGORIES **/
+
+.categoryHeader {
+
+    margin-bottom:5px;
+    padding-left:5px;
+    padding-right:5px;
+    padding-top:5px;
+    padding-bottom:10px;
+    background-color:#CCD8DF;
+}
+
+
+
+
+
+.categoryDisplay {
+    margin-top:15px;
+    padding:10px;
+     background-color: #FAF7F7;
+    width:100%;
+}
+
+.categorySeriesContainer {
+    padding-right:20px;
+}
+
+.categoryButtonPanel {
+    float:right;
+}
+
+
+.categoryDetails {
+
+}
+
+.categoryDescription {
+    margin:10px;
+    padding:10px;
+    background-color:#FFFFFF
+}
+
+.categoryDescription p  {
+    font-size:14px;
+   color:#000000 !important; 
+}
+
+.debateList {
+    padding:10px;
+}
+.debateList table {
+    width:100%;
+    border:none;
+}
+
+.debateTable td {
+    border:none;
+   padding:5px;
+}
+
+.debateTableHdr {
+    background-image:none;
+    background:transparent;
+    padding-top:3px;
+    padding-bottom:3px;
+    border-left:none;
+    border-right:none;
+    border-top:none;
+    border-bottom:1px #CCCCCC solid;
+    color: #777777;
+    font-weight:bold;
+
+}
+
+.debateTableHdr span {
+    padding:0px;
+}
+
+.debateTableHdr td {
+    padding:0px;
+}
+
+.debateTable tr.Row1 {
+    background-color: #FFFFFF;
+}
+
+.debateTable tr.Row2 {
+    background-color: #FAF7F7;
+}
+
+.debateTable .debateNumCommentsCol, .debateTable .debateRecentCommentCol
+    {
+    text-align:center;
+    }
+
+.debateTable .debateQuestionCol {
+    width:400px;
+}
+
+.debateTable .debatePositionCol {
+    width:200px;
+}
+
+
+
+
+
+/** CATEGORIES DIALOG **/
+
+.categoryTitle {
+    margin-left:0px;
+    width:100%;
+    margin-bottom:10px;
+}
+
+.categoryDetail {
+     margin-left:0px;
+    width: 100%;
+    margin-bottom:10px;
+}
+
+table.debateCategoryDetail tr {
+    padding-top: 5px;
+
+}
+
+table.debateCategoryDetail td {
+    padding-right:5px;
+    
+}
+
+table.selectionLayout {
+   width:100%;
+    height:200px;
+    margin-top:5px;
+    margin-bottom:15px;
+}
+
+table.selectionLayout td {
+    width: 250px;
+}
+
+table.selectionLayout td.selectionButtons {
+    width:50px;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+}
+
+.debateSelectionPanel .selected {
+    background-color:#FFDEB3;
+    border:1px solid #FFA733;
+}
+
+
+
+
+div.mockSelectionBox {
+    overflow-y:scroll;
+    height:250px;
+    background-color:#FFFFFF;
+    border: solid #CECECE;
+
+}
+
+div.mockSelectionBox .selectionItem {
+   padding-top: 5px;
+    padding-bottom:5px;
+    padding-left: 2px;
+    padding-right:2px; 
+}
+
+div.mockSelectionBox .selectionItem:hover {
+    background-color: #FFF9D3;
+
+}
+
+table.categoryActionButtons {
+    text-align:right;
+}
+
+/** SUGGESTION INPUT **/
+.suggestionInput {
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-right:5px;
+}
+
+.suggestionInput textArea {
+    width:100%;
+}
+
+.suggestionContent p {
+    padding-top:5px;
+    font-style:italic;
+}
+
+/**ICEFACES OVERRIDES**/
+
+iframe[title='Ice Modal Frame'] {
+ 	background-color:#e2e2e2 !important;
+ 	opacity:0.7 !important;
+ }
+
+
+
+
+/** ACTIVE ITEM COLOURING **/
+
+.debateSummary {
+    margin-bottom: 15px;
+     border:1px solid #FFFFFF;
+}
+
+.debateMap .itemLink.active,
+.debateItemDetails .title,
+.debateSummary.active {
+	background-color:#FFDEB3;
+    border:1px solid #FFA733;
+}
+
+.debateMap .itemLink:hover,
+.debateSummary:hover {
+    background-color: #FFF9D3;
+    border: 1px solid #FFA733;
+}
+
+.iceTree table {
+	width: 100%;
+}
+
+.debateMapPosition .comments {
+	width: 80px;
+	display: block;
+	float: right;
+}
+
+.debateMap .commentsCount div {
+	float: right;
+	margin-right: 25px;
+}
+
+
+
+/**HELP STUFF**/
+
+.inlineHelp {
+    border: 1px solid #CCCCFF;
+    background: #ebebff;
+    padding:10px;
+    margin:  4px 0px;
+    font-size:10pt;
+    color: #666655;
+
+}
+
+.hideThisTrigger {
+    padding-top: 10px;
+}
+
+.hideThisTrigger a {
+    font-weight:bold;
+}
+
+
+
+a.helpMessageTrigger {
+    font-style:italic;
+    float:right;
+}
+
+a.helpMessageTrigger.commentHelp {
+    padding-top:8px;
+}
+
+a.helpMessageTrigger.helpVisible {
+    display:none;
+}
+
+a.helpMessageTrigger.helpHidden {
+    display:inline;
+    color: #8c96b4;
+}
+
+
+
+.argumentHelp ul {
+    list-style: none inside none;
+    padding-top:5px;
+    padding-bottom:5px;
+    line-height: 160%;
+    padding-bottom:5px;
+    padding-left:15px;
+    padding-top: 5px;
+}
+
+.argumentHelp .question {
+   background:  url("../img/question_icon_small.png") 3px 0px no-repeat;
+    padding: 3px 9px;
+}
+
+.argumentHelp .position {
+   background:  url("../img/position_icon_small.png") no-repeat;
+    padding: 3px 9px;
+}
+
+.argumentHelp .pro {
+   background:  url("../img/pro_icon_small.png") 0px 4px no-repeat;
+    padding: 3px 9px;
+}
+
+.argumentHelp .con {
+    background:  url("../img/con_icon_small.png") 0px 4px no-repeat;
+    width:15px;
+    padding: 3px 9px;�
+}
+
+.argumentHelp .comment {
+    background: url("../img/chat_small_icon.png") 3px 4px no-repeat;
+    padding: 3px 10px;
+}
+
+.argumentHelp .vote {
+    background: transparent url(../img/check_btn.png) no-repeat scroll;
+    padding: 3px 9px;
+}
+
+a.moderator, a.moderator:hover  {
+    color: #cc0000;
+}
+
+.center {
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog .ui-dialog-title {
+    margin-top: 3px;
+    margin-left: 10px;
+}

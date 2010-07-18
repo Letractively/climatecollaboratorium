@@ -1,0 +1,35 @@
+/* 
+ * Copyright (C) 2009 TopCoder Inc., All Rights Reserved.
+ *
+ * Calculate the correct positions/height for the modal with expression 
+ *
+ * @author TCSDEVELOPER
+ * @version 1.0
+ */
+
+.fixedTopLeft {
+	position: absolute;
+	top: 348px;
+}
+
+#modalBackground { 
+	position: absolute;
+	top: 0;
+	left:0;
+}
+#modalcontainer{
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+}
+#modal .btnBox a span,.importBtn span{
+	margin-top:-1px;
+}
+.ui-slider-range {
+	margin-top:-2px;
+}
+.profile .rightContent .groupTitle h3{
+	position:absolute;
+}
+

@@ -1,0 +1,41 @@
+<html>
+<head>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+	$(function(){
+		//onload function
+		$("#runButton").click(function(){
+			var idValue = $("#idBox").val();
+			if(idValue == "") {
+				alert("Please enter an id value!");
+				return;
+			}
+			$("#deleteSimulation").attr("action","http://localhost:8080/simulation-servlet/rest/editsim/"+idValue);
+			$("#deleteSimulation").submit();
+		});
+
+
+	});
+</script>
+<style type="text/css">
+body {
+font-family:Arial,Verdana,Helvetica,sans-serif;
+font-size:14px;
+}
+</style>
+	</head>
+	<body>
+		<h1>Delete a simulation - be very careful</h1>
+
+
+         Simulation Id:<input id="idBox" type="text" name="id" value=""  /> <br/>
+		<form id="deleteSimulation" name="deleteSimulation"
+			action="../conf"
+			method="post">
+          <input type="hidden" name="command" value="delete"/> 
+		</form>
+        <button value="Delete Simulation" id="runButton">Delete Simulation</button>
+
+	</body>
+</html>

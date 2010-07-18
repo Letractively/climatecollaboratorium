@@ -1,0 +1,126 @@
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+
+<ice:panelGroup
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+
+    <ice:panelPopup rendered="#{editedDebateCategory.editing}" styleClass="collaboratoriumPopup"
+                     modal="true" autoPosition="manual">
+
+        <f:facet name="header">#{empty editedDebateCategory.debateCategory?"Add":"Edit"} Category</f:facet>
+        <f:facet name="body">
+            <f:subview id="categoryEditPanel">
+                <ui:include src="./debateCategoryEditView.xhtml"/>
+            </f:subview>
+        </f:facet>
+
+    </ice:panelPopup>
+    <ice:panelPopup rendered="#{addQuestion.editing}" styleClass="collaboratoriumPopup"
+                    autoPosition="manual" modal="true">
+
+        <f:facet name="header">Add Question</f:facet>
+        <f:facet name="body">
+            <f:subview id="debateItemDetails">
+                <ui:include src="./debateQuestionEditView.xhtml"/>
+            </f:subview>
+        </f:facet>
+
+    </ice:panelPopup>
+    <ice:form>
+        <div class="categoriesHeader">
+
+
+            <ice:commandButton actionListener="#{debateCategories.addCategory}" value="Add Category"
+                               styleClass="categoryButton" rendered="#{permissions.canAdmin}"/>
+            
+
+        </div>
+        <ice:panelSeries value="#{debateCategories.categories}" var="category" styleClass="categorySeriesContainer">
+            <ice:panelGroup styleClass="categoryDisplay">
+            <ice:panelGroup styleClass="categoryDetails">
+                <div class="categoryHeader">
+                <div class="categoryButtonPanel">
+                <ice:commandButton actionListener="#{debateCategories.doEditCategory}" value="Edit Category" rendered="#{permissions.canAdmin}">
+                    <f:attribute name="category" value="#{category}"/>
+
+                </ice:commandButton>
+                <ice:commandButton actionListener="#{editDebateItem.addQuestion}" value="Add Question" rendered="#{permissions.canEditDebateMap}">
+                    <f:attribute name="category" value="#{category}"/>
+                </ice:commandButton>
+
+                <ice:commandButton action="#{category.subscribe}" value="Subscribe" rendered="#{permissions.canSubscribe and not category.subscribed}"/>
+                <ice:commandButton action="#{category.unsubscribe}" value="Unsubscribe" rendered="#{permissions.canSubscribe and category.subscribed}"/>
+
+
+                </div>
+                <h2><ice:outputText styleClass="author" value="#{category.title}"/></h2>
+               
+                </div>
+                <ice:panelGroup styleClass="categoryDescription" rendered="#{category.description!=null and category.description!=''}">
+                  <p>
+                    <ice:outputText value="#{category.description}" escape="false" />
+                </p>
+                </ice:panelGroup>
+            </ice:panelGroup>
+            <ice:panelGroup styleClass="debateList">
+                <ice:dataTable var="debate" value="#{category.debates}"
+                               headerClass="debateTableHeader"
+                               columnClasses="debateQuestionCol,debatePositionCol,debateNumCommentsCol,debateRecentCommentCol"
+                               styleClass="debateTable"
+                                sortAscending="#{category.ascending}"
+                                sortColumn="#{category.sortColumnName}">
+                    <h:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Question"/>
+
+                        </f:facet>
+                        <ice:commandLink actionListener="#{portletNavigation.navigate}"
+                                         value="#{debate.currentRoot.debateSummary}"
+                                         onclick="setFragment('#{debate.debateId}',-1);">
+                            <f:attribute name="debate" value="#{debate.debateId}"/>
+                            <f:param name="test" value="something"/>
+                        </ice:commandLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Leading position(s)"/>
+                        </f:facet>
+                        <ice:outputText value="#{debate.leadingPositions}">
+                            <f:converter converterId="debate.PositionList"/>
+                        </ice:outputText>
+
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <ice:commandSortHeader columnName="#{category.commentCountColName}" arrow="true">
+                                <ice:outputText value="# Comments"/>
+                             </ice:commandSortHeader>
+                        </f:facet>
+                        <ice:outputText value="#{debate.numberOfComments}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <ice:commandSortHeader columnName="#{category.commentDateColName}" arrow="true">
+                            <ice:outputText value="Most recent comment"/>
+                             </ice:commandSortHeader>
+                        </f:facet>
+                        <ice:outputText value="#{debate.mostRecentComment.updated}">
+                              <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
+                        </ice:outputText>
+                    </h:column>
+                </ice:dataTable>
+            </ice:panelGroup>
+            </ice:panelGroup>
+        </ice:panelSeries>
+    </ice:form>
+</ice:panelGroup>

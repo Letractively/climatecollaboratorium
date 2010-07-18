@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <!-- TODO -->
+    
+<ice:form>
+<div class="left-content floatLeft">
+    <div class="actions">
+        <div class="corcen_top">
+            <div class="corcen_bottom">
+                <div class="corcen">
+                    <div class="title">
+                        <h3><span class="hidden">Actions Input</span></h3>
+                    </div>
+                    <div class="tableContent">
+                        <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" varStatus="status"> 
+                            <f:subview id="inputView" >
+                                <ui:include src="./inputDef.xhtml" />
+                                <!-- <ui:include src="./individual.xhtml" />-->
+                            </f:subview>
+                        </ice:panelSeries>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</ice:form>
+</f:view>

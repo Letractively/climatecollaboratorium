@@ -1,0 +1,31 @@
+
+
+.descriptionEditContainer .versionsTrigger.expand {
+    padding: 2px 5px;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+
+.descriptionEditContainer .chooseVersionWidget {
+    position: absolute;
+    right: 0px;
+}
+
+.descriptionInput .iceInpRchTxt {
+    height: 500px;
+}
+
+
+.planDescription ul li {
+    list-style: disc;
+    margin-left: 30px;
+}
+
+.planDescription ol li {
+    margin-left: 15px;
+}
+	
+
+.planDescription p {
+    margin: 12px 0;
+}
