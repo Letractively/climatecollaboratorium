@@ -39,6 +39,10 @@
 		<managed-bean-name>navigation</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.plans.NavigationBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>eventBus</property-name>
+			<value>#{eventBus}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>permissions</managed-bean-name>

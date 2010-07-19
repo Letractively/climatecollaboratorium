@@ -8,8 +8,11 @@
 		<social-activity-interpreter-class>org.climatecollaboratorium.plans.activity.PlansActivityFeedEntry</social-activity-interpreter-class>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>
+		<header-portlet-css>/xmlhttp/css/test.css</header-portlet-css>
+		<header-portlet-css>/xmlhttp/css/simulation/simulation.css</header-portlet-css>
 		<header-portlet-javascript>/js/plans-portlet.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery.history.js</header-portlet-javascript>
+		<header-portlet-javascript>/xmlhttp/js/simulation/model-inputs-render.js</header-portlet-javascript>
 		<footer-portlet-css>/css/main.css</footer-portlet-css>
 	</portlet>
 	<role-mapper>
