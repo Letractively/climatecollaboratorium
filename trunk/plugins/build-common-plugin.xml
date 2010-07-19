@@ -498,4 +498,14 @@
 			<fileset dir="docroot" />
 		</copy>
 	</target>
+
+        <target name="deploy-exploded" depends="compile">
+                <sequential>
+                            <antelope:stringutil string="${basedir}/${plugin.name}.xml" property="plugincontextfile">
+                                            <antelope:replace regex="\\" replacement="/" />
+                                                        </antelope:stringutil>
+                                                                    <copy file="${plugincontextfile}" todir="${auto.deploy.dir}" />
+                                                                            </sequential>
+                                                                                </target>
+
 </project>

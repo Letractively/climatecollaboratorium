@@ -25,6 +25,20 @@
 							<replacefilter token="@portlet.display.name@" value="${portlet.display.name}" />
 						</replace>
 
+    <!--<EXPLODEDWARTEMPLATE>-->
+        <sequential>
+                <antelope:stringutil string="${basedir}" property="pluginpath">
+                            <antelope:replace regex="\\" replacement="/" />
+                                    </antelope:stringutil>
+                                            <property name="plugincontextfile" value="${pluginpath}/${portlet.name}-portlet/${portlet.name}-portlet.xml" />
+                                                    <copy file="${pluginpath}/EXPLODEDWARTEMPLATE-portlet.xml" tofile="${plugincontextfile}" />
+                                                            <replace file="${plugincontextfile}">
+                                                                        <replacefilter token="@portlet.name@" value="${portlet.name}" />
+                                                                                    <replacefilter token="@pluginpath@" value="${pluginpath}" />
+                                                                                            </replace>                  
+                                                                                                </sequential>
+                                                                                                    <!--<EXPLODEDWARTEMPLATE>-->
+
 						<mkdir dir="${portlet.name}-portlet/docroot/WEB-INF/tld" />
 
 						<copy todir="${portlet.name}-portlet/docroot/WEB-INF/tld">
