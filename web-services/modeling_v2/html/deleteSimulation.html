@@ -11,7 +11,7 @@
 				alert("Please enter an id value!");
 				return;
 			}
-			$("#deleteSimulation").attr("action","http://localhost:8080/simulation-servlet/rest/editsim/"+idValue);
+			$("#deleteSimulation").attr("action","/simulation-servlet/rest/editsim/"+idValue);
 			$("#deleteSimulation").submit();
 		});
 
