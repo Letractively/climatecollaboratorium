@@ -6,7 +6,6 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:jstl="http://java.sun.com/jsp/jstl/functions" >
     <!-- TODO -->
-<ice:form>
     <div class="right-content floatLeft">
         <div class="impacts">
             <div class="corcen_top">
@@ -17,20 +16,16 @@
                         </div>
                         
                         <div class="impactsContent">
-                            <ice:panelGroup rendered="#{simulationBean.scenario != null}">
+                            <ice:panelGroup rendered="#{simulationBean.scenario != null}" styleClass="impactsContentCharts">
                                 <div class="ui-accordion ui-widget ui-helper-reset">
-                                    <ice:panelSeries value="#{simulationBean.display.outputs}" var="output" >
-                                        <ice:panelGroup rendered="#{output.visible and output.displayItemType == 'SCALAR'}" >
-                                            <f:subview>
+                                    <ui:repeat value="#{simulationBean.display.outputs}" var="output" >
+                                            <f:subview rendered="#{output.visible and output.displayItemType == 'SCALAR'}">
                                                 <ui:include src="scalar.xhtml" />
                                             </f:subview>
-                                        </ice:panelGroup>
-                                        <ice:panelGroup rendered="#{output.visible and output.displayItemType == 'INDEXED'}" >
-                                            <f:subview>
+                                            <f:subview rendered="#{output.visible and output.displayItemType == 'INDEXED'}">
                                                 <ui:include src="indexed.xhtml" />
                                             </f:subview>
-                                        </ice:panelGroup>
-                                    </ice:panelSeries>
+                                    </ui:repeat>
                                 </div>
                
                             </ice:panelGroup>
@@ -44,5 +39,4 @@
             </div>
         </div>
     </div>
-</ice:form>
 </f:view>
