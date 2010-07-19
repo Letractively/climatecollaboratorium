@@ -179,6 +179,9 @@ public class SimulationBean {
             for (Variable var: scenario.getInputSet()) {
                 inputsValues.put(var.getId(), var.getValue().get(0).getValues()[0]);
             }
+            for (Long id: inputs.keySet()) {
+                inputsValues.put(id, inputs.get(id).toString());
+            }
 
 
             updateDisplay();
