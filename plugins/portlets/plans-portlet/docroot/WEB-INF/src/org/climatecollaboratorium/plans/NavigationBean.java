@@ -6,6 +6,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.climatecollaboratorium.events.EventBus;
+
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.liferay.portal.PortalException;
@@ -19,6 +21,7 @@ public class NavigationBean {
     private PlanBean planBean; 
     private PlansIndexBean plansIndex;
     private static String PORTLET_ID;
+    private EventBus eventBus;
     
     public PlansIndexBean getPlansIndex() {
         return plansIndex;
@@ -62,7 +65,10 @@ public class NavigationBean {
             }
             
             if (plan != null) {
-                planBean = new PlanBean(plan);
+                if (planBean != null) {
+                    planBean.cleanup();
+                }
+                planBean = new PlanBean(plan, eventBus);
                 return;
             }
         } 
@@ -112,6 +118,16 @@ public class NavigationBean {
     
     public void update(ActionEvent e) {
         updateView();
+    }
+
+
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
+
+
+    public EventBus getEventBus() {
+        return eventBus;
     }
 
 }

@@ -1,4 +1,13 @@
 .actionsImpactsEditContainer .chooseVersionWidget {
     position: absolute;
     right: 0px;
+    z-index: 10001
+}
+
+.inputsAndOutputsWidget .simulation {
+	margin: auto;
+}
+
+.inputsAndOutputsWidget {
+	padding-top: 20px;
 }

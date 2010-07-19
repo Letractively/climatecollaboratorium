@@ -2,12 +2,23 @@ package org.climatecollaboratorium.plans;
 
 import javax.faces.event.ActionEvent;
 
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
+import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.facelets.simulations.ScenarioSavedEvent;
+import org.climatecollaboratorium.facelets.simulations.support.SimulationSupportTag;
+import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
+
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 public class PlanBean {
     private PlanItemWrapper plan;
@@ -20,21 +31,31 @@ public class PlanBean {
     private CreatePlanBean createPlanBean;
     private PlanMembershipBean membershipBean;
     private PlansPermissionsBean permissions;
+    private EventBus eventBus;
+    private HandlerRegistration scenarioSavedEventHandlerRegistration;
+    private static ThemeDisplay td = Helper.getThemeDisplay();
+
+    
+    private static Log _log = LogFactoryUtil.getLog(PlanBean.class);
     
     
-    public PlanBean(PlanItem planItem) throws SystemException, PortalException {
+    public PlanBean(final PlanItem planItem, EventBus eventBus) throws SystemException, PortalException {
         this.planItem = planItem;
         this.permissions = new PlansPermissionsBean(planItem);
         planPositionsBean = new PlanPositionsBean(planItem, this);
         plan = new PlanItemWrapper(planItem, this, permissions);
-        simulationBean = new SimulationBean(planItem, this);
+        simulationBean = new SimulationBean(planItem, this, eventBus);
+        this.eventBus = eventBus;
     }
     
     public void refresh() throws SystemException, PortalException {
         planItem = PlanItemLocalServiceUtil.getPlan(planItem.getPlanId());
         planPositionsBean = new PlanPositionsBean(planItem, this);
         plan = new PlanItemWrapper(planItem, this, permissions);
-        simulationBean = new SimulationBean(planItem, this);
+        if (simulationBean != null) {
+            simulationBean.cleanup();
+        }
+        simulationBean = new SimulationBean(planItem, this, eventBus);
         membershipBean = new PlanMembershipBean(planItem, this, permissions);
     }
 
@@ -101,5 +122,8 @@ public class PlanBean {
         return membershipBean;
     }
     
+    public void cleanup() {
+        simulationBean.cleanup();
+    }
 
 }
