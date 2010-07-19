@@ -10,37 +10,41 @@
     <table class="inputDefTable">
         <tr class="#{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}">
         <!--  colspan takes 1 col for first input and 2 cols for each following inputs -->
-            <td class="first"  colspan="#{fn:length(input.displayItems) * 2 - 1}"><span>#{input.name}</span> <a class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)" href="javascript:;"> <img alt="question" src="/collaboratorium-theme/images/qustion_icon.png" /> </a>
-            <p class="hidden inputDescription">#{input.description}</p>
+            <td class="first"  colspan="#{fn:length(input.displayItems) * 2 - 1}"><span>#{input.oryginalName}</span> <a class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)" href="javascript:;"> <img alt="question" src="/collaboratorium-theme/images/qustion_icon.png" /> </a>
+            <p class="hidden inputDescription">#{input.oryginalDescription}</p>
 
             </td>
         </tr>
         <tr>
-        <ice:panelSeries value="#{input.displayItems}" var="individualInput"  varStatus="status">
+        <ui:repeat value="#{input.displayItemsWrapped}" var="individualInput"  varStatus="status">
             <td class="inputs">
-            <table class="sliderDef">
+                <table class="sliderDef">
             <tr>
         <td>
-        <span><ice:outputText value="#{individualInput.metaData.labels[0]}" rendered="#{input.displayItems[0] != individualInput}"></ice:outputText></span></td>
+        <span><ice:outputText value="#{individualInput.metaData.labels[0]}" rendered="#{input.displayItemsWrapped[0] != individualInput}"></ice:outputText></span></td>
         <td class="#{individualInput.type == 'SLIDER' ? 'sliderCol' : 'empty'}">
             <!-- <ice:panelGroup styleClass="slider" rendered="#{individualInput.type == 'SLIDER'}"/>-->
             <div class="slider"></div>
         </td>
         <td>
-            <ice:inputText styleClass="id hidden" value="#{individualInput.metaData.id}" /> 
-            <ice:inputText styleClass="default hidden" value="#{individualInput.metaData.default[0]}" /> 
-            <ice:inputText styleClass="min hidden" value="#{individualInput.metaData.min[0]}" /> 
-            <ice:inputText styleClass="max hidden" value="#{individualInput.metaData.max[0]}" /> 
-            <ice:inputText styleClass="dataType hidden" value="#{individualInput.metaData.profile[0].name}" /> 
-            <ice:inputText styleClass="fieldValue hidden" value="#{simulationBean.inputValues[individualInput.metaData.id]}" /> 
-            <ice:inputText styleClass="type hidden" value="#{individualInput.type}" />  
-            <ice:inputText styleClass="unit hidden" value="#{individualInput.metaData.units[0]}" />
+            <ice:panelGroup>
+                <input class="id hidden" value="#{individualInput.metaData.id}" /> 
+                <input class="default hidden" value="#{individualInput.metaData.default[0]}" /> 
+                <input class="min hidden" value="#{individualInput.metaData.min[0]}" /> 
+                <input class="max hidden" value="#{individualInput.metaData.max[0]}" /> 
+                <input class="dataType hidden" value="#{individualInput.metaData.profile[0].name}" /> 
+                <input class="fieldValue hidden" value="#{simulationBean.inputValues[individualInput.metaData.id]}" /> 
+                <input class="type hidden" value="#{individualInput.type}" />  
+                <input class="unit hidden" value="#{individualInput.metaData.units[0]}" />
+            </ice:panelGroup>
+            
             <input type="text" class="value" />
+            <ice:inputText styleClass="valueBinding hidden" value="#{individualInput.value}" />
         </td>
     </tr>
  </table>
             </td>
-        </ice:panelSeries>
+        </ui:repeat>
         </tr>
     </table>
     
