@@ -22,7 +22,7 @@
     <div class="inputsAndOutputsWidget">
         <f:subview rendered="#{permissions.canEdit}">
             <collab:simulation simulationId="#{planBean.plan.planType.modelId}" scenarioId="#{planBean.plan.planModelRunScenarioId}" 
-                    showEditButton="#{not planBean.simulationBean.editing and permissions.canEdit}" />
+                    showEditButton="true" />
         </f:subview>
         <f:subview rendered="#{not permissions.canEdit}">
             <collab:simulation simulationId="#{planBean.plan.planType.modelId}" scenarioId="#{planBean.plan.planModelRunScenarioId}" 
