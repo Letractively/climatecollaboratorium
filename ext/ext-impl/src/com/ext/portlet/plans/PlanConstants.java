@@ -303,8 +303,8 @@ public class PlanConstants {
 
             @Override
             public String getValue(PlanItem plan) throws SystemException, PortalException {
-                PlanValueFactory pvf = new AttributeGetter("%s",Attribute.VOTES);
-                return pvf.getValue(plan);
+                int votesCount = PlanVoteLocalServiceUtil.getPlanVotesCount();
+                return String.format("%d %%", votesCount == 0 ? 0 : plan.getVotes() * 100 / PlanVoteLocalServiceUtil.getPlanVotesCount());
             }
 			
 		}),
