@@ -17,7 +17,7 @@ public class DebateQuestionWrapper {
     private Long position;
    private List<Long> multiplePositions = new ArrayList<Long>();
 
-    private DebateItem selectedPosition;
+    private DebateItemWrapper selectedPosition;
     private List<DebateItem> multipleSelectedPositions = new ArrayList<DebateItem>();
 
     /*
@@ -30,7 +30,7 @@ public class DebateQuestionWrapper {
         this.wrapped = wrapped;
         
         for (DebateItem position: wrapped.getChildren()) {
-            positions.add(new SelectItem(position.getDebateItemId(), position.getDebateSummary()));
+            positions.add(new SelectItem(position.getDebateItemId(), getPositionAnchor(position)));
             if (planPositionsIds.contains(position.getDebateItemId())) {
                 this.position = position.getDebateItemId();
                 //sorry about this - fugly code
@@ -53,6 +53,7 @@ public class DebateQuestionWrapper {
         return positions; 
     }
     
+    
     public Long getPosition() {
         return position;
     }
@@ -62,7 +63,7 @@ public class DebateQuestionWrapper {
         updateSelectedPosition();
     }
     
-    public DebateItem getSelectedPosition() {
+    public DebateItemWrapper getSelectedPosition() {
         return selectedPosition;
     }
 
@@ -93,8 +94,29 @@ public class DebateQuestionWrapper {
     private void updateSelectedPosition() {
         for (DebateItem item: wrapped.getChildren()) {
             if (item.getDebateItemId().equals(position)) {
-                selectedPosition = item;
+                selectedPosition = new DebateItemWrapper(item);
             }
         }
+    }
+    
+    public Long getDebateId() {
+        return wrapped.getDebateId();
+    }
+    
+
+    public String getDebateLink() {
+        return "/web/guest/debates#debate=" + wrapped.getDebateId();
+    }
+    
+    public String getPositionLink(DebateItem position) {
+        return "/web/guest/debates#debate=" + wrapped.getDebateId() + ";item=" + position.getDebateItemId();
+    }
+    
+    public String getPositionAnchor(DebateItem position) {
+        return "<a href='" + getPositionLink(position) + "' target='_blank'>" + position.getDebateSummary() + "</a>";
+    }
+    
+    public String getDebateAnchor() {
+        return "<a href='" + getDebateLink() + "' target='_blank'>" + getDebateSummary() + "</a>";
     }
 }

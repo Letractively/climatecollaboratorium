@@ -135,9 +135,9 @@
         <div class="positionsSelectWidget">
          <ice:panelSeries value="#{filterPlans.availablePositions}" var="question">
                 <div class="assumption">
-                    <h4 class="question">#{question.debateSummary}</h4>
+                    <h4 class="question">#{question.debateAnchor}</h4>
                     <ice:selectManyCheckbox value="#{question.multiplePositions}" styleClass="versionedRadio positionItem" layout="pageDirection">
-                        <f:selectItems value="#{question.positions}"><br /></f:selectItems>
+                        <f:selectItems value="#{question.positions}"></f:selectItems>
                     </ice:selectManyCheckbox>
                 </div>
 

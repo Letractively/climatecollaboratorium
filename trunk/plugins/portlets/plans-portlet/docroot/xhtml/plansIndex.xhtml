@@ -99,14 +99,14 @@
                                             <div class="scrollBox">
                                             <ice:panelSeries value="#{singlePlan.positions}" var="question">
                                                 <div class="assumption">
-                                                    <h3 class="question">#{question.debateSummary}</h3>
-                                                    <h4 class="position">#{question.selectedPosition.debateSummary}</h4>
+                                                    <h3 class="question">#{question.debateAnchor}</h3>
+                                                    <h4 class="position">#{question.selectedPosition.itemAnchor}</h4>
                                                 </div>
                                             </ice:panelSeries>
                                             </div>
                                         </div>
                                         <div class="positionsDialog_bottom">
-                                            <a href="javascript:;" onclick="hidePositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}')">Dismiss</a>
+                                            <a href="javascript:;" onclick="hidePositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}')">Close</a>
                                         </div>
                                     </div>
                                 </div>

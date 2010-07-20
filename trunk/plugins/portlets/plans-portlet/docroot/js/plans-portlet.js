@@ -77,7 +77,20 @@ function drawColumnsConfigurationScreen() {
 	jQuery(".columnsConfigurationWidget .add").click(function() {
 		columnsNotVisibleList.find(":selected").each(function() {
 			var column = columns[jQuery(this).val()];
-			column.option.appendTo(columnsVisibleList);
+			column.visible = true;
+			// find column after which this column should be appended
+			var beforeColumn = null;
+			for (var i=0; i<column.id; i++) {
+				if (columns[i].visible) {
+					beforeColumn = columns[i];
+				}
+			}
+			if (beforeColumn) {
+				beforeColumn.option.after(column.option);
+			}
+			else {
+				column.option.prependTo(columnsVisibleList);
+			}
 			column.trigger.attr("checked", "true");
 		});
 	});
@@ -85,7 +98,22 @@ function drawColumnsConfigurationScreen() {
 	jQuery(".columnsConfigurationWidget .remove").click(function() {
 		columnsVisibleList.find(":selected").each(function() {
 			var column = columns[jQuery(this).val()];
-			column.option.appendTo(columnsNotVisibleList);
+			column.visible = false;
+			
+			// find column after which this column should be appended
+			var beforeColumn = null;
+			for (var i=0; i<column.id; i++) {
+				if (! columns[i].visible) {
+					beforeColumn = columns[i];
+				}
+			}
+			if (beforeColumn) {
+				beforeColumn.option.after(column.option);
+			}
+			else {
+				column.option.prependTo(columnsNotVisibleList);
+			}
+			
 			column.trigger.removeAttr("checked");
 		});
 	});
@@ -356,8 +384,14 @@ function navigateToPlan(planId) {
 	window.location.hash = "#planId=" + planId;
 }
 
+function navigateToPlanIndex() {
+	window.location.hash = "#";
+}
 function initVersionChoosingBox() {
 	var container = jQuery(".versionsContainer");
+	if (container.hasClass('processed')) {
+		return;
+	}
 	var versions = container.find(".versions");
 	var trigger = jQuery(".versionsTrigger");
 	var expandTrigger = jQuery(".versionsTrigger.expand");
@@ -373,6 +407,7 @@ function initVersionChoosingBox() {
 			
 		}
 	});
+	container.addClass('processed');
 }
 
 

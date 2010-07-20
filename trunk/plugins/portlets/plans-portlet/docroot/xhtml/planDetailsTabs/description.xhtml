@@ -3,16 +3,9 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}" styleClass="planDescription">
-        <ice:outputText value="#{planBean.plan.description}" escape="false"/>
-        <div>
-            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit}" />
-        </div>
-    </ice:panelGroup>
-    
-    <ice:panelGroup rendered="#{planBean.editingDescription}" styleClass="editWithVersions descriptionEditContainer">
+    <div class="description #{planBean.editingDescription ? 'editing' : 'normal'}">
         <div class="chooseVersionWidget">
-            <input type="button" value="Versions" class="versionsTrigger expand" />
+            <input type="button" value="See Old Versions" class="versionsTrigger expand" />
                 <div class="versionsContainer relative">
                     <div class="versions">
                         <ice:selectOneListbox value="#{planBean.plan.descriptionVersion}" partialSubmit="true">
@@ -24,6 +17,27 @@
                     <div class="clear"></div>    
             </div>
         </div>
+        
+    
+    <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}" styleClass="planDescription">        
+    
+        <div class="descriptionActions">
+            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit}" />
+        </div>
+            <div class="clear"></div>
+            <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
+                Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.plan.descriptionVersionDate}" /></strong> by &amp;nbsp;
+                <a href="/web/guest/members?userId=#{planBean.plan.descriptionVersionAuthor.userId}">
+                    <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}" /></strong>
+                </a>
+            </ice:panelGroup>
+        <ice:outputText value="#{planBean.plan.description}" escape="false"/>
+
+    </ice:panelGroup>
+    
+    
+    <ice:panelGroup rendered="#{planBean.editingDescription}" styleClass="editWithVersions descriptionEditContainer">
+
         <div class="descriptionInput">
             <ice:inputRichText value="#{planBean.plan.description}"  saveOnSubmit="true" skin="office2003" height="500px" />
             <ice:commandButton value="Save" actionListener="#{planBean.plan.saveDescription}"/>
@@ -31,13 +45,24 @@
         </div>
     </ice:panelGroup>
     
-        <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}">
+        <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}">  
+            <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
+                Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.plan.descriptionVersionDate}" /></strong> by &amp;nbsp;
+                <a href="/web/guest/members?userId=#{planBean.plan.descriptionVersionAuthor.userId}">
+                    <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}" /></strong>
+                </a>
+            </ice:panelGroup>      
+            <div class="descriptionActions">
+                <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit}" />
+            </div>
+            <div class="clear"></div>
             <div class="nothingSetInfo">
                 <div class="nothingSetMessage">No description set.</div>
             </div>
-            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit}" />
         </ice:panelGroup>
     <script language="javascript">
     jQuery(document).ready(initVersionChoosingBox);
     </script>
+    
+</div>
 </f:view>

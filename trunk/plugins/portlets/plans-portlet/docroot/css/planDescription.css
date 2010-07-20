@@ -1,15 +1,23 @@
-
-
-.descriptionEditContainer .versionsTrigger.expand {
-    padding: 2px 5px;
-    margin-right: 5px;
-    margin-top: 3px;
+.description {
+	position: relative;
 }
 
-.descriptionEditContainer .chooseVersionWidget {
+.description .versionsTrigger.expand {
+    margin-right: 5px;
+    z-index: 1000;
+}
+
+.description.editing .versionsTrigger.expand {
+    margin-top: 27px;
+}
+
+.description .chooseVersionWidget {
     position: absolute;
     right: 0px;
+    top: 0px;
+    z-index: 1000;
 }
+
 
 .descriptionInput .iceInpRchTxt {
     height: 500px;
@@ -28,4 +36,9 @@
 
 .planDescription p {
     margin: 12px 0;
+}
+
+.descriptionActions {
+	padding-right: 125px;
+	float: right;
 }

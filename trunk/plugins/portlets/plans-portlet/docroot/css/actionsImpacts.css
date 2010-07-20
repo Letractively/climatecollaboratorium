@@ -1,4 +1,15 @@
-.actionsImpactsEditContainer .chooseVersionWidget {
+.actionsImpactsEditContainer .chooseVersionWidget.editing {
     position: absolute;
     right: 0px;
+    top: 14px;
+}
+
+.actionImpactsButtons {
+	float: right;
+	margin-right: 125px;
+}
+
+.actionImpactsButtons input {
+    margin-left: 5px;
+    
 }

@@ -4,6 +4,11 @@
     padding: 10px;
 }
 
+.positionsActions {
+	float: right;
+	padding-right: 125px;
+	position: relative;
+}
 
 
 .assumption .question {
@@ -34,5 +39,7 @@
 .chooseVersionWidget {
     position: absolute;
     right: 0px;
+    top: 0px;
+    z-index: 1000;
 }
 

@@ -134,5 +134,11 @@
     </div>
     <div class="hidden" id="request_membership_dialog">
     </div> 
+    <!--  if plan has been deleted, redirect user to plansIndex -->
+    <f:subview rendered="#{planBean.plan.deleted}">    
+    <script language="javascript">
+        navigateToPlanIndex();
+    </script>
+</f:subview>
     
 </f:view>

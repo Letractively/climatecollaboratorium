@@ -3,9 +3,9 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <ice:panelGroup styleClass="editWithVersions actionsImpactsEditContainer" rendered="#{planBean.simulationBean.editing}">
-        <div class="chooseVersionWidget">
-            <input type="button" value="Versions" class="versionsTrigger expand" />
+    <ice:panelGroup styleClass="editWithVersions actionsImpactsEditContainer" >
+        <div class="chooseVersionWidget #{planBean.simulationBean.editing ? 'editing' : 'normal'}">
+            <input type="button" value="See Old Versions" class="versionsTrigger expand" />
                 <div class="versionsContainer relative">
                     <div class="versions">
                         <ice:selectOneListbox value="#{planBean.plan.currentPlanModelRunVersion}" partialSubmit="true">
@@ -24,6 +24,8 @@
             </div>
         </div>
     </ice:panelGroup>
+    
+
 <script type="text/javascript">
 
     // currently there is no dynamic association between plan and a scenario/model,
@@ -65,6 +67,7 @@
             jQuery(frameContent).scrollTop(0);
             frame.scrollTop(0);
         }
+        jQuery(".actionImpactsButtons").show();
     }
 
     
@@ -79,12 +82,26 @@
     <div style="width: 100%; height: 150px; text-align: center" id="loadingNotification">
         <img src="/collaboratorium-theme/images/ajax-loader.gif" style="margin-top: 50px"/>
     </div>
-    <iframe id="actionsAndImpacts"  border="0" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" style="border: 0; width: 100%; overflow: hidden; overflow-x: hidden; overflow-y: hidden;" src="/widget/web/guest/models/-/models_WAR_modelsportlet_INSTANCE_28Id?modelId=#{planBean.plan.planType.modelId}&amp;viewType=embedded&amp;page=actions&amp;canEdit=#{planBean.simulationBean.editing}&amp;scenarioId=#{planBean.plan.scenarioId}" />
+    
+    
+    <ice:panelGroup>
+        <div class="actionImpactsButtons hidden">
+            <ice:commandButton actionListener="#{planBean.simulationBean.edit}" value="Edit" rendered="#{not planBean.simulationBean.editing and permissions.canEdit}"  />
+        </div>
+        <div class="clear"></div>
+        <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.simulationBean.editing and not planBean.plan.simulationLatestVersion}">
+            Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.plan.simulationVersionDate}" /></strong> by &amp;nbsp;
+            <a href="/web/guest/members?userId=#{planBean.plan.simulationVersionAuthor.userId}">
+                <strong><ice:outputText value="#{planBean.plan.simulationVersionAuthor.screenName}" /></strong>
+            </a>
+        </ice:panelGroup>
+    
+        <iframe id="actionsAndImpacts"  border="0" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" style="border: 0; width: 100%; overflow: hidden; overflow-x: hidden; overflow-y: hidden;" src="/widget/web/guest/models/-/models_WAR_modelsportlet_INSTANCE_28Id?modelId=#{planBean.plan.planType.modelId}&amp;viewType=embedded&amp;page=actions&amp;canEdit=#{planBean.simulationBean.editing}&amp;scenarioId=#{planBean.plan.scenarioId}" />
+    </ice:panelGroup>
     
     <ice:inputText value="#{planBean.simulationBean.scenario}" styleClass="scenarioInput" style="display: none" />
     <ice:commandButton actionListener="#{planBean.simulationBean.update}" style="display: none" styleClass="scenarioUpdateButton" />
     <ice:commandButton actionListener="#{planBean.simulationBean.cancel}" style="display: none" styleClass="scenarioCancelEditingButton" />
-    <ice:commandLink actionListener="#{planBean.simulationBean.edit}" styleClass="editBtn" rendered="#{not planBean.simulationBean.editing and permissions.canEdit}"  />
     
     <script language="javascript">
         jQuery(document).ready(initVersionChoosingBox);

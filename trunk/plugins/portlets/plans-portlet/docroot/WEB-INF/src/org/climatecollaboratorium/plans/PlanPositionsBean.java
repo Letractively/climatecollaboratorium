@@ -1,6 +1,7 @@
 package org.climatecollaboratorium.plans;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
@@ -60,7 +62,9 @@ public class PlanPositionsBean {
     
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
         if (! lastPositionsVersion.equals(planPositionsVersion) || updatePositions) {
-            Set<Long> planPositionsIds = new HashSet<Long>(plan.getPositionsIds());
+            Set<Long> planPositionsIds = new HashSet<Long>(planPositionsById.get(planPositionsVersion).getPositionsIds());       
+            positionsSet = planPositionsIds.size() > 0;
+            
             questions.clear();
             if (editing) {
                 // we are editing all debates should be shown
@@ -144,6 +148,18 @@ public class PlanPositionsBean {
 
     public void setPositionsSet(boolean empty) {
         this.positionsSet = empty;
+    }
+    
+    public boolean isLatestVersion() {
+        return planPositionsById.get(planPositionsVersion) == planPositions.get(0);
+    }
+    
+    public Date getVersionDate() {
+        return planPositionsById.get(planPositionsVersion).getCreated();
+    }
+    
+    public User getVersionAuthor() throws PortalException, SystemException {
+        return planPositionsById.get(planPositionsVersion).getUpdateAuthor();
     }
 
 }
