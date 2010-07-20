@@ -87,7 +87,7 @@ function showSliders() {
 		} 
 
 		if (isNaN(defaultVal)) {
-			defaultVal = (min+max)/2;
+			defaultVal = min;
 
 			if (isInteger(dataType)) {
 				defaultVal = parseInt(defaultVal);

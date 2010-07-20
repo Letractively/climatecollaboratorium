@@ -125,8 +125,7 @@
 .model-information .actions table td {
     height: 38px;
 }
-
-#runModel {
+#runModel.full {
     background-color:transparent;
     background-image:url("/collaboratorium-theme/images/runModel_btn.gif");
     background-position:0 0;
@@ -134,12 +133,6 @@
     height:49px;
     width:211px;
     border: 0;
-}
-
-#runModel.embedded {
-	float: left;
-	margin: 0;
-	padding: 0;
 }
 
 .modelActions {
@@ -287,7 +280,19 @@ ul.ui-tabs-nav li.ui-state-active a{
 }
 
 .embeddedActions {
-	padding-left: 220px;
+	float: right;
+	padding-right: 135px;
+	
+}
+
+.embeddedActions input {
+	margin-left: 5px;
+}
+
+.model-information .bottom-content {
+    overflow:hidden;
+    padding-top:0;
+    width:100%;
 }
 
 .embeddedActions a.saveChanges {
