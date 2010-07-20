@@ -10,7 +10,7 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
-public class SimulationBean {
+public class PlanSimulationBean {
     private Long scenario;
 
     private PlanItem plan;
@@ -18,7 +18,7 @@ public class SimulationBean {
     private boolean editing;
     private ThemeDisplay td = Helper.getThemeDisplay();
     
-    public SimulationBean(PlanItem plan, PlanBean planBean) {
+    public PlanSimulationBean(PlanItem plan, PlanBean planBean) {
         this.plan = plan;
         this.planBean = planBean;
     }

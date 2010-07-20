@@ -3,20 +3,13 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <ice:panelGroup rendered="#{not planBean.planPositionsBean.editing and planBean.planPositionsBean.positionsSet}">
-        <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
-            <div class="assumption">
-                <h3 class="question">#{question.debateSummary}</h3>
-                <h4 class="position">#{question.selectedPosition.debateSummary}</h4>
-            </div>
-        </ice:panelSeries>
-        <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" rendered="#{permissions.canEdit}" />
-    </ice:panelGroup>
-    <ice:messages />
+
     
-    <ice:panelGroup rendered="#{planBean.planPositionsBean.editing}" styleClass="editWithVersions">
-        <div class="chooseVersionWidget">
-            <input type="button" value="Versions" class="versionsTrigger expand" />
+
+    <ice:panelGroup styleClass="positionsActions">
+        <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" rendered="#{not planBean.planPositionsBean.editing and permissions.canEdit}" />
+            <div class="chooseVersionWidget">
+            <input type="button" value="See Old Versions" class="versionsTrigger expand" />
                 <div class="versionsContainer relative">
                     <div class="versions">
                         <ice:selectOneListbox value="#{planBean.planPositionsBean.planPositionsVersion}" partialSubmit="true">
@@ -25,14 +18,46 @@
                         <br />
                         <input type="button" value="Hide" class="versionsTrigger collapse" />
                     </div>
-                    <div class="clear"></div>    
+                    <div class="clear"></div>
+                    <ice:panelGroup>
+                    <script language="javascript">
+                         jQuery(document).ready(initVersionChoosingBox);
+                    </script>
+                    </ice:panelGroup>    
             </div>
         </div>
-        
+    </ice:panelGroup>
+    <div class="clear"></div>
+    <ice:panelGroup rendered="#{not planBean.planPositionsBean.editing}">
+        <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.planPositionsBean.latestVersion}">
+        Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.planPositionsBean.versionDate}" /></strong> by &amp;nbsp;
+        <a href="/web/guest/members?userId=#{planBean.planPositionsBean.versionAuthor.userId}">
+            <strong><ice:outputText value="#{planBean.planPositionsBean.versionAuthor.screenName}" /></strong>
+        </a>
+    </ice:panelGroup>
+        <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
+            <div class="assumption">
+                <h3 class="question">#{question.debateAnchor}</h3>
+                <h4 class="position">#{question.selectedPosition.itemAnchor}</h4>
+            </div>
+        </ice:panelSeries>
+        <ice:panelGroup rendered="#{not planBean.planPositionsBean.positionsSet}">
+            <div class="nothingSetInfo">
+                <div class="nothingSetMessage">No assumptions set.</div>
+            </div>
+        </ice:panelGroup>
+    </ice:panelGroup>
+    
+    <ice:messages />
+    
+    
+    
+    <ice:panelGroup rendered="#{planBean.planPositionsBean.editing}" styleClass="editWithVersions">
+
         <ice:panelGroup>
             <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
                 <div class="assumption">
-                    <h3 class="question">#{question.debateSummary}</h3>
+                    <h3 class="question">#{question.debateAnchor}</h3>
                     <ice:selectOneRadio value="#{question.position}" styleClass="versionedRadio positionItem" layout="pageDirection">
                         <f:selectItems value="#{question.positions}"><br /></f:selectItems>
                     </ice:selectOneRadio>
@@ -46,16 +71,8 @@
             </ice:panelGroup>
             <ice:commandButton actionListener="#{planBean.planPositionsBean.updatePositions}" value="Save" />
             <ice:commandButton actionListener="#{planBean.planPositionsBean.edit}" value="Cancel" />
-            <script language="javascript">
-                jQuery(document).ready(initVersionChoosingBox);
-            </script>
         </ice:panelGroup>
         
     </ice:panelGroup>
-        <ice:panelGroup rendered="#{not planBean.planPositionsBean.positionsSet and not planBean.planPositionsBean.editing}">
-            <div class="nothingSetInfo">
-                <div class="nothingSetMessage">No assumptions set.</div>
-            </div>
-            <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" rendered="#{permissions.canEdit}" />
-        </ice:panelGroup>
+
 </f:view>

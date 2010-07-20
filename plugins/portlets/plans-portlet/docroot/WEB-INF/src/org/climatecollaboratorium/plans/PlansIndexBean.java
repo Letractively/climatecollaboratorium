@@ -15,6 +15,7 @@ import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
+import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.PlanLocalServiceHelper;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.PlanConstants.Columns;
@@ -78,6 +79,8 @@ public class PlansIndexBean {
         
         dataPaginator = new DataPaginator();
         refresh();
+        sortColumn = PlanConstants.Attribute.VOTES.name();
+        sortAscending = false;
     }
 
     public List<PlanIndexItemWrapper> getPlans() throws SystemException, PortalException {
@@ -88,7 +91,7 @@ public class PlansIndexBean {
             updatePlansList = false;
             Columns sortCol = Columns.valueOf(sortColumn);
 
-            String sortAttribute = Attribute.NAME.name();
+            String sortAttribute = Attribute.VOTES.name();
             if (sortCol.isSortable()) {
                 sortAttribute = sortCol.getSortAttribute().name();
             }
@@ -247,6 +250,9 @@ public class PlansIndexBean {
             planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
             ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
             ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
+
+            sortColumn = Attribute.VOTES.name();
+            sortAscending = false;
             
             refresh();
         }
@@ -258,6 +264,8 @@ public class PlansIndexBean {
             ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
             ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
             
+            sortColumn = Attribute.NAME.name();
+            sortAscending = true;
             refresh();
         }
     }

@@ -2,6 +2,7 @@ package org.climatecollaboratorium.plans;
 
 import java.security.Permissions;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,7 @@ public class PlanItemWrapper {
     private boolean descriptionSet;
 
     private ThemeDisplay td = Helper.getThemeDisplay();
+    private boolean deleted;
     
     public PlanItemWrapper(PlanItem plan, PlanBean planBean, PlansPermissionsBean permissions) throws SystemException, PortalException {
         wrapped = plan;
@@ -272,10 +274,15 @@ public class PlanItemWrapper {
 
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.REMOVE_PLAN.id(),null, 0);
+            this.deleted = true;
         }
     }
 
 
+    public boolean getDeleted() {
+        return deleted;
+    }
+    
     public void setDescriptionSet(boolean descriptionSet) {
         this.descriptionSet = descriptionSet;
     }
@@ -283,6 +290,31 @@ public class PlanItemWrapper {
 
     public boolean isDescriptionSet() {
         return descriptionSet;
+    }
+    
+    
+    public boolean isDescriptionLatestVersion() {
+        return currentDescriptionVersion.equals(planDescriptions.get(0).getId());
+    }    
+    
+    public boolean isSimulationLatestVersion() {
+        return currentPlanModelRunVersion.equals(planModelRuns.get(0).getId());
+    }
+    
+    public Date getDescriptionVersionDate() {
+        return planDescriptionsById.get(currentDescriptionVersion).getCreated();
+    }
+    
+    public Date getSimulationVersionDate() {
+        return planModelRunsById.get(currentPlanModelRunVersion).getCreated();
+    }
+    
+    public User getDescriptionVersionAuthor() throws PortalException, SystemException {
+        return planDescriptionsById.get(currentDescriptionVersion).getUpdateAuthor();
+    }
+    
+    public User getSimulationVersionAuthor() throws PortalException, SystemException {
+        return planModelRunsById.get(currentPlanModelRunVersion).getUpdateAuthor();
     }
 
 }
