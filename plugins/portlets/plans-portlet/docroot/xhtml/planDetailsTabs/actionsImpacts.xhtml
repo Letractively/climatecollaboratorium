@@ -95,9 +95,9 @@
                 <strong><ice:outputText value="#{planBean.plan.simulationVersionAuthor.screenName}" /></strong>
             </a>
         </ice:panelGroup>
+    </ice:panelGroup>
     
         <iframe id="actionsAndImpacts"  border="0" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" style="border: 0; width: 100%; overflow: hidden; overflow-x: hidden; overflow-y: hidden;" src="/widget/web/guest/models/-/models_WAR_modelsportlet_INSTANCE_28Id?modelId=#{planBean.plan.planType.modelId}&amp;viewType=embedded&amp;page=actions&amp;canEdit=#{planBean.simulationBean.editing}&amp;scenarioId=#{planBean.plan.scenarioId}" />
-    </ice:panelGroup>
     
     <ice:inputText value="#{planBean.simulationBean.scenario}" styleClass="scenarioInput" style="display: none" />
     <ice:commandButton actionListener="#{planBean.simulationBean.update}" style="display: none" styleClass="scenarioUpdateButton" />
