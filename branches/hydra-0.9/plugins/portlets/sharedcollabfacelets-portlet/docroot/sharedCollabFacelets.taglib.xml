@@ -23,4 +23,12 @@
         <tag-name>simulation</tag-name>
         <source>xhtml/tags/simulation/simulation.xhtml</source>
     </tag>
+    <tag>
+        <tag-name>discussion</tag-name>
+        <source>xhtml/tags/discussion/discussion.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>discussionSupport</tag-name>
+        <handler-class>org.climatecollaboratorium.facelets.discussions.DiscussionsSupportTag</handler-class>
+    </tag>
 </facelet-taglib>

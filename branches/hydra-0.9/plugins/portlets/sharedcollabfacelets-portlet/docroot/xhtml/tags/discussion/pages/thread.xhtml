@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+
+<ui:composition template="./discussionTemplate.xhtml">
+    <ui:define name="discussion_breadcrumb">
+        <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories">
+            <f:param name="pageType" value="CATEGORIES" />
+        </ice:commandLink>
+        
+        &gt;&gt;
+        
+        <ice:commandLink actionListener="#{discussionBean.changePageType}">
+            <f:param name="pageType" value="CATEGORY" />
+            <f:param name="categoryId" value="#{category.id}" /> 
+            <ice:outputText value="#{discussionBean.currentThread.category.title}" /> 
+        </ice:commandLink>
+        
+        &gt;&gt;
+        
+        #{discussionBean.currentThread.title}
+    </ui:define>
+    <ui:define name="discussion_content">
+    <ice:panelSeries value="#{discussionBean.currentThread.messages}" var="message" varStatus="messageStatus">
+        <div class="messageLong #{messageStatus.index mod 2 != 0 ? 'odd' : 'even' }">
+            <h4><ice:outputText value="#{message.title}" /></h4>
+            <div class="meta">
+                <div class="floatLeft">By &amp;nbsp;<a href="#">#{message.author.screenName}</a></div>
+                <div class="floatRight">on 15 Dec 2008</div> 
+                <div class="clear"></div>
+            </div>
+            <div class="content">
+                <ice:outputText value="#{message.description}" escape="false" />
+            </div>
+        </div>
+    </ice:panelSeries>
+    
+    <ice:panelGroup styleClass="newMessageForm">
+        <ice:outputLabel for="messageTitle" value="Title:" /><br />
+        <ice:inputText id="messageTitle" value="#{discussionBean.currentThread.newMessage.title}" styleClass="title text"/>
+        <br />
+        
+        <ice:outputLabel for="messageBody" value="Message:" /><br />
+        <ice:inputTextarea id="messageBody" value="#{discussionBean.currentThread.newMessage.description}" styleClass="description text" /><br />
+        <ice:commandButton value="Add" actionListener="#{discussionBean.currentThread.newMessage.add}" />
+    </ice:panelGroup>
+        
+    </ui:define>
+</ui:composition>
+
+</f:view>

@@ -1,0 +1,27 @@
+.discussion .messageLong {
+	padding: 5px;
+	margin: 5px 0px;
+}
+	
+
+.discussion .messageLong p {
+	margin: 10px 0px;
+}
+
+.messageLong.odd {
+    background: #efefef;
+}
+
+.messageLong.even {
+    background: #f5f5f5;
+}
+
+.messageLong .meta {
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.newMessageForm input.text,
+.newMessageForm textarea.text {
+    width: 90%;
+}
