@@ -1,0 +1,103 @@
+.discussion {
+    padding: 5px;
+}
+.discussionContainer {
+    width: 100%;
+    border: 0;
+}
+
+.searchArea {
+	padding: 5px;
+	text-align: right;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 15px;
+	background: #f5f5f5;
+}
+
+.searchArea .searchBox {
+	color: #bbb;
+	width: 200px;
+}
+
+.searchArea input {
+	margin-left: 10px;
+}
+
+.discussionContainer td {
+	vertical-align: top;
+}
+
+.discussionContainer .areaLabel {
+	border-bottom: 1px solid #ddd;
+	padding: 5px;
+}
+
+.discussionContainer .sidebar {
+    width: 20%;
+    padding: 5px;
+}
+
+.discussionContainer .sidebar .area {
+	margin-bottom: 15px;
+}
+
+
+.discussionContainer .sidebar ul {
+    margin-left: 10px;
+}
+
+.discussion .pagination {
+    color: #999;
+    border-bottom: 1px solid #ddd;
+}
+
+.discussion .pagination.bottom {
+    border-top: 1px solid #ddd;
+}
+
+.discussion .pagination .pageInfo {
+    float: left;
+}
+
+.discussion .pagination .controls {
+    float: right;
+}
+
+.discussion .pagination .controls .controlsCol {
+	padding: 0px 2px;
+}
+
+.discussion .pagination .controls a {
+    font-weight: bold;
+}
+
+.discussion .pagination .controls .controlsTbl .controlsScrCol {
+	background: #F2FFAB;
+}
+
+.messageShort {
+    margin: 10px 0;
+    border-bottom: 1px solid #eee;
+    background: #efefef;
+    padding: 5px 5px 10px 5px;
+}
+
+.messageShort .title {
+	margin-bottom: 5px;
+}
+
+.messageShort.odd {
+    background: #efefef;
+}
+
+.messageShort.even {
+    background: #f5f5f5;
+}
+
+.messageShort .content {
+    margin-bottom: 10px;
+}
+    
+.discussionActions {
+    text-align: right;
+}

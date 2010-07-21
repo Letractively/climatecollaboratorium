@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <collab:discussionSupport discussionBean="#{discussionBean}" discussionId="#{discussionId}">
+        <h1>#{discussionBean.pageType}</h1>
+        <f:subview rendered="#{discussionBean.pageType == 'DISCUSSIONS'}">
+            <ui:include src="./pages/discussions.xhtml" />
+        </f:subview>
+        <f:subview rendered="#{discussionBean.pageType == 'CATEGORIES'}">
+            <ui:include src="./pages/categories.xhtml" />
+        </f:subview>
+        <f:subview rendered="#{discussionBean.pageType == 'CATEGORY'}">
+            <ui:include src="./pages/category.xhtml" />
+        </f:subview>
+        <f:subview rendered="#{discussionBean.pageType == 'THREAD'}">
+            <ui:include src="./pages/thread.xhtml" />
+        </f:subview>
+    </collab:discussionSupport>
+</f:view>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <ice:panelSeries value="#{threads}" var="thread" varStatus="varStatus" id="threadsList" rows="10">
+        <div class="messageShort #{varStatus.index mod 2 != 0 ? 'odd' : 'even'}">
+            <div class="title">
+                <h4 class="title">
+                    <ice:commandLink actionListener="#{discussionBean.changePageType}">
+                        <f:param name="pageType" value="THREAD" />
+                        <f:param name="threadId" value="#{thread.id}" />
+                        <ice:outputText value="#{thread.title}" />
+                    </ice:commandLink>
+                </h4>
+            </div>
+            <div class="content">
+                <ice:outputText value="#{thread.description}" escape="false"/>
+            </div>
+            <div class="meta">
+                <div class="floatLeft">
+                    Started by &amp;nbsp;<a href="#">#{thread.author.screenName}</a> 
+                    :: Responses &amp;nbsp;<strong>#{thread.messagesCount}</strong>
+                </div>
+                <div class="floatRight"> 
+                    Last response by &amp;nbsp;<a href="#">SomeoneElse</a> 
+                    :: Last active &amp;nbsp;<strong>15 minutes ago</strong>
+                </div>
+                <div class="clear"></div>
+            </div>            
+        </div>
+    </ice:panelSeries>
+</f:view>

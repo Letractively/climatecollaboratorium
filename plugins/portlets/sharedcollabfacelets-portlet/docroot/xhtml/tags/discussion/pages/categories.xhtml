@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    
+    <ui:composition template="./discussionTemplate.xhtml">
+        <ui:define name="discussion_breadcrumb">Categories</ui:define>
+        
+        <ui:define name="discussion_actions">
+            <ice:commandButton value="Add Category" />
+        </ui:define>
+        
+        <ui:define name="discussion_content">
+        
+            
+            <ui:decorate template="./paginator.xhtml">
+                <ui:param name="paginatorFor" value="paginatedDataSet"/>
+                <ui:param name="entityName" value="Categories"/>
+            </ui:decorate>
+            <ice:panelSeries value="#{discussionBean.categories}" var="category" varStatus="categoryStatus" id="paginatedDataSet" rows="10">
+                <div class="messageShort #{categoryStatus.index mod 2 != 0 ? 'odd' : 'even'}">
+                    <div class="title">
+                        <h4 class="title">
+                            <ice:commandLink actionListener="#{discussionBean.changePageType}">
+                                <f:param name="pageType" value="CATEGORY" />
+                                <f:param name="categoryId" value="#{category.id}" /> 
+                                <ice:outputText value="#{category.title}" /> 
+                            </ice:commandLink>
+                        </h4>
+                    </div>
+                    <div class="content">
+                        <ice:outputText value="#{category.description}" escape="false" />
+                    </div>
+                    <div class="meta">
+                    <div class="floatLeft">
+                        Started by &amp;nbsp;<a href="#">#{category.author.screenName}</a> 
+                        :: Threads &amp;nbsp;<strong>#{category.threadsCount}</strong>
+                    </div>
+                    <div class="floatRight"> 
+                        Last response by &amp;nbsp;<a href="#">SomeoneElse</a> 
+                        :: Last active &amp;nbsp;<strong>15 minutes ago</strong>
+                    </div>
+                    <div class="clear"></div>
+                    </div>
+                        
+                </div>
+            
+            </ice:panelSeries>
+            
+            <ui:decorate template="./paginator.xhtml">
+                <ui:param name="paginatorFor" value="paginatedDataSet"/>
+                <ui:param name="entityName" value="Categories"/>
+            </ui:decorate>                  
+        </ui:define>
+    </ui:composition>
+</f:view>
