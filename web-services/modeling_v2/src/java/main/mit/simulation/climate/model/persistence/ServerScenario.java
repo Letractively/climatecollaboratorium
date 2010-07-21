@@ -94,15 +94,14 @@ public class ServerScenario extends ServerObject<ScenarioDAO> implements Scenari
 
         Variable defaultidx  = null;
         boolean hasindexed = false;
-        for (Iterator<Variable> i = outvars.iterator();i.hasNext();) {
+        for (Iterator<Variable> i = outvars.iterator();i.hasNext() && (!hasindexed || defaultidx==null);) {
             Variable test = i.next();
             log.debug("Checking variable "+test.getMetaData().getName());
             log.debug("Varcontext is "+test.getMetaData().getVarContext());
             hasindexed|=(test.getMetaData().getVarContext() == VarContext.INDEXED);
-            if (test.getMetaData().isIndex()) {
+            if (defaultidx==null && test.getMetaData().isIndex()) {
                 defaultidx = test;
-                //i.remove();
-                break;
+                
             }
         }
 
