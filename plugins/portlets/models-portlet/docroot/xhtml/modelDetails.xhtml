@@ -33,6 +33,7 @@
     <ice:panelGroup rendered="#{not simulationBean.editing}">
         <div class="model-information">
             <div class="bottom-content">
+                    <ice:form>
                 <f:subview id="inputsView">
                     <ui:include src="./inputs/inputs.xhtml" />
                 </f:subview>
@@ -42,11 +43,10 @@
                 
                 <div class="clear"></div>
                 <div class="modelActions">
-                    <ice:form>
                         <ice:commandButton actionListener="#{simulationBean.runModel}" styleClass="full" value="Run model"/>
-                    </ice:form>
                     <button id="runModel" class="full"></button>
                 </div>
+                    </ice:form>
             </div>
         </div>
     </ice:panelGroup>
