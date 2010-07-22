@@ -49,6 +49,15 @@ public class ModelInputDisplayItemWrapper {
         return 0L;
     }
     
+    public Object getTypedValue() {
+        if (wrappedItem.getMetaData().getProfile()[0].equals(Integer.class)) {
+            return Math.round(value);
+        }
+        return value;
+    
+        
+    }
+    
     public Double getValue() {
         return value;
     }
