@@ -201,6 +201,8 @@
 		<field name="name" type="String" />
 		<field name="description" type="String" />
 		<field name="displayItemOrder" type="Integer" />
+		<field name="groupType" type="String" />
+		<field name="parentGroupPK" type="Long" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelInputItem">
 		<field name="modelInputItemPK" type="Long" />

@@ -10,6 +10,7 @@ import com.ext.portlet.models.model.ModelInputGroup;
 import com.ext.portlet.models.model.ModelInputItem;
 import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
+import com.ext.portlet.models.service.base.ModelInputGroupType;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -36,7 +37,9 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
     ModelInputGroup group;
 
+    ModelInputGroupDisplayItem parent = null;
     List<ModelInputDisplayItem> items = new ArrayList<ModelInputDisplayItem>();
+    List<ModelInputGroupDisplayItem> groups = new ArrayList<ModelInputGroupDisplayItem>();
     Set<MetaData> knownmd = new HashSet<MetaData>();
 
     /**
@@ -53,6 +56,16 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         populateChildren();
     }
 
+    public ModelInputGroupType getGroupType() {
+        //return ModelInputGroupType.valueOf("HORIZONTAL");
+        return group.getGroupType()==null||group.getGroupType().trim().length()==0?ModelInputGroupType.HORIZONTAL:ModelInputGroupType.valueOf(group.getGroupType());
+    }
+
+    public void setGroupType(ModelInputGroupType type) {
+        group.setGroupType(type.name());
+
+    }
+
 
     private void populateChildren() throws SystemException {
         knownmd = new HashSet<MetaData>();
@@ -61,6 +74,13 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
             knownmd.add(item.getMetaData());
             items.add(ModelUIFactory.getInstance().getInputItem(item));
         }
+
+        groups = new ArrayList<ModelInputGroupDisplayItem>();
+        for (ModelInputGroup child:group.getChildGroups()) {
+            groups.add(ModelUIFactory.getInstance().getGroupItem(child));
+        }
+        //why is this here?
+        ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
     }
 
 
@@ -158,6 +178,14 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         return items;
      }
 
+    public List<ModelInputDisplayItem> getAllItems() {
+        List<ModelInputDisplayItem> result = new ArrayList<ModelInputDisplayItem>();
+        result.addAll(items);
+        result.addAll(groups);
+        Collections.sort(result);
+        return result;
+    }
+
 
     /**
      * This method will add a new element to this group, and create a new dao for this item.
@@ -176,6 +204,29 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
             return item;
         }
         return null;
+    }
+
+    public List<ModelInputGroupDisplayItem> getChildGroups() {
+       Collections.sort(groups);
+        return groups;
+    }
+
+    public void setParent(ModelInputGroupDisplayItem parent) throws SystemException {
+        ModelInputGroupDisplayItem old = this.parent;
+        group.setParentGroupPK(parent==null?null:parent.group.getModelInputGroupPK());
+        ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
+        this.parent = parent;
+        if (old!=null) old.populateChildren();
+        parent.populateChildren();
+
+
+    }
+
+    public void addChildGroup(ModelInputGroupDisplayItem group) throws IllegalUIConfigurationException, SystemException {
+        if (group.getGroupType() == ModelInputGroupType.TAB) {
+            throw new IllegalUIConfigurationException("Tabs cannot be contained by other groups");
+        }
+        group.setParent(this);
     }
 
     /**
@@ -200,22 +251,31 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
     }
 
+
+    public void removeGroup(ModelInputGroupDisplayItem child) throws SystemException {
+        if (groups.contains(child)) {
+            child.setParent(null);
+
+        }
+    }
+
     /**
      * This is the preferred means for creating a new group with a specifc name / description
      *
      * @param s
      * @param name
      * @param description
+     * @param type
      * @return
      * @throws SystemException
      */
-    public static ModelInputGroupDisplayItem create(Simulation s, String name, String description) throws SystemException {
+    public static ModelInputGroupDisplayItem create(Simulation s, String name, String description, ModelInputGroupType type) throws SystemException {
         Long pk = CounterLocalServiceUtil.increment(ModelInputGroup.class.getName());
         ModelInputGroup group = ModelInputGroupLocalServiceUtil.createModelInputGroup(pk);
         group.setName(name);
         group.setDescription(description);
         group.setModelId(s.getId());
-
+        group.setGroupType(type.name());
         ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
 
         return new ModelInputGroupDisplayItem(group);
@@ -228,11 +288,12 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      * name and description
      *
      */
-    public static ModelInputGroupDisplayItem create(Simulation s, MetaData md) throws SystemException {
+    public static ModelInputGroupDisplayItem create(Simulation s, MetaData md, ModelInputGroupType type) throws SystemException {
         Long pk = CounterLocalServiceUtil.increment(ModelInputGroup.class.getName());
         ModelInputGroup group = ModelInputGroupLocalServiceUtil.createModelInputGroup(pk);
         group.setModelId(s.getId());
         group.setNameAndDescriptionMetaDataId(md.getId());
+        group.setGroupType(type.name());
         ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
         return new ModelInputGroupDisplayItem(group);
     }
@@ -243,6 +304,13 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      * @throws PortalException 
      */
     public void delete() throws PortalException, SystemException {
+        for (ModelInputGroupDisplayItem gchild:getChildGroups()) {
+            gchild.setParent(null);
+        }
+        for (ModelInputDisplayItem item:getDisplayItems()) {
+            ((ModelInputIndividualDisplayItem)item).setGroupId(null);
+        }
+        populateChildren();
         ModelInputGroupLocalServiceUtil.deleteModelInputGroup(group.getModelInputGroupPK());
     }
 

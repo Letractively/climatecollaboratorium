@@ -94,6 +94,11 @@ public class ModelInputGroupLocalServiceUtil {
         return getService().getInputGroups(sim);
     }
 
+    public static java.util.List<com.ext.portlet.models.model.ModelInputGroup> getChildGroups(
+        com.ext.portlet.models.model.ModelInputGroup group) {
+        return getService().getChildGroups(group);
+    }
+
     public static ModelInputGroupLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("ModelInputGroupLocalService is not set");

@@ -6,6 +6,7 @@
 
 package com.ext.portlet.plans;
 
+import com.ext.portlet.mock.MockClientRepository;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlanTypeAttribute;

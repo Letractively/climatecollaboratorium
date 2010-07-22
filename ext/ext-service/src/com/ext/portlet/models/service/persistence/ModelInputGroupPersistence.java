@@ -61,6 +61,36 @@ public interface ModelInputGroupPersistence extends BasePersistence {
         java.lang.Long modelInputGroupPK)
         throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.models.model.ModelInputGroup> findByparentModelId(
+        java.lang.Long parentGroupPK) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelInputGroup> findByparentModelId(
+        java.lang.Long parentGroupPK, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelInputGroup> findByparentModelId(
+        java.lang.Long parentGroupPK, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputGroup findByparentModelId_First(
+        java.lang.Long parentGroupPK,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputGroupException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputGroup findByparentModelId_Last(
+        java.lang.Long parentGroupPK,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputGroupException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelInputGroup[] findByparentModelId_PrevAndNext(
+        java.lang.Long modelInputGroupPK, java.lang.Long parentGroupPK,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelInputGroupException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.models.model.ModelInputGroup> findByModelId(
         java.lang.Long modelId) throws com.liferay.portal.SystemException;
 
@@ -109,10 +139,16 @@ public interface ModelInputGroupPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
+    public void removeByparentModelId(java.lang.Long parentGroupPK)
+        throws com.liferay.portal.SystemException;
+
     public void removeByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException;
 
     public void removeAll() throws com.liferay.portal.SystemException;
+
+    public int countByparentModelId(java.lang.Long parentGroupPK)
+        throws com.liferay.portal.SystemException;
 
     public int countByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException;

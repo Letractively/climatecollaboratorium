@@ -73,6 +73,13 @@
         <!-- Sort order for this item in on the page -->
         <column name="displayItemOrder" type="Integer"/>
 
+        <column name="groupType" type="String"/>
+
+        <column name="parentGroupPK" type="Long"/>
+
+        <finder name="parentModelId" return-type="Collection">
+            <finder-column name="parentGroupPK"/>
+        </finder>
         <finder name="ModelId" return-type="Collection">
             <finder-column name="modelId"/>
         </finder>

@@ -867,7 +867,9 @@ create table ModelInputGroup (
 	nameAndDescriptionMetaDataId LONG,
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,
-	displayItemOrder INTEGER
+	displayItemOrder INTEGER,
+	groupType VARCHAR(75) null,
+	parentGroupPK LONG
 );
 
 create table ModelInputItem (
