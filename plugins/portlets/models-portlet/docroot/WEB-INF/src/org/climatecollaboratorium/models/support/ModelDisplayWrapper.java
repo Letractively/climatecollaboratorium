@@ -23,6 +23,7 @@ public class ModelDisplayWrapper {
     private SimulationBean simulationBean;
     private List<ModelInputDisplayItemWrapper> wrappedInputs = new ArrayList<ModelInputDisplayItemWrapper>();
     private List<ModelInputGroupDisplayItemWrapper> wrappedTabs = new ArrayList<ModelInputGroupDisplayItemWrapper>();
+    private List<ModelInputDisplayItemWrapper> wrappedNonTabs = new ArrayList<ModelInputDisplayItemWrapper>();
     
     public ModelDisplayWrapper(ModelDisplay wrapped, SimulationBean simulationBean, Map<Long, Object> values) {
         this.wrapped = wrapped;
@@ -35,6 +36,14 @@ public class ModelDisplayWrapper {
             wrappedTabs.add(itemWrapper);
             wrappedInputs.addAll(itemWrapper.getAllItems());
         }
+        
+        for (ModelInputDisplayItem item: wrapped.getNonTabs()) {
+            ModelInputDisplayItemWrapper itemWrapper = ModelInputDisplayItemWrapper.getInputWrapper(item, simulationBean, values);
+            wrappedNonTabs.add(itemWrapper);
+            wrappedInputs.add(itemWrapper);
+        }
+        
+        
         for (ModelInputDisplayItemWrapper item: wrappedInputs) {
             if (item != null && item.getMetaData() != null) {
                 inputsDefined.add(item.getMetaData().getId());
@@ -102,12 +111,13 @@ public class ModelDisplayWrapper {
         return wrapped.getInputs();
     }
     
-    public List<ModelInputDisplayItem> getNonTabs() {
-        return wrapped.getNonTabs();
+    public List<ModelInputDisplayItemWrapper> getNonTabs() {
+        return wrappedNonTabs;
     }
     
     public List<ModelInputDisplayItemWrapper> getWrappedInputs() {
         return wrappedInputs;
     }
+    
 
 }
