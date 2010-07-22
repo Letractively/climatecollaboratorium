@@ -2,15 +2,13 @@ package org.climatecollaboratorium.models.support;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import com.ext.portlet.models.service.base.ModelInputGroupType;
 import org.climatecollaboratorium.models.SimulationBean;
 
 import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
 
-import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
 import com.liferay.portal.PortalException;
@@ -45,10 +43,10 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
             // adding
             ModelInputGroupDisplayItem createdItem = null;
             if (md != null) {
-                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), md);
+                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), md, ModelInputGroupType.HORIZONTAL);
             }
             else {
-                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), name, description);
+                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), name, description, ModelInputGroupType.HORIZONTAL);
             }
 
             int maxOrder = Integer.MIN_VALUE;

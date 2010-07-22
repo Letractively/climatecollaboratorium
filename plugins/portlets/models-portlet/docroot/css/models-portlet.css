@@ -457,3 +457,17 @@ ul.ui-tabs-nav li.ui-state-active a{
     line-height: normal;
     margin: 0;
 }
+
+.model-information table.icePnlTbOn td,
+.model-information table.icePnlTbOff td,
+.model-information table.icePnlTbOver td {
+   height:auto; 
+}
+
+.model-information .actions table.innerLayout td.label {
+    text-align:right;
+}
+
+.model-information .actions table.innerLayout td.field {
+    text-align:left;
+}
