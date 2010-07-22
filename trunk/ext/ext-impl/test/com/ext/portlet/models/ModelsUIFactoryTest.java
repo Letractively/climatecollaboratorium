@@ -14,7 +14,7 @@ import org.climatecollaboratorium.test.BaseCollabTest;
 
 public class ModelsUIFactoryTest extends BaseCollabTest {
 
-    public void testModel() throws IOException, ScenarioNotFoundException, ModelNotFoundException {
+    public void testModel() throws IOException, ScenarioNotFoundException, ModelNotFoundException, SystemException, IllegalUIConfigurationException {
 
            ClientRepository repository = ClientRepository.instance("localhost", 8080);
 
@@ -76,7 +76,7 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
 
        }
 
-    public void testErrorHandling() throws IOException, SystemException, ScenarioNotFoundException, ModelNotFoundException {
+    public void testErrorHandling() throws IOException, SystemException, ScenarioNotFoundException, ModelNotFoundException, IllegalUIConfigurationException {
         ClientRepository repo = ClientRepository.instance("localhost", 8080);
         Simulation sim = repo.getSimulation(760L);
         Scenario scenario = repo.runModel(sim, getErrorProducingInput(), 1L, false);
@@ -218,7 +218,7 @@ public class ModelsUIFactoryTest extends BaseCollabTest {
         return inputs;
     }
 
-    public void testExistingScenario() throws IOException, ScenarioNotFoundException, ModelNotFoundException, SystemException {
+    public void testExistingScenario() throws IOException, ScenarioNotFoundException, ModelNotFoundException, SystemException, IllegalUIConfigurationException {
 
         ClientRepository repository = ClientRepository.instance("localhost", 8080);
 

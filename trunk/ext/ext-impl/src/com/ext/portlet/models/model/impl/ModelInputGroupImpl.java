@@ -9,7 +9,9 @@ package com.ext.portlet.models.model.impl;
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.model.ModelInputGroup;
 import com.ext.portlet.models.model.ModelInputItem;
+import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
@@ -25,6 +27,21 @@ public class ModelInputGroupImpl extends ModelInputGroupModelImpl
     public List<ModelInputItem> getInputItems() {
         return ModelInputItemLocalServiceUtil.getItemForGroupId(getModelInputGroupPK());
        
+    }
+
+    public List<ModelInputGroup> getChildGroups() {
+        return ModelInputGroupLocalServiceUtil.getChildGroups(this);
+    }
+
+    public ModelInputGroup getParent() {
+        try {
+            return ModelInputGroupLocalServiceUtil.getModelInputGroup(getParentGroupPK());
+        } catch (PortalException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (SystemException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return null;
     }
 
      public Simulation getModel() throws SystemException {

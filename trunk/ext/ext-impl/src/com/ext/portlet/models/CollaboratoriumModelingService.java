@@ -23,7 +23,7 @@ import java.io.IOException;
  */
 public class CollaboratoriumModelingService {
 
-    private static ClientRepository instance;
+    static ClientRepository instance;
 
     private static Log _log = LogFactoryUtil.getLog(CollaboratoriumModelingService.class);
 
@@ -47,6 +47,8 @@ public class CollaboratoriumModelingService {
                 host = PortletProps.get("climatecollaboratorium.model.server");
                 port = Integer.parseInt(PortletProps.get("climatecollaboratorium.model.port"));
             }
+
+           
              _log.info("Starting up modeling client ("+host+":"+port+")");
             try {
                 instance = ClientRepository.instance(host, port);

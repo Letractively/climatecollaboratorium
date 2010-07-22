@@ -29,6 +29,10 @@ package com.ext.portlet.models.model;
 public interface ModelInputGroup extends ModelInputGroupModel {
     public java.util.List<com.ext.portlet.models.model.ModelInputItem> getInputItems();
 
+    public java.util.List<com.ext.portlet.models.model.ModelInputGroup> getChildGroups();
+
+    public com.ext.portlet.models.model.ModelInputGroup getParent();
+
     public mit.simulation.climate.client.Simulation getModel()
         throws com.liferay.portal.SystemException;
 
