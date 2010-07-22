@@ -6,4 +6,8 @@
 	-->
 
 	<Manager pathname="" />
+    <Loader
+            loaderClass="com.liferay.support.tomcat.loader.PortalClassLoader"
+        />
+    
 </Context>

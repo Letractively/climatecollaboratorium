@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import com.ext.portlet.models.service.base.ModelInputGroupType;
+import com.ext.portlet.models.ui.*;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
@@ -30,16 +32,6 @@ import org.climatecollaboratorium.models.support.ModelOutputErrorSettingWrapper;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 import org.climatecollaboratorium.models.support.SupportBean;
 
-import com.ext.portlet.models.ui.ModelDisplay;
-import com.ext.portlet.models.ui.ModelDisplayItem;
-import com.ext.portlet.models.ui.ModelInputDisplayItem;
-import com.ext.portlet.models.ui.ModelInputDisplayItemType;
-import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
-import com.ext.portlet.models.ui.ModelOutputDisplayItem;
-import com.ext.portlet.models.ui.ModelOutputDisplayItemType;
-import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
-import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
-import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.SystemException;
 
 public class SimulationBean implements JSEventHandler {
@@ -81,6 +73,10 @@ public class SimulationBean implements JSEventHandler {
 
     public ModelDisplay getDisplay() {
         return display;
+    }
+
+    public boolean getHasTabs() {
+       return display!=null && display.getTabs().size() > 0;
     }
 
     public void setSimulation(Simulation simulation) {
@@ -285,11 +281,29 @@ public class SimulationBean implements JSEventHandler {
     }
     
     public void updateDisplay() {
+        display = null;
+        System.err.println(ModelInputGroupType.TAB);
+        System.err.println(ModelInputGroupType.VERTICAL);
+        System.err.println(ModelInputGroupType.HORIZONTAL);
         if (scenario != null) {
+            try {
             display = ModelUIFactory.getInstance().getDisplay(scenario);
+            } catch (IllegalUIConfigurationException e) {
+                e.printStackTrace();
+            } catch (SystemException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
         }
         else {
-            display = ModelUIFactory.getInstance().getDisplay(simulation);
+            try {
+                display = ModelUIFactory.getInstance().getDisplay(simulation);
+            } catch (SystemException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (IllegalUIConfigurationException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
         } 
         wrappedInputs.clear();
         for (ModelInputDisplayItem item: display.getInputs()) {
