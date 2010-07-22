@@ -485,3 +485,7 @@ ul.ui-tabs-nav li.ui-state-active a{
 .model-information .actions table.innerLayout td.field {
     text-align:left;
 }
+
+table.icePnlTbSet > tbody:first-child > tr:first-child table {
+    height:50px;
+}
