@@ -30,7 +30,7 @@ public class ModelInputDisplayItemWrapper {
         
         if (this.hasValue()) {
             if (values.containsKey(wrappedItem.getMetaData().getId())) {
-                value = Double.valueOf(values.get(wrappedItem.getMetaData().getId()).toString());
+                value = Double.valueOf(values.get(getId()).toString());
             }
             else {
                 String defVal = wrappedItem.getMetaData() != null && wrappedItem.getMetaData().getDefault() != null ? wrappedItem.getMetaData().getDefault()[0] : null;

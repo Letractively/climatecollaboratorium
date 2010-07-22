@@ -27,16 +27,24 @@ public class ModelDisplayWrapper {
     public ModelDisplayWrapper(ModelDisplay wrapped, SimulationBean simulationBean, Map<Long, Object> values) {
         this.wrapped = wrapped;
         this.simulationBean = simulationBean;
+        Set<Long> inputsDefined = new HashSet<Long>();
         Map<Long, ModelInputDisplayItemWrapper> inputsById = new HashMap<Long, ModelInputDisplayItemWrapper>();
                 
         for (ModelInputGroupDisplayItem item: wrapped.getTabs()) {
-            System.out.println("tab: " + item.getOriginalName());
             ModelInputGroupDisplayItemWrapper itemWrapper = new ModelInputGroupDisplayItemWrapper(item, simulationBean, values);
             wrappedTabs.add(itemWrapper);
             wrappedInputs.addAll(itemWrapper.getAllItems());
         }
+        for (ModelInputDisplayItemWrapper item: wrappedInputs) {
+            if (item != null && item.getMetaData() != null) {
+                inputsDefined.add(item.getMetaData().getId());
+            }
+        }
         for (ModelInputDisplayItem item: wrapped.getAllIndividualInputs()) {
-            wrappedInputs.add(ModelInputDisplayItemWrapper.getInputWrapper(item, simulationBean, values));
+            if (! inputsDefined.contains(item.getMetaData().getId())) {
+                wrappedInputs.add(ModelInputDisplayItemWrapper.getInputWrapper(item, simulationBean, values));
+                inputsDefined.add(item.getMetaData().getId());
+            }
         }
     }
     
@@ -57,6 +65,7 @@ public class ModelDisplayWrapper {
         for (ModelInputDisplayItemWrapper item: wrappedInputs) {
             if (! (item instanceof ModelInputGroupDisplayItemWrapper)) {
                 inputsValues.put(item.getId(), item.getTypedValue());
+                System.out.println("seting: " + item.getId() + "\t to " + item.getTypedValue());
             } else {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) item, inputsValues);
             }
@@ -70,6 +79,7 @@ public class ModelDisplayWrapper {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) groupedItem, inputsValues);
             }
             else {
+                System.out.println("seting: " + groupedItem.getId() + "\t to " + groupedItem.getTypedValue());
                 inputsValues.put(groupedItem.getId(), groupedItem.getTypedValue());
             }
             

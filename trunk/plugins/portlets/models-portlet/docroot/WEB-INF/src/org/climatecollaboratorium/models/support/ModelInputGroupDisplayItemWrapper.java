@@ -31,10 +31,8 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         simulationBean = bean;
         this.groupItem = groupItem;
 
-        System.out.println("group: " + getOryginalName());
         for (ModelInputDisplayItem item: groupItem.getAllItems()) {
             wrappedItems.add(ModelInputDisplayItemWrapper.getInputWrapper(item, bean, inputsValues));
-            System.out.println(" group item: " + wrappedItems.get(wrappedItems.size()-1).getName());
         }
     }
     
