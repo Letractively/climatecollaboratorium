@@ -256,9 +256,12 @@ function renderModelOutputs() {
 			var yaxis = {};
 			var xaxis = {label:'Year', autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks};
 			
-			
+			log.debug('serie def processing');
 			var series = [];
 			def.find(".serieDef").each(function() {
+				log.debug('serie def processing');
+				try {
+					log.debug("value: " + jQuery(this).find(".value").val());
 				var val = eval("(" + jQuery(this).find(".value").val() + ")" );
 				var label = jQuery(this).find(".label").val();
 				var unit = jQuery(this).find(".unit").val();
@@ -334,6 +337,10 @@ function renderModelOutputs() {
 					    errorMessages.push(invalidErrorMessage);
 				    }
                 }
+				}
+				catch (e) {
+					log.error("wyjatek podczas zbierania informacji.... " + e.message + "\t" + e.fileName + "\t" + e.lineNumber);
+				}
 			});
 			
 			// 	set min/max

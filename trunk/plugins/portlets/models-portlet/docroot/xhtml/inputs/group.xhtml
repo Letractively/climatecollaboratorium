@@ -10,16 +10,16 @@
     <table class="inputDefTable">
         <tr class="#{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}">
             <!--  colspan takes 1 col for first input and 2 cols for each following inputs -->
-            <td class="first" colspan="#{fn:length(input.displayItems)}"><span>#{input.name}</span> <a
+            <td class="first" colspan="#{fn:length(input.displayItems)}"><span>#{input.oryginalName}</span> <a
                     class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)"
                     href="javascript:;"> <img alt="question" src="/collaboratorium-theme/images/qustion_icon.png"/> </a>
 
-                <p class="hidden inputDescription">#{input.description}</p>
+                <p class="hidden inputDescription">#{input.oryginalDescription}</p>
 
             </td>
         </tr>
         <tr>
-            <ui:repeat value="#{input.displayItems}" var="individualInput" varStatus="status">
+            <ui:repeat value="#{input.displayItemsWrapped}" var="individualInput" varStatus="status">
                 <td class="inputs">
                     <table class="sliderDef">
                         <tr>
@@ -46,7 +46,7 @@
 
                                             </td>
                                             <td class="field">
-                                              <input type="text" class="value"/>
+                                                <ice:inputText styleClass="value" value="#{individualInput.value}"/>
                                             </td>
                                         </tr>
                                 </table>

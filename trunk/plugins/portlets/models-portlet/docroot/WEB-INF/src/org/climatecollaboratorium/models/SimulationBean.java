@@ -26,6 +26,7 @@ import org.climatecollaboratorium.jsintegration.JSEventHandler;
 import org.climatecollaboratorium.jsintegration.JSEventManager;
 import org.climatecollaboratorium.models.event.UpdateInputWidgetsHandler;
 import org.climatecollaboratorium.models.event.UpdateOutputsOrderHandler;
+import org.climatecollaboratorium.models.support.ModelDisplayWrapper;
 import org.climatecollaboratorium.models.support.ModelInputDisplayItemWrapper;
 import org.climatecollaboratorium.models.support.ModelInputGroupDisplayItemWrapper;
 import org.climatecollaboratorium.models.support.ModelOutputErrorSettingWrapper;
@@ -41,7 +42,7 @@ public class SimulationBean implements JSEventHandler {
     private boolean editing;
     private String description;
     private JSEventManager jsEventManager;
-    private ModelDisplay display;
+    private ModelDisplayWrapper display;
     private boolean embeddedEditing;
     private Map<ModelInputDisplayItem, ModelInputDisplayItemWrapper> wrappedInputs = new HashMap<ModelInputDisplayItem, ModelInputDisplayItemWrapper>();
     private List<ModelOutputErrorSettingWrapper> outputErrorSettingWrappers = new ArrayList<ModelOutputErrorSettingWrapper>();
@@ -56,7 +57,7 @@ public class SimulationBean implements JSEventHandler {
 
     private List<SimulationChangedListener> simulationChangedListeners = new ArrayList<SimulationChangedListener>();
 
-    private Map<Long, String> inputsValues = new HashMap<Long, String>();
+    private Map<Long, Object> inputsValues = new HashMap<Long, Object>();
     private boolean scenarioSaved;
     private ModelInputGroupDisplayItemWrapper newGroupWrapper;
 
@@ -71,12 +72,12 @@ public class SimulationBean implements JSEventHandler {
         return scenario;
     }
 
-    public ModelDisplay getDisplay() {
+    public ModelDisplayWrapper getDisplay() {
         return display;
     }
 
     public boolean getHasTabs() {
-       return display!=null && display.getTabs().size() > 0;
+       return display.hasTabs();
     }
 
     public void setSimulation(Simulation simulation) {
@@ -87,7 +88,7 @@ public class SimulationBean implements JSEventHandler {
 
         this.simulation = simulation;
         scenario = null;
-        inputsValues.clear();
+       // inputsValues.clear();
         editing = false;
 
         updateDisplay();
@@ -100,7 +101,7 @@ public class SimulationBean implements JSEventHandler {
         jsEventManager.sendEvent(event);
 
         for (SimulationChangedListener listener : simulationChangedListeners) {
-            listener.onSimulationChanged(simulation, display);
+            listener.onSimulationChanged(simulation, display.getWrapped());
         }
     }
 
@@ -115,7 +116,7 @@ public class SimulationBean implements JSEventHandler {
         this.simulation = scenario.getSimulation();
         scenarioSaved = false;
 
-        inputsValues.clear();
+       // inputsValues.clear();
         editing = false;
 
         updateDisplay();
@@ -130,7 +131,7 @@ public class SimulationBean implements JSEventHandler {
         jsEventManager.sendEvent(event);
 
         for (SimulationChangedListener listener : simulationChangedListeners) {
-            listener.onSimulationChanged(simulation, display);
+            listener.onSimulationChanged(simulation, display.getWrapped());
         }
     }
 
@@ -204,12 +205,24 @@ public class SimulationBean implements JSEventHandler {
         DynaBean bean = (DynaBean) event.getPayload();
         Map<Long, Object> inputs = new HashMap<Long, Object>();
         for (MetaData md : simulation.getInputs()) {
-            Object value = bean.get(md.getId().toString());
-            inputs.put(md.getId(), value);
-            inputsValues.put(md.getId(), value.toString());
+            try {
+                Object value = bean.get(md.getId().toString());
+                inputs.put(md.getId(), value);
+                inputsValues.put(md.getId(), value.toString());
+            }
+            catch (Exception e) {
+                // ignore
+                e.printStackTrace();
+                if (inputsValues.containsKey(md.getId())) {
+                    inputs.put(md.getId(), inputsValues.get(md.getId()));
+                }
+                else {
+                    inputs.put(md.getId(), md.getMin()[0]);
+                }
+            }
         }
         try {
-
+            Map<Long, Object> vals = display.getInputsValues();
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
             System.out.println("scenario id after run: " + scenario.getId());
             
@@ -239,8 +252,38 @@ public class SimulationBean implements JSEventHandler {
             e.printStackTrace();
         }
     }
+    
+    public void runModel(ActionEvent e) throws SystemException, IOException, ScenarioNotFoundException, ModelNotFoundException {
+        Map<Long, Object> values = display.getInputsValues();
+        /*
+        List<Long> inputIds = new ArrayList<Long>();
+        Integer year = 2010;
+        for (MetaData md: simulation.getInputs()) {
+            inputIds.add(md.getId());
+            if (! values.containsKey(md.getId())) {
+                values.put(md.getId(), year.toString());
+                year++;
+            }
+        }*/
+        inputsValues.putAll(values);
+        scenario = SimulationsHelper.getInstance().runSimulation(simulation, values);
 
-    public Map<Long, String> getInputValues() {
+        System.out.println("scenario id after run: " + scenario.getId());
+
+
+
+        updateDisplay();
+        JSEvent event = new JSEvent();
+        event.setId("modelRunSuccessful");
+        event.setTimestamp(System.currentTimeMillis());
+        event.setPayload(simulation.getInputs());
+
+        jsEventManager.sendEvent(event);
+        scenarioSaved = false;
+
+    }
+
+    public Map<Long, Object> getInputValues() {
         return inputsValues;
     }
 
@@ -287,7 +330,7 @@ public class SimulationBean implements JSEventHandler {
         System.err.println(ModelInputGroupType.HORIZONTAL);
         if (scenario != null) {
             try {
-            display = ModelUIFactory.getInstance().getDisplay(scenario);
+            display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this, inputsValues);
             } catch (IllegalUIConfigurationException e) {
                 e.printStackTrace();
             } catch (SystemException e) {
@@ -296,7 +339,7 @@ public class SimulationBean implements JSEventHandler {
         }
         else {
             try {
-                display = ModelUIFactory.getInstance().getDisplay(simulation);
+                display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(simulation), this, inputsValues);
             } catch (SystemException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (IllegalUIConfigurationException e) {
@@ -306,15 +349,15 @@ public class SimulationBean implements JSEventHandler {
             }
         } 
         wrappedInputs.clear();
-        for (ModelInputDisplayItem item: display.getInputs()) {
-            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this));
+        for (ModelInputDisplayItem item: display.getOryginalInputs()) {
+            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this, inputsValues));
         }
         
         newGroupWrapper = new ModelInputGroupDisplayItemWrapper(this);
     }
     
     public List<SelectItem> getModelInputsOptions() {
-        return SupportBean.getModelInputsOptions(display);
+        return SupportBean.getModelInputsOptions(display.getWrapped());
     }
     
     public ModelInputGroupDisplayItemWrapper getNewGroupWrapper() {
@@ -323,7 +366,7 @@ public class SimulationBean implements JSEventHandler {
     
     public List<ModelInputDisplayItem> getIndividualInputsFromDisplay() {
         List<ModelInputDisplayItem> inputs = new ArrayList<ModelInputDisplayItem>();
-        for (ModelInputDisplayItem input: display.getInputs()) {
+        for (ModelInputDisplayItem input: display.getOryginalInputs()) {
             if (input.getDisplayItemType() == ModelInputDisplayItemType.INDIVIDUAL) {
                 inputs.add(input);
             }
