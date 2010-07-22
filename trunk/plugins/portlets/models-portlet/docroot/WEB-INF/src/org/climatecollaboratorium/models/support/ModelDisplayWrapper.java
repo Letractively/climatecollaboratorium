@@ -3,8 +3,10 @@ package org.climatecollaboratorium.models.support;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.climatecollaboratorium.models.SimulationBean;
 
@@ -25,12 +27,16 @@ public class ModelDisplayWrapper {
     public ModelDisplayWrapper(ModelDisplay wrapped, SimulationBean simulationBean, Map<Long, Object> values) {
         this.wrapped = wrapped;
         this.simulationBean = simulationBean;
-        
+        Map<Long, ModelInputDisplayItemWrapper> inputsById = new HashMap<Long, ModelInputDisplayItemWrapper>();
+                
         for (ModelInputGroupDisplayItem item: wrapped.getTabs()) {
             System.out.println("tab: " + item.getOriginalName());
             ModelInputGroupDisplayItemWrapper itemWrapper = new ModelInputGroupDisplayItemWrapper(item, simulationBean, values);
             wrappedTabs.add(itemWrapper);
             wrappedInputs.addAll(itemWrapper.getAllItems());
+        }
+        for (ModelInputDisplayItem item: wrapped.getAllIndividualInputs()) {
+            wrappedInputs.add(ModelInputDisplayItemWrapper.getInputWrapper(item, simulationBean, values));
         }
     }
     
@@ -50,7 +56,7 @@ public class ModelDisplayWrapper {
         Map<Long, Object> inputsValues = new HashMap<Long, Object>();
         for (ModelInputDisplayItemWrapper item: wrappedInputs) {
             if (! (item instanceof ModelInputGroupDisplayItemWrapper)) {
-                inputsValues.put(item.getWrapped().getMetaData().getId(), item.getValue());
+                inputsValues.put(item.getId(), item.getValue());
             } else {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) item, inputsValues);
             }
@@ -64,7 +70,7 @@ public class ModelDisplayWrapper {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) groupedItem, inputsValues);
             }
             else {
-                inputsValues.put(groupedItem.getWrapped().getMetaData().getId(), groupedItem.getValue());
+                inputsValues.put(groupedItem.getId(), groupedItem.getValue());
             }
             
         }
@@ -90,5 +96,8 @@ public class ModelDisplayWrapper {
         return wrapped.getNonTabs();
     }
     
+    public List<ModelInputDisplayItemWrapper> getWrappedInputs() {
+        return wrappedInputs;
+    }
 
 }

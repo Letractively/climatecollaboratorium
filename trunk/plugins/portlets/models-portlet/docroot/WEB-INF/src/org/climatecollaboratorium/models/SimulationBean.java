@@ -265,8 +265,16 @@ public class SimulationBean implements JSEventHandler {
                 year++;
             }
         }*/
+        
+        
+        Map<Long, Object> vals = new HashMap<Long, Object>();
         inputsValues.putAll(values);
-        scenario = SimulationsHelper.getInstance().runSimulation(simulation, values);
+        
+        for (Long id: inputsValues.keySet()) {
+            System.out.println(id + ": " + inputsValues.get(id));
+            vals.put(id, inputsValues.get(id).toString());
+        }
+        scenario = SimulationsHelper.getInstance().runSimulation(simulation, vals);
 
         System.out.println("scenario id after run: " + scenario.getId());
 
