@@ -41,6 +41,10 @@ public class PangaeaConnection {
     private static final String FINAL_TIME_VARNAME = "FINAL TIME";
     private static final float FINAL_TIME_VALUE = 2100;
 
+    private static final String EMISSIONS_REFERENCE_YEAR_VARNAME = "Emissions reference year";
+    private static final float EMISSIONS_REFERENCE_YEAR_VALUE = 2005;
+
+
     /**
      * Helper for Vensim communication.
      */
@@ -76,6 +80,9 @@ public class PangaeaConnection {
     public SimulationResults submit(SimulationInput input) {
         SimulationResults result = new SimulationResults();
         try {
+
+            vensimHelper.setVariable(EMISSIONS_REFERENCE_YEAR_VARNAME,EMISSIONS_REFERENCE_YEAR_VALUE);
+
             for (SimulationInput.InputVariable var : input.getAllVariables().keySet()) {
                 System.out.println(var.internalName + " " + input.getValue(var));
                 System.out.println("vensim helper: " + vensimHelper);
