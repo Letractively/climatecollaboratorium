@@ -458,10 +458,24 @@ ul.ui-tabs-nav li.ui-state-active a{
     margin: 0;
 }
 
+.model-information table.icePnlTbOn,
+.model-information table.icePnlTbOff,
+.model-information table.icePnlTbOver {
+     height:50px;
+    width:40px;
+}
+
+.model-information td.icePnlTb {
+    height: 50px;
+    width:40px;
+}
+
 .model-information table.icePnlTbOn td,
 .model-information table.icePnlTbOff td,
 .model-information table.icePnlTbOver td {
-   height:auto; 
+   height:auto;
+    width:50px;
+    white-space:normal;
 }
 
 .model-information .actions table.innerLayout td.label {
