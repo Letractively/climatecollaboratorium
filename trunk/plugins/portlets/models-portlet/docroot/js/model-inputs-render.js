@@ -29,6 +29,30 @@ function modelRunSuccessful(event) {
 	renderModelOutputs();
 }
 
+function isInteger(dataType) {
+	if (dataType == "java.lang.Integer") return true;
+	if (dataType == "java.lang.Long") return true;
+}
+
+function isDouble(dataType) {
+	if (dataType == "java.lang.Double") return true;
+	if (dataType == "java.lang.Float") return true;
+}
+
+function formatFieldValue(value, unit) {
+	if (unit.toLowerCase().indexOf("percent") >= 0) {
+		return (value * 100).toFixed(0) + "%";
+	}
+	return value;
+}
+
+function parseFieldValue(value, unit) {
+	if (unit.toLowerCase().indexOf("percent") >= 0) {
+		return parseFloat(value.replace("%")) / 100;
+	}
+	return value;
+}
+
 
 function showSliders() {
 	var msg = "";
@@ -41,29 +65,6 @@ function showSliders() {
 	var SLIDER_MIN = 0;
 	var SLIDER_MAX = 1000;
 
-	function isInteger(dataType) {
-		if (dataType == "java.lang.Integer") return true;
-		if (dataType == "java.lang.Long") return true;
-	}
-
-	function isDouble(dataType) {
-		if (dataType == "java.lang.Double") return true;
-		if (dataType == "java.lang.Float") return true;
-	}
-	
-	function formatFieldValue(value, unit) {
-		if (unit.toLowerCase().indexOf("percent") >= 0) {
-			return (value * 100).toFixed(0) + "%";
-		}
-		return value;
-	}
-	
-	function parseFieldValue(value, unit) {
-		if (unit.toLowerCase().indexOf("percent") >= 0) {
-			return parseFloat(value.replace("%")) / 100;
-		}
-		return value;
-	}
 
 	jQuery(".sliderDef").each(function() {
 		var min = parseFloat(jQuery(this).find(".min").val());
@@ -171,10 +172,10 @@ function runModel() {
 
 	jQuery(".sliderDef").each(function() {
 		try {
-		var id = jQuery(this).find('.id').val();
 		var val = jQuery(this).find('.value').val();
+		var valueBinding = jQuery(this).find('.valueBinding');
 		var unit = jQuery(this).find('.unit').val();
-		values[id] = parseFieldValue(val, unit);
+		valueBinding.val(parseFieldValue(val, unit));
 		} catch (e) { log.error(e) }
 	});
 }
