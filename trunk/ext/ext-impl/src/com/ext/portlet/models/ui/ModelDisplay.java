@@ -92,6 +92,26 @@ public class ModelDisplay {
         return nonTabs;
     }
 
+    public List<ModelInputDisplayItem> getAllIndividualInputs() {
+        List<ModelInputDisplayItem> result = new ArrayList<ModelInputDisplayItem>();
+        for (ModelInputDisplayItem item:getInputs()) {
+            result.addAll(collectItems(item));
+        }
+        return result;
+    }
+
+    private List<ModelInputDisplayItem> collectItems(ModelInputDisplayItem item) {
+        List<ModelInputDisplayItem> result = new ArrayList<ModelInputDisplayItem>();
+        if (item instanceof ModelInputGroupDisplayItem) {
+            for (ModelInputDisplayItem child:((ModelInputGroupDisplayItem)item).getAllItems()) {
+                result.addAll(collectItems(child));
+            }
+        } else {
+            result.add(item);
+        }
+        return result;
+    }
+
 
 
 

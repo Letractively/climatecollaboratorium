@@ -45,6 +45,35 @@ public class ModelsUIFactoryTest2 extends BaseCollabTest {
 
     }
 
+    public void testGetAllChildren() throws SystemException, IllegalUIConfigurationException {
+      ModelInputGroupDisplayItem tab1 = ModelInputGroupDisplayItem.create(sim, "Tab1", "Tab1", ModelInputGroupType.TAB);
+        ModelInputGroupDisplayItem tab2 = ModelInputGroupDisplayItem.create(sim, "Tab2", "Tab2", ModelInputGroupType.TAB);
+
+        ModelInputGroupDisplayItem group1 = ModelInputGroupDisplayItem.create(sim, "Group1", "Group1", ModelInputGroupType.HORIZONTAL);
+        ModelInputGroupDisplayItem group2 = ModelInputGroupDisplayItem.create(sim, "Group2", "Group2", ModelInputGroupType.HORIZONTAL);
+        ModelInputGroupDisplayItem group3 = ModelInputGroupDisplayItem.create(sim, "Group3", "Group3", ModelInputGroupType.HORIZONTAL);
+
+
+        for (int i = 0; i < 2; i++) {
+            group1.addDisplayItem(inputs.get(i), ModelInputWidgetType.SLIDER);
+        }
+
+        group1.addChildGroup(group2);
+        for (int i = 2; i < 4; i++) {
+            group2.addDisplayItem(inputs.get(i), ModelInputWidgetType.SLIDER);
+        }
+
+        for (int i = 4; i < 6; i++) {
+            group3.addDisplayItem(inputs.get(i), ModelInputWidgetType.SLIDER);
+        }
+
+         ModelDisplay display = ModelUIFactory.getInstance().getDisplay(sim);
+
+        assertEquals(display.getAllIndividualInputs().size(),6);
+
+
+    }
+
     public void testInputDisplay_containment() throws IOException, ScenarioNotFoundException, ModelNotFoundException, SystemException, IllegalUIConfigurationException {
         ModelInputGroupDisplayItem tab1 = ModelInputGroupDisplayItem.create(sim, "Tab1", "Tab1", ModelInputGroupType.TAB);
         ModelInputGroupDisplayItem tab2 = ModelInputGroupDisplayItem.create(sim, "Tab2", "Tab2", ModelInputGroupType.TAB);
