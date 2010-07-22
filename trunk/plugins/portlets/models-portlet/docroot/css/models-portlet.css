@@ -125,7 +125,8 @@
 .model-information .actions table td {
     height: 38px;
 }
-#runModel.full {
+#runModel.full,
+.runModelBtn.full {
     background-color:transparent;
     background-image:url("/collaboratorium-theme/images/runModel_btn.gif");
     background-position:0 0;
@@ -133,7 +134,11 @@
     height:49px;
     width:211px;
     border: 0;
+    display: block;
+    margin-left: 320px;
 }
+
+
 
 .modelActions {
     text-align: center;

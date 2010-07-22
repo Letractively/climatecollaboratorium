@@ -164,6 +164,21 @@ function showSliders() {
 
 }
 
+function runModel() {
+	showLoadingScreen();
+	// get data for all model inputs
+	var values = new Object();
+
+	jQuery(".sliderDef").each(function() {
+		try {
+		var id = jQuery(this).find('.id').val();
+		var val = jQuery(this).find('.value').val();
+		var unit = jQuery(this).find('.unit').val();
+		values[id] = parseFieldValue(val, unit);
+		} catch (e) { log.error(e) }
+	});
+}
+
 function getOutputValue(val, unit) {
 	if (unit.indexOf("%") < 0) {
 		return val;
