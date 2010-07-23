@@ -28,7 +28,7 @@ public class ClientRepositoryTest {
 
 
     @Test
-    public void testScenarioCache_growth() throws IOException, ScenarioNotFoundException, ModelNotFoundException {
+    public void testScenarioCache_growth() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
         System.setProperty(ClientRepository.CACHE_PROPERTY,3+"");
         ClientRepository repo = ClientRepository.instance("localhost", 8080);
         Assert.assertEquals("Cache size should be equal to property setting",3,repo.currentScenarioCacheSize);
@@ -48,7 +48,7 @@ public class ClientRepositoryTest {
     }
 
     @Test
-    public void testScenarioCache_accessOrder() throws IOException, ScenarioNotFoundException, ModelNotFoundException {
+    public void testScenarioCache_accessOrder() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
         System.setProperty(ClientRepository.CACHE_PROPERTY,3+"");
         ClientRepository repo = ClientRepository.instance("localhost", 8080);
         Assert.assertEquals("Cache size should be equal to property setting",3,repo.currentScenarioCacheSize);

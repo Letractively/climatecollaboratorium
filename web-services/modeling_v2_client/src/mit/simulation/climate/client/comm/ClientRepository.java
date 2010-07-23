@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Proxy;
@@ -34,7 +35,7 @@ public class ClientRepository implements Deserializer {
     private static Logger log = Logger.getLogger(ClientRepository.class);
 
 
-    private ClientRepository() {
+    protected ClientRepository() {
         String cachesize = System.getProperty("mit.simulation.climate.client.cachesize");
         currentScenarioCacheSize = cachesize==null?DEFAULT_SCENARIO_CACHE_SIZE:Integer.parseInt(cachesize);
 
@@ -169,6 +170,17 @@ public class ClientRepository implements Deserializer {
         return result;
     }
 
+    public Set<Simulation> getSimulationsOfType(String type) {
+        Set<Simulation> result = new HashSet<Simulation>();
+        if (type == null) return Collections.emptySet();
+        for (HasId elt:simulationCache.values()) {
+            if (elt instanceof Simulation && type.equals(((Simulation)elt).getType())) {
+                result.add((Simulation)elt);
+            }
+        }
+        return result;
+    }
+
     public Simulation getSimulation(Long id) {
        return cacheLookup(id,Simulation.class);
     }
@@ -186,6 +198,7 @@ public class ClientRepository implements Deserializer {
         }
         if (s.isDirty()) {
         ResponseWrapper wrapper = connector.post(ModelAccessPoint.EDIT_SIMULATION,s.getUpdate(),String.valueOf(s.getId()));
+
         if (wrapper.sims.size()>0) {
             register(wrapper.sims.get(0));
         }
