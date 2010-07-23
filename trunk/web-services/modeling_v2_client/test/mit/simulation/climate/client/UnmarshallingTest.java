@@ -69,10 +69,11 @@ public class UnmarshallingTest {
     }
 
     @Test
-    public void testRepositoryRetrieval_Scenario() throws IOException {
-        ClientRepository repo = ClientRepository.instance("localhost", 8080);
-
-        Scenario s = repo.getScenario(2703l);
+    public void testRepositormodeling_v2_clientyRetrieval_Scenario() throws IOException {
+        //ClientRepository repo = ClientRepository.instance("localhost", 8080);
+        ClientRepository repo = ClientRepository.instance("localhost",8080);
+        
+        Scenario s = repo.getScenario(5524l);
         Assert.assertNotNull(s);
         log.info("Scenario: " + s.getName());
         log.info(getScenarioString(s));
@@ -81,7 +82,7 @@ public class UnmarshallingTest {
 
 
     @Test
-    public void testCompositeModelRun() throws IOException, ScenarioNotFoundException, ModelNotFoundException {
+    public void testCompositeModelRun() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
         ClientRepository repo = ClientRepository.instance("localhost", 8080);
         Scenario scenario = TestHelper.runCompositeOne(repo);
         log.info("Scenario: "+scenario.getName()+" id:"+scenario.getId());
@@ -91,8 +92,18 @@ public class UnmarshallingTest {
     }
        @Test
      public void testCompositeModelRun2() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
-        ClientRepository repo = ClientRepository.instance("localhost", 8080);
+        ClientRepository repo = ClientRepository.instance("cognosis.mit.edu", 8888);
         Scenario scenario = TestHelper.runCompositeTwo(repo);
+        log.info("Scenario: "+scenario.getName()+" id:"+scenario.getId());
+        log.info(getScenarioString(scenario));
+        Assert.assertEquals(EntityState.TEMPORARY,scenario.getState());
+
+    }
+
+    @Test
+    public void testCompositeModelRun3() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
+        ClientRepository repo = ClientRepository.instance("cognosis.mit.edu", 8888);
+        Scenario scenario = TestHelper.runCompositeThree(repo);
         log.info("Scenario: "+scenario.getName()+" id:"+scenario.getId());
         log.info(getScenarioString(scenario));
         Assert.assertEquals(EntityState.TEMPORARY,scenario.getState());
@@ -147,7 +158,7 @@ public class UnmarshallingTest {
         List<Variable> outputs = s.getOutputSet();
         buf.append("Outputs\n");
         for (Variable v : outputs) {
-            buf.append(v.getMetaData().getName()).append(":");
+            buf.append(v.getMetaData().getName()).append(":").append(v.getMetaData().getId()).append(":");
             buf.append(v.getValue().toString()).append(":");
             buf.append("\n");
         }

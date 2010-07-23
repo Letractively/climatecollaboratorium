@@ -61,7 +61,7 @@ public class ClientTupleListAdapter {
                     try {
                         splited[i] = URLDecoder.decode(splited[i], "UTF-8");
                     } catch (UnsupportedEncodingException e) {
-                        // TODO Auto-generated catch block
+                              // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
