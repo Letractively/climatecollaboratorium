@@ -23,5 +23,9 @@
 
 .newMessageForm input.text,
 .newMessageForm textarea.text {
-    width: 90%;
+    width: 95%;
+}
+
+.newMessageForm textarea.text {
+    height: 70px;
 }

@@ -17,20 +17,22 @@
             <f:param name="categoryId" value="#{discussionBean.currentCategory.id}" />
         </ice:commandLink>
         &gt;&gt;
-        Add Thread
+        Add Message
     </ui:define>
     <ui:define name="discussion_content">
-        <ice:outputLabel for="categoryName" value="Name" /><br />
-        <ice:inputText id="categoryName" value="#{entity.title}" /><br />
+    
+        <ice:panelGroup styleClass="newMessageForm">
+            <ice:outputLabel for="categoryName" value="Title: " /><br />
+            <ice:inputText id="categoryName" value="#{entity.title}" styleClass="title text"/><br />
         
-        <ice:outputLabel for="categoryDescription" value="Description" /><br />
-        <ice:inputText id="categoryDescription"  value="#{entity.description}" /><br />
-        <ice:commandButton value="Add" actionListener="#{entity.save}" />    
-        <ice:commandButton value="Cancel" actionListener="#{discussionBean.changePageType}">
-            <f:attribute name="pageType" value="CATEGORY" />
-            <f:param name="categoryId" value="#{discussionBean.currentCategory.id}" />
-        </ice:commandButton>
-         
+            <ice:outputLabel for="categoryDescription" value="Message: " /><br />
+            <ice:inputTextarea id="categoryDescription"  value="#{entity.description}" styleClass="description text"/><br />
+            <ice:commandButton value="Add" actionListener="#{entity.save}" />    
+            <ice:commandButton value="Cancel" actionListener="#{discussionBean.changePageType}">
+                <f:attribute name="pageType" value="CATEGORY" />
+                <f:param name="categoryId" value="#{discussionBean.currentCategory.id}" />
+            </ice:commandButton>
+        </ice:panelGroup> 
     </ui:define>
 </ui:composition>
 </f:view>
