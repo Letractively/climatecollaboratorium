@@ -11,9 +11,9 @@
 .wiki-body ul,
 .wiki-body li,
 .child-pages li {
-    font-size: 11pt;
-    line-height: 13pt;
-    font-family: Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 19px;
+    font-family: sans-serif;
 }
 
 .wiki-body p {
@@ -73,22 +73,22 @@
 
 
 .wiki-body h1 {
-    font-size: 21pt;
+    font-size: 28px;
     margin-top: 38px;
 }
 
 .wiki-body h2 {
-    font-size: 19pt;
+    font-size: 25px;
     margin-top: 30px;
 }
 
 .wiki-body h3 {
-    font-size: 15pt;
+    font-size: 20px;
     margin-top: 26px;
 }
 
 .wiki-body h4 {
-    font-size: 13pt;
+    font-size: 17px;
     margin-top: 24px;
 }
 
