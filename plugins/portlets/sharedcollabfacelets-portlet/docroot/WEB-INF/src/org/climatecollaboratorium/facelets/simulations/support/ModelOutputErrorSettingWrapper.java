@@ -7,6 +7,7 @@ import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 import mit.simulation.climate.client.TupleStatus;
 
 import com.ext.portlet.models.ui.ErrorPolicy;
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.models.ui.ModelOutputDisplayItem;
 import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
 import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
@@ -36,7 +37,7 @@ public class ModelOutputErrorSettingWrapper {
         return status;
     }
     
-    public void update(ActionEvent event) throws SystemException {
+    public void update(ActionEvent event) throws SystemException, IllegalUIConfigurationException {
         if (item instanceof ModelOutputSeriesDisplayItem) {
             ((ModelOutputSeriesDisplayItem) item).setErrorBehavior(status, policy, msg);
         }

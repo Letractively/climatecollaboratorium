@@ -4,5 +4,7 @@ public enum DiscussionPageType {
     DISCUSSIONS,
     CATEGORIES,
     CATEGORY,
-    THREAD
+    CATEGORY_ADD,
+    THREAD,
+    THREAD_ADD
 }

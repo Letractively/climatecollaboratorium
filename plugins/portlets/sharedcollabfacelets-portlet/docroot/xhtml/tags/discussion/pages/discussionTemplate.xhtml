@@ -18,12 +18,12 @@
                         <ul>
                             <li>
                                 <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Discussions">
-                                    <f:param name="pageType" value="DISCUSSIONS" />
+                                    <f:attribute name="pageType" value="DISCUSSIONS" />
                                 </ice:commandLink>
                             </li>
                             <li>
                                 <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories">
-                                    <f:param name="pageType" value="CATEGORIES" />
+                                    <f:attribute name="pageType" value="CATEGORIES" />
                                 </ice:commandLink>
                             </li>
                         </ul>

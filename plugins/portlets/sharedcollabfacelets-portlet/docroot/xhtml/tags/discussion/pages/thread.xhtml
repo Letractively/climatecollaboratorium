@@ -9,14 +9,14 @@
 <ui:composition template="./discussionTemplate.xhtml">
     <ui:define name="discussion_breadcrumb">
         <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories">
-            <f:param name="pageType" value="CATEGORIES" />
+            <f:attribute name="pageType" value="CATEGORIES" />
         </ice:commandLink>
         
         &gt;&gt;
         
         <ice:commandLink actionListener="#{discussionBean.changePageType}">
-            <f:param name="pageType" value="CATEGORY" />
-            <f:param name="categoryId" value="#{category.id}" /> 
+            <f:attribute name="pageType" value="CATEGORY" />
+            <f:param name="categoryId" value="#{discussionBean.currentThread.category.id}" /> 
             <ice:outputText value="#{discussionBean.currentThread.category.title}" /> 
         </ice:commandLink>
         
@@ -25,12 +25,14 @@
         #{discussionBean.currentThread.title}
     </ui:define>
     <ui:define name="discussion_content">
-    <ice:panelSeries value="#{discussionBean.currentThread.messages}" var="message" varStatus="messageStatus">
+    <ice:panelSeries value="#{discussionBean.currentThread.threadMessages}" var="message" varStatus="messageStatus">
         <div class="messageLong #{messageStatus.index mod 2 != 0 ? 'odd' : 'even' }">
             <h4><ice:outputText value="#{message.title}" /></h4>
             <div class="meta">
-                <div class="floatLeft">By &amp;nbsp;<a href="#">#{message.author.screenName}</a></div>
-                <div class="floatRight">on 15 Dec 2008</div> 
+                <div class="floatLeft">By &amp;nbsp;
+                    <a href="/web/guest/members?userId=#{thread.author.userId}">#{message.author.screenName}</a> 
+                </div>
+                <div class="floatRight">#{message.createDate}</div> 
                 <div class="clear"></div>
             </div>
             <div class="content">
@@ -46,7 +48,7 @@
         
         <ice:outputLabel for="messageBody" value="Message:" /><br />
         <ice:inputTextarea id="messageBody" value="#{discussionBean.currentThread.newMessage.description}" styleClass="description text" /><br />
-        <ice:commandButton value="Add" actionListener="#{discussionBean.currentThread.newMessage.add}" />
+        <ice:commandButton value="Add" actionListener="#{discussionBean.currentThread.newMessage.addMessageToThread}" />
     </ice:panelGroup>
         
     </ui:define>

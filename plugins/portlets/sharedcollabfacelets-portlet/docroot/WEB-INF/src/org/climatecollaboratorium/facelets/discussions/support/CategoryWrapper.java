@@ -1,8 +1,19 @@
 package org.climatecollaboratorium.facelets.discussions.support;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
+
+import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
+import org.climatecollaboratorium.utils.Helper;
+
+import com.ext.portlet.discussions.model.DiscussionCategory;
+import com.ext.portlet.discussions.model.DiscussionMessage;
+import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
 
 public class CategoryWrapper {
@@ -10,48 +21,56 @@ public class CategoryWrapper {
     private User author;
     private String title;
     private String description;
-    private List<ThreadWrapper> threads = new ArrayList<ThreadWrapper>();
+    private DiscussionBean discussionBean;
+    private DiscussionCategory wrapped;
+    private MessageWrapper newThread = new MessageWrapper(this);
     
-    public CategoryWrapper() {
+    private List<MessageWrapper> threads = new ArrayList<MessageWrapper>();
+    
+    public CategoryWrapper(DiscussionCategory category, DiscussionBean discussionBean) throws SystemException {
+        this.wrapped = category;
+        this.discussionBean = discussionBean;
+        for (DiscussionMessage thread: category.getThreads()) {
+            this.threads.add(new MessageWrapper(thread, this));
+        }
+        
+        this.title = category.getName();
+        this.description = category.getDescription();
     }
-    
-    public CategoryWrapper(Long id, User author, String title, String description) {
-        this.id = id;
-        this.author = author;
-        this.title = title;
-        this.description = description;
+
+    public CategoryWrapper(DiscussionBean discussionBean) {
+        this.discussionBean = discussionBean;
     }
-    
+
     public Long getId() {
-        return id;
+        return wrapped.getCategoryId();
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
     public User getAuthor() {
         return author;
     }
+    
     public void setAuthor(User author) {
         this.author = author;
     }
+    
     public String getTitle() {
-        return title;
+        return wrapped != null ? wrapped.getName() : title;
     }
+    
     public void setTitle(String title) {
         this.title = title;
     }
+    
     public String getDescription() {
-        return description;
+        return wrapped != null ? wrapped.getDescription() : description;
     }
+    
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void addThread(ThreadWrapper thread) {
-        threads.add(thread);
-    }
-    
-    public List<ThreadWrapper> getThreads() {
+    public List<MessageWrapper> getThreads() {
         return threads;
     }
     
@@ -60,7 +79,48 @@ public class CategoryWrapper {
     }
     
     public User getLastPostAuthor() {
-        return threads.get(threads.size()-1).getAuthor();
+        return null;
+    }
+    
+    public void save(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped = discussionBean.getDiscussion().addCategory(title, description, Helper.getLiferayUser());
+            discussionBean.categoryAdded(this);
+        }
+    }
+
+    public MessageWrapper getNewThread() {
+        return newThread;
+    }
+
+    public void setNewThread(MessageWrapper newThread) {
+        this.newThread = newThread;
+    }
+
+    public void threadAdded(MessageWrapper thread) throws SystemException {
+        threads.add(thread);
+        newThread = new MessageWrapper(this);
+        discussionBean.threadAdded(thread);
+    }
+
+    public DiscussionCategory getWrapped() {
+        return wrapped;
+    }
+    
+    public Long getAuthorId() {
+        return wrapped.getAuthorId();
+    }
+    
+    public Long getLastActivityAuthorId() {
+        return wrapped.getLastActivityAuthorId();
+    }
+    
+    public Date getLastActivityDate() {
+        return wrapped.getLastActivityDate();
+    }
+    
+    public User getLastActivityAuthor() throws PortalException, SystemException {
+        return wrapped.getLastActivityAuthor();
     }
 
 }

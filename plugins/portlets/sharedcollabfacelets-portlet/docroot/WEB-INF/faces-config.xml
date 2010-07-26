@@ -47,6 +47,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>discussionTestBean</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.facelets.discussions.test.DiscussionTestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>eventBus</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.events.EventBusImpl</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -89,6 +94,10 @@
 		<navigation-case>
 			<from-outcome>discussion</from-outcome>
 			<to-view-id>/xhtml/showcase/discussionTag.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userLink</from-outcome>
+			<to-view-id>/xhtml/showcase/userLinkTag.iface</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>index</from-outcome>
