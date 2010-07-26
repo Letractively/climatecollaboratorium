@@ -422,6 +422,41 @@ create table DebateMigrationItem (
 	newDebateItemId LONG
 );
 
+create table DiscussionCategory (
+	pk LONG not null primary key,
+	categoryId LONG,
+	categoryGroupId LONG,
+	authorId LONG,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null,
+	createDate DATE null,
+	deleted DATE null,
+	threadsCount INTEGER,
+	lastActivityDate DATE null,
+	lastActivityAuthorId LONG
+);
+
+create table DiscussionCategoryGroup (
+	id_ LONG not null primary key,
+	description VARCHAR(75) null
+);
+
+create table DiscussionMessage (
+	pk LONG not null primary key,
+	messageId LONG,
+	subject VARCHAR(75) null,
+	body VARCHAR(75) null,
+	threadId LONG,
+	categoryId LONG,
+	authorId LONG,
+	createDate DATE null,
+	version LONG,
+	deleted DATE null,
+	responsesCount INTEGER,
+	lastActivityDate DATE null,
+	lastActivityAuthorId LONG
+);
+
 create table EmailAddress (
 	emailAddressId LONG not null primary key,
 	companyId LONG,
