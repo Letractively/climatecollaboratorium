@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.facelets.discussions.support.CategoryWrapper;
@@ -16,7 +19,9 @@ import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
 import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
+import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
+import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -42,6 +47,10 @@ public class DiscussionBean {
     private Map<Long, MessageWrapper> threadsById;
     
     private CategoryWrapper newCategory;
+    private String searchQuery;
+    private List<MessageWrapper> searchResults = new ArrayList<MessageWrapper>();
+    private List<SelectItem> categoriesItems;
+    private MessageWrapper newThread = new MessageWrapper(this);
     
     
     private DiscussionCategoryGroup discussion;
@@ -60,7 +69,11 @@ public class DiscussionBean {
         if (discussionId == null) {
             return false;
         }
-        if (discussionId == lastInitDiscussionId && categoryId == lastInitCategoryId && threadId == lastInitThreadId && messageId == lastInitMessageId) {
+        
+        if ((discussionId == null && lastInitDiscussionId == null || discussionId.equals(lastInitDiscussionId)) && 
+                (categoryId == null && lastInitCategoryId == null || categoryId.equals(lastInitCategoryId)) && 
+                (threadId == null && lastInitThreadId == null || threadId.equals(lastInitThreadId)) && 
+                (messageId == null && lastInitMessageId == null || messageId.equals(lastInitMessageId))) {
             // initialization with the same parameters, do nothing as this would cause reset to internal discussion state
             return discussion != null;
         }
@@ -116,6 +129,7 @@ public class DiscussionBean {
     public void changePageType(ActionEvent e) throws NoSuchDiscussionCategoryException, SystemException, NoSuchDiscussionMessageException {
         DiscussionPageType newType = DiscussionPageType.valueOf(e.getComponent().getAttributes().get("pageType").toString());
         
+        DiscussionPageType prevPage = pageType;
         this.pageType = newType;
         if (pageType == DiscussionPageType.CATEGORY) {
             categoryId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("categoryId").toString());
@@ -126,11 +140,18 @@ public class DiscussionBean {
             threadId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("threadId").toString());
             getThreads();
             currentThread = threadsById.get(threadId);
+            currentCategory = categoriesById.get(currentThread.getWrapped().getCategoryId());
         }
-
         else if (pageType == DiscussionPageType.CATEGORY_ADD) {
             newCategory = new CategoryWrapper(this);
         }
+        else if (pageType == DiscussionPageType.THREAD_ADD) {
+            newThread = new MessageWrapper(this);
+            if (prevPage == DiscussionPageType.CATEGORY) {
+                newThread.setCategoryId(currentCategory.getId());
+            }
+        }
+            
         System.out.println(currentCategory);
     }
     
@@ -187,6 +208,9 @@ public class DiscussionBean {
         categoriesById.put(category.getId(), category);
         this.pageType = DiscussionPageType.CATEGORY;
         currentCategory = category;
+        if (categoriesItems != null) {
+            categoriesItems.add(new SelectItem(category.getId(), category.getTitle()));
+        }
     }
 
     public void threadAdded(MessageWrapper thread) throws SystemException {
@@ -195,4 +219,77 @@ public class DiscussionBean {
         this.pageType = DiscussionPageType.THREAD;
         this.currentThread = thread;
     }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
+    }
+    
+    public void search(ActionEvent e) throws SystemException {
+        if (searchQuery.trim().length() == 0) {
+            // do nothing
+            return;
+        }
+        pageType = DiscussionPageType.SEARCH_RESULTS;
+        searchResults.clear();
+        for (DiscussionMessage message: DiscussionMessageLocalServiceUtil.search(searchQuery)) {
+            searchResults.add(new MessageWrapper(message, null));
+        }
+    }
+
+    public List<MessageWrapper> getSearchResults() {
+        return searchResults;
+    }
+
+    public void setSearchResults(List<MessageWrapper> searchResults) {
+        this.searchResults = searchResults;
+    }
+    
+    public List<SelectItem> getCategoriesItems() throws SystemException {
+        if (categoriesItems == null) {
+            categoriesItems = new ArrayList<SelectItem>();
+            for (CategoryWrapper category: getCategories()) {
+                categoriesItems.add(new SelectItem(category.getId(), category.getTitle()));
+            }
+        }
+        return categoriesItems;
+    }
+
+    public CategoryWrapper getCategoryById(Long categoryId) throws SystemException {
+        getCategories();
+        return categoriesById.get(categoryId);
+    }
+    
+    public MessageWrapper getNewThread() {
+        return newThread;
+    }
+
+    public void setNewThread(MessageWrapper newThread) {
+        this.newThread = newThread;
+    }
+
+    public void categoryDeleted(CategoryWrapper categoryWrapper) {
+        if (categories != null) {
+            categories.remove(categoryWrapper);
+            categoriesById.remove(categoryWrapper.getId());
+        }
+        if (pageType == DiscussionPageType.CATEGORY && currentCategory.getId() == categoryWrapper.getId()) {
+            pageType = DiscussionPageType.CATEGORIES;
+        }        
+    }
+    
+    public void messageDeleted(MessageWrapper messageWrapper) {
+        if (threads != null) {
+            threads.remove(messageWrapper);
+            threadsById.remove(messageWrapper.getId());
+        }
+        if (pageType == DiscussionPageType.THREAD && currentThread.getId() == messageWrapper.getId()) {
+            pageType = DiscussionPageType.CATEGORY;
+            currentCategory = currentThread.getCategory();
+        }
+    }
+    
 }

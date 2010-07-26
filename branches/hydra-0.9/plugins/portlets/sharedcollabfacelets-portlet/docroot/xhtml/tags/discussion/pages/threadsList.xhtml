@@ -7,7 +7,7 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     <ice:panelSeries value="#{threads}" var="thread" varStatus="varStatus" id="threadsList" rows="10">
         <div class="messageShort #{varStatus.index mod 2 != 0 ? 'odd' : 'even'}">
-            <div class="title">
+            <div>
                 <h4 class="title">
                     <ice:commandLink actionListener="#{discussionBean.changePageType}">
                         <f:attribute name="pageType" value="THREAD" />
@@ -15,6 +15,7 @@
                         <ice:outputText value="#{thread.title}" />
                     </ice:commandLink>
                 </h4>
+                <div class="clear"></div>
             </div>
             <div class="content">
                 <ice:outputText value="#{thread.description}" escape="false"/>

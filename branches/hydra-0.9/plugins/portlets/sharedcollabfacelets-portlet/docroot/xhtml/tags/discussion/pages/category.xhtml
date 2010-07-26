@@ -24,6 +24,11 @@
     </ui:define>
     
     <ui:define name="discussion_content">
+        
+        <div class="description">
+            <ice:outputText value="#{discussionBean.currentCategory.description}" />
+        </div>
+        
         <ui:decorate template="./paginator.xhtml">
             <ui:param name="paginatorFor" value="threadsList"/>
             <ui:param name="entityName" value="Threads"/>

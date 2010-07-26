@@ -26,19 +26,38 @@
     </ui:define>
     <ui:define name="discussion_content">
     <ice:panelSeries value="#{discussionBean.currentThread.threadMessages}" var="message" varStatus="messageStatus">
-        <div class="messageLong #{messageStatus.index mod 2 != 0 ? 'odd' : 'even' }">
-            <h4><ice:outputText value="#{message.title}" /></h4>
-            <div class="meta">
-                <div class="floatLeft">By &amp;nbsp;
-                    <a href="/web/guest/members?userId=#{thread.author.userId}">#{message.author.screenName}</a> 
+        <ice:panelGroup rendered="#{not message.editing}">
+            <div class="messageLong #{messageStatus.index mod 2 != 0 ? 'odd' : 'even' }">
+                <h4 class="title">
+                    <ice:outputText value="#{message.title}" />
+                </h4>
+                <div class="actions">
+                    <ice:commandButton actionListener="#{message.toggleEdit}" value="Edit" />
+                    <ice:commandButton actionListener="#{message.delete}" value="Delete" />
                 </div>
-                <div class="floatRight">#{message.createDate}</div> 
                 <div class="clear"></div>
+                <div class="meta">
+                    <div class="floatLeft">By &amp;nbsp;
+                        <a href="/web/guest/members?userId=#{thread.author.userId}">#{message.author.screenName}</a> 
+                    </div>
+                    <div class="floatRight">#{message.createDate}</div> 
+                    <div class="clear"></div>
+                </div>
+                <div class="content">
+                    <ice:outputText value="#{message.filteredDescription}" escape="false" />
+                </div>
             </div>
-            <div class="content">
-                <ice:outputText value="#{message.description}" escape="false" />
-            </div>
-        </div>
+        </ice:panelGroup>
+        <ice:panelGroup rendered="#{message.editing}" styleClass="newMessageForm">
+            <ice:outputLabel for="categoryName" value="Title: " /><br />
+            <ice:inputText id="categoryName" value="#{message.title}" styleClass="title text"/><br />
+        
+            <ice:outputLabel for="categoryDescription" value="Message: " /><br />
+            <ice:inputTextarea id="categoryDescription"  value="#{message.description}" styleClass="description text"/><br />
+        
+            <ice:commandButton actionListener="#{message.updateMessage}" value="Save" />
+            <ice:commandButton actionListener="#{message.toggleEdit}" value="Cancel" />
+        </ice:panelGroup>
     </ice:panelSeries>
     
     <ice:panelGroup styleClass="newMessageForm">

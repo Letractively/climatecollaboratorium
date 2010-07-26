@@ -8,26 +8,23 @@
     
 <ui:composition template="./discussionTemplate.xhtml">
     <ui:define name="discussion_breadcrumb">
-        <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories">
-            <f:attribute name="pageType" value="CATEGORIES" />
-        </ice:commandLink>
-        &gt;&gt;
-        <ice:commandLink actionListener="#{discussionBean.changePageType}" value="#{discussionBean.currentCategory.title}">
-            <f:attribute name="pageType" value="CATEGORY" />
-            <f:param name="categoryId" value="#{discussionBean.currentCategory.id}" />
-        </ice:commandLink>
-        &gt;&gt;
         Add Message
     </ui:define>
     <ui:define name="discussion_content">
     
         <ice:panelGroup styleClass="newMessageForm">
             <ice:outputLabel for="categoryName" value="Title: " /><br />
-            <ice:inputText id="categoryName" value="#{entity.title}" styleClass="title text"/><br />
+            <ice:inputText id="categoryName" value="#{discussionBean.newThread.title}" styleClass="title text"/><br />
         
+            <ice:outputLabel for="category" value="Category: " /><br />
+            <ice:selectOneMenu id="category" value="#{discussionBean.newThread.categoryId}">
+                <f:selectItems value="#{discussionBean.categoriesItems}" />
+            </ice:selectOneMenu>
+            <br />
+            
             <ice:outputLabel for="categoryDescription" value="Message: " /><br />
-            <ice:inputTextarea id="categoryDescription"  value="#{entity.description}" styleClass="description text"/><br />
-            <ice:commandButton value="Add" actionListener="#{entity.save}" />    
+            <ice:inputTextarea id="categoryDescription"  value="#{discussionBean.newThread.description}" styleClass="description text"/><br />
+            <ice:commandButton value="Add" actionListener="#{discussionBean.newThread.save}" />    
             <ice:commandButton value="Cancel" actionListener="#{discussionBean.changePageType}">
                 <f:attribute name="pageType" value="CATEGORY" />
                 <f:param name="categoryId" value="#{discussionBean.currentCategory.id}" />

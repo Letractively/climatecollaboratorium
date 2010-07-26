@@ -101,3 +101,10 @@
 .discussionActions {
     text-align: right;
 }
+
+.dataSetEmpty {
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #555;
+}

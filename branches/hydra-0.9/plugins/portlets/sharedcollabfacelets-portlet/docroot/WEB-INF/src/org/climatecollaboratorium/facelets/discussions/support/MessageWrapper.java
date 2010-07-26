@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
+import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
+import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
 
 import com.ext.portlet.discussions.model.DiscussionMessage;
@@ -25,6 +27,10 @@ public class MessageWrapper {
     private List<MessageWrapper> messages;
     private MessageWrapper newMessage;
     private MessageWrapper thread;
+    private Long categoryId;
+    private DiscussionBean discussionBean;
+    private boolean editing;
+    private String filteredDescription;
     
     public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category) {
         this.category = category;
@@ -33,31 +39,38 @@ public class MessageWrapper {
             // message represents a thread create placeholder for new message
             newMessage = new MessageWrapper(this);
         }
+        title = wrapped.getSubject();
+        description = wrapped.getBody();
+        filteredDescription = ContentFilterHelper.filterContent(description);
     }
 
-    public MessageWrapper(CategoryWrapper categoryWrapper) {
-        this.category = categoryWrapper; 
+    public MessageWrapper(DiscussionBean discussionBean) {
+        this.discussionBean = discussionBean; 
     }
     
     public MessageWrapper(MessageWrapper thread) {
         this.thread = thread;
     }
-
+    
     public Long getId() {
         return wrapped.getMessageId();
     }
 
     public String getTitle() {
-        return wrapped != null ? wrapped.getSubject() : title;
+        return title;
     }
     public void setTitle(String title) {
         this.title = title;
     }
     public String getDescription() {
-        return wrapped != null ? wrapped.getBody() : description;
+        return description;
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getFilteredDescription() {
+        return filteredDescription;
     }
     
     public List<MessageWrapper> getThreadMessages() throws SystemException {
@@ -89,23 +102,36 @@ public class MessageWrapper {
     
     public void save(ActionEvent e) throws SystemException {
         if (Helper.isUserLoggedIn()) {
+            category = discussionBean.getCategoryById(categoryId);
             wrapped = category.getWrapped().addThread(title, description, Helper.getLiferayUser());
             category.threadAdded(this);
             newMessage = new MessageWrapper(this);
+            filteredDescription = ContentFilterHelper.filterContent(description);
+            Helper.sendInfoMessage("Message \"" + title + "\" has been added.");
         }
-    }
-    
-    public MessageWrapper getNewMessage() {
-        return newMessage;
     }
     
     public void addMessageToThread(ActionEvent e) throws SystemException {
         if (Helper.isUserLoggedIn()) {
             wrapped = thread.getWrapped().addThreadMessage(title, description, Helper.getLiferayUser());
             thread.addMessage(this);
+            filteredDescription = ContentFilterHelper.filterContent(description);
+            Helper.sendInfoMessage("Message \"" + title + "\" has been added.");
         }
     }
     
+    public void updateMessage(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped.update(title, description);
+            filteredDescription = ContentFilterHelper.filterContent(description);
+            editing = false;
+        }
+    }
+    
+    public MessageWrapper getNewMessage() {
+        return newMessage;
+    }
+
     public User getAuthor() throws PortalException, SystemException {
         return wrapped.getAuthor();
     }
@@ -139,4 +165,43 @@ public class MessageWrapper {
         return wrapped.getLastActivityAuthor();
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+    
+    public void delete(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped.delete();
+            if (thread != null) {
+                // this is a message within a thread
+                thread.messageDeleted(this);
+            }
+            if (category != null) {
+                category.messageDeleted(this);
+            }
+            
+            //category.messageDeleted(this);
+            Helper.sendInfoMessage("Message \"" + wrapped.getSubject() + "\" has been deleted.");
+        }
+    }
+    
+    public void messageDeleted(MessageWrapper messageWrapper) {
+        messages.remove(messageWrapper);
+    }
+    
+    public void toggleEdit(ActionEvent e) {
+        editing = !editing;
+    }
+    
+    public boolean isEditing() {
+        return editing;
+    }
+    
+    public Long getThreadId() {
+        return wrapped.getThreadId() != null ? wrapped.getThreadId() : wrapped.getMessageId();
+    }
 }
