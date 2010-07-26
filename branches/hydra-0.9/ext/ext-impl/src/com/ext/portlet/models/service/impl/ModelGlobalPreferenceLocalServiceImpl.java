@@ -40,6 +40,8 @@ public class ModelGlobalPreferenceLocalServiceImpl
             Long pk = CounterLocalServiceUtil.increment(ModelGlobalPreference.class.getName());
             pref = createModelGlobalPreference(pk);
             pref.setModelId(s.getId());
+            pref.setWeight(0);
+            pref.setVisible(false);
             addModelGlobalPreference(pref);
             
         }
@@ -74,6 +76,8 @@ public class ModelGlobalPreferenceLocalServiceImpl
            Long pk = CounterLocalServiceUtil.increment(ModelGlobalPreference.class.getName());
            pref = createModelGlobalPreference(pk);
            pref.setModelId(s.getId());
+           pref.setWeight(0);
+           pref.setVisible(false);
            addModelGlobalPreference(pref);
        }
        pref.setWeight(weight);

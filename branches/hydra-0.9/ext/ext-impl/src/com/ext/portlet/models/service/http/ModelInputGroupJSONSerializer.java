@@ -39,6 +39,8 @@ public class ModelInputGroupJSONSerializer {
         jsonObj.put("name", model.getName());
         jsonObj.put("description", model.getDescription());
         jsonObj.put("displayItemOrder", model.getDisplayItemOrder());
+        jsonObj.put("groupType", model.getGroupType());
+        jsonObj.put("parentGroupPK", model.getParentGroupPK());
 
         return jsonObj;
     }

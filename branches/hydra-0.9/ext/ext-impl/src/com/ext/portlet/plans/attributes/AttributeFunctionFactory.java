@@ -299,7 +299,14 @@ public class AttributeFunctionFactory {
             public String _process(String scenarioId) throws SystemException {
                 try {
                     Scenario scenario = CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
-                    ModelDisplay display = ModelUIFactory.getInstance().getDisplay(scenario);
+                    ModelDisplay display = null;
+                    try {
+                        ModelUIFactory.getInstance().getDisplay(scenario);
+                    } catch (IllegalUIConfigurationException e) {
+                        _log.error(e);
+                        return null;
+                    }
+
                     StringBuilder errors = new StringBuilder();
                     for (ModelOutputDisplayItem item: display.getOutputs()) {
                         if (item.getName().trim().equals(outputName)) {

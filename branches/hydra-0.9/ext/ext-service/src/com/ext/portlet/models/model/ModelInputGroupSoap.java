@@ -31,6 +31,8 @@ public class ModelInputGroupSoap implements Serializable {
     private String _name;
     private String _description;
     private Integer _displayItemOrder;
+    private String _groupType;
+    private Long _parentGroupPK;
 
     public ModelInputGroupSoap() {
     }
@@ -44,6 +46,8 @@ public class ModelInputGroupSoap implements Serializable {
         soapModel.setName(model.getName());
         soapModel.setDescription(model.getDescription());
         soapModel.setDisplayItemOrder(model.getDisplayItemOrder());
+        soapModel.setGroupType(model.getGroupType());
+        soapModel.setParentGroupPK(model.getParentGroupPK());
 
         return soapModel;
     }
@@ -141,5 +145,21 @@ public class ModelInputGroupSoap implements Serializable {
 
     public void setDisplayItemOrder(Integer displayItemOrder) {
         _displayItemOrder = displayItemOrder;
+    }
+
+    public String getGroupType() {
+        return _groupType;
+    }
+
+    public void setGroupType(String groupType) {
+        _groupType = groupType;
+    }
+
+    public Long getParentGroupPK() {
+        return _parentGroupPK;
+    }
+
+    public void setParentGroupPK(Long parentGroupPK) {
+        _parentGroupPK = parentGroupPK;
     }
 }
