@@ -9,6 +9,8 @@ import mit.simulation.climate.client.MetaData;
 
 import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 
+import com.ext.portlet.models.service.base.ModelInputGroupType;
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
 import com.liferay.portal.PortalException;
@@ -48,15 +50,15 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         return ((ModelInputGroupDisplayItem)groupItem).getDisplayItems();
     }
     
-    public void update(ActionEvent e) throws SystemException {
+    public void update(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
         if (groupItem == null) {
             // adding
             ModelInputGroupDisplayItem createdItem = null;
             if (md != null) {
-                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), md);
+                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), md, ModelInputGroupType.HORIZONTAL);
             }
             else {
-                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), name, description);
+                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), name, description, ModelInputGroupType.HORIZONTAL);
             }
 
             int maxOrder = Integer.MIN_VALUE;
@@ -75,7 +77,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         simulationBean.updateDisplay();
     }
     
-    public void delete(ActionEvent e) throws PortalException, SystemException {
+    public void delete(ActionEvent e) throws PortalException, SystemException, IllegalUIConfigurationException {
         if (groupItem != null) {
             ((ModelInputGroupDisplayItem) groupItem).delete();
             simulationBean.updateDisplay();

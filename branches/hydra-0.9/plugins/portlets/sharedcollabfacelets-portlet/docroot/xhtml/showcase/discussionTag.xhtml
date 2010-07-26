@@ -9,7 +9,30 @@
     >
     
 <ui:composition template="../templates/tagShowcaseTemplate.xhtml">
+    <table>
+        <tr>
+            <td>discussionId: </td>
+            <td><ice:inputText value="#{discussionTestBean.discussionId}" /></td>
+        </tr>
+        <tr>
+            <td>categoryId: </td>
+            <td><ice:inputText value="#{discussionTestBean.categoryId}" /></td>
+        </tr>
+        <tr>
+            <td>threadId: </td>
+            <td><ice:inputText value="#{discussionTestBean.threadId}" /></td>
+        </tr>
+        <tr>
+            <td>messageId: </td>
+            <td><ice:inputText value="#{discussionTestBean.messageId}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><ice:commandButton value="Update" /></td>
+        </tr>
+    
+    </table>
     <ui:define name="title">Test tag showcase</ui:define>
-    <collab:discussion discussionId="1" threadId="2" messageId="3" categoryId="4"/>
+    <collab:discussion discussionId="#{discussionTestBean.discussionId}" categoryId="#{discussionTestBean.categoryId}" 
+    threadId="#{discussionTestBean.threadId}" messageId="#{discussionTestBean.messageId}"/>
 </ui:composition>
-</f:view>
+</f:view>   

@@ -10,7 +10,7 @@
             <div class="title">
                 <h4 class="title">
                     <ice:commandLink actionListener="#{discussionBean.changePageType}">
-                        <f:param name="pageType" value="THREAD" />
+                        <f:attribute name="pageType" value="THREAD" />
                         <f:param name="threadId" value="#{thread.id}" />
                         <ice:outputText value="#{thread.title}" />
                     </ice:commandLink>
@@ -21,13 +21,14 @@
             </div>
             <div class="meta">
                 <div class="floatLeft">
-                    Started by &amp;nbsp;<a href="#">#{thread.author.screenName}</a> 
-                    :: Responses &amp;nbsp;<strong>#{thread.messagesCount}</strong>
+                    Started by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.author.userId}">#{thread.author.screenName}</a> 
+                    :: Responses &amp;nbsp;<strong>#{thread.threadMessagesCount}</strong>
                 </div>
-                <div class="floatRight"> 
-                    Last response by &amp;nbsp;<a href="#">SomeoneElse</a> 
-                    :: Last active &amp;nbsp;<strong>15 minutes ago</strong>
-                </div>
+                <ice:panelGroup styleClass="floatRight" rendered="#{thread.threadMessagesCount > 0}"> 
+                    
+                    Last response by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.lastActivityAuthor.userId}">#{thread.lastActivityAuthor.screenName}</a>  
+                    :: Last active &amp;nbsp;<strong>#{thread.lastActivityDate}</strong>
+                </ice:panelGroup>
                 <div class="clear"></div>
             </div>            
         </div>

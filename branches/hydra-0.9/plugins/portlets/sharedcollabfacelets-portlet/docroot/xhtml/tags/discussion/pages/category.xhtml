@@ -7,13 +7,22 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     
 <ui:composition template="./discussionTemplate.xhtml">
+
     <ui:define name="discussion_breadcrumb">
         <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories">
-            <f:param name="pageType" value="CATEGORIES" />
+            <f:attribute name="pageType" value="CATEGORIES" />
         </ice:commandLink>
         &gt;&gt;
-        #{discussionBean.currentCategory.title}
+        &amp;nbsp;<ice:outputText value="#{discussionBean.currentCategory.title}" />
     </ui:define>
+    
+            
+    <ui:define name="discussion_actions">
+        <ice:commandButton value="Add Thread" actionListener="#{discussionBean.changePageType}">
+            <f:attribute name="pageType" value="THREAD_ADD" />
+        </ice:commandButton>
+    </ui:define>
+    
     <ui:define name="discussion_content">
         <ui:decorate template="./paginator.xhtml">
             <ui:param name="paginatorFor" value="threadsList"/>

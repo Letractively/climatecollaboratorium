@@ -10,7 +10,9 @@
         <ui:define name="discussion_breadcrumb">Categories</ui:define>
         
         <ui:define name="discussion_actions">
-            <ice:commandButton value="Add Category" />
+            <ice:commandButton value="Add Category" actionListener="#{discussionBean.changePageType}">
+                <f:attribute name="pageType" value="CATEGORY_ADD" />
+            </ice:commandButton>
         </ui:define>
         
         <ui:define name="discussion_content">
@@ -25,8 +27,9 @@
                     <div class="title">
                         <h4 class="title">
                             <ice:commandLink actionListener="#{discussionBean.changePageType}">
-                                <f:param name="pageType" value="CATEGORY" />
                                 <f:param name="categoryId" value="#{category.id}" /> 
+                                <f:attribute name="categoryId" value="#{category.id}" /> 
+                                <f:attribute name="pageType" value="CATEGORY" />
                                 <ice:outputText value="#{category.title}" /> 
                             </ice:commandLink>
                         </h4>
@@ -36,13 +39,14 @@
                     </div>
                     <div class="meta">
                     <div class="floatLeft">
-                        Started by &amp;nbsp;<a href="#">#{category.author.screenName}</a> 
+                        Started by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.lastActivityAuthor.userId}">#{thread.lastActivityAuthor.screenName}</a>
                         :: Threads &amp;nbsp;<strong>#{category.threadsCount}</strong>
                     </div>
-                    <div class="floatRight"> 
-                        Last response by &amp;nbsp;<a href="#">SomeoneElse</a> 
-                        :: Last active &amp;nbsp;<strong>15 minutes ago</strong>
-                    </div>
+                    
+                    <ice:panelGroup styleClass="floatRight" rendered="#{category.threadsCount > 0}">
+                        Last response by &amp;nbsp;<a href="/web/guest/members?userId=#{category.lastActivityAuthor.userId}">#{category.lastActivityAuthor.screenName}</a> 
+                        :: Last active &amp;nbsp;<strong>#{category.lastActivityDate}</strong>
+                    </ice:panelGroup>
                     <div class="clear"></div>
                     </div>
                         

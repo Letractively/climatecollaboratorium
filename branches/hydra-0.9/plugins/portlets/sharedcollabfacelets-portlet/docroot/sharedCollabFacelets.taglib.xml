@@ -31,4 +31,12 @@
         <tag-name>discussionSupport</tag-name>
         <handler-class>org.climatecollaboratorium.facelets.discussions.DiscussionsSupportTag</handler-class>
     </tag>
+    <tag>
+        <tag-name>userLink</tag-name>
+        <source>xhtml/tags/userLink/userLink.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>userLinkSupport</tag-name>
+        <handler-class>org.climatecollaboratorium.facelets.userLink.UserLinkSupportTag</handler-class>
+    </tag>
 </facelet-taglib>

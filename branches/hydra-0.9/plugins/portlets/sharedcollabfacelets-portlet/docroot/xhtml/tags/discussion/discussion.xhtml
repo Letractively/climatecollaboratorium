@@ -6,7 +6,6 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     <collab:discussionSupport discussionBean="#{discussionBean}" discussionId="#{discussionId}">
-        <h1>#{discussionBean.pageType}</h1>
         <f:subview rendered="#{discussionBean.pageType == 'DISCUSSIONS'}">
             <ui:include src="./pages/discussions.xhtml" />
         </f:subview>
@@ -16,8 +15,16 @@
         <f:subview rendered="#{discussionBean.pageType == 'CATEGORY'}">
             <ui:include src="./pages/category.xhtml" />
         </f:subview>
+        <f:subview rendered="#{discussionBean.pageType == 'CATEGORY_ADD'}">
+            <ui:include src="./pages/category_add.xhtml" />
+        </f:subview>
         <f:subview rendered="#{discussionBean.pageType == 'THREAD'}">
             <ui:include src="./pages/thread.xhtml" />
+        </f:subview>
+        <f:subview rendered="#{discussionBean.pageType == 'THREAD_ADD'}">
+            <ui:include src="./pages/thread_add.xhtml">
+                <ui:param name="entity" value="#{discussionBean.currentCategory.newThread}" />
+            </ui:include>
         </f:subview>
     </collab:discussionSupport>
 </f:view>

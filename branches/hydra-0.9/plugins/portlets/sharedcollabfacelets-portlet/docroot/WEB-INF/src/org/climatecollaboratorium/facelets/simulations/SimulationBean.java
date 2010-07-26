@@ -29,6 +29,7 @@ import org.climatecollaboratorium.facelets.simulations.support.SimulationsHelper
 import org.climatecollaboratorium.facelets.simulations.support.SupportBean;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelDisplayItem;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
@@ -83,7 +84,7 @@ public class SimulationBean {
         return display;
     }
 
-    public void setSimulation(Simulation simulation) {
+    public void setSimulation(Simulation simulation) throws SystemException, IllegalUIConfigurationException {
         if (simulation == null) {
             this.simulation = null;
             return;
@@ -98,7 +99,7 @@ public class SimulationBean {
 
     }
 
-    public void setScenario(Scenario scenario) {
+    public void setScenario(Scenario scenario) throws SystemException, IllegalUIConfigurationException {
         if (scenario == null) {
             this.simulation = null;
             this.scenario = null;
@@ -225,7 +226,7 @@ public class SimulationBean {
         this.scenarioSaved = scenarioSaved;
     }
     
-    public void updateInputs(ActionEvent e) {
+    public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
         updateDisplay();
     }
     
@@ -234,7 +235,7 @@ public class SimulationBean {
         return wrappedInputs;
     }
     
-    public void updateDisplay() {
+    public void updateDisplay() throws SystemException, IllegalUIConfigurationException {
         if (scenario != null) {
             display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this);
         }
@@ -304,7 +305,7 @@ public class SimulationBean {
     }
     
 
-    public void init(Long simulationId, Long scenarioId) throws SystemException, IOException {
+    public void init(Long simulationId, Long scenarioId) throws SystemException, IOException, IllegalUIConfigurationException {
         if ((simulationId == lastInitSimulationId || (simulationId != null && simulationId.equals(lastInitSimulationId))) &&
                 (scenarioId == lastInitScenarioId || (scenarioId != null && scenarioId.equals(lastInitScenarioId)))) {
             // same values are used, do nothing

@@ -1,55 +1,105 @@
 package org.climatecollaboratorium.facelets.discussions;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.facelets.discussions.support.CategoryWrapper;
-import org.climatecollaboratorium.facelets.discussions.support.DiscussionServiceMock;
-import org.climatecollaboratorium.facelets.discussions.support.ThreadWrapper;
+import org.climatecollaboratorium.facelets.discussions.support.MessageWrapper;
+
+import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
+import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
+import com.ext.portlet.discussions.model.DiscussionCategory;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
+import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
+import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class DiscussionBean {
     private Long discussionId;
     private Long categoryId;
     private Long threadId;
+    private Long messageId;
     private DiscussionPageType pageType = DiscussionPageType.DISCUSSIONS;
 
     private Long lastInitDiscussionId;
     private Long lastInitCategoryId;
     private Long lastInitThreadId;
+    private Long lastInitMessageId;
+    
     private EventBus eventBus;
     private CategoryWrapper currentCategory;
-    private ThreadWrapper currentThread;
+    private MessageWrapper currentThread;
+    private List<CategoryWrapper> categories;
+    private List<MessageWrapper> threads;
+    private Map<Long, CategoryWrapper> categoriesById;
+    private Map<Long, MessageWrapper> threadsById;
     
-    public void init(Long discussionId, Long categoryId, Long threadId) {
+    private CategoryWrapper newCategory;
+    
+    
+    private DiscussionCategoryGroup discussion;
+    private static Log _log = LogFactoryUtil.getLog(DiscussionBean.class);
+    
+    /**
+     * Method initializes all elements within the bean. If bean wasn't correctly initialized (there is no such discussion)
+     * false is returned. True otherwise.
+     * @param discussionId
+     * @param categoryId
+     * @param threadId
+     * @param messageId
+     * @return
+     */
+    public boolean init(Long discussionId, Long categoryId, Long threadId, Long messageId) {
         if (discussionId == null) {
-            return;
+            return false;
         }
-        if (discussionId == lastInitDiscussionId && categoryId == lastInitCategoryId && threadId == lastInitThreadId) {
+        if (discussionId == lastInitDiscussionId && categoryId == lastInitCategoryId && threadId == lastInitThreadId && messageId == lastInitMessageId) {
             // initialization with the same parameters, do nothing as this would cause reset to internal discussion state
-            return;
+            return discussion != null;
         }
         lastInitDiscussionId = discussionId;
         lastInitCategoryId = categoryId;
         lastInitThreadId = threadId;
+        lastInitMessageId = messageId;
         
         this.discussionId = discussionId;
         this.categoryId = categoryId;
         this.threadId = threadId;
+        this.messageId = messageId;
         
-        updatePageType();
+
+        try {
+            discussion = DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(discussionId);
+            
+            categories = null;
+            threads = null;
+            
+            updatePageType();
+        } catch (Exception e) {
+            _log.error("Error when initializing discussion bean", e);
+            return false;
+        }
+        
+        return true;
     }
     
-    private void updatePageType() {
+    private void updatePageType() throws NoSuchDiscussionCategoryException, SystemException, NoSuchDiscussionMessageException {
         if (threadId != null) {
-            currentThread = DiscussionServiceMock.getThreadById(threadId);
+            getThreads();
+            currentThread = threadsById.get(threadId);
             pageType = DiscussionPageType.THREAD;
             
         }
         else if (categoryId != null) {
-            currentCategory = DiscussionServiceMock.getCategoryById(categoryId);
+            getCategories();
+            currentCategory = categoriesById.get(categoryId);
             pageType = DiscussionPageType.CATEGORY; 
         }
         
@@ -63,37 +113,86 @@ public class DiscussionBean {
         this.eventBus = eventBus;
     }
     
-    public void changePageType(ActionEvent e) {
-        DiscussionPageType newType = DiscussionPageType.valueOf(
-                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("pageType").toString());
+    public void changePageType(ActionEvent e) throws NoSuchDiscussionCategoryException, SystemException, NoSuchDiscussionMessageException {
+        DiscussionPageType newType = DiscussionPageType.valueOf(e.getComponent().getAttributes().get("pageType").toString());
+        
         this.pageType = newType;
         if (pageType == DiscussionPageType.CATEGORY) {
             categoryId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("categoryId").toString());
-            currentCategory = DiscussionServiceMock.getCategoryById(categoryId);            
+            getCategories();
+            currentCategory = categoriesById.get(categoryId);            
         }
         else if (pageType == DiscussionPageType.THREAD) {
             threadId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("threadId").toString());
-            currentThread = DiscussionServiceMock.getThreadById(threadId);
+            getThreads();
+            currentThread = threadsById.get(threadId);
         }
-        
+
+        else if (pageType == DiscussionPageType.CATEGORY_ADD) {
+            newCategory = new CategoryWrapper(this);
+        }
+        System.out.println(currentCategory);
     }
     
-    public List<ThreadWrapper> getThreads() {
-        return DiscussionServiceMock.getThreads();
+    public List<MessageWrapper> getThreads() throws SystemException {
+        if (threads == null) {
+            threads = new ArrayList<MessageWrapper>();
+            threadsById = new HashMap<Long, MessageWrapper>();
+            for (CategoryWrapper catWrapper: getCategories()) {
+                for (MessageWrapper thread: catWrapper.getThreads()) {
+                    threads.add(thread);   
+                    threadsById.put(thread.getId(), thread);
+                }
+            }
+        }
+        return threads;
     }
     
-    public List<CategoryWrapper> getCategories() {
-        return DiscussionServiceMock.getCategories();
+    public List<CategoryWrapper> getCategories() throws SystemException {
+        if (categories == null) {
+            categories = new ArrayList<CategoryWrapper>();
+            categoriesById = new HashMap<Long, CategoryWrapper>();
+            for (DiscussionCategory category: discussion.getCategories()) {
+                CategoryWrapper catWrapper = new CategoryWrapper(category, this);
+                categories.add(catWrapper);
+                categoriesById.put(catWrapper.getId(), catWrapper);
+            }
+        }
+        return categories;
     }
     
     public CategoryWrapper getCurrentCategory() {
         return currentCategory;
     }
     
-    public ThreadWrapper getCurrentThread() {
+    public MessageWrapper getCurrentThread() {
         return currentThread;
         
     }
 
+    public CategoryWrapper getNewCategory() {
+        return newCategory;
+    }
 
+    public void setNewCategory(CategoryWrapper newCategory) {
+        this.newCategory = newCategory;
+    }
+
+    public DiscussionCategoryGroup getDiscussion() {
+        return discussion;
+    }
+
+    public void categoryAdded(CategoryWrapper category) throws SystemException {
+        getCategories().add(category);
+        categoriesById.put(category.getId(), category);
+        this.pageType = DiscussionPageType.CATEGORY;
+        currentCategory = category;
+    }
+
+    public void threadAdded(MessageWrapper thread) throws SystemException {
+        getThreads().add(thread);
+        threadsById.put(thread.getId(), thread);
+        this.pageType = DiscussionPageType.THREAD;
+        this.currentThread = thread;
+    }
 }
