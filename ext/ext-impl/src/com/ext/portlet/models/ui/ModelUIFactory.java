@@ -13,6 +13,7 @@ import com.ext.portlet.models.model.ModelInputItem;
 import com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
+import com.ext.portlet.models.service.base.ModelInputGroupType;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -48,7 +49,7 @@ public class ModelUIFactory {
      * @param s
      * @return
      */
-    public ModelDisplay getDisplay(Simulation s) {
+    public ModelDisplay getDisplay(Simulation s) throws SystemException, IllegalUIConfigurationException {
         return new ModelDisplay(s);
     }
 
@@ -61,7 +62,7 @@ public class ModelUIFactory {
      * @param s
      * @return
      */
-    public ModelDisplay getDisplay(Scenario s) {
+    public ModelDisplay getDisplay(Scenario s) throws SystemException, IllegalUIConfigurationException {
         return new ModelDisplay(s);
     }
 
@@ -132,30 +133,55 @@ public class ModelUIFactory {
     }
 
     /**
+     * Recursive call to process groups
+     *
+     * @param group
+     * @param bareMetaData
+     * @return
+     * @throws SystemException
+     * @throws IllegalUIConfigurationException
+     */
+    private ModelInputGroupDisplayItem processGroup(ModelInputGroup group, Set<MetaData> bareMetaData) throws SystemException, IllegalUIConfigurationException {
+        ModelInputGroupDisplayItem result=null;
+        for (ModelInputItem item : group.getInputItems()) {
+                try {
+                    bareMetaData.remove(item.getMetaData());
+                } catch (SystemException e) {
+                    _log.error(e);
+                }
+
+            }
+        try {
+            result = new ModelInputGroupDisplayItem(group);
+        } catch (SystemException e) {
+            _log.error(e);
+            return null;
+        }
+        for (ModelInputGroup g:group.getChildGroups()) {
+           result.addChildGroup(processGroup(g,bareMetaData));
+        }
+        return result;
+    }
+
+    /**
      * Package scoped helper function, used to build the input layout classes for the Simulation
      *
      * @param s
      * @return
      */
-    public List<ModelInputDisplayItem> parseInputs(Simulation s) {
+    public List<ModelInputDisplayItem> parseInputs(Simulation s) throws SystemException, IllegalUIConfigurationException {
         List<ModelInputDisplayItem> result = new ArrayList<ModelInputDisplayItem>();
-        Set<MetaData> grouped = new HashSet<MetaData>();
+        Set<MetaData> inputs = new HashSet<MetaData>(s.getInputs());
+
         for (ModelInputGroup group : ModelInputGroupLocalServiceUtil.getInputGroups(s)) {
-            for (ModelInputItem item : group.getInputItems()) {
-                try {
-                    grouped.add(item.getMetaData());
-                } catch (SystemException e) {
-                    _log.error(e);
-                }
-            }
-            try {
-                result.add(new ModelInputGroupDisplayItem(group));
-            } catch (SystemException e) {
-                _log.error(e);
+            if (group.getParentGroupPK()==null) {
+                result.add(processGroup(group,inputs));
             }
         }
-        for (MetaData md : s.getInputs()) {
-            if (!grouped.contains(md)) {
+
+
+        //any left overs
+        for (MetaData md : inputs) {
                 try {
                     ModelInputItem item = ModelInputItemLocalServiceUtil.getItemForMetaData(s.getId(), md);
                     ModelInputDisplayItem toadd = item==null?ModelInputIndividualDisplayItem.create(s,md,ModelInputWidgetType.TEXT_FIELD):getInputItem(item);
@@ -166,13 +192,23 @@ public class ModelUIFactory {
                    _log.error(e);
                 }
             }
-        }
+
         return result;
     }
 
     public ModelInputDisplayItem getInputItem(ModelInputItem item) {
         try {
             return new ModelInputIndividualDisplayItem(item);
+        } catch (SystemException e) {
+            _log.error(e);
+        }
+        return null;
+
+    }
+
+    public ModelInputGroupDisplayItem getGroupItem(ModelInputGroup item) {
+        try {
+            return new ModelInputGroupDisplayItem(item);
         } catch (SystemException e) {
             _log.error(e);
         }
@@ -218,7 +254,7 @@ public class ModelUIFactory {
 
     //this is just sample code - could be made into a test case with apppriate mocks
     // (unless of course 999 is actually the id of a model)
-    private static void example() throws SystemException, IOException, IncompatibleScenarioException {
+    private static void example() throws SystemException, IOException, IncompatibleScenarioException, IllegalUIConfigurationException {
 
         //setting up a new group
 
@@ -228,7 +264,7 @@ public class ModelUIFactory {
 
         //assume first three inputs to be grouped, with the first element serving
         //as name and description of group
-        ModelInputGroupDisplayItem group = ModelInputGroupDisplayItem.create(s,s.getInputs().get(0));
+        ModelInputGroupDisplayItem group = ModelInputGroupDisplayItem.create(s,s.getInputs().get(0), ModelInputGroupType.HORIZONTAL);
         ModelInputDisplayItem item1 = group.addDisplayItem(s.getInputs().get(0),ModelInputWidgetType.SLIDER);
         ModelInputDisplayItem item2 = group.addDisplayItem(s.getInputs().get(1),ModelInputWidgetType.TEXT_FIELD);
         ModelInputDisplayItem item3 = group.addDisplayItem(s.getInputs().get(2),ModelInputWidgetType.TEXT_FIELD);

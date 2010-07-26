@@ -53,5 +53,13 @@ public interface ModelInputGroupModel extends BaseModel<ModelInputGroup> {
 
     public void setDisplayItemOrder(Integer displayItemOrder);
 
+    public String getGroupType();
+
+    public void setGroupType(String groupType);
+
+    public Long getParentGroupPK();
+
+    public void setParentGroupPK(Long parentGroupPK);
+
     public ModelInputGroup toEscapedModel();
 }

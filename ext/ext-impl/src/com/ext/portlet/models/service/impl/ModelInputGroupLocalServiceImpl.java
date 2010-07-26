@@ -27,4 +27,14 @@ public class ModelInputGroupLocalServiceImpl
 
         return Collections.emptyList();
     }
+
+     public List<ModelInputGroup> getChildGroups(ModelInputGroup group) {
+         try {
+             return modelInputGroupPersistence.findByparentModelId(group.getModelInputGroupPK());
+         } catch (SystemException e) {
+             e.printStackTrace();
+
+         }
+         return Collections.emptyList();
+     }
 }

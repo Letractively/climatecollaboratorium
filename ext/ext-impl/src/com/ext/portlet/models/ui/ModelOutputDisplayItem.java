@@ -80,7 +80,7 @@ public abstract class ModelOutputDisplayItem extends ModelDisplayItem {
      * @return
      */
      protected ModelOutputErrorBehavior getError(Variable v,TupleStatus status, int index) {
-        if (getScenario() == null || getErrorBehavior(status)==null) return null;
+        if (getScenario() == null || getErrorBehavior(status)==null || v == null) return null;
         for (Tuple e:v.getValue()) {
             if (e.getStatus(index)==status) return getErrorBehavior(status);
         }

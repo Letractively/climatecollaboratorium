@@ -83,4 +83,8 @@ public interface ModelInputGroupLocalService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.models.model.ModelInputGroup> getInputGroups(
         mit.simulation.climate.client.Simulation sim);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.models.model.ModelInputGroup> getChildGroups(
+        com.ext.portlet.models.model.ModelInputGroup group);
 }

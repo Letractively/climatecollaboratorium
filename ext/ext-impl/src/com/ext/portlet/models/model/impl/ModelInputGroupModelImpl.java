@@ -56,9 +56,15 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
             { "description", new Integer(Types.VARCHAR) },
             
 
-            { "displayItemOrder", new Integer(Types.INTEGER) }
+            { "displayItemOrder", new Integer(Types.INTEGER) },
+            
+
+            { "groupType", new Integer(Types.VARCHAR) },
+            
+
+            { "parentGroupPK", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelInputGroup (modelInputGroupPK LONG not null primary key,modelId LONG,nameAndDescriptionMetaDataId LONG,name VARCHAR(75) null,description VARCHAR(75) null,displayItemOrder INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table ModelInputGroup (modelInputGroupPK LONG not null primary key,modelId LONG,nameAndDescriptionMetaDataId LONG,name VARCHAR(75) null,description VARCHAR(75) null,displayItemOrder INTEGER,groupType VARCHAR(75) null,parentGroupPK LONG)";
     public static final String TABLE_SQL_DROP = "drop table ModelInputGroup";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -77,6 +83,8 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
     private String _name;
     private String _description;
     private Integer _displayItemOrder;
+    private String _groupType;
+    private Long _parentGroupPK;
 
     public ModelInputGroupModelImpl() {
     }
@@ -90,6 +98,8 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         model.setName(soapModel.getName());
         model.setDescription(soapModel.getDescription());
         model.setDisplayItemOrder(soapModel.getDisplayItemOrder());
+        model.setGroupType(soapModel.getGroupType());
+        model.setParentGroupPK(soapModel.getParentGroupPK());
 
         return model;
     }
@@ -166,6 +176,22 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         _displayItemOrder = displayItemOrder;
     }
 
+    public String getGroupType() {
+        return GetterUtil.getString(_groupType);
+    }
+
+    public void setGroupType(String groupType) {
+        _groupType = groupType;
+    }
+
+    public Long getParentGroupPK() {
+        return _parentGroupPK;
+    }
+
+    public void setParentGroupPK(Long parentGroupPK) {
+        _parentGroupPK = parentGroupPK;
+    }
+
     public ModelInputGroup toEscapedModel() {
         if (isEscapedModel()) {
             return (ModelInputGroup) this;
@@ -181,6 +207,8 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
             model.setName(HtmlUtil.escape(getName()));
             model.setDescription(HtmlUtil.escape(getDescription()));
             model.setDisplayItemOrder(getDisplayItemOrder());
+            model.setGroupType(HtmlUtil.escape(getGroupType()));
+            model.setParentGroupPK(getParentGroupPK());
 
             model = (ModelInputGroup) Proxy.newProxyInstance(ModelInputGroup.class.getClassLoader(),
                     new Class[] { ModelInputGroup.class },
@@ -199,6 +227,8 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         clone.setName(getName());
         clone.setDescription(getDescription());
         clone.setDisplayItemOrder(getDisplayItemOrder());
+        clone.setGroupType(getGroupType());
+        clone.setParentGroupPK(getParentGroupPK());
 
         return clone;
     }
@@ -250,6 +280,10 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         sb.append(getDescription());
         sb.append(", displayItemOrder=");
         sb.append(getDisplayItemOrder());
+        sb.append(", groupType=");
+        sb.append(getGroupType());
+        sb.append(", parentGroupPK=");
+        sb.append(getParentGroupPK());
         sb.append("}");
 
         return sb.toString();
@@ -285,6 +319,14 @@ public class ModelInputGroupModelImpl extends BaseModelImpl<ModelInputGroup> {
         sb.append(
             "<column><column-name>displayItemOrder</column-name><column-value><![CDATA[");
         sb.append(getDisplayItemOrder());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>groupType</column-name><column-value><![CDATA[");
+        sb.append(getGroupType());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>parentGroupPK</column-name><column-value><![CDATA[");
+        sb.append(getParentGroupPK());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

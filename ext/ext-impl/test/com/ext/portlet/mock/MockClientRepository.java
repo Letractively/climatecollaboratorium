@@ -4,7 +4,7 @@
  * or the license.txt file included in this distribution for the full text of the license.
  */
 
-package com.ext.portlet.plans;
+package com.ext.portlet.mock;
 
 import mit.simulation.climate.client.HasId;
 import mit.simulation.climate.client.MetaData;
@@ -33,11 +33,19 @@ public class MockClientRepository extends ClientRepository {
 
 
     Map<Long,Simulation> sims = new HashMap<Long,Simulation>();
+    Map<Long,MetaData> metadata = new HashMap<Long,MetaData>();
 
     public MockClientRepository(List<Simulation> available) {
       for (Simulation sim:available) {
-         sims.put(sim.getId(),sim); 
+         sims.put(sim.getId(),sim);
+          for (MetaData m:sim.getInputs()) {
+            metadata.put(m.getId(),m);
+          }
+          for (MetaData m:sim.getOutputs()) {
+              metadata.put(m.getId(),m);
+          }
       }
+
     }
 
    
@@ -93,7 +101,7 @@ public class MockClientRepository extends ClientRepository {
 
     @Override
     public MetaData getMetaData(Long id) {
-       return null;
+      return metadata.get(id);
     }
 
     @Override
