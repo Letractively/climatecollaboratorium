@@ -135,7 +135,9 @@ create index IX_E06AFA6C on DebateMigrationItem (debateMigrationId, oldMBMessage
 create index IX_E333D520 on DiscussionCategory (categoryGroupId);
 create index IX_B33BF499 on DiscussionCategory (categoryId);
 
+create index IX_6AC8CFFB on DiscussionMessage (body);
 create index IX_B032DE0B on DiscussionMessage (categoryId, threadId);
+create index IX_66919857 on DiscussionMessage (subject);
 create index IX_472CEADE on DiscussionMessage (threadId);
 
 create index IX_1BB072CA on EmailAddress (companyId);

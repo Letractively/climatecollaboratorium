@@ -1,5 +1,6 @@
 package com.ext.portlet.discussions.model.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ext.portlet.discussions.model.DiscussionCategory;
@@ -47,6 +48,17 @@ public class DiscussionCategoryImpl extends DiscussionCategoryModelImpl
     
     public User getLastActivityAuthor() throws PortalException, SystemException {
         return UserLocalServiceUtil.getUser(getLastActivityAuthorId());
+    }
+    
+    public void delete() throws SystemException {
+        setDeleted(new Date());
+        store();
+    }
+    
+    public void update(String name, String description) throws SystemException {
+        setName(name);
+        setDescription(description);
+        store();
     }
 }
 

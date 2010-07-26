@@ -108,4 +108,8 @@ public interface DiscussionMessageLocalService {
         java.lang.String subject, java.lang.String body,
         com.liferay.portal.model.User author)
         throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> search(
+        java.lang.String query) throws com.liferay.portal.SystemException;
 }

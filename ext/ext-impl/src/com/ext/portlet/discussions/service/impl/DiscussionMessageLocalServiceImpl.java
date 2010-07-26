@@ -1,7 +1,11 @@
 package com.ext.portlet.discussions.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionMessage;
@@ -52,5 +56,15 @@ public class DiscussionMessageLocalServiceImpl
         
         message.store();
         return message;
+    }
+    
+    public List<DiscussionMessage> search(String query) throws SystemException {
+        // preprocess query
+        query = "%" + query.replaceAll("\\s", "%") + "%";
+        Set<DiscussionMessage> messages = new TreeSet<DiscussionMessage>();
+        messages.addAll(discussionMessagePersistence.findByBodyLike(query));
+        messages.addAll(discussionMessagePersistence.findBySubjectLike(query));
+        
+        return new ArrayList<DiscussionMessage>(messages);
     }
 }

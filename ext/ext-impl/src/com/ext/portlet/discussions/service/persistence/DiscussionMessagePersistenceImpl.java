@@ -79,6 +79,40 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countBySingleThreadId",
             new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_SUBJECTLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
+            DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findBySubjectLike",
+            new String[] { String.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_SUBJECTLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
+            DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findBySubjectLike",
+            new String[] {
+                String.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_SUBJECTLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
+            DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countBySubjectLike",
+            new String[] { String.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_BODYLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
+            DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByBodyLike",
+            new String[] { String.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_BODYLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
+            DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByBodyLike",
+            new String[] {
+                String.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_BODYLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
+            DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByBodyLike",
+            new String[] { String.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -386,7 +420,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("threadId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 query.append("ORDER BY ");
 
@@ -468,7 +502,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("threadId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 if (obc != null) {
                     query.append("ORDER BY ");
@@ -594,7 +628,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 query.append("threadId = ?");
             }
 
-            query.append(" ");
+            query.append(" AND deleted is null ");
 
             if (obc != null) {
                 query.append("ORDER BY ");
@@ -659,7 +693,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("threadId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 query.append("ORDER BY ");
 
@@ -726,7 +760,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("threadId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 if (obc != null) {
                     query.append("ORDER BY ");
@@ -833,7 +867,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 query.append("threadId = ?");
             }
 
-            query.append(" ");
+            query.append(" AND deleted is null ");
 
             if (obc != null) {
                 query.append("ORDER BY ");
@@ -926,7 +960,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("threadId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 query.append("ORDER BY ");
 
@@ -978,6 +1012,476 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             } else {
                 return (DiscussionMessage) result;
             }
+        }
+    }
+
+    public List<DiscussionMessage> findBySubjectLike(String subject)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { subject };
+
+        List<DiscussionMessage> list = (List<DiscussionMessage>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_SUBJECTLIKE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+                if (subject == null) {
+                    query.append("subject LIKE null");
+                } else {
+                    query.append("subject LIKE ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                query.append("ORDER BY ");
+
+                query.append("createDate DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (subject != null) {
+                    qPos.add(subject);
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<DiscussionMessage>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_SUBJECTLIKE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<DiscussionMessage> findBySubjectLike(String subject, int start,
+        int end) throws SystemException {
+        return findBySubjectLike(subject, start, end, null);
+    }
+
+    public List<DiscussionMessage> findBySubjectLike(String subject, int start,
+        int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                subject,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<DiscussionMessage> list = (List<DiscussionMessage>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_SUBJECTLIKE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+                if (subject == null) {
+                    query.append("subject LIKE null");
+                } else {
+                    query.append("subject LIKE ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("createDate DESC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (subject != null) {
+                    qPos.add(subject);
+                }
+
+                list = (List<DiscussionMessage>) QueryUtil.list(q,
+                        getDialect(), start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<DiscussionMessage>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_SUBJECTLIKE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public DiscussionMessage findBySubjectLike_First(String subject,
+        OrderByComparator obc)
+        throws NoSuchDiscussionMessageException, SystemException {
+        List<DiscussionMessage> list = findBySubjectLike(subject, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No DiscussionMessage exists with the key {");
+
+            msg.append("subject=" + subject);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchDiscussionMessageException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public DiscussionMessage findBySubjectLike_Last(String subject,
+        OrderByComparator obc)
+        throws NoSuchDiscussionMessageException, SystemException {
+        int count = countBySubjectLike(subject);
+
+        List<DiscussionMessage> list = findBySubjectLike(subject, count - 1,
+                count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No DiscussionMessage exists with the key {");
+
+            msg.append("subject=" + subject);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchDiscussionMessageException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public DiscussionMessage[] findBySubjectLike_PrevAndNext(Long pk,
+        String subject, OrderByComparator obc)
+        throws NoSuchDiscussionMessageException, SystemException {
+        DiscussionMessage discussionMessage = findByPrimaryKey(pk);
+
+        int count = countBySubjectLike(subject);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+            if (subject == null) {
+                query.append("subject LIKE null");
+            } else {
+                query.append("subject LIKE ?");
+            }
+
+            query.append(" AND deleted is null ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("createDate DESC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (subject != null) {
+                qPos.add(subject);
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    discussionMessage);
+
+            DiscussionMessage[] array = new DiscussionMessageImpl[3];
+
+            array[0] = (DiscussionMessage) objArray[0];
+            array[1] = (DiscussionMessage) objArray[1];
+            array[2] = (DiscussionMessage) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    public List<DiscussionMessage> findByBodyLike(String body)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { body };
+
+        List<DiscussionMessage> list = (List<DiscussionMessage>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_BODYLIKE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+                if (body == null) {
+                    query.append("body LIKE null");
+                } else {
+                    query.append("body LIKE ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                query.append("ORDER BY ");
+
+                query.append("createDate DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (body != null) {
+                    qPos.add(body);
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<DiscussionMessage>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_BODYLIKE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<DiscussionMessage> findByBodyLike(String body, int start,
+        int end) throws SystemException {
+        return findByBodyLike(body, start, end, null);
+    }
+
+    public List<DiscussionMessage> findByBodyLike(String body, int start,
+        int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                body,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<DiscussionMessage> list = (List<DiscussionMessage>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_BODYLIKE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+                if (body == null) {
+                    query.append("body LIKE null");
+                } else {
+                    query.append("body LIKE ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("createDate DESC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (body != null) {
+                    qPos.add(body);
+                }
+
+                list = (List<DiscussionMessage>) QueryUtil.list(q,
+                        getDialect(), start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<DiscussionMessage>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_BODYLIKE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public DiscussionMessage findByBodyLike_First(String body,
+        OrderByComparator obc)
+        throws NoSuchDiscussionMessageException, SystemException {
+        List<DiscussionMessage> list = findByBodyLike(body, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No DiscussionMessage exists with the key {");
+
+            msg.append("body=" + body);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchDiscussionMessageException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public DiscussionMessage findByBodyLike_Last(String body,
+        OrderByComparator obc)
+        throws NoSuchDiscussionMessageException, SystemException {
+        int count = countByBodyLike(body);
+
+        List<DiscussionMessage> list = findByBodyLike(body, count - 1, count,
+                obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No DiscussionMessage exists with the key {");
+
+            msg.append("body=" + body);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchDiscussionMessageException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public DiscussionMessage[] findByBodyLike_PrevAndNext(Long pk, String body,
+        OrderByComparator obc)
+        throws NoSuchDiscussionMessageException, SystemException {
+        DiscussionMessage discussionMessage = findByPrimaryKey(pk);
+
+        int count = countByBodyLike(body);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+            if (body == null) {
+                query.append("body LIKE null");
+            } else {
+                query.append("body LIKE ?");
+            }
+
+            query.append(" AND deleted is null ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("createDate DESC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (body != null) {
+                qPos.add(body);
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    discussionMessage);
+
+            DiscussionMessage[] array = new DiscussionMessageImpl[3];
+
+            array[0] = (DiscussionMessage) objArray[0];
+            array[1] = (DiscussionMessage) objArray[1];
+            array[2] = (DiscussionMessage) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
         }
     }
 
@@ -1106,6 +1610,18 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         remove(discussionMessage);
     }
 
+    public void removeBySubjectLike(String subject) throws SystemException {
+        for (DiscussionMessage discussionMessage : findBySubjectLike(subject)) {
+            remove(discussionMessage);
+        }
+    }
+
+    public void removeByBodyLike(String body) throws SystemException {
+        for (DiscussionMessage discussionMessage : findByBodyLike(body)) {
+            remove(discussionMessage);
+        }
+    }
+
     public void removeAll() throws SystemException {
         for (DiscussionMessage discussionMessage : findAll()) {
             remove(discussionMessage);
@@ -1145,7 +1661,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("threadId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 Query q = session.createQuery(query.toString());
 
@@ -1201,7 +1717,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("threadId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 Query q = session.createQuery(query.toString());
 
@@ -1253,7 +1769,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("threadId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 Query q = session.createQuery(query.toString());
 
@@ -1272,6 +1788,110 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SINGLETHREADID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countBySubjectLike(String subject) throws SystemException {
+        Object[] finderArgs = new Object[] { subject };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SUBJECTLIKE,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+                if (subject == null) {
+                    query.append("subject LIKE null");
+                } else {
+                    query.append("subject LIKE ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (subject != null) {
+                    qPos.add(subject);
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SUBJECTLIKE,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByBodyLike(String body) throws SystemException {
+        Object[] finderArgs = new Object[] { body };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_BODYLIKE,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+                if (body == null) {
+                    query.append("body LIKE null");
+                } else {
+                    query.append("body LIKE ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (body != null) {
+                    qPos.add(body);
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_BODYLIKE,
                     finderArgs, count);
 
                 closeSession(session);
