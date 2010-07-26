@@ -439,4 +439,36 @@
 		<field name="messageId" type="String" />
 		<field name="visible" type="Boolean" />
 	</model>
+	<model name="com.ext.portlet.discussions.model.DiscussionCategoryGroup">
+		<field name="id" type="Long" />
+		<field name="description" type="String" />
+	</model>
+	<model name="com.ext.portlet.discussions.model.DiscussionCategory">
+		<field name="pk" type="Long" />
+		<field name="categoryId" type="Long" />
+		<field name="categoryGroupId" type="Long" />
+		<field name="authorId" type="Long" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="deleted" type="Date" />
+		<field name="threadsCount" type="Integer" />
+		<field name="lastActivityDate" type="Date" />
+		<field name="lastActivityAuthorId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.discussions.model.DiscussionMessage">
+		<field name="pk" type="Long" />
+		<field name="messageId" type="Long" />
+		<field name="subject" type="String" />
+		<field name="body" type="String" />
+		<field name="threadId" type="Long" />
+		<field name="categoryId" type="Long" />
+		<field name="authorId" type="Long" />
+		<field name="createDate" type="Date" />
+		<field name="version" type="Long" />
+		<field name="deleted" type="Date" />
+		<field name="responsesCount" type="Integer" />
+		<field name="lastActivityDate" type="Date" />
+		<field name="lastActivityAuthorId" type="Long" />
+	</model>
 </model-hints>

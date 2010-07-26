@@ -643,4 +643,40 @@
 		<property name="service" ref="com.ext.inlinehelp.service.HelpUserSettingService.impl" />
 		<property name="serviceInterface" value="com.ext.inlinehelp.service.HelpUserSettingService" />
 	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryGroupService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryGroupService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryGroupService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageService" />
+	</bean>
 </beans>
