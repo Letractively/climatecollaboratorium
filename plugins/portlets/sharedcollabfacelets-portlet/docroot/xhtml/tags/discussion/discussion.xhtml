@@ -26,5 +26,8 @@
                 <ui:param name="entity" value="#{discussionBean.currentCategory.newThread}" />
             </ui:include>
         </f:subview>
+        <f:subview rendered="#{discussionBean.pageType == 'SEARCH_RESULTS'}">
+            <ui:include src="./pages/searchResults.xhtml" />
+        </f:subview>
     </collab:discussionSupport>
 </f:view>

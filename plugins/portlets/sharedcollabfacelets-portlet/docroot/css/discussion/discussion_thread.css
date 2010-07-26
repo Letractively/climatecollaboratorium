@@ -29,3 +29,20 @@
 .newMessageForm textarea.text {
     height: 70px;
 }
+
+.messageLong .title, 
+.messageShort .title {
+    float: left;
+}
+
+.messageLong .actions, 
+.messageShort .actions {
+    float: right;
+}
+
+.discussion .description {
+	padding: 5px 2px;
+	margin-bottom: 20px;
+	background: #eee;
+}
+    

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
@@ -11,7 +13,6 @@ import org.climatecollaboratorium.utils.Helper;
 
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionMessage;
-import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
@@ -23,7 +24,7 @@ public class CategoryWrapper {
     private String description;
     private DiscussionBean discussionBean;
     private DiscussionCategory wrapped;
-    private MessageWrapper newThread = new MessageWrapper(this);
+    private boolean editing;
     
     private List<MessageWrapper> threads = new ArrayList<MessageWrapper>();
     
@@ -86,20 +87,12 @@ public class CategoryWrapper {
         if (Helper.isUserLoggedIn()) {
             wrapped = discussionBean.getDiscussion().addCategory(title, description, Helper.getLiferayUser());
             discussionBean.categoryAdded(this);
+            Helper.sendInfoMessage("Category \"" + title + "\" has been added.");
         }
-    }
-
-    public MessageWrapper getNewThread() {
-        return newThread;
-    }
-
-    public void setNewThread(MessageWrapper newThread) {
-        this.newThread = newThread;
     }
 
     public void threadAdded(MessageWrapper thread) throws SystemException {
         threads.add(thread);
-        newThread = new MessageWrapper(this);
         discussionBean.threadAdded(thread);
     }
 
@@ -121,6 +114,36 @@ public class CategoryWrapper {
     
     public User getLastActivityAuthor() throws PortalException, SystemException {
         return wrapped.getLastActivityAuthor();
+    }
+    
+    public void delete(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped.delete();
+            discussionBean.categoryDeleted(this);
+            Helper.sendInfoMessage("Category \"" + wrapped.getName() + "\" has been deleted.");
+        }
+    }
+    
+    public void messageDeleted(MessageWrapper messageWrapper) {
+        if (threads != null) {
+            threads.remove(messageWrapper);
+            discussionBean.messageDeleted(messageWrapper);
+        }
+    }
+    
+    public boolean isEditing() {
+        return editing;
+    }
+    
+    public void toggleEdit(ActionEvent e) {
+        editing = !editing;
+    }
+    
+    public void update(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped.update(title, description);
+            editing = !editing;
+        }        
     }
 
 }

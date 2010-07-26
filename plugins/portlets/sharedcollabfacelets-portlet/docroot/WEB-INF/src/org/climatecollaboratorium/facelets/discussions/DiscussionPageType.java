@@ -6,5 +6,6 @@ public enum DiscussionPageType {
     CATEGORY,
     CATEGORY_ADD,
     THREAD,
-    THREAD_ADD
+    THREAD_ADD,
+    SEARCH_RESULTS
 }

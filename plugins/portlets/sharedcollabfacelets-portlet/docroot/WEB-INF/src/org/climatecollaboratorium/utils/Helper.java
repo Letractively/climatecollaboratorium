@@ -2,6 +2,8 @@ package org.climatecollaboratorium.utils;
 
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletPreferences;
@@ -114,5 +116,21 @@ public class Helper {
     public static String getPlanURL(PlanItem p) {
         return "/web/guest/plans#planId=" + p.getPlanId();
     }
+    
+
+    public static void sendMessage(String summary, String detail, Severity severity) {
+        FacesMessage msg = new FacesMessage();
+        
+        msg.setSummary(summary);
+        msg.setSeverity(severity);
+        msg.setDetail(detail);
+        
+        FacesContext.getCurrentInstance().addMessage(null, msg); 
+    }
+    
+    public static void sendInfoMessage(String message) {
+        sendMessage(message, null, FacesMessage.SEVERITY_INFO);
+    }
+    
     
 }

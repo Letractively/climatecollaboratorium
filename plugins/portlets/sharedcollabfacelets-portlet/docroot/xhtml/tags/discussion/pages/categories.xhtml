@@ -23,8 +23,8 @@
                 <ui:param name="entityName" value="Categories"/>
             </ui:decorate>
             <ice:panelSeries value="#{discussionBean.categories}" var="category" varStatus="categoryStatus" id="paginatedDataSet" rows="10">
-                <div class="messageShort #{categoryStatus.index mod 2 != 0 ? 'odd' : 'even'}">
-                    <div class="title">
+                <ice:panelGroup styleClass="messageShort #{categoryStatus.index mod 2 != 0 ? 'odd' : 'even'}" rendered="#{not category.editing}">
+                    <div>
                         <h4 class="title">
                             <ice:commandLink actionListener="#{discussionBean.changePageType}">
                                 <f:param name="categoryId" value="#{category.id}" /> 
@@ -33,6 +33,11 @@
                                 <ice:outputText value="#{category.title}" /> 
                             </ice:commandLink>
                         </h4>
+                        <div class="actions">
+                            <ice:commandButton actionListener="#{category.toggleEdit}" value="Edit" />
+                            <ice:commandButton actionListener="#{category.delete}" value="Delete" />
+                        </div>
+                        <div class="clear"></div>
                     </div>
                     <div class="content">
                         <ice:outputText value="#{category.description}" escape="false" />
@@ -50,8 +55,18 @@
                     <div class="clear"></div>
                     </div>
                         
-                </div>
-            
+                </ice:panelGroup>
+                
+                <ice:panelGroup rendered="#{category.editing}" styleClass="newMessageForm">
+                    <ice:outputLabel for="categoryName" value="Name: " /><br />
+                    <ice:inputText id="categoryName" value="#{category.title}" styleClass="title text"/><br />
+        
+                    <ice:outputLabel for="categoryDescription" value="Description: " /><br />
+                    <ice:inputTextarea id="categoryDescription"  value="#{category.description}" styleClass="description text"/><br />
+        
+                    <ice:commandButton actionListener="#{category.update}" value="Save" />
+                    <ice:commandButton actionListener="#{category.toggleEdit}" value="Cancel" />
+                </ice:panelGroup>    
             </ice:panelSeries>
             
             <ui:decorate template="./paginator.xhtml">
