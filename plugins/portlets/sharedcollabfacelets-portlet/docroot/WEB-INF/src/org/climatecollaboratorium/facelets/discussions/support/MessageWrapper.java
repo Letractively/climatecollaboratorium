@@ -91,6 +91,7 @@ public class MessageWrapper {
         if (Helper.isUserLoggedIn()) {
             wrapped = category.getWrapped().addThread(title, description, Helper.getLiferayUser());
             category.threadAdded(this);
+            newMessage = new MessageWrapper(this);
         }
     }
     
