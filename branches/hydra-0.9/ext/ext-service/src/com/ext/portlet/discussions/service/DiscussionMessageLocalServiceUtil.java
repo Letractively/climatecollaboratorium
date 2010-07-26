@@ -127,6 +127,11 @@ public class DiscussionMessageLocalServiceUtil {
                    .addMessage(categoryId, threadId, subject, body, author);
     }
 
+    public static java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> search(
+        java.lang.String query) throws com.liferay.portal.SystemException {
+        return getService().search(query);
+    }
+
     public static DiscussionMessageLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

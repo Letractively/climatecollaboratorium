@@ -192,6 +192,90 @@ public class DiscussionMessageUtil {
                    .fetchBySingleThreadId(threadId, retrieveFromCache);
     }
 
+    public static java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findBySubjectLike(
+        java.lang.String subject) throws com.liferay.portal.SystemException {
+        return getPersistence().findBySubjectLike(subject);
+    }
+
+    public static java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findBySubjectLike(
+        java.lang.String subject, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findBySubjectLike(subject, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findBySubjectLike(
+        java.lang.String subject, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findBySubjectLike(subject, start, end, obc);
+    }
+
+    public static com.ext.portlet.discussions.model.DiscussionMessage findBySubjectLike_First(
+        java.lang.String subject,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findBySubjectLike_First(subject, obc);
+    }
+
+    public static com.ext.portlet.discussions.model.DiscussionMessage findBySubjectLike_Last(
+        java.lang.String subject,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findBySubjectLike_Last(subject, obc);
+    }
+
+    public static com.ext.portlet.discussions.model.DiscussionMessage[] findBySubjectLike_PrevAndNext(
+        java.lang.Long pk, java.lang.String subject,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findBySubjectLike_PrevAndNext(pk, subject, obc);
+    }
+
+    public static java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findByBodyLike(
+        java.lang.String body) throws com.liferay.portal.SystemException {
+        return getPersistence().findByBodyLike(body);
+    }
+
+    public static java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findByBodyLike(
+        java.lang.String body, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByBodyLike(body, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findByBodyLike(
+        java.lang.String body, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByBodyLike(body, start, end, obc);
+    }
+
+    public static com.ext.portlet.discussions.model.DiscussionMessage findByBodyLike_First(
+        java.lang.String body,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByBodyLike_First(body, obc);
+    }
+
+    public static com.ext.portlet.discussions.model.DiscussionMessage findByBodyLike_Last(
+        java.lang.String body,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByBodyLike_Last(body, obc);
+    }
+
+    public static com.ext.portlet.discussions.model.DiscussionMessage[] findByBodyLike_PrevAndNext(
+        java.lang.Long pk, java.lang.String body,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByBodyLike_PrevAndNext(pk, body, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -236,6 +320,16 @@ public class DiscussionMessageUtil {
         getPersistence().removeBySingleThreadId(threadId);
     }
 
+    public static void removeBySubjectLike(java.lang.String subject)
+        throws com.liferay.portal.SystemException {
+        getPersistence().removeBySubjectLike(subject);
+    }
+
+    public static void removeByBodyLike(java.lang.String body)
+        throws com.liferay.portal.SystemException {
+        getPersistence().removeByBodyLike(body);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -253,6 +347,16 @@ public class DiscussionMessageUtil {
     public static int countBySingleThreadId(java.lang.Long threadId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countBySingleThreadId(threadId);
+    }
+
+    public static int countBySubjectLike(java.lang.String subject)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countBySubjectLike(subject);
+    }
+
+    public static int countByBodyLike(java.lang.String body)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByBodyLike(body);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

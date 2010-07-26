@@ -133,6 +133,66 @@ public interface DiscussionMessagePersistence extends BasePersistence {
         java.lang.Long threadId, boolean retrieveFromCache)
         throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findBySubjectLike(
+        java.lang.String subject) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findBySubjectLike(
+        java.lang.String subject, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findBySubjectLike(
+        java.lang.String subject, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage findBySubjectLike_First(
+        java.lang.String subject,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage findBySubjectLike_Last(
+        java.lang.String subject,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage[] findBySubjectLike_PrevAndNext(
+        java.lang.Long pk, java.lang.String subject,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findByBodyLike(
+        java.lang.String body) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findByBodyLike(
+        java.lang.String body, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findByBodyLike(
+        java.lang.String body, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage findByBodyLike_First(
+        java.lang.String body,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage findByBodyLike_Last(
+        java.lang.String body,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage[] findByBodyLike_PrevAndNext(
+        java.lang.Long pk, java.lang.String body,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -161,6 +221,12 @@ public interface DiscussionMessagePersistence extends BasePersistence {
         throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
             com.liferay.portal.SystemException;
 
+    public void removeBySubjectLike(java.lang.String subject)
+        throws com.liferay.portal.SystemException;
+
+    public void removeByBodyLike(java.lang.String body)
+        throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByCategoryIdThreadId(java.lang.Long categoryId,
@@ -170,6 +236,12 @@ public interface DiscussionMessagePersistence extends BasePersistence {
         throws com.liferay.portal.SystemException;
 
     public int countBySingleThreadId(java.lang.Long threadId)
+        throws com.liferay.portal.SystemException;
+
+    public int countBySubjectLike(java.lang.String subject)
+        throws com.liferay.portal.SystemException;
+
+    public int countByBodyLike(java.lang.String body)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

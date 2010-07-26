@@ -44,4 +44,9 @@ public interface DiscussionCategory extends DiscussionCategoryModel {
     public com.liferay.portal.model.User getLastActivityAuthor()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public void delete() throws com.liferay.portal.SystemException;
+
+    public void update(java.lang.String name, java.lang.String description)
+        throws com.liferay.portal.SystemException;
 }

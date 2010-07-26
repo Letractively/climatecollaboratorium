@@ -4,8 +4,8 @@ create table DiscussionCategory (
 	categoryId BIGINT,
 	authorId BIGINT,
 	categoryGroupId BIGINT,
-	name VARCHAR(75) null,
-	description VARCHAR(75) null,
+	name VARCHAR(512) null,
+	description TEXT null,
 	createDate DATE null,
 	deleted TIMESTAMP null,
 
@@ -17,15 +17,15 @@ create table DiscussionCategory (
 drop table if exists DiscussionCategoryGroup;
 create table DiscussionCategoryGroup (
 	id_ BIGINT not null primary key,
-	description VARCHAR(75) null
+	description VARCHAR(512) null
 );
 
 drop table if exists DiscussionMessage;
 create table DiscussionMessage (
 	pk BIGINT not null primary key,
 	messageId BIGINT,
-	subject VARCHAR(75) null,
-	body VARCHAR(75) null,
+	subject VARCHAR(512) null,
+	body TEXT null,
 	threadId BIGINT,
 	categoryId BIGINT,
 	authorId BIGINT,

@@ -362,7 +362,7 @@ public class DiscussionCategoryPersistenceImpl extends BasePersistenceImpl
                     query.append("categoryGroupId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 query.append("ORDER BY ");
 
@@ -430,7 +430,7 @@ public class DiscussionCategoryPersistenceImpl extends BasePersistenceImpl
                     query.append("categoryGroupId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 if (obc != null) {
                     query.append("ORDER BY ");
@@ -538,7 +538,7 @@ public class DiscussionCategoryPersistenceImpl extends BasePersistenceImpl
                 query.append("categoryGroupId = ?");
             }
 
-            query.append(" ");
+            query.append(" AND deleted is null ");
 
             if (obc != null) {
                 query.append("ORDER BY ");
@@ -631,7 +631,7 @@ public class DiscussionCategoryPersistenceImpl extends BasePersistenceImpl
                     query.append("categoryId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 query.append("ORDER BY ");
 
@@ -837,7 +837,7 @@ public class DiscussionCategoryPersistenceImpl extends BasePersistenceImpl
                     query.append("categoryGroupId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 Query q = session.createQuery(query.toString());
 
@@ -889,7 +889,7 @@ public class DiscussionCategoryPersistenceImpl extends BasePersistenceImpl
                     query.append("categoryId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND deleted is null ");
 
                 Query q = session.createQuery(query.toString());
 

@@ -34,11 +34,11 @@
             <order-column name="createDate" case-sensitive="false" />
         </order>
                 
-        <finder name="CategoryGroupId" return-type="Collection">
+        <finder name="CategoryGroupId" return-type="Collection" where="deleted is null">
             <finder-column name="categoryGroupId" />
         </finder>
         
-        <finder name="CategoryId" return-type="DiscussionCategory">
+        <finder name="CategoryId" return-type="DiscussionCategory" where="deleted is null">
             <finder-column name="categoryId" />
         </finder>
     </entity>
@@ -68,17 +68,25 @@
             <order-column name="createDate" case-sensitive="false" />
         </order>
         
-        <finder name="CategoryIdThreadId" return-type="Collection">
+        <finder name="CategoryIdThreadId" return-type="Collection" where="deleted is null">
             <finder-column name="categoryId" />
             <finder-column name="threadId" />
         </finder>
         
-        <finder name="ThreadId" return-type="Collection">
+        <finder name="ThreadId" return-type="Collection" where="deleted is null">
             <finder-column name="threadId" />
         </finder>
         
-        <finder name="SingleThreadId" return-type="DiscussionMessage">
+        <finder name="SingleThreadId" return-type="DiscussionMessage" where="deleted is null">
             <finder-column name="threadId" />
+        </finder>
+        
+        <finder name="SubjectLike" return-type="Collection" where="deleted is null">
+            <finder-column name="subject" comparator="LIKE" />
+        </finder>
+        
+        <finder name="BodyLike" return-type="Collection" where="deleted is null">
+            <finder-column name="body" comparator="LIKE" />
         </finder>
         
     </entity>
