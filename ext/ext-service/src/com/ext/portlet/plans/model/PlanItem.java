@@ -83,6 +83,13 @@ public interface PlanItem extends PlanItemModel {
         java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
+    public java.lang.Long getCategoryGroupId()
+        throws com.liferay.portal.SystemException;
+
+    public void setCategoryGroupId(java.lang.Long categoryGroupId,
+        java.lang.Long updateAuthorId)
+        throws com.liferay.portal.SystemException;
+
     public java.lang.Long getPlanGroupId()
         throws com.liferay.portal.SystemException;
 

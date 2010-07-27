@@ -35,11 +35,11 @@ public class DiscussionMessageLocalServiceImpl
         return discussionMessagePersistence.findBySingleThreadId(threadId);
     }
     
-    public DiscussionMessage addThread(Long categoryId, String subject, String body, User author) throws SystemException  {
-        return addMessage(categoryId, null, subject, body, author);
+    public DiscussionMessage addThread(Long categoryGroupId, Long categoryId, String subject, String body, User author) throws SystemException  {
+        return addMessage(categoryGroupId, categoryId, null, subject, body, author);
     }
     
-    public DiscussionMessage addMessage(Long categoryId, Long threadId, String subject, String body, User author) throws SystemException {
+    public DiscussionMessage addMessage(Long categoryGroupId, Long categoryId, Long threadId, String subject, String body, User author) throws SystemException {
         Long id = CounterUtil.increment(DiscussionMessage.class.getName());
         Long messageId = CounterUtil.increment(DiscussionMessage.class.getName() + ".discussion");
         
@@ -53,17 +53,18 @@ public class DiscussionMessageLocalServiceImpl
         message.setCreateDate(new Date());
         message.setThreadId(threadId);
         message.setResponsesCount(0);
+        message.setCategoryGroupId(categoryGroupId);
         
         message.store();
         return message;
     }
     
-    public List<DiscussionMessage> search(String query) throws SystemException {
+    public List<DiscussionMessage> search(String query, Long categoryGroupId) throws SystemException {
         // preprocess query
         query = "%" + query.replaceAll("\\s", "%") + "%";
         Set<DiscussionMessage> messages = new TreeSet<DiscussionMessage>();
-        messages.addAll(discussionMessagePersistence.findByBodyLike(query));
-        messages.addAll(discussionMessagePersistence.findBySubjectLike(query));
+        messages.addAll(discussionMessagePersistence.findByBodyLike(query, categoryGroupId));
+        messages.addAll(discussionMessagePersistence.findBySubjectLike(query, categoryGroupId));
         
         return new ArrayList<DiscussionMessage>(messages);
     }

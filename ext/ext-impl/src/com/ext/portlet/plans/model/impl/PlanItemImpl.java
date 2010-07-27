@@ -186,6 +186,20 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planMeta.store();
     }
     
+    public Long getCategoryGroupId() throws SystemException {
+        return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getCategoryGroupId();
+    }
+    
+    public void setCategoryGroupId(Long categoryGroupId, Long updateAuthorId) throws SystemException {
+        newVersion(UpdateType.MB_GROUP_UPDATED, updateAuthorId);
+        
+        PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
+        planMeta.setCategoryGroupId(categoryGroupId);
+        planMeta.store();
+    }
+    
+    
+    
    public Long getPlanGroupId() throws SystemException {
        return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getPlanGroupId();
    }

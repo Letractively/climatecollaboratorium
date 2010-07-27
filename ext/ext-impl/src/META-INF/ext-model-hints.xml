@@ -148,6 +148,7 @@
 		<field name="votes" type="Integer" />
 		<field name="planGroupId" type="Long" />
 		<field name="mbCategoryId" type="Long" />
+		<field name="categoryGroupId" type="Long" />
 		<field name="version" type="Long" />
 		<field name="planVersion" type="Long" />
 		<field name="created" type="Date" />
@@ -465,6 +466,7 @@
 		<field name="body" type="String" />
 		<field name="threadId" type="Long" />
 		<field name="categoryId" type="Long" />
+		<field name="categoryGroupId" type="Long" />
 		<field name="authorId" type="Long" />
 		<field name="createDate" type="Date" />
 		<field name="version" type="Long" />

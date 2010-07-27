@@ -40,6 +40,7 @@ public class DiscussionMessageJSONSerializer {
         jsonObj.put("body", model.getBody());
         jsonObj.put("threadId", model.getThreadId());
         jsonObj.put("categoryId", model.getCategoryId());
+        jsonObj.put("categoryGroupId", model.getCategoryGroupId());
         jsonObj.put("authorId", model.getAuthorId());
 
         Date createDate = model.getCreateDate();

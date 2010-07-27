@@ -44,4 +44,6 @@ public interface DiscussionCategoryGroup extends DiscussionCategoryGroupModel {
         java.lang.String name, java.lang.String description,
         com.liferay.portal.model.User creator)
         throws com.liferay.portal.SystemException;
+
+    public void store() throws com.liferay.portal.SystemException;
 }

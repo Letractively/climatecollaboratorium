@@ -61,6 +61,9 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
             { "categoryId", new Integer(Types.BIGINT) },
             
 
+            { "categoryGroupId", new Integer(Types.BIGINT) },
+            
+
             { "authorId", new Integer(Types.BIGINT) },
             
 
@@ -81,7 +84,7 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
 
             { "lastActivityAuthorId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table DiscussionMessage (pk LONG not null primary key,messageId LONG,subject VARCHAR(75) null,body VARCHAR(75) null,threadId LONG,categoryId LONG,authorId LONG,createDate DATE null,version LONG,deleted DATE null,responsesCount INTEGER,lastActivityDate DATE null,lastActivityAuthorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table DiscussionMessage (pk LONG not null primary key,messageId LONG,subject VARCHAR(75) null,body VARCHAR(75) null,threadId LONG,categoryId LONG,categoryGroupId LONG,authorId LONG,createDate DATE null,version LONG,deleted DATE null,responsesCount INTEGER,lastActivityDate DATE null,lastActivityAuthorId LONG)";
     public static final String TABLE_SQL_DROP = "drop table DiscussionMessage";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -101,6 +104,7 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
     private Long _threadId;
     private Long _originalThreadId;
     private Long _categoryId;
+    private Long _categoryGroupId;
     private Long _authorId;
     private Date _createDate;
     private Long _version;
@@ -121,6 +125,7 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
         model.setBody(soapModel.getBody());
         model.setThreadId(soapModel.getThreadId());
         model.setCategoryId(soapModel.getCategoryId());
+        model.setCategoryGroupId(soapModel.getCategoryGroupId());
         model.setAuthorId(soapModel.getAuthorId());
         model.setCreateDate(soapModel.getCreateDate());
         model.setVersion(soapModel.getVersion());
@@ -211,6 +216,14 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
         _categoryId = categoryId;
     }
 
+    public Long getCategoryGroupId() {
+        return _categoryGroupId;
+    }
+
+    public void setCategoryGroupId(Long categoryGroupId) {
+        _categoryGroupId = categoryGroupId;
+    }
+
     public Long getAuthorId() {
         return _authorId;
     }
@@ -282,6 +295,7 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
             model.setBody(HtmlUtil.escape(getBody()));
             model.setThreadId(getThreadId());
             model.setCategoryId(getCategoryId());
+            model.setCategoryGroupId(getCategoryGroupId());
             model.setAuthorId(getAuthorId());
             model.setCreateDate(getCreateDate());
             model.setVersion(getVersion());
@@ -307,6 +321,7 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
         clone.setBody(getBody());
         clone.setThreadId(getThreadId());
         clone.setCategoryId(getCategoryId());
+        clone.setCategoryGroupId(getCategoryGroupId());
         clone.setAuthorId(getAuthorId());
         clone.setCreateDate(getCreateDate());
         clone.setVersion(getVersion());
@@ -374,6 +389,8 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
         sb.append(getThreadId());
         sb.append(", categoryId=");
         sb.append(getCategoryId());
+        sb.append(", categoryGroupId=");
+        sb.append(getCategoryGroupId());
         sb.append(", authorId=");
         sb.append(getAuthorId());
         sb.append(", createDate=");
@@ -423,6 +440,10 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
         sb.append(
             "<column><column-name>categoryId</column-name><column-value><![CDATA[");
         sb.append(getCategoryId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>categoryGroupId</column-name><column-value><![CDATA[");
+        sb.append(getCategoryGroupId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>authorId</column-name><column-value><![CDATA[");

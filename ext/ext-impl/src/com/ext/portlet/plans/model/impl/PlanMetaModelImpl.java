@@ -66,6 +66,9 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             { "mbCategoryId", new Integer(Types.BIGINT) },
             
 
+            { "categoryGroupId", new Integer(Types.BIGINT) },
+            
+
             { "version", new Integer(Types.BIGINT) },
             
 
@@ -80,7 +83,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
 
             { "modelId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,mbCategoryId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanMeta";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -102,6 +105,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
     private Integer _votes;
     private Long _planGroupId;
     private Long _mbCategoryId;
+    private Long _categoryGroupId;
     private Long _version;
     private Long _planVersion;
     private Date _created;
@@ -122,6 +126,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         model.setVotes(soapModel.getVotes());
         model.setPlanGroupId(soapModel.getPlanGroupId());
         model.setMbCategoryId(soapModel.getMbCategoryId());
+        model.setCategoryGroupId(soapModel.getCategoryGroupId());
         model.setVersion(soapModel.getVersion());
         model.setPlanVersion(soapModel.getPlanVersion());
         model.setCreated(soapModel.getCreated());
@@ -225,6 +230,14 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         _mbCategoryId = mbCategoryId;
     }
 
+    public Long getCategoryGroupId() {
+        return _categoryGroupId;
+    }
+
+    public void setCategoryGroupId(Long categoryGroupId) {
+        _categoryGroupId = categoryGroupId;
+    }
+
     public Long getVersion() {
         return _version;
     }
@@ -282,6 +295,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             model.setVotes(getVotes());
             model.setPlanGroupId(getPlanGroupId());
             model.setMbCategoryId(getMbCategoryId());
+            model.setCategoryGroupId(getCategoryGroupId());
             model.setVersion(getVersion());
             model.setPlanVersion(getPlanVersion());
             model.setCreated(getCreated());
@@ -307,6 +321,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         clone.setVotes(getVotes());
         clone.setPlanGroupId(getPlanGroupId());
         clone.setMbCategoryId(getMbCategoryId());
+        clone.setCategoryGroupId(getCategoryGroupId());
         clone.setVersion(getVersion());
         clone.setPlanVersion(getPlanVersion());
         clone.setCreated(getCreated());
@@ -383,6 +398,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(getPlanGroupId());
         sb.append(", mbCategoryId=");
         sb.append(getMbCategoryId());
+        sb.append(", categoryGroupId=");
+        sb.append(getCategoryGroupId());
         sb.append(", version=");
         sb.append(getVersion());
         sb.append(", planVersion=");
@@ -436,6 +453,10 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(
             "<column><column-name>mbCategoryId</column-name><column-value><![CDATA[");
         sb.append(getMbCategoryId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>categoryGroupId</column-name><column-value><![CDATA[");
+        sb.append(getCategoryGroupId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>version</column-name><column-value><![CDATA[");

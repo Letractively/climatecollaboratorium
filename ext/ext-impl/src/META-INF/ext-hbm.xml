@@ -197,6 +197,7 @@
 		<property name="votes" />
 		<property name="planGroupId" />
 		<property name="mbCategoryId" />
+		<property name="categoryGroupId" />
 		<property name="version" />
 		<property name="planVersion" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
@@ -634,6 +635,7 @@
 		<property name="body" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="threadId" />
 		<property name="categoryId" />
+		<property name="categoryGroupId" />
 		<property name="authorId" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="version" />

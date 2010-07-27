@@ -7,6 +7,7 @@ import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
+import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
 import com.liferay.portal.SystemException;
@@ -33,6 +34,15 @@ public class DiscussionCategoryGroupImpl
     
     public DiscussionCategory addCategory(String name, String description, User creator) throws SystemException  {
         return DiscussionCategoryLocalServiceUtil.createDebateCategory(this.getId(), name, description, creator);
+    }
+    
+    public void store() throws SystemException {
+        if (isNew()) {
+            DiscussionCategoryGroupLocalServiceUtil.addDiscussionCategoryGroup(this);
+        }
+        else {
+            DiscussionCategoryGroupLocalServiceUtil.updateDiscussionCategoryGroup(this);
+        }
     }
     
 }

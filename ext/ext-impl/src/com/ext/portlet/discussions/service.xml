@@ -52,6 +52,7 @@
         
         <column name="threadId" type="Long" />
         <column name="categoryId" type="Long" />
+        <column name="categoryGroupId" type="Long" />
         <column name="authorId" type="Long" />
         
         <column name="createDate" type="Date" />
@@ -83,10 +84,12 @@
         
         <finder name="SubjectLike" return-type="Collection" where="deleted is null">
             <finder-column name="subject" comparator="LIKE" />
+            <finder-column name="categoryGroupId" />
         </finder>
         
         <finder name="BodyLike" return-type="Collection" where="deleted is null">
             <finder-column name="body" comparator="LIKE" />
+            <finder-column name="categoryGroupId" />
         </finder>
         
     </entity>
