@@ -28,6 +28,7 @@ create table DiscussionMessage (
 	body TEXT null,
 	threadId BIGINT,
 	categoryId BIGINT,
+	categoryGroupId BIGINT,
 	authorId BIGINT,
 	createDate TIMESTAMP null,
 	version LONG,
@@ -37,3 +38,8 @@ create table DiscussionMessage (
 	lastActivityDate TIMESTAMP null, 
 	lastActivityAuthorId BIGINT null
 );
+
+
+insert into DiscussionCategoryGroup VALUES (0, 'Test category group');
+
+ALTER TABLE  `PlanMeta` ADD  `categoryGroupId` BIGINT NOT NULL

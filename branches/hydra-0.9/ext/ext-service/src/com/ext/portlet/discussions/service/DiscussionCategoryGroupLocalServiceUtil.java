@@ -91,6 +91,11 @@ public class DiscussionCategoryGroupLocalServiceUtil {
                    .updateDiscussionCategoryGroup(discussionCategoryGroup, merge);
     }
 
+    public static com.ext.portlet.discussions.model.DiscussionCategoryGroup createDiscussionCategoryGroup(
+        java.lang.String description) throws com.liferay.portal.SystemException {
+        return getService().createDiscussionCategoryGroup(description);
+    }
+
     public static DiscussionCategoryGroupLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

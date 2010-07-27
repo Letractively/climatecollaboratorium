@@ -32,6 +32,7 @@ public class DiscussionMessageSoap implements Serializable {
     private String _body;
     private Long _threadId;
     private Long _categoryId;
+    private Long _categoryGroupId;
     private Long _authorId;
     private Date _createDate;
     private Long _version;
@@ -52,6 +53,7 @@ public class DiscussionMessageSoap implements Serializable {
         soapModel.setBody(model.getBody());
         soapModel.setThreadId(model.getThreadId());
         soapModel.setCategoryId(model.getCategoryId());
+        soapModel.setCategoryGroupId(model.getCategoryGroupId());
         soapModel.setAuthorId(model.getAuthorId());
         soapModel.setCreateDate(model.getCreateDate());
         soapModel.setVersion(model.getVersion());
@@ -156,6 +158,14 @@ public class DiscussionMessageSoap implements Serializable {
 
     public void setCategoryId(Long categoryId) {
         _categoryId = categoryId;
+    }
+
+    public Long getCategoryGroupId() {
+        return _categoryGroupId;
+    }
+
+    public void setCategoryGroupId(Long categoryGroupId) {
+        _categoryGroupId = categoryGroupId;
     }
 
     public Long getAuthorId() {

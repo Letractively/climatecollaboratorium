@@ -112,24 +112,28 @@ public class DiscussionMessageLocalServiceUtil {
     }
 
     public static com.ext.portlet.discussions.model.DiscussionMessage addThread(
-        java.lang.Long categoryId, java.lang.String subject,
-        java.lang.String body, com.liferay.portal.model.User author)
-        throws com.liferay.portal.SystemException {
-        return getService().addThread(categoryId, subject, body, author);
-    }
-
-    public static com.ext.portlet.discussions.model.DiscussionMessage addMessage(
-        java.lang.Long categoryId, java.lang.Long threadId,
+        java.lang.Long categoryGroupId, java.lang.Long categoryId,
         java.lang.String subject, java.lang.String body,
         com.liferay.portal.model.User author)
         throws com.liferay.portal.SystemException {
         return getService()
-                   .addMessage(categoryId, threadId, subject, body, author);
+                   .addThread(categoryGroupId, categoryId, subject, body, author);
+    }
+
+    public static com.ext.portlet.discussions.model.DiscussionMessage addMessage(
+        java.lang.Long categoryGroupId, java.lang.Long categoryId,
+        java.lang.Long threadId, java.lang.String subject,
+        java.lang.String body, com.liferay.portal.model.User author)
+        throws com.liferay.portal.SystemException {
+        return getService()
+                   .addMessage(categoryGroupId, categoryId, threadId, subject,
+            body, author);
     }
 
     public static java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> search(
-        java.lang.String query) throws com.liferay.portal.SystemException {
-        return getService().search(query);
+        java.lang.String query, java.lang.Long categoryGroupId)
+        throws com.liferay.portal.SystemException {
+        return getService().search(query, categoryGroupId);
     }
 
     public static DiscussionMessageLocalService getService() {

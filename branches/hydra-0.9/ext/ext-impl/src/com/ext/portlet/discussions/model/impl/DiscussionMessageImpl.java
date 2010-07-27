@@ -50,7 +50,7 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
             // use messageId instead of threadId
             threadId = getMessageId();
         }
-        DiscussionMessage msg = DiscussionMessageLocalServiceUtil.addMessage(this.getCategoryId(), threadId, subject, body, author);
+        DiscussionMessage msg = DiscussionMessageLocalServiceUtil.addMessage(this.getCategoryGroupId(), this.getCategoryId(), threadId, subject, body, author);
         
         this.setResponsesCount(this.getResponsesCount() + 1);
         this.setLastActivityAuthorId(msg.getAuthorId());

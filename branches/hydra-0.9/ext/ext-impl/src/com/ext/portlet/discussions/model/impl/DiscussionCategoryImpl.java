@@ -23,7 +23,7 @@ public class DiscussionCategoryImpl extends DiscussionCategoryModelImpl
     }
     
     public DiscussionMessage addThread(String subject, String body, User author) throws SystemException {
-        DiscussionMessage thread = DiscussionMessageLocalServiceUtil.addThread(this.getCategoryId(), subject, body, author);
+        DiscussionMessage thread = DiscussionMessageLocalServiceUtil.addThread(this.getCategoryGroupId(), this.getCategoryId(), subject, body, author);
         
         this.setThreadsCount(getThreadsCount() + 1);
         this.setLastActivityAuthorId(thread.getAuthorId());

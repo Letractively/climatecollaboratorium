@@ -321,6 +321,7 @@
         <column name="planGroupId" type="Long" />
         <!-- message boards category -->
         <column name="mbCategoryId" type="Long" />
+        <column name="categoryGroupId" type="Long" />
         <column name="version" type="Long" />
         <column name="planVersion" type="Long" />
         <column name="created" type="Date" />

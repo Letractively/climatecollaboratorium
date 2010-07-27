@@ -82,12 +82,12 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_FIND_BY_SUBJECTLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findBySubjectLike",
-            new String[] { String.class.getName() });
+            new String[] { String.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_BY_OBC_SUBJECTLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findBySubjectLike",
             new String[] {
-                String.class.getName(),
+                String.class.getName(), Long.class.getName(),
                 
             "java.lang.Integer", "java.lang.Integer",
                 "com.liferay.portal.kernel.util.OrderByComparator"
@@ -95,16 +95,16 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_SUBJECTLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countBySubjectLike",
-            new String[] { String.class.getName() });
+            new String[] { String.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_BY_BODYLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findByBodyLike",
-            new String[] { String.class.getName() });
+            new String[] { String.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_BY_OBC_BODYLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findByBodyLike",
             new String[] {
-                String.class.getName(),
+                String.class.getName(), Long.class.getName(),
                 
             "java.lang.Integer", "java.lang.Integer",
                 "com.liferay.portal.kernel.util.OrderByComparator"
@@ -112,7 +112,7 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_BODYLIKE = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countByBodyLike",
-            new String[] { String.class.getName() });
+            new String[] { String.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -1015,9 +1015,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public List<DiscussionMessage> findBySubjectLike(String subject)
-        throws SystemException {
-        Object[] finderArgs = new Object[] { subject };
+    public List<DiscussionMessage> findBySubjectLike(String subject,
+        Long categoryGroupId) throws SystemException {
+        Object[] finderArgs = new Object[] { subject, categoryGroupId };
 
         List<DiscussionMessage> list = (List<DiscussionMessage>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_SUBJECTLIKE,
                 finderArgs, this);
@@ -1039,6 +1039,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("subject LIKE ?");
                 }
 
+                query.append(" AND ");
+
+                if (categoryGroupId == null) {
+                    query.append("categoryGroupId IS NULL");
+                } else {
+                    query.append("categoryGroupId = ?");
+                }
+
                 query.append(" AND deleted is null ");
 
                 query.append("ORDER BY ");
@@ -1051,6 +1059,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                 if (subject != null) {
                     qPos.add(subject);
+                }
+
+                if (categoryGroupId != null) {
+                    qPos.add(categoryGroupId.longValue());
                 }
 
                 list = q.list();
@@ -1073,15 +1085,18 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public List<DiscussionMessage> findBySubjectLike(String subject, int start,
-        int end) throws SystemException {
-        return findBySubjectLike(subject, start, end, null);
+    public List<DiscussionMessage> findBySubjectLike(String subject,
+        Long categoryGroupId, int start, int end) throws SystemException {
+        return findBySubjectLike(subject, categoryGroupId, start, end, null);
     }
 
-    public List<DiscussionMessage> findBySubjectLike(String subject, int start,
-        int end, OrderByComparator obc) throws SystemException {
+    public List<DiscussionMessage> findBySubjectLike(String subject,
+        Long categoryGroupId, int start, int end, OrderByComparator obc)
+        throws SystemException {
         Object[] finderArgs = new Object[] {
                 subject,
+                
+                categoryGroupId,
                 
                 String.valueOf(start), String.valueOf(end), String.valueOf(obc)
             };
@@ -1106,6 +1121,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("subject LIKE ?");
                 }
 
+                query.append(" AND ");
+
+                if (categoryGroupId == null) {
+                    query.append("categoryGroupId IS NULL");
+                } else {
+                    query.append("categoryGroupId = ?");
+                }
+
                 query.append(" AND deleted is null ");
 
                 if (obc != null) {
@@ -1124,6 +1147,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                 if (subject != null) {
                     qPos.add(subject);
+                }
+
+                if (categoryGroupId != null) {
+                    qPos.add(categoryGroupId.longValue());
                 }
 
                 list = (List<DiscussionMessage>) QueryUtil.list(q,
@@ -1148,9 +1175,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     }
 
     public DiscussionMessage findBySubjectLike_First(String subject,
-        OrderByComparator obc)
+        Long categoryGroupId, OrderByComparator obc)
         throws NoSuchDiscussionMessageException, SystemException {
-        List<DiscussionMessage> list = findBySubjectLike(subject, 0, 1, obc);
+        List<DiscussionMessage> list = findBySubjectLike(subject,
+                categoryGroupId, 0, 1, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
@@ -1158,6 +1186,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             msg.append("No DiscussionMessage exists with the key {");
 
             msg.append("subject=" + subject);
+
+            msg.append(", ");
+            msg.append("categoryGroupId=" + categoryGroupId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1168,12 +1199,12 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     }
 
     public DiscussionMessage findBySubjectLike_Last(String subject,
-        OrderByComparator obc)
+        Long categoryGroupId, OrderByComparator obc)
         throws NoSuchDiscussionMessageException, SystemException {
-        int count = countBySubjectLike(subject);
+        int count = countBySubjectLike(subject, categoryGroupId);
 
-        List<DiscussionMessage> list = findBySubjectLike(subject, count - 1,
-                count, obc);
+        List<DiscussionMessage> list = findBySubjectLike(subject,
+                categoryGroupId, count - 1, count, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
@@ -1181,6 +1212,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             msg.append("No DiscussionMessage exists with the key {");
 
             msg.append("subject=" + subject);
+
+            msg.append(", ");
+            msg.append("categoryGroupId=" + categoryGroupId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1191,11 +1225,11 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     }
 
     public DiscussionMessage[] findBySubjectLike_PrevAndNext(Long pk,
-        String subject, OrderByComparator obc)
+        String subject, Long categoryGroupId, OrderByComparator obc)
         throws NoSuchDiscussionMessageException, SystemException {
         DiscussionMessage discussionMessage = findByPrimaryKey(pk);
 
-        int count = countBySubjectLike(subject);
+        int count = countBySubjectLike(subject, categoryGroupId);
 
         Session session = null;
 
@@ -1211,6 +1245,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 query.append("subject LIKE null");
             } else {
                 query.append("subject LIKE ?");
+            }
+
+            query.append(" AND ");
+
+            if (categoryGroupId == null) {
+                query.append("categoryGroupId IS NULL");
+            } else {
+                query.append("categoryGroupId = ?");
             }
 
             query.append(" AND deleted is null ");
@@ -1233,6 +1275,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 qPos.add(subject);
             }
 
+            if (categoryGroupId != null) {
+                qPos.add(categoryGroupId.longValue());
+            }
+
             Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
                     discussionMessage);
 
@@ -1250,9 +1296,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public List<DiscussionMessage> findByBodyLike(String body)
-        throws SystemException {
-        Object[] finderArgs = new Object[] { body };
+    public List<DiscussionMessage> findByBodyLike(String body,
+        Long categoryGroupId) throws SystemException {
+        Object[] finderArgs = new Object[] { body, categoryGroupId };
 
         List<DiscussionMessage> list = (List<DiscussionMessage>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_BODYLIKE,
                 finderArgs, this);
@@ -1274,6 +1320,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("body LIKE ?");
                 }
 
+                query.append(" AND ");
+
+                if (categoryGroupId == null) {
+                    query.append("categoryGroupId IS NULL");
+                } else {
+                    query.append("categoryGroupId = ?");
+                }
+
                 query.append(" AND deleted is null ");
 
                 query.append("ORDER BY ");
@@ -1286,6 +1340,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                 if (body != null) {
                     qPos.add(body);
+                }
+
+                if (categoryGroupId != null) {
+                    qPos.add(categoryGroupId.longValue());
                 }
 
                 list = q.list();
@@ -1308,15 +1366,18 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public List<DiscussionMessage> findByBodyLike(String body, int start,
-        int end) throws SystemException {
-        return findByBodyLike(body, start, end, null);
+    public List<DiscussionMessage> findByBodyLike(String body,
+        Long categoryGroupId, int start, int end) throws SystemException {
+        return findByBodyLike(body, categoryGroupId, start, end, null);
     }
 
-    public List<DiscussionMessage> findByBodyLike(String body, int start,
-        int end, OrderByComparator obc) throws SystemException {
+    public List<DiscussionMessage> findByBodyLike(String body,
+        Long categoryGroupId, int start, int end, OrderByComparator obc)
+        throws SystemException {
         Object[] finderArgs = new Object[] {
                 body,
+                
+                categoryGroupId,
                 
                 String.valueOf(start), String.valueOf(end), String.valueOf(obc)
             };
@@ -1341,6 +1402,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("body LIKE ?");
                 }
 
+                query.append(" AND ");
+
+                if (categoryGroupId == null) {
+                    query.append("categoryGroupId IS NULL");
+                } else {
+                    query.append("categoryGroupId = ?");
+                }
+
                 query.append(" AND deleted is null ");
 
                 if (obc != null) {
@@ -1359,6 +1428,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                 if (body != null) {
                     qPos.add(body);
+                }
+
+                if (categoryGroupId != null) {
+                    qPos.add(categoryGroupId.longValue());
                 }
 
                 list = (List<DiscussionMessage>) QueryUtil.list(q,
@@ -1383,9 +1456,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     }
 
     public DiscussionMessage findByBodyLike_First(String body,
-        OrderByComparator obc)
+        Long categoryGroupId, OrderByComparator obc)
         throws NoSuchDiscussionMessageException, SystemException {
-        List<DiscussionMessage> list = findByBodyLike(body, 0, 1, obc);
+        List<DiscussionMessage> list = findByBodyLike(body, categoryGroupId, 0,
+                1, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
@@ -1393,6 +1467,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             msg.append("No DiscussionMessage exists with the key {");
 
             msg.append("body=" + body);
+
+            msg.append(", ");
+            msg.append("categoryGroupId=" + categoryGroupId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1403,12 +1480,12 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     }
 
     public DiscussionMessage findByBodyLike_Last(String body,
-        OrderByComparator obc)
+        Long categoryGroupId, OrderByComparator obc)
         throws NoSuchDiscussionMessageException, SystemException {
-        int count = countByBodyLike(body);
+        int count = countByBodyLike(body, categoryGroupId);
 
-        List<DiscussionMessage> list = findByBodyLike(body, count - 1, count,
-                obc);
+        List<DiscussionMessage> list = findByBodyLike(body, categoryGroupId,
+                count - 1, count, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
@@ -1416,6 +1493,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             msg.append("No DiscussionMessage exists with the key {");
 
             msg.append("body=" + body);
+
+            msg.append(", ");
+            msg.append("categoryGroupId=" + categoryGroupId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1426,11 +1506,11 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
     }
 
     public DiscussionMessage[] findByBodyLike_PrevAndNext(Long pk, String body,
-        OrderByComparator obc)
+        Long categoryGroupId, OrderByComparator obc)
         throws NoSuchDiscussionMessageException, SystemException {
         DiscussionMessage discussionMessage = findByPrimaryKey(pk);
 
-        int count = countByBodyLike(body);
+        int count = countByBodyLike(body, categoryGroupId);
 
         Session session = null;
 
@@ -1446,6 +1526,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 query.append("body LIKE null");
             } else {
                 query.append("body LIKE ?");
+            }
+
+            query.append(" AND ");
+
+            if (categoryGroupId == null) {
+                query.append("categoryGroupId IS NULL");
+            } else {
+                query.append("categoryGroupId = ?");
             }
 
             query.append(" AND deleted is null ");
@@ -1466,6 +1554,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
             if (body != null) {
                 qPos.add(body);
+            }
+
+            if (categoryGroupId != null) {
+                qPos.add(categoryGroupId.longValue());
             }
 
             Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
@@ -1610,14 +1702,18 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         remove(discussionMessage);
     }
 
-    public void removeBySubjectLike(String subject) throws SystemException {
-        for (DiscussionMessage discussionMessage : findBySubjectLike(subject)) {
+    public void removeBySubjectLike(String subject, Long categoryGroupId)
+        throws SystemException {
+        for (DiscussionMessage discussionMessage : findBySubjectLike(subject,
+                categoryGroupId)) {
             remove(discussionMessage);
         }
     }
 
-    public void removeByBodyLike(String body) throws SystemException {
-        for (DiscussionMessage discussionMessage : findByBodyLike(body)) {
+    public void removeByBodyLike(String body, Long categoryGroupId)
+        throws SystemException {
+        for (DiscussionMessage discussionMessage : findByBodyLike(body,
+                categoryGroupId)) {
             remove(discussionMessage);
         }
     }
@@ -1797,8 +1893,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         return count.intValue();
     }
 
-    public int countBySubjectLike(String subject) throws SystemException {
-        Object[] finderArgs = new Object[] { subject };
+    public int countBySubjectLike(String subject, Long categoryGroupId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { subject, categoryGroupId };
 
         Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SUBJECTLIKE,
                 finderArgs, this);
@@ -1821,6 +1918,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("subject LIKE ?");
                 }
 
+                query.append(" AND ");
+
+                if (categoryGroupId == null) {
+                    query.append("categoryGroupId IS NULL");
+                } else {
+                    query.append("categoryGroupId = ?");
+                }
+
                 query.append(" AND deleted is null ");
 
                 Query q = session.createQuery(query.toString());
@@ -1829,6 +1934,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                 if (subject != null) {
                     qPos.add(subject);
+                }
+
+                if (categoryGroupId != null) {
+                    qPos.add(categoryGroupId.longValue());
                 }
 
                 count = (Long) q.uniqueResult();
@@ -1849,8 +1958,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         return count.intValue();
     }
 
-    public int countByBodyLike(String body) throws SystemException {
-        Object[] finderArgs = new Object[] { body };
+    public int countByBodyLike(String body, Long categoryGroupId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { body, categoryGroupId };
 
         Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_BODYLIKE,
                 finderArgs, this);
@@ -1873,6 +1983,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                     query.append("body LIKE ?");
                 }
 
+                query.append(" AND ");
+
+                if (categoryGroupId == null) {
+                    query.append("categoryGroupId IS NULL");
+                } else {
+                    query.append("categoryGroupId = ?");
+                }
+
                 query.append(" AND deleted is null ");
 
                 Query q = session.createQuery(query.toString());
@@ -1881,6 +1999,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                 if (body != null) {
                     qPos.add(body);
+                }
+
+                if (categoryGroupId != null) {
+                    qPos.add(categoryGroupId.longValue());
                 }
 
                 count = (Long) q.uniqueResult();

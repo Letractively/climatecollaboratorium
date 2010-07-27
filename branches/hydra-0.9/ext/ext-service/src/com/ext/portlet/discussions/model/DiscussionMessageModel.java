@@ -54,6 +54,10 @@ public interface DiscussionMessageModel extends BaseModel<DiscussionMessage> {
 
     public void setCategoryId(Long categoryId);
 
+    public Long getCategoryGroupId();
+
+    public void setCategoryGroupId(Long categoryGroupId);
+
     public Long getAuthorId();
 
     public void setAuthorId(Long authorId);

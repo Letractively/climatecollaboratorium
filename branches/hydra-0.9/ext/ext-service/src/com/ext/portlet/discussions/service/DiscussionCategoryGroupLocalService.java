@@ -79,4 +79,7 @@ public interface DiscussionCategoryGroupLocalService {
     public com.ext.portlet.discussions.model.DiscussionCategoryGroup updateDiscussionCategoryGroup(
         com.ext.portlet.discussions.model.DiscussionCategoryGroup discussionCategoryGroup,
         boolean merge) throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionCategoryGroup createDiscussionCategoryGroup(
+        java.lang.String description) throws com.liferay.portal.SystemException;
 }
