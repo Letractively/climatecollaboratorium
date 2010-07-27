@@ -284,5 +284,9 @@ public class PlanItemWrapper {
     public boolean isDescriptionSet() {
         return descriptionSet;
     }
+    
+    public Long getCategoryGroupId() throws SystemException {
+        return wrapped.getCategoryGroupId();
+    }
 
 }
