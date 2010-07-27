@@ -19,7 +19,7 @@
             
     <ui:define name="discussion_actions">
         <ice:commandButton value="Add Message" actionListener="#{discussionBean.changePageType}">
-            <f:attribute name="pageType" value="THREAD_ADD" />
+            <f:attribute name="pageType" value="THREAD_ADD" rendered='#{discussionBean.permissions.canAddThread}' />
         </ice:commandButton>
     </ui:define>
     

@@ -13,7 +13,7 @@
         </ice:commandLink>
         
         &gt;&gt;
-        
+        &amp;nbsp;
         <ice:commandLink actionListener="#{discussionBean.changePageType}">
             <f:attribute name="pageType" value="CATEGORY" />
             <f:param name="categoryId" value="#{discussionBean.currentThread.category.id}" /> 
@@ -32,8 +32,8 @@
                     <ice:outputText value="#{message.title}" />
                 </h4>
                 <div class="actions">
-                    <ice:commandButton actionListener="#{message.toggleEdit}" value="Edit" />
-                    <ice:commandButton actionListener="#{message.delete}" value="Delete" />
+                    <ice:commandButton actionListener="#{message.toggleEdit}" value="Edit" rendered='#{discussionBean.permissions.canAdminMessages}'/>
+                    <ice:commandButton actionListener="#{message.delete}" value="Delete" rendered='#{discussionBean.permissions.canAdminMessages}'/>
                 </div>
                 <div class="clear"></div>
                 <div class="meta">
@@ -60,7 +60,7 @@
         </ice:panelGroup>
     </ice:panelSeries>
     
-    <ice:panelGroup styleClass="newMessageForm">
+    <ice:panelGroup styleClass="newMessageForm" rendered="#{discussionBean.permissions.canAddMessage}">
         <ice:outputLabel for="messageTitle" value="Title:" /><br />
         <ice:inputText id="messageTitle" value="#{discussionBean.currentThread.newMessage.title}" styleClass="title text"/>
         <br />

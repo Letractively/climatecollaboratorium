@@ -30,6 +30,13 @@
     height: 70px;
 }
 
+.discussion .title {
+	height: auto;
+	background: transparent;
+	background-image: none;
+}
+	
+
 .messageLong .title, 
 .messageShort .title {
     float: left;

@@ -11,7 +11,7 @@
         
         <ui:define name="discussion_actions">
             <ice:commandButton value="Add Category" actionListener="#{discussionBean.changePageType}">
-                <f:attribute name="pageType" value="CATEGORY_ADD" />
+                <f:attribute name="pageType" value="CATEGORY_ADD" rendered="#{discussionBean.permissions.canAddCategory}" />
             </ice:commandButton>
         </ui:define>
         
@@ -34,8 +34,8 @@
                             </ice:commandLink>
                         </h4>
                         <div class="actions">
-                            <ice:commandButton actionListener="#{category.toggleEdit}" value="Edit" />
-                            <ice:commandButton actionListener="#{category.delete}" value="Delete" />
+                            <ice:commandButton actionListener="#{category.toggleEdit}" value="Edit" rendered="#{discussionBean.permissions.canAdminCategories}" />
+                            <ice:commandButton actionListener="#{category.delete}" value="Delete" rendered="#{discussionBean.permissions.canAdminCategories}" />
                         </div>
                         <div class="clear"></div>
                     </div>

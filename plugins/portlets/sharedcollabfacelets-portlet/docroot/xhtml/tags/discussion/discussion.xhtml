@@ -29,5 +29,8 @@
         <f:subview rendered="#{discussionBean.pageType == 'SEARCH_RESULTS'}">
             <ui:include src="./pages/searchResults.xhtml" />
         </f:subview>
+        <f:subview rendered="#{discussionBean.pageType == 'PERMISSIONS_CONFIG'}">
+            <ui:include src="./pages/permissionsConfig.xhtml" />
+        </f:subview>
     </collab:discussionSupport>
 </f:view>

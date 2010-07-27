@@ -6,11 +6,15 @@ import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 
+import org.climatecollaboratorium.facelets.discussions.permissions.DiscussionsPermissions;
+
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletException;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagHandler;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -20,6 +24,7 @@ public class DiscussionsSupportTag extends TagHandler{
     private final TagAttribute categoryIdParam;
     private final TagAttribute threadIdParam;
     private final TagAttribute messageIdParam;
+    private final TagAttribute permissionsParam;
     
     private static Log _log = LogFactoryUtil.getLog(DiscussionsSupportTag.class);
 
@@ -30,6 +35,7 @@ public class DiscussionsSupportTag extends TagHandler{
         categoryIdParam = this.getAttribute("simulationId");
         threadIdParam = this.getAttribute("threadId");
         messageIdParam = this.getAttribute("messageId");
+        permissionsParam = this.getAttribute("permissions");
     }
 
     @Override
@@ -41,9 +47,20 @@ public class DiscussionsSupportTag extends TagHandler{
         Long categoryId = categoryIdParam == null ? null : (Long) categoryIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
         Long threadId = threadIdParam == null ? null : (Long) threadIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
         Long messageId = messageIdParam == null ? null : (Long) messageIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
-        if (discussionBean.init(discussionId, categoryId, threadId, messageId)) {
-            // initialization succeded
-            nextHandler.apply(ctx, parent);
+        DiscussionsPermissions permissions = permissionsParam == null ? null : (DiscussionsPermissions) permissionsParam.getObject(ctx, DiscussionsPermissions.class);
+        try {
+            if (discussionBean.init(discussionId, categoryId, threadId, messageId, permissions)) {
+                // initialization succeded
+                nextHandler.apply(ctx, parent);
+            }
+        }
+        catch (SystemException e) {
+            _log.error(e);
+            throw new FaceletException(e);
+        } catch (PortalException e) {
+            // TODO Auto-generated catch block
+            _log.error(e);
+            throw new FaceletException(e);
         }
         
     }
