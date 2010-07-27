@@ -6,9 +6,10 @@ import org.climatecollaboratorium.utils.Helper;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.Resource;
 import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.service.ResourceActionLocalServiceUtil;
 import com.liferay.portal.service.ResourceLocalServiceUtil;
 
 public class DefaultDiscussionsPermissionsImpl implements DiscussionsPermissions {
@@ -19,10 +20,19 @@ public class DefaultDiscussionsPermissionsImpl implements DiscussionsPermissions
     private String primKey;
     private Resource resource = null;
     private Long groupId = Helper.getThemeDisplay().getScopeGroupId();
+    private static Log _log = LogFactoryUtil.getLog(DefaultDiscussionsPermissionsImpl.class);
     
     public DefaultDiscussionsPermissionsImpl(DiscussionBean discussionBean) throws PortalException, SystemException {
         primKey = discussionBean.getDiscussion().getId().toString();
-        resource = ResourceLocalServiceUtil.getResource(companyId, RESOURCE_NAME, RESOURCE_SCOPE, primKey);
+        /*
+        try {
+            resource = ResourceLocalServiceUtil.getResource(companyId, RESOURCE_NAME, RESOURCE_SCOPE, primKey);
+        }
+        catch (Exception e) {
+            _log.debug(e);
+            resource = ResourceLocalServiceUtil.addResource(companyId, RESOURCE_NAME, RESOURCE_SCOPE, primKey);
+        }
+        */
     }
     
     @Override
