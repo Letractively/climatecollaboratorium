@@ -18,8 +18,12 @@
             <tr>
                 <td class="sidebar">
                     <div class="area">
-                        <ice:commandButton actionListener="#{discussionBean.changePageType}" value="Add new message">
-                            <f:attribute name="pageType" value="THREAD_ADD" />
+                        <ice:commandButton actionListener="#{discussionBean.changePageType}" value="Manage permissions" rendered="#{discussionBean.permissions.canAdmin}">
+                            <f:attribute name="pageType" value="PERMISSIONS_CONFIG" />
+                        </ice:commandButton>
+                        
+                        <ice:commandButton actionListener="#{discussionBean.changePageType}" value="Add new message" rendered="#{discussionBean.permissions.canAddThread}">
+                            <f:attribute name="pageType" value="THREAD_ADD"/>
                         </ice:commandButton>
                     </div>
                 

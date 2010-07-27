@@ -94,8 +94,10 @@
     background: #f5f5f5;
 }
 
-.messageShort .content {
+.messageShort .content,
+.messageLong .content  {
     margin-bottom: 10px;
+    background: transparent;
 }
     
 .discussionActions {
@@ -107,4 +109,17 @@
     font-weight: bold;
     font-size: 1.1em;
     color: #555;
+}
+
+.permissionsConfig {
+	width: 100%;
+}
+
+.permissionsConfig td {
+	vertical-align: middle;
+	padding: 0 5px 0 0;
+}
+
+.permissionsConfig .even {
+    background: #ccc;
 }

@@ -1,9 +1,11 @@
 package org.climatecollaboratorium.facelets.discussions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -12,6 +14,9 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.facelets.discussions.permissions.DefaultDiscussionsPermissionsImpl;
+import org.climatecollaboratorium.facelets.discussions.permissions.DiscussionsPermissions;
+import org.climatecollaboratorium.facelets.discussions.permissions.DiscussionsPermissionsConfig;
 import org.climatecollaboratorium.facelets.discussions.support.CategoryWrapper;
 import org.climatecollaboratorium.facelets.discussions.support.MessageWrapper;
 
@@ -22,6 +27,7 @@ import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -55,6 +61,8 @@ public class DiscussionBean {
     
     private DiscussionCategoryGroup discussion;
     private static Log _log = LogFactoryUtil.getLog(DiscussionBean.class);
+    private DiscussionsPermissions permissions;
+    private DiscussionsPermissionsConfig permissionsConfig;
     
     /**
      * Method initializes all elements within the bean. If bean wasn't correctly initialized (there is no such discussion)
@@ -64,8 +72,10 @@ public class DiscussionBean {
      * @param threadId
      * @param messageId
      * @return
+     * @throws SystemException 
+     * @throws PortalException 
      */
-    public boolean init(Long discussionId, Long categoryId, Long threadId, Long messageId) {
+    public boolean init(Long discussionId, Long categoryId, Long threadId, Long messageId, DiscussionsPermissions permissions) throws PortalException, SystemException {
         if (discussionId == null) {
             return false;
         }
@@ -82,6 +92,7 @@ public class DiscussionBean {
         lastInitThreadId = threadId;
         lastInitMessageId = messageId;
         
+
         this.discussionId = discussionId;
         this.categoryId = categoryId;
         this.threadId = threadId;
@@ -98,6 +109,15 @@ public class DiscussionBean {
         } catch (Exception e) {
             _log.error("Error when initializing discussion bean", e);
             return false;
+        }
+        
+        if (permissions != null) {
+            this.permissions = permissions;
+        } 
+        else {
+            if (this.permissions == null) {
+                this.permissions = new DefaultDiscussionsPermissionsImpl(this);
+            }
         }
         
         return true;
@@ -235,7 +255,7 @@ public class DiscussionBean {
         }
         pageType = DiscussionPageType.SEARCH_RESULTS;
         searchResults.clear();
-        for (DiscussionMessage message: DiscussionMessageLocalServiceUtil.search(searchQuery)) {
+        for (DiscussionMessage message: DiscussionMessageLocalServiceUtil.search(searchQuery, discussion.getId())) {
             searchResults.add(new MessageWrapper(message, null));
         }
     }
@@ -290,6 +310,17 @@ public class DiscussionBean {
             pageType = DiscussionPageType.CATEGORY;
             currentCategory = currentThread.getCategory();
         }
+    }
+    
+    public DiscussionsPermissions getPermissions() {
+        return permissions;
+    }
+    
+    public DiscussionsPermissionsConfig getPermissionsConfig() throws SystemException {
+        if (permissionsConfig == null) {
+            permissionsConfig = new DiscussionsPermissionsConfig(this);
+        }
+        return permissionsConfig;
     }
     
 }
