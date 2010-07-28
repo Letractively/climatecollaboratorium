@@ -103,5 +103,9 @@
 			<from-outcome>index</from-outcome>
 			<to-view-id>/xhtml/view.iface</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>simulationModel</from-outcome>
+			<to-view-id>/xhtml/showcase/simulationModelTag.iface</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 </faces-config>

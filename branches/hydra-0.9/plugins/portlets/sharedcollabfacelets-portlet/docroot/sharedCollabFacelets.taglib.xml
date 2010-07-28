@@ -24,6 +24,10 @@
         <source>xhtml/tags/simulation/simulation.xhtml</source>
     </tag>
     <tag>
+        <tag-name>simulationModel</tag-name>
+        <source>xhtml/tags/simulationModel/simulationModel.xhtml</source>
+    </tag>
+    <tag>
         <tag-name>discussion</tag-name>
         <source>xhtml/tags/discussion/discussion.xhtml</source>
     </tag>
