@@ -62,7 +62,7 @@ public class DiscussionMessageLocalServiceImpl
     public List<DiscussionMessage> search(String query, Long categoryGroupId) throws SystemException {
         // preprocess query
         query = "%" + query.replaceAll("\\s", "%") + "%";
-        Set<DiscussionMessage> messages = new TreeSet<DiscussionMessage>();
+        Set<DiscussionMessage> messages = new HashSet<DiscussionMessage>();
         messages.addAll(discussionMessagePersistence.findByBodyLike(query, categoryGroupId));
         messages.addAll(discussionMessagePersistence.findBySubjectLike(query, categoryGroupId));
         
