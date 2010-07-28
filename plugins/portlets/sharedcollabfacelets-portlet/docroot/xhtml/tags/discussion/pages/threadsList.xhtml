@@ -18,7 +18,7 @@
                 <div class="clear"></div>
             </div>
             <div class="content">
-                <ice:outputText value="#{thread.description}" escape="false"/>
+                <ice:outputText value="#{thread.filteredDescription}" escape="false"/>
             </div>
             <div class="meta">
                 <div class="floatLeft">
@@ -28,7 +28,7 @@
                 <ice:panelGroup styleClass="floatRight" rendered="#{thread.threadMessagesCount > 0}"> 
                     
                     Last response by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.lastActivityAuthor.userId}">#{thread.lastActivityAuthor.screenName}</a>  
-                    :: Last active &amp;nbsp;<strong>#{thread.lastActivityDate}</strong>
+                    :: Last active &amp;nbsp;<strong>#{thread.lastActivityDate} ago</strong>
                 </ice:panelGroup>
                 <div class="clear"></div>
             </div>            

@@ -10,7 +10,9 @@ import javax.faces.event.ActionEvent;
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
 import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
+import org.climatecollaboratorium.utils.HumanTime;
 
+import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
 import com.liferay.portal.PortalException;
@@ -111,7 +113,7 @@ public class MessageWrapper {
         }
     }
     
-    public void addMessageToThread(ActionEvent e) throws SystemException {
+    public void addMessageToThread(ActionEvent e) throws SystemException, NoSuchDiscussionCategoryException {
         if (Helper.isUserLoggedIn()) {
             wrapped = thread.getWrapped().addThreadMessage(title, description, Helper.getLiferayUser());
             thread.addMessage(this);
@@ -157,8 +159,8 @@ public class MessageWrapper {
         return wrapped.getLastActivityAuthorId();
     }
     
-    public Date getLastActivityDate() {
-        return wrapped.getLastActivityDate();
+    public String getLastActivityDate() {
+        return HumanTime.approximately(new Date().getTime() - wrapped.getLastActivityDate().getTime());
     }
     
     public User getLastActivityAuthor() throws PortalException, SystemException {

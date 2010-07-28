@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
+import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
+import org.climatecollaboratorium.utils.HumanTime;
 
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionMessage;
@@ -18,13 +18,13 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
 
 public class CategoryWrapper {
-    private Long id;
     private User author;
     private String title;
     private String description;
     private DiscussionBean discussionBean;
     private DiscussionCategory wrapped;
     private boolean editing;
+    private String filteredDescription;
     
     private List<MessageWrapper> threads = new ArrayList<MessageWrapper>();
     
@@ -37,6 +37,7 @@ public class CategoryWrapper {
         
         this.title = category.getName();
         this.description = category.getDescription();
+        setFilteredDescription(ContentFilterHelper.filterContent(description));
     }
 
     public CategoryWrapper(DiscussionBean discussionBean) {
@@ -69,6 +70,7 @@ public class CategoryWrapper {
     
     public void setDescription(String description) {
         this.description = description;
+        setFilteredDescription(ContentFilterHelper.filterContent(description));
     }
 
     public List<MessageWrapper> getThreads() {
@@ -108,8 +110,8 @@ public class CategoryWrapper {
         return wrapped.getLastActivityAuthorId();
     }
     
-    public Date getLastActivityDate() {
-        return wrapped.getLastActivityDate();
+    public String getLastActivityDate() {
+        return HumanTime.approximately(new Date().getTime() - wrapped.getLastActivityDate().getTime());
     }
     
     public User getLastActivityAuthor() throws PortalException, SystemException {
@@ -144,6 +146,14 @@ public class CategoryWrapper {
             wrapped.update(title, description);
             editing = !editing;
         }        
+    }
+
+    public void setFilteredDescription(String filteredDescription) {
+        this.filteredDescription = filteredDescription;
+    }
+
+    public String getFilteredDescription() {
+        return filteredDescription;
     }
 
 }
