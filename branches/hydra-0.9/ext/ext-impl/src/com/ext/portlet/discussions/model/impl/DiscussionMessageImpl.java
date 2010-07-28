@@ -3,7 +3,10 @@ package com.ext.portlet.discussions.model.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
+import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionMessage;
+import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -43,7 +46,7 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
         }
     }
     
-    public DiscussionMessage addThreadMessage(String subject, String body, User author) throws SystemException {
+    public DiscussionMessage addThreadMessage(String subject, String body, User author) throws SystemException, NoSuchDiscussionCategoryException {
         Long threadId = getThreadId();
         if (threadId == null) {
             // threadId is null so we have first message (that represents the thread) 
@@ -56,6 +59,13 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
         this.setLastActivityAuthorId(msg.getAuthorId());
         this.setLastActivityDate(msg.getCreateDate());
         this.store();
+        
+        // set last activity info in category
+        DiscussionCategory category = getCategory();
+        category.setLastActivityAuthorId(msg.getAuthorId());
+        category.setLastActivityDate(msg.getCreateDate());
+        category.store();
+        
         
         return msg;
     }
@@ -77,5 +87,9 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
         setSubject(subject);
         setBody(body);
         store();
+    }
+    
+    public DiscussionCategory getCategory() throws NoSuchDiscussionCategoryException, SystemException {
+        return DiscussionCategoryLocalServiceUtil.getDiscussionCategoryById(getCategoryId());
     }
 }

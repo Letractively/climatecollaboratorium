@@ -38,7 +38,8 @@ public interface DiscussionMessage extends DiscussionMessageModel {
     public com.ext.portlet.discussions.model.DiscussionMessage addThreadMessage(
         java.lang.String subject, java.lang.String body,
         com.liferay.portal.model.User author)
-        throws com.liferay.portal.SystemException;
+        throws com.ext.portlet.discussions.NoSuchDiscussionCategoryException,
+            com.liferay.portal.SystemException;
 
     public com.liferay.portal.model.User getAuthor()
         throws com.liferay.portal.PortalException,
@@ -52,4 +53,8 @@ public interface DiscussionMessage extends DiscussionMessageModel {
 
     public void update(java.lang.String subject, java.lang.String body)
         throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionCategory getCategory()
+        throws com.ext.portlet.discussions.NoSuchDiscussionCategoryException,
+            com.liferay.portal.SystemException;
 }
