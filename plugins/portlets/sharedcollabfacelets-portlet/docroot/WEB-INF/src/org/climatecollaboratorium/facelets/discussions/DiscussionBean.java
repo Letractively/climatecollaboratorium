@@ -14,11 +14,14 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
+import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.facelets.discussions.permissions.DefaultDiscussionsPermissionsImpl;
 import org.climatecollaboratorium.facelets.discussions.permissions.DiscussionsPermissions;
 import org.climatecollaboratorium.facelets.discussions.permissions.DiscussionsPermissionsConfig;
 import org.climatecollaboratorium.facelets.discussions.support.CategoryWrapper;
 import org.climatecollaboratorium.facelets.discussions.support.MessageWrapper;
+import org.climatecollaboratorium.navigation.NavigationEvent;
 
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
 import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
@@ -36,14 +39,9 @@ public class DiscussionBean {
     private Long discussionId;
     private Long categoryId;
     private Long threadId;
-    private Long messageId;
     private DiscussionPageType pageType = DiscussionPageType.DISCUSSIONS;
 
     private Long lastInitDiscussionId;
-    private Long lastInitCategoryId;
-    private Long lastInitThreadId;
-    private Long lastInitMessageId;
-    
     private EventBus eventBus;
     private CategoryWrapper currentCategory;
     private MessageWrapper currentThread;
@@ -51,149 +49,212 @@ public class DiscussionBean {
     private List<MessageWrapper> threads;
     private Map<Long, CategoryWrapper> categoriesById;
     private Map<Long, MessageWrapper> threadsById;
-    
+    private DiscussionPageType prevPage;
+
     private CategoryWrapper newCategory;
     private String searchQuery;
     private List<MessageWrapper> searchResults = new ArrayList<MessageWrapper>();
     private List<SelectItem> categoriesItems;
     private MessageWrapper newThread = new MessageWrapper(this);
-    
-    
+
     private DiscussionCategoryGroup discussion;
     private static Log _log = LogFactoryUtil.getLog(DiscussionBean.class);
     private DiscussionsPermissions permissions;
     private DiscussionsPermissionsConfig permissionsConfig;
-    
+    private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
+
     /**
-     * Method initializes all elements within the bean. If bean wasn't correctly initialized (there is no such discussion)
-     * false is returned. True otherwise.
+     * Method initializes all elements within the bean. If bean wasn't correctly
+     * initialized (there is no such discussion) false is returned. True
+     * otherwise.
+     * 
      * @param discussionId
      * @param categoryId
      * @param threadId
      * @param messageId
      * @return
-     * @throws SystemException 
-     * @throws PortalException 
+     * @throws SystemException
+     * @throws PortalException
      */
-    public boolean init(Long discussionId, Long categoryId, Long threadId, Long messageId, DiscussionsPermissions permissions) throws PortalException, SystemException {
+    public boolean init(Long discussionId, DiscussionsPermissions permissions) 
+    throws PortalException, SystemException {
         if (discussionId == null) {
             return false;
         }
-        
-        if ((discussionId == null && lastInitDiscussionId == null || discussionId.equals(lastInitDiscussionId)) && 
-                (categoryId == null && lastInitCategoryId == null || categoryId.equals(lastInitCategoryId)) && 
-                (threadId == null && lastInitThreadId == null || threadId.equals(lastInitThreadId)) && 
-                (messageId == null && lastInitMessageId == null || messageId.equals(lastInitMessageId))) {
-            // initialization with the same parameters, do nothing as this would cause reset to internal discussion state
+
+        if (discussionId == null && lastInitDiscussionId == null || discussionId.equals(lastInitDiscussionId)) {
+            // initialization with the same parameters, do nothing as this would
+            // cause reset to internal discussion state
             return discussion != null;
         }
         lastInitDiscussionId = discussionId;
-        lastInitCategoryId = categoryId;
-        lastInitThreadId = threadId;
-        lastInitMessageId = messageId;
         
-
         this.discussionId = discussionId;
-        this.categoryId = categoryId;
-        this.threadId = threadId;
-        this.messageId = messageId;
         
-
         try {
             discussion = DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(discussionId);
-            
+
             categories = null;
             threads = null;
-            
+
             updatePageType();
         } catch (Exception e) {
             _log.error("Error when initializing discussion bean", e);
             return false;
         }
-        
+
         if (permissions != null) {
             this.permissions = permissions;
-        } 
-        else {
+        } else {
             if (this.permissions == null) {
                 this.permissions = new DefaultDiscussionsPermissionsImpl(this);
             }
         }
-        
+        updateDisplay();
+
         return true;
     }
-    
-    private void updatePageType() throws NoSuchDiscussionCategoryException, SystemException, NoSuchDiscussionMessageException {
+
+    private void updatePageType() throws NoSuchDiscussionCategoryException, SystemException,
+            NoSuchDiscussionMessageException {
         if (threadId != null) {
             getThreads();
             currentThread = threadsById.get(threadId);
             pageType = DiscussionPageType.THREAD;
-            
-        }
-        else if (categoryId != null) {
+
+        } else if (categoryId != null) {
             getCategories();
             currentCategory = categoriesById.get(categoryId);
-            pageType = DiscussionPageType.CATEGORY; 
+            pageType = DiscussionPageType.CATEGORY;
         }
-        
+
     }
-    
+
     public DiscussionPageType getPageType() {
         return pageType;
     }
 
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
+        bindEvents();
     }
-    
-    public void changePageType(ActionEvent e) throws NoSuchDiscussionCategoryException, SystemException, NoSuchDiscussionMessageException {
-        DiscussionPageType newType = DiscussionPageType.valueOf(e.getComponent().getAttributes().get("pageType").toString());
+
+    private void bindEvents() {
+        for (HandlerRegistration registration: handlerRegistrations) {
+            registration.unregister();
+        }
+        handlerRegistrations.clear();
         
-        DiscussionPageType prevPage = pageType;
-        this.pageType = newType;
+        
+        handlerRegistrations.add(eventBus.registerHandler(NavigationEvent.class, new EventHandler<NavigationEvent>() {
+
+            @Override
+            public void onEvent(NavigationEvent event) {
+                if (event.getSource().equals("discussion")) {
+                    try {
+                        pageType = DiscussionPageType.valueOf(event.getParameters().get("pageType"));
+                    }
+                    catch (IllegalArgumentException ex) {
+                        _log.error("Can't find specified page type", ex);
+                    }
+                }
+                if (event.getParameters().containsKey("threadId")) {
+                    try {
+                        threadId = Long.parseLong(event.getParameters().get("threadId"));
+                    }
+                    catch (NumberFormatException ex) {
+                        _log.error("Can't parse threadId", ex);
+                    }
+                }
+                if (event.getParameters().containsKey("categoryId")) {
+                    try {
+                        categoryId = Long.parseLong(event.getParameters().get("categoryId"));
+                    }
+                    catch (NumberFormatException ex) {
+                        _log.error("Can't parse categoryId", ex);
+                    }
+                }
+                try {
+                    updateDisplay();
+                }
+                catch (SystemException e) {
+                    _log.error("Can't update display", e);
+                }
+            }
+            
+        }));
+        
+    }
+
+    public void changePageType(ActionEvent e) throws NoSuchDiscussionCategoryException, SystemException,
+            NoSuchDiscussionMessageException {
+        if (e.getComponent().getAttributes().containsKey("pageType")) {
+            try {
+                pageType = DiscussionPageType.valueOf(e.getComponent().getAttributes().get("pageType").toString());
+            } catch (IllegalArgumentException ex) {
+                _log.error("Can't find specified page type", ex);
+            }
+        }
+        if (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().containsKey("categoryId")) {
+            try {
+                categoryId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext()
+                        .getRequestParameterMap().get("categoryId").toString());
+            } catch (NumberFormatException ex) {
+                _log.error("Can't read category id from request", ex);
+            }
+        }
+        if (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().containsKey("threadId")) {
+            try {
+                threadId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext()
+                        .getRequestParameterMap().get("threadId").toString());
+            } catch (NumberFormatException ex) {
+                _log.error("Can't read thread id from request", ex);
+            }
+        }
+        updateDisplay();
+    }
+
+    private void updateDisplay() throws SystemException {
         if (pageType == DiscussionPageType.CATEGORY) {
-            categoryId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("categoryId").toString());
             getCategories();
-            currentCategory = categoriesById.get(categoryId);            
-        }
-        else if (pageType == DiscussionPageType.THREAD) {
-            threadId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("threadId").toString());
+            currentCategory = categoriesById.get(categoryId);
+        } else if (pageType == DiscussionPageType.THREAD) {
             getThreads();
+            getCategories();
             currentThread = threadsById.get(threadId);
-            currentCategory = categoriesById.get(currentThread.getWrapped().getCategoryId());
-        }
-        else if (pageType == DiscussionPageType.CATEGORY_ADD) {
+            if (currentThread != null) {
+                currentCategory = categoriesById.get(currentThread.getWrapped().getCategoryId());
+            }
+        } else if (pageType == DiscussionPageType.CATEGORY_ADD) {
             newCategory = new CategoryWrapper(this);
-        }
-        else if (pageType == DiscussionPageType.THREAD_ADD) {
+        } else if (pageType == DiscussionPageType.THREAD_ADD) {
             newThread = new MessageWrapper(this);
             if (prevPage == DiscussionPageType.CATEGORY) {
                 newThread.setCategoryId(currentCategory.getId());
             }
         }
-            
-        System.out.println(currentCategory);
+        prevPage = pageType;
     }
-    
+
     public List<MessageWrapper> getThreads() throws SystemException {
         if (threads == null) {
             threads = new ArrayList<MessageWrapper>();
             threadsById = new HashMap<Long, MessageWrapper>();
-            for (CategoryWrapper catWrapper: getCategories()) {
-                for (MessageWrapper thread: catWrapper.getThreads()) {
-                    threads.add(thread);   
+            for (CategoryWrapper catWrapper : getCategories()) {
+                for (MessageWrapper thread : catWrapper.getThreads()) {
+                    threads.add(thread);
                     threadsById.put(thread.getId(), thread);
                 }
             }
         }
         return threads;
     }
-    
+
     public List<CategoryWrapper> getCategories() throws SystemException {
         if (categories == null) {
             categories = new ArrayList<CategoryWrapper>();
             categoriesById = new HashMap<Long, CategoryWrapper>();
-            for (DiscussionCategory category: discussion.getCategories()) {
+            for (DiscussionCategory category : discussion.getCategories()) {
                 CategoryWrapper catWrapper = new CategoryWrapper(category, this);
                 categories.add(catWrapper);
                 categoriesById.put(catWrapper.getId(), catWrapper);
@@ -201,14 +262,14 @@ public class DiscussionBean {
         }
         return categories;
     }
-    
+
     public CategoryWrapper getCurrentCategory() {
         return currentCategory;
     }
-    
+
     public MessageWrapper getCurrentThread() {
         return currentThread;
-        
+
     }
 
     public CategoryWrapper getNewCategory() {
@@ -247,7 +308,7 @@ public class DiscussionBean {
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
     }
-    
+
     public void search(ActionEvent e) throws SystemException {
         if (searchQuery.trim().length() == 0) {
             // do nothing
@@ -255,7 +316,7 @@ public class DiscussionBean {
         }
         pageType = DiscussionPageType.SEARCH_RESULTS;
         searchResults.clear();
-        for (DiscussionMessage message: DiscussionMessageLocalServiceUtil.search(searchQuery, discussion.getId())) {
+        for (DiscussionMessage message : DiscussionMessageLocalServiceUtil.search(searchQuery, discussion.getId())) {
             searchResults.add(new MessageWrapper(message, null));
         }
     }
@@ -267,11 +328,11 @@ public class DiscussionBean {
     public void setSearchResults(List<MessageWrapper> searchResults) {
         this.searchResults = searchResults;
     }
-    
+
     public List<SelectItem> getCategoriesItems() throws SystemException {
         if (categoriesItems == null) {
             categoriesItems = new ArrayList<SelectItem>();
-            for (CategoryWrapper category: getCategories()) {
+            for (CategoryWrapper category : getCategories()) {
                 categoriesItems.add(new SelectItem(category.getId(), category.getTitle()));
             }
         }
@@ -282,7 +343,7 @@ public class DiscussionBean {
         getCategories();
         return categoriesById.get(categoryId);
     }
-    
+
     public MessageWrapper getNewThread() {
         return newThread;
     }
@@ -298,9 +359,9 @@ public class DiscussionBean {
         }
         if (pageType == DiscussionPageType.CATEGORY && currentCategory.getId() == categoryWrapper.getId()) {
             pageType = DiscussionPageType.CATEGORIES;
-        }        
+        }
     }
-    
+
     public void messageDeleted(MessageWrapper messageWrapper) {
         if (threads != null) {
             threads.remove(messageWrapper);
@@ -311,16 +372,16 @@ public class DiscussionBean {
             currentCategory = currentThread.getCategory();
         }
     }
-    
+
     public DiscussionsPermissions getPermissions() {
         return permissions;
     }
-    
+
     public DiscussionsPermissionsConfig getPermissionsConfig() throws SystemException {
         if (permissionsConfig == null) {
             permissionsConfig = new DiscussionsPermissionsConfig(this);
         }
         return permissionsConfig;
     }
-    
+
 }

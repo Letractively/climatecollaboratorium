@@ -8,7 +8,8 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     
-<ui:composition template="../templates/tagShowcaseTemplate.xhtml">
+<ui:composition template="../templates/tagShowcaseTemplate_noform.xhtml">
+    <ice:form>
     <table>
         <tr>
             <td>discussionId: </td>
@@ -31,8 +32,12 @@
         </tr>
     
     </table>
+    </ice:form>
     <ui:define name="title">Test tag showcase</ui:define>
-    <collab:discussion discussionId="#{discussionTestBean.discussionId}" categoryId="#{discussionTestBean.categoryId}" 
-    threadId="#{discussionTestBean.threadId}" messageId="#{discussionTestBean.messageId}"/>
+    <collab:navigationManager />
+    <ice:form>
+        <collab:discussion discussionId="#{discussionTestBean.discussionId}" categoryId="#{discussionTestBean.categoryId}" 
+        threadId="#{discussionTestBean.threadId}" messageId="#{discussionTestBean.messageId}"/>
+    </ice:form>
 </ui:composition>
 </f:view>   

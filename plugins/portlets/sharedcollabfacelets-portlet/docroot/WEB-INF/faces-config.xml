@@ -66,6 +66,28 @@
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>navigationManagerBean</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.navigation.NavigationManagerBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>eventBus</property-name>
+			<value>#{eventBus}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>sendUnchanged</property-name>
+			<value>#{false}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>navigationManagerBeanTest</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.navigation.test.NavigationManagerBeanTest</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>eventBus</property-name>
+			<value>#{eventBus}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>discussionBean</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.facelets.discussions.DiscussionBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -106,6 +128,10 @@
 		<navigation-case>
 			<from-outcome>simulationModel</from-outcome>
 			<to-view-id>/xhtml/showcase/simulationModelTag.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>navigationManager</from-outcome>
+			<to-view-id>/xhtml/showcase/navigationManagerTag.iface</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

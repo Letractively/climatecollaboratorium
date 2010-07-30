@@ -9,7 +9,8 @@
 <ui:composition template="./discussionTemplate.xhtml">
 
     <ui:define name="discussion_breadcrumb">
-        <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories">
+        <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories"
+                     onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORIES'}); return;" >
             <f:attribute name="pageType" value="CATEGORIES" />
         </ice:commandLink>
         &gt;&gt;
@@ -26,7 +27,7 @@
     <ui:define name="discussion_content">
         
         <div class="description">
-            <ice:outputText value="#{discussionBean.currentCategory.description}" />
+            <ice:outputText value="#{discussionBean.currentCategory.filteredDescription}" escape="false" />
         </div>
         
         <ui:decorate template="./paginator.xhtml">

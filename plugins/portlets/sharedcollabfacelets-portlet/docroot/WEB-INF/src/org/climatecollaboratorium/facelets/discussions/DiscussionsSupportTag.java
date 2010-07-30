@@ -21,9 +21,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 public class DiscussionsSupportTag extends TagHandler{
     private final TagAttribute discussionBeanParam;
     private final TagAttribute discussionIdParam;
-    private final TagAttribute categoryIdParam;
-    private final TagAttribute threadIdParam;
-    private final TagAttribute messageIdParam;
     private final TagAttribute permissionsParam;
     
     private static Log _log = LogFactoryUtil.getLog(DiscussionsSupportTag.class);
@@ -32,9 +29,6 @@ public class DiscussionsSupportTag extends TagHandler{
         super(config);
         discussionBeanParam = this.getRequiredAttribute("discussionBean");
         discussionIdParam = this.getRequiredAttribute("discussionId");
-        categoryIdParam = this.getAttribute("simulationId");
-        threadIdParam = this.getAttribute("threadId");
-        messageIdParam = this.getAttribute("messageId");
         permissionsParam = this.getAttribute("permissions");
     }
 
@@ -44,12 +38,9 @@ public class DiscussionsSupportTag extends TagHandler{
 
         DiscussionBean discussionBean = (DiscussionBean) discussionBeanParam.getObject(ctx);
         Long discussionId = (Long) discussionIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
-        Long categoryId = categoryIdParam == null ? null : (Long) categoryIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
-        Long threadId = threadIdParam == null ? null : (Long) threadIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
-        Long messageId = messageIdParam == null ? null : (Long) messageIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
         DiscussionsPermissions permissions = permissionsParam == null ? null : (DiscussionsPermissions) permissionsParam.getObject(ctx, DiscussionsPermissions.class);
         try {
-            if (discussionBean.init(discussionId, categoryId, threadId, messageId, permissions)) {
+            if (discussionBean.init(discussionId, permissions)) {
                 // initialization succeded
                 nextHandler.apply(ctx, parent);
             }

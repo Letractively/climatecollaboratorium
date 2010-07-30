@@ -17,7 +17,7 @@
         <table class="discussionContainer">
             <tr>
                 <td class="sidebar">
-                    <div class="area">
+                    <div>
                         <ice:commandButton actionListener="#{discussionBean.changePageType}" value="Manage permissions" rendered="#{discussionBean.permissions.canAdmin}">
                             <f:attribute name="pageType" value="PERMISSIONS_CONFIG" />
                         </ice:commandButton>
@@ -31,12 +31,12 @@
                         <h3 class="areaLabel">Quick links</h3>
                         <ul>
                             <li>
-                                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Discussions">
+                                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Discussions" onclick="Collab.nav.navigate('discussion', {pageType: 'DISCUSSIONS'}); return;">
                                     <f:attribute name="pageType" value="DISCUSSIONS" />
                                 </ice:commandLink>
                             </li>
                             <li>
-                                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories">
+                                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORIES'}); return;">
                                     <f:attribute name="pageType" value="CATEGORIES" />
                                 </ice:commandLink>
                             </li>
