@@ -20,14 +20,15 @@
     
     <ice:panelSeries value="#{discussionBean.searchResults}" var="message" id="paginatedDataSet" varStatus="messageStatus" rows="10">
         <div class="messageLong #{messageStatus.index mod 2 != 0 ? 'odd' : 'even' }">
-            <h4><ice:commandLink value="#{message.title}" actionListener="#{discussionBean.changePageType}">
+            <h4><ice:commandLink value="#{message.title}" actionListener="#{discussionBean.changePageType}"
+                            onclick="Collab.nav.navigate('discussion', {pageType: 'THREAD', threadId: #{message.threadId}}); return;">
                     <f:attribute name="pageType" value="THREAD" />
                     <f:param name="threadId" value="#{message.threadId}" />
                 </ice:commandLink>
             </h4>
             <div class="meta">
                 <div class="floatLeft">By &amp;nbsp;
-                    <a href="/web/guest/members?userId=#{message.author.userId}">#{message.author.screenName}</a> 
+                    <a href="/web/guest/members?userId=#{message.author.userId}" >#{message.author.screenName}</a> 
                 </div>
                 <div class="floatRight">#{message.createDate}</div> 
                 <div class="clear"></div>

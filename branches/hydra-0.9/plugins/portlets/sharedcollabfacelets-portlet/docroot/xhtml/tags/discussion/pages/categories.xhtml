@@ -26,7 +26,7 @@
                 <ice:panelGroup styleClass="messageShort #{categoryStatus.index mod 2 != 0 ? 'odd' : 'even'}" rendered="#{not category.editing}">
                     <div>
                         <h4 class="title">
-                            <ice:commandLink actionListener="#{discussionBean.changePageType}">
+                            <ice:commandLink actionListener="#{discussionBean.changePageType}" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{category.id}}); return;" >
                                 <f:param name="categoryId" value="#{category.id}" /> 
                                 <f:attribute name="categoryId" value="#{category.id}" /> 
                                 <f:attribute name="pageType" value="CATEGORY" />

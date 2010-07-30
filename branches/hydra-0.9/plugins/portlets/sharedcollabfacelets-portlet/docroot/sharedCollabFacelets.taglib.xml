@@ -43,4 +43,8 @@
         <tag-name>userLinkSupport</tag-name>
         <handler-class>org.climatecollaboratorium.facelets.userLink.UserLinkSupportTag</handler-class>
     </tag>
+    <tag>
+        <tag-name>navigationManager</tag-name>
+        <source>xhtml/tags/navigationManager/navigationManager.xhtml</source>
+    </tag>
 </facelet-taglib>
