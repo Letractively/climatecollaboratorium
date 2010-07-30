@@ -1,5 +1,8 @@
 package org.climatecollaboratorium.plans;
 
+import java.util.Map;
+import java.util.Random;
+
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.events.EventBus;
@@ -34,18 +37,27 @@ public class PlanBean {
     private EventBus eventBus;
     private HandlerRegistration scenarioSavedEventHandlerRegistration;
     private static ThemeDisplay td = Helper.getThemeDisplay();
+    private int selectedTabIndex = 0;
 
     
     private static Log _log = LogFactoryUtil.getLog(PlanBean.class);
     
     
-    public PlanBean(final PlanItem planItem, EventBus eventBus) throws SystemException, PortalException {
+    public PlanBean(final PlanItem planItem, EventBus eventBus, Map<String, String> parameters) throws SystemException, PortalException {
         this.planItem = planItem;
         this.permissions = new PlansPermissionsBean(planItem);
         planPositionsBean = new PlanPositionsBean(planItem, this);
         plan = new PlanItemWrapper(planItem, this, permissions);
         simulationBean = new SimulationBean(planItem, this, eventBus);
         this.eventBus = eventBus;
+        if (parameters.containsKey("tab")) {
+            try {
+                selectedTabIndex = Integer.parseInt(parameters.get("tab"));
+            }
+            catch (NumberFormatException e) {
+                _log.error("Can't parse tab number: " + parameters.get("tab"), e);
+            }
+        }
     }
     
     public void refresh() throws SystemException, PortalException {
@@ -124,6 +136,14 @@ public class PlanBean {
     
     public void cleanup() {
         simulationBean.cleanup();
+    }
+    
+    public int getSelectedTab() {
+        return selectedTabIndex;
+    }
+    
+    public void setSelectedTab(int selectedTab) {
+        selectedTabIndex = selectedTab;
     }
 
 }

@@ -14,6 +14,7 @@
 		<header-portlet-javascript>/js/plans-portlet.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery.history.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/simulation/model-inputs-render.js</header-portlet-javascript>
+		<header-portlet-javascript>/xmlhttp/js/navigation/navigationManager.js</header-portlet-javascript>
 		<footer-portlet-css>/css/main.css</footer-portlet-css>
 	</portlet>
 	<role-mapper>
