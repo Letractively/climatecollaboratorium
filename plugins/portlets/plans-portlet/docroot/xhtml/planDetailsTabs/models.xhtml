@@ -1,47 +1,110 @@
 <?xml version="1.0"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:ice="http://www.icesoft.com/icefaces/component" 
-    xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
-    
-<script type="text/javascript">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <div class="plan-model">
+    <div id="model-selection" class="hidden">
+        <div id="model-selection-popup-content">
 
-    // currently there is no dynamic association between plan and a scenario/model,
-    // static reference used, please refer to requirements doc
-    
+            <ice:panelBorder>
+                <f:facet name="west">
+                    <select multiple="true" class="availableModels"></select>
+                </f:facet>
+                <f:facet name="center">
+                    <div>
+                        <h2>
+                            <ice:outputText styleClass="model-name"
+                                            value="#{planBean.modelBean.currentModel.name}"/>
+                        </h2>
+                        <hr/>
+                        <ice:outputText styleClass="model-description" escape="false">
+                            #{planBean.modelBean.currentModel.description}
+                        </ice:outputText>
+                        <br/><br/>
+                        <span class="model-download-link"></span>
 
-    function portletModelImpactsInnerPortlet() {
-        jQuery("#loadingNotification").hide();
-        // update iframe height to wrap entire document, this prevents from displaying additional scrollbar
-        var frame = document.getElementById("portlet-model");
-        var frameContent =  (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
-        jQuery(frame).attr("scrolling", "no");
-        var contentDocument = jQuery(frameContent);
-              
-        
-        frame.height = frameContent.body.scrollHeight;
-        jQuery(frame).css("overflow", "hidden");
-        jQuery(frame).css("border", "0");
-        
-        jQuery("#portlet-model-impacts").load(portletModelImpactsInnerPortlet);
-        frame.contentWindow.jQuery.history.init(function() {});
+                    </div>
 
-        //alert("should show..." + jQuery("#plans-model-impacts-container").length);
-        
-        jQuery("#plans-model-impacts-container").css("left", "0").css("position", "normal");
-    }
+                </f:facet>
+                <f:facet name="south">
 
-    
-    /**
-    Function responsible for attaching portletPlansModifyInnerPortlet to iframe's onload event 
-    */ 
-    jQuery(document).ready(function() {
-        var frame = jQuery("#portlet-model").load(portletModelImpactsInnerPortlet);
-    });
-    
-</script>
-    <div style="width: 100%; height: 150px; text-align: center" id="loadingNotification">
-        <img src="/collaboratorium-theme/images/ajax-loader.gif" style="margin-top: 50px"/>
+                    <ice:panelGrid columns="2" styleClass="dialog-buttons">
+                        <ice:commandButton value="Submit" onclick="hideModelSelectionDialog(true);return false;"/>
+                        <ice:commandButton value="Cancel" onclick="hideModelSelectionDialog(false);return false;"/>
+
+                    </ice:panelGrid>
+                    
+                </f:facet>
+            </ice:panelBorder>
+
+        </div>
     </div>
-    <iframe id="portlet-model" style="border: 0; overflow: hidden; width: 100%;" src="/widget/web/guest/models/-/models_WAR_modelsportlet_INSTANCE_28Id?modelId=#{planBean.plan.planType.modelId}&amp;viewType=embedded&amp;page=model" />
+    <div class="hidden" id="model-selection-popup"></div>
+    <table class="modelConfiguration" style="display: none">
+        <ui:repeat value="#{planBean.modelBean.availableModels}" var="item">
+            <tr>
+                <td class="model-config">
+                    <ice:outputText styleClass="id" escape="false" value="#{item.id}"/>
+                    <ice:outputText styleClass="name" escape="false" value="#{item.name}"/>
+                    <ice:outputText styleClass="description" escape="false" value="#{item.description}"/>
+                    <ice:outputText styleClass="link" escape="false" value="#{item.link}"/>
+                </td>
+            </tr>
+        </ui:repeat>
+
+        <tr>
+            <td>
+                <ice:inputText styleClass="model-selected-item"
+                               value="#{planBean.modelBean.selectedId}"></ice:inputText>
+                <ice:commandButton actionListener="#{columnsConfiguration.update}" value="Update"
+                                   styleClass='updateModelsSubmit'/>
+                <ice:commandButton actionListener="#{planBean.modelBean.cancelEdit}" value="Cancel"
+                                   styleClass='cancelModelsSubmit'/>
+                <ice:commandButton actionListener="#{planBean.modelBean.submit}" value="Submit"
+                                   styleClass='submitModelsSubmit'/>
+
+
+            </td>
+        </tr>
+    </table>
+    <div class="intro">
+        All plans include the  <a href="/web/guest/models#modelId=760"> MIT Composite Model</a>. You can also select from several
+        different disaggregated input configurations, or upload your own model.
+    </div>
+
+        <div class="model-selection-info">
+            <div class="model-selection-info-header">
+            <span class="model-selection-info-header-title">Selected Disaggregation Model:  #{planBean.modelBean.currentModel.name}</span>
+
+            <ice:panelGrid columns="2" styleClass="buttons">
+            <ice:commandButton actionListener="#{planBean.modelBean.startEdit}" value="Select model"
+                       onclick="showModelSelectionPopup('model-selection-popup');"/>
+            <ice:commandButton value="Upload model"/>
+            </ice:panelGrid>
+                </div>
+
+    <hr/>
+    <div class="detail">
+    <ice:outputText escape="false">
+        #{planBean.modelBean.currentModel.description}
+    </ice:outputText>
+        <br/><br/>
+        <ice:outputText rendered="#{planBean.modelBean.currentModel.link ne null}">
+            <a href="#{planBean.modelBean.currentModel.description}">Download spreadsheet</a>
+        </ice:outputText>
+
+
+
+        </div>
+     </div>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            initModelConfigurationWidget();
+        });
+    </script>
+    </div>
+
 </f:view>
