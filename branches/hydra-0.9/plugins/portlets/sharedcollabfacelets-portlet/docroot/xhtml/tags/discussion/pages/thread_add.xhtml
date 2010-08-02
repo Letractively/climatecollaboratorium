@@ -8,7 +8,7 @@
     
 <ui:composition template="./discussionTemplate.xhtml">
     <ui:define name="discussion_breadcrumb">
-        Add Message
+        Add Discussion
     </ui:define>
     <ui:define name="discussion_content">
     
@@ -29,7 +29,12 @@
                 <f:attribute name="pageType" value="CATEGORY" />
                 <f:param name="categoryId" value="#{discussionBean.currentCategory.id}" />
             </ice:commandButton>
-        </ice:panelGroup> 
+        </ice:panelGroup>
+        <ice:panelGroup rendered="#{discussionBean.newThread.goTo}">
+            <script language="javascript">
+            Collab.nav.navigate('discussion', {pageType: 'THREAD', threadId: '#{discussionBean.newThread.id}'});
+            </script>
+        </ice:panelGroup>
     </ui:define>
 </ui:composition>
 </f:view>

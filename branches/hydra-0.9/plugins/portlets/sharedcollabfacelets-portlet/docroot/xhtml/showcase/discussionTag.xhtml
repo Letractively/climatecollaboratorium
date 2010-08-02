@@ -16,16 +16,8 @@
             <td><ice:inputText value="#{discussionTestBean.discussionId}" /></td>
         </tr>
         <tr>
-            <td>categoryId: </td>
+            <td>groupId: </td>
             <td><ice:inputText value="#{discussionTestBean.categoryId}" /></td>
-        </tr>
-        <tr>
-            <td>threadId: </td>
-            <td><ice:inputText value="#{discussionTestBean.threadId}" /></td>
-        </tr>
-        <tr>
-            <td>messageId: </td>
-            <td><ice:inputText value="#{discussionTestBean.messageId}" /></td>
         </tr>
         <tr>
             <td colspan="2"><ice:commandButton value="Update" /></td>
@@ -36,8 +28,7 @@
     <ui:define name="title">Test tag showcase</ui:define>
     <collab:navigationManager />
     <ice:form>
-        <collab:discussion discussionId="#{discussionTestBean.discussionId}" categoryId="#{discussionTestBean.categoryId}" 
-        threadId="#{discussionTestBean.threadId}" messageId="#{discussionTestBean.messageId}"/>
+        <collab:discussion discussionId="#{discussionTestBean.discussionId}" groupId="#{discussionTestBean.categoryId}" />
     </ice:form>
 </ui:composition>
 </f:view>   

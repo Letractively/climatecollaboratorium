@@ -75,7 +75,7 @@
 		</managed-property>
 		<managed-property>
 			<property-name>sendUnchanged</property-name>
-			<value>#{false}</value>
+			<value>#{true}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>

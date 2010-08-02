@@ -123,3 +123,14 @@
 .permissionsConfig .even {
     background: #ccc;
 }
+
+.discussion .addNewDiscussion {
+    background: #A60014;
+    color: #ffffff;
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+.discussion .addNewDiscussion:hover {
+    background: #C20017;
+    color: #ffffff;
+}

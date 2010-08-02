@@ -9,18 +9,13 @@
 <ui:composition template="./discussionTemplate.xhtml">
 
     <ui:define name="discussion_breadcrumb">
-        <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories"
-                     onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORIES'}); return;" >
-            <f:attribute name="pageType" value="CATEGORIES" />
-        </ice:commandLink>
-        &gt;&gt;
-        &amp;nbsp;<ice:outputText value="#{discussionBean.currentCategory.title}" />
+        <ice:outputText value="#{discussionBean.currentCategory.title}" />
     </ui:define>
     
             
     <ui:define name="discussion_actions">
-        <ice:commandButton value="Add Message" actionListener="#{discussionBean.changePageType}">
-            <f:attribute name="pageType" value="THREAD_ADD" rendered='#{discussionBean.permissions.canAddThread}' />
+        <ice:commandButton value="Add Discussion" actionListener="#{discussionBean.changePageType}" rendered='#{discussionBean.permissions.canAddThread}'>
+            <f:attribute name="pageType" value="THREAD_ADD"/>
         </ice:commandButton>
     </ui:define>
     
@@ -32,7 +27,7 @@
         
         <ui:decorate template="./paginator.xhtml">
             <ui:param name="paginatorFor" value="threadsList"/>
-            <ui:param name="entityName" value="Threads"/>
+            <ui:param name="entityName" value="Discussions"/>
         </ui:decorate>
              
         <ui:decorate template="./threadsList.xhtml">
@@ -42,7 +37,7 @@
             
         <ui:decorate template="./paginator.xhtml">
             <ui:param name="paginatorFor" value="threadsList"/>
-            <ui:param name="entityName" value="Threads"/>
+            <ui:param name="entityName" value="Discussions"/>
         </ui:decorate>
             
     </ui:define>

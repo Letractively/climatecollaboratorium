@@ -22,7 +22,7 @@
                             <f:attribute name="pageType" value="PERMISSIONS_CONFIG" />
                         </ice:commandButton>
                         
-                        <ice:commandButton actionListener="#{discussionBean.changePageType}" value="Add new message" rendered="#{discussionBean.permissions.canAddThread}">
+                        <ice:commandButton actionListener="#{discussionBean.changePageType}" value="Start a new discussion" rendered="#{discussionBean.permissions.canAddThread}" styleClass="addNewDiscussion">
                             <f:attribute name="pageType" value="THREAD_ADD"/>
                         </ice:commandButton>
                     </div>
@@ -45,7 +45,7 @@
                     <div class="area">
                         <h3 class="areaLabel">Social</h3>
                         <ul>
-                            <li><a href="#">Subscribe</a></li>
+                            <li><ice:commandLink actionListener="#{discussionBean.subscribe}">Subscribe</ice:commandLink></li>
                         </ul>
                     </div>
                 </td>

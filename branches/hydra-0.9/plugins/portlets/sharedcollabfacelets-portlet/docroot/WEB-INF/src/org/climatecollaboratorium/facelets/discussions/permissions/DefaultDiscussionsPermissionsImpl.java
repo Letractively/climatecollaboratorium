@@ -17,13 +17,15 @@ public class DefaultDiscussionsPermissionsImpl implements DiscussionsPermissions
     private static final String RESOURCE_NAME = DiscussionCategoryGroup.class.getName();
     private static final int RESOURCE_SCOPE = 1;
     private static final Long companyId = Helper.getThemeDisplay().getCompanyId();
+    private Long groupId;
     private String primKey;
-    private Resource resource = null;
-    private Long groupId = Helper.getThemeDisplay().getScopeGroupId();
     private static Log _log = LogFactoryUtil.getLog(DefaultDiscussionsPermissionsImpl.class);
+    private DiscussionBean discussionBean;
     
     public DefaultDiscussionsPermissionsImpl(DiscussionBean discussionBean) throws PortalException, SystemException {
         primKey = discussionBean.getDiscussion().getId().toString();
+        groupId = discussionBean.getOwningGroupId();
+        this.discussionBean = discussionBean;
         /*
         try {
             resource = ResourceLocalServiceUtil.getResource(companyId, RESOURCE_NAME, RESOURCE_SCOPE, primKey);
@@ -66,6 +68,8 @@ public class DefaultDiscussionsPermissionsImpl implements DiscussionsPermissions
     }
 
     private PermissionChecker permCheck() {
+        groupId = discussionBean.getOwningGroupId();
+        PermissionChecker permCheck = Helper.getPermissionChecker();
         return Helper.getPermissionChecker();
     }
 }
