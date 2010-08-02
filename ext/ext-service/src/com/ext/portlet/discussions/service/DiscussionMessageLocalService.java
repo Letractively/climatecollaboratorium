@@ -114,4 +114,10 @@ public interface DiscussionMessageLocalService {
     public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> search(
         java.lang.String query, java.lang.Long categoryGroupId)
         throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.discussions.model.DiscussionMessage getMessageByMessageId(
+        java.lang.Long messageId)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
 }

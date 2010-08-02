@@ -36,5 +36,9 @@ public interface DiscussionCategoryGroupModel extends BaseModel<DiscussionCatego
 
     public void setDescription(String description);
 
+    public String getUrl();
+
+    public void setUrl(String url);
+
     public DiscussionCategoryGroup toEscapedModel();
 }

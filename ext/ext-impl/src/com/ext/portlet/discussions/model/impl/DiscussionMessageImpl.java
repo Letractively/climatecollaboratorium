@@ -4,8 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
+import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
+import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
 import com.liferay.portal.PortalException;
@@ -91,5 +94,18 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
     
     public DiscussionCategory getCategory() throws NoSuchDiscussionCategoryException, SystemException {
         return DiscussionCategoryLocalServiceUtil.getDiscussionCategoryById(getCategoryId());
+    }
+    
+    public DiscussionCategoryGroup getCategoryGroup() throws PortalException, SystemException {
+        return DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(getCategoryGroupId());
+    }
+    
+    public DiscussionMessage getThread() throws NoSuchDiscussionMessageException, SystemException {
+        if (getThreadId() != null) {
+            // this is a comment of a thread
+            return DiscussionMessageLocalServiceUtil.getThreadByThreadId(getThreadId());
+        }
+        // this is a thread itself
+        return this;
     }
 }

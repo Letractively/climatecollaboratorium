@@ -57,4 +57,12 @@ public interface DiscussionMessage extends DiscussionMessageModel {
     public com.ext.portlet.discussions.model.DiscussionCategory getCategory()
         throws com.ext.portlet.discussions.NoSuchDiscussionCategoryException,
             com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionCategoryGroup getCategoryGroup()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage getThread()
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
 }

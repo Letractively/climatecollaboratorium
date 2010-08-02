@@ -608,6 +608,7 @@
 			<generator class="assigned" />
 		</id>
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="url" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.discussions.model.impl.DiscussionCategoryImpl" table="DiscussionCategory">
 		<cache usage="read-write" />

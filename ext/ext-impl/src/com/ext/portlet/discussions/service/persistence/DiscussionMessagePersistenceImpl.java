@@ -113,6 +113,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countByBodyLike",
             new String[] { String.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FETCH_BY_MESSAGEID = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
+            DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_ENTITY, "fetchByMessageId",
+            new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_MESSAGEID = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
+            DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByMessageId",
+            new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -133,7 +141,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             discussionMessage);
 
         FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SINGLETHREADID,
-            new Object[] { discussionMessage.getThreadId() }, discussionMessage);
+            new Object[] { discussionMessage.getMessageId() }, discussionMessage);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MESSAGEID,
+            new Object[] { discussionMessage.getMessageId() }, discussionMessage);
     }
 
     public void cacheResult(List<DiscussionMessage> discussionMessages) {
@@ -240,7 +251,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         DiscussionMessageModelImpl discussionMessageModelImpl = (DiscussionMessageModelImpl) discussionMessage;
 
         FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SINGLETHREADID,
-            new Object[] { discussionMessageModelImpl.getOriginalThreadId() });
+            new Object[] { discussionMessageModelImpl.getOriginalMessageId() });
+
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MESSAGEID,
+            new Object[] { discussionMessageModelImpl.getOriginalMessageId() });
 
         EntityCacheUtil.removeResult(DiscussionMessageModelImpl.ENTITY_CACHE_ENABLED,
             DiscussionMessageImpl.class, discussionMessage.getPrimaryKey());
@@ -327,17 +341,32 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
             discussionMessage);
 
         if (!isNew &&
-                (!Validator.equals(discussionMessage.getThreadId(),
-                    discussionMessageModelImpl.getOriginalThreadId()))) {
+                (!Validator.equals(discussionMessage.getMessageId(),
+                    discussionMessageModelImpl.getOriginalMessageId()))) {
             FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SINGLETHREADID,
-                new Object[] { discussionMessageModelImpl.getOriginalThreadId() });
+                new Object[] { discussionMessageModelImpl.getOriginalMessageId() });
         }
 
         if (isNew ||
-                (!Validator.equals(discussionMessage.getThreadId(),
-                    discussionMessageModelImpl.getOriginalThreadId()))) {
+                (!Validator.equals(discussionMessage.getMessageId(),
+                    discussionMessageModelImpl.getOriginalMessageId()))) {
             FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SINGLETHREADID,
-                new Object[] { discussionMessage.getThreadId() },
+                new Object[] { discussionMessage.getMessageId() },
+                discussionMessage);
+        }
+
+        if (!isNew &&
+                (!Validator.equals(discussionMessage.getMessageId(),
+                    discussionMessageModelImpl.getOriginalMessageId()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_MESSAGEID,
+                new Object[] { discussionMessageModelImpl.getOriginalMessageId() });
+        }
+
+        if (isNew ||
+                (!Validator.equals(discussionMessage.getMessageId(),
+                    discussionMessageModelImpl.getOriginalMessageId()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MESSAGEID,
+                new Object[] { discussionMessage.getMessageId() },
                 discussionMessage);
         }
 
@@ -904,16 +933,16 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public DiscussionMessage findBySingleThreadId(Long threadId)
+    public DiscussionMessage findBySingleThreadId(Long messageId)
         throws NoSuchDiscussionMessageException, SystemException {
-        DiscussionMessage discussionMessage = fetchBySingleThreadId(threadId);
+        DiscussionMessage discussionMessage = fetchBySingleThreadId(messageId);
 
         if (discussionMessage == null) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No DiscussionMessage exists with the key {");
 
-            msg.append("threadId=" + threadId);
+            msg.append("messageId=" + messageId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -927,14 +956,14 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         return discussionMessage;
     }
 
-    public DiscussionMessage fetchBySingleThreadId(Long threadId)
+    public DiscussionMessage fetchBySingleThreadId(Long messageId)
         throws SystemException {
-        return fetchBySingleThreadId(threadId, true);
+        return fetchBySingleThreadId(messageId, true);
     }
 
-    public DiscussionMessage fetchBySingleThreadId(Long threadId,
+    public DiscussionMessage fetchBySingleThreadId(Long messageId,
         boolean retrieveFromCache) throws SystemException {
-        Object[] finderArgs = new Object[] { threadId };
+        Object[] finderArgs = new Object[] { messageId };
 
         Object result = null;
 
@@ -954,10 +983,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
 
-                if (threadId == null) {
-                    query.append("threadId IS NULL");
+                if (messageId == null) {
+                    query.append("messageId IS NULL");
                 } else {
-                    query.append("threadId = ?");
+                    query.append("messageId = ?");
                 }
 
                 query.append(" AND deleted is null ");
@@ -970,8 +999,8 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (threadId != null) {
-                    qPos.add(threadId.longValue());
+                if (messageId != null) {
+                    qPos.add(messageId.longValue());
                 }
 
                 List<DiscussionMessage> list = q.list();
@@ -988,8 +1017,8 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                     cacheResult(discussionMessage);
 
-                    if ((discussionMessage.getThreadId() == null) ||
-                            !discussionMessage.getThreadId().equals(threadId)) {
+                    if ((discussionMessage.getMessageId() == null) ||
+                            !discussionMessage.getMessageId().equals(messageId)) {
                         FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SINGLETHREADID,
                             finderArgs, discussionMessage);
                     }
@@ -1577,6 +1606,117 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public DiscussionMessage findByMessageId(Long messageId)
+        throws NoSuchDiscussionMessageException, SystemException {
+        DiscussionMessage discussionMessage = fetchByMessageId(messageId);
+
+        if (discussionMessage == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No DiscussionMessage exists with the key {");
+
+            msg.append("messageId=" + messageId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchDiscussionMessageException(msg.toString());
+        }
+
+        return discussionMessage;
+    }
+
+    public DiscussionMessage fetchByMessageId(Long messageId)
+        throws SystemException {
+        return fetchByMessageId(messageId, true);
+    }
+
+    public DiscussionMessage fetchByMessageId(Long messageId,
+        boolean retrieveFromCache) throws SystemException {
+        Object[] finderArgs = new Object[] { messageId };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_MESSAGEID,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+                if (messageId == null) {
+                    query.append("messageId IS NULL");
+                } else {
+                    query.append("messageId = ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                query.append("ORDER BY ");
+
+                query.append("createDate DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (messageId != null) {
+                    qPos.add(messageId.longValue());
+                }
+
+                List<DiscussionMessage> list = q.list();
+
+                result = list;
+
+                DiscussionMessage discussionMessage = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MESSAGEID,
+                        finderArgs, list);
+                } else {
+                    discussionMessage = list.get(0);
+
+                    cacheResult(discussionMessage);
+
+                    if ((discussionMessage.getMessageId() == null) ||
+                            !discussionMessage.getMessageId().equals(messageId)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MESSAGEID,
+                            finderArgs, discussionMessage);
+                    }
+                }
+
+                return discussionMessage;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_MESSAGEID,
+                        finderArgs, new ArrayList<DiscussionMessage>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (DiscussionMessage) result;
+            }
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -1695,9 +1835,9 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public void removeBySingleThreadId(Long threadId)
+    public void removeBySingleThreadId(Long messageId)
         throws NoSuchDiscussionMessageException, SystemException {
-        DiscussionMessage discussionMessage = findBySingleThreadId(threadId);
+        DiscussionMessage discussionMessage = findBySingleThreadId(messageId);
 
         remove(discussionMessage);
     }
@@ -1716,6 +1856,13 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 categoryGroupId)) {
             remove(discussionMessage);
         }
+    }
+
+    public void removeByMessageId(Long messageId)
+        throws NoSuchDiscussionMessageException, SystemException {
+        DiscussionMessage discussionMessage = findByMessageId(messageId);
+
+        remove(discussionMessage);
     }
 
     public void removeAll() throws SystemException {
@@ -1841,8 +1988,8 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
         return count.intValue();
     }
 
-    public int countBySingleThreadId(Long threadId) throws SystemException {
-        Object[] finderArgs = new Object[] { threadId };
+    public int countBySingleThreadId(Long messageId) throws SystemException {
+        Object[] finderArgs = new Object[] { messageId };
 
         Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SINGLETHREADID,
                 finderArgs, this);
@@ -1859,10 +2006,10 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
 
-                if (threadId == null) {
-                    query.append("threadId IS NULL");
+                if (messageId == null) {
+                    query.append("messageId IS NULL");
                 } else {
-                    query.append("threadId = ?");
+                    query.append("messageId = ?");
                 }
 
                 query.append(" AND deleted is null ");
@@ -1871,8 +2018,8 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (threadId != null) {
-                    qPos.add(threadId.longValue());
+                if (messageId != null) {
+                    qPos.add(messageId.longValue());
                 }
 
                 count = (Long) q.uniqueResult();
@@ -2014,6 +2161,58 @@ public class DiscussionMessagePersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_BODYLIKE,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByMessageId(Long messageId) throws SystemException {
+        Object[] finderArgs = new Object[] { messageId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_MESSAGEID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.discussions.model.DiscussionMessage WHERE ");
+
+                if (messageId == null) {
+                    query.append("messageId IS NULL");
+                } else {
+                    query.append("messageId = ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (messageId != null) {
+                    qPos.add(messageId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MESSAGEID,
                     finderArgs, count);
 
                 closeSession(session);

@@ -122,15 +122,15 @@ public interface DiscussionMessagePersistence extends BasePersistence {
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.discussions.model.DiscussionMessage findBySingleThreadId(
-        java.lang.Long threadId)
+        java.lang.Long messageId)
         throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.discussions.model.DiscussionMessage fetchBySingleThreadId(
-        java.lang.Long threadId) throws com.liferay.portal.SystemException;
+        java.lang.Long messageId) throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.discussions.model.DiscussionMessage fetchBySingleThreadId(
-        java.lang.Long threadId, boolean retrieveFromCache)
+        java.lang.Long messageId, boolean retrieveFromCache)
         throws com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.discussions.model.DiscussionMessage> findBySubjectLike(
@@ -197,6 +197,18 @@ public interface DiscussionMessagePersistence extends BasePersistence {
         throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
             com.liferay.portal.SystemException;
 
+    public com.ext.portlet.discussions.model.DiscussionMessage findByMessageId(
+        java.lang.Long messageId)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage fetchByMessageId(
+        java.lang.Long messageId) throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage fetchByMessageId(
+        java.lang.Long messageId, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -221,7 +233,7 @@ public interface DiscussionMessagePersistence extends BasePersistence {
     public void removeByThreadId(java.lang.Long threadId)
         throws com.liferay.portal.SystemException;
 
-    public void removeBySingleThreadId(java.lang.Long threadId)
+    public void removeBySingleThreadId(java.lang.Long messageId)
         throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
             com.liferay.portal.SystemException;
 
@@ -233,6 +245,10 @@ public interface DiscussionMessagePersistence extends BasePersistence {
         java.lang.Long categoryGroupId)
         throws com.liferay.portal.SystemException;
 
+    public void removeByMessageId(java.lang.Long messageId)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByCategoryIdThreadId(java.lang.Long categoryId,
@@ -241,7 +257,7 @@ public interface DiscussionMessagePersistence extends BasePersistence {
     public int countByThreadId(java.lang.Long threadId)
         throws com.liferay.portal.SystemException;
 
-    public int countBySingleThreadId(java.lang.Long threadId)
+    public int countBySingleThreadId(java.lang.Long messageId)
         throws com.liferay.portal.SystemException;
 
     public int countBySubjectLike(java.lang.String subject,
@@ -250,6 +266,9 @@ public interface DiscussionMessagePersistence extends BasePersistence {
 
     public int countByBodyLike(java.lang.String body,
         java.lang.Long categoryGroupId)
+        throws com.liferay.portal.SystemException;
+
+    public int countByMessageId(java.lang.Long messageId)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

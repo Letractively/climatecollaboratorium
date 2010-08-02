@@ -99,10 +99,10 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
                 "lock.expiration.time.com.ext.portlet.discussions.model.DiscussionMessage"));
     private Long _pk;
     private Long _messageId;
+    private Long _originalMessageId;
     private String _subject;
     private String _body;
     private Long _threadId;
-    private Long _originalThreadId;
     private Long _categoryId;
     private Long _categoryGroupId;
     private Long _authorId;
@@ -174,6 +174,14 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
 
     public void setMessageId(Long messageId) {
         _messageId = messageId;
+
+        if (_originalMessageId == null) {
+            _originalMessageId = messageId;
+        }
+    }
+
+    public Long getOriginalMessageId() {
+        return _originalMessageId;
     }
 
     public String getSubject() {
@@ -198,14 +206,6 @@ public class DiscussionMessageModelImpl extends BaseModelImpl<DiscussionMessage>
 
     public void setThreadId(Long threadId) {
         _threadId = threadId;
-
-        if (_originalThreadId == null) {
-            _originalThreadId = threadId;
-        }
-    }
-
-    public Long getOriginalThreadId() {
-        return _originalThreadId;
     }
 
     public Long getCategoryId() {

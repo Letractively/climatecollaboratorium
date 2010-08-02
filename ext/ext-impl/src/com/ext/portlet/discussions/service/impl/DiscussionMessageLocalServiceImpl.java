@@ -68,4 +68,10 @@ public class DiscussionMessageLocalServiceImpl
         
         return new ArrayList<DiscussionMessage>(messages);
     }
+    
+    public DiscussionMessage getMessageByMessageId(Long messageId) throws NoSuchDiscussionMessageException, SystemException {
+        return discussionMessagePersistence.findByMessageId(messageId);
+    }
+    
+    
 }

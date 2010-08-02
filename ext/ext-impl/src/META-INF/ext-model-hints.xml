@@ -445,6 +445,7 @@
 	<model name="com.ext.portlet.discussions.model.DiscussionCategoryGroup">
 		<field name="id" type="Long" />
 		<field name="description" type="String" />
+		<field name="url" type="String" />
 	</model>
 	<model name="com.ext.portlet.discussions.model.DiscussionCategory">
 		<field name="pk" type="Long" />

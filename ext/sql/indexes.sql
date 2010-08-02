@@ -138,6 +138,7 @@ create index IX_B33BF499 on DiscussionCategory (categoryId);
 create index IX_6AC8CFFB on DiscussionMessage (body);
 create index IX_8AEB7CB1 on DiscussionMessage (body, categoryGroupId);
 create index IX_B032DE0B on DiscussionMessage (categoryId, threadId);
+create index IX_F885CEED on DiscussionMessage (messageId);
 create index IX_66919857 on DiscussionMessage (subject);
 create index IX_3538F7D5 on DiscussionMessage (subject, categoryGroupId);
 create index IX_472CEADE on DiscussionMessage (threadId);
