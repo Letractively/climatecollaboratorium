@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -38,6 +39,15 @@ public class PlanBean {
     private HandlerRegistration scenarioSavedEventHandlerRegistration;
     private static ThemeDisplay td = Helper.getThemeDisplay();
     private int selectedTabIndex = 0;
+    private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
+    static {
+        tabNameIndexMap.put("description", 0);
+        tabNameIndexMap.put("positions", 1);
+        tabNameIndexMap.put("models", 2);
+        tabNameIndexMap.put("actionsimpacts", 3);
+        tabNameIndexMap.put("discussion", 4);
+        tabNameIndexMap.put("team", 5);
+    }
 
     
     private static Log _log = LogFactoryUtil.getLog(PlanBean.class);
@@ -52,7 +62,8 @@ public class PlanBean {
         this.eventBus = eventBus;
         if (parameters.containsKey("tab")) {
             try {
-                selectedTabIndex = Integer.parseInt(parameters.get("tab"));
+                Integer tmp = tabNameIndexMap.get( parameters.get("tab") );
+                selectedTabIndex = tmp != null ? tmp : 0;
             }
             catch (NumberFormatException e) {
                 _log.error("Can't parse tab number: " + parameters.get("tab"), e);

@@ -16,6 +16,8 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.messageboards.model.MBCategory;
 import com.liferay.portlet.messageboards.model.MBMessage;
@@ -173,5 +175,24 @@ public class MigrationTool {
         FacesContext.getCurrentInstance().addMessage(null, fm);
 
         return "";
+    }
+    
+    
+    public String updateDiscussionUrlsAndDescriptions() throws SystemException, PortalException {
+        for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
+            DiscussionCategoryGroup categoryGroup = 
+                DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(basePlan.getCategoryGroupId());
+            
+            categoryGroup.setDescription(basePlan.getName() + " discussion");
+            categoryGroup.setUrl("/web/guest/plans#plans=planId:" + basePlan.getPlanId() + ",tab:discussion");
+            categoryGroup.store();
+        }
+        _log.info("Update successful");
+        FacesMessage fm = new FacesMessage();
+        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+        fm.setSummary("Update successful");
+
+        FacesContext.getCurrentInstance().addMessage(null, fm);
+        return null;
     }
 }

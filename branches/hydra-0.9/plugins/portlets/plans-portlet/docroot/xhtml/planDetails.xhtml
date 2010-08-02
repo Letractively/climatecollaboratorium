@@ -60,32 +60,32 @@
                 <div class="content">
                     <ice:form>
                         <ice:panelTabSet styleClass="mainTabs" columnClasses="description,assumptions,models,actionsImpacts,discussion,team" selectedIndex="#{planBean.selectedTab}">
-                            <ice:panelTab label="Description" onclick="Collab.nav.navigateAddParams('plans', {tab: 0}); return;">
+                            <ice:panelTab label="Description" onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/description.xhtml" />
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Positions" onclick="Collab.nav.navigateAddParams('plans', {tab: 1}); return;">
+                            <ice:panelTab label="Positions" onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/assumptions.xhtml" />
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Models" onclick="Collab.nav.navigateAddParams('plans', {tab: 2}); return;">
+                            <ice:panelTab label="Models" onclick="Collab.nav.navigateAddParams('plans', {tab: 'models'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/models.xhtml" />
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Actions &amp; Impacts" styleClass="actionsImpacts" onclick="Collab.nav.navigateAddParams('plans', {tab: 3}); return;">
+                            <ice:panelTab label="Actions &amp; Impacts" styleClass="actionsImpacts" onclick="Collab.nav.navigateAddParams('plans', {tab: 'actionsimpacts'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/actionsImpacts.xhtml" />
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Discussion" onclick="Collab.nav.navigateAddParams('plans', {tab: 4}); return;">
+                            <ice:panelTab label="Discussion" onclick="Collab.nav.navigateAddParams('plans', {tab: 'discussion'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/discussion.xhtml" />
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Team" onclick="Collab.nav.navigateAddParams('plans', {tab: 5}); return;">
+                            <ice:panelTab label="Team" onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/team.xhtml" />
                                 </f:subview>

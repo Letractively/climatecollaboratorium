@@ -288,5 +288,9 @@ public class PlanItemWrapper {
     public Long getCategoryGroupId() throws SystemException {
         return wrapped.getCategoryGroupId();
     }
+    
+    public Long getGroupId() throws SystemException {
+        return wrapped.getPlanGroupId();
+    }
 
 }
