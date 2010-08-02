@@ -176,7 +176,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="portal" />
-    <orderEntry type="module" module-name="ext_idea copy" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -195,10 +194,11 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="ext" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../ext_idea copy/ext-impl/ext-impl.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../ext/ext-lib/global/mit_collaboratorium_modeling_client_jar.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

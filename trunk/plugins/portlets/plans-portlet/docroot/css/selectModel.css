@@ -1,0 +1,111 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+
+.plan-model div.intro {
+    padding: 10px;
+    margin-top:10px;
+    font-size: 16px;
+
+}
+
+.plan-model .model-selection-info .buttons {
+    float:right;
+    margin-top:-5px;
+
+}
+
+.plan-model div.model-selection-info {
+    padding:15px;
+    margin-top:20px;
+    background: #DFDFDF;
+}
+
+.plan-model .model-selection-info-header-title {
+    font-size:16px;
+    font-weight: bold;
+
+}
+
+.plan-model .model-selection-info-header {
+   padding-bottom:8px; 
+}
+
+.plan-model div.model-selection-info div.detail {
+    padding: 5px;
+    background: #FFFFFF;
+}
+
+
+/*Dialog*/
+
+.selectModelPopup .listbox {
+    height:150px;
+}
+
+.selectModelPopup .icePnlBrdrCenter {
+    width:310px;
+}
+
+.selectModelPopup .icePnlPopHdr {
+    background-image: none;
+    background-color: #B0B0B0;
+    font-size: 16px;
+    padding-left:9px;
+    
+}
+
+.selectModelPopup {
+   padding:4px; 
+}
+
+.selectModelPopup.ui-dialog {
+    background-image:none;
+    border:medium solid #B0B0B0;
+    background:#DFDFDF;
+}
+
+.selectModelPopup .ui-dialog-titlebar {
+    margin:4px;
+    background: #C0C0C0;
+    border:none;
+
+}
+
+.selectModelPopup .ui-dialog-titlebar-close {
+    display: none;
+}
+
+.selectModelPopup .icePnlBrdrSouth {
+    background-color: transparent;
+}
+
+.selectModelPopup .icePnlBrdrWest {
+    padding: 5px;
+}
+
+.model-download-link a {
+    color:#336699;
+}
+
+.selectModelPopup .dialog-buttons {
+    float:right;
+}
+
+.selectModelPopup select.availableModels {
+    height:150px;
+    
+}
+
+.selectModelPopup .ui-dialog-title {
+    margin: .25em 16px 0.2em 1em;
+    color: #303030;
+}
+
+
+
+
+
