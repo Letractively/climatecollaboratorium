@@ -12,6 +12,7 @@ import com.ext.portlet.plans.service.PlanTypeColumnLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.model.impl.ClientSimulation;
 
 
 public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
@@ -19,12 +20,12 @@ public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
     }
 
     public List<Simulation> getAvailableModels() throws SystemException {
-           if (this.getModelId()!=null) {
-                return Collections.singletonList(CollaboratoriumModelingService.repository().getSimulation(this.getModelId()));
-           } else if (this.getModelTypeName()!=null) {
-               return new ArrayList<Simulation>(CollaboratoriumModelingService.repository().getSimulationsOfType(this.getModelTypeName()));
 
-           } else return Collections.emptyList();
+        if (this.getModelTypeName()!=null) {
+               return new ArrayList<Simulation>(CollaboratoriumModelingService.repository().getSimulationsOfType(this.getModelTypeName()));
+        } else if (this.getModelId()>0) {
+                return Collections.singletonList(CollaboratoriumModelingService.repository().getSimulation(this.getModelId()));
+        } else return Collections.emptyList();
        }
 
     
