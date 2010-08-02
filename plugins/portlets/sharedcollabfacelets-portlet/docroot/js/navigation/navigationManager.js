@@ -10,6 +10,7 @@ Collab = window.collab;
 
 Collab.nav = new function() {
 	var navigationItems = {};
+	var req = 0;
 	
 	this.navigate = function(token, parameters) {
 		navigationItems[token] = parameters;
@@ -48,6 +49,10 @@ Collab.nav = new function() {
 	}
 		
 	function updateHash() {
+		//alert(req);
+		//navigationItems["req"] = req++;
+		//alert(navigationItems.req);
+		navigationItems['req'] = {req: req++};
 		window.location.hash = createToken();
 	}
 	

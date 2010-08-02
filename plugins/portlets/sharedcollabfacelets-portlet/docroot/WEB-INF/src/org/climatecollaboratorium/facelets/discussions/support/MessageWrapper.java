@@ -8,16 +8,18 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
+import org.climatecollaboratorium.facelets.discussions.activity.DiscussionActivityKeys;
 import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
 import org.climatecollaboratorium.utils.HumanTime;
 
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
 import com.ext.portlet.discussions.model.DiscussionMessage;
-import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 
@@ -33,6 +35,7 @@ public class MessageWrapper {
     private DiscussionBean discussionBean;
     private boolean editing;
     private String filteredDescription;
+    private boolean goTo;
     
     public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category) {
         this.category = category;
@@ -52,6 +55,7 @@ public class MessageWrapper {
     
     public MessageWrapper(MessageWrapper thread) {
         this.thread = thread;
+        this.discussionBean = thread.discussionBean;
     }
     
     public Long getId() {
@@ -102,28 +106,37 @@ public class MessageWrapper {
         return wrapped.getThreadMessagesCount();
     }
     
-    public void save(ActionEvent e) throws SystemException {
-        if (Helper.isUserLoggedIn()) {
+    public void save(ActionEvent e) throws SystemException, PortalException {
+        if (discussionBean.getPermissions().getCanAddThread()) {
             category = discussionBean.getCategoryById(categoryId);
             wrapped = category.getWrapped().addThread(title, description, Helper.getLiferayUser());
             category.threadAdded(this);
             newMessage = new MessageWrapper(this);
             filteredDescription = ContentFilterHelper.filterContent(description);
             Helper.sendInfoMessage("Message \"" + title + "\" has been added.");
+            goTo = true;
+            ThemeDisplay td = Helper.getThemeDisplay();
+
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    DiscussionMessage.class.getName(), wrapped.getMessageId(), DiscussionActivityKeys.ADD_DISCUSSION.id(),null, 0);
         }
     }
     
-    public void addMessageToThread(ActionEvent e) throws SystemException, NoSuchDiscussionCategoryException {
-        if (Helper.isUserLoggedIn()) {
+    public void addMessageToThread(ActionEvent e) throws SystemException, PortalException {
+        if (discussionBean.getPermissions().getCanAddMessage()) {
             wrapped = thread.getWrapped().addThreadMessage(title, description, Helper.getLiferayUser());
             thread.addMessage(this);
             filteredDescription = ContentFilterHelper.filterContent(description);
             Helper.sendInfoMessage("Message \"" + title + "\" has been added.");
+
+            ThemeDisplay td = Helper.getThemeDisplay();
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    DiscussionMessage.class.getName(), wrapped.getMessageId(), DiscussionActivityKeys.ADD_COMMENT.id(),null, 0);
         }
     }
     
     public void updateMessage(ActionEvent e) throws SystemException {
-        if (Helper.isUserLoggedIn()) {
+        if (discussionBean.getPermissions().getCanAdminMessages()) {
             wrapped.update(title, description);
             filteredDescription = ContentFilterHelper.filterContent(description);
             editing = false;
@@ -176,7 +189,7 @@ public class MessageWrapper {
     }
     
     public void delete(ActionEvent e) throws SystemException {
-        if (Helper.isUserLoggedIn()) {
+        if (discussionBean.getPermissions().getCanAdminMessages()) {
             wrapped.delete();
             if (thread != null) {
                 // this is a message within a thread
@@ -205,5 +218,13 @@ public class MessageWrapper {
     
     public Long getThreadId() {
         return wrapped.getThreadId() != null ? wrapped.getThreadId() : wrapped.getMessageId();
+    }
+
+    public void setGoTo(boolean goTo) {
+        this.goTo = goTo;
+    }
+
+    public boolean isGoTo() {
+        return goTo;
     }
 }

@@ -24,14 +24,21 @@
             <div class="meta">
                 <div class="floatLeft">
                     Started by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.author.userId}">#{thread.author.screenName}</a> 
-                    :: Responses &amp;nbsp;<strong>#{thread.threadMessagesCount}</strong>
+                    :: Comments &amp;nbsp;<strong>#{thread.threadMessagesCount}</strong>
                 </div>
+
                 <ice:panelGroup styleClass="floatRight" rendered="#{thread.threadMessagesCount > 0}"> 
                     
                     Last response by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.lastActivityAuthor.userId}">#{thread.lastActivityAuthor.screenName}</a>  
                     :: Last active &amp;nbsp;<strong>#{thread.lastActivityDate} ago</strong>
                 </ice:panelGroup>
-                <div class="clear"></div>
+                <div class="clear"></div>       
+                         
+                <ice:panelGroup rendered="#{showCategory}">
+                    Category:&amp;nbsp; 
+                    <a href="javascript:;" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY' categoryId: #{thread.category.id}})">#{thread.category.title}</a>
+                </ice:panelGroup>
+                
             </div>            
         </div>
     </ice:panelSeries>

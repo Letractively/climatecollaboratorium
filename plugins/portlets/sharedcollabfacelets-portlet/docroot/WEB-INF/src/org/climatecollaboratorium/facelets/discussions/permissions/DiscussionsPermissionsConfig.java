@@ -1,6 +1,7 @@
 package org.climatecollaboratorium.facelets.discussions.permissions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -16,11 +17,14 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.Permission;
 import com.liferay.portal.model.Resource;
+import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.service.PermissionLocalServiceUtil;
 import com.liferay.portal.service.ResourceLocalServiceUtil;
+import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
+import com.liferay.portal.service.ResourcePermissionServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -30,23 +34,28 @@ import com.liferay.portal.service.permission.UserPermissionUtil;
 
 public class DiscussionsPermissionsConfig {
     private static final String RESOURCE_NAME = DiscussionCategoryGroup.class.getName();
-    private static final int RESOURCE_SCOPE = 1;
     private static final Long companyId = Helper.getThemeDisplay().getCompanyId();
     private Resource resource = null;
     private String primKey;
     private List<PermissionItem> permissionItems;
+    private int scope = ResourceConstants.SCOPE_GROUP;
+    private Long groupId;
+    private DiscussionBean discussionBean;
 
     private static Log _log = LogFactoryUtil.getLog(DiscussionsPermissionsConfig.class);
     
     public DiscussionsPermissionsConfig(DiscussionBean discussionBean) throws SystemException {
         // check if resource has been added, if not, add it
-        primKey = discussionBean.getDiscussion().getId().toString();
+        groupId = discussionBean.getOwningGroupId();
+        primKey = groupId.toString();
+        this.discussionBean = discussionBean;
+        
         try {
-            resource = ResourceLocalServiceUtil.getResource(companyId, RESOURCE_NAME, RESOURCE_SCOPE, primKey);
+            resource = ResourceLocalServiceUtil.getResource(companyId, RESOURCE_NAME, scope, primKey);
         }
         catch (Exception e) {
             _log.debug(e);
-            resource = ResourceLocalServiceUtil.addResource(companyId, RESOURCE_NAME, RESOURCE_SCOPE, primKey);
+            resource = ResourceLocalServiceUtil.addResource(companyId, RESOURCE_NAME, scope, primKey);
         }
         
     }
@@ -63,13 +72,12 @@ public class DiscussionsPermissionsConfig {
         }
         
         public String[] getActionIds() throws SystemException {
-            if (actionIds == null) {
-                List<Permission> permissions = PermissionLocalServiceUtil.getRolePermissions(role.getRoleId(), resource.getResourceId());
-                actionIds = new String[permissions.size()];
-                int i=0;
-                for (Permission perm: permissions) {
-                    actionIds[i++] = perm.getActionId();
-                }
+            Resource res = getResource();
+            List<Permission> permissions = PermissionLocalServiceUtil.getRolePermissions(role.getRoleId(), getResource().getResourceId());
+            actionIds = new String[permissions.size()];
+            int i=0;
+            for (Permission perm: permissions) {
+                actionIds[i++] = perm.getActionId();
             }
             return actionIds;
         }
@@ -79,13 +87,20 @@ public class DiscussionsPermissionsConfig {
         }
         
         public void updatePermissions() throws PortalException, SystemException {
-            PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), 
-                    companyId, 
-                    RESOURCE_NAME, 
-                    RESOURCE_SCOPE, 
-                    primKey, 
-                    actionIds
-            );
+            String[] newActionIds = actionIds;
+            String[] oldActionIds = getActionIds();
+            
+            Arrays.sort(newActionIds);
+            Arrays.sort(oldActionIds);
+            
+            // remove all actions that have been disabled
+            for (int i=0; i < oldActionIds.length; i++) {
+                if (Arrays.binarySearch(newActionIds, oldActionIds[i]) < 0) {
+                    PermissionLocalServiceUtil.unsetRolePermission(role.getRoleId(), companyId, RESOURCE_NAME, scope, primKey, oldActionIds[i]);
+                }
+            }
+            
+            PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, RESOURCE_NAME, scope, primKey(), newActionIds);
         }
     }
     
@@ -113,5 +128,20 @@ public class DiscussionsPermissionsConfig {
             item.updatePermissions();
         }
         Helper.sendInfoMessage("Permissions updated");
+    }
+    
+    private String primKey() {
+        return discussionBean.getOwningGroupId().toString();
+    }
+    
+    public Resource getResource() {
+        try {
+            return ResourceLocalServiceUtil.getResource(companyId, RESOURCE_NAME, scope, discussionBean.getOwningGroupId().toString());
+        } catch (PortalException e) {
+            _log.error(e);
+        } catch (SystemException e) {
+            _log.error(e);
+        }
+        return null;
     }
 }

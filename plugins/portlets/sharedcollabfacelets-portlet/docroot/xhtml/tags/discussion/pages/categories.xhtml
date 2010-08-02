@@ -10,8 +10,8 @@
         <ui:define name="discussion_breadcrumb">Categories</ui:define>
         
         <ui:define name="discussion_actions">
-            <ice:commandButton value="Add Category" actionListener="#{discussionBean.changePageType}">
-                <f:attribute name="pageType" value="CATEGORY_ADD" rendered="#{discussionBean.permissions.canAddCategory}" />
+            <ice:commandButton value="Add Category" actionListener="#{discussionBean.changePageType}" rendered="#{discussionBean.permissions.canAddCategory}" >
+                <f:attribute name="pageType" value="CATEGORY_ADD" />
             </ice:commandButton>
         </ui:define>
         
@@ -44,8 +44,8 @@
                     </div>
                     <div class="meta">
                     <div class="floatLeft">
-                        Started by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.lastActivityAuthor.userId}">#{thread.lastActivityAuthor.screenName}</a>
-                        :: Threads &amp;nbsp;<strong>#{category.threadsCount}</strong>
+                        Started by &amp;nbsp;<a href="/web/guest/members?userId=#{category.author.userId}">#{category.author.screenName}</a>
+                        :: Discussions &amp;nbsp;<strong>#{category.threadsCount}</strong>
                     </div>
                     
                     <ice:panelGroup styleClass="floatRight" rendered="#{category.threadsCount > 0}">

@@ -22,6 +22,7 @@ public class DiscussionsSupportTag extends TagHandler{
     private final TagAttribute discussionBeanParam;
     private final TagAttribute discussionIdParam;
     private final TagAttribute permissionsParam;
+    private final TagAttribute owningGroupIdParam;
     
     private static Log _log = LogFactoryUtil.getLog(DiscussionsSupportTag.class);
 
@@ -29,6 +30,7 @@ public class DiscussionsSupportTag extends TagHandler{
         super(config);
         discussionBeanParam = this.getRequiredAttribute("discussionBean");
         discussionIdParam = this.getRequiredAttribute("discussionId");
+        owningGroupIdParam = this.getAttribute("groupId");
         permissionsParam = this.getAttribute("permissions");
     }
 
@@ -38,9 +40,10 @@ public class DiscussionsSupportTag extends TagHandler{
 
         DiscussionBean discussionBean = (DiscussionBean) discussionBeanParam.getObject(ctx);
         Long discussionId = (Long) discussionIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
+        Long owningGroupId = owningGroupIdParam == null ? null : (Long) owningGroupIdParam.getObject(ctx, Long.class);
         DiscussionsPermissions permissions = permissionsParam == null ? null : (DiscussionsPermissions) permissionsParam.getObject(ctx, DiscussionsPermissions.class);
         try {
-            if (discussionBean.init(discussionId, permissions)) {
+            if (discussionBean.init(discussionId, owningGroupId, permissions)) {
                 // initialization succeded
                 nextHandler.apply(ctx, parent);
             }

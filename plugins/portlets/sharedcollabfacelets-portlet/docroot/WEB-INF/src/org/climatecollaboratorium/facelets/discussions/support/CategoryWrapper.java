@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
+import org.climatecollaboratorium.facelets.discussions.activity.DiscussionActivityKeys;
 import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
 import org.climatecollaboratorium.utils.HumanTime;
@@ -16,6 +17,8 @@ import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 public class CategoryWrapper {
     private User author;
@@ -25,7 +28,9 @@ public class CategoryWrapper {
     private DiscussionCategory wrapped;
     private boolean editing;
     private String filteredDescription;
-    
+    private boolean goTo;
+
+
     private List<MessageWrapper> threads = new ArrayList<MessageWrapper>();
     
     public CategoryWrapper(DiscussionCategory category, DiscussionBean discussionBean) throws SystemException {
@@ -85,11 +90,17 @@ public class CategoryWrapper {
         return null;
     }
     
-    public void save(ActionEvent e) throws SystemException {
-        if (Helper.isUserLoggedIn()) {
+    public void save(ActionEvent e) throws SystemException, PortalException {
+        if (discussionBean.getPermissions().getCanAddCategory()) {
             wrapped = discussionBean.getDiscussion().addCategory(title, description, Helper.getLiferayUser());
             discussionBean.categoryAdded(this);
             Helper.sendInfoMessage("Category \"" + title + "\" has been added.");
+            goTo = true;
+            
+
+            ThemeDisplay td = Helper.getThemeDisplay();
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    DiscussionMessage.class.getName(), wrapped.getCategoryId(), DiscussionActivityKeys.ADD_CATEGORY.id(),null, 0);
         }
     }
 
@@ -119,7 +130,7 @@ public class CategoryWrapper {
     }
     
     public void delete(ActionEvent e) throws SystemException {
-        if (Helper.isUserLoggedIn()) {
+        if (discussionBean.getPermissions().getCanAdminCategories()) {
             wrapped.delete();
             discussionBean.categoryDeleted(this);
             Helper.sendInfoMessage("Category \"" + wrapped.getName() + "\" has been deleted.");
@@ -142,7 +153,7 @@ public class CategoryWrapper {
     }
     
     public void update(ActionEvent e) throws SystemException {
-        if (Helper.isUserLoggedIn()) {
+        if (discussionBean.getPermissions().getCanAdmin()) {
             wrapped.update(title, description);
             editing = !editing;
         }        
@@ -156,4 +167,13 @@ public class CategoryWrapper {
         return filteredDescription;
     }
 
+    
+    public boolean isGoTo() {
+        return goTo;
+    }
+
+    public void setGoTo(boolean goTo) {
+        this.goTo = goTo;
+    }
+    
 }
