@@ -18,6 +18,7 @@ drop table if exists DiscussionCategoryGroup;
 create table DiscussionCategoryGroup (
 	id_ BIGINT not null primary key,
 	description VARCHAR(512) null
+	url VARCHAR(512) null
 );
 
 drop table if exists DiscussionMessage;

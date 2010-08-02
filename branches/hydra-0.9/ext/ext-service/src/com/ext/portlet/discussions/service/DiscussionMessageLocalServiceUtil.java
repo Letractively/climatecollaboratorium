@@ -136,6 +136,13 @@ public class DiscussionMessageLocalServiceUtil {
         return getService().search(query, categoryGroupId);
     }
 
+    public static com.ext.portlet.discussions.model.DiscussionMessage getMessageByMessageId(
+        java.lang.Long messageId)
+        throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
+            com.liferay.portal.SystemException {
+        return getService().getMessageByMessageId(messageId);
+    }
+
     public static DiscussionMessageLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

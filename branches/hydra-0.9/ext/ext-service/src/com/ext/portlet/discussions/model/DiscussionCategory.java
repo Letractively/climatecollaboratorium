@@ -49,4 +49,8 @@ public interface DiscussionCategory extends DiscussionCategoryModel {
 
     public void update(java.lang.String name, java.lang.String description)
         throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionCategoryGroup getCategoryGroup()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

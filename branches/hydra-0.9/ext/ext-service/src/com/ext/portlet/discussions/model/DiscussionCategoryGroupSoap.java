@@ -27,6 +27,7 @@ import java.util.List;
 public class DiscussionCategoryGroupSoap implements Serializable {
     private Long _id;
     private String _description;
+    private String _url;
 
     public DiscussionCategoryGroupSoap() {
     }
@@ -37,6 +38,7 @@ public class DiscussionCategoryGroupSoap implements Serializable {
 
         soapModel.setId(model.getId());
         soapModel.setDescription(model.getDescription());
+        soapModel.setUrl(model.getUrl());
 
         return soapModel;
     }
@@ -102,5 +104,13 @@ public class DiscussionCategoryGroupSoap implements Serializable {
 
     public void setDescription(String description) {
         _description = description;
+    }
+
+    public String getUrl() {
+        return _url;
+    }
+
+    public void setUrl(String url) {
+        _url = url;
     }
 }

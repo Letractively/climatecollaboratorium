@@ -34,6 +34,7 @@ public class DiscussionCategoryGroupJSONSerializer {
 
         jsonObj.put("id", model.getId());
         jsonObj.put("description", model.getDescription());
+        jsonObj.put("url", model.getUrl());
 
         return jsonObj;
     }

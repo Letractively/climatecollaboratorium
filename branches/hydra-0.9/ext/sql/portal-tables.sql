@@ -438,7 +438,8 @@ create table DiscussionCategory (
 
 create table DiscussionCategoryGroup (
 	id_ LONG not null primary key,
-	description VARCHAR(75) null
+	description VARCHAR(75) null,
+	url VARCHAR(75) null
 );
 
 create table DiscussionMessage (
