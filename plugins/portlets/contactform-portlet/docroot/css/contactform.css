@@ -1,0 +1,56 @@
+.contactForm table {
+    width: 100%;
+}
+
+.contactForm .text {
+    width: 65%;
+}
+
+.contactForm .longtext {
+    width: 95%;
+    height: 200px;
+}
+
+.contactForm label {
+    font-size: 1.2em;
+}
+
+.contactFormPreferences table {
+	width: 100%;
+}
+
+.contactFormPreferences .labels {
+	width: 28%;
+	padding-right: 5px;1
+}
+
+.contactFormPreferences .inputs {
+	width: 50%;
+}
+
+.contactFormPreferences .inputs input {
+	width: 100%;
+}
+
+.contactFormPreferences .inputs textarea {
+    width: 100%;
+    height: 100px;
+}
+
+.contactFormPreferences .messages {
+    width: 20%;
+}
+
+
+.contactFormPreferences .even td {
+	background: #ddd;
+}
+
+.contactFormPreferences .even td,
+.contactFormPreferences .odd td {
+	padding: 10px 0;
+}
+
+.contactFormPreferences {
+    width: 100%;
+}
