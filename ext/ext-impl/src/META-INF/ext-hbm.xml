@@ -197,6 +197,7 @@
 		<property name="votes" />
 		<property name="planGroupId" />
 		<property name="mbCategoryId" />
+		<property name="categoryGroupId" />
 		<property name="version" />
 		<property name="planVersion" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
@@ -600,5 +601,48 @@
 		<property name="userId" />
 		<property name="messageId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="visible" />
+	</class>
+	<class name="com.ext.portlet.discussions.model.impl.DiscussionCategoryGroupImpl" table="DiscussionCategoryGroup">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="url" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.discussions.model.impl.DiscussionCategoryImpl" table="DiscussionCategory">
+		<cache usage="read-write" />
+		<id name="pk" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="categoryId" />
+		<property name="categoryGroupId" />
+		<property name="authorId" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="deleted" type="org.hibernate.type.TimestampType" />
+		<property name="threadsCount" />
+		<property name="lastActivityDate" type="org.hibernate.type.TimestampType" />
+		<property name="lastActivityAuthorId" />
+	</class>
+	<class name="com.ext.portlet.discussions.model.impl.DiscussionMessageImpl" table="DiscussionMessage">
+		<cache usage="read-write" />
+		<id name="pk" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="messageId" />
+		<property name="subject" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="body" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="threadId" />
+		<property name="categoryId" />
+		<property name="categoryGroupId" />
+		<property name="authorId" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="version" />
+		<property name="deleted" type="org.hibernate.type.TimestampType" />
+		<property name="responsesCount" />
+		<property name="lastActivityDate" type="org.hibernate.type.TimestampType" />
+		<property name="lastActivityAuthorId" />
 	</class>
 </hibernate-mapping>

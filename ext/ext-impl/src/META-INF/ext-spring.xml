@@ -996,4 +996,58 @@
 	<bean id="com.ext.inlinehelp.service.persistence.HelpUserSettingUtil" class="com.ext.inlinehelp.service.persistence.HelpUserSettingUtil">
 		<property name="persistence" ref="com.ext.inlinehelp.service.persistence.HelpUserSettingPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionCategoryGroupLocalServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil" class="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionCategoryGroupServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupServiceUtil" class="com.ext.portlet.discussions.service.DiscussionCategoryGroupServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupPersistence.impl" class="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupUtil" class="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupUtil">
+		<property name="persistence" ref="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryLocalService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionCategoryLocalServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil" class="com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionCategoryServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryServiceUtil" class="com.ext.portlet.discussions.service.DiscussionCategoryServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionCategoryPersistence.impl" class="com.ext.portlet.discussions.service.persistence.DiscussionCategoryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionCategoryUtil" class="com.ext.portlet.discussions.service.persistence.DiscussionCategoryUtil">
+		<property name="persistence" ref="com.ext.portlet.discussions.service.persistence.DiscussionCategoryPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageLocalService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionMessageLocalServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionMessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil" class="com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionMessageServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageServiceUtil" class="com.ext.portlet.discussions.service.DiscussionMessageServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence.impl" class="com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionMessageUtil" class="com.ext.portlet.discussions.service.persistence.DiscussionMessageUtil">
+		<property name="persistence" ref="com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence.impl" />
+	</bean>
 </beans>
