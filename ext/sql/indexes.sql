@@ -409,6 +409,9 @@ create index IX_B607C303 on PlanColumnSettings (planUserSettingsId, columnName);
 
 create index IX_DAB9791 on PlanDescription (planId);
 
+create index IX_B7B214E8 on PlanFan (planId);
+create index IX_386F548A on PlanFan (userId);
+
 create index IX_971BCD5A on PlanItem (planId);
 
 create index IX_9D95E1CC on PlanMeta (planId);

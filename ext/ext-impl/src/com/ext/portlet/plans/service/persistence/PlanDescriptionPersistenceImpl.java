@@ -107,6 +107,8 @@ public class PlanDescriptionPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanPositionsPersistence planPositionsPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence planPositionItemPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanFanPersistence planFanPersistence;
 
     public void cacheResult(PlanDescription planDescription) {
         EntityCacheUtil.putResult(PlanDescriptionModelImpl.ENTITY_CACHE_ENABLED,
