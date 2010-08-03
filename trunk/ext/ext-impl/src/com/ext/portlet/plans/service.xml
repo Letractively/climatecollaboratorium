@@ -393,6 +393,24 @@
             <finder-column name="planPositionsId" />
         </finder>
     </entity>
+    
+    <entity name="PlanFan" local-service="true">
+        <!-- PK field -->
+        <column name="id" type="Long" primary="true" />
+        <column name="userId" type="Long" />
+        <column name="planId" type="Long" />
+        <column name="created" type="Date" />
+        <column name="deleted" type="Date" />
+        
+        <finder name="PlanId" return-type="Collection" where="deleted is null">
+            <finder-column name="planId" />
+        </finder>
+        
+        <finder name="UserId" return-type="Collection" where="deleted is null">
+            <finder-column name="userId" />
+        </finder>
+    
+    </entity>
 
 	<exceptions>
 		<exception>PlanName</exception>
