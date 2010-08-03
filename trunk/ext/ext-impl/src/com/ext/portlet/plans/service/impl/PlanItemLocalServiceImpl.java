@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Random;
 
 import com.ext.portlet.debaterevision.model.DebateItem;
+import com.ext.portlet.discussions.model.DiscussionCategory;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
+import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.PlanLocalServiceHelper;
@@ -267,8 +270,13 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
                 GroupConstants.TYPE_COMMUNITY_RESTRICTED, null, true, groupServiceContext);
 
         Long parentCategoryId = 0L;
+        DiscussionCategoryGroup categoryGroup = 
+            DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + plan.getPlanId());
+        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil.getUser(plan.getAuthorId()));
+        
 
         // create new category in group's forum
+        /*
         categoryServiceContext.setCommunityPermissions(DEFAULT_CATEGORY_COMMUNITY_PERMISSIONS);
         categoryServiceContext.setGuestPermissions(DEFAULT_CATEGORY_GUEST_PERMISSIONS);
         categoryServiceContext.setScopeGroupId(group.getGroupId());
@@ -276,11 +284,12 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         MBCategory category = MBCategoryServiceUtil.addCategory(parentCategoryId, DEFAULT_FORUM_CATEGORY_NAME,
                 String.format(DEFAULT_FORUM_CATEGORY_DESCRIPTION, plan.getName()), null, null, null, 0, false, null,
                 null, 0, null, false, null, 0, false, null, null, false, categoryServiceContext);
-
+         */
+        
         // populate plan with id of created group, category
         PlanMeta planMeta = plan.getPlanMeta();
         
-        planMeta.setMbCategoryId(category.getCategoryId());
+        planMeta.setCategoryGroupId(categoryGroup.getId());
         planMeta.setPlanGroupId(group.getGroupId());
         planMeta.store();
     }

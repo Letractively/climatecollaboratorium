@@ -132,6 +132,17 @@ create index IX_4D6CD1CA on DebateItemVoteStats (debateItemId);
 
 create index IX_E06AFA6C on DebateMigrationItem (debateMigrationId, oldMBMessageId);
 
+create index IX_E333D520 on DiscussionCategory (categoryGroupId);
+create index IX_B33BF499 on DiscussionCategory (categoryId);
+
+create index IX_6AC8CFFB on DiscussionMessage (body);
+create index IX_8AEB7CB1 on DiscussionMessage (body, categoryGroupId);
+create index IX_B032DE0B on DiscussionMessage (categoryId, threadId);
+create index IX_F885CEED on DiscussionMessage (messageId);
+create index IX_66919857 on DiscussionMessage (subject);
+create index IX_3538F7D5 on DiscussionMessage (subject, categoryGroupId);
+create index IX_472CEADE on DiscussionMessage (threadId);
+
 create index IX_1BB072CA on EmailAddress (companyId);
 create index IX_49D2DEC4 on EmailAddress (companyId, classNameId);
 create index IX_551A519F on EmailAddress (companyId, classNameId, classPK);
