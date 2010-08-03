@@ -8,6 +8,8 @@ import com.ext.portlet.plans.service.PlanColumnSettingsLocalService;
 import com.ext.portlet.plans.service.PlanColumnSettingsService;
 import com.ext.portlet.plans.service.PlanDescriptionLocalService;
 import com.ext.portlet.plans.service.PlanDescriptionService;
+import com.ext.portlet.plans.service.PlanFanLocalService;
+import com.ext.portlet.plans.service.PlanFanService;
 import com.ext.portlet.plans.service.PlanItemLocalService;
 import com.ext.portlet.plans.service.PlanItemService;
 import com.ext.portlet.plans.service.PlanLocalService;
@@ -42,6 +44,7 @@ import com.ext.portlet.plans.service.persistence.PlanAttributeFilterPersistence;
 import com.ext.portlet.plans.service.persistence.PlanAttributePersistence;
 import com.ext.portlet.plans.service.persistence.PlanColumnSettingsPersistence;
 import com.ext.portlet.plans.service.persistence.PlanDescriptionPersistence;
+import com.ext.portlet.plans.service.persistence.PlanFanPersistence;
 import com.ext.portlet.plans.service.persistence.PlanItemFinder;
 import com.ext.portlet.plans.service.persistence.PlanItemPersistence;
 import com.ext.portlet.plans.service.persistence.PlanMetaPersistence;
@@ -183,6 +186,12 @@ public abstract class PlanVoteServiceBaseImpl extends PrincipalBean
     protected PlanPositionItemService planPositionItemService;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence.impl")
     protected PlanPositionItemPersistence planPositionItemPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanFanLocalService.impl")
+    protected PlanFanLocalService planFanLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanFanService.impl")
+    protected PlanFanService planFanService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl")
+    protected PlanFanPersistence planFanPersistence;
 
     public PlanLocalService getPlanLocalService() {
         return planLocalService;
@@ -689,6 +698,30 @@ public abstract class PlanVoteServiceBaseImpl extends PrincipalBean
     public void setPlanPositionItemPersistence(
         PlanPositionItemPersistence planPositionItemPersistence) {
         this.planPositionItemPersistence = planPositionItemPersistence;
+    }
+
+    public PlanFanLocalService getPlanFanLocalService() {
+        return planFanLocalService;
+    }
+
+    public void setPlanFanLocalService(PlanFanLocalService planFanLocalService) {
+        this.planFanLocalService = planFanLocalService;
+    }
+
+    public PlanFanService getPlanFanService() {
+        return planFanService;
+    }
+
+    public void setPlanFanService(PlanFanService planFanService) {
+        this.planFanService = planFanService;
+    }
+
+    public PlanFanPersistence getPlanFanPersistence() {
+        return planFanPersistence;
+    }
+
+    public void setPlanFanPersistence(PlanFanPersistence planFanPersistence) {
+        this.planFanPersistence = planFanPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {
