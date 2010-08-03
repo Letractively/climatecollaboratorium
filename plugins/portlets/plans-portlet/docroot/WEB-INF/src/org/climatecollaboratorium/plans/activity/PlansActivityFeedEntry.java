@@ -12,7 +12,6 @@ package org.climatecollaboratorium.plans.activity;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.climatecollaboratorium.plans.Helper;
 
 import com.ext.portlet.community.CommunityUtil;
 import com.ext.portlet.plans.model.PlanItem;
@@ -108,7 +107,7 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 		String result = "&lt;plan removed&gt;";
 		try {
 			PlanItem p = PlanItemLocalServiceUtil.getPlan(activity.getClassPK());
-			result = String.format(hyperlink, Helper.getPlanURL(p),p.getName());
+			result = String.format(hyperlink, getPlanURL(p),p.getName());
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
 			_log.info(e.getMessage());
@@ -118,5 +117,11 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 		return result;
 		
 	}
+	
+
+    private String getPlanURL(PlanItem p) {
+        return "/web/guest/plans#planId=" + p.getPlanId();
+    }
+    
 
 }
