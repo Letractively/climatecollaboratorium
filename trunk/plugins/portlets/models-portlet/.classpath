@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Collaboratorium - Repo"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Collaboratorium - Repo"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
 	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/mit_collaboratorium_modeling_client_jar.jar"/>
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/json-lib.jar"/>
 	<classpathentry kind="output" path="bin"/>
