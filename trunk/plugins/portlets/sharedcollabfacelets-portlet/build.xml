@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<project name="Shared Collab Facelets Portlet" basedir="." default="create-shared-lib">
+	<import file="../build-common-portlet.xml" />
+	
+	
+	<property name="workdir" value="work" />
+	<property name="resourcesdir" value="${workdir}/resources" />
+	<property name="builddir" value="work/build" />
+	<property name="classesdir" value="docroot/WEB-INF/classes" />
+	<property name="csssrcdir" value="docroot/css" />
+    <property name="jssrcdir" value="docroot/js" />
+    <property name="xhtmlsrcdir" value="docroot/xhtml" />
+	<property name="docrootdir" value="docroot" />
+	<property name="jspackagedir" value="${builddir}/com/icesoft/faces/webapp/xmlhttp" />
+    <property name="csspackagedir" value="${builddir}/com/icesoft/faces/resources/css" />
+	<property name="sharedcollabfacelets.jar" value="${workdir}/shared_collab_facelets.jar" />
+
+	
+	<target name="create-shared-lib" depends="compile">
+		<!-- cleanup -->
+		<delete dir="${workdir}" />
+			
+		<!-- prepare directory structure -->
+		<mkdir dir="${workdir}" />
+        <mkdir dir="${builddir}" />
+		
+		<!-- copy classes -->
+		<copy todir="${builddir}" >
+		    <fileset dir="${classesdir}">
+		    	<include name="**/*.class" />
+			</fileset>
+	    </copy>
+		
+		<!-- copy JavaScript -->
+		<copy todir="${jspackagedir}" flatten="true">
+			<fileset dir="${jssrcdir}" />
+		</copy>
+		
+		<!-- copy CSS -->
+		<copy todir="${csspackagedir}">
+		    <fileset dir="${csssrcdir}" />
+		</copy>
+		
+		<copy todir="${builddir}">
+	        <fileset dir="${docrootdir}">
+	        	<include name="xhtml*" />
+                <include name="xhtml/**/*.*" />
+	        </fileset>
+		</copy>
+		
+		<copy todir="${resourcesdir}" flatten="true">
+		    <fileset dir="${docrootdir}">
+		        <include name="sharedCollabFacelets.taglib.xml" />
+                <include name="WEB-INF/faces-config.xml" />
+		    </fileset>
+		</copy>
+		
+		<replaceregexp match="&lt;source&gt;xhtml" replace="&lt;source&gt;/xhtml" flags="g" byline="true">
+		    <fileset dir="${resourcesdir}" />
+	    </replaceregexp>
+		
+	    <replaceregexp match="&lt;!--REMOVE_FROM_SHARED_LIB_BEGIN.*REMOVE_FROM_SHARED_LIB_END--&gt;" replace="" flags="sg">
+	        <fileset dir="${resourcesdir}" />
+	    </replaceregexp>
+		
+		<jar destfile="${sharedcollabfacelets.jar}" basedir="${builddir}">
+		    <metainf file="${resourcesdir}/*" />
+        </jar>
+
+	</target>
+	
+	
+</project>
