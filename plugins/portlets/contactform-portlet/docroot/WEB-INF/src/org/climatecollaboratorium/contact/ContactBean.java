@@ -78,6 +78,7 @@ public class ContactBean {
         
         
         MailEngine.send(addressFrom, addressTo, null, null, null, messageSubject, messageBody, false, replyTo, null, null);
+        toggleExpanded(e);
     }
     
     private String applyFilters(String msg) {
