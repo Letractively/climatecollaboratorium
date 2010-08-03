@@ -234,6 +234,16 @@
 			<key-property name="positionId" />
 		</composite-id>
 	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanFanImpl" table="PlanFan">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+		<property name="planId" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="deleted" type="org.hibernate.type.TimestampType" />
+	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelDiscussionImpl" table="ModelDiscussion">
 		<cache usage="read-write" />
 		<id name="modelDiscussionId" type="java.lang.Long">

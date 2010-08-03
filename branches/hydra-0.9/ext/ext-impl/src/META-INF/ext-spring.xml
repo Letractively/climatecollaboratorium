@@ -352,6 +352,24 @@
 	<bean id="com.ext.portlet.plans.service.persistence.PlanPositionItemUtil" class="com.ext.portlet.plans.service.persistence.PlanPositionItemUtil">
 		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanFanLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanFanLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanFanLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanFanLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanFanLocalServiceUtil" class="com.ext.portlet.plans.service.PlanFanLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanFanLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanFanService.impl" class="com.ext.portlet.plans.service.impl.PlanFanServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanFanService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanFanService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanFanServiceUtil" class="com.ext.portlet.plans.service.PlanFanServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanFanService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanFanPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanFanUtil" class="com.ext.portlet.plans.service.persistence.PlanFanUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl" />
+	</bean>
 	<bean id="com.ext.portlet.plans.PlanFinder.impl" class="com.ext.portlet.plans.PlanFinder" parent="basePersistence" />
 	<bean id="com.ext.portlet.models.service.ModelDiscussionLocalService.impl" class="com.ext.portlet.models.service.impl.ModelDiscussionLocalServiceImpl" />
 	<bean id="com.ext.portlet.models.service.ModelDiscussionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">

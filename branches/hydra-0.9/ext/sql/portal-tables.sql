@@ -1102,6 +1102,14 @@ create table PlanDescription (
 	updateAuthorId LONG
 );
 
+create table PlanFan (
+	id_ LONG not null primary key,
+	userId LONG,
+	planId LONG,
+	created DATE null,
+	deleted DATE null
+);
+
 create table PlanItem (
 	id_ LONG not null primary key,
 	planId LONG,
