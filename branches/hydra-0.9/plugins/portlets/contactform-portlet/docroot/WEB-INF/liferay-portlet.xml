@@ -1,13 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 5.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_5_2_0.dtd">
 
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>contactform</portlet-name>
-		<icon>/icon.png</icon>
 		<instanceable>true</instanceable>
-		<header-portlet-css>/css/test.css</header-portlet-css>
-		<footer-portlet-javascript>/js/test.js</footer-portlet-javascript>
+		<header-portlet-css>/css/contactform.css</header-portlet-css>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
