@@ -82,14 +82,14 @@
                                 </ice:commandSortHeader>
                                 </div>
                             </f:facet>
-                            <ice:outputLink value="#planId=#{singlePlan.planId}" rendered="#{column == 'NAME'}">
+                            <ice:outputLink value="#plans=planId:#{singlePlan.planId}" rendered="#{column == 'NAME'}" onclick="Collab.nav.navigate('plans', {planId: '#{singlePlan.planId}'})" >
                                 <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
                             </ice:outputLink>
                             <f:subview rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}">
                                 N/A
                             </f:subview>
                             <f:subview rendered="#{column == 'POSITIONS' and singlePlan.hasPositions}">
-                                <a href="javascript:;" class="showPositions" onclick="showPositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}')"/>
+                                <a href="javascript:;" class="showPositions" onclick="showPositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}');return;"/>
                                 <div class="hidden" id="plan_positions_#{singlePlan.planId}">
                                     <div class="positionsDialog">
                                         <div class="positionsDialog_top">

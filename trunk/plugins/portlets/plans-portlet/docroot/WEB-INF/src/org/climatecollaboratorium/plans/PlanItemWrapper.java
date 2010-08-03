@@ -316,5 +316,13 @@ public class PlanItemWrapper {
     public User getSimulationVersionAuthor() throws PortalException, SystemException {
         return planModelRunsById.get(currentPlanModelRunVersion).getUpdateAuthor();
     }
+    
+        public Long getCategoryGroupId() throws SystemException {
+        return wrapped.getCategoryGroupId();
+    }
+    
+    public Long getGroupId() throws SystemException {
+        return wrapped.getPlanGroupId();
+    }
 
 }

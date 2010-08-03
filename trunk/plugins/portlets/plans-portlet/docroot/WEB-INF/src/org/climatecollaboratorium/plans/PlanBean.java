@@ -1,57 +1,76 @@
 package org.climatecollaboratorium.plans;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
-
-import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.HandlerRegistration;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.faces.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlanBean {
     private PlanItemWrapper plan;
     private PlanItem planItem;
     private PlanPositionsBean planPositionsBean;
-    private PlanSimulationBean simulationBean;
-
+    private SimulationBean simulationBean;
+    private PlanModelBean modelBean;
     private boolean editingDescription;
     private boolean editingName;
     private CreatePlanBean createPlanBean;
     private PlanMembershipBean membershipBean;
     private PlansPermissionsBean permissions;
-
-    private PlanModelBean modelBean;
-
-    public List<SelectItem> test = new ArrayList<SelectItem>();
-
-    {
-        test.add(new SelectItem(1,"foo"));
-        test.add(new SelectItem(2,"bar"));
-        test.add(new SelectItem(3,"baz"));
+    private EventBus eventBus;
+    private HandlerRegistration scenarioSavedEventHandlerRegistration;
+    private static ThemeDisplay td = Helper.getThemeDisplay();
+    private int selectedTabIndex = 0;
+    private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
+    static {
+        tabNameIndexMap.put("description", 0);
+        tabNameIndexMap.put("positions", 1);
+        tabNameIndexMap.put("models", 2);
+        tabNameIndexMap.put("actionsimpacts", 3);
+        tabNameIndexMap.put("discussion", 4);
+        tabNameIndexMap.put("team", 5);
     }
 
-    public int selected = 1;
+    
+    private static Log _log = LogFactoryUtil.getLog(PlanBean.class);
     
     
-    public PlanBean(PlanItem planItem) throws SystemException, PortalException {
+    public PlanBean(final PlanItem planItem, EventBus eventBus, Map<String, String> parameters) throws SystemException, PortalException {
         this.planItem = planItem;
         this.permissions = new PlansPermissionsBean(planItem);
         planPositionsBean = new PlanPositionsBean(planItem, this);
         plan = new PlanItemWrapper(planItem, this, permissions);
-        simulationBean = new PlanSimulationBean(planItem, this);
+        simulationBean = new SimulationBean(planItem, this, eventBus);
         modelBean = new PlanModelBean(planItem, this);
+        this.eventBus = eventBus;
+        if (parameters.containsKey("tab")) {
+            try {
+                Integer tmp = tabNameIndexMap.get( parameters.get("tab") );
+                selectedTabIndex = tmp != null ? tmp : 0;
+            }
+            catch (NumberFormatException e) {
+                _log.error("Can't parse tab number: " + parameters.get("tab"), e);
+            }
+        }
     }
     
     public void refresh() throws SystemException, PortalException {
         planItem = PlanItemLocalServiceUtil.getPlan(planItem.getPlanId());
         planPositionsBean = new PlanPositionsBean(planItem, this);
         plan = new PlanItemWrapper(planItem, this, permissions);
-        simulationBean = new PlanSimulationBean(planItem, this);
+        if (simulationBean != null) {
+            simulationBean.cleanup();
+        }
+        simulationBean = new SimulationBean(planItem, this, eventBus);
         membershipBean = new PlanMembershipBean(planItem, this, permissions);
         modelBean = new PlanModelBean(planItem,this);
     }
@@ -90,7 +109,7 @@ public class PlanBean {
         return planPositionsBean;
     }
 
-    public PlanSimulationBean getSimulationBean() {
+    public SimulationBean getSimulationBean() {
         return simulationBean;
     }
 
@@ -123,18 +142,17 @@ public class PlanBean {
         }
         return membershipBean;
     }
-
-    public List<SelectItem> getAvailable() {
-        return test;
-    }
-
-    public int getSelected() {
-        return selected;
-    }
-
-    public void setSelected(int sel) {
-        selected = sel;
+    
+    public void cleanup() {
+        simulationBean.cleanup();
     }
     
+    public int getSelectedTab() {
+        return selectedTabIndex;
+    }
+    
+    public void setSelectedTab(int selectedTab) {
+        selectedTabIndex = selectedTab;
+    }
 
 }
