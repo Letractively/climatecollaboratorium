@@ -47,9 +47,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="ext" />
     <orderEntry type="module" module-name="portal" />
-    <orderEntry type="library" name="Tomcat 6" level="application_server_libraries" />
+    <orderEntry type="library" name="Plain Tomcat" level="application_server_libraries" />
   </component>
 </module>
 

@@ -3,7 +3,7 @@
  * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
  * or the license.txt file included in this distribution for the full text of the license.
  */
-//setTimeout(function() { log.toggle(); }, 1000);
+setTimeout(function() { log.toggle(); }, 1000);
 
 try {
 Ice.onSendReceive("mainContent",function() {}, function() {
@@ -145,17 +145,18 @@ function showSliders() {
 		showLoadingScreen();
 		// get data for all model inputs
 		var values = new Object();
-
+        var vstring = "";
 		jQuery(".sliderDef").each(function() {
 			try {
 			var id = jQuery(this).find('.id').val();
 			var val = jQuery(this).find('.value').val();
 			var unit = jQuery(this).find('.unit').val();
+            vstring+=id+":"+val+":"+unit+" --- ";
 			values[id] = parseFieldValue(val, unit);
 			} catch (e) { log.error(e) }
 		});
 		
-		
+		log.info(vstring);
 		icefacesEventManager.sendEventToTheBackend("modelRun", values);
 	});
 	}

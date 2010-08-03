@@ -145,7 +145,7 @@ public class MigrationHelper {
         DebateItemType type = resolveType(item);
         System.err.println("Migrating child");
 
-        DebateItem nitem = nparent.addChild(item.getSubject(),item.getBody(),item.getUserId(),type.name(), Collections.<DebateItemReference>emptyList());
+        DebateItem nitem = nparent.addChild(item.getSubject(),item.getBody(),item.getUserId(),type.name(), Collections.<DebateItemReference>emptyList(),1L);
         nitem.setUpdated(item.getModifiedDate());
         if (type == DebateItemType.POSITION) {
            List<RatingsEntry> entries = RatingsEntryLocalServiceUtil.getEntries(MBMessage.class.getName(),item.getMessageId());
