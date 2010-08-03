@@ -1,10 +1,18 @@
 package org.climatecollaboratorium.plans;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
+import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.navigation.NavigationEvent;
 
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
@@ -19,6 +27,9 @@ public class NavigationBean {
     private PlanBean planBean; 
     private PlansIndexBean plansIndex;
     private static String PORTLET_ID;
+    private EventBus eventBus;
+    private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
+    private Map<String, String> navigationParameters = new HashMap<String, String>();
     
     public PlansIndexBean getPlansIndex() {
         return plansIndex;
@@ -57,12 +68,15 @@ public class NavigationBean {
     private void updateView() {
         try {
             PlanItem plan = null;
-            if (planId > 0) {
+            if (planId != null && planId > 0) {
                 plan = PlanItemLocalServiceUtil.getPlan(planId);
             }
             
             if (plan != null) {
-                planBean = new PlanBean(plan);
+                if (planBean != null) {
+                    planBean.cleanup();
+                }
+                planBean = new PlanBean(plan, eventBus, navigationParameters);
                 return;
             }
         } 
@@ -112,6 +126,46 @@ public class NavigationBean {
     
     public void update(ActionEvent e) {
         updateView();
+    }
+
+
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        bindEvents();
+    }
+
+
+    public EventBus getEventBus() {
+        return eventBus;
+    }
+    
+    private void bindEvents() {
+        // unregister old handlers
+        for (HandlerRegistration registration: handlerRegistrations) {
+            registration.unregister();
+        }
+        handlerRegistrations.clear();
+        
+        handlerRegistrations.add(eventBus.registerHandler(NavigationEvent.class, new EventHandler<NavigationEvent>() {
+
+            @Override
+            public void onEvent(NavigationEvent event) {
+                // check if event 
+                if (event.getSource().equals("plans")) {
+                    navigationParameters = event.getParameters();
+                    String planIdStr = event.getParameters().get("planId");
+                    try {
+                        planId = planIdStr == null ? null : Long.parseLong(planIdStr);
+                    }
+                    catch (NumberFormatException e) {
+                        _log.error("can't parse planIdStr: " + planIdStr, e);
+                    }
+                    updateView();
+                }
+                
+            }
+            
+        }));
     }
 
 }
