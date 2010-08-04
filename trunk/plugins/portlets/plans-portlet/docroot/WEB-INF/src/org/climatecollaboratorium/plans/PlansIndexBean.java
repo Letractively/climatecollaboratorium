@@ -1,9 +1,26 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.plans.NoSuchPlanVoteException;
+import com.ext.portlet.plans.PlanConstants.Attribute;
+import com.ext.portlet.plans.PlanConstants.Columns;
+import com.ext.portlet.plans.PlanConstants;
+import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.model.PlanVote;
+import com.ext.portlet.plans.model.PlansUserSettings;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
+import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
+
+import com.icesoft.faces.component.datapaginator.DataPaginator;
+
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -13,30 +30,10 @@ import javax.faces.model.DataModel;
 import org.climatecollaboratorium.plans.utils.DataPage;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 
-import com.ext.portlet.debaterevision.model.Debate;
-import com.ext.portlet.plans.NoSuchPlanVoteException;
-import com.ext.portlet.plans.PlanConstants;
-import com.ext.portlet.plans.PlanLocalServiceHelper;
-import com.ext.portlet.plans.PlanConstants.Attribute;
-import com.ext.portlet.plans.PlanConstants.Columns;
-import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.model.PlanType;
-import com.ext.portlet.plans.model.PlanVote;
-import com.ext.portlet.plans.model.PlansUserSettings;
-import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
-import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
-import com.icesoft.faces.component.datapaginator.DataPaginator;
-import com.icesoft.faces.component.datapaginator.PaginatorActionEvent;
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
-
 public class PlansIndexBean {
 
     private List<Columns> columns;
-    
+
     private String sortColumn = "NAME";
     private boolean sortAscending = true;
     private boolean updatePlansList = true;
@@ -57,7 +54,6 @@ public class PlansIndexBean {
 
     private boolean findUserVote;
     private boolean updateErrorNotes;
-    
 
     private List<PlanItem> notFilteredPlans;
     private List<PlanIndexItemWrapper> plans = new ArrayList<PlanIndexItemWrapper>();
@@ -65,7 +61,7 @@ public class PlansIndexBean {
     private DataPaginator dataPaginator;
     private List<Debate> availableDebates;
     private static final String PLAN_TYPE_SESSION_PARAM = "PLAN_TYPE_SESSION_PARAM";
-    
+
     public PlansIndexBean() throws SystemException, PortalException {
         // we should start from "published" plans tab
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
@@ -76,7 +72,7 @@ public class PlansIndexBean {
             planType = PlanTypeLocalServiceUtil.getPlanType(PlanTypeLocalServiceUtil.getDefaultPlanType().getPublishedCounterpartId());
             ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
         }
-        
+
         dataPaginator = new DataPaginator();
         refresh();
         sortColumn = PlanConstants.Attribute.VOTES.name();
@@ -103,20 +99,18 @@ public class PlansIndexBean {
         }
         return plans;
     }
-    
+
     public List<Columns> getColumns() {
         return columns;
     }
-    
 
-    public DataPaginator getDataPaginator() { 
-        return dataPaginator; 
+    public DataPaginator getDataPaginator() {
+        return dataPaginator;
     }
-    public void setDataPaginator(DataPaginator dataPaginator) { 
-        this.dataPaginator = dataPaginator; 
+    public void setDataPaginator(DataPaginator dataPaginator) {
+        this.dataPaginator = dataPaginator;
     }
 
-    
 
     public String getSortColumn() {
         return sortColumn;
@@ -135,20 +129,19 @@ public class PlansIndexBean {
         this.sortAscending = sortAscending;
         updatePlansList = true;
     }
-    
 
 
     /**
      * Bound to DataTable value in the ui.
      */
     public DataModel getData() {
-        
-        if(plansDataModel == null){
+
+        if (plansDataModel == null){
             plansDataModel = new LocalDataModel(pageSize);
         }
         return plansDataModel;
     }
-    
+
     public void filtersUpdate() {
         updatePlansList = true;
         //plansDataModel.setDirtyData();
@@ -157,20 +150,19 @@ public class PlansIndexBean {
     /**
      * This is where the Customer data is retrieved from the database and
      * returned as a list of CustomerBean objects for display in the UI.
-     * @throws SystemException 
-     * @throws PortalException 
+     * @throws SystemException
+     * @throws PortalException
      */
     private DataPage getDataPage(int startRow, int pageSize) throws PortalException, SystemException {
-        
+
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         // this is bad! FIXME
-        
+
         int endIndex = startRow + pageSize;
         // Calculate indices to be displayed in the ui.
-        
-        
+
         plans.clear();
-        
+
         Columns sortCol = Columns.valueOf(sortColumn);
 /*
         String sortAttribute = Attribute.NAME.name();
@@ -218,14 +210,14 @@ public class PlansIndexBean {
     public PlanType getPlanType() {
         return planType;
     }
-    
+
     public ConfigureColumnsBean getColumnsConfiguration() throws SystemException, PortalException {
         if (columnsConfiguration == null) {
             columnsConfiguration = new ConfigureColumnsBean(this);
         }
         return columnsConfiguration;
     }
-    
+
     public FilterPlansBean getFilterPlansBean() throws PortalException, SystemException {
         if (filterPlansBean == null) {
             filterPlansBean = new FilterPlansBean(this);
@@ -244,7 +236,7 @@ public class PlansIndexBean {
         }
         updatePlansList = true;
     }
-    
+
     public void usePublishedPlans(ActionEvent e) throws PortalException, SystemException {
         if (!planType.getPublished()) {
             planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
@@ -253,17 +245,17 @@ public class PlansIndexBean {
 
             sortColumn = Attribute.VOTES.name();
             sortAscending = false;
-            
+
             refresh();
         }
     }
-    
+
     public void useUnPublishedPlans(ActionEvent e) throws PortalException, SystemException {
         if (planType.getPublished()) {
             planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
             ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
             ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
-            
+
             sortColumn = Attribute.NAME.name();
             sortAscending = true;
             refresh();
@@ -277,20 +269,20 @@ public class PlansIndexBean {
         columnsUpdate();
         getPlans();
     }
-    
+
     public int getVotesCount() throws SystemException {
         return PlanVoteLocalServiceUtil.getPlanVotesCount();
     }
-    
+
     public int getPlansCount() {
         return notFilteredPlans.size();
     }
-    
+
     public void findUserVote(ActionEvent e) throws PortalException, SystemException {
         findUserVote = true;
         refresh();
     }
-    
+
     public boolean isFindUserVote() {
         if (findUserVote) {
             findUserVote = false;
@@ -298,7 +290,7 @@ public class PlansIndexBean {
         }
         return false;
     }
-    
+
     public int getPageSize() {
         return pageSize;
     }
@@ -306,7 +298,7 @@ public class PlansIndexBean {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
-    
+
     public boolean getHasUserVoted() throws PortalException, SystemException {
         if (Helper.isUserLoggedIn()) {
             try {
@@ -316,7 +308,7 @@ public class PlansIndexBean {
             catch (NoSuchPlanVoteException e) {
             }
         }
-        return false; 
+        return false;
     }
 
     public boolean isUpdateErrorNotes() {

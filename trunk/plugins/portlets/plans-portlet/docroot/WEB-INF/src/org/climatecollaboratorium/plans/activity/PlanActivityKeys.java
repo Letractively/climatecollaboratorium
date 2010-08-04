@@ -8,33 +8,33 @@ package org.climatecollaboratorium.plans.activity;
 
 import com.ext.portlet.Activity.SubscriberFactory;
 import com.ext.portlet.Activity.SubscriptionProvider;
+
 import com.liferay.portal.SystemException;
 
-
 public enum PlanActivityKeys implements SubscriberFactory {
-	
+
 	ALL("A plan activity"),
 	ADD_PLAN("Plan added"), EDIT_PLAN("Plan edited"), EDIT_DESCRIPTION("Plan description edited"),
-	PUBLISH_UPDATES("Plan published"), EDIT_SCENARIO("Plan model run changed"), 
-	EDIT_POSITIONS("Plan positions changed"), VOTE_FOR_PLAN("Voted for plan"), 
+	PUBLISH_UPDATES("Plan published"), EDIT_SCENARIO("Plan model run changed"),
+	EDIT_POSITIONS("Plan positions changed"), VOTE_FOR_PLAN("Voted for plan"),
 	SWICTH_VOTE_FOR_PLAN("Changed vote to another plan"), RETRACT_VOTE_FOR_PLAN("Retrated vote from plan"),
-	USER_ADDED_TO_PLAN("User joined plan"), USER_REMOVED_FROM_PLAN("User removed from plan"), 
+	USER_ADDED_TO_PLAN("User joined plan"), USER_REMOVED_FROM_PLAN("User removed from plan"),
 	EDIT_NAME("Plan name edited"), REMOVE_PLAN("Plan removed");
-	
+
 	private String prettyName;
-	
+
 	private PlanActivityKeys(String name) {
 		this.prettyName = name;
 	}
-	
+
 	public String getPrettyName() {
 		return prettyName;
 	}
-	
+
 	public int id() {
 		return ordinal();
 	}
-	
+
 	public static PlanActivityKeys fromId(int id) {
 		return PlanActivityKeys.values()[id];
 	}
@@ -57,7 +57,7 @@ public enum PlanActivityKeys implements SubscriberFactory {
 			}
 		}
 		service.deleteSubscription("plans", userid, entityid,ordinal());
-		
+
 	}
 
     @Override
@@ -71,9 +71,8 @@ public enum PlanActivityKeys implements SubscriberFactory {
 		return service.isSubscribed("plans", userid, entityid,ordinal());
     }
 }
-	
-	
-//	
+
+//
 //	public static final int ADD_PLAN = 1;
 //	public static final int EDIT_PLAN = 2;
 //	public static final int EDIT_DESCRIPTION = 3;

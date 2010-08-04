@@ -1,6 +1,13 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
+
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
+
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +18,6 @@ import javax.faces.model.SelectItem;
 import javax.portlet.PortletPreferences;
 import javax.portlet.ReadOnlyException;
 import javax.portlet.ValidatorException;
-
-import com.ext.portlet.debaterevision.model.Debate;
-import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
 
 public class PlansPreferencesBean {
 
@@ -29,10 +31,10 @@ public class PlansPreferencesBean {
 
     public String submit() throws ReadOnlyException, ValidatorException, IOException, PortalException, SystemException {
         FacesMessage fm = new FacesMessage();
-        
+
         PortletPreferences prefs = Helper.getPortletPrefs();
         String[] questionsStr = convertLongsToStrings(questionsArray);
-        
+
         prefs.setValues(QUESTIONS_PREFERENCE, questionsStr);
 
         prefs.store();
@@ -61,18 +63,18 @@ public class PlansPreferencesBean {
     public Long[] getQuestions() {
         return questionsArray;
     }
-    
+
     public static List<Debate> getQuestionDebates() {
         String[] questionsStr = Helper.getPortletPrefs().getValues(QUESTIONS_PREFERENCE, new String[0]);
         Long[] questionsArray = convertStringsToLongs(questionsStr);
-        
+
         List<Debate> debates = new ArrayList<Debate>();
         for (Long debateId: questionsArray) {
             debates.add(DebateLocalServiceUtil.findLastVersion(debateId));
         }
         return debates;
     }
-    
+
     private static Long[] convertStringsToLongs(String[] arrayStr) {
         Long[] arrayLong = new Long[arrayStr.length];
         for (int i=0; i < arrayStr.length; i++) {
@@ -80,7 +82,7 @@ public class PlansPreferencesBean {
         }
         return arrayLong;
     }
-    
+
     private static String[] convertLongsToStrings(Long[] arrayLong) {
         String[] arrayStr = new String[arrayLong.length];
         for (int i=0; i < arrayLong.length; i++) {

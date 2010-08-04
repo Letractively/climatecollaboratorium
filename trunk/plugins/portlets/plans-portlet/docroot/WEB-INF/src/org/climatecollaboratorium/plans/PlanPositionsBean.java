@@ -1,5 +1,17 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.debaterevision.model.DebateItem;
+import com.ext.portlet.plans.NoSuchPlanPositionsException;
+import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanPositions;
+
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,19 +24,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
-
-import com.ext.portlet.debaterevision.model.Debate;
-import com.ext.portlet.debaterevision.model.DebateItem;
-import com.ext.portlet.debaterevision.service.DebateCategoryLocalServiceUtil;
-import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
-import com.ext.portlet.plans.NoSuchPlanPositionsException;
-import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.model.PlanPositions;
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
-import com.liferay.portal.model.User;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 public class PlanPositionsBean {
     private List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
@@ -43,7 +42,6 @@ public class PlanPositionsBean {
 
     public PlanPositionsBean(PlanItem plan, PlanBean planBean) throws SystemException, PortalException {
 
-
         this.plan = plan;
         this.planBean = planBean;
 
@@ -59,12 +57,12 @@ public class PlanPositionsBean {
         }
         availableDebates = PlansPreferencesBean.getQuestionDebates();
     }
-    
+
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
         if (! lastPositionsVersion.equals(planPositionsVersion) || updatePositions) {
-            Set<Long> planPositionsIds = new HashSet<Long>(planPositionsById.get(planPositionsVersion).getPositionsIds());       
+            Set<Long> planPositionsIds = new HashSet<Long>(planPositionsById.get(planPositionsVersion).getPositionsIds());
             positionsSet = planPositionsIds.size() > 0;
-            
+
             questions.clear();
             if (editing) {
                 // we are editing all debates should be shown
@@ -118,8 +116,7 @@ public class PlanPositionsBean {
         editing = false;
         planBean.refresh();
     }
-    
-    
+
     public List<SelectItem> getPlanPositionsVersions() {
         return planPositionItems;
     }
@@ -128,18 +125,17 @@ public class PlanPositionsBean {
         return planPositionsVersion;
     }
 
-
     public void setPlanPositionsVersion(Long planPositionsVersion) {
         this.planPositionsVersion = planPositionsVersion;
     }
-    
+
     public String getSelectedPositionsIds() throws SystemException {
         return planPositionsById.get(planPositionsVersion).getPositionsIds().toString();
     }
-    
+
     public void setSelectedPositionsIds(String value) {
         // ignore
-        
+
     }
 
     public boolean isPositionsSet() {
@@ -149,15 +145,15 @@ public class PlanPositionsBean {
     public void setPositionsSet(boolean empty) {
         this.positionsSet = empty;
     }
-    
+
     public boolean isLatestVersion() {
         return planPositionsById.get(planPositionsVersion) == planPositions.get(0);
     }
-    
+
     public Date getVersionDate() {
         return planPositionsById.get(planPositionsVersion).getCreated();
     }
-    
+
     public User getVersionAuthor() throws PortalException, SystemException {
         return planPositionsById.get(planPositionsVersion).getUpdateAuthor();
     }

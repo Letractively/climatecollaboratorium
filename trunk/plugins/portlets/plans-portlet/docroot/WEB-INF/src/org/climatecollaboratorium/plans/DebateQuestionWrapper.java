@@ -1,15 +1,10 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.debaterevision.model.DebateItem;
+
 import java.util.*;
 
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-
-import com.ext.portlet.debaterevision.model.DebateItem;
-import com.ext.portlet.plans.NoSuchPlanPositionsException;
-import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.model.PlanPositions;
-import com.liferay.portal.SystemException;
 
 public class DebateQuestionWrapper {
     private DebateItem wrapped;
@@ -26,9 +21,9 @@ public class DebateQuestionWrapper {
     }
     */
     public DebateQuestionWrapper(DebateItem wrapped, Set<Long> planPositionsIds) {
-        
+
         this.wrapped = wrapped;
-        
+
         for (DebateItem position: wrapped.getChildren()) {
             positions.add(new SelectItem(position.getDebateItemId(), getPositionAnchor(position)));
             if (planPositionsIds.contains(position.getDebateItemId())) {
@@ -38,22 +33,21 @@ public class DebateQuestionWrapper {
             }
         }
         updateSelectedPosition();
-        
+
     }
-    
+
     public String getDebateSummary() {
         return wrapped.getDebateSummary();
     }
-    
+
       public List<DebateItem> getChildren() {
         return wrapped.getChildren();
     }
-    
+
     public List<SelectItem> getPositions() {
-        return positions; 
+        return positions;
     }
-    
-    
+
     public Long getPosition() {
         return position;
     }
@@ -62,7 +56,7 @@ public class DebateQuestionWrapper {
         this.position = position;
         updateSelectedPosition();
     }
-    
+
     public DebateItemWrapper getSelectedPosition() {
         return selectedPosition;
     }
@@ -73,14 +67,12 @@ public class DebateQuestionWrapper {
             multiplePositions.add(s);
         }
 
-
     }
 
     public Long[] getMultiplePositions() {
         Long[] ret = new Long[multiplePositions.size()];
         return multiplePositions.toArray(ret);
     }
-
 
 //    private void updateMultipleSelection() {
 //        multipleSelectedPositions.clear();
@@ -90,7 +82,7 @@ public class DebateQuestionWrapper {
 //            }
 //        }
 //    }
-//    
+//
     private void updateSelectedPosition() {
         for (DebateItem item: wrapped.getChildren()) {
             if (item.getDebateItemId().equals(position)) {
@@ -98,24 +90,23 @@ public class DebateQuestionWrapper {
             }
         }
     }
-    
+
     public Long getDebateId() {
         return wrapped.getDebateId();
     }
-    
 
     public String getDebateLink() {
         return "/web/guest/debates#debate=" + wrapped.getDebateId();
     }
-    
+
     public String getPositionLink(DebateItem position) {
         return "/web/guest/debates#debate=" + wrapped.getDebateId() + ";item=" + position.getDebateItemId();
     }
-    
+
     public String getPositionAnchor(DebateItem position) {
         return "<a href='" + getPositionLink(position) + "' target='_blank'>" + position.getDebateSummary() + "</a>";
     }
-    
+
     public String getDebateAnchor() {
         return "<a href='" + getDebateLink() + "' target='_blank'>" + getDebateSummary() + "</a>";
     }

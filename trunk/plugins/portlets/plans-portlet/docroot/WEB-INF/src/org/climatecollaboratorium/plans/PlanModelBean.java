@@ -6,23 +6,18 @@
 
 package org.climatecollaboratorium.plans;
 
-import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.plans.model.PlanItem;
+
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.theme.ThemeDisplay;
-import mit.simulation.climate.client.EntityState;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.comm.ClientRepository;
-import mit.simulation.climate.client.model.impl.ClientSimulation;
+
+import java.util.*;
 
 import javax.faces.FacesException;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import java.net.URL;
-import java.util.*;
+
+import mit.simulation.climate.client.Simulation;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,7 +27,6 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class PlanModelBean {
-
 
 
 
@@ -69,7 +63,6 @@ public class PlanModelBean {
         }
     }
 
-
     public boolean getEditing() {
         return editing;
     }
@@ -78,25 +71,22 @@ public class PlanModelBean {
         this.editing = b;
     }
 
-
     public PlanModelWrapper getCurrentModel() {
         return currentModel;
     }
-
 
     public List<PlanModelWrapper> getAvailableModels() {
        return availableItems;
     }
 
     public void setSelectedId(Long id) {
-      selectedModel = availableMap.get(id);  
+      selectedModel = availableMap.get(id);
     }
 
     public Long getSelectedId() {
         return selectedModel !=null?selectedModel.getId():-1;
     }
 
-   
 
     public void startEdit(ActionEvent e) {
         setEditing(true);
@@ -119,7 +109,6 @@ public class PlanModelBean {
         setEditing(false);
 
     }
-
 
 
 

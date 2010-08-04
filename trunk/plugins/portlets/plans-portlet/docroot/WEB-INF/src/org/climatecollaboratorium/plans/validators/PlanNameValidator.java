@@ -1,13 +1,14 @@
 package org.climatecollaboratorium.plans.validators;
 
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
+
+import com.liferay.portal.SystemException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-
-import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
-import com.liferay.portal.SystemException;
 
 public class PlanNameValidator implements Validator {
 

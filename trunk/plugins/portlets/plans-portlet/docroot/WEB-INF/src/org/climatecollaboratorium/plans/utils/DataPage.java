@@ -2,7 +2,6 @@ package org.climatecollaboratorium.plans.utils;
 
 import java.util.List;
 
-
 public class DataPage {
     private int datasetSize;
     private int startRow;

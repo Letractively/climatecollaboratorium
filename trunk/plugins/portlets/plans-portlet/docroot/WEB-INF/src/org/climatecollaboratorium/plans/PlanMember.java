@@ -1,9 +1,9 @@
 package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.plans.model.PlanItem;
+
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.GroupLocalServiceUtil;
 
 public class PlanMember {
     private PlanItem plan;
@@ -21,15 +21,15 @@ public class PlanMember {
             member = true;
         }
     }
-    
+
     public String getScreenName() {
         return user.getScreenName();
     }
-    
+
     public boolean isMember() {
         return member;
     }
-    
+
     public boolean isOwner() {
         return owner;
     }
