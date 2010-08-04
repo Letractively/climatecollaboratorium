@@ -20,6 +20,18 @@
 					<property name="plugin.jars" value="${plugin-package.portal.dependency.jars}" />
 				</else>
 			</if>
+			
+            <property file="docroot/WEB-INF/liferay-plugin-package.properties" prefix="plugin-package" />
+
+			<if>
+				<isset property="plugin-package.other.dependency" />
+				<then>
+					<property name="plugin.other.dependency" value="${plugin-package.other.dependency}" />
+					<property name="plugin.other.dependency.jars" value="${plugin-package.other.dependency.jars}" />
+				</then>
+				<else>
+				</else>
+			</if>
 
 			<property file="docroot/WEB-INF/liferay-plugin-package.properties" prefix="plugin-package" />
 
@@ -128,6 +140,16 @@
 		<copy todir="docroot/WEB-INF/lib">
 			<fileset dir="${app.server.lib.portal.dir}" includes="${plugin.jars}" />
 		</copy>
+	
+        <if>
+            <isset property="plugin.other.dependency" /> 
+            <then>
+                <ant inheritAll="false" antfile="${project.dir}/${plugin.other.dependency}/build.xml" />
+                <copy todir="docroot/WEB-INF/lib">
+        			<fileset dir="${project.dir}/${plugin.other.dependency.jars}" includes="*.jar" />
+		        </copy>
+            </then>
+        </if>
 
 		<copy todir="docroot/WEB-INF/tld">
 			<fileset dir="${app.server.portal.dir}/WEB-INF/tld" includes="${plugin.tlds}" />
@@ -498,14 +520,4 @@
 			<fileset dir="docroot" />
 		</copy>
 	</target>
-
-        <target name="deploy-exploded" depends="compile">
-                <sequential>
-                            <antelope:stringutil string="${basedir}/${plugin.name}.xml" property="plugincontextfile">
-                                            <antelope:replace regex="\\" replacement="/" />
-                                                        </antelope:stringutil>
-                                                                    <copy file="${plugincontextfile}" todir="${auto.deploy.dir}" />
-                                                                            </sequential>
-                                                                                </target>
-
 </project>
