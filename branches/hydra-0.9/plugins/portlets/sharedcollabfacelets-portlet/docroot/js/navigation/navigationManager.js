@@ -39,8 +39,11 @@ Collab.nav = new function() {
 	
 	
 	this.pageload = function(hash) {
+		//alert("pageload");
 		navigationItems = parseToken(hash);
+		//alert("after parsing token " + hash + "try to force navigation..." + jQuery(".navigationManagerForm .submit").length + " " + jQuery(".navigationManagerForm .navigationToken").length);
 		forceNavigation();
+		//alert("navigation forced? " + jQuery(".navigationManagerForm .submit").length);
 	}
 
 	function forceNavigation() {
