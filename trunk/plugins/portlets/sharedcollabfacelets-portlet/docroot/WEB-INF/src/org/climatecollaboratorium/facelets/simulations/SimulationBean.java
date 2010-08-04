@@ -2,7 +2,6 @@ package org.climatecollaboratorium.facelets.simulations;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import java.util.Map;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
-import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.TupleStatus;
@@ -19,7 +17,6 @@ import mit.simulation.climate.client.comm.ModelNotFoundException;
 import mit.simulation.climate.client.comm.ScenarioNotFoundException;
 import net.sf.json.JSONArray;
 
-import org.apache.commons.beanutils.DynaBean;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.facelets.simulations.support.ModelDisplayWrapper;
 import org.climatecollaboratorium.facelets.simulations.support.ModelInputDisplayItemWrapper;
@@ -30,8 +27,6 @@ import org.climatecollaboratorium.facelets.simulations.support.SupportBean;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
-import com.ext.portlet.models.ui.ModelDisplay;
-import com.ext.portlet.models.ui.ModelDisplayItem;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputDisplayItemType;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;

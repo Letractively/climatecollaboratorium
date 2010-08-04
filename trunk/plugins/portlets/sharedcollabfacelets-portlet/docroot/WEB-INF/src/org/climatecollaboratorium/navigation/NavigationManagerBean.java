@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.climatecollaboratorium.events.EventBus;
-import org.climatecollaboratorium.navigation.NavigationEvent;
 
 public class NavigationManagerBean {
     private String navigationToken;
