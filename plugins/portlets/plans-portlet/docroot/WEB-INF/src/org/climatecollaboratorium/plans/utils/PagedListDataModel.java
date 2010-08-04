@@ -2,9 +2,6 @@ package org.climatecollaboratorium.plans.utils;
 
 import javax.faces.model.DataModel;
 
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
-
 public abstract class PagedListDataModel extends DataModel {
     int pageSize;
     int rowIndex;
@@ -154,8 +151,8 @@ public abstract class PagedListDataModel extends DataModel {
     /**
      * Method which must be implemented in cooperation with the
      * managed bean class to fetch data on demand.
-     * @throws SystemException 
-     * @throws PortalException 
+     * @throws SystemException
+     * @throws PortalException
      */
     public abstract DataPage fetchPage(int startRow, int pageSize);
 
@@ -170,6 +167,5 @@ public abstract class PagedListDataModel extends DataModel {
     public void setDirtyData() {
         dirtyData = true;
     }
-
 
 }

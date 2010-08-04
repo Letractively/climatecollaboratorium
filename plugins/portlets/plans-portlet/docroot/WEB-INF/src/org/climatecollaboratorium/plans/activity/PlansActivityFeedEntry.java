@@ -8,15 +8,10 @@ package org.climatecollaboratorium.plans.activity;
 
 
 
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.climatecollaboratorium.plans.Helper;
-
 import com.ext.portlet.community.CommunityUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
+
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -26,11 +21,16 @@ import com.liferay.portlet.social.model.BaseSocialActivityInterpreter;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityFeedEntry;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.climatecollaboratorium.plans.Helper;
 
 public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
-	
-    private static Log _log = LogFactoryUtil.getLog(PlansActivityFeedEntry.class);
-	
+
+    private static Log _log =
+		 LogFactoryUtil.getLog(PlansActivityFeedEntry.class);
+
 	public static String PLAN_ADDED = "%s added plan %s";
 	public static String PLAN_REMOVED = "%s removed plan %s";
 	public static String PLAN_POSITIONS_UPDATED = "%s updated positions in plan %s";
@@ -43,8 +43,7 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 	public static String PLAN_USER_REMOVED = "%s left plan %s";
 	public static String PLAN_PUBLISHED = "%s published plan %s";
     public static String PLAN_NAME_UPDATED="%s updated the name in plan %s";
-	
-	
+
 	public static Map<PlanActivityKeys,String> msgMap = new HashMap<PlanActivityKeys,String>();
 	static {
 		msgMap.put(PlanActivityKeys.ADD_PLAN,PLAN_ADDED);
@@ -59,39 +58,37 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 		msgMap.put(PlanActivityKeys.PUBLISH_UPDATES, PLAN_PUBLISHED);
         msgMap.put(PlanActivityKeys.EDIT_NAME, PLAN_NAME_UPDATED);
         msgMap.put(PlanActivityKeys.REMOVE_PLAN, PLAN_REMOVED);
-		
+
 	}
-	
+
 	public static String hyperlink = "<a href=\"%s\">%s</a>";
-	
-	
+
 	public String[] getClassNames() {
 		return _CLASS_NAMES;
 	}
-	
 
 
 	protected SocialActivityFeedEntry doInterpret(
 			SocialActivity activity, ThemeDisplay themeDisplay)
 		throws Exception {
-		
+
 		PlanActivityKeys activityType = PlanActivityKeys.fromId(activity.getType());
 		String title = activityType.getPrettyName();
 		String body = "";
 		if (msgMap.containsKey(activityType)) {
 			body = String.format(msgMap.get(activityType),getUser(activity),getPlan(activity));
 		}
-				
+
 		return new SocialActivityFeedEntry("", title, body);
 	}
-	
+
 	private static final String[] _CLASS_NAMES = new String[] {
 	    "com.ext.portlet.Activity", "com.ext.portlet.plans.model.PlanItem"
 	};
-	
+
 	private String getUser(SocialActivity activity) {
 		String user = "&lt;user removed&gt;";
-		
+
 			try {
 				user = CommunityUtil.generateUserURL(activity.getUserId());
 			} catch (PortalException e) {
@@ -103,7 +100,7 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 			}
 		return user;
 	}
-	
+
 	private String getPlan(SocialActivity activity) {
 		String result = "&lt;plan removed&gt;";
 		try {
@@ -116,7 +113,7 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 			_log.info(e.getMessage());
 		}
 		return result;
-		
+
 	}
 
 }

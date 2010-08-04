@@ -1,30 +1,24 @@
 package org.climatecollaboratorium.plans;
 
-import com.ext.portlet.community.action.CommunityConstants;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.plans.model.PlanItem;
-import com.liferay.portal.NoSuchUserException;
-import com.liferay.portal.PortalException;
+
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.ratings.model.RatingsStats;
 import com.liferay.portlet.ratings.service.RatingsStatsLocalServiceUtil;
 
+import java.util.Map;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Helper {
     public final static ThemeDisplay themeDisplay = getThemeDisplay();
@@ -42,20 +36,18 @@ public class Helper {
     public static Map getUserInfoMap(){
         Map requestMap = getRequestMap();
         Object obj = requestMap.get(PortletRequest.USER_INFO);
-        
 
 
         if ( obj != null && obj instanceof Map){
             return (Map)obj;
         }
         return null;
-        
-    }
-    
 
-    
+    }
+
+
     public static boolean isUserLoggedIn() {
-        
+
         return getUserInfoMap() != null;
     }
 
@@ -88,29 +80,29 @@ public class Helper {
         }
         return null;
     }
-    
+
     public static ThemeDisplay getThemeDisplay() {
         Map map = getRequestMap();
         return (ThemeDisplay) map.get(WebKeys.THEME_DISPLAY);
     }
-    
+
     public static PermissionChecker getPermissionChecker() {
         return getThemeDisplay().getPermissionChecker();
     }
-    
+
     public static String getPortletID() {
         Map map = getRequestMap();
         return (String) map.get(WebKeys.PORTLET_ID);
     }
-    
+
     private static Map getRequestMap() {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
         Map map = ec.getRequestMap();
-        
+
         return map;
     }
-    
+
     public static PortletPreferences getPortletPrefs(){
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
@@ -122,5 +114,5 @@ public class Helper {
     public static String getPlanURL(PlanItem p) {
         return "/web/guest/plans#planId=" + p.getPlanId();
     }
-    
+
 }

@@ -7,7 +7,9 @@
 package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
+
 import com.liferay.portal.SystemException;
+
 import mit.simulation.climate.client.Simulation;
 import mit.simulation.climate.client.model.impl.ClientSimulation;
 
@@ -19,7 +21,6 @@ import mit.simulation.climate.client.model.impl.ClientSimulation;
  * To change this template use File | Settings | File Templates.
  */
 public class PlanModelWrapper {
-
 
     static String DEFAULT_DESCRIPTION = "The Basic Disaggregation model uses three regions for emissions and global indicators for land use";
     static String DEFAULT_NAME="Basic Model";
@@ -70,6 +71,5 @@ public class PlanModelWrapper {
     public String getLink() {
         return link;
     }
-
 
 }

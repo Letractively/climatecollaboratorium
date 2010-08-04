@@ -1,10 +1,5 @@
 package org.climatecollaboratorium.plans.migration;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryGroupException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
@@ -16,6 +11,7 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
+
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -24,8 +20,12 @@ import com.liferay.portlet.messageboards.model.MBMessage;
 import com.liferay.portlet.messageboards.model.MBThread;
 import com.liferay.portlet.messageboards.service.MBCategoryLocalServiceUtil;
 import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
-import com.liferay.portlet.messageboards.service.MBThreadLocalService;
 import com.liferay.portlet.messageboards.service.MBThreadLocalServiceUtil;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+import org.apache.log4j.Logger;
 
 public class MigrationTool {
     private static Logger _log = Logger.getLogger(MigrationTool.class);
@@ -91,18 +91,18 @@ public class MigrationTool {
 
         return "";
     }
-    
+
     public String migrateDiscussions() {
         try {
             int counter = 1;
-            int plansCount = PlanItemLocalServiceUtil.getPlans().size(); 
+            int plansCount = PlanItemLocalServiceUtil.getPlans().size();
             _log.info("Starting migration of discussions for plans, plans to process: " + plansCount);
             for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
                 try {
                     String progressIndicator = counter + " of " + plansCount + ": [" + basePlan.getName() + " (" + basePlan.getPlanId() + ")] ";
 
                     _log.info(progressIndicator + "migration started");
-                    
+
                     boolean alreadyMigrated = false;
                     try {
                         Long discussionCatId = basePlan.getMBCategoryId();
@@ -117,15 +117,15 @@ public class MigrationTool {
                     }
                     if (!alreadyMigrated) {
                         MBCategory mbCategory = MBCategoryLocalServiceUtil.getCategory(basePlan.getMBCategoryId());
-                        DiscussionCategoryGroup categoryGroup = 
+                        DiscussionCategoryGroup categoryGroup =
                             DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + basePlan.getId());
-                        
+
                         PlanMeta meta = basePlan.getPlanMeta();
                         meta.setCategoryGroupId(categoryGroup.getId());
                         meta.store();
-                        
+
                         // default category
-                        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil.getUser(mbCategory.getUserId())); 
+                        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil.getUser(mbCategory.getUserId()));
                         for (MBThread mbThread : MBThreadLocalServiceUtil.getThreads(mbCategory.getCategoryId(), 0, 10000)) {
                             DiscussionMessage thread = null;
                             for (MBMessage mbMessage: MBMessageLocalServiceUtil.getThreadMessages(mbThread.getThreadId())) {
@@ -135,7 +135,7 @@ public class MigrationTool {
                                 else {
                                     thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
                                 }
-                                
+
                             }
                         }
                     }
@@ -176,13 +176,12 @@ public class MigrationTool {
 
         return "";
     }
-    
-    
+
     public String updateDiscussionUrlsAndDescriptions() throws SystemException, PortalException {
         for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
-            DiscussionCategoryGroup categoryGroup = 
+            DiscussionCategoryGroup categoryGroup =
                 DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(basePlan.getCategoryGroupId());
-            
+
             categoryGroup.setDescription(basePlan.getName() + " discussion");
             categoryGroup.setUrl("/web/guest/plans#plans=planId:" + basePlan.getPlanId() + ",tab:discussion");
             categoryGroup.store();

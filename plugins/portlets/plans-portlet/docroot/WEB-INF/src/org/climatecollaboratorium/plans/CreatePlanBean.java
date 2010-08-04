@@ -1,17 +1,16 @@
 package org.climatecollaboratorium.plans;
 
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
-import com.ext.portlet.plans.NoSuchPlanTypeException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
+
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
+import javax.faces.event.ActionEvent;
+
 public class CreatePlanBean {
-    
+
     private PlansIndexBean plansIndexBean;
     private String name;
     private PlanBean planBean;
@@ -22,16 +21,16 @@ public class CreatePlanBean {
         this.plansIndexBean = plansIndexBean;
         name = "";
     }
-    
+
     public CreatePlanBean(PlanBean planBean) {
         this.planBean = planBean;
         name = "";
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -66,7 +65,6 @@ public class CreatePlanBean {
     public void setNavigateToPlan(boolean navigateToPlan) {
         this.navigateToPlan = navigateToPlan;
     }
-    
-    
+
 
 }
