@@ -1,0 +1,213 @@
+.impactsContent {
+	overflow: hidden;
+	height: 200px;
+}
+
+
+.impactsContent h3.ui-accordion-header a.activator {
+    margin: 0;
+    padding: 0;
+    padding-top: 8px;
+    padding-left: 15px;
+}
+
+.impactsContent h3.ui-accordion-header {
+    cursor: pointer;
+}
+
+
+/* vertical tabs */
+.ui-tabs {
+    border-bottom: 0;
+    padding: 0 0 0 0;
+}
+
+.ui-tabs-vertical {
+    width: 400px;
+}
+.ui-tabs-vertical .ui-tabs-nav {
+    float: left;
+    width: 120px;
+}
+.ui-tabs-vertical .ui-tabs-nav li {
+    clear: left;
+    width: 100%;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li a {
+    display:block;
+    width: 120px;
+    height: auto;
+    padding-top: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected {
+    padding-bottom: 0;
+    padding-right: .1em;
+    border-right-width: 1px;
+    border-right-width: 1px;
+}
+
+.ui-tabs-vertical .ui-tabs-panel {
+    padding: 1em;
+    float: left;
+    width: 200px;
+    border: none;
+}
+
+.ui-tabs-panel .ui-widget-content h4 {
+     margin-top:10px;
+}
+
+.physicalImpactsTab .tabsContainer,
+.physicalImpactsTab .contentsContainer {
+    float: left;
+}
+
+
+.physicalImpactsTab .contentsContainer {
+    width: 270px;
+    padding: 5px;
+    background: #fff;
+}
+
+.physicalImpactsTab .contentsContainer .tabContent {
+    background: #fff;
+}
+
+
+.physicalImpactsTab .tabsContainer {
+    width: 120px;
+}
+
+.physicalImpactsTab .tabsContainer a {
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+
+.physicalImpactsTab .tabsContainer a:hover {
+    color: #ddd;
+}
+
+.physicalImpactsTab .tabsContainer li {
+    background-image:url("/collaboratorium-theme/images/blue_table_bg_header.png");
+    background-position:left center;
+    background-repeat: no-repeat;
+    color:#FFFFFF;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:bold;
+    height:33px;
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    margin-top: 6px;
+    padding-top:5px;
+    text-align:center;
+    width:120px;
+}
+
+.physicalImpactsTab .tabsContainer li.active {
+    background-attachment:scroll;
+    background-color:transparent;
+    background-image:url("/collaboratorium-theme/images/blue_table_th_bg.gif");
+    background-position:left center;
+    background-repeat:no-repeat;
+}
+
+    
+.run-the-model-to-see-inputs  {
+    border:1px solid #DFDFDF;
+    color:#999999;
+    font-weight:bold;
+    padding-bottom:100px;
+    padding-top:100px;
+    text-align:center;
+    width:100%;
+}
+
+ul.ui-tabs-nav li.ui-state-active a{
+    background:none repeat scroll 0 0 #FFFFFF;
+    border-color:#DEDEDE #DEDEDE;
+    border-style:solid solid none;
+    border-width:1px 1px medium;
+    color:#336699;
+    font-weight:bold;
+}
+
+
+
+.impactsContent .ui-accordion-header a.folder {
+    padding: 0;
+
+}
+
+.ui-accordion .ui-accordion-header {
+    margin-top: 0;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-default, 
+.ui-accordion .ui-accordion-header.ui-state-active {
+    border: 0;/*1px solid #CCCCCC;*/
+}
+
+.scalarOutput {
+    padding: 0;
+    line-height: normal;
+}
+
+.impacts  {
+    width:409px;
+}
+
+.impacts .corcen_top {
+    background:url("/collaboratorium-theme/images/impacts_corcen_top.gif") no-repeat scroll center top transparent;
+    margin:0 auto;
+    padding-top:8px;
+    width:100%;
+}
+
+.impacts .corcen_bottom {
+    background:url("/collaboratorium-theme/images/impacts_corcen_bottom.gif") no-repeat scroll center bottom transparent;
+    padding-bottom:8px;
+    width:100%;
+}
+
+.impacts .corcen {
+    background:url("/collaboratorium-theme/images/impacts_corcen_bg.gif") repeat-y scroll 0 0 transparent;
+    width:100%;
+}
+
+.impacts .title {
+    background:none repeat scroll 0 0 #EBEBEB;
+    border-bottom:1px solid #E2E2E2;
+    border-top:1px solid #E2E2E2;
+    height:29px;
+    margin:0 auto;
+    padding:0;
+    width:407px;
+}
+
+.impacts .title h3 {
+    background:url("/collaboratorium-theme/images/impacts_title.png") no-repeat scroll 0 0 transparent;
+    height:55px;
+    margin-left:4px;
+    margin-top:-18px;
+    position:absolute;
+    width:114px;
+}
+
+
+.chartMessagePlaceholder {
+	border: 1px solid red;
+	background: #FAD2D7;
+	padding: 5px;
+	margin: 5px;
+}
+
+.chartMessagePlaceholder li {
+    color: #571B22;
+}
