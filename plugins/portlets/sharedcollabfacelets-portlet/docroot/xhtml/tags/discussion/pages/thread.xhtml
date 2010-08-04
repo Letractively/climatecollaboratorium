@@ -8,7 +8,7 @@
 
 <ui:composition template="./discussionTemplate.xhtml">
     <ui:define name="discussion_breadcrumb">
-        <a href="javascript;:" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{discussionBean.currentThread.category.id}}); return;"> 
+        <a href="javascript:;" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{discussionBean.currentThread.category.id}}); return;"> 
             #{discussionBean.currentThread.category.title}:</a> #{discussionBean.currentThread.title}
     </ui:define>
     <ui:define name="discussion_content">
