@@ -6,27 +6,32 @@
     <table class="teamGrid">
         <tr>
             <td class="left">
-                <div class="sectionTitle">
-                    <h3>Plan status</h3>
-                </div>
-                <p>
-                    <ice:outputText value="This plan is published." rendered="#{planBean.plan.published}" />
-                    <ice:outputText value="This plan is unpublished." rendered="#{not planBean.plan.published}" /><br />
-                    <ice:commandLink value="Publish plan" rendered="#{not planBean.plan.published and permissions.canAdmin}" actionListener="#{planBean.plan.publish}" onclick="if(!confirm('Are you sure you want to proceed with publishing this plan?')){ return false; }"/>
-                    <ice:commandLink value="Delete plan" rendered="#{permissions.canAdmin}"  actionListener="#{planBean.plan.delete}" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }"/>
-                
-                </p>
-            <div class="plan-membership-info">
-                <ice:outputText value="You have guest access to this plan." rendered="#{permissions.planGuest}" />
-                <ice:commandLink onclick="if(! deferUntilLogin()) return false; showRequestMembershipDialog();" value="Request membership" rendered="#{permissions.planGuest}" />
-                <ice:outputText value="You are a member of this plan." rendered="#{not permissions.planOwner and permissions.planMember}" />
-                <ice:outputText value="You are an owner of this plan." rendered="#{permissions.planOwner}" />
-            </div>
-            
             <div class="plan-members">
+                <div class="center">
+                    <ice:commandButton value="Join this team!" actionListener="#{planBean.membershipBean.toggleRequesting}" rendered="#{not planBean.plan.planMember and not planBean.membershipBean.requesting and not planBean.plan.hasRequestedMembership}"  styleClass="#{planBean.plan.planMember ? 'disabled' : ''}" onclick="if(!deferUntilLogin()) return false;"/>
+                    <ice:panelGroup rendered="#{planBean.plan.planMember}">
+                        <h4>You are part of this team.</h4>
+                    </ice:panelGroup>                    
+                    <ice:panelGroup rendered="#{planBean.plan.hasRequestedMembership}">
+                        <h4>You have asked to be a part of this team.</h4>
+                    </ice:panelGroup>
+                    <ice:commandButton value="Remove me" actionListener="#{planBean.membershipBean.removeMember}" rendered="#{planBean.plan.planMember and not planBean.membershipBean.requesting}" styleClass="#{planBean.plan.planMember ? 'disabled' : ''}" />
+                </div>
+                <ice:panelGroup rendered="#{planBean.membershipBean.requesting}" >
+                    <div class="manageMembersTop">
+                        <h4>Request Membership</h4>
+                    </div>
+                        <div class="manageMembersContent">
+                            Optional comment:
+                            <ice:inputTextarea value="#{planBean.membershipBean.comment}" styleClass="requestComment" />
+                        </div>
+                        <ice:commandButton value="Request membership" styleClass="requestMembershipSubmitButton" actionListener="#{planBean.membershipBean.requestMembership}" />
+                        <ice:commandButton value="Cancel" actionListener="#{planBean.membershipBean.toggleRequesting}" />
+                    
+                </ice:panelGroup>
             
                 <div class="sectionTitle">
-                    <h3>Members</h3>
+                    <h3>#{planBean.plan.planMembersCount} Members</h3>
                 </div>
                 <ice:dataTable value="#{planBean.membershipBean.planMembers}" var="member" styleClass="itemsTable">
                     <ice:column>
@@ -34,79 +39,45 @@
                         <ice:outputText value="#{member.screenName}" />
                     </ice:column>
                     <ice:column>
-                        <f:facet name="header">Affiliation</f:facet>
-                        <ice:outputText value="member" rendered="#{member.member}"/>
-                        <ice:outputText value="owner" rendered="#{member.owner}"/>
+                        <f:facet name="header">Joined</f:facet>
+                        <ice:outputText value="#{member.screenName}" />
                     </ice:column>
-                
+                    <ice:column>
+                        <f:facet name="header">Status</f:facet>
+                        <f:subview rendered="#{not permissions.canAdmin}" >
+                            <ice:outputText value="#{member.planUserPermission.description}" />
+                        </f:subview>
+                        <ice:selectOneMenu value="#{member.planUserPermissionStr}" rendered="#{permissions.canAdmin and permissions.planUserPermission le member.planUserPermission}">
+                            <f:selectItems value="#{planBean.membershipBean.availableUserRoles}" />
+                        </ice:selectOneMenu>
+                    </ice:column>
+                    <ice:column rendered="#{permissions.planOwner}">
+                        <f:facet name="header">Action</f:facet>
+                        <ice:commandLink value="remove" actionListener="#{member.remove}" />
+                    </ice:column>
                 </ice:dataTable>
+                <ice:commandButton value="Update permissions" actionListener="#{planBean.membershipBean.updatePermissions}" rendered="#{permissions.canAdmin}" />
             </div>
             
-            <div class="plan-membership-requests">
-                <div class="sectionTitle">
-                    <h3>Membership requests</h3>
-                </div>
-                <ice:dataTable value="#{planBean.membershipBean.planMembershipRequests}" var="membershipRequest" styleClass="itemsTable">
-                    <ice:column>
-                        <f:facet name="header">Screen Name</f:facet>
-                        <ice:outputText value="#{membershipRequest.screenName}" />
-                    </ice:column>
-                    <ice:column>
-                        <f:facet name="header">Date</f:facet>
-                        <ice:outputText value="#{membershipRequest.requestDate}" />
-                    </ice:column>
-                    <ice:column rendered="#{permissions.canAdmin}">
-                        <f:facet name="header">Action</f:facet>
-                        <a href="javascript:;" onclick="showManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')">
-                            View
-                        </a>
-                        <div id="manage_membership_request_#{membershipRequest.id}">
-                            <div class="content hidden">
-                                <div class="manageMembersTop">
-                                    <h4>Respond to membership request</h4>
-                                </div>
-                                <div class="manageMembersContent">
-                                    User comment: 
-                                    <p class="userComment">
-                                        <ice:outputText value="#{membershipRequest.comment}" />
-                                    </p>
-                                    Optional message to requestor:<br />
-                                    <ice:inputTextarea value="#{membershipRequest.response}" styleClass="membershipRequestResponse" />
-                                    Action:
-                                    <ice:selectOneRadio value="#{membershipRequest.approve}">
-                                        <f:selectItem itemValue="true" itemLabel="approve" />
-                                        <f:selectItem itemValue="false" itemLabel="deny" />
-                                    </ice:selectOneRadio>
-                                </div>
-                                <div class="manageMembersActions">
-                                    <a class="checkBtn first" href="javascript:;" onclick="respondToMembershipRequest('manage_membership_request_#{membershipRequest.id}')"></a>
-                                    <a class="cancelBtn"  href="javascript:;" onclick="hideManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')"></a>
-                                </div>
-                            </div>
-                            <ice:commandLink actionListener="#{membershipRequest.update}" styleClass="hidden membershipRequestResponseSubmitButton" />
-                        </div>
-                    </ice:column>
-                
-                </ice:dataTable>
-                <div id="manage_membership_request_dialog"></div>
-            </div>
+            
             </td>
             <td class="right">
-                <div class="sectionTitle">
-                    <h3>History</h3>
+                <div class="center">
+                    <ice:commandButton value="Become a fan!" actionListener="#{planBean.plan.becomeAFan}" rendered="#{not planBean.plan.userAFan}" disabled="#{planBean.plan.planMember or planBean.plan.hasRequestedMembership}" styleClass="#{planBean.plan.planMember ? 'disabled' : ''}" onclick="if(!deferUntilLogin()) return false;"/>
+                    <ice:commandButton value="Remove me" actionListener="#{planBean.plan.unfan}" rendered="#{planBean.plan.userAFan}" disabled="#{planBean.plan.planMember}" styleClass="#{planBean.plan.planMember ? 'disabled' : ''}" />
                 </div>
-                <ice:dataTable value="#{planBean.plan.allVersions}" var="planVersion" styleClass="itemsTable">
+                
+                <div class="sectionTitle">
+                    <h3>#{planBean.plan.planFansCount} Fans</h3>
+                </div>
+                <ice:dataTable value="#{planBean.plan.planFans}" var="fan" styleClass="itemsTable">
                     <ice:column>
-                        <f:facet name="header">Update Date</f:facet>
-                        #{planVersion.updateDate}
+                        <f:facet name="header">Name</f:facet>
+                        #{fan.user.screenName}
                     </ice:column>
                     <ice:column>
-                        <f:facet name="header">Update Author</f:facet>
-                        #{planVersion.updateAuthor.screenName}
-                    </ice:column>
-                    <ice:column>
-                        <f:facet name="header">Update Type</f:facet>
-                        #{planVersion.updateType}
+                        <f:facet name="header">Since</f:facet>
+                        #{fan.created}
                     </ice:column>
                 </ice:dataTable>
             
@@ -115,35 +86,5 @@
         
         </tr>
     
-    </table>
-    <div class="hidden" id="request_membership">
-        <div id="request_membership_dialog_contents">
-            <div class="manageMembersTop">
-                <h4>Request Membership</h4>
-            </div>
-            <div class="manageMembersContent">
-                Optional comment:
-                <ice:inputTextarea value="#{planBean.membershipBean.comment}" styleClass="requestComment" />
-            </div>
-            <div>
-               <ice:selectOneListbox value="#{planBean.selected}" partialSubmit="true" styleClass="listbox">
-                <f:selectItems  value="#{planBean.available}"/>
-            </ice:selectOneListbox>
-            </div>
-            <div class="manageMembersActions">
-                <a class="checkBtn first" href="javascript:;" onclick="requestMembership()"></a>
-                <a class="cancelBtn"  href="javascript:;" onclick="hideRequestMembershipDialog()"></a>
-            </div>
-            <ice:commandButton value="Request membership" styleClass="requestMembershipSubmitButton hidden" actionListener="#{planBean.membershipBean.requestMembership}" />
-        </div>
-    </div>
-    <div class="hidden" id="request_membership_dialog">
-    </div> 
-    <!--  if plan has been deleted, redirect user to plansIndex -->
-    <f:subview rendered="#{planBean.plan.deleted}">    
-    <script language="javascript">
-        navigateToPlanIndex();
-    </script>
-</f:subview>
-    
+    </table>  
 </f:view>

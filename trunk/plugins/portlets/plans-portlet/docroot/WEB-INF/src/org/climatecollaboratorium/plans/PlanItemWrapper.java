@@ -17,10 +17,13 @@ import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 
 
 
+import com.ext.portlet.PlanStatus;
 import com.ext.portlet.Activity.ActivityUtil;
 import com.ext.portlet.debaterevision.model.DebateCategory;
+import com.ext.portlet.plans.NoSuchPlanFanException;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanDescription;
+import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
@@ -32,6 +35,7 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -323,6 +327,76 @@ public class PlanItemWrapper {
     
     public Long getGroupId() throws SystemException {
         return wrapped.getPlanGroupId();
+    }
+    
+    public List<PlanFan> getPlanFans() throws SystemException {
+        return wrapped.getFans();
+    }
+    
+    public void becomeAFan(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped.addFan(Helper.getLiferayUser().getUserId());
+        }
+    }
+    
+    public void unfan(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped.removeFan(Helper.getLiferayUser().getUserId());
+        }
+    }
+    
+    public boolean isUserAFan() throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            return wrapped.isUserAFan(Helper.getLiferayUser().getUserId());
+        }
+        return false;
+    }
+    
+    public boolean isPlanMember() throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            return wrapped.isUserAMember(Helper.getLiferayUser().getUserId());
+        }
+        return false;
+    }
+    
+    public boolean isHasRequestedMembership() throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            return wrapped.hasUserRequestedMembership(Helper.getLiferayUser().getUserId());
+        }
+        return false;
+    }
+    
+    public int getPlanFansCount() throws SystemException {
+        return wrapped.getFans().size();
+    }
+    
+    public int getPlanMembersCount() throws SystemException {
+        return UserLocalServiceUtil.getGroupUsersCount(wrapped.getPlanGroupId());
+    }
+    
+    public boolean isOpen() throws SystemException {
+        return wrapped.getOpen();
+    }
+    
+    public PlanStatus getStatus() throws SystemException {
+        return PlanStatus.valueOf(wrapped.getStatus());
+    }
+    
+    public void toggleSubmitted(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            PlanStatus status = getStatus();
+            String newStatus = PlanStatus.UNDER_DEVELOPMENT.name();
+            if (status == PlanStatus.UNDER_DEVELOPMENT) {
+                newStatus = PlanStatus.SUBMITTED.name();
+            }
+            wrapped.setStatus(newStatus, Helper.getLiferayUser().getUserId());
+        }
+    }
+    
+    public void toggleOpen(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped.setOpen(! wrapped.getOpen(), Helper.getLiferayUser().getUserId());
+        }       
     }
 
 }

@@ -35,15 +35,15 @@ public class CreatePlanBean {
         return name;
     }
     public void createPlan(ActionEvent e) throws SystemException, PortalException {
-        if (Helper.isUserLoggedIn() && name.trim().length() != 0) {
+        if (Helper.isUserLoggedIn()) {
             PlanItem planItem = null;
             if (plansIndexBean != null) {
-                planItem = PlanItemLocalServiceUtil.createPlan(name, PlanTypeLocalServiceUtil.getDefaultPlanType().getPlanTypeId(), Helper.getLiferayUser().getUserId());
+                planItem = PlanItemLocalServiceUtil.createPlan(PlanTypeLocalServiceUtil.getDefaultPlanType().getPlanTypeId(), Helper.getLiferayUser().getUserId());
                 plansIndexBean.refresh();
             }
             else if (planBean != null) {
                 // we need to create a plan based on a plan that is currently visible
-                planItem = PlanItemLocalServiceUtil.createPlan(name, planBean.getPlan().getWrapped(), Helper.getLiferayUser().getUserId());
+                planItem = PlanItemLocalServiceUtil.createPlan(planBean.getPlan().getWrapped(), Helper.getLiferayUser().getUserId());
             }
             planId = planItem.getPlanId();
             navigateToPlan = true;

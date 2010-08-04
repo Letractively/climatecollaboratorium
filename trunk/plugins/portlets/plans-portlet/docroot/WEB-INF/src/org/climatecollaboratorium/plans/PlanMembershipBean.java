@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.plans.PlanUserPermission;
 import com.ext.portlet.plans.model.PlanItem;
 
 import com.liferay.portal.PortalException;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 public class PlanMembershipBean {
     private PlanItem plan;
@@ -19,6 +21,7 @@ public class PlanMembershipBean {
     private List<PlanMembershipRequest> planMembershipRequests;
     private String comment;
     private PlansPermissionsBean permissions;
+    private boolean requesting;
 
     public PlanMembershipBean(PlanItem plan, PlanBean planBean, PlansPermissionsBean permissions) throws PortalException, SystemException {
         this.plan = plan;
@@ -28,7 +31,7 @@ public class PlanMembershipBean {
         planMembers = new ArrayList<PlanMember>();
 
         for (User user: plan.getMembers()) {
-            planMembers.add(new PlanMember(plan, user));
+            planMembers.add(new PlanMember(plan, user, this));
         }
 
         planMembershipRequests = new ArrayList<PlanMembershipRequest>();
@@ -48,7 +51,7 @@ public class PlanMembershipBean {
 
     public void requestMembership(ActionEvent e) throws PortalException, SystemException {
         if (Helper.isUserLoggedIn()) {
-            plan.addMembershipRequest(Helper.getLiferayUser().getUserId(), comment);
+            plan.addMembershipRequest(Helper.getLiferayUser().getUserId(), comment.length() == 0 ? "No comments" : comment);
             planBean.refresh();
         }
     }
@@ -59,6 +62,44 @@ public class PlanMembershipBean {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+
+    public void toggleRequesting(ActionEvent e) {
+        requesting = !requesting;
+    }
+
+
+    public boolean isRequesting() {
+        return requesting;
+    }
+    
+    public List<SelectItem> getAvailableUserRoles() throws SystemException {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        
+        if (permissions.getPlanOwner()) {
+            items.add(new SelectItem(PlanUserPermission.OWNER, PlanUserPermission.OWNER.getDescription()));
+        }
+        if (permissions.getCanAdmin()) {
+            items.add(new SelectItem(PlanUserPermission.MEMBER, PlanUserPermission.MEMBER.getDescription()));
+            items.add(new SelectItem(PlanUserPermission.ADMIN, PlanUserPermission.ADMIN.getDescription()));
+            
+        }
+        return items;
+        
+    }
+    
+    public void updatePermissions(ActionEvent e) throws PortalException, SystemException {
+        for (PlanMember member: planMembers) {
+            if (member.isPermissionChanged()) {
+                plan.setUserPermission(member.getUserId(), member.getPlanUserPermission().name(), Helper.getLiferayUser().getUserId());
+            }
+        }
+    }
+
+
+    public void removeMember(PlanMember planMember) {
+        planMembers.remove(planMembers.indexOf(planMember));
     }
 
 }

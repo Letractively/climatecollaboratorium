@@ -88,3 +88,14 @@
     padding-left: 10px;
     font-style: italic;
 }
+
+.center {
+    width: 100%;
+    text-align: center;
+}
+
+.disabled {
+    background: #ddd;
+    color: #bbb;
+}
+

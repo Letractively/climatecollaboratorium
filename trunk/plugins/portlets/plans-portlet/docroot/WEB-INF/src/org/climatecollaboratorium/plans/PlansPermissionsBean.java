@@ -1,8 +1,10 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.plans.PlanUserPermission;
 import com.ext.portlet.plans.model.PlanItem;
 
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 
@@ -13,15 +15,25 @@ public class PlansPermissionsBean {
     private final long groupId;
     private final String primKey;
     private PlanItem plan;
+    private PlanUserPermission planUserPermission;
     private Long planGroupId;
 
-    public PlansPermissionsBean() {
+    public PlansPermissionsBean() throws SystemException {
         permissionChecker = Helper.getPermissionChecker();
         groupId = Helper.groupId;
         primKey = Helper.primKey;
         portletId = Helper.portletId;
 
         planGroupId = groupId;
+        if (getPlanOwner()) {
+            planUserPermission = PlanUserPermission.OWNER;
+        }
+        else if (getCanAdmin()) {
+            planUserPermission = PlanUserPermission.ADMIN;
+        }
+        else if (getPlanMember()) {
+            planUserPermission = PlanUserPermission.MEMBER;
+        }
     }
 
     public PlansPermissionsBean(PlanItem plan) throws SystemException {
@@ -30,11 +42,15 @@ public class PlansPermissionsBean {
     }
 
     public boolean getCanView() {
+        Group g;
+        
         return permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_VIEW);
     }
 
     public boolean getCanEdit() throws SystemException {
-        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_EDIT)) || getCanAdmin();
+        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_EDIT)) 
+            || getCanAdmin() 
+            || (getPlanOpen() && Helper.isUserLoggedIn());
     }
 
     public boolean getCanAdmin() throws SystemException {
@@ -73,6 +89,14 @@ public class PlansPermissionsBean {
 
     public PlanItem getPlan() {
         return plan;
+    }
+    
+    public PlanUserPermission getPlanUserPermission() {
+        return planUserPermission;
+    }
+    
+    public boolean getPlanOpen() throws SystemException {
+        return plan == null ? false : plan.getOpen();
     }
 
 }
