@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 
-<project name="build-common-portlet">
+<project name="build-common-portlet" xmlns:antelope="antlib:ise.antelope.tasks">
 	<property name="project.dir" value="../.." />
 
 	<import file="../build-common-plugin.xml" />
-</project>
+    <target name="deploy-exploded" depends="compile">
+		<sequential>
+			<antelope:stringutil string="${basedir}/${plugin.name}.xml" property="plugincontextfile">
+				<antelope:replace regex="\\" replacement="/" />
+			</antelope:stringutil>
+			<copy file="${plugincontextfile}" todir="${auto.deploy.dir}" />
+		</sequential>
+	</target>
+</project>	
