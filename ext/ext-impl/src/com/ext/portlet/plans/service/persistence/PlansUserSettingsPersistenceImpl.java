@@ -139,6 +139,8 @@ public class PlansUserSettingsPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence planPositionItemPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanFanPersistence planFanPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence planTeamHistoryPersistence;
     protected ContainsPlanAttributeFilter containsPlanAttributeFilter;
     protected ContainsPlanColumnSettings containsPlanColumnSettings;
 

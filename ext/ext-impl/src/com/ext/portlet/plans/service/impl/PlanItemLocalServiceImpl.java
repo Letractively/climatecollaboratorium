@@ -90,10 +90,11 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
      * All necessary id's are generated, version is set to 0.
      * @param authorId Id of user that is creating new plan
      */
-    public PlanItem createPlan(String name, Long planTypeId, Long authorId) throws SystemException, PortalException {
+    public PlanItem createPlan(Long planTypeId, Long authorId) throws SystemException, PortalException {
         long planItemId = CounterUtil.increment(PlanItem.class.getName());
         long planId = CounterUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
         
+        String name = "New Plan " + planId;  
         PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
         planItem.setPlanId(planId);
         planItem.setVersion(0L);
@@ -127,13 +128,14 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         
         return planItem;
     }
+
     
-    public PlanItem createPlan(String name, PlanItem basePlan, Long authorId) throws SystemException, PortalException {
+    public PlanItem createPlan(PlanItem basePlan, Long authorId) throws SystemException, PortalException {
         long type = basePlan.getPlanTypeId();
         if (basePlan.getPlanType().getPublished()) {
             type = basePlan.getPlanType().getPublishedCounterpartId();
         }
-        PlanItem plan = createPlan(name, type, authorId);
+        PlanItem plan = createPlan(type, authorId);
         PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
         PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
         PlanPositions planPositions = PlanPositionsLocalServiceUtil.getCurrentForPlan(plan);
@@ -268,7 +270,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         String groupName = plan.getName() + "_" + System.currentTimeMillis() + "_" + rand.nextLong();
         Group group = GroupServiceUtil.addGroup(plan.getName(), String.format(DEFAULT_GROUP_DESCRIPTION, groupName),
                 GroupConstants.TYPE_COMMUNITY_RESTRICTED, null, true, groupServiceContext);
-
+        
         Long parentCategoryId = 0L;
         DiscussionCategoryGroup categoryGroup = 
             DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + plan.getPlanId());

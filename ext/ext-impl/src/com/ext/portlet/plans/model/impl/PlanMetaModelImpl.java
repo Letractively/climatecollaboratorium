@@ -6,6 +6,7 @@ import com.ext.portlet.plans.model.PlanMetaSoap;
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
 
 import java.io.Serializable;
@@ -63,6 +64,12 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             { "planGroupId", new Integer(Types.BIGINT) },
             
 
+            { "open", new Integer(Types.BOOLEAN) },
+            
+
+            { "status", new Integer(Types.VARCHAR) },
+            
+
             { "mbCategoryId", new Integer(Types.BIGINT) },
             
 
@@ -83,7 +90,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
 
             { "modelId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,open BOOLEAN,status VARCHAR(75) null,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanMeta";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -104,6 +111,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
     private Long _authorId;
     private Integer _votes;
     private Long _planGroupId;
+    private Boolean _open;
+    private String _status;
     private Long _mbCategoryId;
     private Long _categoryGroupId;
     private Long _version;
@@ -125,6 +134,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         model.setAuthorId(soapModel.getAuthorId());
         model.setVotes(soapModel.getVotes());
         model.setPlanGroupId(soapModel.getPlanGroupId());
+        model.setOpen(soapModel.getOpen());
+        model.setStatus(soapModel.getStatus());
         model.setMbCategoryId(soapModel.getMbCategoryId());
         model.setCategoryGroupId(soapModel.getCategoryGroupId());
         model.setVersion(soapModel.getVersion());
@@ -222,6 +233,22 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         _planGroupId = planGroupId;
     }
 
+    public Boolean getOpen() {
+        return _open;
+    }
+
+    public void setOpen(Boolean open) {
+        _open = open;
+    }
+
+    public String getStatus() {
+        return GetterUtil.getString(_status);
+    }
+
+    public void setStatus(String status) {
+        _status = status;
+    }
+
     public Long getMbCategoryId() {
         return _mbCategoryId;
     }
@@ -294,6 +321,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             model.setAuthorId(getAuthorId());
             model.setVotes(getVotes());
             model.setPlanGroupId(getPlanGroupId());
+            model.setOpen(getOpen());
+            model.setStatus(HtmlUtil.escape(getStatus()));
             model.setMbCategoryId(getMbCategoryId());
             model.setCategoryGroupId(getCategoryGroupId());
             model.setVersion(getVersion());
@@ -320,6 +349,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         clone.setAuthorId(getAuthorId());
         clone.setVotes(getVotes());
         clone.setPlanGroupId(getPlanGroupId());
+        clone.setOpen(getOpen());
+        clone.setStatus(getStatus());
         clone.setMbCategoryId(getMbCategoryId());
         clone.setCategoryGroupId(getCategoryGroupId());
         clone.setVersion(getVersion());
@@ -396,6 +427,10 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(getVotes());
         sb.append(", planGroupId=");
         sb.append(getPlanGroupId());
+        sb.append(", open=");
+        sb.append(getOpen());
+        sb.append(", status=");
+        sb.append(getStatus());
         sb.append(", mbCategoryId=");
         sb.append(getMbCategoryId());
         sb.append(", categoryGroupId=");
@@ -449,6 +484,14 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(
             "<column><column-name>planGroupId</column-name><column-value><![CDATA[");
         sb.append(getPlanGroupId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>open</column-name><column-value><![CDATA[");
+        sb.append(getOpen());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>status</column-name><column-value><![CDATA[");
+        sb.append(getStatus());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>mbCategoryId</column-name><column-value><![CDATA[");

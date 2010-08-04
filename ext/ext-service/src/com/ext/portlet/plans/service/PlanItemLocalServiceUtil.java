@@ -90,19 +90,17 @@ public class PlanItemLocalServiceUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanItem createPlan(
-        java.lang.String name, java.lang.Long planTypeId,
-        java.lang.Long authorId)
+        java.lang.Long planTypeId, java.lang.Long authorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        return getService().createPlan(name, planTypeId, authorId);
+        return getService().createPlan(planTypeId, authorId);
     }
 
     public static com.ext.portlet.plans.model.PlanItem createPlan(
-        java.lang.String name, com.ext.portlet.plans.model.PlanItem basePlan,
-        java.lang.Long authorId)
+        com.ext.portlet.plans.model.PlanItem basePlan, java.lang.Long authorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        return getService().createPlan(name, basePlan, authorId);
+        return getService().createPlan(basePlan, authorId);
     }
 
     public static com.ext.portlet.plans.model.PlanItem createPlan(

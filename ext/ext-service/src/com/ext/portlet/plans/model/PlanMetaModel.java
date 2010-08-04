@@ -58,6 +58,14 @@ public interface PlanMetaModel extends BaseModel<PlanMeta> {
 
     public void setPlanGroupId(Long planGroupId);
 
+    public Boolean getOpen();
+
+    public void setOpen(Boolean open);
+
+    public String getStatus();
+
+    public void setStatus(String status);
+
     public Long getMbCategoryId();
 
     public void setMbCategoryId(Long mbCategoryId);

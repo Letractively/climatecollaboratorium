@@ -112,7 +112,8 @@ public class PlanConstants {
         CREATOR(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("creator"), true, PlanFilterOperatorType.LIKE, null),
 	    MITIGATION_COST_ERROR(String.class, "%s", attributeFunctionFactory.getIndexedOutputErrors("Mitigation Cost"), true, null, null), 
 	    DESCRIPTION(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("description"), true, PlanFilterOperatorType.LIKE, null),
-        POSITIONS(Long[].class, "%s", attributeFunctionFactory.getPlanPropertyFunction("positionsIdsArray"), true, PlanFilterOperatorType.POSITIONS_FILTER, null);
+        POSITIONS(Long[].class, "%s", attributeFunctionFactory.getPlanPropertyFunction("positionsIdsArray"), true, PlanFilterOperatorType.POSITIONS_FILTER, null),
+        STATUS(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("status"), true, PlanFilterOperatorType.LIKE, null);
 		
 		
 		private Class<?> clasz;

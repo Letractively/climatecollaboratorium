@@ -162,6 +162,26 @@ public class PlanFanUtil {
         return getPersistence().findByUserId_PrevAndNext(id, userId, obc);
     }
 
+    public static com.ext.portlet.plans.model.PlanFan findByPlanIdUserId(
+        java.lang.Long planId, java.lang.Long userId)
+        throws com.ext.portlet.plans.NoSuchPlanFanException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByPlanIdUserId(planId, userId);
+    }
+
+    public static com.ext.portlet.plans.model.PlanFan fetchByPlanIdUserId(
+        java.lang.Long planId, java.lang.Long userId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().fetchByPlanIdUserId(planId, userId);
+    }
+
+    public static com.ext.portlet.plans.model.PlanFan fetchByPlanIdUserId(
+        java.lang.Long planId, java.lang.Long userId, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByPlanIdUserId(planId, userId, retrieveFromCache);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -200,6 +220,13 @@ public class PlanFanUtil {
         getPersistence().removeByUserId(userId);
     }
 
+    public static void removeByPlanIdUserId(java.lang.Long planId,
+        java.lang.Long userId)
+        throws com.ext.portlet.plans.NoSuchPlanFanException,
+            com.liferay.portal.SystemException {
+        getPersistence().removeByPlanIdUserId(planId, userId);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -212,6 +239,11 @@ public class PlanFanUtil {
     public static int countByUserId(java.lang.Long userId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByUserId(userId);
+    }
+
+    public static int countByPlanIdUserId(java.lang.Long planId,
+        java.lang.Long userId) throws com.liferay.portal.SystemException {
+        return getPersistence().countByPlanIdUserId(planId, userId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

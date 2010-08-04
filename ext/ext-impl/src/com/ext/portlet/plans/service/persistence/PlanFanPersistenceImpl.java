@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -66,6 +67,14 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_USERID = new FinderPath(PlanFanModelImpl.ENTITY_CACHE_ENABLED,
             PlanFanModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countByUserId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FETCH_BY_PLANIDUSERID = new FinderPath(PlanFanModelImpl.ENTITY_CACHE_ENABLED,
+            PlanFanModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_ENTITY,
+            "fetchByPlanIdUserId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_PLANIDUSERID = new FinderPath(PlanFanModelImpl.ENTITY_CACHE_ENABLED,
+            PlanFanModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByPlanIdUserId",
+            new String[] { Long.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(PlanFanModelImpl.ENTITY_CACHE_ENABLED,
             PlanFanModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -113,10 +122,15 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence planPositionItemPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanFanPersistence planFanPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence planTeamHistoryPersistence;
 
     public void cacheResult(PlanFan planFan) {
         EntityCacheUtil.putResult(PlanFanModelImpl.ENTITY_CACHE_ENABLED,
             PlanFanImpl.class, planFan.getPrimaryKey(), planFan);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDUSERID,
+            new Object[] { planFan.getPlanId(), planFan.getUserId() }, planFan);
     }
 
     public void cacheResult(List<PlanFan> planFans) {
@@ -213,6 +227,15 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
 
+        PlanFanModelImpl planFanModelImpl = (PlanFanModelImpl) planFan;
+
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANIDUSERID,
+            new Object[] {
+                planFanModelImpl.getOriginalPlanId(),
+                
+            planFanModelImpl.getOriginalUserId()
+            });
+
         EntityCacheUtil.removeResult(PlanFanModelImpl.ENTITY_CACHE_ENABLED,
             PlanFanImpl.class, planFan.getPrimaryKey());
 
@@ -271,6 +294,10 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
 
     public PlanFan updateImpl(com.ext.portlet.plans.model.PlanFan planFan,
         boolean merge) throws SystemException {
+        boolean isNew = planFan.isNew();
+
+        PlanFanModelImpl planFanModelImpl = (PlanFanModelImpl) planFan;
+
         Session session = null;
 
         try {
@@ -289,6 +316,29 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
 
         EntityCacheUtil.putResult(PlanFanModelImpl.ENTITY_CACHE_ENABLED,
             PlanFanImpl.class, planFan.getPrimaryKey(), planFan);
+
+        if (!isNew &&
+                (!Validator.equals(planFan.getPlanId(),
+                    planFanModelImpl.getOriginalPlanId()) ||
+                !Validator.equals(planFan.getUserId(),
+                    planFanModelImpl.getOriginalUserId()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANIDUSERID,
+                new Object[] {
+                    planFanModelImpl.getOriginalPlanId(),
+                    
+                planFanModelImpl.getOriginalUserId()
+                });
+        }
+
+        if (isNew ||
+                (!Validator.equals(planFan.getPlanId(),
+                    planFanModelImpl.getOriginalPlanId()) ||
+                !Validator.equals(planFan.getUserId(),
+                    planFanModelImpl.getOriginalUserId()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDUSERID,
+                new Object[] { planFan.getPlanId(), planFan.getUserId() },
+                planFan);
+        }
 
         return planFan;
     }
@@ -358,6 +408,10 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
 
                 query.append(" AND deleted is null ");
 
+                query.append("ORDER BY ");
+
+                query.append("created ASC");
+
                 Query q = session.createQuery(query.toString());
 
                 QueryPos qPos = QueryPos.getInstance(q);
@@ -423,6 +477,11 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("created ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -521,6 +580,11 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 query.append("ORDER BY ");
                 query.append(obc.getOrderBy());
             }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("created ASC");
+            }
 
             Query q = session.createQuery(query.toString());
 
@@ -569,6 +633,10 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 }
 
                 query.append(" AND deleted is null ");
+
+                query.append("ORDER BY ");
+
+                query.append("created ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -635,6 +703,11 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("created ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -733,6 +806,11 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 query.append("ORDER BY ");
                 query.append(obc.getOrderBy());
             }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("created ASC");
+            }
 
             Query q = session.createQuery(query.toString());
 
@@ -755,6 +833,133 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
             throw processException(e);
         } finally {
             closeSession(session);
+        }
+    }
+
+    public PlanFan findByPlanIdUserId(Long planId, Long userId)
+        throws NoSuchPlanFanException, SystemException {
+        PlanFan planFan = fetchByPlanIdUserId(planId, userId);
+
+        if (planFan == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanFan exists with the key {");
+
+            msg.append("planId=" + planId);
+
+            msg.append(", ");
+            msg.append("userId=" + userId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchPlanFanException(msg.toString());
+        }
+
+        return planFan;
+    }
+
+    public PlanFan fetchByPlanIdUserId(Long planId, Long userId)
+        throws SystemException {
+        return fetchByPlanIdUserId(planId, userId, true);
+    }
+
+    public PlanFan fetchByPlanIdUserId(Long planId, Long userId,
+        boolean retrieveFromCache) throws SystemException {
+        Object[] finderArgs = new Object[] { planId, userId };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_PLANIDUSERID,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("FROM com.ext.portlet.plans.model.PlanFan WHERE ");
+
+                if (planId == null) {
+                    query.append("planId IS NULL");
+                } else {
+                    query.append("planId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (userId == null) {
+                    query.append("userId IS NULL");
+                } else {
+                    query.append("userId = ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                query.append("ORDER BY ");
+
+                query.append("created ASC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planId != null) {
+                    qPos.add(planId.longValue());
+                }
+
+                if (userId != null) {
+                    qPos.add(userId.longValue());
+                }
+
+                List<PlanFan> list = q.list();
+
+                result = list;
+
+                PlanFan planFan = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDUSERID,
+                        finderArgs, list);
+                } else {
+                    planFan = list.get(0);
+
+                    cacheResult(planFan);
+
+                    if ((planFan.getPlanId() == null) ||
+                            !planFan.getPlanId().equals(planId) ||
+                            (planFan.getUserId() == null) ||
+                            !planFan.getUserId().equals(userId)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDUSERID,
+                            finderArgs, planFan);
+                    }
+                }
+
+                return planFan;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDUSERID,
+                        finderArgs, new ArrayList<PlanFan>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (PlanFan) result;
+            }
         }
     }
 
@@ -825,6 +1030,11 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
                 }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("created ASC");
+                }
 
                 Query q = session.createQuery(query.toString());
 
@@ -865,6 +1075,13 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
         for (PlanFan planFan : findByUserId(userId)) {
             remove(planFan);
         }
+    }
+
+    public void removeByPlanIdUserId(Long planId, Long userId)
+        throws NoSuchPlanFanException, SystemException {
+        PlanFan planFan = findByPlanIdUserId(planId, userId);
+
+        remove(planFan);
     }
 
     public void removeAll() throws SystemException {
@@ -966,6 +1183,70 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_USERID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByPlanIdUserId(Long planId, Long userId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { planId, userId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PLANIDUSERID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append("FROM com.ext.portlet.plans.model.PlanFan WHERE ");
+
+                if (planId == null) {
+                    query.append("planId IS NULL");
+                } else {
+                    query.append("planId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (userId == null) {
+                    query.append("userId IS NULL");
+                } else {
+                    query.append("userId = ?");
+                }
+
+                query.append(" AND deleted is null ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planId != null) {
+                    qPos.add(planId.longValue());
+                }
+
+                if (userId != null) {
+                    qPos.add(userId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PLANIDUSERID,
                     finderArgs, count);
 
                 closeSession(session);

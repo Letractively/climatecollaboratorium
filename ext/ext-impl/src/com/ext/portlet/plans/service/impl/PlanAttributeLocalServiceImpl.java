@@ -14,6 +14,7 @@ import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.service.base.PlanAttributeLocalServiceBaseImpl;
 import com.ext.portlet.plans.service.persistence.PlanAttributePK;
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -22,7 +23,7 @@ public class PlanAttributeLocalServiceImpl
 	
 	
 	public void addPlanAttribute(long planId, String attributeName, String attributeValue) throws SystemException {
-		long id = CounterLocalServiceUtil.increment(PlanAttribute.class.getName());
+		long id = CounterUtil.increment(PlanAttribute.class.getName());
 		PlanAttribute att = planAttributeLocalService.createPlanAttribute(id);
 		att.setPlanId(planId);
 		att.setAttributeName(attributeName);

@@ -117,6 +117,19 @@ public interface PlanFanPersistence extends BasePersistence {
         throws com.ext.portlet.plans.NoSuchPlanFanException,
             com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanFan findByPlanIdUserId(
+        java.lang.Long planId, java.lang.Long userId)
+        throws com.ext.portlet.plans.NoSuchPlanFanException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanFan fetchByPlanIdUserId(
+        java.lang.Long planId, java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanFan fetchByPlanIdUserId(
+        java.lang.Long planId, java.lang.Long userId, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -141,12 +154,20 @@ public interface PlanFanPersistence extends BasePersistence {
     public void removeByUserId(java.lang.Long userId)
         throws com.liferay.portal.SystemException;
 
+    public void removeByPlanIdUserId(java.lang.Long planId,
+        java.lang.Long userId)
+        throws com.ext.portlet.plans.NoSuchPlanFanException,
+            com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
 
     public int countByUserId(java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    public int countByPlanIdUserId(java.lang.Long planId, java.lang.Long userId)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

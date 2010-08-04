@@ -1,5 +1,6 @@
 package com.ext.portlet.plans.service.impl;
 
+import com.ext.portlet.PlanStatus;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.model.PlanType;
@@ -31,9 +32,12 @@ public class PlanMetaLocalServiceImpl extends PlanMetaLocalServiceBaseImpl {
         planMeta.setPlanVersion(plan.getVersion());
         planMeta.setCreated(new Date());
         planMeta.setVotes(0);
+        planMeta.setOpen(true);
         planMeta.setUpdateAuthorId(plan.getUpdateAuthorId());
         planMeta.setAuthorId(plan.getUpdateAuthorId());
         planMeta.setVersion(0L);
+        planMeta.setCategoryGroupId(0L);
+        planMeta.setStatus(PlanStatus.UNDER_DEVELOPMENT.name());
         
         return PlanMetaLocalServiceUtil.addPlanMeta(planMeta);
     }

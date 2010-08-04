@@ -27,6 +27,8 @@ import com.ext.portlet.plans.service.PlanPositionsService;
 import com.ext.portlet.plans.service.PlanPropertyFilterLocalService;
 import com.ext.portlet.plans.service.PlanPropertyFilterService;
 import com.ext.portlet.plans.service.PlanService;
+import com.ext.portlet.plans.service.PlanTeamHistoryLocalService;
+import com.ext.portlet.plans.service.PlanTeamHistoryService;
 import com.ext.portlet.plans.service.PlanTypeAttributeLocalService;
 import com.ext.portlet.plans.service.PlanTypeAttributeService;
 import com.ext.portlet.plans.service.PlanTypeColumnLocalService;
@@ -55,6 +57,7 @@ import com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPositionPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPositionsPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistence;
+import com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypeAttributePersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypePersistence;
@@ -195,6 +198,12 @@ public abstract class PlanFanLocalServiceBaseImpl implements PlanFanLocalService
     protected PlanFanService planFanService;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl")
     protected PlanFanPersistence planFanPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanTeamHistoryLocalService.impl")
+    protected PlanTeamHistoryLocalService planTeamHistoryLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanTeamHistoryService.impl")
+    protected PlanTeamHistoryService planTeamHistoryService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl")
+    protected PlanTeamHistoryPersistence planTeamHistoryPersistence;
 
     public PlanFan addPlanFan(PlanFan planFan) throws SystemException {
         planFan.setNew(true);
@@ -779,6 +788,33 @@ public abstract class PlanFanLocalServiceBaseImpl implements PlanFanLocalService
 
     public void setPlanFanPersistence(PlanFanPersistence planFanPersistence) {
         this.planFanPersistence = planFanPersistence;
+    }
+
+    public PlanTeamHistoryLocalService getPlanTeamHistoryLocalService() {
+        return planTeamHistoryLocalService;
+    }
+
+    public void setPlanTeamHistoryLocalService(
+        PlanTeamHistoryLocalService planTeamHistoryLocalService) {
+        this.planTeamHistoryLocalService = planTeamHistoryLocalService;
+    }
+
+    public PlanTeamHistoryService getPlanTeamHistoryService() {
+        return planTeamHistoryService;
+    }
+
+    public void setPlanTeamHistoryService(
+        PlanTeamHistoryService planTeamHistoryService) {
+        this.planTeamHistoryService = planTeamHistoryService;
+    }
+
+    public PlanTeamHistoryPersistence getPlanTeamHistoryPersistence() {
+        return planTeamHistoryPersistence;
+    }
+
+    public void setPlanTeamHistoryPersistence(
+        PlanTeamHistoryPersistence planTeamHistoryPersistence) {
+        this.planTeamHistoryPersistence = planTeamHistoryPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {

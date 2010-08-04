@@ -410,6 +410,7 @@ create index IX_B607C303 on PlanColumnSettings (planUserSettingsId, columnName);
 create index IX_DAB9791 on PlanDescription (planId);
 
 create index IX_B7B214E8 on PlanFan (planId);
+create index IX_C6200522 on PlanFan (planId, userId);
 create index IX_386F548A on PlanFan (userId);
 
 create index IX_971BCD5A on PlanItem (planId);
@@ -425,6 +426,9 @@ create index IX_BBE72D81 on PlanPositionItem (planPositionsId);
 create index IX_998C103F on PlanPositions (planId);
 
 create index IX_74EB9856 on PlanPropertyFilter (planUserSettingsId, propertyName);
+
+create index IX_F4A17D4C on PlanTeamHistory (planId);
+create index IX_5BE2C986 on PlanTeamHistory (planId, userId);
 
 create index IX_7F5652DE on PlanType (isDefault);
 
