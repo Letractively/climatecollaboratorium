@@ -33,6 +33,8 @@ public class PlanMetaSoap implements Serializable {
     private Long _authorId;
     private Integer _votes;
     private Long _planGroupId;
+    private Boolean _open;
+    private String _status;
     private Long _mbCategoryId;
     private Long _categoryGroupId;
     private Long _version;
@@ -54,6 +56,8 @@ public class PlanMetaSoap implements Serializable {
         soapModel.setAuthorId(model.getAuthorId());
         soapModel.setVotes(model.getVotes());
         soapModel.setPlanGroupId(model.getPlanGroupId());
+        soapModel.setOpen(model.getOpen());
+        soapModel.setStatus(model.getStatus());
         soapModel.setMbCategoryId(model.getMbCategoryId());
         soapModel.setCategoryGroupId(model.getCategoryGroupId());
         soapModel.setVersion(model.getVersion());
@@ -163,6 +167,22 @@ public class PlanMetaSoap implements Serializable {
 
     public void setPlanGroupId(Long planGroupId) {
         _planGroupId = planGroupId;
+    }
+
+    public Boolean getOpen() {
+        return _open;
+    }
+
+    public void setOpen(Boolean open) {
+        _open = open;
+    }
+
+    public String getStatus() {
+        return _status;
+    }
+
+    public void setStatus(String status) {
+        _status = status;
     }
 
     public Long getMbCategoryId() {

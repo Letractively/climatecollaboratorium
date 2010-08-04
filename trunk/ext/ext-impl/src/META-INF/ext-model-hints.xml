@@ -147,6 +147,8 @@
 		<field name="authorId" type="Long" />
 		<field name="votes" type="Integer" />
 		<field name="planGroupId" type="Long" />
+		<field name="open" type="Boolean" />
+		<field name="status" type="String" />
 		<field name="mbCategoryId" type="Long" />
 		<field name="categoryGroupId" type="Long" />
 		<field name="version" type="Long" />
@@ -182,6 +184,15 @@
 		<field name="planId" type="Long" />
 		<field name="created" type="Date" />
 		<field name="deleted" type="Date" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanTeamHistory">
+		<field name="id" type="Long" />
+		<field name="planId" type="Long" />
+		<field name="userId" type="Long" />
+		<field name="action" type="String" />
+		<field name="payload" type="String" />
+		<field name="created" type="Date" />
+		<field name="updateAuthorId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelDiscussion">
 		<field name="modelDiscussionId" type="Long" />

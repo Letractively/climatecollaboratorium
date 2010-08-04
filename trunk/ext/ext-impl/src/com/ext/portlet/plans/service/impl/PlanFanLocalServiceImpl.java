@@ -3,6 +3,7 @@ package com.ext.portlet.plans.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.ext.portlet.plans.NoSuchPlanFanException;
 import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.service.base.PlanFanLocalServiceBaseImpl;
 import com.liferay.counter.service.persistence.CounterUtil;
@@ -32,4 +33,22 @@ public class PlanFanLocalServiceImpl extends PlanFanLocalServiceBaseImpl {
         
         return planFan;
     }
+    
+    public void removePlanFan(Long planId, Long userId) throws SystemException {
+        try {
+            PlanFan planFan = planFanPersistence.findByPlanIdUserId(planId, userId);
+            planFan.setDeleted(new Date());
+            planFan.store();
+            
+            // flush the cache
+            planFanPersistence.fetchByPlanIdUserId(planId, userId, false);
+        } catch (NoSuchPlanFanException e) {
+            // ignore
+        }
+    }
+    
+    public PlanFan getPlanFanByPlanIdUserId(Long planId, Long userId) throws SystemException, NoSuchPlanFanException {
+        PlanFan planFan = planFanPersistence.findByPlanIdUserId(planId, userId);
+        return planFan;
+    }       
 }

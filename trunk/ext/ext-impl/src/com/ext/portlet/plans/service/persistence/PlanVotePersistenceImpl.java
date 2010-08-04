@@ -105,6 +105,8 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence planPositionItemPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanFanPersistence planFanPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence planTeamHistoryPersistence;
 
     public void cacheResult(PlanVote planVote) {
         EntityCacheUtil.putResult(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,

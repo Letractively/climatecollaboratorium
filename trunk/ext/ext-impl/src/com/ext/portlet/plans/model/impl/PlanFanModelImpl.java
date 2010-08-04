@@ -4,6 +4,7 @@ import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.model.PlanFanSoap;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
 
@@ -70,7 +71,9 @@ public class PlanFanModelImpl extends BaseModelImpl<PlanFan> {
                 "lock.expiration.time.com.ext.portlet.plans.model.PlanFan"));
     private Long _id;
     private Long _userId;
+    private Long _originalUserId;
     private Long _planId;
+    private Long _originalPlanId;
     private Date _created;
     private Date _deleted;
 
@@ -125,6 +128,14 @@ public class PlanFanModelImpl extends BaseModelImpl<PlanFan> {
 
     public void setUserId(Long userId) {
         _userId = userId;
+
+        if (_originalUserId == null) {
+            _originalUserId = userId;
+        }
+    }
+
+    public Long getOriginalUserId() {
+        return _originalUserId;
     }
 
     public Long getPlanId() {
@@ -133,6 +144,14 @@ public class PlanFanModelImpl extends BaseModelImpl<PlanFan> {
 
     public void setPlanId(Long planId) {
         _planId = planId;
+
+        if (_originalPlanId == null) {
+            _originalPlanId = planId;
+        }
+    }
+
+    public Long getOriginalPlanId() {
+        return _originalPlanId;
     }
 
     public Date getCreated() {
@@ -187,9 +206,15 @@ public class PlanFanModelImpl extends BaseModelImpl<PlanFan> {
     }
 
     public int compareTo(PlanFan planFan) {
-        Long pk = planFan.getPrimaryKey();
+        int value = 0;
 
-        return getPrimaryKey().compareTo(pk);
+        value = DateUtil.compareTo(getCreated(), planFan.getCreated());
+
+        if (value != 0) {
+            return value;
+        }
+
+        return 0;
     }
 
     public boolean equals(Object obj) {

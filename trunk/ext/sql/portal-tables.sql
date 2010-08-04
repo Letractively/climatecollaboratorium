@@ -1128,6 +1128,8 @@ create table PlanMeta (
 	authorId LONG,
 	votes INTEGER,
 	planGroupId LONG,
+	open BOOLEAN,
+	status VARCHAR(75) null,
 	mbCategoryId LONG,
 	categoryGroupId LONG,
 	version LONG,
@@ -1167,6 +1169,16 @@ create table PlanPropertyFilter (
 	propertyName VARCHAR(75) null,
 	planUserSettingsId LONG,
 	value VARCHAR(75) null
+);
+
+create table PlanTeamHistory (
+	id_ LONG not null primary key,
+	planId LONG,
+	userId LONG,
+	action VARCHAR(75) null,
+	payload VARCHAR(75) null,
+	created DATE null,
+	updateAuthorId LONG
 );
 
 create table PlanType (

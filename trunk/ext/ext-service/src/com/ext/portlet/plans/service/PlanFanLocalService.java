@@ -86,4 +86,13 @@ public interface PlanFanLocalService {
 
     public com.ext.portlet.plans.model.PlanFan addFan(java.lang.Long planId,
         java.lang.Long userId) throws com.liferay.portal.SystemException;
+
+    public void removePlanFan(java.lang.Long planId, java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanFan getPlanFanByPlanIdUserId(
+        java.lang.Long planId, java.lang.Long userId)
+        throws com.ext.portlet.plans.NoSuchPlanFanException,
+            com.liferay.portal.SystemException;
 }

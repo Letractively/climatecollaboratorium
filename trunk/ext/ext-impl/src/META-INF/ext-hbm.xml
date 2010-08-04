@@ -196,6 +196,8 @@
 		<property name="authorId" />
 		<property name="votes" />
 		<property name="planGroupId" />
+		<property name="open" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="mbCategoryId" />
 		<property name="categoryGroupId" />
 		<property name="version" />
@@ -243,6 +245,18 @@
 		<property name="planId" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="deleted" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanTeamHistoryImpl" table="PlanTeamHistory">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planId" />
+		<property name="userId" />
+		<property name="action" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="payload" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="updateAuthorId" />
 	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelDiscussionImpl" table="ModelDiscussion">
 		<cache usage="read-write" />

@@ -81,6 +81,8 @@ public class PlansFilterPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence planPositionItemPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanFanPersistence planFanPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence planTeamHistoryPersistence;
 
     public void cacheResult(PlansFilter plansFilter) {
         EntityCacheUtil.putResult(PlansFilterModelImpl.ENTITY_CACHE_ENABLED,

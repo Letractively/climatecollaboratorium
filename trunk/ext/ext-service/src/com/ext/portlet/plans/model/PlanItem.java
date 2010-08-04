@@ -34,10 +34,12 @@ public interface PlanItem extends PlanItemModel {
 
     public void setDescription(java.lang.String description,
         java.lang.Long updateAuthorId)
-        throws com.liferay.portal.SystemException;
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 
     public void setName(java.lang.String name, java.lang.Long updateAuthorId)
-        throws com.liferay.portal.SystemException;
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.plans.model.PlanDescription> getAllDescriptionVersions()
         throws com.liferay.portal.SystemException;
@@ -74,7 +76,8 @@ public interface PlanItem extends PlanItemModel {
 
     public void setPlanTypeId(java.lang.Long planTypeId,
         java.lang.Long updateAuthorId)
-        throws com.liferay.portal.SystemException;
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 
     public java.lang.Long getMBCategoryId()
         throws com.liferay.portal.SystemException;
@@ -119,6 +122,17 @@ public interface PlanItem extends PlanItemModel {
             com.liferay.portal.SystemException;
 
     public java.lang.Integer getVotes()
+        throws com.liferay.portal.SystemException;
+
+    public boolean getOpen() throws com.liferay.portal.SystemException;
+
+    public void setOpen(boolean open, java.lang.Long updateAuthorId)
+        throws com.liferay.portal.SystemException;
+
+    public java.lang.String getStatus()
+        throws com.liferay.portal.SystemException;
+
+    public void setStatus(java.lang.String status, java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanPositions getPlanPositions()
@@ -182,13 +196,13 @@ public interface PlanItem extends PlanItemModel {
 
     public void dennyMembershipRequest(java.lang.Long userId,
         com.liferay.portal.model.MembershipRequest request,
-        java.lang.String reply)
+        java.lang.String reply, java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
     public void approveMembershipRequest(java.lang.Long userId,
         com.liferay.portal.model.MembershipRequest request,
-        java.lang.String reply)
+        java.lang.String reply, java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
@@ -202,4 +216,39 @@ public interface PlanItem extends PlanItemModel {
     public com.liferay.portal.model.User getUpdateAuthor()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanFan> getFans()
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanFan addFan(java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    public void removeFan(java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    public boolean isUserAFan(java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    public boolean isUserAMember(java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    public boolean hasUserRequestedMembership(java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    public boolean isAdmin(java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public boolean isOwner(java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void setUserPermission(java.lang.Long userId,
+        java.lang.String userPermission, java.lang.Long updateAuthorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void removeMember(java.lang.Long userId,
+        java.lang.Long updateAuthorId)
+        throws com.liferay.portal.SystemException;
 }

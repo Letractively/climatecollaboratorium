@@ -125,6 +125,8 @@ public class PlanPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence planPositionItemPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanFanPersistence planFanPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence planTeamHistoryPersistence;
     protected ContainsPlanAttribute containsPlanAttribute;
 
     public void cacheResult(Plan plan) {

@@ -319,6 +319,8 @@
         <column name="votes" type="Integer" />
         <!-- ID of community related to a plan -->
         <column name="planGroupId" type="Long" />
+        <column name="open" type="Boolean" />
+        <column name="status" type="String" />
         <!-- message boards category -->
         <column name="mbCategoryId" type="Long" />
         <column name="categoryGroupId" type="Long" />
@@ -402,6 +404,10 @@
         <column name="created" type="Date" />
         <column name="deleted" type="Date" />
         
+        <order by="asc">
+            <order-column name="created" case-sensitive="false" />
+        </order>
+        
         <finder name="PlanId" return-type="Collection" where="deleted is null">
             <finder-column name="planId" />
         </finder>
@@ -409,7 +415,38 @@
         <finder name="UserId" return-type="Collection" where="deleted is null">
             <finder-column name="userId" />
         </finder>
+        
+        <finder name="PlanIdUserId" return-type="PlanFan" where="deleted is null">
+            <finder-column name="planId" />
+            <finder-column name="userId" />
+        </finder>
     
+    </entity>
+    
+    <entity name="PlanTeamHistory" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="planId" type="Long" />
+        <column name="userId" type="Long" />
+        <column name="action" type="String" />
+        <column name="payload" type="String" />
+        <column name="created" type="Date" />
+        <column name="updateAuthorId" type="Long" />
+                
+        <order by="asc">
+            <order-column name="created" case-sensitive="false" />
+        </order>
+        
+        <finder name="PlanId" return-type="Collection">
+            <finder-column name="planId" />
+        </finder>
+        
+        <finder name="LastUserActionInPlan" return-type="PlanTeamHistory">
+            <finder-column name="planId" />
+            <finder-column name="userId" />
+        </finder>
+
+        
+        
     </entity>
 
 	<exceptions>
