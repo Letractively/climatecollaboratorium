@@ -16,7 +16,7 @@
                             <ui:param value="#{planBean.createPlanBean}" name="createPlanBean" />
                         </ui:include>
                         
-                        <a href="javascript:;" onclick="if(!deferUntilLogin()) return false; showCreatePlanDialog()" >create new plan based on this</a> |&amp;nbsp;
+                        <ice:commandLink onclick="if(!deferUntilLogin()) return false;" actionListener="#{planBean.createPlanBean.createPlan}" >create new plan based on this</ice:commandLink> |&amp;nbsp;
                         <ice:commandLink value="subscribe" onclickactionListener="#{planBean.plan.subscribe}" />
                     </ice:form>
                 </div>
@@ -88,6 +88,11 @@
                             <ice:panelTab label="Team" onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/team.xhtml" />
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="Admin" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/admin.xhtml" />
                                 </f:subview>
                             </ice:panelTab>
                         </ice:panelTabSet>

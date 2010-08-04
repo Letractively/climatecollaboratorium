@@ -42,8 +42,7 @@
 <div id="createPlanDialog" class="dialogdialog"></div>
 <f:subview rendered="#{createPlanBean.navigateToPlan}">    
     <script language="javascript">
-        navigateToPlan(#{createPlanBean.planId});
-        hideCreatePlanDialog();
+        Collab.nav.navigate("plans", {planId: #{createPlanBean.planId}});
     </script>
 </f:subview>
 </f:view>

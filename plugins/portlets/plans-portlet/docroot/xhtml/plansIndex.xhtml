@@ -25,6 +25,9 @@
         <ui:include src="./createPlan.xhtml">
              <ui:param value="#{navigation.createPlanBean}" name="createPlanBean" />
         </ui:include>
+     </ice:form>
+     <ice:form>
+        
         
         <f:subview rendered="#{plansIndexBean.findUserVote}">
             <ui:include src="./findUserVote.xhtml" />
@@ -35,7 +38,7 @@
                 <ice:commandLink styleClass="#{plansIndexBean.planType.published ? 'development' : 'developmentHover'}" actionListener="#{plansIndexBean.useUnPublishedPlans}"><span class="hidden">Plans Under Development</span></ice:commandLink>
             </div>
             <div class="planactions floatLeft">
-                <a class="createNewPlan" href="javascript:;" onclick="if(!deferUntilLogin()) return false; showCreatePlanDialog()" ><span class="hidden">Create a New Plan</span></a>
+                <ice:commandLink styleClass="createNewPlan" onclick="if(!deferUntilLogin()) return false;" actionListener="#{navigation.createPlanBean.createPlan}"><span class="hidden">Create a New Plan</span></ice:commandLink>
                 
                 <f:subview rendered="#{plansIndexBean.planType.published and plansIndexBean.hasUserVoted}">
                     <ice:commandLink styleClass="findMyVoteBtn" actionListener="#{plansIndexBean.findUserVote}"><span class="hidden">Find my Vote</span></ice:commandLink>
