@@ -52,6 +52,15 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>discussionBean</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.facelets.discussions.DiscussionBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>eventBus</property-name>
+			<value>#{eventBus}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>eventBus</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.events.EventBusImpl</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -88,8 +97,8 @@
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>discussionBean</managed-bean-name>
-		<managed-bean-class>org.climatecollaboratorium.facelets.discussions.DiscussionBean</managed-bean-class>
+		<managed-bean-name>tagsDemo</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.tagsdemo.TagsDemo</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 		<managed-property>
 			<property-name>eventBus</property-name>

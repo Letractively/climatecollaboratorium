@@ -68,6 +68,11 @@ public class DiscussionBean {
     private DiscussionsPermissionsConfig permissionsConfig;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
+    public DiscussionBean() {
+        // initialized
+        System.out.println("initialized");
+    }
+    
     /**
      * Method initializes all elements within the bean. If bean wasn't correctly
      * initialized (there is no such discussion) false is returned. True
@@ -224,6 +229,9 @@ public class DiscussionBean {
     }
 
     private void updateDisplay() throws SystemException {
+        if (discussion == null) {
+            return;
+        }
         if (pageType == DiscussionPageType.CATEGORY) {
             getCategories();
             currentCategory = categoriesById.get(categoryId);
@@ -246,7 +254,7 @@ public class DiscussionBean {
     }
 
     public List<MessageWrapper> getThreads() throws SystemException {
-        if (threads == null) {
+        if (threads == null && discussion != null) {
             threads = new ArrayList<MessageWrapper>();
             threadsById = new HashMap<Long, MessageWrapper>();
             for (CategoryWrapper catWrapper : getCategories()) {
@@ -260,7 +268,7 @@ public class DiscussionBean {
     }
 
     public List<CategoryWrapper> getCategories() throws SystemException {
-        if (categories == null) {
+        if (categories == null && discussion != null) {
             categories = new ArrayList<CategoryWrapper>();
             categoriesById = new HashMap<Long, CategoryWrapper>();
             for (DiscussionCategory category : discussion.getCategories()) {
