@@ -63,7 +63,7 @@ public class SimulationBean {
         this.embeddedEditing = embeddedEditing;
     }
 
-    private Map<Long, String> inputsValues = new HashMap<Long, String>();
+    private Map<Long, Object> inputsValues = new HashMap<Long, Object>();
     private boolean scenarioSaved;
     private ModelInputGroupDisplayItemWrapper newGroupWrapper;
 
@@ -176,7 +176,7 @@ public class SimulationBean {
                 inputsValues.put(var.getId(), var.getValue().get(0).getValues()[0]);
             }
             for (Long id: inputs.keySet()) {
-                inputsValues.put(id, inputs.get(id).toString());
+                inputsValues.put(id, inputs.get(id));
             }
 
 
@@ -197,7 +197,7 @@ public class SimulationBean {
         }
     }
 
-    public Map<Long, String> getInputValues() {
+    public Map<Long, Object> getInputValues() {
         return inputsValues;
     }
 
@@ -232,14 +232,14 @@ public class SimulationBean {
     
     public void updateDisplay() throws SystemException, IllegalUIConfigurationException {
         if (scenario != null) {
-            display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this);
+            display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this, inputsValues);
         }
         else {
-            display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(simulation), this);
+            display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(simulation), this, inputsValues);
         } 
         wrappedInputs.clear();
         for (ModelInputDisplayItem item: display.getWrapped().getInputs()) {
-            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this));
+            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this, inputsValues));
         }
         
         newGroupWrapper = new ModelInputGroupDisplayItemWrapper(this);
@@ -341,4 +341,8 @@ public class SimulationBean {
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
     }
+    
+    public boolean getHasTabs() {
+        return display != null ? display.hasTabs() : false;
+     }
 }
