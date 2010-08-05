@@ -10,6 +10,7 @@
     
 <ui:composition template="../templates/tagShowcaseTemplate_noform.xhtml">
     <ui:define name="title">SimulationOutputs tag</ui:define>
+    <ice:form>
     <h3>Define parameters</h3>
     <table>
         <tr>
@@ -32,8 +33,11 @@
             <td colspan="2"><ice:commandButton value="update" /></td>
         </tr>
     </table>
+    </ice:form>
     <h3>Tag outputs</h3>
+    <ice:form>
     <collab:simulation simulationId="#{simulationBeanTest.simulationId}" scenarioId="#{simulationBeanTest.scenarioId}" 
             showEditButton="#{simulationBeanTest.showEditButton}" showRunButton="#{simulationBeanTest.showRunButton}" />
+            </ice:form>
 </ui:composition>
 </f:view>

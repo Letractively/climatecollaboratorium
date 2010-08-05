@@ -1,15 +1,19 @@
 package org.climatecollaboratorium.facelets.simulations.support;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
-
-import mit.simulation.climate.client.MetaData;
 
 import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 
 import com.ext.portlet.models.service.base.ModelInputGroupType;
+
+import mit.simulation.climate.client.MetaData;
+
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
@@ -25,24 +29,20 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
     private ModelInputGroupDisplayItem groupItem;
     private List<ModelInputDisplayItemWrapper> wrappedItems = new ArrayList<ModelInputDisplayItemWrapper>();
 
-    public ModelInputGroupDisplayItemWrapper(ModelInputGroupDisplayItem groupItem, SimulationBean bean) {
-        super(groupItem);
+
+    public ModelInputGroupDisplayItemWrapper(ModelInputGroupDisplayItem groupItem, SimulationBean bean, Map<Long, Object> inputsValues) {
+        super(groupItem, inputsValues);
         simulationBean = bean;
         this.groupItem = groupItem;
-        
-        for (ModelInputDisplayItem item: groupItem.getDisplayItems()) {
-            wrappedItems.add(ModelInputDisplayItemWrapper.getInputWrapper(item, bean));
+
+        for (ModelInputDisplayItem item: groupItem.getAllItems()) {
+            wrappedItems.add(ModelInputDisplayItemWrapper.getInputWrapper(item, bean, inputsValues));
         }
-        
     }
     
     public ModelInputGroupDisplayItemWrapper(SimulationBean bean) {
-        super(null);
+        super(null, null);
         this.simulationBean = bean;
-    }
-    
-    public List<ModelInputDisplayItemWrapper> getDisplayItemsWrapped() {
-        return wrappedItems;
     }
     
     
@@ -62,7 +62,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
             }
 
             int maxOrder = Integer.MIN_VALUE;
-            for (ModelInputDisplayItem item: simulationBean.getDisplay().getWrapped().getInputs()) {
+            for (ModelInputDisplayItem item: simulationBean.getDisplay().getOryginalInputs()) {
                 if (item.getOrder() > maxOrder) {
                     maxOrder = item.getOrder();
                 }
@@ -142,9 +142,23 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
     public String getOryginalDescription() {
         return wrappedItem.getDescription();
     }
-    
+
     public String getOryginalName() {
         return wrappedItem.getName();
     }
     
+
+    public List<ModelInputDisplayItemWrapper> getDisplayItemsWrapped() {
+        return wrappedItems;
+    }
+    
+    public List<ModelInputDisplayItemWrapper> getAllItems() {
+        return wrappedItems;
+        
+    }
+    
+    protected boolean hasValue() {
+        return false;
+    }
+
 }

@@ -26,6 +26,14 @@
                                                 <ui:include src="indexed.xhtml" />
                                             </f:subview>
                                     </ui:repeat>
+                                    <div class="hidden">
+                                        @{simulationBean.scenario}
+                                        <script language="javascript">
+                                            renderModelOutputs();
+                                        </script>
+                                    
+                                    </div>
+                                    
                                 </div>
                
                             </ice:panelGroup>
