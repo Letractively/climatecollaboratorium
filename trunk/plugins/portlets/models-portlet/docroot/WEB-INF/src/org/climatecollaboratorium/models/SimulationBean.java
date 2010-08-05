@@ -471,9 +471,6 @@ public class SimulationBean implements JSEventHandler {
             lastEnd = matcher.end();
         }
         sb.append(content.substring(lastEnd));
-        System.out.println("######################");
-        System.out.println(sb.toString());
-        
         
         return WikiParser.renderXHTML(sb.toString());
     }
