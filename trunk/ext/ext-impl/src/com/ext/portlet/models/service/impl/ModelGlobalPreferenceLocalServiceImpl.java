@@ -83,5 +83,34 @@ public class ModelGlobalPreferenceLocalServiceImpl
        pref.setWeight(weight);
        updateModelGlobalPreference(pref);
    }
+    
+    public Long getExpertEvaluationPageId(Simulation s) throws SystemException {
+        ModelGlobalPreference pref = null;
+        try {
+            pref = modelGlobalPreferencePersistence.findByModelId(s.getId());
+        } catch (NoSuchModelGlobalPreferenceException e) {
+          //no worries
+        }
+        return pref != null ? pref.getExpertEvaluationPageId() : null;
+    }
+    
+   public void setExpertEvaluationPageId(Simulation s, Long pageId) throws SystemException {
+        ModelGlobalPreference pref = null;
+       try {
+           pref = modelGlobalPreferencePersistence.findByModelId(s.getId());
+       } catch (NoSuchModelGlobalPreferenceException e) {
+         //no worries
+       }
+       if (pref == null) {
+           Long pk = CounterLocalServiceUtil.increment(ModelGlobalPreference.class.getName());
+           pref = createModelGlobalPreference(pk);
+           pref.setModelId(s.getId());
+           pref.setWeight(0);
+           pref.setVisible(false);
+           addModelGlobalPreference(pref);
+       }
+       pref.setExpertEvaluationPageId(pageId);
+       updateModelGlobalPreference(pref);
+   }
 
 }

@@ -44,5 +44,9 @@ public interface ModelGlobalPreferenceModel extends BaseModel<ModelGlobalPrefere
 
     public void setWeight(Integer weight);
 
+    public Long getExpertEvaluationPageId();
+
+    public void setExpertEvaluationPageId(Long expertEvaluationPageId);
+
     public ModelGlobalPreference toEscapedModel();
 }

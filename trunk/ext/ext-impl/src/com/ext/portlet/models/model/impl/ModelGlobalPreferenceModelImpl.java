@@ -49,9 +49,12 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
             { "visible", new Integer(Types.BOOLEAN) },
             
 
-            { "weight", new Integer(Types.INTEGER) }
+            { "weight", new Integer(Types.INTEGER) },
+            
+
+            { "expertEvaluationPageId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelGlobalPreference (modelGlobalPreferencePK LONG not null primary key,modelId LONG,visible BOOLEAN,weight INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table ModelGlobalPreference (modelGlobalPreferencePK LONG not null primary key,modelId LONG,visible BOOLEAN,weight INTEGER,expertEvaluationPageId LONG)";
     public static final String TABLE_SQL_DROP = "drop table ModelGlobalPreference";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -69,6 +72,7 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
     private Long _originalModelId;
     private Boolean _visible;
     private Integer _weight;
+    private Long _expertEvaluationPageId;
 
     public ModelGlobalPreferenceModelImpl() {
     }
@@ -81,6 +85,7 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         model.setModelId(soapModel.getModelId());
         model.setVisible(soapModel.getVisible());
         model.setWeight(soapModel.getWeight());
+        model.setExpertEvaluationPageId(soapModel.getExpertEvaluationPageId());
 
         return model;
     }
@@ -148,6 +153,14 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         _weight = weight;
     }
 
+    public Long getExpertEvaluationPageId() {
+        return _expertEvaluationPageId;
+    }
+
+    public void setExpertEvaluationPageId(Long expertEvaluationPageId) {
+        _expertEvaluationPageId = expertEvaluationPageId;
+    }
+
     public ModelGlobalPreference toEscapedModel() {
         if (isEscapedModel()) {
             return (ModelGlobalPreference) this;
@@ -161,6 +174,7 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
             model.setModelId(getModelId());
             model.setVisible(getVisible());
             model.setWeight(getWeight());
+            model.setExpertEvaluationPageId(getExpertEvaluationPageId());
 
             model = (ModelGlobalPreference) Proxy.newProxyInstance(ModelGlobalPreference.class.getClassLoader(),
                     new Class[] { ModelGlobalPreference.class },
@@ -177,6 +191,7 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         clone.setModelId(getModelId());
         clone.setVisible(getVisible());
         clone.setWeight(getWeight());
+        clone.setExpertEvaluationPageId(getExpertEvaluationPageId());
 
         return clone;
     }
@@ -224,6 +239,8 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         sb.append(getVisible());
         sb.append(", weight=");
         sb.append(getWeight());
+        sb.append(", expertEvaluationPageId=");
+        sb.append(getExpertEvaluationPageId());
         sb.append("}");
 
         return sb.toString();
@@ -251,6 +268,10 @@ public class ModelGlobalPreferenceModelImpl extends BaseModelImpl<ModelGlobalPre
         sb.append(
             "<column><column-name>weight</column-name><column-value><![CDATA[");
         sb.append(getWeight());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>expertEvaluationPageId</column-name><column-value><![CDATA[");
+        sb.append(getExpertEvaluationPageId());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

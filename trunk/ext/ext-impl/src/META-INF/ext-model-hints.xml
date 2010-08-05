@@ -212,6 +212,7 @@
 		<field name="modelId" type="Long" />
 		<field name="visible" type="Boolean" />
 		<field name="weight" type="Integer" />
+		<field name="expertEvaluationPageId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelInputGroup">
 		<field name="modelInputGroupPK" type="Long" />

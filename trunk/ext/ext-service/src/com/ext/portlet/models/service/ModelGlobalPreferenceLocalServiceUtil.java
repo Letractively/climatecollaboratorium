@@ -111,6 +111,18 @@ public class ModelGlobalPreferenceLocalServiceUtil {
         getService().setWeight(s, weight);
     }
 
+    public static java.lang.Long getExpertEvaluationPageId(
+        mit.simulation.climate.client.Simulation s)
+        throws com.liferay.portal.SystemException {
+        return getService().getExpertEvaluationPageId(s);
+    }
+
+    public static void setExpertEvaluationPageId(
+        mit.simulation.climate.client.Simulation s, java.lang.Long pageId)
+        throws com.liferay.portal.SystemException {
+        getService().setExpertEvaluationPageId(s, pageId);
+    }
+
     public static ModelGlobalPreferenceLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

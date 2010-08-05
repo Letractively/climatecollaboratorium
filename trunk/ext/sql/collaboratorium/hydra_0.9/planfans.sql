@@ -20,3 +20,5 @@ ALTER TABLE  `PlanMeta` ADD  `open` INT( 1 ) NOT NULL;
 ALTER TABLE  `PlanMeta` ADD  `status` VARCHAR(128) NULL;
 UPDATE PlanMeta SET status = 'UNDER_DEVELOPMENT';
 UPDATE  `lportal`.`Counter` SET  `currentId` =  '33000' WHERE  `Counter`.`name` =  'com.ext.portlet.plans.model.PlanAttribute';
+
+ALTER TABLE  `ModelGlobalPreference` ADD  `expertEvaluationPageId` BIGINT NULL

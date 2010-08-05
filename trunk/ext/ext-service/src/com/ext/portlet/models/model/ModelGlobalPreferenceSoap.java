@@ -29,6 +29,7 @@ public class ModelGlobalPreferenceSoap implements Serializable {
     private Long _modelId;
     private Boolean _visible;
     private Integer _weight;
+    private Long _expertEvaluationPageId;
 
     public ModelGlobalPreferenceSoap() {
     }
@@ -41,6 +42,7 @@ public class ModelGlobalPreferenceSoap implements Serializable {
         soapModel.setModelId(model.getModelId());
         soapModel.setVisible(model.getVisible());
         soapModel.setWeight(model.getWeight());
+        soapModel.setExpertEvaluationPageId(model.getExpertEvaluationPageId());
 
         return soapModel;
     }
@@ -122,5 +124,13 @@ public class ModelGlobalPreferenceSoap implements Serializable {
 
     public void setWeight(Integer weight) {
         _weight = weight;
+    }
+
+    public Long getExpertEvaluationPageId() {
+        return _expertEvaluationPageId;
+    }
+
+    public void setExpertEvaluationPageId(Long expertEvaluationPageId) {
+        _expertEvaluationPageId = expertEvaluationPageId;
     }
 }
