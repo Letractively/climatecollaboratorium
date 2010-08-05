@@ -3,6 +3,7 @@ package org.climatecollaboratorium.facelets.discussions.permissions;
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
 import org.climatecollaboratorium.utils.Helper;
 
+import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -65,6 +66,11 @@ public class DefaultDiscussionsPermissionsImpl implements DiscussionsPermissions
     @Override
     public boolean getCanAdmin() {
         return permCheck().hasPermission(groupId, RESOURCE_NAME, primKey, DiscussionActions.ADMIN.name()) || permCheck().isCommunityAdmin(groupId) || permCheck().isCompanyAdmin();
+    }
+    
+    @Override 
+    public boolean getCanSubscribe() {
+        return Helper.isUserLoggedIn();
     }
 
     private PermissionChecker permCheck() {

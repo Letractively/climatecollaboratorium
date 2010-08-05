@@ -7,6 +7,7 @@ public interface DiscussionsPermissions {
     boolean getCanAdminMessages();
     boolean getCanAdminCategories();
     boolean getCanAdmin();
+    boolean getCanSubscribe();
     
     
 }

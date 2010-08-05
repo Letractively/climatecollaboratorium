@@ -125,12 +125,12 @@
 }
 
 .discussion .addNewDiscussion {
-    background: #A60014;
+    background: #708AB3;
     color: #ffffff;
     margin: 5px 0;
     font-size: 1.2em;
 }
 .discussion .addNewDiscussion:hover {
-    background: #C20017;
+    background: #91B1E6;
     color: #ffffff;
 }

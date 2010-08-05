@@ -37,7 +37,7 @@ public class CategoryWrapper {
         this.wrapped = category;
         this.discussionBean = discussionBean;
         for (DiscussionMessage thread: category.getThreads()) {
-            this.threads.add(new MessageWrapper(thread, this));
+            this.threads.add(new MessageWrapper(thread, this, discussionBean));
         }
         
         this.title = category.getName();

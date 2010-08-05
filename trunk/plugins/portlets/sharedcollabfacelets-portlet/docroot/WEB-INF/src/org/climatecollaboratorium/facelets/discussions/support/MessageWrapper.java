@@ -37,16 +37,20 @@ public class MessageWrapper {
     private String filteredDescription;
     private boolean goTo;
     
-    public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category) {
+    public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category, DiscussionBean discussionBean) {
         this.category = category;
         this.wrapped = wrapped;
+
+        title = wrapped.getSubject();
+        description = wrapped.getBody();
+        filteredDescription = ContentFilterHelper.filterContent(description);
+        this.discussionBean = discussionBean;
+        
+        
         if (wrapped.getThreadId() == null) {
             // message represents a thread create placeholder for new message
             newMessage = new MessageWrapper(this);
         }
-        title = wrapped.getSubject();
-        description = wrapped.getBody();
-        filteredDescription = ContentFilterHelper.filterContent(description);
     }
 
     public MessageWrapper(DiscussionBean discussionBean) {
@@ -84,7 +88,7 @@ public class MessageWrapper {
             messages = new ArrayList<MessageWrapper>();
             messages.add(this);
             for (DiscussionMessage message: wrapped.getThreadMessages()) {
-                messages.add(new MessageWrapper(message, category));
+                messages.add(new MessageWrapper(message, category, discussionBean));
             }
             
             Collections.sort(messages, new Comparator<MessageWrapper>() {
