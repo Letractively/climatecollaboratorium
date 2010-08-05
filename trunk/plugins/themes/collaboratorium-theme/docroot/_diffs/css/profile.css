@@ -176,3 +176,12 @@ img.userFace {
     height: 20px;
     padding-left: 25px;
 }
+
+#MyFanedPlans .fanedplans-table {
+	width: 100%; 
+    text-align: center;
+}
+
+#MyFanedPlans .fanedplans-table td {
+	vertical-align: middle;
+}
