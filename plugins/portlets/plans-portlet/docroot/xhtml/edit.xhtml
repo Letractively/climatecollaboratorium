@@ -6,6 +6,7 @@
 
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component">
 	<ice:portlet>
+                    <ice:outputConnectionStatus/>
 		<ice:form>
 			<ice:outputStyle href="/xmlhttp/css/xp/xp-portlet.css" />
 			<ice:panelTabSet styleClass="componentPanelTabSetLayout">
@@ -27,6 +28,8 @@
                     <ice:commandButton action="#{migrationTool.migrateDiscussions}" value="MIGRATE DISCUSSIONS" onclick="if(!confirm('Are you sure you want to proceed with discussions migration?')){ return false; }"/>
                     
                     <ice:commandButton action="#{migrationTool.updateDiscussionUrlsAndDescriptions}" value="UPDATE DISCUSSIONS Descriptions/Urls" />
+                    <ice:commandButton action="#{migrationTool.updateDiscussionsPermissions}" value="Update discussions permissions" />
+                    
                 </ice:panelTab>
 			</ice:panelTabSet>
 		</ice:form>

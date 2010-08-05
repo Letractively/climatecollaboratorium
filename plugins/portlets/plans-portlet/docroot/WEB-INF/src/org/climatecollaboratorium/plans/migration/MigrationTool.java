@@ -1,5 +1,10 @@
 package org.climatecollaboratorium.plans.migration;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryGroupException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
@@ -14,6 +19,11 @@ import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.model.RoleConstants;
+import com.liferay.portal.service.PermissionLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.messageboards.model.MBCategory;
 import com.liferay.portlet.messageboards.model.MBMessage;
@@ -26,6 +36,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+import org.climatecollaboratorium.facelets.discussions.permissions.DiscussionsPermissionsConfig.PermissionItem;
+import org.climatecollaboratorium.utils.Helper;
 
 public class MigrationTool {
     private static Logger _log = Logger.getLogger(MigrationTool.class);
@@ -192,6 +204,69 @@ public class MigrationTool {
         fm.setSummary("Update successful");
 
         FacesContext.getCurrentInstance().addMessage(null, fm);
+        return null;
+    }
+
+    private static final String RESOURCE_NAME = DiscussionCategoryGroup.class.getName();
+    private static final int SCOPE = ResourceConstants.SCOPE_GROUP;
+    
+    public String updateDiscussionsPermissions() throws SystemException, PortalException {
+        String[] supportedRolesNames = { RoleConstants.COMMUNITY_OWNER, 
+                RoleConstants.COMMUNITY_ADMINISTRATOR,
+                RoleConstants.COMMUNITY_MEMBER,
+                RoleConstants.USER,
+                RoleConstants.GUEST
+        };
+        Long companyId = Helper.getThemeDisplay().getCompanyId();
+        
+        Role owner = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_OWNER);
+        Role admin = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_ADMINISTRATOR);
+        Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
+        Role user = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
+        Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
+       
+        String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(), 
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(), 
+                DiscussionActions.ADMIN_MESSAGES.name()
+        };
+        
+        String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(), 
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(), 
+                DiscussionActions.ADMIN_MESSAGES.name()
+        };
+        
+        String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(), 
+                DiscussionActions.ADD_THREAD.name()
+        };
+        
+        String[] userActions = {DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name() };
+        
+        String[] guestActions = {};
+        
+        Map<Role, String[]> rolesActionsMap = new HashMap<Role, String[]>();
+        
+        rolesActionsMap.put(owner, ownerActions);
+        rolesActionsMap.put(admin, adminActions);
+        rolesActionsMap.put(member, memberActions);
+        rolesActionsMap.put(user, userActions);
+        rolesActionsMap.put(guest, guestActions);
+        
+
+        for (PlanItem plan : PlanItemLocalServiceUtil.getPlans()) {
+            for (Role role: rolesActionsMap.keySet()) {
+                PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, RESOURCE_NAME, SCOPE, 
+                        plan.getPlanGroupId().toString(), rolesActionsMap.get(role));
+                
+            }
+        }
+
+        _log.info("Update successful");
+        FacesMessage fm = new FacesMessage();
+        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+        fm.setSummary("Update successful");
+
+        FacesContext.getCurrentInstance().addMessage(null, fm);
+
         return null;
     }
 }
