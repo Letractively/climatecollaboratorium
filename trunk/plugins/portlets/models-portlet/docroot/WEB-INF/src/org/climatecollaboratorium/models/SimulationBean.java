@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.portlet.PortletRequest;
 
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
@@ -47,6 +51,7 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portlet.wiki.model.WikiPage;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
+import com.sun.faces.el.FacesCompositeELResolver;
 
 public class SimulationBean implements JSEventHandler {
 
@@ -437,7 +442,40 @@ public class SimulationBean implements JSEventHandler {
             return "";
         }
         WikiPage wikiPage = WikiPageLocalServiceUtil.getPage(wikiPageId);
-        return WikiParser.renderXHTML(wikiPage.getContent());
+        
+        // replace internal links with external links
+        String content = wikiPage.getContent();
+        Pattern pattern = Pattern.compile("\\[\\[(http)?([^\\]^|]*)\\|?([^\\]]*)\\]\\]");
+        Matcher matcher = pattern.matcher(content); 
+        int lastEnd = 0;
+        
+        StringBuilder sb = new StringBuilder();
+        PortletRequest request =  (PortletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String wikiPageUrlPrefix = String.format("http://%s:%d/web/guest/resources/-/wiki/Main/", 
+                request.getServerName(), request.getServerPort());
+        
+        while (matcher.find()) {
+            if (matcher.group(1) != null) {
+                // external link... ignore
+                continue;
+            }
+            String name = matcher.group(3) != null && matcher.group(3).length() > 0 ? matcher.group(3) : matcher.group(2);
+            sb.append(content.substring(lastEnd, matcher.start()));
+            sb.append("[[");
+            sb.append(wikiPageUrlPrefix);
+            sb.append(matcher.group(2).replaceAll("\\s", "+"));
+            sb.append("|");
+            sb.append(name);
+            sb.append("]]");
+            
+            lastEnd = matcher.end();
+        }
+        sb.append(content.substring(lastEnd));
+        System.out.println("######################");
+        System.out.println(sb.toString());
+        
+        
+        return WikiParser.renderXHTML(sb.toString());
     }
     
     public Long getExpertEvaluationPageId() throws SystemException {
