@@ -95,4 +95,12 @@ public interface PlanFanLocalService {
         java.lang.Long planId, java.lang.Long userId)
         throws com.ext.portlet.plans.NoSuchPlanFanException,
             com.liferay.portal.SystemException;
+
+    public int countByUserId(java.lang.Long userId)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanFan> getByUserId(
+        java.lang.Long userId, int start, int end)
+        throws com.liferay.portal.SystemException;
 }

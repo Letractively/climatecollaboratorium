@@ -1,0 +1,167 @@
+<%@ page import="com.ext.portlet.plans.model.PlanFan" %>
+
+<%
+int fanedPlansCount = (Integer) renderRequest.getAttribute(CommunityConstants.PLANFAN_COUNT);
+List<PlanFan> planFans = (List<PlanFan>) renderRequest.getAttribute(CommunityConstants.PLANFAN_FANS);
+
+int fanedPagerMax = CommunityConstants.PLANFAN_PAGER_MAX_NUMBER;
+int fanedPagerStart = ParamUtil.getInteger(request, CommunityConstants.PLANFAN_PAGER_START, 0);
+int fanedPagerNext = fanedPagerStart + fanedPagerMax;
+int fanedPagerPrev = Math.max(fanedPagerStart - fanedPagerMax, 0);
+int fanedPagerFirst = 0;
+int fanedPagerLast = Math.max(fanedPlansCount - (fanedPlansCount % fanedPagerMax), 0);
+
+boolean fanedEnableNext = fanedPagerNext < fanedPlansCount;
+boolean fanedEnablePrev = fanedPagerStart > 0;
+boolean fanedEnableLast = fanedPagerStart < fanedPagerLast;
+boolean fanedEnableFirst = fanedPagerFirst < fanedPagerStart;
+
+String fanedUserparam = "&userId="+userId;
+    System.err.println("Company is "+company);
+
+DateFormat fanedTimeFormatDate = new SimpleDateFormat("MM/dd/yy");
+fanedTimeFormatDate.setTimeZone(TimeZone.getDefault());
+
+%>
+
+          
+<table class="fanedplans-table lfr-table">
+    <tr>
+        <th>Plan name</th>
+        <th>Fan since</th>
+        <c:if test="<%= editEnabled %>">
+            <th>Action</th>
+        </c:if>
+    </tr>
+    
+    <c:if test="<%= fanedPlansCount == 0%>">
+        <tr>
+            <td colspan="<%= editEnabled ? "3" : "2"%>"><%=screenName %> is not a fan of any plans.</td> 
+        </tr>
+    </c:if>
+<c:forEach var="planFan" items="<%= planFans %>">
+         <portlet:actionURL windowState="NORMAL" var="unfanURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= CommunityConstants.PLANFAN_PAGER_START %>" value="<%= String.valueOf(fanedPagerStart) %>" />
+            <portlet:param name="<%= CommunityConstants.PLANFAN_ACTION %>" value="<%= String.valueOf(CommunityConstants.PLANFAN_REMOVE) %>" />
+            <portlet:param name="<%= CommunityConstants.PLANFAN_ID %>" value="${planFan.id}" />
+          </portlet:actionURL>
+        <%
+             
+            PlanFan planFan = (PlanFan)pageContext.getAttribute("planFan");
+        %> 
+        <tr>
+            <td><a href="/web/guest/plans#plans=planId:${planFan.plan.planId}">${planFan.plan.name}</a></td>
+            <td><%= fanedTimeFormatDate.format(planFan.getCreated()) %></td>
+            <c:if test="<%= editEnabled %>">
+                <td>
+                    <a href="javascript:;" onclick="if (! confirm('Are you sure you don\'t want to be a fan of that plan anymore?')) return false; jQuery(this).parent().find('form').submit();" >remove</a>
+                    <form action="${unfanURL}" class="hidden" method="post"></form>
+                    
+                    
+                </td>
+                
+            </c:if>
+        </tr>
+    </c:forEach>
+</table><br /><br />
+          <portlet:renderURL windowState="NORMAL" var="firstPageURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= CommunityConstants.PLANFAN_PAGER_START %>" value="<%= String.valueOf(fanedPagerFirst) %>" />
+          </portlet:renderURL>
+
+          <portlet:renderURL windowState="NORMAL" var="lastPageURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= CommunityConstants.PLANFAN_PAGER_START %>" value="<%= String.valueOf(fanedPagerLast) %>" />
+          </portlet:renderURL>
+
+          <portlet:renderURL windowState="NORMAL" var="nextPageURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= CommunityConstants.PLANFAN_PAGER_START %>" value="<%= String.valueOf(fanedPagerNext) %>" />
+          </portlet:renderURL>
+
+          <portlet:renderURL windowState="NORMAL" var="prevPageURL">
+            <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
+            <portlet:param name="<%= CommunityConstants.PLANFAN_PAGER_START %>" value="<%= String.valueOf(fanedPagerPrev) %>" />
+          </portlet:renderURL>
+
+
+          <div class="clear">
+          </div>
+          <div class="pageBottom">
+            <div class="pageNum">
+              <div class="totalPage">
+                Displaying
+                <strong>
+                  <%= fanedPagerStart + 1 %>
+                  -
+                  <%= Math.min(fanedPagerStart + fanedPagerMax, fanedPlansCount) %>
+                </strong>
+                of
+                <strong>
+                  <%= fanedPlansCount %>
+                </strong>
+                activities
+              </div>
+              <div class="clear"></div>
+              <div class="turnPage">
+                <c:choose>
+                  <c:when test="<%= fanedEnableFirst %>">
+                    <a class="firstPage black" href="${firstPageURL}<%=fanedUserparam%>">
+                      First Page
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <span class="firstPage">
+                      FirstPage
+                    </span>
+                  </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                  <c:when test="<%= fanedEnablePrev %>">
+                    <a class="previous black" href="${prevPageURL}<%=fanedUserparam%>">
+                      Previous
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <span class="previous">
+                      Previous
+                    </span>
+                  </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                  <c:when test="<%= fanedEnableNext %>">
+                    <a class="next black" href="${nextPageURL}<%=fanedUserparam%>">
+                      Next
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <span class="next">
+                      Next
+                    </span>
+                  </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                  <c:when test="<%= fanedEnableLast %>">
+                    <a class="lastPage black" href="${lastPageURL}<%=fanedUserparam%>">
+                      Last Page
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <span class="lastPage">
+                      Last Page
+                    </span>
+                  </c:otherwise>
+                </c:choose>
+
+              </div>
+              <div class="clear">
+              </div>
+            </div>
+            <div class="clear">
+            </div>
+          </div>
+

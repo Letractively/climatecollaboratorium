@@ -117,6 +117,17 @@ public class PlanFanLocalServiceUtil {
         return getService().getPlanFanByPlanIdUserId(planId, userId);
     }
 
+    public static int countByUserId(java.lang.Long userId)
+        throws com.liferay.portal.SystemException {
+        return getService().countByUserId(userId);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanFan> getByUserId(
+        java.lang.Long userId, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getService().getByUserId(userId, start, end);
+    }
+
     public static PlanFanLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanFanLocalService is not set");
