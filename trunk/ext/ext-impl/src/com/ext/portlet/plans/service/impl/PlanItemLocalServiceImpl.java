@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+
 import com.ext.portlet.debaterevision.model.DebateItem;
+import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
@@ -41,10 +44,15 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
+import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionCheckerUtil;
 import com.liferay.portal.service.GroupServiceUtil;
+import com.liferay.portal.service.PermissionLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -276,17 +284,46 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + plan.getPlanId());
         DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil.getUser(plan.getAuthorId()));
         
-
-        // create new category in group's forum
-        /*
-        categoryServiceContext.setCommunityPermissions(DEFAULT_CATEGORY_COMMUNITY_PERMISSIONS);
-        categoryServiceContext.setGuestPermissions(DEFAULT_CATEGORY_GUEST_PERMISSIONS);
-        categoryServiceContext.setScopeGroupId(group.getGroupId());
-
-        MBCategory category = MBCategoryServiceUtil.addCategory(parentCategoryId, DEFAULT_FORUM_CATEGORY_NAME,
-                String.format(DEFAULT_FORUM_CATEGORY_DESCRIPTION, plan.getName()), null, null, null, 0, false, null,
-                null, 0, null, false, null, 0, false, null, null, false, categoryServiceContext);
-         */
+        // set up permissions
+        
+        Long companyId = group.getCompanyId();
+        Role owner = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_OWNER);
+        Role admin = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_ADMINISTRATOR);
+        Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
+        Role userRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
+        Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
+       
+        String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(), 
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(), 
+                DiscussionActions.ADMIN_MESSAGES.name()
+        };
+        
+        String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(), 
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(), 
+                DiscussionActions.ADMIN_MESSAGES.name()
+        };
+        
+        String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(), 
+                DiscussionActions.ADD_THREAD.name()
+        };
+        
+        String[] userActions = {DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name() };
+        
+        String[] guestActions = {};
+        
+        Map<Role, String[]> rolesActionsMap = new HashMap<Role, String[]>();
+        
+        rolesActionsMap.put(owner, ownerActions);
+        rolesActionsMap.put(admin, adminActions);
+        rolesActionsMap.put(member, memberActions);
+        rolesActionsMap.put(userRole, userActions);
+        rolesActionsMap.put(guest, guestActions);
+        
+        for (Role role: rolesActionsMap.keySet()) {
+            PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, 
+                    DiscussionCategoryGroup.class.getName(), ResourceConstants.SCOPE_GROUP, 
+                    plan.getPlanGroupId().toString(), rolesActionsMap.get(role));
+        }
         
         // populate plan with id of created group, category
         PlanMeta planMeta = plan.getPlanMeta();
