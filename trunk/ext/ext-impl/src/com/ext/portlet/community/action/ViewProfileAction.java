@@ -8,6 +8,8 @@ package com.ext.portlet.community.action;
 
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
@@ -19,6 +21,8 @@ import org.apache.struts.action.ActionMapping;
 
 import com.ext.portlet.Activity.ActivityConstants;
 import com.ext.portlet.plans.PlanConstants;
+import com.ext.portlet.plans.model.PlanFan;
+import com.ext.portlet.plans.service.PlanFanLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -56,6 +60,7 @@ public class ViewProfileAction extends PortletAction {
 			
 			User user = UserLocalServiceUtil.getUserById(userId);
 			setUserActivities(renderRequest,user);
+            setUserFanedPlans(renderRequest, user);
 			
 		
 		} else {
@@ -83,6 +88,7 @@ public class ViewProfileAction extends PortletAction {
 					renderRequest.setAttribute(CommunityConstants.USER_PARAMETER, user);
 					//result = mapping.findForward(CommunityConstants.VIEW_PROFILE_FORWARD);
 					setUserActivities(renderRequest,user);
+					setUserFanedPlans(renderRequest, user);
 					
 				} catch (Exception e) {
 					_log.error(e);
@@ -91,8 +97,8 @@ public class ViewProfileAction extends PortletAction {
 		}
 		return result;
 	}
-	
-	private void setUserActivities(RenderRequest renderRequest, User user) throws SystemException {
+
+    private void setUserActivities(RenderRequest renderRequest, User user) throws SystemException {
 		int pagerStart = ParamUtil.getInteger(renderRequest,ActivityConstants.PAGER_START,0);
 		int pagerNext = pagerStart + ActivityConstants.PAGER_MAX_NUMBER;
 		int count = SocialActivityLocalServiceUtil.getUserActivitiesCount(user.getUserId());
@@ -103,7 +109,32 @@ public class ViewProfileAction extends PortletAction {
 		
 	}
 	
+    
+    private void setUserFanedPlans(RenderRequest renderRequest, User user) throws SystemException {
+        int pagerStart = ParamUtil.getInteger(renderRequest,CommunityConstants.PLANFAN_PAGER_START,0);
+        int pagerNext = pagerStart + CommunityConstants.PLANFAN_PAGER_MAX_NUMBER;
+        
+        renderRequest.setAttribute(CommunityConstants.PLANFAN_COUNT, 
+                PlanFanLocalServiceUtil.countByUserId(user.getUserId()));
+        renderRequest.setAttribute(CommunityConstants.PLANFAN_FANS, 
+                PlanFanLocalServiceUtil.getByUserId(user.getUserId(), pagerStart, pagerNext));
+    }
+
 	
-	
+    /**
+     * In case of plan removal
+     */
+    @Override
+    public void processAction(ActionMapping mapping, ActionForm form, PortletConfig portletConfig,
+            ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
+        String action = ParamUtil.getString(actionRequest, CommunityConstants.PLANFAN_ACTION,"");
+        
+        Long id = ParamUtil.getLong(actionRequest, CommunityConstants.PLANFAN_ID, 0L);
+        
+        if (action.equals(CommunityConstants.PLANFAN_REMOVE)) {
+            PlanFan planFan = PlanFanLocalServiceUtil.getPlanFan(id);
+            planFan.getPlan().removeFan(planFan.getUserId());
+        }
+    }	
 	
 }

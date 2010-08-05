@@ -50,5 +50,13 @@ public class PlanFanLocalServiceImpl extends PlanFanLocalServiceBaseImpl {
     public PlanFan getPlanFanByPlanIdUserId(Long planId, Long userId) throws SystemException, NoSuchPlanFanException {
         PlanFan planFan = planFanPersistence.findByPlanIdUserId(planId, userId);
         return planFan;
-    }       
+    }   
+    
+    public int countByUserId(Long userId) throws SystemException {
+        return planFanPersistence.countByUserId(userId);
+    }
+    
+    public List<PlanFan> getByUserId(Long userId, int start, int end) throws SystemException {
+        return planFanPersistence.findByUserId(userId, start, end);
+    }
 }

@@ -338,6 +338,36 @@
                                 long userId = profileUser.getUserId();
                     %>
 
+<div id="MyFanedPlans" class="activities-wall single-col">
+        <div class="PortletBox">
+        <div class="content">
+
+            
+            <div class="hd">
+                <div class="title">
+                    <div class="name">
+                        <h2><%=editEnabled ? "I am" : screenName + " is "%> a fan of</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="bd">
+               <%@ include file="view_faned_plans.jspf" %>
+
+            </div>
+
+            <div class="t"></div>
+            <div class="ft">
+
+            </div>
+
+        </div>
+        <div class="b">
+            <div></div>
+        </div>
+    </div>
+
+</div>
+
 <div id="MyActivities" class="activities-wall single-col">
     <div class="PortletBox">
         <div class="content">
@@ -367,6 +397,7 @@
     </div>
 
 </div>
+
 
 <div id="sendMessagePopup" class="hidden">
     <%@ include file="/html/portlet/ext/community/send_message_form.jspf" %>
