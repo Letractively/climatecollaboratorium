@@ -50,7 +50,8 @@
                     
                     <ice:panelGroup styleClass="floatRight" rendered="#{category.threadsCount > 0}">
                         Last response by &amp;nbsp;<a href="/web/guest/members?userId=#{category.lastActivityAuthor.userId}">#{category.lastActivityAuthor.screenName}</a> 
-                        :: Last active &amp;nbsp;<strong>#{category.lastActivityDate} ago</strong>
+                        :: Last active &amp;nbsp;
+                        <strong>#{category.lastActivityDate} ago</strong>
                     </ice:panelGroup>
                     <div class="clear"></div>
                     </div>

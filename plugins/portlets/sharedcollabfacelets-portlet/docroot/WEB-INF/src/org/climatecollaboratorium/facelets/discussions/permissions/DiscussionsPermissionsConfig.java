@@ -10,6 +10,7 @@ import javax.faces.model.SelectItem;
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
 import org.climatecollaboratorium.utils.Helper;
 
+import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -19,18 +20,10 @@ import com.liferay.portal.model.Permission;
 import com.liferay.portal.model.Resource;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserGroup;
+import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.service.PermissionLocalServiceUtil;
 import com.liferay.portal.service.ResourceLocalServiceUtil;
-import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
-import com.liferay.portal.service.ResourcePermissionServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.UserGroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.permission.RolePermissionUtil;
-import com.liferay.portal.service.permission.UserPermission;
-import com.liferay.portal.service.permission.UserPermissionUtil;
 
 public class DiscussionsPermissionsConfig {
     private static final String RESOURCE_NAME = DiscussionCategoryGroup.class.getName();
@@ -104,10 +97,17 @@ public class DiscussionsPermissionsConfig {
         }
     }
     
-    public List<PermissionItem> getItems() throws SystemException {
+    public List<PermissionItem> getItems() throws SystemException, PortalException {
+        String[] supportedRolesNames = { RoleConstants.COMMUNITY_OWNER, 
+                RoleConstants.COMMUNITY_ADMINISTRATOR,
+                RoleConstants.COMMUNITY_MEMBER,
+                RoleConstants.USER,
+                RoleConstants.GUEST
+        };
         if (permissionItems == null) {
             permissionItems = new ArrayList<PermissionItem>();
-            for (Role role: RoleLocalServiceUtil.getRoles(companyId)) {
+            for (String roleName: supportedRolesNames) {
+                Role role = RoleLocalServiceUtil.getRole(companyId, roleName);
                 permissionItems.add(new PermissionItem(role));
             }
         }

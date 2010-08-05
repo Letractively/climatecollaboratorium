@@ -42,12 +42,14 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="area">
-                        <h3 class="areaLabel">Social</h3>
-                        <ul>
-                            <li><ice:commandLink actionListener="#{discussionBean.subscribe}">Subscribe</ice:commandLink></li>
-                        </ul>
-                    </div>
+                    <ice:panelGroup rendered="#{discussionBean.permissions.canSubscribe}">
+                        <div class="area">
+                            <h3 class="areaLabel">Social</h3>
+                            <ul>
+                                <li><ice:commandLink actionListener="#{discussionBean.subscribe}">Subscribe</ice:commandLink></li>
+                            </ul>
+                        </div>
+                    </ice:panelGroup>
                 </td>
                 <td class="discussion">
                     <div class="discussionActions">

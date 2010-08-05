@@ -334,7 +334,7 @@ public class DiscussionBean {
         pageType = DiscussionPageType.SEARCH_RESULTS;
         searchResults.clear();
         for (DiscussionMessage message : DiscussionMessageLocalServiceUtil.search(searchQuery, discussion.getId())) {
-            searchResults.add(new MessageWrapper(message, null));
+            searchResults.add(new MessageWrapper(message, null, this));
         }
     }
 
@@ -373,6 +373,7 @@ public class DiscussionBean {
         if (categories != null) {
             categories.remove(categoryWrapper);
             categoriesById.remove(categoryWrapper.getId());
+            categoriesItems = null;
         }
         if (pageType == DiscussionPageType.CATEGORY && currentCategory.getId() == categoryWrapper.getId()) {
             pageType = DiscussionPageType.CATEGORIES;

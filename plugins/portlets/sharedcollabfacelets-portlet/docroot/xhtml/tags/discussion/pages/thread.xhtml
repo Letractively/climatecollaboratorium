@@ -27,7 +27,12 @@
                     <div class="floatLeft">By &amp;nbsp;
                         <a href="/web/guest/members?userId=#{thread.author.userId}">#{message.author.screenName}</a> 
                     </div>
-                    <div class="floatRight">#{message.createDate}</div> 
+                    <div class="floatRight">
+                        <ice:outputText value="#{message.createDate}">
+                            <f:convertDateTime pattern="MM/dd/yy hh:mm a"/>
+                        </ice:outputText>
+                    
+                    </div> 
                     <div class="clear"></div>
                 </div>
                 <div class="content">

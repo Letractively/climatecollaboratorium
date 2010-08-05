@@ -43,7 +43,7 @@ public class ContentFilterHelper {
         }
         
 
-        Pattern pattern = Pattern.compile("(http://|www\\.)([{\\w-]*\\.)+\\w{1,4}");
+        Pattern pattern = Pattern.compile("(http://|www\\.)([{\\w-]*\\.)+\\w{1,4}([^\\s]*)");
         Matcher matcher = pattern.matcher(content);
         StringBuilder strBuilder = new StringBuilder();
         

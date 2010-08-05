@@ -9,15 +9,9 @@
 <ui:composition template="./discussionTemplate.xhtml">
 
     <ui:define name="discussion_breadcrumb">
-        <ice:outputText value="#{discussionBean.currentCategory.title}" />
+        Category:&amp;nbsp;<ice:outputText value="#{discussionBean.currentCategory.title}" />
     </ui:define>
     
-            
-    <ui:define name="discussion_actions">
-        <ice:commandButton value="Add Discussion" actionListener="#{discussionBean.changePageType}" rendered='#{discussionBean.permissions.canAddThread}'>
-            <f:attribute name="pageType" value="THREAD_ADD"/>
-        </ice:commandButton>
-    </ui:define>
     
     <ui:define name="discussion_content">
         
