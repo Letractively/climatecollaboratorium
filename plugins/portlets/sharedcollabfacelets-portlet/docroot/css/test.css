@@ -4,3 +4,19 @@
     color: red;
     
 }
+
+.tagsdemo_navigation li {
+    float: left;
+    display: block;
+    margin-right: 10px;
+    background: #ddd;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    
+}
+
+.tagsdemo_navigation li.active {
+    background: #FDFFD9;
+    
+}

@@ -5,7 +5,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <ice:panelGroup styleClass="navigationManagerForm">
+    <ice:panelGroup styleClass="navigationManagerForm hidden">
         <ice:form>
             <ice:inputText value="#{navigationManagerBean.navigationToken}" styleClass="navigationToken" />
             <ice:commandButton value="Submit" styleClass="submit" action="#{navigationManagerBean.navigate}" />

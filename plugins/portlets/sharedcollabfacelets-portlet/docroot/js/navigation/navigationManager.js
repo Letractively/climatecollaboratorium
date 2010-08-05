@@ -48,7 +48,11 @@ Collab.nav = new function() {
 
 	function forceNavigation() {
 		jQuery(".navigationManagerForm .navigationToken").eq(0).val(createToken());
-		jQuery(".navigationManagerForm .submit").eq(0).click();
+		// below is ugly hack, but without it webkit based browsers don't work
+		setTimeout(function() {
+				jQuery(".navigationManagerForm .submit").eq(0).click();
+			}, 0);
+		
 	}
 		
 	function updateHash() {
@@ -108,7 +112,6 @@ Collab.nav = new function() {
 		
 }
 
-
-jQuery(document).ready(function(){
+jQuery(document).ready(function() {
      jQuery.history.init(Collab.nav.pageload);
-});    
+});
