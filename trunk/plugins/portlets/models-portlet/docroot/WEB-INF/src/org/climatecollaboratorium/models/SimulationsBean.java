@@ -1,12 +1,15 @@
 package org.climatecollaboratorium.models;
 
+import com.ext.portlet.models.ui.ModelUIFactory;
+
+import com.liferay.portal.SystemException;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -14,9 +17,6 @@ import mit.simulation.climate.client.comm.ClientRepository;
 
 import org.climatecollaboratorium.models.support.SimulationDecorator;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
-
-import com.ext.portlet.models.ui.ModelUIFactory;
-import com.liferay.portal.SystemException;
 
 public class SimulationsBean {
 
@@ -47,7 +47,7 @@ public class SimulationsBean {
                 return 0;
             }
         });
-        
+
         visibleSimulations.clear();
         for (SimulationDecorator sim: simulations) {
             if (sim.isVisible()) {

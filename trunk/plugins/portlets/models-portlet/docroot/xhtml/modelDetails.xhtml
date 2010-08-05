@@ -10,44 +10,29 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <div class="pageTitle">
-        <h2>Model: #{simulationBean.simulation.name}</h2>
-        <div class="simulationActions">
-            <ice:form>
-                <ice:commandButton value="Edit" actionListener="#{simulationBean.editSimulation}" rendered="#{(not simulationBean.editing) and permissions.canEditModel}" />
-            </ice:form>
-        </div>
-        <div class="clear"></div>
-    </div>
+<ice:form>
+    <ice:panelTabSet>
+        <ice:panelTab label="Description">
+            <f:subview>
+                <ui:include src="simulationTabs/description.xhtml" />
+            </f:subview>
+        </ice:panelTab>
+        <ice:panelTab label="Expert evaluation">
+            <f:subview>
+                <ui:include src="simulationTabs/expertEvaluation.xhtml" />
+            </f:subview>
+        </ice:panelTab>
+        <ice:panelTab label="Positions">
+            <f:subview>
+                <ui:include src="simulationTabs/description.xhtml" />
+            </f:subview>
+        </ice:panelTab>
+        <ice:panelTab label="Actions &amp; Impacts">
+            <f:subview>
+                <ui:include src="simulationTabs/actionsimpacts.xhtml" />
+            </f:subview>
+        </ice:panelTab>
     
-    <ice:panelGroup styleClass="modelDescription" rendered="#{not simulationBean.editing}">
-        <p class="hidden">#{simulationBean.simulation.description}</p>
-    </ice:panelGroup>
-    
-    <ice:panelGroup styleClass="modelDescription" rendered="#{simulationBean.editing}">
-        <f:subview>
-            <ui:include src="./editSimulation.xhtml" />
-        </f:subview>
-    </ice:panelGroup>
-    
-    <ice:panelGroup rendered="#{not simulationBean.editing}">
-        <div class="model-information">
-            <div class="bottom-content">
-                    <ice:form>
-                <f:subview id="inputsView">
-                    <ui:include src="./inputs/inputs.xhtml" />
-                </f:subview>
-                <f:subview id="outputsView">
-                    <ui:include src="./outputs/outputs.xhtml" />
-                </f:subview>
-                
-                <div class="clear"></div>
-                <div class="modelActions">
-                    <ice:commandLink actionListener="#{simulationBean.runModel}" onclick="runModel();" styleClass="full runModelBtn" />
-                    <div class="clear"></div>
-                </div>
-                    </ice:form>
-            </div>
-        </div>
-    </ice:panelGroup>
+    </ice:panelTabSet>
+</ice:form>
 </f:view>

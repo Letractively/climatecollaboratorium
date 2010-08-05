@@ -11,11 +11,15 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"  
     xmlns:liferay-faces="http://liferay.com/tld/faces">
 
-<ice:form>
     <ice:panelTabSet>
         <ice:panelTab label="Basic info">
             <f:subview>
                 <ui:include src="simulationEdit/basicSimulationInfo.xhtml" />
+            </f:subview>
+        </ice:panelTab>
+        <ice:panelTab label="Exp eval">
+            <f:subview>
+                <ui:include src="simulationEdit/expertEvaluation.xhtml" />
             </f:subview>
         </ice:panelTab>
         <ice:panelTab label="Inputs widgets">
@@ -94,5 +98,4 @@
     </div>
     -->
     <ice:commandButton value="Cancel" actionListener="#{simulationBean.cancelEditing}" />
-</ice:form>
 </f:view>

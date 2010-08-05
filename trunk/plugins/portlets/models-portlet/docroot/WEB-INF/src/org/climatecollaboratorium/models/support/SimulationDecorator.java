@@ -1,5 +1,9 @@
 package org.climatecollaboratorium.models.support;
 
+import com.ext.portlet.models.ui.ModelUIFactory;
+
+import com.liferay.portal.SystemException;
+
 import java.net.URL;
 
 import java.util.Date;
@@ -9,9 +13,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.ext.portlet.models.ui.ModelUIFactory;
-import com.liferay.portal.SystemException;
-
 import mit.simulation.climate.client.EntityState;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
@@ -20,12 +21,14 @@ public class SimulationDecorator implements Simulation {
     private Simulation wrapped;
     private boolean visible;
     private int weight;
+    private Long expertEvaluationPageId;
 
     public SimulationDecorator(Simulation wrapped) throws SystemException {
         this.wrapped = wrapped;
-        
+
         this.visible = ModelUIFactory.isSimulationVisible(wrapped);
         this.weight = ModelUIFactory.getSimulationWeight(wrapped);
+        this.expertEvaluationPageId = ModelUIFactory.getSimulationExpertEvaluationPageId(wrapped);
     }
 
     @Override
@@ -156,12 +159,12 @@ public class SimulationDecorator implements Simulation {
     public boolean isDirty() {
         return wrapped.isDirty();
     }
-    
+
     public boolean isVisible() throws SystemException {
-        
+
         return this.visible;
     }
-    
+
     public void setVisible(boolean visible) throws SystemException {
         ModelUIFactory.setSimulationVisible(wrapped, visible);
         this.visible = visible;
@@ -185,8 +188,16 @@ public class SimulationDecorator implements Simulation {
     @Override
     public void setType(String arg0) {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
+    public Long getExpertEvaluationPageId() {
+        return expertEvaluationPageId;
+    }
+
+    public void setExpertEvaluationPageId(Long pageId) throws SystemException {
+        ModelUIFactory.setSimulationExpertEvaluationPageId(wrapped, pageId);
+        expertEvaluationPageId = pageId;
+    }
 
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <div class="model-information">
+        <div class="bottom-content">
+                <f:subview id="inputsView">
+                    <ui:include src="../inputs/inputs.xhtml" />
+                </f:subview>
+                <f:subview id="outputsView">
+                    <ui:include src="../outputs/outputs.xhtml" />
+                </f:subview>
+                
+                <div class="clear"></div>
+                <div class="modelActions">
+                    <ice:commandLink actionListener="#{simulationBean.runModel}" onclick="runModel();" styleClass="full runModelBtn" />
+                    <div class="clear"></div>
+                </div>
+        </div>
+    </div>
+</f:view>
