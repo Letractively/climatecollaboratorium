@@ -94,4 +94,13 @@ public interface ModelGlobalPreferenceLocalService {
 
     public void setWeight(mit.simulation.climate.client.Simulation s, int weight)
         throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.lang.Long getExpertEvaluationPageId(
+        mit.simulation.climate.client.Simulation s)
+        throws com.liferay.portal.SystemException;
+
+    public void setExpertEvaluationPageId(
+        mit.simulation.climate.client.Simulation s, java.lang.Long pageId)
+        throws com.liferay.portal.SystemException;
 }

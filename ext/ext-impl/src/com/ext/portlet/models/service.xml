@@ -56,6 +56,7 @@
         <column name="modelId" type="Long"/>
         <column name="visible" type="Boolean"/>
         <column name="weight" type="Integer"/>
+        <column name="expertEvaluationPageId" type="Long"/>
         <finder name="ModelId" return-type="ModelGlobalPreference">
             <finder-column name="modelId"/>
         </finder>

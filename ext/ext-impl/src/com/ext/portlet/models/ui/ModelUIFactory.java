@@ -231,6 +231,15 @@ public class ModelUIFactory {
     public static void setSimulationWeight(Simulation sim, int weight) throws SystemException {
         ModelGlobalPreferenceLocalServiceUtil.setWeight(sim, weight);
     }
+    
+    public static Long getSimulationExpertEvaluationPageId(Simulation sim) throws SystemException {
+        return ModelGlobalPreferenceLocalServiceUtil.getExpertEvaluationPageId(sim);
+    }
+    
+    public static void setSimulationExpertEvaluationPageId(Simulation sim, Long pageId) throws SystemException {
+        ModelGlobalPreferenceLocalServiceUtil.setExpertEvaluationPageId(sim, pageId);
+    }
+
 
     /**
      * Helper function, returns variable for a scenario given its associated metadata

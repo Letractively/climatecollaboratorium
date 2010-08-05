@@ -895,7 +895,8 @@ create table ModelGlobalPreference (
 	modelGlobalPreferencePK LONG not null primary key,
 	modelId LONG,
 	visible BOOLEAN,
-	weight INTEGER
+	weight INTEGER,
+	expertEvaluationPageId LONG
 );
 
 create table ModelInputGroup (
