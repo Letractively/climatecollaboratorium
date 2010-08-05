@@ -9,8 +9,6 @@ import java.util.Map;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
-import com.ext.portlet.models.service.base.ModelInputGroupType;
-import com.ext.portlet.models.ui.*;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
@@ -33,7 +31,22 @@ import org.climatecollaboratorium.models.support.ModelOutputErrorSettingWrapper;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 import org.climatecollaboratorium.models.support.SupportBean;
 
+import ys.wikiparser.WikiParser;
+
+import com.ext.portlet.models.service.base.ModelInputGroupType;
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
+import com.ext.portlet.models.ui.ModelInputDisplayItem;
+import com.ext.portlet.models.ui.ModelInputDisplayItemType;
+import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputDisplayItemType;
+import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
+import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
+import com.ext.portlet.models.ui.ModelUIFactory;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portlet.wiki.model.WikiPage;
+import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
 
 public class SimulationBean implements JSEventHandler {
 
@@ -416,5 +429,22 @@ public class SimulationBean implements JSEventHandler {
     
     public List<ModelOutputErrorSettingWrapper> getOutputErrorSettingWrappers() {
         return outputErrorSettingWrappers;
+    }
+    
+    public String getExpertEvaluation() throws PortalException, SystemException {
+        Long wikiPageId = ModelUIFactory.getSimulationExpertEvaluationPageId(simulation);
+        if (wikiPageId == null) {
+            return "";
+        }
+        WikiPage wikiPage = WikiPageLocalServiceUtil.getPage(wikiPageId);
+        return WikiParser.renderXHTML(wikiPage.getContent());
+    }
+    
+    public Long getExpertEvaluationPageId() throws SystemException {
+        return ModelUIFactory.getSimulationExpertEvaluationPageId(simulation);
+    }
+    
+    public void setExpertEvaluationPageId(Long pageId) throws SystemException {
+        ModelUIFactory.setSimulationExpertEvaluationPageId(simulation, pageId);
     }
 }

@@ -27,16 +27,15 @@
                                <ice:panelSeries value="#{input1.allItems}" var="input" varStatus="status">
                                     <div class="hidden">#{simulationBean.display}</div>
                                     <div  class="simulationInput #{status.index mod 2 == 0 ? 'even' : 'odd'}">
-                                    <f:subview id="inputView" >
-                                        <ui:include src="./inputDef.xhtml" />
+                                        <f:subview id="inputView" >
+                                            <ui:include src="./inputDef.xhtml" />
                                         <!-- <ui:include src="./individual.xhtml" />-->
-                                    </f:subview>
-                            </div>
-                        </ice:panelSeries>
+                                        </f:subview>
+                                    </div>
+                                </ice:panelSeries>
 
                             </ice:panelTab>
                         </ice:panelTabSet>
-                        </ice:form>
                     </div>
                 </div>
             </div>
