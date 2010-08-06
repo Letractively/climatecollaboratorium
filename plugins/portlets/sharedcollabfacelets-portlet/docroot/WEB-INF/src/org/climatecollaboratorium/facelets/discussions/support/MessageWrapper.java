@@ -177,7 +177,7 @@ public class MessageWrapper {
     }
     
     public String getLastActivityDate() {
-        return HumanTime.approximately(new Date().getTime() - wrapped.getLastActivityDate().getTime());
+        return HumanTime.exactly(new Date().getTime() - wrapped.getLastActivityDate().getTime());
     }
     
     public User getLastActivityAuthor() throws PortalException, SystemException {

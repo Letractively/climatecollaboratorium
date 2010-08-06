@@ -102,6 +102,13 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
      * Percentage of what is round up or down.
      */
     private static final int CEILING_PERCENTAGE = 15;
+    
+    private static final String HOUR_STR = "hour";
+    private static final String MINUTE_STR = "minute";
+    private static final String SECONT_STR = "second";
+    private static final String DAY_STR = "day";
+    private static final String YEAR_STR = "year";
+    private static final CharSequence PLURAL_SUFFIX = "s";
 
     /**
      * Parsing state.
@@ -470,49 +477,66 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
             if (d >= YEAR) {
                 a.append(floor(d, YEAR));
                 a.append(' ');
-                a.append('y');
+                a.append(YEAR_STR);
+                if (d >= 2* YEAR) {
+                    a.append(PLURAL_SUFFIX);
+                }
                 prependBlank = true;
             }
-            d %= YEAR;
-            if (d >= DAY) {
+            // d %= YEAR;
+            // if (d >= DAY) {
+            else if (d >= DAY) {
                 if (prependBlank) {
                     a.append(' ');
                 }
                 a.append(floor(d, DAY));
                 a.append(' ');
-                a.append('d');
+                a.append(DAY_STR);
+                if (d >= 2 * DAY) {
+                    a.append(PLURAL_SUFFIX);
+                }
                 prependBlank = true;
             }
-            d %= DAY;
-            if (d >= HOUR) {
+            // d %= DAY;
+            // if (d >= HOUR) {
+            else if (d >= HOUR) {
                 if (prependBlank) {
                     a.append(' ');
                 }
                 a.append(floor(d, HOUR));
                 a.append(' ');
-                a.append('h');
+                a.append(HOUR_STR);
                 prependBlank = true;
+                if (d >= 2 * HOUR) {
+                    a.append(PLURAL_SUFFIX);
+                }
             }
-            d %= HOUR;
-            if (d >= MINUTE) {
+            //d %= HOUR;
+            //if (d >= MINUTE) {
+            else if (d >= MINUTE) {
                 if (prependBlank) {
                     a.append(' ');
                 }
                 a.append(floor(d, MINUTE));
                 a.append(' ');
-                a.append('m');
+                a.append(MINUTE_STR);
+                if (d >= 2 * MINUTE) {
+                    a.append(PLURAL_SUFFIX);
+                }
                 prependBlank = true;
             }
-            d %= MINUTE;
-            if (d >= SECOND) {
+            //d %= MINUTE;
+            //if (d >= SECOND) {
+            else {
                 if (prependBlank) {
                     a.append(' ');
                 }
                 a.append(floor(d, SECOND));
                 a.append(' ');
-                a.append('s');
+                a.append(SECONT_STR);
                 prependBlank = true;
             }
+            /*
             d %= SECOND;
             if (d > 0) {
                 if (prependBlank) {
@@ -523,6 +547,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
                 a.append('m');
                 a.append('s');
             }
+            */
         }
         catch (IOException ex) {
             // What were they thinking...
@@ -558,7 +583,7 @@ public class HumanTime implements Externalizable, Comparable<HumanTime>, Cloneab
             if (mod >= upperCeiling(YEAR)) {
                 a.append(ceil(d, YEAR));
                 a.append(' ');
-                a.append('y');
+                a.append(YEAR_STR);
                 ++parts;
                 rounded = true;
                 prependBlank = true;
