@@ -482,8 +482,6 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
                 PlanTeamActions.MEMBERSHIP_DECLEINED.name(), updateAuthorId);
         MembershipRequestLocalServiceUtil.updateStatus(userId, request.getMembershipRequestId(), reply,
                 MembershipRequestImpl.STATUS_APPROVED);
-        // remove user from plan fans as the user is a member now
-        removeFan(userId);
     }
 
     /*
@@ -588,9 +586,6 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
             GroupLocalServiceUtil.addUserGroups(userId, new long[] {getPlanGroupId()});
             PlanTeamHistoryLocalServiceUtil.newHistoryItem(getPlanId(), userId, PlanTeamActions.MEMBERSHIP_APPROVED.name(),
                     userId);
-            if (isUserAFan(userId)) {
-                removeFan(userId);
-            }
         }
         
     }
