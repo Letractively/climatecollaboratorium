@@ -365,21 +365,28 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     private PlanItem newVersion(UpdateType updateType, Long updateAuthorId) throws SystemException {
         PlanItem latestVersion = this;
         try {
-            if (!latestVersion.equals(PlanItemLocalServiceUtil.getPlan(this.getPlanId()))) {
+            /*
+             *
+             // i don't think that this is a problem
+            if (!latestVersion.equals()) {
                 throw new SystemException(
                         "Can only create a new version of a plan from the latest version in existence");
             }
+            */
+            latestVersion = PlanItemLocalServiceUtil.getPlan(this.getPlanId());
         } catch (NoSuchPlanItemException e) {
             // ignore
         }
-        PlanItem newVersion = (PlanItem) latestVersion.clone();
-        newVersion.setId(CounterUtil.increment(PlanItem.class.getName()));
-        newVersion.store();
+        PlanItem oldVersion = (PlanItem) latestVersion.clone();
+        //newVersion.setId();
+        oldVersion.store();
 
+        this.setId(CounterUtil.increment(PlanItem.class.getName()));
         this.setVersion(getVersion() + 1);
         this.setUpdated(new Date());
         this.setUpdateType(updateType.name());
         this.setUpdateAuthorId(updateAuthorId);
+        this.setNew(true);
         this.store();
 
         return this;
@@ -479,7 +486,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     public void approveMembershipRequest(Long userId, MembershipRequest request, String reply, Long updateAuthorId)
             throws PortalException, SystemException {
         PlanTeamHistoryLocalServiceUtil.newHistoryItem(getPlanId(), userId,
-                PlanTeamActions.MEMBERSHIP_DECLEINED.name(), updateAuthorId);
+                PlanTeamActions.MEMBERSHIP_APPROVED.name(), updateAuthorId);
         MembershipRequestLocalServiceUtil.updateStatus(userId, request.getMembershipRequestId(), reply,
                 MembershipRequestImpl.STATUS_APPROVED);
     }
