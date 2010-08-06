@@ -3,6 +3,7 @@
  * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
  * or the license.txt file included in this distribution for the full text of the license.
  */
+/*
 setTimeout(function() { log.toggle(); }, 1000);
 
 try {
@@ -20,6 +21,7 @@ jQuery(document).ready(function() {
 });
 
 
+
 function renderModelInputs(event) {
 	showSliders();
 }
@@ -28,7 +30,7 @@ function renderModelInputs(event) {
 function modelRunSuccessful(event) {
 	renderModelOutputs();
 }
-
+*/
 function isInteger(dataType) {
 	if (dataType == "java.lang.Integer") return true;
 	if (dataType == "java.lang.Long") return true;
@@ -53,7 +55,7 @@ function parseFieldValue(value, unit) {
 	return value;
 }
 
-
+/*
 function showSliders() {
 	var msg = "";
 	
@@ -190,20 +192,21 @@ function getOutputValue(val, unit) {
 	}
 }
 		
-
+*/
+/*
 function renderModelOutputs() {
 
-	/* Check if outputs have been already processed, if they have been then there is no need
-	 * to rerender graphs.
-	 */
+	// Check if outputs have been already processed, if they have been then there is no need
+	//  to rerender graphs.
+	//
 	if (jQuery(".outputDef").length == 0 || jQuery(".outputDef").hasClass("processed")) {
 		//log.debug("model outputs already processed");
 		return;
 	}
 	
-	/*
-	 * Render graphs
-	 */
+	//
+	// Render graphs
+	//
 	jQuery(".outputDef").each(function() {
 		try {
 
@@ -442,9 +445,9 @@ function renderModelOutputs() {
 				errorMessagesPlaceholder.show();
 			}
 		
-		/* Legend is positioned absolutely thus it is hard to determine how long the chart will be, I'm assuming
-		 * that graph will take around 320 px and I'm giving 18 px for each item in the legend.
-		 */
+		// Legend is positioned absolutely thus it is hard to determine how long the chart will be, I'm assuming
+		// that graph will take around 320 px and I'm giving 18 px for each item in the legend.
+		//
 
 			var height = jQuery("#" + chartPlaceholderId).height();
 			if (jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").length > 0) {
@@ -460,7 +463,7 @@ function renderModelOutputs() {
 	});
 	
 	
-	/* this is rather ugly hack, used because there is no good handling of output grouping */
+	// this is rather ugly hack, used because there is no good handling of output grouping //
 	//jQuery(".impactsContent").html("");
 	if (jQuery(".impactsContent .physicalImpact").length > 0) {
 		var physicalImpacts = [];
@@ -476,21 +479,21 @@ function renderModelOutputs() {
 		var contentsContainer = jQuery(".physicalImpactsTab .contentsContainer");
 		
 		jQuery(".impactsContent .physicalImpact").each(function() {
-			/*
-			physicalImpacts.push({
-				title: jQuery(this).find(".title").html(),
-				content: jQuery(this).find(".content").html()
-			});*/
+		
+		//	physicalImpacts.push({
+		//		title: jQuery(this).find(".title").html(),
+		//		content: jQuery(this).find(".content").html()
+		//	});
 			tabsContainer.append("<li title='" + jQuery(this).find(".title a").attr("rel") + "'>" + jQuery(this).find(".title").html().replace("/", "/ ") + "</li>");
 			contentsContainer.append(jQuery(this).find(".content").html());
 			
-			/*
-			contents += jQuery(this).find(".content").html();
-			tabs += "<li>" + jQuery(this).find(".title").html() + "</li>";
-			var content = jQuery(this).find(".content");
-			jQuery(this).find(".title").click(function() { var name = jQuery(this).attr(title); jQuery("#" + name).hide(); alert(name + jQuery("#" + name).length) });
-			content.hide();
-			*/
+			
+//			contents += jQuery(this).find(".content").html();
+//			tabs += "<li>" + jQuery(this).find(".title").html() + "</li>";
+//			var content = jQuery(this).find(".content");
+//			jQuery(this).find(".title").click(function() { var name = jQuery(this).attr(title); jQuery("#" + name).hide(); alert(name + jQuery("#" + name).length) });
+//			content.hide();
+			
 			
 		});
 
@@ -515,7 +518,7 @@ function renderModelOutputs() {
 		//jQuery(".physicalImpactsTab .container").tabs().addClass('ui-tabs-vertical ui-helper-clearfix').find("li").removeClass('ui-corner-top').addClass('ui-corner-left');
 	}
 	
-	/* end of physical impacts hack */
+	// end of physical impacts hack 
 	
 	initAccordion();
 	unlockImpactsScreen();
@@ -586,7 +589,7 @@ function unlockImpactsScreen() {
 	impactsPlaceholder.unblock();
 	
 }
-	
+	*/
 
 
 /**
