@@ -216,6 +216,30 @@ create table Contact_ (
 	hoursOfOperation VARCHAR(75) null
 );
 
+create table Contest (
+	ContestPK LONG not null primary key,
+	ContestName VARCHAR(75) null,
+	ContestDescription VARCHAR(75) null,
+	PlanTypeId DATE null,
+	created DATE null,
+	updated DATE null,
+	authorId LONG
+);
+
+create table ContestPhase (
+	ContestPhasePK LONG not null primary key,
+	ContestPK LONG,
+	ContestPhaseName LONG,
+	ContestPhaseDescription VARCHAR(75) null,
+	ContestPhaseStatus VARCHAR(75) null,
+	PhaseStartDate DATE null,
+	PhaseEndDate LONG,
+	nextStatus VARCHAR(75) null,
+	created DATE null,
+	updated DATE null,
+	authorId LONG
+);
+
 create table Counter (
 	name VARCHAR(75) not null primary key,
 	currentId LONG
@@ -1118,7 +1142,8 @@ create table PlanItem (
 	updated DATE null,
 	updateAuthorId LONG,
 	updateType VARCHAR(75) null,
-	version LONG
+	version LONG,
+	ContestPhase LONG
 );
 
 create table PlanMeta (

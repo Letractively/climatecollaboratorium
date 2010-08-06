@@ -97,6 +97,10 @@ public interface PlanItemLocalService {
         throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlansInContestPhase(
+        long contestPhase);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.plans.model.PlanItem getPlan(java.lang.Long planId)
         throws com.ext.portlet.plans.NoSuchPlanItemException,
             com.liferay.portal.SystemException;

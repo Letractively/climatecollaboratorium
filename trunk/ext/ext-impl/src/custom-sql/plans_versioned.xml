@@ -24,6 +24,24 @@
         ]]>
         
 </sql>
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getPlansForContestPhase">
+        <![CDATA[
+            SELECT
+                {PlanItem.*}
+            FROM
+                PlanItem
+                INNER JOIN (
+                    SELECT max(PlanItem.id_) as itemId, PlanItem.planId planId
+                    FROM PlanItem
+                    GROUP BY PlanItem.planId
+                ) as t2
+                ON (PlanItem.id_ = t2.itemId)
+                WHERE PlanItem.state = 'ACTIVE'AND PlanItem.contestPhase = ?
+        ]]>
+
+</sql>
+
+
 <sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.removePlanWithHistory">
         <![CDATA[
             DELETE 

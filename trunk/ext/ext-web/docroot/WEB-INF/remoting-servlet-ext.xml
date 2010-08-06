@@ -703,4 +703,28 @@
 		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageService" />
 	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseService" />
+	</bean>
 </beans>

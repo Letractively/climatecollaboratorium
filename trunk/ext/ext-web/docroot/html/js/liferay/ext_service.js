@@ -40,3 +40,5 @@ Liferay.Service.register("Liferay.Service.Debatemigration", "com.ext.portlet.deb
 Liferay.Service.register("Liferay.Service.inlinehelp", "com.ext.inlinehelp.service");
 
 Liferay.Service.register("Liferay.Service.Discussions", "com.ext.portlet.discussions.service");
+
+Liferay.Service.register("Liferay.Service.Contests", "com.ext.portlet.contests.service");

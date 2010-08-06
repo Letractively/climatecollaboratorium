@@ -115,6 +115,11 @@ public class PlanItemLocalServiceUtil {
         return getService().getPlans();
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlansInContestPhase(
+        long contestPhase) {
+        return getService().getPlansInContestPhase(contestPhase);
+    }
+
     public static com.ext.portlet.plans.model.PlanItem getPlan(
         java.lang.Long planId)
         throws com.ext.portlet.plans.NoSuchPlanItemException,
