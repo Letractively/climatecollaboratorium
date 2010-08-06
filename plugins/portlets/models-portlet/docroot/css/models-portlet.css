@@ -494,3 +494,33 @@ ul.ui-tabs-nav li.ui-state-active a{
 table.icePnlTbSet > tbody:first-child > tr:first-child table {
     height:50px;
 }
+
+
+.assumption {
+    background: #eee;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.positionsActions {
+    float: right;
+    padding-right: 125px;
+    position: relative;
+}
+
+
+.assumption .question {
+    background:url("../img/question_icon_small.png") no-repeat scroll 3px 3px transparent;
+    padding:3px 9px;
+    padding-left: 20px;
+    font-weight: normal;
+}
+
+.assumption .position,
+.assumption .positionItem label {
+    background:url("../img/position_icon_small.png") no-repeat scroll 3px 0 transparent;
+    padding:3px 9px;
+    padding-left: 20px;
+    margin-left: 40px;
+    font-weight: normal;
+}

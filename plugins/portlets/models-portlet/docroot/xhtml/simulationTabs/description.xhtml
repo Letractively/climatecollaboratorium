@@ -10,18 +10,14 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <div class="simulationActions">
-        <ice:commandButton value="Edit" actionListener="#{simulationBean.editSimulation}" rendered="#{(not simulationBean.editing) and permissions.canEditModel}" />
-    </div>
-    <div class="clear"></div>
-    <ice:panelGroup styleClass="modelDescription" rendered="#{not simulationBean.editing}">
-        <p>#{simulationBean.description}</p>
+
+    <ice:panelGroup styleClass="modelDescription" rendered="#{not simulationDetailsBean.tabEditing}">
+        <p>#{simulationDetailsBean.description}</p>
     </ice:panelGroup>
     
-    <ice:panelGroup styleClass="modelDescription" rendered="#{simulationBean.editing}">
-        <f:subview>
-            <ui:include src="../editSimulation.xhtml" />
-        </f:subview>
+    <ice:panelGroup styleClass="modelDescription" rendered="#{simulationDetailsBean.tabEditing}">
+        <ice:inputRichText value="#{simulationDetailsBean.description}"   saveOnSubmit="true" skin="office2003" height="500px"  />
+        <ice:commandButton value="Submit" actionListener="#{simulationDetailsBean.updateSimulation}" />
     </ice:panelGroup>
     
 </f:view>

@@ -9,21 +9,47 @@
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <div class="model-information">
-        <div class="bottom-content">
-                <f:subview id="inputsView">
-                    <ui:include src="../inputs/inputs.xhtml" />
+    
+
+    <ice:panelGroup rendered="#{not simulationDetailsBean.tabEditing}">
+        <collab:simulation simulationId="#{simulationDetailsBean.modelId}" showEditButton="false" showRunButton="true"/>
+     </ice:panelGroup>
+
+
+    <ice:panelGroup rendered="#{simulationDetailsBean.tabEditing}">
+        <ice:panelTabSet>
+            <ice:panelTab label="Inputs widgets">
+                <f:subview>
+                    <ui:include src="../simulationEdit/inputsWidgets.xhtml" />
                 </f:subview>
-                <f:subview id="outputsView">
-                    <ui:include src="../outputs/outputs.xhtml" />
+            </ice:panelTab>
+            <ice:panelTab label="Input groups">
+                <f:subview>
+                    <ui:include src="../simulationEdit/inputGroups.xhtml" />
                 </f:subview>
-                
-                <div class="clear"></div>
-                <div class="modelActions">
-                    <ice:commandLink actionListener="#{simulationBean.runModel}" onclick="runModel();" styleClass="full runModelBtn" />
-                    <div class="clear"></div>
-                </div>
-        </div>
-    </div>
+            </ice:panelTab>
+            <ice:panelTab label="Inputs order">
+                <f:subview>
+                    <ui:include src="../simulationEdit/inputsOrder.xhtml" />
+                </f:subview>
+            </ice:panelTab>
+            <ice:panelTab label="Outputs settings">
+                <f:subview>
+                    <ui:include src="../simulationEdit/outputsSettings.xhtml" />
+                </f:subview>
+            </ice:panelTab>
+            <ice:panelTab label="Outputs order">
+                <f:subview>
+                    <ui:include src="../simulationEdit/outputsOrder.xhtml" />
+                </f:subview>
+            </ice:panelTab>
+            <ice:panelTab label="Outputs error settings">
+                <f:subview>
+                    <ui:include src="../simulationEdit/outputsErrorSettings.xhtml" />
+                </f:subview>
+            </ice:panelTab>
+        </ice:panelTabSet>
+    </ice:panelGroup>
 </f:view>

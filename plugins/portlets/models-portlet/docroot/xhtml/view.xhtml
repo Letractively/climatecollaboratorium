@@ -7,17 +7,11 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:t="http://myfaces.apache.org/tomahawk" 
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:collab="http://climatecollaboratorium.org/components" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:c="http://java.sun.com/jstl/core" >
     
 <ice:portlet id="models-portlet">
-    <f:subview id="navigation" rendered="#{navigation.viewType == 'default'}">
-        <ui:include src="./navigation.xhtml"/>
-    </f:subview>
-    <f:subview id="jsIntegration">
-        <ui:include src="./icefacesJSIntegration.xhtml" />
-    </f:subview>
-    <ice:panelGroup rendered="#{navigation.viewType == 'default'}">
+    <collab:navigationManager />
     <div class="model">
         <div class="tabContent_top"></div>
             <div class="tabContent_bottom">
@@ -37,7 +31,9 @@
                             </f:subview>
                 
                             <f:subview id="modelDetails" rendered="#{navigation.currentPage == 'details'}">
-                                <ui:include src="./modelDetails.xhtml"/>
+                                <ui:include src="./modelDetails.xhtml">
+                                    <ui:param name="simulationDetailsBean"  value="#{navigation.simulationDetailsBean}" />
+                                </ui:include>
                             </f:subview>
                         </div>
                         <div class="contentWrapperBottom"></div>
@@ -45,20 +41,5 @@
                 </div>
             </div>
         </div>
-        </ice:panelGroup>
-        <ice:panelGroup rendered="#{navigation.viewType == 'embedded'}">
-            <f:subview id="actions" rendered="#{navigation.page == 'actions'}">
-                <ui:include src="./embedded/embeddedActions.xhtml"/>
-            </f:subview>
-            
-            <f:subview id="modelDetails" rendered="#{navigation.page == 'model'}">
-                <ui:include src="./embedded/embeddedModel.xhtml"/>
-            </f:subview>
-            
-            <f:subview id="impacts" rendered="#{navigation.page == 'impacts'}">
-                <ui:include src="./embedded/embeddedImpacts.xhtml"/>
-            </f:subview>
-            
-        </ice:panelGroup>
     </ice:portlet>
 </f:view>
