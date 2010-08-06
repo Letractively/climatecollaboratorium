@@ -37,6 +37,21 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = PlanItemImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
+    public static final FinderPath FINDER_PATH_FIND_BY_ALLBYCONTESTPHASE = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
+            PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByAllByContestPhase", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_ALLBYCONTESTPHASE = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
+            PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByAllByContestPhase",
+            new String[] {
+                Long.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_ALLBYCONTESTPHASE = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
+            PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByAllByContestPhase", new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_BY_ALLBYPLANID = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
             PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findByAllByPlanId", new String[] { Long.class.getName() });
@@ -352,6 +367,235 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
         }
 
         return planItem;
+    }
+
+    public List<PlanItem> findByAllByContestPhase(Long ContestPhase)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { ContestPhase };
+
+        List<PlanItem> list = (List<PlanItem>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ALLBYCONTESTPHASE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("FROM com.ext.portlet.plans.model.PlanItem WHERE ");
+
+                if (ContestPhase == null) {
+                    query.append("ContestPhase IS NULL");
+                } else {
+                    query.append("ContestPhase = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("version DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ContestPhase != null) {
+                    qPos.add(ContestPhase.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<PlanItem>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_ALLBYCONTESTPHASE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<PlanItem> findByAllByContestPhase(Long ContestPhase, int start,
+        int end) throws SystemException {
+        return findByAllByContestPhase(ContestPhase, start, end, null);
+    }
+
+    public List<PlanItem> findByAllByContestPhase(Long ContestPhase, int start,
+        int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                ContestPhase,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<PlanItem> list = (List<PlanItem>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_ALLBYCONTESTPHASE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("FROM com.ext.portlet.plans.model.PlanItem WHERE ");
+
+                if (ContestPhase == null) {
+                    query.append("ContestPhase IS NULL");
+                } else {
+                    query.append("ContestPhase = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("version DESC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ContestPhase != null) {
+                    qPos.add(ContestPhase.longValue());
+                }
+
+                list = (List<PlanItem>) QueryUtil.list(q, getDialect(), start,
+                        end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<PlanItem>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_ALLBYCONTESTPHASE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public PlanItem findByAllByContestPhase_First(Long ContestPhase,
+        OrderByComparator obc) throws NoSuchPlanItemException, SystemException {
+        List<PlanItem> list = findByAllByContestPhase(ContestPhase, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanItem exists with the key {");
+
+            msg.append("ContestPhase=" + ContestPhase);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchPlanItemException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public PlanItem findByAllByContestPhase_Last(Long ContestPhase,
+        OrderByComparator obc) throws NoSuchPlanItemException, SystemException {
+        int count = countByAllByContestPhase(ContestPhase);
+
+        List<PlanItem> list = findByAllByContestPhase(ContestPhase, count - 1,
+                count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanItem exists with the key {");
+
+            msg.append("ContestPhase=" + ContestPhase);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchPlanItemException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public PlanItem[] findByAllByContestPhase_PrevAndNext(Long id,
+        Long ContestPhase, OrderByComparator obc)
+        throws NoSuchPlanItemException, SystemException {
+        PlanItem planItem = findByPrimaryKey(id);
+
+        int count = countByAllByContestPhase(ContestPhase);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append("FROM com.ext.portlet.plans.model.PlanItem WHERE ");
+
+            if (ContestPhase == null) {
+                query.append("ContestPhase IS NULL");
+            } else {
+                query.append("ContestPhase = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("version DESC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (ContestPhase != null) {
+                qPos.add(ContestPhase.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc, planItem);
+
+            PlanItem[] array = new PlanItemImpl[3];
+
+            array[0] = (PlanItem) objArray[0];
+            array[1] = (PlanItem) objArray[1];
+            array[2] = (PlanItem) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
     }
 
     public List<PlanItem> findByAllByPlanId(Long planId)
@@ -792,6 +1036,13 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
+    public void removeByAllByContestPhase(Long ContestPhase)
+        throws SystemException {
+        for (PlanItem planItem : findByAllByContestPhase(ContestPhase)) {
+            remove(planItem);
+        }
+    }
+
     public void removeByAllByPlanId(Long planId) throws SystemException {
         for (PlanItem planItem : findByAllByPlanId(planId)) {
             remove(planItem);
@@ -809,6 +1060,58 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
         for (PlanItem planItem : findAll()) {
             remove(planItem);
         }
+    }
+
+    public int countByAllByContestPhase(Long ContestPhase)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { ContestPhase };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ALLBYCONTESTPHASE,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append("FROM com.ext.portlet.plans.model.PlanItem WHERE ");
+
+                if (ContestPhase == null) {
+                    query.append("ContestPhase IS NULL");
+                } else {
+                    query.append("ContestPhase = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ContestPhase != null) {
+                    qPos.add(ContestPhase.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ALLBYCONTESTPHASE,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
     }
 
     public int countByAllByPlanId(Long planId) throws SystemException {
