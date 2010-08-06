@@ -318,7 +318,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         for (Role role: rolesActionsMap.keySet()) {
             PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, 
                     DiscussionCategoryGroup.class.getName(), ResourceConstants.SCOPE_GROUP, 
-                    plan.getPlanGroupId().toString(), rolesActionsMap.get(role));
+                    String.valueOf(group.getGroupId()), rolesActionsMap.get(role));
         }
         
         // populate plan with id of created group, category
