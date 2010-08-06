@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
+<service-builder package-path="com.ext.portlet.contests">
+	<namespace>Contests</namespace>
+
+    
+    <entity name="Contest" local-service="true" remote-service="true">
+        <column name="ContestPK" type="Long" primary="true" />
+        <column name="ContestName" type="String" />
+        <column name="ContestDescription" type="String" />
+        <column name="PlanTypeId" type="Date" />
+        <column name="created" type="Date" />
+        <column name="updated" type="Date" />
+        <column name="authorId" type="Long" />
+        <order by="desc">
+            <order-column name="created" />
+        </order>
+    </entity>
+
+    <entity name="ContestPhase" local-service="true" remote-service="true">
+        <column name="ContestPhasePK" type="Long" primary="true" />
+        <column name="ContestPK" type="Long"/>
+        <column name="ContestPhaseName" type="Long" />
+        <column name="ContestPhaseDescription" type="String"/>
+        <column name="ContestPhaseStatus" type="String" />
+        <column name="PhaseStartDate" type="Date" />
+        <column name="PhaseEndDate" type="Long" />
+        <column name="nextStatus" type="String" />
+        <column name="created" type="Date" />
+        <column name="updated" type="Date" />
+        <column name="authorId" type="Long" />
+
+        <order by="desc">
+            <order-column name="PhaseStartDate" />
+        </order>
+
+        <finder name="ContestId" return-type="Collection">
+            <finder-column name="ContestPK" />
+        </finder>
+      </entity>
+    
+	<exceptions>
+
+		<exception>NoSuchContestPhase</exception>
+		<exception>NoSuchContest</exception>
+	</exceptions>
+</service-builder>

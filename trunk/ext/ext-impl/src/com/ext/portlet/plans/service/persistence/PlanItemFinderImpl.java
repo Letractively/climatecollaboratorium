@@ -36,6 +36,7 @@ import com.liferay.util.dao.orm.CustomSQLUtil;
 
 public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemFinder {
     private final String GET_PLAN_ITEMS = PlanItemFinderImpl.class.getName() + ".getPlans";
+    private final String GET_PLAN_ITEMS_CONTEST = PlanItemFinderImpl.class.getName() + ".getPlansForContestPhase";
     private final String REMOVE_PLAN_WITH_HISTORY = PlanItemFinderImpl.class.getName() + ".removePlanWithHistory";
     
     public List<PlanItem> getPlans() {
@@ -45,6 +46,19 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
         String sql = CustomSQLUtil.get(GET_PLAN_ITEMS);
         SQLQuery query = session.createSQLQuery(sql);
 
+        query.addEntity("PlanItem", PlanItemImpl.class);
+        return (List<PlanItem>) QueryUtil.list(query,getDialect(),0,Integer.MAX_VALUE);
+     }
+
+
+    public List<PlanItem> getPlansForContestPhase(long contestPhase) {
+
+
+        Session session = openSession();
+        String sql = CustomSQLUtil.get(GET_PLAN_ITEMS_CONTEST);
+
+        SQLQuery query = session.createSQLQuery(sql);
+        query.setLong(0,contestPhase);
         query.addEntity("PlanItem", PlanItemImpl.class);
         return (List<PlanItem>) QueryUtil.list(query,getDialect(),0,Integer.MAX_VALUE);
      }

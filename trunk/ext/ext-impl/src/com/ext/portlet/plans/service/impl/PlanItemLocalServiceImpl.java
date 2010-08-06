@@ -332,6 +332,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     public List<PlanItem> getPlans() throws SystemException {
         return this.planItemFinder.getPlans();
     }
+
+    public List<PlanItem> getPlansInContestPhase(long contestPhase) {
+       return this.planItemFinder.getPlansForContestPhase(contestPhase);
+    }
     
     public PlanItem getPlan(Long planId) throws NoSuchPlanItemException, SystemException {
         return this.planItemPersistence.findByPlanId(planId);

@@ -60,9 +60,12 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
             { "updateType", new Integer(Types.VARCHAR) },
             
 
-            { "version", new Integer(Types.BIGINT) }
+            { "version", new Integer(Types.BIGINT) },
+            
+
+            { "ContestPhase", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanItem (id_ LONG not null primary key,planId LONG,state VARCHAR(75) null,updated DATE null,updateAuthorId LONG,updateType VARCHAR(75) null,version LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanItem (id_ LONG not null primary key,planId LONG,state VARCHAR(75) null,updated DATE null,updateAuthorId LONG,updateType VARCHAR(75) null,version LONG,ContestPhase LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanItem";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -83,6 +86,7 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
     private Long _updateAuthorId;
     private String _updateType;
     private Long _version;
+    private Long _ContestPhase;
 
     public PlanItemModelImpl() {
     }
@@ -97,6 +101,7 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
         model.setUpdateAuthorId(soapModel.getUpdateAuthorId());
         model.setUpdateType(soapModel.getUpdateType());
         model.setVersion(soapModel.getVersion());
+        model.setContestPhase(soapModel.getContestPhase());
 
         return model;
     }
@@ -187,6 +192,14 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
         _version = version;
     }
 
+    public Long getContestPhase() {
+        return _ContestPhase;
+    }
+
+    public void setContestPhase(Long ContestPhase) {
+        _ContestPhase = ContestPhase;
+    }
+
     public PlanItem toEscapedModel() {
         if (isEscapedModel()) {
             return (PlanItem) this;
@@ -203,6 +216,7 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
             model.setUpdateAuthorId(getUpdateAuthorId());
             model.setUpdateType(HtmlUtil.escape(getUpdateType()));
             model.setVersion(getVersion());
+            model.setContestPhase(getContestPhase());
 
             model = (PlanItem) Proxy.newProxyInstance(PlanItem.class.getClassLoader(),
                     new Class[] { PlanItem.class },
@@ -222,6 +236,7 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
         clone.setUpdateAuthorId(getUpdateAuthorId());
         clone.setUpdateType(getUpdateType());
         clone.setVersion(getVersion());
+        clone.setContestPhase(getContestPhase());
 
         return clone;
     }
@@ -283,6 +298,8 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
         sb.append(getUpdateType());
         sb.append(", version=");
         sb.append(getVersion());
+        sb.append(", ContestPhase=");
+        sb.append(getContestPhase());
         sb.append("}");
 
         return sb.toString();
@@ -322,6 +339,10 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
         sb.append(
             "<column><column-name>version</column-name><column-value><![CDATA[");
         sb.append(getVersion());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>ContestPhase</column-name><column-value><![CDATA[");
+        sb.append(getContestPhase());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");
