@@ -1,6 +1,8 @@
 package org.climatecollaboratorium.models;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -10,7 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
 
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
+import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
+import org.climatecollaboratorium.navigation.NavigationEvent;
 
 import com.liferay.portal.SystemException;
 
@@ -31,6 +37,8 @@ public class NavigationBean {
     private long scenarioId;
     private Long planId;
     private boolean embeddedCanEdit;
+    private EventBus eventBus;
+    private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     
     public NavigationBean() {
         // get request parameters
@@ -163,6 +171,32 @@ public class NavigationBean {
 
     public boolean isEmbeddedCanEdit() {
         return embeddedCanEdit;
+    }
+    
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        bindEvents();
+    }
+
+    private void bindEvents() {
+        // unregister old handlers
+        for (HandlerRegistration registration: handlerRegistrations) {
+            registration.unregister();
+        }
+        handlerRegistrations.clear();
+
+        handlerRegistrations.add(eventBus.registerHandler(NavigationEvent.class, new EventHandler<NavigationEvent>() {
+
+            @Override
+            public void onEvent(NavigationEvent event) {
+                // check if event
+                if (event.getSource().equals("models")) {
+                    // do something...
+                }
+
+            }
+
+        }));
     }
 
 }
