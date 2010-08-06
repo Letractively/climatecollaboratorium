@@ -68,14 +68,16 @@ public class PlanMembershipRequest {
 
     public void update(ActionEvent e) throws PortalException, SystemException {
         if (permissions.getCanAdmin()) {
+            String responseStr = response == null || response.trim().length() == 0 ? "no comments" : response; 
             if (approve) {
-                plan.approveMembershipRequest(Helper.getLiferayUser().getUserId(), request, response, Helper.getLiferayUser().getUserId());
+                
+                plan.approveMembershipRequest(user.getUserId(), request, responseStr, Helper.getLiferayUser().getUserId());
 
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                         PlanItem.class.getName(), plan.getPlanId(), PlanActivityKeys.USER_ADDED_TO_PLAN.id(),null, 0);
             }
             else {
-                plan.dennyMembershipRequest(Helper.getLiferayUser().getUserId(), request, response, Helper.getLiferayUser().getUserId());
+                plan.dennyMembershipRequest(user.getUserId(), request, responseStr, Helper.getLiferayUser().getUserId());
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                         PlanItem.class.getName(), plan.getPlanId(), PlanActivityKeys.USER_REMOVED_FROM_PLAN.id(),null, 0);
             }

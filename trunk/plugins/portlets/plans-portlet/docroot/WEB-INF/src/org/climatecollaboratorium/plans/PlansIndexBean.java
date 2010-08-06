@@ -27,6 +27,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
+import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 import org.climatecollaboratorium.plans.utils.DataPage;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 
@@ -61,8 +65,10 @@ public class PlansIndexBean {
     private DataPaginator dataPaginator;
     private List<Debate> availableDebates;
     private static final String PLAN_TYPE_SESSION_PARAM = "PLAN_TYPE_SESSION_PARAM";
+    private EventBus eventBus;
+    private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
-    public PlansIndexBean() throws SystemException, PortalException {
+    public PlansIndexBean(EventBus eventBus) throws SystemException, PortalException {
         // we should start from "published" plans tab
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         if (ectx.getSessionMap().containsKey(PLAN_TYPE_SESSION_PARAM)) {
@@ -77,6 +83,36 @@ public class PlansIndexBean {
         refresh();
         sortColumn = PlanConstants.Attribute.VOTES.name();
         sortAscending = false;
+        this.eventBus = eventBus;
+        if (eventBus != null) {
+            bindEvents();
+        }
+    }
+    
+    public void setEventBus(EventBus eventBus) {
+        if (this.eventBus != eventBus) {
+            this.eventBus = eventBus;
+            bindEvents();
+        }
+    }
+
+    private void bindEvents() {
+        for (HandlerRegistration registration: handlerRegistrations) {
+            registration.unregister();
+        }
+        
+        handlerRegistrations.add(eventBus.registerHandler(PlanDeletedEvent.class, new EventHandler<PlanDeletedEvent>() {
+
+            @Override
+            public void onEvent(PlanDeletedEvent event) {
+                try {
+                    PlansIndexBean.this.refresh();
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+            
+        }));
     }
 
     public List<PlanIndexItemWrapper> getPlans() throws SystemException, PortalException {

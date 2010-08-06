@@ -1,6 +1,8 @@
 package org.climatecollaboratorium.plans;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -218,6 +220,14 @@ public class PlanItemWrapper {
         for (PlanItem planVersion: wrapped.getAllVersions()) {
             planVersions.add(new PlanHistoryItem(planVersion));
         }
+        Collections.sort(planVersions, new Comparator<PlanHistoryItem>() {
+
+            @Override
+            public int compare(PlanHistoryItem arg0, PlanHistoryItem arg1) {
+                return arg1.getUpdateDate().compareTo(arg0.getUpdateDate());
+            }
+            
+        });
         return planVersions;
     }
     
@@ -271,6 +281,7 @@ public class PlanItemWrapper {
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.REMOVE_PLAN.id(),null, 0);
             this.deleted = true;
+            planBean.planDeleted();
         }
     }
 

@@ -58,8 +58,13 @@ public class CreatePlanBean {
         this.planId = planId;
     }
 
+    // redirection should occur only once
     public boolean isNavigateToPlan() {
-        return navigateToPlan;
+        if (navigateToPlan) {
+            navigateToPlan = false;
+            return true;
+        }
+        return false;
     }
 
     public void setNavigateToPlan(boolean navigateToPlan) {

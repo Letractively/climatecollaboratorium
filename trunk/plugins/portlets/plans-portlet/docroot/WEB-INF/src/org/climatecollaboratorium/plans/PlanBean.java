@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 
 import javax.faces.event.ActionEvent;
 import java.util.HashMap;
@@ -154,6 +155,10 @@ public class PlanBean {
     
     public void setSelectedTab(int selectedTab) {
         selectedTabIndex = selectedTab;
+    }
+
+    public void planDeleted() {
+        eventBus.fireEvent(new PlanDeletedEvent(planItem));   
     }
 
 }
