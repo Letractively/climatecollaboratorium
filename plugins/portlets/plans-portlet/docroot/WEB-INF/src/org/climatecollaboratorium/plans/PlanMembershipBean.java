@@ -80,7 +80,7 @@ public class PlanMembershipBean {
         return requesting;
     }
     
-    public List<SelectItem> getAvailableUserRoles() throws SystemException {
+    public List<SelectItem> getAvailableUserRoles() throws SystemException, PortalException {
         List<SelectItem> items = new ArrayList<SelectItem>();
 
         if (permissions.getCanAdminAll()) {
@@ -97,6 +97,12 @@ public class PlanMembershipBean {
 
     public void removeMember(PlanMember planMember) {
         planMembers.remove(planMembers.indexOf(planMember));
+    }
+    
+    public void removeCurrentUser(ActionEvent e) throws SystemException {
+        if (Helper.isUserLoggedIn()) {
+            plan.removeMember(Helper.getLiferayUser().getUserId(), Helper.getLiferayUser().getUserId());
+        }
     }
 
 }

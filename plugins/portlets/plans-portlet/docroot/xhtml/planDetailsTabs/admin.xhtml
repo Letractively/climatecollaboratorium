@@ -136,7 +136,7 @@
     <!--  if plan has been deleted, redirect user to plansIndex -->
     <f:subview rendered="#{planBean.plan.deleted}">    
     <script language="javascript">
-        navigateToPlanIndex();
+        Collab.nav.navigate("plans", {});
     </script>
 </f:subview>
     

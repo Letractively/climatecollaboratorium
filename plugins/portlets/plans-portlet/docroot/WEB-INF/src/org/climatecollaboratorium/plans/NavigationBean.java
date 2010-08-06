@@ -47,7 +47,7 @@ public class NavigationBean {
 
     public NavigationBean() throws SystemException, PortalException {
         PORTLET_ID = Helper.getPortletID();
-        plansIndex = new PlansIndexBean();
+        plansIndex = new PlansIndexBean(eventBus);
         // get request parameters
         ExternalContext ctx = FacesContext.getCurrentInstance().getExternalContext();//.getRequestPathInfo())
 
@@ -123,6 +123,7 @@ public class NavigationBean {
 
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
+        plansIndex.setEventBus(eventBus);
         bindEvents();
     }
 

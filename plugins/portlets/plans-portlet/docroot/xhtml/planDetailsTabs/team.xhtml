@@ -8,14 +8,14 @@
             <td class="left">
             <div class="plan-members">
                 <div class="center">
-                    <ice:commandButton value="Join this team!" actionListener="#{planBean.membershipBean.toggleRequesting}" rendered="#{not planBean.plan.planMember and not planBean.membershipBean.requesting and not planBean.plan.hasRequestedMembership}"  styleClass="#{planBean.plan.planMember ? 'disabled' : ''}" onclick="if(!deferUntilLogin()) return false;"/>
+                    <ice:commandButton value="Join this team!" actionListener="#{planBean.membershipBean.toggleRequesting}" rendered="#{not planBean.plan.planMember and not planBean.membershipBean.requesting and not planBean.plan.hasRequestedMembership and not permissions.planOpen}"  onclick="if(!deferUntilLogin()) return false;"/>
                     <ice:panelGroup rendered="#{planBean.plan.planMember}">
                         <h4>You are part of this team.</h4>
                     </ice:panelGroup>                    
                     <ice:panelGroup rendered="#{planBean.plan.hasRequestedMembership}">
                         <h4>You have asked to be a part of this team.</h4>
                     </ice:panelGroup>
-                    <ice:commandButton value="Remove me" actionListener="#{planBean.membershipBean.removeMember}" rendered="#{planBean.plan.planMember and not planBean.membershipBean.requesting}" styleClass="#{planBean.plan.planMember ? 'disabled' : ''}" />
+                    <ice:commandButton value="Remove me" actionListener="#{planBean.membershipBean.removeCurrentUser}" rendered="#{planBean.plan.planMember and not planBean.membershipBean.requesting}" styleClass="#{planBean.plan.planMember ? 'disabled' : ''}" />
                 </div>
                 <ice:panelGroup rendered="#{planBean.membershipBean.requesting}" >
                     <div class="manageMembersTop">

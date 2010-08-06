@@ -1,7 +1,7 @@
-.actionsImpactsEditContainer .chooseVersionWidget.editing {
+.actionsImpactsEditContainer .chooseVersionWidget {
     position: absolute;
-    right: 0px;
-    top: 14px;
+    right: 26px;
+    top: 5px;
 }
 
 .actionImpactsButtons {
@@ -13,3 +13,9 @@
     margin-left: 5px;
     
 }
+
+.inputsAndOutputsWidget {
+    margin-left: 25px;
+    padding-top: 30px;
+}
+

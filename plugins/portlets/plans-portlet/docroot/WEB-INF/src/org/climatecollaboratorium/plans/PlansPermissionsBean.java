@@ -3,6 +3,7 @@ package org.climatecollaboratorium.plans;
 import com.ext.portlet.plans.PlanUserPermission;
 import com.ext.portlet.plans.model.PlanItem;
 
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.security.permission.PermissionChecker;
@@ -17,11 +18,12 @@ public class PlansPermissionsBean {
     private final long groupId;
     private final String primKey;
     private PlanItem plan;
+    private boolean planPublished = false;
     private PlanUserPermission planUserPermission;
     private Long planGroupId;
     private Long userId = 0L;
 
-    public PlansPermissionsBean() throws SystemException {
+    public PlansPermissionsBean() throws SystemException, PortalException {
         permissionChecker = Helper.getPermissionChecker();
         groupId = Helper.groupId;
         primKey = Helper.primKey;
@@ -34,7 +36,7 @@ public class PlansPermissionsBean {
         updatePlanUserPermission();
     }
     
-    private void updatePlanUserPermission() throws SystemException {
+    private void updatePlanUserPermission() throws SystemException, PortalException {
         if (getPlanOwner()) {
             planUserPermission = PlanUserPermission.OWNER;
         }
@@ -46,7 +48,7 @@ public class PlansPermissionsBean {
         }
     }
 
-    public PlansPermissionsBean(PlanItem plan) throws SystemException {
+    public PlansPermissionsBean(PlanItem plan) throws SystemException, PortalException {
         this();
         setPlan(plan);
     }
@@ -55,21 +57,31 @@ public class PlansPermissionsBean {
         return true;
     }
 
-    public boolean getCanEdit() throws SystemException {
-        return getPlanOpen() && Helper.isUserLoggedIn()
-            || getPlanMember() 
-            || getCanAdmin();
+    // when plan is published only site admin can modify it
+    public boolean getCanEdit() throws SystemException, PortalException {
+        return (!planPublished && (
+                        getPlanOpen() && Helper.isUserLoggedIn()
+                        || getPlanMember()
+                        || getCanAdmin()
+                    )
+                ) || getCanAdminAll();
     }
 
-    public boolean getCanAdmin() throws SystemException {
-        return (getPlanMember() && permissionChecker.isCommunityAdmin(planGroupId)) || getPlanOwner() || getCanAdminAll() ;
+    // when plan is published only site admin can admin it
+    public boolean getCanAdmin() throws SystemException, PortalException {
+        return (!planPublished && (
+                        (getPlanMember() && permissionChecker.isCommunityAdmin(planGroupId)) 
+                        || getPlanOwner() 
+                    )
+                ) || getCanAdminAll();
+                
     }
 
     public boolean getCanAdminAll() {
         return permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN_ALL);
     }
 
-    public boolean getCanDelete() throws SystemException {
+    public boolean getCanDelete() throws SystemException, PortalException {
         return getCanAdmin();
     }
 
@@ -89,10 +101,11 @@ public class PlansPermissionsBean {
         return !getPlanOwner() && !getPlanMember();
     }
 
-    public void setPlan(PlanItem plan) throws SystemException {
+    public void setPlan(PlanItem plan) throws SystemException, PortalException {
         this.plan = plan;
         // use group id from plans community
         planGroupId = plan.getPlanGroupId();
+        planPublished = plan.getPlanType().getPublished();
         updatePlanUserPermission();
     }
 
