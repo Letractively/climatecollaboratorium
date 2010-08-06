@@ -57,36 +57,6 @@ public interface PlanItemPersistence extends BasePersistence {
     public com.ext.portlet.plans.model.PlanItem fetchByPrimaryKey(
         java.lang.Long id) throws com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByContestPhase(
-        java.lang.Long ContestPhase) throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByContestPhase(
-        java.lang.Long ContestPhase, int start, int end)
-        throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByContestPhase(
-        java.lang.Long ContestPhase, int start, int end,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.liferay.portal.SystemException;
-
-    public com.ext.portlet.plans.model.PlanItem findByAllByContestPhase_First(
-        java.lang.Long ContestPhase,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanItemException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.plans.model.PlanItem findByAllByContestPhase_Last(
-        java.lang.Long ContestPhase,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanItemException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.plans.model.PlanItem[] findByAllByContestPhase_PrevAndNext(
-        java.lang.Long id, java.lang.Long ContestPhase,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanItemException,
-            com.liferay.portal.SystemException;
-
     public java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByPlanId(
         java.lang.Long planId) throws com.liferay.portal.SystemException;
 
@@ -147,9 +117,6 @@ public interface PlanItemPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
-    public void removeByAllByContestPhase(java.lang.Long ContestPhase)
-        throws com.liferay.portal.SystemException;
-
     public void removeByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
 
@@ -158,9 +125,6 @@ public interface PlanItemPersistence extends BasePersistence {
             com.liferay.portal.SystemException;
 
     public void removeAll() throws com.liferay.portal.SystemException;
-
-    public int countByAllByContestPhase(java.lang.Long ContestPhase)
-        throws com.liferay.portal.SystemException;
 
     public int countByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;

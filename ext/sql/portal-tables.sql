@@ -1142,8 +1142,7 @@ create table PlanItem (
 	updated DATE null,
 	updateAuthorId LONG,
 	updateType VARCHAR(75) null,
-	version LONG,
-	ContestPhase LONG
+	version LONG
 );
 
 create table PlanMeta (
@@ -1162,7 +1161,8 @@ create table PlanMeta (
 	planVersion LONG,
 	created DATE null,
 	updateAuthorId LONG,
-	modelId LONG
+	modelId LONG,
+	ContestPhase LONG
 );
 
 create table PlanModelRun (

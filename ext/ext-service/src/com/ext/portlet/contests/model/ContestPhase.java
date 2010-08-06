@@ -27,4 +27,11 @@ package com.ext.portlet.contests.model;
  *
  */
 public interface ContestPhase extends ContestPhaseModel {
+    public com.ext.portlet.contests.model.Contest getContest()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans();
+
+    public com.ext.portlet.contests.model.ContestStatus getContestStatus();
 }

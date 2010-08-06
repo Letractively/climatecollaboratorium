@@ -33,7 +33,6 @@ public class PlanItemSoap implements Serializable {
     private Long _updateAuthorId;
     private String _updateType;
     private Long _version;
-    private Long _ContestPhase;
 
     public PlanItemSoap() {
     }
@@ -48,7 +47,6 @@ public class PlanItemSoap implements Serializable {
         soapModel.setUpdateAuthorId(model.getUpdateAuthorId());
         soapModel.setUpdateType(model.getUpdateType());
         soapModel.setVersion(model.getVersion());
-        soapModel.setContestPhase(model.getContestPhase());
 
         return soapModel;
     }
@@ -151,13 +149,5 @@ public class PlanItemSoap implements Serializable {
 
     public void setVersion(Long version) {
         _version = version;
-    }
-
-    public Long getContestPhase() {
-        return _ContestPhase;
-    }
-
-    public void setContestPhase(Long ContestPhase) {
-        _ContestPhase = ContestPhase;
     }
 }
