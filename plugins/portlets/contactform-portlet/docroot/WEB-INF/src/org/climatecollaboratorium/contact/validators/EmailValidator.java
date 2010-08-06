@@ -11,7 +11,7 @@ public class EmailValidator implements Validator {
     @Override
         public void validate(FacesContext facesContext, 
                 UIComponent uIComponent, Object object) throws ValidatorException {
-            if (!((String) object).matches(".+@.+\\.[a-z]+")) {
+            if (!((String) object).matches("(\\w[-._\\w]*\\w@\\w[-._\\w]*\\w\\.\\w{2,3})")) {
                 FacesMessage message = new FacesMessage();
                 message.setDetail("Email not valid");
                 message.setSummary("Email not valid");
