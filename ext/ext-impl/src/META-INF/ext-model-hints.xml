@@ -201,12 +201,9 @@
 		<field name="categoryId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelPosition">
-		<field name="modelId" type="Long" />
+		<field name="id" type="Long" />
 		<field name="positionId" type="Long" />
-		<field name="userId" type="Long" />
-		<field name="userName" type="String" />
-		<field name="createDate" type="Date" />
-		<field name="modifiedDate" type="Date" />
+		<field name="modelId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelGlobalPreference">
 		<field name="modelGlobalPreferencePK" type="Long" />

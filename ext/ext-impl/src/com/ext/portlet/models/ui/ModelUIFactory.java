@@ -10,9 +10,11 @@ package com.ext.portlet.models.ui;
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.model.ModelInputGroup;
 import com.ext.portlet.models.model.ModelInputItem;
+import com.ext.portlet.models.model.ModelPosition;
 import com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
+import com.ext.portlet.models.service.ModelPositionLocalServiceUtil;
 import com.ext.portlet.models.service.base.ModelInputGroupType;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -335,6 +337,17 @@ public class ModelUIFactory {
 
 
     }
-
+    
+    public static List<Long> getSimulationPositionsIds(Simulation sim) throws SystemException {
+        List<Long> ret = new ArrayList<Long>();
+        for (ModelPosition position: ModelPositionLocalServiceUtil.getModelPositionsByModelId(sim.getId())) {
+            ret.add(position.getPositionId());
+        }
+        return ret;
+    }    
+    
+    public static void setSimulationPositionsIds(Simulation sim, List<Long> positionsIds) throws SystemException {
+        ModelPositionLocalServiceUtil.setModelPositions(sim.getId(), positionsIds);
+    }
 
 }

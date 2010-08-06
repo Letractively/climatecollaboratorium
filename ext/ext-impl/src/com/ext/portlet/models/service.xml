@@ -24,30 +24,12 @@
     </entity>
 
     <entity name="ModelPosition" local-service="true">
-
-        <!-- PK field -->
-        <column name="modelId" type="Long" primary="true"/>
-        <column name="positionId" type="Long" primary="true"/>
-
-        <!-- Audit fields -->
-
-        <column name="userId" type="Long"/>
-        <column name="userName" type="String"/>
-        <column name="createDate" type="Date"/>
-        <column name="modifiedDate" type="Date"/>
-
-        <!-- Order columns -->
-
-        <order by="asc">
-            <order-column name="modelId"/>
-            <order-column name="positionId"/>
-        </order>
-
-        <!-- Finder methods -->
-
-
-        <finder name="PositionId" return-type="Collection">
-            <finder-column name="positionId"/>
+        <column name="id" primary="true" type="Long" />
+        <column name="positionId" type="Long" />
+        <column name="modelId" type="Long" />
+        
+        <finder name="ModelId" return-type="Collection">
+            <finder-column name="modelId" />
         </finder>
     </entity>
 
@@ -189,6 +171,7 @@
         </finder>
 
     </entity>
+    
 
 
 

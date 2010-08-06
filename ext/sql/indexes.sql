@@ -367,6 +367,7 @@ create index IX_47DEFCF2 on ModelOutputChartOrder (modelId, modelOutputLabel);
 
 create index IX_46EED065 on ModelOutputItem (modelOutputItemId);
 
+create index IX_DB3398BC on ModelPosition (modelId);
 create index IX_64397830 on ModelPosition (positionId);
 
 create index IX_A425F71A on OrgGroupPermission (groupId);

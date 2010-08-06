@@ -79,8 +79,4 @@ public interface ContestPhaseLocalService {
     public com.ext.portlet.contests.model.ContestPhase updateContestPhase(
         com.ext.portlet.contests.model.ContestPhase contestPhase, boolean merge)
         throws com.liferay.portal.SystemException;
-
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.util.List<com.ext.portlet.contests.model.ContestPhase> getPhasesForContest(
-        com.ext.portlet.contests.model.Contest contest);
 }

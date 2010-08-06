@@ -21,7 +21,6 @@ import com.ext.portlet.models.service.persistence.ModelInputGroupPersistence;
 import com.ext.portlet.models.service.persistence.ModelInputItemPersistence;
 import com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence;
 import com.ext.portlet.models.service.persistence.ModelOutputItemPersistence;
-import com.ext.portlet.models.service.persistence.ModelPositionPK;
 import com.ext.portlet.models.service.persistence.ModelPositionPersistence;
 
 import com.liferay.portal.PortalException;
@@ -85,13 +84,13 @@ public abstract class ModelPositionLocalServiceBaseImpl
         return modelPositionPersistence.update(modelPosition, false);
     }
 
-    public ModelPosition createModelPosition(ModelPositionPK modelPositionPK) {
-        return modelPositionPersistence.create(modelPositionPK);
+    public ModelPosition createModelPosition(Long id) {
+        return modelPositionPersistence.create(id);
     }
 
-    public void deleteModelPosition(ModelPositionPK modelPositionPK)
+    public void deleteModelPosition(Long id)
         throws PortalException, SystemException {
-        modelPositionPersistence.remove(modelPositionPK);
+        modelPositionPersistence.remove(id);
     }
 
     public void deleteModelPosition(ModelPosition modelPosition)
@@ -110,9 +109,9 @@ public abstract class ModelPositionLocalServiceBaseImpl
             start, end);
     }
 
-    public ModelPosition getModelPosition(ModelPositionPK modelPositionPK)
+    public ModelPosition getModelPosition(Long id)
         throws PortalException, SystemException {
-        return modelPositionPersistence.findByPrimaryKey(modelPositionPK);
+        return modelPositionPersistence.findByPrimaryKey(id);
     }
 
     public List<ModelPosition> getModelPositions(int start, int end)

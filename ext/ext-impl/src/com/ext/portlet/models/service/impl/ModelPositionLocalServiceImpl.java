@@ -6,9 +6,31 @@
 
 package com.ext.portlet.models.service.impl;
 
+import java.util.List;
+
+import com.ext.portlet.models.model.ModelPosition;
 import com.ext.portlet.models.service.base.ModelPositionLocalServiceBaseImpl;
+import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.portal.SystemException;
 
 
 public class ModelPositionLocalServiceImpl
     extends ModelPositionLocalServiceBaseImpl {
+    
+    public List<ModelPosition> getModelPositionsByModelId(Long modelId) throws SystemException {
+        return modelPositionPersistence.findByModelId(modelId);
+    }
+    
+    public void setModelPositions(Long modelId, List<Long> positionIds) throws SystemException {
+        modelPositionPersistence.removeByModelId(modelId);
+        
+        for (Long positionId: positionIds) {
+            Long id = CounterUtil.increment(ModelPosition.class.getName());
+            ModelPosition modelPosition = createModelPosition(id);
+            modelPosition.setModelId(modelId);
+            modelPosition.setPositionId(positionId);
+            
+            addModelPosition(modelPosition);
+        }
+    }
 }

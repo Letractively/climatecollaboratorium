@@ -32,15 +32,14 @@ public class ModelPositionLocalServiceUtil {
     }
 
     public static com.ext.portlet.models.model.ModelPosition createModelPosition(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK) {
-        return getService().createModelPosition(modelPositionPK);
+        java.lang.Long id) {
+        return getService().createModelPosition(id);
     }
 
-    public static void deleteModelPosition(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+    public static void deleteModelPosition(java.lang.Long id)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        getService().deleteModelPosition(modelPositionPK);
+        getService().deleteModelPosition(id);
     }
 
     public static void deleteModelPosition(
@@ -62,10 +61,10 @@ public class ModelPositionLocalServiceUtil {
     }
 
     public static com.ext.portlet.models.model.ModelPosition getModelPosition(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+        java.lang.Long id)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        return getService().getModelPosition(modelPositionPK);
+        return getService().getModelPosition(id);
     }
 
     public static java.util.List<com.ext.portlet.models.model.ModelPosition> getModelPositions(
@@ -88,6 +87,17 @@ public class ModelPositionLocalServiceUtil {
         com.ext.portlet.models.model.ModelPosition modelPosition, boolean merge)
         throws com.liferay.portal.SystemException {
         return getService().updateModelPosition(modelPosition, merge);
+    }
+
+    public static java.util.List<com.ext.portlet.models.model.ModelPosition> getModelPositionsByModelId(
+        java.lang.Long modelId) throws com.liferay.portal.SystemException {
+        return getService().getModelPositionsByModelId(modelId);
+    }
+
+    public static void setModelPositions(java.lang.Long modelId,
+        java.util.List<Long> positionIds)
+        throws com.liferay.portal.SystemException {
+        getService().setModelPositions(modelId, positionIds);
     }
 
     public static ModelPositionLocalService getService() {
