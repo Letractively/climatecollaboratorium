@@ -88,9 +88,12 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             { "updateAuthorId", new Integer(Types.BIGINT) },
             
 
-            { "modelId", new Integer(Types.BIGINT) }
+            { "modelId", new Integer(Types.BIGINT) },
+            
+
+            { "ContestPhase", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,open BOOLEAN,status VARCHAR(75) null,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,open BOOLEAN,status VARCHAR(75) null,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG,ContestPhase LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanMeta";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -120,6 +123,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
     private Date _created;
     private Long _updateAuthorId;
     private Long _modelId;
+    private Long _ContestPhase;
 
     public PlanMetaModelImpl() {
     }
@@ -143,6 +147,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         model.setCreated(soapModel.getCreated());
         model.setUpdateAuthorId(soapModel.getUpdateAuthorId());
         model.setModelId(soapModel.getModelId());
+        model.setContestPhase(soapModel.getContestPhase());
 
         return model;
     }
@@ -305,6 +310,14 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         _modelId = modelId;
     }
 
+    public Long getContestPhase() {
+        return _ContestPhase;
+    }
+
+    public void setContestPhase(Long ContestPhase) {
+        _ContestPhase = ContestPhase;
+    }
+
     public PlanMeta toEscapedModel() {
         if (isEscapedModel()) {
             return (PlanMeta) this;
@@ -330,6 +343,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             model.setCreated(getCreated());
             model.setUpdateAuthorId(getUpdateAuthorId());
             model.setModelId(getModelId());
+            model.setContestPhase(getContestPhase());
 
             model = (PlanMeta) Proxy.newProxyInstance(PlanMeta.class.getClassLoader(),
                     new Class[] { PlanMeta.class },
@@ -358,6 +372,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         clone.setCreated(getCreated());
         clone.setUpdateAuthorId(getUpdateAuthorId());
         clone.setModelId(getModelId());
+        clone.setContestPhase(getContestPhase());
 
         return clone;
     }
@@ -445,6 +460,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(getUpdateAuthorId());
         sb.append(", modelId=");
         sb.append(getModelId());
+        sb.append(", ContestPhase=");
+        sb.append(getContestPhase());
         sb.append("}");
 
         return sb.toString();
@@ -520,6 +537,10 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(
             "<column><column-name>modelId</column-name><column-value><![CDATA[");
         sb.append(getModelId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>ContestPhase</column-name><column-value><![CDATA[");
+        sb.append(getContestPhase());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

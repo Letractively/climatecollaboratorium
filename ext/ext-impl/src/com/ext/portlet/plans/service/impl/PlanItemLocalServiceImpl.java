@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.model.DiscussionCategory;
@@ -87,18 +88,58 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
      */
     public static final String DEFAULT_FORUM_CATEGORY_DESCRIPTION = "General discussion about plan %s";
 
+    public PlanItem createPlan(ContestPhase phase, Long authorId) throws SystemException, PortalException {
+       long planItemId = CounterUtil.increment(PlanItem.class.getName());
+       long planId = CounterUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
+       long planTypeId = 0;
+        String name = "Untitled Plan " + planId;
+        PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
+        planItem.setPlanId(planId);
+        planItem.setVersion(0L);
+        planItem.setUpdated(new Date());
+        planItem.setUpdateAuthorId(authorId);
+        planItem.setState(EntityState.ACTIVE.name());
+        planItem.setUpdateType(UpdateType.CREATED.name());
+
+        planItem = PlanItemLocalServiceUtil.addPlanItem(planItem);
+
+        // create related entities, plan description, meta, model run
+        PlanDescriptionLocalServiceUtil.createPlanDescription(planItem, name);
+        PlanModelRunLocalServiceUtil.createPlanModelRun(planItem);
+        PlanMetaLocalServiceUtil.createPlanMeta(planItem, planTypeId);
+        PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
+
+        // create community, Message Boards category
+        initPlan(planItem);
+
+        /* update/create all attributes */
+        //planItem.updateAllAttributes();
+        planItem.updateAttribute(Attribute.CREATOR.name());
+        planItem.updateAttribute(Attribute.NAME.name());
+        planItem.updateAttribute(Attribute.DESCRIPTION.name());
+        planItem.updateAttribute(Attribute.CREATE_DATE.name());
+        planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
+        planItem.updateAttribute(Attribute.VOTES.name());
+
+
+        // populate fields with default values
+
+        return planItem;
+    }
+
     
     /**
      * Creates and initializes new instance of a PlanItem. 
      * 
      * All necessary id's are generated, version is set to 0.
      * @param authorId Id of user that is creating new plan
+     * @deprecated Should use contest enabled plans
      */
     public PlanItem createPlan(Long planTypeId, Long authorId) throws SystemException, PortalException {
         long planItemId = CounterUtil.increment(PlanItem.class.getName());
         long planId = CounterUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
         
-        String name = "New Plan " + planId;  
+        String name = "Untitled Plan " + planId;  
         PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
         planItem.setPlanId(planId);
         planItem.setVersion(0L);
@@ -132,6 +173,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         
         return planItem;
     }
+
+    
 
     
     public PlanItem createPlan(PlanItem basePlan, Long authorId) throws SystemException, PortalException {
@@ -334,7 +377,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     }
 
     public List<PlanItem> getPlansInContestPhase(long contestPhase) {
-       return this.planItemFinder.getPlansForContestPhase(contestPhase);
+        return Collections.emptyList();
+       // return this.planItemFinder.getPlansForContestPhase(contestPhase);
     }
     
     public PlanItem getPlan(Long planId) throws NoSuchPlanItemException, SystemException {

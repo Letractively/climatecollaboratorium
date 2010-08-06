@@ -67,7 +67,7 @@ public class PlanModelTest extends BaseCollabTest {
 
     public void createPlan(PlanType type) {
        try {
-            plan = new MockPlanItem(PlanItemLocalServiceUtil.createPlan(name, defaultPlanTypeId, defaultAuthorId),type);
+            plan = new MockPlanItem(PlanItemLocalServiceUtil.createPlan(defaultPlanTypeId, defaultAuthorId),type);
         } catch (SystemException e) {
             e.printStackTrace();
         } catch (PortalException e) {

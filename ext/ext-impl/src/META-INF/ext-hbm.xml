@@ -171,7 +171,6 @@
 		<property name="updateAuthorId" />
 		<property name="updateType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="version" />
-		<property name="ContestPhase" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanDescriptionImpl" table="PlanDescription">
 		<cache usage="read-write" />
@@ -206,6 +205,7 @@
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updateAuthorId" />
 		<property name="modelId" />
+		<property name="ContestPhase" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanModelRunImpl" table="PlanModelRun">
 		<cache usage="read-write" />
