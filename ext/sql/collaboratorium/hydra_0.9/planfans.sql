@@ -24,4 +24,9 @@ UPDATE  `lportal`.`Counter` SET  `currentId` =  '33000' WHERE  `Counter`.`name` 
 ALTER TABLE  `ModelGlobalPreference` ADD  `expertEvaluationPageId` BIGINT NULL;
 
 drop table if exists ModelPosition;
+create table ModelPosition (
+	id_ BIGINT not null primary key,
+	positionId BIGINT,
+	modelId BIGINT
+);
 
