@@ -30,22 +30,28 @@ public class PlanMembershipBean {
 
         planMembers = new ArrayList<PlanMember>();
 
-        for (User user: plan.getMembers()) {
-            planMembers.add(new PlanMember(plan, user, this));
-        }
+
 
         planMembershipRequests = new ArrayList<PlanMembershipRequest>();
-        for (MembershipRequest request: plan.getMembershipRequests()) {
-            planMembershipRequests.add(new PlanMembershipRequest(request, plan, planBean, permissions));
-        }
+
     }
 
 
     public List<PlanMember> getPlanMembers() throws SystemException {
+        planMembers.clear();
+        for (User user: plan.getMembers()) {
+            planMembers.add(new PlanMember(plan, user, this, permissions));
+        }
+
         return planMembers;
     }
+    
 
-    public List<PlanMembershipRequest> getPlanMembershipRequests() throws SystemException {
+    public List<PlanMembershipRequest> getPlanMembershipRequests() throws SystemException, PortalException {
+        planMembershipRequests.clear();
+        for (MembershipRequest request: plan.getMembershipRequests()) {
+            planMembershipRequests.add(new PlanMembershipRequest(request, plan, planBean, permissions));
+        }
         return planMembershipRequests;
     }
 
@@ -76,25 +82,16 @@ public class PlanMembershipBean {
     
     public List<SelectItem> getAvailableUserRoles() throws SystemException {
         List<SelectItem> items = new ArrayList<SelectItem>();
-        
-        if (permissions.getPlanOwner()) {
+
+        if (permissions.getCanAdminAll()) {
             items.add(new SelectItem(PlanUserPermission.OWNER, PlanUserPermission.OWNER.getDescription()));
         }
         if (permissions.getCanAdmin()) {
             items.add(new SelectItem(PlanUserPermission.MEMBER, PlanUserPermission.MEMBER.getDescription()));
             items.add(new SelectItem(PlanUserPermission.ADMIN, PlanUserPermission.ADMIN.getDescription()));
-            
         }
         return items;
         
-    }
-    
-    public void updatePermissions(ActionEvent e) throws PortalException, SystemException {
-        for (PlanMember member: planMembers) {
-            if (member.isPermissionChanged()) {
-                plan.setUserPermission(member.getUserId(), member.getPlanUserPermission().name(), Helper.getLiferayUser().getUserId());
-            }
-        }
     }
 
 
