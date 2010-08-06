@@ -15,7 +15,7 @@ public class EmailListValidator implements Validator {
         String values = (String) object;
         String[] emails = values.split(",");
         for (String email: emails) {
-            if (!email.matches(".+@.+\\.[a-z]+")) {
+            if (!email.matches("(\\w[-._\\w]*\\w@\\w[-._\\w]*\\w\\.\\w{2,3})")) {
                 FacesMessage message = new FacesMessage();
                 message.setDetail("Email not valid");
                 message.setSummary("Email not valid");
