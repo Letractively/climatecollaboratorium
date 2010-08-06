@@ -182,7 +182,7 @@ public class SimulationBean implements JSEventHandler {
             if (item instanceof ModelOutputSeriesDisplayItem || item instanceof ModelOutputIndexedDisplayItem) {
                 for (TupleStatus status: TupleStatus.values()) {
                     if (status.getCode() != null) {
-                        outputErrorSettingWrappers.add(new ModelOutputErrorSettingWrapper(item, status, this));
+                        //outputErrorSettingWrappers.add(new ModelOutputErrorSettingWrapper(item, status, this));
                     }
                 }
             }
@@ -354,18 +354,21 @@ public class SimulationBean implements JSEventHandler {
         System.err.println(ModelInputGroupType.TAB);
         System.err.println(ModelInputGroupType.VERTICAL);
         System.err.println(ModelInputGroupType.HORIZONTAL);
+        /*
         if (scenario != null) {
             try {
-            display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this, inputsValues);
+            //display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this, inputsValues);
             } catch (IllegalUIConfigurationException e) {
                 e.printStackTrace();
             } catch (SystemException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
+           
         }
         else {
+            /*
             try {
-                display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(simulation), this, inputsValues);
+              //  display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(simulation), this, inputsValues);
             } catch (SystemException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (IllegalUIConfigurationException e) {
@@ -374,12 +377,14 @@ public class SimulationBean implements JSEventHandler {
                 t.printStackTrace();
             }
         } 
+        
+            */
         wrappedInputs.clear();
         for (ModelInputDisplayItem item: display.getOryginalInputs()) {
-            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this, inputsValues));
+            //wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this, inputsValues));
         }
         
-        newGroupWrapper = new ModelInputGroupDisplayItemWrapper(this);
+        //newGroupWrapper = new ModelInputGroupDisplayItemWrapper(this);
     }
     
     public List<SelectItem> getModelInputsOptions() {
