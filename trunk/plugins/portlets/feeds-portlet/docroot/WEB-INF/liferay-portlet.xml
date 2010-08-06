@@ -3,7 +3,7 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>feed</portlet-name>
+		<portlet-name>feeds</portlet-name>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/css/feeds.css</header-portlet-css>
 	</portlet>

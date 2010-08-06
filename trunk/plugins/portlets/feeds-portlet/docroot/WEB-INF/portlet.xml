@@ -18,9 +18,9 @@
 			<portlet-mode>edit</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>MIT Feeds form (ICE)</title>
-			<short-title>Feeds form</short-title>
-			<keywords>feeds form</keywords>
+			<title>MIT Feeds (ICE)</title>
+			<short-title>Feeds</short-title>
+			<keywords>feeds</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
