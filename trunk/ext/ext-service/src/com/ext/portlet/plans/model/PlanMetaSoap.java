@@ -42,6 +42,7 @@ public class PlanMetaSoap implements Serializable {
     private Date _created;
     private Long _updateAuthorId;
     private Long _modelId;
+    private Long _ContestPhase;
 
     public PlanMetaSoap() {
     }
@@ -65,6 +66,7 @@ public class PlanMetaSoap implements Serializable {
         soapModel.setCreated(model.getCreated());
         soapModel.setUpdateAuthorId(model.getUpdateAuthorId());
         soapModel.setModelId(model.getModelId());
+        soapModel.setContestPhase(model.getContestPhase());
 
         return soapModel;
     }
@@ -239,5 +241,13 @@ public class PlanMetaSoap implements Serializable {
 
     public void setModelId(Long modelId) {
         _modelId = modelId;
+    }
+
+    public Long getContestPhase() {
+        return _ContestPhase;
+    }
+
+    public void setContestPhase(Long ContestPhase) {
+        _ContestPhase = ContestPhase;
     }
 }

@@ -79,50 +79,6 @@ public class PlanItemUtil {
         return getPersistence().fetchByPrimaryKey(id);
     }
 
-    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByContestPhase(
-        java.lang.Long ContestPhase) throws com.liferay.portal.SystemException {
-        return getPersistence().findByAllByContestPhase(ContestPhase);
-    }
-
-    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByContestPhase(
-        java.lang.Long ContestPhase, int start, int end)
-        throws com.liferay.portal.SystemException {
-        return getPersistence().findByAllByContestPhase(ContestPhase, start, end);
-    }
-
-    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByContestPhase(
-        java.lang.Long ContestPhase, int start, int end,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.liferay.portal.SystemException {
-        return getPersistence()
-                   .findByAllByContestPhase(ContestPhase, start, end, obc);
-    }
-
-    public static com.ext.portlet.plans.model.PlanItem findByAllByContestPhase_First(
-        java.lang.Long ContestPhase,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanItemException,
-            com.liferay.portal.SystemException {
-        return getPersistence().findByAllByContestPhase_First(ContestPhase, obc);
-    }
-
-    public static com.ext.portlet.plans.model.PlanItem findByAllByContestPhase_Last(
-        java.lang.Long ContestPhase,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanItemException,
-            com.liferay.portal.SystemException {
-        return getPersistence().findByAllByContestPhase_Last(ContestPhase, obc);
-    }
-
-    public static com.ext.portlet.plans.model.PlanItem[] findByAllByContestPhase_PrevAndNext(
-        java.lang.Long id, java.lang.Long ContestPhase,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanItemException,
-            com.liferay.portal.SystemException {
-        return getPersistence()
-                   .findByAllByContestPhase_PrevAndNext(id, ContestPhase, obc);
-    }
-
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> findByAllByPlanId(
         java.lang.Long planId) throws com.liferay.portal.SystemException {
         return getPersistence().findByAllByPlanId(planId);
@@ -211,11 +167,6 @@ public class PlanItemUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
-    public static void removeByAllByContestPhase(java.lang.Long ContestPhase)
-        throws com.liferay.portal.SystemException {
-        getPersistence().removeByAllByContestPhase(ContestPhase);
-    }
-
     public static void removeByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException {
         getPersistence().removeByAllByPlanId(planId);
@@ -229,11 +180,6 @@ public class PlanItemUtil {
 
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
-    }
-
-    public static int countByAllByContestPhase(java.lang.Long ContestPhase)
-        throws com.liferay.portal.SystemException {
-        return getPersistence().countByAllByContestPhase(ContestPhase);
     }
 
     public static int countByAllByPlanId(java.lang.Long planId)

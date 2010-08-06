@@ -3,9 +3,6 @@ package com.ext.portlet.plans.service.persistence;
 public interface PlanItemFinder {
     public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans();
 
-    public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlansForContestPhase(
-        long contestPhase);
-
     public void removePlanWithHistory(long planId);
 
     public int countFilteredPlans(

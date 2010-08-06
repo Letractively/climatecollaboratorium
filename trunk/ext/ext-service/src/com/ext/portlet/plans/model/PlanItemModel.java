@@ -58,9 +58,5 @@ public interface PlanItemModel extends BaseModel<PlanItem> {
 
     public void setVersion(Long version);
 
-    public Long getContestPhase();
-
-    public void setContestPhase(Long ContestPhase);
-
     public PlanItem toEscapedModel();
 }

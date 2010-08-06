@@ -74,6 +74,19 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public com.ext.portlet.contests.model.Contest getContest()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.ContestPhase getContestPhase()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void setContestPhase(
+        com.ext.portlet.contests.model.ContestPhase phase,
+        java.lang.Long updateAuthorId)
+        throws com.liferay.portal.SystemException;
+
     public void setPlanTypeId(java.lang.Long planTypeId,
         java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
