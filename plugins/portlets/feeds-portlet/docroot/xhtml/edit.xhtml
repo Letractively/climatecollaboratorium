@@ -29,44 +29,22 @@
 				<ice:panelTab label="#{language['edit-preferences']}">
 					<ice:messages globalOnly="true" layout="table" />
                     
-                    <strong>In messages you can use patterns like USER_NAME, USER_EMAIL, USER_MESSAGE as a placeholders for 
-                    values entered by user.</strong>
+                    <strong>Feeds configuration</strong>
                     
 					<ice:panelGrid columns="3" columnClasses="labels,inputs,messages" rowClasses="odd,even">
-						<ice:panelGroup>
-							<ice:outputText style="color: red;" value="*" />
-							<ice:outputLabel for="receipients" value="Comma separated list of email addresses to which contact message will be sent" />
-						</ice:panelGroup>
+						<ice:outputLabel for="feedSize" value="Feed size"/>
+                        <ice:inputText id="feedSize" value="#{preferences.feedSize}" />
+                        <ice:message for="feedSize" />    
                         
-						<ice:inputText id="receipients" partialSubmit="true" required="true" size="40" value="#{preferences.receipients}">
-                            <f:validator validatorId="emailListValidator" />
-                        </ice:inputText>
-						<ice:message for="receipients" />
+                        <ice:outputLabel for="feedType" value="Feed type"/>
+                        <ice:selectOneMenu id="feedType" value="#{preferences.feedType}">
+                            <f:selectItems value="#{preferences.feedTypes}" />
+                        </ice:selectOneMenu>
+                        <ice:message for="feedType" />
                         
-                        
-                        <ice:panelGroup>
-                            <ice:outputText style="color: red;" value="*" />
-                            <ice:outputLabel for="subject" value="Subject of message that is to be sent" />
-                        </ice:panelGroup>
-                        
-                        <ice:inputText id="subject" partialSubmit="true" required="true" size="40" value="#{preferences.messageSubject}" />
-                        <ice:message for="subject" />
-                        
-                        <ice:panelGroup>
-                            <ice:outputText style="color: red;" value="*" />
-                            <ice:outputLabel for="messageFormat" value="Format of email message body, use USER_MESSAGE to reference text entered by user" />
-                        </ice:panelGroup>
-                        
-                        <ice:inputTextarea id="messageFormat" partialSubmit="true" required="true" size="40" value="#{preferences.messageFormat}" />
-                        <ice:message for="messageFormat" />
-                        
-                        <ice:panelGroup>
-                            <ice:outputText style="color: red;" value="*" />
-                            <ice:outputLabel for="expandFormText" value="Expand contact form link text" />
-                        </ice:panelGroup>
-                        
-                        <ice:inputTextarea id="expandFormText" partialSubmit="true" required="true" size="40" value="#{preferences.expandLinkText}" />
-                        <ice:message for="expandFormText" />
+                        <ice:outputLabel for="feedTitle" value="Feed title"/>
+                        <ice:inputText id="feedTitle" value="#{preferences.feedTitle}" />
+                        <ice:message for="feedTitle" />
                         
                     </ice:panelGrid>
                     

@@ -1,4 +1,4 @@
-package org.climatecollaboratorium.contact;
+package org.climatecollaboratorium.feeds;
 
 import java.util.Map;
 
