@@ -67,12 +67,12 @@ public class MockPlanItem extends PlanItemImpl {
     }
 
     @Override
-    public void setDescription(String description, Long updateAuthorId) throws SystemException {
+    public void setDescription(String description, Long updateAuthorId) throws SystemException, PortalException {
         base.setDescription(description, updateAuthorId);
     }
 
     @Override
-    public void setName(String name, Long updateAuthorId) throws SystemException {
+    public void setName(String name, Long updateAuthorId) throws SystemException, PortalException {
         base.setName(name, updateAuthorId);
     }
 

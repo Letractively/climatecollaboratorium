@@ -31,6 +31,8 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.counter.service.CounterServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -39,6 +41,8 @@ import com.liferay.portal.util.WebKeys;
 public class PlansUserSettingsLocalServiceImpl extends PlansUserSettingsLocalServiceBaseImpl {
 
     private static final String USER_SETTINGS = "USER_SETTINGS_";
+
+    private static Log _log = LogFactoryUtil.getLog(PlansUserSettingsLocalServiceImpl.class);
 
     public PlansUserSettings getByUserIdPlanTypeId(Long userId, Long planTypeId) throws NoSuchUserSettingsException,
             SystemException {
@@ -103,7 +107,7 @@ public class PlansUserSettingsLocalServiceImpl extends PlansUserSettingsLocalSer
      * stored in session also, if user is authorized then configuration is
      * persisted.
      *
-     * @param request           render request
+     * @param requestMap           render request
      * @param plansUserSettings settings that should be stored
      * @throws PortalException passed up in case of framework error
      * @throws SystemException passed up in case of framework error
@@ -116,11 +120,11 @@ public class PlansUserSettingsLocalServiceImpl extends PlansUserSettingsLocalSer
         User user = UserLocalServiceUtil.getUser(userId);
         boolean add = false;
         if (!user.isDefaultUser()) {
-            System.out.println(plansUserSettings.getClass().getName());
-            System.out.println(plansUserSettings.getClass().getSuperclass().getName());
-            System.out.println(PlansUserSettingsModelImpl.class.getName());
-            System.out.println(PlansUserSettingsModelImpl.class + "\t" + plansUserSettings.getClass().getSuperclass() + "\t" + plansUserSettings.getClass().getSuperclass().equals(PlansUserSettingsModelImpl.class));
-            System.out.println(PlansUserSettingsModelImpl.class.getClassLoader().hashCode() + " " + plansUserSettings.getClass().getClassLoader().hashCode() + " " + this.getClass().getClassLoader().hashCode());
+            _log.debug(plansUserSettings.getClass().getName());
+            _log.debug(plansUserSettings.getClass().getSuperclass().getName());
+            _log.debug(PlansUserSettingsModelImpl.class.getName());
+            _log.debug(PlansUserSettingsModelImpl.class + "\t" + plansUserSettings.getClass().getSuperclass() + "\t" + plansUserSettings.getClass().getSuperclass().equals(PlansUserSettingsModelImpl.class));
+            _log.debug(PlansUserSettingsModelImpl.class.getClassLoader().hashCode() + " " + plansUserSettings.getClass().getClassLoader().hashCode() + " " + this.getClass().getClassLoader().hashCode());
             PlansUserSettingsModelImpl plansUserSettingsModelImpl = (PlansUserSettingsModelImpl) plansUserSettings;
             
             if (plansUserSettings.getPlanUserSettingsId() == null) {

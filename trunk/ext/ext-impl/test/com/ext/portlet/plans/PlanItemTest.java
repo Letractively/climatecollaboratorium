@@ -46,7 +46,7 @@ public class PlanItemTest extends BaseCollabTest {
     public void setUp() {
         name = String.valueOf(rand.nextLong());
         try {
-            plan = PlanItemLocalServiceUtil.createPlan(name, defaultPlanTypeId, defaultAuthorId);
+            plan = PlanItemLocalServiceUtil.createPlan(defaultPlanTypeId, defaultAuthorId);
         } catch (SystemException e) {
             e.printStackTrace();
         } catch (PortalException e) {
@@ -67,7 +67,7 @@ public class PlanItemTest extends BaseCollabTest {
     public void testCreation() throws SystemException, PortalException {
         // plans before
         List<PlanItem> plansBefore = PlanItemLocalServiceUtil.getPlans();
-        PlanItem plan = PlanItemLocalServiceUtil.createPlan(name, defaultPlanTypeId, defaultAuthorId);
+        PlanItem plan = PlanItemLocalServiceUtil.createPlan(defaultPlanTypeId, defaultAuthorId);
         
         // check if version is properly set
         assertEquals(new Long(0), plan.getVersion());
@@ -129,7 +129,7 @@ public class PlanItemTest extends BaseCollabTest {
      * test for description updating, checks if versions are updated properly 
      * @throws SystemException
      */
-    public void testSetDescription() throws SystemException {
+    public void testSetDescription() throws SystemException, PortalException {
         
         Long versionBefore = plan.getVersion();
         String newDescription = String.valueOf(rand.nextLong());
@@ -172,7 +172,7 @@ public class PlanItemTest extends BaseCollabTest {
     }
     
     // test for name updating
-    public void testSetName() throws SystemException {
+    public void testSetName() throws SystemException, PortalException {
         Long versionBefore = plan.getVersion();
         String newName = String.valueOf(rand.nextLong());
         Long changeAuthorId = rand.nextLong();

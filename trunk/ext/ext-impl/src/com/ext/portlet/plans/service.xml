@@ -273,16 +273,12 @@
         <column name="updateAuthorId" type="Long" />
         <column name="updateType" type="String" />
         <column name="version" type="Long" />
-        <column name="ContestPhase" type="Long"/>
+
         
         <order by="desc">
             <order-column name="version" />
         </order>
-        
-        <finder name="AllByContestPhase" return-type="Collection">
-            <finder-column name="ContestPhase" />
-        </finder>
-
+      
         <finder name="AllByPlanId" return-type="Collection">
                     <finder-column name="planId" />
 
@@ -336,6 +332,8 @@
         <column name="updateAuthorId" type="Long" />
         <!-- selected model -->
         <column name="modelId" type="Long"/>
+
+         <column name="ContestPhase" type="Long"/>
         
         <order by="desc">
             <order-column name="version" />

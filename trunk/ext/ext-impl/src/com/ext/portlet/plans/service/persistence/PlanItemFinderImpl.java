@@ -2,11 +2,7 @@ package com.ext.portlet.plans.service.persistence;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.ext.portlet.plans.NoSuchPlanAttributeFilterException;
 import com.ext.portlet.plans.NoSuchPlanTypeException;
@@ -36,7 +32,6 @@ import com.liferay.util.dao.orm.CustomSQLUtil;
 
 public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemFinder {
     private final String GET_PLAN_ITEMS = PlanItemFinderImpl.class.getName() + ".getPlans";
-    private final String GET_PLAN_ITEMS_CONTEST = PlanItemFinderImpl.class.getName() + ".getPlansForContestPhase";
     private final String REMOVE_PLAN_WITH_HISTORY = PlanItemFinderImpl.class.getName() + ".removePlanWithHistory";
     
     public List<PlanItem> getPlans() {
@@ -51,17 +46,7 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      }
 
 
-    public List<PlanItem> getPlansForContestPhase(long contestPhase) {
-
-
-        Session session = openSession();
-        String sql = CustomSQLUtil.get(GET_PLAN_ITEMS_CONTEST);
-
-        SQLQuery query = session.createSQLQuery(sql);
-        query.setLong(0,contestPhase);
-        query.addEntity("PlanItem", PlanItemImpl.class);
-        return (List<PlanItem>) QueryUtil.list(query,getDialect(),0,Integer.MAX_VALUE);
-     }
+  
     
     public void removePlanWithHistory(long planId) {
 
@@ -407,25 +392,25 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      * @throws Exception 
      */
     public int countFilteredPlans(PlansUserSettings planUserSettings) throws Exception {
-        Session session = openSession();
-
-        String sql = CustomSQLUtil.get(COUNT_FILTERED_PLANS);
-
-        sql = addFilterPositionsAndSorting(sql, planUserSettings, null, null);
-        sql = addAttributes(sql, planUserSettings);
-        SQLQuery query = session.createSQLQuery(sql);
-
-        query.addScalar(COUNT_COLUMN_NAME, Type.LONG);
-        addFilterParameters(query, planUserSettings);
-
-        Iterator<Long> itr = query.list().iterator();
-        if (itr.hasNext()) {
-            Long count = itr.next();
-
-            if (count != null) {
-                return count.intValue();
-            }
-        }
+//        Session session = openSession();
+//
+//        String sql = CustomSQLUtil.get(COUNT_FILTERED_PLANS);
+//
+//        sql = addFilterPositionsAndSorting(sql, planUserSettings, null, null);
+//        sql = addAttributes(sql, planUserSettings);
+//        SQLQuery query = session.createSQLQuery(sql);
+//
+//        query.addScalar(COUNT_COLUMN_NAME, Type.LONG);
+//        addFilterParameters(query, planUserSettings);
+//
+//        Iterator<Long> itr = query.list().iterator();
+//        if (itr.hasNext()) {
+//            Long count = itr.next();
+//
+//            if (count != null) {
+//                return count.intValue();
+//            }
+//        }
         return 0;
     }
     
@@ -589,45 +574,24 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      * @throws Exception 
      */
     public int getFilteredUserVotePosition(PlansUserSettings planUserSettings, long userId, String sortColumn, String sortDirection) throws Exception {
-        List<PlanItem> plans = getFilteredPlans(planUserSettings,0,Integer.MAX_VALUE,sortColumn,sortDirection);
-        PlanVote vote = null;
-        try {
-            vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
-        } catch (Exception e) {
-            _log.warn("Error retrieving vote for user "+userId);
-            return -1;
-        }
-        int count = 0;
-        for (PlanItem p:plans) {
-            if (vote.getPlanId() == p.getPlanId()) {
-                return count;
-            }
-            count++;
-        }
-        return -1;
-        
-        //        Session session = openSession();
-//
-//        String sql = CustomSQLUtil.get(GET_FILTERED_USER_VOTE_POSITION);
-//
-//        sql = addFilterPositionsAndSorting(sql, filter, sortColumn, sortDirection);
-//        sql = addAttributes(sql, filter);
-//        sql = addUserPositionsConstraints(sql, userId, sortColumn, sortDirection);
-//        SQLQuery query = session.createSQLQuery(sql);
-//
-//        query.addScalar(COUNT_COLUMN_NAME, Type.LONG);
-//        addFilterParameters(query, filter);
-//
-//        Iterator<Long> itr = query.list().iterator();
-//        if (itr.hasNext()) {
-//            Long count = itr.next();
-//
-//            if (count != null) {
-//                return count.intValue();
-//            }
+//        List<PlanItem> plans = getFilteredPlans(planUserSettings,0,Integer.MAX_VALUE,sortColumn,sortDirection);
+//        PlanVote vote = null;
+//        try {
+//            vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
+//        } catch (Exception e) {
+//            _log.warn("Error retrieving vote for user "+userId);
+//            return -1;
 //        }
-//        
-//        return 0;
+//        int count = 0;
+//        for (PlanItem p:plans) {
+//            if (vote.getPlanId() == p.getPlanId()) {
+//                return count;
+//            }
+//            count++;
+//        }
+//        return -1;
+        
+        return 0;
     }
 
     /**
@@ -638,30 +602,31 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      */
     public List<PlanPosition> getPlansPositions(List<Plan> plans) {
 
-        if (plans.size() == 0) {
-            return new ArrayList<PlanPosition>();
-        }
-        Session session = openSession();
-
-        String sql = CustomSQLUtil.get(GET_PLANS_POSITIONS);
-
-        StringBuilder plansIdsStr = new StringBuilder();
-        boolean addComa = false;
-        for (Plan plan: plans) {
-            if (addComa) {
-                plansIdsStr.append(", ");
-            }
-            plansIdsStr.append(String.valueOf(plan.getPlanId()));
-            addComa = true;
-        }
-
-        sql = sql.replaceAll(PLAN_IDS_PLACEHOLDER, plansIdsStr.toString());
-
-        SQLQuery query = session.createSQLQuery(sql);
-
-        query.addEntity("Plan", PlanPositionImpl.class);
-
-        return (List<PlanPosition>) query.list();
+//        if (plans.size() == 0) {
+//            return new ArrayList<PlanPosition>();
+//        }
+//        Session session = openSession();
+//
+//        String sql = CustomSQLUtil.get(GET_PLANS_POSITIONS);
+//
+//        StringBuilder plansIdsStr = new StringBuilder();
+//        boolean addComa = false;
+//        for (Plan plan: plans) {
+//            if (addComa) {
+//                plansIdsStr.append(", ");
+//            }
+//            plansIdsStr.append(String.valueOf(plan.getPlanId()));
+//            addComa = true;
+//        }
+//
+//        sql = sql.replaceAll(PLAN_IDS_PLACEHOLDER, plansIdsStr.toString());
+//
+//        SQLQuery query = session.createSQLQuery(sql);
+//
+//        query.addEntity("Plan", PlanPositionImpl.class);
+//
+//        return (List<PlanPosition>) query.list();
+        return Collections.emptyList();
     }
 
     /**

@@ -50,7 +50,6 @@ public class PlanItemJSONSerializer {
         jsonObj.put("updateAuthorId", model.getUpdateAuthorId());
         jsonObj.put("updateType", model.getUpdateType());
         jsonObj.put("version", model.getVersion());
-        jsonObj.put("ContestPhase", model.getContestPhase());
 
         return jsonObj;
     }

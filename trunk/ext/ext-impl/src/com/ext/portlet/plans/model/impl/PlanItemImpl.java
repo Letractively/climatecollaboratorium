@@ -9,6 +9,9 @@ package com.ext.portlet.plans.model.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.ext.portlet.contests.model.Contest;
+import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanFanException;
 import com.ext.portlet.plans.NoSuchPlanItemException;
@@ -183,6 +186,26 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
 
     public PlanType getPlanType() throws SystemException, PortalException {
         return PlanTypeLocalServiceUtil.getPlanType(getPlanTypeId());
+    }
+
+    public Contest getContest() throws SystemException, PortalException {
+       ContestPhase phase = getContestPhase();
+        return phase == null?null:phase.getContest();
+    }
+
+    public ContestPhase getContestPhase() throws SystemException, PortalException {
+        Long phase =  getPlanMeta().getContestPhase();
+        return phase == null?null:ContestPhaseLocalServiceUtil.getContestPhase(phase);
+    }
+
+    public void setContestPhase(ContestPhase phase, Long updateAuthorId) throws SystemException {
+        newVersion(UpdateType.PLAN_TYPE_UPDATED, updateAuthorId);
+
+        PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
+        planMeta.setContestPhase(phase.getContestPhasePK());
+        planMeta.store();
+
+        //joinIfNotAMember(updateAuthorId);
     }
 
     public void setPlanTypeId(Long planTypeId, Long updateAuthorId) throws SystemException, PortalException {

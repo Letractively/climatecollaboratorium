@@ -128,7 +128,6 @@
 		<field name="updateAuthorId" type="Long" />
 		<field name="updateType" type="String" />
 		<field name="version" type="Long" />
-		<field name="ContestPhase" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanDescription">
 		<field name="id" type="Long" />
@@ -157,6 +156,7 @@
 		<field name="created" type="Date" />
 		<field name="updateAuthorId" type="Long" />
 		<field name="modelId" type="Long" />
+		<field name="ContestPhase" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanModelRun">
 		<field name="id" type="Long" />

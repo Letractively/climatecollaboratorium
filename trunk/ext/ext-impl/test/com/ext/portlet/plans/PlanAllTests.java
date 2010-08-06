@@ -29,7 +29,7 @@ public class PlanAllTests extends TestSuite {
                     plansBefore = PlanItemLocalServiceUtil.getPlans();
                     // create few plans that will be used during testing
                     for (int i = 0; i < 50; i++) {
-                        PlanItem plan = PlanItemLocalServiceUtil.createPlan(String.valueOf(rand.nextLong()),
+                        PlanItem plan = PlanItemLocalServiceUtil.createPlan(
                                 defaultPlanTypeId[rand.nextInt(defaultPlanTypeId.length)], defaultAuthorIds[rand
                                         .nextInt(defaultAuthorIds.length)]);
                     }
