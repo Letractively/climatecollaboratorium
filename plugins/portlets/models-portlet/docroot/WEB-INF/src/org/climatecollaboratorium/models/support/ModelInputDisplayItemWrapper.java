@@ -5,6 +5,7 @@ import java.util.Map;
 import mit.simulation.climate.client.MetaData;
 
 import org.climatecollaboratorium.models.SimulationBean;
+import org.climatecollaboratorium.models.SimulationDetailsBean;
 
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputDisplayItemType;
@@ -18,7 +19,7 @@ public class ModelInputDisplayItemWrapper {
     private Double value;
 
 
-    public static ModelInputDisplayItemWrapper getInputWrapper(ModelInputDisplayItem input, SimulationBean bean, Map<Long, Object> values) {
+    public static ModelInputDisplayItemWrapper getInputWrapper(ModelInputDisplayItem input, SimulationDetailsBean bean, Map<Long, Object> values) {
         if (input.getDisplayItemType() == ModelInputDisplayItemType.GROUP) {
             return new ModelInputGroupDisplayItemWrapper((ModelInputGroupDisplayItem) input, bean, values);
         }
@@ -97,6 +98,10 @@ public class ModelInputDisplayItemWrapper {
     public Long getId() {
         System.out.println("returning id: " + getMetaData().getId());
         return getMetaData().getId();
+    }
+    
+    public int getOrder() {
+        return wrappedItem.getOrder();
     }
 
 }

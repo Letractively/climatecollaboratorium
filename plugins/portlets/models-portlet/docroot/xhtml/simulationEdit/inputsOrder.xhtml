@@ -8,7 +8,7 @@
     xmlns:jstl="http://java.sun.com/jsp/jstl/functions" >
 
  <div class='simulationInputsOrder'>
-    <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" styleClass="inputOrderDef">
+    <ice:panelSeries value="#{simulationDetailsBean.display.inputs}" var="input" styleClass="inputOrderDef">
         <li class="input-#{input.metaData.id} singleInputOrderDef">
              <ice:outputText value="#{input.name}" styleClass="name"/> <ice:inputText value="#{input.order}" styleClass="order hidden" />
              <ice:panelGroup rendered="#{input.displayItemType == 'GROUP'}">
@@ -23,7 +23,7 @@
         </li>
     </ice:panelSeries>
 </div>
-<ice:commandButton value="Update" actionListener="#{simulationBean.updateInputs}" styleClass="inputsWidgetsUpdate"/>
+<ice:commandButton value="Update" actionListener="#{simulationDetailsBean.updateInputs}" styleClass="inputsWidgetsUpdate"/>
 
 
     <f:subview>

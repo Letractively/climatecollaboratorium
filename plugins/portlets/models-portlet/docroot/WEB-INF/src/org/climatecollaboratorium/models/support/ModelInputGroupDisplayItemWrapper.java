@@ -8,6 +8,7 @@ import javax.faces.event.ActionEvent;
 
 import com.ext.portlet.models.service.base.ModelInputGroupType;
 import org.climatecollaboratorium.models.SimulationBean;
+import org.climatecollaboratorium.models.SimulationDetailsBean;
 
 import mit.simulation.climate.client.MetaData;
 
@@ -19,14 +20,14 @@ import com.liferay.portal.SystemException;
 public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrapper {
     private boolean editing;
     private MetaData md;
-    private SimulationBean simulationBean;
+    private SimulationDetailsBean simulationBean;
     private String name = "";
     private String description = "";
     private ModelInputGroupDisplayItem groupItem;
     private List<ModelInputDisplayItemWrapper> wrappedItems = new ArrayList<ModelInputDisplayItemWrapper>();
 
 
-    public ModelInputGroupDisplayItemWrapper(ModelInputGroupDisplayItem groupItem, SimulationBean bean, Map<Long, Object> inputsValues) {
+    public ModelInputGroupDisplayItemWrapper(ModelInputGroupDisplayItem groupItem, SimulationDetailsBean bean, Map<Long, Object> inputsValues) {
         super(groupItem, inputsValues);
         simulationBean = bean;
         this.groupItem = groupItem;
@@ -36,7 +37,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         }
     }
     
-    public ModelInputGroupDisplayItemWrapper(SimulationBean bean) {
+    public ModelInputGroupDisplayItemWrapper(SimulationDetailsBean bean) {
         super(null, null);
         this.simulationBean = bean;
     }
@@ -70,13 +71,11 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
             groupItem.setName(name);
             groupItem.setMetaData(md);
         }
-        simulationBean.updateDisplay();
     }
     
     public void delete(ActionEvent e) throws PortalException, SystemException {
         if (groupItem != null) {
             ((ModelInputGroupDisplayItem) groupItem).delete();
-            simulationBean.updateDisplay();
         }
     }
     
@@ -155,6 +154,13 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
     
     protected boolean hasValue() {
         return false;
+    }
+    
+    public int getOrder() {
+        if (groupItem != null) {
+            return groupItem.getOrder();
+        }
+        return -1;
     }
 
 }

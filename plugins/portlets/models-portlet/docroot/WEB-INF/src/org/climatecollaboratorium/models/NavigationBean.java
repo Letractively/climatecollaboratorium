@@ -16,6 +16,7 @@ import org.climatecollaboratorium.models.support.SimulationsHelper;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -162,6 +163,8 @@ public class NavigationBean {
                             currentPage = INDEX_PAGE;
                             selectedSimulation = null;
                         } catch (SystemException e) {
+                            _log.error("Invalid model " + event.getParameters().get("modelId"));
+                        } catch (IllegalUIConfigurationException e) {
                             _log.error("Invalid model " + event.getParameters().get("modelId"));
                         }
                         

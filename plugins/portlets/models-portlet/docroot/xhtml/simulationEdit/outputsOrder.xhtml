@@ -9,7 +9,7 @@
     
  <div class='orderContainer'>
     <ul class="orderList">
-        <ui:repeat value="#{simulationBean.display.outputs}" var="output">
+        <ui:repeat value="#{simulationDetailsBean.display.outputs}" var="output">
             <li class="orderItem orderListItem">Output: #{output.name} <ice:inputText value="#{output.order}" styleClass="hidden" />
                 <f:subview rendered="#{output.displayItemType == 'INDEXED'}">
                     <ul class="orderSubList">
@@ -23,7 +23,7 @@
     
     </ul>
     <!-- 
-    <ice:panelSeries value="#{simulationBean.display.outputs}" var="output" styleClass="outputOrderDef">
+    <ice:panelSeries value="#{simulationDetailsBean.display.outputs}" var="output" styleClass="outputOrderDef">
         <li class="output-#{output.metaData.id} singleOutputOrderDef">
              <ice:outputText value="#{output.name}" styleClass="name"/> <ice:inputText value="#{output.order}" styleClass="order hidden" />
              
@@ -40,7 +40,7 @@
     </ice:panelSeries>
      -->
 </div>
-<ice:commandButton value="Update" actionListener="#{simulationBean.updateInputs}" styleClass="inputsWidgetsUpdate"/>
+<ice:commandButton value="Update" actionListener="#{simulationDetailsBean.updateInputs}" styleClass="inputsWidgetsUpdate"/>
 
 
     <f:subview>

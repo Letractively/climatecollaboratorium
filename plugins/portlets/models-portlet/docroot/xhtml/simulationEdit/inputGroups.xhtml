@@ -10,29 +10,29 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
-    <ice:commandButton value="Add new group" rendered="#{not simulationBean.newGroupWrapper.editing}" actionListener="#{simulationBean.newGroupWrapper.edit}" />
+    <ice:commandButton value="Add new group" rendered="#{not simulationDetailsBean.newGroupWrapper.editing}" actionListener="#{simulationDetailsBean.newGroupWrapper.edit}" />
     <table class="inputGroupsContainer">
         <tr>
             <td class="groupsCell">
-                <f:subview id="subview" rendered="#{simulationBean.newGroupWrapper.editing}">
+                <f:subview id="subview" rendered="#{simulationDetailsBean.newGroupWrapper.editing}">
                     <ui:include src="inputGroupEdit.xhtml">
-                        <ui:param name="input" value="#{simulationBean.newGroupWrapper}" />
+                        <ui:param name="input" value="#{simulationDetailsBean.newGroupWrapper}" />
                     </ui:include>
                 </f:subview>
                 
-                <ice:panelSeries value="#{simulationBean.display.inputs}" var="input" styleClass="inputGroupDef">
+                <ice:panelSeries value="#{simulationDetailsBean.display.inputs}" var="input" styleClass="inputGroupDef">
                     <ice:panelGroup rendered="#{input.displayItemType == 'GROUP'}" styleClass="inputGroup" >
-                        <f:subview rendered="#{simulationBean.wrappedInputs[input].editing}">
+                        <f:subview rendered="#{simulationDetailsBean.wrappedInputs[input].editing}">
                             <ui:include src="inputGroupEdit.xhtml">
-                                <ui:param name="input" value="#{simulationBean.wrappedInputs[input]}" />
+                                <ui:param name="input" value="#{simulationDetailsBean.wrappedInputs[input]}" />
                             </ui:include>
                         </f:subview>
-                        <f:subview rendered="#{not simulationBean.wrappedInputs[input].editing}">
+                        <f:subview rendered="#{not simulationDetailsBean.wrappedInputs[input].editing}">
                             <div class="inputTitle">
                                 <h3>#{input.name}</h3>
                                 <div class="actions">
-                                    <ice:commandButton value="Edit" actionListener="#{simulationBean.wrappedInputs[input].edit}"/>
-                                    <ice:commandButton value="Delete" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }" actionListener="#{simulationBean.wrappedInputs[input].delete}"/>
+                                    <ice:commandButton value="Edit" actionListener="#{simulationDetailsBean.wrappedInputs[input].edit}"/>
+                                    <ice:commandButton value="Delete" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }" actionListener="#{simulationDetailsBean.wrappedInputs[input].delete}"/>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -54,7 +54,7 @@
             <td class="availableItemsCell">
                 <h4>Available inputs</h4>
                 <ul class="availableGroupItems ui-widget-content ui-corner-all" title="#{input.groupId}">
-                    <ui:repeat value="#{simulationBean.display.inputs}" var="item">
+                    <ui:repeat value="#{simulationDetailsBean.display.inputs}" var="item">
                         <li class="#{item.displayItemType == 'INDIVIDUAL' ? 'individualInput' : ''}">
                             <ice:outputText value="#{item.name}"  rendered="#{item.displayItemType == 'INDIVIDUAL'}" /> 
                             <ice:inputText value="#{item.groupId}"  rendered="#{item.displayItemType == 'INDIVIDUAL'}" styleClass="hidden" />
@@ -65,7 +65,7 @@
             </td>
         </tr>
     </table>
-    <ice:commandButton value="Update" actionListener="#{simulationBean.updateInputs}" styleClass="inputsWidgetsUpdate"/>
+    <ice:commandButton value="Update" actionListener="#{simulationDetailsBean.updateInputs}" styleClass="inputsWidgetsUpdate"/>
     <f:subview>
         <ui:include src="editJsWidgets.xhtml" />
     </f:subview>

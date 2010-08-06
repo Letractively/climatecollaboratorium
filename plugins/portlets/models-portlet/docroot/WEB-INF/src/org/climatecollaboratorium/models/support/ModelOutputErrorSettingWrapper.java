@@ -3,6 +3,7 @@ package org.climatecollaboratorium.models.support;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.models.SimulationBean;
+import org.climatecollaboratorium.models.SimulationDetailsBean;
 
 import mit.simulation.climate.client.TupleStatus;
 
@@ -15,11 +16,11 @@ import com.liferay.portal.SystemException;
 public class ModelOutputErrorSettingWrapper {
     private ModelOutputDisplayItem item;
     private TupleStatus status;
-    private SimulationBean bean;
+    private SimulationDetailsBean bean;
     private ErrorPolicy policy;
     private String msg;
     
-    public ModelOutputErrorSettingWrapper(ModelOutputDisplayItem item, TupleStatus status, SimulationBean bean) {
+    public ModelOutputErrorSettingWrapper(ModelOutputDisplayItem item, TupleStatus status, SimulationDetailsBean bean) {
         this.item = item;
         this.status = status;
         this.bean = bean;
@@ -43,7 +44,6 @@ public class ModelOutputErrorSettingWrapper {
         else if (item instanceof ModelOutputIndexedDisplayItem) {
             ((ModelOutputIndexedDisplayItem) item).setErrorBehavior(status, policy, msg);
         }
-        bean.updateDisplay();
     }
     
     public String getPolicy() {

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.climatecollaboratorium.models.SimulationBean;
+import org.climatecollaboratorium.models.SimulationDetailsBean;
 
 import mit.simulation.climate.client.Simulation;
 
@@ -20,14 +21,13 @@ import com.ext.portlet.models.ui.ModelOutputDisplayItem;
 
 public class ModelDisplayWrapper {
     private ModelDisplay wrapped;
-    private SimulationBean simulationBean;
+    private SimulationDetailsBean simulationBean;
     private List<ModelInputDisplayItemWrapper> wrappedInputs = new ArrayList<ModelInputDisplayItemWrapper>();
     private List<ModelInputGroupDisplayItemWrapper> wrappedTabs = new ArrayList<ModelInputGroupDisplayItemWrapper>();
     private List<ModelInputDisplayItemWrapper> wrappedNonTabs = new ArrayList<ModelInputDisplayItemWrapper>();
     
-    public ModelDisplayWrapper(ModelDisplay wrapped, SimulationBean simulationBean, Map<Long, Object> values) {
+    public ModelDisplayWrapper(ModelDisplay wrapped, SimulationDetailsBean simulationBean, Map<Long, Object> values) {
         this.wrapped = wrapped;
-        this.simulationBean = simulationBean;
         Set<Long> inputsDefined = new HashSet<Long>();
         Map<Long, ModelInputDisplayItemWrapper> inputsById = new HashMap<Long, ModelInputDisplayItemWrapper>();
                 
