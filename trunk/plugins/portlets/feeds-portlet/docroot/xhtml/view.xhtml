@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    >
+    <ice:portlet>
+        <ice:form>
+            <ice:panelGroup styleClass="contactFormExpander" rendered="#{not contactBean.expanded}">
+                <ice:commandLink value="#{contactBean.expandFormMessage}" actionListener="#{contactBean.toggleExpanded}" />
+            </ice:panelGroup>
+            <ice:panelGroup styleClass="contactForm" rendered="#{contactBean.expanded}">
+                <table>
+                    <tr><td><ice:outputLabel for="name" value="Your name" /></td></tr>
+                    <tr><td>
+                        <ice:message for="name"/>
+                        <ice:inputText value="#{contactBean.name}" id="name" required="true" styleClass="text" />
+                    </td></tr>
+                
+                    <tr><td><ice:outputLabel for="email" value="E-mail (only for reply)" /></td></tr>
+                    <tr><td>
+                        <ice:message for="email" />
+                        <ice:inputText value="#{contactBean.email}" id="email" required="true" styleClass="text">
+                            <f:validator validatorId="emailValidator" />
+                        </ice:inputText>
+                    
+                    </td></tr>
+            
+                    <tr><td><ice:outputLabel for="message" value="Message"/></td></tr>
+                    <tr><td>
+                        <ice:message for="message" />
+                        <ice:inputTextarea value="#{contactBean.message}" id="message"  styleClass="longtext"  required="true" />
+                    
+                    
+                    </td></tr>
+                
+                    <tr><td><ice:outputLabel value="Captcha" /></td></tr>
+                    
+                    <tr><td>
+                        <img src="/contactform-portlet/captcha/blebleble#{contactBean.requestCount}" /><br />
+                    </td></tr>
+                    <tr><td>
+                        <ice:outputLabel for="captcha" value="Enter code from picture above" />
+                    </td></tr>
+                    <tr><td>
+                        <ice:message for="captcha" />
+                        <ice:inputText id="captcha" value="#{contactBean.captchaText}" required="true">
+                            <f:validator validatorId="captchaValidator" />
+                        </ice:inputText>
+                    
+                    </td></tr>
+                    <tr><td>
+                        <ice:commandButton value="Send" actionListener="#{contactBean.sendMessage}" />
+                        <ice:commandButton value="Cancel" actionListener="#{contactBean.toggleExpanded}" partialSubmit="true" immediate="true" />
+                    
+                    </td></tr>
+                </table>
+            </ice:panelGroup>
+        </ice:form>
+    </ice:portlet>
+</f:view>
