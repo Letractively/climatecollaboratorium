@@ -1,18 +1,11 @@
 package org.climatecollaboratorium.contact;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.portlet.PortletSession;
 
-import com.ext.portlet.messaging.MessageUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.util.WebKeys;
 import com.liferay.util.mail.MailEngine;
 import com.liferay.util.mail.MailEngineException;
 
