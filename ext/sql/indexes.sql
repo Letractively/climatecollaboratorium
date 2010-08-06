@@ -70,6 +70,8 @@ create unique index IX_EC00543C on Company (webId);
 
 create index IX_66D496A3 on Contact_ (companyId);
 
+create index IX_684980D2 on ContestPhase (ContestPK);
+
 create unique index IX_717B97E1 on Country (a2);
 create unique index IX_717B9BA2 on Country (a3);
 create index IX_25D734CD on Country (active_);
@@ -413,6 +415,7 @@ create index IX_B7B214E8 on PlanFan (planId);
 create index IX_C6200522 on PlanFan (planId, userId);
 create index IX_386F548A on PlanFan (userId);
 
+create index IX_6B17AC5D on PlanItem (ContestPhase);
 create index IX_971BCD5A on PlanItem (planId);
 
 create index IX_9D95E1CC on PlanMeta (planId);

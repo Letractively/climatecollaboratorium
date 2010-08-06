@@ -171,6 +171,7 @@
 		<property name="updateAuthorId" />
 		<property name="updateType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="version" />
+		<property name="ContestPhase" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanDescriptionImpl" table="PlanDescription">
 		<cache usage="read-write" />
@@ -669,5 +670,33 @@
 		<property name="responsesCount" />
 		<property name="lastActivityDate" type="org.hibernate.type.TimestampType" />
 		<property name="lastActivityAuthorId" />
+	</class>
+	<class name="com.ext.portlet.contests.model.impl.ContestImpl" table="Contest">
+		<cache usage="read-write" />
+		<id name="ContestPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="ContestName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ContestDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="PlanTypeId" type="org.hibernate.type.TimestampType" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="updated" type="org.hibernate.type.TimestampType" />
+		<property name="authorId" />
+	</class>
+	<class name="com.ext.portlet.contests.model.impl.ContestPhaseImpl" table="ContestPhase">
+		<cache usage="read-write" />
+		<id name="ContestPhasePK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="ContestPK" />
+		<property name="ContestPhaseName" />
+		<property name="ContestPhaseDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ContestPhaseStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="PhaseStartDate" type="org.hibernate.type.TimestampType" />
+		<property name="PhaseEndDate" />
+		<property name="nextStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="updated" type="org.hibernate.type.TimestampType" />
+		<property name="authorId" />
 	</class>
 </hibernate-mapping>

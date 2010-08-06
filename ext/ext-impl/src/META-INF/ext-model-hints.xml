@@ -128,6 +128,7 @@
 		<field name="updateAuthorId" type="Long" />
 		<field name="updateType" type="String" />
 		<field name="version" type="Long" />
+		<field name="ContestPhase" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanDescription">
 		<field name="id" type="Long" />
@@ -494,5 +495,27 @@
 		<field name="responsesCount" type="Integer" />
 		<field name="lastActivityDate" type="Date" />
 		<field name="lastActivityAuthorId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.contests.model.Contest">
+		<field name="ContestPK" type="Long" />
+		<field name="ContestName" type="String" />
+		<field name="ContestDescription" type="String" />
+		<field name="PlanTypeId" type="Date" />
+		<field name="created" type="Date" />
+		<field name="updated" type="Date" />
+		<field name="authorId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.contests.model.ContestPhase">
+		<field name="ContestPhasePK" type="Long" />
+		<field name="ContestPK" type="Long" />
+		<field name="ContestPhaseName" type="Long" />
+		<field name="ContestPhaseDescription" type="String" />
+		<field name="ContestPhaseStatus" type="String" />
+		<field name="PhaseStartDate" type="Date" />
+		<field name="PhaseEndDate" type="Long" />
+		<field name="nextStatus" type="String" />
+		<field name="created" type="Date" />
+		<field name="updated" type="Date" />
+		<field name="authorId" type="Long" />
 	</model>
 </model-hints>

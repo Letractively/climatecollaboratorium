@@ -312,7 +312,13 @@ ${exception.message}
 		<ant dir="../ext-service" target="compile" inheritAll="false" />
 	</target>
 
-	
+
+    <target name="build-service-portlet-contests">
+		<antcall target="build-service">
+			<param name="service.file" value="src/com/ext/portlet/contests/service.xml" />
+		</antcall>
+	</target>
+
 	<target name="build-service-portlet-plans">
 		<antcall target="build-service">
 			<param name="service.file" value="src/com/ext/portlet/plans/service.xml" />
