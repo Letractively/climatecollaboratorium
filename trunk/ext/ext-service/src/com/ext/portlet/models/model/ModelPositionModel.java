@@ -1,10 +1,6 @@
 package com.ext.portlet.models.model;
 
-import com.ext.portlet.models.service.persistence.ModelPositionPK;
-
 import com.liferay.portal.model.BaseModel;
-
-import java.util.Date;
 
 
 /**
@@ -28,33 +24,21 @@ import java.util.Date;
  *
  */
 public interface ModelPositionModel extends BaseModel<ModelPosition> {
-    public ModelPositionPK getPrimaryKey();
+    public Long getPrimaryKey();
 
-    public void setPrimaryKey(ModelPositionPK pk);
+    public void setPrimaryKey(Long pk);
 
-    public Long getModelId();
+    public Long getId();
 
-    public void setModelId(Long modelId);
+    public void setId(Long id);
 
     public Long getPositionId();
 
     public void setPositionId(Long positionId);
 
-    public Long getUserId();
+    public Long getModelId();
 
-    public void setUserId(Long userId);
-
-    public String getUserName();
-
-    public void setUserName(String userName);
-
-    public Date getCreateDate();
-
-    public void setCreateDate(Date createDate);
-
-    public Date getModifiedDate();
-
-    public void setModifiedDate(Date modifiedDate);
+    public void setModelId(Long modelId);
 
     public ModelPosition toEscapedModel();
 }

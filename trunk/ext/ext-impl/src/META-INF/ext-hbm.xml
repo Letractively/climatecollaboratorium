@@ -269,14 +269,11 @@
 	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelPositionImpl" table="ModelPosition">
 		<cache usage="read-write" />
-		<composite-id name="primaryKey" class="com.ext.portlet.models.service.persistence.ModelPositionPK">
-			<key-property name="modelId" />
-			<key-property name="positionId" />
-		</composite-id>
-		<property name="userId" />
-		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="createDate" type="org.hibernate.type.TimestampType" />
-		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="positionId" />
+		<property name="modelId" />
 	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelGlobalPreferenceImpl" table="ModelGlobalPreference">
 		<cache usage="read-write" />

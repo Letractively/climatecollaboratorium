@@ -2,11 +2,9 @@ package com.ext.portlet.models.model.impl;
 
 import com.ext.portlet.models.model.ModelPosition;
 import com.ext.portlet.models.model.ModelPositionSoap;
-import com.ext.portlet.models.service.persistence.ModelPositionPK;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
 
 import java.io.Serializable;
@@ -16,7 +14,6 @@ import java.lang.reflect.Proxy;
 import java.sql.Types;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -43,24 +40,15 @@ import java.util.List;
 public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
     public static final String TABLE_NAME = "ModelPosition";
     public static final Object[][] TABLE_COLUMNS = {
-            { "modelId", new Integer(Types.BIGINT) },
+            { "id_", new Integer(Types.BIGINT) },
             
 
             { "positionId", new Integer(Types.BIGINT) },
             
 
-            { "userId", new Integer(Types.BIGINT) },
-            
-
-            { "userName", new Integer(Types.VARCHAR) },
-            
-
-            { "createDate", new Integer(Types.TIMESTAMP) },
-            
-
-            { "modifiedDate", new Integer(Types.TIMESTAMP) }
+            { "modelId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelPosition (modelId LONG not null,positionId LONG not null,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,primary key (modelId, positionId))";
+    public static final String TABLE_SQL_CREATE = "create table ModelPosition (id_ LONG not null primary key,positionId LONG,modelId LONG)";
     public static final String TABLE_SQL_DROP = "drop table ModelPosition";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -73,12 +61,9 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
             true);
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
                 "lock.expiration.time.com.ext.portlet.models.model.ModelPosition"));
-    private Long _modelId;
+    private Long _id;
     private Long _positionId;
-    private Long _userId;
-    private String _userName;
-    private Date _createDate;
-    private Date _modifiedDate;
+    private Long _modelId;
 
     public ModelPositionModelImpl() {
     }
@@ -86,12 +71,9 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
     public static ModelPosition toModel(ModelPositionSoap soapModel) {
         ModelPosition model = new ModelPositionImpl();
 
-        model.setModelId(soapModel.getModelId());
+        model.setId(soapModel.getId());
         model.setPositionId(soapModel.getPositionId());
-        model.setUserId(soapModel.getUserId());
-        model.setUserName(soapModel.getUserName());
-        model.setCreateDate(soapModel.getCreateDate());
-        model.setModifiedDate(soapModel.getModifiedDate());
+        model.setModelId(soapModel.getModelId());
 
         return model;
     }
@@ -106,25 +88,24 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
         return models;
     }
 
-    public ModelPositionPK getPrimaryKey() {
-        return new ModelPositionPK(_modelId, _positionId);
+    public Long getPrimaryKey() {
+        return _id;
     }
 
-    public void setPrimaryKey(ModelPositionPK pk) {
-        setModelId(pk.modelId);
-        setPositionId(pk.positionId);
+    public void setPrimaryKey(Long pk) {
+        setId(pk);
     }
 
     public Serializable getPrimaryKeyObj() {
-        return new ModelPositionPK(_modelId, _positionId);
+        return _id;
     }
 
-    public Long getModelId() {
-        return _modelId;
+    public Long getId() {
+        return _id;
     }
 
-    public void setModelId(Long modelId) {
-        _modelId = modelId;
+    public void setId(Long id) {
+        _id = id;
     }
 
     public Long getPositionId() {
@@ -135,36 +116,12 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
         _positionId = positionId;
     }
 
-    public Long getUserId() {
-        return _userId;
+    public Long getModelId() {
+        return _modelId;
     }
 
-    public void setUserId(Long userId) {
-        _userId = userId;
-    }
-
-    public String getUserName() {
-        return GetterUtil.getString(_userName);
-    }
-
-    public void setUserName(String userName) {
-        _userName = userName;
-    }
-
-    public Date getCreateDate() {
-        return _createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        _createDate = createDate;
-    }
-
-    public Date getModifiedDate() {
-        return _modifiedDate;
-    }
-
-    public void setModifiedDate(Date modifiedDate) {
-        _modifiedDate = modifiedDate;
+    public void setModelId(Long modelId) {
+        _modelId = modelId;
     }
 
     public ModelPosition toEscapedModel() {
@@ -176,12 +133,9 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
             model.setNew(isNew());
             model.setEscapedModel(true);
 
-            model.setModelId(getModelId());
+            model.setId(getId());
             model.setPositionId(getPositionId());
-            model.setUserId(getUserId());
-            model.setUserName(HtmlUtil.escape(getUserName()));
-            model.setCreateDate(getCreateDate());
-            model.setModifiedDate(getModifiedDate());
+            model.setModelId(getModelId());
 
             model = (ModelPosition) Proxy.newProxyInstance(ModelPosition.class.getClassLoader(),
                     new Class[] { ModelPosition.class },
@@ -194,32 +148,17 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
     public Object clone() {
         ModelPositionImpl clone = new ModelPositionImpl();
 
-        clone.setModelId(getModelId());
+        clone.setId(getId());
         clone.setPositionId(getPositionId());
-        clone.setUserId(getUserId());
-        clone.setUserName(getUserName());
-        clone.setCreateDate(getCreateDate());
-        clone.setModifiedDate(getModifiedDate());
+        clone.setModelId(getModelId());
 
         return clone;
     }
 
     public int compareTo(ModelPosition modelPosition) {
-        int value = 0;
+        Long pk = modelPosition.getPrimaryKey();
 
-        value = getModelId().compareTo(modelPosition.getModelId());
-
-        if (value != 0) {
-            return value;
-        }
-
-        value = getPositionId().compareTo(modelPosition.getPositionId());
-
-        if (value != 0) {
-            return value;
-        }
-
-        return 0;
+        return getPrimaryKey().compareTo(pk);
     }
 
     public boolean equals(Object obj) {
@@ -235,7 +174,7 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
             return false;
         }
 
-        ModelPositionPK pk = modelPosition.getPrimaryKey();
+        Long pk = modelPosition.getPrimaryKey();
 
         if (getPrimaryKey().equals(pk)) {
             return true;
@@ -251,18 +190,12 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("{modelId=");
-        sb.append(getModelId());
+        sb.append("{id=");
+        sb.append(getId());
         sb.append(", positionId=");
         sb.append(getPositionId());
-        sb.append(", userId=");
-        sb.append(getUserId());
-        sb.append(", userName=");
-        sb.append(getUserName());
-        sb.append(", createDate=");
-        sb.append(getCreateDate());
-        sb.append(", modifiedDate=");
-        sb.append(getModifiedDate());
+        sb.append(", modelId=");
+        sb.append(getModelId());
         sb.append("}");
 
         return sb.toString();
@@ -276,28 +209,16 @@ public class ModelPositionModelImpl extends BaseModelImpl<ModelPosition> {
         sb.append("</model-name>");
 
         sb.append(
-            "<column><column-name>modelId</column-name><column-value><![CDATA[");
-        sb.append(getModelId());
+            "<column><column-name>id</column-name><column-value><![CDATA[");
+        sb.append(getId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>positionId</column-name><column-value><![CDATA[");
         sb.append(getPositionId());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>userId</column-name><column-value><![CDATA[");
-        sb.append(getUserId());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>userName</column-name><column-value><![CDATA[");
-        sb.append(getUserName());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>createDate</column-name><column-value><![CDATA[");
-        sb.append(getCreateDate());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
-        sb.append(getModifiedDate());
+            "<column><column-name>modelId</column-name><column-value><![CDATA[");
+        sb.append(getModelId());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

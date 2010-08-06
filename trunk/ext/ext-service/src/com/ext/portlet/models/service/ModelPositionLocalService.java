@@ -40,10 +40,9 @@ public interface ModelPositionLocalService {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.models.model.ModelPosition createModelPosition(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK);
+        java.lang.Long id);
 
-    public void deleteModelPosition(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+    public void deleteModelPosition(java.lang.Long id)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
@@ -61,7 +60,7 @@ public interface ModelPositionLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.models.model.ModelPosition getModelPosition(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+        java.lang.Long id)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
@@ -79,5 +78,13 @@ public interface ModelPositionLocalService {
 
     public com.ext.portlet.models.model.ModelPosition updateModelPosition(
         com.ext.portlet.models.model.ModelPosition modelPosition, boolean merge)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.models.model.ModelPosition> getModelPositionsByModelId(
+        java.lang.Long modelId) throws com.liferay.portal.SystemException;
+
+    public void setModelPositions(java.lang.Long modelId,
+        java.util.List<Long> positionIds)
         throws com.liferay.portal.SystemException;
 }

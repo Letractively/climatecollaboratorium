@@ -12,11 +12,9 @@ public interface ModelPositionPersistence extends BasePersistence {
 
     public void clearCache();
 
-    public com.ext.portlet.models.model.ModelPosition create(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK);
+    public com.ext.portlet.models.model.ModelPosition create(java.lang.Long id);
 
-    public com.ext.portlet.models.model.ModelPosition remove(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+    public com.ext.portlet.models.model.ModelPosition remove(java.lang.Long id)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException;
 
@@ -53,41 +51,39 @@ public interface ModelPositionPersistence extends BasePersistence {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.models.model.ModelPosition findByPrimaryKey(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+        java.lang.Long id)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.models.model.ModelPosition fetchByPrimaryKey(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+        java.lang.Long id) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelPosition> findByModelId(
+        java.lang.Long modelId) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelPosition> findByModelId(
+        java.lang.Long modelId, int start, int end)
         throws com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.models.model.ModelPosition> findByPositionId(
-        java.lang.Long positionId) throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.models.model.ModelPosition> findByPositionId(
-        java.lang.Long positionId, int start, int end)
-        throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.models.model.ModelPosition> findByPositionId(
-        java.lang.Long positionId, int start, int end,
+    public java.util.List<com.ext.portlet.models.model.ModelPosition> findByModelId(
+        java.lang.Long modelId, int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.models.model.ModelPosition findByPositionId_First(
-        java.lang.Long positionId,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.models.NoSuchModelPositionException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.models.model.ModelPosition findByPositionId_Last(
-        java.lang.Long positionId,
+    public com.ext.portlet.models.model.ModelPosition findByModelId_First(
+        java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.models.model.ModelPosition[] findByPositionId_PrevAndNext(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK,
-        java.lang.Long positionId,
+    public com.ext.portlet.models.model.ModelPosition findByModelId_Last(
+        java.lang.Long modelId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelPositionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelPosition[] findByModelId_PrevAndNext(
+        java.lang.Long id, java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException;
@@ -110,12 +106,12 @@ public interface ModelPositionPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
-    public void removeByPositionId(java.lang.Long positionId)
+    public void removeByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException;
 
     public void removeAll() throws com.liferay.portal.SystemException;
 
-    public int countByPositionId(java.lang.Long positionId)
+    public int countByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

@@ -36,22 +36,22 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = ModelPositionImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
-    public static final FinderPath FINDER_PATH_FIND_BY_POSITIONID = new FinderPath(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_FIND_BY_MODELID = new FinderPath(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,
             ModelPositionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByPositionId",
+            FINDER_CLASS_NAME_LIST, "findByModelId",
             new String[] { Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_OBC_POSITIONID = new FinderPath(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_MODELID = new FinderPath(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,
             ModelPositionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByPositionId",
+            FINDER_CLASS_NAME_LIST, "findByModelId",
             new String[] {
                 Long.class.getName(),
                 
             "java.lang.Integer", "java.lang.Integer",
                 "com.liferay.portal.kernel.util.OrderByComparator"
             });
-    public static final FinderPath FINDER_PATH_COUNT_BY_POSITIONID = new FinderPath(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_COUNT_BY_MODELID = new FinderPath(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,
             ModelPositionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "countByPositionId",
+            FINDER_CLASS_NAME_LIST, "countByModelId",
             new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,
             ModelPositionModelImpl.FINDER_CACHE_ENABLED,
@@ -99,16 +99,16 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
     }
 
-    public ModelPosition create(ModelPositionPK modelPositionPK) {
+    public ModelPosition create(Long id) {
         ModelPosition modelPosition = new ModelPositionImpl();
 
         modelPosition.setNew(true);
-        modelPosition.setPrimaryKey(modelPositionPK);
+        modelPosition.setPrimaryKey(id);
 
         return modelPosition;
     }
 
-    public ModelPosition remove(ModelPositionPK modelPositionPK)
+    public ModelPosition remove(Long id)
         throws NoSuchModelPositionException, SystemException {
         Session session = null;
 
@@ -116,17 +116,16 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
             session = openSession();
 
             ModelPosition modelPosition = (ModelPosition) session.get(ModelPositionImpl.class,
-                    modelPositionPK);
+                    id);
 
             if (modelPosition == null) {
                 if (_log.isWarnEnabled()) {
                     _log.warn("No ModelPosition exists with the primary key " +
-                        modelPositionPK);
+                        id);
                 }
 
                 throw new NoSuchModelPositionException(
-                    "No ModelPosition exists with the primary key " +
-                    modelPositionPK);
+                    "No ModelPosition exists with the primary key " + id);
             }
 
             return remove(modelPosition);
@@ -264,28 +263,25 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         return modelPosition;
     }
 
-    public ModelPosition findByPrimaryKey(ModelPositionPK modelPositionPK)
+    public ModelPosition findByPrimaryKey(Long id)
         throws NoSuchModelPositionException, SystemException {
-        ModelPosition modelPosition = fetchByPrimaryKey(modelPositionPK);
+        ModelPosition modelPosition = fetchByPrimaryKey(id);
 
         if (modelPosition == null) {
             if (_log.isWarnEnabled()) {
-                _log.warn("No ModelPosition exists with the primary key " +
-                    modelPositionPK);
+                _log.warn("No ModelPosition exists with the primary key " + id);
             }
 
             throw new NoSuchModelPositionException(
-                "No ModelPosition exists with the primary key " +
-                modelPositionPK);
+                "No ModelPosition exists with the primary key " + id);
         }
 
         return modelPosition;
     }
 
-    public ModelPosition fetchByPrimaryKey(ModelPositionPK modelPositionPK)
-        throws SystemException {
+    public ModelPosition fetchByPrimaryKey(Long id) throws SystemException {
         ModelPosition modelPosition = (ModelPosition) EntityCacheUtil.getResult(ModelPositionModelImpl.ENTITY_CACHE_ENABLED,
-                ModelPositionImpl.class, modelPositionPK, this);
+                ModelPositionImpl.class, id, this);
 
         if (modelPosition == null) {
             Session session = null;
@@ -294,7 +290,7 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
                 session = openSession();
 
                 modelPosition = (ModelPosition) session.get(ModelPositionImpl.class,
-                        modelPositionPK);
+                        id);
             } catch (Exception e) {
                 throw processException(e);
             } finally {
@@ -309,11 +305,11 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         return modelPosition;
     }
 
-    public List<ModelPosition> findByPositionId(Long positionId)
+    public List<ModelPosition> findByModelId(Long modelId)
         throws SystemException {
-        Object[] finderArgs = new Object[] { positionId };
+        Object[] finderArgs = new Object[] { modelId };
 
-        List<ModelPosition> list = (List<ModelPosition>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_POSITIONID,
+        List<ModelPosition> list = (List<ModelPosition>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_MODELID,
                 finderArgs, this);
 
         if (list == null) {
@@ -327,25 +323,20 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.models.model.ModelPosition WHERE ");
 
-                if (positionId == null) {
-                    query.append("positionId IS NULL");
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
                 } else {
-                    query.append("positionId = ?");
+                    query.append("modelId = ?");
                 }
 
                 query.append(" ");
-
-                query.append("ORDER BY ");
-
-                query.append("modelId ASC, ");
-                query.append("positionId ASC");
 
                 Query q = session.createQuery(query.toString());
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (positionId != null) {
-                    qPos.add(positionId.longValue());
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
                 }
 
                 list = q.list();
@@ -358,7 +349,7 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
 
                 cacheResult(list);
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_POSITIONID,
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_MODELID,
                     finderArgs, list);
 
                 closeSession(session);
@@ -368,20 +359,20 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public List<ModelPosition> findByPositionId(Long positionId, int start,
-        int end) throws SystemException {
-        return findByPositionId(positionId, start, end, null);
+    public List<ModelPosition> findByModelId(Long modelId, int start, int end)
+        throws SystemException {
+        return findByModelId(modelId, start, end, null);
     }
 
-    public List<ModelPosition> findByPositionId(Long positionId, int start,
-        int end, OrderByComparator obc) throws SystemException {
+    public List<ModelPosition> findByModelId(Long modelId, int start, int end,
+        OrderByComparator obc) throws SystemException {
         Object[] finderArgs = new Object[] {
-                positionId,
+                modelId,
                 
                 String.valueOf(start), String.valueOf(end), String.valueOf(obc)
             };
 
-        List<ModelPosition> list = (List<ModelPosition>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_POSITIONID,
+        List<ModelPosition> list = (List<ModelPosition>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_MODELID,
                 finderArgs, this);
 
         if (list == null) {
@@ -395,10 +386,10 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.models.model.ModelPosition WHERE ");
 
-                if (positionId == null) {
-                    query.append("positionId IS NULL");
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
                 } else {
-                    query.append("positionId = ?");
+                    query.append("modelId = ?");
                 }
 
                 query.append(" ");
@@ -407,19 +398,13 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
                 }
-                else {
-                    query.append("ORDER BY ");
-
-                    query.append("modelId ASC, ");
-                    query.append("positionId ASC");
-                }
 
                 Query q = session.createQuery(query.toString());
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (positionId != null) {
-                    qPos.add(positionId.longValue());
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
                 }
 
                 list = (List<ModelPosition>) QueryUtil.list(q, getDialect(),
@@ -433,7 +418,7 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
 
                 cacheResult(list);
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_POSITIONID,
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_MODELID,
                     finderArgs, list);
 
                 closeSession(session);
@@ -443,17 +428,16 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public ModelPosition findByPositionId_First(Long positionId,
-        OrderByComparator obc)
+    public ModelPosition findByModelId_First(Long modelId, OrderByComparator obc)
         throws NoSuchModelPositionException, SystemException {
-        List<ModelPosition> list = findByPositionId(positionId, 0, 1, obc);
+        List<ModelPosition> list = findByModelId(modelId, 0, 1, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No ModelPosition exists with the key {");
 
-            msg.append("positionId=" + positionId);
+            msg.append("modelId=" + modelId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -463,20 +447,18 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ModelPosition findByPositionId_Last(Long positionId,
-        OrderByComparator obc)
+    public ModelPosition findByModelId_Last(Long modelId, OrderByComparator obc)
         throws NoSuchModelPositionException, SystemException {
-        int count = countByPositionId(positionId);
+        int count = countByModelId(modelId);
 
-        List<ModelPosition> list = findByPositionId(positionId, count - 1,
-                count, obc);
+        List<ModelPosition> list = findByModelId(modelId, count - 1, count, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No ModelPosition exists with the key {");
 
-            msg.append("positionId=" + positionId);
+            msg.append("modelId=" + modelId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -486,12 +468,12 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ModelPosition[] findByPositionId_PrevAndNext(
-        ModelPositionPK modelPositionPK, Long positionId, OrderByComparator obc)
+    public ModelPosition[] findByModelId_PrevAndNext(Long id, Long modelId,
+        OrderByComparator obc)
         throws NoSuchModelPositionException, SystemException {
-        ModelPosition modelPosition = findByPrimaryKey(modelPositionPK);
+        ModelPosition modelPosition = findByPrimaryKey(id);
 
-        int count = countByPositionId(positionId);
+        int count = countByModelId(modelId);
 
         Session session = null;
 
@@ -503,10 +485,10 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
             query.append(
                 "FROM com.ext.portlet.models.model.ModelPosition WHERE ");
 
-            if (positionId == null) {
-                query.append("positionId IS NULL");
+            if (modelId == null) {
+                query.append("modelId IS NULL");
             } else {
-                query.append("positionId = ?");
+                query.append("modelId = ?");
             }
 
             query.append(" ");
@@ -515,19 +497,13 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
                 query.append("ORDER BY ");
                 query.append(obc.getOrderBy());
             }
-            else {
-                query.append("ORDER BY ");
-
-                query.append("modelId ASC, ");
-                query.append("positionId ASC");
-            }
 
             Query q = session.createQuery(query.toString());
 
             QueryPos qPos = QueryPos.getInstance(q);
 
-            if (positionId != null) {
-                qPos.add(positionId.longValue());
+            if (modelId != null) {
+                qPos.add(modelId.longValue());
             }
 
             Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
@@ -615,12 +591,6 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
                 }
-                else {
-                    query.append("ORDER BY ");
-
-                    query.append("modelId ASC, ");
-                    query.append("positionId ASC");
-                }
 
                 Query q = session.createQuery(query.toString());
 
@@ -651,8 +621,8 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public void removeByPositionId(Long positionId) throws SystemException {
-        for (ModelPosition modelPosition : findByPositionId(positionId)) {
+    public void removeByModelId(Long modelId) throws SystemException {
+        for (ModelPosition modelPosition : findByModelId(modelId)) {
             remove(modelPosition);
         }
     }
@@ -663,10 +633,10 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public int countByPositionId(Long positionId) throws SystemException {
-        Object[] finderArgs = new Object[] { positionId };
+    public int countByModelId(Long modelId) throws SystemException {
+        Object[] finderArgs = new Object[] { modelId };
 
-        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_POSITIONID,
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_MODELID,
                 finderArgs, this);
 
         if (count == null) {
@@ -681,10 +651,10 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.models.model.ModelPosition WHERE ");
 
-                if (positionId == null) {
-                    query.append("positionId IS NULL");
+                if (modelId == null) {
+                    query.append("modelId IS NULL");
                 } else {
-                    query.append("positionId = ?");
+                    query.append("modelId = ?");
                 }
 
                 query.append(" ");
@@ -693,8 +663,8 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (positionId != null) {
-                    qPos.add(positionId.longValue());
+                if (modelId != null) {
+                    qPos.add(modelId.longValue());
                 }
 
                 count = (Long) q.uniqueResult();
@@ -705,7 +675,7 @@ public class ModelPositionPersistenceImpl extends BasePersistenceImpl
                     count = Long.valueOf(0);
                 }
 
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_POSITIONID,
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MODELID,
                     finderArgs, count);
 
                 closeSession(session);

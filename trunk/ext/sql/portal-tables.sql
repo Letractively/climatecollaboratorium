@@ -2881,13 +2881,9 @@ create table ModelDiscussion (
 );
 
 create table ModelPosition (
-	modelId LONG not null,
-	positionId LONG not null,
-	userId LONG,
-	userName VARCHAR(75) null,
-	createDate DATE null,
-	modifiedDate DATE null,
-	primary key (modelId, positionId)
+	id_ LONG not null primary key,
+	positionId LONG,
+	modelId LONG
 );
 
 create table Organization_ (

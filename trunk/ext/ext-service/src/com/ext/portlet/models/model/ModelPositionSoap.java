@@ -1,11 +1,8 @@
 package com.ext.portlet.models.model;
 
-import com.ext.portlet.models.service.persistence.ModelPositionPK;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -28,12 +25,9 @@ import java.util.List;
  *
  */
 public class ModelPositionSoap implements Serializable {
-    private Long _modelId;
+    private Long _id;
     private Long _positionId;
-    private Long _userId;
-    private String _userName;
-    private Date _createDate;
-    private Date _modifiedDate;
+    private Long _modelId;
 
     public ModelPositionSoap() {
     }
@@ -41,12 +35,9 @@ public class ModelPositionSoap implements Serializable {
     public static ModelPositionSoap toSoapModel(ModelPosition model) {
         ModelPositionSoap soapModel = new ModelPositionSoap();
 
-        soapModel.setModelId(model.getModelId());
+        soapModel.setId(model.getId());
         soapModel.setPositionId(model.getPositionId());
-        soapModel.setUserId(model.getUserId());
-        soapModel.setUserName(model.getUserName());
-        soapModel.setCreateDate(model.getCreateDate());
-        soapModel.setModifiedDate(model.getModifiedDate());
+        soapModel.setModelId(model.getModelId());
 
         return soapModel;
     }
@@ -87,21 +78,20 @@ public class ModelPositionSoap implements Serializable {
         return soapModels.toArray(new ModelPositionSoap[soapModels.size()]);
     }
 
-    public ModelPositionPK getPrimaryKey() {
-        return new ModelPositionPK(_modelId, _positionId);
+    public Long getPrimaryKey() {
+        return _id;
     }
 
-    public void setPrimaryKey(ModelPositionPK pk) {
-        setModelId(pk.modelId);
-        setPositionId(pk.positionId);
+    public void setPrimaryKey(Long pk) {
+        setId(pk);
     }
 
-    public Long getModelId() {
-        return _modelId;
+    public Long getId() {
+        return _id;
     }
 
-    public void setModelId(Long modelId) {
-        _modelId = modelId;
+    public void setId(Long id) {
+        _id = id;
     }
 
     public Long getPositionId() {
@@ -112,35 +102,11 @@ public class ModelPositionSoap implements Serializable {
         _positionId = positionId;
     }
 
-    public Long getUserId() {
-        return _userId;
+    public Long getModelId() {
+        return _modelId;
     }
 
-    public void setUserId(Long userId) {
-        _userId = userId;
-    }
-
-    public String getUserName() {
-        return _userName;
-    }
-
-    public void setUserName(String userName) {
-        _userName = userName;
-    }
-
-    public Date getCreateDate() {
-        return _createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        _createDate = createDate;
-    }
-
-    public Date getModifiedDate() {
-        return _modifiedDate;
-    }
-
-    public void setModifiedDate(Date modifiedDate) {
-        _modifiedDate = modifiedDate;
+    public void setModelId(Long modelId) {
+        _modelId = modelId;
     }
 }

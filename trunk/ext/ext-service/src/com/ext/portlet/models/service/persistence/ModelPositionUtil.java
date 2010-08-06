@@ -18,15 +18,15 @@ public class ModelPositionUtil {
     }
 
     public static com.ext.portlet.models.model.ModelPosition create(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK) {
-        return getPersistence().create(modelPositionPK);
+        java.lang.Long id) {
+        return getPersistence().create(id);
     }
 
     public static com.ext.portlet.models.model.ModelPosition remove(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+        java.lang.Long id)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException {
-        return getPersistence().remove(modelPositionPK);
+        return getPersistence().remove(id);
     }
 
     public static com.ext.portlet.models.model.ModelPosition remove(
@@ -70,61 +70,57 @@ public class ModelPositionUtil {
     }
 
     public static com.ext.portlet.models.model.ModelPosition findByPrimaryKey(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+        java.lang.Long id)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException {
-        return getPersistence().findByPrimaryKey(modelPositionPK);
+        return getPersistence().findByPrimaryKey(id);
     }
 
     public static com.ext.portlet.models.model.ModelPosition fetchByPrimaryKey(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK)
+        java.lang.Long id) throws com.liferay.portal.SystemException {
+        return getPersistence().fetchByPrimaryKey(id);
+    }
+
+    public static java.util.List<com.ext.portlet.models.model.ModelPosition> findByModelId(
+        java.lang.Long modelId) throws com.liferay.portal.SystemException {
+        return getPersistence().findByModelId(modelId);
+    }
+
+    public static java.util.List<com.ext.portlet.models.model.ModelPosition> findByModelId(
+        java.lang.Long modelId, int start, int end)
         throws com.liferay.portal.SystemException {
-        return getPersistence().fetchByPrimaryKey(modelPositionPK);
+        return getPersistence().findByModelId(modelId, start, end);
     }
 
-    public static java.util.List<com.ext.portlet.models.model.ModelPosition> findByPositionId(
-        java.lang.Long positionId) throws com.liferay.portal.SystemException {
-        return getPersistence().findByPositionId(positionId);
-    }
-
-    public static java.util.List<com.ext.portlet.models.model.ModelPosition> findByPositionId(
-        java.lang.Long positionId, int start, int end)
-        throws com.liferay.portal.SystemException {
-        return getPersistence().findByPositionId(positionId, start, end);
-    }
-
-    public static java.util.List<com.ext.portlet.models.model.ModelPosition> findByPositionId(
-        java.lang.Long positionId, int start, int end,
+    public static java.util.List<com.ext.portlet.models.model.ModelPosition> findByModelId(
+        java.lang.Long modelId, int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException {
-        return getPersistence().findByPositionId(positionId, start, end, obc);
+        return getPersistence().findByModelId(modelId, start, end, obc);
     }
 
-    public static com.ext.portlet.models.model.ModelPosition findByPositionId_First(
-        java.lang.Long positionId,
+    public static com.ext.portlet.models.model.ModelPosition findByModelId_First(
+        java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException {
-        return getPersistence().findByPositionId_First(positionId, obc);
+        return getPersistence().findByModelId_First(modelId, obc);
     }
 
-    public static com.ext.portlet.models.model.ModelPosition findByPositionId_Last(
-        java.lang.Long positionId,
+    public static com.ext.portlet.models.model.ModelPosition findByModelId_Last(
+        java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException {
-        return getPersistence().findByPositionId_Last(positionId, obc);
+        return getPersistence().findByModelId_Last(modelId, obc);
     }
 
-    public static com.ext.portlet.models.model.ModelPosition[] findByPositionId_PrevAndNext(
-        com.ext.portlet.models.service.persistence.ModelPositionPK modelPositionPK,
-        java.lang.Long positionId,
+    public static com.ext.portlet.models.model.ModelPosition[] findByModelId_PrevAndNext(
+        java.lang.Long id, java.lang.Long modelId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.models.NoSuchModelPositionException,
             com.liferay.portal.SystemException {
-        return getPersistence()
-                   .findByPositionId_PrevAndNext(modelPositionPK, positionId,
-            obc);
+        return getPersistence().findByModelId_PrevAndNext(id, modelId, obc);
     }
 
     public static java.util.List<Object> findWithDynamicQuery(
@@ -155,18 +151,18 @@ public class ModelPositionUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
-    public static void removeByPositionId(java.lang.Long positionId)
+    public static void removeByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException {
-        getPersistence().removeByPositionId(positionId);
+        getPersistence().removeByModelId(modelId);
     }
 
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
 
-    public static int countByPositionId(java.lang.Long positionId)
+    public static int countByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException {
-        return getPersistence().countByPositionId(positionId);
+        return getPersistence().countByModelId(modelId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {
