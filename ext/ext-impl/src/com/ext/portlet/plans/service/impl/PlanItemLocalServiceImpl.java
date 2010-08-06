@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.model.DiscussionCategory;
@@ -54,10 +53,7 @@ import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.portal.service.PermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portlet.messageboards.model.MBCategory;
-import com.liferay.portlet.messageboards.service.MBCategoryServiceUtil;
 
 public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     /**
