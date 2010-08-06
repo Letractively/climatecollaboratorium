@@ -96,12 +96,11 @@ public class ContactBean {
     
     public void toggleExpanded(ActionEvent e) {
         expanded = !expanded;
-        if (!expanded) {
-            captcha = "";
-            name = "";
-            message = "";
-            email = "";
-        }
+        
+        captcha = "";
+        name = "";
+        message = "";
+        email = "";
     }
     
     public String getExpandFormMessage() {
