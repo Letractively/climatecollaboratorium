@@ -10,9 +10,16 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-        <div class="model-information">
-            <div class="bottom-content">
-                #{simulationBean.expertEvaluation}
-            </div>
-        </div>
+    <ice:panelGroup styleClass="model-information" rendered="#{not simulationDetailsBean.tabEditing}">
+        #{simulationDetailsBean.expertEvaluation}
+    </ice:panelGroup>
+    <ice:panelGroup styleClass="model-information" rendered="#{simulationDetailsBean.tabEditing}">
+        <ice:commandButton value="Back to normal view" actionListener="#{simulationDetailsBean.toggleEdit}" rendered="#{(not simulationDetailsBean.tabEditing) and permissions.canEditModel}" />
+        <ice:messages />
+        <h2>Choose wiki page with expert evaluation</h2>
+        <ice:selectOneMenu value="#{simulationDetailsBean.expertEvaluationPageId}" partialSubmit="true">
+            <f:selectItems value="#{supportBean.allWikiPages}" />
+        </ice:selectOneMenu>
+        <ice:commandButton value="Back to normal view" actionListener="#{simulationDetailsBean.toggleEdit}" rendered="#{(not simulationDetailsBean.tabEditing) and permissions.canEditModel}" />
+    </ice:panelGroup>
 </f:view>

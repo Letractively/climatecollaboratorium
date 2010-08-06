@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.faces.model.SelectItem;
 
 
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
@@ -76,6 +78,4 @@ public class SupportBean {
         
         return items;
     }
-
-
 }

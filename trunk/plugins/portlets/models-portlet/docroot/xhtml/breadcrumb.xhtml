@@ -11,7 +11,12 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     <h2 class="modelIndexLink">
         <ice:panelSeries value="#{navigation.breadcrumbBean.items}" var="item" varStatus="status">
-            <a href="#{item.link}">#{item.name}</a> 
+            <f:subview rendered="#{item.link != null}">
+                <a href="#{item.link}">#{item.name}</a> 
+            </f:subview>
+            <f:subview rendered="#{item.link == null}">
+                #{item.name}
+            </f:subview>
             <ice:outputText value="&gt;" rendered="#{not status.last}" />
         </ice:panelSeries>
     </h2>

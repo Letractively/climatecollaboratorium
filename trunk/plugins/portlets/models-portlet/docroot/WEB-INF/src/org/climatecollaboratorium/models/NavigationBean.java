@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.servlet.http.HttpServletRequest;
 
 import mit.simulation.climate.client.Scenario;
 import mit.simulation.climate.client.Simulation;
@@ -18,7 +15,10 @@ import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 
+import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class NavigationBean {
     private final static String INDEX_PAGE = "index";
@@ -27,7 +27,6 @@ public class NavigationBean {
     private String currentPage = INDEX_PAGE;
 
     private BreadcrumbBean breadcrumbBean;
-    private SimulationBean simulationBean;
     private Simulation selectedSimulation;
     private Scenario selectedScenario;
     private String page = null;
@@ -39,47 +38,10 @@ public class NavigationBean {
     private boolean embeddedCanEdit;
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
+    private static Log _log = LogFactoryUtil.getLog(NavigationBean.class);
+    private SimulationDetailsBean simulationDetailsBean = new SimulationDetailsBean();
     
     public NavigationBean() {
-        // get request parameters
-        ExternalContext ctx = FacesContext.getCurrentInstance().getExternalContext();//.getRequestPathInfo())
-
-        if (ctx.getRequestParameterMap().containsKey("modelId")) {
-            try {
-                modelId = Long.parseLong(ctx.getRequestParameterMap().get("modelId").toString());
-            } catch (NumberFormatException e) {
-                // ignore
-            }
-        }
-        
-        if (ctx.getRequestParameterMap().containsKey("viewType")) {
-            viewType = ctx.getRequestParameterMap().get("viewType").toString();
-        }
-        
-        if (ctx.getRequestParameterMap().containsKey("scenarioId")) {
-            try {
-                scenarioId = Long.parseLong(ctx.getRequestParameterMap().get("scenarioId").toString());
-            } catch (NumberFormatException e) {
-                // ignore
-            }
-        }
-        
-        if (ctx.getRequestParameterMap().containsKey("planId")) {
-            try {
-                planId = Long.parseLong(ctx.getRequestParameterMap().get("planId").toString());
-            }
-            catch (NumberFormatException e) {
-                // ignore
-            }
-        }
-        
-        if (ctx.getRequestParameterMap().containsKey("page")) {
-            page = ctx.getRequestParameterMap().get("page").toString();
-        }
-        if (ctx.getRequestParameterMap().containsKey("canEdit")) {
-            embeddedCanEdit = Boolean.parseBoolean(ctx.getRequestParameterMap().get("canEdit").toString());
-        }
-        
     }
 
     public BreadcrumbBean getBreadcrumbBean() {
@@ -89,15 +51,6 @@ public class NavigationBean {
     public void setBreadcrumbBean(BreadcrumbBean breadcrumbBean){
         this.breadcrumbBean = breadcrumbBean;
         updateBreadcrumb();
-    }
-
-    public SimulationBean getSimulationBean() {
-        return simulationBean;
-    }
-
-    public void setSimulationBean(SimulationBean simulationBean) throws IOException, SystemException  {
-        this.simulationBean = simulationBean;
-        useModel();
     }
 
     public String getCurrentPage() {
@@ -125,15 +78,15 @@ public class NavigationBean {
         selectedSimulation = SimulationsHelper.getInstance().getSimulationById(modelId);
         
         if (selectedScenario != null) {
-            simulationBean.setScenario(selectedScenario);
+            //simulationBean.setScenario(selectedScenario);
             currentPage = DETAILS_PAGE;
         }
         else if (selectedSimulation != null) {
-            simulationBean.setSimulation(selectedSimulation);
+            //simulationBean.setSimulation(selectedSimulation);
             currentPage = DETAILS_PAGE;
         }
         else {
-            simulationBean.setSimulation(null);
+            //simulationBean.setSimulation(null);
             currentPage = INDEX_PAGE;
         }
         updateBreadcrumb();
@@ -142,10 +95,10 @@ public class NavigationBean {
 
     private void updateBreadcrumb() {
         breadcrumbBean.clear();
-        breadcrumbBean.addItem("Model index", "#");
+        breadcrumbBean.addItem("Model index", "#models=");
 
         if (selectedSimulation != null) {
-            breadcrumbBean.addItem(selectedSimulation.getName(), "#modelId=" + selectedSimulation.getId());
+            breadcrumbBean.addItem(selectedSimulation.getName(), null);
         }
     }
 
@@ -191,12 +144,43 @@ public class NavigationBean {
             public void onEvent(NavigationEvent event) {
                 // check if event
                 if (event.getSource().equals("models")) {
-                    // do something...
+                    if (event.getParameters().containsKey("modelId")) {
+                        try {
+                            Long modelId = Long.parseLong(event.getParameters().get("modelId"));
+                            selectedSimulation = CollaboratoriumModelingService.repository().getSimulation(modelId);
+                            if (selectedSimulation != null) {
+                                currentPage = DETAILS_PAGE;
+                                updateBreadcrumb();
+
+                                simulationDetailsBean.setModelId(modelId);
+                                simulationDetailsBean.navigate(event.getParameters());
+                                
+                            }
+                        }
+                        catch (NumberFormatException e) {
+                            _log.error("Invalid modelId " + event.getParameters().get("modelId"));
+                            currentPage = INDEX_PAGE;
+                            selectedSimulation = null;
+                        } catch (SystemException e) {
+                            _log.error("Invalid model " + event.getParameters().get("modelId"));
+                        }
+                        
+                    }
+                    else {
+                        currentPage = INDEX_PAGE;
+                        breadcrumbBean.clear();
+                        selectedSimulation = null;
+                        updateBreadcrumb();
+                    }
                 }
 
             }
 
         }));
+    }
+    
+    public SimulationDetailsBean getSimulationDetailsBean() {
+        return simulationDetailsBean;
     }
 
 }

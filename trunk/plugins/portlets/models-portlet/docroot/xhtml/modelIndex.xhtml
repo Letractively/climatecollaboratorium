@@ -23,7 +23,7 @@
         <f:facet name="header">
             Name
         </f:facet>
-        <a href="#modelId=#{simulation.id}">#{simulation.name}</a>
+        <a href="javascript:;" onclick="Collab.nav.navigate('models', {modelId: #{simulation.id}});">#{simulation.name}</a>
     </ice:column>
     <ice:column rendered="#{simulation.visible}">
         <f:facet name="header">

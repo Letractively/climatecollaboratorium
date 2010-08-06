@@ -9,45 +9,38 @@
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <div class="pageTitle">
-        <h2>Model: #{simulationBean.simulation.name}</h2>
-        <div class="simulationActions">
-            <ice:form>
-                <ice:commandButton value="Edit" actionListener="#{simulationBean.editSimulation}" rendered="#{(not simulationBean.editing) and permissions.canEditModel}" />
-            </ice:form>
-        </div>
-        <div class="clear"></div>
-    </div>
-    
-    <ice:panelGroup styleClass="modelDescription" rendered="#{not simulationBean.editing}">
-        <p class="hidden">#{simulationBean.simulation.description}</p>
-    </ice:panelGroup>
-    
-    <ice:panelGroup styleClass="modelDescription" rendered="#{simulationBean.editing}">
-        <f:subview>
-            <ui:include src="./editSimulation.xhtml" />
-        </f:subview>
-    </ice:panelGroup>
-    
-    <ice:panelGroup rendered="#{not simulationBean.editing}">
-        <div class="model-information">
-            <div class="bottom-content">
-                    <ice:form>
-                <f:subview id="inputsView">
-                    <ui:include src="./inputs/inputs.xhtml" />
-                </f:subview>
-                <f:subview id="outputsView">
-                    <ui:include src="./outputs/outputs.xhtml" />
-                </f:subview>
-                
-                <div class="clear"></div>
-                <div class="modelActions">
-                    <ice:commandLink actionListener="#{simulationBean.runModel}" onclick="runModel();" styleClass="full runModelBtn" />
-                    <div class="clear"></div>
-                </div>
-                    </ice:form>
+    <ice:panelGroup rendered="#{not simulationDetailsBean.tabEditing}">
+        <ice:panelSeries value="#{simulationDetailsBean.positionsQuestions}" var="question">
+            <div class="assumption">
+                <h3 class="question">#{question.debateAnchor}</h3>
+                <h4 class="position">#{question.selectedPosition.itemAnchor}</h4>
             </div>
-        </div>
+        </ice:panelSeries>
+        <ice:panelGroup rendered="#{fn:length(simulationDetailsBean.positionsQuestions) == 0}">
+            <div class="nothingSetInfo">
+                <div class="nothingSetMessage">No assumptions set.</div>
+            </div>
+        </ice:panelGroup>
     </ice:panelGroup>
+    
+    <ice:panelGroup rendered="#{simulationDetailsBean.tabEditing}">
+            <ice:panelSeries value="#{simulationDetailsBean.availablePositions}" var="question">
+                <div class="assumption">
+                    <h3 class="question">#{question.debateAnchor}</h3>
+                    <ice:selectOneRadio value="#{question.position}" styleClass="versionedRadio positionItem" layout="pageDirection">
+                        <f:selectItems value="#{question.positions}"><br /></f:selectItems>
+                    </ice:selectOneRadio>
+                </div>
+             
+            </ice:panelSeries>
+            <ice:panelGroup>
+                <script language="javascript">
+                    //updatePositionsSelection(#{planBean.planPositionsBean.selectedPositionsIds});
+                </script>
+            </ice:panelGroup>
+            <ice:commandButton actionListener="#{simulationDetailsBean.updatePositions}" value="Save" />
+            <ice:commandButton actionListener="#{simulationDetailsBean.toggleEdit}" value="Cancel" />
+        </ice:panelGroup>
 </f:view>
