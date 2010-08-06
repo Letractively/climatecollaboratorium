@@ -1,6 +1,5 @@
 package org.climatecollaboratorium.plans;
 
-import java.security.Permissions;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,13 +14,8 @@ import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 
-
-
 import com.ext.portlet.PlanStatus;
 import com.ext.portlet.Activity.ActivityUtil;
-import com.ext.portlet.debaterevision.model.DebateCategory;
-import com.ext.portlet.plans.NoSuchPlanFanException;
-import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.model.PlanItem;
@@ -29,14 +23,10 @@ import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanVoteLocalService;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
@@ -91,9 +81,7 @@ public class PlanItemWrapper {
         this.permissions = permissions;
         
         
-        for (PlanItem planVersion: plan.getAllVersions()) {
-            planVersions.add(new PlanHistoryItem(planVersion));
-        }
+
         
         setDescriptionSet(plan.getDescription().trim().length() != 0);
         candidateName = plan.getName();
@@ -225,7 +213,11 @@ public class PlanItemWrapper {
         
     }
     
-    public List<PlanHistoryItem> getAllVersions() throws SystemException {
+    public List<PlanHistoryItem> getAllVersions() throws SystemException, PortalException {
+        planVersions.clear();
+        for (PlanItem planVersion: wrapped.getAllVersions()) {
+            planVersions.add(new PlanHistoryItem(planVersion));
+        }
         return planVersions;
     }
     

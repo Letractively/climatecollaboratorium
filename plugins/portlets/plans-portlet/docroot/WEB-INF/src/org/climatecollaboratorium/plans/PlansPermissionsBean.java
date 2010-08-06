@@ -7,6 +7,8 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.service.UserGroupLocalServiceUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
 
 public class PlansPermissionsBean {
 
@@ -17,14 +19,22 @@ public class PlansPermissionsBean {
     private PlanItem plan;
     private PlanUserPermission planUserPermission;
     private Long planGroupId;
+    private Long userId = 0L;
 
     public PlansPermissionsBean() throws SystemException {
         permissionChecker = Helper.getPermissionChecker();
         groupId = Helper.groupId;
         primKey = Helper.primKey;
         portletId = Helper.portletId;
+        if (Helper.isUserLoggedIn()) {
+            userId = Helper.getLiferayUser().getUserId();
+        }
 
         planGroupId = groupId;
+        updatePlanUserPermission();
+    }
+    
+    private void updatePlanUserPermission() throws SystemException {
         if (getPlanOwner()) {
             planUserPermission = PlanUserPermission.OWNER;
         }
@@ -42,27 +52,25 @@ public class PlansPermissionsBean {
     }
 
     public boolean getCanView() {
-        Group g;
-        
-        return permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_VIEW);
+        return true;
     }
 
     public boolean getCanEdit() throws SystemException {
-        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_EDIT)) 
-            || getCanAdmin() 
-            || (getPlanOpen() && Helper.isUserLoggedIn());
+        return getPlanOpen() && Helper.isUserLoggedIn()
+            || getPlanMember() 
+            || getCanAdmin();
     }
 
     public boolean getCanAdmin() throws SystemException {
-        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN)) || getPlanOwner() || getCanAdminAll() ;
+        return (getPlanMember() && permissionChecker.isCommunityAdmin(planGroupId)) || getPlanOwner() || getCanAdminAll() ;
     }
 
     public boolean getCanAdminAll() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN_ALL) || permissionChecker.isCommunityAdmin(groupId);
+        return permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN_ALL);
     }
 
     public boolean getCanDelete() throws SystemException {
-        return (getPlanMember() && permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_DELETE)) || getCanAdmin();
+        return getCanAdmin();
     }
 
     public boolean getPlanOwner() {
@@ -85,6 +93,7 @@ public class PlansPermissionsBean {
         this.plan = plan;
         // use group id from plans community
         planGroupId = plan.getPlanGroupId();
+        updatePlanUserPermission();
     }
 
     public PlanItem getPlan() {

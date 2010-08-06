@@ -8,6 +8,7 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserGroupLocalServiceUtil;
 
 public class PlanMember {
     private PlanItem plan;
@@ -17,12 +18,14 @@ public class PlanMember {
     private boolean owner;
     private boolean permissionChanged;
     private PlanMembershipBean planMembershipBean;
+    private PlansPermissionsBean permissions;
     
 
-    public PlanMember(PlanItem plan, User user, PlanMembershipBean planMembershipBean) throws SystemException {
+    public PlanMember(PlanItem plan, User user, PlanMembershipBean planMembershipBean, PlansPermissionsBean permissions) throws SystemException {
         this.plan = plan;
         this.user = user;
         this.planMembershipBean = planMembershipBean;
+        this.permissions = permissions;
         
     }
 
@@ -61,11 +64,18 @@ public class PlanMember {
         return planUserPermission.name();
     }
     
-    public void setPlanUserPermissionStr(String planUserPermissionStr) {
+    public void setPlanUserPermissionStr(String planUserPermissionStr) throws PortalException, SystemException {
         PlanUserPermission tmp = PlanUserPermission.valueOf(planUserPermissionStr);
-        if (tmp != planUserPermission) {
-            permissionChanged = true;
+        if (tmp != planUserPermission && permissions.getCanAdmin()) {
+            System.out.println(tmp.compareTo(planUserPermission));
+            
+            if (tmp.compareTo(planUserPermission) > 0 && ! (permissions.getPlanOwner() || permissions.getCanAdminAll())) {
+                // only admin can downgrade a user
+                return;
+            }
             planUserPermission = tmp;
+            
+            plan.setUserPermission(user.getUserId(), planUserPermission.name(), Helper.getLiferayUser().getUserId());
         }
     }
     
