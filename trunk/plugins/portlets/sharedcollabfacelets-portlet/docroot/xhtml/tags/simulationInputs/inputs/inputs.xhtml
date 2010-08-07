@@ -22,7 +22,7 @@
                                 </f:subview>
                             </div>
                         </ice:panelSeries>
-                        <ice:panelTabSet value="#{simulationBean.display.tabsWrapped}" var="input1" rendered="#{simulationBean.hasTabs}">
+                        <ice:panelTabSet value="#{simulationBean.display.tabsWrapped}" var="input1" rendered="#{simulationBean.hasTabs}"  styleClass="modelInputsTabs">
                             <ice:panelTab label="#{input1.oryginalName}">
                                <ice:panelSeries value="#{input1.allItems}" var="input" varStatus="status">
                                     <div class="hidden">#{simulationBean.display}</div>

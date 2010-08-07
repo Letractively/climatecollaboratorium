@@ -75,3 +75,46 @@
 .simulationInput.odd {
     background: #EAEAEA;
 }
+
+
+/* 
+ INPUTS TABS
+ */
+ 
+.modelInputsTabs {
+    height: 50px;
+    white-space: normal;
+}
+
+.modelInputsTabs table.icePnlTbOn,
+.modelInputsTabs table.icePnlTbOff,
+.modelInputsTabs table.icePnlTbOver {
+     height:50px;
+    width:40px;
+}
+
+.modelInputsTabs td.icePnlTb {
+    height: 50px;
+    width:40px;
+}
+
+
+.modelInputsTabs table.icePnlTbOn td,
+.modelInputsTabs table.icePnlTbOff td,
+.modelInputsTabs table.icePnlTbOver td {
+    height:auto;
+    width:50px;
+    white-space:normal;
+}
+
+.modelInputsTabs .actions table.innerLayout td.label {
+    text-align:right;
+}
+
+.modelInputsTabs .actions table.innerLayout td.field {
+    text-align:left;
+}
+
+table.modelInputsTab > tbody:first-child > tr:first-child table {
+    height:50px;
+}
