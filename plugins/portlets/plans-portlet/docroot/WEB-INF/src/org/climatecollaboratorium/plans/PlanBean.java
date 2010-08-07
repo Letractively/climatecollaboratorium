@@ -31,6 +31,7 @@ public class PlanBean {
     private HandlerRegistration scenarioSavedEventHandlerRegistration;
     private static ThemeDisplay td = Helper.getThemeDisplay();
     private int selectedTabIndex = 0;
+    private Long planId = -1L;
     private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
     static {
         tabNameIndexMap.put("description", 0);
@@ -45,14 +46,11 @@ public class PlanBean {
     
     private static Log _log = LogFactoryUtil.getLog(PlanBean.class);
     
+    public PlanBean() throws SystemException, PortalException {
+    }
     
-    public PlanBean(final PlanItem planItem, EventBus eventBus, Map<String, String> parameters) throws SystemException, PortalException {
-        this.planItem = planItem;
-        this.permissions = new PlansPermissionsBean(planItem);
-        planPositionsBean = new PlanPositionsBean(planItem, this);
-        plan = new PlanItemWrapper(planItem, this, permissions);
-        simulationBean = new SimulationBean(planItem, this, eventBus);
-        modelBean = new PlanModelBean(planItem, this);
+    public void init(Long planId, EventBus eventBus, Map<String, String> parameters) throws SystemException, PortalException {
+        this.planId = planId;
         this.eventBus = eventBus;
         if (parameters.containsKey("tab")) {
             try {
@@ -63,18 +61,31 @@ public class PlanBean {
                 _log.error("Can't parse tab number: " + parameters.get("tab"), e);
             }
         }
+        refresh();
     }
     
+    public void clear() {
+        planId = -1L;
+    }
+    
+    public Long getPlanId() {
+        return planId;
+    }
+    
+    
     public void refresh() throws SystemException, PortalException {
-        planItem = PlanItemLocalServiceUtil.getPlan(planItem.getPlanId());
-        planPositionsBean = new PlanPositionsBean(planItem, this);
-        plan = new PlanItemWrapper(planItem, this, permissions);
         if (simulationBean != null) {
             simulationBean.cleanup();
         }
-        simulationBean = new SimulationBean(planItem, this, eventBus);
-        membershipBean = new PlanMembershipBean(planItem, this, permissions);
-        modelBean = new PlanModelBean(planItem,this);
+        if (planId != null && planId > 0) {
+            planItem = PlanItemLocalServiceUtil.getPlan(planId);
+            plan = new PlanItemWrapper(planItem, this, permissions);
+            permissions = new PlansPermissionsBean(planItem);
+            planPositionsBean = new PlanPositionsBean(planItem, this);
+            simulationBean = new SimulationBean(planItem, this, eventBus);
+            membershipBean = new PlanMembershipBean(planItem, this, permissions);
+            modelBean = new PlanModelBean(planItem,this);
+        }
     }
 
     public PlanItemWrapper getPlan() {
@@ -160,5 +171,4 @@ public class PlanBean {
     public void planDeleted() {
         eventBus.fireEvent(new PlanDeletedEvent(planItem));   
     }
-
 }
