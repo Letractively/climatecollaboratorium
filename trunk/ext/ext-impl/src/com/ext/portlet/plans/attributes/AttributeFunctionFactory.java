@@ -301,7 +301,7 @@ public class AttributeFunctionFactory {
                     Scenario scenario = CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
                     ModelDisplay display = null;
                     try {
-                        ModelUIFactory.getInstance().getDisplay(scenario);
+                        display = ModelUIFactory.getInstance().getDisplay(scenario);
                     } catch (IllegalUIConfigurationException e) {
                         _log.error(e);
                         return null;
