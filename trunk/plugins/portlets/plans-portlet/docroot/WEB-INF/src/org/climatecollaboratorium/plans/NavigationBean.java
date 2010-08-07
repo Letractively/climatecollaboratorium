@@ -48,42 +48,11 @@ public class NavigationBean {
     public NavigationBean() throws SystemException, PortalException {
         PORTLET_ID = Helper.getPortletID();
         plansIndex = new PlansIndexBean(eventBus);
-        // get request parameters
-        ExternalContext ctx = FacesContext.getCurrentInstance().getExternalContext();//.getRequestPathInfo())
-
-        if (ctx.getRequestParameterMap().containsKey("planId")) {
-            try {
-                planId = Long.parseLong(ctx.getRequestParameterMap().get("planId").toString());
-                updateView();
-            } catch (NumberFormatException e) {
-                // ignore
-            }
-        }
-    }
-
-    private void updateView() {
-        try {
-            PlanItem plan = null;
-            if (planId != null && planId > 0) {
-                plan = PlanItemLocalServiceUtil.getPlan(planId);
-            }
-
-            if (plan != null) {
-                if (planBean != null) {
-                    planBean.cleanup();
-                }
-                planBean = new PlanBean(plan, eventBus, navigationParameters);
-                return;
-            }
-        }
-        catch (Throwable e) {
-            _log.error("Can't retrieve plan with id: " + planId, e);
-        }
-        planBean = null;
+        planBean = new PlanBean();
     }
 
     public String getPageType() {
-        if (planBean != null) {
+        if (planBean.getPlanId() != null && planBean.getPlanId().compareTo(0L) > 0) {
             return DETAILS_PAGE;
         }
         return INDEX_PAGE;
@@ -95,7 +64,6 @@ public class NavigationBean {
 
     public void setPlanId(Long planId) {
         this.planId = planId;
-        updateView();
     }
 
     public PlanBean getPlanBean() {
@@ -115,10 +83,6 @@ public class NavigationBean {
             createPlanBean = new CreatePlanBean(plansIndex);
         }
         return createPlanBean;
-    }
-
-    public void update(ActionEvent e) {
-        updateView();
     }
 
     public void setEventBus(EventBus eventBus) {
@@ -148,12 +112,20 @@ public class NavigationBean {
                     String planIdStr = event.getParameters().get("planId");
                     try {
                         planId = planIdStr == null ? null : Long.parseLong(planIdStr);
+                        planBean.init(planId, eventBus, event.getParameters());
                     }
                     catch (NumberFormatException e) {
+                        planBean.clear();
                         _log.error("can't parse planIdStr: " + planIdStr, e);
+                    } catch (SystemException e) {
+                        planBean.clear();
+                        _log.error("can't init planbean : " + planIdStr, e);
+                        e.printStackTrace();
+                    } catch (PortalException e) {
+                        planBean.clear();
+                        _log.error("can't init planbean : " + planIdStr, e);
                     }
-                    updateView();
-                }
+                } 
 
             }
 
