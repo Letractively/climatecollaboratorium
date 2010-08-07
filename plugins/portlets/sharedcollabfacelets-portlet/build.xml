@@ -18,8 +18,6 @@
 
 	
 	<target name="create-shared-lib" depends="compile">
-		<!-- cleanup -->
-		<delete dir="${workdir}" />
 			
 		<!-- prepare directory structure -->
 		<mkdir dir="${workdir}" />
