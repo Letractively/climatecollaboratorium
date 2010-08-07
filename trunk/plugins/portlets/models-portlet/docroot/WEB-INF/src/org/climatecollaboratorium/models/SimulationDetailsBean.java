@@ -298,5 +298,9 @@ public class SimulationDetailsBean {
     public Map<ModelInputDisplayItem, ModelInputDisplayItemWrapper> getWrappedInputs() {
         return wrappedInputs;
     }
+    
+    public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
+        setModelId(modelId);
+    }
 
 }

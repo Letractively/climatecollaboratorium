@@ -162,5 +162,11 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         }
         return -1;
     }
+    
+    public void setOrder(int order) throws SystemException {
+        if (groupItem != null) {
+            groupItem.setOrder(order);
+        }   
+    }
 
 }

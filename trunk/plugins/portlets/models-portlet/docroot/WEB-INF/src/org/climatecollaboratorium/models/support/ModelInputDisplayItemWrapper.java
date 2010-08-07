@@ -103,5 +103,9 @@ public class ModelInputDisplayItemWrapper {
     public int getOrder() {
         return wrappedItem.getOrder();
     }
+    
+    public void setOrder(int order) throws SystemException {
+        wrappedItem.setOrder(order);
+    }
 
 }
