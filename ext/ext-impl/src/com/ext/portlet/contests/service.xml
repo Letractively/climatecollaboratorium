@@ -14,7 +14,7 @@
         <column name="ContestPK" type="Long" primary="true" />
         <column name="ContestName" type="String" />
         <column name="ContestDescription" type="String" />
-        <column name="PlanTypeId" type="Date" />
+        <column name="PlanTypeId" type="Long" />
         <column name="created" type="Date" />
         <column name="updated" type="Date" />
         <column name="authorId" type="Long" />

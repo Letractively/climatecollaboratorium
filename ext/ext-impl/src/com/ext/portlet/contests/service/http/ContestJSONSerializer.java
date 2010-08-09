@@ -37,16 +37,7 @@ public class ContestJSONSerializer {
         jsonObj.put("ContestPK", model.getContestPK());
         jsonObj.put("ContestName", model.getContestName());
         jsonObj.put("ContestDescription", model.getContestDescription());
-
-        Date PlanTypeId = model.getPlanTypeId();
-
-        String PlanTypeIdJSON = StringPool.BLANK;
-
-        if (PlanTypeId != null) {
-            PlanTypeIdJSON = String.valueOf(PlanTypeId.getTime());
-        }
-
-        jsonObj.put("PlanTypeId", PlanTypeIdJSON);
+        jsonObj.put("PlanTypeId", model.getPlanTypeId());
 
         Date created = model.getCreated();
 

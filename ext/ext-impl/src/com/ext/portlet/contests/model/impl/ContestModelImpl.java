@@ -52,7 +52,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "ContestDescription", new Integer(Types.VARCHAR) },
             
 
-            { "PlanTypeId", new Integer(Types.TIMESTAMP) },
+            { "PlanTypeId", new Integer(Types.BIGINT) },
             
 
             { "created", new Integer(Types.TIMESTAMP) },
@@ -63,7 +63,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
             { "authorId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestDescription VARCHAR(75) null,PlanTypeId DATE null,created DATE null,updated DATE null,authorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -79,7 +79,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Long _ContestPK;
     private String _ContestName;
     private String _ContestDescription;
-    private Date _PlanTypeId;
+    private Long _PlanTypeId;
     private Date _created;
     private Date _updated;
     private Long _authorId;
@@ -147,11 +147,11 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _ContestDescription = ContestDescription;
     }
 
-    public Date getPlanTypeId() {
+    public Long getPlanTypeId() {
         return _PlanTypeId;
     }
 
-    public void setPlanTypeId(Date PlanTypeId) {
+    public void setPlanTypeId(Long PlanTypeId) {
         _PlanTypeId = PlanTypeId;
     }
 
