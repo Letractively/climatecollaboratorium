@@ -189,7 +189,12 @@ public class PlanItemWrapper {
     }
 
     public PlanItem getWrapped() {
+
         return wrapped;
+    }
+
+    public Long getContestPhaseId() throws SystemException, PortalException {
+        return wrapped.getContestPhase().getContestPhasePK();
     }
     
     public List<SelectItem> getAllDescriptionVersions() throws PortalException, SystemException {
@@ -233,6 +238,10 @@ public class PlanItemWrapper {
     
     public PlanType getPlanType() throws PortalException, SystemException {
         return wrapped.getPlanType();
+    }
+
+    public Long getSelectedModel() throws SystemException {
+        return wrapped.getPlanMeta().getModelId();
     }
     
     public Long getScenarioId() throws SystemException {

@@ -146,6 +146,34 @@ function hideModelSelectionDialog(submit) {
     }
 }
 
+
+var modelUploadPopup;
+
+function showModelUploadPopup() {
+    jQuery("#model-upload-popup").dialog("destroy");
+    if (!modelUploadPopup) {
+        jQuery("#model-upload-popup-content").appendTo(jQuery("#model-upload-popup"));
+        jQuery("#model-upload-popup").dialog({width: 500, modal: true, height: 250, draggable: false, resizable: false, dialogClass: 'selectModelPopup',title: "Upload model"});
+        modelUploadPopup = jQuery("#model-upload-popup");
+    } else {
+        jQuery("#model-upload-popup-content").appendTo(jQuery("#model-upload-popup"));
+        modelUploadPopup.dialog({width: 500, modal: true, height: 250, draggable: false, resizable: false, dialogClass: 'selectModelPopup',title: "Upload model"});
+    }
+}
+
+function hideModelUploadDialog(submit) {
+
+    jQuery("#model-upload-popup-content").appendTo(jQuery("#model-upload"));
+    modelUploadPopup.dialog("destroy");
+    if (submit) {
+        jQuery("input.model-file-itemTxt").val(jQuery("#model-upload-popup-content input.model.popup.file-item").val());
+        jQuery("input.model-upload-submit").click();
+    } else {
+        //jQuery("input.cancelModelsUploadSubmit").click();
+    }
+}
+
+
 var columns = [];
 function drawColumnsConfigurationScreen() {
     if (columns.length > 0) {
@@ -448,9 +476,9 @@ function createPlan() {
 
 
 function initializeColumnsInfo() {
-    jQuery(".popup-info-button").each(function() {
+    jQuery(".column-hover").each(function() {
         var button = jQuery(this);
-        var cont = button.parent().find(".popup-info-box");
+        var cont = button.parent().parent().find(".popup-info-box");
         button.hover(function() {
             cont.css({'position': 'absolute', 'left': '-1000'});
             cont.show();

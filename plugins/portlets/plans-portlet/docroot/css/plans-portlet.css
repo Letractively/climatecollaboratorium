@@ -10,6 +10,234 @@
 	padding: 5px;
 }
 
+/**
+    CONTESTINDEX
+
+    **/
+
+.categoryHeader {
+
+    margin-bottom:5px;
+    padding-left:5px;
+    padding-right:5px;
+    padding-top:5px;
+    padding-bottom:10px;
+    background-color:#F0F0F0;
+}
+
+
+
+
+
+.categoryDisplay {
+    margin-top:15px;
+    padding:10px;
+     background-color: #FAF7F7;
+    width:100%;
+}
+
+.categorySeriesContainer {
+    padding-right:20px;
+}
+
+.categoryButtonPanel {
+    float:right;
+}
+
+
+.categoryDetails {
+
+}
+
+.categoryDescription {
+    margin:10px;
+    padding:10px;
+    background-color:#FFFFFF;
+    font-size:1.2em;
+}
+
+.categoryDescription p  {
+    font-size:16px;
+   color:#000000 !important;
+}
+
+.categoryContents {
+    padding:10px;
+}
+.categoryContents table {
+    width:100%;
+    border:none;
+}
+
+.categoryContentsTable td {
+    border:none;
+   padding:5px;
+}
+
+
+
+.categoryContentsTableHeader {
+    background-image:none;
+    background:transparent;
+    padding-top:3px;
+    padding-bottom:3px;
+    border-left:none;
+    border-right:none;
+    border-top:none;
+    border-bottom:1px #CCCCCC solid;
+    color: #777777;
+    font-weight:bold;
+
+}
+
+.categoryContentsTableHeader span {
+    padding:0px;
+}
+
+.categoryContentsTableHeader td {
+    padding:0px;
+}
+
+.categoryContentsTable tr.Row1 {
+    background-color: #FFFFFF;
+}
+
+.categoryContentsTable tr.Row2 {
+    background-color: #FAF7F7;
+}
+
+
+.categoryContentsTable .modelName
+    {
+    width:125px;
+    }
+
+.categoryContentsTable .modelDescription {
+    width:600px;
+}
+
+.categoryHeader input {
+    width:100%;
+}
+
+.categoryDescription textarea {
+    width:100%
+}
+
+
+
+/*
+ *
+ * PLANS INDEX
+ *
+ */
+
+
+
+.plan-question {
+    margin:20px 10px;
+}
+
+.page-context-help-container {
+    display:inline;
+    left:807px;
+    line-height:0;
+    position:relative;
+    top:-30px;
+}
+
+
+.phaseInfoPanel{
+
+    padding: 20px 15px;
+    background-color: #F0F0F0;
+}
+
+.phaseInfoPanel table {
+    width:100%;
+}
+
+.phaseInfoPanel td.button {
+    width:0;
+}
+
+.phaseInfoPanel .dateInfo {
+    padding-top:5px;
+    font-size:1.2em;
+}
+
+.dateInfo .phaseDateLabel {
+   font-weight:bold;
+}
+
+.phaseInfo {
+    color: #555555;
+    font-size:1.6em;
+    font-style:italic;
+    font-weight:bold;
+}
+
+h2.phaseStatus {
+    display:inline;
+}
+
+input[type="submit"].prominantButton {
+    background: #708AB3;
+    color: #ffffff;
+    margin: 5px 0;
+    font-size: 1.8em;
+}
+input[type="submit"].prominantButton:hover {
+    background: #91B1E6;
+    color: #ffffff;
+}
+
+td.myTabStyle {
+
+    border-top:1px solid #F0F0F0;
+    border-right:1px solid #F0F0F0;
+    border-left:1px solid #F0F0F0;
+}
+
+.myTabStyleOn.icePnlTbOn td {
+    background-image:none;
+    font-size:1.2em;
+    background-color: #F0F0F0;
+}
+
+.myTabStyleOver.icePnlTbOver td {
+    background-color: #fbcb9c;
+    background-image:none;
+    font-size:1.2em;
+}
+
+.myTabStyleOff.icePnlTbOff td {
+    background-color:#C0C0C0;
+    color: #606060;
+    background-image:none;
+    font-size:1.2em;
+}
+
+td.LftBtm {
+    padding-bottom: 6px;
+}
+
+
+
+/**
+End index
+**/
+
+td.contestTabSetCnt {
+    border:none;
+    padding:0px;
+}
+
+.contestTabSetSpcr {
+    border-color:#F0F0F0;
+}
+
+
 
 /* 
  *
@@ -81,7 +309,7 @@
 
 /*
  * 
- * TABS
+ * DETAIL TABS
  *
  */
  
@@ -163,23 +391,6 @@
 }
 
 
-/*
- *
- * PLANS INDEX
- *
- */
-.plan-question {
-    margin:20px 10px;
-}
-
-.page-context-help-container {
-    display:inline;
-    left:807px;
-    line-height:0;
-    position:relative;
-    top:-30px;
-}
-
 .tab {
     height:60px;
     margin-top:15px;
@@ -187,57 +398,12 @@
 }
 
 
-.tabs .finalized {
-    background:url("/collaboratorium-theme/images/plan_finalized.gif") no-repeat scroll 0 0 transparent;
-    display:inline;
-    float:left;
-    height:60px;
-    margin-right:2px;
-    width:301px;
-}
-
-.tabs .finalizedHover {
-    background:url("/collaboratorium-theme/images/plan_finalized_hover.gif") no-repeat scroll 0 0 transparent;
-    display:inline;
-    float:left;
-    height:60px;
-    margin-right:2px;
-    width:301px;
-}
-
-.tabs .development {
-    background:url("/collaboratorium-theme/images/plan_development.gif") no-repeat scroll 0 0 transparent;
-    display:inline;
-    float:left;
-    height:60px;
-    margin-right:2px;
-    width:259px;
-}
-
-.tabs .developmentHover {
-    background:url("/collaboratorium-theme/images/plan_development_hover.gif") no-repeat scroll 0 0 transparent;
-    display:inline;
-    float:left;
-    height:60px;
-    margin-right:2px;
-    width:259px;
-}
-.createNewPlan {
-    background:url("/collaboratorium-theme/images/createNewPlan_btn.png") no-repeat scroll 0 0 transparent;
-    display:inline;
-    float:left;
-    height:45px;
-    margin-left:4px;
-    margin-right:16px;
-    width:179px;
-}
 
 .plans .tabContent_bottom,
 .tabContent_bottom {
     background: none repeat scroll 0 0 #EDEDED;
     margin-bottom:20px;
     padding-bottom:4px;
-    padding-top:16px;
     width:100%;
 }
 
@@ -245,19 +411,34 @@
     border:0 none;
     border-collapse:collapse;
     width:100%;
-    margin: 7px 2px;
 }
 
+
+
 .plansTable th {
-    background-color:#5588AA;
-    background-image: none;
-    border-bottom:1px solid #3E5B7B;
-    border-left:1px solid #3E5B7B;
-    border-top:1px solid #3E5B7B;
-    color:#FFFFFF;
+    background-color:#FFFFFF;
+    background-image:none;
+   
+    padding-top:15px;
+    padding-bottom:3px;
+    border-left:none;
+    border-right:none;
+    border-top:none;
+    border-bottom:1px #CCCCCC solid;
+    color: #000000;
+    font-size:1.1em;
     font-weight:normal;
-    height:44px;
-    vertical-align: top;
+    vertical-align:bottom;
+}
+
+.plansTable th a {
+   color:#000000;
+
+}
+
+.plansTable th a:hover {
+   color:#000000;
+
 }
 
 .plansTable .iceDatTblRow td {
@@ -268,7 +449,6 @@
 
 .plansTable td .NAME {
 	font-weight:bold;
-	color:#35A4AF;
 }
 
 .plansTable .even {
@@ -284,6 +464,9 @@
 }
 
 .linkbox {
+    position: relative;
+    font-size: 1.2em;
+    top:28px;
     margin-left:22px;
     margin-top:2px;
     width:auto;
@@ -388,12 +571,14 @@
 }
 
 th.voteForPlan {
-    background-color:#B0E0FA;
+ 
     color:#3E5B7B;
     width: auto;
     height: 100%;
-    border-right: 1px solid #3E5B7B;
+
 }
+
+
 
 .plansTableHdr .voteForPlan span {
 	padding-top:  16px;

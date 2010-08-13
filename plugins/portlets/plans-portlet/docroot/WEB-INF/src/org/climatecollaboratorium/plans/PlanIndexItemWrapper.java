@@ -86,6 +86,10 @@ public class PlanIndexItemWrapper {
         return wrapped.getPlanId();
     }
 
+    public Long getContestPhaseId() throws SystemException, PortalException {
+        return wrapped.getContestPhase().getContestPhasePK();
+    }
+
     public boolean isVotedOn() throws PortalException, SystemException {
         boolean voted = false;
         if (Helper.isUserLoggedIn()) {

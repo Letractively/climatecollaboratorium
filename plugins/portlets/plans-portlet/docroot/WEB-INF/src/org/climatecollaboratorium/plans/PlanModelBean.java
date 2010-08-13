@@ -110,6 +110,10 @@ public class PlanModelBean {
 
     }
 
+    public boolean isSelectable() {
+        return availableItems!=null && availableItems.size() > 1;  
+    }
+
 
 
 }

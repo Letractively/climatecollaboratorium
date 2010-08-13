@@ -1,184 +1,226 @@
 <?xml version="1.0"?>
-<f:view  xmlns="http://www.w3.org/1999/xhtml"
+<f:view xmlns="http://www.w3.org/1999/xhtml"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
-        xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+        xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:collab="http://climatecollaboratorium.org/components">
 
-    <div class="plan-question">
-        <h2>
-            <a href="/web/guest/resources/-/wiki/Main/Background+on+Copenhagen">
-                What plan should be adopted at the UN climate talks?
-            </a>
-        </h2>
-    </div>
-    <div class="page-context-help-container">
-        <a href="/web/guest/resources/-/wiki/Main/Plans">What are plans?</a>
-    </div>
-    
+<div class="plansIndex">
+<ice:panelGroup styleClass="categoryDetails">
     <ice:form>
-        <ui:include src="./configureColumns.xhtml" >
-            <ui:param value="#{plansIndexBean.columnsConfiguration}" name="columnsConfiguration" />
-        </ui:include>
-        <ui:include src="./filterPlans.xhtml" >
-             <ui:param value="#{plansIndexBean.filterPlansBean}" name="filterPlans" /> 
-        </ui:include>
-        <ui:include src="./createPlan.xhtml">
-             <ui:param value="#{navigation.createPlanBean}" name="createPlanBean" />
-        </ui:include>
-     </ice:form>
-     <ice:form>
-        
-        
-        <f:subview rendered="#{plansIndexBean.findUserVote}">
-            <ui:include src="./findUserVote.xhtml" />
-        </f:subview>
-         <div class="tab">
-            <div class="tabs floatRight">
-                <ice:commandLink styleClass="#{plansIndexBean.planType.published ? 'finalizedHover' : 'finalized'}" actionListener="#{plansIndexBean.usePublishedPlans}"><span class="hidden">Finalized Plans (For Voting)</span></ice:commandLink>
-                <ice:commandLink styleClass="#{plansIndexBean.planType.published ? 'development' : 'developmentHover'}" actionListener="#{plansIndexBean.useUnPublishedPlans}"><span class="hidden">Plans Under Development</span></ice:commandLink>
+        <div class="categoryHeader">
+            <h2><ice:outputText styleClass="categoryName" value="#{plansIndexBean.contestPhase.contest.name}"/></h2>
+        </div>
+        <ice:panelGroup styleClass="categoryDescription">
+            <ice:outputText value="#{plansIndexBean.contestPhase.contest.description}"/>
+        </ice:panelGroup>
+    </ice:form>
+</ice:panelGroup>
+<!--
+<collab:helpMessage messageId="planHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+    Plans describe <i>actions</i> we might take to address climate change, and the <i>impacts</i> those actions
+    will have.  When creating a plan, you will need to describe your vision, run a climate model to support your
+    proposal, and select positions that your plan embodies.  More information on plans can be found
+    <a href="http://climatecolab.org/web/guest/resources/-/wiki/Main/Plans">here</a>/
+</collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planHelp">+show help</collab:helpMessageTrigger>
+-->
+<ice:form>
+    <ui:include src="./configureColumns.xhtml">
+        <ui:param value="#{plansIndexBean.columnsConfiguration}" name="columnsConfiguration"/>
+    </ui:include>
+    <ui:include src="./filterPlans.xhtml">
+        <ui:param value="#{plansIndexBean.filterPlansBean}" name="filterPlans"/>
+    </ui:include>
+    <ui:include src="./createPlan.xhtml">
+        <ui:param value="#{navigation.createPlanBean}" name="createPlanBean"/>
+    </ui:include>
+</ice:form>
+<ice:form>
+    <div class="floatRight linkbox">
+        <a class="configuration black" href="javascript:;"
+           onclick="showConfigureColumnsDialog()">Select Columns</a>
+        <span>|</span>
+        <a class="preferences black" href="javascript:;"
+           onclick="showFilterPlansDialog()">Filter Plans</a>
+        <span>|</span>
+                        <span class="enable-filters">
+                            <ice:selectBooleanCheckbox value="#{plansIndexBean.filterPlansBean.enabled}"
+                                                       styleClass="filtersEnabledCheckbox"
+                                                       onclick="toogleFiltersEnabled()">
+                                Enable filter
+                            </ice:selectBooleanCheckbox>
+                        </span>
+    </div>
+
+    <ice:panelTabSet id="contestTabs"
+                     var="contestPhase"
+                     styleClass="contestTabSet"
+                     
+                     value="#{plansIndexBean.contestPhases}"
+                     tabPlacement="top"
+                     selectedIndex="#{plansIndexBean.contestPhaseIndex}">
+        <ice:panelTab label="#{contestPhase.name}" styleClass="myTabStyle">
+
+
+            <div class="phaseInfoPanel">
+                <table>
+                    <tr>
+                        <td>
+                            <h2 class="phaseStatus"><ice:outputText
+                                    value="#{plansIndexBean.contestPhase.status}"></ice:outputText></h2>
+                            <span class="phaseInfo">(#{plansIndexBean.plansCount} plans, #{plansIndexBean.votesCount} total votes)</span>
+
+                            <div class="dateInfo"><span class="phaseDateLabel">Start:</span><ice:outputText
+                                    value="#{plansIndexBean.contestPhase.startDate}"/>&#160;<span
+                                    class="phaseDateLabel">End:</span><ice:outputText
+                                    value="#{plansIndexBean.contestPhase.endDate}"/>
+                            </div>
+                        </td>
+                        <td class="button">
+                            <ice:commandButton onclick="if(!deferUntilLogin()) return false;"
+                                               styleClass="prominantButton"
+                                               actionListener="#{navigation.createPlanBean.createPlan}"
+                                               rendered="#{plansIndexBean.contestPhase.canEdit}"
+                                               value="Create new plan"/>
+                        </td>
+                    </tr>
+                </table>
+
+
             </div>
-            <div class="planactions floatLeft">
-                <ice:commandLink styleClass="createNewPlan" onclick="if(!deferUntilLogin()) return false;" actionListener="#{navigation.createPlanBean.createPlan}"><span class="hidden">Create a New Plan</span></ice:commandLink>
-                
-                <f:subview rendered="#{plansIndexBean.planType.published and plansIndexBean.hasUserVoted}">
-                    <ice:commandLink styleClass="findMyVoteBtn" actionListener="#{plansIndexBean.findUserVote}"><span class="hidden">Find my Vote</span></ice:commandLink>
-                </f:subview>
-            </div>
-         </div>
-         
-         <div class="clear"></div>
-         <div class="tabContent_bottom">
-            <div class="topBtn">
-                <h3 class="floatRight">
-                    <f:subview rendered="#{plansIndexBean.planType.published}">
-                        #{plansIndexBean.plansCount} finalized plans, #{plansIndexBean.votesCount} total votes
-                    </f:subview>
-                    <f:subview rendered="#{not plansIndexBean.planType.published}">
-                        #{plansIndexBean.plansCount} plans under development
-                    </f:subview>
-                    
-                    <ice:outputConnectionStatus/>
-                </h3>
-                <div class="floatLeft linkbox">
-                    <a class="configuration black" href="javascript:;" onclick="showConfigureColumnsDialog()">Select Columns</a>
-                    <span>|</span>
-                    <a class="preferences black" href="javascript:;" onclick="showFilterPlansDialog()">Filter Plans</a>
-                    <span>|</span>
-                    <span class="enable-filters">
-                        <ice:selectBooleanCheckbox value="#{plansIndexBean.filterPlansBean.enabled}" styleClass="filtersEnabledCheckbox" onclick="toogleFiltersEnabled()">
-                            Enable filter
-                        </ice:selectBooleanCheckbox>
-                    </span>
-                </div>
-            </div>
-            <div class="clear"></div>
-                <ice:dataTable value="#{plansIndexBean.plans}" styleClass="plansTable" rowClasses="odd,even" var="singlePlan" sortColumn="#{plansIndexBean.sortColumn}"
-                    sortAscending="#{plansIndexBean.sortAscending}" id="plansIndex" rows="#{plansIndexBean.pageSize}" headerClass="#{plansIndexBean.columns}">
+            <div class="tabContent_bottom">
+
+                <div class="clear"></div>
+
+                <ice:dataTable value="#{plansIndexBean.plans}" styleClass="plansTable" rowClasses="odd,even"
+                               var="singlePlan" sortColumn="#{plansIndexBean.sortColumn}"
+                               sortAscending="#{plansIndexBean.sortAscending}" id="plansIndex"
+                               rows="#{plansIndexBean.pageSize}" headerClass="#{plansIndexBean.columns}">
                     <ice:columns value="#{plansIndexBean.columns}" var="column">
-                            <f:facet name="header">
-                                <div>
-                                <div class="popup-info-box hidden" id="info-popup-#{column}">#{column.description}</div>
-                                <div class="popup-info-button" id="info-button-#{column}"><span class="hidden">Info</span></div>
+                        <f:facet name="header">
+                            <div>
+                                <div class="popup-info-box hidden"
+                                     id="info-popup-#{column}">#{column.description}</div>
+                                
                                 <div class="clear"></div>
-                                <ice:commandSortHeader columnName="#{column}">
-                                         <ice:outputText value="#{column.name}" escape="false"/>
+                                <ice:commandSortHeader styleClass="column-hover" columnName="#{column}">
+                                    <ice:outputText  id="column-#{column}"  value="#{column.name}" escape="false"/>
                                 </ice:commandSortHeader>
-                                </div>
-                            </f:facet>
-                            <ice:outputLink value="#plans=planId:#{singlePlan.planId}" rendered="#{column == 'NAME'}" onclick="Collab.nav.navigate('plans', {planId: '#{singlePlan.planId}'})" >
-                                <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
-                            </ice:outputLink>
-                            <f:subview rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}">
-                                N/A
-                            </f:subview>
-                            <f:subview rendered="#{column == 'POSITIONS' and singlePlan.hasPositions}">
-                                <a href="javascript:;" class="showPositions" onclick="showPositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}');return;"/>
-                                <div class="hidden" id="plan_positions_#{singlePlan.planId}">
-                                    <div class="positionsDialog">
-                                        <div class="positionsDialog_top">
-                                            <div class="title"><h2>Positions for #{singlePlan.planName}</h2></div>
-                                        </div>
-                                        <div class="positionsDialog_bg">
-                                            <div class="scrollBox">
+                            </div>
+                        </f:facet>
+                        <ice:outputLink
+                                value="#plans=phaseId:#{singlePlan.contestPhaseId},planId:#{singlePlan.planId};"
+                                rendered="#{column == 'NAME'}"
+                                onclick="Collab.nav.navigate('plans', {planId: '#{singlePlan.planId}',phaseId: '#{singlePlan.contestPhaseId}'})">
+                            <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
+                        </ice:outputLink>
+                        <f:subview rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}">
+                            N/A
+                        </f:subview>
+                        <f:subview rendered="#{column == 'POSITIONS' and singlePlan.hasPositions}">
+                            <a href="javascript:;" class="showPositions"
+                               onclick="showPositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}');return;"/>
+
+                            <div class="hidden" id="plan_positions_#{singlePlan.planId}">
+                                <div class="positionsDialog">
+                                    <div class="positionsDialog_top">
+                                        <div class="title"><h2>Positions for #{singlePlan.planName}</h2></div>
+                                    </div>
+                                    <div class="positionsDialog_bg">
+                                        <div class="scrollBox">
                                             <ice:panelSeries value="#{singlePlan.positions}" var="question">
                                                 <div class="assumption">
                                                     <h3 class="question">#{question.debateAnchor}</h3>
                                                     <h4 class="position">#{question.selectedPosition.itemAnchor}</h4>
                                                 </div>
                                             </ice:panelSeries>
-                                            </div>
-                                        </div>
-                                        <div class="positionsDialog_bottom">
-                                            <a href="javascript:;" onclick="hidePositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}')">Close</a>
                                         </div>
                                     </div>
+                                    <div class="positionsDialog_bottom">
+                                        <a href="javascript:;"
+                                           onclick="hidePositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}')">Close</a>
+                                    </div>
                                 </div>
-                            </f:subview>
-                            
-                            <ice:outputText value="#{singlePlan.columnValues[column]}" rendered="#{column != 'NAME' and column != 'POSITIONS'}" escape="false"/>
+                            </div>
+                        </f:subview>
+
+                        <ice:outputText value="#{singlePlan.columnValues[column]}"
+                                        rendered="#{column != 'NAME' and column != 'POSITIONS'}" escape="false"/>
                     </ice:columns>
-                    <ice:column rendered="#{plansIndexBean.planType.published}">
-                        <f:facet name="header"><div class="voteForPlan"><span>Vote for Plan</span></div></f:facet>
-                        <ice:commandLink actionListener="#{singlePlan.vote}" onclick="if(! deferUntilLogin()) return false; " styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} "></ice:commandLink>
+                    <ice:column rendered="#{plansIndexBean.contestPhase.canVote}">
+                        <f:facet name="header">
+                            <div class="voteForPlan"><span>Vote for Plan</span></div>
+                        </f:facet>
+                        <ice:commandLink actionListener="#{singlePlan.vote}"
+                                         onclick="if(! deferUntilLogin()) return false; "
+                                         styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} "></ice:commandLink>
                     </ice:column>
                 </ice:dataTable>
                 <ice:panelGroup styleClass="hidden">
                     #{plansIndexBean.plans}
-                <script language="javascript">
+                    <script language="javascript">
                         initializeColumnsInfo();
                         makeNANotesVisible();
                     </script>
                 </ice:panelGroup>
-                
-        <div class="pageBottom">
-        
-            <div class="pageNum">
-                
-                
-          <ice:dataPaginator id="dataScroll_2" for="plansIndex" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="paginatorInfo">
-                <ice:outputFormat value="Displaying &lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt; Plans" styleClass="paginatorInfo" escape="false">
-                    <f:param value="#{firstRowIndex}" />
-                    <f:param value="#{lastRowIndex}" />
-                    <f:param value="#{rowsCount}" />
-                </ice:outputFormat>
-            </ice:dataPaginator> 
-            
-            <ice:dataPaginator id="dataScroll_1" rendered="true" for="plansIndex" paginator="true" paginatorMaxPages="1" styleClass="paginator" > 
-                <f:facet name="first" rendered="true">
-                    <ice:panelGroup>
-                        <ice:outputText value="First Page" styleClass="first" />
-                    </ice:panelGroup>
-                </f:facet>
-                <f:facet name="last" rendered="true">
-                    <ice:panelGroup>
-                        <ice:outputText value="Last Page" styleClass="last" />
-                    </ice:panelGroup>
-                </f:facet>
-                <f:facet name="previous" rendered="true">
-                    <ice:panelGroup> 
-                        <ice:outputText value="Previous" styleClass="prev"/>
-                    </ice:panelGroup>
-                </f:facet>
-                <f:facet name="next">
-                    <ice:panelGroup>
-                        <ice:outputText value="Next" styleClass="next"/>
-                    </ice:panelGroup>
-                </f:facet>
-            </ice:dataPaginator>
-                <div class="clear"></div>
-        </div>
-                <div class="clear"></div>
-        </div> 
-        
-        
-                <div class="clear"></div>       
+
+                <div class="pageBottom">
+
+                    <div class="pageNum">
+
+
+                        <ice:dataPaginator id="dataScroll_2" for="plansIndex" rowsCountVar="rowsCount"
+                                           displayedRowsCountVar="displayedRowsCountVar"
+                                           firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex"
+                                           pageCountVar="pageCount" pageIndexVar="pageIndex"
+                                           styleClass="paginatorInfo">
+                            <ice:outputFormat
+                                    value="Displaying &lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt; Plans"
+                                    styleClass="paginatorInfo" escape="false">
+                                <f:param value="#{firstRowIndex}"/>
+                                <f:param value="#{lastRowIndex}"/>
+                                <f:param value="#{rowsCount}"/>
+                            </ice:outputFormat>
+                        </ice:dataPaginator>
+
+                        <ice:dataPaginator id="dataScroll_1" rendered="true" for="plansIndex" paginator="true"
+                                           paginatorMaxPages="1" styleClass="paginator">
+                            <f:facet name="first">
+                                <ice:panelGroup>
+                                    <ice:outputText value="First Page" styleClass="first"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="last">
+                                <ice:panelGroup>
+                                    <ice:outputText value="Last Page" styleClass="last"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="previous">
+                                <ice:panelGroup>
+                                    <ice:outputText value="Previous" styleClass="prev"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="next">
+                                <ice:panelGroup>
+                                    <ice:outputText value="Next" styleClass="next"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                        </ice:dataPaginator>
+
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
                 </div>
-        
-        
-        
-        
-    </ice:form>
 
 
+                <div class="clear"></div>
+            </div>
+        </ice:panelTab>
+
+    </ice:panelTabSet>
+</ice:form>
+</div>
 
 </f:view>

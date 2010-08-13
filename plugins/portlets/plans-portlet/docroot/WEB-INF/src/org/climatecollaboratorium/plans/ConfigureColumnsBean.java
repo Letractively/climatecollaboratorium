@@ -23,13 +23,13 @@ public class ConfigureColumnsBean {
     public ConfigureColumnsBean(PlansIndexBean plansIndexBean) throws SystemException, PortalException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         this.plansIndexBean = plansIndexBean;
-        PlanType planType = plansIndexBean.getPlanType();
+        PlanType planType = plansIndexBean.getContestPhase().getPlanType();
 
         for (Columns col: Columns.getPlanTypeColumns(planType)) {
             availableColumns.add(new ColumnsBean(col, plansIndexBean));
         }
 
-        plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndexBean.getPlanType());
+        plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndexBean.getContestPhase().getPlanType());
     }
 
     public List<ColumnsBean> getColumns() {

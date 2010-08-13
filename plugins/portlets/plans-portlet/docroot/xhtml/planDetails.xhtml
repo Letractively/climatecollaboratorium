@@ -8,7 +8,7 @@
     
     <ice:panelGroup styleClass="portlet">
         <div class="container">
-            <h4><a href="/web/guest/plans#plans=;" onclick="Collab.nav.navigate('plans', {}); return;" >&amp;lt;&amp;lt; Back to plans index</a></h4>
+            <h4><a href="/web/guest/plans#plans=phaseId:#{planBean.plan.contestPhaseId}" onclick="Collab.nav.navigate('plans', {phaseId: '#{planBean.plan.contestPhaseId}'}); return;" >&amp;lt;&amp;lt; Back to plans index</a></h4>
             <div class="container_top">
                 <div class="topActions">
                     <ice:form>

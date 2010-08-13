@@ -89,7 +89,7 @@ public class FilterPlansBean {
     public FilterPlansBean(PlansIndexBean plansIndexBean) throws PortalException, SystemException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         this.plansIndexBean = plansIndexBean;
-        plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndexBean.getPlanType());
+        plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndexBean.getContestPhase().getPlanType());
 
         name = (String) getFilterValue(Attribute.NAME,false,true,false);
 
@@ -263,7 +263,7 @@ public class FilterPlansBean {
 
         // date
         PlanAttributeFilter dateFilter = null;
-        if (plansIndexBean.getPlanType().getPublished()) {
+        if (plansIndexBean.getContestPhase().getPlanType().getPublished()) {
             dateFilter = getFilter(Attribute.PUBLISH_DATE);
         }
         else {
