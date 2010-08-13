@@ -22,8 +22,9 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
         return ContestLocalServiceUtil.getContest(this.getContestPK());
     }
 
-    public List<PlanItem> getPlans() {
-       return PlanItemLocalServiceUtil.getPlansInContestPhase(this.getContestPhasePK());
+    public List<PlanItem> getPlans() throws SystemException, PortalException {
+        return PlanItemLocalServiceUtil.getPlans(Collections.emptyMap(),Collections.emptyMap(),null,this,0,Integer.MAX_VALUE,"","",false);
+        //return PlanItemLocalServiceUtil.getPlansInContestPhase(this);
     }
 
     public ContestStatus getContestStatus() {

@@ -29,7 +29,7 @@ public class ContestSoap implements Serializable {
     private Long _ContestPK;
     private String _ContestName;
     private String _ContestDescription;
-    private Date _PlanTypeId;
+    private Long _PlanTypeId;
     private Date _created;
     private Date _updated;
     private Long _authorId;
@@ -119,11 +119,11 @@ public class ContestSoap implements Serializable {
         _ContestDescription = ContestDescription;
     }
 
-    public Date getPlanTypeId() {
+    public Long getPlanTypeId() {
         return _PlanTypeId;
     }
 
-    public void setPlanTypeId(Date PlanTypeId) {
+    public void setPlanTypeId(Long PlanTypeId) {
         _PlanTypeId = PlanTypeId;
     }
 

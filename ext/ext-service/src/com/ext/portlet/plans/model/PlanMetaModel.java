@@ -96,7 +96,7 @@ public interface PlanMetaModel extends BaseModel<PlanMeta> {
 
     public Long getContestPhase();
 
-    public void setContestPhase(Long ContestPhase);
+    public void setContestPhase(Long contestPhase);
 
     public PlanMeta toEscapedModel();
 }

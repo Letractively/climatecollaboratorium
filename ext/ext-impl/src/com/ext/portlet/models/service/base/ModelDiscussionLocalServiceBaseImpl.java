@@ -1,6 +1,8 @@
 package com.ext.portlet.models.service.base;
 
 import com.ext.portlet.models.model.ModelDiscussion;
+import com.ext.portlet.models.service.ModelCategoryLocalService;
+import com.ext.portlet.models.service.ModelCategoryService;
 import com.ext.portlet.models.service.ModelDiscussionLocalService;
 import com.ext.portlet.models.service.ModelDiscussionService;
 import com.ext.portlet.models.service.ModelGlobalPreferenceLocalService;
@@ -15,6 +17,7 @@ import com.ext.portlet.models.service.ModelOutputItemLocalService;
 import com.ext.portlet.models.service.ModelOutputItemService;
 import com.ext.portlet.models.service.ModelPositionLocalService;
 import com.ext.portlet.models.service.ModelPositionService;
+import com.ext.portlet.models.service.persistence.ModelCategoryPersistence;
 import com.ext.portlet.models.service.persistence.ModelDiscussionPersistence;
 import com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence;
 import com.ext.portlet.models.service.persistence.ModelInputGroupPersistence;
@@ -52,6 +55,12 @@ public abstract class ModelDiscussionLocalServiceBaseImpl
     protected ModelGlobalPreferenceService modelGlobalPreferenceService;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl")
     protected ModelGlobalPreferencePersistence modelGlobalPreferencePersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.ModelCategoryLocalService.impl")
+    protected ModelCategoryLocalService modelCategoryLocalService;
+    @BeanReference(name = "com.ext.portlet.models.service.ModelCategoryService.impl")
+    protected ModelCategoryService modelCategoryService;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelCategoryPersistence.impl")
+    protected ModelCategoryPersistence modelCategoryPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.ModelInputGroupLocalService.impl")
     protected ModelInputGroupLocalService modelInputGroupLocalService;
     @BeanReference(name = "com.ext.portlet.models.service.ModelInputGroupService.impl")
@@ -217,6 +226,33 @@ public abstract class ModelDiscussionLocalServiceBaseImpl
     public void setModelGlobalPreferencePersistence(
         ModelGlobalPreferencePersistence modelGlobalPreferencePersistence) {
         this.modelGlobalPreferencePersistence = modelGlobalPreferencePersistence;
+    }
+
+    public ModelCategoryLocalService getModelCategoryLocalService() {
+        return modelCategoryLocalService;
+    }
+
+    public void setModelCategoryLocalService(
+        ModelCategoryLocalService modelCategoryLocalService) {
+        this.modelCategoryLocalService = modelCategoryLocalService;
+    }
+
+    public ModelCategoryService getModelCategoryService() {
+        return modelCategoryService;
+    }
+
+    public void setModelCategoryService(
+        ModelCategoryService modelCategoryService) {
+        this.modelCategoryService = modelCategoryService;
+    }
+
+    public ModelCategoryPersistence getModelCategoryPersistence() {
+        return modelCategoryPersistence;
+    }
+
+    public void setModelCategoryPersistence(
+        ModelCategoryPersistence modelCategoryPersistence) {
+        this.modelCategoryPersistence = modelCategoryPersistence;
     }
 
     public ModelInputGroupLocalService getModelInputGroupLocalService() {

@@ -873,20 +873,20 @@ td.editDebateItemContent {
    color:#000000 !important; 
 }
 
-.debateList {
+.categoryContents {
     padding:10px;
 }
-.debateList table {
+.categoryContents table {
     width:100%;
     border:none;
 }
 
-.debateTable td {
+.categoryContentsTable td {
     border:none;
    padding:5px;
 }
 
-.debateTableHdr {
+.categoryContentsTableHeader {
     background-image:none;
     background:transparent;
     padding-top:3px;
@@ -900,32 +900,32 @@ td.editDebateItemContent {
 
 }
 
-.debateTableHdr span {
+.categoryContentsTableHeader span {
     padding:0px;
 }
 
-.debateTableHdr td {
+.categoryContentsTableHeader td {
     padding:0px;
 }
 
-.debateTable tr.Row1 {
+.categoryContentsTable tr.Row1 {
     background-color: #FFFFFF;
 }
 
-.debateTable tr.Row2 {
+.categoryContentsTable tr.Row2 {
     background-color: #FAF7F7;
 }
 
-.debateTable .debateNumCommentsCol, .debateTable .debateRecentCommentCol
+.categoryContentsTable .debateNumCommentsCol, .categoryContentsTable .debateRecentCommentCol
     {
     text-align:center;
     }
 
-.debateTable .debateQuestionCol {
+.categoryContentsTable .debateQuestionCol {
     width:400px;
 }
 
-.debateTable .debatePositionCol {
+.categoryContentsTable .debatePositionCol {
     width:200px;
 }
 

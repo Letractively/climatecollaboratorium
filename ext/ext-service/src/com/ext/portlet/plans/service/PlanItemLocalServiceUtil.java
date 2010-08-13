@@ -112,6 +112,15 @@ public class PlanItemLocalServiceUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanItem createPlan(
+        com.ext.portlet.plans.model.PlanItem basePlan,
+        com.ext.portlet.contests.model.ContestPhase contestPhase,
+        java.lang.Long authorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().createPlan(basePlan, contestPhase, authorId);
+    }
+
+    public static com.ext.portlet.plans.model.PlanItem createPlan(
         com.ext.portlet.plans.model.Plan basePlan)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
@@ -124,7 +133,9 @@ public class PlanItemLocalServiceUtil {
     }
 
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlansInContestPhase(
-        long contestPhase) {
+        com.ext.portlet.contests.model.ContestPhase contestPhase)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
         return getService().getPlansInContestPhase(contestPhase);
     }
 
@@ -137,25 +148,27 @@ public class PlanItemLocalServiceUtil {
 
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans(
         java.util.Map sessionMap, java.util.Map requestMap,
-        com.ext.portlet.plans.model.PlanType planType, int start, int end,
+        com.ext.portlet.plans.model.PlanType planType,
+        com.ext.portlet.contests.model.ContestPhase phase, int start, int end,
         java.lang.String sortColumn, java.lang.String sortDirection)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
         return getService()
-                   .getPlans(sessionMap, requestMap, planType, start, end,
-            sortColumn, sortDirection);
+                   .getPlans(sessionMap, requestMap, planType, phase, start,
+            end, sortColumn, sortDirection);
     }
 
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans(
         java.util.Map sessionMap, java.util.Map requestMap,
-        com.ext.portlet.plans.model.PlanType planType, int start, int end,
+        com.ext.portlet.plans.model.PlanType planType,
+        com.ext.portlet.contests.model.ContestPhase phase, int start, int end,
         java.lang.String sortColumn, java.lang.String sortDirection,
         boolean applyFilters)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
         return getService()
-                   .getPlans(sessionMap, requestMap, planType, start, end,
-            sortColumn, sortDirection, applyFilters);
+                   .getPlans(sessionMap, requestMap, planType, phase, start,
+            end, sortColumn, sortDirection, applyFilters);
     }
 
     public static boolean isNameAvailable(java.lang.String planName)

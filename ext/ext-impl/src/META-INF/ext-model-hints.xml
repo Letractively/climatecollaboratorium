@@ -156,7 +156,7 @@
 		<field name="created" type="Date" />
 		<field name="updateAuthorId" type="Long" />
 		<field name="modelId" type="Long" />
-		<field name="ContestPhase" type="Long" />
+		<field name="contestPhase" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanModelRun">
 		<field name="id" type="Long" />
@@ -211,6 +211,13 @@
 		<field name="visible" type="Boolean" />
 		<field name="weight" type="Integer" />
 		<field name="expertEvaluationPageId" type="Long" />
+		<field name="modelCategoryId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.models.model.ModelCategory">
+		<field name="modelCategoryPK" type="Long" />
+		<field name="modelCategoryName" type="String" />
+		<field name="modelCategoryDescription" type="String" />
+		<field name="modelCategoryDisplayWeight" type="Integer" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelInputGroup">
 		<field name="modelInputGroupPK" type="Long" />
@@ -497,7 +504,7 @@
 		<field name="ContestPK" type="Long" />
 		<field name="ContestName" type="String" />
 		<field name="ContestDescription" type="String" />
-		<field name="PlanTypeId" type="Date" />
+		<field name="PlanTypeId" type="Long" />
 		<field name="created" type="Date" />
 		<field name="updated" type="Date" />
 		<field name="authorId" type="Long" />
@@ -505,11 +512,11 @@
 	<model name="com.ext.portlet.contests.model.ContestPhase">
 		<field name="ContestPhasePK" type="Long" />
 		<field name="ContestPK" type="Long" />
-		<field name="ContestPhaseName" type="Long" />
+		<field name="ContestPhaseName" type="String" />
 		<field name="ContestPhaseDescription" type="String" />
 		<field name="ContestPhaseStatus" type="String" />
 		<field name="PhaseStartDate" type="Date" />
-		<field name="PhaseEndDate" type="Long" />
+		<field name="PhaseEndDate" type="Date" />
 		<field name="nextStatus" type="String" />
 		<field name="created" type="Date" />
 		<field name="updated" type="Date" />

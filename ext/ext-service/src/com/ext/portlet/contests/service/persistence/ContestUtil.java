@@ -81,6 +81,49 @@ public class ContestUtil {
         return getPersistence().fetchByPrimaryKey(ContestPK);
     }
 
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByType(
+        java.lang.Long PlanTypeId) throws com.liferay.portal.SystemException {
+        return getPersistence().findByType(PlanTypeId);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByType(
+        java.lang.Long PlanTypeId, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByType(PlanTypeId, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByType(
+        java.lang.Long PlanTypeId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByType(PlanTypeId, start, end, obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest findByType_First(
+        java.lang.Long PlanTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByType_First(PlanTypeId, obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest findByType_Last(
+        java.lang.Long PlanTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByType_Last(PlanTypeId, obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest[] findByType_PrevAndNext(
+        java.lang.Long ContestPK, java.lang.Long PlanTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByType_PrevAndNext(ContestPK, PlanTypeId, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -109,8 +152,18 @@ public class ContestUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
+    public static void removeByType(java.lang.Long PlanTypeId)
+        throws com.liferay.portal.SystemException {
+        getPersistence().removeByType(PlanTypeId);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
+    }
+
+    public static int countByType(java.lang.Long PlanTypeId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByType(PlanTypeId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

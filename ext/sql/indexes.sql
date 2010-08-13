@@ -70,6 +70,8 @@ create unique index IX_EC00543C on Company (webId);
 
 create index IX_66D496A3 on Contact_ (companyId);
 
+create index IX_E46E624C on Contest (PlanTypeId);
+
 create index IX_684980D2 on ContestPhase (ContestPK);
 
 create unique index IX_717B97E1 on Country (a2);
@@ -353,6 +355,7 @@ create index IX_C7A33C0C on MigrationMapping (oldId);
 create index IX_E3FA804 on ModelDiscussion (categoryId);
 create index IX_54E7429D on ModelDiscussion (modelId);
 
+create index IX_22E3F305 on ModelGlobalPreference (modelCategoryId);
 create index IX_6C866AE7 on ModelGlobalPreference (modelId);
 
 create index IX_560BFD0 on ModelInputGroup (modelId);

@@ -443,6 +443,24 @@
 	<bean id="com.ext.portlet.models.service.persistence.ModelGlobalPreferenceUtil" class="com.ext.portlet.models.service.persistence.ModelGlobalPreferenceUtil">
 		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.models.service.ModelCategoryLocalService.impl" class="com.ext.portlet.models.service.impl.ModelCategoryLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelCategoryLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelCategoryLocalServiceUtil" class="com.ext.portlet.models.service.ModelCategoryLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelCategoryService.impl" class="com.ext.portlet.models.service.impl.ModelCategoryServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelCategoryService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelCategoryServiceUtil" class="com.ext.portlet.models.service.ModelCategoryServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelCategoryPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelCategoryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelCategoryUtil" class="com.ext.portlet.models.service.persistence.ModelCategoryUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelCategoryPersistence.impl" />
+	</bean>
 	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" class="com.ext.portlet.models.service.impl.ModelInputGroupLocalServiceImpl" />
 	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" />

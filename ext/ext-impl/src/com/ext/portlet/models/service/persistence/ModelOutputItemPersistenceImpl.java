@@ -58,6 +58,8 @@ public class ModelOutputItemPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.models.service.persistence.ModelPositionPersistence modelPositionPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl")
     protected com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence modelGlobalPreferencePersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelCategoryPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelCategoryPersistence modelCategoryPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl")
     protected com.ext.portlet.models.service.persistence.ModelInputGroupPersistence modelInputGroupPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl")

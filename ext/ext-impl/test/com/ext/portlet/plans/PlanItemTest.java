@@ -236,8 +236,8 @@ public class PlanItemTest extends BaseCollabTest {
         Map sessionMap = new HashMap();
         requestMap.put(WebKeys.THEME_DISPLAY, td);
 
-        List<PlanItem> plansDesc = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType, 0, 1000, Columns.NAME.name(), "DESC");   
-        List<PlanItem> plansAsc = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType, 0, 1000, Columns.NAME.name(), "ASC");
+        List<PlanItem> plansDesc = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType,null, 0, 1000, Columns.NAME.name(), "DESC");
+        List<PlanItem> plansAsc = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType,null, 0, 1000, Columns.NAME.name(), "ASC");
         
         assertTrue("There should be more than 1 plan", plansAsc.size() > 0);
         
@@ -273,7 +273,7 @@ public class PlanItemTest extends BaseCollabTest {
         
         PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
         
-        List<PlanItem> plansBefore = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType, 0, 1000, Columns.NAME.name(), "ASC");
+        List<PlanItem> plansBefore = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType,null, 0, 1000, Columns.NAME.name(), "ASC");
         assertTrue("Not enough plans to do filters testing, need at least 2 plans", plansBefore.size() > 0);
         
         plansUserSettings.setFilterEnabled(true);
@@ -286,7 +286,7 @@ public class PlanItemTest extends BaseCollabTest {
         filter.setStringVal(plansBefore.get(0).getName());
         
         plansUserSettings.addPlanAttributeFilter(filter);
-        List<PlanItem> plansAfter = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType, 0, 1000, Columns.NAME.name(), "ASC");
+        List<PlanItem> plansAfter = PlanItemLocalServiceUtil.getPlans(sessionMap, requestMap, planType,null, 0, 1000, Columns.NAME.name(), "ASC");
         assertEquals("There should be only one plan after applying filters", 1, plansAfter.size());
         
         

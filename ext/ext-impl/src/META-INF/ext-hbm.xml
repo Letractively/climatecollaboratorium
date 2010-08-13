@@ -205,7 +205,7 @@
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updateAuthorId" />
 		<property name="modelId" />
-		<property name="ContestPhase" />
+		<property name="contestPhase" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanModelRunImpl" table="PlanModelRun">
 		<cache usage="read-write" />
@@ -284,6 +284,16 @@
 		<property name="visible" />
 		<property name="weight" />
 		<property name="expertEvaluationPageId" />
+		<property name="modelCategoryId" />
+	</class>
+	<class name="com.ext.portlet.models.model.impl.ModelCategoryImpl" table="ModelCategory">
+		<cache usage="read-write" />
+		<id name="modelCategoryPK" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="modelCategoryName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelCategoryDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="modelCategoryDisplayWeight" />
 	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelInputGroupImpl" table="ModelInputGroup">
 		<cache usage="read-write" />
@@ -675,7 +685,7 @@
 		</id>
 		<property name="ContestName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ContestDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="PlanTypeId" type="org.hibernate.type.TimestampType" />
+		<property name="PlanTypeId" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />
 		<property name="authorId" />
@@ -686,11 +696,11 @@
 			<generator class="assigned" />
 		</id>
 		<property name="ContestPK" />
-		<property name="ContestPhaseName" />
+		<property name="ContestPhaseName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ContestPhaseDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ContestPhaseStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="PhaseStartDate" type="org.hibernate.type.TimestampType" />
-		<property name="PhaseEndDate" />
+		<property name="PhaseEndDate" type="org.hibernate.type.TimestampType" />
 		<property name="nextStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />

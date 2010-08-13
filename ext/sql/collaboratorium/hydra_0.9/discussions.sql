@@ -43,4 +43,4 @@ create table DiscussionMessage (
 
 insert into DiscussionCategoryGroup VALUES (0, 'Test category group');
 
-ALTER TABLE  `PlanMeta` ADD  `categoryGroupId` BIGINT NOT NULL
+ALTER TABLE  `PlanMeta` ADD  `categoryGroupId` BIGINT NOT NULL;

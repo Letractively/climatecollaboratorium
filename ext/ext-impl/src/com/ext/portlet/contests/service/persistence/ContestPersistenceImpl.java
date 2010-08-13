@@ -13,12 +13,14 @@ import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
@@ -34,6 +36,21 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = ContestImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
+    public static final FinderPath FINDER_PATH_FIND_BY_TYPE = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByType", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_TYPE = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByType",
+            new String[] {
+                Long.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_TYPE = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByType", new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
             ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -268,6 +285,234 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
         return contest;
     }
 
+    public List<Contest> findByType(Long PlanTypeId) throws SystemException {
+        Object[] finderArgs = new Object[] { PlanTypeId };
+
+        List<Contest> list = (List<Contest>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_TYPE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (PlanTypeId == null) {
+                    query.append("PlanTypeId IS NULL");
+                } else {
+                    query.append("PlanTypeId = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("created DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (PlanTypeId != null) {
+                    qPos.add(PlanTypeId.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<Contest>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_TYPE, finderArgs,
+                    list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<Contest> findByType(Long PlanTypeId, int start, int end)
+        throws SystemException {
+        return findByType(PlanTypeId, start, end, null);
+    }
+
+    public List<Contest> findByType(Long PlanTypeId, int start, int end,
+        OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                PlanTypeId,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<Contest> list = (List<Contest>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_TYPE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (PlanTypeId == null) {
+                    query.append("PlanTypeId IS NULL");
+                } else {
+                    query.append("PlanTypeId = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("created DESC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (PlanTypeId != null) {
+                    qPos.add(PlanTypeId.longValue());
+                }
+
+                list = (List<Contest>) QueryUtil.list(q, getDialect(), start,
+                        end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<Contest>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_TYPE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public Contest findByType_First(Long PlanTypeId, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        List<Contest> list = findByType(PlanTypeId, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No Contest exists with the key {");
+
+            msg.append("PlanTypeId=" + PlanTypeId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public Contest findByType_Last(Long PlanTypeId, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        int count = countByType(PlanTypeId);
+
+        List<Contest> list = findByType(PlanTypeId, count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No Contest exists with the key {");
+
+            msg.append("PlanTypeId=" + PlanTypeId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public Contest[] findByType_PrevAndNext(Long ContestPK, Long PlanTypeId,
+        OrderByComparator obc) throws NoSuchContestException, SystemException {
+        Contest contest = findByPrimaryKey(ContestPK);
+
+        int count = countByType(PlanTypeId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append("FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+            if (PlanTypeId == null) {
+                query.append("PlanTypeId IS NULL");
+            } else {
+                query.append("PlanTypeId = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("created DESC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (PlanTypeId != null) {
+                qPos.add(PlanTypeId.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc, contest);
+
+            Contest[] array = new ContestImpl[3];
+
+            array[0] = (Contest) objArray[0];
+            array[1] = (Contest) objArray[1];
+            array[2] = (Contest) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -370,10 +615,68 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
+    public void removeByType(Long PlanTypeId) throws SystemException {
+        for (Contest contest : findByType(PlanTypeId)) {
+            remove(contest);
+        }
+    }
+
     public void removeAll() throws SystemException {
         for (Contest contest : findAll()) {
             remove(contest);
         }
+    }
+
+    public int countByType(Long PlanTypeId) throws SystemException {
+        Object[] finderArgs = new Object[] { PlanTypeId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_TYPE,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (PlanTypeId == null) {
+                    query.append("PlanTypeId IS NULL");
+                } else {
+                    query.append("PlanTypeId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (PlanTypeId != null) {
+                    qPos.add(PlanTypeId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TYPE,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
     }
 
     public int countAll() throws SystemException {

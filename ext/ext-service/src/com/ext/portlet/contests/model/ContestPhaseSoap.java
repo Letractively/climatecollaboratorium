@@ -28,11 +28,11 @@ import java.util.List;
 public class ContestPhaseSoap implements Serializable {
     private Long _ContestPhasePK;
     private Long _ContestPK;
-    private Long _ContestPhaseName;
+    private String _ContestPhaseName;
     private String _ContestPhaseDescription;
     private String _ContestPhaseStatus;
     private Date _PhaseStartDate;
-    private Long _PhaseEndDate;
+    private Date _PhaseEndDate;
     private String _nextStatus;
     private Date _created;
     private Date _updated;
@@ -119,11 +119,11 @@ public class ContestPhaseSoap implements Serializable {
         _ContestPK = ContestPK;
     }
 
-    public Long getContestPhaseName() {
+    public String getContestPhaseName() {
         return _ContestPhaseName;
     }
 
-    public void setContestPhaseName(Long ContestPhaseName) {
+    public void setContestPhaseName(String ContestPhaseName) {
         _ContestPhaseName = ContestPhaseName;
     }
 
@@ -151,11 +151,11 @@ public class ContestPhaseSoap implements Serializable {
         _PhaseStartDate = PhaseStartDate;
     }
 
-    public Long getPhaseEndDate() {
+    public Date getPhaseEndDate() {
         return _PhaseEndDate;
     }
 
-    public void setPhaseEndDate(Long PhaseEndDate) {
+    public void setPhaseEndDate(Date PhaseEndDate) {
         _PhaseEndDate = PhaseEndDate;
     }
 

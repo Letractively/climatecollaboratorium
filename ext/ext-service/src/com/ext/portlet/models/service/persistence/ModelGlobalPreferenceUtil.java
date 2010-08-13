@@ -100,6 +100,53 @@ public class ModelGlobalPreferenceUtil {
         return getPersistence().fetchByModelId(modelId, retrieveFromCache);
     }
 
+    public static java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByModelCategoryId(
+        java.lang.Long modelCategoryId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByModelCategoryId(modelCategoryId);
+    }
+
+    public static java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByModelCategoryId(
+        java.lang.Long modelCategoryId, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByModelCategoryId(modelCategoryId, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByModelCategoryId(
+        java.lang.Long modelCategoryId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByModelCategoryId(modelCategoryId, start, end, obc);
+    }
+
+    public static com.ext.portlet.models.model.ModelGlobalPreference findByModelCategoryId_First(
+        java.lang.Long modelCategoryId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelGlobalPreferenceException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByModelCategoryId_First(modelCategoryId, obc);
+    }
+
+    public static com.ext.portlet.models.model.ModelGlobalPreference findByModelCategoryId_Last(
+        java.lang.Long modelCategoryId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelGlobalPreferenceException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByModelCategoryId_Last(modelCategoryId, obc);
+    }
+
+    public static com.ext.portlet.models.model.ModelGlobalPreference[] findByModelCategoryId_PrevAndNext(
+        java.lang.Long modelGlobalPreferencePK, java.lang.Long modelCategoryId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelGlobalPreferenceException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByModelCategoryId_PrevAndNext(modelGlobalPreferencePK,
+            modelCategoryId, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -134,6 +181,11 @@ public class ModelGlobalPreferenceUtil {
         getPersistence().removeByModelId(modelId);
     }
 
+    public static void removeByModelCategoryId(java.lang.Long modelCategoryId)
+        throws com.liferay.portal.SystemException {
+        getPersistence().removeByModelCategoryId(modelCategoryId);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -141,6 +193,11 @@ public class ModelGlobalPreferenceUtil {
     public static int countByModelId(java.lang.Long modelId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByModelId(modelId);
+    }
+
+    public static int countByModelCategoryId(java.lang.Long modelCategoryId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByModelCategoryId(modelCategoryId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

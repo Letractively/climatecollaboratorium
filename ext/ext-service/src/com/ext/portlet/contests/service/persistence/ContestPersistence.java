@@ -59,6 +59,36 @@ public interface ContestPersistence extends BasePersistence {
     public com.ext.portlet.contests.model.Contest fetchByPrimaryKey(
         java.lang.Long ContestPK) throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.contests.model.Contest> findByType(
+        java.lang.Long PlanTypeId) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.contests.model.Contest> findByType(
+        java.lang.Long PlanTypeId, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.contests.model.Contest> findByType(
+        java.lang.Long PlanTypeId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.Contest findByType_First(
+        java.lang.Long PlanTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.Contest findByType_Last(
+        java.lang.Long PlanTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.Contest[] findByType_PrevAndNext(
+        java.lang.Long ContestPK, java.lang.Long PlanTypeId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -77,7 +107,13 @@ public interface ContestPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
+    public void removeByType(java.lang.Long PlanTypeId)
+        throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
+
+    public int countByType(java.lang.Long PlanTypeId)
+        throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

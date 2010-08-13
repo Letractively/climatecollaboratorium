@@ -103,4 +103,19 @@ public interface ModelGlobalPreferenceLocalService {
     public void setExpertEvaluationPageId(
         mit.simulation.climate.client.Simulation s, java.lang.Long pageId)
         throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByCategory(
+        com.ext.portlet.models.model.ModelCategory category)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.models.model.ModelCategory getCategory(
+        mit.simulation.climate.client.Simulation sim)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void updateModelCategory(
+        com.ext.portlet.models.model.ModelCategory cat,
+        mit.simulation.climate.client.Simulation sim)
+        throws com.liferay.portal.SystemException;
 }

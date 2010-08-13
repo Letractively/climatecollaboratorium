@@ -89,6 +89,12 @@ public class ContestPhaseLocalServiceUtil {
         return getService().updateContestPhase(contestPhase, merge);
     }
 
+    public static java.util.List<com.ext.portlet.contests.model.ContestPhase> getPhasesForContest(
+        com.ext.portlet.contests.model.Contest contest)
+        throws com.liferay.portal.SystemException {
+        return getService().getPhasesForContest(contest);
+    }
+
     public static ContestPhaseLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("ContestPhaseLocalService is not set");

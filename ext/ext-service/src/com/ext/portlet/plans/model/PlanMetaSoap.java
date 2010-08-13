@@ -42,7 +42,7 @@ public class PlanMetaSoap implements Serializable {
     private Date _created;
     private Long _updateAuthorId;
     private Long _modelId;
-    private Long _ContestPhase;
+    private Long _contestPhase;
 
     public PlanMetaSoap() {
     }
@@ -244,10 +244,10 @@ public class PlanMetaSoap implements Serializable {
     }
 
     public Long getContestPhase() {
-        return _ContestPhase;
+        return _contestPhase;
     }
 
-    public void setContestPhase(Long ContestPhase) {
-        _ContestPhase = ContestPhase;
+    public void setContestPhase(Long contestPhase) {
+        _contestPhase = contestPhase;
     }
 }

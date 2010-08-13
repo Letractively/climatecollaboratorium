@@ -333,7 +333,7 @@
         <!-- selected model -->
         <column name="modelId" type="Long"/>
 
-         <column name="ContestPhase" type="Long"/>
+         <column name="contestPhase" type="Long"/>
         
         <order by="desc">
             <order-column name="version" />

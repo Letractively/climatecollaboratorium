@@ -50,7 +50,16 @@ public class ContestPhaseJSONSerializer {
         }
 
         jsonObj.put("PhaseStartDate", PhaseStartDateJSON);
-        jsonObj.put("PhaseEndDate", model.getPhaseEndDate());
+
+        Date PhaseEndDate = model.getPhaseEndDate();
+
+        String PhaseEndDateJSON = StringPool.BLANK;
+
+        if (PhaseEndDate != null) {
+            PhaseEndDateJSON = String.valueOf(PhaseEndDate.getTime());
+        }
+
+        jsonObj.put("PhaseEndDate", PhaseEndDateJSON);
         jsonObj.put("nextStatus", model.getNextStatus());
 
         Date created = model.getCreated();
