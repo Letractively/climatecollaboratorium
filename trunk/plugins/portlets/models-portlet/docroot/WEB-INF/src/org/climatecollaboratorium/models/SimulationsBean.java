@@ -2,6 +2,7 @@ package org.climatecollaboratorium.models;
 
 import com.ext.portlet.models.ui.ModelUIFactory;
 
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 import java.io.IOException;
@@ -21,40 +22,20 @@ import org.climatecollaboratorium.models.support.SimulationsHelper;
 public class SimulationsBean {
 
     private ClientRepository r;
-    public List<SimulationDecorator> getVisibleSimulations() {
-        return visibleSimulations;
-    }
-
     private List<SimulationDecorator> simulations;
-    private List<SimulationDecorator> visibleSimulations = new ArrayList<SimulationDecorator>();
+    private CategoriesBean categories;
     private boolean editing;
 
-    public SimulationsBean() throws IOException, SystemException {
+    public SimulationsBean() throws IOException, SystemException, PortalException {
         simulations = SimulationsHelper.getInstance().getSimulations();
-        updateVisible();
+        //updateVisible();
     }
 
-    private void updateVisible() throws SystemException {
-        Collections.sort(simulations, new Comparator<SimulationDecorator>() {
-
-            @Override
-            public int compare(SimulationDecorator arg0, SimulationDecorator arg1) {
-                try {
-                    return ModelUIFactory.getSimulationWeight(arg0.getWrapped()) - ModelUIFactory.getSimulationWeight(arg1);
-                } catch (SystemException e) {
-                    // ignore
-                }
-                return 0;
-            }
-        });
-
-        visibleSimulations.clear();
-        for (SimulationDecorator sim: simulations) {
-            if (sim.isVisible()) {
-                visibleSimulations.add(sim);
-            }
-        }
+    private void updateVisible() throws SystemException, IOException, PortalException {
+        categories.updateCategorySimulations();
     }
+        
+
 
     public List<SimulationDecorator> getSimulations() {
         return simulations;
@@ -64,12 +45,20 @@ public class SimulationsBean {
         return editing;
     }
 
-    public void setEditing(boolean ediitng) {
+    public void setEditing(boolean editing) {
         this.editing = editing;
     }
 
-    public void edit(ActionEvent e) throws SystemException {
+    public void edit(ActionEvent e) throws SystemException, IOException, PortalException {
         editing = !editing;
-        updateVisible();
+        if (!editing) updateVisible();
+    }
+
+    public CategoriesBean getCategories() {
+            return categories;
+    }
+
+    public void setCategories(CategoriesBean bean) {
+        this.categories = bean;
     }
 }

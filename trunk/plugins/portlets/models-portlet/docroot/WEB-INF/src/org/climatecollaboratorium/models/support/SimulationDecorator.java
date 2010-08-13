@@ -1,7 +1,10 @@
 package org.climatecollaboratorium.models.support;
 
+import com.ext.portlet.models.model.ModelCategory;
+import com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil;
 import com.ext.portlet.models.ui.ModelUIFactory;
 
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 import java.net.URL;
@@ -199,5 +202,23 @@ public class SimulationDecorator implements Simulation {
         ModelUIFactory.setSimulationExpertEvaluationPageId(wrapped, pageId);
         expertEvaluationPageId = pageId;
     }
+
+    public ModelCategory getCategory() throws SystemException, PortalException {
+        return ModelGlobalPreferenceLocalServiceUtil.getCategory(wrapped);
+    }
+
+    public Long getSelectedCategory() throws SystemException, PortalException {
+        //return -1l;
+        ModelCategory cat = getCategory();
+        return cat==null?-1:cat.getModelCategoryPK();
+    }
+
+    public void setSelectedCategory(Long cat) {
+       //do nothing
+    }
+
+
+
+    
 
 }
