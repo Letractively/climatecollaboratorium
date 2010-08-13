@@ -72,11 +72,11 @@
                 </p>
                 </ice:panelGroup>
             </ice:panelGroup>
-            <ice:panelGroup styleClass="debateList">
+            <ice:panelGroup styleClass="categoryContents">
                 <ice:dataTable var="debate" value="#{category.debates}"
-                               headerClass="debateTableHeader"
+                               headerClass="categoryContentsTableHeader"
                                columnClasses="debateQuestionCol,debatePositionCol,debateNumCommentsCol,debateRecentCommentCol"
-                               styleClass="debateTable"
+                               styleClass="categoryContentsTable"
                                 sortAscending="#{category.ascending}"
                                 sortColumn="#{category.sortColumnName}">
                     <h:column>
