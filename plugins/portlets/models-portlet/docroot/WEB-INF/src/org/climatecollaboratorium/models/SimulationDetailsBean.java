@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
 package org.climatecollaboratorium.models;
 
 import java.io.IOException;
@@ -15,6 +21,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.portlet.PortletRequest;
 
+import mit.simulation.climate.client.comm.ClientRepository;
 import org.climatecollaboratorium.models.support.DebateQuestionWrapper;
 import org.climatecollaboratorium.models.support.ModelDisplayWrapper;
 import org.climatecollaboratorium.models.support.ModelInputDisplayItemWrapper;
@@ -75,7 +82,8 @@ public class SimulationDetailsBean {
 
     public void setModelId(Long modelId) throws SystemException, IllegalUIConfigurationException {
         this.modelId = modelId;
-        simulation = CollaboratoriumModelingService.repository().getSimulation(modelId);
+        ClientRepository repo = CollaboratoriumModelingService.repository();
+        simulation = repo.getSimulation(modelId);
         description = simulation.getDescription();
         selectedTab = 0;
         display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(simulation), this,
@@ -178,7 +186,7 @@ public class SimulationDetailsBean {
         return tabEditEnabled.containsKey(selectedTab);
     }
 
-    public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException, SystemException {
+    public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException, SystemException, PortalException {
         simulation.setDescription(description);
         SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
         toggleEdit(event);

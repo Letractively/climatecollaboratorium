@@ -41,10 +41,21 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+        <managed-bean-name>category</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.models.CategoriesBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+
+	</managed-bean>
+    <managed-bean>
 		<managed-bean-name>sim</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.models.SimulationsBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+			<property-name>categories</property-name>
+			<value>#{category}</value>
+		</managed-property>
 	</managed-bean>
+
 	<managed-bean>
 		<managed-bean-name>breadcrumb</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.models.BreadcrumbBean</managed-bean-class>

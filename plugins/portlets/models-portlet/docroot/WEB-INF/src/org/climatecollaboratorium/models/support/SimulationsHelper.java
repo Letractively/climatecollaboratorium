@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
+import com.ext.portlet.models.model.ModelCategory;
+import com.ext.portlet.models.model.ModelGlobalPreference;
+import com.ext.portlet.models.service.ModelCategoryLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 import mit.simulation.climate.client.Scenario;
@@ -24,18 +28,20 @@ public class SimulationsHelper {
     private ClientRepository repository;
     private List<SimulationDecorator> simulations;
     private Map<Long, SimulationDecorator> simulationsById = new HashMap<Long, SimulationDecorator>();
-    
-    private SimulationsHelper() throws IOException, SystemException {
+
+
+
+    private SimulationsHelper() throws IOException, SystemException, PortalException {
+
         repository = CollaboratoriumModelingService.repository();
-        
-        //repository.
         simulations = new ArrayList<SimulationDecorator>();
+
+
         for (Simulation sim: repository.getAllSimulations()) {
-            simulations.add(new SimulationDecorator(sim));
-        }
-        
-        for (SimulationDecorator sim: simulations) {
-            simulationsById.put(sim.getId(), sim);
+            if (simulationsById.containsKey(sim.getId())) continue;
+            SimulationDecorator decorator = new SimulationDecorator(sim);
+            simulations.add(decorator);
+            simulationsById.put(decorator.getId(), decorator);
         }
         
         Collections.sort(simulations, new Comparator<SimulationDecorator>() {
@@ -48,7 +54,7 @@ public class SimulationsHelper {
     }
     
     
-    public static synchronized SimulationsHelper getInstance() throws IOException, SystemException {
+    public static synchronized SimulationsHelper getInstance() throws IOException, SystemException, PortalException {
         if (instance == null) {
             instance = new SimulationsHelper();
         }
@@ -58,6 +64,8 @@ public class SimulationsHelper {
     public List<SimulationDecorator> getSimulations() {
         return simulations;
     }
+
+
     
     public SimulationDecorator getSimulationById(long id) {
         return simulationsById.get(id);
@@ -90,4 +98,6 @@ public class SimulationsHelper {
     public void saveScenario(Scenario scenario) throws ScenarioNotFoundException, IOException {
         repository.saveScenario(scenario);
     }
+
+    
 }

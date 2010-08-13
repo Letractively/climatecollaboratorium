@@ -292,6 +292,36 @@
           <root url="jar://$MODULE_DIR$/../../../ext/ext-lib/global/mit_collaboratorium_modeling_client_jar.jar!/" />
         </CLASSES>
         <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../collaboratorium-services-modules/modeling_v2_client2/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="sharedcollabfacelets-portlet" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/ext-impl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../ext/lib/global/portlet.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/WikiParser.jar!/" />
+        </CLASSES>
+        <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
