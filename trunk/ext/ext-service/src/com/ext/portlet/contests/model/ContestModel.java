@@ -42,9 +42,9 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setContestDescription(String ContestDescription);
 
-    public Date getPlanTypeId();
+    public Long getPlanTypeId();
 
-    public void setPlanTypeId(Date PlanTypeId);
+    public void setPlanTypeId(Long PlanTypeId);
 
     public Date getCreated();
 

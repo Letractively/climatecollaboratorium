@@ -49,7 +49,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
             { "ContestPK", new Integer(Types.BIGINT) },
             
 
-            { "ContestPhaseName", new Integer(Types.BIGINT) },
+            { "ContestPhaseName", new Integer(Types.VARCHAR) },
             
 
             { "ContestPhaseDescription", new Integer(Types.VARCHAR) },
@@ -61,7 +61,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
             { "PhaseStartDate", new Integer(Types.TIMESTAMP) },
             
 
-            { "PhaseEndDate", new Integer(Types.BIGINT) },
+            { "PhaseEndDate", new Integer(Types.TIMESTAMP) },
             
 
             { "nextStatus", new Integer(Types.VARCHAR) },
@@ -75,7 +75,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
             { "authorId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ContestPhase (ContestPhasePK LONG not null primary key,ContestPK LONG,ContestPhaseName LONG,ContestPhaseDescription VARCHAR(75) null,ContestPhaseStatus VARCHAR(75) null,PhaseStartDate DATE null,PhaseEndDate LONG,nextStatus VARCHAR(75) null,created DATE null,updated DATE null,authorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table ContestPhase (ContestPhasePK LONG not null primary key,ContestPK LONG,ContestPhaseName VARCHAR(75) null,ContestPhaseDescription VARCHAR(75) null,ContestPhaseStatus VARCHAR(75) null,PhaseStartDate DATE null,PhaseEndDate DATE null,nextStatus VARCHAR(75) null,created DATE null,updated DATE null,authorId LONG)";
     public static final String TABLE_SQL_DROP = "drop table ContestPhase";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -90,11 +90,11 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
                 "lock.expiration.time.com.ext.portlet.contests.model.ContestPhase"));
     private Long _ContestPhasePK;
     private Long _ContestPK;
-    private Long _ContestPhaseName;
+    private String _ContestPhaseName;
     private String _ContestPhaseDescription;
     private String _ContestPhaseStatus;
     private Date _PhaseStartDate;
-    private Long _PhaseEndDate;
+    private Date _PhaseEndDate;
     private String _nextStatus;
     private Date _created;
     private Date _updated;
@@ -159,11 +159,11 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         _ContestPK = ContestPK;
     }
 
-    public Long getContestPhaseName() {
-        return _ContestPhaseName;
+    public String getContestPhaseName() {
+        return GetterUtil.getString(_ContestPhaseName);
     }
 
-    public void setContestPhaseName(Long ContestPhaseName) {
+    public void setContestPhaseName(String ContestPhaseName) {
         _ContestPhaseName = ContestPhaseName;
     }
 
@@ -191,11 +191,11 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         _PhaseStartDate = PhaseStartDate;
     }
 
-    public Long getPhaseEndDate() {
+    public Date getPhaseEndDate() {
         return _PhaseEndDate;
     }
 
-    public void setPhaseEndDate(Long PhaseEndDate) {
+    public void setPhaseEndDate(Date PhaseEndDate) {
         _PhaseEndDate = PhaseEndDate;
     }
 
@@ -242,7 +242,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
             model.setContestPhasePK(getContestPhasePK());
             model.setContestPK(getContestPK());
-            model.setContestPhaseName(getContestPhaseName());
+            model.setContestPhaseName(HtmlUtil.escape(getContestPhaseName()));
             model.setContestPhaseDescription(HtmlUtil.escape(
                     getContestPhaseDescription()));
             model.setContestPhaseStatus(HtmlUtil.escape(getContestPhaseStatus()));

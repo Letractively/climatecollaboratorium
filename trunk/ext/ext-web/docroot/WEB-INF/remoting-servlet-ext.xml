@@ -295,6 +295,18 @@
 		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelGlobalPreferenceService" />
 	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelCategoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelCategoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelCategoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelCategoryService" />
+	</bean>
 	<bean name="/com_ext_portlet_models_service_spring_ModelInputGroupService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelInputGroupService" />

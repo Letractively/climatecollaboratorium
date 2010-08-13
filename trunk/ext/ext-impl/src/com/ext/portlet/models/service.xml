@@ -39,9 +39,20 @@
         <column name="visible" type="Boolean"/>
         <column name="weight" type="Integer"/>
         <column name="expertEvaluationPageId" type="Long"/>
+        <column name="modelCategoryId" type="Long"/>
         <finder name="ModelId" return-type="ModelGlobalPreference">
             <finder-column name="modelId"/>
         </finder>
+        <finder name="ModelCategoryId" return-type="Collection">
+            <finder-column name="modelCategoryId"/>
+        </finder>
+    </entity>
+
+    <entity name="ModelCategory" local-service="true" remote-service="true">
+        <column name="modelCategoryPK" type="Long" primary="true"/>
+        <column name="modelCategoryName" type="String"/>
+        <column name="modelCategoryDescription" type="String"/>
+        <column name="modelCategoryDisplayWeight" type="Integer"/>
     </entity>
     
     <entity name="ModelInputGroup" local-service="true" remote-service="true">

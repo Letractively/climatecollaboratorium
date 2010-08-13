@@ -12,6 +12,7 @@ import com.liferay.portal.SystemException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -25,6 +26,16 @@ public class ContestImpl extends ContestModelImpl implements Contest {
 
     public PlanType getPlanType() throws SystemException, PortalException {
         return PlanTypeLocalServiceUtil.getPlanType(getPlanTypeId());
+    }
+
+    public List<ContestPhase> getActivePhases() throws SystemException {
+        List<ContestPhase> result = getPhases();
+        for (Iterator<ContestPhase> i=result.iterator();i.hasNext();) {
+           if (!i.next().getContestStatus().isCanEdit()) {
+               i.remove();
+           }
+        }
+        return result;
     }
 
 }

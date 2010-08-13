@@ -220,7 +220,7 @@ create table Contest (
 	ContestPK LONG not null primary key,
 	ContestName VARCHAR(75) null,
 	ContestDescription VARCHAR(75) null,
-	PlanTypeId DATE null,
+	PlanTypeId LONG,
 	created DATE null,
 	updated DATE null,
 	authorId LONG
@@ -229,11 +229,11 @@ create table Contest (
 create table ContestPhase (
 	ContestPhasePK LONG not null primary key,
 	ContestPK LONG,
-	ContestPhaseName LONG,
+	ContestPhaseName VARCHAR(75) null,
 	ContestPhaseDescription VARCHAR(75) null,
 	ContestPhaseStatus VARCHAR(75) null,
 	PhaseStartDate DATE null,
-	PhaseEndDate LONG,
+	PhaseEndDate DATE null,
 	nextStatus VARCHAR(75) null,
 	created DATE null,
 	updated DATE null,
@@ -915,12 +915,20 @@ create table MembershipRequest (
 	statusId INTEGER
 );
 
+create table ModelCategory (
+	modelCategoryPK LONG not null primary key,
+	modelCategoryName VARCHAR(75) null,
+	modelCategoryDescription VARCHAR(75) null,
+	modelCategoryDisplayWeight INTEGER
+);
+
 create table ModelGlobalPreference (
 	modelGlobalPreferencePK LONG not null primary key,
 	modelId LONG,
 	visible BOOLEAN,
 	weight INTEGER,
-	expertEvaluationPageId LONG
+	expertEvaluationPageId LONG,
+	modelCategoryId LONG
 );
 
 create table ModelInputGroup (
@@ -1162,7 +1170,7 @@ create table PlanMeta (
 	created DATE null,
 	updateAuthorId LONG,
 	modelId LONG,
-	ContestPhase LONG
+	contestPhase LONG
 );
 
 create table PlanModelRun (

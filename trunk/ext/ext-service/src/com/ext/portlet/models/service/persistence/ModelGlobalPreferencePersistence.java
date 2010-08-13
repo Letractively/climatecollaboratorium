@@ -73,6 +73,37 @@ public interface ModelGlobalPreferencePersistence extends BasePersistence {
         java.lang.Long modelId, boolean retrieveFromCache)
         throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByModelCategoryId(
+        java.lang.Long modelCategoryId)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByModelCategoryId(
+        java.lang.Long modelCategoryId, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByModelCategoryId(
+        java.lang.Long modelCategoryId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelGlobalPreference findByModelCategoryId_First(
+        java.lang.Long modelCategoryId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelGlobalPreferenceException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelGlobalPreference findByModelCategoryId_Last(
+        java.lang.Long modelCategoryId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelGlobalPreferenceException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.models.model.ModelGlobalPreference[] findByModelCategoryId_PrevAndNext(
+        java.lang.Long modelGlobalPreferencePK, java.lang.Long modelCategoryId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.models.NoSuchModelGlobalPreferenceException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -95,9 +126,15 @@ public interface ModelGlobalPreferencePersistence extends BasePersistence {
         throws com.ext.portlet.models.NoSuchModelGlobalPreferenceException,
             com.liferay.portal.SystemException;
 
+    public void removeByModelCategoryId(java.lang.Long modelCategoryId)
+        throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByModelId(java.lang.Long modelId)
+        throws com.liferay.portal.SystemException;
+
+    public int countByModelCategoryId(java.lang.Long modelCategoryId)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

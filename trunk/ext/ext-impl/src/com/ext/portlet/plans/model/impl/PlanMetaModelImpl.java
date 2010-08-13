@@ -91,9 +91,9 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             { "modelId", new Integer(Types.BIGINT) },
             
 
-            { "ContestPhase", new Integer(Types.BIGINT) }
+            { "contestPhase", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,open BOOLEAN,status VARCHAR(75) null,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG,ContestPhase LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,open BOOLEAN,status VARCHAR(75) null,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG,contestPhase LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanMeta";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -123,7 +123,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
     private Date _created;
     private Long _updateAuthorId;
     private Long _modelId;
-    private Long _ContestPhase;
+    private Long _contestPhase;
 
     public PlanMetaModelImpl() {
     }
@@ -311,11 +311,11 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
     }
 
     public Long getContestPhase() {
-        return _ContestPhase;
+        return _contestPhase;
     }
 
-    public void setContestPhase(Long ContestPhase) {
-        _ContestPhase = ContestPhase;
+    public void setContestPhase(Long contestPhase) {
+        _contestPhase = contestPhase;
     }
 
     public PlanMeta toEscapedModel() {
@@ -460,7 +460,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(getUpdateAuthorId());
         sb.append(", modelId=");
         sb.append(getModelId());
-        sb.append(", ContestPhase=");
+        sb.append(", contestPhase=");
         sb.append(getContestPhase());
         sb.append("}");
 
@@ -539,7 +539,7 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(getModelId());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>ContestPhase</column-name><column-value><![CDATA[");
+            "<column><column-name>contestPhase</column-name><column-value><![CDATA[");
         sb.append(getContestPhase());
         sb.append("]]></column-value></column>");
 

@@ -45,6 +45,23 @@ public class ModelGlobalPreferencePersistenceImpl extends BasePersistenceImpl
             ModelGlobalPreferenceModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countByModelId",
             new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_MODELCATEGORYID = new FinderPath(ModelGlobalPreferenceModelImpl.ENTITY_CACHE_ENABLED,
+            ModelGlobalPreferenceModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByModelCategoryId",
+            new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_MODELCATEGORYID = new FinderPath(ModelGlobalPreferenceModelImpl.ENTITY_CACHE_ENABLED,
+            ModelGlobalPreferenceModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByModelCategoryId",
+            new String[] {
+                Long.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_MODELCATEGORYID = new FinderPath(ModelGlobalPreferenceModelImpl.ENTITY_CACHE_ENABLED,
+            ModelGlobalPreferenceModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByModelCategoryId",
+            new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ModelGlobalPreferenceModelImpl.ENTITY_CACHE_ENABLED,
             ModelGlobalPreferenceModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -58,6 +75,8 @@ public class ModelGlobalPreferencePersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.models.service.persistence.ModelPositionPersistence modelPositionPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl")
     protected com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence modelGlobalPreferencePersistence;
+    @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelCategoryPersistence.impl")
+    protected com.ext.portlet.models.service.persistence.ModelCategoryPersistence modelCategoryPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl")
     protected com.ext.portlet.models.service.persistence.ModelInputGroupPersistence modelInputGroupPersistence;
     @BeanReference(name = "com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl")
@@ -441,6 +460,230 @@ public class ModelGlobalPreferencePersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public List<ModelGlobalPreference> findByModelCategoryId(
+        Long modelCategoryId) throws SystemException {
+        Object[] finderArgs = new Object[] { modelCategoryId };
+
+        List<ModelGlobalPreference> list = (List<ModelGlobalPreference>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_MODELCATEGORYID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelGlobalPreference WHERE ");
+
+                if (modelCategoryId == null) {
+                    query.append("modelCategoryId IS NULL");
+                } else {
+                    query.append("modelCategoryId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelCategoryId != null) {
+                    qPos.add(modelCategoryId.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ModelGlobalPreference>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_MODELCATEGORYID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<ModelGlobalPreference> findByModelCategoryId(
+        Long modelCategoryId, int start, int end) throws SystemException {
+        return findByModelCategoryId(modelCategoryId, start, end, null);
+    }
+
+    public List<ModelGlobalPreference> findByModelCategoryId(
+        Long modelCategoryId, int start, int end, OrderByComparator obc)
+        throws SystemException {
+        Object[] finderArgs = new Object[] {
+                modelCategoryId,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<ModelGlobalPreference> list = (List<ModelGlobalPreference>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_MODELCATEGORYID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelGlobalPreference WHERE ");
+
+                if (modelCategoryId == null) {
+                    query.append("modelCategoryId IS NULL");
+                } else {
+                    query.append("modelCategoryId = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelCategoryId != null) {
+                    qPos.add(modelCategoryId.longValue());
+                }
+
+                list = (List<ModelGlobalPreference>) QueryUtil.list(q,
+                        getDialect(), start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ModelGlobalPreference>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_MODELCATEGORYID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public ModelGlobalPreference findByModelCategoryId_First(
+        Long modelCategoryId, OrderByComparator obc)
+        throws NoSuchModelGlobalPreferenceException, SystemException {
+        List<ModelGlobalPreference> list = findByModelCategoryId(modelCategoryId,
+                0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ModelGlobalPreference exists with the key {");
+
+            msg.append("modelCategoryId=" + modelCategoryId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchModelGlobalPreferenceException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ModelGlobalPreference findByModelCategoryId_Last(
+        Long modelCategoryId, OrderByComparator obc)
+        throws NoSuchModelGlobalPreferenceException, SystemException {
+        int count = countByModelCategoryId(modelCategoryId);
+
+        List<ModelGlobalPreference> list = findByModelCategoryId(modelCategoryId,
+                count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ModelGlobalPreference exists with the key {");
+
+            msg.append("modelCategoryId=" + modelCategoryId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchModelGlobalPreferenceException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ModelGlobalPreference[] findByModelCategoryId_PrevAndNext(
+        Long modelGlobalPreferencePK, Long modelCategoryId,
+        OrderByComparator obc)
+        throws NoSuchModelGlobalPreferenceException, SystemException {
+        ModelGlobalPreference modelGlobalPreference = findByPrimaryKey(modelGlobalPreferencePK);
+
+        int count = countByModelCategoryId(modelCategoryId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.models.model.ModelGlobalPreference WHERE ");
+
+            if (modelCategoryId == null) {
+                query.append("modelCategoryId IS NULL");
+            } else {
+                query.append("modelCategoryId = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (modelCategoryId != null) {
+                qPos.add(modelCategoryId.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    modelGlobalPreference);
+
+            ModelGlobalPreference[] array = new ModelGlobalPreferenceImpl[3];
+
+            array[0] = (ModelGlobalPreference) objArray[0];
+            array[1] = (ModelGlobalPreference) objArray[1];
+            array[2] = (ModelGlobalPreference) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -547,6 +790,14 @@ public class ModelGlobalPreferencePersistenceImpl extends BasePersistenceImpl
         remove(modelGlobalPreference);
     }
 
+    public void removeByModelCategoryId(Long modelCategoryId)
+        throws SystemException {
+        for (ModelGlobalPreference modelGlobalPreference : findByModelCategoryId(
+                modelCategoryId)) {
+            remove(modelGlobalPreference);
+        }
+    }
+
     public void removeAll() throws SystemException {
         for (ModelGlobalPreference modelGlobalPreference : findAll()) {
             remove(modelGlobalPreference);
@@ -596,6 +847,59 @@ public class ModelGlobalPreferencePersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MODELID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByModelCategoryId(Long modelCategoryId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { modelCategoryId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_MODELCATEGORYID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.models.model.ModelGlobalPreference WHERE ");
+
+                if (modelCategoryId == null) {
+                    query.append("modelCategoryId IS NULL");
+                } else {
+                    query.append("modelCategoryId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (modelCategoryId != null) {
+                    qPos.add(modelCategoryId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_MODELCATEGORYID,
                     finderArgs, count);
 
                 closeSession(session);

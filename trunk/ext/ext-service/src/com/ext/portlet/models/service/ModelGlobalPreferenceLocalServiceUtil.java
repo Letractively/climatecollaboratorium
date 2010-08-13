@@ -123,6 +123,26 @@ public class ModelGlobalPreferenceLocalServiceUtil {
         getService().setExpertEvaluationPageId(s, pageId);
     }
 
+    public static java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByCategory(
+        com.ext.portlet.models.model.ModelCategory category)
+        throws com.liferay.portal.SystemException {
+        return getService().findByCategory(category);
+    }
+
+    public static com.ext.portlet.models.model.ModelCategory getCategory(
+        mit.simulation.climate.client.Simulation sim)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().getCategory(sim);
+    }
+
+    public static void updateModelCategory(
+        com.ext.portlet.models.model.ModelCategory cat,
+        mit.simulation.climate.client.Simulation sim)
+        throws com.liferay.portal.SystemException {
+        getService().updateModelCategory(cat, sim);
+    }
+
     public static ModelGlobalPreferenceLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

@@ -38,6 +38,7 @@ public class ModelGlobalPreferenceJSONSerializer {
         jsonObj.put("visible", model.getVisible());
         jsonObj.put("weight", model.getWeight());
         jsonObj.put("expertEvaluationPageId", model.getExpertEvaluationPageId());
+        jsonObj.put("modelCategoryId", model.getModelCategoryId());
 
         return jsonObj;
     }

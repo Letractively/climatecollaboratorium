@@ -42,6 +42,8 @@ import com.ext.portlet.plans.service.base.PlanItemLocalServiceBaseImpl;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.ResourceConstants;
@@ -57,6 +59,10 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
 public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
+
+
+    private static Log _log = LogFactoryUtil.getLog(PlanItemLocalServiceImpl.class);
+
     /**
      * Suffix that should be added to PlanItem class name to get name for plan id counter
      */
@@ -91,7 +97,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     public PlanItem createPlan(ContestPhase phase, Long authorId) throws SystemException, PortalException {
        long planItemId = CounterUtil.increment(PlanItem.class.getName());
        long planId = CounterUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
-       long planTypeId = 0;
+       long planTypeId = phase.getContest().getPlanTypeId();
         String name = "Untitled Plan " + planId;
         PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
         planItem.setPlanId(planId);
@@ -106,7 +112,9 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         // create related entities, plan description, meta, model run
         PlanDescriptionLocalServiceUtil.createPlanDescription(planItem, name);
         PlanModelRunLocalServiceUtil.createPlanModelRun(planItem);
-        PlanMetaLocalServiceUtil.createPlanMeta(planItem, planTypeId);
+
+        PlanMeta meta = PlanMetaLocalServiceUtil.createPlanMeta(planItem, planTypeId);
+        meta.setContestPhase(phase.getContestPhasePK());
         PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
 
         // create community, Message Boards category
@@ -209,6 +217,44 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             plan.updateAttribute(Attribute.POSITIONS.name());
         }
         
+        return plan;
+    }
+
+    public PlanItem createPlan(PlanItem basePlan, ContestPhase contestPhase, Long authorId) throws SystemException, PortalException {
+        long type = basePlan.getPlanTypeId();
+        if (contestPhase.getContest().getPlanType().getPlanTypeId() != type) {
+            _log.error("Cannot create plan of type "+type+" for contest phase "+contestPhase.getContestPhaseName());
+        }
+
+        PlanItem plan = createPlan(type, authorId);
+        plan.getPlanMeta().setContestPhase(contestPhase.getContestPhasePK());
+        PlanMetaLocalServiceUtil.updatePlanMeta(plan.getPlanMeta());
+        PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
+        PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
+        PlanPositions planPositions = PlanPositionsLocalServiceUtil.getCurrentForPlan(plan);
+
+        // copy description
+        description.setDescription(basePlan.getDescription());
+        description.store();
+
+        // copy scenario id
+        planModelRun.setScenarioId(basePlan.getScenarioId());
+        planModelRun.store();
+
+        // copy positions
+        planPositions.setPositionsIds(basePlan.getPositionsIds());
+        planPositions.store();
+
+        if (basePlan.getScenarioId() != null) {
+            // update all attributes
+            plan.updateAllAttributes();
+        }
+        else {
+            // update only attributes related to new values
+            plan.updateAttribute(Attribute.DESCRIPTION.name());
+            plan.updateAttribute(Attribute.POSITIONS.name());
+        }
+
         return plan;
     }
     
@@ -376,21 +422,20 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         return this.planItemFinder.getPlans();
     }
 
-    public List<PlanItem> getPlansInContestPhase(long contestPhase) {
-        return Collections.emptyList();
-       // return this.planItemFinder.getPlansForContestPhase(contestPhase);
+    public List<PlanItem> getPlansInContestPhase(ContestPhase contestPhase) throws SystemException, PortalException {
+        return this.getPlans(Collections.emptyMap(),Collections.emptyMap(),null,contestPhase,0,Integer.MAX_VALUE,"","",false);
     }
     
     public PlanItem getPlan(Long planId) throws NoSuchPlanItemException, SystemException {
         return this.planItemPersistence.findByPlanId(planId);
     }
     
-    public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, int start, int end, 
+    public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, ContestPhase phase, int start, int end,
             final String sortColumn, String sortDirection) throws SystemException, PortalException {
-        return getPlans(sessionMap, requestMap, planType, start, end, sortColumn, sortDirection, true);
+        return getPlans(sessionMap, requestMap, planType, phase, start, end, sortColumn, sortDirection, true);
     }
     
-    public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, int start, int end, 
+    public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, ContestPhase phase, int start, int end,
             final String sortColumn, String sortDirection, boolean applyFilters) 
     throws SystemException, PortalException  {
         /*
@@ -402,10 +447,16 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         
         List<PlanItem> plans = new ArrayList<PlanItem>();
         for (PlanItem planItem: planItemFinder.getPlans()) {
-            if (planItem.getPlanTypeId().equals(planType.getPlanTypeId())) {
+            if ((planType == null || planItem.getPlanTypeId().equals(planType.getPlanTypeId())) &&
+                (phase == null || planItem.getPlanMeta().getContestPhase().equals(phase.getContestPhasePK()))) {
                 plans.add(planItem);
             }
         }
+
+        if (planType == null && phase!=null) {
+           planType = phase.getContest().getPlanType(); 
+        }
+
         final int directionModifier = sortDirection.equals("DESC") ? -1 : 1;
         Collections.sort(plans, new Comparator<PlanItem>() {
 

@@ -38,9 +38,9 @@ public interface ContestPhaseModel extends BaseModel<ContestPhase> {
 
     public void setContestPK(Long ContestPK);
 
-    public Long getContestPhaseName();
+    public String getContestPhaseName();
 
-    public void setContestPhaseName(Long ContestPhaseName);
+    public void setContestPhaseName(String ContestPhaseName);
 
     public String getContestPhaseDescription();
 
@@ -54,9 +54,9 @@ public interface ContestPhaseModel extends BaseModel<ContestPhase> {
 
     public void setPhaseStartDate(Date PhaseStartDate);
 
-    public Long getPhaseEndDate();
+    public Date getPhaseEndDate();
 
-    public void setPhaseEndDate(Long PhaseEndDate);
+    public void setPhaseEndDate(Date PhaseEndDate);
 
     public String getNextStatus();
 
