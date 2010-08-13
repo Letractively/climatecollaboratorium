@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<f:view
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:collab="http://climatecollaboratorium.org/facelets"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:h="http://java.sun.com/jsf/html">
+
+    <ice:panelSeries var="contest" value="#{plansTypeIndexBean.contests}" styleClass="categorySeriesContainer">
+        <ice:panelGroup styleClass="categoryDisplay">
+            <ice:panelGroup styleClass="categoryDetails">
+                <ice:form>
+                    <div class="categoryHeader">
+                        <h2><ice:outputText styleClass="categoryName" value="#{contest.name}"/></h2>
+                    </div>
+                    <ice:panelGroup styleClass="categoryDescription">
+                        <ice:outputText value="#{contest.description}"/>
+                    </ice:panelGroup>
+                </ice:form>
+            </ice:panelGroup>
+            <ice:panelGroup styleClass="categoryContents">
+                <ice:dataTable var="phase" value="#{contest.phases}" headerClass="categoryContentsTableHeader"
+                               styleClass="categoryContentsTable"
+                               columnClasses="phaseName,phaseStatus,phasePlanCount, phaseStart,phaseEnd">>
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Phase"/>
+
+                        </f:facet>
+                        <ice:outputLink value="#plans=phaseId:#{phase.phaseId}"
+                                        onclick="Collab.nav.navigate('plans', {phaseId: '#{phase.phaseId}'})">
+                            <ice:outputText value="#{phase.name}"/>
+                        </ice:outputLink>
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Status"/>
+
+                        </f:facet>
+                        <ice:outputText value="#{phase.status}"/>
+
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Count"/>
+                        </f:facet>
+                        <ice:outputText value="#{fn:length(phase.plans)}"/>
+
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Start Date"/>
+
+                        </f:facet>
+                        <ice:outputText value="#{phase.startDate}"/>
+
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="End Date"/>
+
+                        </f:facet>
+                        <ice:outputText value="#{phase.endDate}"/>
+
+                    </ice:column>
+
+
+                </ice:dataTable>
+            </ice:panelGroup>
+
+        </ice:panelGroup>
+
+
+    </ice:panelSeries>
+
+
+</f:view>

@@ -1,5 +1,7 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 
@@ -23,10 +25,12 @@ import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 
 public class NavigationBean {
-    private final static String INDEX_PAGE = "INDEX";
+    private final static String CONTEST_INDEX_PAGE = "CONTEST_INDEX";
+    private final static String PHASE_INDEX_PAGE = "PHASE_INDEX";
     private final static String DETAILS_PAGE = "DETAILS";
     private PlanBean planBean;
     private PlansIndexBean plansIndex;
+    private PlanTypeIndexBean plansTypeIndex;
     private static String PORTLET_ID;
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
@@ -39,31 +43,36 @@ public class NavigationBean {
     public void setPlansIndex(PlansIndexBean plansIndex) {
         this.plansIndex = plansIndex;
     }
+    
+    public PlanTypeIndexBean getPlansTypeIndex() {
+           return plansTypeIndex;
+       }
 
-    private Long planId;
+       public void setPlansTypeIndex(PlanTypeIndexBean planTypeIndex) {
+           this.plansTypeIndex = planTypeIndex;
+       }
+    
+
+
+
     private CreatePlanBean createPlanBean;
 
     private static Log _log = LogFactoryUtil.getLog(NavigationBean.class);
 
     public NavigationBean() throws SystemException, PortalException {
         PORTLET_ID = Helper.getPortletID();
-        plansIndex = new PlansIndexBean(eventBus);
+        plansTypeIndex = new PlanTypeIndexBean();
+        plansIndex = new PlansIndexBean(plansTypeIndex);
         planBean = new PlanBean();
     }
 
-    public String getPageType() {
-        if (planBean.getPlanId() != null && planBean.getPlanId().compareTo(0L) > 0) {
+   public String getPageType() {
+       if (planBean.getPlanId() != null && planBean.getPlanId().compareTo(0L) > 0) {
             return DETAILS_PAGE;
+        } else if (plansIndex.getContestPhase() !=null) {
+            return PHASE_INDEX_PAGE;
         }
-        return INDEX_PAGE;
-    }
-
-    public Long getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(Long planId) {
-        this.planId = planId;
+        return CONTEST_INDEX_PAGE;
     }
 
     public PlanBean getPlanBean() {
@@ -81,12 +90,15 @@ public class NavigationBean {
     public CreatePlanBean getCreatePlanBean() {
         if (createPlanBean == null) {
             createPlanBean = new CreatePlanBean(plansIndex);
+        } else {
+            createPlanBean.setPlansIndex(plansIndex);
         }
         return createPlanBean;
     }
 
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
+        plansTypeIndex.setEventBus(eventBus);
         plansIndex.setEventBus(eventBus);
         bindEvents();
     }
@@ -105,13 +117,26 @@ public class NavigationBean {
         handlerRegistrations.add(eventBus.registerHandler(NavigationEvent.class, new EventHandler<NavigationEvent>() {
 
             @Override
-            public void onEvent(NavigationEvent event) {
+               public void onEvent(NavigationEvent event) {
                 // check if event
+
                 if (event.getSource().equals("plans")) {
                     navigationParameters = event.getParameters();
+                    String contestPhaseIdStr = event.getParameters().get("phaseId");
+                    try {
+                        Long contestPhaseId = contestPhaseIdStr==null?null:Long.parseLong(contestPhaseIdStr);
+                        plansIndex.init(contestPhaseId,event.getParameters());
+                    } catch (NumberFormatException e) {
+                        _log.error("can't parse contestPhaseIdStr: "+contestPhaseIdStr,e);
+                    } catch (PortalException e) {
+                         _log.error("Can't init contest phase index "+contestPhaseIdStr,e);  //To change body of catch statement use File | Settings | File Templates.
+                    } catch (SystemException e) {
+                     _log.error("Can't init contest phase index "+contestPhaseIdStr,e);  //To change body of catch statement use File | Settings | File Templates.
+                    }
+
                     String planIdStr = event.getParameters().get("planId");
                     try {
-                        planId = planIdStr == null ? null : Long.parseLong(planIdStr);
+                        Long planId = planIdStr == null ? null : Long.parseLong(planIdStr);
                         planBean.init(planId, eventBus, event.getParameters());
                     }
                     catch (NumberFormatException e) {

@@ -21,11 +21,11 @@
     </ice:panelGroup>
     <div class="inputsAndOutputsWidget">
         <f:subview rendered="#{permissions.canEdit}">
-            <collab:simulation simulationId="#{planBean.plan.planType.modelId}" scenarioId="#{planBean.plan.planModelRunScenarioId}" 
+            <collab:simulation simulationId="#{planBean.plan.selectedModel}" scenarioId="#{planBean.plan.planModelRunScenarioId}"
                     showEditButton="true" />
         </f:subview>
         <f:subview rendered="#{not permissions.canEdit}">
-            <collab:simulation simulationId="#{planBean.plan.planType.modelId}" scenarioId="#{planBean.plan.planModelRunScenarioId}" 
+            <collab:simulation simulationId="#{planBean.plan.selectedModel}" scenarioId="#{planBean.plan.planModelRunScenarioId}" 
                     disableInputs="true" />
         </f:subview>
     </div>

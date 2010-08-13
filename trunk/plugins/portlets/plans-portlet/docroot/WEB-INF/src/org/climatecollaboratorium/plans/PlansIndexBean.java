@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.PlanConstants.Attribute;
@@ -19,8 +20,7 @@ import com.icesoft.faces.component.datapaginator.DataPaginator;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -33,6 +33,8 @@ import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 import org.climatecollaboratorium.plans.utils.DataPage;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
+
+import static java.util.Collections.emptyMap;
 
 public class PlansIndexBean {
 
@@ -47,7 +49,9 @@ public class PlansIndexBean {
 
     private PagedListDataModel plansDataModel;
 
-    private PlanType planType;
+
+
+    private ContestPhaseWrapper contestPhase;
 
     private ConfigureColumnsBean columnsConfiguration;
 
@@ -59,34 +63,57 @@ public class PlansIndexBean {
     private boolean findUserVote;
     private boolean updateErrorNotes;
 
-    private List<PlanItem> notFilteredPlans;
+    private List<PlanItem> notFilteredPlans = new ArrayList<PlanItem>();
     private List<PlanIndexItemWrapper> plans = new ArrayList<PlanIndexItemWrapper>();
 
     private DataPaginator dataPaginator;
     private List<Debate> availableDebates;
-    private static final String PLAN_TYPE_SESSION_PARAM = "PLAN_TYPE_SESSION_PARAM";
+    private static final String CONTEST_PHASE_SESSION_PARAM = "CONTEST_PHASE_SESSION_PARAM";
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
-    public PlansIndexBean(EventBus eventBus) throws SystemException, PortalException {
-        // we should start from "published" plans tab
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        if (ectx.getSessionMap().containsKey(PLAN_TYPE_SESSION_PARAM)) {
-            planType = (PlanType) ectx.getSessionMap().get(PLAN_TYPE_SESSION_PARAM);
-        }
-        else {
-            planType = PlanTypeLocalServiceUtil.getPlanType(PlanTypeLocalServiceUtil.getDefaultPlanType().getPublishedCounterpartId());
-            ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
-        }
+    private PlanTypeIndexBean contestIndexBean;
 
+    private List<TestTab> testTabs = Arrays.asList(new TestTab("one"),new TestTab("two"),new TestTab("three"));
+
+    private int tabindex = 0;
+
+    public PlansIndexBean(PlanTypeIndexBean contestIndexBean) throws SystemException, PortalException {
+
+        this.contestIndexBean = contestIndexBean;
         dataPaginator = new DataPaginator();
+
+    }
+
+    public void init(Long contestPhaseId, Map<String,String> params) throws SystemException, PortalException {
+        if (contestPhase!=null && contestPhase.getPhaseId().equals(contestPhaseId)) return;
+        contestPhase = contestIndexBean.lookupWrapper(contestPhaseId);
+        if (contestPhase == null) {
+            return;
+        }
         refresh();
         sortColumn = PlanConstants.Attribute.VOTES.name();
         sortAscending = false;
-        this.eventBus = eventBus;
-        if (eventBus != null) {
-            bindEvents();
-        }
+
+
+    }
+
+    public ContestPhaseWrapper getContestPhase() {
+        return contestPhase;
+    }
+
+    public List<ContestPhaseWrapper> getContestPhases() {
+        List<ContestPhaseWrapper> result = contestPhase == null?Collections.<ContestPhaseWrapper>emptyList():contestPhase.getContest().getPhases();
+        return result;
+    }
+
+    public int getContestPhaseIndex() {
+        int result =  contestPhase == null?-1:contestPhase.getContest().getPhases().indexOf(contestPhase);
+        return result;
+    }
+
+    public void setContestPhaseIndex(int i) throws SystemException, PortalException {
+        if (contestPhase!=null) init(contestPhase.getContest().getPhases().get(i).getPhaseId(), Collections.<String, String>emptyMap());
     }
     
     public void setEventBus(EventBus eventBus) {
@@ -96,10 +123,27 @@ public class PlansIndexBean {
         }
     }
 
+    public List<TestTab> getTabs() {
+        return testTabs;
+    }
+
+    public int getTabIndex() {
+        return tabindex;
+    }
+
+    public void setTabIndex(int idx) {
+        this.tabindex = idx;    
+    }
+
+
+
+
     private void bindEvents() {
         for (HandlerRegistration registration: handlerRegistrations) {
             registration.unregister();
         }
+
+         handlerRegistrations.clear();
         
         handlerRegistrations.add(eventBus.registerHandler(PlanDeletedEvent.class, new EventHandler<PlanDeletedEvent>() {
 
@@ -127,8 +171,8 @@ public class PlansIndexBean {
             if (sortCol.isSortable()) {
                 sortAttribute = sortCol.getSortAttribute().name();
             }
-            notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
-            for(PlanItem plan: PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), planType, notFilteredPlans)) {
+            notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
+            for(PlanItem plan: PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
                 plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
             }
             updateErrorNotes = true;
@@ -243,9 +287,9 @@ public class PlansIndexBean {
         }
     }
 
-    public PlanType getPlanType() {
-        return planType;
-    }
+//    public PlanType getPlanType() {
+//        return planType;
+//    }
 
     public ConfigureColumnsBean getColumnsConfiguration() throws SystemException, PortalException {
         if (columnsConfiguration == null) {
@@ -263,9 +307,9 @@ public class PlansIndexBean {
 
     private void columnsUpdate() throws PortalException, SystemException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), planType);
+        plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPlanType());
         columns = new ArrayList<Columns>();
-        for (Columns col: Columns.getPlanTypeColumns(planType)) {
+        for (Columns col: Columns.getPlanTypeColumns(contestPhase.getPlanType())) {
             if (col.getUserSetting(plansUserSettings)) {
                 columns.add(col);
             }
@@ -273,30 +317,7 @@ public class PlansIndexBean {
         updatePlansList = true;
     }
 
-    public void usePublishedPlans(ActionEvent e) throws PortalException, SystemException {
-        if (!planType.getPublished()) {
-            planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
-            ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-            ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
 
-            sortColumn = Attribute.VOTES.name();
-            sortAscending = false;
-
-            refresh();
-        }
-    }
-
-    public void useUnPublishedPlans(ActionEvent e) throws PortalException, SystemException {
-        if (planType.getPublished()) {
-            planType = PlanTypeLocalServiceUtil.getPlanType(planType.getPublishedCounterpartId());
-            ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-            ectx.getSessionMap().put(PLAN_TYPE_SESSION_PARAM, planType);
-
-            sortColumn = Attribute.NAME.name();
-            sortAscending = true;
-            refresh();
-        }
-    }
 
     public void refresh() throws PortalException, SystemException {
         updatePlansList = true;
@@ -354,6 +375,19 @@ public class PlansIndexBean {
             return true;
         }
         return updateErrorNotes;
+    }
+
+    public static class TestTab {
+
+        String label;
+
+        public TestTab(String label) {
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
     }
 
 }

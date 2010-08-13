@@ -171,4 +171,8 @@ public class PlanBean {
     public void planDeleted() {
         eventBus.fireEvent(new PlanDeletedEvent(planItem));   
     }
+
+    public void uploadFile(ActionEvent evt) {
+        System.err.println("Should upload file");
+    }
 }

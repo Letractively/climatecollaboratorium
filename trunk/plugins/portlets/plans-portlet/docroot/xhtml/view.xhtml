@@ -9,12 +9,17 @@
     
 <ice:portlet>
     <collab:navigationManager />
-    <f:subview name="index" rendered="#{navigation.pageType == 'INDEX'}">
+    <f:subview id="contests" rendered="#{navigation.pageType == 'CONTEST_INDEX'}">
+        <ui:include src="contestIndex.xhtml">
+            <ui:param value="#{navigation.plansTypeIndex}" name="plansTypeIndexBean" />
+        </ui:include>
+    </f:subview>
+    <f:subview id="index" rendered="#{navigation.pageType == 'PHASE_INDEX'}">
         <ui:include src="plansIndex.xhtml">
             <ui:param value="#{navigation.plansIndex}" name="plansIndexBean" />
         </ui:include>
     </f:subview>
-    <f:subview name="details" rendered="#{navigation.pageType == 'DETAILS'}">
+    <f:subview id="details" rendered="#{navigation.pageType == 'DETAILS'}">
         <ui:include src="planDetails.xhtml">
             <ui:param value="#{navigation.planBean}" name="planBean" />
         </ui:include>

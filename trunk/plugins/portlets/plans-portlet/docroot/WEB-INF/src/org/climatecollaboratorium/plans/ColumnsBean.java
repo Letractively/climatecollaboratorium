@@ -17,7 +17,7 @@ public class ColumnsBean {
 
     public ColumnsBean(Columns wrapped, PlansIndexBean plansIndex) throws PortalException, SystemException {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndex.getPlanType());
+        PlansUserSettings plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), plansIndex.getContestPhase().getPlanType());
         visible = wrapped.getUserSetting(plansUserSettings);
         this.wrapped = wrapped;
         this.plansIndexBean = plansIndex;
