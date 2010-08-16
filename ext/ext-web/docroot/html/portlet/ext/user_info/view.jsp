@@ -137,6 +137,25 @@
 	</script>
 	
 </c:if>
+<!-- end #loginBox -->
+<div class="topLink">
+    <span id="login_fx" class="hidden">
+	<c:choose>
+		<c:when test="<%= themeDisplay.isSignedIn() %>">
+			<a href="<%= HtmlUtil.escape(themeDisplay.getURLSignOut()) %>" id="logout_link">log out</a>
+		</c:when>
+		<c:otherwise>
+			<a href="javascript:;" id="login_link">log in</a>
+		</c:otherwise>
+	</c:choose>
+	|</span>
+	<a href="/web/guest/resources/-/wiki/Main/About+the+Climate+Collaboratorium">about</a>
+	<span>|</span>
+	<a href="/web/guest/resources/-/wiki/Main/Climate+Collaboratorium+Help">help</a>
+	<span>|</span>
+	<a href="/web/guest/feedback">feedback</a>
+</div>
+
 <div id="loginBox">
 	<c:choose>
 		<c:when test="<%= themeDisplay.isSignedIn() %>">
@@ -158,24 +177,7 @@
 	</c:choose>
 </div>
 
-<!-- end #loginBox -->
-<div class="topLink">
-    <span id="login_fx" class="hidden">
-	<c:choose>
-		<c:when test="<%= themeDisplay.isSignedIn() %>">
-			<a href="<%= HtmlUtil.escape(themeDisplay.getURLSignOut()) %>" id="logout_link">log out</a>
-		</c:when>
-		<c:otherwise>
-			<a href="javascript:;" id="login_link">log in</a>
-		</c:otherwise>
-	</c:choose>
-	|</span>
-	<a href="/web/guest/resources/-/wiki/Main/About+the+Climate+Collaboratorium">about</a>
-	<span>|</span>
-	<a href="/web/guest/resources/-/wiki/Main/Climate+Collaboratorium+Help">help</a>
-	<span>|</span>
-	<a href="/web/guest/resources/feedback">feedback</a>
-</div>
+
 <!-- end .topLink -->
 <div id="login" class="hidden">
 	<div class="inner">
