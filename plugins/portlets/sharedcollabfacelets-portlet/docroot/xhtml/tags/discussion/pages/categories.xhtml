@@ -4,7 +4,8 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     
     <ui:composition template="./discussionTemplate.xhtml">
         <ui:define name="discussion_breadcrumb">Categories</ui:define>
@@ -69,11 +70,13 @@
                     <ice:commandButton actionListener="#{category.toggleEdit}" value="Cancel" />
                 </ice:panelGroup>    
             </ice:panelSeries>
-            
+            <ice:panelGroup rendered="#{fn:length(discussionBean.categories) ne 0}">
             <ui:decorate template="./paginator.xhtml">
                 <ui:param name="paginatorFor" value="paginatedDataSet"/>
                 <ui:param name="entityName" value="Categories"/>
             </ui:decorate>                  
+           </ice:panelGroup>
         </ui:define>
+
     </ui:composition>
 </f:view>

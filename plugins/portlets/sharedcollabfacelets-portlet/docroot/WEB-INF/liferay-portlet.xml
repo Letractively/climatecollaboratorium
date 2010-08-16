@@ -8,6 +8,7 @@
 		<social-activity-interpreter-class>org.climatecollaboratorium.facelets.discussions.activity.DiscussionActivityFeedEntry</social-activity-interpreter-class>
 		<!-- <friendly-url-mapper-class>com.climatecollaboratorium.navigation.SharedFriendlyURLMapper</friendly-url-mapper-class>-->
 		<instanceable>true</instanceable>
+		<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>
 		<header-portlet-css>/css/test.css</header-portlet-css>
 		<header-portlet-css>/css/simulation/simulation.css</header-portlet-css>
 		<header-portlet-css>/css/discussion/discussion.css</header-portlet-css>

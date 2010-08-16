@@ -23,7 +23,7 @@
                             </div>
                         </ice:panelSeries>
                         <ice:panelTabSet value="#{simulationBean.display.tabsWrapped}" var="input1" rendered="#{simulationBean.hasTabs}"  styleClass="modelInputsTabs">
-                            <ice:panelTab label="#{input1.oryginalName}">
+                            <ice:panelTab label="#{input1.oryginalName}" styleClass="inputTabStyle">
                                <ice:panelSeries value="#{input1.allItems}" var="input" varStatus="status">
                                     <div class="hidden">#{simulationBean.display}</div>
                                     <div  class="simulationInput #{status.index mod 2 == 0 ? 'even' : 'odd'}">
@@ -35,7 +35,14 @@
                                         <!-- <ui:include src="./individual.xhtml" />-->
                                         </f:subview>
                                     </div>
-                                </ice:panelSeries>
+                               </ice:panelSeries>
+                                <ice:panelGroup>
+                                    <script language="javascript">
+                                       var disabled = #{disableInputs || false} || ! (!#{showEditButton || false} || #{showEditButton || false} &amp;&amp; #{simulationBean.embeddedEditing || false});
+                                        jQuery(".actions input").attr('disabled', disabled);
+                                        jQuery(".actions .slider").slider("option", "disabled", disabled);
+                                    </script>
+                                </ice:panelGroup>
 
                             </ice:panelTab>
                         </ice:panelTabSet>
