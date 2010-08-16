@@ -50,11 +50,15 @@
         <ice:panelGroup>
             <script language="javascript">
             // #{simulationBean.display}
-            
+
+
+            //disableInputs(#{disableInputs || false},#{showEditButton || false},#{simulationBean.embeddedEditing || false});
+
+
             var disabled = #{disableInputs || false} || ! (!#{showEditButton || false} || #{showEditButton || false} &amp;&amp; #{simulationBean.embeddedEditing || false});
             jQuery(".actions input").attr('disabled', disabled);
             jQuery(".actions .slider").slider("option", "disabled", disabled);
-        
+
             </script>
         </ice:panelGroup>
     </collab:simulationSupport>

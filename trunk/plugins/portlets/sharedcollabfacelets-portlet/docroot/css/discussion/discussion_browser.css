@@ -14,6 +14,11 @@
 	background: #f5f5f5;
 }
 
+.searchArea .managePermissions {
+    float:left;
+    padding:10px;
+}
+
 .searchArea .searchBox {
 	color: #bbb;
 	width: 200px;
@@ -128,7 +133,9 @@
     background: #708AB3;
     color: #ffffff;
     margin: 5px 0;
-    font-size: 1.2em;
+    font-size: 1.7em;
+    padding:9px;
+    white-space:normal;
 }
 .discussion .addNewDiscussion:hover {
     background: #91B1E6;

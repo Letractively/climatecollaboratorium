@@ -29,6 +29,13 @@ function modelRunSuccessful(event) {
 	renderModelOutputs();
 }
 
+function disableInputs(disableInputs, editbuttonvisible,embedded) {
+    if (disableInputs || !editbuttonvisible || (editbuttonvisible && embedded)) {
+    jQuery(".actions input").attr('disabled', disabled);
+    jQuery(".actions .slider").slider("option", "disabled", disabled);
+        }
+}
+
 
 function isInteger(dataType) {
 	if (dataType == "java.lang.Integer") return true;
@@ -99,7 +106,12 @@ function showSliders() {
 		var valueField = jQuery(this).find(".value");
 		valueField.val(formatFieldValue(defaultVal, unit));
 
+        var valueBinding = jQuery(this).find('.valueBinding');
+
 		if (type != "SLIDER") {
+            valueField.change(function(e,ui) {
+               valueBinding.val(parseFieldValue(valueField.val(),unit));
+            });
 			return;
 		}
 
@@ -116,10 +128,13 @@ function showSliders() {
 			slide: function(event, ui) {
 			if (isInteger(dataType)) {
 				valueField.val(formatFieldValue(ui.value, unit));
+
 			}
 			else if (isDouble(dataType)) {
 				valueField.val(formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit));
 			}
+
+            valueBinding.val(valueField.val());
 		}
 		});
 

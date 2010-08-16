@@ -4,7 +4,8 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     
 <ui:composition template="./discussionTemplate.xhtml">
 
@@ -28,11 +29,13 @@
             <ui:param name="threads" value="#{discussionBean.currentCategory.threads}" />
             <ui:param name="listId" value="threadsList" />
         </ui:decorate>
-            
+
+        <ice:panelGroup rendered="#{fn:length(discussionBean.currentCategory.threads) ne 0}">
         <ui:decorate template="./paginator.xhtml">
             <ui:param name="paginatorFor" value="threadsList"/>
             <ui:param name="entityName" value="Discussions"/>
         </ui:decorate>
+        </ice:panelGroup>
             
     </ui:define>
 </ui:composition>

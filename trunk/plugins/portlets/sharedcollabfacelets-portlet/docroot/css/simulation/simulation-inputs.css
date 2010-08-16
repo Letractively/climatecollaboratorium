@@ -32,7 +32,7 @@
 
 
 .actions table td {
-    height: 38px;
+    height: 30px;
 }
 
 .actions h3 {
@@ -72,6 +72,38 @@
 }
 
 
+table.inputDefTable {
+    width:100%
+}
+
+table.innerLayout td.label {
+    text-align:right;
+
+}
+
+table.innerLayout td.field {
+    text-align:left;
+    padding-left:3px;
+
+}
+
+table.sliderDef {
+    width:100%;
+}
+
+table.innerLayout {
+    width:100%;
+}
+
+/*
+ INPUTS ROWS
+ */
+
+
+div.simulationInput {
+    padding:5px;
+}
+
 .simulationInput.odd {
     background: #EAEAEA;
 }
@@ -81,9 +113,16 @@
  INPUTS TABS
  */
  
-.modelInputsTabs {
+/*
+.modelInputsTabs td {
     height: 50px;
     white-space: normal;
+
+}
+
+
+table.modelInputsTabs {
+    width:100%;
 }
 
 .modelInputsTabs table.icePnlTbOn,
@@ -104,7 +143,8 @@
 .modelInputsTabs table.icePnlTbOver td {
     height:auto;
     width:50px;
-    white-space:normal;
+
+    background-image:none;  
 }
 
 .modelInputsTabs .actions table.innerLayout td.label {
@@ -117,4 +157,55 @@
 
 table.modelInputsTab > tbody:first-child > tr:first-child table {
     height:50px;
+}
+*/
+
+
+/** my additions */
+
+td.inputTabStyle {
+
+    border-top:1px solid #F0F0F0;
+    border-right:1px solid #F0F0F0;
+    border-left:1px solid #F0F0F0;
+    height:auto;
+}
+
+.inputTabStyleOn.icePnlTbOn td,
+.inputTabStyleOver.icePnlTbOver td,
+.inputTabStyleOff.icePnlTbOff td
+
+{
+  background-image:none;
+    white-space:normal;
+     height:auto;
+
+}
+
+.inputTabStyleOn.icePnlTbOn td {
+    background-color: #F0F0F0;
+   color: #000000;
+}
+
+
+
+.inputTabStyleOver.icePnlTbOver td {
+    background-color: #fbcb9c;
+   color: #606060;
+
+
+}
+
+.inputTabStyleOff.icePnlTbOff td {
+    background-color:#C0C0C0;
+    color: #606060;
+
+}
+
+.inputTabStyleOn.icePnlTbOn td.MidMid,
+.inputTabStyleOff.icePnlTbOff td.MidMid,
+.inputTabStyleOver.icePnlTbOver td.MidMid {
+    padding:3px;
+    font-weight:bold;
+
 }
