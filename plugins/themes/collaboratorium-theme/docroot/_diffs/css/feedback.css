@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+
+div.contact-form {
+    padding-left: 20px;
+}
+
+.contact-form h2 {
+    font-size:16px;
+    padding-top: 20px;
+    color: #003333
+}
+
+.contact-form a, .contactFormExpander a {
+    padding-left: 10px;
+    line-height:23px;
+    font-size:1.2em;
+}
+
+.contactFormExpander a {
+    padding-left:30px;
+}
+

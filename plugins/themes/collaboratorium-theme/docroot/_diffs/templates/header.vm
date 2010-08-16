@@ -2,8 +2,10 @@
 	<div class="head_outlay">
     	<div class="head_bg">
         	<div id="banner">
-                <a href="/"><h1><span class="hidden">Climate Collaboratorium</span></h1></a>
-                
+                <div class="site-logo">
+                    <a href="/"><h1><span class="hidden">Climate CoLab</span></h1></a>
+                    <span class="subhead"></span>
+                </div>
                 <div id="loginArea">
                 	$theme.runtime("user_info")
 					#parse ("$full_templates_path/dock.vm")
