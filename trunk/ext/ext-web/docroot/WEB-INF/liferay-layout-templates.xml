@@ -94,5 +94,20 @@
 			<wap-template-path>/layouttpl/custom/collaboratorium-3.tpl</wap-template-path>
 			<thumbnail-path>/layouttpl/custom/collaboratorium-3.png</thumbnail-path>
 		</layout-template>
+        <layout-template id="custom-1-1-3-1" name="1-1-3-1 Columns">
+			<template-path>/layouttpl/custom/custom-1-1-3-1.tpl</template-path>
+			<wap-template-path>/layouttpl/custom/custom-1-1-3-1.tpl</wap-template-path>
+			<thumbnail-path>/layouttpl/custom/custom-1-1-3-1.png</thumbnail-path>
+		</layout-template>
+        <layout-template id="custom-1-1-1" name="1-1-1 Columns">
+			<template-path>/layouttpl/custom/custom-1-1-1.tpl</template-path>
+			<wap-template-path>/layouttpl/custom/custom-1-1-1.tpl</wap-template-path>
+			<thumbnail-path>/layouttpl/custom/custom-1-1-1.png</thumbnail-path>
+		</layout-template>
+        <layout-template id="custom-1-2(70.30)-1" name="1-2(70/30)-1 Columns">
+			<template-path>/layouttpl/custom/custom-1-2(70.30)-1.tpl</template-path>
+			<wap-template-path>/layouttpl/custom/custom-1-2(70.30)-1.tpl</wap-template-path>
+			<thumbnail-path>/layouttpl/custom/custom-1-2(70.30)-1.png</thumbnail-path>
+		</layout-template>
 	</custom>
 </layout-templates>
