@@ -91,6 +91,11 @@ a:hover {
 }
 
 
+#content-wrapper {
+    width:963px;
+    margin:auto;
+}
+
 #mainContent{
 	width:100%;
 	padding-bottom: 20px;
@@ -120,19 +125,14 @@ a:hover {
 	width:100%;
 	height:630px;
 }
-#mainContent .portlet-journal-content h2{
-	width:586px;
-	height:23px;
-	margin:auto;
-	margin-bottom:19px;
-	background:url(../images/home_title.png) no-repeat left;
-}
+
 #mainContent .portlet-journal-content .holder{
 	width:448px;
 	height:368px;
 	margin-left:-7px;
 	background:url(../images/home_image.png) no-repeat;
 }
+
 #mainContent .portlet-journal-content .holder .flv_content{
 	width:598px;
 	height:336px;
@@ -748,7 +748,7 @@ a:hover {
 	width:100%;
 	height:14px;
 	margin-top:20px;
-	background:url(../images/yourSuggest_title.png) no-repeat;
+	background:url(../images/yourSuggest_title.png) no-repeat;               
 }
 .d_Suggestion .d_Suggestion_bg .inner textarea{
 	width:287px;
