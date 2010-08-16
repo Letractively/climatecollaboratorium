@@ -313,31 +313,31 @@ td.contestTabSetCnt {
  *
  */
  
- .mainTabs .icePnlTb, 
- .mainTabsSpcr {
+ table.mainTabs > tbody > tr:first-child table .icePnlTb,
+ table.mainTabs > tbody > tr:first-child tableSpcr {
     background-color: #E7E7E7;
     border: 0;
  }
  
- .mainTabs .icePnlTbSetCnt  { 
+ table.mainTabs > tbody > tr:first-child table .icePnlTbSetCnt  {
     border: 0;
  }
  
-.mainTabs .LftMid,
-.mainTabs .RtMid,
-.mainTabs .LftTop,
-.mainTabs .RtTop,
-.mainTabs .MidTop,
-.mainTabs .LftBtm,
-.mainTabs .RtBtm,
-.mainTabs .MidBtm {
+table.mainTabs > tbody > tr:first-child table .LftMid,
+table.mainTabs > tbody > tr:first-child table .RtMid,
+table.mainTabs > tbody > tr:first-child table .LftTop,
+table.mainTabs > tbody > tr:first-child table .RtTop,
+table.mainTabs > tbody > tr:first-child table .MidTop,
+table.mainTabs > tbody > tr:first-child table .LftBtm,
+table.mainTabs > tbody > tr:first-child table .RtBtm,
+table.mainTabs > tbody > tr:first-child table .MidBtm {
 	background: none;
 	display: none;
 }
 
 
 
-.mainTabs .MidMid {
+table.mainTabs > tbody > tr:first-child table .MidMid {
     background:url("/collaboratorium-theme/images/detail_tab.png") no-repeat scroll 0 0 transparent;
     display:inline;
     float:left;
@@ -348,22 +348,22 @@ td.contestTabSetCnt {
     width:123px;
 }
 
-.mainTabs .icePnlTbOn .MidMid {
+table.mainTabs > tbody > tr:first-child table .icePnlTbOn .MidMid {
     background:url("/collaboratorium-theme/images/detail_tab_hover.gif") no-repeat scroll 0 0 transparent;
 }
 
 
-.mainTabs .icePnlTbOn .MidMid a,
-.mainTabs .icePnlTbOn .MidMid td {
+table.mainTabs > tbody > tr:first-child table .icePnlTbOn .MidMid a,
+table.mainTabs > tbody > tr:first-child table .icePnlTbOn .MidMid td {
 	font-weight: normal;
 }
 
-.mainTabs .MidMid div table {
+table.mainTabs > tbody > tr:first-child table .MidMid div table {
 	width: 100%;
 	text-align: center;
 }
 
-.mainTabs .MidMid a {
+table.mainTabs > tbody > tr:first-child table .MidMid a {
 	padding-left: 0;
 	padding-right: 0;
     color:#676767;
@@ -375,7 +375,7 @@ td.contestTabSetCnt {
 }
 
 
-.mainTabs .icePnlTbOver .MidMid td {
+table.mainTabs > tbody > tr:first-child table .icePnlTbOver .MidMid td {
 	text-decoration: underline;
 }
 
