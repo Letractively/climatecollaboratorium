@@ -30,33 +30,32 @@ public class ModelDisplayWrapper {
     public ModelDisplayWrapper(ModelDisplay wrapped, SimulationBean simulationBean, Map<Long, Object> values) {
         this.wrapped = wrapped;
         this.simulationBean = simulationBean;
-        Set<Long> inputsDefined = new HashSet<Long>();
-        Map<Long, ModelInputDisplayItemWrapper> inputsById = new HashMap<Long, ModelInputDisplayItemWrapper>();
+        Map<ModelInputDisplayItem,ModelInputDisplayItemWrapper> tracking = new HashMap<ModelInputDisplayItem,ModelInputDisplayItemWrapper> ();
                 
         for (ModelInputGroupDisplayItem item: wrapped.getTabs()) {
             ModelInputGroupDisplayItemWrapper itemWrapper = new ModelInputGroupDisplayItemWrapper(item, simulationBean, values);
             wrappedTabs.add(itemWrapper);
-            wrappedInputs.addAll(itemWrapper.getAllItems());
+            tracking.put(item,itemWrapper);
+           // wrappedInputs.addAll(itemWrapper.getAllItems());
         }
         
         for (ModelInputDisplayItem item: wrapped.getNonTabs()) {
             ModelInputDisplayItemWrapper itemWrapper = ModelInputDisplayItemWrapper.getInputWrapper(item, simulationBean, values);
             wrappedNonTabs.add(itemWrapper);
-            wrappedInputs.add(itemWrapper);
+            tracking.put(item,itemWrapper);
+
         }
         
-        
-        for (ModelInputDisplayItemWrapper item: wrappedInputs) {
-            if (item != null && item.getMetaData() != null) {
-                inputsDefined.add(item.getMetaData().getId());
-            }
-        }
-        for (ModelInputDisplayItem item: wrapped.getAllIndividualInputs()) {
-            if (! inputsDefined.contains(item.getMetaData().getId())) {
+        //we just need the top level here
+        for (ModelInputDisplayItem item: wrapped.getInputs()) {
+            if (!tracking.containsKey(item)) {
                 wrappedInputs.add(ModelInputDisplayItemWrapper.getInputWrapper(item, simulationBean, values));
-                inputsDefined.add(item.getMetaData().getId());
+
+            } else {
+                wrappedInputs.add(tracking.get(item));
             }
         }
+
     }
     
     public List<ModelOutputDisplayItem> getOutputs() {
@@ -73,10 +72,12 @@ public class ModelDisplayWrapper {
 
     public Map<Long, Object> getInputsValues() {
         Map<Long, Object> inputsValues = new HashMap<Long, Object>();
+        int i = 0;
         for (ModelInputDisplayItemWrapper item: wrappedInputs) {
+            System.out.println((++i)+"Process item "+item.getName());
             if (! (item instanceof ModelInputGroupDisplayItemWrapper)) {
                 inputsValues.put(item.getId(), item.getTypedValue());
-                System.out.println("seting: " + item.getId() + "\t to " + item.getTypedValue());
+                System.out.println("setting: " + item.getId() + "\t to " + item.getTypedValue());
             } else {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) item, inputsValues);
             }

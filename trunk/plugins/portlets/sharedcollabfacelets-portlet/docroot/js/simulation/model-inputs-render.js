@@ -110,6 +110,7 @@ function showSliders() {
 
 		if (type != "SLIDER") {
             valueField.change(function(e,ui) {
+               // alert("Copy value "+valueField.val()+" to "+valueBinding);
                valueBinding.val(parseFieldValue(valueField.val(),unit));
             });
 			return;

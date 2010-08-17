@@ -108,10 +108,11 @@ public class SimulationBean {
         inputsValues.clear();
         editing = false;
 
-        updateDisplay();
+
         for (Variable var: scenario.getInputSet()) {
             inputsValues.put(var.getMetaData().getId(), var.getValue().get(0).getValues()[0]);
         }
+        updateDisplay();
 
     }
 
