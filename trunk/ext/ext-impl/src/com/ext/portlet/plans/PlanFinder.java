@@ -59,6 +59,10 @@ public class PlanFinder extends BasePersistenceImpl {
      */
     public static final String COUNT_PLANS = PlanFinder.class.getName() + ".countPlans";
 
+
+
+   
+
     /**
      * Name of custom SQL statement that is responsible for counting filtered
      * plans.

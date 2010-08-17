@@ -58,5 +58,9 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setAuthorId(Long authorId);
 
+    public Boolean getContestActive();
+
+    public void setContestActive(Boolean contestActive);
+
     public Contest toEscapedModel();
 }

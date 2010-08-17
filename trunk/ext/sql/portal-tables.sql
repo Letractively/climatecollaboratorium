@@ -223,7 +223,8 @@ create table Contest (
 	PlanTypeId LONG,
 	created DATE null,
 	updated DATE null,
-	authorId LONG
+	authorId LONG,
+	contestActive BOOLEAN
 );
 
 create table ContestPhase (

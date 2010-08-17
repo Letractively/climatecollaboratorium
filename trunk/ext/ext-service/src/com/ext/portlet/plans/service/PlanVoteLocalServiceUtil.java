@@ -107,6 +107,11 @@ public class PlanVoteLocalServiceUtil {
         return getService().coutPlanVotes(planId);
     }
 
+    public static int countPlanVotes(com.ext.portlet.plans.model.PlanType type)
+        throws com.liferay.portal.SystemException {
+        return getService().countPlanVotes(type);
+    }
+
     public static PlanVoteLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanVoteLocalService is not set");

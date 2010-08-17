@@ -5,6 +5,8 @@ public interface PlanItemFinder {
 
     public void removePlanWithHistory(long planId);
 
+    public int countVotesForPlanType(com.ext.portlet.plans.model.PlanType type);
+
     public int countFilteredPlans(
         com.ext.portlet.plans.model.PlansUserSettings planUserSettings)
         throws java.lang.Exception;

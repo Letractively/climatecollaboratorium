@@ -11,10 +11,12 @@ import java.util.Date;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlanVote;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlanVoteLocalServiceBaseImpl;
+import com.ext.portlet.plans.service.persistence.PlanItemFinderUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
@@ -60,5 +62,9 @@ public class PlanVoteLocalServiceImpl extends PlanVoteLocalServiceBaseImpl {
     
     public int coutPlanVotes(Long planId) throws SystemException {
         return planVotePersistence.countByplanId(planId);   
+    }
+
+    public int countPlanVotes(PlanType type) throws SystemException {
+        return PlanItemFinderUtil.countVotesForPlanType(type);
     }
 }

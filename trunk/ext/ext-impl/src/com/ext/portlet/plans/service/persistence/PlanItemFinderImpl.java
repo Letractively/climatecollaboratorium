@@ -72,6 +72,10 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      * Name of custom SQL statement that is responsible for counting filtered
      * plans.
      */
+
+
+    public static final String COUNT_VOTE_BY_TYPE = PlanItemFinderImpl.class.getName()+".countVotesByPlanType";
+
     public static final String COUNT_PLANS = PlanItemFinderImpl.class.getName() + ".countPlans";
 
     /**
@@ -383,6 +387,33 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      * Array of column names that should be used for sorting default for sorting.
      */
     public static final String[] DEFAULT_SORT_COLUMNS = {COLUMN_NAME, COLUMN_ID};
+
+
+
+    public int countVotesForPlanType(PlanType type) {
+        Session session = openSession();
+
+        String sql = CustomSQLUtil.get(COUNT_VOTE_BY_TYPE);
+
+        SQLQuery query = session.createSQLQuery(sql);
+
+        query.addScalar(COUNT_COLUMN_NAME, Type.LONG);
+        query.setLong(PARAM_PLAN_TYPE_ID, type.getPlanTypeId());
+
+        Iterator<Long> itr = query.list().iterator();
+        if (itr.hasNext()) {
+            Long count = itr.next();
+
+            if (count != null) {
+                return count.intValue();
+            }
+        }
+
+        return 0;
+
+    }
+
+
 
     /**
      * Returns count of plans after applying filters.

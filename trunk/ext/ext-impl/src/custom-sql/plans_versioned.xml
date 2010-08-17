@@ -8,6 +8,20 @@
 
 <custom-sql>
 
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.countVotesByPlanType">
+        <![CDATA[
+            select count(*) as COUNT_VALUE from
+                PlanVote
+                inner join (
+                    select distinct (PlanMeta.planId) as planId from PlanMeta where PlanMeta.planTypeId=?)
+                    as temp
+                on temp.planId = PlanVote.planId;
+        ]]>
+
+</sql>
+
+
+
 <sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getPlans">
         <![CDATA[
             SELECT
