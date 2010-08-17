@@ -327,8 +327,8 @@ public class PlansIndexBean {
         getPlans();
     }
 
-    public int getVotesCount() throws SystemException {
-        return PlanVoteLocalServiceUtil.getPlanVotesCount();
+    public int getVotesCount() throws SystemException, PortalException {
+        return PlanVoteLocalServiceUtil.countPlanVotes(contestPhase.getPlanType());
     }
 
     public int getPlansCount() {
