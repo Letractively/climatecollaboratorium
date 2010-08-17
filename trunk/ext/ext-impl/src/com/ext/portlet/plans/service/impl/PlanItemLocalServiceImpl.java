@@ -30,14 +30,7 @@ import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlansUserSettings;
-import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanDescriptionLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
-import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
+import com.ext.portlet.plans.service.*;
 import com.ext.portlet.plans.service.base.PlanItemLocalServiceBaseImpl;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
@@ -57,6 +50,7 @@ import com.liferay.portal.service.PermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import mit.simulation.climate.client.Simulation;
 
 public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
@@ -114,6 +108,11 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         PlanModelRunLocalServiceUtil.createPlanModelRun(planItem);
 
         PlanMeta meta = PlanMetaLocalServiceUtil.createPlanMeta(planItem, planTypeId);
+        PlanType type = PlanTypeLocalServiceUtil.getPlanType(planTypeId);
+        List<Simulation> models =  type.getAvailableModels();
+        if (models.size() > 0) {
+            meta.setModelId(models.get(0).getId());
+        }
         meta.setContestPhase(phase.getContestPhasePK());
         PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
 
