@@ -18,6 +18,7 @@
         <column name="created" type="Date" />
         <column name="updated" type="Date" />
         <column name="authorId" type="Long" />
+        <column name="contestActive" type="Boolean"/>
         
         <order by="desc">
             <order-column name="created" />

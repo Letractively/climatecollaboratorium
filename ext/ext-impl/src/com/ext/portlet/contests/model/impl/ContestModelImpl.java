@@ -61,9 +61,12 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "updated", new Integer(Types.TIMESTAMP) },
             
 
-            { "authorId", new Integer(Types.BIGINT) }
+            { "authorId", new Integer(Types.BIGINT) },
+            
+
+            { "contestActive", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -83,6 +86,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Date _created;
     private Date _updated;
     private Long _authorId;
+    private Boolean _contestActive;
 
     public ContestModelImpl() {
     }
@@ -97,6 +101,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setCreated(soapModel.getCreated());
         model.setUpdated(soapModel.getUpdated());
         model.setAuthorId(soapModel.getAuthorId());
+        model.setContestActive(soapModel.getContestActive());
 
         return model;
     }
@@ -179,6 +184,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _authorId = authorId;
     }
 
+    public Boolean getContestActive() {
+        return _contestActive;
+    }
+
+    public void setContestActive(Boolean contestActive) {
+        _contestActive = contestActive;
+    }
+
     public Contest toEscapedModel() {
         if (isEscapedModel()) {
             return (Contest) this;
@@ -195,6 +208,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setCreated(getCreated());
             model.setUpdated(getUpdated());
             model.setAuthorId(getAuthorId());
+            model.setContestActive(getContestActive());
 
             model = (Contest) Proxy.newProxyInstance(Contest.class.getClassLoader(),
                     new Class[] { Contest.class },
@@ -214,6 +228,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setCreated(getCreated());
         clone.setUpdated(getUpdated());
         clone.setAuthorId(getAuthorId());
+        clone.setContestActive(getContestActive());
 
         return clone;
     }
@@ -275,6 +290,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getUpdated());
         sb.append(", authorId=");
         sb.append(getAuthorId());
+        sb.append(", contestActive=");
+        sb.append(getContestActive());
         sb.append("}");
 
         return sb.toString();
@@ -314,6 +331,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>authorId</column-name><column-value><![CDATA[");
         sb.append(getAuthorId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>contestActive</column-name><column-value><![CDATA[");
+        sb.append(getContestActive());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

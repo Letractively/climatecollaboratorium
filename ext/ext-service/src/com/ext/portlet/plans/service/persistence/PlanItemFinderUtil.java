@@ -11,6 +11,11 @@ public class PlanItemFinderUtil {
         getFinder().removePlanWithHistory(planId);
     }
 
+    public static int countVotesForPlanType(
+        com.ext.portlet.plans.model.PlanType type) {
+        return getFinder().countVotesForPlanType(type);
+    }
+
     public static int countFilteredPlans(
         com.ext.portlet.plans.model.PlansUserSettings planUserSettings)
         throws java.lang.Exception {

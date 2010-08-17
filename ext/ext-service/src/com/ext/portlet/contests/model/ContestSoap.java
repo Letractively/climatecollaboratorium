@@ -33,6 +33,7 @@ public class ContestSoap implements Serializable {
     private Date _created;
     private Date _updated;
     private Long _authorId;
+    private Boolean _contestActive;
 
     public ContestSoap() {
     }
@@ -47,6 +48,7 @@ public class ContestSoap implements Serializable {
         soapModel.setCreated(model.getCreated());
         soapModel.setUpdated(model.getUpdated());
         soapModel.setAuthorId(model.getAuthorId());
+        soapModel.setContestActive(model.getContestActive());
 
         return soapModel;
     }
@@ -149,5 +151,13 @@ public class ContestSoap implements Serializable {
 
     public void setAuthorId(Long authorId) {
         _authorId = authorId;
+    }
+
+    public Boolean getContestActive() {
+        return _contestActive;
+    }
+
+    public void setContestActive(Boolean contestActive) {
+        _contestActive = contestActive;
     }
 }

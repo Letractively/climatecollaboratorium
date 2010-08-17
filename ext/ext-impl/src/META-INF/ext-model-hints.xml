@@ -508,6 +508,7 @@
 		<field name="created" type="Date" />
 		<field name="updated" type="Date" />
 		<field name="authorId" type="Long" />
+		<field name="contestActive" type="Boolean" />
 	</model>
 	<model name="com.ext.portlet.contests.model.ContestPhase">
 		<field name="ContestPhasePK" type="Long" />
