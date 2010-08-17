@@ -8,10 +8,10 @@ package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
-import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import org.climatecollaboratorium.events.EventBus;
 
+import javax.faces.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +67,7 @@ public class PlanTypeIndexBean {
         }
         return result;
     }
+
 
 
 }

@@ -13,12 +13,23 @@
         <ice:panelGroup styleClass="categoryDisplay">
             <ice:panelGroup styleClass="categoryDetails">
                 <ice:form>
-                    <div class="categoryHeader">
+                    <ice:panelGroup styleClass="categoryHeader" rendered="#{not contest.editor.editing}">
                         <h2><ice:outputText styleClass="categoryName" value="#{contest.name}"/></h2>
-                    </div>
-                    <ice:panelGroup styleClass="categoryDescription">
+                        <ice:commandButton styleClass="editCategoryButton" value="Edit" action="#{contest.editor.edit}" rendered="#{not contest.editor.editing and permissions.canAdminAll}"/>
+                    </ice:panelGroup>
+                    <ice:panelGroup styleClass="categoryHeader" rendered="#{contest.editor.editing}">
+                        <h2><ice:inputText styleClass="categoryName" value="#{contest.editor.name}"/></h2>
+                    </ice:panelGroup>
+                    <ice:panelGroup styleClass="categoryDescription" rendered="#{not contest.editor.editing}">
                         <ice:outputText value="#{contest.description}"/>
                     </ice:panelGroup>
+                    <ice:panelGroup styleClass="categoryDescription" rendered="#{contest.editor.editing}">
+                        <ice:inputTextarea value="#{contest.editor.description}"/>
+                    </ice:panelGroup>
+                    <ice:panelGrid columns="2" styleClass="editCategory buttonPanel" rendered="#{contest.editor.editing}">
+                         <ice:commandButton value="Save" action="#{contest.editor.save}"/>
+                        <ice:commandButton value="Cancel" action="#{contest.editor.cancel}"/>
+                    </ice:panelGrid>
                 </ice:form>
             </ice:panelGroup>
             <ice:panelGroup styleClass="categoryContents">

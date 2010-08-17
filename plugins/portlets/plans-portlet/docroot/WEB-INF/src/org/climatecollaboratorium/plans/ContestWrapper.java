@@ -8,8 +8,10 @@ package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
+import javax.faces.event.ActionEvent;
 import java.util.*;
 
 /**
@@ -23,6 +25,7 @@ public class ContestWrapper {
     private Contest contest;
     private List<ContestPhaseWrapper> phases = new ArrayList<ContestPhaseWrapper>();
     private Map<Long,ContestPhaseWrapper> index = new HashMap<Long,ContestPhaseWrapper>();
+    private EditContestBean editor;
 
 
     public ContestWrapper(Contest contest) throws SystemException {
@@ -32,6 +35,7 @@ public class ContestWrapper {
             phases.add(phaseWrapper);
             index.put(phase.getContestPhasePK(),phaseWrapper);
         }
+        editor = new EditContestBean();
     }
 
     public String getName() {
@@ -49,5 +53,75 @@ public class ContestWrapper {
 
     public ContestPhaseWrapper findPhase(Long contestPhaseId) {
         return index.get(contestPhaseId);
+    }
+
+    public Contest getContest() {
+        return contest;
+    }
+
+    public EditContestBean getEditor() {
+        return editor;
+    }
+
+   
+
+    /**
+     * Created by IntelliJ IDEA.
+     * User: jintrone
+     * Date: Aug 17, 2010
+     * Time: 10:08:58 AM
+     * To change this template use File | Settings | File Templates.
+     */
+    public class EditContestBean {
+
+
+        String name;
+        String description;
+        boolean editing = false;
+
+
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+
+        public boolean getEditing() {
+            return editing;
+        }
+
+
+        public void edit() {
+            editing = true;
+            this.name = contest.getContestName();
+            this.description = contest.getContestDescription();
+        }
+
+        public void save() throws SystemException {
+
+            contest.setContestName(name);
+            contest.setContestDescription(description);
+            ContestLocalServiceUtil.updateContest(contest);
+            editing = false;
+        }
+
+        public void cancel() {
+            editing = false;
+        }
+
+
+
     }
 }
