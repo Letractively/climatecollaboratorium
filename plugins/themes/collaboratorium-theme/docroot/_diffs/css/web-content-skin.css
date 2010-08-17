@@ -1,0 +1,141 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+
+/** Home **/
+
+.branding {
+    height:120px;
+    background-color: #b7c7e0;
+}
+
+div.tabbed-content {
+   
+}
+
+div.tabbed-content .ui-widget-content {
+    background:none;
+    border:none;
+    height:100%;
+
+}
+
+div.tabbed-content div.ui-tabs {
+    padding:0;
+    height: 100%;
+}
+
+div.tabbed-content .ui-tabs-panel.ui-widget-content {
+    background:#F0F0F0;
+    height:180px;
+}
+
+div.tabbed-content .ui-tabs {
+    margin:0;
+}
+
+div.tabbed-content .ui-widget {
+  font-family: Helvetica, sans-serif;
+}
+
+
+
+div.tabbed-content .ui-widget-header {
+   background:none;
+   border:none; 
+}
+
+div.tabbed-content ul.ui-tabs-nav li {
+    border:none;
+}
+
+
+div.tabbed-content ul.ui-tabs-nav li.ui-state-default {
+    background:#C0C0C0;
+
+}
+
+div.tabbed-content ul.ui-tabs-nav li.ui-state-default a {
+   color:#606060;    
+}
+
+div.tabbed-content ul.ui-tabs-nav li.ui-state-default.ui-state-active {
+    background:#F0F0F0;
+
+}
+
+div.tabbed-content ul.ui-tabs-nav li.ui-state-default.ui-state-active a {
+   color:#000000;
+}
+
+div.tabbed-content ul.ui-tabs-nav li.ui-state-default.ui-state-hover {
+    background:#F0F0F0;
+
+}
+
+div.tabbed-content ul.ui-tabs-nav li.ui-state-default.ui-state-hover a {
+   color:#000000;
+}
+
+
+
+
+div.tabbed-content .ui-tabs li a {
+    background:none;
+    border:none;
+}
+
+div.tabbed-content ul li {
+    -moz-border-radius-topleft:0;
+    -moz-border-radius-topright:0;
+
+    
+}
+
+div.spotlight.home {
+    background:#F0F0F0;
+    height:400px;
+}
+
+
+
+/** Community **/
+table.pseudo-tab-nav {
+    border-collapse:collapse;
+}
+
+table.pseudo-tab-nav> tbody > tr:first-child > td {
+    padding-right:1px;
+}
+
+table.pseudo-tab-nav> tbody > tr:first-child > td a {
+    background: #C0C0C0;
+    font-size:20px;
+    padding:10px;
+    text-decoration:none;
+    color: #606060;
+}
+
+table.pseudo-tab-nav > tbody > tr:first-child > td:hover a {
+    background: #FbCb9C;
+
+   
+}
+
+table.pseudo-tab-nav > tbody > tr:first-child > td.selected a {
+   background: #F0F0F0;
+    color: #000000;
+}
+
+div.community.filler {
+    height:120px;
+    background:#D0C0C0;
+}
+
+div.learn.filler {
+    height:222px;
+    background:#D0C0C0;
+}
