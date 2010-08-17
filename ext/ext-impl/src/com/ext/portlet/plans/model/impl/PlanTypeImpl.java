@@ -21,7 +21,7 @@ public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
 
     public List<Simulation> getAvailableModels() throws SystemException {
 
-        if (this.getModelTypeName()!=null) {
+        if (this.getModelTypeName()!=null && this.getModelTypeName().trim().length() > 0) {
                return new ArrayList<Simulation>(CollaboratoriumModelingService.repository().getSimulationsOfType(this.getModelTypeName()));
         } else if (this.getModelId()>0) {
                 return Collections.singletonList(CollaboratoriumModelingService.repository().getSimulation(this.getModelId()));
