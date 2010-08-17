@@ -83,6 +83,20 @@ public class PlanConstants {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
 		}),
+        MIN_MITIGATION_COST_EMF(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"Change_in_GDP_vs_baseline_merge_emf22_output0", "Change_in_GDP_vs_baseline_minicam_emf22_output0", "Change_in_GDP_vs_baseline_witch_emf22_output0"}, Double.class),
+		        true, PlanFilterOperatorType.GREATER_THAN_OR_NULL, new MoreThanFilter() {
+			@Override
+			public String getValue(PlanAttributeFilter filter) {
+                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
+			}
+
+		}),
+		MAX_MITIGATION_COST_EMF(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"Change_in_GDP_vs_baseline_merge_emf22_output0", "Change_in_GDP_vs_baseline_minicam_emf22_output0", "Change_in_GDP_vs_baseline_witch_emf22_output0"}, Double.class),
+		        true, PlanFilterOperatorType.LESS_THAN_OR_NULL, new LessThanFilter() {
+			public String getValue(PlanAttributeFilter filter) {
+                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
+			}
+		}),
 		EMISSIONS_DEVELOPED(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopedFossilFuelEmissions", Double.class),true, null, null),
 		EMISSIONS_DEVELOPING_A(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingAFossilFuelEmissions", Double.class), true, null, null),
 		EMISSIONS_DEVELOPING_B(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingBFossilFuelEmissions", Double.class), true, null, null),
