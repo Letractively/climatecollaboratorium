@@ -37,7 +37,11 @@ public class PlanTypeIndexBean {
     public void refresh() throws SystemException {
         contests.clear();
         for (Contest contest: ContestLocalServiceUtil.getContests(0,Integer.MAX_VALUE)) {
-             contests.add(new ContestWrapper(contest));
+            if (contest.getContestActive()) {
+                contests.add(0,new ContestWrapper(contest));
+            } else {
+                contests.add(new ContestWrapper(contest));
+            }
         }
     }
 
