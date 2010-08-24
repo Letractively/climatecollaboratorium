@@ -5,11 +5,8 @@ import com.ext.portlet.plans.model.PlanItem;
 
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.model.Group;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.UserGroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
 
 public class PlansPermissionsBean {
 
@@ -18,7 +15,7 @@ public class PlansPermissionsBean {
     private final long groupId;
     private final String primKey;
     private PlanItem plan;
-    private boolean planPublished = false;
+    private boolean planIsEditable = false;
     private PlanUserPermission planUserPermission;
     private Long planGroupId;
     private Long userId = 0L;
@@ -59,7 +56,7 @@ public class PlansPermissionsBean {
 
     // when plan is published only site admin can modify it
     public boolean getCanEdit() throws SystemException, PortalException {
-        return (!planPublished && (
+        return (planIsEditable && (
                         getPlanOpen() && Helper.isUserLoggedIn()
                         || getPlanMember()
                         || getCanAdmin()
@@ -69,7 +66,7 @@ public class PlansPermissionsBean {
 
     // when plan is published only site admin can admin it
     public boolean getCanAdmin() throws SystemException, PortalException {
-        return (!planPublished && (
+        return (planIsEditable && (
                         (getPlanMember() && permissionChecker.isCommunityAdmin(planGroupId)) 
                         || getPlanOwner() 
                     )
@@ -78,7 +75,8 @@ public class PlansPermissionsBean {
     }
 
     public boolean getCanAdminAll() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN_ALL);
+        boolean adminAll =  permissionChecker.hasPermission(groupId, portletId, primKey, PlansActions.CAN_ADMIN_ALL);
+        return adminAll;
     }
 
     public boolean getCanDelete() throws SystemException, PortalException {
@@ -86,7 +84,8 @@ public class PlansPermissionsBean {
     }
 
     public boolean getPlanOwner() {
-        return permissionChecker.isCommunityOwner(planGroupId);
+        boolean owner =  permissionChecker.isCommunityOwner(planGroupId);
+        return owner;
     }
 
     public boolean getPlanMember() throws SystemException {
@@ -106,7 +105,7 @@ public class PlansPermissionsBean {
         if (plan!=null) {
             // use group id from plans community
             planGroupId = plan.getPlanGroupId();
-            planPublished = plan.getPlanType().getPublished();
+            planIsEditable = plan.getContestPhase().getContestStatus().isCanEdit();
             updatePlanUserPermission();
         }
     }
