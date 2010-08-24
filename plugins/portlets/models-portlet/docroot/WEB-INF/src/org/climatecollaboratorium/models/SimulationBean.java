@@ -169,7 +169,7 @@ public class SimulationBean implements JSEventHandler {
         this.description = description;
     }
 
-    public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException, SystemException {
+    public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException, SystemException, PortalException {
         simulation.setDescription(description);
         SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
         editing = false;
@@ -271,7 +271,7 @@ public class SimulationBean implements JSEventHandler {
         }
     }
     
-    public void runModel(ActionEvent e) throws SystemException, IOException, ScenarioNotFoundException, ModelNotFoundException {
+    public void runModel(ActionEvent e) throws SystemException, IOException, ScenarioNotFoundException, ModelNotFoundException, PortalException {
         Map<Long, Object> values = display.getInputsValues();
         /*
         List<Long> inputIds = new ArrayList<Long>();
@@ -318,7 +318,7 @@ public class SimulationBean implements JSEventHandler {
         scenarioSaved = false;
     }
 
-    public void saveScenario(ActionEvent e) throws ScenarioNotFoundException, IOException, SystemException {
+    public void saveScenario(ActionEvent e) throws ScenarioNotFoundException, IOException, SystemException, PortalException {
         SimulationsHelper.getInstance().saveScenario(scenario);
 
         JSEvent event = new JSEvent();
