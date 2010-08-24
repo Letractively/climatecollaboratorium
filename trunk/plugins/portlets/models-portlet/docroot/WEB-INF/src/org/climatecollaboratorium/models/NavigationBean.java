@@ -17,6 +17,7 @@ import org.climatecollaboratorium.navigation.NavigationEvent;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -70,11 +71,11 @@ public class NavigationBean {
         this.modelId = modelId;
     }
 
-    public void update(ActionEvent event) throws IOException, SystemException {
+    public void update(ActionEvent event) throws IOException, SystemException, PortalException {
         useModel();
     }
     
-    private void useModel() throws IOException, SystemException {
+    private void useModel() throws IOException, SystemException, PortalException {
         selectedScenario = SimulationsHelper.getInstance().getScenarioById(scenarioId);
         selectedSimulation = SimulationsHelper.getInstance().getSimulationById(modelId);
         
