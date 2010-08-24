@@ -1,6 +1,7 @@
 package mit.simulation.climate.client.comm;
 
 import mit.simulation.climate.client.*;
+import mit.simulation.climate.client.model.impl.ClientSimulation;
 import mit.simulation.climate.client.model.jaxb.ClientJaxbReference;
 import mit.simulation.climate.client.model.jaxb.ResponseWrapper;
 import org.apache.log4j.Logger;
@@ -174,7 +175,7 @@ public class ClientRepository implements Deserializer {
         Set<Simulation> result = new HashSet<Simulation>();
         if (type == null) return Collections.emptySet();
         for (HasId elt:simulationCache.values()) {
-            if (elt instanceof Simulation && type.equals(((Simulation)elt).getType())) {
+            if (elt instanceof Simulation && type.equals(ClientSimulation.parseTypes((Simulation)elt).get("type"))) {
                 result.add((Simulation)elt);
             }
         }
