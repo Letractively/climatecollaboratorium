@@ -61,6 +61,10 @@ public class PlanBean {
                 _log.error("Can't parse tab number: " + parameters.get("tab"), e);
             }
         }
+        else {
+            // default tab if no tab is set
+            selectedTabIndex = 0;
+        }
         refresh();
     }
     
