@@ -22,8 +22,8 @@
 }
 
 .descriptionActions {
-	float: right;
+	width: 100%;
 }
 .descriptionActions .chooseVersionWidget {
-    float: left;
+    float: right;
 }
