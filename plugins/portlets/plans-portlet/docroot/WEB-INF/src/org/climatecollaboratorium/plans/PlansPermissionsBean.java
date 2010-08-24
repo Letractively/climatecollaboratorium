@@ -104,10 +104,10 @@ public class PlansPermissionsBean {
     public void setPlan(PlanItem plan) throws SystemException, PortalException {
         this.plan = plan;
         if (plan!=null) {
-        // use group id from plans community
-        planGroupId = plan.getPlanGroupId();
-        planPublished = plan.getPlanType().getPublished();
-        updatePlanUserPermission();
+            // use group id from plans community
+            planGroupId = plan.getPlanGroupId();
+            planPublished = plan.getPlanType().getPublished();
+            updatePlanUserPermission();
         }
     }
 

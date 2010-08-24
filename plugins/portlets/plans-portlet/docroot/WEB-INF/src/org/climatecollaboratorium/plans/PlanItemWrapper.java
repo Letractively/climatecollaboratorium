@@ -410,5 +410,9 @@ public class PlanItemWrapper {
             wrapped.setOpen(! wrapped.getOpen(), Helper.getLiferayUser().getUserId());
         }       
     }
+    
+    public Long getPlanGroupId() throws SystemException {
+        return wrapped.getPlanGroupId();
+    }
 
 }

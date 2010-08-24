@@ -43,15 +43,21 @@
 			<property-name>eventBus</property-name>
 			<value>#{eventBus}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>permissions</property-name>
+			<value>#{permissions}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>permissions</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.plans.PlansPermissionsBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-		<managed-property>
+		<!-- 	
+        <managed-property>
 			<property-name>plan</property-name>
 			<value>#{navigation.planBean.plan.wrapped}</value>
 		</managed-property>
+-->
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>preferences</managed-bean-name>
