@@ -113,7 +113,7 @@
                         <ice:outputLink
                                 value="#plans=phaseId:#{singlePlan.contestPhaseId},planId:#{singlePlan.planId};"
                                 rendered="#{column == 'NAME'}"
-                                onclick="Collab.nav.navigate('plans', {planId: '#{singlePlan.planId}',phaseId: '#{singlePlan.contestPhaseId}'})">
+                                >
                             <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
                         </ice:outputLink>
                         <f:subview rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}">

@@ -11,12 +11,6 @@
     margin-top: 27px;
 }
 
-.description .chooseVersionWidget {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    z-index: 1000;
-}
 
 
 .descriptionInput .iceInpRchTxt {
