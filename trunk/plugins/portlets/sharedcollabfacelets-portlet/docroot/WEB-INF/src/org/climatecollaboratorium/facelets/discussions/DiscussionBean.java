@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class DiscussionBean {
+    protected static final DiscussionPageType DEFAULT_PAGE_TYPE = DiscussionPageType.DISCUSSIONS;
     private Long discussionId;
     private Long categoryId;
     private Long threadId;
@@ -165,34 +166,41 @@ public class DiscussionBean {
             @Override
             public void onEvent(NavigationEvent event) {
                 if (event.getSource().equals("discussion")) {
+
+                    if (event.getParameters().containsKey("pageType")) {
+                        try {
+                            pageType = DiscussionPageType.valueOf(event.getParameters().get("pageType"));
+                        }
+                        catch (IllegalArgumentException ex) {
+                            _log.error("Can't find specified page type", ex);
+                        }
+                    }
+                    else {
+                        // default page type
+                        pageType = DEFAULT_PAGE_TYPE;
+                    }
+                    if (event.getParameters().containsKey("threadId")) {
+                        try {
+                            threadId = Long.parseLong(event.getParameters().get("threadId"));
+                        }
+                        catch (NumberFormatException ex) {
+                            _log.error("Can't parse threadId", ex);
+                        }
+                    }
+                    if (event.getParameters().containsKey("categoryId")) {
+                        try {
+                            categoryId = Long.parseLong(event.getParameters().get("categoryId"));
+                        }
+                        catch (NumberFormatException ex) {
+                            _log.error("Can't parse categoryId", ex);
+                        }
+                    }
                     try {
-                        pageType = DiscussionPageType.valueOf(event.getParameters().get("pageType"));
+                        updateDisplay();
                     }
-                    catch (IllegalArgumentException ex) {
-                        _log.error("Can't find specified page type", ex);
+                    catch (SystemException e) {
+                        _log.error("Can't update display", e);
                     }
-                }
-                if (event.getParameters().containsKey("threadId")) {
-                    try {
-                        threadId = Long.parseLong(event.getParameters().get("threadId"));
-                    }
-                    catch (NumberFormatException ex) {
-                        _log.error("Can't parse threadId", ex);
-                    }
-                }
-                if (event.getParameters().containsKey("categoryId")) {
-                    try {
-                        categoryId = Long.parseLong(event.getParameters().get("categoryId"));
-                    }
-                    catch (NumberFormatException ex) {
-                        _log.error("Can't parse categoryId", ex);
-                    }
-                }
-                try {
-                    updateDisplay();
-                }
-                catch (SystemException e) {
-                    _log.error("Can't update display", e);
                 }
             }
             

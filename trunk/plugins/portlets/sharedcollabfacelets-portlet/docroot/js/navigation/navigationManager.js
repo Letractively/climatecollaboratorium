@@ -28,6 +28,27 @@ Collab.nav = new function() {
 		updateHash();
 	}
 	
+	/**
+	 * token and params in format of JS object:
+	 * {
+	 * 	token1: {param1: val1...},
+	 * 	token2: {param2: val2...},
+	 * 	...
+	 * }
+	 */
+	this.navigateAddParamsMulti = function(tokenAndParams) {
+		for (var token in tokenAndParams) {
+			if (typeof(navigationItems[token]) == 'undefined') {
+				navigationItems[token] = {};
+			}
+			for (var key in tokenAndParams[token]) {
+				navigationItems[token][key] = tokenAndParams[token][key];
+			}
+		}
+
+		updateHash();
+	}
+	
 	this.navigateRemoveParams = function(token, paramsToBeRemoved) {
 		if (typeof(navigationItems[token]) == 'undefined') {
 			return;
