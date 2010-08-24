@@ -36,10 +36,4 @@
     padding: 0px 0px 10px 10px;
 }
 
-.chooseVersionWidget {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    z-index: 1000;
-}
 

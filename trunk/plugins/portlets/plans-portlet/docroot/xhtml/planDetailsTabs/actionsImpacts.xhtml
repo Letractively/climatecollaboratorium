@@ -9,7 +9,7 @@
             <input type="button" value="Versions" class="versionsTrigger expand" />
                 <div class="versionsContainer relative">
                     <div class="versions">
-                        <ice:selectOneListbox value="#{planBean.plan.currentPlanModelRunVersion}" partialSubmit="true">
+                        <ice:selectOneListbox value="#{planBean.plan.currentPlanModelRunVersion}" partialSubmit="true" size="10">
                             <f:selectItems value="#{planBean.plan.planModelRunVersionItems}" /> 
                         </ice:selectOneListbox>
                         <br />
