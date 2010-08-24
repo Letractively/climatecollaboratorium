@@ -19,7 +19,7 @@
             </div>
         </div>
     </ice:panelGroup>
-    <div class="inputsAndOutputsWidget">
+    <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
         <f:subview rendered="#{permissions.canEdit}">
             <collab:simulation simulationId="#{planBean.plan.selectedModel}" scenarioId="#{planBean.plan.planModelRunScenarioId}"
                     showEditButton="true" />
@@ -28,7 +28,11 @@
             <collab:simulation simulationId="#{planBean.plan.selectedModel}" scenarioId="#{planBean.plan.planModelRunScenarioId}" 
                     disableInputs="true" />
         </f:subview>
-    </div>
+    </ice:panelGroup>
+    
+    <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
+        No model has been set.
+    </ice:panelGroup>
         
     <script language="javascript">
         jQuery(document).ready(initVersionChoosingBox);

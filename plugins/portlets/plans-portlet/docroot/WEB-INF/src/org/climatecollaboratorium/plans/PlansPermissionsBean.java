@@ -2,7 +2,7 @@ package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.plans.PlanUserPermission;
 import com.ext.portlet.plans.model.PlanItem;
-
+import com.ext.portlet.plans.model.PlanType;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.security.permission.PermissionChecker;
