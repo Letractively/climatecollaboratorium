@@ -2,17 +2,6 @@
 	position: relative;
 }
 
-.description .versionsTrigger.expand {
-    margin-right: 5px;
-    z-index: 1000;
-}
-
-.description.editing .versionsTrigger.expand {
-    margin-top: 27px;
-}
-
-
-
 .descriptionInput .iceInpRchTxt {
     height: 500px;
 }
@@ -33,6 +22,8 @@
 }
 
 .descriptionActions {
-	padding-right: 125px;
 	float: right;
+}
+.descriptionActions .chooseVersionWidget {
+    float: left;
 }
