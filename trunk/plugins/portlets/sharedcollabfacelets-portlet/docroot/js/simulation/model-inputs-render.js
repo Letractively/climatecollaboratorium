@@ -48,15 +48,17 @@ function isDouble(dataType) {
 }
 
 function formatFieldValue(value, unit) {
-	if (unit.toLowerCase().indexOf("percent") >= 0) {
-		return (value * 100).toFixed(0) + "%";
+	if (unit.toLowerCase().indexOf("percent") >= 0 || unit.toLowerCase().indexOf("%") >= 0) {
+		//return (value * 100).toFixed(0) + "%";
+		return (value * 1).toFixed(0) + "%";
 	}
 	return value;
 }
 
 function parseFieldValue(value, unit) {
-	if (unit.toLowerCase().indexOf("percent") >= 0) {
-		return parseFloat(value.replace("%")) / 100;
+	if (unit.toLowerCase().indexOf("percent") >= 0 || unit.toLowerCase().indexOf("%") >= 0) {
+		//return parseFloat(value.replace("%")) / 100;
+		return parseFloat(value.replace("%"));
 	}
 	return value;
 }
