@@ -6,8 +6,6 @@
     <div class="description normal">
     
         <div class="descriptionActions">
-            <ice:commandButton style="float: left" value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit and not planBean.editingDescription and planBean.plan.descriptionSet}" />
-            
             <div class="chooseVersionWidget">
                 <input type="button" value="See Old Versions" class="versionsTrigger expand" />
                 <div class="versionsContainer relative">
@@ -19,18 +17,12 @@
                         <input type="button" value="Hide" class="versionsTrigger collapse" />
                     </div>
                 </div>
-            </div>
-            <div class="clear"></div>    
-        
-        </div>
+             </div>
+            <ice:commandButton style="float: right" value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit and not planBean.editingDescription}" />
             <div class="clear"></div>  
-    
-    <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}" styleClass="planDescription">        
-    
-        <div class="descriptionActions">
-            <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit}" />
         </div>
-            <div class="clear"></div>
+    
+    <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}" styleClass="planDescription">
             <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
                 Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.plan.descriptionVersionDate}" /></strong> by &amp;nbsp;
                 <a href="/web/guest/members?userId=#{planBean.plan.descriptionVersionAuthor.userId}">
@@ -57,10 +49,6 @@
                     <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}" /></strong>
                 </a>
             </ice:panelGroup>      
-            <div class="descriptionActions">
-                <ice:commandButton value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit}" />
-            </div>
-            <div class="clear"></div>
             <div class="nothingSetInfo">
                 <div class="nothingSetMessage">No description set.</div>
             </div>
