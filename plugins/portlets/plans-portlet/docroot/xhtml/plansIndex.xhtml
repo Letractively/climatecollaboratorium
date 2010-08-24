@@ -4,7 +4,7 @@
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:collab="http://climatecollaboratorium.org/components">
+        xmlns:collabComps="http://climatecollaboratorium.org/components">
 
 <div class="plansIndex">
 <ice:panelGroup styleClass="categoryDetails">
@@ -17,15 +17,13 @@
         </ice:panelGroup>
     </ice:form>
 </ice:panelGroup>
-<!--
-<collab:helpMessage messageId="planHelp" styleClass="planHelp" hideThisMessage="Hide this message">
-    Plans describe <i>actions</i> we might take to address climate change, and the <i>impacts</i> those actions
-    will have.  When creating a plan, you will need to describe your vision, run a climate model to support your
-    proposal, and select positions that your plan embodies.  More information on plans can be found
-    <a href="http://climatecolab.org/web/guest/resources/-/wiki/Main/Plans">here</a>/
-</collab:helpMessage>
-        <collab:helpMessageTrigger messageId="planHelp">+show help</collab:helpMessageTrigger>
--->
+  <collabComps:helpMessage messageId="planHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+        Plans describe <i>actions</i> we might take to address climate change, and the <i>impacts</i> those actions
+        will have.  When creating a plan, you will need to describe your vision, run a climate model to support your
+        proposal, and select positions that your plan embodies.  More information on plans can be found
+        <a href="http://climatecolab.org/web/guest/resources/-/wiki/Main/Plans">here</a>/
+    </collabComps:helpMessage>
+    <collabComps:helpMessageTrigger messageId="planHelp">+show help</collabComps:helpMessageTrigger>
 <ice:form>
     <ui:include src="./configureColumns.xhtml">
         <ui:param value="#{plansIndexBean.columnsConfiguration}" name="columnsConfiguration"/>
@@ -38,6 +36,15 @@
     </ui:include>
 </ice:form>
 <ice:form>
+    <collab2:helpMessage messageId="planHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+        Plans describe <i>actions</i> we might take to address climate change, and the <i>impacts</i> those actions
+        will have.  When creating a plan, you will need to describe your vision, run a climate model to support your
+        proposal, and select positions that your plan embodies.  More information on plans can be found
+        <a href="http://climatecolab.org/web/guest/resources/-/wiki/Main/Plans">here</a>/
+    </collab2:helpMessage>
+        <collab2:helpMessageTrigger messageId="planHelp">+show help</collab2:helpMessageTrigger>
+
+
     <div class="floatRight linkbox">
         <a class="configuration black" href="javascript:;"
            onclick="showConfigureColumnsDialog()">Select Columns</a>
