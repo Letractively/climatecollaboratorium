@@ -17,7 +17,7 @@ create table DiscussionCategory (
 drop table if exists DiscussionCategoryGroup;
 create table DiscussionCategoryGroup (
 	id_ BIGINT not null primary key,
-	description VARCHAR(512) null
+	description VARCHAR(512) null,
 	url VARCHAR(512) null
 );
 
@@ -41,6 +41,6 @@ create table DiscussionMessage (
 );
 
 
-insert into DiscussionCategoryGroup VALUES (0, 'Test category group');
+insert into DiscussionCategoryGroup VALUES (0, 'Test category group', '');
 
 ALTER TABLE  `PlanMeta` ADD  `categoryGroupId` BIGINT NOT NULL;
