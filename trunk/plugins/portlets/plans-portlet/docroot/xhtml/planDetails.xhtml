@@ -80,7 +80,7 @@
                                     <ui:include src="planDetailsTabs/actionsImpacts.xhtml" />
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Discussion" onclick="Collab.nav.navigateAddParams('plans', {tab: 'discussion'}); return;">
+                            <ice:panelTab label="Discussion" onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'discussion'}, 'discussion': {}}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/discussion.xhtml" />
                                 </f:subview>
