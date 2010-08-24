@@ -1,28 +1,19 @@
 package org.climatecollaboratorium.plans;
 
-import com.ext.portlet.contests.model.ContestPhase;
-import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
-import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
-
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.navigation.NavigationEvent;
+
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class NavigationBean {
     private final static String CONTEST_INDEX_PAGE = "CONTEST_INDEX";
@@ -35,6 +26,7 @@ public class NavigationBean {
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     private Map<String, String> navigationParameters = new HashMap<String, String>();
+    private PlansPermissionsBean permissions;
 
     public PlansIndexBean getPlansIndex() {
         return plansIndex;
@@ -155,6 +147,15 @@ public class NavigationBean {
             }
 
         }));
+    }
+
+    public PlansPermissionsBean getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(PlansPermissionsBean permissions) {
+        planBean.setPermissions(permissions);
+        this.permissions = permissions;
     }
 
 }

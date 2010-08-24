@@ -80,7 +80,7 @@ public class PlanBean {
         if (planId != null && planId > 0) {
             planItem = PlanItemLocalServiceUtil.getPlan(planId);
             plan = new PlanItemWrapper(planItem, this, permissions);
-            permissions = new PlansPermissionsBean(planItem);
+            permissions.setPlan(planItem);
             planPositionsBean = new PlanPositionsBean(planItem, this);
             simulationBean = new SimulationBean(planItem, this, eventBus);
             membershipBean = new PlanMembershipBean(planItem, this, permissions);
@@ -174,5 +174,10 @@ public class PlanBean {
 
     public void uploadFile(ActionEvent evt) {
         System.err.println("Should upload file");
+    }
+
+    public void setPermissions(PlansPermissionsBean permissions) {
+        this.permissions = permissions;
+        
     }
 }
