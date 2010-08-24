@@ -273,10 +273,17 @@ public class ClientSimulation implements Simulation {
         return (Simulation.class.hashCode() * getId().hashCode())%13;
     }
 
-
-
-
-
+    public static Map<String,String> parseTypes(Simulation sim) {
+        if (sim.getType() == null) return Collections.emptyMap();
+        Map<String,String> result = new HashMap<String,String>();
+        for (String type:sim.getType().split(";")) {
+            String[] kv = type.split("=");
+            if (kv.length>1) {
+                result.put(kv[0],kv[1]);
+            }
+        }
+        return result;
+    }
 
 
 }
