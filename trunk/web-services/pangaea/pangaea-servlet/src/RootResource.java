@@ -41,9 +41,9 @@ public class  RootResource {
 			@FormParam("Goal for CO2 in the atmosphere") Double co2inAtm) {
 
 		SimulationInput input = new SimulationInput();
-		input.setVariable(SimulationInput.InputVariable.DEVELOPED_FF_CHANGE, devdchange*100.0d);
-		input.setVariable(SimulationInput.InputVariable.DEVELOPINGA_FF_CHANGE, devingchange*100.0d);
-		input.setVariable(SimulationInput.InputVariable.DEVELOPINGB_FF_CHANGE,nonchange*100.0d);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPED_FF_CHANGE, devdchange);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPINGA_FF_CHANGE, devingchange);
+		input.setVariable(SimulationInput.InputVariable.DEVELOPINGB_FF_CHANGE,nonchange);
 		input.setVariable(SimulationInput.InputVariable.DEFORESTATION, landUseChange);
 		input.setVariable(SimulationInput.InputVariable.AFFORESTATION,targSequestration);
 		input.setVariable(SimulationInput.InputVariable.DEVELOPED_FF_START,devdStart);
