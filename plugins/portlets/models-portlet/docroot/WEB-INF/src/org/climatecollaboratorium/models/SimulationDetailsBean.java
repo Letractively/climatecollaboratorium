@@ -122,7 +122,7 @@ public class SimulationDetailsBean {
 
     public String getExpertEvaluation() throws PortalException, SystemException {
         Long wikiPageId = ModelUIFactory.getSimulationExpertEvaluationPageId(simulation);
-        if (wikiPageId == null || wikiPageId < 0) {
+        if (wikiPageId == null || wikiPageId <= 0) {
             return "";
         }
         try {
