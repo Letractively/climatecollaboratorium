@@ -41,7 +41,7 @@
         <column name="updated" type="Date" />
         <column name="authorId" type="Long" />
 
-        <order by="desc">
+        <order by="asc">
             <order-column name="PhaseStartDate" />
         </order>
 
