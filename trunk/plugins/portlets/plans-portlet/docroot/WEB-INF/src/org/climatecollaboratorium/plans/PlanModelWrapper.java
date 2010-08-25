@@ -26,16 +26,25 @@ public class PlanModelWrapper {
     static String DEFAULT_NAME="Basic Model";
 
     Simulation coreModel;
-    Simulation disaggregationModel;
+    Simulation disaggregationModel = null;
+    boolean simple = false;
     String link = null;
 
-    public PlanModelWrapper(Simulation sim) {
+    public PlanModelWrapper(Simulation sim, boolean simple) {
        coreModel = sim;
-       disaggregationModel = lookupDisaggregationModel(sim);
+       this.simple = simple;
+       if (!simple) {
+        disaggregationModel = lookupDisaggregationModel(sim);
         if (disaggregationModel!=null) {
             String[] parts = disaggregationModel.getURL().toExternalForm().split("/");
             link = "/excel_wrapper-servlet/rest/file/"+parts[parts.length-1];
         }
+       }
+    }
+
+    public PlanModelWrapper(Simulation sim) {
+         this(sim,true);
+
     }
 
     private Simulation lookupDisaggregationModel(Simulation sim) {
@@ -49,11 +58,11 @@ public class PlanModelWrapper {
     }
 
     public String getName() {
-     return disaggregationModel==null?DEFAULT_NAME:disaggregationModel.getName();
+     return simple?coreModel.getName():disaggregationModel==null?DEFAULT_NAME:disaggregationModel.getName();
     }
 
     public String getDescription() {
-        return disaggregationModel==null?DEFAULT_DESCRIPTION:disaggregationModel.getDescription();
+        return simple?parseFirstParagraph(coreModel.getDescription()):disaggregationModel==null?DEFAULT_DESCRIPTION:disaggregationModel.getDescription();
     }
 
     public Long getId() {
@@ -70,6 +79,14 @@ public class PlanModelWrapper {
 
     public String getLink() {
         return link;
+    }
+
+    private static String parseFirstParagraph(String htmlText) {
+       String[] result =  htmlText.split("</?p>");
+       if (result!=null && result.length > 1) {
+           return result[1];
+       }
+        return "";
     }
 
   

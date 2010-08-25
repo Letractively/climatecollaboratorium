@@ -47,8 +47,12 @@ public class PlanModelBean {
         this.planItem = item;
 
         try {
+            List<Simulation> available = planItem.getPlanType().getAvailableModels();
+            boolean simple = (available.size() == 1);
+
+
             for (Simulation sim : planItem.getPlanType().getAvailableModels()) {
-                PlanModelWrapper wrapper = new PlanModelWrapper(sim);
+                PlanModelWrapper wrapper = new PlanModelWrapper(sim,simple);
                 availableItems.add(wrapper);
                 availableMap.put(wrapper.getId(),wrapper);
                 if (sim.getId().equals(planItem.getPlanMeta().getModelId())) {

@@ -4,28 +4,22 @@
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:liferay-faces="http://liferay.com/tld/faces" xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:collabComps="http://climatecollaboratorium.org/components">
+        xmlns:collab="http://climatecollaboratorium.org/components">
 
 <div class="plansIndex">
 <ice:panelGroup styleClass="categoryDetails">
     <ice:form>
         <div class="categoryHeader">
+            <ice:outputConnectionStatus/>
             <h2><ice:outputText styleClass="categoryName" value="#{plansIndexBean.contestPhase.contest.name}"/></h2>
+
         </div>
         <ice:panelGroup styleClass="categoryDescription">
             <ice:outputText value="#{plansIndexBean.contestPhase.contest.description}"/>
         </ice:panelGroup>
     </ice:form>
 </ice:panelGroup>
-<ice:form>
-  <collabComps:helpMessage messageId="planHelp" styleClass="planHelp" hideThisMessage="Hide this message">
-        Plans describe <i>actions</i> we might take to address climate change, and the <i>impacts</i> those actions
-        will have.  When creating a plan, you will need to describe your vision, run a climate model to support your
-        proposal, and select positions that your plan embodies.  More information on plans can be found
-        <a href="http://climatecolab.org/web/guest/resources/-/wiki/Main/Plans">here</a>/
-    </collabComps:helpMessage>
-    <collabComps:helpMessageTrigger messageId="planHelp">+show help</collabComps:helpMessageTrigger>
-</ice:form>
+
 <ice:form>
     <ui:include src="./configureColumns.xhtml">
         <ui:param value="#{plansIndexBean.columnsConfiguration}" name="columnsConfiguration"/>
@@ -73,9 +67,13 @@
                             <span class="phaseInfo">(#{plansIndexBean.plansCount} plans, #{plansIndexBean.votesCount} total votes)</span>
 
                             <div class="dateInfo"><span class="phaseDateLabel">Start:</span><ice:outputText
-                                    value="#{plansIndexBean.contestPhase.startDate}"/>&#160;<span
+                                    value="#{plansIndexBean.contestPhase.startDate}"><f:convertDateTime type="date" dateStyle="short"/>
+                         </ice:outputText>&#160;<span
                                     class="phaseDateLabel">End:</span><ice:outputText
-                                    value="#{plansIndexBean.contestPhase.endDate}"/>
+                                    value="#{plansIndexBean.contestPhase.endDate}">
+                                        <f:convertDateTime type="date" dateStyle="short"/>
+                         </ice:outputText>
+
                             </div>
                         </td>
                         <td class="button">
@@ -106,7 +104,7 @@
                                 
                                 <div class="clear"></div>
                                 <ice:commandSortHeader styleClass="column-hover" columnName="#{column}">
-                                    <ice:outputText  id="column-#{column}"  value="#{column.name}" escape="false"/>
+                                    <ice:outputText id="column-#{column}" value="#{column.name}" escape="false"/>
                                 </ice:commandSortHeader>
                             </div>
                         </f:facet>
@@ -222,5 +220,4 @@
     </ice:panelTabSet>
 </ice:form>
 </div>
-
 </f:view>

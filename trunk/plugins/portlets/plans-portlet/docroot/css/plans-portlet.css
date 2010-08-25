@@ -1,3 +1,11 @@
+/** GENERAL **/
+
+.plans ul li {
+    list-style:disc inside;
+    line-height:1.4;
+
+}
+
 
 
 .container_top {
@@ -10,10 +18,48 @@
 	padding: 5px;
 }
 
-/**
-    CONTESTINDEX
+/** INLINE HELP **/
 
-    **/
+.inlineHelp {
+    border: 1px solid #CCCCFF;
+    background: #ebebff;
+    padding:10px;
+    margin:  4px 0px;
+    font-size:10pt;
+    color: #666655;
+
+}
+
+.hideThisTrigger {
+    padding-top: 10px;
+}
+
+.hideThisTrigger a {
+    font-weight:bold;
+}
+
+
+
+a.helpMessageTrigger {
+    font-style:italic;
+   
+}
+
+a.helpMessageTrigger.commentHelp {
+    padding-top:8px;
+}
+
+a.helpMessageTrigger.helpVisible {
+    display:none;
+}
+
+a.helpMessageTrigger.helpHidden {
+    display:inline;
+    color: #8c96b4;
+}
+
+
+/**CONTESTINDEX**/
 
 .categoryHeader {
 
@@ -134,8 +180,6 @@
 table.editCategory.buttonPanel {
     float:right;
 }
-
-
 
 
 
@@ -280,11 +324,7 @@ td.contestTabSetCnt {
     width: auto;
 }
 
-.title .iceOutConStat {
-	float: right;
-	margin-top: 5px;
-	margin-right: 10px;
-}
+
 
 
 .title .icon h2, 
@@ -322,8 +362,25 @@ td.contestTabSetCnt {
     padding: 20px;
 }
 
+table.categoryContentsTable td {
+    text-align:center;
+}
+
+table.categoryContentsTable td.phaseName {
+    width:200px;
+}
+
+table.categoryContentsTable td.phaseStatus {
+    width:250px;
+}
+
+table.categoryContentsTable td.phasePlanCount {
+    width:80px;
+}
+
+
 .content {
-	background: #fff;
+	
 }
 
 
@@ -332,6 +389,10 @@ td.contestTabSetCnt {
  * DETAIL TABS
  *
  */
+
+table.mainTabs {
+    width:100%;
+}
  
  table.mainTabs > tbody > tr:first-child table .icePnlTb,
  table.mainTabs > tbody > tr:first-child tableSpcr {
@@ -409,8 +470,24 @@ table.icePnlTbSet.contestTabSet {
 
 td.icePnlTbSetCnt.mainTabsCnt {
     padding:17px;
+    background-color: #FFFFFF;
 }
 
+/**
+SHARED ELEMENTS
+**/
+.versionEditToolbar {
+  width:100%;
+  height:20px;
+}
+
+.versionEditToolbar .editButton {
+    float:right;
+}
+
+.versionIndicator {
+
+}
 
 /*
  *
@@ -588,6 +665,13 @@ td.icePnlTbSetCnt.mainTabsCnt {
     display: none;
 }
 
+.title .iceOutConStat {
+	float: right;
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+
 .iceOutConStat {
 	margin-left: 10px;
     display: inline;
@@ -737,3 +821,73 @@ th.voteForPlan {
     position: absolute;
     margin-top: 30px;
 }
+
+
+/** replacing xp theme elts **/
+
+/*
+   Classes for the output progress bar
+*/
+
+.iceOutProgIndetActv {
+    background-color: #EFEFEF;
+    background-image: url(css-images/in_progress.gif);
+    background-position: center;
+    background-repeat: repeat-x;
+}
+
+.iceOutProgIndetInactv {
+    background-color: #EFEFEF;
+    background-image: url(css-images/in_progress_inactive.gif);
+    background-position: center;
+    background-repeat: repeat-x;
+}
+
+/*
+    Classes for the connection status indicator
+*/
+
+.iceOutConStat {
+    margin: 0px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    font-size: .5em;
+}
+
+.iceOutConStatInactv {
+    position: absolute;
+    background-image: url("../xmlhttp/css/xp/css-images/connect_idle.gif");
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+.iceOutConStatActv {
+    position: absolute;
+    background-image: url(../xmlhttp/css/xp/css-images/connect_active.gif);
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+.iceOutConStatCaution {
+    position: absolute;
+    background-image: url(../xmlhttp/css/xp/css-images/connect_caution.gif);
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+.iceOutConStatDisconnect {
+    position: absolute;
+    background-image: url(../xmlhttp/css/xp/css-images/connect_disconnected.gif);
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
