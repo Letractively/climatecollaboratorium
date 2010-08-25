@@ -50,7 +50,9 @@ import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portlet.wiki.NoSuchPageResourceException;
 import com.liferay.portlet.wiki.model.WikiPage;
+import com.liferay.portlet.wiki.model.WikiPageResource;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
 
 public class SimulationDetailsBean {
@@ -120,42 +122,48 @@ public class SimulationDetailsBean {
 
     public String getExpertEvaluation() throws PortalException, SystemException {
         Long wikiPageId = ModelUIFactory.getSimulationExpertEvaluationPageId(simulation);
-        if (wikiPageId == null) {
+        if (wikiPageId == null || wikiPageId < 0) {
             return "";
         }
-        WikiPage wikiPage = WikiPageLocalServiceUtil.getPage(wikiPageId);
+        try {
+            WikiPage wikiPage = WikiPageLocalServiceUtil.getPage(wikiPageId);
 
-        // replace internal links with external links
-        String content = wikiPage.getContent();
-        Pattern pattern = Pattern.compile("\\[\\[(http)?([^\\]^|]*)\\|?([^\\]]*)\\]\\]");
-        Matcher matcher = pattern.matcher(content);
-        int lastEnd = 0;
+            // replace internal links with external links
+            String content = wikiPage.getContent();
+            Pattern pattern = Pattern.compile("\\[\\[(http)?([^\\]^|]*)\\|?([^\\]]*)\\]\\]");
+            Matcher matcher = pattern.matcher(content);
+            int lastEnd = 0;
 
-        StringBuilder sb = new StringBuilder();
-        PortletRequest request = (PortletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String wikiPageUrlPrefix = String.format("http://%s:%d/web/guest/resources/-/wiki/Main/", request
-                .getServerName(), request.getServerPort());
+            StringBuilder sb = new StringBuilder();
+            PortletRequest request = (PortletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String wikiPageUrlPrefix = String.format("http://%s:%d/web/guest/resources/-/wiki/Main/", request
+                    .getServerName(), request.getServerPort());
 
-        while (matcher.find()) {
-            if (matcher.group(1) != null) {
-                // external link... ignore
-                continue;
+            while (matcher.find()) {
+                if (matcher.group(1) != null) {
+                    // external link... ignore
+                    continue;
+                }
+                String name = matcher.group(3) != null && matcher.group(3).length() > 0 ? matcher.group(3) : matcher
+                        .group(2);
+                sb.append(content.substring(lastEnd, matcher.start()));
+                sb.append("[[");
+                sb.append(wikiPageUrlPrefix);
+                sb.append(matcher.group(2).replaceAll("\\s", "+"));
+                sb.append("|");
+                sb.append(name);
+                sb.append("]]");
+
+                lastEnd = matcher.end();
             }
-            String name = matcher.group(3) != null && matcher.group(3).length() > 0 ? matcher.group(3) : matcher
-                    .group(2);
-            sb.append(content.substring(lastEnd, matcher.start()));
-            sb.append("[[");
-            sb.append(wikiPageUrlPrefix);
-            sb.append(matcher.group(2).replaceAll("\\s", "+"));
-            sb.append("|");
-            sb.append(name);
-            sb.append("]]");
+            sb.append(content.substring(lastEnd));
 
-            lastEnd = matcher.end();
+            return WikiParser.renderXHTML(sb.toString());
         }
-        sb.append(content.substring(lastEnd));
-
-        return WikiParser.renderXHTML(sb.toString());
+        catch (NoSuchPageResourceException e) {
+            // ignore
+        }
+        return "";
     }
 
     public Long getExpertEvaluationPageId() throws SystemException {
