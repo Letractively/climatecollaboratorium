@@ -10,10 +10,17 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:collabcomps="http://climatecollaboratorium.org/components">
     <ice:form>
-<collabcomps:helpMessage messageId="modelsHelp" styleClass="planHelp" hideThisMessage="Hide this message">
-    Computer simulation models are at the heart of the CoLab. Actions specified in Plans get translated into inputs for models. The models then project what would happen if the proposed actions were taken. For more, see the&#160;<a href="http://cognosis.mit.edu:8888/web/guest/resources/-/wiki/Main/Models%20Help">help</a> section.
+<collabcomps:helpMessage messageId="planHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+    At the core of the CoLab is an evolving collection of user-created&#160;<a href="http://cognosis.mit.edu:8888/web/guest/resources/-/wiki/Main/Plans+help">Plans</a> comprised of:
+    <ul>
+       <li>proposed actions,</li>
+       <li>simulation&#160;<a href="http://conosis.mit.edu:8888/web/guest/resources/-/wiki/Main/Models+help">models</a></li>
+       <li>projected impacts.</li></ul>
+    In&#160;<a href="http://cognosis.mit.edu:8888/web/guest/resources/-/wiki/Main/Contest+help">Contests</a>, teams work together to create plans. This year's
+contest, the&#160;<a class="http://www.climatecolab.org/web/guest/resources/-/wiki/Main/CoLab+Global+Challenge">CoLab Global Challenge</a>, starts in
+September.
 </collabcomps:helpMessage>
-<collabcomps:helpMessageTrigger messageId="modelsHelp">+show help</collabcomps:helpMessageTrigger>
+<collabcomps:helpMessageTrigger messageId="planHelp">+show help</collabcomps:helpMessageTrigger>
 </ice:form>
     <ice:panelSeries var="contest" value="#{plansTypeIndexBean.contests}" styleClass="categorySeriesContainer">
         <ice:panelGroup styleClass="categoryDisplay">
