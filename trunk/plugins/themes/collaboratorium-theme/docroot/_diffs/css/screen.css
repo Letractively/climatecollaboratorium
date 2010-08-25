@@ -1566,3 +1566,6 @@ behavior:
     top: -57px;
 }
 
+.ui-widget-content a {
+    color: #369;
+}

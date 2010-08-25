@@ -1654,4 +1654,7 @@ text-align:center;
 	margin-top: 15px;
 	margin-left: 10px;
 }
-	
+
+.ui-widget-content a {
+    color: #369;
+}
