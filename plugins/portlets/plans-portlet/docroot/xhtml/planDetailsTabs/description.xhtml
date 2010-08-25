@@ -2,10 +2,20 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+         xmlns:collab="http://climatecollaboratorium.org/components">
     <div class="description normal">
-    
-        <div class="descriptionActions">
+       <collab:helpMessage messageId="planDescriptionHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+    The Description tab includes a summary of the plan and:
+    <ul>
+    <li>justification of the action's feasibility and desirability,</li>
+    <li>explanation of how the commitments will be achieved,</li>
+    <li>images, videos or stories that depict the future,</li>
+    <li>other information, such as plan goals or history of its development.</li>
+    </ul>
+</collab:helpMessage>
+<collab:helpMessageTrigger messageId="planDescriptionHelp">+show help</collab:helpMessageTrigger>
+        <div class="versionEditToolbar">
             <div class="chooseVersionWidget">
                 <input type="button" value="See Old Versions" class="versionsTrigger expand" />
                 <div class="versionsContainer relative">
@@ -18,10 +28,12 @@
                     </div>
                 </div>
              </div>
-            <ice:commandButton style="float: right" value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit and not planBean.editingDescription}" />
+            <ice:commandButton styleClass="editButton" value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit and not planBean.editingDescription}" />
             <div class="clear"></div>  
         </div>
-    
+
+
+
     <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}" styleClass="planDescription">
             <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
                 Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.plan.descriptionVersionDate}" /></strong> by &amp;nbsp;

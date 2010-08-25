@@ -1,40 +1,50 @@
 <?xml version="1.0"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:ice="http://www.icesoft.com/icefaces/component" 
-    xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:collab="http://climatecollaboratorium.org/components">
 
-    
 
-    <ice:panelGroup styleClass="positionsActions">
-        <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" rendered="#{not planBean.planPositionsBean.editing and permissions.canEdit}" />
-            <div class="chooseVersionWidget">
-            <input type="button" value="See Old Versions" class="versionsTrigger expand" />
-                <div class="versionsContainer relative">
-                    <div class="versions">
-                        <ice:selectOneListbox value="#{planBean.planPositionsBean.planPositionsVersion}" partialSubmit="true" size="10">
-                            <f:selectItems value="#{planBean.planPositionsBean.planPositionsVersions}"/> 
-                        </ice:selectOneListbox>
-                        <br />
-                        <input type="button" value="Hide" class="versionsTrigger collapse" />
-                    </div>
-                    <div class="clear"></div>
-                    <ice:panelGroup>
+    <collab:helpMessage messageId="planPositionHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+        Positions articulate the choices made by a plan on a set of issues relevant for all plans in a category.
+    </collab:helpMessage>
+    <collab:helpMessageTrigger messageId="planPositionHelp">+show help</collab:helpMessageTrigger>
+
+    <div class="versionEditToolbar">
+        <div class="chooseVersionWidget">
+            <input type="button" value="See Old Versions" class="versionsTrigger expand"/>
+
+            <div class="versionsContainer relative">
+                <div class="versions">
+                    <ice:selectOneListbox value="#{planBean.planPositionsBean.planPositionsVersion}"
+                                          partialSubmit="true" size="10">
+                        <f:selectItems value="#{planBean.planPositionsBean.planPositionsVersions}"/>
+                    </ice:selectOneListbox>
+                    <br/>
+                    <input type="button" value="Hide" class="versionsTrigger collapse"/>
+                </div>
+                <ice:panelGroup>
                     <script language="javascript">
-                         jQuery(document).ready(initVersionChoosingBox);
+                        jQuery(document).ready(initVersionChoosingBox);
                     </script>
-                    </ice:panelGroup>    
+                </ice:panelGroup>
             </div>
         </div>
-    </ice:panelGroup>
-    <div class="clear"></div>
+        <ice:commandButton styleClass="editButton" value="Edit" actionListener="#{planBean.planPositionsBean.edit}"
+                           rendered="#{not planBean.planPositionsBean.editing and permissions.canEdit}"/>
+
+        <div class="clear"></div>
+    </div>
+
+
     <ice:panelGroup rendered="#{not planBean.planPositionsBean.editing}">
         <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.planPositionsBean.latestVersion}">
-        Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.planPositionsBean.versionDate}" /></strong> by &amp;nbsp;
-        <a href="/web/guest/members?userId=#{planBean.planPositionsBean.versionAuthor.userId}">
-            <strong><ice:outputText value="#{planBean.planPositionsBean.versionAuthor.screenName}" /></strong>
-        </a>
-    </ice:panelGroup>
+            Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.planPositionsBean.versionDate}"/></strong> by &amp;nbsp;
+            <a href="/web/guest/members?userId=#{planBean.planPositionsBean.versionAuthor.userId}">
+                <strong><ice:outputText value="#{planBean.planPositionsBean.versionAuthor.screenName}"/></strong>
+            </a>
+        </ice:panelGroup>
         <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
             <div class="assumption">
                 <h3 class="question">#{question.debateAnchor}</h3>
@@ -47,32 +57,32 @@
             </div>
         </ice:panelGroup>
     </ice:panelGroup>
-    
-    <ice:messages />
-    
-    
-    
+
+    <ice:messages/>
+
+
     <ice:panelGroup rendered="#{planBean.planPositionsBean.editing}" styleClass="editWithVersions">
 
         <ice:panelGroup>
             <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
                 <div class="assumption">
                     <h3 class="question">#{question.debateAnchor}</h3>
-                    <ice:selectOneRadio value="#{question.position}" styleClass="versionedRadio positionItem" layout="pageDirection">
-                        <f:selectItems value="#{question.positions}"><br /></f:selectItems>
+                    <ice:selectOneRadio value="#{question.position}" styleClass="versionedRadio positionItem"
+                                        layout="pageDirection">
+                        <f:selectItems value="#{question.positions}"><br/></f:selectItems>
                     </ice:selectOneRadio>
                 </div>
-             
+
             </ice:panelSeries>
             <ice:panelGroup>
                 <script language="javascript">
                     updatePositionsSelection(#{planBean.planPositionsBean.selectedPositionsIds});
                 </script>
             </ice:panelGroup>
-            <ice:commandButton actionListener="#{planBean.planPositionsBean.updatePositions}" value="Save" />
-            <ice:commandButton actionListener="#{planBean.planPositionsBean.edit}" value="Cancel" />
+            <ice:commandButton actionListener="#{planBean.planPositionsBean.updatePositions}" value="Save"/>
+            <ice:commandButton actionListener="#{planBean.planPositionsBean.edit}" value="Cancel"/>
         </ice:panelGroup>
-        
+
     </ice:panelGroup>
 
 </f:view>

@@ -1,39 +1,68 @@
 <?xml version="1.0"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:ice="http://www.icesoft.com/icefaces/component" 
-    xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:collab="http://climatecollaboratorium.org/facelets"
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <ice:panelGroup styleClass="editWithVersions actionsImpactsEditContainer">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:collab="http://climatecollaboratorium.org/facelets"
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:collabcomps="http://climatecollaboratorium.org/components">
+
+    <collabcomps:helpMessage messageId="planModelRunHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+        The actions in a plan become inputs to simulation models. The models then project the impacts of those actions, which can include:
+        <ul>
+            <li>measures of climate change, like CO2 concentration and temperature increase</li>
+            <li>economic impacts like costs of mitigation policy or climate damages.</li>
+            <li>physical impacts like water availability, agricultural yields, and coastal flooding.</li>
+        </ul>
+    </collabcomps:helpMessage>
+    <collabcomps:helpMessageTrigger messageId="planModelRunHelp">+show help</collabcomps:helpMessageTrigger>
+
+    <div class="versionEditToolbar">
         <div class="chooseVersionWidget">
-            <input type="button" value="Versions" class="versionsTrigger expand" />
-                <div class="versionsContainer relative">
-                    <div class="versions">
-                        <ice:selectOneListbox value="#{planBean.plan.currentPlanModelRunVersion}" partialSubmit="true" size="10">
-                            <f:selectItems value="#{planBean.plan.planModelRunVersionItems}" /> 
-                        </ice:selectOneListbox>
-                        <br />
-                        <input type="button" value="Hide" class="versionsTrigger collapse" />
-                    </div>
-                    <div class="clear"></div>    
+            <input type="button" value="See Old Versions" class="versionsTrigger expand"/>
+
+            <div class="versionsContainer relative">
+                <div class="versions">
+                    <ice:selectOneListbox value="#{planBean.plan.currentPlanModelRunVersion}" partialSubmit="true"
+                                          size="10">
+                        <f:selectItems value="#{planBean.plan.planModelRunVersionItems}"/>
+                    </ice:selectOneListbox>
+                    <br/>
+                    <input type="button" value="Hide" class="versionsTrigger collapse"/>
+                </div>
+
             </div>
         </div>
+        <ice:commandButton styleClass="editButton" value="Edit" actionListener="#{simulationBean.editActions}"
+                           rendered="#{planBean.plan.selectedModel != null and permissions.canEdit and not simulationBean.editing}"/>
+
+        <div class="clear"></div>
+    </div>
+    <ice:panelGroup styleClass="actionsImpactsContainer">
+    <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.simulationLatestVersion}">
+        Viewing version from &amp;nbsp; <strong><ice:outputText
+            value="#{planBean.plan.simulationVersionDate}"/></strong> by &amp;nbsp;
+        <a href="/web/guest/members?userId=#{planBean.plan.simulationVersionAuthor.userId}">
+            <strong><ice:outputText value="#{planBean.plan.simulationVersionAuthor.screenName}"/></strong>
+        </a>
     </ice:panelGroup>
+
     <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
         <f:subview rendered="#{permissions.canEdit}">
-            <collab:simulation simulationId="#{planBean.plan.selectedModel}" scenarioId="#{planBean.plan.planModelRunScenarioId}"
-                    showEditButton="true" />
+            <collab:simulation simulationId="#{planBean.plan.selectedModel}"
+                               scenarioId="#{planBean.plan.planModelRunScenarioId}"
+                               showEditArea="true" showEditButton="false"/>
         </f:subview>
         <f:subview rendered="#{not permissions.canEdit}">
-            <collab:simulation simulationId="#{planBean.plan.selectedModel}" scenarioId="#{planBean.plan.planModelRunScenarioId}" 
-                    disableInputs="true" />
+            <collab:simulation simulationId="#{planBean.plan.selectedModel}"
+                               scenarioId="#{planBean.plan.planModelRunScenarioId}"
+                               disableInputs="true"/>
         </f:subview>
     </ice:panelGroup>
-    
+
     <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
         No model has been set.
     </ice:panelGroup>
-        
+    </ice:panelGroup>
     <script language="javascript">
         jQuery(document).ready(initVersionChoosingBox);
     </script>

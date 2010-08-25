@@ -39,6 +39,22 @@
     background: #FFFFFF;
 }
 
+.model-name {
+    font-size:1.6em;
+    font-weight:bold;
+    padding:5px;
+    background-color:#D0D0D0;
+}
+
+div.modeldescription {
+    padding:10px;
+}
+
+div.modeldescription div {
+    display:inline;
+}
+    
+
 
 /*Dialog*/
 
@@ -104,6 +120,9 @@
     margin: .25em 16px 0.2em 1em;
     color: #303030;
 }
+
+
+
 
 
 
