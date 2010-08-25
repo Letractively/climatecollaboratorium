@@ -1,3 +1,9 @@
+.model ul li {
+    list-style:disc inside;
+    line-height:1.4;
+
+}
+
 .float-right {
 
     float:right;
@@ -26,6 +32,47 @@
 .contentWrapperMiddle .content {
     padding: 15px;
 }
+
+/** INLINE HELP **/
+
+.inlineHelp {
+    border: 1px solid #CCCCFF;
+    background: #ebebff;
+    padding:10px;
+    margin:  4px 0px;
+    font-size:10pt;
+    color: #666655;
+
+}
+
+.hideThisTrigger {
+    padding-top: 10px;
+}
+
+.hideThisTrigger a {
+    font-weight:bold;
+}
+
+
+
+a.helpMessageTrigger {
+    font-style:italic;
+
+}
+
+a.helpMessageTrigger.commentHelp {
+    padding-top:8px;
+}
+
+a.helpMessageTrigger.helpVisible {
+    display:none;
+}
+
+a.helpMessageTrigger.helpHidden {
+    display:inline;
+    color: #8c96b4;
+}
+
 
 
 
