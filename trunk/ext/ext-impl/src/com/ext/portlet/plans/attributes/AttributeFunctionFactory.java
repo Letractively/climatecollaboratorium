@@ -187,6 +187,9 @@ public class AttributeFunctionFactory {
 
                 for(String variableName: variableNames) {
                     ClientVariable v = (ClientVariable) s.getVariableForInternalname(variableName);
+                    if (v == null) {
+                        continue;
+                    }
                     if (!v.hasError(TupleStatus.INVALID)) {
                         T candidate = getLastValueFunction(variableName, resultType).process(scenarioId);
                         result = result == null || result.doubleValue() > candidate.doubleValue() ? candidate : result;
@@ -212,7 +215,10 @@ public class AttributeFunctionFactory {
                 }
                 int outputsWithoutErrors = 0;
                 for(String variableName: variableNames) {
-                   ClientVariable v = (ClientVariable) s.getVariableForInternalname(variableName);
+                   ClientVariable v = (ClientVariable) s.getVariableForInternalname(variableName);                    
+                   if (v == null) {
+                       continue;
+                   }
                     if (!v.hasError(TupleStatus.INVALID)) {
                         T candidate = getLastValueFunction(variableName, resultType).process(scenarioId);
                         result = candidate != null && (result == null || result.doubleValue() < candidate.doubleValue()) ? candidate : result;
