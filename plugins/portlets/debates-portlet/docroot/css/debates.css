@@ -1097,6 +1097,11 @@ a.helpMessageTrigger {
     float:right;
 }
 
+a.helpMessageTrigger.debateCategoryHelp {
+    font-style:italic;
+    float:none;
+}
+
 a.helpMessageTrigger.commentHelp {
     padding-top:8px;
 }

@@ -11,7 +11,8 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:ice="http://www.icesoft.com/icefaces/component">
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:collab="http://climatecollaboratorium.org/components">
 
 
     <ice:panelPopup rendered="#{editedDebateCategory.editing}" styleClass="collaboratoriumPopup"
@@ -36,6 +37,15 @@
         </f:facet>
 
     </ice:panelPopup>
+    <ice:form>
+            <collab:helpMessage messageId="debatesGeneralHelp" styleClass="debateHelp"
+                                hideThisMessage="Hide this message">
+                Debates are where CoLab users have on-line conversations about issues involved in climate change.
+                In the current version of the system, Debates are structured into two parts: Debate summaries and Discussions. For more, see&#160;<a
+                    href="http://cognosis.mit.edu:8888/web/guest/resources/-/wiki/Main/Debates%20Help">Debates Help</a>.
+            </collab:helpMessage>
+            <collab:helpMessageTrigger styleClass="debateCategoryHelp" messageId="debatesGeneralHelp">+show help</collab:helpMessageTrigger>
+        </ice:form>
     <ice:form>
         <div class="categoriesHeader">
 
