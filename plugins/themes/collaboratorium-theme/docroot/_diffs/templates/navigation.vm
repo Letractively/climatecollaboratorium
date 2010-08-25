@@ -1,7 +1,7 @@
 <div id="mainNav">
 	<ul>
 		#foreach ($nav_item in $nav_items)
-            #if ($velocityCount != 1)
+
                 #set($nav_name = $nav_item.getName().replaceAll("\s",""))
                 #if ($nav_item.isSelected())
                     #set ($nav_item_class = "current")
@@ -13,7 +13,7 @@
                 <li class="$nav_item_class">
                     <a href="$nav_item.getURL()" $nav_item.getTarget()  class="$nav_name">$nav_name</span></a>
                 </li>
-            #end
+           
 		#end
 	</ul>
 	
