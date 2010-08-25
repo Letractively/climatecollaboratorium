@@ -4,7 +4,8 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:liferay-faces="http://liferay.com/tld/faces">
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:collabcomps="http://climatecollaboratorium.org/components">
 
 
     <ice:panelPopup rendered="#{category.adding}" styleClass="collaboratoriumPopup"
@@ -44,7 +45,19 @@
         </f:facet>
 
     </ice:panelPopup>
-    
+    <ice:form>
+<collabcomps:helpMessage messageId="modelsHelp" styleClass="modelHelp" hideThisMessage="Hide this message">
+    At the core of the CoLab is an evolving collection of user-created&#160;<a href="http://cognosis.mit.edu:8888/web/guest/resources/-/wiki/Main/Plans+help">Plans</a> comprised of:
+    <ul>
+       <li>proposed actions,</li>
+       <li>simulation&#160;<a href="http://conosis.mit.edu:8888/web/guest/resources/-/wiki/Main/Models+help">models</a></li>
+       <li>projected impacts.</li></ul>
+    In&#160;<a href="http://cognosis.mit.edu:8888/web/guest/resources/-/wiki/Main/Contest+help">Contests</a>, teams work together to create plans. This year's
+contest, the&#160;<a class="http://www.climatecolab.org/web/guest/resources/-/wiki/Main/CoLab+Global+Challenge">CoLab Global Challenge</a>, starts in
+September.
+</collabcomps:helpMessage>
+<collabcomps:helpMessageTrigger messageId="modelsHelp">+show help</collabcomps:helpMessageTrigger>
+</ice:form>
        
     <div class="categoriesHeader">
         <div class="buttonPanel">
