@@ -413,8 +413,7 @@ public class PlanMetaPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("version DESC, ");
-                query.append("created DESC");
+                query.append("id_ DESC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -492,8 +491,7 @@ public class PlanMetaPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("version DESC, ");
-                query.append("created DESC");
+                query.append("id_ DESC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -564,8 +562,7 @@ public class PlanMetaPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("version DESC, ");
-                    query.append("created DESC");
+                    query.append("id_ DESC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -667,8 +664,7 @@ public class PlanMetaPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("version DESC, ");
-                query.append("created DESC");
+                query.append("id_ DESC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -765,8 +761,7 @@ public class PlanMetaPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("version DESC, ");
-                    query.append("created DESC");
+                    query.append("id_ DESC");
                 }
 
                 Query q = session.createQuery(query.toString());

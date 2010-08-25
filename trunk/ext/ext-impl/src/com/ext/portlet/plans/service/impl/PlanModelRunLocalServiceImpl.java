@@ -48,6 +48,7 @@ public class PlanModelRunLocalServiceImpl
         newModelRun.setId(CounterUtil.increment(PlanModelRun.class.getName()));
         newModelRun.setPlanVersion(plan.getVersion());
         newModelRun.setUpdateAuthorId(plan.getUpdateAuthorId());
+        newModelRun.setCreated(new Date());
 
         if (store) {
             newModelRun = PlanModelRunLocalServiceUtil.addPlanModelRun(newModelRun);

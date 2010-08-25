@@ -300,9 +300,9 @@
         <column name="updateAuthorId" type="Long" />
         
         <order by="desc">
-            <order-column name="version" />
-            <order-column name="created" />
+            <order-column name="id" />
         </order>
+        
         <finder name="CurrentByPlanId" return-type="PlanDescription">
             <finder-column name="planId" />
         </finder>
@@ -336,9 +336,9 @@
          <column name="contestPhase" type="Long"/>
         
         <order by="desc">
-            <order-column name="version" />
-            <order-column name="created" />
+            <order-column name="id" />
         </order>
+        
         <finder name="CurrentByPlanId" return-type="PlanMeta">
             <finder-column name="planId" />
         </finder>
@@ -357,8 +357,7 @@
         <column name="updateAuthorId" type="Long" />
         
         <order by="desc">
-            <order-column name="version" />
-            <order-column name="created" />
+            <order-column name="id" />
         </order>
         
         <finder name="CurrentByPlanId" return-type="PlanModelRun">
@@ -378,8 +377,7 @@
         <column name="updateAuthorId" type="Long" />
         
         <order by="desc">
-            <order-column name="version" />
-            <order-column name="created" />
+            <order-column name="id" />
         </order>
         
         <finder name="CurrentByPlanId" return-type="PlanPositions">

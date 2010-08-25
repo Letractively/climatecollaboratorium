@@ -63,6 +63,7 @@ public class PlanMetaLocalServiceImpl extends PlanMetaLocalServiceBaseImpl {
         newMeta.setId(CounterUtil.increment(PlanMeta.class.getName()));
         newMeta.setPlanVersion(plan.getVersion());
         newMeta.setUpdateAuthorId(plan.getUpdateAuthorId());
+        newMeta.setCreated(new Date());
 
         if (store) {
             newMeta = PlanMetaLocalServiceUtil.addPlanMeta(newMeta);

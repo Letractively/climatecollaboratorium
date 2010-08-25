@@ -4,7 +4,6 @@ import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanDescriptionSoap;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
-import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
@@ -246,15 +245,7 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
     public int compareTo(PlanDescription planDescription) {
         int value = 0;
 
-        value = getVersion().compareTo(planDescription.getVersion());
-
-        value = value * -1;
-
-        if (value != 0) {
-            return value;
-        }
-
-        value = DateUtil.compareTo(getCreated(), planDescription.getCreated());
+        value = getId().compareTo(planDescription.getId());
 
         value = value * -1;
 
