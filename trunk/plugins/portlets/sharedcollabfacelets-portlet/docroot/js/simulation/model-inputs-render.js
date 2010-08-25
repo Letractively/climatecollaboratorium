@@ -187,6 +187,20 @@ function showSliders() {
 
 }
 
+function convertTypedValuesToNumbers() {
+	jQuery(".sliderDef").each(function() {
+		try {
+			var val = jQuery(this).find('.value').val();
+			var valueBinding = jQuery(this).find('.valueBinding');
+			var unit = jQuery(this).find('.unit').val();
+		
+			valueBinding.val(parseFieldValue(val, unit));
+		} catch (e) { 
+			alert(e);
+		}
+	});
+}
+
 function runSimulation() {
 	showLoadingScreen();
 	// get data for all model inputs

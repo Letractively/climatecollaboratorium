@@ -54,7 +54,8 @@ public class ModelInputDisplayItemWrapper {
     public Object getTypedValue() {
         if (wrappedItem.getMetaData().getProfile()[0].equals(Integer.class)) {
             return Math.round(value);
-        } 
+        }
+        else 
         return value;
     
         
