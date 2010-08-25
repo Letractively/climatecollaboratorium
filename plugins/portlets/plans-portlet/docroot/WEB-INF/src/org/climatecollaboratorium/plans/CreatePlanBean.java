@@ -59,7 +59,7 @@ public class CreatePlanBean {
                         phase = active.get(0);
                     }
                 }
-                planItem = PlanItemLocalServiceUtil.createPlan(planBean.getPlan().getWrapped(), Helper.getLiferayUser().getUserId());
+                planItem = PlanItemLocalServiceUtil.createPlan(planBean.getPlan().getWrapped(), phase, Helper.getLiferayUser().getUserId());
             }
             planId = planItem.getPlanId();
             navigateToPlan = true;
