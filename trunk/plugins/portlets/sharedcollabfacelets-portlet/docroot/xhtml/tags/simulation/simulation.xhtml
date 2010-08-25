@@ -31,11 +31,11 @@
                             </tr>
                         </table>
                     </ice:panelGroup>
-                    <ice:panelGroup rendered="#{showEditButton}">
+                    <ice:panelGroup rendered="#{showEditArea}">
                         <table class="simButtons">
                             <tr>
                                 <td>
-                                    <ice:commandLink actionListener="#{simulationBean.editActions}" rendered="#{not simulationBean.embeddedEditing and simulationBean.simulation != null}"><div class="editSimBtn"></div></ice:commandLink>
+                                    <ice:commandLink actionListener="#{simulationBean.editActions}" rendered="#{not simulationBean.embeddedEditing and simulationBean.simulation != null and showEditButton}"><div class="editSimBtn"></div></ice:commandLink>
                                     <ice:commandLink actionListener="#{simulationBean.saveScenario}" rendered="#{simulationBean.embeddedEditing and simulationBean.scenario != null}"><div class="saveSimBtn"></div></ice:commandLink>
                                     <ice:commandLink actionListener="#{simulationBean.runSimulation}" onclick="runSimulation();" rendered="#{simulationBean.embeddedEditing and simulationBean.simulation != null}"><div class="runSimBtn"></div></ice:commandLink>
                                     <ice:commandLink actionListener="#{simulationBean.editActions}" rendered="#{simulationBean.embeddedEditing}"><div class="cancelSimBtn"></div></ice:commandLink>
