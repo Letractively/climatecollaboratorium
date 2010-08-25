@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `Contest`;
 
 CREATE TABLE `Contest` (
   `ContestPK` bigint(20) NOT NULL,
-  `ContestName` varchar(75) DEFAULT NULL,
+  `ContestName` varchar(255) DEFAULT NULL,
   `ContestDescription` text,
   `PlanTypeId` bigint(20) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
