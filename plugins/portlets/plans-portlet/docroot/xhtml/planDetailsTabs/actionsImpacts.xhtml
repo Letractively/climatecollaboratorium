@@ -33,7 +33,7 @@
             </div>
         </div>
         <ice:commandButton styleClass="editButton" value="Edit" actionListener="#{simulationBean.editActions}"
-                           rendered="#{planBean.plan.selectedModel != null and permissions.canEdit and not simulationBean.editing}"/>
+                           rendered="#{planBean.plan.selectedModel != null and permissions.canEdit and not simulationBean.embeddedEditing}"/>
 
         <div class="clear"></div>
     </div>
