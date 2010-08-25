@@ -38,7 +38,7 @@
                                </ice:panelSeries>
                                 <ice:panelGroup>
                                     <script language="javascript">
-                                       var disabled = #{disableInputs || false} || ! (!#{showEditButton || false} || #{showEditButton || false} &amp;&amp; #{simulationBean.embeddedEditing || false});
+                                       var disabled = #{disableInputs || false} || ! (!#{showEditArea || false} || #{showEditArea || false} &amp;&amp; #{simulationBean.embeddedEditing || false});
                                         jQuery(".actions input").attr('disabled', disabled);
                                         jQuery(".actions .slider").slider("option", "disabled", disabled);
                                     </script>
