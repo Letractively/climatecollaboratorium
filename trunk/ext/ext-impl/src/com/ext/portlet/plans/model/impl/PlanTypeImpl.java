@@ -28,6 +28,14 @@ public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
         } else return Collections.emptyList();
        }
 
+    public Simulation getDefaultModel() throws SystemException {
+        if (this.getModelId() == null) {
+            return null;
+        } else {
+            return CollaboratoriumModelingService.repository().getSimulation(this.getModelId());
+        }
+    }
+
     
     public List<PlanTypeColumn> getColumns() throws SystemException {
         List<PlanTypeColumn> cols= PlanTypeLocalServiceUtil.getColumnsByPlanTypeId(this.getPlanTypeId());

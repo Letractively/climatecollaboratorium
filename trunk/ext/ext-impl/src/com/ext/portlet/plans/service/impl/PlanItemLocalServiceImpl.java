@@ -109,9 +109,14 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
         PlanMeta meta = PlanMetaLocalServiceUtil.createPlanMeta(planItem, planTypeId);
         PlanType type = PlanTypeLocalServiceUtil.getPlanType(planTypeId);
-        List<Simulation> models =  type.getAvailableModels();
-        if (models.size() > 0) {
-            meta.setModelId(models.get(0).getId());
+        Simulation defaultmodel = type.getDefaultModel();
+        if (defaultmodel !=null) {
+            meta.setModelId(defaultmodel.getId());
+        } else {
+            List<Simulation> models =  type.getAvailableModels();
+            if (models.size() > 0) {
+                meta.setModelId(models.get(0).getId());
+            }
         }
         meta.setContestPhase(phase.getContestPhasePK());
         PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
@@ -185,38 +190,40 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
     
     public PlanItem createPlan(PlanItem basePlan, Long authorId) throws SystemException, PortalException {
-        long type = basePlan.getPlanTypeId();
-        if (basePlan.getPlanType().getPublished()) {
-            type = basePlan.getPlanType().getPublishedCounterpartId();
-        }
-        PlanItem plan = createPlan(type, authorId);
-        PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
-        PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
-        PlanPositions planPositions = PlanPositionsLocalServiceUtil.getCurrentForPlan(plan);
-        
-        // copy description
-        description.setDescription(basePlan.getDescription());
-        description.store();
-        
-        // copy scenario id
-        planModelRun.setScenarioId(basePlan.getScenarioId());
-        planModelRun.store();
-        
-        // copy positions
-        planPositions.setPositionsIds(basePlan.getPositionsIds());
-        planPositions.store();
-        
-        if (basePlan.getScenarioId() != null) {
-            // update all attributes
-            plan.updateAllAttributes();
-        }
-        else {
-            // update only attributes related to new values
-            plan.updateAttribute(Attribute.DESCRIPTION.name());
-            plan.updateAttribute(Attribute.POSITIONS.name());
-        }
-        
-        return plan;
+        throw new RuntimeException("Plan must be part of a contest");
+
+//        long type = basePlan.getPlanTypeId();
+//        if (basePlan.getPlanType().getPublished()) {
+//            type = basePlan.getPlanType().getPublishedCounterpartId();
+//        }
+//        PlanItem plan = createPlan(type, authorId);
+//        PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
+//        PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
+//        PlanPositions planPositions = PlanPositionsLocalServiceUtil.getCurrentForPlan(plan);
+//
+//        // copy description
+//        description.setDescription(basePlan.getDescription());
+//        description.store();
+//
+//        // copy scenario id
+//        planModelRun.setScenarioId(basePlan.getScenarioId());
+//        planModelRun.store();
+//
+//        // copy positions
+//        planPositions.setPositionsIds(basePlan.getPositionsIds());
+//        planPositions.store();
+//
+//        if (basePlan.getScenarioId() != null) {
+//            // update all attributes
+//            plan.updateAllAttributes();
+//        }
+//        else {
+//            // update only attributes related to new values
+//            plan.updateAttribute(Attribute.DESCRIPTION.name());
+//            plan.updateAttribute(Attribute.POSITIONS.name());
+//        }
+//
+//        return plan;
     }
 
     public PlanItem createPlan(PlanItem basePlan, ContestPhase contestPhase, Long authorId) throws SystemException, PortalException {
@@ -227,6 +234,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
         PlanItem plan = createPlan(type, authorId);
         plan.getPlanMeta().setContestPhase(contestPhase.getContestPhasePK());
+        plan.getPlanMeta().setModelId(basePlan.getPlanMeta().getModelId());
         PlanMetaLocalServiceUtil.updatePlanMeta(plan.getPlanMeta());
         PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
         PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
@@ -258,6 +266,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     }
     
     public PlanItem createPlan(Plan basePlan) throws SystemException, PortalException {
+
+        
         long planItemId = CounterUtil.increment(PlanItem.class.getName());
         long planId = basePlan.getPlanId();
         long authorId = basePlan.getUserId();

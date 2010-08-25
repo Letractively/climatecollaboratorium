@@ -285,8 +285,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         value = DateUtil.compareTo(getPhaseStartDate(),
                 contestPhase.getPhaseStartDate());
 
-        value = value * -1;
-
         if (value != 0) {
             return value;
         }

@@ -323,7 +323,7 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("PhaseStartDate DESC");
+                query.append("PhaseStartDate ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -395,7 +395,7 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("PhaseStartDate DESC");
+                    query.append("PhaseStartDate ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -502,7 +502,7 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("PhaseStartDate DESC");
+                query.append("PhaseStartDate ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -602,7 +602,7 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("PhaseStartDate DESC");
+                    query.append("PhaseStartDate ASC");
                 }
 
                 Query q = session.createQuery(query.toString());

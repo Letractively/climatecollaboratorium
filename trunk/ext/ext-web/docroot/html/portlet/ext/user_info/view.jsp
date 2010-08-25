@@ -149,9 +149,9 @@
 		</c:otherwise>
 	</c:choose>
 	|</span>
-	<a href="/web/guest/resources/-/wiki/Main/About+the+Climate+Collaboratorium">about</a>
+	<a href="/web/guest/resources/-/wiki/Main/About%20the%20Climate%20CoLab">about</a>
 	<span>|</span>
-	<a href="/web/guest/resources/-/wiki/Main/Climate+Collaboratorium+Help">help</a>
+	<a href="/web/guest/resources/-/wiki/Main/Help">help</a>
 	<span>|</span>
 	<a href="/web/guest/feedback">feedback</a>
 </div>
