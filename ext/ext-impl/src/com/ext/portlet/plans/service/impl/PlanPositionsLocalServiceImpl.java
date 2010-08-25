@@ -51,6 +51,7 @@ public class PlanPositionsLocalServiceImpl
         newPositions.setPlanVersion(plan.getVersion());
         newPositions.setUpdateAuthorId(plan.getUpdateAuthorId());
         newPositions.setNew(true);
+        newPositions.setCreated(new Date());
 
         if (store) {
             newPositions.store();
