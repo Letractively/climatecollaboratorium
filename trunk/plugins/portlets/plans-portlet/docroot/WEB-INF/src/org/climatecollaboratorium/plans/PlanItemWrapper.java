@@ -40,7 +40,7 @@ public class PlanItemWrapper {
     private String candidateDescription;
     private List<PlanDescription> planDescriptions;
     private List<PlanPositions> planPositions;
-    private List<PlanModelRun> planModelRuns;
+    private List<PlanModelRun> planModelRuns = new ArrayList<PlanModelRun>();
     private List<PlanHistoryItem> planVersions = new ArrayList<PlanHistoryItem>();
     
     private Map<Long, PlanDescription> planDescriptionsById = new HashMap<Long, PlanDescription>();
@@ -69,16 +69,7 @@ public class PlanItemWrapper {
             planDescriptionItems.add(new SelectItem(planDescription.getId(), planDescription.getCreated() + " by " + planDescription.getUpdateAuthor().getScreenName()));
         }
         currentDescriptionVersion = planDescriptions.get(0).getId();
-        
-        planModelRuns = wrapped.getAllPlanModelRuns();
-        planModelRunsById.clear();
-        planModelRunItems.clear();
-        
-        for (PlanModelRun planModelRun: planModelRuns) {
-            planModelRunsById.put(planModelRun.getId(), planModelRun);
-            planModelRunItems.add(new SelectItem(planModelRun.getId(), planModelRun.getCreated() + " by " + planModelRun.getUpdateAuthor().getScreenName()));
-        }
-        currentPlanModelRunVersion = planModelRuns.get(0).getId();
+
         
         this.permissions = permissions;
         
@@ -249,6 +240,19 @@ public class PlanItemWrapper {
     }
 
     public List<SelectItem> getPlanModelRunVersionItems() throws PortalException, SystemException {
+        List<PlanModelRun> tmp  = wrapped.getAllPlanModelRuns();
+        if (tmp.size() != planModelRuns.size()) {
+            planModelRuns = tmp;
+            planModelRunsById.clear();
+            planModelRunItems.clear();
+        
+            for (PlanModelRun planModelRun: planModelRuns) {
+                planModelRunsById.put(planModelRun.getId(), planModelRun);
+                planModelRunItems.add(new SelectItem(planModelRun.getId(), planModelRun.getCreated() + " by " + planModelRun.getUpdateAuthor().getScreenName()));
+            }        
+
+            currentPlanModelRunVersion = planModelRuns.get(0).getId();
+        }
         return planModelRunItems;
     }
     
