@@ -54,8 +54,7 @@ September.
                             <ice:outputText value="Phase"/>
 
                         </f:facet>
-                        <ice:outputLink value="#plans=phaseId:#{phase.phaseId}"
-                                        onclick="Collab.nav.navigate('plans', {phaseId: '#{phase.phaseId}'})">
+                        <ice:outputLink value="#plans=phaseId:#{phase.phaseId}">
                             <ice:outputText value="#{phase.name}"/>
                         </ice:outputLink>
                     </ice:column>
