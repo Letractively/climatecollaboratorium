@@ -111,13 +111,25 @@ public class NavigationBean {
             @Override
                public void onEvent(NavigationEvent event) {
                 // check if event
-
-                if (event.getSource().equals("plans")) {
-                    navigationParameters = event.getParameters();
-                    String contestPhaseIdStr = event.getParameters().get("phaseId");
+                String plansSource = "plans";
+                if (! event.hasSource(plansSource)) {
+                    plansIndex.clear();
+                    planBean.clear();
+                }
+                else {
+                    navigationParameters = event.getParameters(plansSource);
+                    String contestPhaseIdStr = navigationParameters.get("phaseId");
+                    String planIdStr = navigationParameters.get("planId");
+                    
+                    if ((contestPhaseIdStr == null || contestPhaseIdStr.length() == 0) && 
+                            (planIdStr == null || planIdStr.length() == 0)) {
+                        plansIndex.clear();
+                        planBean.clear();
+                    }
+                        
                     try {
                         Long contestPhaseId = contestPhaseIdStr==null?null:Long.parseLong(contestPhaseIdStr);
-                        plansIndex.init(contestPhaseId,event.getParameters());
+                        plansIndex.init(contestPhaseId,navigationParameters);
                     } catch (NumberFormatException e) {
                         _log.error("can't parse contestPhaseIdStr: "+contestPhaseIdStr,e);
                     } catch (PortalException e) {
@@ -126,10 +138,9 @@ public class NavigationBean {
                      _log.error("Can't init contest phase index "+contestPhaseIdStr,e);  //To change body of catch statement use File | Settings | File Templates.
                     }
 
-                    String planIdStr = event.getParameters().get("planId");
                     try {
                         Long planId = planIdStr == null ? null : Long.parseLong(planIdStr);
-                        planBean.init(planId, eventBus, event.getParameters());
+                        planBean.init(planId, eventBus, navigationParameters);
                     }
                     catch (NumberFormatException e) {
                         planBean.clear();

@@ -389,5 +389,10 @@ public class PlansIndexBean {
             return label;
         }
     }
+    
+    public void clear() {
+        contestPhase = null;
+    }
+     
 
 }
