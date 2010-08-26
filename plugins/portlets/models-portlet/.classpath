@@ -36,7 +36,7 @@
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/util-taglib.jar"/>
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/xstream.jar"/>
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/WikiParser.jar"/>
-	<classpathentry kind="lib" path="docroot/WEB-INF/lib/shared_collab_facelets.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-sun-1.6.0.20"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Shared Collab Facelets"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

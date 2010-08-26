@@ -3,6 +3,7 @@ package org.climatecollaboratorium.models;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
@@ -145,28 +146,36 @@ public class NavigationBean {
             @Override
             public void onEvent(NavigationEvent event) {
                 // check if event
-                if (event.getSource().equals("models")) {
-                    if (event.getParameters().containsKey("modelId")) {
+                final String modelsSource = "models";
+                if (!event.hasSource(modelsSource)) {
+                    currentPage = INDEX_PAGE;
+                    breadcrumbBean.clear();
+                    selectedSimulation = null;
+                    updateBreadcrumb();
+                }
+                else {
+                    Map<String, String> parameters = event.getParameters(modelsSource);
+                    if (parameters.containsKey("modelId")) {
                         try {
-                            Long modelId = Long.parseLong(event.getParameters().get("modelId"));
+                            Long modelId = Long.parseLong(parameters.get("modelId"));
                             selectedSimulation = CollaboratoriumModelingService.repository().getSimulation(modelId);
                             if (selectedSimulation != null) {
                                 currentPage = DETAILS_PAGE;
                                 updateBreadcrumb();
 
                                 simulationDetailsBean.setModelId(modelId);
-                                simulationDetailsBean.navigate(event.getParameters());
+                                simulationDetailsBean.navigate(parameters);
                                 
                             }
                         }
                         catch (NumberFormatException e) {
-                            _log.error("Invalid modelId " + event.getParameters().get("modelId"));
+                            _log.error("Invalid modelId " + parameters.get("modelId"));
                             currentPage = INDEX_PAGE;
                             selectedSimulation = null;
                         } catch (SystemException e) {
-                            _log.error("Invalid model " + event.getParameters().get("modelId"));
+                            _log.error("Invalid model " + parameters.get("modelId"));
                         } catch (IllegalUIConfigurationException e) {
-                            _log.error("Invalid model " + event.getParameters().get("modelId"));
+                            _log.error("Invalid model " + parameters.get("modelId"));
                         }
                         
                     }
