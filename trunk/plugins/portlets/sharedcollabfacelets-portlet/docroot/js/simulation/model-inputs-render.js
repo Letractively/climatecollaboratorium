@@ -47,11 +47,14 @@ function isDouble(dataType) {
 	if (dataType == "java.lang.Float") return true;
 }
 
-function formatFieldValue(value, unit) {
+function formatFieldValue(value, unit, dataType) {
 	if (unit.toLowerCase().indexOf("percent") >= 0 || unit.toLowerCase().indexOf("%") >= 0) {
 		//return (value * 100).toFixed(0) + "%";
 		return (value * 1).toFixed(0) + "%";
 	}
+    else if (dataType!=null && isInteger(dataType)) {
+        return (value *1).toFixed(0);
+    }
 	return value;
 }
 
@@ -59,7 +62,8 @@ function parseFieldValue(value, unit) {
 	if (unit.toLowerCase().indexOf("percent") >= 0 || unit.toLowerCase().indexOf("%") >= 0) {
 		//return parseFloat(value.replace("%")) / 100;
 		return parseFloat(value.replace("%"));
-	}
+
+    }
 	return value;
 }
 
@@ -106,7 +110,7 @@ function showSliders() {
 		}
 
 		var valueField = jQuery(this).find(".value");
-		valueField.val(formatFieldValue(defaultVal, unit));
+		valueField.val(formatFieldValue(defaultVal, unit,dataType));
 
         var valueBinding = jQuery(this).find('.valueBinding');
 
@@ -130,11 +134,11 @@ function showSliders() {
 			max: sliderMax, 
 			slide: function(event, ui) {
 			if (isInteger(dataType)) {
-				valueField.val(formatFieldValue(ui.value, unit));
+				valueField.val(formatFieldValue(ui.value, unit,null));
 
 			}
 			else if (isDouble(dataType)) {
-				valueField.val(formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit));
+				valueField.val(formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null));
 			}
 
             valueBinding.val(valueField.val());
