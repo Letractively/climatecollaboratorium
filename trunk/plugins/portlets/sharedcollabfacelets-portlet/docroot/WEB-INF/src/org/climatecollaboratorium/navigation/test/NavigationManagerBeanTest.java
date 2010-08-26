@@ -27,7 +27,9 @@ public class NavigationManagerBeanTest {
 
             @Override
             public void onEvent(NavigationEvent event) {
-                navigationLog.add(0, new Date() + "Navigation event: " + event.getSource() + "\tparameters: " + event.getParameters());
+                for (String source: event.getSources()) {
+                    navigationLog.add(0, new Date() + "Navigation event: " + source + "\tparameters: " + event.getParameters(source));
+                }
             }
         });
     }
