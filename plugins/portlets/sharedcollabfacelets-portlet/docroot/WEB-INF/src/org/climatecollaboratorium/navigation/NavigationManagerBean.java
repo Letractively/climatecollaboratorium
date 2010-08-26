@@ -32,12 +32,7 @@ public class NavigationManagerBean {
     
     public String navigate() {
         Map<String, Map<String, String>> tokenMap = decodeToken(navigationToken);
-        for (String key: tokenMap.keySet()) {
-            if (!sendUnchanged && tokenMap.get(key).equals(lastTokenMap.get(key))) {
-                continue;
-            }
-            eventBus.fireEvent(new NavigationEvent(key, tokenMap.get(key)));
-        }
+        eventBus.fireEvent(new NavigationEvent(tokenMap));
         lastTokenMap = tokenMap;
         return null;
     }

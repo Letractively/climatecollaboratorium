@@ -165,11 +165,12 @@ public class DiscussionBean {
 
             @Override
             public void onEvent(NavigationEvent event) {
-                if (event.getSource().equals("discussion")) {
+                final String discussionSource = "discussion"; 
+                if (event.hasSource(discussionSource)) {
 
-                    if (event.getParameters().containsKey("pageType")) {
+                    if (event.getParameters(discussionSource).containsKey("pageType")) {
                         try {
-                            pageType = DiscussionPageType.valueOf(event.getParameters().get("pageType"));
+                            pageType = DiscussionPageType.valueOf(event.getParameters(discussionSource).get("pageType"));
                         }
                         catch (IllegalArgumentException ex) {
                             _log.error("Can't find specified page type", ex);
@@ -179,17 +180,17 @@ public class DiscussionBean {
                         // default page type
                         pageType = DEFAULT_PAGE_TYPE;
                     }
-                    if (event.getParameters().containsKey("threadId")) {
+                    if (event.getParameters(discussionSource).containsKey("threadId")) {
                         try {
-                            threadId = Long.parseLong(event.getParameters().get("threadId"));
+                            threadId = Long.parseLong(event.getParameters(discussionSource).get("threadId"));
                         }
                         catch (NumberFormatException ex) {
                             _log.error("Can't parse threadId", ex);
                         }
                     }
-                    if (event.getParameters().containsKey("categoryId")) {
+                    if (event.getParameters(discussionSource).containsKey("categoryId")) {
                         try {
-                            categoryId = Long.parseLong(event.getParameters().get("categoryId"));
+                            categoryId = Long.parseLong(event.getParameters(discussionSource).get("categoryId"));
                         }
                         catch (NumberFormatException ex) {
                             _log.error("Can't parse categoryId", ex);
@@ -201,6 +202,9 @@ public class DiscussionBean {
                     catch (SystemException e) {
                         _log.error("Can't update display", e);
                     }
+                }
+                else {
+                    pageType = DEFAULT_PAGE_TYPE;
                 }
             }
             

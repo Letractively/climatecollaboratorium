@@ -80,7 +80,7 @@ Collab.nav = new function() {
 		//alert(req);
 		//navigationItems["req"] = req++;
 		//alert(navigationItems.req);
-		navigationItems['req'] = {req: req++};
+		//navigationItems['req'] = {req: req++};
 		window.location.hash = createToken();
 	}
 	

@@ -40,8 +40,8 @@ public class TagsDemo {
             @Override
             public void onEvent(NavigationEvent event) {
                 // check if event
-                if (event.getSource().equals("tagsdemo")) {
-                    tag = event.getParameters().get("tag");
+                if (event.hasSource("tagsdemo")) {
+                    tag = event.getParameters("tagsdemo").get("tag");
                 }
             }
         }));
