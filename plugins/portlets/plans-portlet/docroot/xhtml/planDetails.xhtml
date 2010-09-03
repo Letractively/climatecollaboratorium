@@ -38,8 +38,14 @@
 
                             </f:subview>
                             <f:subview rendered="#{planBean.editingName}">
+                            
+                                <ice:panelGroup styleClass="hidden ">
+                                    <script type="text/javascript">
+                                        Collab.nav.addEditorDirtyValidationCallback(checkIfPlanNameDirty);
+                                    </script>
+                                </ice:panelGroup>
 
-                                <ice:inputText value="#{planBean.plan.name}" id="renamePlanName">
+                                <ice:inputText value="#{planBean.plan.name}" id="renamePlanName" styleClass='planNameInput' onchange="jQuery(this).addClass('valueChanged');">
                                     <f:validator validatorId="planNameValidator"/>
                                 </ice:inputText>
 

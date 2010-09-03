@@ -6,6 +6,13 @@
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collabcomps="http://climatecollaboratorium.org/components">
 
+
+    <ice:panelGroup styleClass="hidden">
+        <script type="text/javascript">
+            Collab.nav.addEditorDirtyValidationCallback(checkIfActionsImpactsDirty);
+        </script>
+    </ice:panelGroup>
+    
     <collabcomps:helpMessage messageId="planModelRunHelp" styleClass="planHelp" hideThisMessage="Hide this message">
         The actions in a plan become inputs to simulation models. The models then project the impacts of those actions, which can include:
         <ul>
@@ -66,4 +73,5 @@
     <script language="javascript">
         jQuery(document).ready(initVersionChoosingBox);
     </script>
+    
 </f:view>

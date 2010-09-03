@@ -48,11 +48,12 @@
     <ice:panelGroup rendered="#{planBean.editingDescription}" styleClass="editWithVersions descriptionEditContainer">
 
         <div class="descriptionInput">
-            <ice:inputRichText value="#{planBean.plan.description}"  saveOnSubmit="true" skin="office2003" height="500px" />
+            <ice:inputRichText value="#{planBean.plan.description}"  saveOnSubmit="true" skin="office2003" height="500px" partialSubmit="true" />
             <ice:commandButton value="Save" actionListener="#{planBean.plan.saveDescription}"/>
             <ice:commandButton value="Cancel" actionListener="#{planBean.editDescription}"/>
         </div>
     </ice:panelGroup>
+    
     
         <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}">  
             <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
@@ -68,6 +69,12 @@
     <script language="javascript">
     jQuery(document).ready(initVersionChoosingBox);
     </script>
+    
+    <ice:panelGroup styleClass="hidden ">
+        <script type="text/javascript">
+            Collab.nav.addEditorDirtyValidationCallback(checkIfPlanDescriptionDirty);
+        </script>
+    </ice:panelGroup>
     
 </div>
 </f:view>
