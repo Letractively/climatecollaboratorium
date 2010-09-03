@@ -12,6 +12,7 @@ Collab.nav = new function() {
 	var navigationItems = {};
 	var req = 0;
 	var alertUserOnExit = false;
+	var queryString = false;
 
 	/**
 	 * this field should hold a set callback functions used to determine if contents of currently displayed
