@@ -3,21 +3,6 @@
  * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
  * or the license.txt file included in this distribution for the full text of the license.
  */
-//setTimeout(function() { log.toggle(); }, 1000);
-/*
-try {
-Ice.onSendReceive("mainContent",function() {}, function() {
-	setTimeout(function() {
-	showSliders();
-	renderModelOutputs();
-	initEditForms();
-	}, 100);
-});
-jQuery(document).ready(function() {
-	icefacesEventManager.registerHandler("renderModelInputs", renderModelInputs);
-	icefacesEventManager.registerHandler("modelRunSuccessful", modelRunSuccessful);
-});
-*/
 
 
 function renderModelInputs(event) {
@@ -67,6 +52,11 @@ function parseFieldValue(value, unit) {
 	return value;
 }
 
+function oneOfValuesChangedEvent() {
+	
+	jQuery(".runSimBtn").parent().click();
+	jQuery(".simulationInputsStatus").addClass("valueChanged");
+}
 
 function showSliders() {
 	var msg = "";
@@ -118,6 +108,7 @@ function showSliders() {
             valueField.change(function(e,ui) {
                // alert("Copy value "+valueField.val()+" to "+valueBinding);
                valueBinding.val(parseFieldValue(valueField.val(),unit));
+               oneOfValuesChangedEvent();
             });
 			return;
 		}
@@ -142,8 +133,10 @@ function showSliders() {
 			}
 
             valueBinding.val(valueField.val());
+            oneOfValuesChangedEvent();
 		}
 		});
+
 
 		var sliderVal = defaultVal;
 		if (isDouble(dataType)) {
@@ -160,6 +153,10 @@ function showSliders() {
 
 			slider.slider("option", "value", sliderVal);
 			return true;
+		});
+		
+		valueField.change(function(e, ui) {
+            oneOfValuesChangedEvent();
 		});
 	});
 
