@@ -51,4 +51,8 @@
         <tag-name>navigationManager</tag-name>
         <source>xhtml/tags/navigationManager/navigationManager.xhtml</source>
     </tag>
+    <tag>
+        <tag-name>search</tag-name>
+        <source>xhtml/tags/search/search.xhtml</source>
+    </tag>
 </facelet-taglib>

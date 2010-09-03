@@ -13,6 +13,9 @@
                         <h3><span class="hidden">Actions Input</span></h3>
                     </div>
                     <div class="tableContent">
+                        <ice:panelGroup styleClass="hidden" rendered="#{not disableInputs || (showEditArea and simulationBean.embeddedEditing)}" >
+                            <div class="simulationInputsStatus"></div>
+                        </ice:panelGroup>
                         <ice:panelSeries value="#{simulationBean.display.nonTabs}" var="input" varStatus="status">
                             <div class="hidden">#{simulationBean.display}</div>
                             <div  class="simulationInput #{status.index mod 2 == 0 ? 'even' : 'odd'}">

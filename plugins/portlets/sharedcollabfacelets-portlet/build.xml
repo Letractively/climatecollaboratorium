@@ -61,6 +61,10 @@
 	    <replaceregexp match="&lt;!--REMOVE_FROM_SHARED_LIB_BEGIN.*REMOVE_FROM_SHARED_LIB_END--&gt;" replace="" flags="sg">
 	        <fileset dir="${resourcesdir}" />
 	    </replaceregexp>
+		<!-- set modification date in the past to prevent errors with redeployment -->
+		  <touch datetime="09/10/1974 4:30 pm">
+		    <fileset dir="${builddir}" />
+		  </touch>
 		
 		<jar destfile="${sharedcollabfacelets.jar}" basedir="${builddir}">
 		    <metainf file="${resourcesdir}/*" />

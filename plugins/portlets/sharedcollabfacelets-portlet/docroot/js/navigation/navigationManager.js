@@ -11,6 +11,15 @@ Collab = window.collab;
 Collab.nav = new function() {
 	var navigationItems = {};
 	var req = 0;
+	var alertUserOnExit = false;
+
+	/**
+	 * this field should hold a set callback functions used to determine if contents of currently displayed
+	 * page has been marked as "dirty" (that is - user has entered anything in edit boxes etc.)
+	 * 
+	 * it is set in Collab.nav.setEditorDirtyValidationCallback();
+	 */
+	var editorDirtyValidationCallbacks = [];
 	
 	this.navigate = function(token, parameters) {
 		navigationItems[token] = parameters;
@@ -81,6 +90,12 @@ Collab.nav = new function() {
 		//navigationItems["req"] = req++;
 		//alert(navigationItems.req);
 		//navigationItems['req'] = {req: req++};
+		if (isAnyEditorDirty()) {
+			// page contains dirty data, ask user if he really wants to leave
+			if (! window.confirm("Do you really want to leave the page and lose all your work?")) {
+				return ;
+			}
+		}
 		window.location.hash = createToken();
 	}
 	
@@ -130,6 +145,62 @@ Collab.nav = new function() {
 		}
 		return navigationToken.join("");
 	}
+	
+	/**
+	 * Sets editorDirtyValidationCallback that will be used to check if contents
+	 * of the page is dirty.
+	 * 
+	 * @param callback callback function that should return true when page is dirty
+	 * 
+	 */
+	this.addEditorDirtyValidationCallback = /* void */ function(/* function */ callback) {
+		for (var i=0; i < editorDirtyValidationCallbacks.length; i++) {
+			if (editorDirtyValidationCallbacks[i] == callback) {
+				return;
+			}
+		}
+		editorDirtyValidationCallbacks.push(callback);
+	}
+	
+	/**
+	 * Checks if contents of the page is "dirty" (any editor has new data (entered by user).
+	 * To check that editorDirtyValidationCallback is used (which can be set with 
+	 * setEditorDirtyValidationCallback, if no callback is set false is returned.
+	 * 
+	 * @return true if contents of page is dirty false otherwise
+	 */
+	function /* boolean */ isAnyEditorDirty() {
+		for (var i=0; i < editorDirtyValidationCallbacks.length; i++) {
+			if (editorDirtyValidationCallbacks[i]()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
+	/**
+	 * Initialize on before unload event to prevent users from navigating away from edit page
+	 * when he has edited something and he has mistakenly clicked a link.
+	 * 
+	 * This has to be set with a delay because either icefaces or any other JS lib modifies
+	 * onbeforeunload and we have to override that.
+	 * 
+	 */ 
+	jQuery(document).ready(function() {
+		setTimeout(function() {
+			var oldOnBeforeUnload = window.onbeforeunload;
+			window.onbeforeunload = function() {
+				if (isAnyEditorDirty()) {
+					return "Do you really want to leave the page and lose all your work?";
+				}
+				if (oldOnBeforeUnload) {
+					return oldOnBeforeUnload();
+				}
+				return null;
+			}
+		}, 2000);
+	});
 		
 }
 

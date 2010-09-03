@@ -105,6 +105,11 @@
 			<value>#{eventBus}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>searchBean</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.search.SearchBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>testTag</from-outcome>
