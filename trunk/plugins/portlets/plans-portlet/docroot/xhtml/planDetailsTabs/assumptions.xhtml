@@ -5,7 +5,12 @@
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collab="http://climatecollaboratorium.org/components">
 
-
+    <ice:panelGroup styleClass="hidden">
+        <script type="text/javascript">
+            Collab.nav.addEditorDirtyValidationCallback(checkIfActionsImpactsDirty);
+        </script>
+    </ice:panelGroup>
+    
     <collab:helpMessage messageId="planPositionHelp" styleClass="planHelp" hideThisMessage="Hide this message">
         Positions articulate the choices made by a plan on a set of issues relevant for all plans in a category.
     </collab:helpMessage>
@@ -84,5 +89,6 @@
         </ice:panelGroup>
 
     </ice:panelGroup>
+    
 
 </f:view>

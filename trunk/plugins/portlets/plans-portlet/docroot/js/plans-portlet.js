@@ -597,6 +597,7 @@ function updatePositionsSelection(positionsArray) {
             input.attr("checked", "true");
             input.addClass("positionChecked");
         }
+        input.addClass("valueChanged");
     });
 }
 

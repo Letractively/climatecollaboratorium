@@ -9,6 +9,7 @@
     
 <ice:portlet>
     <collab:navigationManager />
+    <h1>#{navigation.pageType}</h1>
     <div style="cursor: default;">
     <f:subview id="contests" rendered="#{navigation.pageType == 'CONTEST_INDEX'}">
         <ui:include src="contestIndex.xhtml">
