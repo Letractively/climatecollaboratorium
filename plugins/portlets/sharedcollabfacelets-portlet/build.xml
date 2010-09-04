@@ -62,7 +62,12 @@
 	        <fileset dir="${resourcesdir}" />
 	    </replaceregexp>
 		<!-- set modification date in the past to prevent errors with redeployment -->
-		  <touch datetime="09/10/1974 4:30 pm">
+          <tstamp>
+              <format property="touch.time" pattern="MM/dd/yyyy hh:mm aa"
+                  offset="-1" unit="day"/>
+          </tstamp>
+
+		  <touch datetime="${touch.time}">
 		    <fileset dir="${builddir}" />
 		  </touch>
 		

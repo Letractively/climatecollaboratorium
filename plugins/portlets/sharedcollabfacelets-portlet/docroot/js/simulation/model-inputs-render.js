@@ -119,22 +119,28 @@ function showSliders() {
 		slider.slider('destroy');
 
 
-
+		slider.addClass('sliderInit');
 		slider.slider({ 
 			min: sliderMin,
 			max: sliderMax, 
 			slide: function(event, ui) {
-			if (isInteger(dataType)) {
-				valueField.val(formatFieldValue(ui.value, unit,null));
+				if (isInteger(dataType)) {
+					valueField.val(formatFieldValue(ui.value, unit,null));
+				}
+				else if (isDouble(dataType)) {
+					valueField.val(formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null));
+				}
 
-			}
-			else if (isDouble(dataType)) {
-				valueField.val(formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null));
-			}
-
-            valueBinding.val(valueField.val());
-            oneOfValuesChangedEvent();
-		}
+            	valueBinding.val(valueField.val());
+			},
+			change: function(event, ui) {
+				if (jQuery(this).hasClass('sliderInit')) {
+					jQuery(this).removeClass('sliderInit');
+				}
+				else {
+					oneOfValuesChangedEvent();
+				}
+			},
 		});
 
 
@@ -153,10 +159,6 @@ function showSliders() {
 
 			slider.slider("option", "value", sliderVal);
 			return true;
-		});
-		
-		valueField.change(function(e, ui) {
-            oneOfValuesChangedEvent();
 		});
 	});
 
