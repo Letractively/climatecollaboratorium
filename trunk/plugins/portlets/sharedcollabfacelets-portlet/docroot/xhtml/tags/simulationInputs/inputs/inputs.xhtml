@@ -32,9 +32,6 @@
                                     <div  class="simulationInput #{status.index mod 2 == 0 ? 'even' : 'odd'}">
                                         <f:subview id="inputView" >
                                             <ui:include src="./inputDef.xhtml" />
-                                            <script language="javascript">
-                                                showSliders();
-                                            </script>
                                         <!-- <ui:include src="./individual.xhtml" />-->
                                         </f:subview>
                                     </div>
@@ -48,7 +45,17 @@
                                 </ice:panelGroup>
 
                             </ice:panelTab>
+                            
                         </ice:panelTabSet>
+                        <ice:panelGroup styleClass="hidden">
+                            <div class="hidden">#{simulationBean.display}</div>
+                            <script type="text/javascript">
+                                alert("showing sliders! #{simulationBean.display}");
+                                showSliders();
+                            </script>
+                        </ice:panelGroup>
+                        
+                            alert("showing sliders! #{simulationBean.display}");
                     </div>
                 </div>
             </div>

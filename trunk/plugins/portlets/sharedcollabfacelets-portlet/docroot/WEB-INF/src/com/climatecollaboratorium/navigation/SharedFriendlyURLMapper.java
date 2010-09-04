@@ -29,7 +29,6 @@ public class SharedFriendlyURLMapper extends BaseFriendlyURLMapper{
 
     @Override
     public void populateParams(String friendlyURLPath, Map<String, String[]> params) {
-        System.out.println("friendlyURLPath: " + friendlyURLPath);
     }
     
     

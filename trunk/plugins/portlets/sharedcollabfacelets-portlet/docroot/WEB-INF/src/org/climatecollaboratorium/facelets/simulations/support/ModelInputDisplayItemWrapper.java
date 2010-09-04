@@ -98,7 +98,6 @@ public class ModelInputDisplayItemWrapper {
     }
     
     public Long getId() {
-        System.out.println("returning id: " + getMetaData().getId());
         return getMetaData().getId();
     }
 

@@ -12,29 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PortalUtil;
 
 public class NavigationPhaseListener implements PhaseListener {
 
+    private final static Log _log = LogFactoryUtil.getLog(NavigationPhaseListener.class); 
     @Override
     public void afterPhase(PhaseEvent phaseEvent) {
 
         FacesContext fc = phaseEvent.getFacesContext();
-        System.out.println(fc.getExternalContext().getInitParameterMap());
-        System.out.println(getPortalRequest(fc));
         HttpServletRequestWrapper sr = getPortalRequest(fc);
-        System.out.println("sr request uri: " + sr.getRequestURI());
-        System.out.println("sr context path: " + sr.getContextPath());
 
         String currentUrl = PortalUtil.getCurrentURL(sr);
        // PortalUtil.getHttpServletRequest(sr);
-        System.out.println(currentUrl);
-        System.out.println(getHttpServletRequest(fc));
         HttpServletRequest rq = getHttpServletRequest(fc);
-        System.out.println("Context path: " + rq.getContextPath());
-        System.out.println("Path info: " + rq.getPathInfo());
-        System.out.println(rq.getContextPath());
-        System.out.println(rq.getContextPath());
         //phaseEvent.getFacesContext().getApplication().getNavigationHandler().handleNavigation(fc, null, "testTag");
     }
 
@@ -49,15 +42,9 @@ public class NavigationPhaseListener implements PhaseListener {
 
     public static HttpServletRequestWrapper getPortalRequest(FacesContext context) {
         Map<String, Object> requests = context.getExternalContext().getRequestMap();
-        System.out.println("#########################################\n\n");
-        for (String requestName : requests.keySet()) {
-            System.out.println(requestName + ":\t\t" + requests.get(requestName) + "\tis portlet request: " + (requests.get(requestName) instanceof PortletRequest));
-        }
-        System.out.println("\n\n*****************************************");
         
         for (String requestName : requests.keySet()) {
             if (requests.get(requestName) instanceof HttpServletRequestWrapper) {
-                System.out.println("Found request with param: " + requestName);
                 return (HttpServletRequestWrapper) requests.get(requestName);
             }
         }
