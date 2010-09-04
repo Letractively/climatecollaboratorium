@@ -12,6 +12,8 @@ import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
 
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -71,6 +73,8 @@ public class FilterPlansBean {
     private boolean filterPositionsAll;
 
    private final Set<Long> positions = new HashSet<Long>();
+   
+   private static Log _log = LogFactoryUtil.getLog(FilterPlansBean.class);
 
     public static DateFormat getFormat() {
         return format;
@@ -372,11 +376,6 @@ public class FilterPlansBean {
 
         }
         return result.toString();
-    }
-
-    public static void main(String[] s) throws ParseException {
-        System.err.println(DateFormat.getDateInstance().format(new Date()));
-        System.err.println(DateFormat.getDateInstance().parse("Sep 1, 2009"));
     }
 
     public boolean isFilterPositionsAll() {

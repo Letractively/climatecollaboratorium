@@ -4,11 +4,9 @@ import javax.faces.event.ActionEvent;
 
 import com.ext.portlet.plans.PlanUserPermission;
 import com.ext.portlet.plans.model.PlanItem;
-
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.UserGroupLocalServiceUtil;
 
 public class PlanMember {
     private PlanItem plan;
@@ -67,8 +65,6 @@ public class PlanMember {
     public void setPlanUserPermissionStr(String planUserPermissionStr) throws PortalException, SystemException {
         PlanUserPermission tmp = PlanUserPermission.valueOf(planUserPermissionStr);
         if (tmp != planUserPermission && permissions.getCanAdmin()) {
-            System.out.println(tmp.compareTo(planUserPermission));
-            
             if (tmp.compareTo(planUserPermission) > 0 && ! (permissions.getPlanOwner() || permissions.getCanAdminAll())) {
                 // only admin can downgrade a user
                 return;

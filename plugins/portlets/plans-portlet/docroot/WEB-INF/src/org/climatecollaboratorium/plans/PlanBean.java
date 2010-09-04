@@ -177,7 +177,7 @@ public class PlanBean {
     }
 
     public void uploadFile(ActionEvent evt) {
-        System.err.println("Should upload file");
+        _log.debug("Should upload file");
     }
 
     public void setPermissions(PlansPermissionsBean permissions) {
