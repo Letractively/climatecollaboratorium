@@ -16,6 +16,8 @@ import com.icesoft.faces.webapp.xmlhttp.PersistentFacesState;
 import com.icesoft.faces.webapp.xmlhttp.RenderingException;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -58,6 +60,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
     private OnDemandRenderer renderer;
     private ThemeDisplay td = Helper.getThemeDisplay();
     private boolean advanced = false;
+    private final static Log _log = LogFactoryUtil.getLog(DebateDetailsBean.class);
 
 
     public DebateDetailsBean() throws SystemException {
@@ -357,7 +360,6 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
     public void onSelected(DebateItem item) throws SystemException, PortalException  {
         try {
             int i = DebateLocalServiceUtil.getDebatesCount();
-            System.out.println("Found " + i + " debates");
 
         } catch (SystemException e) {
             e.printStackTrace();
@@ -521,7 +523,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
 
     @Override
     public void renderingException(RenderingException arg0) {
-        System.err.println(arg0.toString());
+        _log.error(arg0.toString(), arg0);
 
     }
 
@@ -543,7 +545,7 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
         /*try {
             //state.render();
         } catch (RenderingException e) {
-            System.out.println("exception: " + e.getMessage());
+            _log.error("exception: " + e.getMessage(), e);
         }
 */
 

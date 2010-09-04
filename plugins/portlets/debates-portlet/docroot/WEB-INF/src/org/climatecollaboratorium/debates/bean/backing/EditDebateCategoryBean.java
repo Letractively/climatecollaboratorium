@@ -14,6 +14,8 @@ import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 import org.climatecollaboratorium.debates.activity.DebateActivityKeys;
@@ -33,6 +35,7 @@ public class EditDebateCategoryBean {
     private Runnable callback;
     private ThemeDisplay td = Helper.getThemeDisplay();
 
+    private final static Log _log = LogFactoryUtil.getLog(EditDebateCategoryBean.class);
 
 
     private final Map<Long,DebateSelectionWrapper> selected = new LinkedHashMap<Long,DebateSelectionWrapper>();
@@ -213,7 +216,7 @@ public class EditDebateCategoryBean {
         public String getText() {
              DebateItem item = debate.getCurrentRoot();
              if (item == null) {
-                 System.err.println("Uh oh - item is null");
+                 _log.error("Uh oh - item is null");
                  return "--null--";
              } else {
                 return item.getDebateSummary();
