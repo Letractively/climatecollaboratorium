@@ -74,10 +74,8 @@ public class ModelDisplayWrapper {
         Map<Long, Object> inputsValues = new HashMap<Long, Object>();
         int i = 0;
         for (ModelInputDisplayItemWrapper item: wrappedInputs) {
-            System.out.println((++i)+"Process item "+item.getName());
             if (! (item instanceof ModelInputGroupDisplayItemWrapper)) {
                 inputsValues.put(item.getId(), item.getTypedValue());
-                System.out.println("setting: " + item.getId() + "\t to " + item.getTypedValue());
             } else {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) item, inputsValues);
             }
@@ -91,7 +89,6 @@ public class ModelDisplayWrapper {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) groupedItem, inputsValues);
             }
             else {
-                System.out.println("seting: " + groupedItem.getId() + "\t to " + groupedItem.getTypedValue());
                 inputsValues.put(groupedItem.getId(), groupedItem.getTypedValue());
             }
             

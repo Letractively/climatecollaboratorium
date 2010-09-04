@@ -36,6 +36,8 @@ import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
 import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class SimulationBean {
 
@@ -51,6 +53,7 @@ public class SimulationBean {
     private List<ModelOutputErrorSettingWrapper> outputErrorSettingWrappers = new ArrayList<ModelOutputErrorSettingWrapper>();
     
     private EventBus eventBus;
+    private final static Log _log = LogFactoryUtil.getLog(SimulationBean.class);
     
     public SimulationBean() {
     }
@@ -169,9 +172,9 @@ public class SimulationBean {
         // JSONObject.fromevent.getPayload();
         try {
             Map<Long, Object> inputs = display.getInputsValues();
-            
+            _log.debug("Running simulation " + simulation.getId());
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
-            System.out.println("scenario id after run: " + scenario.getId());
+            _log.debug("Scenario id after run: " + scenario.getId());
             
             for (Variable var: scenario.getInputSet()) {
                 inputsValues.put(var.getId(), var.getValue().get(0).getValues()[0]);
