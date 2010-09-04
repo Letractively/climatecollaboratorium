@@ -222,7 +222,6 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
     }
     
     public void setSelectedHistoryVersion(Object selectedHistoryVersion) {
-        //System.out.println(selectedHistoryVersion.toString());
         // ignore
     }
     

@@ -107,12 +107,6 @@ public class Helper {
         ExternalContext ec = fc.getExternalContext();
         Map map = ec.getRequestMap();
         
-        /*
-        System.out.println("\n\n*********************\n\n");
-        for (Object key: map.keySet()) {
-            System.out.println(key);
-        }
-        */
         return map;
     }
     
