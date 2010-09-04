@@ -1,40 +1,37 @@
 package org.climatecollaboratorium.plans;
 
-import com.ext.portlet.contests.model.ContestPhase;
-import com.ext.portlet.debaterevision.model.Debate;
-import com.ext.portlet.plans.NoSuchPlanVoteException;
-import com.ext.portlet.plans.PlanConstants.Attribute;
-import com.ext.portlet.plans.PlanConstants.Columns;
-import com.ext.portlet.plans.PlanConstants;
-import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.model.PlanType;
-import com.ext.portlet.plans.model.PlanVote;
-import com.ext.portlet.plans.model.PlansUserSettings;
-import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
-import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
-
-import com.icesoft.faces.component.datapaginator.DataPaginator;
-
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.DataModel;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
-import org.climatecollaboratorium.plans.utils.DataPage;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 
-import static java.util.Collections.emptyMap;
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.plans.NoSuchPlanVoteException;
+import com.ext.portlet.plans.PlanConstants;
+import com.ext.portlet.plans.PlanConstants.Attribute;
+import com.ext.portlet.plans.PlanConstants.Columns;
+import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanVote;
+import com.ext.portlet.plans.model.PlansUserSettings;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
+import com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil;
+import com.icesoft.faces.component.datapaginator.DataPaginator;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class PlansIndexBean {
 
@@ -77,6 +74,9 @@ public class PlansIndexBean {
     private List<TestTab> testTabs = Arrays.asList(new TestTab("one"),new TestTab("two"),new TestTab("three"));
 
     private int tabindex = 0;
+    
+    private static Log _log = LogFactoryUtil.getLog(PlansIndexBean.class);
+
 
     public PlansIndexBean(PlanTypeIndexBean contestIndexBean) throws SystemException, PortalException {
 
@@ -211,85 +211,10 @@ public class PlansIndexBean {
     }
 
 
-    /**
-     * Bound to DataTable value in the ui.
-     */
-    public DataModel getData() {
-
-        if (plansDataModel == null){
-            plansDataModel = new LocalDataModel(pageSize);
-        }
-        return plansDataModel;
-    }
-
     public void filtersUpdate() {
         updatePlansList = true;
-        //plansDataModel.setDirtyData();
     }
 
-    /**
-     * This is where the Customer data is retrieved from the database and
-     * returned as a list of CustomerBean objects for display in the UI.
-     * @throws SystemException
-     * @throws PortalException
-     */
-    private DataPage getDataPage(int startRow, int pageSize) throws PortalException, SystemException {
-
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        // this is bad! FIXME
-
-        int endIndex = startRow + pageSize;
-        // Calculate indices to be displayed in the ui.
-
-        plans.clear();
-
-        Columns sortCol = Columns.valueOf(sortColumn);
-/*
-        String sortAttribute = Attribute.NAME.name();
-        if (sortCol.isSortable()) {
-            sortAttribute = sortCol.getSortAttribute().name();
-        }
-        for (PlanItem item: PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, startRow, endIndex, sortAttribute, sortAscending ? "ASC" : "DESC")) {
-            plans.add(new PlanIndexItemWrapper(item, this, availableDebates));
-        }
-        // FIXME this isn't correct, appropriate value should be calculated.
-        int totalNumberPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), planType, 0, Integer.MAX_VALUE, sortAttribute, sortAscending ? "ASC" : "DESC").size();
-*/
-        plansDataModel.setDirtyData(false);
-
-        // This is required when using Hibernate JPA.  If the EntityManager is not
-        // cleared or closed objects are cached and stale objects will show up
-        // in the table.
-        // This way, the detached objects are reread from the database.
-        // This call is not required with TopLink JPA, which uses a Query Hint
-        // to clear the l2 cache in CustomerDAO.
-
-        return new DataPage(/*totalNumberOfPlans*/0,startRow,plans);
-    }
-
-    private class LocalDataModel extends PagedListDataModel {
-        public LocalDataModel(int pageSize) {
-            super(pageSize);
-        }
-
-        public DataPage fetchPage(int startRow, int pageSize) {
-            // call enclosing managed bean method to fetch the data
-            try {
-                return getDataPage(startRow, pageSize);
-            } catch (PortalException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SystemException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
-//    public PlanType getPlanType() {
-//        return planType;
-//    }
 
     public ConfigureColumnsBean getColumnsConfiguration() throws SystemException, PortalException {
         if (columnsConfiguration == null) {
@@ -369,7 +294,6 @@ public class PlansIndexBean {
     }
 
     public boolean isUpdateErrorNotes() {
-        System.out.println("******************: " + updateErrorNotes);
         if (updateErrorNotes) {
             updateErrorNotes = false;
             return true;

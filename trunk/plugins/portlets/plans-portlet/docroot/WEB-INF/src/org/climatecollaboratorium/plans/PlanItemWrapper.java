@@ -28,6 +28,8 @@ import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -58,6 +60,8 @@ public class PlanItemWrapper {
 
     private ThemeDisplay td = Helper.getThemeDisplay();
     private boolean deleted;
+    
+    private static Log _log = LogFactoryUtil.getLog(PlanItemWrapper.class);
     
     public PlanItemWrapper(PlanItem plan, PlanBean planBean, PlansPermissionsBean permissions) throws SystemException, PortalException {
         wrapped = plan;
@@ -207,8 +211,6 @@ public class PlanItemWrapper {
     public void descriptionVersion(ValueChangeEvent event) {
         candidateName = planDescriptionsById.get(currentDescriptionVersion).getName();
         candidateDescription = planDescriptionsById.get(currentDescriptionVersion).getDescription();
-        System.out.println("currentDesc ver: " + currentDescriptionVersion + "\t " + candidateDescription);
-        
     }
     
     public List<PlanHistoryItem> getAllVersions() throws SystemException, PortalException {

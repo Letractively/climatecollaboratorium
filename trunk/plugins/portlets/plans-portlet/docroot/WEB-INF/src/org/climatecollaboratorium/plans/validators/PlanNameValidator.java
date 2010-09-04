@@ -14,7 +14,6 @@ public class PlanNameValidator implements Validator {
 
     @Override
     public void validate(FacesContext ctx, UIComponent comp, Object obj) throws ValidatorException {
-        System.out.println("FacesContext: " + ctx + "\tcomponent: " + comp + "\tobj: " + obj);
         String name = (String) obj;
         try {
             if (name.trim().length() == 0) {
