@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:collab_comps="http://climatecollaboratorium.org/components">
+    <collab:debateSupport debateBean="#{debateBean}" debateId="#{debateId}" >
+        <ice:panelGroup rendered="#{empty debateBean.debate}">
+            Nothing to see here.
+        </ice:panelGroup>
+        
+    <ice:panelPopup rendered="#{debateBean.editDebateItemBean.adding}" styleClass="collaboratoriumPopup" autoPosition="manual"
+                    modal="true">
+        <f:facet name="header">Add #{debateBean.editDebateItemBean.type}</f:facet>
+        <f:facet name="body">
+            <f:subview id="debateItemDetails">
+                <ui:include src="./subpages/debateItemEditView.xhtml">
+                    <ui:param name="debateDetails" value="#{debateBean.debateDetailsBean}" />
+                    <ui:param name="permissions" value="#{debateBean.debatesPermissionsBean}" />
+                    <ui:param name="editDebateItem" value="#{debateBean.editDebateItemBean}" />
+                    <ui:param name="suggestion" value="#{debateBean.debatesSuggestBean}" />
+                </ui:include>
+            </f:subview>
+        </f:facet>
+    </ice:panelPopup>
+    
+        <div class="topButtons">
+        <h1>#{debateBean.debatesPermissionsBean.canAddComment}</h1>
+                            <ice:commandButton styleClass="subscriptionButton" value="Subscribe"
+                                               action="#{debateBean.debateDetailsBean.subscribe}"
+                                               rendered="#{debateBean.debatesPermissionsBean.canSubscribe and not empty debateBean.debateDetailsBean.selectedDebateItem and not debateBean.debateDetailsBean.subscribed}"/>
+                            <ice:commandButton styleClass="subscriptionButton" value="Unsubscribe"
+                                               action="#{debateBean.debateDetailsBean.unsubscribe}"
+                                               rendered="#{debateBean.debatesPermissionsBean.canSubscribe and not empty debateBean.debateDetailsBean.selectedDebateItem and debateBean.debateDetailsBean.subscribed}"/>
+                            <ice:commandButton styleClass="mappingModeButton" value="Advanced"
+                                               action="#{debateBean.debateDetailsBean.showAdvanced}"
+                                               rendered="#{debateBean.debatesPermissionsBean.canAddComment and not debateBean.debateDetailsBean.advanced}"/>
+                            <ice:commandButton styleClass="mappingModeButton" value="Basic"
+                                               action="#{debateBean.debateDetailsBean.showBasic}"
+                                               rendered="#{debateBean.debatesPermissionsBean.canAddComment and debateBean.debateDetailsBean.advanced}"/>
+
+                        <div class="clear"></div>
+                    </div>
+                        <div>
+
+                            <collab_comps:helpMessage messageId="test" styleClass="argumentHelp"
+                                                hideThisMessage="Hide this message">
+                                In debates, an <f:verbatim>&amp;nbsp;</f:verbatim><a
+                                    href="/web/guest/resources/-/wiki/Main/Large+scale+argumentation">argument map</a> appears on the left.
+                                Argument maps have four elements:
+                                <ul>
+                                    <li><span class="question"></span> an issue that is under debate</li>
+                                    <li><span class="position"></span>positions on the issue</li>
+                                    <li><span class="pro"></span>arguments for</li>
+                                    <li><span class="con"></span>arguments against</li>
+                                </ul>
+                                You may click on any item in the map to view more detailed information about it. You are invited to vote (<span
+                                    class="vote"></span>) for the position you believe is best.
+                                A comment (<span
+                                    class="comment"></span>) section appears on the right, where you may comment on any item in the argument map.
+                                <br/><br/>
+                                If you'd like to add to the argument map, you can click on the
+                                <f:verbatim>&amp;nbsp;</f:verbatim><b>Advanced</b> button (on the upper right if you are logged in).
+                            </collab_comps:helpMessage>
+                            <collab_comps:helpMessageTrigger messageId="test">+show help</collab_comps:helpMessageTrigger>
+
+                            <div class="clear"></div>
+                        </div>
+
+        <ice:panelGroup rendered="#{not empty debateBean.debate}">
+            <ice:panelBorder id="page" renderNorth="false" renderCenter="true" renderWest="true"
+                    renderEast="true" renderSouth="#{debateBean.debateDetailsBean.selectedDebateItem != null}"
+                    styleClass="layoutPanel">
+                <f:facet name="west">
+                    <f:subview id="debateOutline">
+                        <ui:include src="./subpages/debateOutlineView.xhtml">
+                                <ui:param name="debateDetails" value="#{debateBean.debateDetailsBean}" />
+                                <ui:param name="permissions" value="#{debateBean.debatesPermissionsBean}" />
+                            </ui:include>
+                    </f:subview>
+                </f:facet>
+                <f:facet name="center">
+                    &amp;nbsp;
+                </f:facet>
+                <f:facet name="east">
+                    <ice:panelGroup styleClass="detailContainer #{preferences.layout == 'COMMENTS_BELOW_ITEM_DETAILS'?'combined':''}">
+                        <f:subview id="debateItemDetails">
+                            <ui:include src="./subpages/debateItemDetailsView.xhtml">
+                                <ui:param name="debateDetails" value="#{debateBean.debateDetailsBean}" />
+                                <ui:param name="permissions" value="#{debateBean.debatesPermissionsBean}" />
+                                <ui:param name="editDebateItem" value="#{debateBean.editDebateItemBean}" />
+                                <ui:param name="suggestion" value="#{debateBean.debatesSuggestBean}" />
+                            </ui:include>
+                        </f:subview>
+                        <f:subview id="debateCommentsRight">
+                    
+                            <ice:panelGroup styleClass="rightComments">
+                                <ui:include src="./subpages/debateCommentsView.xhtml">
+                                    <ui:param name="commentsBean" value="#{debateBean.debateItemCommentsBean}" />
+                                    <ui:param name="editDebateComment" value="#{debateBean.editDebateCommentBean}" />
+                                    <ui:param name="permissions" value="#{debateBean.debatesPermissionsBean}" />
+                                    
+                                </ui:include>
+                            </ice:panelGroup>
+                        </f:subview>
+                    </ice:panelGroup>
+                </f:facet>
+            </ice:panelBorder>
+        </ice:panelGroup>
+    </collab:debateSupport>
+</f:view>

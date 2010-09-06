@@ -55,4 +55,12 @@
         <tag-name>search</tag-name>
         <source>xhtml/tags/search/search.xhtml</source>
     </tag>
+    <tag>
+        <tag-name>debate</tag-name>
+        <source>xhtml/tags/debate/debate.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>debateSupport</tag-name>
+        <handler-class>org.climatecollaboratorium.facelets.debates.DebateSupportTag</handler-class>
+    </tag>
 </facelet-taglib>
