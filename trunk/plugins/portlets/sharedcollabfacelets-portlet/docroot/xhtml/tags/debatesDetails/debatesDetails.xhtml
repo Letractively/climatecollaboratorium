@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:collab_comps="http://climatecollaboratorium.org/components">
+    <collab:debatesDetailsSupport debatesDetailsBean="#{debatesDetailsBean}" debatesIds="191,192,193" >
+        <ice:panelSeries value="#{debatesDetailsBean.debates}" var="debate">
+            <h3>#{debate.currentRoot.debateSummary}</h3>
+            <p>
+                #{debate.currentRoot.debateDetail}
+            </p>
+            <ice:dataTable value="#{debate.currentRoot.children}" var="position" style="width: 100%">
+                <ice:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{position.debateSummary}
+                </ice:column>
+                <ice:column>
+                    <f:facet name="header">Votes</f:facet>
+                    <ice:outputProgress value="#{debate.totalVotesCount == 0 ? 0 : (position.votesCount * 100 )/ debate.totalVotesCount}" />
+                </ice:column>
+                <ice:column>
+                    <f:facet name="header">Comments</f:facet>
+                    #{position.commentsCount}
+                </ice:column>
+            </ice:dataTable>
+        
+        </ice:panelSeries>
+    </collab:debatesDetailsSupport>
+</f:view>
