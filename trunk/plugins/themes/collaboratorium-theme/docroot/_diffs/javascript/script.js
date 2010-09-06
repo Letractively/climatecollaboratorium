@@ -187,3 +187,13 @@ jQuery(document).ready(function(){
 	
 });
 // JavaScript Document
+
+
+function deferUntilLogin(fn) {
+    if (Liferay.ThemeDisplay.isSignedIn()) {
+        return true;
+    } else {
+        _user_info_showLoginPopup();
+        return false;
+    }
+}
