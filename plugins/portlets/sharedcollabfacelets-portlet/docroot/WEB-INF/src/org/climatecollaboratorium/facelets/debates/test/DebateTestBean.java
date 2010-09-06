@@ -10,6 +10,7 @@ import org.climatecollaboratorium.navigation.NavigationEvent;
 
 public class DebateTestBean {
     private Long debateId;
+    private String debatesIds;
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
@@ -42,10 +43,16 @@ public class DebateTestBean {
                     if (debateIdStr != null) {
                         debateId = Long.parseLong(debateIdStr);
                     }
+                    debatesIds = event.getParameters("tagsdemo").get("debatesIds");
+                    
                 }
             }
             
         }));
+    }
+
+    public String getDebatesIds() {
+        return debatesIds;
     }
     
 

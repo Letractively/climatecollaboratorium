@@ -63,4 +63,12 @@
         <tag-name>debateSupport</tag-name>
         <handler-class>org.climatecollaboratorium.facelets.debates.DebateSupportTag</handler-class>
     </tag>
+    <tag>
+        <tag-name>debatesDetails</tag-name>
+        <source>xhtml/tags/debatesDetails/debatesDetails.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>debatesDetailsSupport</tag-name>
+        <handler-class>org.climatecollaboratorium.facelets.debates.DebatesDetailsSupportTag</handler-class>
+    </tag>
 </facelet-taglib>

@@ -128,4 +128,9 @@
 			<value>#{eventBus}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>debatesDetailsBean</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.facelets.debates.DebatesDetailsBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 </faces-config>
