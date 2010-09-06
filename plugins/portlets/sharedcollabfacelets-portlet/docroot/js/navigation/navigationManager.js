@@ -87,7 +87,6 @@ Collab.nav = new function() {
 	}
 		
 	function updateHash() {
-		//alert(req);
 		//navigationItems["req"] = req++;
 		//alert(navigationItems.req);
 		//navigationItems['req'] = {req: req++};

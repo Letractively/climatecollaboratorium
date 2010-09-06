@@ -10,10 +10,12 @@
 		<instanceable>true</instanceable>
 		<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>
 		<header-portlet-css>/css/test.css</header-portlet-css>
+		<header-portlet-css>/css/debates/debates.css</header-portlet-css>
 		<header-portlet-css>/css/simulation/simulation.css</header-portlet-css>
 		<header-portlet-css>/css/discussion/discussion.css</header-portlet-css>
 		<header-portlet-javascript>/js/simulation/model-inputs-render.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/navigation/navigationManager.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/debates/debates.js</header-portlet-javascript>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
