@@ -17,7 +17,7 @@ public class SimulationResults {
         DEVELOPINGB_COUNTRIES_FF_EMISSIONS("Developing B fossel fuel emissions","DevelopingBFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing B Countries]", new Divider(DEFAULT_FF_DIVISOR)),
         CO2_CONCENTRATION("CO2 Concentration","AtmosphericCO2Concentration", "Atm conc CO2[\"2C\"]"),
         TEMP_CHANGE("Expected temperature change","GlobalTempChange", "Temperature change from preindustrial[\"2C\"]"),
-        SEA_LEVEL_RISE("Sea level rise","Sea_Level_Rise_output", "Change in Sea Level"),
+        SEA_LEVEL_RISE("Sea level rise","Sea_Level_Rise_output", "Change in Sea Level[\"2C\"]"),
         BAU_CO2_CONCENTRATION("BAU CO2 Concentration","BAUCO2Concentration", "BAU atm conc CO2"),
         BAU_TEMP_CHANGE("Expected BAU Temperature Change","ExpectedBAUTempChange", "BAU temperature change from preindustrial"),
         CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions"),
