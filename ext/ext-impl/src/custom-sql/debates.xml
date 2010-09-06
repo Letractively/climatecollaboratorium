@@ -144,5 +144,28 @@
 		        DebateComment.updated DESC
 		]]>
     </sql>
+    
+    <sql id="com.ext.portlet.debaterevision.service.persistence.DebateFinderImpl.countDebateComments">
+        <![CDATA[
+            SELECT
+                count(*) as comments
+            FROM
+                DebateComment
+            INNER JOIN
+                (select distinct(debateItemId) from DebateItem where debateId = ?) as items
+            ON (DebateComment.debateItemId = items.debateItemId);
+        ]]>
+    </sql>
+    
+    <sql id="com.ext.portlet.debaterevision.service.persistence.DebateItemFinderImpl.countDebateItemComments">
+        <![CDATA[
+            SELECT
+                count(*) as comments
+            FROM
+                DebateComment
+            WHERE DebateComment.debateItemId = ?
+        ]]>
+    </sql>
+    
 
 </custom-sql>

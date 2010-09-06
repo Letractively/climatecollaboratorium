@@ -117,5 +117,9 @@ public class DebateItemLocalServiceImpl extends DebateItemLocalServiceBaseImpl {
     public List<DebateItem> getHistory(long treeVersion, long itemId) {
         return DebateItemFinderUtil.getHistory(treeVersion, itemId);
     }
+    
+    public int getItemCommentsCount(long itemId) {
+        return debateItemFinder.getDebateItemCommentsCount(itemId);
+    }
 
 }

@@ -145,6 +145,10 @@ public class DebateItemLocalServiceUtil {
         return getService().getHistory(treeVersion, itemId);
     }
 
+    public static int getItemCommentsCount(long itemId) {
+        return getService().getItemCommentsCount(itemId);
+    }
+
     public static DebateItemLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("DebateItemLocalService is not set");

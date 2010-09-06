@@ -15,4 +15,6 @@ public interface DebateItemFinder {
 
     public java.util.List<com.ext.portlet.debaterevision.model.DebateItem> findByParentInVersion(
         long treeVersion, long parentId);
+
+    public int getDebateItemCommentsCount(long debateItemId);
 }

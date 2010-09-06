@@ -338,5 +338,8 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
     }
     
     
+    public int getCommentsCount() {
+        return DebateItemLocalServiceUtil.getItemCommentsCount(getDebateItemId());
+    }
 
 }
