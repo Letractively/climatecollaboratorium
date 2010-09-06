@@ -28,6 +28,10 @@ public class DebateItemFinderUtil {
         return getFinder().findByParentInVersion(treeVersion, parentId);
     }
 
+    public static int getDebateItemCommentsCount(long debateItemId) {
+        return getFinder().getDebateItemCommentsCount(debateItemId);
+    }
+
     public static DebateItemFinder getFinder() {
         return _finder;
     }

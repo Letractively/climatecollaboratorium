@@ -123,4 +123,7 @@ public interface DebateItemLocalService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.debaterevision.model.DebateItem> getHistory(
         long treeVersion, long itemId);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public int getItemCommentsCount(long itemId);
 }

@@ -11,9 +11,11 @@ import com.ext.portlet.debaterevision.model.impl.DebateItemImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -36,6 +38,10 @@ public class DebateItemFinderImpl extends BasePersistenceImpl implements DebateI
 
     public static String Q4_LAST_ITEM = DebateItemFinderImpl.class.getName()+".lastItem";
     public static int PARAM_Q4_ITEM_ID  = 0;
+    
+    public static String Q5_ITEM_COMMENTS_COUNT = DebateItemFinderImpl.class.getName()+".countDebateItemComments";
+    public static int PARAM_Q5_ITEM_ID  = 0;
+    public static String OUTPUT_Q5_COUNT = "comments";
 
 
     public DebateItem getLastItem(long itemId) {
@@ -134,6 +140,26 @@ public class DebateItemFinderImpl extends BasePersistenceImpl implements DebateI
        }
        return result;
 
+    }
+    
+    public int getDebateItemCommentsCount(long debateItemId) {
+
+        Session session = openSession();
+        String sql = CustomSQLUtil.get(Q5_ITEM_COMMENTS_COUNT);
+        SQLQuery query = session.createSQLQuery(sql);
+        query.setLong(PARAM_Q5_ITEM_ID, debateItemId);
+        
+        query.addScalar(OUTPUT_Q5_COUNT, Type.INTEGER);
+
+        Iterator<Integer> itr = query.list().iterator();
+        if (itr.hasNext()) {
+            Integer count = itr.next();
+
+            if (count != null) {
+                return count.intValue();
+            }
+        }
+        return 0;
     }
 
     
