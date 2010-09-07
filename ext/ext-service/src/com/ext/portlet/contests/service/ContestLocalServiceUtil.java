@@ -89,6 +89,13 @@ public class ContestLocalServiceUtil {
         return getService().updateContest(contest, merge);
     }
 
+    public static com.ext.portlet.contests.model.Contest getContestByActiveFlag(
+        boolean contestActive)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getService().getContestByActiveFlag(contestActive);
+    }
+
     public static ContestLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("ContestLocalService is not set");

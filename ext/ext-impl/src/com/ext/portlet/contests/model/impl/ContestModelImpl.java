@@ -87,6 +87,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Date _updated;
     private Long _authorId;
     private Boolean _contestActive;
+    private Boolean _originalContestActive;
 
     public ContestModelImpl() {
     }
@@ -190,6 +191,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
     public void setContestActive(Boolean contestActive) {
         _contestActive = contestActive;
+
+        if (_originalContestActive == null) {
+            _originalContestActive = contestActive;
+        }
+    }
+
+    public Boolean getOriginalContestActive() {
+        return _originalContestActive;
     }
 
     public Contest toEscapedModel() {

@@ -60,5 +60,9 @@ public interface PlanTypeModel extends BaseModel<PlanType> {
 
     public void setIsDefault(Boolean isDefault);
 
+    public Long getDefaultModelId();
+
+    public void setDefaultModelId(Long defaultModelId);
+
     public PlanType toEscapedModel();
 }

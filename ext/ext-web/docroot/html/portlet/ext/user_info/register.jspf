@@ -35,6 +35,14 @@
     <portlet:param name="isRegistering" value="true"/>
 </portlet:actionURL>
 
+<script language="javascript">
+    function <portlet:namespace />doRegister() {
+        var redirect = jQuery('#<portlet:namespace />baseUrl').val();
+        jQuery('#<portlet:namespace />registerRedirect').val(redirect + document.location.hash);
+        document.<portlet:namespace />register.submit();
+    };
+</script>
+
 <form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />register">
 
     <script type="tezt/javascript">
@@ -53,7 +61,8 @@
 
     <input name="<portlet:namespace /><%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>"/>
     <input name="<portlet:namespace />openId" type="hidden" value="<%= HtmlUtil.escape(openId) %>"/>
-    <input name="<portlet:namespace />redirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"/>
+    <input name="<portlet:namespace />baseUrl" id="<portlet:namespace />baseUrl" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"/>
+    <input name="<portlet:namespace />redirect" id="<portlet:namespace />registerRedirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"/>
 
     <!--mark-->
 
@@ -169,7 +178,7 @@
         </div>
         <div class="DialogSEdge">
             <div class="content">
-                <a href="javascript:pageTracker._trackPageview('/user/registerSubmit');document.<portlet:namespace />register.submit();"
+                <a href="javascript:pageTracker._trackPageview('/user/registerSubmit');<portlet:namespace />doRegister();"
                    class="checkIcon"><span class="hidden">OK</span></a>
                 <a href="javascript:;"
                    onClick="pageTracker._trackPageview('/user/registerCancel');<portlet:namespace />closeDialog('registerDialog')"

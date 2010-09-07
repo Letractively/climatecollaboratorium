@@ -71,6 +71,7 @@ create unique index IX_EC00543C on Company (webId);
 create index IX_66D496A3 on Contact_ (companyId);
 
 create index IX_E46E624C on Contest (PlanTypeId);
+create index IX_C264C470 on Contest (contestActive);
 
 create index IX_684980D2 on ContestPhase (ContestPK);
 

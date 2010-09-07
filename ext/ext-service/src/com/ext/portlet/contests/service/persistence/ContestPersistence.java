@@ -89,6 +89,19 @@ public interface ContestPersistence extends BasePersistence {
         throws com.ext.portlet.contests.NoSuchContestException,
             com.liferay.portal.SystemException;
 
+    public com.ext.portlet.contests.model.Contest findBycontestActive(
+        java.lang.Boolean contestActive)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.Contest fetchBycontestActive(
+        java.lang.Boolean contestActive)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.Contest fetchBycontestActive(
+        java.lang.Boolean contestActive, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -110,9 +123,16 @@ public interface ContestPersistence extends BasePersistence {
     public void removeByType(java.lang.Long PlanTypeId)
         throws com.liferay.portal.SystemException;
 
+    public void removeBycontestActive(java.lang.Boolean contestActive)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByType(java.lang.Long PlanTypeId)
+        throws com.liferay.portal.SystemException;
+
+    public int countBycontestActive(java.lang.Boolean contestActive)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
