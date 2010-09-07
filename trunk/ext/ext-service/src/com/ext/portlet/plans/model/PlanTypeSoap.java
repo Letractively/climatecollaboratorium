@@ -33,6 +33,7 @@ public class PlanTypeSoap implements Serializable {
     private Boolean _published;
     private Long _publishedCounterpartId;
     private Boolean _isDefault;
+    private Long _defaultModelId;
 
     public PlanTypeSoap() {
     }
@@ -48,6 +49,7 @@ public class PlanTypeSoap implements Serializable {
         soapModel.setPublished(model.getPublished());
         soapModel.setPublishedCounterpartId(model.getPublishedCounterpartId());
         soapModel.setIsDefault(model.getIsDefault());
+        soapModel.setDefaultModelId(model.getDefaultModelId());
 
         return soapModel;
     }
@@ -158,5 +160,13 @@ public class PlanTypeSoap implements Serializable {
 
     public void setIsDefault(Boolean isDefault) {
         _isDefault = isDefault;
+    }
+
+    public Long getDefaultModelId() {
+        return _defaultModelId;
+    }
+
+    public void setDefaultModelId(Long defaultModelId) {
+        _defaultModelId = defaultModelId;
     }
 }

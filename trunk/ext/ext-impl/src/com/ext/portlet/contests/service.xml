@@ -26,6 +26,10 @@
         <finder name="Type" return-type="Collection">
             <finder-column name="PlanTypeId" />
         </finder>
+        
+        <finder name="contestActive" return-type="Contest">
+            <finder-column name="contestActive" />
+        </finder>
     </entity>
 
     <entity name="ContestPhase" local-service="true" remote-service="true">

@@ -107,6 +107,7 @@
 		<field name="published" type="Boolean" />
 		<field name="publishedCounterpartId" type="Long" />
 		<field name="isDefault" type="Boolean" />
+		<field name="defaultModelId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanTypeAttribute">
 		<field name="planTypeAttributeId" type="Long" />

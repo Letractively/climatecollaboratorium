@@ -1224,7 +1224,8 @@ create table PlanType (
 	modelTypeName VARCHAR(75) null,
 	published BOOLEAN,
 	publishedCounterpartId LONG,
-	isDefault BOOLEAN
+	isDefault BOOLEAN,
+	defaultModelId LONG
 );
 
 create table PlanTypeAttribute (

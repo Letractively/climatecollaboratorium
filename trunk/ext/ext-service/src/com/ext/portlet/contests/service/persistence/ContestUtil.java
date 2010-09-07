@@ -124,6 +124,26 @@ public class ContestUtil {
                    .findByType_PrevAndNext(ContestPK, PlanTypeId, obc);
     }
 
+    public static com.ext.portlet.contests.model.Contest findBycontestActive(
+        java.lang.Boolean contestActive)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findBycontestActive(contestActive);
+    }
+
+    public static com.ext.portlet.contests.model.Contest fetchBycontestActive(
+        java.lang.Boolean contestActive)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().fetchBycontestActive(contestActive);
+    }
+
+    public static com.ext.portlet.contests.model.Contest fetchBycontestActive(
+        java.lang.Boolean contestActive, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchBycontestActive(contestActive, retrieveFromCache);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -157,6 +177,12 @@ public class ContestUtil {
         getPersistence().removeByType(PlanTypeId);
     }
 
+    public static void removeBycontestActive(java.lang.Boolean contestActive)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        getPersistence().removeBycontestActive(contestActive);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -164,6 +190,11 @@ public class ContestUtil {
     public static int countByType(java.lang.Long PlanTypeId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByType(PlanTypeId);
+    }
+
+    public static int countBycontestActive(java.lang.Boolean contestActive)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countBycontestActive(contestActive);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

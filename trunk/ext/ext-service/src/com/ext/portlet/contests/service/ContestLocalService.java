@@ -77,4 +77,10 @@ public interface ContestLocalService {
     public com.ext.portlet.contests.model.Contest updateContest(
         com.ext.portlet.contests.model.Contest contest, boolean merge)
         throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.contests.model.Contest getContestByActiveFlag(
+        boolean contestActive)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException;
 }
