@@ -1172,3 +1172,72 @@ a.moderator, a.moderator:hover  {
     margin-top: 3px;
     margin-left: 10px;
 }
+
+
+.debateVotes .debateVotesFill {
+	background-color: #6E9CFF;
+	font-size: 14px;
+	border-left: 1px solid #6E9CFF;
+    border-right: 1px solid #6E9CFF;
+	height: 100%;
+}
+
+.debateVotes,
+.debateVotes .debateVotesBg {
+	width: 100%;
+	margin: 0 5px;
+	height: 100%;
+}
+
+.debatePositions td.name,
+.debatePositions td.comments {
+	padding: 5px;
+}
+
+.debatePositions td.name {
+	width: 50%;
+}
+
+.debatePositions td.comments {
+	width: 15%;
+}
+
+.debatePositions td.votes {
+	width: 35%;
+}
+
+.debatePositions .odd td.debatePositionsCol  {
+	background: #eeeeee;
+}
+
+.debatePositions td.debatePositionsCol {
+	text-align: center;
+	margin-left: 2px;
+	border: 1px solid #fff;
+	vertical-align: middle;
+	
+}
+.debateVotes,
+.debateVotes td {
+	height: 22px;
+}
+
+.debatePositions .even td.debatePositionsCol  {
+    background: #dddddd;
+}
+
+.singleDebateSummary {
+    margin-bottom: 40px;
+    margin-top: 30px;
+    font-size: 1.2em;
+}
+
+.singleDebateSummary .debateDetail {
+	margin: 10px 0;
+}
+
+
+.debatePositions {
+    border-collapse: collapse;
+    margin: 10px 0;
+}

@@ -8,25 +8,29 @@
     xmlns:collab_comps="http://climatecollaboratorium.org/components">
     <collab:debatesDetailsSupport debatesDetailsBean="#{debatesDetailsBean}" debatesIds="191,192,193" >
         <ice:panelSeries value="#{debatesDetailsBean.debates}" var="debate">
-            <h3>#{debate.currentRoot.debateSummary}</h3>
-            <p>
-                #{debate.currentRoot.debateDetail}
-            </p>
-            <ice:dataTable value="#{debate.currentRoot.children}" var="position" style="width: 100%">
-                <ice:column>
-                    <f:facet name="header">Name</f:facet>
-                    #{position.debateSummary}
-                </ice:column>
-                <ice:column>
-                    <f:facet name="header">Votes</f:facet>
-                    <ice:outputProgress value="#{debate.totalVotesCount == 0 ? 0 : (position.votesCount * 100 )/ debate.totalVotesCount}" />
-                </ice:column>
-                <ice:column>
-                    <f:facet name="header">Comments</f:facet>
-                    #{position.commentsCount}
-                </ice:column>
-            </ice:dataTable>
-        
+            <div class="singleDebateSummary">
+                <h3 class="debateTitle"><a href="#{linkPatternPrefix}debate=debateId:#{debate.debateId}">#{debate.currentRoot.debateSummary}</a></h3>
+                <p class="debateDetail">
+                    #{debate.currentRoot.debateDetail}
+                </p>
+                <ice:dataTable value="#{debate.currentRoot.children}" var="position" style="width: 100%" 
+                        rowClasses="odd, even" styleClass="debatePositions" columnClasses="name,votes,comments">
+                    <ice:column>
+                        <f:facet name="header">Name</f:facet>
+                        <a href="#{linkPatternPrefix}debate=debateId:#{debate.debateId},itemId:#{position.debateItemId}">
+                            <span class="positionSummary">#{position.debateSummary}</span>
+                        </a>
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">Votes</f:facet>
+                        <ice:outputProgress styleClass="debateVotes" value="#{debate.totalVotesCount == 0 ? 0 : (position.votesCount * 100 )/ debate.totalVotesCount}" />
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">Comments</f:facet>
+                        <span class="positionCommentsCount">#{position.commentsCount}</span>
+                    </ice:column>
+                </ice:dataTable>
+            </div>
         </ice:panelSeries>
     </collab:debatesDetailsSupport>
 </f:view>
