@@ -24,6 +24,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
+import org.climatecollaboratorium.plans.wrappers.DebateQuestionWrapper;
 
 public class PlanPositionsBean {
     private List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();

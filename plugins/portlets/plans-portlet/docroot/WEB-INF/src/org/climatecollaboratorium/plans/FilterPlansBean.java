@@ -25,6 +25,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.climatecollaboratorium.plans.wrappers.DebateQuestionWrapper;
+
 public class FilterPlansBean {
 
     private static DateFormat format = DateFormat.getDateInstance();

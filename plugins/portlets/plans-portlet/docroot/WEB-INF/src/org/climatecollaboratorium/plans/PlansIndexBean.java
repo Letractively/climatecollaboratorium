@@ -15,6 +15,8 @@ import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
+import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
+import org.climatecollaboratorium.plans.wrappers.PlanIndexItemWrapper;
 
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.plans.NoSuchPlanVoteException;

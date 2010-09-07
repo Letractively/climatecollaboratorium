@@ -11,6 +11,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
+import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.event.ActionEvent;
 import java.util.HashMap;

@@ -4,7 +4,7 @@
  * or the license.txt file included in this distribution for the full text of the license.
  */
 
-package org.climatecollaboratorium.plans;
+package org.climatecollaboratorium.plans.wrappers;
 
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.model.ContestStatus;

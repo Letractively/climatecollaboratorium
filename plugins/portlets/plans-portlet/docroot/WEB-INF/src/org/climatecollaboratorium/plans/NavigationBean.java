@@ -21,6 +21,7 @@ public class NavigationBean {
     private final static String DETAILS_PAGE = "DETAILS";
     private PlanBean planBean;
     private PlansIndexBean plansIndex;
+    private ContestsBean contestsBean;
     private PlanTypeIndexBean plansTypeIndex;
     private static String PORTLET_ID;
     private EventBus eventBus;
@@ -55,6 +56,7 @@ public class NavigationBean {
         PORTLET_ID = Helper.getPortletID();
         plansTypeIndex = new PlanTypeIndexBean();
         plansIndex = new PlansIndexBean(plansTypeIndex);
+        contestsBean = new ContestsBean();
         planBean = new PlanBean();
     }
 
@@ -120,6 +122,12 @@ public class NavigationBean {
                     navigationParameters = event.getParameters(plansSource);
                     String contestPhaseIdStr = navigationParameters.get("phaseId");
                     String planIdStr = navigationParameters.get("planId");
+                    String contests = navigationParameters.get("contests");
+                    String view = navigationParameters.get("view");
+                    
+                    if (contests == null || !contests.equals("past")) {
+                        contests = "active";
+                    }
                     
                     if ((contestPhaseIdStr == null || contestPhaseIdStr.length() == 0) && 
                             (planIdStr == null || planIdStr.length() == 0)) {
@@ -128,6 +136,8 @@ public class NavigationBean {
                     }
                         
                     try {
+                        contestsBean.init(contests.equals("active"), navigationParameters, event);
+                        
                         Long contestPhaseId = contestPhaseIdStr==null?null:Long.parseLong(contestPhaseIdStr);
                         plansIndex.init(contestPhaseId,navigationParameters);
                     } catch (NumberFormatException e) {
@@ -167,6 +177,10 @@ public class NavigationBean {
     public void setPermissions(PlansPermissionsBean permissions) {
         planBean.setPermissions(permissions);
         this.permissions = permissions;
+    }
+
+    public ContestsBean getContestsBean() {
+        return contestsBean;
     }
 
 }

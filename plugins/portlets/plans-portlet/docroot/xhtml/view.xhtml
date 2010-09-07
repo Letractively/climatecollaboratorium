@@ -9,13 +9,19 @@
     
 <ice:portlet>
     <collab:navigationManager />
-    <h1>#{navigation.pageType}</h1>
     <div style="cursor: default;">
+    <!-- 
     <f:subview id="contests" rendered="#{navigation.pageType == 'CONTEST_INDEX'}">
         <ui:include src="contestIndex.xhtml">
             <ui:param value="#{navigation.plansTypeIndex}" name="plansTypeIndexBean" />
         </ui:include>
     </f:subview>
+    <f:subview id="contests" rendered="#{navigation.pageType == 'CONTEST_INDEX'}">
+        <ui:include src="contests.xhtml">
+            <ui:param value="#{navigation.plansTypeIndex}" name="plansTypeIndexBean" />
+        </ui:include>
+    </f:subview>
+    
     <f:subview id="index" rendered="#{navigation.pageType == 'PHASE_INDEX'}">
         <ui:include src="plansIndex.xhtml">
             <ui:param value="#{navigation.plansIndex}" name="plansIndexBean" />
@@ -26,6 +32,17 @@
             <ui:param value="#{navigation.planBean}" name="planBean" />
         </ui:include>
     </f:subview>
+     -->
+        <div class="">
+           debate bean: #{debateBean}
+        </div>
+        
+        <div>
+            <ui:include src="./indexViews/contestDetails.xhtml">
+                <ui:param value="#{navigation.contestsBean.contest}" name="contest" />
+                <ui:param value="#{navigation.contestsBean}" name="contestsBean" />
+            </ui:include>
+        </div>
     </div>
     
 </ice:portlet>

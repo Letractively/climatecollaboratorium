@@ -1,4 +1,4 @@
-package org.climatecollaboratorium.plans;
+package org.climatecollaboratorium.plans.wrappers;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +14,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.plans.Helper;
+import org.climatecollaboratorium.plans.PlanBean;
+import org.climatecollaboratorium.plans.PlanHistoryItem;
+import org.climatecollaboratorium.plans.PlansPermissionsBean;
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 
 import com.ext.portlet.PlanStatus;
