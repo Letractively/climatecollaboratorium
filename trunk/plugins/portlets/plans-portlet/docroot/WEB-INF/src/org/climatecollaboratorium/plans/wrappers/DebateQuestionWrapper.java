@@ -1,4 +1,4 @@
-package org.climatecollaboratorium.plans;
+package org.climatecollaboratorium.plans.wrappers;
 
 import com.ext.portlet.debaterevision.model.DebateItem;
 

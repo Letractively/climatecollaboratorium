@@ -1,4 +1,4 @@
-package org.climatecollaboratorium.plans;
+package org.climatecollaboratorium.plans.wrappers;
 
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateItem;
@@ -19,6 +19,8 @@ import java.util.Set;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
+import org.climatecollaboratorium.plans.Helper;
+import org.climatecollaboratorium.plans.PlansIndexBean;
 
 public class PlanIndexItemWrapper {
 

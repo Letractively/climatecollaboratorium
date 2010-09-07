@@ -1,6 +1,10 @@
-package org.climatecollaboratorium.plans;
+package org.climatecollaboratorium.plans.wrappers;
 
 import javax.faces.event.ActionEvent;
+
+import org.climatecollaboratorium.plans.Helper;
+import org.climatecollaboratorium.plans.PlanMembershipBean;
+import org.climatecollaboratorium.plans.PlansPermissionsBean;
 
 import com.ext.portlet.plans.PlanUserPermission;
 import com.ext.portlet.plans.model.PlanItem;

@@ -4,11 +4,13 @@
  * or the license.txt file included in this distribution for the full text of the license.
  */
 
-package org.climatecollaboratorium.plans;
+package org.climatecollaboratorium.plans.wrappers;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.models.CollaboratoriumModelingService;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 import javax.faces.event.ActionEvent;
@@ -123,5 +125,14 @@ public class ContestWrapper {
 
 
 
+    }
+    
+    public boolean isContestActive() {
+        return contest.getContestActive();
+    }
+    
+    public Long getModelId() throws PortalException, SystemException {
+        
+        return contest.getPlanType().getDefaultModelId();
     }
 }

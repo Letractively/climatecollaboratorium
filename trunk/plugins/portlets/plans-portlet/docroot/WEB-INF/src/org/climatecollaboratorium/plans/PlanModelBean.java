@@ -17,6 +17,8 @@ import java.util.*;
 import javax.faces.FacesException;
 import javax.faces.event.ActionEvent;
 
+import org.climatecollaboratorium.plans.wrappers.PlanModelWrapper;
+
 import mit.simulation.climate.client.Simulation;
 
 /**

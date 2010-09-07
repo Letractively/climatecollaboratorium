@@ -1,0 +1,47 @@
+.selectContestType a {
+	float: left;
+	display: block;
+	background: #768579;
+	margin-right: 10px;
+	padding: 10px 15px;
+	font-weight: bold;
+	color: #fff;
+}
+
+.selectContestType a.active {
+    background: #D1EDD7;
+    color: #333;
+}
+	
+.contestNavItems a {
+    display: block;
+    background: #768579;
+    margin-right: 20px;
+    padding: 5px 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.contestNavItems a.active {
+    background: #D1EDD7;
+    color: #333;
+}
+
+.contestNavItems {
+    text-align: center;
+    width: 600px;
+    margin: auto;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.contestNavItems td {
+    width: 30%;
+}
+
+.subViewContent {
+	margin: auto;
+    margin-top: 25px;
+    width: 85%;
+}
+    

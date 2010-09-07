@@ -14,6 +14,8 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.plans.wrappers.PlanMember;
+
 public class PlanMembershipBean {
     private PlanItem plan;
     private PlanBean planBean;

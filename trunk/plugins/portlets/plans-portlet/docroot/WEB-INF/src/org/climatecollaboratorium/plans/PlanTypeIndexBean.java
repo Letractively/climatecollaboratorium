@@ -10,6 +10,8 @@ import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
+import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
 
 import javax.faces.event.ActionEvent;
 import java.util.ArrayList;
