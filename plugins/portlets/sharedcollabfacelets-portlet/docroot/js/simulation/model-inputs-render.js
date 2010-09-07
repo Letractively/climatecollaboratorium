@@ -53,7 +53,6 @@ function parseFieldValue(value, unit) {
 }
 
 function oneOfValuesChangedEvent() {
-	
 	jQuery(".runSimBtn").parent().click();
 	jQuery(".simulationInputsStatus").addClass("valueChanged");
 }
