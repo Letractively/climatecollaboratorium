@@ -3,11 +3,7 @@
  */
 package mit.excelwrapper.resource;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -15,11 +11,7 @@ import java.util.List;
 import javax.annotation.PreDestroy;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
@@ -275,6 +267,37 @@ public class ExcelResource {
             throw handleException(e);
         }
     }
+
+
+    /**
+     * Method to download the relevant excel file
+     *
+     * @param formFields
+     * @param id
+     * @return
+     */
+
+        @GET
+       @Path("/file/{id}")
+       @Produces("application/vnd.ms-excel")
+       public InputStream download(@PathParam("id") int id) {
+           if (LOGGER.isDebugEnabled()) {
+               LOGGER.debug("executes getFile for model with id parameter of " + id);
+           }
+
+           // get excel model
+           ExcelModel model = dao.findModelById(id);
+           if (model == null) {
+               throw new ExcelWrapperException("there is no model for id of " + id);
+           }
+        try {
+            return new ByteArrayInputStream(excelService.getContentByModel(model));
+        } catch (IOException e) {
+            throw new ExcelWrapperException("Could not read model");
+        }
+    }
+
+
 
     /**
      * <p>

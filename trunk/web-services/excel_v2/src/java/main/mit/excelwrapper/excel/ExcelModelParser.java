@@ -44,7 +44,7 @@ public class ExcelModelParser {
      * The allowed VarContext values.
      * </p>
      */
-    private static final List<String> VAR_CONTEXT_VALUE_SET = Arrays.asList("SCALAR", "INDEX", "INDEXED");
+    private static final List<String> VAR_CONTEXT_VALUE_SET = Arrays.asList("SCALAR", "INDEX", "INDEXED","LIST");
 
     /**
      * <p>

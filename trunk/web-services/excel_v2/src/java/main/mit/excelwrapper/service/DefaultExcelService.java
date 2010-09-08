@@ -64,7 +64,8 @@ public class DefaultExcelService implements ExcelService {
      *
      * @throws IOException if any IO error occurs
      */
-    private synchronized byte[] getContentByModel(ExcelModel excelModel) throws IOException {
+    @Override
+    public synchronized byte[] getContentByModel(ExcelModel excelModel) throws IOException {
         WeakReference<byte[]> content = cacheExcelMap.get(excelModel.getId());
         if (content == null || content.get() == null) {
             // grab the content from file path and cache it in the memory
