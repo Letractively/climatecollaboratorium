@@ -4,7 +4,6 @@ import java.util.Map;
 
 import mit.simulation.climate.client.MetaData;
 
-import org.climatecollaboratorium.models.SimulationBean;
 import org.climatecollaboratorium.models.SimulationDetailsBean;
 
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
@@ -50,6 +49,13 @@ public class ModelInputDisplayItemWrapper {
         return 0L;
     }
     
+    public void setGroupId(Long groupId) throws SystemException {
+        // ignore
+        if (wrappedItem instanceof ModelInputIndividualDisplayItem) {
+            ((ModelInputIndividualDisplayItem) wrappedItem).setGroupId(groupId);
+        }
+    }
+    
     public Object getTypedValue() {
         if (wrappedItem.getMetaData().getProfile()[0].equals(Integer.class)) {
             return Math.round(value);
@@ -72,7 +78,7 @@ public class ModelInputDisplayItemWrapper {
     }
 
     public MetaData getMetaData() {
-        return wrappedItem.getMetaData();
+        return wrappedItem == null ? null : wrappedItem.getMetaData();
     }
 
     public ModelInputWidgetType getType() {
@@ -96,7 +102,6 @@ public class ModelInputDisplayItemWrapper {
     }
     
     public Long getId() {
-        System.out.println("returning id: " + getMetaData().getId());
         return getMetaData().getId();
     }
     
