@@ -1038,11 +1038,11 @@ public class SimulationResource {
             for (MetaData md : inputs) {
                 String ival = getInputValue(md,strinputs,varinputs);
                 if (md.getVarContext()==VarContext.LIST) {
-
-                  if (!md.isInRange(Utils.parseBracketedString(ival))) {
-                        LOGGER.warn(ival+" in variable "+md.getInternalName()+" in "+sim.getName()+" is out of range.");
-                    outofrange.add(md);
-                    }
+                   //ignore this for now
+//                  if (!md.isInRange(Utils.parseBracketedString(ival))) {
+//                        LOGGER.warn(ival+" in variable "+md.getInternalName()+" in "+sim.getName()+" is out of range.");
+//                    outofrange.add(md);
+//                    }
                 } else {
                 if (!md.isInRange(new String[] {ival})) {
                         LOGGER.warn(ival+" in variable "+md.getInternalName()+" in "+sim.getName()+" is out of range.");

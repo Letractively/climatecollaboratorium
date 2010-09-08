@@ -1,27 +1,20 @@
 package mit.simulation.climate.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import mit.simulation.climate.Utils;
 import mit.simulation.climate.model.persistence.ServerRepository;
 import mit.simulation.climate.model.persistence.ServerTuple;
 import mit.simulation.climate.model.persistence.ServerVariable;
-
 import org.apache.log4j.Logger;
+
+import java.util.*;
 
 /**
  * Responsible for running a simulation. Each simulation is advanced using "steps." An atomic simulation is created
  * with a single step. A composite simulation has multiple steps.
- *
+ * <p/>
  * See {@link Step}
  *
  * @author jintrone
- *
  */
 public class SimulationStepper {
 
@@ -78,7 +71,6 @@ public class SimulationStepper {
      * Represents a step in a simulation. Responsible for running a single (atomic) simulation.
      *
      * @author jintrone
-     *
      */
     public class Step {
 
@@ -111,11 +103,11 @@ public class SimulationStepper {
         /**
          * Constructor
          *
-         * @param sim The simulation this step handles.
-         * @param links The links describing how it's input parameters are fed
+         * @param sim     The simulation this step handles.
+         * @param links   The links describing how it's input parameters are fed
          * @param outputs An map that describes how outputs from this simulation should be remaped into outputs with a
-         *            different MetaData definition. Only necessary if this simulation produces a single value but is
-         *            linked to a simulation that creates multiple values.
+         *                different MetaData definition. Only necessary if this simulation produces a single value but is
+         *                linked to a simulation that creates multiple values.
          */
         public Step(Simulation sim, List<Link> links, Map<MetaData, MetaData> outputs) {
             this.sim = sim;
@@ -127,7 +119,7 @@ public class SimulationStepper {
         /**
          * Constructor
          *
-         * @param sim The simulation this step handles.
+         * @param sim   The simulation this step handles.
          * @param links The links describing how it's input parameters are fed
          */
         public Step(Simulation sim, List<Link> links) {
@@ -142,12 +134,12 @@ public class SimulationStepper {
          * Process this step
          *
          * @param runner An externally provided class that encapsulates a (possibly remote) process responsible for
-         *            running this simulation.
-         * @param vars A map of known variables that have been accumulated. The results of this simulation run will
-         *            accumulate in this map. Map is constructed to be [MetaData.internalname -> variable]. *** NOTE:
-         *            Will not handle non-unique internalname's across simulations properly.
+         *               running this simulation.
+         * @param vars   A map of known variables that have been accumulated. The results of this simulation run will
+         *               accumulate in this map. Map is constructed to be [MetaData.internalname -> variable]. *** NOTE:
+         *               Will not handle non-unique internalname's across simulations properly.
          * @param inputs A map of input parameters that may have been provided. In this case, the map is expected to
-         *            be [MetaData.internalname -> value]. These will take precedence over the list of vars
+         *               be [MetaData.internalname -> value]. These will take precedence over the list of vars
          */
         public void process(SimulationRunner runner, Map<String, Variable> vars, Map<String, String> inputs) {
             if (inputs == null)
@@ -166,26 +158,17 @@ public class SimulationStepper {
                 } else if (l.type == LinkType.TO_ONE) {
                     Variable v = vars.get(l.output);
 
-                    //handle errors - this behavior should be configurable
-                    boolean err = false;
-                    for (Tuple t:v.getValue()) {
-                        if (t.getStatus()==TupleStatus.INVALID) {
-                            err = true;
-                            break;
-                        }
-                    }
-                    if (err) {
-                        inputs.put(l.getInput(),"[#N/A]");
-                    } else {
-                        inputs.put(l.getInput(), Utils.extractTupleListString(v.getValue(),0));
 
-                    }
+                        inputs.put(l.getInput(), Utils.extractTupleListString(v.getValue(), 0, "[#N/A]"));
+                        log.debug("Added input to "+l.getInput());
+
+                    
 
                 } else {
                     // single value mapping, so just pick the last one and use it
                     Variable v = vars.get(l.output);
                     if (v == null) {
-                        
+
                     }
                     List<Tuple> tuples = v.getValue();
                     if (tuples.size() == 0) {
@@ -258,7 +241,7 @@ public class SimulationStepper {
             if (outputmap.containsKey(v.getMetaData())) {
                 MetaData nmetadata = outputmap.get(v.getMetaData());
                 log.debug("Remapping metadata in variable from " + v.getMetaData().getId() + ":"
-                    + v.getMetaData().getName() + " to " + nmetadata.getId() + ":" + nmetadata.getName());
+                        + v.getMetaData().getName() + " to " + nmetadata.getId() + ":" + nmetadata.getName());
                 ((ServerVariable) v).setMetaData(nmetadata);
             }
             return v;
@@ -274,7 +257,7 @@ public class SimulationStepper {
         }
 
         private Tuple createEmptyTuple() {
-            ServerTuple result = new ServerTuple(new String[] {});
+            ServerTuple result = new ServerTuple(new String[]{});
             return result;
         }
 
@@ -295,9 +278,9 @@ public class SimulationStepper {
          * Add new output into the map of existing variables
          *
          * @param existing The map of existing variables; [MetaData.internalname -> Variable] *** NOTE: Will not
-         *            handle non-unique internalname's across simulations properly.
-         * @param nvars The map of existing variables; [MetaData.internalname -> Variable] *** NOTE: Will not handle
-         *            non-unique internalname's across simulations properly
+         *                 handle non-unique internalname's across simulations properly.
+         * @param nvars    The map of existing variables; [MetaData.internalname -> Variable] *** NOTE: Will not handle
+         *                 non-unique internalname's across simulations properly
          */
         private void addToVariables(Map<String, Variable> existing, Map<String, Variable> nvars) {
             for (Map.Entry<String, Variable> pair : nvars.entrySet()) {
@@ -307,9 +290,9 @@ public class SimulationStepper {
                     Variable existingvar = existing.get(pair.getKey());
                     Variable vartoadd = pair.getValue();
                     log.debug("Removing variable with metadata" + vartoadd.getMetaData().getId() + ":"
-                        + vartoadd.getMetaData().getName());
+                            + vartoadd.getMetaData().getName());
                     log.debug("Swapping data out to " + existingvar.getMetaData().getId() + ":"
-                        + existingvar.getMetaData().getName());
+                            + existingvar.getMetaData().getName());
                     List<Tuple> tuplelist = vartoadd.getValue();
                     for (Tuple t : tuplelist) {
 
@@ -317,8 +300,8 @@ public class SimulationStepper {
                             // we're treating this as a summation, so add to the last value.
                             List<Tuple> etuples = existingvar.getValue();
                             String[] eval = etuples.get(etuples.size() - 1).getValues();
-                            String[] result = new String[] {""
-                                + (Double.parseDouble(t.getValues()[0]) + Double.parseDouble(eval[0]))};
+                            String[] result = new String[]{""
+                                    + (Double.parseDouble(t.getValues()[0]) + Double.parseDouble(eval[0]))};
                             existingvar.addValue(new ServerTuple(result));
                         } else {
                             // just add the value
@@ -339,7 +322,6 @@ public class SimulationStepper {
      * Link describes how one simulation may be linked to another.
      *
      * @author jintrone
-     *
      */
     public static class Link {
 
@@ -392,22 +374,21 @@ public class SimulationStepper {
      * Allows injection of remote service for running simulations.
      *
      * @author jintrone
-     *
      */
     public static interface SimulationRunner {
 
         /**
          * Run a remote simulation
          *
-         * @param sim The simulation to run
+         * @param sim       The simulation to run
          * @param varinputs The currently available map of variables. Map of the form [MetaData.internalname ->
-         *            Variable]
+         *                  Variable]
          * @param strinputs Current inputs. This is examined first for input values. If they are not found, the system
-         *            falls back to the variable inputs above. Map of the form [MetaData.internalname->value]
+         *                  falls back to the variable inputs above. Map of the form [MetaData.internalname->value]
          * @return A map of outputs. Map is of the form [MetaData.internalname -> value]
          */
         public Map<String, Variable> process(Simulation sim, Map<String, Variable> varinputs,
-            Map<String, String> strinputs);
+                                             Map<String, String> strinputs);
 
     }
 
@@ -415,7 +396,6 @@ public class SimulationStepper {
      * Three allowable types of mapping
      *
      * @author jintrone
-     *
      */
     public static enum LinkType {
         /**
@@ -432,7 +412,6 @@ public class SimulationStepper {
         MAX,
         /**
          * Map all of the values in the source to the specified input variable in the target
-         *
          */
         TO_ONE
     }

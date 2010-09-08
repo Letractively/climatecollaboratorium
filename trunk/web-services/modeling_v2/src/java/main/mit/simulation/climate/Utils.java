@@ -4,6 +4,7 @@
 package mit.simulation.climate;
 
 import mit.simulation.climate.model.Tuple;
+import mit.simulation.climate.model.TupleStatus;
 import org.apache.commons.lang.StringUtils;
 
 import mit.simulation.climate.model.EntityState;
@@ -76,14 +77,15 @@ public final class Utils {
         }
     }
 
-    public static String extractTupleListString(List<Tuple> vals, int idx) {
+    public static String extractTupleListString(List<Tuple> vals, int idx, String nullval) {
         StringBuffer buffer = new StringBuffer();
         for (Tuple t:vals) {
-            if (t.getValues()[idx]==null) {
+            if (t.getStatus() == TupleStatus.INVALID || t.getValues()[idx]==null) {
                 log.info("Encountered a null tuple value, skipping");
-                continue;
+                buffer.append("[").append(nullval).append("]");
+            } else {
+                buffer.append("[").append(t.getValues()[idx]).append("]");
             }
-           buffer.append("[").append(t.getValues()[idx]).append("]");
         }
         return buffer.toString();
 
