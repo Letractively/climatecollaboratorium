@@ -9,5 +9,5 @@ package org.climatecollaboratorium.pangaea.vensim;
  */
 public interface Variable {
     String getInternalName();
-    float modify(float input);
+    float[] modify(float[] input);
 }
