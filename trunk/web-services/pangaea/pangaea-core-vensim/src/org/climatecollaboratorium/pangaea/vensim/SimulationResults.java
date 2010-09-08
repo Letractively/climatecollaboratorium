@@ -17,7 +17,7 @@ public class SimulationResults {
         DEVELOPINGB_COUNTRIES_FF_EMISSIONS("Developing B fossel fuel emissions","DevelopingBFossilFuelEmissions", "Aggregated CO2 FF emissions[Developing B Countries]", new Divider(DEFAULT_FF_DIVISOR)),
         CO2_CONCENTRATION("CO2 Concentration","AtmosphericCO2Concentration", "Atm conc CO2[\"2C\"]"),
         TEMP_CHANGE("Expected temperature change","GlobalTempChange", "Temperature change from preindustrial[\"2C\"]"),
-        SEA_LEVEL_RISE("Sea level rise","Sea_Level_Rise_output", "Change in Sea Level[\"2C\"]"),
+        SEA_LEVEL_RISE("Sea level rise","Sea_Level_Rise_output", "Change in Sea Level[\"2C\"]",new Accumulator()),
         BAU_CO2_CONCENTRATION("BAU CO2 Concentration","BAUCO2Concentration", "BAU atm conc CO2"),
         BAU_TEMP_CHANGE("Expected BAU Temperature Change","ExpectedBAUTempChange", "BAU temperature change from preindustrial"),
         CO2_TARGET("CO2 Target","CO2Target", "target CO2eq Scenario 2 emissions"),
@@ -51,7 +51,7 @@ public class SimulationResults {
             this.processor = processor;
         }
 
-        public float modify(float input) {
+        public float[] modify(float[] input) {
            return processor==null?input:processor.process(input);
         }
 
@@ -72,7 +72,7 @@ public class SimulationResults {
     }
 
     public static interface G {
-        public float process(float f);
+        public float[] process(float[] f);
     }
 
     public static class Divider implements G {
@@ -83,8 +83,26 @@ public class SimulationResults {
           this.denominator=denominator;
         }
 
-        public float process(float f) {
-            return f/denominator;
+        public float[] process(float[] f) {
+            for (int i=0;i<f.length;i++) {
+                f[i] /= denominator;
+            }
+            return f;
+        }
+    }
+
+    public static class Accumulator implements G {
+
+        float denominator;
+
+        public Accumulator() {
+        }
+
+        public float[] process(float[] f) {
+            for (int i=0;i<f.length;i++) {
+                f[i] = f[i]+(i==0?0:f[i-1]);
+            }
+            return f;
         }
     }
 
@@ -128,7 +146,7 @@ public class SimulationResults {
 			return internalName;
 		}
 
-         public float modify(float v) {
+         public float[] modify(float[] v) {
                 return v;
             }
 
@@ -173,17 +191,20 @@ public class SimulationResults {
 
 	public void addDataPoints(Variable variable,String[] vals) {
 		int idx = 0;
+            float[] f = new float[vals.length];
 
-			for (String v:vals) {
-				getCollection(variable).add(new ScalarElement(variable.modify(Float.parseFloat(v))));
-			}
+            for (int i = 0;i<vals.length;i++) {
+                f[i] = Float.parseFloat(vals[i]);
+            }
+            addDataPoints(variable,f);
+
 		}
 	
 	   public void addDataPoints(Variable variable,float[] vals) {
 	        int idx = 0;
 
-	            for (float v:vals) {
-	                getCollection(variable).add(new ScalarElement(variable.modify(v)));
+	            for (float v:variable.modify(vals)) {
+	                getCollection(variable).add(new ScalarElement(v));
 	            }
 	        }
 
