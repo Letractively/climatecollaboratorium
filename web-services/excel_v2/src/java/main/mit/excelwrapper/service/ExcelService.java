@@ -40,4 +40,5 @@ public interface ExcelService {
      */
     public void destroy();
 
+    byte[] getContentByModel(ExcelModel excelModel) throws IOException;
 }
