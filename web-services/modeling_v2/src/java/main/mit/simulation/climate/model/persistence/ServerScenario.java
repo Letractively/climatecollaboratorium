@@ -126,6 +126,7 @@ public class ServerScenario extends ServerObject<ScenarioDAO> implements Scenari
     private Variable findOutputVariable(MetaData md) {
         List<Variable> vars = getOutputSet();
         for (Variable var:vars) {
+            log.debug("Comparing "+var.getMetaData().getInternalName()+var.getMetaData().getId()+" to "+md.getInternalName()+md.getId());            
             if (var.getMetaData().equals(md)) {
                 return var;
             }
