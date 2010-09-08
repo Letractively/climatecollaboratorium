@@ -23,6 +23,8 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
     private SimulationDetailsBean simulationBean;
     private String name = "";
     private String description = "";
+    private String oryginalName = "";
+    private String oryginalDescription = "";
     private ModelInputGroupDisplayItem groupItem;
     private List<ModelInputDisplayItemWrapper> wrappedItems = new ArrayList<ModelInputDisplayItemWrapper>();
 
@@ -31,6 +33,10 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         super(groupItem, inputsValues);
         simulationBean = bean;
         this.groupItem = groupItem;
+        name = groupItem.getName();
+        description = groupItem.getDescription();
+        oryginalDescription = groupItem.getOriginalDescription();
+        oryginalName = groupItem.getOriginalName();
 
         for (ModelInputDisplayItem item: groupItem.getAllItems()) {
             wrappedItems.add(ModelInputDisplayItemWrapper.getInputWrapper(item, bean, inputsValues));
@@ -55,7 +61,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
                 createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), md, ModelInputGroupType.HORIZONTAL);
             }
             else {
-                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), name, description, ModelInputGroupType.HORIZONTAL);
+                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), oryginalName, oryginalDescription, ModelInputGroupType.HORIZONTAL);
             }
 
             int maxOrder = Integer.MIN_VALUE;
@@ -71,6 +77,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
             groupItem.setName(name);
             groupItem.setMetaData(md);
         }
+        editing = false;
     }
     
     public void delete(ActionEvent e) throws PortalException, SystemException {
@@ -97,16 +104,15 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
     public boolean isEditing() {
         return editing;
     }
-    /*
-    public Long getMetaData() {
+    
+    public Long getMetaDataId() {
         if (groupItem != null && groupItem.getMetaData() != null) {
             return groupItem.getMetaData().getId();
         }
         return null;
     }
-    */
     
-    public void setMetaData(Long mdId) {
+    public void setMetaDataId(Long mdId) {
         for (MetaData md: simulationBean.getSimulation().getInputs()) {
             if (md.getId().equals(mdId)) {
                 this.md = md;
@@ -167,6 +173,14 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         if (groupItem != null) {
             groupItem.setOrder(order);
         }   
+    }
+
+    public void setOryginalName(String oryginalName) {
+        this.oryginalName = oryginalName;
+    }
+
+    public void setOryginalDescription(String oryginalDescription) {
+        this.oryginalDescription = oryginalDescription;
     }
 
 }

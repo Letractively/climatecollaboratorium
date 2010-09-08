@@ -26,8 +26,6 @@ import org.apache.commons.beanutils.DynaBean;
 import org.climatecollaboratorium.jsintegration.JSEvent;
 import org.climatecollaboratorium.jsintegration.JSEventHandler;
 import org.climatecollaboratorium.jsintegration.JSEventManager;
-import org.climatecollaboratorium.models.event.UpdateInputWidgetsHandler;
-import org.climatecollaboratorium.models.event.UpdateOutputsOrderHandler;
 import org.climatecollaboratorium.models.support.ModelDisplayWrapper;
 import org.climatecollaboratorium.models.support.ModelInputDisplayItemWrapper;
 import org.climatecollaboratorium.models.support.ModelInputGroupDisplayItemWrapper;
@@ -38,7 +36,6 @@ import org.climatecollaboratorium.models.support.SupportBean;
 import ys.wikiparser.WikiParser;
 
 import com.ext.portlet.models.service.base.ModelInputGroupType;
-import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputDisplayItemType;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
@@ -49,9 +46,10 @@ import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portlet.wiki.model.WikiPage;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
-import com.sun.faces.el.FacesCompositeELResolver;
 
 public class SimulationBean implements JSEventHandler {
 
@@ -64,6 +62,7 @@ public class SimulationBean implements JSEventHandler {
     private boolean embeddedEditing;
     private Map<ModelInputDisplayItem, ModelInputDisplayItemWrapper> wrappedInputs = new HashMap<ModelInputDisplayItem, ModelInputDisplayItemWrapper>();
     private List<ModelOutputErrorSettingWrapper> outputErrorSettingWrappers = new ArrayList<ModelOutputErrorSettingWrapper>();
+    private static Log _log = LogFactoryUtil.getLog(SimulationBean.class);
 
     public boolean isEmbeddedEditing() {
         return embeddedEditing;
@@ -205,14 +204,6 @@ public class SimulationBean implements JSEventHandler {
         jsEventManager.addJsEventHandler(this, "simulationInputsDefined");
         jsEventManager.addJsEventHandler(this, "modelRun");
 
-        UpdateOutputsOrderHandler outputsOrderHandler = new UpdateOutputsOrderHandler();
-        jsEventManager.addJsEventHandler(outputsOrderHandler, "updateOutputsOrder");
-
-        UpdateInputWidgetsHandler updateInputsWidgetsHandler = new UpdateInputWidgetsHandler();
-        simulationChangedListeners.add(updateInputsWidgetsHandler);
-
-        jsEventManager.addJsEventHandler(updateInputsWidgetsHandler, "updateInputWidgets");
-
         // simulationChangedListeners.add(e)
     }
 
@@ -242,8 +233,6 @@ public class SimulationBean implements JSEventHandler {
         try {
             Map<Long, Object> vals = display.getInputsValues();
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
-            System.out.println("scenario id after run: " + scenario.getId());
-            
             for (Variable var: scenario.getInputSet()) {
                 inputsValues.put(var.getId(), var.getValue().get(0).getValues()[0]);
             }
@@ -289,14 +278,9 @@ public class SimulationBean implements JSEventHandler {
         inputsValues.putAll(values);
         
         for (Long id: inputsValues.keySet()) {
-            System.out.println(id + ": " + inputsValues.get(id));
             vals.put(id, inputsValues.get(id).toString());
         }
         scenario = SimulationsHelper.getInstance().runSimulation(simulation, vals);
-
-        System.out.println("scenario id after run: " + scenario.getId());
-
-
 
         updateDisplay();
         JSEvent event = new JSEvent();
@@ -351,9 +335,6 @@ public class SimulationBean implements JSEventHandler {
     
     public void updateDisplay() {
         display = null;
-        System.err.println(ModelInputGroupType.TAB);
-        System.err.println(ModelInputGroupType.VERTICAL);
-        System.err.println(ModelInputGroupType.HORIZONTAL);
         /*
         if (scenario != null) {
             try {

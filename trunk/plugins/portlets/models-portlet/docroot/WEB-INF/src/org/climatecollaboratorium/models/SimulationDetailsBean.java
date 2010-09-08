@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -93,9 +94,8 @@ public class SimulationDetailsBean {
         newGroupWrapper = new ModelInputGroupDisplayItemWrapper(this);
 
         wrappedInputs.clear();
-        for (ModelInputDisplayItem item : display.getOryginalInputs()) {
-            wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this,
-                    new HashMap<Long, Object>()));
+        for (ModelInputDisplayItemWrapper item : display.getWrappedInputs()) {
+            wrappedInputs.put(item.getWrapped(), item);
         }
 
         outputErrorSettingWrappers.clear();
@@ -316,7 +316,13 @@ public class SimulationDetailsBean {
     }
     
     public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
-        setModelId(modelId);
+        // setModelId(modelId);
+        FacesContext fc = FacesContext.getCurrentInstance();
+        
+        FacesMessage fm = new FacesMessage();
+        fm.setSummary("Request processed");
+        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+        fc.addMessage(null, fm);
     }
 
 }

@@ -22,17 +22,17 @@
                 
                 <ice:panelSeries value="#{simulationDetailsBean.display.inputs}" var="input" styleClass="inputGroupDef">
                     <ice:panelGroup rendered="#{input.displayItemType == 'GROUP'}" styleClass="inputGroup" >
-                        <f:subview rendered="#{simulationDetailsBean.wrappedInputs[input].editing}">
+                        <f:subview rendered="#{input.editing}">
                             <ui:include src="inputGroupEdit.xhtml">
-                                <ui:param name="input" value="#{simulationDetailsBean.wrappedInputs[input]}" />
+                                <ui:param name="input" value="#{input}" />
                             </ui:include>
                         </f:subview>
-                        <f:subview rendered="#{not simulationDetailsBean.wrappedInputs[input].editing}">
+                        <f:subview rendered="#{not input.editing}">
                             <div class="inputTitle">
                                 <h3>#{input.name}</h3>
                                 <div class="actions">
-                                    <ice:commandButton value="Edit" actionListener="#{simulationDetailsBean.wrappedInputs[input].edit}"/>
-                                    <ice:commandButton value="Delete" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }" actionListener="#{simulationDetailsBean.wrappedInputs[input].delete}"/>
+                                    <ice:commandButton value="Edit" actionListener="#{input.edit}"/>
+                                    <ice:commandButton value="Delete" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }" actionListener="#{input.delete}"/>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -54,11 +54,13 @@
             <td class="availableItemsCell">
                 <h4>Available inputs</h4>
                 <ul class="availableGroupItems ui-widget-content ui-corner-all" title="#{input.groupId}">
-                    <ui:repeat value="#{simulationDetailsBean.display.inputs}" var="item">
-                        <li class="#{item.displayItemType == 'INDIVIDUAL' ? 'individualInput' : ''}">
-                            <ice:outputText value="#{item.name}"  rendered="#{item.displayItemType == 'INDIVIDUAL'}" /> 
-                            <ice:inputText value="#{item.groupId}"  rendered="#{item.displayItemType == 'INDIVIDUAL'}" styleClass="hidden" />
-                        </li>
+                    <ui:repeat value="#{simulationDetailsBean.display.inputsWithGroups}" var="item">
+                        <f:subview rendered="#{item.displayItemType == 'INDIVIDUAL'}">
+                            <li class="#{item.displayItemType == 'INDIVIDUAL' ? 'individualInput' : ''}">
+                                <ice:outputText value="#{item.name}"  rendered="#{item.displayItemType == 'INDIVIDUAL'}" /> 
+                                <ice:inputText value="#{item.groupId}"  rendered="#{item.displayItemType == 'INDIVIDUAL'}" styleClass="hidden" />
+                            </li>
+                        </f:subview>
                     </ui:repeat>
                     <li class="individualInputPlaceholder"></li>
                 </ul>

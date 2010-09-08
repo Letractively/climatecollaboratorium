@@ -8,14 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.climatecollaboratorium.models.SimulationBean;
 import org.climatecollaboratorium.models.SimulationDetailsBean;
-
-import mit.simulation.climate.client.Simulation;
-
 
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
+import com.ext.portlet.models.ui.ModelInputDisplayItemType;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
 import com.ext.portlet.models.ui.ModelOutputDisplayItem;
 
@@ -25,6 +22,8 @@ public class ModelDisplayWrapper {
     private List<ModelInputDisplayItemWrapper> wrappedInputs = new ArrayList<ModelInputDisplayItemWrapper>();
     private List<ModelInputGroupDisplayItemWrapper> wrappedTabs = new ArrayList<ModelInputGroupDisplayItemWrapper>();
     private List<ModelInputDisplayItemWrapper> wrappedNonTabs = new ArrayList<ModelInputDisplayItemWrapper>();
+    private List<ModelInputDisplayItemWrapper> individualInputs = new ArrayList<ModelInputDisplayItemWrapper>();
+    private List<ModelInputDisplayItemWrapper> inputsWithGroups = new ArrayList<ModelInputDisplayItemWrapper>();
     
     public ModelDisplayWrapper(ModelDisplay wrapped, SimulationDetailsBean simulationBean, Map<Long, Object> values) {
         this.wrapped = wrapped;
@@ -35,12 +34,14 @@ public class ModelDisplayWrapper {
             ModelInputGroupDisplayItemWrapper itemWrapper = new ModelInputGroupDisplayItemWrapper(item, simulationBean, values);
             wrappedTabs.add(itemWrapper);
             wrappedInputs.addAll(itemWrapper.getAllItems());
+            inputsWithGroups.addAll(itemWrapper.getAllItems());
         }
         
         for (ModelInputDisplayItem item: wrapped.getNonTabs()) {
             ModelInputDisplayItemWrapper itemWrapper = ModelInputDisplayItemWrapper.getInputWrapper(item, simulationBean, values);
             wrappedNonTabs.add(itemWrapper);
             wrappedInputs.add(itemWrapper);
+            inputsWithGroups.add(itemWrapper);
         }
         
         
@@ -64,6 +65,10 @@ public class ModelDisplayWrapper {
     public List<ModelInputDisplayItemWrapper> getInputs() {
         return wrappedInputs;
     }
+    
+    public List<ModelInputDisplayItemWrapper> getInputsWithGroups() {
+        return inputsWithGroups;
+    }
 
     public ModelDisplay getWrapped() {
         return wrapped;
@@ -74,7 +79,6 @@ public class ModelDisplayWrapper {
         for (ModelInputDisplayItemWrapper item: wrappedInputs) {
             if (! (item instanceof ModelInputGroupDisplayItemWrapper)) {
                 inputsValues.put(item.getId(), item.getTypedValue());
-                System.out.println("seting: " + item.getId() + "\t to " + item.getTypedValue());
             } else {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) item, inputsValues);
             }
@@ -88,7 +92,6 @@ public class ModelDisplayWrapper {
                 getInputsValues((ModelInputGroupDisplayItemWrapper) groupedItem, inputsValues);
             }
             else {
-                System.out.println("seting: " + groupedItem.getId() + "\t to " + groupedItem.getTypedValue());
                 inputsValues.put(groupedItem.getId(), groupedItem.getTypedValue());
             }
             
