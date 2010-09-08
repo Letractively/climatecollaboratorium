@@ -316,13 +316,39 @@ public class SimulationDetailsBean {
     }
     
     public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
-        // setModelId(modelId);
+        refresh();
         FacesContext fc = FacesContext.getCurrentInstance();
         
         FacesMessage fm = new FacesMessage();
         fm.setSummary("Request processed");
         fm.setSeverity(FacesMessage.SEVERITY_INFO);
         fc.addMessage(null, fm);
+    }
+    
+    public void refresh() throws SystemException, IllegalUIConfigurationException {
+        ClientRepository repo = CollaboratoriumModelingService.repository();
+        simulation = repo.getSimulation(modelId);
+        description = simulation.getDescription();
+        
+        display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(simulation), this,
+                new HashMap<Long, Object>());
+        newGroupWrapper = new ModelInputGroupDisplayItemWrapper(this);
+
+        wrappedInputs.clear();
+        for (ModelInputDisplayItemWrapper item : display.getWrappedInputs()) {
+            wrappedInputs.put(item.getWrapped(), item);
+        }
+
+        outputErrorSettingWrappers.clear();
+        for (ModelOutputDisplayItem item : getAllOutputsFromDisplay()) {
+            if (item instanceof ModelOutputSeriesDisplayItem || item instanceof ModelOutputIndexedDisplayItem) {
+                for (TupleStatus status : TupleStatus.values()) {
+                    if (status.getCode() != null) {
+                        outputErrorSettingWrappers.add(new ModelOutputErrorSettingWrapper(item, status, this));
+                    }
+                }
+            }
+        }
     }
 
 }
