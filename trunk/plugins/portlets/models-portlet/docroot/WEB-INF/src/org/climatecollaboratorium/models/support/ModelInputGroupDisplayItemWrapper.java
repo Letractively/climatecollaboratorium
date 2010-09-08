@@ -12,6 +12,7 @@ import org.climatecollaboratorium.models.SimulationDetailsBean;
 
 import mit.simulation.climate.client.MetaData;
 
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
 import com.liferay.portal.PortalException;
@@ -53,7 +54,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         return ((ModelInputGroupDisplayItem)groupItem).getDisplayItems();
     }
     
-    public void update(ActionEvent e) throws SystemException {
+    public void update(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
         if (groupItem == null) {
             // adding
             ModelInputGroupDisplayItem createdItem = null;
@@ -78,11 +79,13 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
             groupItem.setMetaData(md);
         }
         editing = false;
+        simulationBean.refresh();
     }
     
-    public void delete(ActionEvent e) throws PortalException, SystemException {
+    public void delete(ActionEvent e) throws PortalException, SystemException, IllegalUIConfigurationException {
         if (groupItem != null) {
             ((ModelInputGroupDisplayItem) groupItem).delete();
+            simulationBean.refresh();
         }
     }
     
@@ -141,11 +144,11 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
     }
     
     public String getOryginalDescription() {
-        return wrappedItem.getDescription();
+        return oryginalDescription;
     }
 
     public String getOryginalName() {
-        return wrappedItem.getName();
+        return oryginalName;
     }
     
 
