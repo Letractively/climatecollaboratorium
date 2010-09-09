@@ -3,16 +3,12 @@ package org.climatecollaboratorium.facelets.simulations.support;
 
 import java.util.Map;
 
+import com.ext.portlet.models.ui.*;
 import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 
 import mit.simulation.climate.client.MetaData;
 
 
-import com.ext.portlet.models.ui.ModelInputDisplayItem;
-import com.ext.portlet.models.ui.ModelInputDisplayItemType;
-import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
-import com.ext.portlet.models.ui.ModelInputIndividualDisplayItem;
-import com.ext.portlet.models.ui.ModelInputWidgetType;
 import com.liferay.portal.SystemException;
 
 public class ModelInputDisplayItemWrapper {
@@ -99,6 +95,20 @@ public class ModelInputDisplayItemWrapper {
     
     public Long getId() {
         return getMetaData().getId();
+    }
+
+    public boolean getHasLabels() {
+        return (wrappedItem instanceof ModelInputIndividualDisplayItem && ((ModelInputIndividualDisplayItem) wrappedItem).getProperty(ModelWidgetProperty.Slider.MAX_LABEL) != null);
+    }
+
+    public String getMaxLabel() {
+        return getHasLabels()? ((ModelInputIndividualDisplayItem) wrappedItem).getProperty(ModelWidgetProperty.Slider.MAX_LABEL):"";
+
+    }
+
+    public String getMinLabel() {
+        return getHasLabels()? ((ModelInputIndividualDisplayItem) wrappedItem).getProperty(ModelWidgetProperty.Slider.MIN_LABEL):"";
+
     }
 
 }
