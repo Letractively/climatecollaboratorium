@@ -237,6 +237,7 @@
 		<field name="modelGroupId" type="Long" />
 		<field name="displayItemOrder" type="Integer" />
 		<field name="type" type="String" />
+		<field name="properties" type="String" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelOutputChartOrder">
 		<field name="modelOutputChartOrderPK" type="Long" />

@@ -52,5 +52,9 @@ public interface ModelInputItemModel extends BaseModel<ModelInputItem> {
 
     public void setType(String type);
 
+    public String getProperties();
+
+    public void setProperties(String properties);
+
     public ModelInputItem toEscapedModel();
 }

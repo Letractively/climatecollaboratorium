@@ -136,4 +136,8 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
         ModelInputItemLocalServiceUtil.updateModelInputItem(item);
     }
 
+    public String getProperty(ModelWidgetProperty prop) {
+        return item.getPropertyMap().get(prop.toString());
+    }
+
 }

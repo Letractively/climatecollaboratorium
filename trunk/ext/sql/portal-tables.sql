@@ -949,7 +949,8 @@ create table ModelInputItem (
 	modelInputItemID LONG,
 	modelGroupId LONG,
 	displayItemOrder INTEGER,
-	type_ VARCHAR(75) null
+	type_ VARCHAR(75) null,
+	properties VARCHAR(75) null
 );
 
 create table ModelOutputChartOrder (
