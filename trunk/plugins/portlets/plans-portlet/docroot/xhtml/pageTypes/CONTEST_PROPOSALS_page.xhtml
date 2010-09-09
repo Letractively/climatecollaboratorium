@@ -3,17 +3,18 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:collab="http://climatecollaboratorium.org/facelets">
         
-<ice:form>
-
-<f:subview rendered="#{contestsBean.planIndexPage}">
-    
-    <ice:dataTable value="#{plansIndexBean.plans}" styleClass="plansTable" rowClasses="odd,even"
-            var="singlePlan" sortColumn="#{plansIndexBean.sortColumn}"
-            sortAscending="#{plansIndexBean.sortAscending}" id="plansIndex"
-            rows="#{plansIndexBean.pageSize}" headerClass="#{plansIndexBean.columns}">
-        <ice:columns value="#{plansIndexBean.columns}" var="column">
+    <ui:composition template="../templates/contestPageTemplate.xhtml">
+        <ui:define name="contest_content">
+            <ice:form>
+            
+                <ice:dataTable value="#{plansIndex.plans}" styleClass="plansTable" rowClasses="odd,even"
+            var="singlePlan" sortColumn="#{plansIndex.sortColumn}"
+            sortAscending="#{plansIndex.sortAscending}" id="plansIndex"
+            rows="#{plansIndex.pageSize}" headerClass="#{plansIndex.columns}">
+        <ice:columns value="#{plansIndex.columns}" var="column">
             <f:facet name="header">
                 <div>
                     <div class="popup-info-box hidden" id="info-popup-#{column}">#{column.description}</div>
@@ -24,7 +25,7 @@
                 </div>
             </f:facet>
             <ice:outputLink rendered="#{column == 'NAME'}"
-                    value="#plans=contests:#{contest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}">
+                    value="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}">
                 <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
             </ice:outputLink>
             <f:subview rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}">
@@ -58,7 +59,7 @@
             <ice:outputText value="#{singlePlan.columnValues[column]}"
                     rendered="#{column != 'NAME' and column != 'POSITIONS'}" escape="false"/>
         </ice:columns>
-        <ice:column rendered="#{plansIndexBean.contestPhase.canVote}">
+        <ice:column rendered="#{plansIndex.contestPhase.canVote}">
             <f:facet name="header">
                 <div class="voteForPlan"><span>Vote for Plan</span></div>
             </f:facet>
@@ -67,16 +68,12 @@
             </ice:commandLink>
         </ice:column>
     </ice:dataTable>
-</f:subview>
-
-</ice:form>
-
-<f:subview rendered="#{not contestsBean.planIndexPage}">
-    <ui:include src="../planDetails.xhtml">
-        <ui:param name="planBean" value="#{contestsBean.planBean}" />
-    </ui:include>
-
-
-</f:subview>
-
+    
+            
+            </ice:form>
+            
+            
+            
+        </ui:define>
+    </ui:composition>
 </f:view>

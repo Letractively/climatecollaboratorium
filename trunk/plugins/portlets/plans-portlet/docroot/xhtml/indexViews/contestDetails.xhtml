@@ -4,12 +4,6 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:ui="http://java.sun.com/jsf/facelets">
-    <div class="selectContestType">
-        <a href="#plans=contests:active" class="#{contest.contestActive ? 'active' : ''}" >Active Contests</a>
-        <a href="#plans=contests:past" class="#{contest.contestActive ? '' : 'active'}">Past Contests</a>
-        <div class="clear"></div>
-    </div>
-        
     <ice:form>
         <ice:panelGroup styleClass="categoryHeader" rendered="#{not contest.editor.editing}">
             <h2><ice:outputText styleClass="categoryName" value="#{contest.name}"/></h2>
@@ -48,7 +42,9 @@
         
         <div class="subViewContent">
             <ice:panelGroup>
-                <ui:include src="contest_#{contestsBean.subView}.xhtml" />
+                <ui:include src="contest_#{contestsBean.subView}.xhtml" >
+                    <ui:param name="plansIndexBean" value="#{contestsBean.plansIndexBean}" />
+                </ui:include>
             </ice:panelGroup>
         </div>
 </f:view>

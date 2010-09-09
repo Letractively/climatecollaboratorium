@@ -424,5 +424,13 @@ public class PlanItemWrapper {
     public Long getPlanGroupId() throws SystemException {
         return wrapped.getPlanGroupId();
     }
+    
+    public boolean isSeekingAssistance() throws SystemException {
+        return wrapped.isSeekingAssistance();
+    }
+    
+    public void setSeekingAssistance(boolean seekingAssistance) throws SystemException {
+        wrapped.setSeekingAssistance(seekingAssistance);
+    }
 
 }

@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
@@ -33,15 +34,18 @@ public class PlanBean {
     private static ThemeDisplay td = Helper.getThemeDisplay();
     private int selectedTabIndex = 0;
     private Long planId = -1L;
+    
     private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
+    private final static String PLANS_SOURCE = "plans"; 
+    
     static {
-        tabNameIndexMap.put("description", 0);
-        tabNameIndexMap.put("positions", 1);
-        tabNameIndexMap.put("models", 2);
-        tabNameIndexMap.put("actionsimpacts", 3);
-        tabNameIndexMap.put("discussion", 4);
-        tabNameIndexMap.put("team", 5);
-        tabNameIndexMap.put("admin", 6);
+        tabNameIndexMap.put("admin", 0);
+        tabNameIndexMap.put("description", 1);
+        tabNameIndexMap.put("positions", 2);
+        tabNameIndexMap.put("models", 3);
+        tabNameIndexMap.put("actionsimpacts", 4);
+        tabNameIndexMap.put("discussion", 5);
+        tabNameIndexMap.put("team", 6);
     }
 
     
@@ -50,9 +54,28 @@ public class PlanBean {
     public PlanBean() throws SystemException, PortalException {
     }
     
-    public void init(Long planId, EventBus eventBus, Map<String, String> parameters) throws SystemException, PortalException {
-        this.planId = planId;
-        this.eventBus = eventBus;
+    public void init(NavigationEvent event) throws SystemException, PortalException {
+        Map<String, String> parameters = event.getParameters(PLANS_SOURCE);
+        if (parameters == null) {
+            return;
+        }
+        String planIdStr = parameters.get("planId");
+        Long candidatePlanId = null;
+        
+        if (planIdStr != null && planIdStr.trim().length() > 0) {
+            try {
+                candidatePlanId = Long.parseLong(planIdStr);
+            } catch (NumberFormatException e) {
+                _log.warn("Can't parse planId: " + planIdStr, e);
+            }
+        }
+        
+        if (candidatePlanId == null) {
+            planId = null;
+            return;
+        }
+        planId = candidatePlanId;
+        
         if (parameters.containsKey("tab")) {
             try {
                 Integer tmp = tabNameIndexMap.get( parameters.get("tab") );
@@ -184,5 +207,9 @@ public class PlanBean {
     public void setPermissions(PlansPermissionsBean permissions) {
         this.permissions = permissions;
         
+    }
+    
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 }

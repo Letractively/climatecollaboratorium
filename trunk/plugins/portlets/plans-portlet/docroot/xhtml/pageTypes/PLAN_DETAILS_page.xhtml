@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<f:view
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:collab="http://climatecollaboratorium.org/facelets">
+    <ui:composition template="../templates/singlePageWithBreadcrumb.xhtml">
+        <ui:define name="plans_breadcrumb">
+            <h4>
+                <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals">&amp;lt;&amp;lt; Back to contest</a>
+            </h4>
+        </ui:define>
+        <ui:define name="plans_content"> 
+            <ui:include src="../planDetails.xhtml" />
+        </ui:define>
+    </ui:composition>
+</f:view>
