@@ -32,4 +32,6 @@ public interface ModelInputItem extends ModelInputItemModel {
 
     public mit.simulation.climate.client.Simulation getModel()
         throws com.liferay.portal.SystemException;
+
+    public java.util.Map<String, String> getPropertyMap();
 }

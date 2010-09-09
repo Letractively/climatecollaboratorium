@@ -31,6 +31,7 @@ public class ModelInputItemSoap implements Serializable {
     private Long _modelGroupId;
     private Integer _displayItemOrder;
     private String _type;
+    private String _properties;
 
     public ModelInputItemSoap() {
     }
@@ -44,6 +45,7 @@ public class ModelInputItemSoap implements Serializable {
         soapModel.setModelGroupId(model.getModelGroupId());
         soapModel.setDisplayItemOrder(model.getDisplayItemOrder());
         soapModel.setType(model.getType());
+        soapModel.setProperties(model.getProperties());
 
         return soapModel;
     }
@@ -138,5 +140,13 @@ public class ModelInputItemSoap implements Serializable {
 
     public void setType(String type) {
         _type = type;
+    }
+
+    public String getProperties() {
+        return _properties;
+    }
+
+    public void setProperties(String properties) {
+        _properties = properties;
     }
 }

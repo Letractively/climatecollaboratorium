@@ -232,7 +232,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             _log.error("Cannot create plan of type "+type+" for contest phase "+contestPhase.getContestPhaseName());
         }
 
-        PlanItem plan = createPlan(type, authorId);
+        PlanItem plan = createPlan(contestPhase.getContest().getPlanType().getPlanTypeId(), authorId);
         plan.getPlanMeta().setContestPhase(contestPhase.getContestPhasePK());
         plan.getPlanMeta().setModelId(basePlan.getPlanMeta().getModelId());
         PlanMetaLocalServiceUtil.updatePlanMeta(plan.getPlanMeta());
@@ -370,9 +370,15 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         // add timestamp and random long value to plan name when setting group name
         Random rand = new Random();
         String groupName = plan.getName() + "_" + System.currentTimeMillis() + "_" + rand.nextLong();
-        Group group = GroupServiceUtil.addGroup(plan.getName(), String.format(DEFAULT_GROUP_DESCRIPTION, groupName),
+        Group group  = null;
+        try {
+            group = GroupServiceUtil.addGroup(plan.getName(), String.format(DEFAULT_GROUP_DESCRIPTION, groupName),
                 GroupConstants.TYPE_COMMUNITY_RESTRICTED, null, true, groupServiceContext);
-        
+        } catch (Exception e) {
+            System.err.println("Got error "+e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         Long parentCategoryId = 0L;
         DiscussionCategoryGroup categoryGroup = 
             DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + plan.getPlanId());

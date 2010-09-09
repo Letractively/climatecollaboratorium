@@ -96,6 +96,9 @@
         <!-- Place holder for widget type - e.g. slider, textbox, etc. -->
         <column name="type" type="String"/>
 
+          <!-- Free text for property configuration -->
+        <column name="properties" type="String"/>
+
         <finder name="ModelGroupId" return-type="Collection">
             <finder-column name="modelGroupId"/>
         </finder>

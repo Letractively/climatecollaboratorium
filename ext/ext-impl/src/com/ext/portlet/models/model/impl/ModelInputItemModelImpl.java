@@ -56,9 +56,12 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
             { "displayItemOrder", new Integer(Types.INTEGER) },
             
 
-            { "type_", new Integer(Types.VARCHAR) }
+            { "type_", new Integer(Types.VARCHAR) },
+            
+
+            { "properties", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ModelInputItem (modelInputItemPK LONG not null primary key,modelId LONG,modelInputItemID LONG,modelGroupId LONG,displayItemOrder INTEGER,type_ VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table ModelInputItem (modelInputItemPK LONG not null primary key,modelId LONG,modelInputItemID LONG,modelGroupId LONG,displayItemOrder INTEGER,type_ VARCHAR(75) null,properties VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table ModelInputItem";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -79,6 +82,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
     private Long _modelGroupId;
     private Integer _displayItemOrder;
     private String _type;
+    private String _properties;
 
     public ModelInputItemModelImpl() {
     }
@@ -92,6 +96,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         model.setModelGroupId(soapModel.getModelGroupId());
         model.setDisplayItemOrder(soapModel.getDisplayItemOrder());
         model.setType(soapModel.getType());
+        model.setProperties(soapModel.getProperties());
 
         return model;
     }
@@ -182,6 +187,14 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         _type = type;
     }
 
+    public String getProperties() {
+        return GetterUtil.getString(_properties);
+    }
+
+    public void setProperties(String properties) {
+        _properties = properties;
+    }
+
     public ModelInputItem toEscapedModel() {
         if (isEscapedModel()) {
             return (ModelInputItem) this;
@@ -197,6 +210,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
             model.setModelGroupId(getModelGroupId());
             model.setDisplayItemOrder(getDisplayItemOrder());
             model.setType(HtmlUtil.escape(getType()));
+            model.setProperties(HtmlUtil.escape(getProperties()));
 
             model = (ModelInputItem) Proxy.newProxyInstance(ModelInputItem.class.getClassLoader(),
                     new Class[] { ModelInputItem.class },
@@ -215,6 +229,7 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         clone.setModelGroupId(getModelGroupId());
         clone.setDisplayItemOrder(getDisplayItemOrder());
         clone.setType(getType());
+        clone.setProperties(getProperties());
 
         return clone;
     }
@@ -266,6 +281,8 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         sb.append(getDisplayItemOrder());
         sb.append(", type=");
         sb.append(getType());
+        sb.append(", properties=");
+        sb.append(getProperties());
         sb.append("}");
 
         return sb.toString();
@@ -301,6 +318,10 @@ public class ModelInputItemModelImpl extends BaseModelImpl<ModelInputItem> {
         sb.append(
             "<column><column-name>type</column-name><column-value><![CDATA[");
         sb.append(getType());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>properties</column-name><column-value><![CDATA[");
+        sb.append(getProperties());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

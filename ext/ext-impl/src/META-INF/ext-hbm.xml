@@ -319,6 +319,7 @@
 		<property name="modelGroupId" />
 		<property name="displayItemOrder" />
 		<property name="type" column="type_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="properties" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelOutputChartOrderImpl" table="ModelOutputChartOrder">
 		<cache usage="read-write" />

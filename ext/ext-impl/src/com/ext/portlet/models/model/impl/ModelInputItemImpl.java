@@ -12,6 +12,10 @@ import com.liferay.portal.SystemException;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class ModelInputItemImpl extends ModelInputItemModelImpl
     implements ModelInputItem {
@@ -24,6 +28,23 @@ public class ModelInputItemImpl extends ModelInputItemModelImpl
 
     public Simulation getModel() throws SystemException {
         return CollaboratoriumModelingService.repository().getSimulation(getModelId());
+    }
+
+    public Map<String,String> getPropertyMap() {
+        return parseTypes(getProperties());
+    }
+
+
+     public static Map<String,String> parseTypes(String props) {
+        if (props == null) return Collections.emptyMap();
+        Map<String,String> result = new HashMap<String,String>();
+        for (String type:props.split(";")) {
+            String[] kv = type.split("=");
+            if (kv.length>1) {
+                result.put(kv[0],kv[1]);
+            }
+        }
+        return result;
     }
 }
 
