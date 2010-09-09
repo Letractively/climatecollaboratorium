@@ -84,4 +84,10 @@ public interface ContestPhaseLocalService {
     public java.util.List<com.ext.portlet.contests.model.ContestPhase> getPhasesForContest(
         com.ext.portlet.contests.model.Contest contest)
         throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.contests.model.ContestPhase getActivePhaseForContest(
+        com.ext.portlet.contests.model.Contest contest)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException;
 }

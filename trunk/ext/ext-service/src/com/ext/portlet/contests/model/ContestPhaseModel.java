@@ -74,5 +74,9 @@ public interface ContestPhaseModel extends BaseModel<ContestPhase> {
 
     public void setAuthorId(Long authorId);
 
+    public Boolean getPhaseActive();
+
+    public void setPhaseActive(Boolean phaseActive);
+
     public ContestPhase toEscapedModel();
 }

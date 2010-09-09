@@ -1122,6 +1122,24 @@
 	<bean id="com.ext.portlet.contests.service.persistence.ContestUtil" class="com.ext.portlet.contests.service.persistence.ContestUtil">
 		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestDebateLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestDebateLocalServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestDebateLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestDebateLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestDebateLocalServiceUtil" class="com.ext.portlet.contests.service.ContestDebateLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestDebateLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestDebateService.impl" class="com.ext.portlet.contests.service.impl.ContestDebateServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestDebateService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestDebateService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestDebateServiceUtil" class="com.ext.portlet.contests.service.ContestDebateServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestDebateService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.persistence.ContestDebatePersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestDebatePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestDebateUtil" class="com.ext.portlet.contests.service.persistence.ContestDebateUtil">
+		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestDebatePersistence.impl" />
+	</bean>
 	<bean id="com.ext.portlet.contests.service.ContestPhaseLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseLocalServiceImpl" />
 	<bean id="com.ext.portlet.contests.service.ContestPhaseLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseLocalService.impl" />
@@ -1139,5 +1157,23 @@
 	<bean id="com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestPhasePersistenceImpl" parent="basePersistence" />
 	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseUtil">
 		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseColumnLocalServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnLocalServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseColumnLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseColumnServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseColumnServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil">
+		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl" />
 	</bean>
 </beans>

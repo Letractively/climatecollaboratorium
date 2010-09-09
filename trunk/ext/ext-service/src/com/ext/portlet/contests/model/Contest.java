@@ -36,4 +36,16 @@ public interface Contest extends ContestModel {
 
     public java.util.List<com.ext.portlet.contests.model.ContestPhase> getActivePhases()
         throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.ContestPhase getActivePhase()
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException;
+
+    public boolean isActive() throws com.liferay.portal.SystemException;
+
+    public java.util.List<Long> getDebatesIds()
+        throws com.liferay.portal.SystemException;
+
+    public void setDebates(java.util.List<Long> debatesIds)
+        throws com.liferay.portal.SystemException;
 }

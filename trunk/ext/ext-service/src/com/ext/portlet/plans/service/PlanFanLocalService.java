@@ -80,6 +80,9 @@ public interface PlanFanLocalService {
     public java.util.List<com.ext.portlet.plans.model.PlanFan> getPlanFansForPlan(
         java.lang.Long planId) throws com.liferay.portal.SystemException;
 
+    public int countPlanFansForPlan(java.lang.Long planId)
+        throws com.liferay.portal.SystemException;
+
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.plans.model.PlanFan> getPlanFansForUser(
         java.lang.Long userId) throws com.liferay.portal.SystemException;

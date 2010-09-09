@@ -461,9 +461,31 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         String value = attribute.calculateValue(this).toString();
         PlanAttribute att = PlanAttributeLocalServiceUtil.findPlanAttribute(getPlanId(), attribute.name());
         if (att != null) {
+            if (! att.getAttributeValue().equals(value)) {
+                att.setAttributeValue(value);
+                PlanAttributeLocalServiceUtil.updatePlanAttribute(att);
+            }
+        } else {
+            PlanAttributeLocalServiceUtil.addPlanAttribute(getPlanId(), attribute.name(), value);
+        }
+    }
+    
+    /**
+     * Updates value of a given attribute, should be used only for property
+     * attributes.
+     * 
+     * @param attribute
+     *            attribute which value should be updated
+     * @throws SystemException
+     *             in case of any error
+     */
+    private void setAttribute(Attribute attribute, String value) throws SystemException {
+        PlanAttribute att = PlanAttributeLocalServiceUtil.findPlanAttribute(getPlanId(), attribute.name());
+        if (att != null) {
             att.setAttributeValue(value);
             PlanAttributeLocalServiceUtil.updatePlanAttribute(att);
-        } else {
+        }
+        else {
             PlanAttributeLocalServiceUtil.addPlanAttribute(getPlanId(), attribute.name(), value);
         }
     }
@@ -541,13 +563,18 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
 
     public PlanFan addFan(Long userId) throws SystemException {
         if (!isUserAFan(userId)) {
-            return PlanFanLocalServiceUtil.addFan(this.getPlanId(), userId);
+            PlanFan planFan = PlanFanLocalServiceUtil.addFan(this.getPlanId(), userId);
+            setAttribute(Attribute.SUPPORTERS, String.valueOf(PlanFanLocalServiceUtil.countPlanFansForPlan(getPlanId())));
+            return planFan;
         }
         return null;
     }
 
     public void removeFan(Long userId) throws SystemException {
-        PlanFanLocalServiceUtil.removePlanFan(this.getPlanId(), userId);
+        if (isUserAFan(userId)) {
+            PlanFanLocalServiceUtil.removePlanFan(this.getPlanId(), userId);
+            setAttribute(Attribute.SUPPORTERS, String.valueOf(PlanFanLocalServiceUtil.countPlanFansForPlan(getPlanId())));
+        }
     }
 
     public boolean isUserAFan(Long userId) throws SystemException {
@@ -618,5 +645,17 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
                     userId);
         }
         
+    }
+    
+    public void setSeekingAssistance(boolean seekingAssistance) throws SystemException {
+        setAttribute(Attribute.SEEKING_ASSISTANCE, String.valueOf(seekingAssistance));
+    }
+    
+    public boolean isSeekingAssistance() throws SystemException {
+        Object value = Attribute.SEEKING_ASSISTANCE.getValue(this);
+        if ("true".equals(value)) {
+            return true;
+        }
+        return false;
     }
 }

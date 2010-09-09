@@ -9,6 +9,7 @@ package com.ext.portlet.plans.attributes;
 import com.ext.portlet.community.tags.ClimateUserTag;
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ui.*;
+import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -360,6 +361,38 @@ public class AttributeFunctionFactory {
                 } catch (IOException e) {
                     throw new SystemException(e);
                 }
+            }
+            
+
+        };
+        
+        
+    }
+    
+    public AttributeFunction<String> getAttributeValue(final String attributeName) {
+
+        return new AttributeFunction<String>() {
+
+
+            @Override
+            public boolean isFromPlan() {
+                return true;
+            }
+
+            @Override
+            public boolean isFromScenario() {
+                return false;
+            }
+
+            @Override
+            public String process(String scenarioId) throws SystemException {
+                return "";
+            }
+
+            @Override
+            public String process(PlanItem plan) throws SystemException {
+                Attribute attribute = Attribute.valueOf(attributeName);
+                return attribute.getValue(plan).toString();
             }
             
 

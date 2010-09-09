@@ -127,7 +127,9 @@ public class PlanConstants {
 	    MITIGATION_COST_ERROR(String.class, "%s", attributeFunctionFactory.getIndexedOutputErrors("Mitigation Cost"), true, null, null), 
 	    DESCRIPTION(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("description"), true, PlanFilterOperatorType.LIKE, null),
         POSITIONS(Long[].class, "%s", attributeFunctionFactory.getPlanPropertyFunction("positionsIdsArray"), true, PlanFilterOperatorType.POSITIONS_FILTER, null),
-        STATUS(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("status"), true, PlanFilterOperatorType.LIKE, null);
+        STATUS(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("status"), true, PlanFilterOperatorType.LIKE, null),
+        SEEKING_ASSISTANCE(String.class, "%s", attributeFunctionFactory.getAttributeValue("SEEKING_ASSISTANCE"), true, null, null),
+        SUPPORTERS(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("SUPPORTERS"), true, null, null);
 		
 		
 		private Class<?> clasz;
@@ -409,7 +411,11 @@ public class PlanConstants {
 				"droughts, etc.). Costs are shown as a % of World GDP (Gross Domestic Product). Values shown are estimates of the " +
 				"90% confidence interval for these costs. That is, the models predict there is only a 5% chance that the costs would be l" +
 				"ess than the lower number and a 5% chance that the costs would be greater than the higher number.","ShowDamageCost",true, 
-				Attribute.MIN_DAMAGE_COST, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST,Attribute.MAX_DAMAGE_COST));
+				Attribute.MIN_DAMAGE_COST, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST,Attribute.MAX_DAMAGE_COST)),
+		
+        SEEKING_ASSISTANCE("Seeking assistance","Does this plan team seeks for new members?","ShowSeekingAssistance",true, Attribute.SEEKING_ASSISTANCE, new AttributeGetter("%s",Attribute.SEEKING_ASSISTANCE)),
+
+        SUPPORTERS("Supporters","Number of users supporting this plan","ShowSupporters",true, Attribute.SUPPORTERS, new AttributeGetter("%s",Attribute.SUPPORTERS));
 		
 		private String name;
 		private String description;

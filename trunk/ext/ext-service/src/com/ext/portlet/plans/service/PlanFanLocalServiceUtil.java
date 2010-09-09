@@ -94,6 +94,11 @@ public class PlanFanLocalServiceUtil {
         return getService().getPlanFansForPlan(planId);
     }
 
+    public static int countPlanFansForPlan(java.lang.Long planId)
+        throws com.liferay.portal.SystemException {
+        return getService().countPlanFansForPlan(planId);
+    }
+
     public static java.util.List<com.ext.portlet.plans.model.PlanFan> getPlanFansForUser(
         java.lang.Long userId) throws com.liferay.portal.SystemException {
         return getService().getPlanFansForUser(userId);

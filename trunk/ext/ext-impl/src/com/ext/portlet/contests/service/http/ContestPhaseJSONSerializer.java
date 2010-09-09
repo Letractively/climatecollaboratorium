@@ -82,6 +82,7 @@ public class ContestPhaseJSONSerializer {
 
         jsonObj.put("updated", updatedJSON);
         jsonObj.put("authorId", model.getAuthorId());
+        jsonObj.put("phaseActive", model.getPhaseActive());
 
         return jsonObj;
     }
