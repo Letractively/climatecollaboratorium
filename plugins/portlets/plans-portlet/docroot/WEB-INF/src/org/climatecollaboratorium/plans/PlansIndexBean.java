@@ -13,11 +13,14 @@ import javax.faces.event.ActionEvent;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
 import org.climatecollaboratorium.plans.wrappers.PlanIndexItemWrapper;
 
+import com.ext.portlet.contests.ContestPhaseHelper;
+import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.PlanConstants;
@@ -67,7 +70,6 @@ public class PlansIndexBean {
 
     private DataPaginator dataPaginator;
     private List<Debate> availableDebates;
-    private static final String CONTEST_PHASE_SESSION_PARAM = "CONTEST_PHASE_SESSION_PARAM";
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
 
@@ -76,28 +78,34 @@ public class PlansIndexBean {
     private List<TestTab> testTabs = Arrays.asList(new TestTab("one"),new TestTab("two"),new TestTab("three"));
 
     private int tabindex = 0;
+
+    private static final String CONTEST_PHASE_SESSION_PARAM = "CONTEST_PHASE_SESSION_PARAM";
+    private final static String PLANS_SOURCE = "plans"; 
     
     private static Log _log = LogFactoryUtil.getLog(PlansIndexBean.class);
 
-
-    public PlansIndexBean(PlanTypeIndexBean contestIndexBean) throws SystemException, PortalException {
-
-        this.contestIndexBean = contestIndexBean;
+    public PlansIndexBean(ContestPhaseWrapper contestPhaseWrapper) throws PortalException, SystemException {
+        this.contestPhase = contestPhaseWrapper;
         dataPaginator = new DataPaginator();
-
+        
+        updatePlansList = true;
+        filterPlansBean = null;
+        columnsConfiguration = null;
+        columnsUpdate();
     }
 
-    public void init(Long contestPhaseId, Map<String,String> params) throws SystemException, PortalException {
-        if (contestPhase!=null && contestPhase.getPhaseId().equals(contestPhaseId)) return;
-        contestPhase = contestIndexBean.lookupWrapper(contestPhaseId);
-        if (contestPhase == null) {
+
+    public void init(ContestPhaseWrapper currentPhase, NavigationEvent event) throws PortalException, SystemException {
+        if (currentPhase == null) {
+            contestPhase = null;
             return;
         }
+        if (contestPhase !=null && contestPhase.getPhaseId().equals(currentPhase.getPhaseId())) return;
+        contestPhase = currentPhase;
+        
         refresh();
         sortColumn = PlanConstants.Attribute.VOTES.name();
         sortAscending = false;
-
-
     }
 
     public ContestPhaseWrapper getContestPhase() {
@@ -114,9 +122,11 @@ public class PlansIndexBean {
         return result;
     }
 
-    public void setContestPhaseIndex(int i) throws SystemException, PortalException {
+
+    /*public void setContestPhaseIndex(int i) throws SystemException, PortalException {
         if (contestPhase!=null) init(contestPhase.getContest().getPhases().get(i).getPhaseId(), Collections.<String, String>emptyMap());
     }
+    */
     
     public void setEventBus(EventBus eventBus) {
         if (this.eventBus != eventBus) {
@@ -162,6 +172,9 @@ public class PlansIndexBean {
     }
 
     public List<PlanIndexItemWrapper> getPlans() throws SystemException, PortalException {
+        if (contestPhase == null) {
+            return null;
+        }
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         availableDebates = PlansPreferencesBean.getQuestionDebates();
         if (updatePlansList) {
@@ -236,10 +249,12 @@ public class PlansIndexBean {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPlanType());
         columns = new ArrayList<Columns>();
-        for (Columns col: Columns.getPlanTypeColumns(contestPhase.getPlanType())) {
-            if (col.getUserSetting(plansUserSettings)) {
+        for (Columns col: ContestPhaseHelper.getPhaseColumns(contestPhase.getPhase())) {
+            /*if (col.getUserSetting(plansUserSettings)) {
                 columns.add(col);
             }
+            */
+            columns.add(col);
         }
         updatePlansList = true;
     }
@@ -319,6 +334,7 @@ public class PlansIndexBean {
     public void clear() {
         contestPhase = null;
     }
+
      
 
 }

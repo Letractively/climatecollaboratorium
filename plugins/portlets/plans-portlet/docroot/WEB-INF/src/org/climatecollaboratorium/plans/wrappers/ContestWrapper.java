@@ -9,11 +9,15 @@ package org.climatecollaboratorium.plans.wrappers;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.models.CollaboratoriumModelingService;
+import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 import javax.faces.event.ActionEvent;
+
 import java.util.*;
 
 /**
@@ -28,6 +32,8 @@ public class ContestWrapper {
     private List<ContestPhaseWrapper> phases = new ArrayList<ContestPhaseWrapper>();
     private Map<Long,ContestPhaseWrapper> index = new HashMap<Long,ContestPhaseWrapper>();
     private EditContestBean editor;
+    private String debatesIdsStr = null;
+    
 
 
     public ContestWrapper(Contest contest) throws SystemException {
@@ -64,6 +70,10 @@ public class ContestWrapper {
     public EditContestBean getEditor() {
         return editor;
     }
+    
+    public List<Long> getDebatesIds() throws SystemException {
+        return contest.getDebatesIds();
+    }
 
    
 
@@ -80,7 +90,9 @@ public class ContestWrapper {
         String name;
         String description;
         boolean editing = false;
-
+        boolean editingPositions = false;
+        private List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
+        private List<DebateQuestionWrapper> positionsQuestions = new ArrayList<DebateQuestionWrapper>();
 
 
         public String getDescription() {
@@ -123,7 +135,23 @@ public class ContestWrapper {
             editing = false;
         }
 
-
+        public boolean isEditingPositions() {
+            return editingPositions;
+        }
+        
+        public void editPositions() {
+            editingPositions = ! editingPositions;
+        }
+        
+        public List<DebateQuestionWrapper> getAvailablePositions() throws SystemException {
+            if (questions.size() == 0) {
+                Set<Long> selectedPositionsIds = new HashSet<Long>(contest.getDebatesIds());
+                for (Debate debate : DebateLocalServiceUtil.getDebates()) {
+                    questions.add(new DebateQuestionWrapper(debate.getCurrentRoot(), selectedPositionsIds));
+                }
+            }
+            return questions;
+        }
 
     }
     
@@ -135,4 +163,5 @@ public class ContestWrapper {
         
         return contest.getPlanType().getDefaultModelId();
     }
+    
 }

@@ -9,35 +9,31 @@
 
     <ice:panelGroup styleClass="portlet">
         <div class="container">
-            <h4><a href="/web/guest/plans#plans=phaseId:#{planBean.plan.contestPhaseId}"
-                   onclick="Collab.nav.navigate('plans', {phaseId: '#{planBean.plan.contestPhaseId}'}); return;">&amp;lt;&amp;lt; Back to plans index</a>
-            </h4>
-
             <div class="container_top">
                 <div class="topActions">
                     <ice:form>
                         <ui:include src="./createPlan.xhtml">
-                            <ui:param value="#{planBean.createPlanBean}" name="createPlanBean"/>
+                            <ui:param value="#{plan.createplan}" name="createplan"/>
                         </ui:include>
 
                         <ice:commandLink onclick="if(!deferUntilLogin()) return false;"
-                                         actionListener="#{planBean.createPlanBean.createPlan}">create new plan based on this</ice:commandLink> |&amp;nbsp;
-                        <ice:commandLink value="subscribe" onclickactionListener="#{planBean.plan.subscribe}"/>
+                                         actionListener="#{plan.createplan.createPlan}">create new plan based on this</ice:commandLink> |&amp;nbsp;
+                        <ice:commandLink value="subscribe" onclickactionListener="#{plan.plan.subscribe}"/>
                     </ice:form>
                 </div>
                 <ice:form>
                     <div class="title">
                         <div class="icon">
-                            <f:subview rendered="#{not planBean.editingName}">
-                                <h2><ice:outputText value="#{planBean.plan.name}"/></h2>
+                            <f:subview rendered="#{not plan.editingName}">
+                                <h2><ice:outputText value="#{plan.plan.name}"/></h2>
 
                                 <div class="actions textual">
-                                    <ice:commandLink value="rename" actionListener="#{planBean.editName}"
+                                    <ice:commandLink value="rename" actionListener="#{plan.editName}"
                                                      rendered="#{permissions.canEdit}"/>
                                 </div>
 
                             </f:subview>
-                            <f:subview rendered="#{planBean.editingName}">
+                            <f:subview rendered="#{plan.editingName}">
                             
                                 <ice:panelGroup styleClass="hidden ">
                                     <script type="text/javascript">
@@ -45,13 +41,13 @@
                                     </script>
                                 </ice:panelGroup>
 
-                                <ice:inputText value="#{planBean.plan.name}" id="renamePlanName" styleClass='planNameInput' onchange="jQuery(this).addClass('valueChanged');">
+                                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput' onchange="jQuery(this).addClass('valueChanged');">
                                     <f:validator validatorId="planNameValidator"/>
                                 </ice:inputText>
 
                                 <div class="actions">
-                                    <ice:commandLink actionListener="#{planBean.plan.saveName}" styleClass="checkBtn"/>&amp;nbsp;&amp;nbsp;
-                                    <ice:commandLink actionListener="#{planBean.editName}" styleClass="cancelBtn"
+                                    <ice:commandLink actionListener="#{plan.plan.saveName}" styleClass="checkBtn"/>&amp;nbsp;&amp;nbsp;
+                                    <ice:commandLink actionListener="#{plan.editName}" styleClass="cancelBtn"
                                                      immediate="true"/>
                                 </div>
                                 <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>
@@ -61,14 +57,14 @@
                         </div>
 
                         <ice:outputConnectionStatus/>
-                        <f:subview rendered="#{not planBean.editingName}">
+                        <f:subview rendered="#{not plan.editingName}">
                             <div class="planVotes">
-                                #{planBean.plan.votes} (#{planBean.votesPercent}%) votes.&amp;nbsp;
-                                <ice:commandLink value="Vote for this plan" actionListener="#{planBean.plan.vote}"
-                                                 rendered="#{not planBean.plan.votedOn}"/>
+                                #{plan.plan.votes} (#{plan.votesPercent}%) votes.&amp;nbsp;
+                                <ice:commandLink value="Vote for this plan" actionListener="#{plan.plan.vote}"
+                                                 rendered="#{not plan.plan.votedOn}"/>
                                 <ice:commandLink value="Retract your vote for this plan"
-                                                 actionListener="#{planBean.plan.unvote}"
-                                                 rendered="#{planBean.plan.votedOn}"/>
+                                                 actionListener="#{plan.plan.unvote}"
+                                                 rendered="#{plan.plan.votedOn}"/>
                             </div>
                         </f:subview>
                     </div>
@@ -91,7 +87,15 @@
                                 messageId="planDetailHelp">+show help</collab:helpMessageTrigger>
                         <ice:panelTabSet styleClass="mainTabs"
                                          columnClasses="description,assumptions,models,actionsImpacts,discussion,team"
-                                         selectedIndex="#{planBean.selectedTab}">
+                                         selectedIndex="#{plan.selectedTab}">
+                                         
+                            <ice:panelTab label="Admin"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;" 
+                                          styleClass="#{permissions.canAdmin ? '' : 'hidden'}" >
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/admin.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
                             <ice:panelTab label="Description"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
                                 <f:subview>
@@ -126,12 +130,6 @@
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/team.xhtml"/>
-                                </f:subview>
-                            </ice:panelTab>
-                            <ice:panelTab label="Admin"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;">
-                                <f:subview>
-                                    <ui:include src="planDetailsTabs/admin.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
                         </ice:panelTabSet>
