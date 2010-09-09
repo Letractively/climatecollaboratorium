@@ -1,6 +1,7 @@
 package org.climatecollaboratorium.facelets.debates;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
@@ -31,11 +32,23 @@ public class DebatesDetailsSupportTag extends TagHandler {
             ELException {
 
         DebatesDetailsBean debatesDetailsBean = (DebatesDetailsBean) debatesDetailsBeanParam.getObject(ctx);
-        String debatesIdsStr = debatesIdsParam.getValue();
-        String[] debatesIdsArrayStr = debatesIdsStr.split(",");
-        Long[] debatesIds = new Long[debatesIdsArrayStr.length];
-        for (int i=0; i < debatesIdsArrayStr.length; i++) {
-            debatesIds[i] = Long.parseLong(debatesIdsArrayStr[i]);
+        Object debatesIdsObj = debatesIdsParam.getObject(ctx);
+        Long[] debatesIds = new Long[0];
+        if (debatesIdsObj instanceof Long[]) {
+            debatesIds = (Long[]) debatesIdsObj;
+        }
+        else if (debatesIdsObj instanceof List<?>){
+            List<Long> debatesIdsList = (List<Long>) debatesIdsObj;
+            debatesIds = new Long[debatesIdsList.size()];
+            debatesIdsList.toArray(debatesIds);
+        }
+        else {
+            String debatesIdsStr = debatesIdsParam.getValue();
+            String[] debatesIdsArrayStr = debatesIdsStr.split(",");
+            debatesIds = new Long[debatesIdsArrayStr.length];
+            for (int i=0; i < debatesIdsArrayStr.length; i++) {
+                debatesIds[i] = Long.parseLong(debatesIdsArrayStr[i]);
+            }
         }
 
         debatesDetailsBean.init(debatesIds);
