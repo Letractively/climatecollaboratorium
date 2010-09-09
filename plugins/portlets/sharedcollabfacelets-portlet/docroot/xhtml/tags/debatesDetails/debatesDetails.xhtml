@@ -6,7 +6,7 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:collab_comps="http://climatecollaboratorium.org/components">
-    <collab:debatesDetailsSupport debatesDetailsBean="#{debatesDetailsBean}" debatesIds="191,192,193" >
+    <collab:debatesDetailsSupport debatesDetailsBean="#{debatesDetailsBean}" debatesIds="#{debatesIds}" >
         <ice:panelSeries value="#{debatesDetailsBean.debates}" var="debate">
             <div class="singleDebateSummary">
                 <h3 class="debateTitle"><a href="#{linkPatternPrefix}debate=debateId:#{debate.debateId}">#{debate.currentRoot.debateSummary}</a></h3>
