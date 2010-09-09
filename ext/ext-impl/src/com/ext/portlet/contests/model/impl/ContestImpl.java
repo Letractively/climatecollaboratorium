@@ -1,19 +1,19 @@
 package com.ext.portlet.contests.model.impl;
 
-import com.ext.portlet.contests.model.Contest;
-import com.ext.portlet.contests.model.ContestPhase;
-import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
-import com.ext.portlet.contests.service.impl.ContestPhaseLocalServiceImpl;
-import com.ext.portlet.plans.model.PlanType;
-import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
-import com.ext.portlet.plans.service.impl.PlanTypeLocalServiceImpl;
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import com.ext.portlet.contests.NoSuchContestPhaseException;
+import com.ext.portlet.contests.model.Contest;
+import com.ext.portlet.contests.model.ContestDebate;
+import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestDebateLocalServiceUtil;
+import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
+import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
 
 
 public class ContestImpl extends ContestModelImpl implements Contest {
@@ -36,6 +36,38 @@ public class ContestImpl extends ContestModelImpl implements Contest {
            }
         }
         return result;
+    }
+    
+    public ContestPhase getActivePhase() throws NoSuchContestPhaseException, SystemException {
+        return ContestPhaseLocalServiceUtil.getActivePhaseForContest(this);
+    }
+    
+    public boolean isActive() throws SystemException {
+        try {
+            ContestPhaseLocalServiceUtil.getActivePhaseForContest(this);
+            return true;
+        }
+        catch (NoSuchContestPhaseException e) {
+            // ignore
+        }
+        return false;
+    }
+    
+    public List<Long> getDebatesIds() throws SystemException  {
+        List<Long> ret = new ArrayList<Long>();
+        for (ContestDebate pos: ContestDebateLocalServiceUtil.getContestDebates(getContestPK())) {
+            ret.add(pos.getDebateId());
+        }
+        return ret;
+    }
+    
+    public void setDebates(List<Long> debatesIds) throws SystemException  {
+        for (ContestDebate pos: ContestDebateLocalServiceUtil.getContestDebates(getContestPK())) {
+            pos.delete();
+        }   
+        for (Long debatesId: debatesIds) {
+            ContestDebateLocalServiceUtil.createContestDebate(debatesId, getContestPK());
+        }
     }
 
 }

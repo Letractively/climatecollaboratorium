@@ -31,6 +31,18 @@
             <finder-column name="contestActive" />
         </finder>
     </entity>
+    
+    <entity name="ContestDebate" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="debateId" type="Long" />
+        <column name="ContestPK" type="Long" />
+        
+        
+        <finder name="ContestPK" return-type="Collection">
+            <finder-column name="ContestPK" />
+        </finder>
+        
+    </entity>
 
     <entity name="ContestPhase" local-service="true" remote-service="true">
         <column name="ContestPhasePK" type="Long" primary="true" />
@@ -44,6 +56,7 @@
         <column name="created" type="Date" />
         <column name="updated" type="Date" />
         <column name="authorId" type="Long" />
+        <column name="phaseActive" type="Boolean" />
 
         <order by="asc">
             <order-column name="PhaseStartDate" />
@@ -51,6 +64,27 @@
 
         <finder name="ContestId" return-type="Collection">
             <finder-column name="ContestPK" />
+        </finder>
+        
+        <finder name="ContestIdActive" return-type="ContestPhase">
+            <finder-column name="ContestPK"/>
+            <finder-column name="phaseActive"/>
+        </finder>
+      </entity>
+      
+      <entity name="ContestPhaseColumn" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="ContestPhasePK" type="Long" />
+        <column name="columnName" type="String" />
+        <column name="columnWeight" type="Integer" />
+        
+        
+        <order>
+            <order-column name="columnWeight" />
+        </order>
+        
+        <finder name="ContestPhasePK" return-type="Collection">
+            <finder-column name="ContestPhasePK" />
         </finder>
       </entity>
     

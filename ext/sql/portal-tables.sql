@@ -227,6 +227,12 @@ create table Contest (
 	contestActive BOOLEAN
 );
 
+create table ContestDebate (
+	id_ LONG not null primary key,
+	debateId LONG,
+	ContestPK LONG
+);
+
 create table ContestPhase (
 	ContestPhasePK LONG not null primary key,
 	ContestPK LONG,
@@ -238,7 +244,21 @@ create table ContestPhase (
 	nextStatus VARCHAR(75) null,
 	created DATE null,
 	updated DATE null,
-	authorId LONG
+	authorId LONG,
+	phaseActive BOOLEAN
+);
+
+create table ContestPhaseColumn (
+	id_ LONG not null primary key,
+	ContestPhasePK LONG,
+	columnName VARCHAR(75) null,
+	columnWeight INTEGER
+);
+
+create table ContestPosition (
+	id_ LONG not null primary key,
+	positionId LONG,
+	ContestPK LONG
 );
 
 create table Counter (

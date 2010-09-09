@@ -125,6 +125,27 @@ public class ContestPhaseUtil {
                    .findByContestId_PrevAndNext(ContestPhasePK, ContestPK, obc);
     }
 
+    public static com.ext.portlet.contests.model.ContestPhase findByContestIdActive(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActive)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByContestIdActive(ContestPK, phaseActive);
+    }
+
+    public static com.ext.portlet.contests.model.ContestPhase fetchByContestIdActive(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActive)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().fetchByContestIdActive(ContestPK, phaseActive);
+    }
+
+    public static com.ext.portlet.contests.model.ContestPhase fetchByContestIdActive(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActive,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByContestIdActive(ContestPK, phaseActive,
+            retrieveFromCache);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -158,6 +179,13 @@ public class ContestPhaseUtil {
         getPersistence().removeByContestId(ContestPK);
     }
 
+    public static void removeByContestIdActive(java.lang.Long ContestPK,
+        java.lang.Boolean phaseActive)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException {
+        getPersistence().removeByContestIdActive(ContestPK, phaseActive);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -165,6 +193,12 @@ public class ContestPhaseUtil {
     public static int countByContestId(java.lang.Long ContestPK)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByContestId(ContestPK);
+    }
+
+    public static int countByContestIdActive(java.lang.Long ContestPK,
+        java.lang.Boolean phaseActive)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByContestIdActive(ContestPK, phaseActive);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

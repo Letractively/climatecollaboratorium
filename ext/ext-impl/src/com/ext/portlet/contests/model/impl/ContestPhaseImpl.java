@@ -1,14 +1,17 @@
 package com.ext.portlet.contests.model.impl;
 
 import com.ext.portlet.contests.model.Contest;
+import com.ext.portlet.contests.model.ContestPhaseColumn;
 import com.ext.portlet.contests.model.ContestStatus;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.contests.service.ContestPhaseColumnLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,4 +34,13 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
         String status = getContestPhaseStatus();
         return status == null?null:ContestStatus.valueOf(status);
     }
+    
+    public List<String> getPhaseColumns() throws SystemException {
+        List<String> ret = new ArrayList<String>();
+        for (ContestPhaseColumn phaseColumn: ContestPhaseColumnLocalServiceUtil.getPhaseColumns(getContestPhasePK())) {
+            ret.add(phaseColumn.getColumnName());
+        }
+        return ret;
+    }
+    
 }

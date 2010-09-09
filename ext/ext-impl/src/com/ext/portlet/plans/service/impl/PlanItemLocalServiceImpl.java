@@ -507,13 +507,6 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         }
     }
     
-    /*
-    public int getPlansCount(Map sessionMap, Map requestMap, PlanType planType) throws SystemException, PortalException  {
-        PlansUserSettings planUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
-        return  planItemFinder.countPlans(planUserSettings, planType);
-    }
-    */
-    
     public boolean isNameAvailable(String planName) throws SystemException {
         return PlanAttributeLocalServiceUtil.getPlanAttributesByNameValue(Attribute.NAME.name(), planName).size() == 0;
     }

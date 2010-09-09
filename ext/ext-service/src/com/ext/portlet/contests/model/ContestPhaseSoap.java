@@ -37,6 +37,7 @@ public class ContestPhaseSoap implements Serializable {
     private Date _created;
     private Date _updated;
     private Long _authorId;
+    private Boolean _phaseActive;
 
     public ContestPhaseSoap() {
     }
@@ -55,6 +56,7 @@ public class ContestPhaseSoap implements Serializable {
         soapModel.setCreated(model.getCreated());
         soapModel.setUpdated(model.getUpdated());
         soapModel.setAuthorId(model.getAuthorId());
+        soapModel.setPhaseActive(model.getPhaseActive());
 
         return soapModel;
     }
@@ -189,5 +191,13 @@ public class ContestPhaseSoap implements Serializable {
 
     public void setAuthorId(Long authorId) {
         _authorId = authorId;
+    }
+
+    public Boolean getPhaseActive() {
+        return _phaseActive;
+    }
+
+    public void setPhaseActive(Boolean phaseActive) {
+        _phaseActive = phaseActive;
     }
 }

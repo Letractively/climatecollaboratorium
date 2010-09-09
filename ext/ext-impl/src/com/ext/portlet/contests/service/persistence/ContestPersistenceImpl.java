@@ -67,8 +67,12 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
     private static Log _log = LogFactoryUtil.getLog(ContestPersistenceImpl.class);
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPersistence contestPersistence;
+    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestDebatePersistence.impl")
+    protected com.ext.portlet.contests.service.persistence.ContestDebatePersistence contestDebatePersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPhasePersistence contestPhasePersistence;
+    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl")
+    protected com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence contestPhaseColumnPersistence;
 
     public void cacheResult(Contest contest) {
         EntityCacheUtil.putResult(ContestModelImpl.ENTITY_CACHE_ENABLED,

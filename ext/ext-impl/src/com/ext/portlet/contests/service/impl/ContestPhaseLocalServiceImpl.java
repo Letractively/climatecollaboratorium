@@ -1,5 +1,6 @@
 package com.ext.portlet.contests.service.impl;
 
+import com.ext.portlet.contests.NoSuchContestPhaseException;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.base.ContestPhaseLocalServiceBaseImpl;
@@ -18,4 +19,7 @@ public class ContestPhaseLocalServiceImpl
         return contestPhasePersistence.findByContestId(contest.getContestPK());
     }
 
+    public ContestPhase getActivePhaseForContest(Contest contest) throws NoSuchContestPhaseException, SystemException {
+        return contestPhasePersistence.findByContestIdActive(contest.getContestPK(), true);
+    }
 }

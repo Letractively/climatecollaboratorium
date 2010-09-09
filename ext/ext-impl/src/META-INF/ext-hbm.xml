@@ -693,6 +693,14 @@
 		<property name="authorId" />
 		<property name="contestActive" />
 	</class>
+	<class name="com.ext.portlet.contests.model.impl.ContestDebateImpl" table="ContestDebate">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="debateId" />
+		<property name="ContestPK" />
+	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestPhaseImpl" table="ContestPhase">
 		<cache usage="read-write" />
 		<id name="ContestPhasePK" type="java.lang.Long">
@@ -708,5 +716,15 @@
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />
 		<property name="authorId" />
+		<property name="phaseActive" />
+	</class>
+	<class name="com.ext.portlet.contests.model.impl.ContestPhaseColumnImpl" table="ContestPhaseColumn">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="ContestPhasePK" />
+		<property name="columnName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="columnWeight" />
 	</class>
 </hibernate-mapping>

@@ -264,4 +264,10 @@ public interface PlanItem extends PlanItemModel {
     public void removeMember(java.lang.Long userId,
         java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
+
+    public void setSeekingAssistance(boolean seekingAssistance)
+        throws com.liferay.portal.SystemException;
+
+    public boolean isSeekingAssistance()
+        throws com.liferay.portal.SystemException;
 }
