@@ -16,6 +16,14 @@
 
         <td class="sliderCol">
             <div class="slider"></div>
+             <ice:panelGroup rendered="#{input.hasLabels}" styleClass="slider-labels">
+                <table>
+                    <tr>
+                        <td class="left">#{input.minLabel}</td>
+                        <td class="right">#{input.maxLabel}</td>
+                    </tr>
+                </table>
+             </ice:panelGroup>
         </td>
         <td class="valueCol">
             <ice:panelGroup>

@@ -5,6 +5,11 @@
  */
 
 
+
+
+
+//setTimeout(function() { log.toggle(); }, 1000);
+
 function renderModelInputs(event) {
 	showSliders();
 }
@@ -58,6 +63,7 @@ function oneOfValuesChangedEvent() {
 }
 
 function showSliders() {
+   
 	var msg = "";
 	
 	try {
@@ -139,7 +145,7 @@ function showSliders() {
 				else {
 					oneOfValuesChangedEvent();
 				}
-			},
+			}
 		});
 
 
@@ -198,7 +204,7 @@ function convertTypedValuesToNumbers() {
 		
 			valueBinding.val(parseFieldValue(val, unit));
 		} catch (e) { 
-			alert(e);
+			alert("Error one"+e);
 		}
 	});
 }
@@ -215,7 +221,7 @@ function runSimulation() {
 		
 		valueBinding.val(parseFieldValue(val, unit));;
 		} catch (e) { 
-			alert(e);
+			alert("Error two"+e);
 		}
 	});
 	
@@ -266,7 +272,7 @@ function renderModelOutputs() {
 			var seriesWithOutOfRangeError = [];
 			jQuery(this).find(".serieWithOutOfRnage").each(function() {
 				seriesWithOutOfRangeError.push(jQuery(this).val());
-			    //log.debug("Pushing series range error"+jQuery(this).val());
+			   // log.debug("Pushing series range error"+jQuery(this).val());
             });
 			
 			var globalInvalidMessage = jQuery(this).find(".indexedInvalidMessage").val();
@@ -274,7 +280,7 @@ function renderModelOutputs() {
 			var seriesWithInvalidError = [];
 			jQuery(this).find(".serieWithInvalid").each(function() {
 				seriesWithInvalidError.push(jQuery(this).val());
-                 //log.debug("Pushing series invalid error"+jQuery(this).val());
+                // log.debug("Pushing series invalid error"+jQuery(this).val());
 			});
 			
 
@@ -386,7 +392,7 @@ function renderModelOutputs() {
                 }
 
                 if (invalidErrorPolicy) {
-                    //log.debug("invalid error policy is not null");
+                   // log.debug("invalid error policy is not null");
                     if (invalidErrorPolicy != 'NORMAL' && invalidErrorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(rangeErrorMessage) != "") {
 
 					    errorMessages.push(invalidErrorMessage);
@@ -490,7 +496,8 @@ function renderModelOutputs() {
 			jQuery("#" + chartPlaceholderId).parent().height(height + 60);
 
 		} catch (e) {
-			alert(e);
+			alert("Error 3"+e);
+            //log.error(e);
 		}
 	});
 	
