@@ -20,6 +20,7 @@
 <%@ page import="com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil" %>
 <%@ page import="com.liferay.portal.kernel.search.Sort"%>
 <%@ page import="com.ext.portlet.community.UserCreateDateComparator"%>
+<%@ page import="com.ext.portlet.community.UserNumberActivitiesComparator"%>
 
 <portlet:defineObjects />
 <liferay-theme:defineObjects />
