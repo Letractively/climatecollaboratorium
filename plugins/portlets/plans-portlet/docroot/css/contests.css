@@ -45,3 +45,36 @@
     width: 85%;
 }
     
+.contestPhaseInfo {
+    margin: 20px 0;
+    
+    background: #e0e0e0;
+    padding: 5px 10px;
+}
+
+.proposalsListNav a {
+    float: left;
+    display: block;
+    background: #768579;
+    margin-right: 20px;
+    padding: 5px 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.proposalsListNav a.active {
+    background: #D1EDD7;
+    color: #333;
+}
+
+.proposalsListNav {
+    margin-top: 10px;
+}
+
+.createNewPlanButton {
+    float: right;
+}
+
+.contestPhaseInfo .details {
+	float: left;
+}

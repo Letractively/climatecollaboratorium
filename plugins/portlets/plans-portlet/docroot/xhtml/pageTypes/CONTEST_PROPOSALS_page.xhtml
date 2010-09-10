@@ -9,7 +9,60 @@
     <ui:composition template="../templates/contestPageTemplate.xhtml">
         <ui:define name="contest_content">
             <ice:form>
+                <ui:include src="../createPlan.xhtml">
+                    <ui:param value="#{navigation.createPlanBean}" name="createPlanBean"/>
+                </ui:include>
+            </ice:form>
+            <div class="contestPhaseInfo">
+                <div class="details">
+                    <f:subview rendered="#{plansIndex.contestPhase.status != 'FINISHED'}">
+                        <h3>#{plansIndex.contestPhase.description} 
+                            (#{plansIndex.plansCount} proposals #{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION' ? 'thus far' : ''})
+                        </h3>
+                        <h4>Closes &amp;nbsp;
+                            <ice:outputText value="#{plansIndex.contestPhase.endDate}">
+                                <f:convertDateTime pattern="MMMMM d, yyyy" />
+                            </ice:outputText>
+                        </h4>
+                    </f:subview>
+                    
+                    <f:subview rendered="#{plansIndex.contestPhase.status == 'FINISHED'}">
+                        <h3>Contest completed  &amp;nbsp;
+                            <ice:outputText value="#{plansIndex.contestPhase.endDate}">
+                                <f:convertDateTime pattern="MMMMM d, yyyy" />
+                            </ice:outputText>
+                        </h3>
+                    </f:subview>
+                </div>
+                <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
+                    <ice:form>
+                        <ice:commandButton onclick="if(!deferUntilLogin()) return false;"
+                                styleClass="prominantButton createNewPlanButton"
+                                actionListener="#{navigation.createPlanBean.createPlan}"
+                                value="Begin a new proposal"/>
+                    </ice:form>
+                </f:subview>
+                        <div class="clear"></div>
+            </div>
             
+        
+        <div class="proposalsListNav">
+            <f:subview rendered="#{not contests.currentPhase.firstPhase}">
+                <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals,viewProposals:active"
+                    class="#{plansIndex.showPreviousProposals ? '' : 'active'}" >
+                    <ice:outputText value="Active Proposals" rendered="#{plansIndex.contestPhase.status != 'FINISHED'}" />
+                    <ice:outputText value="Final Proposals" rendered="#{plansIndex.contestPhase.status == 'FINISHED'}" />
+                </a>
+                <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals,viewProposals:previous" 
+                    class="#{plansIndex.showPreviousProposals ? 'active' : ''}">
+                    <ice:outputText value="Previous Proposals" rendered="#{plansIndex.contestPhase.status != 'FINISHED'}" />
+                    <ice:outputText value="Other Proposals" rendered="#{plansIndex.contestPhase.status == 'FINISHED'}" />
+                </a>               
+                <div class="clear"></div> 
+            </f:subview>
+        
+        </div>
+            <ice:form>
                 <ice:dataTable value="#{plansIndex.plans}" styleClass="plansTable" rowClasses="odd,even"
             var="singlePlan" sortColumn="#{plansIndex.sortColumn}"
             sortAscending="#{plansIndex.sortAscending}" id="plansIndex"
@@ -68,6 +121,62 @@
             </ice:commandLink>
         </ice:column>
     </ice:dataTable>
+    
+    <ice:panelGroup styleClass="hidden">
+                    #{plansIndexBean.plans}
+                    <script language="javascript">
+                        initializeColumnsInfo();
+                        makeNANotesVisible();
+                    </script>
+                </ice:panelGroup>
+
+                <div class="pageBottom">
+
+                    <div class="pageNum">
+
+
+                        <ice:dataPaginator id="dataScroll_2" for="plansIndex" rowsCountVar="rowsCount"
+                                           displayedRowsCountVar="displayedRowsCountVar"
+                                           firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex"
+                                           pageCountVar="pageCount" pageIndexVar="pageIndex"
+                                           styleClass="paginatorInfo">
+                            <ice:outputFormat
+                                    value="Displaying &lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt; Plans"
+                                    styleClass="paginatorInfo" escape="false">
+                                <f:param value="#{firstRowIndex}"/>
+                                <f:param value="#{lastRowIndex}"/>
+                                <f:param value="#{rowsCount}"/>
+                            </ice:outputFormat>
+                        </ice:dataPaginator>
+
+                        <ice:dataPaginator id="dataScroll_1" rendered="true" for="plansIndex" paginator="true"
+                                           paginatorMaxPages="1" styleClass="paginator">
+                            <f:facet name="first">
+                                <ice:panelGroup>
+                                    <ice:outputText value="First Page" styleClass="first"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="last">
+                                <ice:panelGroup>
+                                    <ice:outputText value="Last Page" styleClass="last"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="previous">
+                                <ice:panelGroup>
+                                    <ice:outputText value="Previous" styleClass="prev"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="next">
+                                <ice:panelGroup>
+                                    <ice:outputText value="Next" styleClass="next"/>
+                                </ice:panelGroup>
+                            </f:facet>
+                        </ice:dataPaginator>
+
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
     
             
             </ice:form>
