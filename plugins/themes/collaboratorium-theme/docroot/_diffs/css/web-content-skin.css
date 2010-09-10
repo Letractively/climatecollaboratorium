@@ -37,6 +37,16 @@ div.tabbed-content .ui-tabs {
     margin:0;
 }
 
+
+
+div.tabbed-content.home .ui-tabs .ui-tabs-panel ul li {
+    display:list-item;
+    list-style: disc inside none;
+    float:none;
+    line-height:1.2;
+
+}
+
 div.tabbed-content .ui-widget {
   font-family: Helvetica, sans-serif;
 }
