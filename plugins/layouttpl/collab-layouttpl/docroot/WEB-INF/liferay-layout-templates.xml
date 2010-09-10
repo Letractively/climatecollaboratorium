@@ -13,6 +13,11 @@
 			<wap-template-path>/collab-2-col.tpl</wap-template-path>
 			<thumbnail-path>/custom-2-col.png</thumbnail-path>
 		</layout-template>
+		<layout-template id="collab-2-col-balanced" name="Collaboratorium Two Column Balanced">
+			<template-path>/collab-2-col-balanced.tpl</template-path>
+			<wap-template-path>/collab-2-col-balanced.tpl</wap-template-path>
+			<thumbnail-path>/custom-2-balanced.png</thumbnail-path>
+		</layout-template>
 		<layout-template id="collab-4-rows" name="Collaboratorium Two Column">
 			<template-path>/collab-4-rows.tpl</template-path>
 			<wap-template-path>/collab-4-rows.tpl</wap-template-path>
