@@ -57,9 +57,17 @@
                     class="#{plansIndex.showPreviousProposals ? 'active' : ''}">
                     <ice:outputText value="Previous Proposals" rendered="#{plansIndex.contestPhase.status != 'FINISHED'}" />
                     <ice:outputText value="Other Proposals" rendered="#{plansIndex.contestPhase.status == 'FINISHED'}" />
-                </a>               
-                <div class="clear"></div> 
+                </a>                
             </f:subview>
+                <div class="filters">
+                    <ice:form>
+                        <ice:selectBooleanCheckbox onclick="if(! deferUntilLogin()) return false; " value="#{plansIndex.showProposalsThatUserOwns}" partialSubmit="true"> Proposals that I own</ice:selectBooleanCheckbox>
+                        <ice:selectBooleanCheckbox onclick="if(! deferUntilLogin()) return false; " value="#{plansIndex.showProposalsThatUserSupports}" partialSubmit="true"> Proposals that I support</ice:selectBooleanCheckbox>
+                    </ice:form>
+                </div>
+                
+                
+                <div class="clear"></div>
         
         </div>
             <ice:form>
