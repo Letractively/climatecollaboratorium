@@ -33,6 +33,7 @@
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/plans.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wall.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/profile.css?tt=$themeTimestamp" media="all" />
+     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/community.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/model.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/debate.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/feedback.css?tt=$themeTimestamp" media="all" />
