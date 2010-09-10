@@ -74,6 +74,10 @@ public class ContestPhaseWrapper {
     public ContestWrapper getContest() {
         return contestWrapper;
     }
+    
+    public String getDescription() {
+        return phase.getContestPhaseDescription();
+    }
 
     public List<PlanItem> getPlans() throws SystemException, PortalException {
 
@@ -87,4 +91,12 @@ public class ContestPhaseWrapper {
     }
 
    
+    public boolean isFirstPhase() {
+        for (ContestPhaseWrapper phase: contestWrapper.getPhases()) {
+            if (phase.getStartDate().compareTo(getStartDate()) < 0) {
+                return false ;
+            }
+        }
+        return true;
+    }
 }

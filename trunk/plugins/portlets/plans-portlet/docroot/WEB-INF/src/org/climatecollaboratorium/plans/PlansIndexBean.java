@@ -81,8 +81,12 @@ public class PlansIndexBean {
 
     private static final String CONTEST_PHASE_SESSION_PARAM = "CONTEST_PHASE_SESSION_PARAM";
     private final static String PLANS_SOURCE = "plans"; 
+    private final static String VIEW_PROPOSALS_PARAM = "viewProposals";
+    private final static String ACTIVE_PROPOSALS = "active";
+    private final static String PREVIOUS_PROPOSALS = "previous";
     
     private static Log _log = LogFactoryUtil.getLog(PlansIndexBean.class);
+    private boolean showPreviousProposals = true;
 
     public PlansIndexBean(ContestPhaseWrapper contestPhaseWrapper) throws PortalException, SystemException {
         this.contestPhase = contestPhaseWrapper;
@@ -96,16 +100,42 @@ public class PlansIndexBean {
 
 
     public void init(ContestPhaseWrapper currentPhase, NavigationEvent event) throws PortalException, SystemException {
+        boolean isDirty = false;
+        
         if (currentPhase == null) {
             contestPhase = null;
             return;
         }
-        if (contestPhase !=null && contestPhase.getPhaseId().equals(currentPhase.getPhaseId())) return;
-        contestPhase = currentPhase;
         
-        refresh();
-        sortColumn = PlanConstants.Attribute.VOTES.name();
-        sortAscending = false;
+        if (contestPhase !=null && contestPhase.getPhaseId().equals(currentPhase.getPhaseId())) {
+            // ignore
+        }
+        else {
+            contestPhase = currentPhase;
+            isDirty = true;
+        }
+
+        Map<String, String> params = event.getParameters(PLANS_SOURCE);
+        if (params != null && params.containsKey(VIEW_PROPOSALS_PARAM)) {
+            boolean tmp = params.get(VIEW_PROPOSALS_PARAM).equals(PREVIOUS_PROPOSALS);
+            if (tmp != showPreviousProposals) {
+                isDirty = true;
+                showPreviousProposals = tmp;
+
+                if (showPreviousProposals) {
+                    contestPhase = new ContestPhaseWrapper(contestPhase.getContest(), contestPhase.getPhase().getPreviousPhases().get(0));
+                }
+            }
+        }
+        else {
+            showPreviousProposals = false;
+        }
+        
+        if (isDirty) {
+            refresh();
+            sortColumn = PlanConstants.Attribute.SUPPORTERS.name();
+            sortAscending = false;
+        }
     }
 
     public ContestPhaseWrapper getContestPhase() {
@@ -186,7 +216,14 @@ public class PlansIndexBean {
             if (sortCol.isSortable()) {
                 sortAttribute = sortCol.getSortAttribute().name();
             }
-            notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
+            if (showPreviousProposals) {
+                List<ContestPhase> previousPhases = contestPhase.getPhase().getPreviousPhases();
+                notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, previousPhases, 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
+            }
+            else {
+                notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
+            }
+            
             for(PlanItem plan: PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
                 plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
             }
@@ -335,6 +372,8 @@ public class PlansIndexBean {
         contestPhase = null;
     }
 
-     
+     public boolean isShowPreviousProposals() {
+         return showPreviousProposals;
+     }
 
 }
