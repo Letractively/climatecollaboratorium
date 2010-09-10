@@ -6,6 +6,7 @@ import com.ext.portlet.contests.model.ContestStatus;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.contests.service.ContestPhaseColumnLocalServiceUtil;
+import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.liferay.portal.PortalException;
@@ -39,6 +40,18 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
         List<String> ret = new ArrayList<String>();
         for (ContestPhaseColumn phaseColumn: ContestPhaseColumnLocalServiceUtil.getPhaseColumns(getContestPhasePK())) {
             ret.add(phaseColumn.getColumnName());
+        }
+        return ret;
+    }
+    
+
+    public List<ContestPhase> getPreviousPhases() throws SystemException, PortalException {
+        List<ContestPhase> phases = ContestPhaseLocalServiceUtil.getPhasesForContest(getContest());
+        List<ContestPhase> ret = new ArrayList<ContestPhase>();
+        for (ContestPhase phase: phases) {
+            if (phase.getPhaseStartDate().before(getPhaseStartDate())) {
+                ret.add(phase);
+            }
         }
         return ret;
     }

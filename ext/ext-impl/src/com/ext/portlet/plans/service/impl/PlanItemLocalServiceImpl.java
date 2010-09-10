@@ -5,9 +5,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+
 
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.debaterevision.model.DebateItem;
@@ -506,6 +509,73 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             return plans;
         }
     }
+    
+    public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, List<ContestPhase> phases, int start, int end,
+            final String sortColumn, String sortDirection) throws SystemException, PortalException {
+        return getPlans(sessionMap, requestMap, planType, phases, start, end, sortColumn, sortDirection, true);
+    }
+    
+    public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, List<ContestPhase> phases, int start, int end,
+            final String sortColumn, String sortDirection, boolean applyFilters) 
+    throws SystemException, PortalException  {
+        /*
+        PlansUserSettings planUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(sessionMap, requestMap, planType);
+        
+        return planItemFinder.getPlans(planUserSettings, planType.getPlanTypeId(), start, end, sortColumn, sortDirection);
+        
+        */
+        Set<Long> phasesIds = new HashSet<Long>();
+        for (ContestPhase phase: phases) {
+            phasesIds.add(phase.getContestPhasePK());
+        }
+        
+        List<PlanItem> plans = new ArrayList<PlanItem>();
+        for (PlanItem planItem: planItemFinder.getPlans()) {
+            if ((planType == null || (planItem.getPlanTypeId() != null && planItem.getPlanTypeId().equals(planType.getPlanTypeId()))) &&
+                (phasesIds.isEmpty() || (planItem.getPlanMeta().getContestPhase() != null && phasesIds.contains(planItem.getPlanMeta().getContestPhase())))) {
+                plans.add(planItem);
+            }
+        }
+
+        if (planType == null && phases !=null && ! phases.isEmpty()) {
+           planType = phases.get(0).getContest().getPlanType(); 
+        }
+
+        final int directionModifier = sortDirection.equals("DESC") ? -1 : 1;
+        Collections.sort(plans, new Comparator<PlanItem>() {
+
+            @Override
+            public int compare(PlanItem arg0, PlanItem arg1) {
+                try {
+                    PlanAttribute plan1Attr = arg0.getPlanAttribute(sortColumn);
+                    PlanAttribute plan2Attr = arg1.getPlanAttribute(sortColumn);
+                    Comparable val1 = (Comparable) (plan1Attr != null ? plan1Attr.getTypedValue() : null);
+                    Comparable val2 = (Comparable) (plan2Attr != null ? plan2Attr.getTypedValue() : null);
+                    if (val1 != null) {
+                        if (val2 != null) {
+                            return val1.compareTo(val2) * directionModifier;
+                        }
+                        else {
+                            return -1 * directionModifier;
+                        }
+                    }
+                    else {
+                        return 1 * directionModifier;
+                    } 
+                } catch (SystemException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+        if (applyFilters) {
+            return applyFilters(sessionMap, requestMap, planType, plans);
+        }
+        else { 
+            return plans;
+        }
+    }
+
     
     public boolean isNameAvailable(String planName) throws SystemException {
         return PlanAttributeLocalServiceUtil.getPlanAttributesByNameValue(Attribute.NAME.name(), planName).size() == 0;
