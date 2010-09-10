@@ -86,7 +86,11 @@ public class PlansIndexBean {
     private final static String PREVIOUS_PROPOSALS = "previous";
     
     private static Log _log = LogFactoryUtil.getLog(PlansIndexBean.class);
-    private boolean showPreviousProposals = true;
+    private boolean showPreviousProposals = false;
+
+    private boolean showProposalsThatUserOwns;
+
+    private boolean showProposalsThatUserSupports;
 
     public PlansIndexBean(ContestPhaseWrapper contestPhaseWrapper) throws PortalException, SystemException {
         this.contestPhase = contestPhaseWrapper;
@@ -223,8 +227,24 @@ public class PlansIndexBean {
             else {
                 notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
             }
-            
+
             for(PlanItem plan: PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
+                if (Helper.isUserLoggedIn()) {
+
+                    final Long userId = Helper.getLiferayUser().getUserId();
+                    if (showProposalsThatUserOwns) {
+                        System.out.println("userId: " + userId + "\t" + plan.getAuthorId());
+                        if (! plan.getAuthorId().equals(userId)) {
+                            continue;
+                        }
+                    }
+                    if (showProposalsThatUserSupports) {
+                        if (! plan.isUserAFan(userId)) {
+                            continue;
+                        }
+                    }
+
+                }
                 plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
             }
             updateErrorNotes = true;
@@ -374,6 +394,24 @@ public class PlansIndexBean {
 
      public boolean isShowPreviousProposals() {
          return showPreviousProposals;
+     }
+     
+     public boolean isShowProposalsThatUserOwns() {
+         return showProposalsThatUserOwns;
+     }
+     
+     public boolean isShowProposalsThatUserSupports() {
+         return showProposalsThatUserSupports;
+     }
+     
+     public void setShowProposalsThatUserOwns(boolean show) throws PortalException, SystemException {
+         showProposalsThatUserOwns = show;
+         refresh();
+     }
+     
+     public void setShowProposalsThatUserSupports(boolean show) throws PortalException, SystemException {
+         showProposalsThatUserSupports = show;
+         refresh();
      }
 
 }

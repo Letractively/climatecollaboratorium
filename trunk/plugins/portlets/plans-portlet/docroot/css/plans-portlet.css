@@ -525,19 +525,19 @@ SHARED ELEMENTS
 
 
 .plansTable th {
-    background-color:#FFFFFF;
-    background-image:none;
    
-    padding-top:15px;
-    padding-bottom:3px;
-    border-left:none;
-    border-right:none;
-    border-top:none;
-    border-bottom:1px #CCCCCC solid;
+    padding:5px;
+    border-right: 1px solid #efefef;
+    
     color: #000000;
     font-size:1.1em;
     font-weight:normal;
-    vertical-align:bottom;
+    vertical-align:middle;
+
+    font-weight: bold;
+    font-size: 1.2 em;
+    background: #dfdfdf;
+    border-bottom: 4px solid #ffffff;
 }
 
 .plansTable th a {
@@ -551,19 +551,28 @@ SHARED ELEMENTS
 }
 
 .plansTable .iceDatTblRow td {
-	border: 0;
-	height:44px;
+	border: 1px solid #ffffff;
+	padding: 8px;
     text-align: center;
+}
+
+.plansTable .iceDatTblRow:hover td{
+	background: #87FFCD;
 }
 
 .plansTable td .NAME {
 	font-weight:bold;
 }
 
-.plansTable .even {
-	background:none repeat scroll 0 0 #FFFFFF;
+
+
+.plansTable .odd td {
+    background: #efefef;
 }
 
+.plansTable .even td {
+    background: #e5e5e5;
+}
 .plansTable th table {
     margin: auto;
 }
