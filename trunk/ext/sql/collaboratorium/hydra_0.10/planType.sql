@@ -1,5 +1,7 @@
 ALTER TABLE PlanType ADD COLUMN defaultModelId bigint;
 update PlanType set defaultModelId = 841 where planTypeId = 3;
+update PlanType set defaultModelId = 760 where planTypeId = 2;
+update PlanType set defaultModelId = 760 where planTypeId = 1;
 
 ALTER TABLE ContestPhase DROP COLUMN active;
 ALTER TABLE ContestPhase ADD COLUMN phaseActive tinyint(1);
@@ -54,3 +56,13 @@ insert into ContestPhaseColumn VALUES (12, 5, 'NAME', 0);
 insert into ContestPhaseColumn VALUES (13, 5, 'SUPPORTERS', 0);
 insert into ContestPhaseColumn VALUES (14, 5, 'SEEKING_ASSISTANCE', 0);
 
+
+
+update ContestPhase SET PhaseStartDate = '2009-10-20 00:00:00', PhaseEndDate = "2009-10-27 00:00:00"  WHERE ContestPhasePk = 2;
+update ContestPhase Set phaseActive = TRUE WHERE ContestPhasePK = 1;
+update ContestPhase SET ContestPhaseStatus = 'FINISHED' WHERE ContestPhasePK IN (1,2);
+
+
+
+
+ALTER TABLE ModelInputItem ADD COLUMN properties VARCHAR(512);
