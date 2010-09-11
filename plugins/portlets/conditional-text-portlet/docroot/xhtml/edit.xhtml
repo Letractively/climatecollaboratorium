@@ -1,0 +1,78 @@
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:portlet>
+		<ice:form>
+		    <h2>
+              Portlet setting
+            </h2>
+            <ice:panelGrid columns="2">
+                <ice:outputLabel value="Key:"/><ice:inputText value="#{conditionalTextSettingsBean.portletKey}"/>
+                <ice:outputLabel value="Value:"/><ice:inputText value="#{conditionalTextSettingsBean.portletValue}"/>
+             </ice:panelGrid>
+
+            <h2>
+              Available entries
+            </h2>
+		    <ice:dataTable rowClasses="odd,even" value="#{conditionalTextSettingsBean.settings}" var="setting">
+				<ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Key"/>
+                        </f:facet>
+                        <ice:inputText value="#{setting.paramKey}"/>
+
+                </ice:column>
+                <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Value"/>
+                        </f:facet>
+                        <ice:inputText value="#{setting.paramValue}"/>
+
+                </ice:column>
+                <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Style"/>
+                        </f:facet>
+                        <ice:inputText value="#{setting.styleClass}"/>
+
+                </ice:column>
+                <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Text"/>
+                        </f:facet>
+                        <ice:inputTextarea value="#{setting.html}"/>
+
+                </ice:column>
+			</ice:dataTable>
+
+            <ice:commandButton action="#{conditionalTextSettingsBean.update}" value="Update"/>
+        </ice:form>
+        <h2>Add new</h2>
+        <ice:form>
+            <ice:panelGrid columns="5">
+                <ice:panelGroup>
+                    <ice:inputText value="#{conditionalTextSettingsBean.addSettingBean.key}"/>
+                </ice:panelGroup>
+                <ice:panelGroup>
+                    <ice:inputText value="#{conditionalTextSettingsBean.addSettingBean.value}"/>
+                </ice:panelGroup>
+                <ice:panelGroup>
+                    <ice:inputText value="#{conditionalTextSettingsBean.addSettingBean.style}"/>
+                </ice:panelGroup>
+                <ice:panelGroup>
+                    <ice:inputText value="#{conditionalTextSettingsBean.addSettingBean.text}"/>
+                </ice:panelGroup>
+                <ice:panelGroup>
+                    <ice:commandButton action="#{conditionalTextSettingsBean.add}" value="Add"/>
+                </ice:panelGroup>
+
+            </ice:panelGrid>
+        </ice:form>
+	</ice:portlet>
+</f:view>
