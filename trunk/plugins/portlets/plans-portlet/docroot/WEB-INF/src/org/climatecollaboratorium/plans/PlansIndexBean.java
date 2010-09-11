@@ -411,7 +411,6 @@ public class PlansIndexBean {
      
      public void setShowProposalsThatUserSupports(boolean show) throws PortalException, SystemException {
          showProposalsThatUserSupports = show;
-         refresh();
      }
 
 }

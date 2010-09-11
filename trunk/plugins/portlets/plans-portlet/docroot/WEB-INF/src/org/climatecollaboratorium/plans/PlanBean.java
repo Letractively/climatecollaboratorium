@@ -37,7 +37,10 @@ public class PlanBean {
     
     private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
     private final static String PLANS_SOURCE = "plans"; 
-    
+  
+    // this is ver bad solution, we should use event bus for communication between beans instead of direct references
+    private PlansIndexBean plansIndexBean;
+ 
     static {
         tabNameIndexMap.put("admin", 0);
         tabNameIndexMap.put("description", 1);
@@ -212,4 +215,13 @@ public class PlanBean {
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
     }
+    
+    public void setPlansIndexBean(PlansIndexBean plansIndexBean) {
+        this.plansIndexBean = plansIndexBean;
+    }
+
+    public void refreshIndex() throws PortalException, SystemException {
+        plansIndexBean.refresh();
+    }
+    
 }

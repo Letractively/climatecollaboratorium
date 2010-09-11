@@ -40,6 +40,7 @@ public class NavigationBean {
         issuesBean = new IssuesBean();
         
         planBean.setPermissions(plansPermissionsBean);
+        planBean.setPlansIndexBean(plansIndexBean);
         
     }
     

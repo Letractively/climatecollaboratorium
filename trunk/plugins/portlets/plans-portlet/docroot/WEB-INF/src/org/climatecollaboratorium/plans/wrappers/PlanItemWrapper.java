@@ -238,6 +238,10 @@ public class PlanItemWrapper {
     }
 
     public Long getSelectedModel() throws SystemException {
+	System.out.println("wrapped: " + wrapped);
+	System.out.println("wrapped.planmeta: " + wrapped.getPlanMeta());
+	//System.out.println(wrapped.getModelId());
+	System.out.println("wrapped.getPlanMeta.getModelId: " + wrapped.getPlanMeta().getModelId());
         return wrapped.getPlanMeta().getModelId();
     }
     
@@ -429,8 +433,9 @@ public class PlanItemWrapper {
         return wrapped.isSeekingAssistance();
     }
     
-    public void setSeekingAssistance(boolean seekingAssistance) throws SystemException {
+    public void setSeekingAssistance(boolean seekingAssistance) throws PortalException, SystemException {
         wrapped.setSeekingAssistance(seekingAssistance);
+        planBean.refreshIndex();
     }
 
 }

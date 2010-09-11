@@ -7,5 +7,18 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:h="http://java.sun.com/jsf/html"  >
     
-    <ui:include src="./pageTypes/#{pageType}_page.xhtml" />
+	<f:subview rendered="#{pageType != 'PLAN_DETAILS'}">
+		<ui:include src="./pageTypes/#{pageType}_page.xhtml" />
+	</f:subview>
+	<f:subview rendered="#{pageType == 'PLAN_DETAILS'}">
+    <div class="plansBreadcrumb">
+    	<h4>
+        	<a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals">&amp;lt;&amp;lt; Back to contest</a>
+            </h4>
+    </div>
+    <div class="plansContent">
+		<ui:include src="./planDetails.xhtml" />
+</div>
+	</f:subview>
+
 </f:view>
