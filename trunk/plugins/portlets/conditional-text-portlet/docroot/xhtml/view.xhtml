@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    >
+    <ice:portlet>
+       <ice:panelGroup rendered="#{conditionalTextDisplayBean.message!=null}" styleClass="#{conditionalTextDisplayBean.style}">
+           <ice:outputText escape="false" value="#{conditionalTextDisplayBean.message}"/>
+       </ice:panelGroup>
+    </ice:portlet>
+</f:view>
