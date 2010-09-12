@@ -533,17 +533,16 @@ function initVersionChoosingBox() {
     }
     var versions = container.find(".versions");
     var trigger = jQuery(".versionsTrigger");
-    var expandTrigger = jQuery(".versionsTrigger.expand");
     var hidden = true;
 
     trigger.click(function() {
         if (! container.is(':visible')) {
-            expandTrigger.hide();
+            trigger.html("Hide old versions")
             container.show("slide", {direction: "up"});
         }
         else {
             container.hide("slide", {direction: "up"}, 'medium', function() {
-                expandTrigger.show()
+                trigger.html("Show old versions");
             });
 
         }

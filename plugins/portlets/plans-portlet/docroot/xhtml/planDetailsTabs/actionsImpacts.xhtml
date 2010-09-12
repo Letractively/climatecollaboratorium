@@ -13,15 +13,6 @@
         </script>
     </ice:panelGroup>
     
-    <collabcomps:helpMessage messageId="planModelRunHelp" styleClass="planHelp" hideThisMessage="Hide this message">
-        The actions in a plan become inputs to simulation models. The models then project the impacts of those actions, which can include:
-        <ul>
-            <li>measures of climate change, like CO2 concentration and temperature increase</li>
-            <li>economic impacts like costs of mitigation policy or climate damages.</li>
-            <li>physical impacts like water availability, agricultural yields, and coastal flooding.</li>
-        </ul>
-    </collabcomps:helpMessage>
-    <collabcomps:helpMessageTrigger messageId="planModelRunHelp">+show help</collabcomps:helpMessageTrigger>
 
     <div class="versionEditToolbar">
         <div class="chooseVersionWidget">
@@ -44,6 +35,11 @@
 
         <div class="clear"></div>
     </div>
+    <collabcomps:helpMessage messageId="planModelRunHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+            The actions in a plan become inputs to simulation models. The models then project the impacts of those actions, which can include:
+        </collabcomps:helpMessage>
+        <collabcomps:helpMessageTrigger messageId="planModelRunHelp">+show help</collabcomps:helpMessageTrigger>
+    
     <ice:panelGroup styleClass="actionsImpactsContainer">
     <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.simulationLatestVersion}">
         Viewing version from &amp;nbsp; <strong><ice:outputText

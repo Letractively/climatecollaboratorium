@@ -10,11 +10,6 @@
             Collab.nav.addEditorDirtyValidationCallback(checkIfPlanPositionsDirty);
         </script>
     </ice:panelGroup>
-    
-    <collab:helpMessage messageId="planPositionHelp" styleClass="planHelp" hideThisMessage="Hide this message">
-        Positions articulate the choices made by a plan on a set of issues relevant for all plans in a category.
-    </collab:helpMessage>
-    <collab:helpMessageTrigger messageId="planPositionHelp">+show help</collab:helpMessageTrigger>
 
     <div class="versionEditToolbar">
         <div class="chooseVersionWidget">
@@ -41,6 +36,12 @@
 
         <div class="clear"></div>
     </div>
+    <collab:helpMessage messageId="planPositionHelp" styleClass="planHelp" hideThisMessage="Hide this message">
+            Positions articulate the choices made by a plan on a set of issues relevant for all plans in a category.
+        </collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planPositionHelp">+show help</collab:helpMessageTrigger>
+
+       
 
 
     <ice:panelGroup rendered="#{not planBean.planPositionsBean.editing}">
@@ -89,6 +90,6 @@
         </ice:panelGroup>
 
     </ice:panelGroup>
-    
+
 
 </f:view>

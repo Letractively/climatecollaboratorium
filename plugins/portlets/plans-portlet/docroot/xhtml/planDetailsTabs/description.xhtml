@@ -1,80 +1,108 @@
 <?xml version="1.0"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:ice="http://www.icesoft.com/icefaces/component" 
-    xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:liferay-faces="http://liferay.com/tld/faces"
-         xmlns:collab="http://climatecollaboratorium.org/components">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:collab="http://climatecollaboratorium.org/components">
     <div class="description normal">
-       <collab:helpMessage messageId="planDescriptionHelp" styleClass="planHelp" hideThisMessage="Hide this message">
-    The Description tab includes a summary of the plan and:
-    <ul>
-    <li>justification of the action's feasibility and desirability,</li>
-    <li>explanation of how the commitments will be achieved,</li>
-    <li>images, videos or stories that depict the future,</li>
-    <li>other information, such as plan goals or history of its development.</li>
-    </ul>
-</collab:helpMessage>
-<collab:helpMessageTrigger messageId="planDescriptionHelp">+show help</collab:helpMessageTrigger>
-        <div class="versionEditToolbar">
-            <div class="chooseVersionWidget">
-                <input type="button" value="See Old Versions" class="versionsTrigger expand" />
-                <div class="versionsContainer relative">
+        <div class="versionsContainer">
                     <div class="versions">
-                        <ice:selectOneListbox value="#{planBean.plan.descriptionVersion}" partialSubmit="true" size="10">
-                            <f:selectItems value="#{planBean.plan.allDescriptionVersions}"/> 
-                        </ice:selectOneListbox>
-                        <br />
-                        <input type="button" value="Hide" class="versionsTrigger collapse" />
+                        <ice:dataTable value="#{planBean.plan.allDescriptionVersions}" rows="10" var="historyItem">
+                            <ice:column >
+                            <f:facet name="header">
+                            <ice:outputText value="Date"/>
+                        </f:facet>
+                        <ice:outputText value="#{historyItem.updateDate}"/>
+
+
+                            </ice:column>
+                            <ice:column>
+                            <f:facet name="header">
+                            <ice:outputText value="User"/>
+                        </f:facet>
+                        <ice:outputText value="#{historyItem.updateAuthor.screenName}"/>
+
+
+                            </ice:column>
+                        </ice:dataTable>
+                        <br/>
+                        
                     </div>
                 </div>
-             </div>
-            <ice:commandButton styleClass="editButton" value="Edit" actionListener="#{planBean.editDescription}" rendered="#{permissions.canEdit and not planBean.editingDescription}" />
-            <div class="clear"></div>  
-        </div>
+        <ice:panelGroup styleClass="editControls" rendered="#{permissions.canEdit and not planBean.editingDescription}">
+        <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{planBean.editDescription}"
+                                       />
+        </ice:panelGroup>
+        <ice:panelGroup styleClass="editControls" rendered="#{planBean.editingDescription}" >
+        <ice:commandLink value="Save Changes" actionListener="#{planBean.plan.saveDescription}"/>
+        </ice:panelGroup>
+        <ice:panelGroup styleClass="editControls" rendered="#{planBean.editingDescription}" >
+        <ice:commandLink value="Cancel" actionListener="#{planBean.editDescription}"/>
+        </ice:panelGroup>
+                
+
+            <ice:panelGroup styleClass="chooseVersionWidget">
+                <a href="javascript:" class="versionsTrigger">Show old versions</a>
+
+
+            </ice:panelGroup>
 
 
 
-    <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}" styleClass="planDescription">
+        <div class="clear"></div>
+        <collab:helpMessage messageId="planDescriptionHelp" styleClass="planHelp"
+                                        hideThisMessage="Hide this message">
+                        The Description tab includes a summary of the plan and blah blah blah blah blah.
+                    </collab:helpMessage>
+                    <collab:helpMessageTrigger messageId="planDescriptionHelp">+show help</collab:helpMessageTrigger>
+        
+
+        <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}"
+                        styleClass="planDescription">
             <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
-                Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.plan.descriptionVersionDate}" /></strong> by &amp;nbsp;
+                Viewing version from &amp;nbsp; <strong><ice:outputText
+                    value="#{planBean.plan.descriptionVersionDate}"/></strong> by &amp;nbsp;
                 <a href="/web/guest/members?userId=#{planBean.plan.descriptionVersionAuthor.userId}">
-                    <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}" /></strong>
+                    <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}"/></strong>
                 </a>
             </ice:panelGroup>
-        <ice:outputText value="#{planBean.plan.description}" escape="false"/>
+            <ice:outputText value="#{planBean.plan.description}" escape="false"/>
 
-    </ice:panelGroup>
-    
-    <ice:panelGroup rendered="#{planBean.editingDescription}" styleClass="editWithVersions descriptionEditContainer">
+        </ice:panelGroup>
 
-        <div class="descriptionInput">
-            <ice:inputRichText value="#{planBean.plan.description}"  saveOnSubmit="true" skin="office2003" height="500px" partialSubmit="true" />
-            <ice:commandButton value="Save" actionListener="#{planBean.plan.saveDescription}"/>
-            <ice:commandButton value="Cancel" actionListener="#{planBean.editDescription}"/>
-        </div>
-    </ice:panelGroup>
-    
-    
-        <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}">  
+        <ice:panelGroup rendered="#{planBean.editingDescription}"
+                        styleClass="editWithVersions descriptionEditContainer">
+
+            <div class="descriptionInput">
+                <ice:inputRichText value="#{planBean.plan.description}" saveOnSubmit="true" skin="office2003"
+                                   height="500px" partialSubmit="true"/>
+
+            </div>
+        </ice:panelGroup>
+
+
+        <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}">
             <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
-                Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.plan.descriptionVersionDate}" /></strong> by &amp;nbsp;
+                Viewing version from &amp;nbsp; <strong><ice:outputText
+                    value="#{planBean.plan.descriptionVersionDate}"/></strong> by &amp;nbsp;
                 <a href="/web/guest/members?userId=#{planBean.plan.descriptionVersionAuthor.userId}">
-                    <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}" /></strong>
+                    <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}"/></strong>
                 </a>
-            </ice:panelGroup>      
+            </ice:panelGroup>
+
             <div class="nothingSetInfo">
                 <div class="nothingSetMessage">No description set.</div>
             </div>
         </ice:panelGroup>
-    <script language="javascript">
-    jQuery(document).ready(initVersionChoosingBox);
-    </script>
-    
-    <ice:panelGroup styleClass="hidden ">
-        <script type="text/javascript">
-            Collab.nav.addEditorDirtyValidationCallback(checkIfPlanDescriptionDirty);
+        <script language="javascript">
+            jQuery(document).ready(initVersionChoosingBox);
         </script>
-    </ice:panelGroup>
-    
-</div>
+
+        <ice:panelGroup styleClass="hidden ">
+            <script type="text/javascript">
+                Collab.nav.addEditorDirtyValidationCallback(checkIfPlanDescriptionDirty);
+            </script>
+        </ice:panelGroup>
+
+    </div>
 </f:view>
