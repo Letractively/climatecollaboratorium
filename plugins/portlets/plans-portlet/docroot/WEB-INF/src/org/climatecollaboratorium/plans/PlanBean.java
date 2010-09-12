@@ -37,18 +37,19 @@ public class PlanBean {
     
     private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
     private final static String PLANS_SOURCE = "plans"; 
-  
+
+    private final static String DEFAULT_TAB="actionsimpacts";
     // this is ver bad solution, we should use event bus for communication between beans instead of direct references
     private PlansIndexBean plansIndexBean;
  
     static {
-        tabNameIndexMap.put("admin", 0);
-        tabNameIndexMap.put("description", 1);
-        tabNameIndexMap.put("positions", 2);
-        tabNameIndexMap.put("models", 3);
-        tabNameIndexMap.put("actionsimpacts", 4);
-        tabNameIndexMap.put("discussion", 5);
-        tabNameIndexMap.put("team", 6);
+        tabNameIndexMap.put("admin", tabNameIndexMap.size());
+        tabNameIndexMap.put("actionsimpacts", tabNameIndexMap.size());
+        tabNameIndexMap.put("positions", tabNameIndexMap.size());
+        tabNameIndexMap.put("description", tabNameIndexMap.size());
+        //tabNameIndexMap.put("models", tabNameIndexMap.size());
+        tabNameIndexMap.put("discussion", tabNameIndexMap.size());
+        tabNameIndexMap.put("team", tabNameIndexMap.size());
     }
 
     
@@ -82,7 +83,7 @@ public class PlanBean {
         if (parameters.containsKey("tab")) {
             try {
                 Integer tmp = tabNameIndexMap.get( parameters.get("tab") );
-                selectedTabIndex = tmp != null ? tmp : 0;
+                selectedTabIndex = tmp != null ? tmp : tabNameIndexMap.get(DEFAULT_TAB);
             }
             catch (NumberFormatException e) {
                 _log.error("Can't parse tab number: " + parameters.get("tab"), e);
@@ -90,7 +91,7 @@ public class PlanBean {
         }
         else {
             // default tab if no tab is set
-            selectedTabIndex = 0;
+            selectedTabIndex = tabNameIndexMap.get(DEFAULT_TAB);
         }
         refresh();
     }

@@ -86,32 +86,14 @@
                         <collab:helpMessageTrigger
                                 messageId="planDetailHelp">+show help</collab:helpMessageTrigger>
                         <ice:panelTabSet styleClass="mainTabs"
-                                         columnClasses="description,assumptions,models,actionsImpacts,discussion,team"
+                                         columnClasses="admin,description,assumptions,models,actionsImpacts,discussion,team"
                                          selectedIndex="#{plan.selectedTab}">
                                          
                             <ice:panelTab label="Admin"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;" 
-                                          styleClass="#{permissions.canAdmin ? '' : 'hidden'}" >
+                                          rendered="#{permissions.canAdmin}">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/admin.xhtml"/>
-                                </f:subview>
-                            </ice:panelTab>
-                            <ice:panelTab label="Description"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
-                                <f:subview>
-                                    <ui:include src="planDetailsTabs/description.xhtml"/>
-                                </f:subview>
-                            </ice:panelTab>
-                            <ice:panelTab label="Positions"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return;">
-                                <f:subview>
-                                    <ui:include src="planDetailsTabs/assumptions.xhtml"/>
-                                </f:subview>
-                            </ice:panelTab>
-                            <ice:panelTab label="Models"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'models'}); return;">
-                                <f:subview>
-                                    <ui:include src="planDetailsTabs/models.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
                             <ice:panelTab label="Actions &amp; Impacts" styleClass="actionsImpacts"
@@ -120,12 +102,33 @@
                                     <ui:include src="planDetailsTabs/actionsImpacts.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
+                            <ice:panelTab label="Positions"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/assumptions.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="Description"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/description.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
                             <ice:panelTab label="Discussion"
                                           onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'discussion'}, 'discussion': {}}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/discussion.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
+
+                         <!--   <ice:panelTab label="Models"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'models'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/models.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab> -->
+
+
                             <ice:panelTab label="Team"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return;">
                                 <f:subview>
