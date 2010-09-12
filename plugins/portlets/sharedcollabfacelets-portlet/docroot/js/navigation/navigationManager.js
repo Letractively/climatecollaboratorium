@@ -6,6 +6,7 @@ else {
 	window.collab = {};
 }
 
+jQuery.growlUI();
 Collab = window.collab;
 
 Collab.nav = new function() {

@@ -27,7 +27,6 @@
     </ice:panelPopup>
     
         <div class="topButtons">
-        <h1>#{debateBean.debatesPermissionsBean.canAddComment}</h1>
                             <ice:commandButton styleClass="subscriptionButton" value="Subscribe"
                                                action="#{debateBean.debateDetailsBean.subscribe}"
                                                rendered="#{debateBean.debatesPermissionsBean.canSubscribe and not empty debateBean.debateDetailsBean.selectedDebateItem and not debateBean.debateDetailsBean.subscribed}"/>
