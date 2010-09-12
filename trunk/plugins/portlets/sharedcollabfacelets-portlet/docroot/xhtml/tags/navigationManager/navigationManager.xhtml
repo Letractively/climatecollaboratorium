@@ -10,5 +10,13 @@
             <ice:inputText value="#{navigationManagerBean.navigationToken}" styleClass="navigationToken" />
             <ice:commandButton value="Submit" styleClass="submit" action="#{navigationManagerBean.navigate}" />
         </ice:form>
+	<ice:panelGroup>
+		<script type="text/javascript">
+			// #{navigationManagerBean.token}
+			jQuery(document).ready(function() {
+				jQuery('#mainContent').unblock();
+			});
+		</script>
+	</ice:panelGroup>
     </ice:panelGroup>
 </f:view>

@@ -10,6 +10,7 @@ public class NavigationManagerBean {
     private EventBus eventBus;
     private boolean sendUnchanged;
     private Map<String, Map<String, String>> lastTokenMap = new HashMap<String, Map<String,String>>();
+    private int token = 0;
     
     public boolean isSendUnchanged() {
         return sendUnchanged;
@@ -31,6 +32,7 @@ public class NavigationManagerBean {
     }
     
     public String navigate() {
+        token++;
         Map<String, Map<String, String>> tokenMap = decodeToken(navigationToken);
         eventBus.fireEvent(new NavigationEvent(tokenMap));
         lastTokenMap = tokenMap;
@@ -60,5 +62,9 @@ public class NavigationManagerBean {
         }
         
         return tokenMap;
+    }
+
+    public int getToken() {
+        return token;
     }
 }
