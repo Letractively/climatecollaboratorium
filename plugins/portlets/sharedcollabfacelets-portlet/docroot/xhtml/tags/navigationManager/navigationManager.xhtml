@@ -14,7 +14,9 @@
 		<script type="text/javascript">
 			// #{navigationManagerBean.token}
 			jQuery(document).ready(function() {
-				jQuery('#mainContent').unblock();
+				if (#{navigationManagerBean.token} > 0) {
+					jQuery('#mainContent').unblock();
+				}
 			});
 		</script>
 	</ice:panelGroup>
