@@ -10,22 +10,35 @@
     <ice:panelGroup styleClass="portlet">
         <div class="container">
             <div class="container_top">
-                <div class="topActions">
+
+                <ice:panelGrid columns="2" styleClass="topActions">
+                    <ice:panelGroup>
+                    <ice:form>
+                            <ice:commandButton styleClass="prominantButton" value="Vote for this proposal" actionListener="#{plan.plan.vote}"
+                                               rendered="#{not plan.plan.votedOn}"/>
+                            <ice:commandButton styleClass="prominantButton" value="Retract vote for this proposal"
+                                               actionListener="#{plan.plan.unvote}"
+                                               rendered="#{plan.plan.votedOn}"/>
+                       </ice:form>
+
+                  </ice:panelGroup>    
+                <ice:panelGroup>
                     <ice:form>
                         <ui:include src="./createPlan.xhtml">
-                            <ui:param value="#{plan.createplan}" name="createplan"/>
-                        </ui:include>
+                            <ui:param value="#{plan.createPlanBean}" name="createPlanBean"/>
+                        </ui:include>    
+                    <ice:commandButton styleClass="prominantButton" value="Copy this proposal" onclick="if(!deferUntilLogin()) return false;"
+                                           actionListener="#{plan.createPlanBean.createPlan}"></ice:commandButton>
 
-                        <ice:commandLink onclick="if(!deferUntilLogin()) return false;"
-                                         actionListener="#{plan.createplan.createPlan}">create new plan based on this</ice:commandLink> |&amp;nbsp;
-                        <ice:commandLink value="subscribe" onclickactionListener="#{plan.plan.subscribe}"/>
-                    </ice:form>
-                </div>
-                <ice:form>
-                    <div class="title">
+                         </ice:form>
+                </ice:panelGroup>
+
+                </ice:panelGrid>
+                 <div class="title">
+                    <ice:form>
                         <div class="icon">
                             <f:subview rendered="#{not plan.editingName}">
-                                <h2><ice:outputText value="#{plan.plan.name}"/></h2>
+                                <h2>Proposal: <ice:outputText styleClass="planName" value="#{plan.plan.name}"/></h2>
 
                                 <div class="actions textual">
                                     <ice:commandLink value="rename" actionListener="#{plan.editName}"
@@ -34,14 +47,15 @@
 
                             </f:subview>
                             <f:subview rendered="#{plan.editingName}">
-                            
+
                                 <ice:panelGroup styleClass="hidden ">
                                     <script type="text/javascript">
                                         Collab.nav.addEditorDirtyValidationCallback(checkIfPlanNameDirty);
                                     </script>
                                 </ice:panelGroup>
 
-                                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput' onchange="jQuery(this).addClass('valueChanged');">
+                                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput'
+                                               onchange="jQuery(this).addClass('valueChanged');">
                                     <f:validator validatorId="planNameValidator"/>
                                 </ice:inputText>
 
@@ -56,42 +70,24 @@
                             <div class="clear"></div>
                         </div>
 
-                        <ice:outputConnectionStatus/>
-                        <f:subview rendered="#{not plan.editingName}">
-                            <div class="planVotes">
-                                #{plan.plan.votes} (#{plan.votesPercent}%) votes.&amp;nbsp;
-                                <ice:commandLink value="Vote for this plan" actionListener="#{plan.plan.vote}"
-                                                 rendered="#{not plan.plan.votedOn}"/>
-                                <ice:commandLink value="Retract your vote for this plan"
-                                                 actionListener="#{plan.plan.unvote}"
-                                                 rendered="#{plan.plan.votedOn}"/>
-                            </div>
-                        </f:subview>
-                    </div>
-                </ice:form>
+
+                    </ice:form>
+                </div>      
+                <div class="clear"></div>
+
+
             </div>
             <div class="container_middle">
                 <div class="content">
                     <ice:form>
-                        <collab:helpMessage messageId="planDetailHelp" styleClass="planHelp"
-                                            hideThisMessage="Hide this message">
-                            Click through tabs to create a plan:
-                                (1) write&#160;<a href="javascript:" onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">Description</a>,
-                                (2) choose&#160;<a href="javascript:" onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return;">Positions</a>,
-                                (3) select&#160;<a href="javascript:" onclick="Collab.nav.navigateAddParams('plans', {tab: 'models'}); return;">Model</a>,
-                                (4) decide on&#160;<a href="javascript:" onclick="Collab.nav.navigateAddParams('plans', {tab: 'actionsimpacts'}); return;">Actions and run model to view Impacts</a>,
-                                (5) submit plan at&#160;<a href="javascript:" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;">Admin</a>.
-
-                        </collab:helpMessage>
-                        <collab:helpMessageTrigger
-                                messageId="planDetailHelp">+show help</collab:helpMessageTrigger>
                         <ice:panelTabSet styleClass="mainTabs"
                                          columnClasses="admin,description,assumptions,models,actionsImpacts,discussion,team"
+
                                          selectedIndex="#{plan.selectedTab}">
-                                         
+
                             <ice:panelTab label="Admin"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;" 
-                                          rendered="#{permissions.canAdmin}">
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;"
+                                          rendered="#{permissions.canAdmin}" styleClass="admin">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/admin.xhtml"/>
                                 </f:subview>
@@ -121,12 +117,12 @@
                                 </f:subview>
                             </ice:panelTab>
 
-                         <!--   <ice:panelTab label="Models"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'models'}); return;">
-                                <f:subview>
-                                    <ui:include src="planDetailsTabs/models.xhtml"/>
-                                </f:subview>
-                            </ice:panelTab> -->
+                            <!--   <ice:panelTab label="Models"
+                                         onclick="Collab.nav.navigateAddParams('plans', {tab: 'models'}); return;">
+                               <f:subview>
+                                   <ui:include src="planDetailsTabs/models.xhtml"/>
+                               </f:subview>
+                           </ice:panelTab> -->
 
 
                             <ice:panelTab label="Team"

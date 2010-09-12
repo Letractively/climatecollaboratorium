@@ -14,10 +14,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.climatecollaboratorium.plans.Helper;
-import org.climatecollaboratorium.plans.PlanBean;
-import org.climatecollaboratorium.plans.PlanHistoryItem;
-import org.climatecollaboratorium.plans.PlansPermissionsBean;
+import org.climatecollaboratorium.plans.*;
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 
 import com.ext.portlet.PlanStatus;
@@ -50,8 +47,10 @@ public class PlanItemWrapper {
     private List<PlanHistoryItem> planVersions = new ArrayList<PlanHistoryItem>();
     
     private Map<Long, PlanDescription> planDescriptionsById = new HashMap<Long, PlanDescription>();
-    private List<SelectItem> planDescriptionItems = new ArrayList<SelectItem>();
-    private List<SelectItem> planModelRunItems = new ArrayList<SelectItem>();
+
+    private List<PlanHistoryWrapper> planDescriptionItems = new ArrayList<PlanHistoryWrapper>();
+    private List<PlanHistoryWrapper> planModelRunItems = new ArrayList<PlanHistoryWrapper>();
+
     private Map<Long, PlanPositions> planPositionsById = new HashMap<Long, PlanPositions>();
     private Map<Long, PlanModelRun> planModelRunsById = new HashMap<Long, PlanModelRun>();
     private List<SelectItem> planPositionItems = new ArrayList<SelectItem>();
@@ -74,7 +73,8 @@ public class PlanItemWrapper {
         
         for (PlanDescription planDescription: planDescriptions) {
             planDescriptionsById.put(planDescription.getId(), planDescription);
-            planDescriptionItems.add(new SelectItem(planDescription.getId(), planDescription.getCreated() + " by " + planDescription.getUpdateAuthor().getScreenName()));
+            planDescriptionItems.add(PlanHistoryWrapper.getWrapper(planDescription));
+            //planDescriptionItems.add(new SelectItem(planDescription.getId(), planDescription.getCreated() + " by " + planDescription.getUpdateAuthor().getScreenName()));
         }
         currentDescriptionVersion = planDescriptions.get(0).getId();
 
@@ -196,7 +196,7 @@ public class PlanItemWrapper {
         return wrapped.getContestPhase().getContestPhasePK();
     }
     
-    public List<SelectItem> getAllDescriptionVersions() throws PortalException, SystemException {
+    public List<PlanHistoryWrapper> getAllDescriptionVersions() throws PortalException, SystemException {
         return planDescriptionItems;
     }
     
@@ -249,7 +249,7 @@ public class PlanItemWrapper {
         return wrapped.getScenarioId();
     }
 
-    public List<SelectItem> getPlanModelRunVersionItems() throws PortalException, SystemException {
+    public List<PlanHistoryWrapper> getPlanModelRunVersionItems() throws PortalException, SystemException {
         List<PlanModelRun> tmp  = wrapped.getAllPlanModelRuns();
         if (tmp.size() != planModelRuns.size()) {
             planModelRuns = tmp;
@@ -258,8 +258,8 @@ public class PlanItemWrapper {
         
             for (PlanModelRun planModelRun: planModelRuns) {
                 planModelRunsById.put(planModelRun.getId(), planModelRun);
-                planModelRunItems.add(new SelectItem(planModelRun.getId(), planModelRun.getCreated() + " by " + planModelRun.getUpdateAuthor().getScreenName()));
-            }        
+                planModelRunItems.add(PlanHistoryWrapper.getWrapper(planModelRun));
+            }
 
             currentPlanModelRunVersion = planModelRuns.get(0).getId();
         }

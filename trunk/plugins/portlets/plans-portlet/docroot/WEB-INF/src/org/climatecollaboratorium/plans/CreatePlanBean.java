@@ -9,6 +9,7 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.event.ActionEvent;
 import java.util.List;
@@ -49,7 +50,9 @@ public class CreatePlanBean {
             }
             else if (planBean != null) {
                 // we need to create a plan based on a plan that is currently visible
-                ContestPhase phase = planBean.getPlan().getWrapped().getContestPhase();
+                PlanItemWrapper wrapper = planBean.getPlan();
+                PlanItem item = wrapper.getWrapped();
+                ContestPhase phase = item.getContestPhase();
                 if (!phase.getContestStatus().isCanEdit()) {
                     List<ContestPhase> active = phase.getContest().getActivePhases();
                     if (active == null || active.isEmpty()) {
