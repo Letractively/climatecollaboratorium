@@ -537,4 +537,11 @@
 		<field name="columnName" type="String" />
 		<field name="columnWeight" type="Integer" />
 	</model>
+	<model name="com.ext.conditionaltext.model.ConditionalTextSetting">
+		<field name="ConditionalTextSettingId" type="Long" />
+		<field name="styleClass" type="String" />
+		<field name="paramKey" type="String" />
+		<field name="paramValue" type="String" />
+		<field name="html" type="String" />
+	</model>
 </model-hints>

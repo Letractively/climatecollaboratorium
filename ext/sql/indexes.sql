@@ -68,6 +68,9 @@ create index IX_35E3E7C6 on Company (system);
 create unique index IX_975996C0 on Company (virtualHost);
 create unique index IX_EC00543C on Company (webId);
 
+create index IX_8A884FE9 on ConditionalTextSetting (paramKey);
+create index IX_6B7B9CC1 on ConditionalTextSetting (paramKey, paramValue);
+
 create index IX_66D496A3 on Contact_ (companyId);
 
 create index IX_E46E624C on Contest (PlanTypeId);

@@ -1176,4 +1176,22 @@
 	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil">
 		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl" />
 	</bean>
+    <bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" class="com.ext.conditionaltext.service.impl.ConditionalTextSettingLocalServiceImpl" />
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalServiceUtil" class="com.ext.conditionaltext.service.ConditionalTextSettingLocalServiceUtil">
+		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" class="com.ext.conditionaltext.service.impl.ConditionalTextSettingServiceImpl" />
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingServiceUtil" class="com.ext.conditionaltext.service.ConditionalTextSettingServiceUtil">
+		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.persistence.ConditionalTextSettingPersistence.impl" class="com.ext.conditionaltext.service.persistence.ConditionalTextSettingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.conditionaltext.service.persistence.ConditionalTextSettingUtil" class="com.ext.conditionaltext.service.persistence.ConditionalTextSettingUtil">
+		<property name="persistence" ref="com.ext.conditionaltext.service.persistence.ConditionalTextSettingPersistence.impl" />
+	</bean>
 </beans>
