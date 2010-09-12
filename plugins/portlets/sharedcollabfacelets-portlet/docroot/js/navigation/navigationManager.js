@@ -14,6 +14,7 @@ Collab.nav = new function() {
 	var req = 0;
 	var alertUserOnExit = false;
 	var queryString = false;
+	var initialized = false;
 
 	/**
 	 * this field should hold a set callback functions used to determine if contents of currently displayed
@@ -23,12 +24,12 @@ Collab.nav = new function() {
 	 */
 	var editorDirtyValidationCallbacks = [];
 	
-	this.navigate = function(token, parameters) {
+	this.navigate = function(token, parameters, block) {
 		navigationItems[token] = parameters;
-		updateHash();
+		updateHash(block);
 	}
 	
-	this.navigateAddParams = function(token, additionalParameters) {
+	this.navigateAddParams = function(token, additionalParameters, block) {
 		if (typeof(navigationItems[token]) == 'undefined') {
 			navigationItems[token] = {};
 		}
@@ -36,7 +37,7 @@ Collab.nav = new function() {
 			navigationItems[token][key] = additionalParameters[key];
 		}
 
-		updateHash();
+		updateHash(block);
 	}
 	
 	/**
@@ -47,7 +48,7 @@ Collab.nav = new function() {
 	 * 	...
 	 * }
 	 */
-	this.navigateAddParamsMulti = function(tokenAndParams) {
+	this.navigateAddParamsMulti = function(tokenAndParams, block) {
 		for (var token in tokenAndParams) {
 			if (typeof(navigationItems[token]) == 'undefined') {
 				navigationItems[token] = {};
@@ -57,7 +58,7 @@ Collab.nav = new function() {
 			}
 		}
 
-		updateHash();
+		updateHash(block);
 	}
 	
 	this.navigateRemoveParams = function(token, paramsToBeRemoved) {
@@ -74,6 +75,12 @@ Collab.nav = new function() {
 		//alert("pageload");
 		navigationItems = parseToken(hash);
 		//alert("after parsing token " + hash + "try to force navigation..." + jQuery(".navigationManagerForm .submit").length + " " + jQuery(".navigationManagerForm .navigationToken").length);
+		if(!initialized) {
+			initialized = true;
+			if (hash.length > 1) {
+				jQuery('#mainContent').block();
+			}
+		}
 		forceNavigation();
 		//alert("navigation forced? " + jQuery(".navigationManagerForm .submit").length);
 	}
@@ -87,7 +94,7 @@ Collab.nav = new function() {
 		
 	}
 		
-	function updateHash() {
+	function updateHash(block) {
 		//navigationItems["req"] = req++;
 		//alert(navigationItems.req);
 		//navigationItems['req'] = {req: req++};
@@ -97,7 +104,11 @@ Collab.nav = new function() {
 				return ;
 			}
 		}
+		if (block) {
+			jQuery("#mainContent").block();
+		}
 		window.location.hash = createToken();
+		initialized = true;
 	}
 	
 	function parseToken(token) {
