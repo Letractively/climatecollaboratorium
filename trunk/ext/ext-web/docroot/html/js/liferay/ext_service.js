@@ -37,7 +37,7 @@ Liferay.Service.register("Liferay.Service.Debaterevision", "com.ext.portlet.deba
 
 Liferay.Service.register("Liferay.Service.Debatemigration", "com.ext.portlet.debatemigration.service");
 
-Liferay.Service.register("Liferay.Service.inlinehelp", "com.ext.inlinehelp.service");
+Liferay.Service.register("Liferay.Service.inlinehelp", "com.ext.conditionaltext.service");
 
 Liferay.Service.register("Liferay.Service.Discussions", "com.ext.portlet.discussions.service");
 

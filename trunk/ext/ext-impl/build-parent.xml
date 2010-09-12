@@ -381,6 +381,12 @@ ${exception.message}
             <param name="service.file" value="src/com/ext/inlinehelp/service.xml" />
         </antcall>
      </target>
+
+    <target name="build-service-portlet-conditionaltext">
+        <antcall target="build-service">
+            <param name="service.file" value="src/com/ext/conditionaltext/service.xml" />
+        </antcall>
+     </target>
         	
 	   <target name="build-service-portlet-discussions">
 	        <antcall target="build-service">

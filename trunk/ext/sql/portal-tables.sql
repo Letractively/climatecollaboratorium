@@ -183,6 +183,14 @@ create table Company (
 	system BOOLEAN
 );
 
+create table ConditionalTextSetting (
+	ConditionalTextSettingId LONG not null primary key,
+	styleClass VARCHAR(75) null,
+	paramKey VARCHAR(75) null,
+	paramValue VARCHAR(75) null,
+	html VARCHAR(75) null
+);
+
 create table Contact_ (
 	contactId LONG not null primary key,
 	companyId LONG,

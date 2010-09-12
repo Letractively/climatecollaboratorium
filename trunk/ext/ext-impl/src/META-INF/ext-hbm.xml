@@ -727,4 +727,14 @@
 		<property name="columnName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="columnWeight" />
 	</class>
+	<class name="com.ext.conditionaltext.model.impl.ConditionalTextSettingImpl" table="ConditionalTextSetting">
+		<cache usage="read-write" />
+		<id name="ConditionalTextSettingId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="styleClass" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="paramKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="paramValue" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="html" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 </hibernate-mapping>
