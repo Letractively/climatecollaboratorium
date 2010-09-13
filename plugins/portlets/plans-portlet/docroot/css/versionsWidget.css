@@ -1,5 +1,5 @@
 .versionsContainer {
-    width:100%;
+    
     padding:10px;
     background: #EDEBEA;
     text-align: center;
@@ -17,16 +17,16 @@
 
 .versionsTrigger {
     font-weight: bold;
-    
     font-size:1.2em;
     text-align: center;
 }
 
 .chooseVersionWidget {
-	float: right;
-    padding: 7px;
+	padding: 7px;
     margin-right:25px;
-    background:#EDEBEA;
+    background:url("../img/page_white_stack.png") no-repeat scroll 9px 7px #EDEBEA;
+    padding-left: 30px;
+    
 }
 
 .editWithVersions {
