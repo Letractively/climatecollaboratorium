@@ -21,8 +21,15 @@ body {
 	margin: 0;
 }
 
+ul {
+    margin-top:.5em;
+    margin-bottom:.5em;
+    margin-left:1em;
+}
+
 ul li, ul ul li {
-	list-style: none;
+	list-style: disc inside none;
+    
 }
 
 .clear {
@@ -31,7 +38,7 @@ ul li, ul ul li {
 }
 
 #mainContent {
-	background-color: #FFFFFF;
+
 }
 
 .treeContent .question {
