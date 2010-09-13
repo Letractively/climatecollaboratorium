@@ -12,7 +12,6 @@
 		<instanceable>true</instanceable>
 		<ajaxable>false</ajaxable>
 		<header-portlet-css>/css/conditional-text.css</header-portlet-css>
-		<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

@@ -49,12 +49,10 @@
 		<managed-bean-name>conditionalTextDisplayBean</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.conditionaltext.ConditionalTextDisplayBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-		
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>conditionalTextSettingsBean</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.conditionaltext.ConditionalTextSettingsBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-
 	</managed-bean>
 </faces-config>
