@@ -44,9 +44,9 @@ public class PlanModelBean {
 
     private List<SelectItem> availableItems = new ArrayList<SelectItem>();
 
-    public SelectItem selectedItem;
+    public Long selectedItem;
 
-    public SelectItem currentItem;
+    public Long currentItem;
 
     public PlanModelBean(PlanItem item, PlanBean plan) throws SystemException, PortalException {
         this.planBean = plan;
@@ -63,8 +63,8 @@ public class PlanModelBean {
                 availableItems.add(sitem);
                 availableMap.put(wrapper.getId(),wrapper);
                 if (sim.getId().equals(planItem.getPlanMeta().getModelId())) {
-                    selectedItem = sitem;
-                    currentItem = sitem;
+                    selectedItem = wrapper.getId();
+                    currentItem = wrapper.getId();
                 }
             }
          } catch (PortalException e) {
@@ -78,7 +78,7 @@ public class PlanModelBean {
            Long id = planItem.getPlanType().getDefaultModelId();
            for (SelectItem sitem:availableItems) {
               if (sitem.getValue().equals(id)) {
-                  currentItem = selectedItem = sitem;
+                  currentItem = selectedItem = (Long) sitem.getValue();
                   planItem.setModelId(id,10144L);
                   planItem.store();
               }
@@ -95,22 +95,22 @@ public class PlanModelBean {
     }
 
     public PlanModelWrapper getCurrentModel() {
-        return availableMap.get(currentItem!=null?(Long)currentItem.getValue():null);
+        return availableMap.get(currentItem!=null?currentItem:null);
     }
 
     public PlanModelWrapper getSelectedModel() {
-        return availableMap.get(selectedItem!=null?(Long)selectedItem.getValue():null);
+        return availableMap.get(selectedItem!=null?selectedItem:null);
     }
 
     public List<SelectItem> getAvailableModels() {
        return availableItems;
     }
 
-    public void setSelectedItem(SelectItem item) {
+    public void setSelectedItem(Long item) {
          selectedItem = item;
     }
 
-    public SelectItem getSelectedItem() {
+    public Long getSelectedItem() {
         return selectedItem;
     }
 
