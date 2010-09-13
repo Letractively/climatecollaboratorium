@@ -110,13 +110,15 @@ public class PlanBean {
             simulationBean.cleanup();
         }
         if (planId != null && planId > 0) {
+
             planItem = PlanItemLocalServiceUtil.getPlan(planId);
+            modelBean = new PlanModelBean(planItem,this);
             plan = new PlanItemWrapper(planItem, this, permissions);
             permissions.setPlan(planItem);
             planPositionsBean = new PlanPositionsBean(planItem, this);
             simulationBean = new SimulationBean(planItem, this, eventBus);
             membershipBean = new PlanMembershipBean(planItem, this, permissions);
-            modelBean = new PlanModelBean(planItem,this);
+
         }
     }
 

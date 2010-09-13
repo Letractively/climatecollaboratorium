@@ -45,6 +45,13 @@ input[type="submit"].prominantButton:hover {
 	text-align: right;
 	padding: 5px;
     float:right;
+    margin-top:-27px;
+
+}
+
+.container_top table.topActions {
+    border-collapse:separate;
+    border-spacing:10px;
 }
 
 .topActions input[type="submit"].prominantButton {
