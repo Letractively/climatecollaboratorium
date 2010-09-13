@@ -44,7 +44,6 @@
                         <f:attribute name="item" value="#{historyItem}"/>
                     </ice:commandLink>
 
-
                 </ice:column>
                 <ice:column>
                     <f:facet name="header">
@@ -106,7 +105,7 @@
                                    showEditArea="true" showEditButton="false"/>
             </f:subview>
             <f:subview rendered="#{not permissions.canEdit}">
-                <collab:simulation simulationId="#{planBean.plan.selectedModel}"
+                <collab:simulation simulationId="#{planBean.modelBean.selectedItem}"
                                    scenarioId="#{planBean.plan.planModelRunScenarioId}"
                                    disableInputs="true"/>
             </f:subview>
@@ -118,7 +117,7 @@
        <ice:panelGrid columns="2">
             <ice:panelGroup>
                
-                <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" partialSubmit="true">
+                <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" partialSubmit="true" disabled="#{not simulationBean.embeddedEditing}">
                     <f:selectItems value="#{planBean.modelBean.availableModels}"/>
                 </ice:selectOneMenu>
             </ice:panelGroup>
@@ -128,7 +127,7 @@
             </ice:panelGroup>
             <ice:panelGroup>
                 <ice:commandButton value="Upload model"
-                                   onclick="showModelUploadPopup();"/>
+                                   onclick="showModelUploadPopup();" disabled="#{not simulationBean.embeddedEditing}" />
 
             </ice:panelGroup>
             <ice:panelGroup>

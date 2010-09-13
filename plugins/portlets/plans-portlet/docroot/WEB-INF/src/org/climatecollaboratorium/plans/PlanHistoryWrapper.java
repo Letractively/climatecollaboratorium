@@ -51,7 +51,7 @@ public abstract class PlanHistoryWrapper<T> {
 
             @Override
             public long getUpdateVersion() {
-                return run.getVersion();
+                return run.getId();
             }
 
             @Override

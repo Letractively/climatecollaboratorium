@@ -226,5 +226,10 @@ public class PlanBean {
     public void refreshIndex() throws PortalException, SystemException {
         plansIndexBean.refresh();
     }
+
+    public void modelChanged() {
+        plan.modelChanged();
+        
+    }
     
 }
