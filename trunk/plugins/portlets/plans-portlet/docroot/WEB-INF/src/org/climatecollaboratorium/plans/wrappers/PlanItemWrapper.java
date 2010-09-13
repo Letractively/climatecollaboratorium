@@ -283,7 +283,9 @@ public class PlanItemWrapper {
     }
     
     public Long getPlanModelRunScenarioId() {
-        return planModelRuns != null && currentPlanModelRunVersion != null ? planModelRunsById.get(currentPlanModelRunVersion).getScenarioId() : null; 
+        return planModelRunsById != null && 
+        currentPlanModelRunVersion != null && 
+        planModelRunsById.get(currentPlanModelRunVersion) != null ? planModelRunsById.get(currentPlanModelRunVersion).getScenarioId() : null; 
     }
     
     
@@ -336,7 +338,7 @@ public class PlanItemWrapper {
     }    
     
     public boolean isSimulationLatestVersion() {
-        return currentPlanModelRunVersion.equals(planModelRuns.get(0).getId());
+        return currentPlanModelRunVersion != null ? currentPlanModelRunVersion.equals(planModelRuns.get(0).getId()) : false;
     }
     
     public Date getDescriptionVersionDate() {
@@ -344,7 +346,7 @@ public class PlanItemWrapper {
     }
     
     public Date getSimulationVersionDate() {
-        return planModelRunsById.get(currentPlanModelRunVersion).getCreated();
+        return currentPlanModelRunVersion == null ? null :planModelRunsById.get(currentPlanModelRunVersion).getCreated();
     }
     
     public User getDescriptionVersionAuthor() throws PortalException, SystemException {
@@ -352,7 +354,7 @@ public class PlanItemWrapper {
     }
     
     public User getSimulationVersionAuthor() throws PortalException, SystemException {
-        return planModelRunsById.get(currentPlanModelRunVersion).getUpdateAuthor();
+        return currentPlanModelRunVersion == null ? null : planModelRunsById.get(currentPlanModelRunVersion).getUpdateAuthor();
     }
     
         public Long getCategoryGroupId() throws SystemException {
@@ -444,6 +446,11 @@ public class PlanItemWrapper {
     public void setSeekingAssistance(boolean seekingAssistance) throws PortalException, SystemException {
         wrapped.setSeekingAssistance(seekingAssistance);
         planBean.refreshIndex();
+    }
+
+
+    public void modelChanged() {
+        currentPlanModelRunVersion = null;
     }
 
 }

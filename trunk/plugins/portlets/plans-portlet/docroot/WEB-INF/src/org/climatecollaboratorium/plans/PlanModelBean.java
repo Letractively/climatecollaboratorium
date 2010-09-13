@@ -108,6 +108,7 @@ public class PlanModelBean {
 
     public void setSelectedItem(Long item) {
          selectedItem = item;
+         planBean.modelChanged();
     }
 
     public Long getSelectedItem() {
