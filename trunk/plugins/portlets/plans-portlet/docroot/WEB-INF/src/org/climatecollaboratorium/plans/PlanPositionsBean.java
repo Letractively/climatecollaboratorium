@@ -33,7 +33,7 @@ public class PlanPositionsBean {
     private PlanBean planBean;
     private List<PlanPositions> planPositions;
     private Map<Long, PlanPositions> planPositionsById = new HashMap<Long, PlanPositions>();
-    private List<SelectItem> planPositionItems = new ArrayList<SelectItem>();
+    private List<PlanHistoryWrapper> planPositionItems = new ArrayList<PlanHistoryWrapper>();
     private Long planPositionsVersion;
     private Long lastPositionsVersion;
     private boolean positionsSet;
@@ -49,7 +49,7 @@ public class PlanPositionsBean {
         planPositions = plan.getAllPositionsVersions();
         for (PlanPositions positions: planPositions) {
             planPositionsById.put(positions.getId(), positions);
-            planPositionItems.add(new SelectItem(positions.getId(), positions.getCreated() + " by " + positions.getUpdateAuthor().getScreenName()));
+            planPositionItems.add(PlanHistoryWrapper.getWrapper(positions));
         }
         planPositionsVersion = planPositions.get(0).getId();
         lastPositionsVersion = -1L;
@@ -118,7 +118,7 @@ public class PlanPositionsBean {
         planBean.refresh();
     }
 
-    public List<SelectItem> getPlanPositionsVersions() {
+    public List<PlanHistoryWrapper> getPlanPositionsVersions() {
         return planPositionItems;
     }
 
@@ -128,6 +128,11 @@ public class PlanPositionsBean {
 
     public void setPlanPositionsVersion(Long planPositionsVersion) {
         this.planPositionsVersion = planPositionsVersion;
+    }
+
+    public void selectVersion(ActionEvent evt) {
+        PlanHistoryWrapper wrapper = (PlanHistoryWrapper) evt.getComponent().getAttributes().get("item");
+        setPlanPositionsVersion(wrapper.getUpdateVersion());
     }
 
     public String getSelectedPositionsIds() throws SystemException {

@@ -211,6 +211,11 @@ public class PlanItemWrapper {
         candidateDescription = planDescriptionsById.get(descriptionVersion).getDescription();
         
     }
+
+     public void selectDescriptionVersion(ActionEvent evt) {
+        PlanHistoryWrapper wrapper = (PlanHistoryWrapper) evt.getComponent().getAttributes().get("item");
+        setDescriptionVersion(wrapper.getUpdateVersion());
+    }
     
     public void descriptionVersion(ValueChangeEvent event) {
         candidateName = planDescriptionsById.get(currentDescriptionVersion).getName();
@@ -238,11 +243,7 @@ public class PlanItemWrapper {
     }
 
     public Long getSelectedModel() throws SystemException {
-	System.out.println("wrapped: " + wrapped);
-	System.out.println("wrapped.planmeta: " + wrapped.getPlanMeta());
-	//System.out.println(wrapped.getModelId());
-	System.out.println("wrapped.getPlanMeta.getModelId: " + wrapped.getPlanMeta().getModelId());
-        return wrapped.getPlanMeta().getModelId();
+	    return wrapped.getPlanMeta().getModelId();
     }
     
     public Long getScenarioId() throws SystemException {
@@ -272,6 +273,11 @@ public class PlanItemWrapper {
     
     public void setCurrentPlanModelRunVersion(Long selectedVersion) {
         currentPlanModelRunVersion = selectedVersion;
+    }
+
+    public void selectModelRunVersion(ActionEvent evt) {
+        PlanHistoryWrapper wrapper = (PlanHistoryWrapper) evt.getComponent().getAttributes().get("item");
+        setCurrentPlanModelRunVersion(wrapper.getUpdateVersion());
     }
     
     public Long getPlanModelRunScenarioId() {

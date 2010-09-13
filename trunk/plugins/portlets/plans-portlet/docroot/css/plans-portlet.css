@@ -15,14 +15,18 @@ SHARED ELEMENTS
 }
 
 input[type="submit"].prominantButton {
-    background: #708AB3;
-    color: #ffffff;
+    background: #E3DFD7;
+    background-image:none;
+    color: #C74430;
     margin: 5px 0;
-    font-size: 1.8em;
+    font-size: 1.3em;
+    border:none;
 }
 input[type="submit"].prominantButton:hover {
-    background: #91B1E6;
-    color: #ffffff;
+    background: #f2e5cd;
+    background-image:none;
+    color: #C74430;
+    border:none;
 }
 
 .plans ul li {
@@ -53,11 +57,10 @@ input[type="submit"].prominantButton:hover {
 .inlineHelp {
     border: 1px solid #cfc8b1;
     background: #ffffdb;
-    padding:10px;
-   
+    padding: 10px;
     font-size:10pt;
     color: #858572;
-    margin:10px;
+    margin:10px 40px;
 
 }
 
@@ -374,7 +377,7 @@ td.contestTabSetCnt {
  */
 .container_middle {
     border:15px solid;
-    border-color: #e6e1d0;
+    border-color: #E3DFD7;
   
 }
 
@@ -412,8 +415,6 @@ table.mainTabs {
 
 table.mainTabs > tbody > tr:first-child > td {
    background-color: #EDEBEA;
-    padding-top:5px;
-    
 }
  
  table.mainTabs > tbody > tr:first-child table .icePnlTb,
@@ -453,7 +454,8 @@ table.mainTabs > tbody > tr:first-child table .MidMid {
     padding-left:20px;
 }
 
-table.mainTabs > tbody > tr:first-child table .icePnlTbOn .MidMid {
+table.mainTabs > tbody > tr:first-child table td.admin {
+  background:#E3DFD7;
 }
 
 
@@ -494,14 +496,35 @@ td.icePnlTbSetCnt.mainTabsCnt {
     background-color: #FFFFFF;
 }
 
+.toolbar {
+    float:right;
+}
+
 div.editControls {
     padding:7px;
-    float:left;
     font-size:1.2em;
-    margin-left:25px;
-    background: #EDEBEA;
+
     font-weight:bold;
 }
+
+div.editControls.edit {
+    background:url("../img/page_edit.png") no-repeat scroll 9px 7px transparent;
+    padding-left: 30px;
+     margin-right:15px;
+}
+
+div.editControls.save {
+    background:url("../img/disk.png") no-repeat scroll 9px 7px transparent;
+    padding-left: 30px;
+}
+
+div.editControls.cancelEdit {
+    background:url("../img/cross.png") no-repeat scroll 9px 7px transparent;
+    padding-left: 30px;
+    font-weight: normal;
+     margin-right:15px;
+}
+
 
 
 
@@ -917,4 +940,5 @@ th.voteForPlan {
     width: 25px;
     height: 25px;
 }
+
 

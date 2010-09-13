@@ -8,6 +8,7 @@ package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanModelRun;
+import com.ext.portlet.plans.model.PlanPositions;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
@@ -88,6 +89,38 @@ public abstract class PlanHistoryWrapper<T> {
             @Override
             public PlanDescription getWrapped() {
                 return desc;
+            }
+        };
+    }
+
+    public static PlanHistoryWrapper<PlanPositions> getWrapper(final PlanPositions positions) {
+        return new PlanHistoryWrapper<PlanPositions>() {
+
+            @Override
+            public Date getUpdateDate() {
+                return positions.getCreated();
+            }
+
+            @Override
+            public User getUpdateAuthor() {
+                try {
+                    return positions.getUpdateAuthor();
+                } catch (PortalException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (SystemException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+                return null;
+            }
+
+            @Override
+            public long getUpdateVersion() {
+                return positions.getId();
+            }
+
+            @Override
+            public PlanPositions getWrapped() {
+                return positions;
             }
         };
     }

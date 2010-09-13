@@ -9,6 +9,13 @@
 	position: relative;
 }
 
+div.positionsContent, div.editWithVersions {
+    padding-right:20px;
+    padding-left:20px;
+}
+
+
+
 
 .assumption .question {
     background:url("../img/question_icon_small.png") no-repeat scroll 3px 3px transparent;
