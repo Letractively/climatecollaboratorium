@@ -243,10 +243,12 @@ public class PlanItemWrapper {
     }
 
     public Long getSelectedModel() throws SystemException {
-	    return wrapped.getPlanMeta().getModelId();
+	    return planBean.getModelBean().getSelectedModel().getId();
+
     }
     
     public Long getScenarioId() throws SystemException {
+        
         return wrapped.getScenarioId();
     }
 

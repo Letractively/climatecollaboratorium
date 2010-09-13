@@ -16,6 +16,7 @@ import java.util.*;
 
 import javax.faces.FacesException;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.plans.wrappers.PlanModelWrapper;
 
@@ -37,14 +38,17 @@ public class PlanModelBean {
     private boolean editing = false;
     private ThemeDisplay td = Helper.getThemeDisplay();
 
-    private List<PlanModelWrapper> availableItems = new ArrayList<PlanModelWrapper>();
     private Map<Long,PlanModelWrapper> availableMap = new HashMap<Long,PlanModelWrapper>();
 
-    public PlanModelWrapper selectedModel;
 
-    public PlanModelWrapper currentModel;
 
-    public PlanModelBean(PlanItem item, PlanBean plan) {
+    private List<SelectItem> availableItems = new ArrayList<SelectItem>();
+
+    public SelectItem selectedItem;
+
+    public SelectItem currentItem;
+
+    public PlanModelBean(PlanItem item, PlanBean plan) throws SystemException, PortalException {
         this.planBean = plan;
         this.planItem = item;
 
@@ -55,17 +59,30 @@ public class PlanModelBean {
 
             for (Simulation sim : planItem.getPlanType().getAvailableModels()) {
                 PlanModelWrapper wrapper = new PlanModelWrapper(sim,simple);
-                availableItems.add(wrapper);
+                SelectItem sitem = new SelectItem(wrapper.getId(),wrapper.getName());
+                availableItems.add(sitem);
                 availableMap.put(wrapper.getId(),wrapper);
                 if (sim.getId().equals(planItem.getPlanMeta().getModelId())) {
-                    currentModel = wrapper;
-                    selectedModel = currentModel;
+                    selectedItem = sitem;
+                    currentItem = sitem;
                 }
             }
          } catch (PortalException e) {
             throw new FacesException(e);
         } catch (SystemException e) {
            throw new FacesException(e);
+        }
+
+        //This is terrible - shouldn't happen, but if it does, just reset to the default model.
+        if (currentItem == null) {
+           Long id = planItem.getPlanType().getDefaultModelId();
+           for (SelectItem sitem:availableItems) {
+              if (sitem.getValue().equals(id)) {
+                  currentItem = selectedItem = sitem;
+                  planItem.setModelId(id,10144L);
+                  planItem.store();
+              }
+           }
         }
     }
 
@@ -78,35 +95,39 @@ public class PlanModelBean {
     }
 
     public PlanModelWrapper getCurrentModel() {
-        return currentModel;
+        return availableMap.get(currentItem!=null?(Long)currentItem.getValue():null);
     }
 
-    public List<PlanModelWrapper> getAvailableModels() {
+    public PlanModelWrapper getSelectedModel() {
+        return availableMap.get(selectedItem!=null?(Long)selectedItem.getValue():null);
+    }
+
+    public List<SelectItem> getAvailableModels() {
        return availableItems;
     }
 
-    public void setSelectedId(Long id) {
-      selectedModel = availableMap.get(id);
+    public void setSelectedItem(SelectItem item) {
+         selectedItem = item;
     }
 
-    public Long getSelectedId() {
-        return selectedModel !=null?selectedModel.getId():-1;
+    public SelectItem getSelectedItem() {
+        return selectedItem;
     }
 
-
+   
     public void startEdit(ActionEvent e) {
         setEditing(true);
     }
 
     public void cancelEdit(ActionEvent e) {
         setEditing(false);
-        selectedModel = currentModel;
+        selectedItem = currentItem;
     }
 
     public void submit(ActionEvent e) {
-        currentModel = selectedModel;
+        currentItem = selectedItem;
         try {
-            planItem.setModelId(currentModel.getCoreModel().getId(),td.getUserId());
+            planItem.setModelId(getCurrentModel().getCoreModel().getId(),td.getUserId());
         } catch (PortalException e1) {
             e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (SystemException e1) {

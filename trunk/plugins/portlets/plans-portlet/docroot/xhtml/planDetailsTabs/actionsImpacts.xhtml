@@ -13,6 +13,25 @@
         </script>
     </ice:panelGroup>
 
+    <div id="model-upload" class="hidden">
+        <div id="model-upload-popup-content">
+            <div class="upload-info">
+                You can create your own disaggregated model, which we will consider for incorporation. A template
+                with instructions for creating a spreadsheet model is available <a
+                    href="http://www.google.com"> here</a>.
+                Once you have completed your model, please email to <a href="mailto:rjl@mit.edu">rjl@mit.edu</a>.
+            </div>
+
+            <ice:commandButton style-class="dialog-buttons" value="OK"
+                               onclick="hideModelUploadDialog(true);return false;"/>
+
+        </div>
+    </div>
+
+
+    <div class="hidden" id="model-selection-popup"></div>
+    <div class="hidden" id="model-upload-popup"></div>
+
     <div class="versionsContainer">
         <div class="versions">
             <ice:dataTable value="#{planBean.plan.planModelRunVersionItems}" rows="10" var="historyItem">
@@ -41,22 +60,22 @@
         </div>
     </div>
     <ice:panelGrid styleClass="toolbar" columns="3">
-    <ice:panelGroup styleClass="edit editControls"
-                    rendered="#{planBean.plan.selectedModel != null and permissions.canEdit and not simulationBean.embeddedEditing}">
-        <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{simulationBean.editActions}"
-                />
-    </ice:panelGroup>
-    <ice:panelGroup styleClass="save editControls" rendered="#{simulationBean.embeddedEditing}">
-        <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}"/>
-    </ice:panelGroup>
-    <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{simulationBean.embeddedEditing}">
-        <ice:commandLink value="Cancel" actionListener="#{simulationBean.editActions}"/>
-    </ice:panelGroup>
+        <ice:panelGroup styleClass="edit editControls"
+                        rendered="#{planBean.plan.selectedModel != null and permissions.canEdit and not simulationBean.embeddedEditing}">
+            <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{simulationBean.editActions}"
+                    />
+        </ice:panelGroup>
+        <ice:panelGroup styleClass="save editControls" rendered="#{simulationBean.embeddedEditing}">
+            <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}"/>
+        </ice:panelGroup>
+        <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{simulationBean.embeddedEditing}">
+            <ice:commandLink value="Cancel" actionListener="#{simulationBean.editActions}"/>
+        </ice:panelGroup>
 
 
-    <ice:panelGroup styleClass="chooseVersionWidget">
-        <a href="javascript:" class="versionsTrigger">Show old versions</a>
-    </ice:panelGroup>
+        <ice:panelGroup styleClass="chooseVersionWidget">
+            <a href="javascript:" class="versionsTrigger">Show old versions</a>
+        </ice:panelGroup>
     </ice:panelGrid>
 
 
@@ -76,7 +95,10 @@
                 <strong><ice:outputText value="#{planBean.plan.simulationVersionAuthor.screenName}"/></strong>
             </a>
         </ice:panelGroup>
-
+        <ice:outputText escape="false">
+            The core simulation model for this contest is the MIT Composite Model. See more information <a
+                href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>
+        </ice:outputText>
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
             <f:subview rendered="#{permissions.canEdit}">
                 <collab:simulation simulationId="#{planBean.plan.selectedModel}"
@@ -93,6 +115,27 @@
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
             No model has been set.
         </ice:panelGroup>
+       <ice:panelGrid columns="2">
+            <ice:panelGroup>
+               
+                <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" partialSubmit="true">
+                    <f:selectItems value="#{planBean.modelBean.availableModels}"/>
+                </ice:selectOneMenu>
+            </ice:panelGroup>
+            
+            <ice:panelGroup>
+                You can select varying levels of geographic disaggregation for the actions in this model by using the menu to the left.
+            </ice:panelGroup>
+            <ice:panelGroup>
+                <ice:commandButton value="Upload model"
+                                   onclick="showModelUploadPopup();"/>
+
+            </ice:panelGroup>
+            <ice:panelGroup>
+                or upload your own model.
+            </ice:panelGroup>
+        </ice:panelGrid>
+
     </ice:panelGroup>
     <script language="javascript">
         jQuery(document).ready(initVersionChoosingBox);
