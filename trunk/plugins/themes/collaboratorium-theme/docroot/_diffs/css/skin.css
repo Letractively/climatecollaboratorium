@@ -41,3 +41,11 @@
 #footer .inner p{
 	color:#676767;
 }
+
+a {
+    color:#009ebb;
+}
+
+a:hover {
+    color: #00b4d6;
+}
