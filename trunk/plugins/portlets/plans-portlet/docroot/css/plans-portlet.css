@@ -44,6 +44,9 @@ input[type="submit"].prominantButton.createNewPlanButton {
 
 
 .container_top {
+    background:none repeat scroll 0 0 #F9F9F8;
+    border:15px solid #E3DFD7;
+    padding:30px 30px 0
    
 }
 
@@ -110,6 +113,8 @@ a.helpMessageTrigger.helpVisible {
 a.helpMessageTrigger.helpHidden {
     display:inline;
     color: #8c96b4;
+    float:left;
+    margin-left:40px;
 }
 
 
@@ -1039,3 +1044,6 @@ div.plansBreadcrumb {
     padding-left:13px;
     padding-top:15px;
 }
+
+
+
