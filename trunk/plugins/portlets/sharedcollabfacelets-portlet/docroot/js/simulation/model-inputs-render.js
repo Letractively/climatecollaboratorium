@@ -9,7 +9,7 @@
 
 
 //setTimeout(function() { log.toggle(); }, 1000);
-
+var debug = false;
 function renderModelInputs(event) {
 	showSliders();
 }
@@ -204,7 +204,9 @@ function convertTypedValuesToNumbers() {
 		
 			valueBinding.val(parseFieldValue(val, unit));
 		} catch (e) { 
-			alert("Error one"+e);
+			if (debug) {
+				alert("Error one"+e);
+			}
 		}
 	});
 }
@@ -221,7 +223,9 @@ function runSimulation() {
 		
 		valueBinding.val(parseFieldValue(val, unit));;
 		} catch (e) { 
-			alert("Error two"+e);
+			if (debug) {
+				alert("Error two"+e);
+			}
 		}
 	});
 	
@@ -496,7 +500,9 @@ function renderModelOutputs() {
 			jQuery("#" + chartPlaceholderId).parent().height(height + 60);
 
 		} catch (e) {
-			alert("Error 3"+e);
+			if (debug) {
+				alert("Error 3"+e);
+			}
             //log.error(e);
 		}
 	});
