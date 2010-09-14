@@ -207,7 +207,9 @@
           <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/portal-impl.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../portal copy/portal-impl/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">

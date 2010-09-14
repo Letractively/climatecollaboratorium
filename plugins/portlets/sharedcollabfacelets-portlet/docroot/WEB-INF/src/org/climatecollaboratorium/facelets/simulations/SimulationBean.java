@@ -153,6 +153,7 @@ public class SimulationBean {
                 }
             }
         }
+        
     }
 
     public void cancelEditing(ActionEvent event) {
