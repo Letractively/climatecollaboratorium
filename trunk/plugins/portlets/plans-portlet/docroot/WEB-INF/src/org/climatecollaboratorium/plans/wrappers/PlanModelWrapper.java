@@ -47,7 +47,7 @@ public class PlanModelWrapper {
 
     }
 
-    private Simulation lookupDisaggregationModel(Simulation sim) {
+    private static Simulation lookupDisaggregationModel(Simulation sim) {
          String disaggid = ClientSimulation.parseTypes(sim).get("disagg");
         try {
             return disaggid==null?null: CollaboratoriumModelingService.repository().getSimulation(Long.parseLong(disaggid));
@@ -87,6 +87,14 @@ public class PlanModelWrapper {
            return result[1];
        }
         return "";
+    }
+
+
+    public static String getDisaggregationName(Simulation sim) {
+       Simulation model= lookupDisaggregationModel(sim);
+        if (model == null) {
+            return DEFAULT_NAME;
+        } else return model.getName();
     }
 
   
