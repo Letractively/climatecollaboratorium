@@ -192,6 +192,42 @@ div.themed-content.community.featured-expert td.bio {
     padding:10px;
 }
 
+/** CONTESTS **/
+/** CONTESTS TAB **/
+
+div.contests.themed-content {
+    border:15px solid;
+    border-color: #E3DFD7;
+    background:#F9F9F8;
+    padding-left:70px;
+padding-right:70px;
+padding-top:50px;
+    padding-bottom:50px;
+    font-size:1.3em;
+}
+
+div.contests.themed-content table {
+    width:100%;
+}
+
+div.contests.themed-content table td {
+    vertical-align:top;
+}
+
+div.contests.themed-content table td.left {
+
+    
+    padding-top:20px;
+}
+
+div.contests.themed-content div.indent {
+margin-left:1.5em;
+margin-top:1em;
+}
+
+
+
+
 
 /** LIFERAY OVERRIDES **/
 
