@@ -15,7 +15,10 @@ import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.event.ActionEvent;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlanBean {
@@ -30,7 +33,7 @@ public class PlanBean {
     private PlanMembershipBean membershipBean;
     private PlansPermissionsBean permissions;
     private EventBus eventBus;
-    private HandlerRegistration scenarioSavedEventHandlerRegistration;
+    private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     private static ThemeDisplay td = Helper.getThemeDisplay();
     private int selectedTabIndex = 0;
     private Long planId = -1L;

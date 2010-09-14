@@ -120,7 +120,7 @@
        <ice:panelGrid columns="2">
             <ice:panelGroup>
                
-                <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" partialSubmit="true" disabled="#{not simulationBean.embeddedEditing}">
+                <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" partialSubmit="true" disabled="#{not simulationBean.embeddedEditing}" valueChangeListener="#{planBean.modelBean.modelChagnedListener}">
                     <f:selectItems value="#{planBean.modelBean.availableModels}"/>
                 </ice:selectOneMenu>
             </ice:panelGroup>
