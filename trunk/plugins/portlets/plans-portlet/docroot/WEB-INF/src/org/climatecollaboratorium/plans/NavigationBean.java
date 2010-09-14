@@ -38,6 +38,7 @@ public class NavigationBean {
         planBean = new PlanBean();
         plansPermissionsBean = new PlansPermissionsBean();
         issuesBean = new IssuesBean();
+        createPlanBean = new CreatePlanBean(plansIndexBean);
         
         planBean.setPermissions(plansPermissionsBean);
         planBean.setPlansIndexBean(plansIndexBean);
@@ -74,6 +75,8 @@ public class NavigationBean {
                     planBean.init(event);
                     
                     issuesBean.init(event);
+                    
+                    createPlanBean.init(event);
                 } catch (NoSuchContestPhaseException e) {
                     _log.error("Can't init plan related beans", e);
                 } catch (PortalException e) {
@@ -97,11 +100,6 @@ public class NavigationBean {
     }
 
     public CreatePlanBean getCreatePlanBean() {
-        if (createPlanBean == null) {
-            createPlanBean = new CreatePlanBean(plansIndexBean);
-        } else {
-            createPlanBean.setPlansIndex(plansIndexBean);
-        }
         return createPlanBean;
     }
 
