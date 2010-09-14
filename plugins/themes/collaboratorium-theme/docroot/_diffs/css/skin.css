@@ -49,3 +49,11 @@ a {
 a:hover {
     color: #00b4d6;
 }
+
+.lfr-grid .lfr-column {
+    padding:0;
+}
+
+body {
+    color:#404040;
+}

@@ -1,23 +1,33 @@
 <div id="header">
-	<div class="head_outlay">
-    	<div class="head_bg">
-        	<div id="banner">
-                <div class="site-logo">
-                    <a href="/"><h1><span class="hidden">Climate CoLab</span></h1></a>
-                    <span class="subhead"></span>
+    <div class="head_outlay">
+        <div class="head_bg">
+            <div id="banner">
+                 <div id="loginArea">
+                    $theme.runtime("user_info")
+                    #parse ("$full_templates_path/dock.vm")
                 </div>
-                <div id="loginArea">
-                	$theme.runtime("user_info")
-					#parse ("$full_templates_path/dock.vm")
+                <div id="logobox">
+                    <a href="/">
+                        <div class="site-logo">
+                            <span class="hidden">Logo</span></h1>
+
+                        </div>
+                        <div class="site-name">
+                            <span class="hidden">Climate CoLab</span></h1>
+
+                        </div>
+                    </a>
                 </div>
-                <div id="registeredUsersArea">
-                    <a href="/web/guest/members">$userCount registered users</a>
-                </div>
+                #if ($has_navigation)
+                    #parse ("$full_templates_path/navigation.vm")
+                #end
+
+                
             </div>
+            <div class="clear"></div>
             <!-- end banner -->
-           	#if ($has_navigation)
-				#parse ("$full_templates_path/navigation.vm")
-			#end
+
+
         </div>
     </div>
 </div>
