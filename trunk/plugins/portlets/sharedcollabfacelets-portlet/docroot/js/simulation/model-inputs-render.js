@@ -245,7 +245,7 @@ function renderModelOutputs() {
 	/* Check if outputs have been already processed, if they have been then there is no need
 	 * to rerender graphs.
 	 */
-	
+
 	if (jQuery(".outputDef").length == 0 || jQuery(".outputDef").hasClass("processed")) {
 		//log.debug("model outputs already processed");
 		return;
