@@ -35,6 +35,7 @@ public class SimulationSupportTag extends TagHandler{
             ELException {
         
         SimulationBean simulationBean = (SimulationBean) simulationBeanParam.getObject(ctx);
+        
         Long scenarioId = (Long) scenarioIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
         Long simulationId = (Long) simulationIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
         try {
