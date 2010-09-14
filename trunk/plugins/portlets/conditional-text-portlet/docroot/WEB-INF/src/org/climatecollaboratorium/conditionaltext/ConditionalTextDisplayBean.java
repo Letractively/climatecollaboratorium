@@ -123,6 +123,7 @@ public class ConditionalTextDisplayBean {
                 }
                 else {
                     value = null;
+                    refresh();
                 }
             }
             
