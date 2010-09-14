@@ -67,6 +67,10 @@ public class ConditionalTextDisplayBean {
                 message = setting != null ? setting.getHtml() : null;
                 style = setting != null ? setting.getStyleClass() : null;
             }
+            else {
+                message = null;
+                style = null; 
+            }
         }
     }
 
