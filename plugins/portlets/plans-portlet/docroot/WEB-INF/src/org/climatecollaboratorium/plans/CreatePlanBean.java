@@ -9,10 +9,13 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.event.ActionEvent;
 import java.util.List;
+import java.util.Map;
 
 public class CreatePlanBean {
 
@@ -23,6 +26,10 @@ public class CreatePlanBean {
     private PlanBean planBean;
     private Long planId;
     private boolean navigateToPlan;
+    
+    private final static String PLANS_SOURCE = "plans"; 
+    private final static String CREATE_PLAN_PARAM = "createPlan"; 
+    
 
     public CreatePlanBean(PlansIndexBean plansIndexBean) {
         this.plansIndexBean = plansIndexBean;
@@ -96,6 +103,17 @@ public class CreatePlanBean {
 
     public PlansIndexBean getPlansIndex() {
         return plansIndexBean;
+    }
+
+    public void init(NavigationEvent event) throws SystemException, PortalException {
+        Map<String, String> params = event.getParameters(PLANS_SOURCE);
+        if (params != null) {
+            String createPlanStr = params.get(CREATE_PLAN_PARAM);
+            if ("true".equals(createPlanStr)) {
+                planBean = null;
+                createPlan(null);
+            }
+        }
     }
 
 
