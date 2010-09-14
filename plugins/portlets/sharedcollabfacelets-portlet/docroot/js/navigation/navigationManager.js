@@ -1,6 +1,4 @@
 if (window.collab) {
-	//
-	alert(window.collab);
 }
 else {
 	window.collab = {};
@@ -92,15 +90,16 @@ Collab.nav = new function() {
 	}
 
 	function forceNavigation() {
-		jQuery(".navigationManagerForm .navigationToken").eq(0).val(createToken());
+		jQuery(".navigationManagerForm .navigationToken").val(createToken());
 		// below is ugly hack, but without it webkit based browsers don't work
 		setTimeout(function() {
-				jQuery(".navigationManagerForm .submit").eq(0).click();
+				jQuery(".navigationManagerForm .submit").click();
 			}, 0);
 		
 	}
 		
 	function updateHash(block) {
+		removeConditionalText();
 		//navigationItems["req"] = req++;
 		//alert(navigationItems.req);
 		//navigationItems['req'] = {req: req++};
@@ -196,6 +195,11 @@ Collab.nav = new function() {
 			}
 		}
 		return false;
+	}
+	
+	function removeConditionalText() {
+		// remove everything related to conditional text
+		delete navigationItems['condText'];
 	}
 	
 
