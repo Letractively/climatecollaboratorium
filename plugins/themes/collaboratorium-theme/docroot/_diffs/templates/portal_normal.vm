@@ -44,6 +44,7 @@
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/safari.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" media="all" />
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/loginregister.css?tt=$themeTimestamp" media="all" />
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery.tooltip.css?tt=$themeTimestamp" media="all" />
 	
 
 	<!--[if IE 6]>
