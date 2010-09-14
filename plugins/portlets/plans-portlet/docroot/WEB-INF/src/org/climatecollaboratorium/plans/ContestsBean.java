@@ -1,7 +1,10 @@
 package org.climatecollaboratorium.plans;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import mit.simulation.climate.client.Simulation;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
 import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
@@ -12,16 +15,23 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import org.climatecollaboratorium.plans.wrappers.PlanModelWrapper;
+
+import javax.faces.model.SelectItem;
 
 public class ContestsBean {
     
     private ContestWrapper contest;
     private boolean activeContest = true; 
     private ContestSubView subView = ContestSubView.PROPOSALS;
+    
     private final static String PLANS_SOURCE = "plans"; 
     private final static String SUBVIEW_PARAM = "subview";
     private final static String CONTESTS_PARAM = "contests";
     private final static String PAST_CONTESTS_PARAM_VAL = "past";
+
+    public List<SelectItem> availableModels = new ArrayList<SelectItem>();
+    public Long modelId;
     
 
     private final static Log _log = LogFactoryUtil.getLog(ContestsBean.class);
@@ -29,6 +39,7 @@ public class ContestsBean {
     public ContestsBean() throws SystemException, PortalException {
         contest = new ContestWrapper(ContestLocalServiceUtil.getContestByActiveFlag(activeContest));
         activeContest = true;
+        initModels();
     }
     
     public void init(NavigationEvent event) throws SystemException, NoSuchContestPhaseException, PortalException {
@@ -52,10 +63,20 @@ public class ContestsBean {
             subView = ContestSubView.PROPOSALS;
             
             contest = new ContestWrapper(ContestLocalServiceUtil.getContestByActiveFlag(activeContest));
+            initModels();
         }
     }
     
-    
+
+    public void initModels() throws SystemException, PortalException {
+        modelId = contest.getContest().getPlanType().getDefaultModelId();
+            availableModels.clear();
+            for (Simulation sim:contest.getContest().getPlanType().getAvailableModels()) {
+
+                availableModels.add(new SelectItem(sim.getId(), PlanModelWrapper.getDisaggregationName(sim)));
+            }
+    }
+
     public ContestWrapper getContest() {
         return contest;
     }
@@ -78,9 +99,17 @@ public class ContestsBean {
         }
         return new ContestPhaseWrapper(contest, contest.getContest().getPhases().get(0));
     }
+
+    public List<SelectItem> getAvailableModels() {
+        return availableModels;
+    }
     
     public Long getModelId() throws PortalException, SystemException {
-        return contest.getContest().getPlanType().getDefaultModelId();
+        return modelId;
+    }
+
+    public void setModelId(Long id) {
+        this.modelId = id;
     }
 
 }

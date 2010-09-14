@@ -14,6 +14,20 @@ SHARED ELEMENTS
 
 }
 
+input[type="submit"].prominantButton-dis {
+    background: #E3DFD7;
+    background-image:none;
+    color: #c7b9b9;
+    margin: 5px 0;
+    font-size: 1.3em;
+    border:none;
+
+}
+
+input[type="submit"].prominantButton-dis:hover {
+    cursor:pointer;
+}
+
 input[type="submit"].prominantButton {
     background: #E3DFD7;
     background-image:none;
@@ -966,6 +980,39 @@ th.voteForPlan {
 }
 
 
+/** actions nd impacts **/
+
+.model-info {
+    font-size:1.3em;
+padding-bottom:20px;
+padding-left:40px;
+padding-top:20px;
+}
+
+.contestContent .model-info {
+    background: none repeat scroll 0 0 #EDEBEA;
+}
+
+.modelSelection {
+    font-size:1.3em;
+    padding:40px;
+}
+
+.modelSelection td {
+    vertical-align:top;
+    padding:10px;
+}
+
+.modelSelection td input[type="submit"].prominantButton-dis {
+    width:100%;
+}
+
+.modelSelection td input[type="submit"].prominantButton {
+    width:100%;
+}
+
+
+
 /** debate summary override**/
 
 .singleDebateSummary {
@@ -1015,16 +1062,7 @@ font-weight:normal;
     margin:0;
 }
 
-.model-info {
-    font-size:1.3em;
-padding-bottom:20px;
-padding-left:40px;
-padding-top:20px;
-}
 
-.contestContent .model-info {
-    background: none repeat scroll 0 0 #EDEBEA;
-}
 
 .plansContent .debateDetail {
   background-color:#E3DFD7;  

@@ -117,7 +117,8 @@
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
             No model has been set.
         </ice:panelGroup>
-       <ice:panelGrid columns="2">
+        <div class="modelSelection">
+        <ice:panelGrid columns="2">
             <ice:panelGroup>
                
                 <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" partialSubmit="true" disabled="#{not simulationBean.embeddedEditing}" valueChangeListener="#{planBean.modelBean.modelChagnedListener}">
@@ -129,7 +130,7 @@
                 You can select varying levels of geographic disaggregation for the actions in this model by using the menu to the left.
             </ice:panelGroup>
             <ice:panelGroup>
-                <ice:commandButton value="Upload model"
+                <ice:commandButton styleClass="prominantButton" value="Upload model"
                                    onclick="showModelUploadPopup();" disabled="#{not simulationBean.embeddedEditing}" />
 
             </ice:panelGroup>
@@ -137,6 +138,7 @@
                 or upload your own model.
             </ice:panelGroup>
         </ice:panelGrid>
+        </div>
 
     </ice:panelGroup>
     <script language="javascript">
