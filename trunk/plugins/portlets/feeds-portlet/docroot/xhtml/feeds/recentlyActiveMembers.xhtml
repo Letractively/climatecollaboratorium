@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<f:view 
+<f:view xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:h="http://java.sun.com/jsf/html"  
@@ -8,15 +8,21 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     <ice:portlet>
-        <table>
+        <table class="activityFeed">
             <tr>
-                <th>Screen Name</th>
-                <th>Last activity</th>
+                <th class="screenName">Screen Name</th>
+                <th class="date">Date</th>
+                <th class="activity">Activity</th>
             </tr>
         <ui:repeat value="#{feedsBean.membersBean.recentlyActiveMembers}" var="member">
             <tr>
-                <td><collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}" /></td>
-                <td>#{member.lastActivityBody}</td>
+                <td  class="screenName"><collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}" /></td>
+                <td class="date">
+                    <ice:outputText value="#{member.lastActivityDate}" styleClass="date">
+                        <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
+                    </ice:outputText>
+                </td>
+                <td class="activity">#{member.lastActivityBody}</td>
             </tr>
         </ui:repeat>
         </table>

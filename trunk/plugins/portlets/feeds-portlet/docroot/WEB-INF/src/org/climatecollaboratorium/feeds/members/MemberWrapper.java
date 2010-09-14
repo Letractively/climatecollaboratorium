@@ -8,12 +8,16 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityFeedEntry;
 import com.liferay.portlet.social.service.SocialActivityInterpreterLocalServiceUtil;
+import sun.util.calendar.BaseCalendar;
+
+import java.util.Date;
 
 public class MemberWrapper {
     private User user;
     private int activitiesCount;
     private SocialActivity activity;
     private String lastActivityBody;
+    private Date lastActivityDate;
     
     public MemberWrapper(User user, int activitiesCount) {
         this.user = user;
@@ -28,6 +32,7 @@ public class MemberWrapper {
             SocialActivityFeedEntry entry = SocialActivityInterpreterLocalServiceUtil.interpret(activity, Helper.getThemeDisplay());
             lastActivityBody = entry != null ? entry.getBody() : null;
         }
+        lastActivityDate = activity.getCreateDate();
     }
 
 
@@ -49,5 +54,9 @@ public class MemberWrapper {
 
     public String getLastActivityBody() {
         return lastActivityBody;
+    }
+
+    public Date getLastActivityDate() {
+        return lastActivityDate;
     }
 }
