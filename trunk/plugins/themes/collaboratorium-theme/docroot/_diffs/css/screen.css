@@ -1413,15 +1413,34 @@ span.desc{
 }
 
 
-.contentContainer {
-	margin: 0;
+
+div.contentContainer.home {
+    padding: 100px;
+    background: url("../images/earthstrip1.png") repeat-x scroll -1000px 0 #F9F9F8;
 	
-	padding: 0;
-	position: relative;
-	z-index: 0;
-	background: #F9F9F8;
 }
 
+/**
+div.contentContainer.learn {
+    background: url("../images/earthstrip2.png") repeat-x scroll 0 0 #F9F9F8;
+
+}
+
+div.contentContainer.contests {
+     background: url("../images/earthstrip2.png") repeat-x scroll  -1000px 0 #F9F9F8;
+
+}
+
+div.contentContainer.proposals {
+     background: url("../images/earthstrip3.png") repeat-x scroll 0 0 #F9F9F8;
+
+}
+
+div.contentContainer.community {
+     background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
+
+}
+**/
 
 .comparsion .tableOutlay table tr.selected td {
 	height:44px;

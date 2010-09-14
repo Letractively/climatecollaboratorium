@@ -1,18 +1,18 @@
 @charset "utf-8";
 
 #header{
-	height:166px;
+
 	zoom: 1;
 	position: relative;
 }
 #header .head_outlay{
 	width:100%;
-	height: 166px;
 	position: relative;
 }
 #header .head_bg{
+    background:url(../images/collab.moth.theme.header.slice.png) repeat-x;
 	width:100%;
-	height:144px;
+	height:86px;
 	margin:0 auto;
 	padding: 0;
 }
@@ -29,17 +29,28 @@
 
 #banner{
 	width:960px;
-	height:102px;
+	height:35px;
 	margin:0 auto;
 	position: relative;
 }
 #banner .site-logo{
-	width:422px;
-	height:97px;
+    background:url(../images/collab.moth.logo.png) no-repeat;
+	width:50px;
+	height:48px;
+    margin-top:12px;
 	float:left;
 	display:inline;
-	margin-top:5px;
+
 }
+
+#banner .site-name{
+	background:url(../images/collab.moth.name.logo.png) no-repeat;
+	width:188px;
+	height:23px;
+	float:left;
+	margin-top:25px;
+}
+
 #banner h1{
 	width:422px;
 	height:26px;
@@ -49,14 +60,12 @@
 	background:url(../images/ClimateColabLogo.png) no-repeat;
 }
 
-#banner .subhead {
-    width:422px;
-	height:18px;
+div.earthimg {
+    width:100%;
+	height:200px;
 	float:left;
 	display:inline;
-    margin-top:8px;
-    margin-left:6px;
-    background:url(../images/ColabLogoSubhead.png) no-repeat;
+    background:url(../images/earthstrip1.png) repeat-x;
 }
 
 #banner #loginArea{
@@ -64,10 +73,6 @@
 	font-size:12px;
 	float:right;
 	display:inline;
-	margin-top:23px;
-	position:absolute;
-	margin-left:356px;
-	zoom: 1;
 	z-index:1000;
 	line-height:1.3em;
 }
@@ -194,10 +199,9 @@
 
 #mainNav{
 	width:963px;
-    border-bottom: 1px solid #365268;
-	height:42px;
-	margin:0 auto;
-	line-height: normal;
+    margin: -33px auto 0 45px;
+    line-height: normal;
+    float:left;
 }
 #mainNav ul{
 	width:960px;
@@ -225,41 +229,11 @@
 	width:auto;
 	float:left;
 	display:inline;
-	font-family:Helvetica, serif;
-	font-size:18px;
+	font-family:Myriad Pro, Helvetica, serif;
+	font-size:13px;
 	font-weight:bold;
 }
 
-#mainNav span.Home {
-	background:url(../images/home_btn_txt.png) no-repeat center center;
-	width: 61px;
-	
-}
-
-#mainNav span.Plans{
-	background:url(../images/plans_btn.png) no-repeat center center;
-    width: 57px; 
-}
-
-#mainNav span.Models{
-	background:url(../images/models_btn_txt.png) no-repeat center;
-     width:69px;
-}
-
-#mainNav span.Debates{
-     background:url(../images/debates_btn_txt.png) no-repeat center;
-     width:75px;
-}
-
-#mainNav span.Community{
-	background:url(../images/community_btn_txt.png) no-repeat center;
-     width:96px;
-}
-
-#mainNav span.Resources{
-	background:url(../images/resources_btn.png) no-repeat center center;
-    width: 86px; 
-}
 
 
 #mainNav ul li span{
@@ -272,11 +246,6 @@
 }
 
 
-#mainNav ul li{
-	position: relative;
-     border-left: thin solid transparent;
-        border-right: thin solid transparent;
-        border-top: thin solid transparent;
 
 }
 
@@ -289,156 +258,26 @@
 
 
 #mainNav ul li:hover {
-  background-color: #dce3e3;
-    border-left: thin solid #5C7382;
-        border-right: thin solid #5C7382;
-        border-top: thin solid #5C7382;
 
 }
 
 #mainNav ul li.current {
-    background-color: #C0D0D0;
-    border-left: thin solid #5C7382;
-    border-right: thin solid #5C7382;
-    border-top: thin solid #5C7382;
 
 
 
 }
 
 #mainNav ul li a:hover {
+    color: #C74430;
 	text-decoration:none;
 }
 
 #mainNav ul li a{
-   color:#5C7382;
+   color:#847463;
 }
 
 #mainNav ul li.current a {
-  color: #23364a;
-}
-
-
-#childNavContainer {
-    zoom: 1;
-    width: 960px;
-    margin: 0 auto;
-    position: relative;
-}
-
-#childNav {
-	position: absolute;
-	left: 271px;
-	z-index: 999;
-	height: 33px;
-	width: 333px;
-	overflow: hidden;
-    background:url("../images/subnav_menubar.png") no-repeat;
-	display: none;
-}
-
-.ie6 #childNav, 
-.ie7 #childNav,
-.ie8 #childNav {
-	top: -2px;
-}
-
-
-#childNav ul {
-	position: relative;
-    z-index: 1000;
-    padding: 0;
-}
-
-#childNav ul li {
-	position: relative;
-	margin: 0;
-	padding-top: 2px;
-    z-index: 1001;
-}
-
-#childNav.long {
-     background:url("../images/subnav_menubar.png") no-repeat;
-     /*width:275px;*/
-}
-
-#childNav.short {
-      background:url("../images/subnav_menubar_short.png") no-repeat;
-   /*  width:172px;*/
-}
-
-
-#childNav span.News{
-	background:url(../images/news_btn_txt.png) no-repeat center center;
-    width:48px;
-}
-
-#childNav span.OtherMembers {
-	background:url(../images/otherMembers_btn_txt.png) no-repeat center center;
-     width:109px;
-}
-
-#childNav span.MyProfile{
-	background:url(../images/myProfile_btn_txt.png) no-repeat center center;
-     width:74px;
-}
-
-#childNav span.Discussion{
-	background:url(../images/discussion_btn_txt.png) no-repeat center center;
-     width:79px;
-}
-
-
-#childNav ul li span{
-	width:auto;
-	height:29px;
-	float:left;
-	display:block;
-	/*padding-left: 10px;
-	padding-right: 10px;*/
-	padding-top:14px;
-	margin-top: -5px;
-	cursor:hand;
-	z-index: 1002;
-}
-
-#childNav ul li a {
-	z-index: 1002;
-}
-
-
-#childNav.short ul li.first-sub {
-     margin-left: 3px;
-}
-*/
-#childNav.long ul li.first-sub {
-     margin-left:5px;
-}
-
-
-#childNav ul li {
-	height:29px;
-	/*margin-top:-28px;*/
-	background:url(../images/subnav_btnLine.png) no-repeat right bottom;
-}
-
-
-#childNav ul li a{
-	width:auto;
-	float:left;
-	display:block;
-	font-family:"Times New Roman", Times, serif;
-	font-size:10px;
-	font-weight:bold;
-	margin-left:0px;
-}
-
-#childNav ul li.current a{
-	background:url(../images/current_subNavBtn.png) repeat-x;
-}
-
-#childNav ul li a:hover {
-	background:url(../images/current_subNavBtn.png) repeat-x;
+  color: #C74430;
 }
 
 
