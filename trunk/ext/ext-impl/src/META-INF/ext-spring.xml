@@ -1176,7 +1176,7 @@
 	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil">
 		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl" />
 	</bean>
-    <bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" class="com.ext.conditionaltext.service.impl.ConditionalTextSettingLocalServiceImpl" />
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" class="com.ext.conditionaltext.service.impl.ConditionalTextSettingLocalServiceImpl" />
 	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" />
 	</bean>

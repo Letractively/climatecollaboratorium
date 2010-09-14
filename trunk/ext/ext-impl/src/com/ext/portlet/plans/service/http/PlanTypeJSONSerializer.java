@@ -41,6 +41,7 @@ public class PlanTypeJSONSerializer {
         jsonObj.put("publishedCounterpartId", model.getPublishedCounterpartId());
         jsonObj.put("isDefault", model.getIsDefault());
         jsonObj.put("defaultModelId", model.getDefaultModelId());
+        jsonObj.put("defaultScenarioId", model.getDefaultScenarioId());
 
         return jsonObj;
     }

@@ -29,10 +29,10 @@ public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
        }
 
     public Simulation getDefaultModel() throws SystemException {
-        if (this.getModelId() == null) {
+        if (this.getDefaultModelId() == null) {
             return null;
         } else {
-            return CollaboratoriumModelingService.repository().getSimulation(this.getModelId());
+            return CollaboratoriumModelingService.repository().getSimulation(this.getDefaultModelId());
         }
     }
 

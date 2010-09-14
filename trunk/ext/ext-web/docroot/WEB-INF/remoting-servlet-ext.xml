@@ -763,7 +763,7 @@
 		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseColumnService" />
 	</bean>
-    <bean name="/com_ext_conditionaltext_service_spring_ConditionalTextSettingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+	<bean name="/com_ext_conditionaltext_service_spring_ConditionalTextSettingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
 		<property name="serviceInterface" value="com.ext.conditionaltext.service.ConditionalTextSettingService" />
 	</bean>
