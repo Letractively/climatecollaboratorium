@@ -36,7 +36,7 @@
                 </div>
                 <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
                     <ice:form>
-                        <ice:commandButton onclick="if(!deferUntilLogin()) return false; jQuery('#mainContent').block();"
+                        <ice:commandButton onclick="if(!deferUntilLogin()) return false; Collab.nav.block();"
                                 styleClass="prominantButton createNewPlanButton"
                                 actionListener="#{navigation.createPlanBean.createPlan}"
                                 value="Begin a new proposal"/>
