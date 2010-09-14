@@ -1,0 +1,31 @@
+.loginRegisterTable {
+    width: 800px;
+    margin: auto;
+    vertical-align: top;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.loginRegisterTable td.login,
+.loginRegisterTable td.register {
+    vertical-align: top;
+    width: 45%;
+}
+	
+
+.loginRegisterTable div.login,
+.loginRegisterTable div.register {
+    border: 20px solid #E3DFD7;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+}
+
+.loginRegisterTable .buttons {
+    text-align: center;
+}
+
+.loginRegisterTable .boxTitle {
+    background: #EDEBEA;
+    padding: 10px 5px;
+    margin-bottom: 10px;
+}
