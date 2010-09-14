@@ -120,6 +120,11 @@ div.earthimg {
 	float:left;
 	margin-top:6px;
 }
+
+#banner #loginBox .register p{
+	line-height: normal;
+}
+
 #banner #loginBox .welCome .info{
 	font-size:11px;
 }
@@ -198,13 +203,13 @@ div.earthimg {
 /* end #loginBox */
 
 #mainNav{
-	width:963px;
+	width:700px;
     margin: -33px auto 0 45px;
     line-height: normal;
     float:left;
 }
 #mainNav ul{
-	width:960px;
+	width:700px;
 	margin:0 auto;
 }
 #mainNav ul li{
