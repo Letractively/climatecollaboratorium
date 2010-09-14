@@ -142,6 +142,7 @@
 		<property name="publishedCounterpartId" />
 		<property name="isDefault" />
 		<property name="defaultModelId" />
+		<property name="defaultScenarioId" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanTypeAttributeImpl" table="PlanTypeAttribute">
 		<cache usage="read-write" />

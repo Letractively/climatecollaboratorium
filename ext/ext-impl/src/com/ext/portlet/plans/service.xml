@@ -234,7 +234,7 @@
 	   <column name="publishedCounterpartId" type="Long" />
 	   <column name="isDefault" type="Boolean" />
        <column name="defaultModelId" type="Long" />
-	   
+	   <column name="defaultScenarioId" type="Long" />
        <column name="planTypeAttributes" type="Collection" entity="PlanTypeAttribute" mapping-key="planTypeId"/>
        <column name="planTypeColumns" type="Collection" entity="PlanTypeColumn" mapping-key="planTypeId"/>
        

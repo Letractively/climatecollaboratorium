@@ -65,9 +65,12 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
             { "isDefault", new Integer(Types.BOOLEAN) },
             
 
-            { "defaultModelId", new Integer(Types.BIGINT) }
+            { "defaultModelId", new Integer(Types.BIGINT) },
+            
+
+            { "defaultScenarioId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanType (planTypeId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,modelId LONG,modelTypeName VARCHAR(75) null,published BOOLEAN,publishedCounterpartId LONG,isDefault BOOLEAN,defaultModelId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanType (planTypeId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,modelId LONG,modelTypeName VARCHAR(75) null,published BOOLEAN,publishedCounterpartId LONG,isDefault BOOLEAN,defaultModelId LONG,defaultScenarioId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanType";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -90,6 +93,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
     private Boolean _isDefault;
     private Boolean _originalIsDefault;
     private Long _defaultModelId;
+    private Long _defaultScenarioId;
 
     public PlanTypeModelImpl() {
     }
@@ -106,6 +110,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         model.setPublishedCounterpartId(soapModel.getPublishedCounterpartId());
         model.setIsDefault(soapModel.getIsDefault());
         model.setDefaultModelId(soapModel.getDefaultModelId());
+        model.setDefaultScenarioId(soapModel.getDefaultScenarioId());
 
         return model;
     }
@@ -212,6 +217,14 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         _defaultModelId = defaultModelId;
     }
 
+    public Long getDefaultScenarioId() {
+        return _defaultScenarioId;
+    }
+
+    public void setDefaultScenarioId(Long defaultScenarioId) {
+        _defaultScenarioId = defaultScenarioId;
+    }
+
     public PlanType toEscapedModel() {
         if (isEscapedModel()) {
             return (PlanType) this;
@@ -230,6 +243,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
             model.setPublishedCounterpartId(getPublishedCounterpartId());
             model.setIsDefault(getIsDefault());
             model.setDefaultModelId(getDefaultModelId());
+            model.setDefaultScenarioId(getDefaultScenarioId());
 
             model = (PlanType) Proxy.newProxyInstance(PlanType.class.getClassLoader(),
                     new Class[] { PlanType.class },
@@ -251,6 +265,7 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         clone.setPublishedCounterpartId(getPublishedCounterpartId());
         clone.setIsDefault(getIsDefault());
         clone.setDefaultModelId(getDefaultModelId());
+        clone.setDefaultScenarioId(getDefaultScenarioId());
 
         return clone;
     }
@@ -308,6 +323,8 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         sb.append(getIsDefault());
         sb.append(", defaultModelId=");
         sb.append(getDefaultModelId());
+        sb.append(", defaultScenarioId=");
+        sb.append(getDefaultScenarioId());
         sb.append("}");
 
         return sb.toString();
@@ -355,6 +372,10 @@ public class PlanTypeModelImpl extends BaseModelImpl<PlanType> {
         sb.append(
             "<column><column-name>defaultModelId</column-name><column-value><![CDATA[");
         sb.append(getDefaultModelId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>defaultScenarioId</column-name><column-value><![CDATA[");
+        sb.append(getDefaultScenarioId());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

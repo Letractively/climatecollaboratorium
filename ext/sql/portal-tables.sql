@@ -1254,7 +1254,8 @@ create table PlanType (
 	published BOOLEAN,
 	publishedCounterpartId LONG,
 	isDefault BOOLEAN,
-	defaultModelId LONG
+	defaultModelId LONG,
+	defaultScenarioId LONG
 );
 
 create table PlanTypeAttribute (
