@@ -19,6 +19,18 @@
             <ice:form>
                 <collab:simulation simulationId="#{contests.modelId}" disableInputs="false" showEditArea="false" showEditButton="false" showRunButton="true" />
             </ice:form>
+            <ice:panelGrid columns="2">
+            <ice:panelGroup>
+
+                <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" partialSubmit="true" disabled="#{not simulationBean.embeddedEditing}">
+                    <f:selectItems value="#{planBean.modelBean.availableModels}"/>
+                </ice:selectOneMenu>
+            </ice:panelGroup>
+
+            <ice:panelGroup>
+                You can select varying levels of geographic disaggregation for the actions in this model by using the menu to the left.
+            </ice:panelGroup>
+            </ice:panelGrid>
         </ui:define>
     </ui:composition>
 </f:view>
