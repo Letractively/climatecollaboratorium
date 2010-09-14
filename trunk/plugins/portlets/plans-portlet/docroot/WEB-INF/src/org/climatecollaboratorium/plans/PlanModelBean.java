@@ -16,6 +16,7 @@ import java.util.*;
 
 import javax.faces.FacesException;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.plans.wrappers.PlanModelWrapper;
@@ -108,7 +109,6 @@ public class PlanModelBean {
 
     public void setSelectedItem(Long item) {
          selectedItem = item;
-         planBean.modelChanged();
     }
 
     public Long getSelectedItem() {
@@ -142,6 +142,10 @@ public class PlanModelBean {
         return availableItems!=null && availableItems.size() > 1;  
     }
 
+    public void modelChagnedListener(ValueChangeEvent e) {
+        selectedItem = (Long) e.getNewValue();
+        planBean.modelChanged();
+    }
 
 
 }
