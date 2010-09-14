@@ -3,8 +3,13 @@
   ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
   ~ or the license.txt file included in this distribution for the full text of the license.
   -->
-
+<!--
 <Context
 path="conditional-text"
 docBase="/Users/jintrone/Documents/DEV/liferay-plugins-sdk-5.2.3/portlets/conditional-text-portlet/docroot"
+/>
+-->
+<Context
+path="conditional-text"
+docBase="/home/janusz/workdir/liferay/plugins-svn/portlets/conditional-text-portlet/docroot"
 />

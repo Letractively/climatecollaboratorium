@@ -15,7 +15,15 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
+import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.navigation.NavigationEvent;
+
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +37,12 @@ public class ConditionalTextDisplayBean {
 
     public String message;
     public String style;
+    private String value;
     private PortletPreferencesManagedBean preferences;
+    private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
+    private EventBus eventBus;
+    private final static String CONDITIONAL_TEXT_SOURCE_NAME = "condText";
+    private final static String CONDITIONAL_TEXT_VAL_PARAM = "value";
 
     public ConditionalTextDisplayBean() {
 
@@ -46,13 +59,10 @@ public class ConditionalTextDisplayBean {
     }
 
     public void refresh() {
-        Map map = getRawParameters(FacesContext.getCurrentInstance());
         String key = getPreferences().getValue(PreferenceKeys.MSG_KEY,null);
-        String value = getPreferences().getValue(PreferenceKeys.MSG_VAL,null);
-        if (key != null && value != null) {
-            String[] param = (String[]) map.get(key);
+        if (key != null) {
 
-            if (param != null && param.length > 0 && value.equals(param[0])) {
+            if (value != null) {
                 ConditionalTextSetting setting = ConditionalTextSettingLocalServiceUtil.findByKeyVal(key, value);
                 message = setting != null ? setting.getHtml() : null;
                 style = setting != null ? setting.getStyleClass() : null;
@@ -83,5 +93,32 @@ public class ConditionalTextDisplayBean {
     private PortletPreferences getPreferences() {
         return ((PortletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getPreferences();
 
+    }
+
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        bind();
+    }
+    
+    private void bind() {
+        for (HandlerRegistration reg: handlerRegistrations) {
+            reg.unregister();
+        }
+        
+        handlerRegistrations.clear();
+        handlerRegistrations.add(eventBus.registerHandler(NavigationEvent.class, new EventHandler<NavigationEvent>() {
+
+            @Override
+            public void onEvent(NavigationEvent event) {
+                Map<String, String> params = event.getParameters(CONDITIONAL_TEXT_SOURCE_NAME);
+                if (params != null) {
+                    value = params.get(CONDITIONAL_TEXT_VAL_PARAM);
+                    if (value != null) {
+                        refresh();
+                    }
+                }
+            }
+            
+        }));
     }
 }

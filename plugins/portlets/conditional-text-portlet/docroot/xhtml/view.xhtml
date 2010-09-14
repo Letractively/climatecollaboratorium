@@ -10,8 +10,10 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:h="http://java.sun.com/jsf/html"  
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     <ice:portlet>
+        <collab:navigationManager />
        <ice:panelGroup rendered="#{conditionalTextDisplayBean.message!=null}" styleClass="#{conditionalTextDisplayBean.style}">
            <ice:outputText escape="false" value="#{conditionalTextDisplayBean.message}"/>
        </ice:panelGroup>
