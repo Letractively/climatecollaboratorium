@@ -1422,22 +1422,26 @@ div.contentContainer.home {
 
 
 div.contentContainer.learn {
+    padding: 100px;
     background: url("../images/earthstrip2.png") repeat-x scroll 0 0 #F9F9F8;
 
 }
 
 div.contentContainer.contests {
-     background: url("../images/earthstrip2.png") repeat-x scroll  -1000px 0 #F9F9F8;
+    padding: 100px;
+    background: url("../images/earthstrip2.png") repeat-x scroll  -1000px 0 #F9F9F8;
 
 }
 
 div.contentContainer.proposals {
-     background: url("../images/earthstrip3.png") repeat-x scroll 0 0 #F9F9F8;
+    padding: 100px;
+    background: url("../images/earthstrip3.png") repeat-x scroll 0 0 #F9F9F8;
 
 }
 
 div.contentContainer.community {
-     background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
+    padding: 100px; 
+    background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
 
 }
 
