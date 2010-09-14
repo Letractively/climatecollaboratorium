@@ -192,7 +192,7 @@ div.themed-content.community.featured-expert td.bio {
     padding:10px;
 }
 
-/** CONTESTS **/
+
 /** CONTESTS TAB **/
 
 div.contests.themed-content {
@@ -223,6 +223,48 @@ div.contests.themed-content table td.left {
 div.contests.themed-content div.indent {
 margin-left:1.5em;
 margin-top:1em;
+}
+
+/** ABOUT TAB **/
+ div.about.intro.themed-content {
+    border-left:15px solid;
+     border-right:15px solid;
+     border-top:15px solid;
+    border-color: #E3DFD7;
+    background:#F9F9F8;
+     padding: 30px 70px;
+     font-size:2.2em;
+     font-family:Myriad Pro, Helvetica, sans-serif;
+     font-style:italic;
+     line-height:1.0em;
+     color: #C74430;
+}
+
+div.about.subtext.themed-content {
+    border-left:15px solid;
+     border-right:15px solid;
+     border-bottom:15px solid;
+    border-color: #E3DFD7;
+    background:#F9F9F8;
+     padding: 30px 70px;
+     font-size:1.3em;
+     font-family:Tahoma, Helvetica, sans-serif;
+     
+}
+
+
+div.about.subtext.themed-content td.right {
+    padding:15px;
+}
+
+div.about.subtext.themed-content td.right div.shadow {
+    background:none repeat scroll 0 0 #968e7a;
+}
+
+div.about.subtext.themed-content td.right div.shadow img {
+    position:relative;
+    left:-10px;
+    top:-10px;
 }
 
 
