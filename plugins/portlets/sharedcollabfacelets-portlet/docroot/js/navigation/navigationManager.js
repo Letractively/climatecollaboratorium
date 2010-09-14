@@ -77,12 +77,18 @@ Collab.nav = new function() {
 		//alert("after parsing token " + hash + "try to force navigation..." + jQuery(".navigationManagerForm .submit").length + " " + jQuery(".navigationManagerForm .navigationToken").length);
 		if(!initialized) {
 			initialized = true;
-			if (hash.length > 1) {
-				jQuery('#mainContent').block();
-			}
+			Collab.nav.block();
 		}
 		forceNavigation();
 		//alert("navigation forced? " + jQuery(".navigationManagerForm .submit").length);
+	}
+	
+	this.block = function() {
+		jQuery("#mainContent").block({message: "<center><img src='/collaboratorium-theme/images/ajax-loader.gif' /></center>"});
+	}
+	
+	this.unblock = function() {
+		jQuery("#mainContent").unblock();
 	}
 
 	function forceNavigation() {
@@ -105,11 +111,13 @@ Collab.nav = new function() {
 			}
 		}
 		if (block) {
-			jQuery("#mainContent").block();
+			Collab.nav.block();
 		}
 		window.location.hash = createToken();
 		initialized = true;
 	}
+	
+	
 	
 	function parseToken(token) {
 		tokenNavigationMap = {};
