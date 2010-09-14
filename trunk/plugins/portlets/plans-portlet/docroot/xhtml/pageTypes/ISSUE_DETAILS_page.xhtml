@@ -10,10 +10,12 @@
         <ui:define name="plans_breadcrumb">
             <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:issues">&amp;lt;&amp;lt; Back to contest</a>
         </ui:define>
-        <ui:define name="plans_content"> 
+        <ui:define name="plans_content">
+            <div class="debateDetail">
             <ice:form>
                 <collab:debate debateBean="#{debateBean}" debateId="#{issues.debateId}" itemId="#{issues.itemId}" />
             </ice:form>
+            </div>
         </ui:define>
     </ui:composition>
 </f:view>

@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
-<f:view 
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<f:view
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:liferay-faces="http://liferay.com/tld/faces"
@@ -16,9 +22,9 @@
         	<a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals">&amp;lt;&amp;lt; Back to contest</a>
             </h4>
     </div>
-    <div class="plansContent">
+    <div class="plansDetailContent">
 		<ui:include src="./planDetails.xhtml" />
-</div>
+    </div>
 	</f:subview>
 
 </f:view>
