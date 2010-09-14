@@ -35,6 +35,12 @@ input[type="submit"].prominantButton:hover {
 
 }
 
+input[type="submit"].prominantButton.createNewPlanButton {
+
+    font-size: 1.6em;
+    padding: 12px;
+}
+
 
 
 .container_top {
@@ -57,6 +63,12 @@ input[type="submit"].prominantButton:hover {
 .topActions input[type="submit"].prominantButton {
     width:150px;
     white-space:normal;
+}
+
+.plansContent {
+    background:none repeat scroll 0 0 #F9F9F8;
+    border:15px solid #E3DFD7;
+    
 }
 
 /** INLINE HELP **/
@@ -103,14 +115,19 @@ a.helpMessageTrigger.helpHidden {
 
 /**CONTESTINDEX**/
 
+
+div.selectContestType {
+    background-color:#EDEBEA;
+    padding-top:10px;
+}
+
+
+
 .categoryHeader {
 
     margin-bottom:5px;
-    padding-left:5px;
-    padding-right:5px;
-    padding-top:5px;
-    padding-bottom:10px;
-    background-color:#F0F0F0;
+    padding: 10px;
+    background-color:transparent;
 }
 
 
@@ -576,16 +593,11 @@ div.editControls.cancelEdit {
    
     padding:5px;
     border-right: 1px solid #efefef;
-    
-    color: #000000;
-    font-size:1.1em;
-    font-weight:normal;
-    vertical-align:middle;
-
-    font-weight: bold;
-    font-size: 1.2 em;
-    background: #dfdfdf;
-    border-bottom: 4px solid #ffffff;
+    vertical-align:bottom;
+    font-weight: normal;
+    font-size: 1.1em;
+    background: #E3DFD7;
+   
 }
 
 .plansTable th a {
@@ -605,7 +617,7 @@ div.editControls.cancelEdit {
 }
 
 .plansTable .iceDatTblRow:hover td{
-	background: #87FFCD;
+	background: #f7f0c5;
 }
 
 .plansTable td .NAME {
@@ -615,11 +627,11 @@ div.editControls.cancelEdit {
 
 
 .plansTable .odd td {
-    background: #efefef;
+    background: #EDEBEA;
 }
 
 .plansTable .even td {
-    background: #e5e5e5;
+    background: #dedcdb;
 }
 .plansTable th table {
     margin: auto;
@@ -949,3 +961,81 @@ th.voteForPlan {
 }
 
 
+/** debate summary override**/
+
+.singleDebateSummary {
+    background:none repeat scroll 0 0 #EDEBEA;
+font-size:1.2em;
+margin-bottom:4px;
+margin-top:0px;
+padding-left:20px;
+padding-right:20px;
+padding-top:40px;
+padding-bottom:8px;
+}
+
+.plansContent .singleDebateSummary .debateDetail {
+    background:none repeat scroll 0 0 #FFFFFF;
+margin:10px 0;
+padding:10px;
+}
+
+
+div.singleDebatePositions {
+    padding-left:25px;
+    padding-right:25px;
+}
+
+.singleDebatePositions table.debatePositions {
+   margin-bottom:30px;
+margin-top:0 
+}
+
+.singleDebatePositions th {
+  background:none repeat scroll 0 0 #E3DFD7;
+    border-right:1px solid #EFEFEF;
+font-size:1.2em;
+font-weight:normal;
+    padding: 12px 5px 5px;
+    vertical-align:bottom;
+}
+
+.singleDebatePositions table.debatePositions td {
+    font-size:1.1em;
+    padding:5px;
+
+}
+
+.debateVotes, .debateVotes .debateVotesBg {
+    margin:0;
+}
+
+.model-info {
+    font-size:1.3em;
+padding-bottom:20px;
+padding-left:40px;
+padding-top:20px;
+}
+
+.contestContent .model-info {
+    background: none repeat scroll 0 0 #EDEBEA;
+}
+
+.plansContent .debateDetail {
+  background-color:#E3DFD7;  
+}
+
+.plansContent .debateDetail .layoutPanel .East {
+    background:transparent;
+}
+
+.plansContent .debateDetail .layoutPanel .West {
+    vertical-align:top;
+}
+
+div.plansBreadcrumb {
+    background:none repeat scroll 0 0 #E3DFD7;
+    font-size:1.2em;
+    padding-left:13px;
+    padding-top:15px;
+}

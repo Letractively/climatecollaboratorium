@@ -5,9 +5,17 @@
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets">
-        
+
     <ui:composition template="../templates/contestPageTemplate.xhtml">
+
         <ui:define name="contest_content">
+            
+                <div class="model-info">
+        <ice:outputText escape="false">
+            The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
+                href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
+        </ice:outputText>
+        </div>
             <ice:form>
                 <collab:simulation simulationId="#{contests.modelId}" disableInputs="false" showEditArea="false" showEditButton="false" showRunButton="true" />
             </ice:form>
