@@ -121,5 +121,12 @@ public class PlansPermissionsBean {
     public boolean getPlanOpen() throws SystemException {
         return plan == null ? false : plan.getOpen();
     }
+    
+    public boolean getLoggedIn() {
+        return Helper.isUserLoggedIn();
+    }
 
+    public boolean isPlanEditable() {
+        return planIsEditable;
+    }
 }

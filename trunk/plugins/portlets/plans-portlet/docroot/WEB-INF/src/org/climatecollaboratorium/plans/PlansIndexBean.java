@@ -233,7 +233,6 @@ public class PlansIndexBean {
 
                     final Long userId = Helper.getLiferayUser().getUserId();
                     if (showProposalsThatUserOwns) {
-                        System.out.println("userId: " + userId + "\t" + plan.getAuthorId());
                         if (! plan.getAuthorId().equals(userId)) {
                             continue;
                         }
