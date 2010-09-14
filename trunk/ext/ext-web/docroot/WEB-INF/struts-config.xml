@@ -402,6 +402,26 @@
        <action path="/ext/mass_messaging/manage_ignored_recipients" type="com.ext.portlet.mass_messaging.action.ManageIgnoredRecipientsAction">
             <forward name="portlet.ext.mass_messaging.manage_ignored_recipients" path="portlet.ext.mass_messaging.manage_ignored_recipients"/>
         </action>
+        
+        <!-- Autologin console -->
+        <action path="/ext/loginregister/view" forward="portlet.ext.loginregister.view"/>
+        <!-- Autologin console -->
+        
+         <action path="/ext/loginregister/captcha" type="com.liferay.portal.captcha.CaptchaPortletAction"/>
+
+        <action path="/ext/loginregister/create_account" type="com.ext.portlet.user_info.action.CreateAccountAction">
+            <forward name="portlet.login.create_account" path="portlet.ext.loginregister.view"/>
+        </action>
+
+        <action path="/ext/loginregister/login" type="com.liferay.portlet.login.action.LoginAction">
+            <forward name="portlet.login.login" path="portlet.ext.loginregister.view"/>
+        </action>
+        
+        <action path="/ext/loginregister/forgotpassword" type="com.ext.portlet.user_info.action.CollabForgotPasswordAction">
+            <forward name="portlet.login.forgotpassword" path="portlet.ext.loginregister.forgotpassword"/>
+            <forward name="portlet.login.forgot_password" path="portlet.ext.loginregister.forgotpassword"/>
+        </action>
+        
 
     </action-mappings>
 </struts-config>

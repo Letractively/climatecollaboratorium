@@ -280,4 +280,14 @@
     <definition name="portlet.ext.mass_messaging.manage_ignored_recipients" extends="portlet">
             <put name="portlet_content" value="/portlet/ext/mass_messaging/manage_ignored_recipients.jsp" />
     </definition>
+    
+    
+    <definition name="portlet.ext.loginregister.view" extends="portlet">
+        <put name="portlet_content" value="/portlet/ext/loginregister/view.jsp" />
+    </definition>
+
+    
+    <definition name="portlet.ext.loginregister.forgotpassword" extends="portlet">
+        <put name="portlet_content" value="/portlet/ext/loginregister/forgotpassword.jsp" />
+    </definition>
 </tiles-definitions>

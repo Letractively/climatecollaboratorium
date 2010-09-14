@@ -1,0 +1,114 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+    /**
+     *
+     *
+     * User login form.
+     *
+     * @author TCSDEVELOPER
+     * @version 1.0
+     */
+%>
+
+
+<portlet:actionURL secure="<%= PropsValues.COMPANY_SECURITY_AUTH_REQUIRES_HTTPS || request.isSecure() %>" var="submitURL">
+	<portlet:param name="saveLastPath" value="0" />
+	<portlet:param name="struts_action" value="/ext/loginregister/login" />
+	<portlet:param name="isLoggingIn" value="true" />
+</portlet:actionURL>
+
+
+<script type="text/javascript">
+
+    function <portlet:namespace/>cancelAndRegister() {
+       <portlet:namespace/>closeDialog('loginPopupDialog');
+       pageTracker._trackPageview('/user/registerBegin');
+       <portlet:namespace />showDialog('registerDialog', {width: 500, height: 600});
+       return false;
+    }
+
+    jQuery(document).ready(function() {
+        var redirectInput = jQuery(document.forms["<portlet:namespace />loginpopup"]["<portlet:namespace />redirect"]);
+        var redirect = redirectInput.val();
+        redirectInput.val(redirect + document.location.hash);
+    });
+
+
+</script>
+
+<form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />loginpopup">
+    <input name="<portlet:namespace />redirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"/>
+    <input id="<portlet:namespace />rememberMe" name="<portlet:namespace />rememberMe" type="hidden"
+           value="<%= rememberMe %>"/>
+
+
+    <div class="DialogBox">
+        <div class="DialogNWCorner">
+        </div>
+        <div class="DialogNEdge">
+            <div class="content">
+                <h4>Please Login</h4>
+            </div>
+        </div>
+        <div class="DialogNECorner">
+        </div>
+        <br class="clearfloat"/>
+
+        <div class="DialogWEdge">
+        </div>
+        <div class="DialogBody">
+            <div class="content-info">
+                You must log in before modifying any content on the site.
+            </div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td><label class="lable" for="<portlet:namespace />login">Screen name:</label>
+                        </td>
+                        <td><input class="text" name="<portlet:namespace />login" type="text"
+                                   value="<%= HtmlUtil.escape(login) %>"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label class="lable" for="<portlet:namespace />password"><liferay-ui:message
+                                key="password"/>:</label>
+                        </td>
+                        <td><input class="text" id="<portlet:namespace />password" name="<portlet:namespace />password"
+                                   type="password" value="<%= password %>"/>
+                        </td>
+                    </tr>
+                    </table>
+
+            </div>
+            <div class="content-register-link">
+                <a href="javascript:;" onclick="<portlet:namespace/>cancelAndRegister();">Not registered yet?</a>
+            </div>
+
+        </div>
+        <div class="DialogEEdge">
+        </div>
+        <br class="clearfloat"/>
+
+        <div class="DialogSWCorner">
+        </div>
+        <div class="DialogSEdge">
+            <div class="content">
+                    <a href="javascript:;"
+                       onClick="document.<portlet:namespace />loginpopup.submit(); return false;" class="checkIcon"><span class="hidden">OK</span></a>
+                    <a href="javascript:;" onclick="<portlet:namespace/>closeDialog('loginPopupDialog');return false;" class="cancelIcon"><span class="hidden">CANCEL</span></a>
+
+            </div>
+        </div>
+        <div class="DialogSECorner">
+        </div>
+        <br class="clearfloat"/>
+    </div>
+
+
+</form>
+

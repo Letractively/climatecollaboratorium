@@ -76,7 +76,7 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
                 if (Validator.isNotNull(redirect)) {
                     actionResponse.sendRedirect(redirect);
                 } else {
-                    actionResponse.sendRedirect(themeDisplay.getPathMain());
+                    actionResponse.sendRedirect("/web/guest");
                 }
             }
         }
