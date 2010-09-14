@@ -117,6 +117,9 @@ public class ConditionalTextDisplayBean {
                         refresh();
                     }
                 }
+                else {
+                    value = null;
+                }
             }
             
         }));
