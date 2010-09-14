@@ -17,15 +17,18 @@
         </ice:outputText>
         </div>
             <ice:form>
-                <collab:simulation simulationId="#{contests.modelId}" disableInputs="false" showEditArea="false" showEditButton="false" showRunButton="true" />
+                <ice:panelGroup>
+                    <collab:simulation simulationId="#{contests.modelId}" disableInputs="false" showEditArea="false" showEditButton="false" showRunButton="true" />
+                </ice:panelGroup>
             </ice:form>
             <div class="modelSelection">
             <ice:panelGrid columns="2">
             <ice:panelGroup>
-
-                <ice:selectOneMenu value="#{contests.modelId}" partialSubmit="true">
-                    <f:selectItems value="#{contests.availableModels}"/>
-                </ice:selectOneMenu>
+                <ice:form>
+                    <ice:selectOneMenu value="#{contests.modelId}" partialSubmit="true">
+                        <f:selectItems value="#{contests.availableModels}"/>
+                    </ice:selectOneMenu>
+                </ice:form>
             </ice:panelGroup>
 
             <ice:panelGroup>
