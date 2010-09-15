@@ -81,8 +81,7 @@ public class PlanItemWrapper {
         
         this.permissions = permissions;
         
-        
-
+        getPlanModelRunVersionItems();
         
         setDescriptionSet(plan.getDescription().trim().length() != 0);
         candidateName = plan.getName();
@@ -283,6 +282,11 @@ public class PlanItemWrapper {
     }
     
     public Long getPlanModelRunScenarioId() {
+        //System.out.println("planModelRunsById: " + String.valueOf(planModelRunsById) + " currentPlanModelRunVersion: " + 
+        //        String.valueOf(currentPlanModelRunVersion) + " planModelRunsById.get(current): " + String.valueOf(planModelRunsById.get(currentPlanModelRunVersion)));
+        //System.out.println("plan model run scenario id: " + (planModelRunsById != null && 
+        //        currentPlanModelRunVersion != null && 
+        //        planModelRunsById.get(currentPlanModelRunVersion) != null ? planModelRunsById.get(currentPlanModelRunVersion).getScenarioId() : null));
         return planModelRunsById != null && 
         currentPlanModelRunVersion != null && 
         planModelRunsById.get(currentPlanModelRunVersion) != null ? planModelRunsById.get(currentPlanModelRunVersion).getScenarioId() : null; 
