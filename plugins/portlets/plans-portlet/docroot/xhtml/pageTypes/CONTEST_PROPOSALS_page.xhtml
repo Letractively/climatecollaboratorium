@@ -120,8 +120,12 @@
             <f:subview rendered="#{column == 'SEEKING_ASSISTANCE' and singlePlan.columnValues[column] == 'true'}">
                 <img src="/collaboratorium-theme/images/hand_icon.png" />
             </f:subview>
+            <f:subview rendered="#{column == 'IS_PLAN_OPEN'}">
+                <ice:outputText value="Anyone" rendered="#{singlePlan.columnValues[column] == 'true'}" />
+                <ice:outputText value="Team only" rendered="#{singlePlan.columnValues[column] != 'true'}" />
+            </f:subview>
             <ice:outputText value="#{singlePlan.columnValues[column]}"
-                    rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE'}" escape="false"/>
+                    rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE' and column != 'IS_PLAN_OPEN'}" escape="false"/>
         </ice:columns>
         <ice:column rendered="#{plansIndex.contestPhase.canVote}">
             <f:facet name="header">

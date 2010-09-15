@@ -11,6 +11,7 @@ import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.plans.NoSuchPlanItemException;
+import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
@@ -261,6 +262,20 @@ public class MigrationTool {
         }
 
         _log.info("Update successful");
+        FacesMessage fm = new FacesMessage();
+        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+        fm.setSummary("Update successful");
+
+        FacesContext.getCurrentInstance().addMessage(null, fm);
+
+        return null;
+    }
+    
+    public String updatePlanOpenAttribute() throws SystemException {
+        
+        for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
+            basePlan.updateAttribute(Attribute.IS_PLAN_OPEN.name());
+        }
         FacesMessage fm = new FacesMessage();
         fm.setSeverity(FacesMessage.SEVERITY_INFO);
         fm.setSummary("Update successful");

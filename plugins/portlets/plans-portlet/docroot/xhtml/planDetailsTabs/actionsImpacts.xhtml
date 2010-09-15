@@ -113,14 +113,16 @@
                                    scenarioId="#{planBean.plan.planModelRunScenarioId}"
                                    showEditArea="true" showEditButton="false"
                                    showDisabledMessage="#{permissions.planEditable}"
-                                   disabledMessage="Click &lt;b&gt;Edit&lt;/b&gt; to change inputs" />
+                                   disabledMessage="Click &lt;b&gt;Edit&lt;/b&gt; to change inputs" 
+                                   editActions="#{planBean.planOpenForEditing}" />
             </f:subview>
             <f:subview rendered="#{not permissions.canEdit}">
                 <collab:simulation simulationId="#{planBean.modelBean.selectedItem}"
                                    scenarioId="#{planBean.plan.planModelRunScenarioId}"
                                    disableInputs="true" 
                                    showDisabledMessage="#{permissions.planEditable}"
-                                   disabledMessage="#{permissions.loggedIn ? 'You need to become a team member to edit inputs' : 'You need to log in to edit inputs' }" />
+                                   disabledMessage="#{permissions.loggedIn ? 'You need to become a team member to edit inputs' : 'You need to log in to edit inputs' }" 
+                                   editActions="false" />
             </f:subview>
         </ice:panelGroup>
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
