@@ -16,8 +16,8 @@ div.tabbed-content {
     border:15px solid;
     border-color: #E3DFD7;
     background:#F9F9F8;
-    height:250px;
-    padding:10px;
+    height:375px;
+
     color: #80807E;
    
 }
@@ -33,32 +33,123 @@ div.tabbed-content table td {
 
 
 div.tabbed-content table td#selectors {
-    width:250px;
+    width:40%;
     font-size:1.2em;
+}
+
+
+div.learn {
+    background: url(../images/learn.png) no-repeat scroll 0 center;
+    height:81px;
+    padding-left:86px;
+    display:table-cell;
+    vertical-align:middle;
 
 
 }
+
+div.explore {
+    background: url(../images/explore.png) no-repeat scroll 0 center;
+    height:81px;
+    padding-left:86px;
+    display:table-cell;
+    vertical-align:middle;
+
+
+}
+
+div.involve {
+    background: url(../images/getInvolved.png) no-repeat scroll 0 center;
+
+    height:81px;
+    padding-left:86px;
+    display:table-cell;
+    vertical-align:middle;
+
+}
+
+div.connect {
+    background: url(../images/connect.png) no-repeat scroll 0 center;
+    height:81px;
+    padding-left:86px;
+     display:table-cell;
+    vertical-align:middle;
+
+}
+
+div.learn:hover, div.learn.selected {
+    background: url(../images/learn-selected.png) no-repeat scroll -9px center #F69D75;
+    height:81px;
+    padding-left:86px;
+    display:table-cell;
+    vertical-align:middle;
+    width:10%;
+
+}
+
+div.explore:hover, div.explore.selected {
+    background: url(../images/explore-selected.png) no-repeat scroll -9px center #F69D75;;
+    height:81px;
+    padding-left:86px;
+    display:table-cell;
+    vertical-align:middle;
+    width:10%;
+
+}
+
+div.involve:hover, div.involve.selected {
+    background: url(../images/getInvolved-selected.png) no-repeat scroll -9px center #F69D75;
+    height:81px;
+    padding-left:86px;
+    display:table-cell;
+    vertical-align:middle;
+    width:10%;
+
+}
+
+div.connect:hover, div.connect.selected {
+    background: url(../images/connect-selected.png) no-repeat scroll -9px center #F69D75;
+    height:86px;
+    padding-left:86px;
+     display:table-cell;
+    vertical-align:middle;
+    width:10%;
+
+}
+
+div.tabbed-content td#selectors table td {
+    vertical-align:middle;
+    background: #c5d1c0;
+
+}
+
+div.tabbed-content td#selectors table td div:hover,
+div.tabbed-content td#selectors table td div.selected,
+div.tabbed-content td#selectors table td div.selected a,
+div.tabbed-content td#selectors table td div:hover a {
+    color:#FFFFFF;
+}
+
+div.tabbed-content td#selectors table td.odd {
+
+    background:#D5E2D0;
+}
+
+div.tabbed-content td#selectors table td.spacer {
+    height:25px;
+}
+
+
 
 div.tabbed-content table td#selectors a {
     color:#009ebb;
     font-weight:bold;
 }
 
-div.tabbed-content table td#selectors ul {
-    margin:0;
-}
-
-div.tabbed-content table td#selectors ul li {
-   padding-top:15px;
-   list-style:none;
-}
 
 div.tabbed-content table td#tabs {
     font-size:2.0em;
-    padding-top:15px;
-    padding-right:30px;
-    
-    
+    padding: 25px 40px 10px 10px;
 }
 
 div.tabbed-content td#tabs div.tab-content {
@@ -70,6 +161,9 @@ div.tabbed-content td#tabs div.default {
    display:block;
 
 }
+
+
+
 
 div.themed-content {
    
