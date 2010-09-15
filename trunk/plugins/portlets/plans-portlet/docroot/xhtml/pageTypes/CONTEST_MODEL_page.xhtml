@@ -4,12 +4,21 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:collab="http://climatecollaboratorium.org/facelets">
+        xmlns:collab="http://climatecollaboratorium.org/facelets"
+        xmlns:sharedcollab="http://climatecollaboratorium.org/components">
 
     <ui:composition template="../templates/contestPageTemplate.xhtml">
 
         <ui:define name="contest_content">
-            
+             <ice:form>
+            <sharedcollab:helpMessage messageId="contestModelHelp" styleClass="planHelp"
+                                      hideThisMessage="Hide this message">
+                See how this model works by selecting inputs (left) and viewing outputs (right).
+                <a href="/web/guest/resources/-/wiki/Main/What+Are+Debates">See more</a>.
+            </sharedcollab:helpMessage>
+            <sharedcollab:helpMessageTrigger
+                    messageId="contestModelHelp">+show help</sharedcollab:helpMessageTrigger>
+            </ice:form>
                 <div class="model-info">
         <ice:outputText escape="false">
             The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
@@ -21,6 +30,17 @@
                     <collab:simulation simulationId="#{contests.modelId}" disableInputs="false" showEditArea="false" showEditButton="false" showRunButton="true" />
                 </ice:panelGroup>
             </ice:form>
+            <div class="model-info">
+                <ice:outputText escape="false">
+                    The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
+                        href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
+                </ice:outputText>
+            </div>
+            <ice:form>
+                <collab:simulation simulationId="#{contests.modelId}" disableInputs="false" showEditArea="false"
+                                   showEditButton="false" showRunButton="true"/>
+            </ice:form>
+
             <div class="modelSelection">
             <ice:panelGrid columns="2">
             <ice:panelGroup>
@@ -31,10 +51,10 @@
                 </ice:form>
             </ice:panelGroup>
 
-            <ice:panelGroup>
-                You can select varying levels of geographic disaggregation for the actions in this model by using the menu to the left.
-            </ice:panelGroup>
-            </ice:panelGrid>
+                    <ice:panelGroup>
+                        You can select varying levels of geographic disaggregation for the actions in this model by using the menu to the left.
+                    </ice:panelGroup>
+                </ice:panelGrid>
             </div>
         </ui:define>
     </ui:composition>

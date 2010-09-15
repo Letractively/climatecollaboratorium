@@ -1,8 +1,16 @@
 <?xml version="1.0"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:ice="http://www.icesoft.com/icefaces/component" 
-    xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:collab="http://climatecollaboratorium.org/facelets"
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <collab:discussion discussionId="#{planBean.plan.categoryGroupId}" groupId="#{planBean.plan.groupId}" />
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:collab="http://climatecollaboratorium.org/facelets"
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:sharedcollab="http://climatecollaboratorium.org/components">
+    <sharedcollab:helpMessage messageId="planDiscussionHelp" styleClass="planHelp"
+                              hideThisMessage="Hide this message">
+        Climate CoLab members are invited to comment on proposals. <a
+            href="/web/guest/resources/-/wiki/Main/Discussions+help">See more</a>.
+    </sharedcollab:helpMessage>
+    <sharedcollab:helpMessageTrigger messageId="planDiscussionHelp">+show help</sharedcollab:helpMessageTrigger>
+
+    <collab:discussion discussionId="#{planBean.plan.categoryGroupId}" groupId="#{planBean.plan.groupId}"/>
 </f:view>

@@ -2,7 +2,17 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+         xmlns:collab="http://climatecollaboratorium.org/components">
+    <collab:helpMessage messageId="planTeamHelp" styleClass="planHelp"
+                              hideThisMessage="Hide this message">
+              Climate CoLab members can join teams that are developing proposals or become supporters of proposals.
+              <a href="/web/guest/resources/-/wiki/Main/Teams">See more</a>.
+          </collab:helpMessage>
+          <collab:helpMessageTrigger messageId="planTeamHelp">+show help</collab:helpMessageTrigger>
+
+    
+
     <table class="teamGrid">
         <tr>
             <td class="left">
