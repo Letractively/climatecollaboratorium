@@ -532,10 +532,11 @@ function initVersionChoosingBox() {
         return;
     }
     var versions = container.find(".versions");
-    var trigger = jQuery(".versionsTrigger");
     var hidden = true;
 
+	alert('initVersionChoosingBox, trigger.length: ' + trigger.length);
     trigger.click(function() {
+    	alert('trigger');
         if (! container.is(':visible')) {
             trigger.html("Hide old versions")
             container.show("slide", {direction: "up"});
@@ -548,6 +549,20 @@ function initVersionChoosingBox() {
         }
     });
     container.addClass('processed');
+}
+
+function triggerVersionsContainerVisibility() {
+    var trigger = jQuery(".versionsTrigger");
+    var container = jQuery(".versionsContainer");
+    if (! container.is(':visible')) {
+        trigger.html("Hide old versions")
+        container.show("slide", {direction: "up"});
+    }
+    else {
+        container.hide("slide", {direction: "up"}, 'medium', function() {
+            trigger.html("Show old versions");
+        });
+    }
 }
 
 
