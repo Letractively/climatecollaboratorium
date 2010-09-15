@@ -243,7 +243,7 @@ public class PlanItemWrapper {
     }
 
     public Long getSelectedModel() throws SystemException {
-	    return planBean.getModelBean().getSelectedModel().getId();
+	    return planBean.getModelBean().getSelectedItem();
 
     }
     
