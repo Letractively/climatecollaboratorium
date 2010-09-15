@@ -1,5 +1,8 @@
-<%@ page import="java.util.Collections" %>
+<%@ taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui" %>
 <%@ page import="com.ext.portlet.community.UserRoleQueryFilter" %>
+<%@ page import="com.liferay.portal.util.PortalUtil" %>
+<%@ page import="java.util.Collections" %>
+
 <%--
 ~ Copyright (c) 2010. M.I.T. All Rights Reserved
 ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
@@ -21,8 +24,11 @@
 
 <%
     PortletURL portletURL = renderResponse.createRenderURL();
-    String selectedTab = request.getParameter("selectedTab");
-    selectedTab = selectedTab==null?"Members":selectedTab;
+
+    /** Makes it easier for callers to produce a query string **/
+    String selectedTab = PortalUtil.getOriginalServletRequest(request).getParameter("_community_selectedTab");
+
+    selectedTab = selectedTab == null ? "Members" : selectedTab;
 
     portletURL.setWindowState(WindowState.NORMAL);
 
@@ -45,9 +51,12 @@
     <input name="<portlet:namespace />redirect" type="hidden" value="<%= portletURLString %>"/>
     <input name="<portlet:namespace />selectedTab" type="hidden" value="Members"/>
     <script type="text/javascript">
-        function <portlet:namespace/>navTabs(tab) {
-            jQuery("input[name='<portlet:namespace />selectedTab']").val(tab);
-            jQuery("form[name='<portlet:namespace />fm']").submit();
+        function
+        <
+        portlet:namespace
+        />navTabs(tab) {
+        jQuery("input[name='<portlet:namespace />selectedTab']").val(tab);
+        jQuery("form[name='<portlet:namespace />fm']").submit();
         }
     </script>
 
@@ -66,6 +75,7 @@
 
     <liferay-ui:search-container
             searchContainer="<%= new UserSearch(renderRequest, portletURL) %>"
+            
             >
         <input name="<portlet:namespace />usersRedirect" type="hidden" value="<%= portletURL.toString() %>"/>
 
@@ -112,120 +122,156 @@
             </h3>
         </c:if>
 
-        <liferay-ui:search-form
-                page="/html/portlet/directory/user_search.jsp"
-                />
-        <table class="pseudo-tab-nav">
+        <table class="pseudo-tab-nav-block">
             <tr>
-                <td class="<%= "Members".equals(selectedTab)?"selected":""%>"><a href="javascript:" onclick="<portlet:namespace />navTabs('Members');return false;" >Members</a></td>
-                <td class="<%= "Experts".equals(selectedTab)?"selected":""%>"><a href="javascript:" onclick="<portlet:namespace />navTabs('Experts');return false;" >Experts</a></td>
-                <td class="<%= "Moderators".equals(selectedTab)?"selected":""%>"><a href="javascript:" onclick="<portlet:namespace />navTabs('Moderators');return false;" >Moderators</a></td>
-                <td class="<%= "Staff".equals(selectedTab)?"selected":""%>"><a href="javascript:" onclick="<portlet:namespace />navTabs('Staff');return false;" >Staff</a></td>
+                <td class="<%= "Members".equals(selectedTab)?"selected":""%>"><a href="javascript:"
+                                                                                 onclick="<portlet:namespace />navTabs('Members');return false;">All
+                    Members</a></td>
+                <td class="<%= "Experts".equals(selectedTab)?"selected":""%>"><a href="javascript:"
+                                                                                 onclick="<portlet:namespace />navTabs('Experts');return false;">Experts</a>
+                </td>
+                <td class="<%= "Moderators".equals(selectedTab)?"selected":""%>"><a href="javascript:"
+                                                                                    onclick="<portlet:namespace />navTabs('Moderators');return false;">Moderators</a>
+                </td>
+                <td class="<%= "Staff".equals(selectedTab)?"selected":""%>"><a href="javascript:"
+                                                                               onclick="<portlet:namespace />navTabs('Staff');return false;">Staff</a>
+                </td>
             </tr>
         </table>
 
-        <%
-            LinkedHashMap userParams = new LinkedHashMap();
 
-            if (organizationId > 0) {
-                userParams.put("usersOrgs", new Long(organizationId));
-            }
-
-            if (userGroupId > 0) {
-                userParams.put("usersUserGroups", new Long(userGroupId));
-            }
-
-            
-        %>
-
-        <liferay-ui:search-container-results>
-            <%
-
-                System.err.println("Order by col "+searchContainer.getOrderByCol());
-                System.err.println("Order by type "+searchContainer.getOrderByType());
+        <div class="member-list-content">
+             <c:if test = '<%="Experts".equals(selectedTab)%>'>
+            <div class="inlineHelp">
+                  A group of world renowned experts, who serve on the Climate CoLab's <a href="/web/guest/resources/-/wiki/Main/Expert+Council">Expert Council</a> and <a href="/web/guest/resources/-/wiki/Main/Expert+Advisory+Board">Expert Advisory Board</a>, are a key part of the community.
+            </div>
 
 
-                OrderByComparator comp = "createDate".equals(searchContainer.getOrderByCol()) ? new UserCreateDateComparator(!"asc".equalsIgnoreCase(searchContainer.getOrderByType())):searchContainer.getOrderByComparator();
-                System.err.println("start "+searchContainer.getStart()+" end "+searchContainer.getEnd());
-                results = new ArrayList(UserLocalServiceUtil.search(company.getCompanyId(), searchTerms.getKeywords(), searchTerms.getActive(), userParams, 0, Integer.MAX_VALUE, comp));
+
+        </c:if>
+        <c:if test = '<%="Moderators".equals(selectedTab)%>'>
+            <div class="inlineHelp">
+            <a href="/web/guest/resources/-/wiki/Main/Moderators">Moderators</a> welcome new members and ensure the quality of site content and adherence to the Climate CoLab's <a href="/web/guest/resources/-/wiki/Main/Community+philosophy+and+policies">community philosophy and policies.</a>
+           </div>
 
 
-              
-                if ("Number of Activities".equals(searchContainer.getOrderByCol())) {
-                    Collections.sort(results,new UserNumberActivitiesComparator(!"asc".equalsIgnoreCase(searchContainer.getOrderByType())));
-                                    
-                }
-                
-                if (selectedTab != null && !("Members".equals(selectedTab))) {
-                    UserRoleQueryFilter.filterByRoles(results,selectedTab);
-                }
-                
-                pageContext.setAttribute("results", results.subList(searchContainer.getStart(),Math.min(results.size(),searchContainer.getEnd())));
-                pageContext.setAttribute("total", results.size());
-            %>
+        </c:if>
+        <c:if test = '<%="Staff".equals(selectedTab)%>'>
+            <div class="inlineHelp">
+                  The Climate CoLab is a project of the <a href="http://cci.mit.edu">MIT Center for Collective Intelligence</a> (CCI).
+                The <a href="/web/guest/resources/-/wiki/Main/Project+staff">Project staff</a> includes researchers and students from MIT and other universities, as well as concerned citizens who volunteer their expertise.
+            </div>
 
-        </liferay-ui:search-container-results>
 
-        <liferay-ui:search-container-row
-                className="com.liferay.portal.model.User"
-                escapedModel="<%= true %>"
-                keyProperty="userId"
-                modelVar="user2"
-                >
+
+
+        </c:if>
+            <liferay-ui:search-form
+                    page="/html/portlet/directory/user_search.jsp"
+                    />
 
 
             <%
-                String rowURL = "/web/guest/members?userId=" + user2.getUserId();
+                LinkedHashMap userParams = new LinkedHashMap();
+
+                if (organizationId > 0) {
+                    userParams.put("usersOrgs", new Long(organizationId));
+                }
+
+                if (userGroupId > 0) {
+                    userParams.put("usersUserGroups", new Long(userGroupId));
+                }
+
 
             %>
 
+            <liferay-ui:search-container-results>
+                <%
 
-            <liferay-ui:search-container-column-text
-                    href="<%= rowURL %>"
-                    name="screen-name"
-                    orderable="<%= true %>"
-                    property="screenName"
-                    />
-
-            <liferay-ui:search-container-column-text
-                    href="<%= rowURL %>"
-                    name="Member Since"
-                    orderable="<%= true %>"
-                    value="<%=dateFormat.format(user2.getCreateDate())%>"
-                    orderableProperty="createDate"
-                    />
-
-            <liferay-ui:search-container-column-text
-                    href="<%= rowURL %>"
-                    name="Number of Activities"
-                    orderable="<%= true %>"
-                    value="<%= String.valueOf(SocialActivityLocalServiceUtil.getUserActivitiesCount(user2.getUserId())) %>"
-                    />
+                    
 
 
-        </liferay-ui:search-container-row>
+                    OrderByComparator comp = "createDate".equals(searchContainer.getOrderByCol()) ? new UserCreateDateComparator(!"asc".equalsIgnoreCase(searchContainer.getOrderByType())) : searchContainer.getOrderByComparator();
+                    System.err.println("start " + searchContainer.getStart() + " end " + searchContainer.getEnd());
+                    results = new ArrayList(UserLocalServiceUtil.search(company.getCompanyId(), searchTerms.getKeywords(), searchTerms.getActive(), userParams, 0, Integer.MAX_VALUE, comp));
 
-        <c:if test="<%= (organization != null) || (userGroup != null) %>">
-            <br/>
-        </c:if>
 
-        <c:if test="<%= organization != null %>">
-            <input name="<portlet:namespace /><%= UserDisplayTerms.ORGANIZATION_ID %>" type="hidden"
-                   value="<%= organization.getOrganizationId() %>"/>
+                    if ("Number of Activities".equals(searchContainer.getOrderByCol())) {
+                        Collections.sort(results, new UserNumberActivitiesComparator(!"asc".equalsIgnoreCase(searchContainer.getOrderByType())));
 
-            <liferay-ui:message key="filter-by-organization"/>: <%= HtmlUtil.escape(organization.getName()) %><br/>
-        </c:if>
+                    }
 
-        <c:if test="<%= userGroup != null %>">
-            <input name="<portlet:namespace /><%= UserDisplayTerms.USER_GROUP_ID %>" type="hidden"
-                   value="<%= userGroup.getUserGroupId() %>"/>
+                    if (selectedTab != null && !("Members".equals(selectedTab))) {
+                        UserRoleQueryFilter.filterByRoles(results, selectedTab);
+                    }
 
-            <liferay-ui:message key="filter-by-user-group"/>: <%= userGroup.getName() %><br/>
-        </c:if>
+                    pageContext.setAttribute("results", results.subList(searchContainer.getStart(), Math.min(results.size(), searchContainer.getEnd())));
+                    pageContext.setAttribute("total", results.size());
+                %>
 
-        <div class="separator"><!-- --></div>
+            </liferay-ui:search-container-results>
+
+            <liferay-ui:search-container-row
+                    className="com.liferay.portal.model.User"
+                    escapedModel="<%= true %>"
+                    keyProperty="userId"
+                    modelVar="user2"
+                    >
+
+
+                <%
+                    String rowURL = "/web/guest/members?userId=" + user2.getUserId();
+
+                %>
+
+
+                <liferay-ui:search-container-column-text
+                        href="<%= rowURL %>"
+                        name="screen-name"
+                        orderable="<%= true %>"
+                        property="screenName"
+
+                        />
+
+                <liferay-ui:search-container-column-text
+
+                        name="Member Since"
+                        orderable="<%= true %>"
+                        value="<%=dateFormat.format(user2.getCreateDate())%>"
+                        orderableProperty="createDate"
+                        />
+
+                <liferay-ui:search-container-column-text
+                      
+                        name="Activity Count"
+                        orderable="<%= true %>"
+                        value="<%= String.valueOf(SocialActivityLocalServiceUtil.getUserActivitiesCount(user2.getUserId())) %>"
+                        />
+
+
+            </liferay-ui:search-container-row>
+
+            <c:if test="<%= (organization != null) || (userGroup != null) %>">
+                <br/>
+            </c:if>
+
+            <c:if test="<%= organization != null %>">
+                <input name="<portlet:namespace /><%= UserDisplayTerms.ORGANIZATION_ID %>" type="hidden"
+                       value="<%= organization.getOrganizationId() %>"/>
+
+                <liferay-ui:message key="filter-by-organization"/>: <%= HtmlUtil.escape(organization.getName()) %><br/>
+            </c:if>
+
+            <c:if test="<%= userGroup != null %>">
+                <input name="<portlet:namespace /><%= UserDisplayTerms.USER_GROUP_ID %>" type="hidden"
+                       value="<%= userGroup.getUserGroupId() %>"/>
+
+                <liferay-ui:message key="filter-by-user-group"/>: <%= userGroup.getName() %><br/>
+            </c:if>
+
 
         <liferay-ui:search-iterator/>
-
+        </div>
+                
     </liferay-ui:search-container>
 </form>
