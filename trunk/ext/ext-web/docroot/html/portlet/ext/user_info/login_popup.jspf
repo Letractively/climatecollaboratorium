@@ -37,12 +37,17 @@
         var redirect = redirectInput.val();
         redirectInput.val(redirect + document.location.hash);
     });
+    
+    function <portlet:namespace />LoginPopupLogin() {
+        jQuery("#<portlet:namespace />redirectId").val(window.location.toString());
+        jQuery("#<portlet:namespace />loginpopupId").submit();
+    }
 
 
 </script>
 
-<form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />loginpopup">
-    <input name="<portlet:namespace />redirect" type="hidden" value=""/>
+<form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />loginpopup" id="<portlet:namespace />loginpopupId">
+    <input name="<portlet:namespace />redirect" type="hidden" value="" id="<portlet:namespace />redirectId" />
     <input id="<portlet:namespace />rememberMe" name="<portlet:namespace />rememberMe" type="hidden"
            value=""/>
 
@@ -86,7 +91,7 @@
 
             </div>
             <div class="content-register-link">
-                <a href="javascript:;" onclick="<portlet:namespace/>cancelAndRegister();">Not registered yet?</a>
+                <a href="/web/guest/loginregister?p_p_id=loginregister" onclick="<portlet:namespace />modifyLoginRegisterURL(this);">Not registered yet?</a>
             </div>
 
         </div>
@@ -99,8 +104,8 @@
         <div class="DialogSEdge">
             <div class="content">
                     <a href="javascript:;"
-                       onClick="document.<portlet:namespace />loginpopup.submit(); return false;" class="checkIcon"><span class="hidden">OK</span></a>
-                    <a href="javascript:;" onclick="<portlet:namespace/>closeDialog('loginPopupDialog');return false;" class="cancelIcon"><span class="hidden">CANCEL</span></a>
+                       onclick="<portlet:namespace />LoginPopupLogin(); return false;" class="checkIcon"><span class="hidden">OK</span></a>
+                    <a href="javascript:;" onclick='jQuery("#loginPopupDialog").dialog("close"); return false;' class="cancelIcon"><span class="hidden">CANCEL</span></a>
 
             </div>
         </div>
