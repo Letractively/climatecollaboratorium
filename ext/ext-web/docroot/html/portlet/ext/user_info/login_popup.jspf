@@ -42,9 +42,9 @@
 </script>
 
 <form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />loginpopup">
-    <input name="<portlet:namespace />redirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"/>
+    <input name="<portlet:namespace />redirect" type="hidden" value=""/>
     <input id="<portlet:namespace />rememberMe" name="<portlet:namespace />rememberMe" type="hidden"
-           value="<%= rememberMe %>"/>
+           value=""/>
 
 
     <div class="DialogBox">
@@ -71,7 +71,7 @@
                         <td><label class="lable" for="<portlet:namespace />login">Screen name:</label>
                         </td>
                         <td><input class="text" name="<portlet:namespace />login" type="text"
-                                   value="<%= HtmlUtil.escape(login) %>"/>
+                                   value=""/>
                         </td>
                     </tr>
                     <tr>
@@ -79,7 +79,7 @@
                                 key="password"/>:</label>
                         </td>
                         <td><input class="text" id="<portlet:namespace />password" name="<portlet:namespace />password"
-                                   type="password" value="<%= password %>"/>
+                                   type="password" value=""/>
                         </td>
                     </tr>
                     </table>
