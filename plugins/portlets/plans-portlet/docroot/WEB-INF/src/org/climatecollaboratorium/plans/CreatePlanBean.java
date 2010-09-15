@@ -26,6 +26,7 @@ public class CreatePlanBean {
     private PlanBean planBean;
     private Long planId;
     private boolean navigateToPlan;
+    private PlansPreferencesBean preferences = new PlansPreferencesBean();
     
     private final static String PLANS_SOURCE = "plans"; 
     private final static String CREATE_PLAN_PARAM = "createPlan"; 
@@ -52,7 +53,10 @@ public class CreatePlanBean {
         if (Helper.isUserLoggedIn()) {
             PlanItem planItem = null;
             if (plansIndexBean != null) {
+                // get default description
+                String defaultDescription = preferences.getDefaultDescription();
                 planItem = PlanItemLocalServiceUtil.createPlan(plansIndexBean.getContestPhase().getPhase(), Helper.getLiferayUser().getUserId());
+                planItem.setDescription(defaultDescription, Helper.getLiferayUser().getUserId());
                 plansIndexBean.refresh();
             }
             else if (planBean != null) {
