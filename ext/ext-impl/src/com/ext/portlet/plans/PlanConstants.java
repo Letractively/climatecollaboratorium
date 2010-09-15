@@ -129,7 +129,8 @@ public class PlanConstants {
         POSITIONS(Long[].class, "%s", attributeFunctionFactory.getPlanPropertyFunction("positionsIdsArray"), true, PlanFilterOperatorType.POSITIONS_FILTER, null),
         STATUS(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("status"), true, PlanFilterOperatorType.LIKE, null),
         SEEKING_ASSISTANCE(String.class, "%s", attributeFunctionFactory.getAttributeValue("SEEKING_ASSISTANCE"), true, null, null),
-        SUPPORTERS(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("SUPPORTERS"), true, null, null);
+        SUPPORTERS(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("SUPPORTERS"), true, null, null),
+        IS_PLAN_OPEN(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("open"), true, null, null);
 		
 		
 		private Class<?> clasz;
@@ -413,9 +414,11 @@ public class PlanConstants {
 				"ess than the lower number and a 5% chance that the costs would be greater than the higher number.","ShowDamageCost",true, 
 				Attribute.MIN_DAMAGE_COST, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST,Attribute.MAX_DAMAGE_COST)),
 		
-        SEEKING_ASSISTANCE("Seeking assistance","Does this plan team seeks for new members?","ShowSeekingAssistance",true, Attribute.SEEKING_ASSISTANCE, new AttributeGetter("%s",Attribute.SEEKING_ASSISTANCE)),
+        SEEKING_ASSISTANCE("Seeking<br />assistance","Does this plan team seeks for new members?","ShowSeekingAssistance",true, Attribute.SEEKING_ASSISTANCE, new AttributeGetter("%s",Attribute.SEEKING_ASSISTANCE)),
 
-        SUPPORTERS("Supporters","Number of users supporting this plan","ShowSupporters",true, Attribute.SUPPORTERS, new AttributeGetter("%s",Attribute.SUPPORTERS));
+        SUPPORTERS("Supporters","Number of users supporting this plan","ShowSupporters",true, Attribute.SUPPORTERS, new AttributeGetter("%s",Attribute.SUPPORTERS)),
+		
+		IS_PLAN_OPEN("Who can<br /> edit", "Who can edit the plan", "ShowWhoCanEdit", true, Attribute.IS_PLAN_OPEN, new AttributeGetter("%s", Attribute.IS_PLAN_OPEN));
 		
 		private String name;
 		private String description;
