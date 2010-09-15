@@ -20,6 +20,7 @@ public class SimulationSupportTag extends TagHandler{
     private final TagAttribute simulationBeanParam;
     private final TagAttribute simulationIdParam;
     private final TagAttribute scenarioIdParam;
+    private final TagAttribute editActionsParam;
     
     private static Log _log = LogFactoryUtil.getLog(SimulationSupportTag.class);
 
@@ -28,6 +29,7 @@ public class SimulationSupportTag extends TagHandler{
         simulationBeanParam = this.getRequiredAttribute("simulationBean");
         simulationIdParam = this.getAttribute("simulationId");
         scenarioIdParam = this.getAttribute("scenarioId");
+        editActionsParam = this.getAttribute("editActions");
     }
 
     @Override
@@ -38,8 +40,9 @@ public class SimulationSupportTag extends TagHandler{
         
         Long scenarioId = (Long) scenarioIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
         Long simulationId = (Long) simulationIdParam.getValueExpression(ctx, Long.class).getValue(ctx);
+        Boolean edit = editActionsParam != null ? (Boolean) editActionsParam.getObject(ctx, Boolean.class) : false;
         try {
-            simulationBean.init(simulationId, scenarioId);
+            simulationBean.init(simulationId, scenarioId, edit);
         } catch (Exception e) {
             _log.error("Can't initialize simulationBean with parameters - simulationId " + 
                     simulationId + "\tscenarioId: " + scenarioId, e);

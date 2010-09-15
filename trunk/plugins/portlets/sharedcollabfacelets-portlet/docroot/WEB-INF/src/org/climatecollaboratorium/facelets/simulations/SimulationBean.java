@@ -305,7 +305,7 @@ public class SimulationBean {
     }
     
 
-    public void init(Long simulationId, Long scenarioId) throws SystemException, IOException, IllegalUIConfigurationException {
+    public void init(Long simulationId, Long scenarioId, Boolean edit) throws SystemException, IOException, IllegalUIConfigurationException {
         if ((simulationId == lastInitSimulationId || (simulationId != null && simulationId.equals(lastInitSimulationId))) &&
                 (scenarioId == lastInitScenarioId || (scenarioId != null && scenarioId.equals(lastInitScenarioId))) ||
                 (lastInitSimulationId != null && lastInitSimulationId > 0 && simulationId == null || simulationId == 0)) {
@@ -314,6 +314,10 @@ public class SimulationBean {
         }
         lastInitSimulationId = simulationId;
         lastInitScenarioId = scenarioId;
+        
+        if (edit != null && edit) {
+            editActions(null);
+        }
         
         // check if scenario exist
         Exception exception = null; 
