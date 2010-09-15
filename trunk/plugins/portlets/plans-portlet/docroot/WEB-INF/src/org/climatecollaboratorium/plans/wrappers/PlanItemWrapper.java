@@ -429,9 +429,10 @@ public class PlanItemWrapper {
         }
     }
     
-    public void toggleOpen(ActionEvent e) throws SystemException {
+    public void toggleOpen(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             wrapped.setOpen(! wrapped.getOpen(), Helper.getLiferayUser().getUserId());
+            planBean.refreshIndex();
         }       
     }
     

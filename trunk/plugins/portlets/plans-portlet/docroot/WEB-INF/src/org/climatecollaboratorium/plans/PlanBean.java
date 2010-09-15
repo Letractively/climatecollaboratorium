@@ -40,8 +40,10 @@ public class PlanBean {
     
     private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
     private final static String PLANS_SOURCE = "plans"; 
+    private final static String NEW_PLAN_PARAM = "newPlan";
 
     private final static String DEFAULT_TAB="actionsimpacts";
+    private boolean planOpenForEditing = false;
     // this is ver bad solution, we should use event bus for communication between beans instead of direct references
     private PlansIndexBean plansIndexBean;
  
@@ -97,6 +99,16 @@ public class PlanBean {
             selectedTabIndex = tabNameIndexMap.get(DEFAULT_TAB);
         }
         refresh();
+        if (parameters.containsKey(NEW_PLAN_PARAM)) {
+            // 
+            if (planItem.getVersion() == 1 && planItem.getAuthorId() == Helper.getLiferayUser().getUserId()) {
+                editingDescription = true;
+                editingName = true;
+                planPositionsBean.edit(null);
+                simulationBean.edit(null);
+                planOpenForEditing = true;
+            }
+        }
     }
     
     public void clear() {
@@ -113,7 +125,7 @@ public class PlanBean {
             simulationBean.cleanup();
         }
         if (planId != null && planId > 0) {
-
+            
             planItem = PlanItemLocalServiceUtil.getPlan(planId);
             modelBean = new PlanModelBean(planItem,this);
             plan = new PlanItemWrapper(planItem, this, permissions);
@@ -233,6 +245,10 @@ public class PlanBean {
     public void modelChanged() {
         plan.modelChanged();
         
+    }
+
+    public boolean isPlanOpenForEditing() {
+        return planOpenForEditing;
     }
     
 }
