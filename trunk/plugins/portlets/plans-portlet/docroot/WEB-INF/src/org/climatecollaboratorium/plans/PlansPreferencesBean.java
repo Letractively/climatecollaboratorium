@@ -23,9 +23,12 @@ public class PlansPreferencesBean {
 
     private Long[] questionsArray = new Long[0];
     private final static String QUESTIONS_PREFERENCE = "QUESTIONS";
+    private final static String DEFAULT_DESCRIPTION_PREFERENCE = "DEFAULT_DESCRIPTION";
+    private String defaultDescription;
 
     public PlansPreferencesBean() {
         String[] questionsStr = Helper.getPortletPrefs().getValues(QUESTIONS_PREFERENCE, new String[0]);
+        defaultDescription = Helper.getPortletPrefs().getValue(DEFAULT_DESCRIPTION_PREFERENCE, "");
         questionsArray = convertStringsToLongs(questionsStr);
     }
 
@@ -89,6 +92,26 @@ public class PlansPreferencesBean {
             arrayStr[i] = arrayLong[i].toString();
         }
         return arrayStr;
+    }
+
+    public void setDefaultDescription(String defaultDescription) throws ReadOnlyException, ValidatorException, IOException {
+        this.defaultDescription = defaultDescription;
+
+
+        PortletPreferences prefs = Helper.getPortletPrefs();
+        prefs.setValue(DEFAULT_DESCRIPTION_PREFERENCE, defaultDescription);
+        prefs.store();
+        
+        FacesMessage fm = new FacesMessage();
+
+        fm.setSummary("Settings saved successfully");
+        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext fc = FacesContext.getCurrentInstance();
+        fc.addMessage(null, fm);
+    }
+
+    public String getDefaultDescription() {
+        return defaultDescription;
     }
 
 }
