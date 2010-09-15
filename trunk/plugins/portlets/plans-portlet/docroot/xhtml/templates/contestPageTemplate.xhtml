@@ -23,7 +23,7 @@
                     <h2><ice:inputText styleClass="categoryName" value="#{contests.contest.editor.name}"/></h2>
                 </ice:panelGroup>
                 <ice:panelGroup styleClass="categoryDescription" rendered="#{not contests.contest.editor.editing}">
-                    <ice:outputText value="#{contests.contest.description}"/>
+                    <ice:outputText value="#{contests.contest.description}" escape="false" />
                 </ice:panelGroup>
                 <ice:panelGroup styleClass="categoryDescription" rendered="#{contests.contest.editor.editing}">
                     <ice:inputTextarea value="#{contests.contest.editor.description}"/>
