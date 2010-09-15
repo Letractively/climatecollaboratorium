@@ -13,22 +13,18 @@
              <ice:form>
             <sharedcollab:helpMessage messageId="contestModelHelp" styleClass="planHelp"
                                       hideThisMessage="Hide this message">
-                See how this model works by selecting inputs (left) and viewing outputs (right).
-                <a href="/web/guest/resources/-/wiki/Main/What+Are+Debates">See more</a>.
+                <p>
+                    The Climate CoLab uses the&amp;nbsp;<a href="/web/guest/resources/-/wiki/Main/MIT+Composite+Model">MIT Composite model</a>.
+                </p>
+                <p>
+                    See how this model works by selecting inputs (left) and viewing outputs (right).
+                </p>
+                <p> 
+                    Add your own model by clicking the&amp;nbsp;<b>Upload</b> button.
+                </p> 
             </sharedcollab:helpMessage>
             <sharedcollab:helpMessageTrigger
                     messageId="contestModelHelp">+show help</sharedcollab:helpMessageTrigger>
-            </ice:form>
-                <div class="model-info">
-        <ice:outputText escape="false">
-            The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
-                href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
-        </ice:outputText>
-        </div>
-            <ice:form>
-                <ice:panelGroup>
-                    <collab:simulation simulationId="#{contests.modelId}" disableInputs="false" showEditArea="false" showEditButton="false" showRunButton="true" />
-                </ice:panelGroup>
             </ice:form>
             <div class="model-info">
                 <ice:outputText escape="false">
