@@ -115,7 +115,9 @@ public class AttributeFunctionFactory {
         return new ScenarioAttributeFunction<T>() {
             public T _process(String scenarioId) throws SystemException {
                  Variable v = getVariableFromInternalName(scenarioId, variableId);
-
+                 if (v == null) {
+                     return null;
+                 }
                 List<Tuple> tuples = v.getValue();
                 if (tuples.size() == 0) {
                     return null;

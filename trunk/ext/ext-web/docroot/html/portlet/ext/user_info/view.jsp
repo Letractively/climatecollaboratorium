@@ -70,3 +70,9 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+
+<div id="loginPopupDialog" class="hidden">
+    <div class="inner">
+                <%@ include file="/html/portlet/ext/user_info/login_popup.jspf" %>
+        </div>
+</div>

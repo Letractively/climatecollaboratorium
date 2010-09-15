@@ -62,7 +62,8 @@ insert into ContestPhaseColumn VALUES (21, 3, 'SUPPORTERS', 10);
 insert into ContestPhaseColumn VALUES (22, 3, 'CO2_CONCENTRATION', 20);
 insert into ContestPhaseColumn VALUES (23, 3, 'MITIGATION_COST', 30);
 insert into ContestPhaseColumn VALUES (24, 3, 'DAMAGE_COST', 40);
-insert into ContestPhaseColumn VALUES (25, 3, 'SEEKING_ASSISTANCE', 60);
+Insert into ContestPhaseColumn values (25, 3, 'IS_PLAN_OPEN', 50);
+insert into ContestPhaseColumn VALUES (26, 3, 'SEEKING_ASSISTANCE', 60);
 
 insert into ContestPhaseColumn VALUES (30, 4, 'NAME', 0);
 insert into ContestPhaseColumn VALUES (31, 4, 'SUPPORTERS', 10);
