@@ -85,12 +85,19 @@ public class PlansIndexBean {
     private final static String ACTIVE_PROPOSALS = "active";
     private final static String PREVIOUS_PROPOSALS = "previous";
     
+    private final static String SHOW_OPEN_PARAM = "showOpen";
+    private final static String SHOW_NEEDING_ASSISTANCE_PARAM = "showNeedingAssistance";
+    
     private static Log _log = LogFactoryUtil.getLog(PlansIndexBean.class);
     private boolean showPreviousProposals = false;
 
     private boolean showProposalsThatUserOwns;
 
     private boolean showProposalsThatUserSupports;
+
+    private boolean showProposalsThatAreOpen;
+
+    private boolean showProposalsThatNeedSupporters;
 
     public PlansIndexBean(ContestPhaseWrapper contestPhaseWrapper) throws PortalException, SystemException {
         this.contestPhase = contestPhaseWrapper;
@@ -135,11 +142,30 @@ public class PlansIndexBean {
             showPreviousProposals = false;
         }
         
+        showProposalsThatNeedSupporters = false;
+        showProposalsThatAreOpen = false;
+        
+        if (params != null) {
+            if (params.containsKey(SHOW_NEEDING_ASSISTANCE_PARAM)) {
+                if (!showProposalsThatNeedSupporters) {
+                    showProposalsThatNeedSupporters = true;
+                    isDirty = true;
+                }
+            }
+            if (params.containsKey(SHOW_OPEN_PARAM)) {
+                if (! showProposalsThatAreOpen) {
+                    showProposalsThatAreOpen = true;
+                    isDirty = true;
+                }
+            }
+        }
+        
         if (isDirty) {
             refresh();
             sortColumn = PlanConstants.Attribute.SUPPORTERS.name();
             sortAscending = false;
         }
+        
     }
 
     public ContestPhaseWrapper getContestPhase() {
@@ -242,8 +268,19 @@ public class PlansIndexBean {
                             continue;
                         }
                     }
-
                 }
+
+                if (showProposalsThatAreOpen) {
+                    if (! plan.getOpen()) {
+                        continue;
+                    }
+                }
+                if (showProposalsThatNeedSupporters) {
+                    if (! plan.isSeekingAssistance()) {
+                        continue;
+                    }
+                }
+
                 plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
             }
             updateErrorNotes = true;
@@ -405,11 +442,26 @@ public class PlansIndexBean {
      
      public void setShowProposalsThatUserOwns(boolean show) throws PortalException, SystemException {
          showProposalsThatUserOwns = show;
-         refresh();
      }
      
      public void setShowProposalsThatUserSupports(boolean show) throws PortalException, SystemException {
          showProposalsThatUserSupports = show;
      }
+     
+     public void setShowProposalsThatNeedSupporters(boolean show) throws PortalException, SystemException {
+         showProposalsThatNeedSupporters = show;
+     }
+     
+     public void setShowProposalsThatAreOpen(boolean show) throws PortalException, SystemException {
+         showProposalsThatAreOpen = show;
+         refresh();
+     }
+     
+     public boolean isShowProposalsThatAreOpen() {
+         return showProposalsThatAreOpen;
+     }
 
+     public boolean isShowProposalsThatNeedSupporters() {
+         return showProposalsThatNeedSupporters;
+     }
 }
