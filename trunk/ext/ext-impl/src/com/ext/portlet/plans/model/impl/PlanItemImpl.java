@@ -303,6 +303,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         PlanMeta planMeta = PlanMetaLocalServiceUtil.createNewVersionForPlan(this);
         planMeta.setOpen(open);
         planMeta.store();
+        updateAttribute(Attribute.IS_PLAN_OPEN);
 
     }
 
