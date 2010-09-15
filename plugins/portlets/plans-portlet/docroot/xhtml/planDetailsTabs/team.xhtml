@@ -71,12 +71,12 @@
             </td>
             <td class="right">
                 <div class="center">
-                    <ice:commandButton value="Become a fan!" actionListener="#{planBean.plan.becomeAFan}" rendered="#{not planBean.plan.userAFan}" onclick="if(!deferUntilLogin()) return false;"/>
+                    <ice:commandButton value="Become a supporter!" actionListener="#{planBean.plan.becomeAFan}" rendered="#{not planBean.plan.userAFan}" onclick="if(!deferUntilLogin()) return false;"/>
                     <ice:commandButton value="Remove me" actionListener="#{planBean.plan.unfan}" rendered="#{planBean.plan.userAFan}" />
                 </div>
                 
                 <div class="sectionTitle">
-                    <h3>#{planBean.plan.planFansCount} Fans</h3>
+                    <h3>#{planBean.plan.planFansCount} Supporters</h3>
                 </div>
                 <ice:dataTable value="#{planBean.plan.planFans}" var="fan" styleClass="itemsTable">
                     <ice:column>
