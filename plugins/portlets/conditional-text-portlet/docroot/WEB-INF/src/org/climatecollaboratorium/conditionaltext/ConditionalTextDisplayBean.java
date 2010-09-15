@@ -41,7 +41,10 @@ public class ConditionalTextDisplayBean {
     private PortletPreferencesManagedBean preferences;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     private EventBus eventBus;
+    private String planId = "";
     private final static String CONDITIONAL_TEXT_SOURCE_NAME = "condText";
+    private final static String PLANS_SOURCE_NAME = "plans";
+    private final static String PER_PLAN_CONDITIONAL_TEST_SOURCE_NAME = "planCondText";
     private final static String CONDITIONAL_TEXT_VAL_PARAM = "value";
 
     public ConditionalTextDisplayBean() {
@@ -115,16 +118,32 @@ public class ConditionalTextDisplayBean {
             @Override
             public void onEvent(NavigationEvent event) {
                 Map<String, String> params = event.getParameters(CONDITIONAL_TEXT_SOURCE_NAME);
+                Map<String, String> paramsPlans = event.getParameters(PLANS_SOURCE_NAME);
+                Map<String, String> paramsPlansCond = event.getParameters(PER_PLAN_CONDITIONAL_TEST_SOURCE_NAME);
                 if (params != null) {
                     value = params.get(CONDITIONAL_TEXT_VAL_PARAM);
                     if (value != null) {
                         refresh();
                     }
                 }
+                else if (paramsPlans != null) {
+                    String planIdStr = paramsPlans.get("planId");
+                    if (planId != null && !planId.equals(planIdStr)) {
+                        value = null;
+                        refresh();
+                    }
+                    if (paramsPlansCond != null) {
+                        value = paramsPlansCond.get(CONDITIONAL_TEXT_VAL_PARAM);
+                        refresh();
+                    }
+                    planId = planIdStr;
+                }
                 else {
                     value = null;
                     refresh();
                 }
+                
+
             }
             
         }));
