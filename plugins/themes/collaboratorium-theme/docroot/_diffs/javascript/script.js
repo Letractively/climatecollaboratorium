@@ -188,12 +188,16 @@ jQuery(document).ready(function(){
 });
 // JavaScript Document
 
+function showLoginPopup() {
+	jQuery("#loginPopupDialog").dialog({ height: 400, width: 455, modal: true, resizable: false, draggable: false, dialogClass: 'collab-dialog' });
+    jQuery("#loginPopupDialog").show();
+}
 
 function deferUntilLogin(fn) {
     if (Liferay.ThemeDisplay.isSignedIn()) {
         return true;
     } else {
-        _user_info_showLoginPopup();
+        showLoginPopup();
         return false;
     }
 }
