@@ -117,8 +117,11 @@
                     </div>
                 </div>
             </f:subview>
+            <f:subview rendered="#{column == 'SEEKING_ASSISTANCE' and singlePlan.columnValues[column] == 'true'}">
+                <img src="/collaboratorium-theme/images/hand_icon.png" />
+            </f:subview>
             <ice:outputText value="#{singlePlan.columnValues[column]}"
-                    rendered="#{column != 'NAME' and column != 'POSITIONS'}" escape="false"/>
+                    rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE'}" escape="false"/>
         </ice:columns>
         <ice:column rendered="#{plansIndex.contestPhase.canVote}">
             <f:facet name="header">
