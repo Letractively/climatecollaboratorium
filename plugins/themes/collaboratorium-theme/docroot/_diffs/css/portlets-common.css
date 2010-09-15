@@ -12,8 +12,7 @@
 .PortletBox .t,
 .PortletBox .b,
 .PortletBox .b div {
-    background: transparent url(../images/portlet.png) no-repeat top right;
-    _background-image: url(../images/portlet.png);
+    background: transparent;
 }
 
 .PortletBox .content {
@@ -118,8 +117,8 @@
     zoom: 1;
     width: auto;
     padding-top: 0px;
-    padding-right: 12px;
-    padding-left: 12px;
+    padding-right: 20px;
+
     padding-bottom: 0px;
 }
 
@@ -150,7 +149,7 @@
 
 .PortletBox  .hd {
     padding-left: 0px;
-    padding-top:35px;
+   
 }
 
 .PortletBox .hd .toolbar {
@@ -160,17 +159,13 @@
 }
 
 .PortletBox .hd .name {
-    height: 61px;
+
     padding-top: 0px;
-    padding-left: 60px;
-    position: relative;
     z-index: 1;
 }
 
 .PortletBox .hd h2 {
-    font-style: italic;
-    padding-top:21px;
-
+}   
 }
 
 
@@ -217,8 +212,18 @@
 
 /* paging */
 
+div.pageBottom {
+    padding-top:15px;
+}
+
 .turnPage, .totalPage {
     float: right;
+}
+
+div.turnPage span, div.turnPage a  {
+    padding-top:3px;
+    padding-bottom:3px;
+    line-height:22px;
 }
 
 .turnPage span.firstPage {

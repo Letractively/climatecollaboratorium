@@ -1169,14 +1169,7 @@ span.desc{
 	width:250px;
 }
 
-.results-row td {
-	text-align: left;
-}
 
-.results-row td a {
-	font-weight: bold;
-	color: #000000;
-}
 
 .message-container .results-row.alt td {
 	background: #EDEDED none;
@@ -1196,8 +1189,34 @@ span.desc{
 	height: auto;
 }
 
+.taglib-search-iterator .results-row td {
+	text-align: center;
+    height:auto;
+    padding:10px;
+    background:#EDEBEA;
+}
+
+.taglib-search-iterator .results-row.alt td  {
+
+     background: #faf8f7;
+}
+
+.taglib-search-iterator .results-row td a {
+
+}
+
 .taglib-search-iterator th {
-	background-color: #ffffff;
+	  background: #E3DFD7;
+    padding-top:15px;
+    padding-bottom:5px;
+    color:#404040;
+    font-weight:bold;
+    font-size:12px;
+    border:none;
+}
+
+.taglib-search-iterator .results-header th a {
+   color:#404040;
 }
 
 .lfr-component {
@@ -1440,7 +1459,25 @@ div.contentContainer.proposals {
 }
 
 div.contentContainer.community {
-    padding: 100px; 
+    padding: 100px;
+    background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
+
+}
+
+div.contentContainer.news {
+    padding: 100px;
+    background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
+
+}
+
+div.contentContainer.othermembers {
+    padding: 100px;
+    background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
+
+}
+
+div.contentContainer.discussion {
+    padding: 100px;
     background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
 
 }
