@@ -73,9 +73,11 @@ function showSliders() {
 
 	var SLIDER_MIN = 0;
 	var SLIDER_MAX = 1000;
+	console.log("halo halo");
 
 
 	jQuery(".sliderDef").each(function() {
+		console.log("halo halo slider");
 		var min = parseFloat(jQuery(this).find(".min").text());
 		var max = parseFloat(jQuery(this).find(".max").text());
 		var defaultVal = parseFloat(jQuery(this).find(".default").text());
@@ -155,7 +157,7 @@ function showSliders() {
 		}
 		slider.slider("option", "value", sliderVal);
 
-		valueField.blur(function() {
+		valueField.change(function() {
 			var sliderVal = parseFieldValue(valueField.val(), unit);
 
 			if (isDouble(dataType)) {
@@ -495,12 +497,14 @@ function renderSingleChart(chartDef) {
 		
 var counter = 0;
 function renderModelOutputs() {
+	console.time("render");
 	/* Check if outputs have been already processed, if they have been then there is no need
 	 * to rerender graphs.
 	 */
 
 	if (jQuery(".outputDef").length == 0 || jQuery(".outputDef").hasClass("processed")) {
 		//log.debug("model outputs already processed");
+		console.timeEnd("render");
 		return;
 	}
 	
@@ -575,9 +579,11 @@ function renderModelOutputs() {
 	jQuery(".outputDef").show();
 	
 	unlockImpactsScreen();
+	console.timeEnd("render");
 	
 }
 
+var currentTab = false;
 
 function showTabContents(tabHeader) {
 	if (! jQuery(tabHeader).hasClass("ui-state-processed")) {
