@@ -73,11 +73,9 @@ function showSliders() {
 
 	var SLIDER_MIN = 0;
 	var SLIDER_MAX = 1000;
-	console.log("halo halo");
 
 
 	jQuery(".sliderDef").each(function() {
-		console.log("halo halo slider");
 		var min = parseFloat(jQuery(this).find(".min").text());
 		var max = parseFloat(jQuery(this).find(".max").text());
 		var defaultVal = parseFloat(jQuery(this).find(".default").text());
@@ -190,7 +188,7 @@ function showSliders() {
 	});
 	}
 	catch (e) {//log.error(e);
-		
+		if (debug) {		alert("error: e" + e);	}
 	}
 
 	jQuery(".sliderDef").eq(0).addClass("processed");
@@ -497,14 +495,12 @@ function renderSingleChart(chartDef) {
 		
 var counter = 0;
 function renderModelOutputs() {
-	console.time("render");
 	/* Check if outputs have been already processed, if they have been then there is no need
 	 * to rerender graphs.
 	 */
 
 	if (jQuery(".outputDef").length == 0 || jQuery(".outputDef").hasClass("processed")) {
 		//log.debug("model outputs already processed");
-		console.timeEnd("render");
 		return;
 	}
 	
@@ -579,7 +575,6 @@ function renderModelOutputs() {
 	jQuery(".outputDef").show();
 	
 	unlockImpactsScreen();
-	console.timeEnd("render");
 	
 }
 
