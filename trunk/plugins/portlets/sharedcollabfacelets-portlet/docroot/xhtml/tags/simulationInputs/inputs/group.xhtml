@@ -10,11 +10,12 @@
     <table class="inputDefTable">
         <tr class="#{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}">
             <!--  colspan takes 1 col for first input and 2 cols for each following inputs -->
-            <td class="first" colspan="#{fn:length(input.displayItems)}"><span>#{input.oryginalName}</span> <a
-                    class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)"
+            <td class="first" colspan="#{fn:length(input.displayItems)}">
+                    <ice:outputText value="#{input.oryginalName}" />
+                    <a class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)"
                     href="javascript:;"> <img alt="question" src="/collaboratorium-theme/images/qustion_icon.png"/> </a>
 
-                <p class="hidden inputDescription">#{input.oryginalDescription}</p>
+                <p class="hidden inputDescription"><ice:outputText value="#{input.oryginalDescription}" /></p>
 
             </td>
         </tr>
@@ -29,23 +30,23 @@
                                 <ice:panelGroup rendered="#{individualInput.hasLabels}" styleClass="slider-labels">
                                 <table>
                                     <tr>
-                                        <td class="left">#{individualInput.minLabel}</td>
-                                        <td class="right">#{individualInput.maxLabel}</td>
+                                        <td class="left"><ice:outputText value="#{individualInput.minLabel}" /></td>
+                                        <td class="right"><ice:outputText value="#{individualInput.maxLabel}" /></td>
                                     </tr>
                                 </table>
                                 </ice:panelGroup>
                             </td>
                             <td>
                                 <ice:panelGroup>
-                                    <input class="id hidden" value="#{individualInput.metaData.id}"/>
-                                    <input class="default hidden" value="#{individualInput.metaData.default[0]}"/>
-                                    <input class="min hidden" value="#{individualInput.metaData.min[0]}"/>
-                                    <input class="max hidden" value="#{individualInput.metaData.max[0]}"/>
-                                    <input class="dataType hidden" value="#{individualInput.metaData.profile[0].name}"/>
-                                    <input class="fieldValue hidden"
+                                    <ice:outputText styleClass="id hidden" value="#{individualInput.metaData.id}" />
+                                    <ice:outputText styleClass="default hidden" value="#{individualInput.metaData.default[0]}"/>
+                                    <ice:outputText styleClass="min hidden" value="#{individualInput.metaData.min[0]}"/>
+                                    <ice:outputText styleClass="max hidden" value="#{individualInput.metaData.max[0]}"/>
+                                    <ice:outputText styleClass="dataType hidden" value="#{individualInput.metaData.profile[0].name}"/>
+                                    <ice:outputText styleClass="fieldValue hidden"
                                            value="#{individualInput.value}"/>
-                                    <input class="type hidden" value="#{individualInput.type}"/>
-                                    <input class="unit hidden" value="#{individualInput.metaData.units[0]}"/>
+                                    <ice:outputText styleClass="type hidden" value="#{individualInput.type}"/>
+                                    <ice:outputText styleClass="unit hidden" value="#{individualInput.metaData.units[0]}"/>
                                 </ice:panelGroup>
                                     <table class="innerLayout">
                                         <tr>

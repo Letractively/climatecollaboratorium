@@ -76,13 +76,13 @@ function showSliders() {
 
 
 	jQuery(".sliderDef").each(function() {
-		var min = parseFloat(jQuery(this).find(".min").val());
-		var max = parseFloat(jQuery(this).find(".max").val());
-		var defaultVal = parseFloat(jQuery(this).find(".default").val());
-		var dataType = jQuery(this).find(".dataType").val();
-		var currentValue = jQuery(this).find(".fieldValue").val();
-		var type = jQuery(this).find(".type").val();
-		var unit = jQuery(this).find(".unit").val();
+		var min = parseFloat(jQuery(this).find(".min").text());
+		var max = parseFloat(jQuery(this).find(".max").text());
+		var defaultVal = parseFloat(jQuery(this).find(".default").text());
+		var dataType = jQuery(this).find(".dataType").text();
+		var currentValue = jQuery(this).find(".fieldValue").text();
+		var type = jQuery(this).find(".type").text();
+		var unit = jQuery(this).find(".unit").text();
 
 		if (! isNaN(parseFloat(currentValue))) {
 			defaultVal = currentValue;
@@ -219,8 +219,8 @@ function runSimulation() {
 		try {
 		var val = jQuery(this).find('.value').val();
 		var valueBinding = jQuery(this).find('.valueBinding');
-		var unit = jQuery(this).find('.unit').val();
-		
+		var unit = jQuery(this).find('.unit').text();
+		//alert("val: " + val + "\nunit: " + unit + "\nafter parse: " + parseFieldValue(val, unit));
 		valueBinding.val(parseFieldValue(val, unit));;
 		} catch (e) { 
 			if (debug) {
@@ -239,6 +239,259 @@ function getOutputValue(val, unit) {
 		return 100*val;
 	}
 }
+
+function renderSingleChart(chartDef) {
+	try {
+		var chartType = jQuery(chartDef).find(".chartType").val();
+		if (typeof(chartType) == 'undefined' || chartType != "TIME_SERIES") {
+
+			return;
+		}
+		var def = jQuery(chartDef);
+		var errorMessagesPlaceholder = def.find(".chartMessagePlaceholder");
+		var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
+		var chartTitle = def.find(".chartTitle").val();
+		var indexMin = parseInt(def.find(".indexMin").val());
+		var indexMax = parseInt(def.find(".indexMax").val());
+		var dataType = jQuery(chartDef).find(".dataType").val();
+		
+
+		var globalOutOfRangeMessage = jQuery(chartDef).find(".indexedOutOfRangeMessage").val();
+		var globalOutOfRangePolicy = jQuery(chartDef).find(".indexedOutOfRangePolicy").val();
+		var seriesWithOutOfRangeError = [];
+		jQuery(chartDef).find(".serieWithOutOfRnage").each(function() {
+			seriesWithOutOfRangeError.push(jQuery(chartDef).val());
+		   // log.debug("Pushing series range error"+jQuery(this).val());
+        });
+		
+		var globalInvalidMessage = jQuery(chartDef).find(".indexedInvalidMessage").val();
+		var globalInvalidPolicy = jQuery(chartDef).find(".indexedInvalidPolicy").val();
+		var seriesWithInvalidError = [];
+		jQuery(chartDef).find(".serieWithInvalid").each(function() {
+			seriesWithInvalidError.push(jQuery(this).val());
+            // log.debug("Pushing series invalid error"+jQuery(this).val());
+		});
+		
+
+		var errorMessages = [];
+		
+		if (jQuery.trim(globalInvalidMessage) != "" && seriesWithInvalidError.length > 0) {
+			var msg = globalInvalidMessage.replace("%outputs", seriesWithInvalidError.join(", "));
+			errorMessages.push(msg);
+		}
+		if (globalOutOfRangeMessage != "" && seriesWithOutOfRangeError.length > 0) {
+			var msg = globalOutOfRangeMessage.replace("%outputs", seriesWithOutOfRangeError.join(", "));
+			errorMessages.push(msg);
+		}
+
+        //log.debug("Error messages are now "+errorMessages);
+		
+		var xaxisTicks; 
+		if (isNaN(indexMin) || isNaN(indexMax)) {
+			indexMin = null;
+			indexMax = null;
+		}
+		else {
+			xaxisTicks = [];
+			for (var i=indexMin; i<=indexMax; i+=10) {
+				xaxisTicks.push(i);
+			}
+		}
+		
+		var values = [];
+		var valuesById = {};
+		var labelsById = {};
+		var confIntervalById = {};
+		var min = null;
+		var max = null;
+		
+		
+		var yaxis = {};
+		var xaxis = {label:'Year', autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks};
+		
+		
+		var series = [];
+		def.find(".serieDef").each(function() {
+			var val = eval("(" + jQuery(this).find(".value").val() + ")" );
+			var label = jQuery(this).find(".label").val();
+			var unit = jQuery(this).find(".unit").val();
+			var id = jQuery(this).find(".id").val();
+			//var error = jQuery(this).find(".error").val();
+
+            var invalidErrorMessage = jQuery(this).find(".invalidErrorMessage").val();
+			var invalidErrorPolicy = jQuery(this).find(".invalidErrorPolicy").val();
+
+            var rangeErrorMessage = jQuery(this).find(".rangeErrorMessage").val();
+			var rangeErrorPolicy = jQuery(this).find(".rangeErrorPolicy").val();
+
+
+            var labelFormatString = jQuery(this).find(".labelFormatString").val();
+			if (rangeErrorPolicy != 'NO_DISPLAY_WITH_MSG' && invalidErrorPolicy!= 'NO_DISPLAY_WITH_MSG') {
+				min = jQuery(this).find(".min").val();
+				max = jQuery(this).find(".max").val();
+				
+				if (dataType == 'java.lang.Integer') {
+					min = parseInt(min);
+					max = parseInt(max);
+				}
+				else {
+					min = parseFloat(min);
+					max = parseFloat(max);
+				}
+				
+				if (isNaN(min) || isNaN(max)) {
+					min = null;
+					max = null;
+				}
+				var associatedId = jQuery(this).find(".associatedId").val();
+				var seriesType = jQuery(this).find(".seriesType").val();
+
+				var chartVals = [];
+				for (var i = 0; i < val.length; i++) {
+					if (isNaN(parseFloat(val[i][0])) || isNaN(parseFloat(val[i][1]))) {
+						continue;
+					}
+					//val[i] = [parseFloat(val[i][0]), getOutputValue(parseFloat(val[i][1]), unit)];
+					chartVals.push([parseFloat(val[i][0]), parseFloat(val[i][1])]);
+					val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
+				}
+				valuesById[id] = chartVals;
+				labelsById[id] = label;
+			
+				if (seriesType != 'NORMAL' && parseInt(associatedId) > 0) {
+					if (typeof(confIntervalById[associatedId]) == 'undefined') {
+						confIntervalById[associatedId] = [];
+					}
+					confIntervalById[associatedId].push(id);
+				} else {
+					values.push(chartVals);
+					// prepare label
+					if (!(!labelFormatString || jQuery.trim(labelFormatString) == "")) {
+						label = labelFormatString.replace(/%label/g, label).replace(/%unit/g, unit);
+					}
+					series.push({showMarker: false, label: label});
+				}
+			}
+			if (rangeErrorPolicy) {
+                //log.debug("Range error policy is not null");
+                if (rangeErrorPolicy != 'NORMAL' && rangeErrorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(rangeErrorMessage) != "") {
+
+				    errorMessages.push(rangeErrorMessage);
+			    }
+            }
+
+            if (invalidErrorPolicy) {
+               // log.debug("invalid error policy is not null");
+                if (invalidErrorPolicy != 'NORMAL' && invalidErrorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(rangeErrorMessage) != "") {
+
+				    errorMessages.push(invalidErrorMessage);
+			    }
+            }
+		});
+		
+		// 	set min/max
+		
+		function pickTickInterval(min, max,preferredTicks) {
+			// probably here...
+		     var interval = (max - min)/preferredTicks;
+		    
+		    var divideback = .1;
+		     while (interval != Math.floor(interval)) {
+		    	 //log.debug("loop: " + interval + "\tdivideback: " + divideback);
+		          interval*=10;
+		          divideback*=10;
+		     }
+		     interval=(Math.round((interval / 10)*2)/2)/divideback ;
+		     return interval;
+		}
+	
+		if (min != null && max != null) {
+			yaxis.min = min;
+			yaxis.max = max;
+
+			if (max - min > 100) {
+				yaxis.tickInterval = 100;
+				yaxis.tickOptions = {formatString:"%d"};
+			}
+			else if (max - min > 5 && max - min < 20) {
+				//yaxis.tickInterval = pickTickInterval(min, max, parseInt(max-min));//((label == "Atmospheric CO2 Concentration") ? 100 : 30);// pickTickInterval(min,max,5)
+				yaxis.tickInterval = 1;
+				yaxis.tickOptions = {formatString:"%d"};
+			}
+			else {
+				yaxis.tickInterval = pickTickInterval(min, max, 10);
+				yaxis.tickOptions = {formatString:"%.1f"};
+			}
+				
+			//yaxis.tickInterval = 1;
+			
+		}
+		if (indexMin != null && indexMax != null) {
+			xaxis.min = indexMin;
+			xaxis.max = indexMax;
+		}
+	
+	
+		for (var x in confIntervalById) {
+			var valMain = valuesById[x];
+			var valConf1 = valuesById[confIntervalById[x][0]];
+			var valConf2 = valuesById[confIntervalById[x][1]];
+			var intervalVal = [];
+			for (var i = 0; i < valMain.length; i++) {
+				//intervalVal[i] = [valMain[i][0], valConf2[1], valMain[i][1], valConf1[1]];
+				intervalVal[i] = [valMain[i][0], valConf1[i][1], valConf2[i][1], valMain[i][1]];
+			}
+		
+			values.push(intervalVal);
+			series.push({showMarker: false, showLabel: false, 
+				renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
+		}
+		if (values.length > 0) {
+            //log.debug(chartTitle+":"+series+":"+values);
+			var plot = jQuery.jqplot(chartPlaceholderId, values, 
+				{title: chartTitle, 
+				series: series,
+				axes:{
+					xaxis: xaxis,
+					yaxis: yaxis
+				},
+				legend : {
+					show :true,
+					location :'nw',
+					yoffset :280,
+					xoffset:0
+				}
+			});
+			
+		}
+		for (var i=0; i < errorMessages.length; i++) {
+			errorMessagesPlaceholder.append("<li>" + errorMessages[i] + "</li>");
+		}
+		if (errorMessages.length > 0) {
+			//log.debug("Showing error messages: " + errorMessages);
+			errorMessagesPlaceholder.show();
+		}
+	
+	/* Legend is positioned absolutely thus it is hard to determine how long the chart will be, I'm assuming
+	 * that graph will take around 320 px and I'm giving 18 px for each item in the legend.
+	 */
+
+		var height = jQuery("#" + chartPlaceholderId).height();
+		if (jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").length > 0) {
+			height += jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").height();
+		}
+		height +=  errorMessagesPlaceholder.height();
+		
+		jQuery("#" + chartPlaceholderId).parent().height(height + 60);
+
+	} catch (e) {
+		if (debug) {
+			alert("Error 3"+e);
+		}
+        //log.error(e);
+	}
+	
+}
 		
 var counter = 0;
 function renderModelOutputs() {
@@ -255,256 +508,7 @@ function renderModelOutputs() {
 	 * Render graphs
 	 */
 	jQuery(".outputDef").each(function() {
-		
-		try {
-			var chartType = jQuery(this).find(".chartType").val();
-			if (typeof(chartType) == 'undefined' || chartType != "TIME_SERIES") {
-
-				return;
-			}
-			var def = jQuery(this);
-			var errorMessagesPlaceholder = def.find(".chartMessagePlaceholder");
-			var chartPlaceholderId = def.find(".chartPlaceholder").attr("id");
-			var chartTitle = def.find(".chartTitle").val();
-			var indexMin = parseInt(def.find(".indexMin").val());
-			var indexMax = parseInt(def.find(".indexMax").val());
-			var dataType = jQuery(this).find(".dataType").val();
-			
-
-			var globalOutOfRangeMessage = jQuery(this).find(".indexedOutOfRangeMessage").val();
-			var globalOutOfRangePolicy = jQuery(this).find(".indexedOutOfRangePolicy").val();
-			var seriesWithOutOfRangeError = [];
-			jQuery(this).find(".serieWithOutOfRnage").each(function() {
-				seriesWithOutOfRangeError.push(jQuery(this).val());
-			   // log.debug("Pushing series range error"+jQuery(this).val());
-            });
-			
-			var globalInvalidMessage = jQuery(this).find(".indexedInvalidMessage").val();
-			var globalInvalidPolicy = jQuery(this).find(".indexedInvalidPolicy").val();
-			var seriesWithInvalidError = [];
-			jQuery(this).find(".serieWithInvalid").each(function() {
-				seriesWithInvalidError.push(jQuery(this).val());
-                // log.debug("Pushing series invalid error"+jQuery(this).val());
-			});
-			
-
-			var errorMessages = [];
-			
-			if (jQuery.trim(globalInvalidMessage) != "" && seriesWithInvalidError.length > 0) {
-				var msg = globalInvalidMessage.replace("%outputs", seriesWithInvalidError.join(", "));
-				errorMessages.push(msg);
-			}
-			if (globalOutOfRangeMessage != "" && seriesWithOutOfRangeError.length > 0) {
-				var msg = globalOutOfRangeMessage.replace("%outputs", seriesWithOutOfRangeError.join(", "));
-				errorMessages.push(msg);
-			}
-
-            //log.debug("Error messages are now "+errorMessages);
-			
-			var xaxisTicks; 
-			if (isNaN(indexMin) || isNaN(indexMax)) {
-				indexMin = null;
-				indexMax = null;
-			}
-			else {
-				xaxisTicks = [];
-				for (var i=indexMin; i<=indexMax; i+=10) {
-					xaxisTicks.push(i);
-				}
-			}
-			
-			var values = [];
-			var valuesById = {};
-			var labelsById = {};
-			var confIntervalById = {};
-			var min = null;
-			var max = null;
-			
-			
-			var yaxis = {};
-			var xaxis = {label:'Year', autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks};
-			
-			
-			var series = [];
-			def.find(".serieDef").each(function() {
-				var val = eval("(" + jQuery(this).find(".value").val() + ")" );
-				var label = jQuery(this).find(".label").val();
-				var unit = jQuery(this).find(".unit").val();
-				var id = jQuery(this).find(".id").val();
-				//var error = jQuery(this).find(".error").val();
-
-                var invalidErrorMessage = jQuery(this).find(".invalidErrorMessage").val();
-				var invalidErrorPolicy = jQuery(this).find(".invalidErrorPolicy").val();
-
-                var rangeErrorMessage = jQuery(this).find(".rangeErrorMessage").val();
-				var rangeErrorPolicy = jQuery(this).find(".rangeErrorPolicy").val();
-
-
-                var labelFormatString = jQuery(this).find(".labelFormatString").val();
-				if (rangeErrorPolicy != 'NO_DISPLAY_WITH_MSG' && invalidErrorPolicy!= 'NO_DISPLAY_WITH_MSG') {
-					min = jQuery(this).find(".min").val();
-					max = jQuery(this).find(".max").val();
-					
-					if (dataType == 'java.lang.Integer') {
-						min = parseInt(min);
-						max = parseInt(max);
-					}
-					else {
-						min = parseFloat(min);
-						max = parseFloat(max);
-					}
-					
-					if (isNaN(min) || isNaN(max)) {
-						min = null;
-						max = null;
-					}
-					var associatedId = jQuery(this).find(".associatedId").val();
-					var seriesType = jQuery(this).find(".seriesType").val();
-
-					var chartVals = [];
-					for (var i = 0; i < val.length; i++) {
-						if (isNaN(parseFloat(val[i][0])) || isNaN(parseFloat(val[i][1]))) {
-							continue;
-						}
-						//val[i] = [parseFloat(val[i][0]), getOutputValue(parseFloat(val[i][1]), unit)];
-						chartVals.push([parseFloat(val[i][0]), parseFloat(val[i][1])]);
-						val[i] = [parseFloat(val[i][0]), parseFloat(val[i][1])];
-					}
-					valuesById[id] = chartVals;
-					labelsById[id] = label;
-				
-					if (seriesType != 'NORMAL' && parseInt(associatedId) > 0) {
-						if (typeof(confIntervalById[associatedId]) == 'undefined') {
-							confIntervalById[associatedId] = [];
-						}
-						confIntervalById[associatedId].push(id);
-					} else {
-						values.push(chartVals);
-						// prepare label
-						if (!(!labelFormatString || jQuery.trim(labelFormatString) == "")) {
-							label = labelFormatString.replace(/%label/g, label).replace(/%unit/g, unit);
-						}
-						series.push({showMarker: false, label: label});
-					}
-				}
-				if (rangeErrorPolicy) {
-                    //log.debug("Range error policy is not null");
-                    if (rangeErrorPolicy != 'NORMAL' && rangeErrorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(rangeErrorMessage) != "") {
-
-					    errorMessages.push(rangeErrorMessage);
-				    }
-                }
-
-                if (invalidErrorPolicy) {
-                   // log.debug("invalid error policy is not null");
-                    if (invalidErrorPolicy != 'NORMAL' && invalidErrorPolicy != 'DISPLAY_AVAILBLE_NO_MSG' && jQuery.trim(rangeErrorMessage) != "") {
-
-					    errorMessages.push(invalidErrorMessage);
-				    }
-                }
-			});
-			
-			// 	set min/max
-			
-			function pickTickInterval(min, max,preferredTicks) {
-				// probably here...
-			     var interval = (max - min)/preferredTicks;
-			    
-			    var divideback = .1;
-			     while (interval != Math.floor(interval)) {
-			    	 //log.debug("loop: " + interval + "\tdivideback: " + divideback);
-			          interval*=10;
-			          divideback*=10;
-			     }
-			     interval=(Math.round((interval / 10)*2)/2)/divideback ;
-			     return interval;
-			}
-		
-			if (min != null && max != null) {
-				yaxis.min = min;
-				yaxis.max = max;
-
-				if (max - min > 100) {
-					yaxis.tickInterval = 100;
-					yaxis.tickOptions = {formatString:"%d"};
-				}
-				else if (max - min > 5 && max - min < 20) {
-					//yaxis.tickInterval = pickTickInterval(min, max, parseInt(max-min));//((label == "Atmospheric CO2 Concentration") ? 100 : 30);// pickTickInterval(min,max,5)
-					yaxis.tickInterval = 1;
-					yaxis.tickOptions = {formatString:"%d"};
-				}
-				else {
-					yaxis.tickInterval = pickTickInterval(min, max, 10);
-					yaxis.tickOptions = {formatString:"%.1f"};
-				}
-					
-				//yaxis.tickInterval = 1;
-				
-			}
-			if (indexMin != null && indexMax != null) {
-				xaxis.min = indexMin;
-				xaxis.max = indexMax;
-			}
-		
-		
-			for (var x in confIntervalById) {
-				var valMain = valuesById[x];
-				var valConf1 = valuesById[confIntervalById[x][0]];
-				var valConf2 = valuesById[confIntervalById[x][1]];
-				var intervalVal = [];
-				for (var i = 0; i < valMain.length; i++) {
-					//intervalVal[i] = [valMain[i][0], valConf2[1], valMain[i][1], valConf1[1]];
-					intervalVal[i] = [valMain[i][0], valConf1[i][1], valConf2[i][1], valMain[i][1]];
-				}
-			
-				values.push(intervalVal);
-				series.push({showMarker: false, showLabel: false, 
-					renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
-			}
-			if (values.length > 0) {
-                //log.debug(chartTitle+":"+series+":"+values);
-				var plot = jQuery.jqplot(chartPlaceholderId, values, 
-					{title: chartTitle, 
-					series: series,
-					axes:{
-						xaxis: xaxis,
-						yaxis: yaxis
-					},
-					legend : {
-						show :true,
-						location :'nw',
-						yoffset :280,
-						xoffset:0
-					}
-				});
-				
-			}
-			for (var i=0; i < errorMessages.length; i++) {
-				errorMessagesPlaceholder.append("<li>" + errorMessages[i] + "</li>");
-			}
-			if (errorMessages.length > 0) {
-				//log.debug("Showing error messages: " + errorMessages);
-				errorMessagesPlaceholder.show();
-			}
-		
-		/* Legend is positioned absolutely thus it is hard to determine how long the chart will be, I'm assuming
-		 * that graph will take around 320 px and I'm giving 18 px for each item in the legend.
-		 */
-
-			var height = jQuery("#" + chartPlaceholderId).height();
-			if (jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").length > 0) {
-				height += jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").height();
-			}
-			height +=  errorMessagesPlaceholder.height();
-			
-			jQuery("#" + chartPlaceholderId).parent().height(height + 60);
-
-		} catch (e) {
-			if (debug) {
-				alert("Error 3"+e);
-			}
-            //log.error(e);
-		}
+		//renderSingleChart(this);
 	});
 	
 	
@@ -574,7 +578,13 @@ function renderModelOutputs() {
 	
 }
 
-var currentTab = false;
+
+function showTabContents(tabHeader) {
+	if (! jQuery(tabHeader).hasClass("ui-state-processed")) {
+		renderSingleChart(jQuery(tabHeader).next());
+		jQuery(tabHeader).addClass("ui-state-processed");
+	}
+}
 
 function initAccordion() {
 	var container = jQuery(".outputDef");
@@ -596,6 +606,8 @@ function initAccordion() {
 		jQuery(this).next().slideDown(200);
 		jQuery(this).attr("tabindex", "0");
 
+		showTabContents(this);
+
 		setTimeout( function() { jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height()) }, 250);
 	});
 
@@ -616,6 +628,8 @@ function initAccordion() {
 		else {
 			jQuery(this).addClass("ui-state-active");
 			jQuery(this).next().show();
+			showTabContents(this);
+
 		}
 	});
 
