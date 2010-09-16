@@ -330,6 +330,7 @@ public class SimulationBean {
                 }
             } 
             catch (Exception ioE) {
+                _log.debug("Can't read scenario with id: " + scenarioId, ioE);
                 exception = ioE;
             }
             

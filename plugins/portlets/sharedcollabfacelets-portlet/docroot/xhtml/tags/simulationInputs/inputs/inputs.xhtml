@@ -17,7 +17,6 @@
                             <div class="simulationInputsStatus"></div>
                         </ice:panelGroup>
                         <ice:panelSeries value="#{simulationBean.display.nonTabs}" var="input" varStatus="status">
-                            <div class="hidden">#{simulationBean.display}</div>
                             <div  class="simulationInput #{status.index mod 2 == 0 ? 'even' : 'odd'}">
                                 <f:subview id="inputView" >
                                     <ui:include src="./inputDef.xhtml" />
@@ -28,7 +27,6 @@
                         <ice:panelTabSet value="#{simulationBean.display.tabsWrapped}" var="input1" rendered="#{simulationBean.hasTabs}"  styleClass="modelInputsTabs">
                             <ice:panelTab label="#{input1.oryginalName}" styleClass="inputTabStyle" onclick="convertTypedValuesToNumbers();">
                                <ice:panelSeries value="#{input1.allItems}" var="input" varStatus="status">
-                                    <div class="hidden">#{simulationBean.display}</div>
                                     <div  class="simulationInput #{status.index mod 2 == 0 ? 'even' : 'odd'}">
                                         <f:subview id="inputView" >
                                             <ui:include src="./inputDef.xhtml" />

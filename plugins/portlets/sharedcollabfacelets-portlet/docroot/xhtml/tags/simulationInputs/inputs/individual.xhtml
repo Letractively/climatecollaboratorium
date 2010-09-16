@@ -7,8 +7,11 @@
 
 <table>
     <tr class="#{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}">
-        <td colspan="2" class="first"><span>#{input.name}</span> <a class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)" href="javascript:;"> <img alt="question" src="/collaboratorium-theme/images/qustion_icon.png" /> </a>
-        <p class="hidden inputDescription">#{input.description}</p>
+        <td colspan="2" class="first">
+            <ice:outputText value="#{input.name}" />
+            <a class="toggle-description" onclick="jQuery(this).parent().find('.inputDescription').toggle(400)" href="javascript:;"> <img alt="question" src="/collaboratorium-theme/images/qustion_icon.png" /> </a>
+        
+            <p class="hidden inputDescription"><ice:outputText value="#{input.description}" /></p>
 
         </td>
     </tr>
@@ -19,22 +22,22 @@
              <ice:panelGroup rendered="#{input.hasLabels}" styleClass="slider-labels">
                 <table>
                     <tr>
-                        <td class="left">#{input.minLabel}</td>
-                        <td class="right">#{input.maxLabel}</td>
+                        <td class="left"><ice:outputText value="#{input.minLabel}" /></td>
+                        <td class="right"><ice:outputText value="#{input.maxLabel}" /></td>
                     </tr>
                 </table>
              </ice:panelGroup>
         </td>
         <td class="valueCol">
             <ice:panelGroup>
-                <input class="id hidden" value="#{input.metaData.id}" /> 
-                <input class="default hidden" value="#{input.metaData.default[0]}" />  
-                <input class="min hidden" value="#{input.metaData.min[0]}" /> 
-                <input class="max hidden" value="#{input.metaData.max[0]}" /> 
-                <input class="dataType hidden" value="#{input.metaData.profile[0].name}" /> 
-                <input class="fieldValue hidden" value="#{input.value}" />
-                <input class="type hidden" value="#{input.type}" /> 
-                <input class="unit hidden" value="#{input.metaData.units[0]}" />
+                <ice:outputText styleClass="id hidden" value="#{input.metaData.id}" /> 
+                <ice:outputText styleClass="default hidden" value="#{input.metaData.default[0]}" />  
+                <ice:outputText styleClass="min hidden" value="#{input.metaData.min[0]}" /> 
+                <ice:outputText styleClass="max hidden" value="#{input.metaData.max[0]}" /> 
+                <ice:outputText styleClass="dataType hidden" value="#{input.metaData.profile[0].name}" /> 
+                <ice:outputText styleClass="fieldValue hidden" value="#{input.value}" />
+                <ice:outputText styleClass="type hidden" value="#{input.type}" /> 
+                <ice:outputText styleClass="unit hidden" value="#{input.metaData.units[0]}" />
             </ice:panelGroup>
             <input type="text" class="value" />
             <ice:inputText styleClass="valueBinding hidden" value="#{input.value}" />
