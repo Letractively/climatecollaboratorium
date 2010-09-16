@@ -157,6 +157,7 @@ function showSliders() {
 
 		valueField.change(function() {
 			var sliderVal = parseFieldValue(valueField.val(), unit);
+			valueField.val(formatFieldValue(sliderVal, unit,dataType));
 
 			if (isDouble(dataType)) {
 				sliderVal = ((sliderVal - min) / (max-min)) * (sliderMax - sliderMin);
