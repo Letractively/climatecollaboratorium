@@ -9,6 +9,7 @@
 			<name>com.icesoft.faces.VIEW</name>
 			<value>/xhtml/view.iface</value>
 		</init-param>
+		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>

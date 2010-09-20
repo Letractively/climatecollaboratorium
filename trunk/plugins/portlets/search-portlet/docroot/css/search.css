@@ -1,56 +1,30 @@
-.contactForm table {
+.searchTable {
     width: 100%;
 }
 
-.contactForm .text {
-    width: 65%;
+.searchTable th {
+    background: #dadada;
+    font-weight: bold;
+    padding: 5px;
+    border: 2px solid white;
 }
 
-.contactForm .longtext {
-    width: 65%;
-    height: 200px;
+.searchTable td {
+    vertical-align: top;
+    padding: 5px;
+    border: 2px solid white;
 }
 
-.contactForm label {
-    font-size: 1.2em;
+.searchTable .odd td {
+    background: #fafafa;
 }
 
-.contactFormPreferences table {
-	width: 100%;
+.searchTable .even td {
+    background: #f0f0f0;
 }
 
-.contactFormPreferences .labels {
-	width: 28%;
-	padding-right: 5px;1
-}
-
-.contactFormPreferences .inputs {
-	width: 50%;
-}
-
-.contactFormPreferences .inputs input {
-	width: 100%;
-}
-
-.contactFormPreferences .inputs textarea {
-    width: 100%;
-    height: 100px;
-}
-
-.contactFormPreferences .messages {
-    width: 20%;
-}
-
-
-.contactFormPreferences .even td {
-	background: #ddd;
-}
-
-.contactFormPreferences .even td,
-.contactFormPreferences .odd td {
-	padding: 10px 0;
-}
-
-.contactFormPreferences {
-    width: 100%;
+.searchTable td.type {
+    vertical-align: middle;
+    text-align: center;
+    width: 50px;
 }
