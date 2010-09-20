@@ -2,23 +2,37 @@ package org.climatecollaboratorium.contact.validators;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.portlet.PortletSession;
+import javax.portlet.PortletRequest;
+import javax.servlet.http.HttpServletRequest;
 
-import com.liferay.portal.util.WebKeys;
+import com.ext.recaptcha.ReCaptchaUtils;
+import com.liferay.portal.util.PortalUtil;
+
+
 
 public class CaptchaValidator implements Validator {
 
     @Override
     public void validate(FacesContext ctx, UIComponent component, Object value) throws ValidatorException {
-        PortletSession session = (PortletSession) ctx.getExternalContext().getSession(true);
-        Object captchaCorrectValue = session.getAttribute(WebKeys.CAPTCHA_TEXT, PortletSession.APPLICATION_SCOPE);
+        String challengeId = component.getAttributes().get("challengeId").toString();
         
-        if (!value.equals(captchaCorrectValue)) {
+        UIInput challenge = (UIInput) component.getParent().findComponent(challengeId);
+        
+        PortletRequest portletRequest = (PortletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        PortletRequest realPortletRequest = (PortletRequest) portletRequest.getAttribute("javax.portlet.request");
+        HttpServletRequest request = PortalUtil.getHttpServletRequest(realPortletRequest);
+        
+        String remoteIp = request.getRemoteAddr();
+        String recaptchaChallenge = challenge.getValue().toString();
+        String recaptchaResponse = value.toString();
+        
+        if (! ReCaptchaUtils.validateCaptcha(recaptchaChallenge, recaptchaResponse, remoteIp)) {
             FacesMessage fm = new FacesMessage();
-            fm.setSummary("Provided value is invalid");
+            fm.setSummary("Captcha verification failed. Provided value is invalid.");
             fm.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(fm);
         }

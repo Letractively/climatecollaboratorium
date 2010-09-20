@@ -5,8 +5,17 @@
     xmlns:h="http://java.sun.com/jsf/html"  
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     >
+    
     <ice:portlet>
-        <ice:form>
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+    <script type="text/javascript">
+        function populateCaptchaFields() {
+            jQuery(".captchaText").val(Recaptcha.get_response())
+            jQuery(".captchaChallenge").val(Recaptcha.get_challenge());
+        }
+    </script>
+
+        <ice:form id="contact">
             <ice:panelGroup styleClass="contactFormExpander" rendered="#{not contactBean.expanded}">
                 <ice:commandLink value="#{contactBean.expandFormMessage}" actionListener="#{contactBean.toggleExpanded}" />
             </ice:panelGroup>
@@ -36,27 +45,35 @@
                     </td></tr>
                 
                     <tr><td><ice:outputLabel value="Captcha" /></td></tr>
+                    <tr><td>
                     
-                    <tr><td>
-                        <img src="/contactform-portlet/captcha/blebleble#{contactBean.requestCount}" /><br />
-                    </td></tr>
-                    <tr><td>
-                        <ice:outputLabel for="captcha" value="Enter code from picture above" />
-                    </td></tr>
-                    <tr><td>
-                        <ice:message for="captcha" />
-                        <ice:inputText id="captcha" value="#{contactBean.captchaText}" required="true">
+                        <script type="text/javascript">
+                            // #{contactBean.tryNumber}
+                            jQuery(document).ready(function() {
+                                Recaptcha.destroy();
+                                Recaptcha.create("#{contactBean.captchaPublicKey}", "recaptcha_div", {});
+                            });
+                        </script>
+                        <ice:inputText id="captchaChallenge" value="#{contactBean.captchaChallenge}" styleClass="hidden captchaChallenge" required="true"></ice:inputText>
+                        <ice:inputText id="captcha" value="#{contactBean.captchaText}" styleClass="hidden captchaText" required="true" >
                             <f:validator validatorId="captchaValidator" />
+                            <f:attribute name="challengeId" value="captchaChallenge" />
                         </ice:inputText>
+                        
+                        
+                        <div id="recaptcha_div"></div>
+                        
+                        <ice:message for="captcha" />
                     
                     </td></tr>
                     <tr><td>
-                        <ice:commandButton value="Send" actionListener="#{contactBean.sendMessage}" />
+                        <ice:commandButton value="Send" actionListener="#{contactBean.sendMessage}" onclick="populateCaptchaFields();"/>
                         <ice:commandButton value="Cancel" actionListener="#{contactBean.toggleExpanded}" partialSubmit="true" immediate="true" />
                     
                     </td></tr>
                 </table>
             </ice:panelGroup>
         </ice:form>
+    <ice:messages globalOnly="true" />
     </ice:portlet>
 </f:view>
