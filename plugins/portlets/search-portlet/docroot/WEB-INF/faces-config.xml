@@ -44,5 +44,9 @@
 		<managed-bean-name>searchBean</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.search.SearchBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>eventBus</property-name>
+			<value>#{eventBus}</value>
+		</managed-property>
 	</managed-bean>
 </faces-config>

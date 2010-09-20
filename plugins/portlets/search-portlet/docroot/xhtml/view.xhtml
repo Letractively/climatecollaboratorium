@@ -4,8 +4,72 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:h="http://java.sun.com/jsf/html"  
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     
     <ice:portlet>
-        <h1>Search form</h1>
+    <collab:navigationManager />
+    <ice:form>
+        <ice:inputText value="#{searchBean.searchPhrase}" style="width: 90%"/> &amp;nbsp; <ice:commandButton value="Search" /><br />
+        <ice:selectManyCheckbox value="#{searchBean.selectedItemTypes}" partialSubmit="true">
+            <f:selectItems value="#{searchBean.searchItemTypes}" />
+        </ice:selectManyCheckbox>
+    </ice:form>
+            
+    <ice:form>
+    <ice:dataTable var="item" value="#{searchBean.data}" id="searchTable" rows="20" rowClasses="odd,even" styleClass="searchTable" >
+        <ice:column styleClass="type">
+            <f:facet name="header">
+                Type
+            </f:facet>
+            <p>
+                <img src="/collaboratorium-theme/images/search/resize_${item.itemType}.png" /><br />
+                <ice:outputText value="#{item.itemType}" />
+            </p>
+        </ice:column>
+    <ice:column>
+        <f:facet name="header">
+            Value
+        </f:facet>
+        <a href="#{item.url}">#{item.title}</a><br />
+        #{item.content} <br />
+        <a href="#{item.url}">#{item.url}</a>
+    </ice:column>
+    </ice:dataTable>
+        <div class="pagination #{additionalClass}">
+        <div class="pageInfo">
+            <ice:dataPaginator for="searchTable" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="paginatorInfo">
+                <ice:outputFormat value="Displaying &lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt; #{entityName}" styleClass="paginatorInfo" escape="false">
+                <f:param value="#{firstRowIndex}" />
+                <f:param value="#{lastRowIndex}" />
+                <f:param value="#{rowsCount}" />
+            </ice:outputFormat>
+        </ice:dataPaginator> 
+        </div>           
+        <div class="controls">
+            <ice:dataPaginator rendered="true" for="searchTable" paginator="true" paginatorMaxPages="8" styleClass="controls" > 
+                <f:facet name="first" rendered="true">
+                    <ice:panelGroup />
+                </f:facet>
+                <f:facet name="last" rendered="true">
+                    <ice:panelGroup />
+                </f:facet>
+                <f:facet name="previous" rendered="true">
+                    <ice:panelGroup>
+                        &amp;nbsp;prev &lt;&lt; &amp;nbsp;
+                    </ice:panelGroup>
+                </f:facet>
+                <f:facet name="next">
+                    <ice:panelGroup>
+                        &amp;nbsp;&gt;&gt; next&amp;nbsp;
+                    </ice:panelGroup>
+                </f:facet>
+            </ice:dataPaginator>
+        </div>   
+        <div class="clear"></div>
+    </div>  
+    </ice:form>
+    
+    
     </ice:portlet>
+</f:view>
