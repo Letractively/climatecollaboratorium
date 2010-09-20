@@ -11,13 +11,21 @@ import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
 import com.ext.portlet.discussions.service.base.DiscussionMessageLocalServiceBaseImpl;
+import com.ext.portlet.plans.NoSuchPlanItemException;
+import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
+import com.ext.portlet.discussions.util.Indexer;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.model.User;
 
 
 public class DiscussionMessageLocalServiceImpl
     extends DiscussionMessageLocalServiceBaseImpl {
+    private final static Log _log = LogFactoryUtil.getLog(DiscussionMessageLocalServiceImpl.class);
     
     public List<DiscussionMessage> getThreadsByCategory(Long categoryId) throws SystemException {
         return discussionMessagePersistence.findByCategoryIdThreadId(categoryId, null);
@@ -56,6 +64,13 @@ public class DiscussionMessageLocalServiceImpl
         message.setCategoryGroupId(categoryGroupId);
         
         message.store();
+        
+        try {
+            Indexer.addEntry(10112L, message);
+        } catch (SearchException e) {
+            _log.error("Can't update message with id: " + message.getMessageId() + " in search cache", e);
+        }
+        
         return message;
     }
     
@@ -72,6 +87,39 @@ public class DiscussionMessageLocalServiceImpl
     public DiscussionMessage getMessageByMessageId(Long messageId) throws NoSuchDiscussionMessageException, SystemException {
         return discussionMessagePersistence.findByMessageId(messageId);
     }
+    
+    private final static long defaultCompanyId = 10112L;
+    public void reIndex() throws SystemException {
+        // reindex concrete plan
+        for (DiscussionMessage message : DiscussionMessageLocalServiceUtil.getDiscussionMessages(0, Integer.MAX_VALUE)) {
+            try {
+                if (message.getDeleted() == null) {
+                    Indexer.updateEntry(defaultCompanyId, message);
+                }
+                else {
+                    Indexer.deleteEntry(defaultCompanyId, message.getMessageId());
+                }
+            } catch (SearchException e) {
+                _log.error("An exception has been thrown when reindexing message with id: " + message.getMessageId(), e);
+            }
+        }
+    }
+
+    public void reIndex(long messageId) throws SystemException {
+        // reindex concrete plan
+        try {
+            DiscussionMessage message = getMessageByMessageId(messageId);
+            if (message.getDeleted() != null) {
+                return;
+            }
+            Indexer.updateEntry(defaultCompanyId, message);
+        } catch (NoSuchDiscussionMessageException e) {
+            _log.error("An exception has been thrown when reindexing message with id: " + messageId, e);
+        } catch (SearchException e) {
+            _log.error("An exception has been thrown when reindexing message with id: " + messageId, e);
+        }
+    }
+
     
     
 }

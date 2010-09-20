@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
+import com.ext.recaptcha.ReCaptchaUtils;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -46,7 +47,7 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
      */
     public void processAction(ActionMapping mapping, ActionForm form, PortletConfig portletConfig,
             ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-    	
+    	ReCaptchaUtils.validateCaptcha(actionRequest);
         super.processAction(mapping, form, portletConfig, actionRequest, actionResponse);
 
         if (SessionErrors.isEmpty(actionRequest)) {

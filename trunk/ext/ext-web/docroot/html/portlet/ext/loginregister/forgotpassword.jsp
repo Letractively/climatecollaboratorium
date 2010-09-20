@@ -40,7 +40,7 @@ if (Validator.isNull(authType)) {
 <form action="<portlet:actionURL><portlet:param name="saveLastPath" value="0" /><portlet:param name="struts_action" value="/ext/loginregister/forgotpassword" /></portlet:actionURL>" class="uni-form" method="post" name="<portlet:namespace />fm">
 <input name="<portlet:namespace />redirect" type="hidden" value="<portlet:renderURL />" />
 
-<liferay-ui:error exception="<%= CaptchaTextException.class %>" message="text-verification-failed" />
+<liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
 
 <liferay-ui:error exception="<%= NoSuchUserException.class %>" message='<%= "the-" + TextFormatter.format(authType, TextFormatter.K) + "-you-requested-is-not-registered-in-our-database" %>' />
 <liferay-ui:error exception="<%= SendPasswordException.class %>" message="your-password-can-only-be-sent-to-an-external-email-address" />
@@ -108,6 +108,7 @@ if (Validator.isNull(authType)) {
 				</div>
 			</c:if>
 
+<!--
 			<c:if test="<%= PropsValues.CAPTCHA_CHECK_PORTAL_SEND_PASSWORD %>">
 				<portlet:actionURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="captchaURL">
 					<portlet:param name="struts_action" value="/ext/loginregister/captcha" />
@@ -115,6 +116,27 @@ if (Validator.isNull(authType)) {
 
 				<liferay-ui:captcha url="<%= captchaURL %>" />
 			</c:if>
+			-->
+			
+			 <!-- recaptcha -->
+                        <div>
+                            <liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
+                        </div>
+                        
+                        <div>
+                            <script type="text/javascript">
+                               var RecaptchaOptions = { lang : 'en'};
+                           </script>
+                           <script type="text/javascript" src="<%= PropsUtil.get("captcha.engine.recaptcha.url.script") %><%= PropsUtil.get("captcha.engine.recaptcha.key.public") %>">
+                           </script>
+                           <noscript>
+                           
+                               <iframe src="<%= PropsUtil.get("captcha.engine.recaptcha.url.noscript") %><%= PropsUtil.get("captcha.engine.recaptcha.key.public") %>"
+                                   height="300" width="500" frameborder="0"></iframe><br />
+                               <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                               <input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
+                           </noscript>
+                           </div>
 
 			<div class="button-holder">
 				<input type="submit" value="<liferay-ui:message key="send-new-password" />" />

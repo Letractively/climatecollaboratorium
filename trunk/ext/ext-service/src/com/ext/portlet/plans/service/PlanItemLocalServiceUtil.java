@@ -233,6 +233,15 @@ public class PlanItemLocalServiceUtil {
         return getService().getPlanAttribute(plan, name);
     }
 
+    public static void reIndex() throws com.liferay.portal.SystemException {
+        getService().reIndex();
+    }
+
+    public static void reIndex(long planId)
+        throws com.liferay.portal.SystemException {
+        getService().reIndex(planId);
+    }
+
     public static PlanItemLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanItemLocalService is not set");

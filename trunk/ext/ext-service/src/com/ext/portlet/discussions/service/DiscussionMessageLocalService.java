@@ -120,4 +120,11 @@ public interface DiscussionMessageLocalService {
         java.lang.Long messageId)
         throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
             com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public void reIndex() throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public void reIndex(long messageId)
+        throws com.liferay.portal.SystemException;
 }

@@ -153,6 +153,8 @@
                     <input name="<portlet:namespace />birthdayYear" type="hidden" value="1970"/>
 
 
+                    
+                    <!--
                     <c:if test="<%= PropsValues.CAPTCHA_CHECK_PORTAL_CREATE_ACCOUNT %>">
                         <tr><td colspan="3">
                             <liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
@@ -166,6 +168,26 @@
                             <td colspan="3"><liferay-ui:captcha url="<%= captchaURL %>"/></td>
                         </tr>
                     </c:if>
+                        -->
+                        <!-- recaptcha -->
+                        
+                        <tr><td colspan="3">
+                            <liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
+                        </td></tr>
+                        <tr><td colspan="3">
+                            <script type="text/javascript">
+                               var RecaptchaOptions = { lang : 'en'};
+                           </script>
+                           <script type="text/javascript" src="<%= PropsUtil.get("captcha.engine.recaptcha.url.script") %><%= PropsUtil.get("captcha.engine.recaptcha.key.public") %>">
+                           </script>
+                           <noscript>
+                           
+                               <iframe src="<%= PropsUtil.get("captcha.engine.recaptcha.url.noscript") %><%= PropsUtil.get("captcha.engine.recaptcha.key.public") %>"
+                                   height="300" width="500" frameborder="0"></iframe><br />
+                               <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                               <input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
+                           </noscript>
+                        </td></tr>
                     <tr>
                         <td colspan="3">
                             By registering for this site, you agree to abide by the
