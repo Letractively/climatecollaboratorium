@@ -9,6 +9,8 @@ package com.ext.portlet.plans.model.impl;
 import java.util.Date;
 import java.util.List;
 
+import mit.simulation.climate.client.Simulation;
+
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
@@ -43,10 +45,13 @@ import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTeamHistoryLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
+import com.ext.portlet.plans.util.Indexer;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.Role;
@@ -55,14 +60,12 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.model.impl.MembershipRequestImpl;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
-import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import mit.simulation.climate.client.Simulation;
 
 public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
+    private final static Log _log = LogFactoryUtil.getLog(PlanItemImpl.class);
 
     public static List<PlanItem> getPlans() throws SystemException {
         return PlanItemLocalServiceUtil.getPlans();
@@ -89,6 +92,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         updateAttribute(Attribute.DESCRIPTION);
         
         joinIfNotAMember(updateAuthorId);
+        updateSearchIndex();
     }
 
     public void setName(String name, Long updateAuthorId) throws SystemException, PortalException {
@@ -100,6 +104,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planDescription.store();
         updateAttribute(Attribute.NAME);
         joinIfNotAMember(updateAuthorId);
+        updateSearchIndex();
     }
 
     public List<PlanDescription> getAllDescriptionVersions() throws SystemException {
@@ -552,6 +557,12 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         newVersion(UpdateType.PLAN_DELETED, updateAuthorId);
         this.setState(EntityState.DELETED.name());
         this.store();
+        
+        try {
+            Indexer.deleteEntry(10112L, getPlanId());
+        } catch (SearchException e) {
+            _log.error("can't remove plan " + getPlanId() + " from search index", e);
+        }
     }
 
     public User getUpdateAuthor() throws PortalException, SystemException {
@@ -659,4 +670,11 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         }
         return false;
     }
+    
+
+    private void updateSearchIndex() throws SearchException, SystemException {
+        Indexer.updateEntry(10112L, this);
+        
+    }
+
 }

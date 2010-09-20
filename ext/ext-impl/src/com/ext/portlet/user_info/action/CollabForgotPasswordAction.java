@@ -6,10 +6,12 @@ import javax.portlet.PortletConfig;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import org.apache.poi.hssf.record.RecalcIdRecord;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.ext.recaptcha.ReCaptchaUtils;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 
@@ -25,11 +27,14 @@ public class CollabForgotPasswordAction extends com.liferay.portlet.login.action
             ActionMapping mapping, ActionForm form, PortletConfig portletConfig,
             ActionRequest actionRequest, ActionResponse actionResponse)
         throws Exception {
-        super.processAction(mapping, form, portletConfig, actionRequest, actionResponse);
         
-        String screenName = ParamUtil.getString(actionRequest, "screenName");
-        if (SessionErrors.isEmpty(actionRequest) && !screenName.trim().equals("")) {
-            
+        String answer = ParamUtil.getString(actionRequest, "answer");
+        if (answer != null && answer.trim().length() > 0) {
+            if (!ReCaptchaUtils.validateCaptcha(actionRequest)) {
+                return;
+            }
         }
+        
+        super.processAction(mapping, form, portletConfig, actionRequest, actionResponse);
     }
 }

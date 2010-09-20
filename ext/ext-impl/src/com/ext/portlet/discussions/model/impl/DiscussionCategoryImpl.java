@@ -9,14 +9,20 @@ import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
+import com.ext.portlet.discussions.util.Indexer;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
 
 public class DiscussionCategoryImpl extends DiscussionCategoryModelImpl
     implements DiscussionCategory {
+    
+    private static final Log _log = LogFactoryUtil.getLog(DiscussionCategoryImpl.class);
     public DiscussionCategoryImpl() {
     }
     
@@ -55,6 +61,17 @@ public class DiscussionCategoryImpl extends DiscussionCategoryModelImpl
     public void delete() throws SystemException {
         setDeleted(new Date());
         store();
+        try {
+            // remove from index all messages from deleted category
+            for (DiscussionMessage thread: DiscussionMessageLocalServiceUtil.getThreadsByCategory(getCategoryId())) {
+                Indexer.deleteEntry(10112L, thread.getMessageId());
+                for (DiscussionMessage msg: DiscussionMessageLocalServiceUtil.getThreadMessages(thread.getMessageId())) {
+                    Indexer.deleteEntry(10112L, msg.getMessageId());
+                }
+            }
+        } catch (SearchException e) {
+            _log.error("Can't remove category messages from search index.", e);
+        }
     }
     
     public void update(String name, String description) throws SystemException {

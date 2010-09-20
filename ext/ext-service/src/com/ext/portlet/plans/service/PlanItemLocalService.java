@@ -186,4 +186,10 @@ public interface PlanItemLocalService {
     public com.ext.portlet.plans.model.PlanAttribute getPlanAttribute(
         com.ext.portlet.plans.model.PlanItem plan, java.lang.String name)
         throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public void reIndex() throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public void reIndex(long planId) throws com.liferay.portal.SystemException;
 }

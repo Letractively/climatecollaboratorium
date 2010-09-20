@@ -11,14 +11,21 @@ import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
+import com.ext.portlet.discussions.util.Indexer;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
 
 public class DiscussionMessageImpl extends DiscussionMessageModelImpl
     implements DiscussionMessage {
+    
+    private final static Log _log = LogFactoryUtil.getLog(DiscussionMessageImpl.class);
+    
     public DiscussionMessageImpl() {
     }
     
@@ -84,12 +91,28 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
     public void delete() throws SystemException {
         setDeleted(new Date());
         store();
+        try {
+            Indexer.deleteEntry(10112L, getMessageId());
+            // if this is a thread, then remove all sub messages from search cache
+            if (getThreadId() == null) {
+                for (DiscussionMessage msg: DiscussionMessageLocalServiceUtil.getThreadMessages(getMessageId())) {
+                    Indexer.deleteEntry(10112L, msg.getMessageId());
+                }
+            }
+        } catch (SearchException e) {
+            _log.warn("Can't remove message with id: " + getMessageId() + " from search cache", e);
+        }
     }
     
     public void update(String subject, String body) throws SystemException {
         setSubject(subject);
         setBody(body);
         store();
+        try {
+            Indexer.updateEntry(10112L, this);
+        } catch (SearchException e) {
+            _log.error("Can't update message with id: " + getMessageId() + " in search cache", e);
+        }
     }
     
     public DiscussionCategory getCategory() throws NoSuchDiscussionCategoryException, SystemException {

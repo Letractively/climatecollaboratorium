@@ -143,6 +143,15 @@ public class DiscussionMessageLocalServiceUtil {
         return getService().getMessageByMessageId(messageId);
     }
 
+    public static void reIndex() throws com.liferay.portal.SystemException {
+        getService().reIndex();
+    }
+
+    public static void reIndex(long messageId)
+        throws com.liferay.portal.SystemException {
+        getService().reIndex(messageId);
+    }
+
     public static DiscussionMessageLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(
