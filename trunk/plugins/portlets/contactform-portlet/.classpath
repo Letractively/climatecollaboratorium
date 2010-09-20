@@ -6,5 +6,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
+	<classpathentry kind="src" path="/icefaces"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
