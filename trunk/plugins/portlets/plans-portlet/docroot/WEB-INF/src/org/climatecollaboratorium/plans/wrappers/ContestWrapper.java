@@ -17,6 +17,7 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import java.util.*;
 
@@ -93,6 +94,7 @@ public class ContestWrapper {
         boolean editingPositions = false;
         private List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
         private List<DebateQuestionWrapper> positionsQuestions = new ArrayList<DebateQuestionWrapper>();
+        private List<SelectItem> questionItems ;
 
 
         public String getDescription() {
@@ -143,7 +145,7 @@ public class ContestWrapper {
             editingPositions = ! editingPositions;
         }
         
-        public List<DebateQuestionWrapper> getAvailablePositions() throws SystemException {
+        public List<DebateQuestionWrapper> getAvailableDebates() throws SystemException {
             if (questions.size() == 0) {
                 Set<Long> selectedPositionsIds = new HashSet<Long>(contest.getDebatesIds());
                 for (Debate debate : DebateLocalServiceUtil.getDebates()) {
@@ -151,6 +153,31 @@ public class ContestWrapper {
                 }
             }
             return questions;
+        }
+        
+        public List<SelectItem> getAvailableDebatesItems() throws SystemException {
+            if (questionItems == null) {
+                questionItems = new ArrayList<SelectItem>();
+                
+                for (Debate debate : DebateLocalServiceUtil.getDebates()) {
+                    questionItems.add(new SelectItem(debate.getDebateId(), debate.getCurrentRoot().getDebateSummary()));
+                }
+            }
+            return questionItems;
+        }
+        
+        public Long[] getContestDebates() throws SystemException {
+            return contest.getDebatesIds().toArray(new Long[0]);
+        }
+        
+        public void setContestDebates(Long[] debatesIds) throws SystemException {
+            try {
+                contest.setDebates(Arrays.asList(debatesIds));
+            }
+            catch (Exception e) {
+                
+                e.printStackTrace();
+            }
         }
 
     }

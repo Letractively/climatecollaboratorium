@@ -12,17 +12,20 @@
         <ui:define name="contest_content">
             <f:subview rendered="#{contests.contest.editor.editingPositions}">
                 <ice:form>
-                    Editing positions
-                    <ice:commandButton action="#{contests.contest.editor.editPositions}"  value="Cancel" />
+                    <h2>Choose debates that you want to associate with contest</h2>
+                    <div>
+                        <ice:selectManyCheckbox value="#{contests.contest.editor.contestDebates}" layout="pageDirection">
+                            <f:selectItems value="#{contests.contest.editor.availableDebatesItems}" />
+                        </ice:selectManyCheckbox>
+                    </div>
+                    <ice:commandButton action="#{contests.contest.editor.editPositions}"  value="Ok" />
                 </ice:form>
             </f:subview>
             
             <f:subview rendered="#{not contests.contest.editor.editingPositions}">
-            <!-- 
                 <ice:form>
                     <ice:commandButton action="#{contests.contest.editor.editPositions}" value="Edit" rendered="#{permissions.canAdminAll}" />
                 </ice:form>
-                -->
                 <ice:form>
                 <sharedcollab:helpMessage messageId="planDebatesHelp" styleClass="planHelp"
                                       hideThisMessage="Hide this message">

@@ -2,6 +2,7 @@ package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateItem;
+import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanPositions;
@@ -56,7 +57,11 @@ public class PlanPositionsBean {
         if (plan.getPositionsIds().size() > 0) {
             positionsSet = true;
         }
-        availableDebates = PlansPreferencesBean.getQuestionDebates();
+        
+        availableDebates = new ArrayList<Debate>();
+        for (Long debateId: plan.getContest().getDebatesIds()) {
+            availableDebates.add(DebateLocalServiceUtil.findLastVersion(debateId));
+        }
     }
 
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
