@@ -4,6 +4,7 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collab="http://climatecollaboratorium.org/components">
+        <ice:commandLink styleClass="editStateTrigger hidden" value="Edit" actionListener="#{planBean.editDescription}" />
     <div class="description normal">
         <div class="versionsContainer">
             <div class="versions">
@@ -69,7 +70,8 @@ Teams may also include a vision of how the future will look under their proposal
 
 
         <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}"
-                        styleClass="planDescription">
+                        styleClass="planDescription editTriggerContainer">
+                        <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
             <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
                 Viewing version from &amp;nbsp; <strong><ice:outputText
                     value="#{planBean.plan.descriptionVersionDate}"/></strong> by &amp;nbsp;
@@ -78,6 +80,11 @@ Teams may also include a vision of how the future will look under their proposal
                 </a>
             </ice:panelGroup>
             <ice:outputText value="#{planBean.plan.description}" escape="false"/>
+        <ice:panelGroup styleClass="hidden ">
+            <script type="text/javascript">
+                initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
+            </script>
+        </ice:panelGroup>
 
         </ice:panelGroup>
 
@@ -109,6 +116,7 @@ Teams may also include a vision of how the future will look under their proposal
         <ice:panelGroup styleClass="hidden ">
             <script type="text/javascript">
                 Collab.nav.addEditorDirtyValidationCallback(checkIfPlanDescriptionDirty);
+                initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
             </script>
         </ice:panelGroup>
 
