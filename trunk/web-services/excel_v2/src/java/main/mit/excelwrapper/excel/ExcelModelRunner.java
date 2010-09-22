@@ -151,7 +151,11 @@ public class ExcelModelRunner {
                 String outputValue = null;
                 try {
                     outputValue = Utils.getCellValueAsString(currentWorksheet, i, colCounter, "");
-                    sb.append("[").append(encodeValue(outputValue)).append("]");
+                    if ("@RANGE".equals(outputValue)) {
+                      sb.append("[").append("@RANGE").append("]");
+                    } else {
+                        sb.append("[").append(encodeValue(outputValue)).append("]");
+                    }
                 } catch (FormulaComputationException e) {
                     LOGGER.info("Error executing formula in cell "+colCounter+","+i);
                     sb.append("[").append("@ERROR").append("]");
