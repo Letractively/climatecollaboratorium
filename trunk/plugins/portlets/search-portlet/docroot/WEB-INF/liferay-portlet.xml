@@ -6,6 +6,8 @@
 		<portlet-name>search</portlet-name>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/css/search.css</header-portlet-css>
+		<header-portlet-javascript>/xmlhttp/js/navigation/navigationManager.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/search.js</header-portlet-javascript>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

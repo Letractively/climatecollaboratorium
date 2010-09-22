@@ -123,6 +123,9 @@ public abstract class PagedListDataModel extends DataModel {
             page = fetchPage(rowIndex, pageSize);
             startRow = page.getStartRow();
         }
+        if (page.getData().size() == 0) {
+            return null;
+        }
         return page.getData().get(rowIndex - startRow);
     }
 
