@@ -8,7 +8,6 @@
         xmlns:sharedcollab="http://climatecollaboratorium.org/components">
         
     <ui:composition template="../templates/contestPageTemplate.xhtml">
-        #{permissions}
         <ui:define name="contest_content">
             <f:subview rendered="#{contests.contest.editor.editingPositions}">
                 <ice:form>
