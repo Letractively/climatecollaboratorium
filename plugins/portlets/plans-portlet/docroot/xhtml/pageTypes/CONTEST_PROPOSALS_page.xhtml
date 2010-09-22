@@ -88,7 +88,8 @@
                 </div>
             </f:facet>
             <ice:outputLink rendered="#{column == 'NAME'}"
-                    value="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}">
+                    value="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}" 
+                    onclick="Collab.nav.navigate('plans', {contests: '#{contests.contest.contestActive ? 'active' : 'past'}', subview: 'proposals', planId: #{singlePlan.planId}}, true); return false;">
                 <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
             </ice:outputLink>
             <f:subview rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}">
