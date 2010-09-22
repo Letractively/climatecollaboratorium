@@ -120,6 +120,10 @@ public class MetaDataJAXBDelegate implements MetaData {
         return src.getIndexingMetaData();
     }
 
+    public boolean isInRange(String value) {
+        return false;
+    }
+
     @Override
     public boolean isInRange(String[] values) {
         return false;  //To change body of implemented methods use File | Settings | File Templates.

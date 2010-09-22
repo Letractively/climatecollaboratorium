@@ -12,6 +12,7 @@ import mit.simulation.climate.model.jaxb.MetaDataJAXBDelegate;
  */
 @XmlJavaTypeAdapter(MetaDataJAXBDelegate.Adapter.class)
 public interface MetaData extends HasId {
+    boolean isInRange(String val);
 
     /**
      * Describes how meta data relates to other meta data in the set

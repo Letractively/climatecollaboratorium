@@ -7,12 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -915,6 +910,11 @@ public class SimulationResource {
                 ServerTuple tpl = new ServerTuple(new String[]{null});
                 tpl.setStatus(TupleStatus.INVALID);
                 result.addValue(tpl);
+            } else if (match.contains(TupleStatus.OUT_OF_RANGE.getCode())) {
+                ServerTuple tpl = new ServerTuple(new String[]{null});
+                tpl.setStatus(TupleStatus.OUT_OF_RANGE);
+                result.addValue(tpl);
+            
             } else if (md.getProfile()[0].equals(java.lang.String.class)) {
                 result.addValue(new ServerTuple(new String[] {match}));
             } else {
@@ -1035,6 +1035,7 @@ public class SimulationResource {
             NameValuePair[] params = new NameValuePair[inputs.size()];
             List<MetaData> outofrange = new ArrayList<MetaData>();
             int i = 0;
+            Set<Integer> outofrangeidxs = new HashSet<Integer>();
             for (MetaData md : inputs) {
                 String ival = getInputValue(md,strinputs,varinputs);
                 if (md.getVarContext()==VarContext.LIST) {
@@ -1043,6 +1044,8 @@ public class SimulationResource {
 //                        LOGGER.warn(ival+" in variable "+md.getInternalName()+" in "+sim.getName()+" is out of range.");
 //                    outofrange.add(md);
 //                    }
+              
+
                 } else {
                 if (!md.isInRange(new String[] {ival})) {
                         LOGGER.warn(ival+" in variable "+md.getInternalName()+" in "+sim.getName()+" is out of range.");
