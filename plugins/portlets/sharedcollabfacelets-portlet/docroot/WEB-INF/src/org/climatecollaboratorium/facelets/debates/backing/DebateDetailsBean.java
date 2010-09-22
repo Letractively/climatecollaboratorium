@@ -150,8 +150,10 @@ public class DebateDetailsBean implements SelectionListener<DebateItem>, Rendera
             if (Helper.isUserLoggedIn()) {
                 currentUser = Helper.getLiferayUser();
             }
-
-            setSelectedDebateItem(rootDebateItem);
+            
+            if (selectedDebateItem == null) {
+                setSelectedDebateItem(rootDebateItem);
+            }
             List<DebateItem> positions = rootDebateItem.getChildren();
 
 
