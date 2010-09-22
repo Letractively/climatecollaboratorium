@@ -30,4 +30,6 @@ public interface DebateComment extends DebateCommentModel {
     public com.liferay.portal.model.User getAuthor()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public void delete() throws com.liferay.portal.SystemException;
 }

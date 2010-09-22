@@ -1,15 +1,21 @@
 package com.ext.portlet.debaterevision.service.impl;
 
+import com.ext.portlet.contests.model.Contest;
+import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.model.DebateItemVote;
+import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateItemVoteLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateItemVoteStatsLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.base.DebateItemLocalServiceBaseImpl;
 import com.ext.portlet.debaterevision.service.persistence.DebateItemFinderUtil;
+import com.ext.portlet.debaterevision.util.Indexer;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.search.SearchException;
 
 import java.util.List;
 
@@ -120,6 +126,29 @@ public class DebateItemLocalServiceImpl extends DebateItemLocalServiceBaseImpl {
     
     public int getItemCommentsCount(long itemId) {
         return debateItemFinder.getDebateItemCommentsCount(itemId);
+    }
+    
+    private final static long defaultCompanyId = 10112L;
+    
+    public void reIndex() throws SearchException, SystemException {
+        for (Contest contest: ContestLocalServiceUtil.getContests(0, Integer.MAX_VALUE)) {
+            for (Debate debate: contest.getDebates()) {
+                // index all items
+                reindexAllItems(debate.getCurrentRoot());
+            }
+        
+        } 
+    }
+    
+    public void reIndex(long debateItemId) throws SearchException, SystemException {
+        Indexer.updateEntry(defaultCompanyId, DebateItemLocalServiceUtil.getLastItem(debateItemId));
+    }
+    
+    private void reindexAllItems(DebateItem debateItem) throws SearchException, SystemException {
+        Indexer.updateEntry(defaultCompanyId, debateItem);
+        for (DebateItem child: debateItem.getChildren()) {
+            reindexAllItems(child);
+        }
     }
 
 }

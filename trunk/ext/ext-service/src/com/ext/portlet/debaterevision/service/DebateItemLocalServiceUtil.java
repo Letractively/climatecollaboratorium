@@ -149,6 +149,18 @@ public class DebateItemLocalServiceUtil {
         return getService().getItemCommentsCount(itemId);
     }
 
+    public static void reIndex()
+        throws com.liferay.portal.SystemException,
+            com.liferay.portal.kernel.search.SearchException {
+        getService().reIndex();
+    }
+
+    public static void reIndex(long debateItemId)
+        throws com.liferay.portal.SystemException,
+            com.liferay.portal.kernel.search.SearchException {
+        getService().reIndex(debateItemId);
+    }
+
     public static DebateItemLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("DebateItemLocalService is not set");

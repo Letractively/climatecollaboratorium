@@ -9,9 +9,13 @@ import com.ext.portlet.debaterevision.model.DebateComment;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.model.DebateItemReference;
 import com.ext.portlet.debaterevision.service.*;
+import com.ext.portlet.debaterevision.util.Indexer;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import org.apache.commons.lang.ObjectUtils;
@@ -28,6 +32,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
 
 
     public long debateVersion = -1L;
+    private final static Log _log = LogFactoryUtil.getLog(DebateItemImpl.class);
 
     public DebateItemImpl() {
 
@@ -105,7 +110,12 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
 
         item.setTreeVersion(mostRecent.getTreeVersion());
         item.setDebateVersion(mostRecent.getTreeVersion());
-        DebateItemLocalServiceUtil.updateDebateItem(item);
+        DebateItemLocalServiceUtil.addDebateItem(item);
+        try {
+            Indexer.updateEntry(10112L, item);
+        } catch (SearchException e) {
+            _log.error("Can't index debate item", e);
+        }
 
         updateReferences(item,refs);
         
@@ -127,6 +137,11 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
         }
        setStatus(DebateItemStatus.DELETED.name());
        DebateItemLocalServiceUtil.updateDebateItem(this);
+       try {
+           Indexer.deleteEntry(10112L, getDebateItemId());
+       } catch (SearchException e) {
+           _log.error("Can't remove item from search cache", e);
+       }
 
 
 
@@ -229,6 +244,12 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
         comment.setAuthorId(authorId);
         comment.setUpdated(new Date());
         DebateCommentLocalServiceUtil.updateDebateComment(comment);
+        // reindex current item
+        try {
+            Indexer.updateEntry(10112L, this);
+        } catch (SearchException e) {
+            _log.error("Can't reindex debate item " + getDebateItemId(), e);
+        }
         return comment;
     }
 
