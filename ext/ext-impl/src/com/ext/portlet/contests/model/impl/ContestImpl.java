@@ -10,13 +10,22 @@ import com.ext.portlet.contests.model.ContestDebate;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestDebateLocalServiceUtil;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
+import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
+import com.ext.portlet.debaterevision.util.Indexer;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.SearchException;
 
 
 public class ContestImpl extends ContestModelImpl implements Contest {
+    private final static Log _log = LogFactoryUtil.getLog(ContestImpl.class);
+    
     public ContestImpl() {
     }
 
@@ -68,6 +77,20 @@ public class ContestImpl extends ContestModelImpl implements Contest {
         for (Long debatesId: debatesIds) {
             ContestDebateLocalServiceUtil.createContestDebate(debatesId, getContestPK());
         }
+        // refresh search index as debate items might have been referenced differently now
+        try {
+            DebateItemLocalServiceUtil.reIndex();
+        } catch (SearchException e) {
+            _log.error("Exception was thrown when reindexing debate items", e);
+        }
+    }
+    
+    public List<Debate> getDebates() throws SystemException {
+        List<Debate> ret = new ArrayList<Debate>();
+        for (ContestDebate pos: ContestDebateLocalServiceUtil.getContestDebates(getContestPK())) {
+            ret.add(DebateLocalServiceUtil.findLastVersion(pos.getDebateId()));
+        }
+        return ret;
     }
 
 }

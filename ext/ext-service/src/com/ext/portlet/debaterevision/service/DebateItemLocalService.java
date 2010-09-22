@@ -126,4 +126,14 @@ public interface DebateItemLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public int getItemCommentsCount(long itemId);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public void reIndex()
+        throws com.liferay.portal.SystemException,
+            com.liferay.portal.kernel.search.SearchException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public void reIndex(long debateItemId)
+        throws com.liferay.portal.SystemException,
+            com.liferay.portal.kernel.search.SearchException;
 }

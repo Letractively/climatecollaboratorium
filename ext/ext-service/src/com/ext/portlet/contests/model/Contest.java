@@ -48,4 +48,7 @@ public interface Contest extends ContestModel {
 
     public void setDebates(java.util.List<Long> debatesIds)
         throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.debaterevision.model.Debate> getDebates()
+        throws com.liferay.portal.SystemException;
 }
