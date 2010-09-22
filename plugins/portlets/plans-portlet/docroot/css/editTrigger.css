@@ -1,0 +1,21 @@
+.editTriggerContainer {
+	position: relative;
+}
+
+.editTrigger {
+	position: absolute;
+	background: #bb0000;
+	color: #ffffff;
+	font-weight: bold;
+	right: 0px;
+	top: 0px;
+	font-size: 1.2em;
+	padding: 5px 10px;
+	border: 2px solid #aa0000;
+}
+
+.editTrigger:hover {
+    background: #ee0000;
+    color: #ffffff;
+}
+    
