@@ -4,6 +4,7 @@
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>debates3</portlet-name>
+		<indexer-class>com.ext.portlet.debaterevision.util.Indexer</indexer-class>
 		<social-activity-interpreter-class>org.climatecollaboratorium.debates.activity.DebatesActivityFeedEntry</social-activity-interpreter-class>
 		<instanceable>true</instanceable>
 		<render-weight>1</render-weight>
@@ -15,6 +16,8 @@
 		<header-portlet-javascript>/js/nicEdit.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery.corner.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery.history.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/debates.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery.center.js</header-portlet-javascript>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
