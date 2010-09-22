@@ -151,6 +151,10 @@ public class CompositeMetaData implements MetaData {
         return primary.isIndex();
     }
 
+    public boolean isInRange(String s) {
+        return primary.isInRange(s);
+    }
+
     @Override
     public boolean isInRange(String[] values) {
         return primary.isInRange(values);

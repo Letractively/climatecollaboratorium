@@ -6,6 +6,8 @@ import mit.simulation.climate.exception.SimulationException;
 import mit.simulation.climate.model.MetaData;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 public class ServerMetaData extends ServerObject<MetaDataDAO> implements
         MetaData {
 
@@ -227,44 +229,49 @@ public class ServerMetaData extends ServerObject<MetaDataDAO> implements
 
 
 
-
-    public boolean isInRange(String[] values) {
-
+    @Override
+    public boolean isInRange(String val) {
         Class cls = getProfile()[0];
 
-        for (String val:values) {
         if (cls.equals(Double.class) || cls.equals(Float.class)) {
-            Double dval = MetaData.Utils.convertToValue(Double.class,val);
-            if (getMin() != null && ! isEmpty(getMin()[0])) {
-                Double dmin = MetaData.Utils.convertToValue(Double.class, getMin()[0]);
-                if (dval < dmin) {
-                    return false;
+                Double dval = MetaData.Utils.convertToValue(Double.class,val);
+                if (getMin() != null && ! isEmpty(getMin()[0])) {
+                    Double dmin = MetaData.Utils.convertToValue(Double.class, getMin()[0]);
+                    if (dval < dmin) {
+                        return false;
+                    }
                 }
-            }
-            if (getMax() != null && ! isEmpty(getMax()[0])) {
-                Double dmax = MetaData.Utils.convertToValue(Double.class, getMax()[0]);
-                if (dmax !=null && dval > dmax) {
-                    return false;
+                if (getMax() != null && ! isEmpty(getMax()[0])) {
+                    Double dmax = MetaData.Utils.convertToValue(Double.class, getMax()[0]);
+                    if (dmax !=null && dval > dmax) {
+                        return false;
+                    }
                 }
-            }
 
-        } else if (cls.equals(Integer.class)) {
-            Integer ival = MetaData.Utils.convertToValue(Integer.class, val);
-            if (getMin() != null && ! isEmpty(getMin()[0])) {
-                Integer imin = MetaData.Utils.convertToValue(Integer.class, getMin()[0]);
-                if (ival < imin) {
-                    return false;
+            } else if (cls.equals(Integer.class)) {
+                Integer ival = MetaData.Utils.convertToValue(Integer.class, val);
+                if (getMin() != null && ! isEmpty(getMin()[0])) {
+                    Integer imin = MetaData.Utils.convertToValue(Integer.class, getMin()[0]);
+                    if (ival < imin) {
+                        return false;
+                    }
                 }
-            }
-            if (getMax() != null && !isEmpty(getMax()[0])) {
-                Integer imax = MetaData.Utils.convertToValue(Integer.class, getMax()[0]);
-                if (ival > imax) {
-                    return false;
+                if (getMax() != null && !isEmpty(getMax()[0])) {
+                    Integer imax = MetaData.Utils.convertToValue(Integer.class, getMax()[0]);
+                    if (ival > imax) {
+                        return false;
+                    }
                 }
-            }
 
 
-        }
+            }
+        return true;
+    }
+
+
+    public boolean isInRange(String[] values) {
+        for (String val:values) {
+           return isInRange(val);
         }
 
         return true;
