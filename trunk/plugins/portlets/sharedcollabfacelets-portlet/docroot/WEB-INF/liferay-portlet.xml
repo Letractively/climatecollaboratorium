@@ -5,6 +5,7 @@
 	<portlet>
 		<portlet-name>sharedcollabfacelets</portlet-name>
 		<icon>/icon.png</icon>
+		<indexer-class>com.ext.portlet.discussions.util.Indexer</indexer-class>
 		<social-activity-interpreter-class>org.climatecollaboratorium.facelets.discussions.activity.DiscussionActivityFeedEntry</social-activity-interpreter-class>
 		<!-- <friendly-url-mapper-class>com.climatecollaboratorium.navigation.SharedFriendlyURLMapper</friendly-url-mapper-class>-->
 		<instanceable>true</instanceable>

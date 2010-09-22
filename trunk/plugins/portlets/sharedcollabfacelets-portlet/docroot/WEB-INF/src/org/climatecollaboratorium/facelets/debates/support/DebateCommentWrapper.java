@@ -28,7 +28,7 @@ public class DebateCommentWrapper {
     
     public void delete(ActionEvent event) throws SystemException {
         if (permissions.getCanDeleteComment()) {
-            DebateCommentLocalServiceUtil.deleteDebateComment(comment);
+            comment.delete();
         }
     }
 

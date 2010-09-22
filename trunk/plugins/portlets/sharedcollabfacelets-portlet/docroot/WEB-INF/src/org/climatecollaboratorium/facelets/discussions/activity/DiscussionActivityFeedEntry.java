@@ -61,9 +61,6 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter{
 		String body =  "";
 		String title=activityType.getPrettyName();
 		
-		NavigationUrl navUrl = new NavigationUrl("http://moto-opinie.pl");
-		
-		
 		if (activityType == DiscussionActivityKeys.ADD_CATEGORY) {
 		    DiscussionCategory category = DiscussionCategoryLocalServiceUtil.getDiscussionCategoryById(activity.getClassPK());
 		    DiscussionCategoryGroup categoryGroup = category.getCategoryGroup();
