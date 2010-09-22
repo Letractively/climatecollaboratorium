@@ -57,10 +57,30 @@ function parseFieldValue(value, unit) {
 	return value;
 }
 
+var runSimulationOnclick = false;
 function oneOfValuesChangedEvent() {
-	jQuery(".runSimBtn").parent().click();
+	// uncomment code bellow to enable running simulation on every change
+	//jQuery(".runSimulationButton").click();
+	
+	if (runSimulationOnclick) {
+		jQuery(".runSimulationButton").click(runSimulationOnclick);
+	}
+	jQuery(".runSimulationButton").effect("highlight", {}, 2000);
 	jQuery(".simulationInputsStatus").addClass("valueChanged");
+	jQuery(".runSimulationButton").addClass('prominantButton');
+	jQuery(".runSimulationButton").removeClass('prominantButton-dis');
 }
+
+function disableRunButton() {
+	if (!runSimulationOnclick) {
+		runSimulationOnclick = jQuery(".runSimulationButton").attr('onclick');
+		jQuery(".runSimulationButton").unbind("click");
+		jQuery(".runSimulationButton").attr('onclick', function() {return false;});
+		jQuery(".runSimulationButton").addClass('prominantButton-dis');
+		jQuery(".runSimulationButton").removeClass('prominantButton');
+	}
+}
+
 
 function showSliders() {
    

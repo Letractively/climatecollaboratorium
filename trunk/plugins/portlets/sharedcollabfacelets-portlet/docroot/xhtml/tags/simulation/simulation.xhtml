@@ -8,6 +8,21 @@
     <collab:simulationSupport simulationBean="#{simulationBean}" scenarioId="#{scenarioId}" simulationId="#{simulationId}" editActions="#{editActions}">
         <table class="simulation">
             <tr>
+                <td></td>
+                <td>
+                    <ice:panelGroup rendered="#{showRunButton}" >
+                        <table class="simButtons">
+                            <tr>
+                                <td>
+                                    <ice:commandButton actionListener="#{simulationBean.runSimulation}"  onclick="disableRunButton(); runSimulation();" styleClass="prominantButton runSimulationButton" value="Run the simulation" />
+                                    <div class="clear"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </ice:panelGroup>
+                </td>
+            </tr>
+            <tr>
                 <td class="inputs">
                     <ice:panelGroup>
                         <collab:simulationInputs />
@@ -19,33 +34,7 @@
                     </ice:panelGroup>
                 </td>
             </tr>
-            <tr>
-                <td colspan="2">
-                    <ice:panelGroup rendered="#{showRunButton}" >
-                        <table class="simButtons">
-                            <tr>
-                                <td>
-                                    <ice:commandLink actionListener="#{simulationBean.runSimulation}"  styleClass="runSimulationButton"  onclick="runSimulation();"><div class="runSimBtn"></div></ice:commandLink>
-                                    <div class="clear"></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </ice:panelGroup>
-                    <ice:panelGroup rendered="#{showEditArea}">
-                        <table class="simButtons">
-                            <tr>
-                                <td>
-                                    <ice:commandLink actionListener="#{simulationBean.editActions}" rendered="#{not simulationBean.embeddedEditing and simulationBean.simulation != null and showEditButton}"><div class="editSimBtn"></div></ice:commandLink>
-                                    <ice:commandLink actionListener="#{simulationBean.saveScenario}" rendered="#{simulationBean.embeddedEditing and simulationBean.scenario != null}"><div class="saveSimBtn"></div></ice:commandLink>
-                                    <ice:commandLink actionListener="#{simulationBean.runSimulation}" styleClass="runSimulationButton" onclick="runSimulation();" rendered="#{simulationBean.embeddedEditing and simulationBean.simulation != null}"><div class="runSimBtn"></div></ice:commandLink>
-                                    <ice:commandLink actionListener="#{simulationBean.editActions}" rendered="#{simulationBean.embeddedEditing}"><div class="cancelSimBtn"></div></ice:commandLink>
-                                    <div class="clear"></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </ice:panelGroup>
-                </td>
-            </tr>
+            
         </table>
         <ice:panelGroup>
             <script language="javascript">
