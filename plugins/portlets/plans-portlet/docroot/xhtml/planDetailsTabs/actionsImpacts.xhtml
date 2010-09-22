@@ -121,7 +121,8 @@
                                    showEditArea="true" showEditButton="false"
                                    showDisabledMessage="false"
                                    disabledMessage="Click &lt;b&gt;Edit&lt;/b&gt; to change inputs" 
-                                   editActions="#{planBean.planOpenForEditing}" />
+                                   editActions="#{planBean.planOpenForEditing}" 
+                                   showRunButton="#{simulationBean.embeddedEditing}" />
             </f:subview>
             <f:subview rendered="#{not permissions.canEdit}">
                 <collab:simulation simulationId="#{planBean.modelBean.selectedItem}"
