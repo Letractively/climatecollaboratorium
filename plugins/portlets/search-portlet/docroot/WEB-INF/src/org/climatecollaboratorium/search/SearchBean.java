@@ -168,7 +168,7 @@ public class SearchBean extends DataSource {
         if (searchItemTypes == null) {
             searchItemTypes = new ArrayList<SelectItem>();
             for (SearchItemType type: SearchItemType.values()) {
-                searchItemTypes.add(new SelectItem(type, type.name()));
+                searchItemTypes.add(new SelectItem(type, type.getSearchInDescription()));
             }
         }
         return searchItemTypes;
@@ -198,8 +198,11 @@ public class SearchBean extends DataSource {
             public void onEvent(NavigationEvent event) {
                 if (event.hasSource("search")) {
                     try {
-                        searchPhrase = URLDecoder.decode(event.getParameters("search").get("searchPhrase"), "UTF-8");
-                        onePageDataModel = null;
+                        String newPhrase = event.getParameters("search").get("searchPhrase");
+                        if (newPhrase != null) {
+                            searchPhrase = URLDecoder.decode(event.getParameters("search").get("searchPhrase"), "UTF-8");
+                            onePageDataModel = null;
+                        }
                     } catch (UnsupportedEncodingException e) {
                         _log.error("Can't read search phrase", e);
                     }

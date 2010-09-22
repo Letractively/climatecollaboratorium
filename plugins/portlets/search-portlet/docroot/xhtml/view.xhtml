@@ -10,7 +10,8 @@
     <ice:portlet>
     <collab:navigationManager />
     <ice:form>
-        <ice:inputText value="#{searchBean.searchPhrase}" style="width: 90%"/> &amp;nbsp; <ice:commandButton value="Search" /><br />
+        <input type="text" value="#{searchBean.searchPhrase}" onkeypress="{if (event.keyCode==13) goSearch()}" class="searchInput" style="width: 90%"/> &amp;nbsp; 
+        <input type="button" value="Search" onclick="goSearch();"/><br />
         <ice:selectManyCheckbox value="#{searchBean.selectedItemTypes}" partialSubmit="true">
             <f:selectItems value="#{searchBean.searchItemTypes}" />
         </ice:selectManyCheckbox>
@@ -23,7 +24,7 @@
                 Type
             </f:facet>
             <p>
-                <img src="/collaboratorium-theme/images/search/resize_${item.itemType}.png" /><br />
+                <img src="/collaboratorium-theme/images/search/${item.itemType}.png" /><br />
                 <ice:outputText value="#{item.itemType}" />
             </p>
         </ice:column>
