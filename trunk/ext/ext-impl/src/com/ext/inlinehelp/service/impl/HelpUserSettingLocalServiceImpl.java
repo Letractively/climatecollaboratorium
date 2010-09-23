@@ -12,15 +12,15 @@ import com.liferay.portal.SystemException;
 public class HelpUserSettingLocalServiceImpl
     extends HelpUserSettingLocalServiceBaseImpl {
     
-    public boolean isHelpVisible(Long userId, String messageId) throws SystemException {
+    public boolean isHelpVisible(Long userId, String messageId, boolean defaultOpen) throws SystemException {
         List<HelpUserSetting> userSettingList = this.helpUserSettingPersistence.findByUserIdMessageId(userId, messageId);
         if (userSettingList.size() == 0) {
-            return true;
+            return defaultOpen;
         }
         return userSettingList.get(0).getVisible();
     }
     
-    public void toggleHelpVisibility(Long userId, String messageId) throws SystemException {
+    public void toggleHelpVisibility(Long userId, String messageId, boolean defaultOpen) throws SystemException {
         List<HelpUserSetting> userSettingList = this.helpUserSettingPersistence.findByUserIdMessageId(userId, messageId);
         HelpUserSetting userSetting;
         if (userSettingList.size() == 0) {
@@ -28,7 +28,7 @@ public class HelpUserSettingLocalServiceImpl
                     CounterLocalServiceUtil.increment(HelpUserSetting.class.getName()));
             userSetting.setUserId(userId);
             userSetting.setMessageId(messageId);
-            userSetting.setVisible(true);
+            userSetting.setVisible(defaultOpen);
         }
         else {
             userSetting = userSettingList.get(0);

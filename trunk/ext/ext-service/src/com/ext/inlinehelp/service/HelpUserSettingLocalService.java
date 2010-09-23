@@ -82,8 +82,10 @@ public interface HelpUserSettingLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public boolean isHelpVisible(java.lang.Long userId,
-        java.lang.String messageId) throws com.liferay.portal.SystemException;
+        java.lang.String messageId, boolean defaultOpen)
+        throws com.liferay.portal.SystemException;
 
     public void toggleHelpVisibility(java.lang.Long userId,
-        java.lang.String messageId) throws com.liferay.portal.SystemException;
+        java.lang.String messageId, boolean defaultOpen)
+        throws com.liferay.portal.SystemException;
 }

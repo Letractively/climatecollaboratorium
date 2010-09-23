@@ -90,13 +90,15 @@ public class HelpUserSettingLocalServiceUtil {
     }
 
     public static boolean isHelpVisible(java.lang.Long userId,
-        java.lang.String messageId) throws com.liferay.portal.SystemException {
-        return getService().isHelpVisible(userId, messageId);
+        java.lang.String messageId, boolean defaultOpen)
+        throws com.liferay.portal.SystemException {
+        return getService().isHelpVisible(userId, messageId, defaultOpen);
     }
 
     public static void toggleHelpVisibility(java.lang.Long userId,
-        java.lang.String messageId) throws com.liferay.portal.SystemException {
-        getService().toggleHelpVisibility(userId, messageId);
+        java.lang.String messageId, boolean defaultOpen)
+        throws com.liferay.portal.SystemException {
+        getService().toggleHelpVisibility(userId, messageId, defaultOpen);
     }
 
     public static HelpUserSettingLocalService getService() {
