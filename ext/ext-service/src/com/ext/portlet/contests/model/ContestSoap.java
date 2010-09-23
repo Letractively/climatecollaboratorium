@@ -28,6 +28,7 @@ import java.util.List;
 public class ContestSoap implements Serializable {
     private Long _ContestPK;
     private String _ContestName;
+    private String _ContestShortName;
     private String _ContestDescription;
     private Long _PlanTypeId;
     private Date _created;
@@ -43,6 +44,7 @@ public class ContestSoap implements Serializable {
 
         soapModel.setContestPK(model.getContestPK());
         soapModel.setContestName(model.getContestName());
+        soapModel.setContestShortName(model.getContestShortName());
         soapModel.setContestDescription(model.getContestDescription());
         soapModel.setPlanTypeId(model.getPlanTypeId());
         soapModel.setCreated(model.getCreated());
@@ -111,6 +113,14 @@ public class ContestSoap implements Serializable {
 
     public void setContestName(String ContestName) {
         _ContestName = ContestName;
+    }
+
+    public String getContestShortName() {
+        return _ContestShortName;
+    }
+
+    public void setContestShortName(String ContestShortName) {
+        _ContestShortName = ContestShortName;
     }
 
     public String getContestDescription() {

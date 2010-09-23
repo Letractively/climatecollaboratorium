@@ -36,6 +36,7 @@ public class ContestJSONSerializer {
 
         jsonObj.put("ContestPK", model.getContestPK());
         jsonObj.put("ContestName", model.getContestName());
+        jsonObj.put("ContestShortName", model.getContestShortName());
         jsonObj.put("ContestDescription", model.getContestDescription());
         jsonObj.put("PlanTypeId", model.getPlanTypeId());
 

@@ -227,6 +227,7 @@ create table Contact_ (
 create table Contest (
 	ContestPK LONG not null primary key,
 	ContestName VARCHAR(75) null,
+	ContestShortName VARCHAR(75) null,
 	ContestDescription VARCHAR(75) null,
 	PlanTypeId LONG,
 	created DATE null,
