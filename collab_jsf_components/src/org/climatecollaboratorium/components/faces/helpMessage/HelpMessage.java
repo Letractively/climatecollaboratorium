@@ -14,6 +14,7 @@ public class HelpMessage extends UIComponentBase {
     private String styleClass;
     private String messageId;
     private String hideThisMessage;
+    private String defaultState = "open";
     
 
     public HelpMessage() {
@@ -55,6 +56,14 @@ public class HelpMessage extends UIComponentBase {
     public void setMessageId(String messageId) {
         String portletId = Helper.getThemeDisplay().getPortletDisplay().getRootPortletId();
         this.messageId = portletId + messageId;
+    }
+
+    public void setDefaultState(String defaultState) {
+        this.defaultState = (defaultState==null?"open":defaultState);
+    }
+
+    public String getDefaultState() {
+        return defaultState;
     }
     
     @Override

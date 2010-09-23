@@ -53,7 +53,18 @@ public class HelpMessageTag extends UIComponentTag {
                 }
                 else 
                   component.getAttributes().put("messageId", messageId);
-              }       
+              }
+            if (defaultState != null) {
+                System.out.println("mam set properties defaultState");
+                if (isValueReference(defaultState))
+                {
+                  FacesContext context = FacesContext.getCurrentInstance();
+                  MethodBinding mb = getFacesContext().getApplication().createMethodBinding(ELPool.get(defaultState), actionArgs);
+                  component.getAttributes().put("defaultState", mb);
+                }
+                else
+                  component.getAttributes().put("defaultState", defaultState);
+              }
         }
         catch(Exception e1) {
             e1.printStackTrace();throw new RuntimeException(e1);
@@ -71,9 +82,19 @@ public class HelpMessageTag extends UIComponentTag {
     // 
     
     private String messageId = null;
+
+
+
+    private String defaultState = "open";
+
     public void setMessageId(String messageId) {
         System.out.println("messageId: " + messageId);
         this.messageId = messageId;
+    }
+
+    public void setDefaultState(String state) {
+        System.out.println("default state : " + state);
+       this.defaultState = "closed".equals(state)?"closed":"open";
     }
 
     
