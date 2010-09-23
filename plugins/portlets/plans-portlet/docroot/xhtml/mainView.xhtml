@@ -18,9 +18,14 @@
 	</f:subview>
 	<f:subview rendered="#{pageType == 'PLAN_DETAILS'}">
     <div class="plansBreadcrumb">
-    	<h4>
-        	<a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals">&amp;lt;&amp;lt; Back to contest</a>
-            </h4>
+    
+    
+            <a href="#">Contests Index</a> 
+            &amp;gt;&amp;gt; &amp;nbsp; 
+            <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'}">#{contest.contest.shortName}</a>
+            &amp;gt;&amp;gt; &amp;nbsp; 
+            Plan details: <ice:outputText value="#{plan.plan.name}" />
+            
     </div>
     <div class="plansDetailContent">
 		<ui:include src="./planDetails.xhtml" />
