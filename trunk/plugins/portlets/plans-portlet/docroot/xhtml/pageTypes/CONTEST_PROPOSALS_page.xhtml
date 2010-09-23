@@ -7,6 +7,11 @@
         xmlns:collab="http://climatecollaboratorium.org/facelets">
         
     <ui:composition template="../templates/contestPageTemplate.xhtml">
+    
+        <ui:define name="plans_breadcrumb">
+            <a href="#">Contests Index</a> &amp;gt;&amp;gt; &amp;nbsp; <strong>#{contest.contest.shortName}</strong>
+        </ui:define>
+        
         <ui:define name="contest_content">
             <ice:form>
                 <ui:include src="../createPlan.xhtml">
