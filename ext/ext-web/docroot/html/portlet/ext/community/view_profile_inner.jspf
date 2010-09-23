@@ -61,7 +61,7 @@
     }
 
     function submitForm() {
-        document.<portlet:namespace />fm.submit();
+        document.<portlet:namespace />profilefm.submit();
     }
 
     function <portlet:namespace />changePortrait(newPortraitURL) {
@@ -179,7 +179,7 @@
             </div>
             <div class="bd">
 
-                <form action='${submitActionURL}' method="post" name="<portlet:namespace />fm">
+                <form action='${submitActionURL}' method="post" name="<portlet:namespace />profilefm">
                                     <input name="<portlet:namespace/><%= Constants.CMD%>" type="hidden" value="<%= Constants.UPDATE%>"/>
                   <div class="content-inner">
                                   <c:if test="<%= canSendMessage  %>">
