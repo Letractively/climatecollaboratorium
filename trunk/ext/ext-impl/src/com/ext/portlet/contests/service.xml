@@ -13,6 +13,7 @@
     <entity name="Contest" local-service="true" remote-service="true">
         <column name="ContestPK" type="Long" primary="true" />
         <column name="ContestName" type="String" />
+        <column name="ContestShortName" type="String" />
         <column name="ContestDescription" type="String" />
         <column name="PlanTypeId" type="Long" />
         <column name="created" type="Date" />

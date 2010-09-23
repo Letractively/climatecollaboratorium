@@ -87,3 +87,5 @@ update ContestPhase SET ContestPhaseStatus = 'FINISHED' WHERE ContestPhasePK IN 
 update Contest set contestActive = 0 WHERE ContestPK = 1;
 update Contest set contestActive = 1 WHERE ContestPK = 2;
 
+
+ALTER TABLE Contest ADD COLUMN ContestShortName VARCHAR(255);

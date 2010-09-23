@@ -506,6 +506,7 @@
 	<model name="com.ext.portlet.contests.model.Contest">
 		<field name="ContestPK" type="Long" />
 		<field name="ContestName" type="String" />
+		<field name="ContestShortName" type="String" />
 		<field name="ContestDescription" type="String" />
 		<field name="PlanTypeId" type="Long" />
 		<field name="created" type="Date" />

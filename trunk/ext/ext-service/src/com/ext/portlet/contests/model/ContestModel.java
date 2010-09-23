@@ -38,6 +38,10 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setContestName(String ContestName);
 
+    public String getContestShortName();
+
+    public void setContestShortName(String ContestShortName);
+
     public String getContestDescription();
 
     public void setContestDescription(String ContestDescription);

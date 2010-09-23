@@ -49,6 +49,9 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "ContestName", new Integer(Types.VARCHAR) },
             
 
+            { "ContestShortName", new Integer(Types.VARCHAR) },
+            
+
             { "ContestDescription", new Integer(Types.VARCHAR) },
             
 
@@ -66,7 +69,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
             { "contestActive", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -81,6 +84,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
                 "lock.expiration.time.com.ext.portlet.contests.model.Contest"));
     private Long _ContestPK;
     private String _ContestName;
+    private String _ContestShortName;
     private String _ContestDescription;
     private Long _PlanTypeId;
     private Date _created;
@@ -97,6 +101,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
         model.setContestPK(soapModel.getContestPK());
         model.setContestName(soapModel.getContestName());
+        model.setContestShortName(soapModel.getContestShortName());
         model.setContestDescription(soapModel.getContestDescription());
         model.setPlanTypeId(soapModel.getPlanTypeId());
         model.setCreated(soapModel.getCreated());
@@ -143,6 +148,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
     public void setContestName(String ContestName) {
         _ContestName = ContestName;
+    }
+
+    public String getContestShortName() {
+        return GetterUtil.getString(_ContestShortName);
+    }
+
+    public void setContestShortName(String ContestShortName) {
+        _ContestShortName = ContestShortName;
     }
 
     public String getContestDescription() {
@@ -212,6 +225,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
             model.setContestPK(getContestPK());
             model.setContestName(HtmlUtil.escape(getContestName()));
+            model.setContestShortName(HtmlUtil.escape(getContestShortName()));
             model.setContestDescription(HtmlUtil.escape(getContestDescription()));
             model.setPlanTypeId(getPlanTypeId());
             model.setCreated(getCreated());
@@ -232,6 +246,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
         clone.setContestPK(getContestPK());
         clone.setContestName(getContestName());
+        clone.setContestShortName(getContestShortName());
         clone.setContestDescription(getContestDescription());
         clone.setPlanTypeId(getPlanTypeId());
         clone.setCreated(getCreated());
@@ -289,6 +304,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getContestPK());
         sb.append(", ContestName=");
         sb.append(getContestName());
+        sb.append(", ContestShortName=");
+        sb.append(getContestShortName());
         sb.append(", ContestDescription=");
         sb.append(getContestDescription());
         sb.append(", PlanTypeId=");
@@ -320,6 +337,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>ContestName</column-name><column-value><![CDATA[");
         sb.append(getContestName());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>ContestShortName</column-name><column-value><![CDATA[");
+        sb.append(getContestShortName());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>ContestDescription</column-name><column-value><![CDATA[");
