@@ -47,13 +47,13 @@
             
         
         <div class="proposalsListNav">
-            <f:subview rendered="#{not contests.currentPhase.firstPhase}">
-                <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals,viewProposals:active"
+            <f:subview rendered="#{not contest.currentPhase.firstPhase}">
+                <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals,viewProposals:active"
                     class="#{plansIndex.showPreviousProposals ? '' : 'active'}" >
                     <ice:outputText value="Active Proposals" rendered="#{plansIndex.contestPhase.status != 'FINISHED'}" />
                     <ice:outputText value="Final Proposals" rendered="#{plansIndex.contestPhase.status == 'FINISHED'}" />
                 </a>
-                <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals,viewProposals:previous" 
+                <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals,viewProposals:previous" 
                     class="#{plansIndex.showPreviousProposals ? 'active' : ''}">
                     <ice:outputText value="Previous Proposals" rendered="#{plansIndex.contestPhase.status != 'FINISHED'}" />
                     <ice:outputText value="Other Proposals" rendered="#{plansIndex.contestPhase.status == 'FINISHED'}" />
@@ -88,8 +88,8 @@
                 </div>
             </f:facet>
             <ice:outputLink rendered="#{column == 'NAME'}"
-                    value="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}" 
-                    onclick="Collab.nav.navigate('plans', {contests: '#{contests.contest.contestActive ? 'active' : 'past'}', subview: 'proposals', planId: #{singlePlan.planId}}, true); return false;">
+                    value="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}" 
+                    onclick="Collab.nav.navigate('plans', {contests: '#{contest.contest.contestActive ? 'active' : 'past'}', subview: 'proposals', planId: #{singlePlan.planId}}, true); return false;">
                 <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
             </ice:outputLink>
             <f:subview rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}">

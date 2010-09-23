@@ -6,44 +6,44 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets">
     <ui:composition template="./singlePageWithBreadcrumb.xhtml">
+    
+        <ui:define name="plans_breadcrumb">
+            <a href="#">&amp;lt;&amp;lt; Back to contests index</a>
+        </ui:define>
+        
         <ui:define name="plans_content">
         
-            <div class="selectContestType">
-                <a href="#plans=contests:active" class="#{contests.contest.contestActive ? 'active' : ''}" >Active Contests</a>
-                <a href="#plans=contests:past" class="#{contests.contest.contestActive ? '' : 'active'}">Past Contests</a>
-                <div class="clear"></div>
-            </div>
             
             <ice:form>
-                <ice:panelGroup styleClass="categoryHeader" rendered="#{not contests.contest.editor.editing}">
-                    <h2><ice:outputText styleClass="categoryName" value="#{contests.contest.name}"/></h2>
-                    <ice:commandButton styleClass="editCategoryButton" value="Edit" action="#{contests.contest.editor.edit}" rendered="#{not contests.contest.editor.editing and permissions.canAdminAll}"/>
+                <ice:panelGroup styleClass="categoryHeader" rendered="#{not contest.contest.editor.editing}">
+                    <h2><ice:outputText styleClass="categoryName" value="#{contest.contest.name}"/></h2>
+                    <ice:commandButton styleClass="editCategoryButton" value="Edit" action="#{contest.contest.editor.edit}" rendered="#{not contest.contest.editor.editing and permissions.canAdminAll}"/>
                 </ice:panelGroup>
-                <ice:panelGroup styleClass="categoryHeader" rendered="#{contests.contest.editor.editing}">
-                    <h2><ice:inputText styleClass="categoryName" value="#{contests.contest.editor.name}"/></h2>
+                <ice:panelGroup styleClass="categoryHeader" rendered="#{contest.contest.editor.editing}">
+                    <h2><ice:inputText styleClass="categoryName" value="#{contest.contest.editor.name}"/></h2>
                 </ice:panelGroup>
-                <ice:panelGroup styleClass="categoryDescription" rendered="#{not contests.contest.editor.editing}">
-                    <ice:outputText value="#{contests.contest.description}" escape="false" />
+                <ice:panelGroup styleClass="categoryDescription" rendered="#{not contest.contest.editor.editing}">
+                    <ice:outputText value="#{contest.contest.description}" escape="false" />
                 </ice:panelGroup>
-                <ice:panelGroup styleClass="categoryDescription" rendered="#{contests.contest.editor.editing}">
-                    <ice:inputTextarea value="#{contests.contest.editor.description}"/>
+                <ice:panelGroup styleClass="categoryDescription" rendered="#{contest.contest.editor.editing}">
+                    <ice:inputTextarea value="#{contest.contest.editor.description}"/>
                 </ice:panelGroup>
-                <ice:panelGrid columns="2" styleClass="editCategory buttonPanel" rendered="#{contests.contest.editor.editing}">
-                    <ice:commandButton value="Save" action="#{contests.contest.editor.save}"/>
-                    <ice:commandButton value="Cancel" action="#{contests.contest.editor.cancel}"/>
+                <ice:panelGrid columns="2" styleClass="editCategory buttonPanel" rendered="#{contest.contest.editor.editing}">
+                    <ice:commandButton value="Save" action="#{contest.contest.editor.save}"/>
+                    <ice:commandButton value="Cancel" action="#{contest.contest.editor.cancel}"/>
                 </ice:panelGrid>
             </ice:form>
         
             <table class="contestNavItems">
                 <tr>
                     <td>
-                        <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:proposals" class="#{contests.subView == 'PROPOSALS' ? 'active' : ''}" >Proposals</a>
+                        <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals" class="#{contest.subView == 'PROPOSALS' ? 'active' : ''}" >Proposals</a>
                     </td>
                     <td>
-                        <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:issues" class="#{contests.subView == 'ISSUES' ? 'active' : ''}">Issues</a>
+                        <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:issues" class="#{contest.subView == 'ISSUES' ? 'active' : ''}">Issues</a>
                     </td>
                     <td>
-                        <a href="#plans=contests:#{contests.contest.contestActive ? 'active' : 'past'},subview:model" class="#{contests.subView == 'MODEL' ? 'active' : ''}">Model</a>
+                        <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:model" class="#{contest.subView == 'MODEL' ? 'active' : ''}">Model</a>
                     </td>
                 </tr>
             </table>

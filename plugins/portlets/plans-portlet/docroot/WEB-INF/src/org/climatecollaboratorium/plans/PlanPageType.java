@@ -23,23 +23,12 @@ public enum PlanPageType {
         }
     
     }),
-    // proposals are default view so return them when subview parameter is set or not
-    CONTEST_PROPOSALS(new DeterminePageTypeForNavigationEvent() {
-
-        @Override
-        public boolean determine(NavigationEvent e) {
-            Map<String, String> params = e.getParameters(PLANS_SOURCE);
-            return params == null ? false : params.get(SUBVIEW_PARAM) == null || 
-                    params.get(SUBVIEW_PARAM).equals(SUBVIEW_PROPOSALS_NAME);
-        }
-    
-    }),
     CONTEST_ISSUES(new DeterminePageTypeForNavigationEvent() {
 
         @Override
         public boolean determine(NavigationEvent e) {
             Map<String, String> params = e.getParameters(PLANS_SOURCE);
-            return params == null ? false : SUBVIEW_ISSUES_NAME.equals(params.get(SUBVIEW_PARAM));
+            return params == null ? false : params.get(SUBVIEW_PARAM) != null && SUBVIEW_ISSUES_NAME.equals(params.get(SUBVIEW_PARAM));
         }
     
     }),
@@ -48,10 +37,30 @@ public enum PlanPageType {
         @Override
         public boolean determine(NavigationEvent e) {
             Map<String, String> params = e.getParameters(PLANS_SOURCE);
-            return params == null ? false : SUBVIEW_MODEL_NAME.equals(params.get(SUBVIEW_PARAM));
+            return params == null ? false : params.get(SUBVIEW_PARAM) != null && SUBVIEW_MODEL_NAME.equals(params.get(SUBVIEW_PARAM));
+        }
+    
+    }),
+    CONTEST_PROPOSALS(new DeterminePageTypeForNavigationEvent() {
+
+        @Override
+        public boolean determine(NavigationEvent e) {
+            Map<String, String> params = e.getParameters(PLANS_SOURCE);
+            return params == null ? false : params.containsKey("contests") || params.get(SUBVIEW_PARAM) != null && params.get(SUBVIEW_PARAM).equals(SUBVIEW_PROPOSALS_NAME);
+        }
+    
+    }),
+    
+    // contests index is default view, it will be checked last so it can simply return true
+    CONTESTS(new DeterminePageTypeForNavigationEvent() {
+
+        @Override
+        public boolean determine(NavigationEvent e) {
+            return true;
         }
     
     });
+
 
     private final static String DEBATE_SOURCE = "debate";
     private final static String DEBATEID_PARAM = "debateId";
@@ -66,7 +75,7 @@ public enum PlanPageType {
     
     private DeterminePageTypeForNavigationEvent pageDeterminator;
     
-    private final static PlanPageType defaultType = CONTEST_PROPOSALS;
+    private final static PlanPageType defaultType = CONTESTS;
     
     PlanPageType(DeterminePageTypeForNavigationEvent pageDeterminator) {
         this.pageDeterminator = pageDeterminator;
