@@ -84,7 +84,9 @@ public class ContestWrapper {
         return contest.getDebatesIds();
     }
 
-   
+    public String getShortName() {
+        return contest.getContestShortName();
+    }
 
     /**
      * Created by IntelliJ IDEA.
@@ -98,6 +100,7 @@ public class ContestWrapper {
 
         String name;
         String description;
+        String shortName;
         boolean editing = false;
         boolean editingPositions = false;
         private List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
@@ -120,6 +123,14 @@ public class ContestWrapper {
         public void setName(String name) {
             this.name = name;
         }
+        
+        public String getShortName() {
+            return shortName;
+        }
+        
+        public void setShortName(String shortName) {
+            this.shortName = shortName; 
+        }
 
 
         public boolean getEditing() {
@@ -131,12 +142,14 @@ public class ContestWrapper {
             editing = true;
             this.name = contest.getContestName();
             this.description = contest.getContestDescription();
+            this.shortName = contest.getContestShortName();
         }
 
         public void save() throws SystemException {
 
             contest.setContestName(name);
             contest.setContestDescription(description);
+            contest.setContestShortName(shortName);
             ContestLocalServiceUtil.updateContest(contest);
             editing = false;
         }

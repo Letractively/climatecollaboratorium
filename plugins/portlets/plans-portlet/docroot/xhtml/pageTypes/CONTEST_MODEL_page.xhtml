@@ -8,6 +8,16 @@
         xmlns:sharedcollab="http://climatecollaboratorium.org/components">
 
     <ui:composition template="../templates/contestPageTemplate.xhtml">
+    
+        <ui:define name="plans_breadcrumb">
+        
+            <a href="#">Contests Index</a> 
+            &amp;gt;&amp;gt; &amp;nbsp;
+            <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'}">#{contest.contest.shortName}</a>
+            &amp;gt;&amp;gt; &amp;nbsp;
+            <strong>Model</strong>
+            
+        </ui:define>
 
         <ui:define name="contest_content">
              <ice:form>

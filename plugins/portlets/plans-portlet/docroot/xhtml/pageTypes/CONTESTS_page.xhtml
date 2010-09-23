@@ -17,10 +17,16 @@
                     <ice:commandButton styleClass="editCategoryButton" value="Edit" action="#{singleContest.editor.edit}" rendered="#{not singleContest.editor.editing and permissions.canAdminAll}"/>
                 </ice:panelGroup>
                 <ice:panelGroup styleClass="categoryHeader" rendered="#{singleContest.editor.editing}">
-                    <h2><ice:inputText styleClass="categoryName" value="#{singleContest.editor.name}"/></h2>
+                    <ice:outputLabel for="name">Name</ice:outputLabel>
+                    <h2><ice:inputText id="name" styleClass="categoryName" value="#{singleContest.editor.name}"/></h2>
+                </ice:panelGroup>
+                <ice:panelGroup styleClass="categoryShortName" rendered="#{singleContest.editor.editing}">
+                    <ice:outputLabel for="shortName">Short name</ice:outputLabel>
+                    <ice:inputText id="shortName" value="#{singleContest.editor.shortName}"/>
                 </ice:panelGroup>
                 <ice:panelGroup styleClass="categoryDescription" rendered="#{not singleContest.editor.editing}">
-                    <ice:outputText value="#{singleContest.description}" escape="false" />
+                    <ice:outputLabel for="description">Description</ice:outputLabel>
+                    <ice:outputText id="description" value="#{singleContest.description}" escape="false" />
                 </ice:panelGroup>
                 <ice:panelGroup styleClass="categoryDescription" rendered="#{singleContest.editor.editing}">
                     <ice:inputTextarea value="#{singleContest.editor.description}"/>
