@@ -29,10 +29,12 @@ public class HelpMessageRenderer extends DomBasicRenderer {
     private static final String DEFAULT_HIDE_THIS_MESSAGE = "hide this";
 
     private String messageId;
+    private boolean defaultOpen = true;
 
     public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
         DOMContext domContext = DOMContext.attachDOMContext(facesContext, uiComponent);
         messageId = ((HelpMessage) uiComponent).getMessageId();
+        defaultOpen = "open".equals(((HelpMessage)uiComponent).getDefaultState());
         String className = CSS_STYLE_NAME + " " + ((HelpMessage) uiComponent).getStyleClass();
         HtmlForm myForm = (HtmlForm) findForm(uiComponent);
         String formId = myForm.getClientId(facesContext);
@@ -67,11 +69,11 @@ public class HelpMessageRenderer extends DomBasicRenderer {
 
     public boolean isHelpVisible(FacesContext facesContext) {
         PortletSession session = (PortletSession) facesContext.getExternalContext().getSession(true);
-        boolean helpVisible = true;
+        boolean helpVisible = defaultOpen;
         ThemeDisplay td = Helper.getThemeDisplay();
 
         try {
-            helpVisible = HelpUserSettingHelper.getHelpUserSetting(td.getUserId(), messageId, session);
+            helpVisible = HelpUserSettingHelper.getHelpUserSetting(td.getUserId(), messageId, session,defaultOpen);
         } catch (PortalException e) {
             e.printStackTrace();
         } catch (SystemException e) {
@@ -113,12 +115,13 @@ public class HelpMessageRenderer extends DomBasicRenderer {
     public void decode(FacesContext facesContext, UIComponent uiComponent) {
         // toogle visibility
         messageId = ((HelpMessage) uiComponent).getMessageId();
+        defaultOpen = "open".equals(((HelpMessage)uiComponent).getDefaultState());
         ThemeDisplay td = Helper.getThemeDisplay();
         PortletSession session = (PortletSession) facesContext.getExternalContext().getSession(true);
         if (facesContext.getExternalContext().getRequestParameterMap().get(MESSAGE + uiComponent.getClientId(facesContext)).equals("true")) {
 
         try {
-            HelpUserSettingHelper.toogleHelpUserSetting(td.getUserId(), messageId, session);
+            HelpUserSettingHelper.toogleHelpUserSetting(td.getUserId(), messageId, session,defaultOpen);
         } catch (PortalException e) {
             e.printStackTrace();
         } catch (SystemException e) {

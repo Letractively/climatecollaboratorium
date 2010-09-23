@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 import org.climatecollaboratorium.components.Helper;
 
 import com.icesoft.faces.context.effects.JavascriptContext;
+import org.climatecollaboratorium.components.faces.helpMessage.HelpMessage;
 
 public class HelpMessageTrigger extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.climatecollaboratorium.faces.HelpMessageTrigger";
@@ -13,6 +14,7 @@ public class HelpMessageTrigger extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "org.climatecollaboratorium.faces.HelpMessageTriggerFamily";
     private String styleClass;
     private String messageId;
+    private HelpMessage message;
 
     public HelpMessageTrigger() {
         super();
@@ -34,6 +36,14 @@ public class HelpMessageTrigger extends UIComponentBase {
     @Override
     public String getRendererType() {
         return DEFAULT_RENDERER_TYPE;
+    }
+
+    public HelpMessage getMessageComponent() {
+        return message;
+    }
+
+    public void setMessageComponent(HelpMessage msg) {
+        this.message = msg;
     }
 
     /**
