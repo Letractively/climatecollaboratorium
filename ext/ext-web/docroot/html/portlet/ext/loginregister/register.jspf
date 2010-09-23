@@ -80,7 +80,7 @@
                         <tr>
                             <td><label class="lable"><liferay-ui:message key="screen-name"/></label>
                             </td>
-                            <td><input class="text" type="text" name="<portlet:namespace />screenName"
+                            <td><input class="text" autocomplete="off" type="text" name="<portlet:namespace />screenName"
                                        value="<%= ParamUtil.getString(renderRequest, "screenName") %>"/>
                             </td>
                             <td><span class="required">*required</span></td>
@@ -96,7 +96,7 @@
                     
                     <tr>
                         <td><label class="lable"><liferay-ui:message key="email-address"/></label></td>
-                        <td><input class="text" type="text" name="<portlet:namespace />emailAddress"
+                        <td><input class="text" autocomplete="off" type="text" name="<portlet:namespace />emailAddress"
                                    value="<%= ParamUtil.getString(renderRequest, "emailAddress") %>"/></td>
                         <td><span class="required">*required</span></td>
 
@@ -105,7 +105,7 @@
                     <tr>
                         <td><label class="lable" for="<portlet:namespace />firstName"><liferay-ui:message
                                 key="first-name"/></label></td>
-                        <td><input class="text" type="text" name="<portlet:namespace />firstName"
+                        <td><input class="text" type="text" autocomplete="off" name="<portlet:namespace />firstName"
                                    value="<%= ParamUtil.getString(renderRequest, "firstName") %>"/></td>
                         <td><span class="optional">optional</span></td>
                     </tr>
@@ -113,7 +113,7 @@
                     <tr>
                         <td><label class="lable" for="<portlet:namespace />lastName"><liferay-ui:message
                                 key="last-name"/></label></td>
-                        <td><input class="text" type="text" name="<portlet:namespace />lastName"
+                        <td><input class="text" autocomplete="off" type="text" name="<portlet:namespace />lastName"
                                    value="<%= ParamUtil.getString(renderRequest, "lastName") %>"/>
                         </td>
                         <td><span class="optional">optional</span>
@@ -130,7 +130,7 @@
                         <tr>
                             <td><label class="lable"><liferay-ui:message key="password"/></label></td>
                             <td><input class="text" name="<portlet:namespace />password1" type="password"
-                                       value=""/></td>
+                                       value="" autocomplete="off"/></td>
                             <td><span class="required">*required</span></td>
 
                         </tr>
@@ -138,7 +138,7 @@
                         <tr>
                             <td><label class="lable"><liferay-ui:message key="enter-again"/></label>
                             </td>
-                            <td><input class="text" name="<portlet:namespace />password2"  type="password"
+                            <td><input class="text" autocomplete="off" name="<portlet:namespace />password2"  type="password"
                                        value=""/>
                             </td>
                             <td><span class="required">*required</span>
