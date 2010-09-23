@@ -114,17 +114,18 @@
     <c:if test="<%= ! themeDisplay.isSignedIn() %>">
         <table class="loginRegisterTable">
             <tr>    
-                <td class="login">
-                    <div class="login">
-                        <div>
-                            <%@ include file="/html/portlet/ext/loginregister/login.jspf" %>
-                        </div>
-                    </div>
-                </td>
+
                 <td class="register">
                     <div class="register">
                         <div>
                             <%@ include file="/html/portlet/ext/loginregister/register.jspf" %>
+                        </div>
+                    </div>
+                </td>
+                <td class="login">
+                    <div class="login">
+                        <div>
+                            <%@ include file="/html/portlet/ext/loginregister/login.jspf" %>
                         </div>
                     </div>
                 </td>
