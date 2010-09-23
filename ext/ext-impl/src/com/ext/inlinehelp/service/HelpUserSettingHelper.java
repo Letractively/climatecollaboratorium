@@ -13,33 +13,33 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 public class HelpUserSettingHelper {
     private static final String HELP_USER_SETTINGS_SESSION_KEY = "HELP_USER_SETTINGS";
 
-    public static boolean getHelpUserSetting(Long userId, String messageId, PortletSession session) throws PortalException,
+    public static boolean getHelpUserSetting(Long userId, String messageId, PortletSession session, boolean defaultOpen) throws PortalException,
             SystemException {
         Map<String, Boolean> helpUserSettings = getHelpUserSettingsFromSession(session);
         if (!helpUserSettings.containsKey(messageId)) {
             User user = UserLocalServiceUtil.getUser(userId);
             if (user.isDefaultUser()) {
-                helpUserSettings.put(messageId, true);
+                helpUserSettings.put(messageId, defaultOpen);
             }
             if (!user.isDefaultUser()) {
-                helpUserSettings.put(messageId, HelpUserSettingLocalServiceUtil.isHelpVisible(userId, messageId));
+                helpUserSettings.put(messageId, HelpUserSettingLocalServiceUtil.isHelpVisible(userId, messageId,defaultOpen));
             }
         }
 
         return helpUserSettings.get(messageId);
     }
     
-    public static void toogleHelpUserSetting(Long userId, String messageId, PortletSession session) throws PortalException, SystemException {
+    public static void toogleHelpUserSetting(Long userId, String messageId, PortletSession session,boolean defaultOpen) throws PortalException, SystemException {
         Map<String, Boolean> helpUserSettings = getHelpUserSettingsFromSession(session);
         User user = UserLocalServiceUtil.getUser(userId);
         if (!helpUserSettings.containsKey(messageId)) {
-            helpUserSettings.put(messageId, true);
+            helpUserSettings.put(messageId, defaultOpen);
         }
         
         helpUserSettings.put(messageId, ! helpUserSettings.get(messageId).booleanValue());
 
         if (! user.isDefaultUser()) {
-            HelpUserSettingLocalServiceUtil.toggleHelpVisibility(userId, messageId);
+            HelpUserSettingLocalServiceUtil.toggleHelpVisibility(userId, messageId,defaultOpen);
         }
     }
 
