@@ -43,14 +43,14 @@
          -->
          <div class="hidden">#{debateBean}</div>
          <ui:include src="./mainView.xhtml">
-            <ui:param value="#{navigation.contestsBean}" name="contests" />
+            <ui:param value="#{navigation.contestBean}" name="contest" />
             <ui:param value="#{navigation.planBean}" name="plan" />
             <ui:param value="#{navigation.planBean}" name="planBean" />
             <ui:param value="#{navigation.plansPermissionsBean}" name="permissions" />
             <ui:param value="#{navigation.plansIndexBean}" name="plansIndex" />
             <ui:param value="#{navigation.issuesBean}" name="issues" />
             <ui:param value="#{navigation.pageType}" name="pageType" />
-            <ui:param value="#{debatesDetailsBean}" name="debateDetailsBean" />
+            <ui:param value="#{navigation.contestsBean}" name="contests" />
          </ui:include>
     </div>
     

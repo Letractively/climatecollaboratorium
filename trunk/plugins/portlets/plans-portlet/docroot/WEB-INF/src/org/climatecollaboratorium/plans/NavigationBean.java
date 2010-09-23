@@ -21,10 +21,11 @@ public class NavigationBean {
     
     private PlanBean planBean;
     private PlansIndexBean plansIndexBean;
-    private ContestsBean contestsBean;
+    private ContestBean contestBean;
     private PlansPermissionsBean plansPermissionsBean;
     private IssuesBean issuesBean;
     private CreatePlanBean createPlanBean;
+    private ContestsBean contestsBean;
     
     private EventBus eventBus;
     
@@ -33,12 +34,14 @@ public class NavigationBean {
     private static Log _log = LogFactoryUtil.getLog(NavigationBean.class);
     
     public NavigationBean() throws SystemException, PortalException {
-        contestsBean = new ContestsBean();
-        plansIndexBean = new PlansIndexBean(contestsBean.getCurrentPhase());
+        contestBean = new ContestBean();
+        plansIndexBean = new PlansIndexBean(contestBean.getCurrentPhase());
         planBean = new PlanBean();
         plansPermissionsBean = new PlansPermissionsBean();
         issuesBean = new IssuesBean();
         createPlanBean = new CreatePlanBean(plansIndexBean);
+        
+        contestsBean = new ContestsBean();
         
         planBean.setPermissions(plansPermissionsBean);
         planBean.setPlansIndexBean(plansIndexBean);
@@ -69,9 +72,9 @@ public class NavigationBean {
                 // init all beans and update plan type
                 pageType = PlanPageType.getPageTypeForNavEvent(event);
                 try {
-                    contestsBean.init(event);
+                    contestBean.init(event);
                     
-                    plansIndexBean.init(contestsBean.getCurrentPhase(), event);
+                    plansIndexBean.init(contestBean.getCurrentPhase(), event);
                     planBean.init(event);
                     
                     issuesBean.init(event);
@@ -107,8 +110,8 @@ public class NavigationBean {
         return pageType;
     }
 
-    public ContestsBean getContestsBean() {
-        return contestsBean;
+    public ContestBean getContestBean() {
+        return contestBean;
     }
 
     public PlansPermissionsBean getPlansPermissionsBean() {
@@ -119,4 +122,7 @@ public class NavigationBean {
         return issuesBean;
     }
 
+    public ContestsBean getContestsBean() {
+        return contestsBean;
+    }
 }

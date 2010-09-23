@@ -33,7 +33,7 @@
                 </ice:outputText>
             </div>
             <ice:form>
-                <collab:simulation simulationId="#{contests.modelId}" disableInputs="false" showEditArea="false"
+                <collab:simulation simulationId="#{contest.modelId}" disableInputs="false" showEditArea="false"
                                    showEditButton="false" showRunButton="#{true}"/>
             </ice:form>
 
@@ -41,8 +41,8 @@
             <ice:panelGrid columns="2">
             <ice:panelGroup>
                 <ice:form>
-                    <ice:selectOneMenu value="#{contests.modelId}" partialSubmit="true">
-                        <f:selectItems value="#{contests.availableModels}"/>
+                    <ice:selectOneMenu value="#{contest.modelId}" partialSubmit="true">
+                        <f:selectItems value="#{contest.availableModels}"/>
                     </ice:selectOneMenu>
                 </ice:form>
             </ice:panelGroup>

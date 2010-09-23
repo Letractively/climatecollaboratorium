@@ -6,18 +6,28 @@
 
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component">
 	<ice:portlet>
+    
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                Collab.nav.unblock();
+            });
+        </script>
                     <ice:outputConnectionStatus/>
+        <ice:messages globalOnly="false" layout="table" />
 		<ice:form>
 			<ice:outputStyle href="/xmlhttp/css/xp/xp-portlet.css" />
 			<ice:panelTabSet styleClass="componentPanelTabSetLayout">
 				<ice:panelTab label="Questions for assumptions">
-        <ice:messages globalOnly="false" layout="table" />
-                    <strong><ice:outputLabel for="questions" value="Select questions that should be available when choosing assumptions:" /></strong>
-                        <ice:selectManyListbox styleClass="selectVersion" value="#{preferences.questions}">
-                            <f:selectItems id="questions" value="#{preferences.questionsItems}"/>
-                        </ice:selectManyListbox>
-                        <ice:message for="questions" />
-                        <ice:commandButton action="#{preferences.submit}" value="#{language['submit']}" />
+                    <strong><ice:outputLabel for="questions" value="Select how many proposals should be displayed for each contest:" /></strong>
+                    <ice:dataTable value="#{preferences.contestPreferences}" var="contestPref">
+                        <ice:column>
+                            #{contestPref.contest.contestName}
+                        </ice:column>
+                        <ice:column>
+                            <ice:inputText value="#{contestPref.maxProposalsCount}" />
+                        </ice:column>                           
+                    </ice:dataTable>
+                    <ice:commandButton value="Submit" action="#{preferences.submit}" />
 				</ice:panelTab>
                 <ice:panelTab label="Migration">
                     <ice:messages globalOnly="false" layout="table" />

@@ -236,7 +236,7 @@ public class PlansIndexBean {
             return null;
         }
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-        availableDebates = PlansPreferencesBean.getQuestionDebates();
+        availableDebates = contestPhase.getContest().getContest().getDebates();
         if (updatePlansList) {
             plans.clear();
             updatePlansList = false;

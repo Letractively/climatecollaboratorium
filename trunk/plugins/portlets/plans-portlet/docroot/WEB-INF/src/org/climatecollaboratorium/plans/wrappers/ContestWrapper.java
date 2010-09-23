@@ -19,6 +19,8 @@ import com.liferay.portal.SystemException;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.plans.PlansIndexBean;
+
 import java.util.*;
 
 /**
@@ -34,17 +36,23 @@ public class ContestWrapper {
     private Map<Long,ContestPhaseWrapper> index = new HashMap<Long,ContestPhaseWrapper>();
     private EditContestBean editor;
     private String debatesIdsStr = null;
+    private PlansIndexBean plansIndex;
     
 
 
-    public ContestWrapper(Contest contest) throws SystemException {
+    public ContestWrapper(Contest contest) throws SystemException, PortalException {
         this.contest = contest;
+        ContestPhaseWrapper activePhase = null;
         for (ContestPhase phase:contest.getPhases()) {
             ContestPhaseWrapper phaseWrapper = new ContestPhaseWrapper(this,phase);
             phases.add(phaseWrapper);
             index.put(phase.getContestPhasePK(),phaseWrapper);
+            if (phase.getPhaseActive() != null && phase.getPhaseActive()) {
+                activePhase = phaseWrapper;
+            }
         }
         editor = new EditContestBean();
+        plansIndex = new PlansIndexBean(activePhase);
     }
 
     public String getName() {
@@ -189,6 +197,10 @@ public class ContestWrapper {
     public Long getModelId() throws PortalException, SystemException {
         
         return contest.getPlanType().getDefaultModelId();
+    }
+    
+    public PlansIndexBean getPlansIndex() {
+        return plansIndex;
     }
     
 }
