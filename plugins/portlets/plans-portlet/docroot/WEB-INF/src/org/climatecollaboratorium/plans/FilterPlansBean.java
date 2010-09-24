@@ -128,10 +128,12 @@ public class FilterPlansBean {
         if (questions == null) {
             Set<Long> positionsIds = new HashSet<Long>(plansUserSettings.getPositionsIds());
             questions = new ArrayList<DebateQuestionWrapper>();
-            for (Debate d:PlansPreferencesBean.getQuestionDebates()) {
+            /*
+            for (Debate d: Co.getQuestionDebates()) {
                 questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), positionsIds));
 
             }
+            */
         }
         return questions;
     }

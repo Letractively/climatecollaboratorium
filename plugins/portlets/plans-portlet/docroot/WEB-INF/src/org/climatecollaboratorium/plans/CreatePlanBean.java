@@ -26,15 +26,16 @@ public class CreatePlanBean {
     private PlanBean planBean;
     private Long planId;
     private boolean navigateToPlan;
-    private PlansPreferencesBean preferences = new PlansPreferencesBean();
+    private PlansPreferencesBean preferences;
     
     private final static String PLANS_SOURCE = "plans"; 
     private final static String CREATE_PLAN_PARAM = "createPlan"; 
     
 
-    public CreatePlanBean(PlansIndexBean plansIndexBean) {
+    public CreatePlanBean(PlansIndexBean plansIndexBean) throws SystemException {
         this.plansIndexBean = plansIndexBean;
         name = "";
+        preferences = new PlansPreferencesBean();
     }
 
     public CreatePlanBean(PlanBean planBean) {

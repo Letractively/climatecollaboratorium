@@ -214,7 +214,7 @@ public class PlanBean {
     }
     
     
-    public CreatePlanBean getCreatePlanBean() {
+    public CreatePlanBean getCreatePlanBean() throws SystemException {
         if (createPlanBean == null) {
             createPlanBean = new CreatePlanBean(this);
         }
