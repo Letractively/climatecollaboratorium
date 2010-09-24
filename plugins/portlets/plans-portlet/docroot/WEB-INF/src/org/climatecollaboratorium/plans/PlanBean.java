@@ -25,7 +25,7 @@ public class PlanBean {
     private PlanItemWrapper plan;
     private PlanItem planItem;
     private PlanPositionsBean planPositionsBean;
-    private SimulationBean simulationBean;
+    private SimulationBean simulationBean = new SimulationBean();
     private PlanModelBean modelBean;
     private boolean editingDescription;
     private boolean editingName;
@@ -146,6 +146,7 @@ public class PlanBean {
             plan = new PlanItemWrapper(planItem, this, permissions);
             permissions.setPlan(planItem);
             planPositionsBean = new PlanPositionsBean(planItem, this);
+            simulationBean.setPlan(planItem, this);
             //simulationBean = new SimulationBean(planItem, this, eventBus);
             membershipBean = new PlanMembershipBean(planItem, this, permissions);
 
@@ -247,6 +248,7 @@ public class PlanBean {
     
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
+        simulationBean.setEventBus(eventBus);
     }
     
     public void setPlansIndexBean(PlansIndexBean plansIndexBean) {
