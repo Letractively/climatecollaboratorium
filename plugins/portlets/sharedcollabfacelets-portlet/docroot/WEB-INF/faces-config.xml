@@ -106,11 +106,6 @@
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>searchBean</managed-bean-name>
-		<managed-bean-class>org.climatecollaboratorium.search.SearchBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>debateBean</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.facelets.debates.DebateBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
