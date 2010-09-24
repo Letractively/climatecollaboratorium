@@ -70,9 +70,17 @@
         
 	
 </head>
-<body>
 
-    <div id="earth"></div>
+#if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
+    #set ($body_style_class = "")
+#else
+    #set ($body_style_class = "other_pages")
+#end
+    
+<body class="$body_style_class">
+    #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
+        <div id="earth"></div>
+    #end
   
     <div id="wrapper">
 	   #parse ("$full_templates_path/header.vm")

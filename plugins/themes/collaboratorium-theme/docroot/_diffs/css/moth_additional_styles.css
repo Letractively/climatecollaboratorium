@@ -31,3 +31,6 @@ blockquote, ul, ol, dl {
     border: 10px solid #E3DFD7;
     border-bottom: 0;
 }
+
+
+body.other_pages { background:url(../images/bg_main_other_page.gif) repeat-x; }
