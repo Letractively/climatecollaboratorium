@@ -32,10 +32,21 @@ public class SimulationBean {
     private List<HandlerRegistration> eventHandlers = new ArrayList<HandlerRegistration>();
     private static Log _log = LogFactoryUtil.getLog(SimulationBean.class);
 
-    public SimulationBean(final PlanItem plan, final PlanBean planBean, EventBus eventBus) {
-        this.plan = plan;
-        this.planBean = planBean;
+    public SimulationBean() {
+        
+    }
+    
+    public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
+        
+        bind();
+    }
+    
+    private void bind() {
+        
+        for (HandlerRegistration reg: eventHandlers) {
+            reg.unregister();
+        }
 
         eventHandlers.add(eventBus.registerHandler(ScenarioSavedEvent.class, new EventHandler<ScenarioSavedEvent>() {
             @Override
@@ -97,6 +108,11 @@ public class SimulationBean {
         for (HandlerRegistration handlerRegistration: eventHandlers) {
             handlerRegistration.unregister();
         }
+    }
+
+    public void setPlan(PlanItem planItem, PlanBean planBean2) {
+        plan = planItem;
+        this.planBean = planBean2;
     }
 
 }
