@@ -542,7 +542,11 @@ td.icePnlTbSetCnt.mainTabsCnt {
 }
 
 .toolbar {
-    float:right;
+    float:left;
+}
+
+.chooseVersionWidget {
+	float: right;
 }
 
 div.editControls {
