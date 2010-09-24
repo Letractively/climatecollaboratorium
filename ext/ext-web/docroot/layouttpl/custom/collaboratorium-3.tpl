@@ -1,3 +1,4 @@
+<div class="customLayoutTpl">
 	<div id="mainContent">
 		<div class="inner left-layout-col">
 			$processor.processColumn("column-1")
@@ -11,3 +12,4 @@
 			$processor.processColumn("column-3")
 	    </div>
 	</div>
+</div>

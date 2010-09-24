@@ -1,3 +1,4 @@
+<div class="customLayoutTpl">
 <div class="columns-1-1-3-1" id="content-wrapper">
 	<table class="lfr-grid" id="layout-grid">
 	<tr>
@@ -22,4 +23,5 @@
 	</tr>
 	
 	</table>
+</div>
 </div>
