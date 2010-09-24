@@ -9,3 +9,19 @@
 blockquote, ul, ol, dl {
     margin: auto;
 }
+
+.custom-3-column .lfr-grid,
+.custom-2-column .lfr-grid
+{
+    background: #ffffff;
+}
+
+#layout-grid {
+    background: #ffffff;
+}
+
+.customLayoutTpl {
+    background: #ffffff;
+    border: 10px solid #E3DFD7;
+    border-bottom: 0;
+}
