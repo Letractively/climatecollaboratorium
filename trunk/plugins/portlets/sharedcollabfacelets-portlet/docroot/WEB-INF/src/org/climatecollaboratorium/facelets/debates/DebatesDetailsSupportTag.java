@@ -47,7 +47,13 @@ public class DebatesDetailsSupportTag extends TagHandler {
             String[] debatesIdsArrayStr = debatesIdsStr.split(",");
             debatesIds = new Long[debatesIdsArrayStr.length];
             for (int i=0; i < debatesIdsArrayStr.length; i++) {
-                debatesIds[i] = Long.parseLong(debatesIdsArrayStr[i]);
+                try {
+                    debatesIds[i] = Long.parseLong(debatesIdsArrayStr[i]);
+                }
+                catch (NumberFormatException e) {
+                    _log.warn("Can't parse debate id: " + debatesIdsArrayStr[i], e);
+                    return;
+                }
             }
         }
 
