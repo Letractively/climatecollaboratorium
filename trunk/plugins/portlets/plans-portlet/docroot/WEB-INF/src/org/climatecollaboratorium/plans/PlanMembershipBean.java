@@ -73,8 +73,12 @@ public class PlanMembershipBean {
     }
 
 
-    public void toggleRequesting(ActionEvent e) {
-        requesting = !requesting;
+    public void toggleRequestingOrJoin(ActionEvent e) throws SystemException, PortalException {
+        if (plan.getOpen()) {
+           plan.joinIfNotAMember(Helper.getLiferayUser().getUserId());
+        } else {
+            requesting = !requesting;
+        }
     }
 
 

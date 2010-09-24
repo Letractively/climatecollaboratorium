@@ -539,6 +539,10 @@ table.icePnlTbSet.contestTabSet {
 
 td.icePnlTbSetCnt.mainTabsCnt {
     background-color: #FFFFFF;
+    padding-bottom:15px;
+    padding-right:15px;
+    padding-left:15px;
+
 }
 
 .toolbar {
