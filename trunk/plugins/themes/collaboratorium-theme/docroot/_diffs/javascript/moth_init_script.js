@@ -29,7 +29,8 @@ function initSearchUpperBox() {
 	// submit on enter
 	jQuery("#searchinput").keypress(function(e){
 		if(e.which == 13){
-			$('#searchsubmit').click();
+			jQuery('#searchsubmit').click();
+			return false;
 	    }
 	});
 
