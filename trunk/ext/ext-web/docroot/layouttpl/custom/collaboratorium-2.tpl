@@ -1,3 +1,4 @@
+<div class="customLayoutTpl">
 <div id="mainContent">
 	<table class="lfr-grid inner" id="layout-grid-top">
 	<tr>
@@ -19,3 +20,4 @@
 	</tr>
 </table>
 </div>	
+</div>
