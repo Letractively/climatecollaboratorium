@@ -131,7 +131,9 @@
                         </ice:column>
                         <ice:column>
                             <f:facet name="header">Since</f:facet>
-                            #{fan.created}
+                            <ice:outputText value="#{fan.created}">
+                                <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
+                            </ice:outputText>
                         </ice:column>
                     </ice:dataTable>
                 </ice:panelGroup>

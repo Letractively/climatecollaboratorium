@@ -3,7 +3,8 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces"
-        xmlns:collab="http://climatecollaboratorium.org/components">
+        xmlns:collab="http://climatecollaboratorium.org/components"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <collab:helpMessage messageId="planAdminHelp" styleClass="planHelp"
                                 hideThisMessage="Hide this message">
         <p>
@@ -25,7 +26,7 @@
         <tr>
             <td class="left">
                 <div class="sectionTitle">
-                    <h3>Permissions</h3>
+                    <h2>Permissions</h2>
                 </div>
                 <p>
                     <ice:outputText value="This plan is open (anyone can edit this plan)" rendered="#{planBean.plan.open}" />
@@ -37,7 +38,7 @@
                 </div> 
                 
                 <div class="sectionTitle">
-                 <h3>Status</h3>
+                 <h2>Status</h2>
                 </div>
                 <table>
                     <tr>
@@ -54,7 +55,7 @@
                 </table>
                 
                 <div class="sectionTitle">
-                    <h3>Ask for help:</h3>
+                    <h2>Ask for help:</h2>
                 </div>
                 <div class="center">
                     <ice:selectBooleanCheckbox value="#{planBean.plan.seekingAssistance}" partialSubmit="true" />
@@ -62,11 +63,23 @@
                     
                 </div> 
             
-            <div class="plan-membership-requests">
+            
+            <ice:panelGroup rendered="#{permissions.planOwner}">
                 <div class="sectionTitle">
-                    <h3>Membership requests</h3>
+                    <h2>Owner actions</h2>
                 </div>
-                <ice:dataTable value="#{planBean.membershipBean.planMembershipRequests}" var="membershipRequest" styleClass="itemsTable">
+                    <ice:commandButton value="Delete plan" rendered="#{permissions.canAdmin}"  actionListener="#{planBean.plan.delete}" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }"/>
+            </ice:panelGroup>
+            </td>
+            <td class="right">
+                <div class="plan-membership-requests">
+                <div class="sectionTitle">
+                    <h2>Membership requests</h2>
+                </div>
+                 <ice:panelGroup  styleClass="noEntries" rendered="#{fn:length(planBean.membershipBean.planMembershipRequests) lt 1}">
+                      <i>No requests</i>
+                </ice:panelGroup>
+                <ice:dataTable value="#{planBean.membershipBean.planMembershipRequests}" var="membershipRequest" styleClass="basicTable" rendered="#{fn:length(planBean.membershipBean.planMembershipRequests) gt 0}">
                     <ice:column>
                         <f:facet name="header">Screen Name</f:facet>
                         <ice:outputText value="#{membershipRequest.screenName}" />
@@ -79,14 +92,14 @@
                         <f:facet name="header">Action</f:facet>
                         <a href="javascript:;" onclick="showManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')">
                             View
-                        </a>
+                        </a>                                                                          
                         <div id="manage_membership_request_#{membershipRequest.id}">
                             <div class="content hidden">
                                 <div class="manageMembersTop">
                                     <h4>Respond to membership request</h4>
                                 </div>
                                 <div class="manageMembersContent">
-                                    User comment: 
+                                    User comment:
                                     <p class="userComment">
                                         <ice:outputText value="#{membershipRequest.comment}" />
                                     </p>
@@ -106,25 +119,20 @@
                             <ice:commandLink actionListener="#{membershipRequest.update}" styleClass="hidden membershipRequestResponseSubmitButton" />
                         </div>
                     </ice:column>
-                
+
                 </ice:dataTable>
                 <div id="manage_membership_request_dialog"></div>
             </div>
-            <ice:panelGroup rendered="#{permissions.planOwner}">
+
                 <div class="sectionTitle">
-                    <h3>Owner actions</h3>
+                    <h2>History</h2>
                 </div>
-                    <ice:commandButton value="Delete plan" rendered="#{permissions.canAdmin}"  actionListener="#{planBean.plan.delete}" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }"/>
-            </ice:panelGroup>
-            </td>
-            <td class="right">
-                <div class="sectionTitle">
-                    <h3>History</h3>
-                </div>
-                <ice:dataTable value="#{planBean.plan.allVersions}" var="planVersion" styleClass="itemsTable">
+                <ice:dataTable value="#{planBean.plan.allVersions}" var="planVersion" styleClass="basicTable" rowClasses="odd,even">
                     <ice:column>
                         <f:facet name="header">Update Date</f:facet>
-                        #{planVersion.updateDate}
+                        <ice:outputText value="#{planVersion.updateDate}">
+                            <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
+                        </ice:outputText>
                     </ice:column>
                     <ice:column>
                         <f:facet name="header">Update Author</f:facet>
