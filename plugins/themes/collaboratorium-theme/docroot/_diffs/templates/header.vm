@@ -26,8 +26,8 @@
             <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
             <li><a href="/web/guest/feedback">Contact</a></li>
         </ul>
-        <form method="get" action="">
-            <input id="searchinput" name="searchinput" type="text" value="Search"  onfocus="if (this.value == 'Search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search';}"  />
+        <form>
+            <input id="searchinput" name="searchinput" type="text" value="Search" />
             <input id="searchsubmit" type="button" name="submit" value="Go" />
         </form>
     </div> <!-- /menu -->
