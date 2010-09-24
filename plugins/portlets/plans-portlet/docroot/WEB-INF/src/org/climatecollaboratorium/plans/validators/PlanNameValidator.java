@@ -1,8 +1,11 @@
 package org.climatecollaboratorium.plans.validators;
 
+import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 
 import com.liferay.portal.SystemException;
+import org.climatecollaboratorium.plans.PlanBean;
+import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -22,9 +25,10 @@ public class PlanNameValidator implements Validator {
                 fm.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(fm);
             }
-            if (! PlanItemLocalServiceUtil.isNameAvailable(name)) {
+            PlanItemWrapper item = ((PlanBean)comp.getAttributes().get("plan")).getPlan();
+            if (!name.equals(item.getName()) && ! PlanItemLocalServiceUtil.isNameAvailable(name)) {
                 FacesMessage fm = new FacesMessage();
-                fm.setSummary("Plan with name \"" + name + "\" already existis, choose different name.");
+                fm.setSummary("Plan with name \"" + name + "\" already exists, choose different name.");
                 fm.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(fm);
             }

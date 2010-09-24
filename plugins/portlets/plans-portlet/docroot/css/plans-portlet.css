@@ -395,12 +395,14 @@ td.contestTabSetCnt {
 }
 
 
-.title .icon input {
-	width: 700px;
+.title .icon input.planNameInput {
+	width: 350px;
+   
 }
 
 .title .icon .actions {
 	float: left;
+    padding-top:3px;
 }
 
 .title .icon .actions.textual {

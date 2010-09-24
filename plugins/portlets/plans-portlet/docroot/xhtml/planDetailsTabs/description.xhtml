@@ -33,8 +33,8 @@
 
             </div>
         </div>
-        <ice:panelGrid styleClass="toolbar" columns="3">
-            <ice:panelGroup styleClass="edit editControls"
+         <ice:panelGrid styleClass="toolbar" columns="3">
+          <ice:panelGroup styleClass="edit editControls"
                             rendered="#{permissions.canEdit and not planBean.editingDescription}">
                 <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{planBean.editDescription}"
                         />
@@ -47,12 +47,11 @@
             </ice:panelGroup>
 
 
-            <ice:panelGroup styleClass="chooseVersionWidget">
-                <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" class="versionsTrigger">Show old versions</a>
-
-
-            </ice:panelGroup>
-        </ice:panelGrid>
+        <ice:panelGroup styleClass="chooseVersionWidget">
+            <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" class="versionsTrigger">Show old versions</a>
+        </ice:panelGroup>
+    </ice:panelGrid>
+       
 
 
         <div class="clear"></div>

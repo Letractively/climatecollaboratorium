@@ -117,7 +117,7 @@ public class PlanItemWrapper {
     
     public void saveName(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
-            if (candidateName != null) {
+            if (candidateName != null && !candidateName.equals(getName())) {
                 if (! PlanItemLocalServiceUtil.isNameAvailable(candidateName)) {
                     FacesMessage message = new FacesMessage();
                     message.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -451,6 +451,10 @@ public class PlanItemWrapper {
     public void setSeekingAssistance(boolean seekingAssistance) throws PortalException, SystemException {
         wrapped.setSeekingAssistance(seekingAssistance);
         planBean.refreshIndex();
+    }
+
+    public boolean isVotingPhase() throws SystemException, PortalException {
+        return wrapped.getContestPhase().getContestStatus().isCanVote();
     }
 
 

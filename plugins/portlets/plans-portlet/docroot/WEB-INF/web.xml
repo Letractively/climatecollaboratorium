@@ -18,10 +18,10 @@
 		<param-name>facelets.DEVELOPMENT</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	<context-param>
+	<!--<context-param>
 		<param-name>facelets.REFRESH_PERIOD</param-name>
 		<param-value>-1</param-value>
-	</context-param>
+	</context-param>-->
 	<context-param>
 		<param-name>com.icesoft.faces.connectionTimeout</param-name>
 		<param-value>60000</param-value>

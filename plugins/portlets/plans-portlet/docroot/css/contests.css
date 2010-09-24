@@ -14,31 +14,27 @@
 
 
 	
-.contestNavItems a {
+.contestNavItems a div {
     display: block;
     background: #999c8d;
     margin-right: 20px;
+    margin-bottom:8px;
     padding: 5px 10px;
     font-weight: normal;
     font-size:18px;
     color: #676767;
+    text-align:center;
 }
 
-.contestNavItems a.active {
+.contestNavItems a div:hover {
     background: #EDEBEA;
     color: #C74430;
 }
 
-.contestNavItems {
-    text-align: center;
-    width: 600px;
-    margin: auto;
-    margin-top: 10px;
-    border-collapse: collapse;
-}
 
-.contestNavItems td {
-    width: 30%;
+
+td.contestNavItems {
+    width: 25%;
 }
 
 div.contestContent {
