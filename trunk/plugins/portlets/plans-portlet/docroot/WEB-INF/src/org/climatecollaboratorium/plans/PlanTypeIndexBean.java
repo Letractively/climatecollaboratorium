@@ -8,6 +8,7 @@ package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
@@ -32,11 +33,11 @@ public class PlanTypeIndexBean {
 
     
 
-    public PlanTypeIndexBean() throws SystemException {
+    public PlanTypeIndexBean() throws SystemException, PortalException {
         refresh();
     }
 
-    public void refresh() throws SystemException {
+    public void refresh() throws SystemException, PortalException {
         contests.clear();
         for (Contest contest: ContestLocalServiceUtil.getContests(0,Integer.MAX_VALUE)) {
             if (contest.getContestActive()) {
