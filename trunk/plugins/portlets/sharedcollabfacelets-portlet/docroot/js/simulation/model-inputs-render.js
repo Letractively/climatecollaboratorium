@@ -72,13 +72,13 @@ function oneOfValuesChangedEvent() {
 }
 
 function disableRunButton() {
-	if (!runSimulationOnclick) {
+	if (! runSimulationOnclick) {
 		runSimulationOnclick = jQuery(".runSimulationButton").attr('onclick');
-		jQuery(".runSimulationButton").unbind("click");
-		jQuery(".runSimulationButton").attr('onclick', function() {return false;});
-		jQuery(".runSimulationButton").addClass('prominantButton-dis');
-		jQuery(".runSimulationButton").removeClass('prominantButton');
 	}
+	jQuery(".runSimulationButton").unbind("click");
+	jQuery(".runSimulationButton").attr('onclick', function() {return false;});
+	jQuery(".runSimulationButton").addClass('prominantButton-dis');
+	jQuery(".runSimulationButton").removeClass('prominantButton');
 }
 
 
