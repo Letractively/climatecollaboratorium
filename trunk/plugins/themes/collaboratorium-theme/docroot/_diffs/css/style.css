@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
 /**************************************************************************************
 ***************************************************************************************
 ****																																														  ********
@@ -180,11 +186,11 @@ body { background:url(../images/bg_main.gif) repeat-x #f5f5f5; font:12px Helveti
 
 /*  TEXT   ------------------------------------------------------ */
 
-h1 {}
-h2 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:20px; font-style:normal; font-weight:400; color: #e65608; margin:20px 0 10px 0;}
-h3 { font-size:15px; color: #464646; margin:0 0 10px 0;}
-h4 {}
-h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:17px; font-style:normal; font-weight:400; margin:0 0 7px 0;}
+.home h1 {}
+.home h2 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:20px; font-style:normal; font-weight:400; color: #e65608; margin:20px 0 10px 0;}
+.home h3 { font-size:15px; color: #464646; margin:0 0 10px 0;}
+.home h4 {}
+.home h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:17px; font-style:normal; font-weight:400; margin:0 0 7px 0;}
 
 
 
@@ -224,3 +230,69 @@ Semi Bold	 					600	 normal
 Semi Bold Italic		600	 italic
 
 ------------------------------------------- */
+
+
+
+/*  ADDITIONS - jei, to be moved when the time comes */
+
+h1 { font-family: "gloriola-display-thin-1","gloriola-display-thin-2"; font-size:27px; font-style:normal; font-weight:400; color: #58534a; margin:20px 0 10px 0;}
+h2 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:21px; font-style:normal; font-weight:400; color: #58534a; margin:20px 0 10px 0;}
+h3 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:18px; font-style:normal; font-weight:400; color: #218aad; margin:0 0 7px 0;}
+h4 {}
+h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:15px; font-style:normal; font-weight:400; margin:0 0 7px 0;}
+
+
+
+
+.basicTable  {
+    border:0 none;
+    border-collapse:collapse;
+    width:100%;
+}
+
+
+
+.basicTable th {
+
+    padding:5px;
+    border-right: 1px solid #efefef;
+    vertical-align:bottom;
+    font-weight: normal;
+    font-size: 1.1em;
+    background: #E3DFD7;
+
+}
+
+.basicTable th a {
+   color:#000000;
+
+}
+
+.basicTable th a:hover {
+   color:#000000;
+
+}
+
+.basicTable .iceDatTblRow td {
+	border: 1px solid #ffffff;
+	padding: 8px;
+    text-align: center;
+}
+
+
+
+
+.basicTable .odd td {
+    background: #EDEBEA;
+}
+
+.basicTable .even td {
+    background: #dedcdb;
+}
+.basicTable th table {
+    margin: auto;
+}
+
+.basicTable th .iceOutTxt {
+    padding: 0;
+}
