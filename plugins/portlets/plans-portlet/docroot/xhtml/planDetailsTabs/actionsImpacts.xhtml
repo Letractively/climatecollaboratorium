@@ -66,7 +66,7 @@
                     />
         </ice:panelGroup>
         <ice:panelGroup styleClass="save editControls" rendered="#{simulationBean.embeddedEditing}">
-            <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}"/>
+            <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}" onclick="Collab.nav.block();"/>
         </ice:panelGroup>
         <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{simulationBean.embeddedEditing}">
             <ice:commandLink value="Cancel" actionListener="#{simulationBean.editActions}"/>
@@ -125,6 +125,7 @@
                     else {
                         clearEditTrigger();
                     }
+                    Collab.nav.unblock();
                 </script>
             </f:subview>
             <f:subview rendered="#{not permissions.canEdit}">
@@ -141,6 +142,7 @@
                     else {
                         clearEditTrigger();
                     }
+                    Collab.nav.unblock();
                 </script>
             </f:subview>
         </ice:panelGroup>
