@@ -35,6 +35,7 @@ import com.ext.portlet.plans.model.PlansUserSettings;
 import com.ext.portlet.plans.service.*;
 import com.ext.portlet.plans.service.base.PlanItemLocalServiceBaseImpl;
 import com.ext.portlet.plans.util.Indexer;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -93,8 +94,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     public static final String DEFAULT_FORUM_CATEGORY_DESCRIPTION = "General discussion about plan %s";
 
     public PlanItem createPlan(ContestPhase phase, Long authorId) throws SystemException, PortalException {
-        long planItemId = CounterUtil.increment(PlanItem.class.getName());
-        long planId = CounterUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
+        long planItemId = CounterLocalServiceUtil.increment(PlanItem.class.getName());
+        long planId = CounterLocalServiceUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
         long planTypeId = phase.getContest().getPlanTypeId();
         String name = "Untitled Plan " + planId;
         PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
