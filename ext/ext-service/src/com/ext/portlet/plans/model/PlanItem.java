@@ -265,6 +265,10 @@ public interface PlanItem extends PlanItemModel {
         java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
+    public void joinIfNotAMember(java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public void setSeekingAssistance(boolean seekingAssistance)
         throws com.liferay.portal.SystemException;
 

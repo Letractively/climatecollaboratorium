@@ -91,7 +91,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planDescription.store();
         updateAttribute(Attribute.DESCRIPTION);
         
-        joinIfNotAMember(updateAuthorId);
+       //joinIfNotAMember(updateAuthorId);
         updateSearchIndex();
     }
 
@@ -103,7 +103,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planDescription.setName(name);
         planDescription.store();
         updateAttribute(Attribute.NAME);
-        joinIfNotAMember(updateAuthorId);
+        //joinIfNotAMember(updateAuthorId);
         updateSearchIndex();
     }
 
@@ -142,7 +142,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
             updateAttribute(attribute);
         }
         
-        joinIfNotAMember(authorId);
+        //joinIfNotAMember(authorId);
     }
 
     public void setModelId(Long simulationId, Long authorId) throws SystemException, PortalException {
@@ -166,7 +166,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planMeta.store();
 
         setScenarioId(null, authorId);
-        joinIfNotAMember(authorId);
+        //joinIfNotAMember(authorId);
     }
 
     public List<PlanModelRun> getAllPlanModelRuns() throws SystemException {
@@ -220,7 +220,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planMeta.setPlanTypeId(planTypeId);
         planMeta.store();
         
-        joinIfNotAMember(updateAuthorId);
+        //joinIfNotAMember(updateAuthorId);
     }
 
     public Long getMBCategoryId() throws SystemException {
@@ -353,7 +353,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planPositions.setPositionsIds(positionsIds);
         updateAttribute(Attribute.POSITIONS);
         
-        joinIfNotAMember(updateAuthorId);
+        //joinIfNotAMember(updateAuthorId);
     }
 
     public List<PlanPositions> getAllPositionsVersions() throws SystemException {
@@ -650,7 +650,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     }
     
 
-    private void joinIfNotAMember(Long userId) throws SystemException, PortalException {
+    public void joinIfNotAMember(Long userId) throws SystemException, PortalException {
         if (! isUserAMember(userId)) {
             GroupLocalServiceUtil.addUserGroups(userId, new long[] {getPlanGroupId()});
             PlanTeamHistoryLocalServiceUtil.newHistoryItem(getPlanId(), userId, PlanTeamActions.MEMBERSHIP_APPROVED.name(),
