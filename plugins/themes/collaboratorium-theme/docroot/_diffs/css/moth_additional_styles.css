@@ -1,0 +1,11 @@
+.custom-3-column table td {
+    vertical-align: top;
+}
+
+
+.lrContentPlaceholder {
+}
+
+blockquote, ul, ol, dl {
+    margin: auto;
+}

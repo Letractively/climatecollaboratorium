@@ -276,14 +276,12 @@ div.othermembers div#layout-column_column-1 {
 }
 
 
-div.home div#layout-column_column-3,
 div.community div#layout-column_column-3,
 div.news div#layout-column_column-3,
 div.othermembers div#layout-column_column-3{
     padding:20px;
 }
 
-div.home div#layout-column_column-4,
 div.community div#layout-column_column-4,
 div.news div#layout-column_column-4,
 div.othermembers div#layout-column_column-4{
@@ -395,7 +393,9 @@ div.themed-content.community.featured-expert td.bio {
 
 
 /** news **/
-div.contentContainer div#content-wrapper {
+
+div.contentContainer.community div#content-wrapper,
+div.contentContainer.resources {
      background:#F9F9F8;
 }
 
@@ -508,4 +508,15 @@ padding:10px;
 
 .portlet-blogs .search-form {
     float:none;
+}
+
+div.contentContainer.resources {
+     background:#F9F9F8;
+     border: 15px solid #E3DFD7;
+     padding: 10px;
+}
+
+
+div.contentContainer.resources #mainContent .inner {
+    width: auto;
 }

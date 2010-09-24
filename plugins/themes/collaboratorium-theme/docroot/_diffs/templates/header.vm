@@ -1,33 +1,35 @@
-<div id="header">
-    <div class="head_outlay">
-        <div class="head_bg">
-            <div id="banner">
-                 <div id="loginArea">
-                    $theme.runtime("user_info")
-                    #parse ("$full_templates_path/dock.vm")
-                </div>
-                <div id="logobox">
-                    <a href="/">
-                        <div class="site-logo">
-                            <span class="hidden">Logo</span></h1>
-
-                        </div>
-                        <div class="site-name">
-                            <span class="hidden">Climate CoLab</span></h1>
-
-                        </div>
-                    </a>
-                </div>
-                #if ($has_navigation)
-                    #parse ("$full_templates_path/navigation.vm")
-                #end
-
-                
-            </div>
-            <div class="clear"></div>
-            <!-- end banner -->
-
-
-        </div>
-    </div>
+<div id="top-left">
+    <div id="logo"><a href="/"><img src="/collaboratorium-theme/images/climate-colab.png" width="223" height="46" alt="Climate CoLab" /></a></div>
+    #if ($has_navigation)
+        #parse ("$full_templates_path/navigation.vm")
+    #end
 </div>
+<div id="top-right">
+    <div id="loginContainer">
+        <div id="loginStatus">
+            #parse ("$full_templates_path/dock.vm")
+        </div>
+        <ul id="login">
+            #if ($themeDisplay.signedIn)
+                <li id="signin"><a href="/c/portal/logout" >Sign out</a></li>
+                <li id="reg"><a href="/web/guest/myprofile">My profile</a></li>
+            #else 
+                <li id="signin"><a href="/web/guest/loginregister?p_p_id=loginregister" onclick="modifyLoginRegisterURL(this);">Sign In</a></li>
+                <li id="reg"><a href="/web/guest/loginregister?p_p_id=loginregister" onclick="modifyLoginRegisterURL(this);">Register</a></li>
+            #end
+            
+        </ul>
+        <div class="clear">&nbsp;</div>
+    </div>
+    <div id="menu">
+        <ul>
+            <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
+            <li><a href="/web/guest/feedback">Contact</a></li>
+        </ul>
+        <form method="get" action="">
+            <input id="searchinput" name="searchinput" type="text" value="Search"  onfocus="if (this.value == 'Search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search';}"  />
+            <input id="searchsubmit" type="button" name="submit" value="Go" />
+        </form>
+    </div> <!-- /menu -->
+</div> <!-- /top-right -->
+<div class="clear">&nbsp;</div>
