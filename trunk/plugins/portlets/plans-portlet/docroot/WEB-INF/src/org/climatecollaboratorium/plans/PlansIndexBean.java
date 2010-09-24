@@ -1,24 +1,5 @@
 package org.climatecollaboratorium.plans;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
-import org.climatecollaboratorium.events.EventBus;
-import org.climatecollaboratorium.events.EventHandler;
-import org.climatecollaboratorium.events.HandlerRegistration;
-import org.climatecollaboratorium.navigation.NavigationEvent;
-import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
-import org.climatecollaboratorium.plans.utils.PagedListDataModel;
-import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
-import org.climatecollaboratorium.plans.wrappers.PlanIndexItemWrapper;
-
 import com.ext.portlet.contests.ContestPhaseHelper;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.debaterevision.model.Debate;
@@ -37,6 +18,20 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
+import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.navigation.NavigationEvent;
+import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
+import org.climatecollaboratorium.plans.utils.PagedListDataModel;
+import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
+import org.climatecollaboratorium.plans.wrappers.PlanIndexItemWrapper;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import java.util.*;
 
 public class PlansIndexBean {
 
@@ -50,7 +45,6 @@ public class PlansIndexBean {
     private List uiCustomerBeans = new ArrayList(pageSize);
 
     private PagedListDataModel plansDataModel;
-
 
 
     private ContestPhaseWrapper contestPhase;
@@ -75,34 +69,65 @@ public class PlansIndexBean {
 
     private PlanTypeIndexBean contestIndexBean;
 
-    private List<TestTab> testTabs = Arrays.asList(new TestTab("one"),new TestTab("two"),new TestTab("three"));
+    private List<TestTab> testTabs = Arrays.asList(new TestTab("one"), new TestTab("two"), new TestTab("three"));
 
     private int tabindex = 0;
 
     private static final String CONTEST_PHASE_SESSION_PARAM = "CONTEST_PHASE_SESSION_PARAM";
-    private final static String PLANS_SOURCE = "plans"; 
+    private final static String PLANS_SOURCE = "plans";
     private final static String VIEW_PROPOSALS_PARAM = "viewProposals";
     private final static String ACTIVE_PROPOSALS = "active";
     private final static String PREVIOUS_PROPOSALS = "previous";
-    
+
     private final static String SHOW_OPEN_PARAM = "showOpen";
     private final static String SHOW_NEEDING_ASSISTANCE_PARAM = "showNeedingAssistance";
-    
+
     private static Log _log = LogFactoryUtil.getLog(PlansIndexBean.class);
     private boolean showPreviousProposals = false;
 
-    private boolean showProposalsThatUserOwns;
+//    private boolean showProposalsThatUserOwns;
+//
+//    private boolean showProposalsThatUserSupports;
+//
+//    private boolean showProposalsThatAreOpen;
+//
+//    private boolean showProposalsThatNeedSupporters;
 
-    private boolean showProposalsThatUserSupports;
+    private enum Mode {
+        PROPOSALS_ALL("All proposals"), PROPOSALS_USER_OWNS("My proposals",true), PROPSALS_USER_SUPPORTS("Proposals I support",true),
+        PROPOSALS_OPEN("Open proposals"), PROPOSALS_NEED_ASSISTANCE("Proposals seeking help");
 
-    private boolean showProposalsThatAreOpen;
 
-    private boolean showProposalsThatNeedSupporters;
+        private String userString;
+        private SelectItem item;
+        private boolean requiresLogin;
+
+        Mode(String userString) {
+            this(userString,false);
+        }
+
+        Mode(String userString, boolean requiresLogin) {
+            this.userString = userString;
+            this.requiresLogin = requiresLogin;
+        }
+
+        public SelectItem getSelectItem() {
+            if (item == null) {
+                item = new SelectItem(name(), userString);
+            }
+            return item;
+        }
+
+    }
+
+    private List<SelectItem> availableModes = null;
+
+    private Mode current_mode = Mode.PROPOSALS_ALL;
 
     public PlansIndexBean(ContestPhaseWrapper contestPhaseWrapper) throws PortalException, SystemException {
         this.contestPhase = contestPhaseWrapper;
         dataPaginator = new DataPaginator();
-        
+
         updatePlansList = true;
         filterPlansBean = null;
         columnsConfiguration = null;
@@ -112,16 +137,15 @@ public class PlansIndexBean {
 
     public void init(ContestPhaseWrapper currentPhase, NavigationEvent event) throws PortalException, SystemException {
         boolean isDirty = false;
-        
+
         if (currentPhase == null) {
             contestPhase = null;
             return;
         }
-        
-        if (contestPhase !=null && contestPhase.getPhaseId().equals(currentPhase.getPhaseId())) {
+
+        if (contestPhase != null && contestPhase.getPhaseId().equals(currentPhase.getPhaseId())) {
             // ignore
-        }
-        else {
+        } else {
             contestPhase = currentPhase;
             isDirty = true;
         }
@@ -137,35 +161,32 @@ public class PlansIndexBean {
                     contestPhase = new ContestPhaseWrapper(contestPhase.getContest(), contestPhase.getPhase().getPreviousPhases().get(0));
                 }
             }
-        }
-        else {
+        } else {
             showPreviousProposals = false;
         }
-        
-        showProposalsThatNeedSupporters = false;
-        showProposalsThatAreOpen = false;
-        
+
         if (params != null) {
             if (params.containsKey(SHOW_NEEDING_ASSISTANCE_PARAM)) {
-                if (!showProposalsThatNeedSupporters) {
-                    showProposalsThatNeedSupporters = true;
+                if (getCurrentMode() != Mode.PROPOSALS_NEED_ASSISTANCE) {
+                    setCurrentMode(Mode.PROPOSALS_NEED_ASSISTANCE);
+                    isDirty = true;
+                }
+            } else if (params.containsKey(SHOW_OPEN_PARAM)) {
+                if (getCurrentMode() != Mode.PROPOSALS_OPEN) {
+                    setCurrentMode(Mode.PROPOSALS_OPEN);
                     isDirty = true;
                 }
             }
-            if (params.containsKey(SHOW_OPEN_PARAM)) {
-                if (! showProposalsThatAreOpen) {
-                    showProposalsThatAreOpen = true;
-                    isDirty = true;
-                }
-            }
+
+
         }
-        
+
         if (isDirty) {
             refresh();
             sortColumn = PlanConstants.Attribute.SUPPORTERS.name();
             sortAscending = false;
         }
-        
+
     }
 
     public ContestPhaseWrapper getContestPhase() {
@@ -173,12 +194,12 @@ public class PlansIndexBean {
     }
 
     public List<ContestPhaseWrapper> getContestPhases() {
-        List<ContestPhaseWrapper> result = contestPhase == null?Collections.<ContestPhaseWrapper>emptyList():contestPhase.getContest().getPhases();
+        List<ContestPhaseWrapper> result = contestPhase == null ? Collections.<ContestPhaseWrapper>emptyList() : contestPhase.getContest().getPhases();
         return result;
     }
 
     public int getContestPhaseIndex() {
-        int result =  contestPhase == null?-1:contestPhase.getContest().getPhases().indexOf(contestPhase);
+        int result = contestPhase == null ? -1 : contestPhase.getContest().getPhases().indexOf(contestPhase);
         return result;
     }
 
@@ -187,7 +208,7 @@ public class PlansIndexBean {
         if (contestPhase!=null) init(contestPhase.getContest().getPhases().get(i).getPhaseId(), Collections.<String, String>emptyMap());
     }
     */
-    
+
     public void setEventBus(EventBus eventBus) {
         if (this.eventBus != eventBus) {
             this.eventBus = eventBus;
@@ -204,19 +225,17 @@ public class PlansIndexBean {
     }
 
     public void setTabIndex(int idx) {
-        this.tabindex = idx;    
+        this.tabindex = idx;
     }
 
 
-
-
     private void bindEvents() {
-        for (HandlerRegistration registration: handlerRegistrations) {
+        for (HandlerRegistration registration : handlerRegistrations) {
             registration.unregister();
         }
 
-         handlerRegistrations.clear();
-        
+        handlerRegistrations.clear();
+
         handlerRegistrations.add(eventBus.registerHandler(PlanDeletedEvent.class, new EventHandler<PlanDeletedEvent>() {
 
             @Override
@@ -227,7 +246,7 @@ public class PlansIndexBean {
                     // ignore
                 }
             }
-            
+
         }));
     }
 
@@ -249,37 +268,54 @@ public class PlansIndexBean {
             if (showPreviousProposals) {
                 List<ContestPhase> previousPhases = contestPhase.getPhase().getPreviousPhases();
                 notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, previousPhases, 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
-            }
-            else {
+            } else {
                 notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
             }
 
-            for(PlanItem plan: PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
-                if (Helper.isUserLoggedIn()) {
+            final Long userId = Helper.isUserLoggedIn() ? Helper.getLiferayUser().getUserId() : -1;
+            for (PlanItem plan : PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
 
-                    final Long userId = Helper.getLiferayUser().getUserId();
-                    if (showProposalsThatUserOwns) {
-                        if (! plan.getAuthorId().equals(userId)) {
+
+                switch (current_mode) {
+                      case PROPOSALS_ALL: {
+                        break;
+                    }
+
+
+                    case PROPOSALS_OPEN: {
+                        //why o why? plan.getOpen() should do the same thing
+                        String s = PlanConstants.Columns.IS_PLAN_OPEN.getValue(plan);
+                        if (!"true".equals(s)) {
+
                             continue;
                         }
+                        break;
                     }
-                    if (showProposalsThatUserSupports) {
-                        if (! plan.isUserAFan(userId)) {
+
+
+
+                    case PROPOSALS_NEED_ASSISTANCE: {
+                        if (!plan.isSeekingAssistance()) {
                             continue;
                         }
+                        break;
                     }
+
+                    case PROPOSALS_USER_OWNS: {
+                        if (!plan.getAuthorId().equals(userId)) {
+                            continue;
+                        }
+                        break;
+                    }
+                    case PROPSALS_USER_SUPPORTS: {
+                        if (!plan.isUserAFan(userId)) {
+                            continue;
+                        }
+                        break;
+                    }
+
                 }
 
-                if (showProposalsThatAreOpen) {
-                    if (! plan.getOpen()) {
-                        continue;
-                    }
-                }
-                if (showProposalsThatNeedSupporters) {
-                    if (! plan.isSeekingAssistance()) {
-                        continue;
-                    }
-                }
 
                 plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
             }
@@ -295,6 +331,7 @@ public class PlansIndexBean {
     public DataPaginator getDataPaginator() {
         return dataPaginator;
     }
+
     public void setDataPaginator(DataPaginator dataPaginator) {
         this.dataPaginator = dataPaginator;
     }
@@ -342,7 +379,7 @@ public class PlansIndexBean {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPlanType());
         columns = new ArrayList<Columns>();
-        for (Columns col: ContestPhaseHelper.getPhaseColumns(contestPhase.getPhase())) {
+        for (Columns col : ContestPhaseHelper.getPhaseColumns(contestPhase.getPhase())) {
             /*if (col.getUserSetting(plansUserSettings)) {
                 columns.add(col);
             }
@@ -351,7 +388,6 @@ public class PlansIndexBean {
         }
         updatePlansList = true;
     }
-
 
 
     public void refresh() throws PortalException, SystemException {
@@ -423,45 +459,76 @@ public class PlansIndexBean {
             return label;
         }
     }
-    
+
     public void clear() {
         contestPhase = null;
     }
 
-     public boolean isShowPreviousProposals() {
-         return showPreviousProposals;
-     }
-     
-     public boolean isShowProposalsThatUserOwns() {
-         return showProposalsThatUserOwns;
-     }
-     
-     public boolean isShowProposalsThatUserSupports() {
-         return showProposalsThatUserSupports;
-     }
-     
-     public void setShowProposalsThatUserOwns(boolean show) throws PortalException, SystemException {
-         showProposalsThatUserOwns = show;
-     }
-     
-     public void setShowProposalsThatUserSupports(boolean show) throws PortalException, SystemException {
-         showProposalsThatUserSupports = show;
-     }
-     
-     public void setShowProposalsThatNeedSupporters(boolean show) throws PortalException, SystemException {
-         showProposalsThatNeedSupporters = show;
-     }
-     
-     public void setShowProposalsThatAreOpen(boolean show) throws PortalException, SystemException {
-         showProposalsThatAreOpen = show;
-         refresh();
-     }
-     
-     public boolean isShowProposalsThatAreOpen() {
-         return showProposalsThatAreOpen;
-     }
+    public void setSelectedMode(String name) throws SystemException, PortalException {
+        setCurrentMode(Mode.valueOf(name));
+    }
 
-     public boolean isShowProposalsThatNeedSupporters() {
-         return showProposalsThatNeedSupporters;
-     }
+    public String getSelectedMode() {
+        return current_mode.name();
+    }
+
+    public Mode getCurrentMode() {
+        return current_mode;
+    }
+
+    public void setCurrentMode(Mode mode) throws SystemException, PortalException {
+        if (mode!=current_mode) {
+            current_mode = mode;
+            refresh();
+        }
+
+    }
+
+    public List<SelectItem> getAvailableModes() {
+        if (availableModes == null) {
+            availableModes = new ArrayList<SelectItem>();
+            for (Mode m:Mode.values()) {
+                if (m.requiresLogin && !Helper.isUserLoggedIn()) continue;
+                availableModes.add(m.getSelectItem());
+            }
+        }
+        return availableModes;
+    }
+
+    public boolean isShowPreviousProposals() {
+        return showPreviousProposals;
+    }
+
+//     public boolean isShowProposalsThatUserOwns() {
+//         return showProposalsThatUserOwns;
+//     }
+//
+//     public boolean isShowProposalsThatUserSupports() {
+//         return showProposalsThatUserSupports;
+//     }
+//
+//     public void setShowProposalsThatUserOwns(boolean show) throws PortalException, SystemException {
+//         showProposalsThatUserOwns = show;
+//     }
+//
+//     public void setShowProposalsThatUserSupports(boolean show) throws PortalException, SystemException {
+//         showProposalsThatUserSupports = show;
+//     }
+//
+//     public void setShowProposalsThatNeedSupporters(boolean show) throws PortalException, SystemException {
+//         showProposalsThatNeedSupporters = show;
+//     }
+//
+//     public void setShowProposalsThatAreOpen(boolean show) throws PortalException, SystemException {
+//         showProposalsThatAreOpen = show;
+//         refresh();
+//     }
+//
+//     public boolean isShowProposalsThatAreOpen() {
+//         return showProposalsThatAreOpen;
+//     }
+//
+//     public boolean isShowProposalsThatNeedSupporters() {
+//         return showProposalsThatNeedSupporters;
+//     }
 }

@@ -15,10 +15,15 @@
                     <ice:panelGroup>
                     <ice:form>
                             <ice:commandButton styleClass="prominantButton" value="Vote for this proposal" actionListener="#{plan.plan.vote}"
-                                               rendered="#{not plan.plan.votedOn}" onclick="if(!deferUntilLogin()) return false;"/>
+                                               rendered="#{votingPhase and not plan.plan.votedOn}" onclick="if(!deferUntilLogin()) return false;"/>
                             <ice:commandButton styleClass="prominantButton" value="Retract vote for this proposal"
                                                actionListener="#{plan.plan.unvote}"
-                                               rendered="#{plan.plan.votedOn}"/>
+                                               rendered="#{votingPhase and plan.plan.votedOn}"/>
+                            <ice:commandButton styleClass="prominantButton" value="Support this proposal" actionListener="#{plan.plan.becomeAFan}"
+                                               rendered="#{!votingPhase and not plan.plan.userAFan}" onclick="if(!deferUntilLogin()) return false;"/>
+                            <ice:commandButton styleClass="prominantButton" value="Retract support for this proposal"
+                                               actionListener="#{plan.plan.unfan}"
+                                               rendered="#{!votingPhase and plan.plan.userAFan}"/>
                        </ice:form>
 
                   </ice:panelGroup>    
@@ -53,16 +58,18 @@
                                         Collab.nav.addEditorDirtyValidationCallback(checkIfPlanNameDirty);
                                     </script>
                                 </ice:panelGroup>
-
-                                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput'
+                               
+                                <h2><ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput'
                                                onchange="jQuery(this).addClass('valueChanged');">
+                                    <f:attribute name="plan" value="#{plan}"/>
                                     <f:validator validatorId="planNameValidator"/>
                                 </ice:inputText>
+                                </h2>
 
                                 <div class="actions">
-                                    <ice:commandLink actionListener="#{plan.plan.saveName}" styleClass="checkBtn"/>&amp;nbsp;&amp;nbsp;
-                                    <ice:commandLink actionListener="#{plan.editName}" styleClass="cancelBtn"
-                                                     immediate="true"/>
+                                    <ice:commandButton actionListener="#{plan.plan.saveName}"  value="Save"/>&amp;nbsp;&amp;nbsp;
+                                    <ice:commandButton actionListener="#{plan.editName}"
+                                                     immediate="true" value="Cancel"/>
                                 </div>
                                 <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>
                             </f:subview>

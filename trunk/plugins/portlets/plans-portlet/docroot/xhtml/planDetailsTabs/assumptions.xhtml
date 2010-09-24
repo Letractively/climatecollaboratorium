@@ -38,7 +38,8 @@
 
         </div>
     </div>
-     <ice:panelGrid styleClass="toolbar" columns="3">
+
+    <ice:panelGrid styleClass="toolbar" columns="3">
     <ice:panelGroup styleClass="edit editControls"
                     rendered="#{not planBean.planPositionsBean.editing and permissions.canEdit}">
         <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{planBean.planPositionsBean.edit}"/>
@@ -58,6 +59,7 @@
 
     </ice:panelGroup>
     </ice:panelGrid>
+    
 
     <div class="clear"></div>
 
@@ -86,7 +88,7 @@
             <ice:panelGroup rendered="#{not planBean.planPositionsBean.positionsSet}" styleClass="editTriggerContainer">
                 <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
                 <div class="nothingSetInfo">
-                    <div class="nothingSetMessage">No assumptions set.</div>
+                    <div class="nothingSetMessage">No positions set.</div>
                 </div>
             </ice:panelGroup>
             <ice:panelGroup styleClass="hidden ">
