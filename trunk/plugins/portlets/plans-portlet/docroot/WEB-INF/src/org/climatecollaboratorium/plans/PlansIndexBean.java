@@ -285,8 +285,8 @@ public class PlansIndexBean {
                     case PROPOSALS_OPEN: {
                         //why o why? plan.getOpen() should do the same thing
                         String s = PlanConstants.Columns.IS_PLAN_OPEN.getValue(plan);
-                        if (!"true".equals(s)) {
-
+                       // if (!"true".equals(s)) {
+                       if (!plan.getOpen()) {
                             continue;
                         }
                         break;
