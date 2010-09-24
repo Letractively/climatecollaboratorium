@@ -11,12 +11,6 @@
     <ice:panelGroup styleClass="hidden">
         <script type="text/javascript">
             Collab.nav.addEditorDirtyValidationCallback(checkIfActionsImpactsDirty);
-            if (#{ not simulationBean.embeddedEditing} ) {
-                initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
-            }
-            else {
-                clearEditTrigger();
-            }
         </script>
     </ice:panelGroup>
 
@@ -124,6 +118,14 @@
                                    disabledMessage="Click &lt;b&gt;Edit&lt;/b&gt; to change inputs" 
                                    editActions="#{planBean.planOpenForEditing}" 
                                    showRunButton="#{simulationBean.embeddedEditing}" />
+                <script type="text/javascript">
+                    if (#{ not simulationBean.embeddedEditing} ) {
+                        initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
+                    }
+                    else {
+                        clearEditTrigger();
+                    }
+                </script>
             </f:subview>
             <f:subview rendered="#{not permissions.canEdit}">
                 <collab:simulation simulationId="#{planBean.modelBean.selectedItem}"
@@ -132,6 +134,14 @@
                                    showDisabledMessage="false"
                                    disabledMessage="#{permissions.loggedIn ? 'You need to become a team member to edit inputs' : 'You need to log in to edit inputs' }" 
                                    editActions="false" />
+                <script type="text/javascript">
+                    if (#{ not simulationBean.embeddedEditing} ) {
+                        initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
+                    }
+                    else {
+                        clearEditTrigger();
+                    }
+                </script>
             </f:subview>
         </ice:panelGroup>
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
