@@ -1,11 +1,8 @@
 package org.climatecollaboratorium.plans.validators;
 
-import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 
 import com.liferay.portal.SystemException;
-import org.climatecollaboratorium.plans.PlanBean;
-import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -18,6 +15,7 @@ public class PlanNameValidator implements Validator {
     @Override
     public void validate(FacesContext ctx, UIComponent comp, Object obj) throws ValidatorException {
         String name = (String) obj;
+        String planNameAttribute = comp.getAttributes().get("planName").toString();
         try {
             if (name.trim().length() == 0) {
                 FacesMessage fm = new FacesMessage();
@@ -25,10 +23,13 @@ public class PlanNameValidator implements Validator {
                 fm.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(fm);
             }
-            PlanItemWrapper item = ((PlanBean)comp.getAttributes().get("plan")).getPlan();
-            if (!name.equals(item.getName()) && ! PlanItemLocalServiceUtil.isNameAvailable(name)) {
+            if (planNameAttribute.equals(name)) {
+                // if name hasn't changed, don't do anything
+                return;
+            }
+            else if (! PlanItemLocalServiceUtil.isNameAvailable(name)) {
                 FacesMessage fm = new FacesMessage();
-                fm.setSummary("Plan with name \"" + name + "\" already exists, choose different name.");
+                fm.setSummary("Plan with name \"" + name + "\" already existis, choose different name.");
                 fm.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(fm);
             }

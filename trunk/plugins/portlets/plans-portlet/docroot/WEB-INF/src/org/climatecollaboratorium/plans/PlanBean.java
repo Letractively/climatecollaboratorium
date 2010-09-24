@@ -101,12 +101,27 @@ public class PlanBean {
         refresh();
         if (parameters.containsKey(NEW_PLAN_PARAM)) {
             // 
-            if (planItem.getVersion() == 1 && planItem.getAuthorId() == Helper.getLiferayUser().getUserId()) {
+            if (planItem.getPlanDescriptions().get(0).getVersion() == 1) {
                 editingDescription = true;
                 editingName = true;
-                planPositionsBean.edit(null);
+            }
+            if (planItem.getAllPlanModelRuns().get(0).getVersion() == 0) {
                 simulationBean.edit(null);
                 planOpenForEditing = true;
+            }
+            if (planItem.getPlanPositions().getVersion() == 0) {
+                planPositionsBean.edit(null);
+            }
+        }
+        else {
+            planOpenForEditing = false;
+            editingDescription = false;
+            editingName = false;
+            if (simulationBean.isEditing()) {
+                simulationBean.edit(null);
+            }
+            if (planPositionsBean.isEditing()) {
+                planPositionsBean.edit(null);
             }
         }
     }
@@ -121,9 +136,9 @@ public class PlanBean {
     
     
     public void refresh() throws SystemException, PortalException {
-        if (simulationBean != null) {
+        /*if (simulationBean != null) {
             simulationBean.cleanup();
-        }
+        }*/
         if (planId != null && planId > 0) {
             
             planItem = PlanItemLocalServiceUtil.getPlan(planId);
@@ -131,7 +146,7 @@ public class PlanBean {
             plan = new PlanItemWrapper(planItem, this, permissions);
             permissions.setPlan(planItem);
             planPositionsBean = new PlanPositionsBean(planItem, this);
-            simulationBean = new SimulationBean(planItem, this, eventBus);
+            //simulationBean = new SimulationBean(planItem, this, eventBus);
             membershipBean = new PlanMembershipBean(planItem, this, permissions);
 
         }

@@ -63,6 +63,7 @@
                                                onchange="jQuery(this).addClass('valueChanged');">
                                     <f:attribute name="plan" value="#{plan}"/>
                                     <f:validator validatorId="planNameValidator"/>
+                                    <f:attribute name="planName" value="#{plan.plan.name}" />
                                 </ice:inputText>
                                 </h2>
 
