@@ -1097,3 +1097,8 @@ div.plansBreadcrumb {
     text-align: right;
     font-size: 1.2em;
 }
+
+.noEntries {
+    padding-top:30px;
+    text-align:center;
+}
