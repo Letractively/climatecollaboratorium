@@ -42,3 +42,13 @@ function initSearchUpperBox() {
 	});
 		
 }
+
+function deferUntilLogin(fn) {
+    if (Liferay.ThemeDisplay.isSignedIn()) {
+        return true;
+    } else {
+    	var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
+    	loginregister += "&redirect=" + escape(window.location);
+    	window.location = loginregister;
+    }
+}
