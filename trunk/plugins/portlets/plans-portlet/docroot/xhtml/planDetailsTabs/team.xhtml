@@ -27,7 +27,7 @@
                                     styleClass="floatLeft">
                         <h3>You have asked to be a part of this team.</h3>
                     </ice:outputText>
-                     <ice:outputText rendered="#{not planBean.plan.planMember}" escape="false"
+                     <ice:outputText rendered="#{not planBean.plan.planMember and not planBean.membershipBean.requesting}" escape="false"
                                     styleClass="floatLeft">
                         <h3>Become a part of this team!</h3>
                     </ice:outputText>
@@ -51,7 +51,7 @@
                         <ice:inputTextarea value="#{planBean.membershipBean.comment}" styleClass="requestComment"/>
                     </div>
                     <ice:commandButton value="Request membership" styleClass="requestMembershipSubmitButton"
-                                       actionListener="#{planBean.membershipBean.requestMembership and not planBean.membershipBean.requesting}"/>
+                                       actionListener="#{planBean.membershipBean.requestMembership}"/>
                     <ice:commandButton value="Cancel" actionListener="#{planBean.membershipBean.toggleRequesting}"/>
 
                 </ice:panelGroup>
