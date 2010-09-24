@@ -1308,8 +1308,7 @@ span.desc{
 
 .js .interactive-mode {
 	background: transparent none;
-	left: 50px;
-	top: 7px;
+	top: 10px;
 }
 
 .lfr-dock .name{
@@ -1432,14 +1431,12 @@ span.desc{
 }
 
 
-
+/*
 div.contentContainer.home {
     padding: 100px;
     background: url("../images/earthstrip1.png") repeat-x scroll -1000px 0 #F9F9F8;
 	
 }
-
-
 div.contentContainer.about {
     padding: 100px;
     background: url("../images/earthstrip2.png") repeat-x scroll 0 0 #F9F9F8;
@@ -1482,6 +1479,8 @@ div.contentContainer.discussion {
 
 }
 
+*/
+
 .comparsion .tableOutlay table tr.selected td {
 	height:44px;
 	background:url(../images/table_tr_selected.gif) no-repeat -12px 0;
@@ -1498,10 +1497,11 @@ div.contentContainer.discussion {
 	background:url(../images/table_tr_selected.gif) no-repeat right 0;
 }
 
+/*
  td#column-2 {
 	width:400px;
 }
-
+*/
 td.pseudo-layout {
      vertical-align: top;
      padding:5px;

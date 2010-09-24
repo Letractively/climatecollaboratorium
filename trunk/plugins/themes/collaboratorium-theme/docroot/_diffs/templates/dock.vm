@@ -1,6 +1,7 @@
-#if ($theme_display.signedIn)
+#if ($themeDisplay.signedIn)
 	<div class="lfr-dock interactive-mode">
-		<p>Welcome<br /><strong class="name">$user.screenName</strong></p>
+		Welcome <strong class="name">$user.screenName</strong>
+		#if ($permissionChecker.isOmniadmin())
 		<ul class="lfr-dock-list">
 			<li class="user-profile">
 				<a href="/web/guest/myprofile">My Profile</a>
@@ -36,5 +37,6 @@
 			#end
 
 		</ul>
+		#end
 	</div>
 #end
