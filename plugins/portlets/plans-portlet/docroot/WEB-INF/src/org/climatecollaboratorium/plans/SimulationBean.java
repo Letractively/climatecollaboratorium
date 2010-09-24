@@ -29,6 +29,7 @@ public class SimulationBean {
     private boolean editing;
     private ThemeDisplay td = Helper.getThemeDisplay();
     private EventBus eventBus;
+    private boolean saved;
     private List<HandlerRegistration> eventHandlers = new ArrayList<HandlerRegistration>();
     private static Log _log = LogFactoryUtil.getLog(SimulationBean.class);
 
@@ -58,6 +59,8 @@ public class SimulationBean {
 
                         SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                                 PlanItem.class.getName(), plan.getPlanId(), PlanActivityKeys.EDIT_SCENARIO.id(),null, 0);
+                        editing = false;
+                        saved = true;
                         planBean.refresh();
                     } catch (PortalException e) {
                         _log.error("Can't save scenario in a plan", e);
@@ -98,6 +101,7 @@ public class SimulationBean {
 
     public void setEditing(boolean editing) {
         this.editing = editing;
+        saved = false;
     }
 
     public void edit(ActionEvent e) {
@@ -113,6 +117,11 @@ public class SimulationBean {
     public void setPlan(PlanItem planItem, PlanBean planBean2) {
         plan = planItem;
         this.planBean = planBean2;
+        saved = false;
+    }
+
+    public boolean isSaved() {
+        return saved;
     }
 
 }

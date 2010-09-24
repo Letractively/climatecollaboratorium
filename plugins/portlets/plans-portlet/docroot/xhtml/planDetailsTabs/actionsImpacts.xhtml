@@ -41,7 +41,7 @@
                         <ice:outputText value="Date"/>
                     </f:facet>
                     <ice:commandLink value="#{historyItem.updateDate}"
-                                     actionListener="#{planBean.plan.selectModelRunVersion}">
+                                     actionListener="#{planBean.plan.selectModelRunVersion}"  >
                         <f:attribute name="item" value="#{historyItem}"/>
                     </ice:commandLink>
 
@@ -59,12 +59,10 @@
 
         </div>
     </div>
-    <ice:panelGrid styleClass="toolbar" columns="3">
-        <ice:panelGroup styleClass="edit editControls"
-                        rendered="#{planBean.plan.selectedModel != null and permissions.canEdit and not simulationBean.embeddedEditing}">
-            <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{simulationBean.editActions}"
-                    />
-        </ice:panelGroup>
+
+
+    
+    <ice:panelGrid styleClass="toolbar" columns="2">
         <ice:panelGroup styleClass="save editControls" rendered="#{simulationBean.embeddedEditing}">
             <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}" onclick="Collab.nav.block();"/>
         </ice:panelGroup>
@@ -74,14 +72,21 @@
         <ice:panelGroup styleClass="filler"></ice:panelGroup>
 
 
+    </ice:panelGrid>
+    
         <ice:panelGroup styleClass="chooseVersionWidget">
             <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" class="versionsTrigger">Show old versions</a>
         </ice:panelGroup>
-    </ice:panelGrid>
-
-
+        
+    
     <div class="clear"></div>
-
+    
+        <ice:panelGroup styleClass="edit editControls hidden"
+                        rendered="#{planBean.plan.selectedModel != null and permissions.canEdit and not simulationBean.embeddedEditing}">
+            <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{simulationBean.editActions}"
+                    />
+        </ice:panelGroup>
+    
 
     <collabcomps:helpMessage messageId="planModelRunHelp" styleClass="planHelp" hideThisMessage="Hide this message">
         Key Actions for proposals in the 2010 contest are commitments to:

@@ -106,11 +106,15 @@ public class PlanBean {
                 editingName = true;
             }
             if (planItem.getAllPlanModelRuns().get(0).getVersion() == 0) {
-                simulationBean.edit(null);
+                if (! simulationBean.isEditing()) {
+                    simulationBean.edit(null);
+                }
                 planOpenForEditing = true;
             }
             if (planItem.getPlanPositions().getVersion() == 0) {
-                planPositionsBean.edit(null);
+                if (! planPositionsBean.isEditing()) {
+                    planPositionsBean.edit(null);
+                }
             }
         }
         else {
@@ -146,6 +150,9 @@ public class PlanBean {
             plan = new PlanItemWrapper(planItem, this, permissions);
             permissions.setPlan(planItem);
             planPositionsBean = new PlanPositionsBean(planItem, this);
+            if (simulationBean.isSaved()) {
+                planOpenForEditing = false;
+            }
             simulationBean.setPlan(planItem, this);
             //simulationBean = new SimulationBean(planItem, this, eventBus);
             membershipBean = new PlanMembershipBean(planItem, this, permissions);
