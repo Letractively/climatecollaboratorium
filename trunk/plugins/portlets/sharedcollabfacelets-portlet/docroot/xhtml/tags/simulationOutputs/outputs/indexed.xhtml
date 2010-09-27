@@ -8,8 +8,8 @@
  
 <ice:panelGroup styleClass="outputDef" rendered="#{output.chartType == 'TIME_SERIES'}">
     <h3>
-        <a href='javascript:;' class="activator">#{output.name}</a> 
-        <a class="folder" href="javascript:;" tabindex="-1"><span class="hidden">Folder/unFolder</span></a>
+        <a href='javascript:return false;' class="activator">#{output.name}</a> 
+        <a class="folder" href="javascript:return false;" tabindex="-1"><span class="hidden">Folder/unFolder</span></a>
     </h3>
     <div>
         <input type="hidden" class="indexedOutOfRangeMessage" value="#{output.outOfRangeErrorBehavior.message}" />
