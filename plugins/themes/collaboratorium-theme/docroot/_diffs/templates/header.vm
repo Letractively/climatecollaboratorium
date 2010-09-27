@@ -6,9 +6,11 @@
 </div>
 <div id="top-right">
     <div id="loginContainer">
+        
         <div id="loginStatus">
             #parse ("$full_templates_path/dock.vm")
         </div>
+        
         <ul id="login">
             #if ($themeDisplay.signedIn)
                 <li id="signin"><a href="/c/portal/logout" >Sign out</a></li>
@@ -26,7 +28,7 @@
             <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
             <li><a href="/web/guest/feedback">Contact</a></li>
         </ul>
-        <form>
+        <form action="">
             <input id="searchinput" name="searchinput" type="text" value="Search" />
             <input id="searchsubmit" type="button" name="submit" value="Go" />
         </form>

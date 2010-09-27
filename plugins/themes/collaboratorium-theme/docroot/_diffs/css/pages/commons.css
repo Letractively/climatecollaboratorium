@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+.themed-content h2 {
+    font-family:Helvetica, sans-serif;
+    font-size:1.2em;
+    color:#009ebb;
+    font-weight:bold;
+    margin-bottom:20px;
+
+}
+
+.inlineHelp ul,
+.inlineHelp ol,
+.inlineHelp li {
+    margin-left: 10px;
+}
+    
+    
+.floatLeft{
+    width:auto;
+    float:left;
+    display:inline;
+}
+
+.floatRight{
+    width:auto;
+    float:right;
+    display:inline;
+}
+
+.hidden {
+    display: none;
+}

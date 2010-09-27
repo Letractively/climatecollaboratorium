@@ -79,7 +79,7 @@ body { background:url(../images/bg_main.gif) repeat-x #f5f5f5; font:12px Helveti
 /* collab additions */
 #loginContainer { float:left; width:160px; }
 #loginStatus {position: relative; height: 48px;};
-#login { width:160px; height:28px; margin-top:45px;}
+#login { width:160px; height:28px;}
 #login li { float:left; list-style:none; width:73px; height:28px; text-align:center; }
 #login #signin { background:url(../images/header_btn-signin.png) no-repeat; margin-right:5px;}
 #login #reg { background:url(../images/header_btn-reg.png) no-repeat;}
