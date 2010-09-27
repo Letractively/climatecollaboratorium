@@ -28,5 +28,20 @@
             <wap-template-path>/collab-1-3-col.tpl</wap-template-path>
             <thumbnail-path>/collab-1-3-col.png</thumbnail-path>
         </layout-template>
+        <layout-template id="collab-content-footer" name="CoLab content and footer">
+            <template-path>/collab-content-footer.tpl</template-path>
+            <wap-template-path>/collab-content-footer.tpl</wap-template-path>
+            <thumbnail-path>/collab-content-footer.png</thumbnail-path>
+        </layout-template>
+        <layout-template id="collab-2-col-balanced-moth" name="CoLab Two Column Balanced - moth">
+            <template-path>/collab-2-col-balanced-moth.tpl</template-path>
+            <wap-template-path>/collab-2-col-balanced-moth.tpl</wap-template-path>
+            <thumbnail-path>/custom-2-balanced-moth.png</thumbnail-path>
+        </layout-template>
+        <layout-template id="collab-4-rows-moth" name="ColLab Two Column - moth">
+            <template-path>/collab-4-rows-moth.tpl</template-path>
+            <wap-template-path>/collab-4-rows-moth.tpl</wap-template-path>
+            <thumbnail-path>/custom-4-rows-moth.png</thumbnail-path>
+        </layout-template>
 	</custom>
 </layout-templates>
