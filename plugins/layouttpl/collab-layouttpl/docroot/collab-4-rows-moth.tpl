@@ -29,8 +29,8 @@
                     <div id="footdiv"></div>
                     <div id="footmenu">
                     <ul>
-                        <li><a href="/web/guest/resources/-/wiki/Main/Help">Contact</a></li>
-                        <li><a href="/web/guest/feedback">Help</a></li>
+                        <li><a href="/web/guest/feedback">Contact</a></li>
+                        <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
                             #if ($themeDisplay.signedIn)
                                 <li><a href="/c/portal/logout">Sign out</a></li>
                                 <li><a href="/web/guest/myprofile">My profile</a></li>
