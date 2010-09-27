@@ -1099,6 +1099,39 @@ div.plansBreadcrumb {
 }
 
 .noEntries {
-    padding-top:30px;
+    padding-top:10px;
+    padding-bottom:10px;
+    background: #EDEBEA;
     text-align:center;
 }
+
+
+/* admin */
+
+table.plan-mode-select.iceSelOneRb td input, table.plan-mode-select.iceSelMnyCb td input {
+    float:left;
+    margin-top:3px;
+}
+
+table.plan-mode-select.iceSelOneRb td, table.plan-mode-select.iceSelMnyCb td {
+    text-align:left;
+    padding:5px;
+    padding-left:25px;
+    
+}
+
+table.plan-mode-select.iceSelOneRb td label, table.plan-mode-select.iceSelMnyCb td label {
+    padding-left:20px;
+    display:block;
+    margin-left: 15px;
+}
+
+.sectionContent {
+    background:#EDEBEA;
+    padding:10px;
+}
+
+.prominantButton.deletePlan {
+    width:100%;
+}
+
