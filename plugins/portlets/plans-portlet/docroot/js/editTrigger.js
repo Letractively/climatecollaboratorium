@@ -34,7 +34,7 @@ function clearEditTrigger() {
 }
 
 function loginClickCallback() {
-	showLoginPopup();
+	deferUntilLogin();
 }
 
 function joinTeamCallback() {
