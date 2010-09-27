@@ -10,10 +10,6 @@ else {
 	window.collab = {};
 }
 
-jQuery(document).ready(function() {
-    Collab.nav.block();
-});
-
 Collab = window.collab;
 
 Collab.nav = new function() {
