@@ -187,10 +187,13 @@ div.learn.filler {
 
 
 
-div.community td#column-1,
+/**
 div.othermembers td#column-1{
     border:15px  solid #E3DFD7;
 }
+
+**/
+
 div.discussion td#column-2,
 div.community td#column-2,
 div.news td#column-2,
@@ -208,16 +211,13 @@ div.news td#column-3 {
 
 }
 
-div.discussion td#column-3 {
+div.othermembers td#column-3, div.discussion td#column-3 {
 
     border-right:15px solid #E3DFD7;
      border-left:15px solid #E3DFD7;
     border-bottom:15px solid #E3DFD7;
 }
 
-div.othermembers td#column-3 {
-  border:15px solid #E3DFD7;
-}
 
 div.community td#column-4,
 div.news td#column-4 {
@@ -235,10 +235,7 @@ div.othermembers td#column-2 div{
     
 }
 
-div.community div#layout-column_column-1 {
-    padding:20px;
-    background:#F9F9F8;
-}
+
 
 ,
 div.othermembers div#layout-column_column-1 {
