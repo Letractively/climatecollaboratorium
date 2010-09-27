@@ -59,7 +59,6 @@ input[type="submit"].prominantButton.createNewPlanButton {
 
 .container_top {
     background:none repeat scroll 0 0 #F9F9F8;
-    border:15px solid #E3DFD7;
     padding:30px 30px 0
    
 }
@@ -419,10 +418,13 @@ td.contestTabSetCnt {
  *
  */
 .container_middle {
-    border:15px solid;
+    /*border:15px solid;
     border-color: #E3DFD7;
+    */
+    padding: 0px 20px;
   
 }
+
 
 table.categoryContentsTable td {
     text-align:center;
@@ -1085,10 +1087,8 @@ font-weight:normal;
 }
 
 div.plansBreadcrumb {
-    background:none repeat scroll 0 0 #E3DFD7;
     font-size:1.2em;
-    padding-left:13px;
-    padding-top:15px;
+    padding: 10px 35px;
 }
 
 
