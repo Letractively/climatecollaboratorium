@@ -112,6 +112,7 @@
 <portlet:defineObjects />
 <div class="inner">
     <c:if test="<%= ! themeDisplay.isSignedIn() %>">
+        <div class="tableSeparator">&nbsp;</div>
         <table class="loginRegisterTable">
             <tr>    
 
@@ -131,6 +132,7 @@
                 </td>
             </tr>
         </table>
+        <div class="tableSeparator">&nbsp;</div>
     </c:if>
     <c:if test="<%= themeDisplay.isSignedIn() %>">
         <table class="loginRegisterTable">
