@@ -26,49 +26,50 @@
         <tr>
             <td class="left">
                 <div class="sectionTitle">
-                    <h2>Permissions</h2>
+                    <h2>This plan can be edited by:</h2>
                 </div>
-                <p>
-                    <ice:outputText value="This plan is open (anyone can edit this plan)" rendered="#{planBean.plan.open}" />
-                    <ice:outputText value="Only team members can edit this plan" rendered="#{not planBean.plan.open}" />
-                </p>
-                <div class="center">
-                    <ice:commandButton value="Open this plan" rendered="#{not planBean.plan.open and permissions.canAdmin}"  actionListener="#{planBean.plan.toggleOpen}" />
-                    <ice:commandButton value="Close this plan" rendered="#{planBean.plan.open and permissions.canAdmin}" actionListener="#{planBean.plan.toggleOpen}" />
-                </div> 
-                
+                <div class="sectionContent" >
+                    <h3><ice:selectOneRadio value="#{planBean.plan.planMode}" layout="pageDirection" styleClass="plan-mode-select" partialSubmit="true">
+                        <f:selectItems value="#{planBean.plan.allPlanModes}"></f:selectItems>
+
+                    </ice:selectOneRadio>
+                    </h3>
+                </div>
+                <div class="clear"></div>
+
                 <div class="sectionTitle">
-                 <h2>Status</h2>
+                 <h2>This plan is:</h2>
                 </div>
-                <table>
-                    <tr>
-                    
-                        <td>
-                            <ice:outputText value="#{planBean.plan.status.description}" />
-                        </td>
-                        <f:subview rendered="#{permissions.canAdmin}">
-                            <td>
-                                <ice:commandButton value="#{planBean.plan.status == 'SUBMITTED' ? 'Withdraw submission' : 'Submit'}" actionListener="#{planBean.plan.toggleSubmitted}" />
-                            </td>
-                        </f:subview>
-                    </tr>
-                </table>
+                <div class="sectionContent">
+                    <h3>
+                        <ice:selectOneRadio value="#{planBean.plan.planStatusSelection}"  layout="pageDirection" styleClass="plan-mode-select" partialSubmit="true">
+                             <f:selectItems value="#{planBean.plan.allPlanStatusSelections}"></f:selectItems>
+                        </ice:selectOneRadio>
+                    </h3>
+                </div>
+                <div class="clear"></div>
+
                 
                 <div class="sectionTitle">
                     <h2>Ask for help:</h2>
                 </div>
-                <div class="center">
-                    <ice:selectBooleanCheckbox value="#{planBean.plan.seekingAssistance}" partialSubmit="true" />
-                    Display an indicator to other community members that you would like help with this proposal
+                <div class="sectionContent">
+                   <h3> <ice:selectManyCheckbox value="#{planBean.plan.helpStatus}" partialSubmit="true" styleClass="plan-mode-select">
+                        <f:selectItems value="#{planBean.plan.allHelpStatuses}"></f:selectItems>    
+                   </ice:selectManyCheckbox>
+                   </h3> 
                     
                 </div> 
-            
+                <div class="clear"></div>
+
             
             <ice:panelGroup rendered="#{permissions.planOwner}">
                 <div class="sectionTitle">
                     <h2>Owner actions</h2>
                 </div>
-                    <ice:commandButton value="Delete plan" rendered="#{permissions.canAdmin}"  actionListener="#{planBean.plan.delete}" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }"/>
+                <div class="sectionContent">
+                    <ice:commandButton styleClass="prominantButton deletePlan" value="Delete plan" rendered="#{permissions.canAdmin}"  actionListener="#{planBean.plan.delete}" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }"/>
+                </div>
             </ice:panelGroup>
             </td>
             <td class="right">

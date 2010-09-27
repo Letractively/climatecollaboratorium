@@ -1,12 +1,6 @@
 package org.climatecollaboratorium.plans.wrappers;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -63,6 +57,87 @@ public class PlanItemWrapper {
 
     private ThemeDisplay td = Helper.getThemeDisplay();
     private boolean deleted;
+
+    private static String[] EMPTY_ARRAY = new String[]{};
+
+    public enum PlanStatusSelection {SUBMITTED(PlanStatus.SUBMITTED,"An entry in the contest"),
+        DRAFT(PlanStatus.UNDER_DEVELOPMENT,"Just a draft");
+
+        String description;
+        PlanStatus status;
+
+        PlanStatusSelection(PlanStatus status, String description) {
+            this.description = description;
+            this.status = status;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public static PlanStatusSelection getStatus(PlanItem item) throws SystemException {
+            return PlanStatus.SUBMITTED.name().equals(item.getStatus())?SUBMITTED:DRAFT;
+        }
+
+        public void apply(PlanItem item, PlanBean bean) throws SystemException {
+
+            if (Helper.isUserLoggedIn() && !status.name().equals(item.getStatus())) {
+                item.setStatus(status.name(),Helper.getLiferayUser().getUserId());
+            }
+        }
+    }
+
+    public enum PlanMode {CLOSED("Team members only",false),OPEN("Anyone",true);
+
+        String description;
+        boolean mode;
+
+        PlanMode(String description, boolean mode) {
+                           this.description = description;
+            this.mode = mode;
+        }
+
+        public String getDescription() {
+            return description;
+
+        }
+
+        public void apply(PlanItem item, PlanBean bean) throws SystemException, PortalException {
+         if (Helper.isUserLoggedIn() && item.getOpen()!=mode) {
+            item.setOpen(mode, Helper.getLiferayUser().getUserId());
+            bean.refreshIndex();
+        }
+        }
+
+        public static PlanMode getMode(PlanItem item) throws SystemException {
+            return item.getOpen()?OPEN:CLOSED;
+        }
+    };
+
+    private static SelectItem[] openOrClosed = new SelectItem[] {
+            new SelectItem(PlanMode.OPEN.name(),PlanMode.OPEN.getDescription()),
+            new SelectItem(PlanMode.CLOSED.name(),PlanMode.CLOSED.getDescription())
+    };
+
+    private static SelectItem[] draftOrSubmitted = new SelectItem[] {
+            new SelectItem(PlanStatusSelection.DRAFT.name(),PlanStatusSelection.DRAFT.getDescription()),
+            new SelectItem(PlanStatusSelection.SUBMITTED.name(),PlanStatusSelection.SUBMITTED.getDescription())
+    };
+
+    private static SelectItem[] askForHelp = new SelectItem[] {
+            new SelectItem("help","Invite others to help with this proposal (displays an indicator in the proposal index)")
+    };
+
+    private static String[] statusValue = new String[] {askForHelp[0].getValue().toString()};
+
+
+    private boolean helpStatus = false;
+
+    private PlanStatusSelection planStatus = PlanStatusSelection.DRAFT;
+
+    private PlanMode planMode = PlanMode.CLOSED;
+
+
     
     private static Log _log = LogFactoryUtil.getLog(PlanItemWrapper.class);
     
@@ -85,6 +160,53 @@ public class PlanItemWrapper {
         
         setDescriptionSet(plan.getDescription().trim().length() != 0);
         candidateName = plan.getName();
+        planMode = PlanMode.getMode(wrapped);
+        planStatus = PlanStatusSelection.getStatus(wrapped);
+        helpStatus = wrapped.isSeekingAssistance();
+    }
+
+    public SelectItem[] getAllPlanModes() {
+        return openOrClosed;
+    }
+
+    public void setPlanMode(String mode) throws SystemException, PortalException {
+        planMode = PlanMode.valueOf(mode);
+        planMode.apply(wrapped,planBean);
+    }
+
+    public String getPlanMode() {
+       return planMode.name(); 
+    }
+
+    public SelectItem[] getAllPlanStatusSelections() {
+        return draftOrSubmitted;
+    }
+
+    public void setPlanStatusSelection(String status) throws SystemException {
+        planStatus = PlanStatusSelection.valueOf(status);
+        planStatus.apply(wrapped,planBean);
+    }
+
+    public String getPlanStatusSelection() {
+        return planStatus.name();
+    }
+
+    public SelectItem[] getAllHelpStatuses() {
+        return askForHelp;
+    }
+
+    public String[] getHelpStatus() {
+        return helpStatus?statusValue: EMPTY_ARRAY;
+    }
+
+    public void setHelpStatus(String[] s) throws SystemException, PortalException {
+       if (s.length > 0) {
+          helpStatus = true;
+       } else {
+           helpStatus = false;
+       }
+        wrapped.setSeekingAssistance(helpStatus);
+        planBean.refreshIndex();
     }
     
 
@@ -414,31 +536,8 @@ public class PlanItemWrapper {
         return UserLocalServiceUtil.getGroupUsersCount(wrapped.getPlanGroupId());
     }
     
-    public boolean isOpen() throws SystemException {
-        return wrapped.getOpen();
-    }
-    
-    public PlanStatus getStatus() throws SystemException {
-        return PlanStatus.valueOf(wrapped.getStatus());
-    }
-    
-    public void toggleSubmitted(ActionEvent e) throws SystemException {
-        if (Helper.isUserLoggedIn()) {
-            PlanStatus status = getStatus();
-            String newStatus = PlanStatus.UNDER_DEVELOPMENT.name();
-            if (status == PlanStatus.UNDER_DEVELOPMENT) {
-                newStatus = PlanStatus.SUBMITTED.name();
-            }
-            wrapped.setStatus(newStatus, Helper.getLiferayUser().getUserId());
-        }
-    }
-    
-    public void toggleOpen(ActionEvent e) throws SystemException, PortalException {
-        if (Helper.isUserLoggedIn()) {
-            wrapped.setOpen(! wrapped.getOpen(), Helper.getLiferayUser().getUserId());
-            planBean.refreshIndex();
-        }       
-    }
+
+
     
     public Long getPlanGroupId() throws SystemException {
         return wrapped.getPlanGroupId();
