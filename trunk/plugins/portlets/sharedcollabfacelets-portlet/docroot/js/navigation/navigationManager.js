@@ -88,7 +88,7 @@ Collab.nav = new function() {
 	
 	this.block = function() {
 		if (isDocumentReady) {
-			jQuery("#mainContent").block({message: "<center><img src='/collaboratorium-theme/images/ajax-loader.gif' /></center>"});
+			//jQuery("#mainContent").block({message: "<center><img src='/collaboratorium-theme/images/ajax-loader.gif' /></center>"});
 		}
 	}
 	
