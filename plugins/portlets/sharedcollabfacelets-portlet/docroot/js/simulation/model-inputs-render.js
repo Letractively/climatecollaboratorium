@@ -76,7 +76,7 @@ function disableRunButton() {
 		runSimulationOnclick = jQuery(".runSimulationButton").attr('onclick');
 	}
 	jQuery(".runSimulationButton").unbind("click");
-	jQuery(".runSimulationButton").attr('onclick', function() {return false;});
+	jQuery(".runSimulationButton").attr('onclick', "return false;");
 	jQuery(".runSimulationButton").addClass('prominantButton-dis');
 	jQuery(".runSimulationButton").removeClass('prominantButton');
 }
@@ -295,7 +295,6 @@ function renderSingleChart(chartDef) {
 		
 
 		var errorMessages = [];
-		
 		if (jQuery.trim(globalInvalidMessage) != "" && seriesWithInvalidError.length > 0) {
 			var msg = globalInvalidMessage.replace("%outputs", seriesWithInvalidError.join(", "));
 			errorMessages.push(msg);
@@ -368,6 +367,7 @@ function renderSingleChart(chartDef) {
 				var seriesType = jQuery(this).find(".seriesType").val();
 
 				var chartVals = [];
+				
 				for (var i = 0; i < val.length; i++) {
 					if (isNaN(parseFloat(val[i][0])) || isNaN(parseFloat(val[i][1]))) {
 						continue;
@@ -458,6 +458,10 @@ function renderSingleChart(chartDef) {
 			var valConf1 = valuesById[confIntervalById[x][0]];
 			var valConf2 = valuesById[confIntervalById[x][1]];
 			var intervalVal = [];
+
+			if (typeof(valMain) == 'undefined') {
+				continue;
+			}
 			for (var i = 0; i < valMain.length; i++) {
 				//intervalVal[i] = [valMain[i][0], valConf2[1], valMain[i][1], valConf1[1]];
 				intervalVal[i] = [valMain[i][0], valConf1[i][1], valConf2[i][1], valMain[i][1]];
@@ -467,6 +471,7 @@ function renderSingleChart(chartDef) {
 			series.push({showMarker: false, showLabel: false, 
 				renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
 		}
+
 		if (values.length > 0) {
             //log.debug(chartTitle+":"+series+":"+values);
 			var plot = jQuery.jqplot(chartPlaceholderId, values, 
@@ -482,9 +487,10 @@ function renderSingleChart(chartDef) {
 					yoffset :280,
 					xoffset:0
 				}
-			});
+			}); 
 			
 		}
+		
 		for (var i=0; i < errorMessages.length; i++) {
 			errorMessagesPlaceholder.append("<li>" + errorMessages[i] + "</li>");
 		}
@@ -507,6 +513,12 @@ function renderSingleChart(chartDef) {
 
 	} catch (e) {
 		if (debug) {
+			var msg = "";
+			
+			for (var key in e) {
+				msg += key + ": " + e[key] + "\n";
+			}
+				
 			alert("Error 3"+e);
 		}
         //log.error(e);

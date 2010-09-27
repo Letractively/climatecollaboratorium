@@ -1,10 +1,19 @@
+var isDocumentReady = false;
+
+jQuery(document).ready(function() {
+    isDocumentReady = true;
+});
+
 if (window.collab) {
 }
 else {
 	window.collab = {};
 }
 
-jQuery.growlUI();
+jQuery(document).ready(function() {
+    Collab.nav.block();
+});
+
 Collab = window.collab;
 
 Collab.nav = new function() {
@@ -82,11 +91,20 @@ Collab.nav = new function() {
 	}
 	
 	this.block = function() {
-		jQuery("#mainContent").block({message: "<center><img src='/collaboratorium-theme/images/ajax-loader.gif' /></center>"});
+		if (isDocumentReady) {
+			jQuery("#mainContent").block({message: "<center><img src='/collaboratorium-theme/images/ajax-loader.gif' /></center>"});
+		}
 	}
 	
 	this.unblock = function() {
-		jQuery("#mainContent").unblock();
+        if (isDocumentReady) {
+    		jQuery("#mainContent").unblock();
+        }
+        else {
+            jQuery(document).ready(function() {
+                jQuery("#mainContent").unblock();
+            });
+        }
 	}
 
 	function forceNavigation() {
