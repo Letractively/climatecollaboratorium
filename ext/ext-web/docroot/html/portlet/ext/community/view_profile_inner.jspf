@@ -115,7 +115,7 @@
         function <portlet:namespace />showSendMessagePopup() {
         	jQuery('#sendMessagePopup span.error').html('');
         	jQuery('#sendMessagePopup input, #sendMessagePopup textarea').val('');
-            _user_info_showDialog("sendMessagePopup",{width:555,height:400});
+            <portlet:namespace />showDialog("sendMessagePopup",{width:555,height:400});
         }
 
         function <portlet:namespace/>sendUserMessage() {
