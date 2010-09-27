@@ -12,40 +12,7 @@
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery/jquery.css?tt=$themeTimestamp" media="all" />
 
     #if ($page.getName($locale).toLowerCase().replaceAll("\s","") != 'home')
-    <link href="/collaboratorium-theme/css/skin.css&tt=$themeTimestamp" rel="stylesheet" type="text/css" />
 
-	<!-- External CSS -->
-	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/skin.css?tt=$themeTimestamp" media="all" />
-	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/base.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/application.css?tt=$themeTimestamp" media="all" />
-    
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/layout.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/navigation.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/portlet.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/portlets-common.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/forms.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/custom.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/autoSuggest.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/messaging.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/icons.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/dialog.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/skin.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/my_header.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/plans.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wall.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/profile.css?tt=$themeTimestamp" media="all" />
-     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/community.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/model.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/debate.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/feedback.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wiki.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/web-content-skin.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/safari.css?tt=$themeTimestamp" media="all" />
-    
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" media="all" />
-    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery.tooltip.css?tt=$themeTimestamp" media="all" />
-	
 
 #if (false)
 	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen-ie6.css?tt=$themeTimestamp" media="all" />
@@ -57,9 +24,14 @@
 	
         
 	#end
+        <link rel="stylesheet" href="/collaboratorium-theme/css/forms.css?tt=$themeTimestamp" type="text/css" />
         <link rel="stylesheet" href="/collaboratorium-theme/css/moth_additional_styles.css?tt=$themeTimestamp" type="text/css" />
+        <link rel="stylesheet" href="/collaboratorium-theme/css/pages/main.css?tt=$themeTimestamp" type="text/css" />
         <link rel="stylesheet" href="/collaboratorium-theme/css/style.css?tt=$themeTimestamp" type="text/css" />
+        <link rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" type="text/css" />
         <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/loginregister.css?tt=$themeTimestamp" media="all" />
+        <!--[if IE]><script type="text/javascript" src="/collaboratorium-theme/javascript/excanvas.js"></script><![endif]-->
+        
         
         <script type="text/javascript" src="http://use.typekit.com/uvv6okq.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -99,18 +71,23 @@
         </div> <!-- /.contentContainer -->
         
 	</div> <!-- /#wrapper -->
-</body>
+	
 $theme.include($bottom_include)
 
 <script type="text/javascript">
+/* <![CDATA[ */
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+/* ]]> */
 </script>
 <script type="text/javascript">
+/* <![CDATA[ */
     try {
         var pageTracker = _gat._getTracker("UA-11944310-1");
         pageTracker._trackPageview();
     } catch(err) {}
+/* ]]> */
 </script>
-
+	
+</body>
 </html>
