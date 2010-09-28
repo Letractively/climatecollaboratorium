@@ -36,11 +36,10 @@
 </portlet:actionURL>
 
 <h3 class="boxTitle">You have already an account? Log In!</h3>
-        
-<liferay-ui:error exception="<%= AuthException.class%>" message="Authentication failed"></liferay-ui:error>
 <form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />login" id='<portlet:namespace />loginForm'>
 	<input name="<portlet:namespace />redirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>" id='<portlet:namespace />loginRedirect'/>
 	<input id="<portlet:namespace />rememberMe" name="<portlet:namespace />rememberMe" type="hidden" value="<%= rememberMe %>" />
+    <input id="<portlet:namespace />source" name="<portlet:namespace />source" type="hidden" value="login" />
 
 	<c:if test='<%= SessionMessages.contains(request, "user_added") %>'>
 
@@ -61,6 +60,15 @@
 		</span>
 	</c:if>
     <table>
+        <tr class="row">
+            <td colspan="2">
+                <c:if test="${isLoggingIn}">
+                    <liferay-ui:error exception="<%= AuthException.class%>" message="Authentication failed"></liferay-ui:error>
+                    <liferay-ui:error exception="<%= UserPasswordException.class %>" message="Authentication failed"></liferay-ui:error>
+                    <liferay-ui:error exception="<%= UserScreenNameException.class %>" message="Invalid screen name" />
+                </c:if>
+            </td>
+        </tr>
         <tr class="row">
             <td>
 		          <label class="lable" for="<portlet:namespace />login">Screen name:</label>

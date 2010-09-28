@@ -15,7 +15,15 @@
  */
 %>
 <%@ include file="/html/portlet/login/init.jsp" %>
+ <portlet:defineObjects />
+ 
 <%
+    boolean isLoggingIn = ParamUtil.getString(renderRequest, "source", "login").equals("login");
+    pageContext.setAttribute("isLoggingIn", isLoggingIn);
+    pageContext.setAttribute("isRegistering", !isLoggingIn);
+    
+    
+
     String redirect = ParamUtil.getString(renderRequest, "redirect");
 	List<Role> userRoles = RoleServiceUtil.getUserRoles(user.getUserId());
 	boolean isAdmin = false;
@@ -64,7 +72,6 @@
 	loginErrors.put(UserScreenNameException.class.getName(), "please-enter-a-valid-screen-name");
 	
 	
-	boolean isLoggingIn = ParamUtil.getBoolean(request, "isLoggingIn");
 	boolean isRegistering = ParamUtil.getBoolean(request, "isRegistering");
     boolean isForgotPassword = ParamUtil.getBoolean(request, "isForgotPassword");
 	String error = null;
@@ -80,6 +87,9 @@
             }
         }
     }
+    
+    String key = (String)request.getAttribute("liferay-ui:error:key");
+    String message = (String)request.getAttribute("liferay-ui:error:message");
  %>
 <script type="text/javascript">
      <%@ include file="/html/js/collaboratorium/cookies.js" %>
@@ -109,7 +119,6 @@
 	</div>
 	
 </c:if>
-<portlet:defineObjects />
 <div class="inner">
     <c:if test="<%= ! themeDisplay.isSignedIn() %>">
         <div class="tableSeparator">&nbsp;</div>

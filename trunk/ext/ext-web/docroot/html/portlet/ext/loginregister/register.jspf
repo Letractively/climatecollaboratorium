@@ -28,7 +28,6 @@
 
     boolean male = BeanParamUtil.getBoolean(contact2, request, "male", true);
 %>
-
 <portlet:actionURL var="submitURL">
     <portlet:param name="saveLastPath" value="<%= String.valueOf(isRegistering ? 0 : 1) %>"/>
     <portlet:param name="struts_action" value="/ext/loginregister/create_account"/>
@@ -46,6 +45,7 @@
 <h3 class="boxTitle">You don't have an account? Register!</h3>
 
 <form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />register">
+    <input id="<portlet:namespace />source" name="<portlet:namespace />source" type="hidden" value="register" />
 
     <script type="tezt/javascript">
         jQuery(document).ready(function() {
@@ -75,7 +75,9 @@
                 <table>
                     <c:if test="<%= !PropsValues.USERS_SCREEN_NAME_ALWAYS_AUTOGENERATE %>">
                         <tr><td colspan="3">
-                            <liferay-ui:error exception="<%= UserScreenNameException.class %>" message="Invalid user name" />
+                            <c:if test="${isRegistering}">
+                                <liferay-ui:error exception="<%= UserScreenNameException.class %>" message="Invalid user name" />
+                            </c:if>
                         </td></tr>
                         <tr>
                             <td><label class="lable"><liferay-ui:message key="screen-name"/></label>
@@ -90,7 +92,10 @@
 
                     <tr>
                         <td colspan="3">
-                            <liferay-ui:error exception="<%= UserEmailAddressException.class %>" message="Invalid email address" />
+                            <c:if test="${isRegistering}">
+                                <liferay-ui:error exception="<%= UserEmailAddressException.class %>" message="Invalid email address" />
+                                <liferay-ui:error exception="<%=DuplicateUserEmailAddressException.class %>" message="Email address alread in use" />
+                            </c:if>
                         </td>
                     </tr>
                     
@@ -124,7 +129,9 @@
                     <c:if test="<%= PropsValues.LOGIN_CREATE_ACCOUNT_ALLOW_CUSTOM_PASSWORD %>">
                         <tr>
                             <td colspan="3">
-                                <liferay-ui:error exception="<%= UserPasswordException.class %>" message="Invalid password" />
+                                <c:if test="${isRegistering}">
+                                    <liferay-ui:error exception="<%= UserPasswordException.class %>" message="Invalid password" />
+                                </c:if>
                             </td>
                         </tr>
                         <tr>
@@ -157,7 +164,10 @@
                     <!--
                     <c:if test="<%= PropsValues.CAPTCHA_CHECK_PORTAL_CREATE_ACCOUNT %>">
                         <tr><td colspan="3">
-                            <liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
+                        
+                            <c:if test="${isRegistering}">
+                                <liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
+                            </c:if>
                         </td></tr>
                         <tr>
                             <portlet:actionURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>"
@@ -172,7 +182,9 @@
                         <!-- recaptcha -->
                         
                         <tr><td colspan="3">
-                            <liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
+                            <c:if test="${isRegistering}">
+                                <liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
+                            </c:if>
                         </td></tr>
                         <tr><td colspan="3">
                             <script type="text/javascript">
