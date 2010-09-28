@@ -51,6 +51,9 @@ public class NavigationBean {
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
         planBean.setEventBus(eventBus);
+        plansIndexBean.setEventBus(eventBus);
+        contestsBean.setEventBus(eventBus);
+        createPlanBean.setEventBus(eventBus);
         bindEvents();
     }
 

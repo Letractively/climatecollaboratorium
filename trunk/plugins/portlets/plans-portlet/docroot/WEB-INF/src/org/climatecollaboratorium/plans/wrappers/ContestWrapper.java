@@ -19,6 +19,7 @@ import com.liferay.portal.SystemException;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.plans.PlansIndexBean;
 
 import java.util.*;
@@ -37,6 +38,7 @@ public class ContestWrapper {
     private EditContestBean editor;
     private String debatesIdsStr = null;
     private PlansIndexBean plansIndex;
+    private EventBus eventBus;
     
 
 
@@ -214,6 +216,11 @@ public class ContestWrapper {
     
     public PlansIndexBean getPlansIndex() {
         return plansIndex;
+    }
+
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        plansIndex.setEventBus(eventBus);
     }
     
 }

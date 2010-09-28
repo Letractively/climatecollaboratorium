@@ -8,8 +8,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.plans.*;
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
+import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
 
 import com.ext.portlet.PlanStatus;
 import com.ext.portlet.Activity.ActivityUtil;
@@ -59,6 +61,8 @@ public class PlanItemWrapper {
     private boolean deleted;
 
     private static String[] EMPTY_ARRAY = new String[]{};
+    
+    private EventBus eventBus;
 
     public enum PlanStatusSelection {SUBMITTED(PlanStatus.SUBMITTED,"An entry in the contest"),
         DRAFT(PlanStatus.UNDER_DEVELOPMENT,"Just a draft");
@@ -256,6 +260,9 @@ public class PlanItemWrapper {
                 message.setSeverity(FacesMessage.SEVERITY_INFO);
                 message.setSummary("Name changed.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
+                
+                eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
+                //planBean.refreshIndex();
             }
             
         }
@@ -356,6 +363,7 @@ public class PlanItemWrapper {
             }
             
         });
+        System.out.println("plan Versions size: " + planVersions.size());
         return planVersions;
     }
     
@@ -555,6 +563,10 @@ public class PlanItemWrapper {
 
     public void modelChanged() {
         currentPlanModelRunVersion = null;
+    }
+    
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 
 }

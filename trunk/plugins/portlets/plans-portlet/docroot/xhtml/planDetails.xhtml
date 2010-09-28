@@ -59,13 +59,12 @@
                                     </script>
                                 </ice:panelGroup>
                                
-                                <h2><ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput'
-                                               onchange="jQuery(this).addClass('valueChanged');">
+                                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput'
+                                               onchange="jQuery(this).addClass('valueChanged');" required="true" label="Name">
                                     <f:attribute name="plan" value="#{plan}"/>
                                     <f:validator validatorId="planNameValidator"/>
                                     <f:attribute name="planName" value="#{plan.plan.name}" />
                                 </ice:inputText>
-                                </h2>
 
                                 <div class="actions">
                                     <ice:commandButton actionListener="#{plan.plan.saveName}"  value="Save"/>&amp;nbsp;&amp;nbsp;

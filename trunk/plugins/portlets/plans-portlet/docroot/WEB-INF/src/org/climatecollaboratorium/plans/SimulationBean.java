@@ -54,6 +54,11 @@ public class SimulationBean {
             public void onEvent(ScenarioSavedEvent arg0) {
                 if (Helper.isUserLoggedIn()) {
                     try {
+                        if (arg0.getScenario() == null) {
+                            editing = false;
+                            saved = false;
+                            return;
+                        }
                         plan.setScenarioId(arg0.getScenario().getId(), Helper.getLiferayUser().getUserId());
                         //System.out.println("Scenario id: " + arg0.getScenario().getId());
 
