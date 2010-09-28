@@ -209,8 +209,13 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
         }
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
-
+        
+        /* flush the cache... */
         PlanItemModelImpl planItemModelImpl = (PlanItemModelImpl) planItem;
+        
+        Object[] finderArgs = new Object[] { planItemModelImpl.getOriginalPlanId() };
+        FinderCacheUtil.removeResult(FINDER_PATH_FIND_BY_ALLBYPLANID, finderArgs);
+
 
         FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANID,
             new Object[] { planItemModelImpl.getOriginalPlanId() });
@@ -301,6 +306,9 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
                     planItemModelImpl.getOriginalPlanId()))) {
             FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANID,
                 new Object[] { planItemModelImpl.getOriginalPlanId() });
+
+            Object[] finderArgs = new Object[] { planItemModelImpl.getOriginalPlanId() };
+            FinderCacheUtil.removeResult(FINDER_PATH_FIND_BY_ALLBYPLANID, finderArgs);
         }
 
         if (isNew ||
@@ -308,6 +316,9 @@ public class PlanItemPersistenceImpl extends BasePersistenceImpl
                     planItemModelImpl.getOriginalPlanId()))) {
             FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
                 new Object[] { planItem.getPlanId() }, planItem);
+
+            Object[] finderArgs = new Object[] { planItemModelImpl.getOriginalPlanId() };
+            FinderCacheUtil.removeResult(FINDER_PATH_FIND_BY_ALLBYPLANID, finderArgs);
         }
 
         return planItem;
