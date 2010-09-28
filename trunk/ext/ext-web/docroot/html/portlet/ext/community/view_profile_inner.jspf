@@ -279,7 +279,7 @@
                 </form>
                 <div class="clear"></div>
                  <c:if test="<%=editEnabled%>">
-
+                    <liferay-ui:error exception="<%= com.liferay.portal.UserPasswordException.class %>" message="Provided values do not match" />
                     <div id="changePassword" class="floatRight changePassword informationView" style="display:none">
                         <div class="password-change-link">
                             <a href="javascript:setPasswordMode(true)">Change password</a>

@@ -21,8 +21,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.ext.portlet.plans.PlanConstants;
+import com.liferay.portal.UserPasswordException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -67,8 +69,17 @@ public class EditProfileAction extends PortletAction {
 					actionRequest, CommunityConstants.PASSWORD2);
 			
 			
-			
-			UserServiceUtil.updatePassword(userId, newPassword1, newPassword2, false);
+			try {
+			    UserServiceUtil.updatePassword(userId, newPassword1, newPassword2, false);
+			}
+			catch (Exception e) {
+			    if (e instanceof UserPasswordException) {
+			        SessionErrors.add(actionRequest, UserPasswordException.class.getName());
+			    }
+			    else {
+			        throw e;
+			    }
+			}
 			PortletSession portletSession =
 				actionRequest.getPortletSession();
 

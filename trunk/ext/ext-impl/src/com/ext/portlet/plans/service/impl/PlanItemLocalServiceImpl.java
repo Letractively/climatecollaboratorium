@@ -17,6 +17,7 @@ import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
+import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.PlanLocalServiceHelper;
@@ -251,7 +252,17 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         description.store();
 
         // copy scenario id
-        planModelRun.setScenarioId(basePlan.getScenarioId());
+        // check if there is a scenario with given ID
+        try {
+            if (CollaboratoriumModelingService.repository().getScenario(basePlan.getScenarioId()) != null) {
+                planModelRun.setScenarioId(basePlan.getScenarioId());
+            
+            }
+        }
+        catch (Throwable e) {
+            // ignore, no such scenario
+            _log.error("Can't find scenario with id: " + basePlan.getScenarioId(), e);
+        }
         planModelRun.store();
 
         // copy positions
