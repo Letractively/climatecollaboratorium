@@ -213,7 +213,9 @@ public class SimulationBean {
     }
 
     public void saveScenario(ActionEvent e) throws ScenarioNotFoundException, IOException, SystemException {
-        SimulationsHelper.getInstance().saveScenario(scenario);
+        if (scenario != null) {
+            SimulationsHelper.getInstance().saveScenario(scenario);
+        }
         embeddedEditing = false;
         eventBus.fireEvent(new ScenarioSavedEvent(scenario));
     }

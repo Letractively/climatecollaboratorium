@@ -110,7 +110,6 @@ function processUserInput(newVal, unit, min, max, id) {
 		showInputsErrorMsg("Invalid value entered, provide value between " + min + " and " + max);
 		return false;
 	}
-	alert('input ok: ' + newVal + "\t" + newValParsed);
 	return true;
 }
 
