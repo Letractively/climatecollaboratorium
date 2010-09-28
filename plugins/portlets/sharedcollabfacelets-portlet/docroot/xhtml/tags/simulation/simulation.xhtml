@@ -8,7 +8,9 @@
     <collab:simulationSupport simulationBean="#{simulationBean}" scenarioId="#{scenarioId}" simulationId="#{simulationId}" editActions="#{editActions}">
         <table class="simulation">
             <tr>
-                <td></td>
+                <td>
+                    <div class="center inputsErrors hidden"><span class="portlet-msg-error"></span></div>
+                </td>
                 <td>
                     <ice:panelGroup rendered="#{showRunButton}" >
                         <table class="simButtons">

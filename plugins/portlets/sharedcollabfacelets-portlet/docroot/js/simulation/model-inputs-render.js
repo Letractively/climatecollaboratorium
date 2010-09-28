@@ -10,6 +10,7 @@
 
 //setTimeout(function() { log.toggle(); }, 1000);
 var debug = false;
+var inputValues = {};
 function renderModelInputs(event) {
 	showSliders();
 }
@@ -51,7 +52,7 @@ function formatFieldValue(value, unit, dataType) {
 function parseFieldValue(value, unit) {
 	if (unit.toLowerCase().indexOf("percent") >= 0 || unit.toLowerCase().indexOf("%") >= 0) {
 		//return parseFloat(value.replace("%")) / 100;
-		return parseFloat(value.replace("%"));
+		return value.replace("%", '');
 
     }
 	return value;
@@ -82,6 +83,37 @@ function disableRunButton() {
 }
 
 
+function showInputsErrorMsg(msg) {
+	jQuery(".inputsErrors span").text(msg);
+	jQuery(".inputsErrors").show();
+	setTimeout(function() {jQuery(".inputsErrors").hide()}, 5000);
+}
+/**
+ * returns true if value is valid, false otherwise, 
+ * @param newVal
+ * @param unit
+ * @param min
+ * @param max
+ * @param id
+ * @return
+ */
+function processUserInput(newVal, unit, min, max, id) {
+	var oldVal = inputValues[id];
+	var newValParsed = parseFieldValue(newVal, unit);
+	if (! /^[0-9]*$/g.test(isNaN(newValParsed))) {
+		showInputsErrorMsg("Invalid value entered, provide value between " + min + " and " + max);
+		return false;
+	}
+	
+	var newValFloat = parseFloat(newValParsed);
+	if (newValFloat < min || newValFloat > max) {
+		showInputsErrorMsg("Invalid value entered, provide value between " + min + " and " + max);
+		return false;
+	}
+	alert('input ok: ' + newVal + "\t" + newValParsed);
+	return true;
+}
+
 function showSliders() {
    
 	var msg = "";
@@ -97,6 +129,7 @@ function showSliders() {
 
 	jQuery(".sliderDef").each(function() {
 		var min = parseFloat(jQuery(this).find(".min").text());
+		var id = jQuery(this).find(".id").text();
 		var max = parseFloat(jQuery(this).find(".max").text());
 		var defaultVal = parseFloat(jQuery(this).find(".default").text());
 		var dataType = jQuery(this).find(".dataType").text();
@@ -129,15 +162,20 @@ function showSliders() {
 
         var valueBinding = jQuery(this).find('.valueBinding');
 
+		inputValues[id] = valueField.val();
 		if (type != "SLIDER") {
             valueField.change(function(e,ui) {
-               // alert("Copy value "+valueField.val()+" to "+valueBinding);
-               valueBinding.val(parseFieldValue(valueField.val(),unit));
-               oneOfValuesChangedEvent();
+            	if (!processUserInput(valueField.val(), unit, min, max, id)) {
+            		valueField.val(inputValues[id]);
+            	}
+            	else {
+            		valueBinding.val(parseFieldValue(valueField.val(), unit));
+            		inputValues[id] = parseFieldValue(valueField.val(), unit);
+            		oneOfValuesChangedEvent();
+            	}
             });
 			return;
 		}
-
 		var slider = jQuery(this).find(".slider");
 		var sliderStep = (max-min)/(sliderMax - sliderMin);
 
@@ -149,11 +187,14 @@ function showSliders() {
 			min: sliderMin,
 			max: sliderMax, 
 			slide: function(event, ui) {
+				
 				if (isInteger(dataType)) {
 					valueField.val(formatFieldValue(ui.value, unit,null));
+	        		inputValues[id] = formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null);
 				}
 				else if (isDouble(dataType)) {
 					valueField.val(formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null));
+	        		inputValues[id] = formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null);
 				}
 
             	valueBinding.val(valueField.val());
@@ -175,7 +216,19 @@ function showSliders() {
 		}
 		slider.slider("option", "value", sliderVal);
 
-		valueField.change(function() {
+		valueField.change(function(eventObject) {
+			
+			if (!processUserInput(valueField.val(), unit, min, max, id)) {
+				// value is invalid
+        		valueField.val(inputValues[id]);
+        		return;
+        	}
+        	else {
+        		// value is ok
+        		valueBinding.val(parseFieldValue(valueField.val(), unit));
+        		inputValues[id] = parseFieldValue(valueField.val(), unit);
+        	}
+
 			var sliderVal = parseFieldValue(valueField.val(), unit);
 			valueField.val(formatFieldValue(sliderVal, unit,dataType));
 
