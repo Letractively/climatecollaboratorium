@@ -57,17 +57,19 @@
                     <td>
                         <ice:outputLabel value="Add your comment here:"/>
                         <ice:message styleClass="validationError" id="contentError" for="content"/>
+                        <ice:message styleClass="validationError" id="contentErrorRequired" for="commentRequired" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <ice:inputTextarea id="content" styleClass="commentContent" value="#{editDebateComment.content}" />
+                        <ice:inputTextarea id="content" styleClass="commentContent" value="#{editDebateComment.content}" label="Comment" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="buttonsContainer">
-                            <ice:commandButton value="Add" onclick="if(!deferUntilLogin()) return false;" actionListener="#{editDebateComment.save}"/>
+                            <ice:commandButton value="Add" onclick="if(!deferUntilLogin()) return false;" actionListener="#{editDebateComment.save}">
+                            </ice:commandButton>
                         </div>
                         <div class="clear"></div>
                     </td>

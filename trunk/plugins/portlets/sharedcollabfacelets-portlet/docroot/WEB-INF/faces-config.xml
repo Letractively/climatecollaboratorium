@@ -128,4 +128,8 @@
 		<managed-bean-class>org.climatecollaboratorium.facelets.debates.DebatesDetailsBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+    <validator>
+        <validator-id>requiredFieldsValidator</validator-id>
+        <validator-class>org.climatecollaboratorium.validators.RequiredFieldValidator</validator-class>
+    </validator>
 </faces-config>

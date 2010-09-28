@@ -9,6 +9,9 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.debates.activity.DebateActivityKeys;
@@ -45,6 +48,20 @@ public class EditDebateCommentBean {
     }
 
     public void save(ActionEvent event) throws SystemException, PortalException {
+        if (content.trim().length() == 0) {
+            // here is "required" validation for comment content
+            // it has to be done that way because we can't user "required" attribute of inputTextarea
+            // as we are embedding entire debate in existing form thus each button would force
+            // validation
+            UIComponent contentInput = event.getComponent().getParent().findComponent("content");
+            
+            FacesMessage fm = new FacesMessage();
+            fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fm.setDetail("Comment is required");
+            
+            FacesContext.getCurrentInstance().addMessage(contentInput.getClientId(FacesContext.getCurrentInstance()), fm);
+            return;
+        }
         if (permissions.getCanAddComment()) {
             debateDetailsBean.getSelectedDebateItem().getItem().addComment(title, content, Helper.getLiferayUser().getUserId());
             title = "";
