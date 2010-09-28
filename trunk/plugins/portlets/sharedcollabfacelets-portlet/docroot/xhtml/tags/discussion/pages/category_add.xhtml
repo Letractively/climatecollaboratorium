@@ -13,10 +13,15 @@
     <ui:define name="discussion_content">
         <ice:panelGroup styleClass="newMessageForm">
             <ice:outputLabel for="categoryName" value="Name" /><br />
-            <ice:inputText id="categoryName" value="#{discussionBean.newCategory.title}" styleClass="title text" /><br />
+            <ice:inputText id="categoryName" value="#{discussionBean.newCategory.title}" styleClass="title text" maxlength="255" >
+                <f:attribute name="categoryGroupId" value="#{discussionBean.discussionId}" />
+            </ice:inputText>
+            <br />
+            <ice:message for="categoryName" />
         
             <ice:outputLabel for="categoryDescription" value="Description" /><br />
             <ice:inputTextarea id="categoryDescription"  value="#{discussionBean.newCategory.description}" styleClass="description text"/><br />
+            <ice:message for="categoryDescription" />
             <ice:commandButton value="Add" actionListener="#{discussionBean.newCategory.save}" />    
             <ice:commandButton value="Cancel" actionListener="#{discussionBean.changePageType}">
                 <f:attribute name="pageType" value="CATEGORIES" />

@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.component.UIInput;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
@@ -12,6 +13,8 @@ import org.climatecollaboratorium.facelets.discussions.activity.DiscussionActivi
 import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
 import org.climatecollaboratorium.utils.HumanTime;
+import org.climatecollaboratorium.validation.CategoryNameValidator;
+import org.climatecollaboratorium.validation.ValueRequiredValidator;
 
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
 import com.ext.portlet.discussions.model.DiscussionMessage;
@@ -36,6 +39,7 @@ public class MessageWrapper {
     private boolean editing;
     private String filteredDescription;
     private boolean goTo;
+    private boolean added = false;
     
     public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category, DiscussionBean discussionBean) {
         this.category = category;
@@ -70,7 +74,7 @@ public class MessageWrapper {
         return title;
     }
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.substring(0, Math.min(255, title.length()));
     }
     public String getDescription() {
         return description;
@@ -111,9 +115,19 @@ public class MessageWrapper {
     }
     
     public void save(ActionEvent e) throws SystemException, PortalException {
-        if (discussionBean.getPermissions().getCanAddThread()) {
+        if (!added && discussionBean.getPermissions().getCanAddThread()) {
+
+            UIInput messageInput = (UIInput) e.getComponent().getParent().findComponent("messageContent"); 
+            UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("messageTitle"); 
+            if (!ValueRequiredValidator.validateComponent(nameInput) || 
+                    !ValueRequiredValidator.validateComponent(messageInput)) {
+                return;
+            }
+            
+            
             category = discussionBean.getCategoryById(categoryId);
             wrapped = category.getWrapped().addThread(title, description, Helper.getLiferayUser());
+            added = true;
             category.threadAdded(this);
             newMessage = new MessageWrapper(this);
             filteredDescription = ContentFilterHelper.filterContent(description);
@@ -127,8 +141,17 @@ public class MessageWrapper {
     }
     
     public void addMessageToThread(ActionEvent e) throws SystemException, PortalException {
-        if (discussionBean.getPermissions().getCanAddMessage()) {
+        if (!added && discussionBean.getPermissions().getCanAddMessage()) {
+
+            UIInput messageInput = (UIInput) e.getComponent().getParent().findComponent("messageContent"); 
+            UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("messageTitle"); 
+            if (!ValueRequiredValidator.validateComponent(nameInput) || 
+                    !ValueRequiredValidator.validateComponent(messageInput)) {
+                return;
+            }
+            
             wrapped = thread.getWrapped().addThreadMessage(title, description, Helper.getLiferayUser());
+            added = true;
             thread.addMessage(this);
             filteredDescription = ContentFilterHelper.filterContent(description);
             Helper.sendInfoMessage("Message \"" + title + "\" has been added.");
@@ -141,6 +164,15 @@ public class MessageWrapper {
     
     public void updateMessage(ActionEvent e) throws SystemException {
         if (discussionBean.getPermissions().getCanAdminMessages()) {
+
+            UIInput messageInput = (UIInput) e.getComponent().getParent().findComponent("messageContent"); 
+            UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("messageTitle"); 
+            if (!ValueRequiredValidator.validateComponent(nameInput) || 
+                    !ValueRequiredValidator.validateComponent(messageInput)) {
+                return;
+            }
+            
+            
             wrapped.update(title, description);
             filteredDescription = ContentFilterHelper.filterContent(description);
             editing = false;

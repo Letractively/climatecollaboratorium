@@ -365,8 +365,8 @@
   }
 
   .layoutPanel .Center {
-	  width: 10px;
-      border: 1px solid #EDEDED;
+	  width: 1px;
+      border: 1px solid #DEDEDE;
 	  
   }
 
@@ -376,7 +376,7 @@
 
   .layoutPanel .East {
       padding: 0px;
-      background-color: #EDEDED;
+      background-color: #BABABA;
       width: 530px;
       height: 100%;
   }
@@ -460,7 +460,7 @@ p.debateDetailsOutput span {
 
 .commentDetails {
     margin-top: 12px;
-    background: #ffffff;
+    background: #EAEAEA;
     padding: 10px;
 
 }

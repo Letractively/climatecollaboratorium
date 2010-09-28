@@ -61,13 +61,20 @@
                 
                 <ice:panelGroup rendered="#{category.editing}" styleClass="newMessageForm">
                     <ice:outputLabel for="categoryName" value="Name: " /><br />
-                    <ice:inputText id="categoryName" value="#{category.title}" styleClass="title text"/><br />
+                    <ice:inputText id="categoryName" value="#{category.title}" styleClass="title text" maxlength="255">
+                        <f:attribute name="categoryGroupId" value="#{discussionBean.discussionId}" />
+                        <f:attribute name="categoryId" value="#{category.id}" />
+                    </ice:inputText>
+                    <br />
+                    
+                    <ice:message for="categoryName" />
         
                     <ice:outputLabel for="categoryDescription" value="Description: " /><br />
                     <ice:inputTextarea id="categoryDescription"  value="#{category.description}" styleClass="description text"/><br />
+                    <ice:message for="categoryDescription" />
         
                     <ice:commandButton actionListener="#{category.update}" value="Save" />
-                    <ice:commandButton actionListener="#{category.toggleEdit}" value="Cancel" />
+                    <ice:commandButton actionListener="#{category.toggleEdit}" value="Cancel"/>
                 </ice:panelGroup>    
             </ice:panelSeries>
             <ice:panelGroup rendered="#{fn:length(discussionBean.categories) ne 0}">
