@@ -5,7 +5,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces"
-    xmlns:collab_comps="http://climatecollaboratorium.org/components">
+    xmlns:sharedcollab="http://climatecollaboratorium.org/components">
     <collab:debateSupport debateBean="#{debateBean}" debateId="#{debateId}" >
         <ice:panelGroup rendered="#{empty debateBean.debate}">
             Nothing to see here.
@@ -43,8 +43,7 @@
                         <div class="clear"></div>
                     </div>
                         <div>
-
-                            <collab_comps:helpMessage messageId="test" styleClass="argumentHelp"
+                            <sharedcollab:helpMessage messageId="test" styleClass="argumentHelp"
                                                 hideThisMessage="Hide this message" defaultState="closed">
                                 In debates, an <f:verbatim>&amp;nbsp;</f:verbatim><a
                                     href="/web/guest/resources/-/wiki/Main/Large+scale+argumentation">argument map</a> appears on the left.
@@ -60,8 +59,8 @@
                                 
                                 At the right, you may comment (<span
                                     class="comment"></span>) on any item. <a href="/web/guest/resources/-/wiki/Main/What+Are+Debates">See more</a>.
-                            </collab_comps:helpMessage>
-                            <collab_comps:helpMessageTrigger messageId="test">+show help</collab_comps:helpMessageTrigger>
+                            </sharedcollab:helpMessage>
+                            <sharedcollab:helpMessageTrigger messageId="test">+show help</sharedcollab:helpMessageTrigger>
 
                             <div class="clear"></div>
                         </div>
