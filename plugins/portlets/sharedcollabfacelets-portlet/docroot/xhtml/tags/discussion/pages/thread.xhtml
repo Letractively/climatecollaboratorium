@@ -54,11 +54,13 @@
     
     <ice:panelGroup styleClass="newMessageForm" rendered="#{discussionBean.permissions.canAddMessage}">
         <ice:outputLabel for="messageTitle" value="Title:" /><br />
-        <ice:inputText id="messageTitle" value="#{discussionBean.currentThread.newMessage.title}" styleClass="title text"/>
+        <ice:inputText id="messageTitle" value="#{discussionBean.currentThread.newMessage.title}" styleClass="title text" maxlength="255"/>
+        <ice:message for="messageTitle" />
         <br />
         
-        <ice:outputLabel for="messageBody" value="Message:" /><br />
-        <ice:inputTextarea id="messageBody" value="#{discussionBean.currentThread.newMessage.description}" styleClass="description text" /><br />
+        <ice:outputLabel for="messageContent" value="Message:" /><br />
+        <ice:inputTextarea id="messageContent" value="#{discussionBean.currentThread.newMessage.description}" styleClass="description text" /><br />
+        <ice:message for="messageContent" />
         <ice:commandButton value="Add" actionListener="#{discussionBean.currentThread.newMessage.addMessageToThread}" />
     </ice:panelGroup>
         

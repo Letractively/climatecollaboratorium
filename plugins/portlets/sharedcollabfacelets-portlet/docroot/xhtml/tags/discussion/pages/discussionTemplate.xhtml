@@ -7,7 +7,7 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     <div class="discussion">
         <div class="messagesArea">
-            <ice:messages />
+            <ice:messages globalOnly="true"/>
         </div>
         <div class="searchArea">
             <ice:commandLink styleClass="managePermissions" actionListener="#{discussionBean.changePageType}" value="Manage permissions" rendered="#{discussionBean.permissions.canAdmin}">
@@ -43,6 +43,7 @@
                             </li>
                         </ul>
                     </div>
+                    <!-- Subscription disabled for now 
                     <ice:panelGroup rendered="#{discussionBean.permissions.canSubscribe}">
                         <div class="area">
                             <h3 class="areaLabel">Social</h3>
@@ -51,6 +52,7 @@
                             </ul>
                         </div>
                     </ice:panelGroup>
+                     -->
                 </td>
                 <td class="discussion">
                     <div class="discussionActions">

@@ -128,8 +128,12 @@
 		<managed-bean-class>org.climatecollaboratorium.facelets.debates.DebatesDetailsBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-    <validator>
-        <validator-id>requiredFieldsValidator</validator-id>
-        <validator-class>org.climatecollaboratorium.validators.RequiredFieldValidator</validator-class>
-    </validator>
+	<validator>
+		<validator-id>requiredFieldsValidator</validator-id>
+		<validator-class>org.climatecollaboratorium.validators.RequiredFieldValidator</validator-class>
+	</validator>
+	<validator>
+		<validator-id>discussionCategoryNameUniqueValidator</validator-id>
+		<validator-class>org.climatecollaboratorium.facelets.discussions.validators.CategoryNameValidator</validator-class>
+	</validator>
 </faces-config>

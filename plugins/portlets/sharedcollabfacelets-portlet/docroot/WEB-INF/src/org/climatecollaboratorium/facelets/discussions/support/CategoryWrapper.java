@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.component.UIInput;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
@@ -11,6 +12,8 @@ import org.climatecollaboratorium.facelets.discussions.activity.DiscussionActivi
 import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
 import org.climatecollaboratorium.utils.HumanTime;
+import org.climatecollaboratorium.validation.CategoryNameValidator;
+import org.climatecollaboratorium.validation.ValueRequiredValidator;
 
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionMessage;
@@ -29,6 +32,7 @@ public class CategoryWrapper {
     private boolean editing;
     private String filteredDescription;
     private boolean goTo;
+    private boolean added = false;
 
 
     private List<MessageWrapper> threads = new ArrayList<MessageWrapper>();
@@ -66,7 +70,7 @@ public class CategoryWrapper {
     }
     
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.substring(0, Math.min(255, title.length()));
     }
     
     public String getDescription() {
@@ -91,9 +95,19 @@ public class CategoryWrapper {
     }
     
     public void save(ActionEvent e) throws SystemException, PortalException {
-        if (discussionBean.getPermissions().getCanAddCategory()) {
+        if (!added && discussionBean.getPermissions().getCanAddCategory()) {
+            UIInput descriptionInput = (UIInput) e.getComponent().getParent().findComponent("categoryDescription"); 
+            UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("categoryName"); 
+            if (!ValueRequiredValidator.validateComponent(nameInput) || 
+                    !ValueRequiredValidator.validateComponent(descriptionInput) || 
+                    !CategoryNameValidator.validateComponent(nameInput)) {
+                return;
+            }
+            
             wrapped = discussionBean.getDiscussion().addCategory(title, description, Helper.getLiferayUser());
             discussionBean.categoryAdded(this);
+            added = true;
+            
             Helper.sendInfoMessage("Category \"" + title + "\" has been added.");
             goTo = true;
             
@@ -154,6 +168,14 @@ public class CategoryWrapper {
     
     public void update(ActionEvent e) throws SystemException {
         if (discussionBean.getPermissions().getCanAdmin()) {
+            UIInput descriptionInput = (UIInput) e.getComponent().getParent().findComponent("categoryDescription"); 
+            UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("categoryName"); 
+            if (!ValueRequiredValidator.validateComponent(nameInput) || 
+                    !ValueRequiredValidator.validateComponent(descriptionInput) || 
+                    !CategoryNameValidator.validateComponent(nameInput)) {
+                return;
+            }
+            
             wrapped.update(title, description);
             editing = !editing;
         }        

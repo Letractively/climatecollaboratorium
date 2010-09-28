@@ -420,5 +420,9 @@ public class DiscussionBean {
             ActivityUtil.addSubscription(DiscussionActivityKeys.ALL, Helper.getLiferayUser().getUserId(), discussionId);
         }
     }
+    
+    public Long getDiscussionId() {
+        return discussionId;
+    }
 
 }

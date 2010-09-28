@@ -23,7 +23,7 @@
         var isValid = !jQuery.trim(text) == '' && !jQuery.trim(url) == '';
         if (isValid) {
             var prevVal = jQuery('.debateItemContent').val();
-            var linkCode = "&lt;a href=\"" + url + "\"&gt;" + text + "&lt;/a&gt; ";
+            var linkCode = "<a href=\"" + url + "\">" + text + "</a> ";
 
             jQuery('.debateItemContent').val(prevVal + linkCode);
             //jQuery(caller).parent().parent().parent().parent().parent().dialog('destroy');
