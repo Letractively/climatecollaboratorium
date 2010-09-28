@@ -24,7 +24,6 @@ public class SocialActivityWrapper {
                 Helper.getThemeDisplay());
         this.daysBetween = daysBetween;
         this.indicateNewDate = indicateNewDate;
-        System.out.println(indicateNewDate);
     }
     
     public String getBody() {
