@@ -114,22 +114,33 @@ public class AttributeFunctionFactory {
 
         return new ScenarioAttributeFunction<T>() {
             public T _process(String scenarioId) throws SystemException {
-                 Variable v = getVariableFromInternalName(scenarioId, variableId);
-                 if (v == null) {
-                     return null;
-                 }
-                List<Tuple> tuples = v.getValue();
-                if (tuples.size() == 0) {
+                try {
+                    Variable v = getVariableFromInternalName(scenarioId, variableId);
+                    if (v == null) {
+                        return null;
+                    }
+                   List<Tuple> tuples = v.getValue();
+                   if (tuples.size() == 0) {
+                       return null;
+                   }
+                   String val = null;
+                   if (tuples.get(tuples.size() - 1).getValues().length > 1) {
+                       val = tuples.get(tuples.size() - 1).getValues()[1];
+                   }
+                   try {
+                       return parseStringAsType(val, resultType);
+                   } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
+                       throw (new SystemException(unsupportedTypeOperation));
+                   }
+                }
+                catch (SystemException e) {
+                    _log.error("Exception was thrown when looking for variable " + variableId + " in scenario " + scenarioId, e);
                     return null;
                 }
-                String val = null;
-                if (tuples.get(tuples.size() - 1).getValues().length > 1) {
-                    val = tuples.get(tuples.size() - 1).getValues()[1];
-                }
-                try {
-                    return parseStringAsType(val, resultType);
-                } catch (UnsupportedTypeOperation unsupportedTypeOperation) {
-                    throw (new SystemException(unsupportedTypeOperation));
+                catch (RuntimeException e) {
+                    _log.error("Exception was thrown when looking for variable " + variableId + " in scenario " + scenarioId, e);
+                    return null;
+                    
                 }
             }
 
