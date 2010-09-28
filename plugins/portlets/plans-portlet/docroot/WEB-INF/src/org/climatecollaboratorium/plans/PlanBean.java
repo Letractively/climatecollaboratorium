@@ -103,7 +103,6 @@ public class PlanBean {
             // 
             if (planItem.getPlanDescriptions().get(0).getVersion() == 1) {
                 editingDescription = true;
-                editingName = true;
             }
             if (planItem.getAllPlanModelRuns().get(0).getVersion() == 0) {
                 if (! simulationBean.isEditing()) {
@@ -148,6 +147,7 @@ public class PlanBean {
             planItem = PlanItemLocalServiceUtil.getPlan(planId);
             modelBean = new PlanModelBean(planItem,this);
             plan = new PlanItemWrapper(planItem, this, permissions);
+            plan.setEventBus(eventBus);
             permissions.setPlan(planItem);
             planPositionsBean = new PlanPositionsBean(planItem, this);
             if (simulationBean.isSaved()) {
@@ -217,6 +217,9 @@ public class PlanBean {
     public CreatePlanBean getCreatePlanBean() throws SystemException {
         if (createPlanBean == null) {
             createPlanBean = new CreatePlanBean(this);
+            if (eventBus != null) {
+                createPlanBean.setEventBus(eventBus);
+            }
         }
         return createPlanBean;
     }
@@ -256,6 +259,12 @@ public class PlanBean {
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
         simulationBean.setEventBus(eventBus);
+        if (plan != null) {
+            plan.setEventBus(eventBus);
+        }
+        if (createPlanBean != null) {
+            createPlanBean.setEventBus(eventBus);
+        }
     }
     
     public void setPlansIndexBean(PlansIndexBean plansIndexBean) {

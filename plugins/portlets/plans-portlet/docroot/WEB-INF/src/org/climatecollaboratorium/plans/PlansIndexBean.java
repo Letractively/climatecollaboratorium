@@ -22,7 +22,9 @@ import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.navigation.NavigationEvent;
+import org.climatecollaboratorium.plans.events.PlanCreatedEvent;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
+import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
 import org.climatecollaboratorium.plans.utils.PagedListDataModel;
 import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
 import org.climatecollaboratorium.plans.wrappers.PlanIndexItemWrapper;
@@ -240,6 +242,33 @@ public class PlansIndexBean {
 
             @Override
             public void onEvent(PlanDeletedEvent event) {
+                try {
+                    PlansIndexBean.this.refresh();
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+
+        }));
+        
+
+        handlerRegistrations.add(eventBus.registerHandler(PlanUpdatedEvent.class, new EventHandler<PlanUpdatedEvent>() {
+
+            @Override
+            public void onEvent(PlanUpdatedEvent event) {
+                try {
+                    PlansIndexBean.this.refresh();
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+
+        }));
+        
+        handlerRegistrations.add(eventBus.registerHandler(PlanCreatedEvent.class, new EventHandler<PlanCreatedEvent>() {
+
+            @Override
+            public void onEvent(PlanCreatedEvent event) {
                 try {
                     PlansIndexBean.this.refresh();
                 } catch (Exception e) {

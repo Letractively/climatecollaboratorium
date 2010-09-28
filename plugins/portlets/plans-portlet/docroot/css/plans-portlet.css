@@ -727,7 +727,7 @@ div.editControls.cancelEdit {
 }
 
 .paginator .iceCmdLnk-dis .prev {
-    background:url("/collaboratorium-theme/images/next_disable_btn.gif") no-repeat scroll 0 center transparent;
+    background:url("/collaboratorium-theme/images/previous_disable_btn.gif") no-repeat scroll 0 center transparent;
 }
 
 .paginator .next {
@@ -737,7 +737,7 @@ div.editControls.cancelEdit {
 }
 
 .paginator .iceCmdLnk-dis .next {
-    background:url("/collaboratorium-theme/images/previous_disable_btn.gif") no-repeat scroll 0 center transparent;
+    background:url("/collaboratorium-theme/images/next_disable_btn.gif") no-repeat scroll 0 center transparent;
 }
 
 .paginator .first {
@@ -1075,7 +1075,8 @@ font-weight:normal;
 
 
 .plansContent .debateDetail {
-  background-color:#E3DFD7;  
+  background-color:#FEFEFE;  
+  padding: 10px;
 }
 
 .plansContent .debateDetail .layoutPanel .East {

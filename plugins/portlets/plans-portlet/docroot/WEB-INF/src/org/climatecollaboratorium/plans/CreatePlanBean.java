@@ -10,7 +10,9 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
+import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.navigation.NavigationEvent;
+import org.climatecollaboratorium.plans.events.PlanCreatedEvent;
 import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.event.ActionEvent;
@@ -27,6 +29,7 @@ public class CreatePlanBean {
     private Long planId;
     private boolean navigateToPlan;
     private PlansPreferencesBean preferences;
+    private EventBus eventBus;
     
     private final static String PLANS_SOURCE = "plans"; 
     private final static String CREATE_PLAN_PARAM = "createPlan"; 
@@ -58,7 +61,6 @@ public class CreatePlanBean {
                 String defaultDescription = preferences.getDefaultDescription();
                 planItem = PlanItemLocalServiceUtil.createPlan(plansIndexBean.getContestPhase().getPhase(), Helper.getLiferayUser().getUserId());
                 planItem.setDescription(defaultDescription, Helper.getLiferayUser().getUserId());
-                plansIndexBean.refresh();
             }
             else if (planBean != null) {
                 // we need to create a plan based on a plan that is currently visible
@@ -76,6 +78,7 @@ public class CreatePlanBean {
                 }
                 planItem = PlanItemLocalServiceUtil.createPlan(planBean.getPlan().getWrapped(), phase, Helper.getLiferayUser().getUserId());
             }
+            eventBus.fireEvent(new PlanCreatedEvent(planItem));
             planId = planItem.getPlanId();
             navigateToPlan = true;
         }
@@ -119,6 +122,10 @@ public class CreatePlanBean {
                 createPlan(null);
             }
         }
+    }
+    
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 
 
