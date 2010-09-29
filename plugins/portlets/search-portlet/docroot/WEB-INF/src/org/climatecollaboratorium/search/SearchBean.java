@@ -22,8 +22,6 @@ import org.climatecollaboratorium.search.utils.PagedListDataModel;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.DocumentImpl;
-import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchEngineUtil;
@@ -106,6 +104,10 @@ public class SearchBean extends DataSource {
         boolean separator = false;
         
         searchPhrase = searchPhrase != null ? searchPhrase.trim() : null;
+        if (searchPhrase == null || searchPhrase.length() == 0) {
+            return new DataPage(0, 0, new ArrayList<SearchResultItem>());
+        }
+        
         for (SearchItemType type: selectedSearchItemTypes) {
             if (separator) {
                 querySb.append(" OR ");
@@ -179,6 +181,9 @@ public class SearchBean extends DataSource {
     }
 
     public void setSelectedItemTypes(SearchItemType[] types) {
+        if (types.length != selectedSearchItemTypes.length) {
+            onePageDataModel = null;
+        }
         selectedSearchItemTypes = types;
     }
     
@@ -199,10 +204,14 @@ public class SearchBean extends DataSource {
                 if (event.hasSource("search")) {
                     try {
                         String newPhrase = event.getParameters("search").get("searchPhrase");
-                        if (newPhrase != null) {
+                        if (newPhrase != null && newPhrase.trim().length() > 0) {
                             searchPhrase = URLDecoder.decode(event.getParameters("search").get("searchPhrase"), "UTF-8");
-                            onePageDataModel = null;
                         }
+                        else {
+                            searchPhrase = null;
+                        }
+                        
+                        onePageDataModel = null;
                     } catch (UnsupportedEncodingException e) {
                         _log.error("Can't read search phrase", e);
                     }
