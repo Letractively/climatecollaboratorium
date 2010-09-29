@@ -256,10 +256,9 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         try {
             if (CollaboratoriumModelingService.repository().getScenario(basePlan.getScenarioId()) != null) {
                 planModelRun.setScenarioId(basePlan.getScenarioId());
-            
+
             }
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             // ignore, no such scenario
             _log.error("Can't find scenario with id: " + basePlan.getScenarioId(), e);
         }
@@ -321,10 +320,56 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
         planDescription.setDescription(description);
 
+        /* discussions */
+        DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil
+                .createDiscussionCategoryGroup("Category group for plan: " + planItem.getPlanId());
+        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil
+                .getUser(planItem.getAuthorId()));
+
+        // set up permissions
+
+        Long companyId = basePlan.getCompanyId();
+        Role owner = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_OWNER);
+        Role admin = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_ADMINISTRATOR);
+        Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
+        Role userRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
+        Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
+
+        String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() };
+
+        String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() };
+
+        String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                DiscussionActions.ADD_THREAD.name() };
+
+        String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name() };
+
+        String[] guestActions = {};
+
+        Map<Role, String[]> rolesActionsMap = new HashMap<Role, String[]>();
+
+        rolesActionsMap.put(owner, ownerActions);
+        rolesActionsMap.put(admin, adminActions);
+        rolesActionsMap.put(member, memberActions);
+        rolesActionsMap.put(userRole, userActions);
+        rolesActionsMap.put(guest, guestActions);
+
+        for (Role role : rolesActionsMap.keySet()) {
+            PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, DiscussionCategoryGroup.class
+                    .getName(), ResourceConstants.SCOPE_GROUP, String.valueOf(basePlan.getChildGroupId()),
+                    rolesActionsMap.get(role));
+        }
+
         // meta
         planMeta.setModelId(planItem.getPlanType().getModelId());
         planMeta.setMbCategoryId(basePlan.getMBCategoryId());
         planMeta.setPlanGroupId(basePlan.getChildGroupId());
+        planMeta.setPlanTypeId(basePlan.getPlanTypeId());
+        planMeta.setCategoryGroupId(categoryGroup.getId());
         if (planItem.getPlanType().getPublished()) {
             planMeta.setCreated(basePlan.getPublishDate());
         } else {
@@ -352,16 +397,20 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
         // attributes
         if (hasScenario) {
-            planItem.updateAllAttributes();
-        } else {
-            planItem.updateAttribute(Attribute.CREATOR.name());
-            planItem.updateAttribute(Attribute.NAME.name());
-            planItem.updateAttribute(Attribute.DESCRIPTION.name());
-            planItem.updateAttribute(Attribute.CREATE_DATE.name());
-            planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
-            planItem.updateAttribute(Attribute.VOTES.name());
-            planItem.updateAttribute(Attribute.POSITIONS.name());
+            try {
+                planItem.updateAllAttributes();
+            } catch (Throwable e) {
+                _log.error("An error was encountered when trying to fetch scenario", e);
+            }
         }
+
+        planItem.updateAttribute(Attribute.CREATOR.name());
+        planItem.updateAttribute(Attribute.NAME.name());
+        planItem.updateAttribute(Attribute.DESCRIPTION.name());
+        planItem.updateAttribute(Attribute.CREATE_DATE.name());
+        planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
+        planItem.updateAttribute(Attribute.VOTES.name());
+        planItem.updateAttribute(Attribute.POSITIONS.name());
 
         return planItem;
     }
@@ -543,8 +592,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         for (PlanItem planItem : planItemFinder.getPlans()) {
             if ((planType == null || (planItem.getPlanTypeId() != null && planItem.getPlanTypeId().equals(
                     planType.getPlanTypeId())))
-                    && (phasesIds.isEmpty() || (planItem.getPlanMeta().getContestPhase() != null && phasesIds
-                            .contains(planItem.getPlanMeta().getContestPhase())))) {
+                    && (planItem.getPlanMeta().getContestPhase() != null && phasesIds
+                            .contains(planItem.getPlanMeta().getContestPhase()))) {
                 plans.add(planItem);
             }
         }
