@@ -67,6 +67,7 @@ public class SimulationBean {
                         editing = false;
                         saved = true;
                         planBean.refresh();
+                        
                     } catch (PortalException e) {
                         _log.error("Can't save scenario in a plan", e);
                     } catch (SystemException e) {

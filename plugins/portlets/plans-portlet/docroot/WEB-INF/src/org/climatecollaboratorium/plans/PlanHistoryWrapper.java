@@ -27,9 +27,10 @@ public abstract class PlanHistoryWrapper<T> {
     public abstract Date getUpdateDate();
     public abstract User getUpdateAuthor();
     public abstract long getUpdateVersion();
+    public abstract boolean isLatest(); 
     public abstract T getWrapped();
 
-    public static PlanHistoryWrapper<PlanModelRun> getWrapper(final PlanModelRun run) {
+    public static PlanHistoryWrapper<PlanModelRun> getWrapper(final PlanModelRun run, final boolean latest) {
         return new PlanHistoryWrapper<PlanModelRun>() {
 
             @Override
@@ -58,10 +59,15 @@ public abstract class PlanHistoryWrapper<T> {
             public PlanModelRun getWrapped() {
                return run;
             }
+
+            @Override
+            public boolean isLatest() {
+                return latest;
+            }
         };
     }
 
-    public static PlanHistoryWrapper<PlanDescription> getWrapper(final PlanDescription desc) {
+    public static PlanHistoryWrapper<PlanDescription> getWrapper(final PlanDescription desc, final boolean latest) {
         return new PlanHistoryWrapper<PlanDescription>() {
 
             @Override
@@ -90,10 +96,15 @@ public abstract class PlanHistoryWrapper<T> {
             public PlanDescription getWrapped() {
                 return desc;
             }
+
+            @Override
+            public boolean isLatest() {
+                return latest;
+            }
         };
     }
 
-    public static PlanHistoryWrapper<PlanPositions> getWrapper(final PlanPositions positions) {
+    public static PlanHistoryWrapper<PlanPositions> getWrapper(final PlanPositions positions, final boolean latest) {
         return new PlanHistoryWrapper<PlanPositions>() {
 
             @Override
@@ -121,6 +132,11 @@ public abstract class PlanHistoryWrapper<T> {
             @Override
             public PlanPositions getWrapped() {
                 return positions;
+            }
+
+            @Override
+            public boolean isLatest() {
+                return latest;
             }
         };
     }

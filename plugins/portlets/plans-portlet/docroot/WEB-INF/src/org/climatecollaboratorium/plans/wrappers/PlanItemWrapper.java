@@ -1,15 +1,22 @@
 package org.climatecollaboratorium.plans.wrappers;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.events.EventBus;
-import org.climatecollaboratorium.plans.*;
+import org.climatecollaboratorium.plans.Helper;
+import org.climatecollaboratorium.plans.PlanBean;
+import org.climatecollaboratorium.plans.PlanHistoryItem;
+import org.climatecollaboratorium.plans.PlanHistoryWrapper;
+import org.climatecollaboratorium.plans.PlansPermissionsBean;
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
 
@@ -19,7 +26,6 @@ import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanModelRun;
-import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
@@ -35,25 +41,25 @@ import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 public class PlanItemWrapper {
     private PlanItem wrapped;
     private PlanBean planBean;
-    private String candidateName;
-    private String candidateDescription;
-    private List<PlanDescription> planDescriptions;
-    private List<PlanPositions> planPositions;
-    private List<PlanModelRun> planModelRuns = new ArrayList<PlanModelRun>();
+    /*
+     * Description related variables
+     */
+    private String name;
+    private String description;
+    private PlanHistoryWrapper<PlanDescription> planDescriptionHistoryItem;
+    private List<PlanHistoryWrapper> planDescriptionsAll = new ArrayList<PlanHistoryWrapper>(); 
+
     private List<PlanHistoryItem> planVersions = new ArrayList<PlanHistoryItem>();
-    
-    private Map<Long, PlanDescription> planDescriptionsById = new HashMap<Long, PlanDescription>();
 
-    private List<PlanHistoryWrapper> planDescriptionItems = new ArrayList<PlanHistoryWrapper>();
-    private List<PlanHistoryWrapper> planModelRunItems = new ArrayList<PlanHistoryWrapper>();
+    /*
+     * Model runs
+     */
+    private List<PlanModelRun> planModelRuns = new ArrayList<PlanModelRun>();
+    private List<PlanHistoryWrapper> planModelRunAllItems = new ArrayList<PlanHistoryWrapper>();
+    private PlanHistoryWrapper<PlanModelRun> planModelRunHistoryItem;
+    private Long scenarioId;
 
-    private Map<Long, PlanPositions> planPositionsById = new HashMap<Long, PlanPositions>();
-    private Map<Long, PlanModelRun> planModelRunsById = new HashMap<Long, PlanModelRun>();
-    private List<SelectItem> planPositionItems = new ArrayList<SelectItem>();
 
-    private Long currentDescriptionVersion;
-    private Long planPositionsVersion;
-    private Long currentPlanModelRunVersion;
     private PlansPermissionsBean permissions;
     private boolean descriptionSet;
 
@@ -148,25 +154,20 @@ public class PlanItemWrapper {
     public PlanItemWrapper(PlanItem plan, PlanBean planBean, PlansPermissionsBean permissions) throws SystemException, PortalException {
         wrapped = plan;
         this.planBean = planBean;
-        planDescriptions = wrapped.getAllDescriptionVersions();
-        
-        for (PlanDescription planDescription: planDescriptions) {
-            planDescriptionsById.put(planDescription.getId(), planDescription);
-            planDescriptionItems.add(PlanHistoryWrapper.getWrapper(planDescription));
-            //planDescriptionItems.add(new SelectItem(planDescription.getId(), planDescription.getCreated() + " by " + planDescription.getUpdateAuthor().getScreenName()));
-        }
-        currentDescriptionVersion = planDescriptions.get(0).getId();
-
         
         this.permissions = permissions;
         
         getPlanModelRunVersionItems();
         
         setDescriptionSet(plan.getDescription().trim().length() != 0);
-        candidateName = plan.getName();
+        name = plan.getName();
+        description = plan.getDescription();
+        
         planMode = PlanMode.getMode(wrapped);
         planStatus = PlanStatusSelection.getStatus(wrapped);
         helpStatus = wrapped.isSeekingAssistance();
+        
+        scenarioId = wrapped.getScenarioId();
     }
 
     public SelectItem[] getAllPlanModes() {
@@ -219,27 +220,28 @@ public class PlanItemWrapper {
     
 
     public String getDescription() throws SystemException {
-        return planDescriptionsById.get(currentDescriptionVersion).getDescription();
+        return description;
     }
     
     public void setDescription(String description) {
-        candidateDescription = description;
+        this.description = description;
     }
 
     public String getName() throws SystemException {
-        return candidateName;//planDescriptionsById.get(currentDescriptionVersion).getName();
+        return name;
     }
 
     public void setName(String name) {
-        candidateName = name;
+        this.name = name;
     }
     
     public void saveDescription(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
-            if (candidateDescription != null) {
-                wrapped.setDescription(candidateDescription, Helper.getLiferayUser().getUserId());
+            if (description != null) {
+                wrapped.setDescription(description, Helper.getLiferayUser().getUserId());
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_DESCRIPTION.id(),null, 0);
+                eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
             }
         }
         planBean.setEditingDescription(false);
@@ -247,16 +249,16 @@ public class PlanItemWrapper {
     
     public void saveName(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
-            if (candidateName != null && !candidateName.equals(wrapped.getName())) {
-                if (! PlanItemLocalServiceUtil.isNameAvailable(candidateName)) {
+            if (name != null && !name.equals(wrapped.getName())) {
+                if (! PlanItemLocalServiceUtil.isNameAvailable(name)) {
                     FacesMessage message = new FacesMessage();
                     message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                    message.setSummary("Name \"" + candidateName + "\" is already taken, please choose different one.");
+                    message.setSummary("Name \"" + name + "\" is already taken, please choose different one.");
                     FacesContext.getCurrentInstance().addMessage(null, message);
                     return;
                     
                 }
-                wrapped.setName(candidateName, Helper.getLiferayUser().getUserId());
+                wrapped.setName(name, Helper.getLiferayUser().getUserId());
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                         PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_NAME.id(),null, 0);
                 
@@ -291,6 +293,8 @@ public class PlanItemWrapper {
             }
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), activityKey.id(),null, 0);
+
+            eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
         }
         
     }
@@ -301,6 +305,8 @@ public class PlanItemWrapper {
 
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.RETRACT_VOTE_FOR_PLAN.id(),null, 0);
+            
+            eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
         }
     }
     
@@ -329,45 +335,35 @@ public class PlanItemWrapper {
     }
     
     public List<PlanHistoryWrapper> getAllDescriptionVersions() throws PortalException, SystemException {
-        return planDescriptionItems;
+        if (planDescriptionsAll.size() == 0) {
+            boolean isLatest = true;
+            for (PlanDescription desc: wrapped.getAllDescriptionVersions()) {
+                planDescriptionsAll.add(PlanHistoryWrapper.getWrapper(desc, isLatest));
+                isLatest = false;
+            }
+        }
+        return planDescriptionsAll;
     }
     
-    
-    public Long getDescriptionVersion() {
-        return currentDescriptionVersion;
-    }
-    
-    public void setDescriptionVersion(Long descriptionVersion) {
-        currentDescriptionVersion = descriptionVersion;
-        candidateName = planDescriptionsById.get(descriptionVersion).getName();
-        candidateDescription = planDescriptionsById.get(descriptionVersion).getDescription();
-        
-    }
 
-     public void selectDescriptionVersion(ActionEvent evt) {
-        PlanHistoryWrapper wrapper = (PlanHistoryWrapper) evt.getComponent().getAttributes().get("item");
-        setDescriptionVersion(wrapper.getUpdateVersion());
+    public void selectDescriptionVersion(ActionEvent evt) {
+       planDescriptionHistoryItem = (PlanHistoryWrapper) evt.getComponent().getAttributes().get("item");
+       
+       description = planDescriptionHistoryItem.getWrapped().getDescription();
+   }
+    
+    public PlanHistoryWrapper<PlanDescription> getPlanDescriptionHistoryItem() {
+        return planDescriptionHistoryItem;
     }
     
-    public void descriptionVersion(ValueChangeEvent event) {
-        candidateName = planDescriptionsById.get(currentDescriptionVersion).getName();
-        candidateDescription = planDescriptionsById.get(currentDescriptionVersion).getDescription();
-    }
     
     public List<PlanHistoryItem> getAllVersions() throws SystemException, PortalException {
-        planVersions.clear();
-        for (PlanItem planVersion: wrapped.getAllVersions()) {
-            planVersions.add(new PlanHistoryItem(planVersion));
-        }
-        Collections.sort(planVersions, new Comparator<PlanHistoryItem>() {
-
-            @Override
-            public int compare(PlanHistoryItem arg0, PlanHistoryItem arg1) {
-                return arg1.getUpdateDate().compareTo(arg0.getUpdateDate());
+        if (planVersions.size() < wrapped.getAllVersions().size()) {
+            planVersions.clear();
+            for (PlanItem planVersion: wrapped.getAllVersions()) {
+                planVersions.add(new PlanHistoryItem(planVersion));
             }
-            
-        });
-        System.out.println("plan Versions size: " + planVersions.size());
+        }
         return planVersions;
     }
     
@@ -386,44 +382,23 @@ public class PlanItemWrapper {
     }
 
     public List<PlanHistoryWrapper> getPlanModelRunVersionItems() throws PortalException, SystemException {
-        List<PlanModelRun> tmp  = wrapped.getAllPlanModelRuns();
-        if (tmp.size() != planModelRuns.size()) {
-            planModelRuns = tmp;
-            planModelRunsById.clear();
-            planModelRunItems.clear();
-        
-            for (PlanModelRun planModelRun: planModelRuns) {
-                planModelRunsById.put(planModelRun.getId(), planModelRun);
-                planModelRunItems.add(PlanHistoryWrapper.getWrapper(planModelRun));
+        if (planModelRunAllItems.size() == 0) {
+            boolean isLatest = true;
+            for (PlanModelRun planModelRun: wrapped.getAllPlanModelRuns()) {
+                planModelRunAllItems.add(PlanHistoryWrapper.getWrapper(planModelRun, isLatest));
+                isLatest = false;
             }
-
-            currentPlanModelRunVersion = planModelRuns.get(0).getId();
         }
-        return planModelRunItems;
+        return planModelRunAllItems;
     }
     
-    public Long getCurrentPlanModelRunVersion() {
-        return currentPlanModelRunVersion;
-    }
-    
-    public void setCurrentPlanModelRunVersion(Long selectedVersion) {
-        currentPlanModelRunVersion = selectedVersion;
-    }
-
     public void selectModelRunVersion(ActionEvent evt) {
-        PlanHistoryWrapper wrapper = (PlanHistoryWrapper) evt.getComponent().getAttributes().get("item");
-        setCurrentPlanModelRunVersion(wrapper.getUpdateVersion());
+        planModelRunHistoryItem = (PlanHistoryWrapper<PlanModelRun>) evt.getComponent().getAttributes().get("item");
+        scenarioId = planModelRunHistoryItem.getWrapped().getScenarioId();
     }
     
     public Long getPlanModelRunScenarioId() {
-        System.out.println("planModelRunsById: " + String.valueOf(planModelRunsById) + " currentPlanModelRunVersion: " + 
-                String.valueOf(currentPlanModelRunVersion) + " planModelRunsById.get(current): " + String.valueOf(planModelRunsById.get(currentPlanModelRunVersion)));
-        System.out.println("plan model run scenario id: " + (planModelRunsById != null && 
-                currentPlanModelRunVersion != null && 
-                planModelRunsById.get(currentPlanModelRunVersion) != null ? planModelRunsById.get(currentPlanModelRunVersion).getScenarioId() : null));
-        return planModelRunsById != null && 
-        currentPlanModelRunVersion != null && 
-        planModelRunsById.get(currentPlanModelRunVersion) != null ? planModelRunsById.get(currentPlanModelRunVersion).getScenarioId() : null; 
+        return scenarioId;
     }
     
     
@@ -471,28 +446,16 @@ public class PlanItemWrapper {
     }
     
     
-    public boolean isDescriptionLatestVersion() {
-        return currentDescriptionVersion.equals(planDescriptions.get(0).getId());
-    }    
-    
     public boolean isSimulationLatestVersion() {
-        return currentPlanModelRunVersion != null ? currentPlanModelRunVersion.equals(planModelRuns.get(0).getId()) : false;
-    }
-    
-    public Date getDescriptionVersionDate() {
-        return planDescriptionsById.get(currentDescriptionVersion).getCreated();
+        return planDescriptionHistoryItem == null || planDescriptionHistoryItem.isLatest();
     }
     
     public Date getSimulationVersionDate() {
-        return currentPlanModelRunVersion == null ? null :planModelRunsById.get(currentPlanModelRunVersion).getCreated();
-    }
-    
-    public User getDescriptionVersionAuthor() throws PortalException, SystemException {
-        return planDescriptionsById.get(currentDescriptionVersion).getUpdateAuthor();
+        return planDescriptionHistoryItem.getUpdateDate();
     }
     
     public User getSimulationVersionAuthor() throws PortalException, SystemException {
-        return currentPlanModelRunVersion == null ? null : planModelRunsById.get(currentPlanModelRunVersion).getUpdateAuthor();
+        return planDescriptionHistoryItem.getUpdateAuthor();
     }
     
         public Long getCategoryGroupId() throws SystemException {
@@ -566,7 +529,8 @@ public class PlanItemWrapper {
 
 
     public void modelChanged() {
-        currentPlanModelRunVersion = null;
+        scenarioId = null;
+        planModelRunHistoryItem = null;
     }
     
     public void setEventBus(EventBus eventBus) {

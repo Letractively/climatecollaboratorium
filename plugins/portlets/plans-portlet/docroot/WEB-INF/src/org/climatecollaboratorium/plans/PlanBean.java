@@ -9,9 +9,11 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
+import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
 import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.event.ActionEvent;
@@ -149,10 +151,12 @@ public class PlanBean {
             plan = new PlanItemWrapper(planItem, this, permissions);
             plan.setEventBus(eventBus);
             permissions.setPlan(planItem);
-            planPositionsBean = new PlanPositionsBean(planItem, this);
+            planPositionsBean = new PlanPositionsBean(planItem);
+            planPositionsBean.setEventBus(eventBus);
             if (simulationBean.isSaved()) {
                 planOpenForEditing = false;
             }
+            
             simulationBean.setPlan(planItem, this);
             //simulationBean = new SimulationBean(planItem, this, eventBus);
             membershipBean = new PlanMembershipBean(planItem, this, permissions);
@@ -265,6 +269,11 @@ public class PlanBean {
         if (createPlanBean != null) {
             createPlanBean.setEventBus(eventBus);
         }
+        if (planPositionsBean != null) {
+            planPositionsBean.setEventBus(eventBus);
+        }
+        
+        bind();
     }
     
     public void setPlansIndexBean(PlansIndexBean plansIndexBean) {
@@ -284,4 +293,28 @@ public class PlanBean {
         return planOpenForEditing;
     }
     
+    
+    private void bind() {
+        for (HandlerRegistration reg: handlerRegistrations) {
+            reg.unregister();
+        }
+        
+        handlerRegistrations.clear();
+        
+        handlerRegistrations.add(eventBus.registerHandler(PlanUpdatedEvent.class, new EventHandler<PlanUpdatedEvent>() {
+
+            @Override
+            public void onEvent(PlanUpdatedEvent event) {
+                // refresh plan item wrapper
+                try {
+                    refresh();
+                } catch (SystemException e) {
+                    _log.error("Can't refresh plan item wrapper after plan update: " + event.getPlan().getPlanId(), e);
+                } catch (PortalException e) {
+                    _log.error("Can't refresh plan item wrapper after plan update: " + event.getPlan().getPlanId(), e);
+                }
+                
+            }
+        }));
+    }
 }
