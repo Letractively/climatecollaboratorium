@@ -33,7 +33,7 @@
     portletURL.setWindowState(WindowState.NORMAL);
 
     portletURL.setParameter("struts_action", "/ext/community/search");
-
+    portletURL.setParameter("selectedTab", selectedTab);
 
     pageContext.setAttribute("portletURL", portletURL);
 
@@ -48,13 +48,10 @@
       onSubmit="submitForm(this); return false;">
 <liferay-portlet:renderURLParams varImpl="portletURL"/>
 <input name="<portlet:namespace /><%= Constants.CMD %>" type="hidden" value=""/>
-<input name="<portlet:namespace />redirect" type="hidden" value="<%= portletURLString %>"/>
 <input name="<portlet:namespace />selectedTab" type="hidden" value="Members"/>
 <script type="text/javascript">
     function
-    <
-    portlet:namespace
-    />navTabs(tab) {
+    <portlet:namespace/>navTabs(tab) {
     jQuery("input[name='<portlet:namespace />selectedTab']").val(tab);
     jQuery("form[name='<portlet:namespace />fm']").submit();
     }
@@ -75,6 +72,7 @@
 
 <liferay-ui:search-container
         searchContainer="<%= new UserSearch(renderRequest, portletURL) %>"
+        iteratorURL="<%= portletURL %>"
 
         >
     <input name="<portlet:namespace />usersRedirect" type="hidden" value="<%= portletURL.toString() %>"/>
