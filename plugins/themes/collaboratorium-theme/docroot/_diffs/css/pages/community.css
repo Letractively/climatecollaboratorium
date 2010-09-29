@@ -252,3 +252,10 @@ div.contentContainer.resources {
      float: left;
      margin: 0px;
 }
+
+
+#composeheader .as-selections li,
+#composeheader .as-list li {
+    list-style: none;
+}
+
