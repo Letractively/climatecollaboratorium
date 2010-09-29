@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Set;
 
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.model.DiscussionCategory;
@@ -319,57 +320,20 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         boolean hasScenario = false;
 
         planDescription.setDescription(description);
-
-        /* discussions */
-        DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil
-                .createDiscussionCategoryGroup("Category group for plan: " + planItem.getPlanId());
-        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil
-                .getUser(planItem.getAuthorId()));
-
-        // set up permissions
-
-        Long companyId = basePlan.getCompanyId();
-        Role owner = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_OWNER);
-        Role admin = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_ADMINISTRATOR);
-        Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
-        Role userRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
-        Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
-
-        String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
-                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
-                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() };
-
-        String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
-                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
-                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() };
-
-        String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
-                DiscussionActions.ADD_THREAD.name() };
-
-        String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name() };
-
-        String[] guestActions = {};
-
-        Map<Role, String[]> rolesActionsMap = new HashMap<Role, String[]>();
-
-        rolesActionsMap.put(owner, ownerActions);
-        rolesActionsMap.put(admin, adminActions);
-        rolesActionsMap.put(member, memberActions);
-        rolesActionsMap.put(userRole, userActions);
-        rolesActionsMap.put(guest, guestActions);
-
-        for (Role role : rolesActionsMap.keySet()) {
-            PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, DiscussionCategoryGroup.class
-                    .getName(), ResourceConstants.SCOPE_GROUP, String.valueOf(basePlan.getChildGroupId()),
-                    rolesActionsMap.get(role));
-        }
-
+        
         // meta
         planMeta.setModelId(planItem.getPlanType().getModelId());
         planMeta.setMbCategoryId(basePlan.getMBCategoryId());
         planMeta.setPlanGroupId(basePlan.getChildGroupId());
         planMeta.setPlanTypeId(basePlan.getPlanTypeId());
-        planMeta.setCategoryGroupId(categoryGroup.getId());
+        
+        if (planMeta.getPlanId().equals(1L)) {
+            planMeta.setContestPhase(2L);
+        }
+        else {
+            planMeta.setContestPhase(1L);
+        }
+        
         if (planItem.getPlanType().getPublished()) {
             planMeta.setCreated(basePlan.getPublishDate());
         } else {
