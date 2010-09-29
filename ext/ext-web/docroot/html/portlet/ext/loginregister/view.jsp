@@ -156,33 +156,3 @@
     
     </c:if>
 </div>
-            
-
-<script type="text/javascript">
-	<c:if test='<%= isLoggingIn %>'>
-		$('#login').show();
-		$('#login_link').addClass('current');
-	</c:if>
-	<c:if test='<%= isRegistering %>'>
-	</c:if>
-	
-</script>   
-<c:if test='<%= isForgotPassword %>'>
-        <script type="text/javascript">
-        jQuery(document).ready(function() {
-            <portlet:namespace/>showDialog('forgotPasswordDialog', {width: 555, height: 600});
-            jQuery("#userInfoErrorMessages").show();
-            setTimeout('jQuery("#userInfoErrorMessages").fadeOut()', 3000);
-        });
-        </script>
-    </c:if>        
-    
-            <c:if test='<%= isRegistering %>'>
-            <script type="text/javascript">
-            jQuery(document).ready(function() {
-            <portlet:namespace/>showDialog('registerDialog', {width: 440, height: 6000});
-            jQuery("#userInfoErrorMessages").show();
-            setTimeout('jQuery("#userInfoErrorMessages").fadeOut()', 3000);
-        });
-            </script>
-        </c:if>

@@ -4,7 +4,6 @@ import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.model.PlanFanSoap;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
-import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
 
@@ -208,7 +207,7 @@ public class PlanFanModelImpl extends BaseModelImpl<PlanFan> {
     public int compareTo(PlanFan planFan) {
         int value = 0;
 
-        value = DateUtil.compareTo(getCreated(), planFan.getCreated());
+        value = getId().compareTo(planFan.getId());
 
         if (value != 0) {
             return value;

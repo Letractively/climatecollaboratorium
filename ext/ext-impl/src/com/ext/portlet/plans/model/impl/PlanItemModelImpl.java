@@ -229,7 +229,7 @@ public class PlanItemModelImpl extends BaseModelImpl<PlanItem> {
     public int compareTo(PlanItem planItem) {
         int value = 0;
 
-        value = getVersion().compareTo(planItem.getVersion());
+        value = getId().compareTo(planItem.getId());
 
         value = value * -1;
 

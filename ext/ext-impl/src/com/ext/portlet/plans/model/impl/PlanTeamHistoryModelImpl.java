@@ -4,7 +4,6 @@ import com.ext.portlet.plans.model.PlanTeamHistory;
 import com.ext.portlet.plans.model.PlanTeamHistorySoap;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
-import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
@@ -240,7 +239,7 @@ public class PlanTeamHistoryModelImpl extends BaseModelImpl<PlanTeamHistory> {
     public int compareTo(PlanTeamHistory planTeamHistory) {
         int value = 0;
 
-        value = DateUtil.compareTo(getCreated(), planTeamHistory.getCreated());
+        value = getId().compareTo(planTeamHistory.getId());
 
         if (value != 0) {
             return value;
