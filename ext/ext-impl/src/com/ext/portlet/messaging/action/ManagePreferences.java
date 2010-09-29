@@ -56,7 +56,7 @@ public class ManagePreferences extends PortletAction {
         ThemeDisplay themedisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
         long userId = themedisplay.getUserId();
         String redirect = ParamUtil.getString(actionRequest, MessageConstants.REDIRECT);
-        boolean copyonreceipt = ParamUtil.getString(actionRequest,MessageConstants.MESSAGING_PREF_COPY_ON_RECEIPT,"").equals("checked");
+        boolean copyonreceipt = ParamUtil.getBoolean(actionRequest,MessageConstants.MESSAGING_PREF_COPY_ON_RECEIPT,false);
         MessagingUserPreferences prefs = MessageUtil.getMessagingPreferences(userId);
         if (copyonreceipt!=prefs.getEmailOnReceipt()) {
             prefs.setEmailOnReceipt(copyonreceipt);
