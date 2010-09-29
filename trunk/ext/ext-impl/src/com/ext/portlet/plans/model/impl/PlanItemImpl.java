@@ -411,7 +411,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         oldVersion.store();
 
         this.setId(CounterUtil.increment(PlanItem.class.getName()));
-        this.setVersion(getVersion() + 1);
+        this.setVersion(Math.max(getVersion(), latestVersion.getVersion()) + 1);
         this.setUpdated(new Date());
         this.setUpdateType(updateType.name());
         this.setUpdateAuthorId(updateAuthorId);

@@ -223,10 +223,6 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
 
         EntityCacheUtil.removeResult(PlanModelRunModelImpl.ENTITY_CACHE_ENABLED,
             PlanModelRunImpl.class, planModelRun.getPrimaryKey());
-        
-
-        FinderCacheUtil.removeResult(FINDER_PATH_FIND_BY_ALLBYPLANID, 
-                new Object[] { planModelRunModelImpl.getOriginalPlanId() });
 
         return planModelRun;
     }
@@ -313,9 +309,6 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
                     planModelRunModelImpl.getOriginalPlanId()))) {
             FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CURRENTBYPLANID,
                 new Object[] { planModelRunModelImpl.getOriginalPlanId() });
-
-            FinderCacheUtil.removeResult(FINDER_PATH_FIND_BY_ALLBYPLANID, 
-                    new Object[] { planModelRunModelImpl.getOriginalPlanId() });
         }
 
         if (isNew ||
@@ -323,9 +316,6 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
                     planModelRunModelImpl.getOriginalPlanId()))) {
             FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURRENTBYPLANID,
                 new Object[] { planModelRun.getPlanId() }, planModelRun);
-
-            FinderCacheUtil.removeResult(FINDER_PATH_FIND_BY_ALLBYPLANID, 
-                    new Object[] { planModelRunModelImpl.getOriginalPlanId() });
         }
 
         return planModelRun;

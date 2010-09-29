@@ -277,7 +277,7 @@
 
         
         <order by="desc">
-            <order-column name="version" />
+            <order-column name="id" />
         </order>
       
         <finder name="AllByPlanId" return-type="Collection">
@@ -408,7 +408,7 @@
         <column name="deleted" type="Date" />
         
         <order by="asc">
-            <order-column name="created" case-sensitive="false" />
+            <order-column name="id" />
         </order>
         
         <finder name="PlanId" return-type="Collection" where="deleted is null">
@@ -436,7 +436,7 @@
         <column name="updateAuthorId" type="Long" />
                 
         <order by="asc">
-            <order-column name="created" case-sensitive="false" />
+            <order-column name="id" />
         </order>
         
         <finder name="PlanId" return-type="Collection">

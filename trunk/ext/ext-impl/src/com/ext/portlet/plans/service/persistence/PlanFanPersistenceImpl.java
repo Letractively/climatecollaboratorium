@@ -410,7 +410,7 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("created ASC");
+                query.append("id_ ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -481,7 +481,7 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("created ASC");
+                    query.append("id_ ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -583,7 +583,7 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("created ASC");
+                query.append("id_ ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -636,7 +636,7 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("created ASC");
+                query.append("id_ ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -707,7 +707,7 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("created ASC");
+                    query.append("id_ ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -809,7 +809,7 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("created ASC");
+                query.append("id_ ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -906,7 +906,7 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("created ASC");
+                query.append("id_ ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -1033,7 +1033,7 @@ public class PlanFanPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("created ASC");
+                    query.append("id_ ASC");
                 }
 
                 Query q = session.createQuery(query.toString());

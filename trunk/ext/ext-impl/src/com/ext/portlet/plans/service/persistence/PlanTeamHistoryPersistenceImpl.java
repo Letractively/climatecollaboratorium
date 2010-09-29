@@ -418,7 +418,7 @@ public class PlanTeamHistoryPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("created ASC");
+                query.append("id_ ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -490,7 +490,7 @@ public class PlanTeamHistoryPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("created ASC");
+                    query.append("id_ ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -594,7 +594,7 @@ public class PlanTeamHistoryPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("created ASC");
+                query.append("id_ ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -694,7 +694,7 @@ public class PlanTeamHistoryPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("created ASC");
+                query.append("id_ ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -823,7 +823,7 @@ public class PlanTeamHistoryPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("created ASC");
+                    query.append("id_ ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
