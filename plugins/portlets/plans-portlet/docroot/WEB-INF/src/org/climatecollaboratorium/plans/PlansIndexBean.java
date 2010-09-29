@@ -39,8 +39,8 @@ public class PlansIndexBean {
 
     private List<Columns> columns;
 
-    private String sortColumn = "NAME";
-    private boolean sortAscending = true;
+    private String sortColumn = "SUPPORTERS";
+    private boolean sortAscending = false;
     private boolean updatePlansList = true;
     private int pageSize = 50;
     // Current items in ui
@@ -133,7 +133,9 @@ public class PlansIndexBean {
         updatePlansList = true;
         filterPlansBean = null;
         columnsConfiguration = null;
+        initSortColun();
         columnsUpdate();
+        
     }
 
 
@@ -184,12 +186,7 @@ public class PlansIndexBean {
 
 
         }
-
-        sortColumn = Columns.SUPPORTERS.name();
-        // if contest isn't active then we should sort by votes
-        if (!contestPhase.getContest().isContestActive()) {
-            sortColumn = Columns.VOTES.name();
-        }
+        initSortColun();
 
         if (isDirty) {
             refresh();
@@ -197,6 +194,14 @@ public class PlansIndexBean {
             sortAscending = false;
         }
 
+    }
+    private void initSortColun() {
+        sortColumn = Columns.SUPPORTERS.name();
+        // if contest isn't active then we should sort by votes
+        if (!contestPhase.getContest().isContestActive()) {
+            sortColumn = Columns.VOTES.name();
+        }
+        sortAscending = false;
     }
 
     public ContestPhaseWrapper getContestPhase() {
