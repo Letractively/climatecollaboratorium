@@ -127,7 +127,6 @@ public class TypedValueConverter {
         if (values == null) {
             return "";
         }
-        System.out.println("values: " + values + "\tarray?: " + values.getClass().isArray());
         StringBuilder sb = new StringBuilder();
         int length = Array.getLength(values);
         for (int i=0; i < length; i++) {

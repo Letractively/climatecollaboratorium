@@ -38,7 +38,6 @@ boolean firstDaySeparator = true;
 Date now = new Date();
 int daysBetween = -1;
 String userparam = "&userId="+userId;
-    System.err.println("Company is "+company);
 
 %>
 <table class="activities-table lfr-table">
@@ -47,12 +46,10 @@ String userparam = "&userId="+userId;
 		<%
 		     
 			SocialActivity activity = (SocialActivity)pageContext.getAttribute("tmpActivity"); 
-			//System.out.println("Activity is "+activity);
 			SocialActivityFeedEntry activityFeedEntry = SocialActivityInterpreterLocalServiceUtil.interpret(activity, themeDisplay);
     	%>
          <c:if test="<%=activityFeedEntry!=null%>">
         <%
-    		//System.out.println("Company is "+company);
     		Portlet portlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), activityFeedEntry.getPortletId());
     		
 			hasActivities = true;

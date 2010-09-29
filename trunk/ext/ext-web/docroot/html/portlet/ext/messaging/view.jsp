@@ -264,11 +264,12 @@
         jQuery("#<portlet:namespace/>ComposeMessage").hide();
         jQuery("#<portlet:namespace/>pager").show();
         jQuery("#<portlet:namespace/>MessageReading").show();
+        jQuery("#composeMessageForm input[type='text'], #composeMessageForm textarea").val('');
     }
 
     function <portlet:namespace/>submitSendForm() {
         var values = jQuery(".as-values").val();
-        jQuery("input:text[name='<portlet:namespace/><%=MessageConstants.COMPOSE_RECIPIENTS%>']").val(values);
+        jQuery("input:hidden[name='<portlet:namespace/><%=MessageConstants.COMPOSE_RECIPIENTS%>']").val(values);
         document.<portlet:namespace/>composeFm.submit();
     }
 
@@ -431,12 +432,14 @@
                 </div>
                 <div id="<portlet:namespace/>ComposeMessage" style="display:none">
 
-                    <form action="${sendURL}" name="<portlet:namespace/>composeFm" method="post">
+                    <form action="${sendURL}" name="<portlet:namespace/>composeFm" method="post" id="composeMessageForm">
                         <table id="composeheader">
                             <tr>
                                 <td><label>To:</label></td>
-                                <td class="stretch"><input id="<portlet:namespace/>userSelectorInput" type="text"
-                                           name="<portlet:namespace/><%=MessageConstants.COMPOSE_RECIPIENTS%>">
+                                <td class="stretch">
+                                    <input id="<portlet:namespace/>userSelectorInput" type="text">
+                                    <input type="hidden" name="<portlet:namespace/><%=MessageConstants.COMPOSE_RECIPIENTS%>" />
+                                
                                            <div class="hidden" id="please_choose_from_list">
                                              <span class="error">
                                                Please choose user from the list.
