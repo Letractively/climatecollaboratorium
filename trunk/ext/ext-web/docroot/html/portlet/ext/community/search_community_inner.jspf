@@ -198,15 +198,14 @@
         %>
 
         <liferay-ui:search-container-results>
-            <%
-
-
+        <%
                 OrderByComparator comp = "createDate".equals(searchContainer.getOrderByCol()) ? new UserCreateDateComparator(!"asc".equalsIgnoreCase(searchContainer.getOrderByType())) : searchContainer.getOrderByComparator();
                 System.err.println("start " + searchContainer.getStart() + " end " + searchContainer.getEnd());
                 results = new ArrayList(UserLocalServiceUtil.search(company.getCompanyId(), searchTerms.getKeywords(), searchTerms.getActive(), userParams, 0, Integer.MAX_VALUE, comp));
 
 
-                if ("Number of Activities".equals(searchContainer.getOrderByCol())) {
+                if ("Activity Count".equals(searchContainer.getOrderByCol())) {
+                
                     Collections.sort(results, new UserNumberActivitiesComparator(!"asc".equalsIgnoreCase(searchContainer.getOrderByType())));
 
                 }

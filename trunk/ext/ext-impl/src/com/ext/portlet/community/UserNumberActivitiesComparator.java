@@ -43,15 +43,11 @@ public class UserNumberActivitiesComparator extends OrderByComparator {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+        if (_asc) {
+            return count1 - count2;
+        }
+        return count2 - count1;
 
-        int value = count1 > count2?-1:count2>count1?1:0;
-
-		if (_asc) {
-			return value;
-		}
-		else {
-			return -value;
-		}
 	}
 
 	
