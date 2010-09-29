@@ -139,6 +139,8 @@ public class PlansIndexBean {
 
     public void init(ContestPhaseWrapper currentPhase, NavigationEvent event) throws PortalException, SystemException {
         boolean isDirty = false;
+        
+        
 
         if (currentPhase == null) {
             contestPhase = null;
@@ -181,6 +183,12 @@ public class PlansIndexBean {
             }
 
 
+        }
+
+        sortColumn = Columns.SUPPORTERS.name();
+        // if contest isn't active then we should sort by votes
+        if (!contestPhase.getContest().isContestActive()) {
+            sortColumn = Columns.VOTES.name();
         }
 
         if (isDirty) {
@@ -290,7 +298,12 @@ public class PlansIndexBean {
             updatePlansList = false;
             Columns sortCol = Columns.valueOf(sortColumn);
 
-            String sortAttribute = Attribute.VOTES.name();
+            
+            String sortAttribute = Attribute.SUPPORTERS.name();
+            // if contest isn't active then we should sort by votes
+            if (!contestPhase.getContest().isContestActive()) {
+                sortAttribute = Attribute.VOTES.name();
+            }
             if (sortCol.isSortable()) {
                 sortAttribute = sortCol.getSortAttribute().name();
             }

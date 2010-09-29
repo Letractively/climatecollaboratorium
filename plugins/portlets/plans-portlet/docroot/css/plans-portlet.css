@@ -678,6 +678,7 @@ div.editControls.cancelEdit {
     font-weight: normal;
     font-size: 1.1em;
     background: #E3DFD7;
+    text-align: center;
    
 }
 
@@ -1191,3 +1192,20 @@ table.plan-mode-select.iceSelOneRb td label, table.plan-mode-select.iceSelMnyCb 
 
 
 
+.iceCmdSrtHdr .column-hoverDesc {
+	width: 10px; 
+	height: 10px;
+	display: block;
+    margin-top: auto;
+    margin-left: 5px;
+	background: url(/collaboratorium-theme/images/arrows/01_down.png) no-repeat center;
+}
+
+.iceCmdSrtHdr .column-hoverAsc {
+    width: 10px; 
+    height: 10px;
+    display: block;
+    padding-top: 30%;
+    margin-left: 5px;
+    background: url(/collaboratorium-theme/images/arrows/01_up.png) no-repeat center;
+}
