@@ -1,8 +1,10 @@
+/*
 var isDocumentReady = false;
 
 jQuery(document).ready(function() {
     isDocumentReady = true;
 });
+*/
 
 if (window.collab) {
 }
@@ -87,20 +89,11 @@ Collab.nav = new function() {
 	}
 	
 	this.block = function() {
-		if (isDocumentReady) {
-			//jQuery("#mainContent").block({message: "<center><img src='/collaboratorium-theme/images/ajax-loader.gif' /></center>"});
-		}
+		jQuery("#content_wrap").block({message: "<center><img src='/collaboratorium-theme/images/ajax-loader.gif' /></center>"});
 	}
 	
 	this.unblock = function() {
-        if (isDocumentReady) {
-    		jQuery("#mainContent").unblock();
-        }
-        else {
-            jQuery(document).ready(function() {
-                jQuery("#mainContent").unblock();
-            });
-        }
+   		jQuery("#content_wrap").unblock();
 	}
 
 	function forceNavigation() {
@@ -245,3 +238,4 @@ Collab.nav = new function() {
 jQuery(document).ready(function() {
      jQuery.history.init(Collab.nav.pageload);
 });
+Collab.nav.block();

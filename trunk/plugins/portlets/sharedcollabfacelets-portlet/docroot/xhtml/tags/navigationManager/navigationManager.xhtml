@@ -11,6 +11,7 @@
             <ice:commandButton value="Submit" styleClass="submit" action="#{navigationManagerBean.navigate}" />
         </ice:form>
 	<ice:panelGroup>
+        <div id="tokenNumberNav" class="hidden">#{navigationManagerBean.token}</div>
 		<script type="text/javascript">
 			// #{navigationManagerBean.token}
 			jQuery(document).ready(function() {
