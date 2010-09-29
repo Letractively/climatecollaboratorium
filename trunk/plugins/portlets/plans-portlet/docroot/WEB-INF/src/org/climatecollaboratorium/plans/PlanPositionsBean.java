@@ -1,59 +1,51 @@
 package org.climatecollaboratorium.plans;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.faces.event.ActionEvent;
+
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
+import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
+import org.climatecollaboratorium.plans.wrappers.DebateQuestionWrapper;
+
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanPositions;
-
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
-
-import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
-import org.climatecollaboratorium.plans.wrappers.DebateQuestionWrapper;
-
 public class PlanPositionsBean {
     private List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
+    
     private PlanItem plan;
     private boolean editing;
-    private PlanBean planBean;
-    private List<PlanPositions> planPositions;
-    private Map<Long, PlanPositions> planPositionsById = new HashMap<Long, PlanPositions>();
-    private List<PlanHistoryWrapper> planPositionItems = new ArrayList<PlanHistoryWrapper>();
-    private Long planPositionsVersion;
-    private Long lastPositionsVersion;
+    
+    private List<PlanHistoryWrapper> planPositionHistoryItems = new ArrayList<PlanHistoryWrapper>();
+    private PlanHistoryWrapper<PlanPositions> planPositionsHisotryItem;
+    
     private boolean positionsSet;
     private List<Debate> availableDebates;
     private ThemeDisplay td = Helper.getThemeDisplay();
     private boolean updatePositions;
+    private EventBus eventBus;
+    private List<Long> positionsIds;
 
-    public PlanPositionsBean(PlanItem plan, PlanBean planBean) throws SystemException, PortalException {
+    public PlanPositionsBean(PlanItem plan) throws SystemException, PortalException {
 
         this.plan = plan;
-        this.planBean = planBean;
+        positionsIds = plan.getPositionsIds();
 
-        planPositions = plan.getAllPositionsVersions();
-        for (PlanPositions positions: planPositions) {
-            planPositionsById.put(positions.getId(), positions);
-            planPositionItems.add(PlanHistoryWrapper.getWrapper(positions));
-        }
-        planPositionsVersion = planPositions.get(0).getId();
-        lastPositionsVersion = -1L;
         if (plan.getPositionsIds().size() > 0) {
             positionsSet = true;
         }
@@ -62,11 +54,12 @@ public class PlanPositionsBean {
         for (Long debateId: plan.getContest().getDebatesIds()) {
             availableDebates.add(DebateLocalServiceUtil.findLastVersion(debateId));
         }
+        updatePositions = true;
     }
 
     public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
-        if (! lastPositionsVersion.equals(planPositionsVersion) || updatePositions) {
-            Set<Long> planPositionsIds = new HashSet<Long>(planPositionsById.get(planPositionsVersion).getPositionsIds());
+        if (updatePositions) {
+            Set<Long> planPositionsIds = new HashSet<Long>(positionsIds);
             positionsSet = planPositionsIds.size() > 0;
 
             questions.clear();
@@ -91,7 +84,6 @@ public class PlanPositionsBean {
                     }
                 }
             }
-            lastPositionsVersion = planPositionsVersion;
             updatePositions = false;
         }
         return questions;
@@ -120,53 +112,51 @@ public class PlanPositionsBean {
                     PlanItem.class.getName(), plan.getPlanId(), PlanActivityKeys.EDIT_POSITIONS.id(),null, 0);
         }
         editing = false;
-        planBean.refresh();
+
+        eventBus.fireEvent(new PlanUpdatedEvent(plan));
     }
 
-    public List<PlanHistoryWrapper> getPlanPositionsVersions() {
-        return planPositionItems;
+    public List<PlanHistoryWrapper> getPlanPositionsVersions() throws SystemException {
+        if (planPositionHistoryItems.size() == 0) {
+            boolean isLatest = true;
+            for (PlanPositions positions: plan.getAllPositionsVersions()) {
+                planPositionHistoryItems.add(PlanHistoryWrapper.getWrapper(positions, isLatest));
+                isLatest = false;
+            }
+        }
+        return planPositionHistoryItems;
     }
 
-    public Long getPlanPositionsVersion() {
-        return planPositionsVersion;
+    public void selectVersion(ActionEvent evt) throws SystemException {
+        PlanHistoryWrapper wrapper = 
+        planPositionsHisotryItem = (PlanHistoryWrapper<PlanPositions>) evt.getComponent().getAttributes().get("item");
+        positionsIds = planPositionsHisotryItem.getWrapped().getPositionsIds();
+        updatePositions = true;
     }
 
-    public void setPlanPositionsVersion(Long planPositionsVersion) {
-        this.planPositionsVersion = planPositionsVersion;
-    }
-
-    public void selectVersion(ActionEvent evt) {
-        PlanHistoryWrapper wrapper = (PlanHistoryWrapper) evt.getComponent().getAttributes().get("item");
-        setPlanPositionsVersion(wrapper.getUpdateVersion());
-    }
-
-    public String getSelectedPositionsIds() throws SystemException {
-        return planPositionsById.get(planPositionsVersion).getPositionsIds().toString();
-    }
-
-    public void setSelectedPositionsIds(String value) {
-        // ignore
-
-    }
 
     public boolean isPositionsSet() {
         return positionsSet;
     }
 
-    public void setPositionsSet(boolean empty) {
-        this.positionsSet = empty;
-    }
-
     public boolean isLatestVersion() {
-        return planPositionsById.get(planPositionsVersion) == planPositions.get(0);
+        return planPositionsHisotryItem == null || planPositionsHisotryItem.isLatest();
     }
 
     public Date getVersionDate() {
-        return planPositionsById.get(planPositionsVersion).getCreated();
+        return planPositionsHisotryItem.getUpdateDate();
     }
 
     public User getVersionAuthor() throws PortalException, SystemException {
-        return planPositionsById.get(planPositionsVersion).getUpdateAuthor();
+        return planPositionsHisotryItem.getUpdateAuthor();
+    }
+    
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
+    
+    public List<Long> getPositionsIds() {
+        return positionsIds;
     }
 
 }

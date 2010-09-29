@@ -62,11 +62,12 @@
         <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}"
                         styleClass="planDescription editTriggerContainer">
                         <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
-            <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
+            <ice:panelGroup styleClass="versionInfo" rendered="#{planBean.plan.planDescriptionHistoryItem != null and !planBean.plan.planDescriptionHistoryItem.latest}">
+            
                 Viewing version from &amp;nbsp; <strong><ice:outputText
-                    value="#{planBean.plan.descriptionVersionDate}"/></strong> by &amp;nbsp;
-                <a href="/web/guest/members?userId=#{planBean.plan.descriptionVersionAuthor.userId}">
-                    <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}"/></strong>
+                    value="#{planBean.plan.planDescriptionHistoryItem.updateDate}"/></strong> by &amp;nbsp;
+                <a href="/web/guest/members?userId=#{planBean.plan.planDescriptionHistoryItem.updateAuthor.userId}">
+                    <strong><ice:outputText value="#{planBean.plan.planDescriptionHistoryItem.updateAuthor.screenName}"/></strong>
                 </a>
             </ice:panelGroup>
             <ice:outputText value="#{planBean.plan.description}" escape="false"/>
@@ -90,13 +91,15 @@
 
 
         <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}">
-            <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.descriptionLatestVersion}">
+            <ice:panelGroup styleClass="versionInfo" rendered="#{planBean.plan.planDescriptionHistoryItem != null and !planBean.plan.planDescriptionHistoryItem.latest}">
+            
                 Viewing version from &amp;nbsp; <strong><ice:outputText
-                    value="#{planBean.plan.descriptionVersionDate}"/></strong> by &amp;nbsp;
-                <a href="/web/guest/members?userId=#{planBean.plan.descriptionVersionAuthor.userId}">
-                    <strong><ice:outputText value="#{planBean.plan.descriptionVersionAuthor.screenName}"/></strong>
+                    value="#{planBean.plan.planDescriptionHistoryItem.updateDate}"/></strong> by &amp;nbsp;
+                <a href="/web/guest/members?userId=#{planBean.plan.planDescriptionHistoryItem.updateAuthor.userId}">
+                    <strong><ice:outputText value="#{planBean.plan.planDescriptionHistoryItem.updateAuthor.screenName}"/></strong>
                 </a>
             </ice:panelGroup>
+            
 
             <div class="nothingSetInfo">
                 <div class="nothingSetMessage">No description set.</div>
