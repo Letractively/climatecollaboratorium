@@ -33,7 +33,7 @@ blockquote, ul, ol, dl {
 }
 
 
-body.other_pages { background:url(../images/bg_main_other_page.gif) repeat-x; }
+body.other_pages { background:url(../images/bg_main_other_page.gif) repeat-x #F5F5F5; }
 
 
 #content_home_other { width:976px; background:#fff; line-height:22px; }
