@@ -29,7 +29,7 @@ div.slider-labels table td {
     height:10px;
 }
 
-.slider-labels table td.right {
+.slider-labels table td.right-label {
     text-align:right;
 }
 
@@ -57,14 +57,7 @@ div.slider-labels {
     height: 30px;
 }
 
-.actions h3 {
-    background:url("/collaboratorium-theme/images/action_h3.png") no-repeat scroll 0 0 transparent;
-    height:51px;
-    margin-left:4px;
-    margin-top:-13px;
-    position:absolute;
-    width:151px;
-}
+
 
 .actions .corcen_top {
     background:url("/collaboratorium-theme/images/tabAction_corcen_top.gif") no-repeat scroll center top transparent;
@@ -91,6 +84,14 @@ div.slider-labels {
     margin:0 auto;
     padding:0;
     width:419px;
+}
+
+.actions .title h2 {
+    margin-top:6px;
+    margin-left:15px;
+    margin-bottom:0px;
+    margin-right:0px;
+
 }
 
 

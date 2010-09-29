@@ -12,8 +12,11 @@
                 <div class="corcen_bottom">
                     <div class="corcen">
                         <div class="title">
-                            <h3><span class="hidden">Impacts</span></h3>
+                            <h2>Impacts</h2>
+                            <ice:commandButton actionListener="#{simulationBean.runSimulation}"  onclick="disableRunButton(); runSimulation();" styleClass="prominantButton runSimulationButton" value="Run the simulation" rendered="#{showRunButton}"/>
+
                         </div>
+                        <div class="clear"></div>
                         <div id="chartContainerAll"></div>
                         
                         <div class="impactsContent">

@@ -527,7 +527,7 @@ function renderSingleChart(chartDef) {
 		if (values.length > 0) {
             //log.debug(chartTitle+":"+series+":"+values);
 			var plot = jQuery.jqplot(chartPlaceholderId, values, 
-				{title: chartTitle, 
+				{ 
 				series: series,
 				axes:{
 					xaxis: xaxis,
@@ -536,7 +536,7 @@ function renderSingleChart(chartDef) {
 				legend : {
 					show :true,
 					location :'nw',
-					yoffset :280,
+					yoffset :300,
 					xoffset:0
 				}
 			}); 
@@ -561,7 +561,7 @@ function renderSingleChart(chartDef) {
 		}
 		height +=  errorMessagesPlaceholder.height();
 		
-		jQuery("#" + chartPlaceholderId).parent().height(height + 60);
+		jQuery("#" + chartPlaceholderId).parent().height(height + 30);
 
 	} catch (e) {
 		if (debug) {
