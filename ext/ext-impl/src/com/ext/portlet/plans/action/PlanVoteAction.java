@@ -66,13 +66,11 @@ public class PlanVoteAction extends ViewPlansAction {
             PlanLocalServiceUtil.updatePlan(plan);
             if (updateType.equals(PlanConstants.VOTE))
             {
-            	System.out.println("logging switch a vote activity");
             	SocialActivityLocalServiceUtil.addActivity(userId, themeDisplay.getScopeGroupId(), "com.ext.portlet.Activity", planId,PlanActivityKeys.SWICTH_VOTE_FOR_PLAN.id(), StringPool.BLANK, 0);
             }
         }
         else if (updateType.equals(PlanConstants.VOTE)) 	
         {
-        	System.out.println("logging a vote activity");
         	SocialActivityLocalServiceUtil.addActivity(userId, themeDisplay.getScopeGroupId(), "com.ext.portlet.Activity", planId,PlanActivityKeys.VOTE_FOR_PLAN.id(), StringPool.BLANK, 0);
         }
         if (updateType.equals(PlanConstants.VOTE)) {
@@ -87,7 +85,6 @@ public class PlanVoteAction extends ViewPlansAction {
         } 
         else {
             try {
-            	System.out.println("logging a delete vote activity");
                 PlanVoteLocalServiceUtil.deletePlanVote(userId);
                 SocialActivityLocalServiceUtil.addActivity(userId, themeDisplay.getScopeGroupId(), "com.ext.portlet.Activity", planId,PlanActivityKeys.RETRACT_VOTE_FOR_PLAN.id(), StringPool.BLANK, 0);
             } catch (NoSuchPlanVoteException e) {
