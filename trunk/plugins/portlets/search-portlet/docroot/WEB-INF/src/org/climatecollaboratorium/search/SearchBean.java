@@ -209,6 +209,7 @@ public class SearchBean extends DataSource {
                         }
                         else {
                             searchPhrase = null;
+                            
                         }
                         
                         onePageDataModel = null;
