@@ -35,13 +35,17 @@
 
     <div class="versionsContainer">
         <div class="versions">
-            <ice:dataTable value="#{planBean.plan.planModelRunVersionItems}" rows="10" var="historyItem">
+            <ice:dataTable value="#{planBean.plan.planModelRunVersionItems}" rows="10" var="historyItem" styleClass="basicTable" rowClasses="odd,even">
                 <ice:column>
                     <f:facet name="header">
                         <ice:outputText value="Date"/>
+
                     </f:facet>
-                    <ice:commandLink value="#{historyItem.updateDate}"
+                    <ice:commandLink
                                      actionListener="#{planBean.plan.selectModelRunVersion}"  >
+                        <ice:outputText value="#{historyItem.updateDate}">
+                        <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
+                        </ice:outputText>
                         <f:attribute name="item" value="#{historyItem}"/>
                     </ice:commandLink>
 
@@ -88,16 +92,7 @@
         </ice:panelGroup>
     
 
-    <collabcomps:helpMessage messageId="planModelRunHelp" styleClass="planHelp" hideThisMessage="Hide this message">
-        Key Actions for proposals in the 2010 contest are commitments to:
-        <ul>
-        <li>reduce greenhouse gas emissions</li>
-        <li>reduce deforestation and increase tree cover</li>
-        </ul>
-        These actions become inputs to the&amp;nbsp;<a href="/web/guest/resources/-/wiki/Main/MIT+Composite+Model">MIT Composite Model</a>. 
-        The model projects the environmental and economic Impacts of the proposed actions.&amp;nbsp;<a href="/web/guest/resources/-/wiki/Main/About+proposals">See more</a>.
-    </collabcomps:helpMessage>
-    <collabcomps:helpMessageTrigger messageId="planModelRunHelp">+show help</collabcomps:helpMessageTrigger>
+   
 
     <ice:panelGroup styleClass="actionsImpactsContainer">
         <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.plan.simulationLatestVersion}">
@@ -107,12 +102,7 @@
                 <strong><ice:outputText value="#{planBean.plan.simulationVersionAuthor.screenName}"/></strong>
             </a>
         </ice:panelGroup>
-        <div class="model-info">
-        <ice:outputText escape="false">
-            The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
-                href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
-        </ice:outputText>
-        </div>        
+
 
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
             <f:subview rendered="#{permissions.canEdit}">
@@ -154,6 +144,12 @@
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
             No model has been set.
         </ice:panelGroup>
+        <div class="model-info">
+        <ice:outputText escape="false">
+            The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
+                href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
+        </ice:outputText>
+        </div>   
         <div class="modelSelection">
         <ice:panelGrid columns="2">
             <ice:panelGroup>

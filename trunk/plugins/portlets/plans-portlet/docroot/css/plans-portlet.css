@@ -19,7 +19,7 @@ input[type="submit"].prominantButton-dis {
     background-image:none;
     color: #c7b9b9;
     margin: 5px 0;
-    font-size: 1.3em;
+    font-size: 1.5em;
     border:none;
 
 }
@@ -29,19 +29,56 @@ input[type="submit"].prominantButton-dis:hover {
 }
 
 input[type="submit"].prominantButton {
-    background: #E3DFD7;
+    background: #2c9cbb;
     background-image:none;
-    color: #C74430;
+    font-weight: 600;
+    font-family: "gloriola-web-1","gloriola-web-2";
+    color: #FFF;
     margin: 5px 0;
-    font-size: 1.3em;
+    font-size: 1.5em;
     border:none;
 }
 input[type="submit"].prominantButton:hover {
-    background: #f2e5cd;
+     background: #1f6f85;
     background-image:none;
-    color: #C74430;
+
     border:none;
 }
+
+div.prominantButton {
+     padding: 5px 10px;
+    font-weight: 600;
+    font-family: "gloriola-web-1","gloriola-web-2";
+    font-size:18px;
+    text-align:center;
+    background: #2c9cbb;
+    background-image:none;
+    color: #FFF;
+    margin: 5px 0;
+    border:none;
+}
+
+div.prominantButton:hover {
+    background-image:none;
+     background: #1f6f85;
+    border:none;
+    
+       
+}
+
+.modelSelection td input[type="submit"].prominantButton-dis {
+    width:100%;
+}
+
+.modelSelection td input[type="submit"].prominantButton {
+    width:100%;
+}
+
+.prominantButton.deletePlan {
+    width:100%;
+}
+
+
 
 .plans ul li {
     list-style:disc inside;
@@ -58,16 +95,15 @@ input[type="submit"].prominantButton.createNewPlanButton {
 
 
 .container_top {
-    background:none repeat scroll 0 0 #F9F9F8;
-    padding:30px 30px 0
-   
+
+    padding: 0px 18px 0px 30px;
 }
 
 .container_top .topActions {
 	text-align: right;
 	padding: 5px;
     float:right;
-    margin-top:-27px;
+    margin-top:-10px;
 
 }
 
@@ -125,7 +161,8 @@ a.helpMessageTrigger.helpHidden {
     display:inline;
     color: #8c96b4;
     float:left;
-    margin-left:40px;
+    margin-left:23px;
+    margin-top:-23px;
 }
 
 
@@ -144,6 +181,10 @@ div.selectContestType {
     margin-bottom:5px;
     padding: 10px;
     background-color:transparent;
+}
+
+.categoryHeader h2 {
+    margin:0;
 }
 
 
@@ -171,7 +212,9 @@ div.selectContestType {
 }
 
 .categoryDescription {
-    margin:10px;
+    margin-right:10px;
+    margin-left:10px;
+    margin-bottom:10px;
     padding:10px;
     background-color:#FFFFFF;
     font-size:1.2em;
@@ -380,15 +423,22 @@ td.contestTabSetCnt {
 .title .icon {
     float:left;
     width: auto;
+    padding-top:20px;
 }
 
 
-
+.title .icon h2 {
+    margin: 0px 0 10px
+}
 
 .title .icon h2, 
 .title .icon input {
 	float: left;
-	margin-right: 10px;
+	margin-right:10px;
+}
+
+.title .icon h1 {
+    display:inline;
 }
 
 
@@ -500,14 +550,18 @@ table.mainTabs > tbody > tr:first-child table .MidMid {
 }
 
 table.mainTabs > tbody > tr:first-child table td.admin {
-  background:#E3DFD7;
+  background:url("/collaboratorium-theme/images/link_bg_continuous.gif") repeat; 
+
+}
+
+table.mainTabs > tbody > tr:first-child table td.description-tab {
+    width:100%
 }
 
 
 table.mainTabs > tbody > tr:first-child table .icePnlTbOn .MidMid a,
 table.mainTabs > tbody > tr:first-child table .icePnlTbOn .MidMid td {
-	font-weight: normal;
-    color: #C74430;
+	color: #C74430;
 }
 
 table.mainTabs > tbody > tr:first-child table .MidMid div table {
@@ -520,7 +574,9 @@ table.mainTabs > tbody > tr:first-child table .MidMid a {
 	padding-right: 0;
     color:#676767;
     display:block;
-    font-size:16px;
+    font-size:20px;
+    font-family:"gloriola-web-1","gloriola-web-2";
+    white-space:nowrap;
     width:auto;
 }
 
@@ -539,10 +595,6 @@ table.icePnlTbSet.contestTabSet {
 
 td.icePnlTbSetCnt.mainTabsCnt {
     background-color: #FFFFFF;
-    padding-bottom:15px;
-    padding-right:15px;
-    padding-left:15px;
-
 }
 
 .toolbar {
@@ -553,27 +605,27 @@ td.icePnlTbSetCnt.mainTabsCnt {
 	float: right;
 }
 
+
 div.editControls {
     padding:7px;
-    font-size:1.2em;
+    font-size:1.1em;
 
-    font-weight:bold;
 }
 
 div.editControls.edit {
-    background:url("../img/page_edit.png") no-repeat scroll 9px 7px transparent;
-    padding-left: 30px;
+    background:url("../img/page_edit.png") no-repeat scroll 9px 4px transparent;
+    padding:3px 7px 2px 30px;
      margin-right:15px;
 }
 
 div.editControls.save {
-    background:url("../img/disk.png") no-repeat scroll 9px 7px transparent;
-    padding-left: 30px;
+    background:url("../img/disk.png") no-repeat scroll 9px 4px transparent;
+    padding:3px 7px 2px 30px;
 }
 
 div.editControls.cancelEdit {
-    background:url("../img/cross.png") no-repeat scroll 9px 7px transparent;
-    padding-left: 30px;
+    background:url("../img/cross.png") no-repeat scroll 9px 4px transparent;
+    padding:3px 7px 2px 30px;
     font-weight: normal;
      margin-right:15px;
 }
@@ -801,6 +853,9 @@ th.voteForPlan {
 
 .popup-info-box {
     width: 250px;
+    background:none repeat scroll 0 0 #F5F5F5;
+    border:thin solid #DEDCDB;
+    padding:5px;
 }
 
 
@@ -1013,13 +1068,7 @@ padding-top:20px;
     padding:10px;
 }
 
-.modelSelection td input[type="submit"].prominantButton-dis {
-    width:100%;
-}
 
-.modelSelection td input[type="submit"].prominantButton {
-    width:100%;
-}
 
 
 
@@ -1090,6 +1139,12 @@ font-weight:normal;
 div.plansBreadcrumb {
     font-size:1.2em;
     padding: 10px 35px;
+    border-bottom: thin solid #E3DFD7;
+    margin-left:20px;
+    margin-right:20px;
+    padding: 1px 15px 3px 0px;
+    
+    
 }
 
 
@@ -1132,7 +1187,7 @@ table.plan-mode-select.iceSelOneRb td label, table.plan-mode-select.iceSelMnyCb 
     padding:10px;
 }
 
-.prominantButton.deletePlan {
-    width:100%;
-}
+
+
+
 
