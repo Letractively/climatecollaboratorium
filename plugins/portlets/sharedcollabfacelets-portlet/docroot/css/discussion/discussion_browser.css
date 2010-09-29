@@ -141,3 +141,8 @@
     background: #91B1E6;
     color: #ffffff;
 }
+
+.discussion .prominantButton.startDiscussion {
+    font-size: 2em;
+    white-space:normal;
+}
