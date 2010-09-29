@@ -695,6 +695,7 @@ function initAccordion() {
 		showTabContents(this);
 
 		setTimeout( function() { jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height()) }, 250);
+		return false;
 	});
 
 	var selectedHeader = container.find("h3").get(0);
