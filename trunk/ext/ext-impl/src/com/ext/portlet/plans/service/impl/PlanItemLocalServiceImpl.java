@@ -327,7 +327,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         planMeta.setPlanGroupId(basePlan.getChildGroupId());
         planMeta.setPlanTypeId(basePlan.getPlanTypeId());
         
-        if (planMeta.getPlanId().equals(1L)) {
+        if (planMeta.getPlanTypeId().equals(1L)) {
             planMeta.setContestPhase(2L);
         }
         else {
