@@ -50,6 +50,7 @@ public class PlansIndexBean {
 
 
     private ContestPhaseWrapper contestPhase;
+    private List<ContestPhase> queryPhases = new ArrayList<ContestPhase>();
 
     private ConfigureColumnsBean columnsConfiguration;
 
@@ -136,6 +137,8 @@ public class PlansIndexBean {
         initSortColun();
         columnsUpdate();
         
+        queryPhases.add(contestPhase.getPhase());
+        
     }
 
 
@@ -146,6 +149,7 @@ public class PlansIndexBean {
 
         if (currentPhase == null) {
             contestPhase = null;
+            queryPhases.clear();
             return;
         }
 
@@ -153,6 +157,7 @@ public class PlansIndexBean {
             // ignore
         } else {
             contestPhase = currentPhase;
+            queryPhases.add(contestPhase.getPhase());
             isDirty = true;
         }
 
@@ -164,7 +169,8 @@ public class PlansIndexBean {
                 showPreviousProposals = tmp;
 
                 if (showPreviousProposals) {
-                    contestPhase = new ContestPhaseWrapper(contestPhase.getContest(), contestPhase.getPhase().getPreviousPhases().get(0));
+                    queryPhases.clear();
+                    queryPhases.addAll(contestPhase.getPhase().getPreviousPhases());
                 }
             }
         } else {
@@ -313,8 +319,7 @@ public class PlansIndexBean {
                 sortAttribute = sortCol.getSortAttribute().name();
             }
             if (showPreviousProposals) {
-                List<ContestPhase> previousPhases = contestPhase.getPhase().getPreviousPhases();
-                notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, previousPhases, 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
+                notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, queryPhases, 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
             } else {
                 notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
             }
