@@ -16,25 +16,14 @@
 	
 .contestNavItems a div {
     display: block;
-    background: #999c8d;
-    margin-right: 20px;
-    margin-bottom:8px;
-    padding: 5px 10px;
-    font-weight: normal;
-    font-size:18px;
-    color: #676767;
-    text-align:center;
+   
+   
 }
-
-.contestNavItems a div:hover {
-    background: #EDEBEA;
-    color: #C74430;
-}
-
 
 
 td.contestNavItems {
     width: 25%;
+    padding:18px;
 }
 
 div.contestContent {
@@ -49,7 +38,7 @@ div.contestContent {
     
 .contestPhaseInfo {
     background: #EDEBEA;
-    padding: 32px 10px 5px;
+    padding: 9px 10px 5px;
 }
 
 .proposalsListNav a {

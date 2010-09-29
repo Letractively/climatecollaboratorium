@@ -182,6 +182,10 @@ public class PlanItemWrapper {
        return planMode.name(); 
     }
 
+    public boolean isOpen() {
+        return planMode == PlanMode.OPEN;
+    }
+
     public SelectItem[] getAllPlanStatusSelections() {
         return draftOrSubmitted;
     }

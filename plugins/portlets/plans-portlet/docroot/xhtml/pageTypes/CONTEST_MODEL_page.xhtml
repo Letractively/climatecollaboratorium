@@ -36,12 +36,7 @@
             <sharedcollab:helpMessageTrigger
                     messageId="contestModelHelp">+show help</sharedcollab:helpMessageTrigger>
             </ice:form>
-            <div class="model-info">
-                <ice:outputText escape="false">
-                    The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
-                        href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
-                </ice:outputText>
-            </div>
+
             <ice:form>
                 <collab:simulation simulationId="#{contest.modelId}" disableInputs="false" showEditArea="false"
                                    showEditButton="false" showRunButton="#{true}"/>
@@ -56,7 +51,12 @@
                     </ice:selectOneMenu>
                 </ice:form>
             </ice:panelGroup>
-
+                     <div class="model-info">
+                <ice:outputText escape="false">
+                    The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
+                        href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
+                </ice:outputText>
+            </div>
                     <ice:panelGroup>
                         You can select varying levels of geographic disaggregation for the actions in this model by using the menu to the left.
                     </ice:panelGroup>
