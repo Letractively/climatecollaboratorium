@@ -19,7 +19,11 @@
             <ice:panelSeries value="#{contests.contests}" var="singleContest">
                 <ice:form>
                     <ice:panelGroup styleClass="categoryHeader" rendered="#{not singleContest.editor.editing}">
-                        <h2><ice:outputText styleClass="categoryName" value="#{singleContest.name}"/></h2>
+                        <h2>
+                            <a href="#plans=contests:#{singleContest.contestActive ? 'active' : 'past'}">
+                                <ice:outputText styleClass="categoryName" value="#{singleContest.name}"/>
+                            </a>
+                        </h2>
                         <ice:commandButton styleClass="editCategoryButton" value="Edit"
                                            action="#{singleContest.editor.edit}"
                                            rendered="#{not singleContest.editor.editing and permissions.canAdminAll}"/>
@@ -78,11 +82,11 @@
                     <div class="contestContent">
                         <ice:dataTable value="#{singleContest.plansIndex.plans}" styleClass="plansTable"
                                        rowClasses="odd,even"
-                                       var="singlePlan" sortColumn="#{plansIndex.sortColumn}"
-                                       sortAscending="#{plansIndex.sortAscending}" id="plansIndex"
+                                       var="singlePlan" sortColumn="#{singleContest.plansIndex.sortColumn}"
+                                       sortAscending="#{singleContest.plansIndex.sortAscending}" id="plansIndex"
                                        rows="#{preferences.maxProposalsPerContest[singleContest.contest.contestPK]}"
-                                       headerClass="#{plansIndex.columns}">
-                            <ice:columns value="#{plansIndex.columns}" var="column">
+                                       headerClass="#{singleContest.plansIndex.columns}">
+                            <ice:columns value="#{singleContest.plansIndex.columns}" var="column">
                                 <f:facet name="header">
                                     <div>
                                         <div class="popup-info-box hidden"
@@ -142,7 +146,7 @@
                                                 rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE' and column != 'IS_PLAN_OPEN'}"
                                                 escape="false"/>
                             </ice:columns>
-                            <ice:column rendered="#{plansIndex.contestPhase.canVote}">
+                            <ice:column rendered="#{singleContest.plansIndex.contestPhase.canVote}">
                                 <f:facet name="header">
                                     <div class="voteForPlan"><span>Vote for Plan</span></div>
                                 </f:facet>
