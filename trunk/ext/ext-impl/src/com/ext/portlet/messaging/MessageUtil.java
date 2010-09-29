@@ -153,7 +153,7 @@ public class MessageUtil {
         prefs = MessagingUserPreferencesLocalServiceUtil.createMessagingUserPreferences(nextid);
         prefs.setEmailOnReceipt(true);
         prefs.setEmailOnSend(false);
-        MessagingUserPreferencesLocalServiceUtil.updateMessagingUserPreferences(prefs);
+        MessagingUserPreferencesLocalServiceUtil.addMessagingUserPreferences(prefs);
         }
         return prefs;
     }

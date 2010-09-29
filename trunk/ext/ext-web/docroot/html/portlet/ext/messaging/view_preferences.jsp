@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="bd">
-                <form name="<portlet:namespace/>submitFm" action="<%=redirect%>" method="post">
+                <form name="<portlet:namespace/>submitFm" action="${udpatePrefs}" method="post">
                     <label>Send me an email copy of messages I receive:</label>&nbsp;<input type="checkbox" name="<portlet:namespace/><%=MessageConstants.MESSAGING_PREF_COPY_ON_RECEIPT%>" <%=b?"checked":""%>/>                  
                 </form>
 
