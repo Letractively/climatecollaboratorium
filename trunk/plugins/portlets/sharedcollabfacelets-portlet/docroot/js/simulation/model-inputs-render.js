@@ -658,6 +658,9 @@ function renderModelOutputs() {
 	jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height());
 	jQuery(".outputDef").eq(0).addClass("processed");
 	jQuery(".outputDef").show();
+    if (jQuery("#firstRun").text()=='true') {
+        jQuery.find("a.activator.default").click();
+    }
 	
 	unlockImpactsScreen();
 	
