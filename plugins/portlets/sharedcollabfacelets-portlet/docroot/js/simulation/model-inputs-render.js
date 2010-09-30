@@ -658,15 +658,12 @@ function renderModelOutputs() {
 	jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height());
 	jQuery(".outputDef").eq(0).addClass("processed");
 	jQuery(".outputDef").show();
-    if (jQuery("#firstRun").text()=='true') {
-        jQuery.find("a.activator.default").click();
-    }
 	
 	unlockImpactsScreen();
 	
 }
 
-var currentTab = false;
+var currentTab = "CO2 Concentration";
 
 function showTabContents(tabHeader) {
 	if (! jQuery(tabHeader).hasClass("ui-state-processed")) {
