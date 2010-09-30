@@ -99,8 +99,8 @@ function showInputsErrorMsg(msg) {
  */
 function processUserInput(newVal, unit, min, max, id) {
 	var oldVal = inputValues[id];
-	var newValParsed = parseFieldValue(newVal, unit);
-	if (! /^[0-9]*$/g.test(isNaN(newValParsed))) {
+	var newValParsed = jQuery.trim(parseFieldValue(newVal, unit));
+	if (! /^[0-9]*$/g.test(newValParsed) && ! /^-[0-9]*$/g.test(newValParsed)) {
 		showInputsErrorMsg("Invalid value entered, provide value between " + min + " and " + max);
 		return false;
 	}
