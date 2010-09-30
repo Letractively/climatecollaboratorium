@@ -218,12 +218,13 @@ public class SimulationBean {
         return inputsValues;
     }
 
-    public void editActions(ActionEvent e) {
+    public void editActions(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
         embeddedEditing = !embeddedEditing;
         scenarioSaved = false;
         if (! embeddedEditing) {
             // revert input values to old ones
             updateInputValues();
+            updateDisplay();
         }
         eventBus.fireEvent(new ScenarioEditEvent(embeddedEditing));
     }
