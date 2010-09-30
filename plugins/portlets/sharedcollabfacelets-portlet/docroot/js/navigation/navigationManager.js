@@ -112,7 +112,7 @@ Collab.nav = new function() {
 		//navigationItems['req'] = {req: req++};
 		if (isAnyEditorDirty()) {
 			// page contains dirty data, ask user if he really wants to leave
-			if (! window.confirm("Do you really want to leave the page and lose all your work?")) {
+			if (! window.confirm('You have unsaved changes.  If you would like to save your changes click "Cancel" and use the "Save changes" button. If you wish to discard your changes, click "OK"')) {
 				return ;
 			}
 		}
@@ -188,7 +188,7 @@ Collab.nav = new function() {
 		editorDirtyValidationCallbacks.push(callback);
 	}
 	
-	/**
+	/**         
 	 * Checks if contents of the page is "dirty" (any editor has new data (entered by user).
 	 * To check that editorDirtyValidationCallback is used (which can be set with 
 	 * setEditorDirtyValidationCallback, if no callback is set false is returned.
@@ -221,9 +221,11 @@ Collab.nav = new function() {
 	jQuery(document).ready(function() {
 		setTimeout(function() {
 			var oldOnBeforeUnload = window.onbeforeunload;
+
 			window.onbeforeunload = function() {
 				if (isAnyEditorDirty()) {
-					return "Do you really want to leave the page and lose all your work?";
+					
+                    return 'You have modified this page but have not saved your changes.';
 				}
 				if (oldOnBeforeUnload) {
 					return oldOnBeforeUnload();

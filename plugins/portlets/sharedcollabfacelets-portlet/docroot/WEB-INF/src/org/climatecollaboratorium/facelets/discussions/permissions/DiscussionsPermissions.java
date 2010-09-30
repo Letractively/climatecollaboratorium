@@ -8,6 +8,7 @@ public interface DiscussionsPermissions {
     boolean getCanAdminCategories();
     boolean getCanAdmin();
     boolean getCanSubscribe();
+    boolean getIsLoggedIn();
     
     
 }

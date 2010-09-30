@@ -49,6 +49,7 @@ public class SimulationBean {
     private String description;
     private ModelDisplayWrapper display;
     private boolean embeddedEditing;
+    private boolean firstRun = false;
     private Map<ModelInputDisplayItem, ModelInputDisplayItemWrapper> wrappedInputs = new HashMap<ModelInputDisplayItem, ModelInputDisplayItemWrapper>();
     private List<ModelOutputErrorSettingWrapper> outputErrorSettingWrappers = new ArrayList<ModelOutputErrorSettingWrapper>();
     
@@ -127,6 +128,10 @@ public class SimulationBean {
         this.editing = editing;
     }
 
+    public boolean isFirstRun() {
+        return firstRun;
+    }
+
     public String getDescription() {
         return simulation.getDescription();
     }
@@ -174,6 +179,7 @@ public class SimulationBean {
         try {
             Map<Long, Object> inputs = display.getInputsValues();
             _log.debug("Running simulation " + simulation.getId());
+            firstRun = scenario == null;
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
             _log.debug("Scenario id after run: " + scenario.getId());
             

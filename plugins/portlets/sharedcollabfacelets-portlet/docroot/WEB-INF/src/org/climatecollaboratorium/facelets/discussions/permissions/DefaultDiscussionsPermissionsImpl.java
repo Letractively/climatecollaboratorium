@@ -73,6 +73,10 @@ public class DefaultDiscussionsPermissionsImpl implements DiscussionsPermissions
         return Helper.isUserLoggedIn();
     }
 
+    public boolean getIsLoggedIn() {
+        return Helper.isUserLoggedIn();
+    }
+
     private PermissionChecker permCheck() {
         groupId = discussionBean.getOwningGroupId();
         PermissionChecker permCheck = Helper.getPermissionChecker();
