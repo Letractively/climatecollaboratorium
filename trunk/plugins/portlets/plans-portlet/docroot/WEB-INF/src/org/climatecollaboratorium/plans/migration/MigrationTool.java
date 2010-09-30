@@ -20,6 +20,8 @@ import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 
+import com.liferay.counter.model.Counter;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.ResourceConstants;
@@ -328,9 +330,9 @@ public class MigrationTool {
                 System.out.println(pagesCount + ": " + page.getTitle() + "\t" + page.isHead() + "\toccurrences: " + occurrences + "\toccurrencesUppercase: " + occurrencesUppercase);
             }
             
-            String content = replacePlanOccurrences(page.getContent());
-            String title = replacePlanOccurrences(page.getTitle());
-            String parentTitle = replacePlanOccurrences(page.getParentTitle());
+            String content = replaceUnwantedStrings(page.getContent());
+            String title = replaceUnwantedStrings(page.getTitle());
+            String parentTitle = replaceUnwantedStrings(page.getParentTitle());
             
             
             page.setTitle(title);
@@ -351,12 +353,14 @@ public class MigrationTool {
         return null;
     }
     
-    private String replacePlanOccurrences(String baseStr) {
+    private String replaceUnwantedStrings(String baseStr) {
         String ret = baseStr;
         ret = ret.replaceAll("plan", "proposal");
         ret = ret.replaceAll("Plan", "Proposal");
+        ret = ret.replaceAll("cognosis.mit.edu:8888", "climatecolab.org");
         
         return ret;
         
     }
+    
 }

@@ -100,8 +100,8 @@
             </f:facet>
             <ice:panelGroup rendered="#{column == 'NAME'}" styleClass="table-cell-padding #{column}">
                 <ice:outputLink
-                        value="#plans=contests:#{singleContest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}"
-                        onclick="Collab.nav.navigate('plans', {contests: '#{singleContest.contestActive ? 'active' : 'past'}', subview: 'proposals', planId: #{singlePlan.planId}}, true); return false;">
+                        value="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}"
+                        onclick="Collab.nav.navigate('plans', {contests: '#{contest.contest.contestActive ? 'active' : 'past'}', subview: 'proposals', planId: #{singlePlan.planId}}, true); return false;">
                     <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
                 </ice:outputLink>
             </ice:panelGroup>
