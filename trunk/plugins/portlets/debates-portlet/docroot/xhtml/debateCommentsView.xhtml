@@ -2,9 +2,10 @@
 <ice:panelGroup xmlns="http://www.w3.org/1999/xhtml" xmlns:jsp="http://java.sun.com/JSP/Page"
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
-                xmlns:collab="http://climatecollaboratorium.org/components">
+                xmlns:collab="http://climatecollaboratorium.org/components"
+                xmlns:collabfacelets="http://climatecollaboratorium.org/facelets">
     <ice:form>
-    <collab:helpMessageTrigger styleClass="commentHelp" messageId="commentsHelp">+show help</collab:helpMessageTrigger>
+
 
 
     <h2 class="commentHeader">Comments</h2>
@@ -12,9 +13,10 @@
 
 
 
-            <collab:helpMessage messageId="commentsHelp" styleClass="customStyleClass" hideThisMessage="Hide this message">
+            <collab:helpMessage messageId="commentHelp" styleClass="customStyleClass" hideThisMessage="Hide this message">
                 Please enter your comment below (new comments will appear at the bottom of the list).<f:verbatim>&amp;nbsp;</f:verbatim><a href='/web/guest/resources/-/wiki/Main/Moderators'>Moderators</a> will review all comments and add good ideas that appear there to the argument map.
             </collab:helpMessage>
+         <collab:helpMessageTrigger styleClass="commentHelp" messageId="commentHelp">+show help</collab:helpMessageTrigger>
 
 
     </ice:form>
@@ -39,7 +41,8 @@
                 <div class="clear"></div>
                 <p class="whoAndWhen">
                     <ice:outputText value="By"/>
-                    <collab:userLink userId="#{wrapper.comment.author.userId}" />
+                    <collabfacelets:userLink userId="#{wrapper.comment.author.userId}" />
+
                     <ice:outputText value="on"/>
                     <ice:outputText value="#{wrapper.comment.updated}" styleClass="date">
                         <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
