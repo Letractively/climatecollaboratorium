@@ -71,7 +71,7 @@
             <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}" onclick="Collab.nav.block();"/>
         </ice:panelGroup>
         <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{simulationBean.embeddedEditing}">
-            <ice:commandLink value="Cancel edits" actionListener="#{simulationBean.editActions}"/>
+            <ice:commandLink value="Cancel edits" actionListener="#{simulationBean.editActions}" onclick="convertTypedValuesToNumbers();"/>
         </ice:panelGroup>
         <ice:panelGroup styleClass="filler"></ice:panelGroup>
 
