@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ext.portlet.contests.model.ContestDebate;
 import com.ext.portlet.contests.service.base.ContestDebateLocalServiceBaseImpl;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -13,7 +13,7 @@ public class ContestDebateLocalServiceImpl
     
 
     public ContestDebate createContestDebate(Long debateId, Long contestId) throws SystemException {
-        Long id = CounterUtil.increment(ContestDebate.class.getName());
+        Long id = CounterLocalServiceUtil.increment(ContestDebate.class.getName());
         
         ContestDebate contestDebate = createContestDebate(id);
         contestDebate.setDebateId(debateId);

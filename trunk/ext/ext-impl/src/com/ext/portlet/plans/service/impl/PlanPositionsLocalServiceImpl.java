@@ -9,7 +9,7 @@ import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlanPositionsLocalServiceBaseImpl;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -21,7 +21,7 @@ public class PlanPositionsLocalServiceImpl
     }
     
     public PlanPositions createPlanPositions(PlanItem plan) throws SystemException {
-        Long planPositionsId = CounterUtil.increment(PlanPositions.class.getName());
+        Long planPositionsId = CounterLocalServiceUtil.increment(PlanPositions.class.getName());
         PlanPositions planPositions = PlanPositionsLocalServiceUtil.createPlanPositions(planPositionsId);
         planPositions.setPlanId(plan.getPlanId());
         planPositions.setPlanVersion(plan.getVersion());
@@ -47,7 +47,7 @@ public class PlanPositionsLocalServiceImpl
         PlanPositions newPositions = (PlanPositions) currentPositions.clone();
         
         newPositions.setVersion(currentPositions.getVersion()+1);
-        newPositions.setId(CounterUtil.increment(PlanPositions.class.getName()));
+        newPositions.setId(CounterLocalServiceUtil.increment(PlanPositions.class.getName()));
         newPositions.setPlanVersion(plan.getVersion());
         newPositions.setUpdateAuthorId(plan.getUpdateAuthorId());
         newPositions.setNew(true);

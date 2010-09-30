@@ -10,7 +10,7 @@ import com.ext.portlet.debaterevision.DebateItemStatus;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.model.DebateItemReference;
 import com.ext.portlet.debaterevision.service.base.DebateItemReferenceLocalServiceBaseImpl;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class DebateItemReferenceLocalServiceImpl
 
 
     public DebateItemReference createNew(String text, String url) throws SystemException {
-        Long pk = CounterUtil.increment(DebateItemReference.class.getName());
+        Long pk = CounterLocalServiceUtil.increment(DebateItemReference.class.getName());
         DebateItemReference result = debateItemReferenceLocalService.createDebateItemReference(pk);
          result.setText(text);
         result.setUrl(url);
@@ -29,7 +29,7 @@ public class DebateItemReferenceLocalServiceImpl
     }
 
     public DebateItemReference createNewFrom(DebateItem item, DebateItemReference template) throws SystemException {
-        Long pk = CounterUtil.increment(DebateItemReference.class.getName());
+        Long pk = CounterLocalServiceUtil.increment(DebateItemReference.class.getName());
         DebateItemReference result = debateItemReferenceLocalService.createDebateItemReference(pk);
         result.setStatus(DebateItemStatus.ACTIVE.name());
         result.setText(template.getText());

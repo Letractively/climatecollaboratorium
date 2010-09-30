@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.ext.portlet.models.model.ModelPosition;
 import com.ext.portlet.models.service.base.ModelPositionLocalServiceBaseImpl;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -25,7 +25,7 @@ public class ModelPositionLocalServiceImpl
         modelPositionPersistence.removeByModelId(modelId);
         
         for (Long positionId: positionIds) {
-            Long id = CounterUtil.increment(ModelPosition.class.getName());
+            Long id = CounterLocalServiceUtil.increment(ModelPosition.class.getName());
             ModelPosition modelPosition = createModelPosition(id);
             modelPosition.setModelId(modelId);
             modelPosition.setPositionId(positionId);

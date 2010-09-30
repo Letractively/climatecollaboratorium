@@ -10,7 +10,7 @@ import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.model.DebateItemReference;
 import com.ext.portlet.debaterevision.service.*;
 import com.ext.portlet.debaterevision.util.Indexer;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -89,7 +89,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
           throw new SystemException(x);      
         }
 
-        long id = CounterUtil.increment(DebateItem.class.getName());
+        long id = CounterLocalServiceUtil.increment(DebateItem.class.getName());
         DebateItem item = DebateItemLocalServiceUtil.createDebateItem(id);
         item.setDebateItemId(id);
         item.setDebateSummary(title);
@@ -170,7 +170,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
         * @throws SystemException
         */
        public void moveForeward() throws SystemException {
-           long pk = CounterUtil.increment(DebateItem.class.getName());
+           long pk = CounterLocalServiceUtil.increment(DebateItem.class.getName());
            DebateItem result = DebateItemLocalServiceUtil.createDebateItem(pk);
            result.setDebateItemId(getDebateItemId());
            result.setDebateVersion(getDebateVersion());
@@ -211,7 +211,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
         * @throws SystemException
         */
        public DebateItem copyForward() throws SystemException {
-           long pk = CounterUtil.increment(DebateItem.class.getName());
+           long pk = CounterLocalServiceUtil.increment(DebateItem.class.getName());
            DebateItem result = DebateItemLocalServiceUtil.createDebateItem(pk);
            result.setDebateItemId(getDebateItemId());
            result.setDebateVersion(getDebateVersion());
@@ -235,7 +235,7 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
 
 
     public DebateComment addComment(String title, String message, long authorId) throws SystemException {
-        long pk = CounterUtil.increment(DebateComment.class.getName());
+        long pk = CounterLocalServiceUtil.increment(DebateComment.class.getName());
         DebateComment comment = DebateCommentLocalServiceUtil.createDebateComment(pk);
         comment.setDebateItemId(this.getDebateItemId());
         comment.setItemVersion(this.getItemVersion());

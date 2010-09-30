@@ -6,6 +6,7 @@ import java.util.List;
 import com.ext.portlet.plans.NoSuchPlanFanException;
 import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.service.base.PlanFanLocalServiceBaseImpl;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.SystemException;
 
@@ -25,7 +26,7 @@ public class PlanFanLocalServiceImpl extends PlanFanLocalServiceBaseImpl {
     }
     
     public PlanFan addFan(Long planId, Long userId) throws SystemException {
-        long planFanId = CounterUtil.increment(PlanFan.class.getName());
+        long planFanId = CounterLocalServiceUtil.increment(PlanFan.class.getName());
         
         PlanFan planFan = createPlanFan(planFanId);
         

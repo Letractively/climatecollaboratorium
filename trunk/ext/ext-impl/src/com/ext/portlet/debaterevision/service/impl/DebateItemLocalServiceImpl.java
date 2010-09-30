@@ -12,7 +12,7 @@ import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.base.DebateItemLocalServiceBaseImpl;
 import com.ext.portlet.debaterevision.service.persistence.DebateItemFinderUtil;
 import com.ext.portlet.debaterevision.util.Indexer;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.search.SearchException;
@@ -68,7 +68,7 @@ public class DebateItemLocalServiceImpl extends DebateItemLocalServiceBaseImpl {
             
             
             // add vote
-            long voteId = CounterUtil.increment(DebateItemVote.class.getName());
+            long voteId = CounterLocalServiceUtil.increment(DebateItemVote.class.getName());
             DebateItemVote itemVote = DebateItemVoteLocalServiceUtil.createDebateItemVote(voteId);
             itemVote.setDebateItemId(debateItem.getDebateItemId());
             itemVote.setUserId(userId);

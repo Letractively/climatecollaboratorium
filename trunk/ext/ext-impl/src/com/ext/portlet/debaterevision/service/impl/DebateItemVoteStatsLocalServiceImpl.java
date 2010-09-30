@@ -4,7 +4,7 @@ import com.ext.portlet.debaterevision.NoSuchDebateItemVoteStatsException;
 import com.ext.portlet.debaterevision.model.DebateItemVoteStats;
 import com.ext.portlet.debaterevision.service.DebateItemVoteStatsLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.base.DebateItemVoteStatsLocalServiceBaseImpl;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -26,7 +26,7 @@ public class DebateItemVoteStatsLocalServiceImpl
             stats = this.debateItemVoteStatsPersistence.findByDebateItemId(debateItemId);
         } 
         catch (NoSuchDebateItemVoteStatsException e) {
-            long statsId = CounterUtil.increment(DebateItemVoteStats.class.getName());
+            long statsId = CounterLocalServiceUtil.increment(DebateItemVoteStats.class.getName());
             stats = DebateItemVoteStatsLocalServiceUtil.createDebateItemVoteStats(statsId);
             stats.setDebateItemId(debateItemId);
             stats.setVotesCount(0L);
@@ -50,7 +50,7 @@ public class DebateItemVoteStatsLocalServiceImpl
             stats = this.debateItemVoteStatsPersistence.findByDebateItemId(debateItemId);
         } 
         catch (NoSuchDebateItemVoteStatsException e) {
-            long statsId = CounterUtil.increment(DebateItemVoteStats.class.getName());
+            long statsId = CounterLocalServiceUtil.increment(DebateItemVoteStats.class.getName());
             stats = DebateItemVoteStatsLocalServiceUtil.createDebateItemVoteStats(statsId);
             stats.setDebateItemId(debateItemId);
         }

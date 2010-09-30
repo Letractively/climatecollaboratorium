@@ -11,7 +11,7 @@ import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.base.DebateLocalServiceBaseImpl;
 import com.ext.portlet.debaterevision.service.persistence.DebateFinderUtil;
 import com.ext.portlet.debaterevision.service.persistence.DebateItemFinderUtil;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 import java.util.Date;
@@ -26,7 +26,7 @@ public class DebateLocalServiceImpl extends DebateLocalServiceBaseImpl {
      * @return
      */
     public Debate createNewDebate(String title, String detail, long authorId) throws SystemException {
-        long pk = CounterUtil.increment(DebateImpl.class.getName());
+        long pk = CounterLocalServiceUtil.increment(DebateImpl.class.getName());
         Debate result = DebateLocalServiceUtil.createDebate(pk);
         Date now = new Date();
 
@@ -39,7 +39,7 @@ public class DebateLocalServiceImpl extends DebateLocalServiceBaseImpl {
         
 
 
-        pk = CounterUtil.increment(DebateItem.class.getName());
+        pk = CounterLocalServiceUtil.increment(DebateItem.class.getName());
         DebateItem root = DebateItemLocalServiceUtil.createDebateItem(pk);
         root.setUpdated(now);
         root.setItemVersion(0L);

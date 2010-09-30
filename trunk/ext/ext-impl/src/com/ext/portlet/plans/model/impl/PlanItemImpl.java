@@ -46,7 +46,7 @@ import com.ext.portlet.plans.service.PlanTeamHistoryLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.ext.portlet.plans.util.Indexer;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -410,7 +410,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         //newVersion.setId();
         oldVersion.store();
 
-        this.setId(CounterUtil.increment(PlanItem.class.getName()));
+        this.setId(CounterLocalServiceUtil.increment(PlanItem.class.getName()));
         this.setVersion(Math.max(getVersion(), latestVersion.getVersion()) + 1);
         this.setUpdated(new Date());
         this.setUpdateType(updateType.name());

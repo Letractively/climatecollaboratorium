@@ -15,7 +15,7 @@ import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.discussions.util.Indexer;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -48,8 +48,8 @@ public class DiscussionMessageLocalServiceImpl
     }
     
     public DiscussionMessage addMessage(Long categoryGroupId, Long categoryId, Long threadId, String subject, String body, User author) throws SystemException {
-        Long id = CounterUtil.increment(DiscussionMessage.class.getName());
-        Long messageId = CounterUtil.increment(DiscussionMessage.class.getName() + ".discussion");
+        Long id = CounterLocalServiceUtil.increment(DiscussionMessage.class.getName());
+        Long messageId = CounterLocalServiceUtil.increment(DiscussionMessage.class.getName() + ".discussion");
         
         DiscussionMessage message = DiscussionMessageLocalServiceUtil.createDiscussionMessage(id);
         

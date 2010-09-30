@@ -8,7 +8,7 @@ import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanDescriptionLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlanDescriptionLocalServiceBaseImpl;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -20,7 +20,7 @@ public class PlanDescriptionLocalServiceImpl
     }
         
     public PlanDescription createPlanDescription(PlanItem plan, String name, boolean store) throws SystemException {
-        long planDescriptionId = CounterUtil.increment(PlanDescription.class.getName());
+        long planDescriptionId = CounterLocalServiceUtil.increment(PlanDescription.class.getName());
         PlanDescription description = PlanDescriptionLocalServiceUtil.createPlanDescription(planDescriptionId);
         description.setPlanId(plan.getPlanId());
         description.setPlanVersion(plan.getVersion());
@@ -53,7 +53,7 @@ public class PlanDescriptionLocalServiceImpl
         PlanDescription newDescription = (PlanDescription) currentDescription.clone();
         
         newDescription.setVersion(currentDescription.getVersion()+1);
-        newDescription.setId(CounterUtil.increment(PlanDescription.class.getName()));
+        newDescription.setId(CounterLocalServiceUtil.increment(PlanDescription.class.getName()));
         newDescription.setPlanVersion(plan.getVersion());
         newDescription.setUpdateAuthorId(plan.getUpdateAuthorId());
         newDescription.setCreated(new Date());

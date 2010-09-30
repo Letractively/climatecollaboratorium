@@ -7,7 +7,7 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlanModelRunLocalServiceBaseImpl;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -15,7 +15,7 @@ public class PlanModelRunLocalServiceImpl
     extends PlanModelRunLocalServiceBaseImpl {
     
     public PlanModelRun createPlanModelRun(PlanItem plan) throws SystemException {
-        Long id = CounterUtil.increment(PlanModelRun.class.getName());
+        Long id = CounterLocalServiceUtil.increment(PlanModelRun.class.getName());
         
         PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.createPlanModelRun(id);
         planModelRun.setPlanId(plan.getPlanId());
@@ -45,7 +45,7 @@ public class PlanModelRunLocalServiceImpl
         PlanModelRun newModelRun = (PlanModelRun) currentModelRun.clone();
         
         newModelRun.setVersion(currentModelRun.getVersion()+1);
-        newModelRun.setId(CounterUtil.increment(PlanModelRun.class.getName()));
+        newModelRun.setId(CounterLocalServiceUtil.increment(PlanModelRun.class.getName()));
         newModelRun.setPlanVersion(plan.getVersion());
         newModelRun.setUpdateAuthorId(plan.getUpdateAuthorId());
         newModelRun.setCreated(new Date());

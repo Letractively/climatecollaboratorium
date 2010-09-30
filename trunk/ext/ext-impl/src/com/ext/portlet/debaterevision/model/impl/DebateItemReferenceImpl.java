@@ -9,7 +9,7 @@ package com.ext.portlet.debaterevision.model.impl;
 
 import com.ext.portlet.debaterevision.model.DebateItemReference;
 import com.ext.portlet.debaterevision.service.DebateItemReferenceLocalServiceUtil;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -31,7 +31,7 @@ public class DebateItemReferenceImpl extends DebateItemReferenceModelImpl
      * @throws SystemException
      */
     public void moveForward(Long version) throws SystemException {
-        Long pk = CounterUtil.increment(DebateItemReference.class.getName());
+        Long pk = CounterLocalServiceUtil.increment(DebateItemReference.class.getName());
         DebateItemReference ref = DebateItemReferenceLocalServiceUtil.createDebateItemReference(pk);
         ref.setText(getText());
         ref.setUrl(getUrl());
