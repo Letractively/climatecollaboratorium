@@ -2,7 +2,6 @@ package org.climatecollaboratorium.debates.bean.backing;
 
 
 import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.theme.ThemeDisplayFactory;
 
 public class DebatesPermissionsBean {
     private final PermissionChecker permissionChecker;

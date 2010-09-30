@@ -6,5 +6,5 @@
 
 <Context
 path="discussions"
-docBase="/Users/jintrone/Documents/DEV/liferay-plugins-sdk-5.2.3/portlets/discussions-portlet/docroot"
+docBase="/home/janusz/workdir/liferay/plugins-svn/portlets/discussions-portlet/docroot"
 />
