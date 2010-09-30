@@ -97,6 +97,15 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="ext" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/docroot/WEB-INF/lib/shared_collab_facelets.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
