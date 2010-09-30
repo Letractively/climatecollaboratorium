@@ -17,7 +17,7 @@ public class DebatesUtil {
     public static SimpleDateFormat longformat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
 
     public static Object getItemURL(DebateItem item) {
-        return "/web/guest/debates#debate=" + item.getDebateId() + ";item=" + item.getDebateItemId();
+        return "/web/guest/plans#debates=debate:" + item.getDebateId() + ",itemId:" + item.getDebateItemId();
     }
 
 
