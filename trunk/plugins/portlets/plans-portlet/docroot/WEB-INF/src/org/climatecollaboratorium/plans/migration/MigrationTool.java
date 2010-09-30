@@ -129,27 +129,34 @@ public class MigrationTool {
                         // ignore
                     }
                     if (!alreadyMigrated) {
-                        MBCategory mbCategory = MBCategoryLocalServiceUtil.getCategory(basePlan.getMBCategoryId());
                         DiscussionCategoryGroup categoryGroup =
                             DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + basePlan.getId());
+                        
+                        //  default category
+                        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil.getUser(basePlan.getAuthorId()));
 
                         PlanMeta meta = basePlan.getPlanMeta();
                         meta.setCategoryGroupId(categoryGroup.getId());
                         meta.store();
+                        try {
+                        
+                            MBCategory mbCategory = MBCategoryLocalServiceUtil.getCategory(basePlan.getMBCategoryId());
+                            
+                            for (MBThread mbThread : MBThreadLocalServiceUtil.getThreads(mbCategory.getCategoryId(), 0, 10000)) {
+                                DiscussionMessage thread = null;
+                                for (MBMessage mbMessage: MBMessageLocalServiceUtil.getThreadMessages(mbThread.getThreadId())) {
+                                    if (thread == null) {
+                                        thread = category.addThread(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
+                                    }
+                                    else {
+                                        thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
+                                    }   
 
-                        // default category
-                        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil.getUser(mbCategory.getUserId()));
-                        for (MBThread mbThread : MBThreadLocalServiceUtil.getThreads(mbCategory.getCategoryId(), 0, 10000)) {
-                            DiscussionMessage thread = null;
-                            for (MBMessage mbMessage: MBMessageLocalServiceUtil.getThreadMessages(mbThread.getThreadId())) {
-                                if (thread == null) {
-                                    thread = category.addThread(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
                                 }
-                                else {
-                                    thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
-                                }
-
                             }
+                        }
+                        catch (Exception e) {
+                            _log.error("Error when migrating discussion for plan: " + basePlan.getPlanId());
                         }
                     }
 
