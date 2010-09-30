@@ -23,6 +23,7 @@ public class ContactBean {
     private final String captchaScriptURL;
     private final String captchaNoScriptURL;
     private final String captchaPublicKey;
+    private final String fromAddress;
     
 
     private ContactPreferences contactPreferences;
@@ -33,6 +34,7 @@ public class ContactBean {
         captchaScriptURL = PortletProps.get("captcha.engine.recaptcha.url.script");
         captchaNoScriptURL = PortletProps.get("captcha.engine.recaptcha.url.noscript");
         captchaPublicKey = PortletProps.get("captcha.engine.recaptcha.key.public");
+        fromAddress = PortletProps.get("contact.form.from.email");
         
     }
     
@@ -75,7 +77,7 @@ public class ContactBean {
         String messageSubject = applyFilters(contactPreferences.getMessageSubject());
         String messageBody = applyFilters(contactPreferences.getMessageFormat());        
 
-        InternetAddress addressFrom = new InternetAddress("admin@climatecollaboratorium.org");
+        InternetAddress addressFrom = new InternetAddress(fromAddress);
         
         String[] receipients = contactPreferences.getReceipientsArray();
         InternetAddress[] addressTo = new InternetAddress[receipients.length];
