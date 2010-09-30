@@ -23,7 +23,7 @@ public class PlanAttributeLocalServiceImpl
 	
 	
 	public void addPlanAttribute(long planId, String attributeName, String attributeValue) throws SystemException {
-		long id = CounterUtil.increment(PlanAttribute.class.getName());
+		long id = CounterLocalServiceUtil.increment(PlanAttribute.class.getName());
 		PlanAttribute att = planAttributeLocalService.createPlanAttribute(id);
 		att.setPlanId(planId);
 		att.setAttributeName(attributeName);

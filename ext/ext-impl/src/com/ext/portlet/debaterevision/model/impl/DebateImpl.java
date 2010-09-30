@@ -4,7 +4,7 @@ import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateComment;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
@@ -27,7 +27,7 @@ public class DebateImpl extends DebateModelImpl implements Debate {
     }
 
     public Debate copyBackward() throws SystemException {
-        long pk = CounterUtil.increment(DebateImpl.class.getName());
+        long pk = CounterLocalServiceUtil.increment(DebateImpl.class.getName());
         Debate d = DebateLocalServiceUtil.createDebate(pk);
         d.setTreeVersion(this.getTreeVersion()+1);
         d.setDebateId(this.getDebateId());
@@ -38,7 +38,7 @@ public class DebateImpl extends DebateModelImpl implements Debate {
     }
 
     public void moveForward() throws SystemException {
-        long pk = CounterUtil.increment(DebateImpl.class.getName());
+        long pk = CounterLocalServiceUtil.increment(DebateImpl.class.getName());
         Debate d = DebateLocalServiceUtil.createDebate(pk);
         d.setTreeVersion(this.getTreeVersion());
         d.setDebateId(this.getDebateId());

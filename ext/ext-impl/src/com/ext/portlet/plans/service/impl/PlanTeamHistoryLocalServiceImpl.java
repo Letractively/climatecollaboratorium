@@ -5,7 +5,7 @@ import java.util.Date;
 import com.ext.portlet.plans.NoSuchPlanTeamHistoryException;
 import com.ext.portlet.plans.model.PlanTeamHistory;
 import com.ext.portlet.plans.service.base.PlanTeamHistoryLocalServiceBaseImpl;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 
@@ -18,7 +18,7 @@ public class PlanTeamHistoryLocalServiceImpl
     }
         
     public PlanTeamHistory newHistoryItem(Long planId, Long userId, String action, String payload, Long updateAuthorId) throws SystemException {
-        long id = CounterUtil.increment(PlanTeamHistory.class.getName());
+        long id = CounterLocalServiceUtil.increment(PlanTeamHistory.class.getName());
         
         PlanTeamHistory planTeamHistory = createPlanTeamHistory(id);
         

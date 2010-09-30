@@ -11,7 +11,7 @@ import com.ext.portlet.debaterevision.model.DebateCategory;
 import com.ext.portlet.debaterevision.model.DebateCategoryMap;
 import com.ext.portlet.debaterevision.service.DebateCategoryLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateCategoryMapLocalServiceUtil;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class DebateCategoryImpl extends DebateCategoryModelImpl
     }
 
     public void addDebate(long debateId) throws SystemException {
-        long pk = CounterUtil.increment(DebateCategoryMap.class.getName());
+        long pk = CounterLocalServiceUtil.increment(DebateCategoryMap.class.getName());
         DebateCategoryMap relation = DebateCategoryMapLocalServiceUtil.createDebateCategoryMap(pk);
         relation.setDebateCategoryPK(this.getDebateCategoryPK());
         relation.setDebateId(debateId);

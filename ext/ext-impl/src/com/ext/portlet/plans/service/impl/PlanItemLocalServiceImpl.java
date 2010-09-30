@@ -38,7 +38,7 @@ import com.ext.portlet.plans.service.*;
 import com.ext.portlet.plans.service.base.PlanItemLocalServiceBaseImpl;
 import com.ext.portlet.plans.util.Indexer;
 import com.liferay.counter.service.CounterLocalServiceUtil;
-import com.liferay.counter.service.persistence.CounterUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -159,8 +159,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
      * @deprecated Should use contest enabled plans
      */
     public PlanItem createPlan(Long planTypeId, Long authorId) throws SystemException, PortalException {
-        long planItemId = CounterUtil.increment(PlanItem.class.getName());
-        long planId = CounterUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
+        long planItemId = CounterLocalServiceUtil.increment(PlanItem.class.getName());
+        long planId = CounterLocalServiceUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
 
         String name = "Untitled Plan " + planId;
         PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
@@ -292,7 +292,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
     public PlanItem createPlan(Plan basePlan) throws SystemException, PortalException {
 
-        long planItemId = CounterUtil.increment(PlanItem.class.getName());
+        long planItemId = CounterLocalServiceUtil.increment(PlanItem.class.getName());
         long planId = basePlan.getPlanId();
         long authorId = basePlan.getUserId();
         long planTypeId = basePlan.getPlanTypeId();
