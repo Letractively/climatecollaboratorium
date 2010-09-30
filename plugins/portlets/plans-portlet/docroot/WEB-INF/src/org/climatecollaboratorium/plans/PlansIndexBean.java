@@ -43,6 +43,7 @@ public class PlansIndexBean {
     private boolean sortAscending = false;
     private boolean updatePlansList = true;
     private int pageSize = 50;
+    private static int MAX_POPULAR_RESULTS = 10;
     // Current items in ui
     private List uiCustomerBeans = new ArrayList(pageSize);
 
@@ -97,7 +98,7 @@ public class PlansIndexBean {
 //    private boolean showProposalsThatNeedSupporters;
 
     private enum Mode {
-        PROPOSALS_ALL("All proposals"), PROPOSALS_USER_OWNS("My proposals",true), PROPSALS_USER_SUPPORTS("Proposals I support",true),
+        PROPOSALS_POPULAR("Popular proposals"),PROPOSALS_ALL("All proposals"), PROPOSALS_USER_OWNS("My proposals",true), PROPSALS_USER_SUPPORTS("Proposals I support",true),
         PROPOSALS_OPEN("Open proposals"), PROPOSALS_NEED_ASSISTANCE("Proposals seeking help");
 
 
@@ -324,6 +325,12 @@ public class PlansIndexBean {
                 notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
             }
 
+            List<PlanItem> popularPlans = Collections.emptyList();
+            if (current_mode == Mode.PROPOSALS_POPULAR) {
+                popularPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, MAX_POPULAR_RESULTS, contestPhase.getCanVote()?Attribute.VOTES.name():Attribute.SUPPORTERS.name(), "DESC", false);
+                popularPlans = popularPlans.subList(0,Math.min(popularPlans.size(),MAX_POPULAR_RESULTS));
+            }
+
             final Long userId = Helper.isUserLoggedIn() ? Helper.getLiferayUser().getUserId() : -1;
             for (PlanItem plan : PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
 
@@ -333,11 +340,17 @@ public class PlansIndexBean {
                         break;
                     }
 
+                    case PROPOSALS_POPULAR: {
+                       if (popularPlans.contains(plan)) {
+                          popularPlans.remove(plan);
+                          break;
+                       } else {
+                           continue;
+                       }
+                    }
 
                     case PROPOSALS_OPEN: {
-                        //why o why? plan.getOpen() should do the same thing
                         String s = PlanConstants.Columns.IS_PLAN_OPEN.getValue(plan);
-                       // if (!"true".equals(s)) {
                        if (!plan.getOpen()) {
                             continue;
                         }

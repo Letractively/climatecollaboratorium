@@ -58,7 +58,23 @@ div.contestContent {
 }
 
 .proposalsListNav {
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom:5px;
+}
+
+.proposalsListNav .filters {
+    float:right;
+}
+
+.proposalsListNav .filters h3 {
+    display:inline;
+    margin-right:10px;
+}
+
+.proposalsListNav select {
+  font-family:"gloriola-web-1","gloriola-web-2";
+  font-size:1.4em;
+   padding:3px;
 }
 
 .createNewPlanButton {
