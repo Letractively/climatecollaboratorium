@@ -139,6 +139,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         planItem.updateAttribute(Attribute.CREATE_DATE.name());
         planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
         planItem.updateAttribute(Attribute.VOTES.name());
+        planItem.updateAttribute(Attribute.SUPPORTERS.name());
+        planItem.updateAttribute(Attribute.IS_PLAN_OPEN.name());
+        planItem.updateAttribute(Attribute.SEEKING_ASSISTANCE.name());
+        planItem.updateAttribute(Attribute.STATUS.name());
 
         // populate fields with default values
 
@@ -187,6 +191,11 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
         planItem.updateAttribute(Attribute.VOTES.name());
 
+        planItem.updateAttribute(Attribute.SUPPORTERS.name());
+        planItem.updateAttribute(Attribute.IS_PLAN_OPEN.name());
+        planItem.updateAttribute(Attribute.SEEKING_ASSISTANCE.name());
+        planItem.updateAttribute(Attribute.STATUS.name());
+        
         // populate fields with default values
 
         return planItem;
@@ -316,16 +325,20 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         // description
         planDescription.setDescription(basePlan.getShortcontent() + basePlan.getContent());
         planDescription.setName(basePlan.getName());
+        planDescription.setUpdateAuthorId(authorId);
 
         boolean hasScenario = false;
 
         planDescription.setDescription(description);
         
         // meta
+        planMeta.setAuthorId(authorId);
+        planMeta.setUpdateAuthorId(authorId);
         planMeta.setModelId(planItem.getPlanType().getModelId());
         planMeta.setMbCategoryId(basePlan.getMBCategoryId());
         planMeta.setPlanGroupId(basePlan.getChildGroupId());
         planMeta.setPlanTypeId(basePlan.getPlanTypeId());
+       
         
         if (planMeta.getPlanTypeId().equals(1L)) {
             planMeta.setContestPhase(2L);
@@ -341,12 +354,25 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         }
 
         if (basePlan.getScenarioId().trim().length() > 0) {
-            hasScenario = true;
-            planModelRun.setScenarioId(Long.parseLong(basePlan.getScenarioId()));
+            // try to fetch the scenario 
+            try {
+                Long scenarioId = Long.parseLong(basePlan.getScenarioId());
+                if (CollaboratoriumModelingService.repository().getScenario(scenarioId) != null) {
+                    planModelRun.setScenarioId(scenarioId);
+                }
+                hasScenario = true;
+                
+            }
+            catch (Throwable e) {
+                _log.error("Can't fetch scenario " + basePlan.getScenarioId());
+            }
+            
+
         }
         planMeta.setVotes(PlanVoteLocalServiceUtil.coutPlanVotes(basePlan.getPlanId()));
 
         // positions
+        planPositions.setUpdateAuthorId(authorId);
         List<Long> positions = new ArrayList<Long>();
         for (DebateItem position : PlanLocalServiceHelper.getPlanPositionsDebateRevision(basePlan.getPlanId())) {
             positions.add(position.getDebateItemId());
@@ -375,6 +401,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         planItem.updateAttribute(Attribute.PUBLISH_DATE.name());
         planItem.updateAttribute(Attribute.VOTES.name());
         planItem.updateAttribute(Attribute.POSITIONS.name());
+        planItem.updateAttribute(Attribute.SUPPORTERS.name());
+        planItem.updateAttribute(Attribute.IS_PLAN_OPEN.name());
+        planItem.updateAttribute(Attribute.SEEKING_ASSISTANCE.name());
+        planItem.updateAttribute(Attribute.STATUS.name());
 
         return planItem;
     }
