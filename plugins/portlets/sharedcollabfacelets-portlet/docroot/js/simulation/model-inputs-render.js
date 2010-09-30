@@ -9,7 +9,7 @@
 
 
 //setTimeout(function() { log.toggle(); }, 1000);
-var debug = true;
+var debug = false;
 var inputValues = {};
 function renderModelInputs(event) {
 	showSliders();
