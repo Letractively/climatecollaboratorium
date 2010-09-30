@@ -3,6 +3,8 @@ package org.climatecollaboratorium.plans.migration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryGroupException;
@@ -32,6 +34,10 @@ import com.liferay.portlet.messageboards.model.MBThread;
 import com.liferay.portlet.messageboards.service.MBCategoryLocalServiceUtil;
 import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
 import com.liferay.portlet.messageboards.service.MBThreadLocalServiceUtil;
+import com.liferay.portlet.wiki.model.WikiPage;
+import com.liferay.portlet.wiki.model.WikiPageResource;
+import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
+import com.liferay.portlet.wiki.service.WikiPageResourceLocalServiceUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -291,5 +297,66 @@ public class MigrationTool {
         FacesContext.getCurrentInstance().addMessage(null, fm);
 
         return null;
+    }
+    
+    
+    public String migrateWiki() throws SystemException {
+        Pattern pattern = Pattern.compile("plan", Pattern.CASE_INSENSITIVE);
+        int pagesCount = 0;
+        for (WikiPage page:  WikiPageLocalServiceUtil.getWikiPages(0, Integer.MAX_VALUE)) {
+            if (! page.isHead()) {
+                continue;
+            }
+            
+            Matcher matcher = pattern.matcher(page.getContent());
+            
+            int occurrences = 0;
+            int occurrencesUppercase = 0;
+            while (matcher.find()) {
+                boolean isUpper = false;
+                occurrences++;
+                if (matcher.group().startsWith("P")) {
+                    isUpper = true;
+                    occurrencesUppercase ++;
+                }
+
+                
+            }
+            
+            if (occurrences > 0) {
+                pagesCount ++;
+                System.out.println(pagesCount + ": " + page.getTitle() + "\t" + page.isHead() + "\toccurrences: " + occurrences + "\toccurrencesUppercase: " + occurrencesUppercase);
+            }
+            
+            String content = replacePlanOccurrences(page.getContent());
+            String title = replacePlanOccurrences(page.getTitle());
+            String parentTitle = replacePlanOccurrences(page.getParentTitle());
+            
+            
+            page.setTitle(title);
+            page.setContent(content);
+            page.setParentTitle(parentTitle);
+            
+            
+            WikiPageLocalServiceUtil.updateWikiPage(page);
+            
+            
+            
+        }
+        /*
+        for (WikiPageResource pageRes: WikiPageResourceLocalServiceUtil.getWikiPageResources(0, Integer.MAX_VALUE)) {
+            pageRes.setTitle(replacePlanOccurrences(pageRes.getTitle()));
+        }
+        */
+        return null;
+    }
+    
+    private String replacePlanOccurrences(String baseStr) {
+        String ret = baseStr;
+        ret = ret.replaceAll("plan", "proposal");
+        ret = ret.replaceAll("Plan", "Proposal");
+        
+        return ret;
+        
     }
 }
