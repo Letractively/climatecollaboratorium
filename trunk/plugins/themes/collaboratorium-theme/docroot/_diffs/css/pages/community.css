@@ -2,6 +2,13 @@
 
 
 /** Community **/
+.news .lfr-grid .lfr-column,
+.othermembers .lfr-grid .lfr-column,
+.community .lfr-grid .lfr-column,
+.discussion .lfr-grid .lfr-column
+{
+    padding:0px;
+}
 
 
 div.community.themed-content.global {
@@ -74,8 +81,7 @@ div.othermembers td#column-2 div{
 }
 
 div.community div#layout-column_column-1 {
-    padding:20px;
-    background:#F9F9F8;
+  
 }
 
 ,
@@ -114,6 +120,9 @@ table.pseudo-tab-nav> tbody > tr:first-child > td {
 }
 
 table.pseudo-tab-nav> tbody > tr:first-child > td a {
+    font-family:"gloriola-web-1","gloriola-web-2";
+font-size:20px;
+white-space:nowrap;
     text-decoration:none;
     color: #606060;
 }

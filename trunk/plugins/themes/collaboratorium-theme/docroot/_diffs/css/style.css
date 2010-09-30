@@ -299,3 +299,56 @@ h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:15px; font-style:
 .basicTable th .iceOutTxt {
     padding: 0;
 }
+
+
+input[type="submit"].prominantButton-dis {
+    background: #E3DFD7;
+    background-image:none;
+    color: #c7b9b9;
+    margin: 5px 0;
+    font-size: 1.5em;
+    border:none;
+
+}
+
+input[type="submit"].prominantButton-dis:hover {
+    cursor:pointer;
+}
+
+input[type="submit"].prominantButton {
+    background: #2c9cbb;
+    background-image:none;
+    font-weight: 600;
+    font-family: "gloriola-web-1","gloriola-web-2";
+    color: #FFF;
+    margin: 5px 0;
+    font-size: 1.5em;
+    border:none;
+}
+input[type="submit"].prominantButton:hover {
+     background: #1f6f85;
+    background-image:none;
+
+    border:none;
+}
+
+div.prominantButton {
+     padding: 5px 10px;
+    font-weight: 600;
+    font-family: "gloriola-web-1","gloriola-web-2";
+    font-size:18px;
+    text-align:center;
+    background: #2c9cbb;
+    background-image:none;
+    color: #FFF;
+    margin: 5px 0;
+    border:none;
+}
+
+div.prominantButton:hover {
+    background-image:none;
+     background: #1f6f85;
+    border:none;
+
+
+}
