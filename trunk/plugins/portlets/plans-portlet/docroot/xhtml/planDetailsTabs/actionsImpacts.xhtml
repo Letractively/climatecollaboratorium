@@ -71,7 +71,7 @@
             <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}" onclick="Collab.nav.block();"/>
         </ice:panelGroup>
         <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{simulationBean.embeddedEditing}">
-            <ice:commandLink value="Cancel" actionListener="#{simulationBean.editActions}"/>
+            <ice:commandLink value="Cancel edits" actionListener="#{simulationBean.editActions}"/>
         </ice:panelGroup>
         <ice:panelGroup styleClass="filler"></ice:panelGroup>
 
@@ -144,13 +144,14 @@
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
             No model has been set.
         </ice:panelGroup>
-        <div class="model-info">
+
+        <div class="modelSelection">
+            <div class="model-info">
         <ice:outputText escape="false">
             The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
                 href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
         </ice:outputText>
-        </div>   
-        <div class="modelSelection">
+        </div>  
         <ice:panelGrid columns="2">
             <ice:panelGroup>
                
