@@ -9,7 +9,7 @@
 
 
 //setTimeout(function() { log.toggle(); }, 1000);
-var debug = false;
+var debug = true;
 var inputValues = {};
 function renderModelInputs(event) {
 	showSliders();
@@ -273,7 +273,7 @@ function convertTypedValuesToNumbers() {
 		try {
 			var val = jQuery(this).find('.value').val();
 			var valueBinding = jQuery(this).find('.valueBinding');
-			var unit = jQuery(this).find('.unit').val();
+			var unit = jQuery(this).find('.unit').text();
 		
 			valueBinding.val(parseFieldValue(val, unit));
 		} catch (e) { 

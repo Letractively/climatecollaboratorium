@@ -108,16 +108,22 @@ public class SimulationBean {
         this.scenario = scenario;
         this.simulation = scenario.getSimulation();
         scenarioSaved = false;
-
-        inputsValues.clear();
+        
+        updateInputValues();
         editing = false;
 
-
-        for (Variable var: scenario.getInputSet()) {
-            inputsValues.put(var.getMetaData().getId(), var.getValue().get(0).getValues()[0]);
-        }
         updateDisplay();
 
+    }
+    
+    private void updateInputValues() {
+
+        inputsValues.clear();
+        if (scenario != null) {
+            for (Variable var: scenario.getInputSet()) {
+                inputsValues.put(var.getMetaData().getId(), var.getValue().get(0).getValues()[0]);
+            }
+        }
     }
 
     public boolean isEditing() {
@@ -215,6 +221,10 @@ public class SimulationBean {
     public void editActions(ActionEvent e) {
         embeddedEditing = !embeddedEditing;
         scenarioSaved = false;
+        if (! embeddedEditing) {
+            // revert input values to old ones
+            updateInputValues();
+        }
         eventBus.fireEvent(new ScenarioEditEvent(embeddedEditing));
     }
 
