@@ -29,7 +29,7 @@
             <li><a href="/web/guest/feedback">Contact</a></li>
         </ul>
         <form action="">
-            <input id="searchinput" name="searchinput" type="text" value="Search" />
+            <input id="searchinput" class="nofocus" name="searchinput" type="text" value="" />
             <input id="searchsubmit" type="button" name="submit" value="Go" />
         </form>
     </div> <!-- /menu -->

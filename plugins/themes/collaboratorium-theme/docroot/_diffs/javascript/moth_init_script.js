@@ -15,14 +15,14 @@ jQuery(document).ready(function() {
 
 function initSearchUpperBox() {
 	jQuery("#searchinput").focus(function() {
-		if (this.value == 'Search') {
-			this.value = '';
+		if (jQuery(this).hasClass("nofocus")) {
+			jQuery(this).toggleClass("nofocus");
 		}
 	});
 	
 	jQuery("#searchinput").blur(function() {
-		if (jQuery.trim(this.value) == '') {
-			this.value = 'Search';
+		if (jQuery.trim(this.value) == '' && !jQuery(this).hasClass("nofocus")) {
+			jQuery(this).toggleClass("nofocus");
 		}
 	});
 	

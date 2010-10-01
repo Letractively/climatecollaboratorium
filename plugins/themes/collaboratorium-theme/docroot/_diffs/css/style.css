@@ -94,6 +94,7 @@ body { background:url(../images/bg_main.gif) repeat-x #f5f5f5; font:12px Helveti
 #menu li.c a { color:#e76118; }    /* C is for "current" page - add class="c" to li of menu item of the current page  */
 #menu form { margin:34px 0 0 15px; }
 #searchinput { float:left; width:180px; height:25px; padding:2px 0 0 8px; font:12px "Lucida Sans Unicode", "Lucida Grande", Arial, Helvetica, sans-serif; color:#7c7c7b; background:#fff; border:1px solid #bcb6b1; }
+#searchinput.nofocus {background:url(../images/search_word.gif) no-repeat scroll 4px 2px #FFF}
 #searchsubmit { width:32px; height:29px; text-align:center; vertical-align:middle; background:url(../images/header_btn-go.png) no-repeat; border:none; font-family: "gloriola-web-1","gloriola-web-2"; font-size:14px; font-style:normal; font-weight:600; color:#fff; cursor:pointer; }
 #searchsubmit:hover { color:#000; }
 
