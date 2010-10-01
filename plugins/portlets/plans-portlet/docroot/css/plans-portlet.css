@@ -1027,6 +1027,8 @@ padding-top:20px;
 }
 
 .modelSelection {
+    background: none repeat scroll 0 0 #EDEBEA;
+    margin-top:20px;
     font-size:1.3em;
     padding:40px;
 }
