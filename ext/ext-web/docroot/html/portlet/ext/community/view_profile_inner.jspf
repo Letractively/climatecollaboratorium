@@ -182,9 +182,9 @@
                 <form action='${submitActionURL}' method="post" name="<portlet:namespace />profilefm">
                                     <input name="<portlet:namespace/><%= Constants.CMD%>" type="hidden" value="<%= Constants.UPDATE%>"/>
                   <div class="content-inner">
-                                  <c:if test="<%= canSendMessage  %>">
-                                      <h4 class="send-user-a-message"><a href="#" onClick="<portlet:namespace />showSendMessagePopup()"> Send <%= screenName %> a message</a></h4>
-                                  </c:if>
+
+                                  <h4 class="send-user-a-message"><a href="#" onClick="if (!deferUntilLogin()) return false;else <portlet:namespace />showSendMessagePopup()"> Send <%= screenName %> a message</a></h4>
+
                                   <br class="clearfloat" />
                                 <div class="floatLeft userFace">
                                     <c:if test="<%= profileUser != null%>">
