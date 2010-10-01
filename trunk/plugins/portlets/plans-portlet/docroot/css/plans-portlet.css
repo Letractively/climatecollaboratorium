@@ -74,15 +74,7 @@ input[type="submit"].prominantButton.createNewPlanButton {
 
 /** INLINE HELP **/
 
-.inlineHelp {
-    border: 1px solid #cfc8b1;
-    background: #ffffdb;
-    padding: 10px;
-    font-size:10pt;
-    color: #858572;
-    margin:10px 40px;
 
-}
 
 .hideThisTrigger {
     padding-top: 10px;
@@ -1031,6 +1023,7 @@ padding-top:20px;
     margin-top:20px;
     font-size:1.3em;
     padding:40px;
+
 }
 
 .modelSelection td {
@@ -1129,6 +1122,7 @@ div.plansBreadcrumb {
     padding-bottom:10px;
     background: #EDEBEA;
     text-align:center;
+    margin-top:36px;
 }
 
 
