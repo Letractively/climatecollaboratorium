@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="/collaboratorium-theme/css/style.css?tt=$themeTimestamp" type="text/css" />
         <link rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" type="text/css" />
         <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/loginregister.css?tt=$themeTimestamp" media="all" />
+        <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wiki.css?tt=$themeTimestamp" media="all" />
         <!--[if IE]><script type="text/javascript" src="/collaboratorium-theme/javascript/excanvas.js"></script><![endif]-->
         
         

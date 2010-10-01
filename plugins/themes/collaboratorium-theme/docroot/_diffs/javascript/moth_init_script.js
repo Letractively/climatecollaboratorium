@@ -45,11 +45,27 @@ function initSearchUpperBox() {
 }
 
 function deferUntilLogin(fn) {
+ 
     if (Liferay.ThemeDisplay.isSignedIn()) {
         return true;
     } else {
     	var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
     	loginregister += "&redirect=" + escape(window.location);
+    	window.location = loginregister;
+    }
+}
+
+function deferUntilLoginTargeted(loc) {
+
+    if (Liferay.ThemeDisplay.isSignedIn()) {
+        window.location = loc;
+    } else {
+    	var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
+        if (loc!=null) {
+          loginregister += "&redirect=" + escape(loc);
+        } else {
+    	    loginregister += "&redirect=" + escape(window.location);
+        }
     	window.location = loginregister;
     }
 }
