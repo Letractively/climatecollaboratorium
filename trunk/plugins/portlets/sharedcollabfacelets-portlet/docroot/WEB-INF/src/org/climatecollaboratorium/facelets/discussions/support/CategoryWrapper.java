@@ -99,7 +99,6 @@ public class CategoryWrapper {
             UIInput descriptionInput = (UIInput) e.getComponent().getParent().findComponent("categoryDescription"); 
             UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("categoryName"); 
             if (!ValueRequiredValidator.validateComponent(nameInput) || 
-                    !ValueRequiredValidator.validateComponent(descriptionInput) || 
                     !CategoryNameValidator.validateComponent(nameInput)) {
                 return;
             }
