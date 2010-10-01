@@ -4,7 +4,7 @@
 }
 
 .sliderDef .sliderCol {
-    width: 100px;
+    width: 125px;
 }
 
 .actions  table .sliderDef .valueCol {
@@ -60,30 +60,27 @@ div.slider-labels {
 
 
 .actions .corcen_top {
-    background:url("/collaboratorium-theme/images/tabAction_corcen_top.gif") no-repeat scroll center top transparent;
-    padding-top:8px;
-    width:421px;
+
 }
 
 .actions .corcen_bottom {
-    background:url("/collaboratorium-theme/images/tabAction_corcen_bottom.gif") no-repeat scroll center bottom transparent;
-    padding-bottom:8px;
-    width:100%;
+
 }
 
 .actions .corcen {
-    background:url("/collaboratorium-theme/images/tabAction_corcen_bg.gif") repeat-y scroll 0 0 transparent;
-    width:100%;
+   border:thin solid #E1E1E1;
+    background:#FFFFFF;
+
 }
 
 .actions .title {
     background:none repeat scroll 0 0 #EBEBEB;
     border-bottom:1px solid #E1E1E1;
     border-top:1px solid #E1E1E1;
-    height:29px;
+    height:42px;
     margin:0 auto;
     padding:0;
-    width:419px;
+    width:100%;
 }
 
 .actions .title h2 {
@@ -124,7 +121,7 @@ table.innerLayout {
 
 
 div.simulationInput {
-    padding:5px;
+    padding:3px 10px
 }
 
 .simulationInput.odd {
