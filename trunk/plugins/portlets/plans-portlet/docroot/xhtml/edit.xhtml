@@ -41,6 +41,13 @@
                     <ice:commandButton action="#{migrationTool.updateDiscussionsPermissions}" value="Update discussions permissions" />
                     
                 </ice:panelTab>
+
+                <ice:panelTab label="Migrate general discussions">
+                    <ice:messages globalOnly="false" layout="table" />
+                    <ice:inputText value="#{migrationTool.mbCategoryId}"/>
+                    <ice:commandButton action="#{migrationTool.migrateGeneralDiscussions}" value="MIGRATE DISCUSSIONS_GENERAL" onclick="if(!confirm('Are you sure you want to proceed with discussions migration?')){ return false; }"/>
+
+                </ice:panelTab>
                 <ice:panelTab label="Proposal settings">
                     <ice:messages globalOnly="false" layout="table" />
                     <ice:inputTextarea value="#{preferences.defaultDescription}" style="width: 90%; height: 400px" /><br />

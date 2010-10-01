@@ -1,11 +1,5 @@
 package org.climatecollaboratorium.plans.migration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryGroupException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
@@ -19,9 +13,6 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
-
-import com.liferay.counter.model.Counter;
-import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.ResourceConstants;
@@ -37,19 +28,33 @@ import com.liferay.portlet.messageboards.service.MBCategoryLocalServiceUtil;
 import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
 import com.liferay.portlet.messageboards.service.MBThreadLocalServiceUtil;
 import com.liferay.portlet.wiki.model.WikiPage;
-import com.liferay.portlet.wiki.model.WikiPageResource;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
-import com.liferay.portlet.wiki.service.WikiPageResourceLocalServiceUtil;
+import org.apache.log4j.Logger;
+import org.climatecollaboratorium.utils.Helper;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-import org.climatecollaboratorium.facelets.discussions.permissions.DiscussionsPermissionsConfig.PermissionItem;
-import org.climatecollaboratorium.utils.Helper;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MigrationTool {
     private static Logger _log = Logger.getLogger(MigrationTool.class);
+
+
+    private long generalGroup = 701L;
+    private long ADMIN = 10144L;
+
+    public Long getMbCategoryId() {
+        return mbCategoryId;
+    }
+
+    public void setMbCategoryId(Long mbCategoryId) {
+        this.mbCategoryId = mbCategoryId;
+    }
+
+    private Long mbCategoryId = null;
 
     public String migrate() {
 
@@ -113,6 +118,52 @@ public class MigrationTool {
         return "";
     }
 
+    public String migrateGeneralDiscussions() {
+        FacesMessage fm = new FacesMessage();
+        try {
+            MBCategory mbCategory = MBCategoryLocalServiceUtil.getCategory(mbCategoryId);
+            if (mbCategory == null) {
+                fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+                fm.setSummary("Could not get message category " + mbCategoryId);
+            } else {
+                DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(generalGroup);
+                if (categoryGroup == null) {
+                    categoryGroup = DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup(generalGroup);
+                }
+                DiscussionCategory category = categoryGroup.addCategory("General", null, UserLocalServiceUtil.getUser(ADMIN));
+                for (MBThread mbThread : MBThreadLocalServiceUtil.getThreads(mbCategory.getCategoryId(), 0, 10000)) {
+                    DiscussionMessage thread = null;
+                    for (MBMessage mbMessage : MBMessageLocalServiceUtil.getThreadMessages(mbThread.getThreadId())) {
+                        if (thread == null) {
+                            thread = category.addThread(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
+                        } else {
+                            thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
+                        }
+
+                    }
+                }
+                fm.setSeverity(FacesMessage.SEVERITY_INFO);
+                fm.setSummary("Success! We have won!");
+            }
+
+
+        } catch (NoSuchDiscussionCategoryGroupException e) {
+               fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+                fm.setSummary("Could not get message category " + mbCategoryId);
+                fm.setDetail(e.getMessage());
+        } catch (SystemException e) {
+            fm.setSeverity(FacesMessage.SEVERITY_INFO);
+                fm.setSummary("Wicked bummer");
+                fm.setDetail(e.getMessage());
+        } catch (PortalException e) {
+            fm.setSeverity(FacesMessage.SEVERITY_INFO);
+                fm.setSummary("Wicked bummer");
+                fm.setDetail(e.getMessage());
+        }
+         FacesContext.getCurrentInstance().addMessage(null, fm);
+        return "";
+    }
+
     public String migrateDiscussions() {
         try {
             int counter = 1;
@@ -138,8 +189,8 @@ public class MigrationTool {
                     }
                     if (!alreadyMigrated) {
                         DiscussionCategoryGroup categoryGroup =
-                            DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + basePlan.getId());
-                        
+                                DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + basePlan.getId());
+
                         //  default category
                         DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil.getUser(basePlan.getAuthorId()));
 
@@ -147,18 +198,17 @@ public class MigrationTool {
                         meta.setCategoryGroupId(categoryGroup.getId());
                         meta.store();
                         try {
-                        
+
                             MBCategory mbCategory = MBCategoryLocalServiceUtil.getCategory(basePlan.getMBCategoryId());
-                            
+
                             for (MBThread mbThread : MBThreadLocalServiceUtil.getThreads(mbCategory.getCategoryId(), 0, 10000)) {
                                 DiscussionMessage thread = null;
-                                for (MBMessage mbMessage: MBMessageLocalServiceUtil.getThreadMessages(mbThread.getThreadId())) {
+                                for (MBMessage mbMessage : MBMessageLocalServiceUtil.getThreadMessages(mbThread.getThreadId())) {
                                     if (thread == null) {
                                         thread = category.addThread(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
-                                    }
-                                    else {
+                                    } else {
                                         thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
-                                    }   
+                                    }
 
                                 }
                             }
@@ -208,7 +258,7 @@ public class MigrationTool {
     public String updateDiscussionUrlsAndDescriptions() throws SystemException, PortalException {
         for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
             DiscussionCategoryGroup categoryGroup =
-                DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(basePlan.getCategoryGroupId());
+                    DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(basePlan.getCategoryGroupId());
 
             categoryGroup.setDescription(basePlan.getName() + " discussion");
             categoryGroup.setUrl("/web/guest/plans#plans=planId:" + basePlan.getPlanId() + ",tab:discussion");
@@ -225,54 +275,54 @@ public class MigrationTool {
 
     private static final String RESOURCE_NAME = DiscussionCategoryGroup.class.getName();
     private static final int SCOPE = ResourceConstants.SCOPE_GROUP;
-    
+
     public String updateDiscussionsPermissions() throws SystemException, PortalException {
-        String[] supportedRolesNames = { RoleConstants.COMMUNITY_OWNER, 
+        String[] supportedRolesNames = {RoleConstants.COMMUNITY_OWNER,
                 RoleConstants.COMMUNITY_ADMINISTRATOR,
                 RoleConstants.COMMUNITY_MEMBER,
                 RoleConstants.USER,
                 RoleConstants.GUEST
         };
         Long companyId = Helper.getThemeDisplay().getCompanyId();
-        
+
         Role owner = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_OWNER);
         Role admin = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_ADMINISTRATOR);
         Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
         Role user = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
         Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
-       
-        String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(), 
-                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(), 
+
+        String[] ownerActions = {DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
                 DiscussionActions.ADMIN_MESSAGES.name()
         };
-        
-        String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(), 
-                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(), 
+
+        String[] adminActions = {DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
                 DiscussionActions.ADMIN_MESSAGES.name()
         };
-        
-        String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(), 
+
+        String[] memberActions = {DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
                 DiscussionActions.ADD_THREAD.name()
         };
-        
-        String[] userActions = {DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name() };
-        
+
+        String[] userActions = {DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name()};
+
         String[] guestActions = {};
-        
+
         Map<Role, String[]> rolesActionsMap = new HashMap<Role, String[]>();
-        
+
         rolesActionsMap.put(owner, ownerActions);
         rolesActionsMap.put(admin, adminActions);
         rolesActionsMap.put(member, memberActions);
         rolesActionsMap.put(user, userActions);
         rolesActionsMap.put(guest, guestActions);
-        
+
 
         for (PlanItem plan : PlanItemLocalServiceUtil.getPlans()) {
-            for (Role role: rolesActionsMap.keySet()) {
-                PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, RESOURCE_NAME, SCOPE, 
+            for (Role role : rolesActionsMap.keySet()) {
+                PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, RESOURCE_NAME, SCOPE,
                         plan.getPlanGroupId().toString(), rolesActionsMap.get(role));
-                
+
             }
         }
 
@@ -285,9 +335,9 @@ public class MigrationTool {
 
         return null;
     }
-    
+
     public String updatePlanOpenAttribute() throws SystemException {
-        
+
         for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
             basePlan.updateAttribute(Attribute.IS_PLAN_OPEN.name());
             basePlan.updateAttribute(Attribute.SUPPORTERS.name());
@@ -300,18 +350,18 @@ public class MigrationTool {
 
         return null;
     }
-    
-    
+
+
     public String migrateWiki() throws SystemException {
         Pattern pattern = Pattern.compile("plan", Pattern.CASE_INSENSITIVE);
         int pagesCount = 0;
-        for (WikiPage page:  WikiPageLocalServiceUtil.getWikiPages(0, Integer.MAX_VALUE)) {
-            if (! page.isHead()) {
+        for (WikiPage page : WikiPageLocalServiceUtil.getWikiPages(0, Integer.MAX_VALUE)) {
+            if (!page.isHead()) {
                 continue;
             }
-            
+
             Matcher matcher = pattern.matcher(page.getContent());
-            
+
             int occurrences = 0;
             int occurrencesUppercase = 0;
             while (matcher.find()) {
@@ -319,31 +369,30 @@ public class MigrationTool {
                 occurrences++;
                 if (matcher.group().startsWith("P")) {
                     isUpper = true;
-                    occurrencesUppercase ++;
+                    occurrencesUppercase++;
                 }
 
-                
+
             }
-            
+
             if (occurrences > 0) {
-                pagesCount ++;
+                pagesCount++;
                 System.out.println(pagesCount + ": " + page.getTitle() + "\t" + page.isHead() + "\toccurrences: " + occurrences + "\toccurrencesUppercase: " + occurrencesUppercase);
             }
-            
+
             String content = replaceUnwantedStrings(page.getContent());
             String title = replaceUnwantedStrings(page.getTitle());
             String parentTitle = replaceUnwantedStrings(page.getParentTitle());
-            
-            
+
+
             page.setTitle(title);
             page.setContent(content);
             page.setParentTitle(parentTitle);
-            
-            
+
+
             WikiPageLocalServiceUtil.updateWikiPage(page);
-            
-            
-            
+
+
         }
         /*
         for (WikiPageResource pageRes: WikiPageResourceLocalServiceUtil.getWikiPageResources(0, Integer.MAX_VALUE)) {
@@ -352,15 +401,15 @@ public class MigrationTool {
         */
         return null;
     }
-    
+
     private String replaceUnwantedStrings(String baseStr) {
         String ret = baseStr;
         ret = ret.replaceAll("plan", "proposal");
         ret = ret.replaceAll("Plan", "Proposal");
         ret = ret.replaceAll("cognosis.mit.edu:8888", "climatecolab.org");
-        
+
         return ret;
-        
+
     }
-    
+
 }
