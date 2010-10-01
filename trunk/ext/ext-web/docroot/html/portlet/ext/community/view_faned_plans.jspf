@@ -24,23 +24,26 @@ fanedTimeFormatDate.setTimeZone(TimeZone.getDefault());
 
 %>
 
-          
-<table class="fanedplans-table lfr-table">
+<c:if test="<%= fanedPlansCount == 0%>">
+        <div class="noEntries">
+            <%=screenName %> is not a supporter of any plans.
+        </div>
+    </c:if>
+<c:if test="<%= fanedPlansCount > 0%>">
+
+<table class="basicTable">
     <tr>
-        <th>Plan name</th>
-        <th>Fan since</th>
+        <th>Proposal name</th>
+        <th>Supporter since</th>
         <c:if test="<%= editEnabled %>">
             <th>Action</th>
         </c:if>
     </tr>
     
-    <c:if test="<%= fanedPlansCount == 0%>">
-        <tr>
-            <td colspan="<%= editEnabled ? "3" : "2"%>"><%=screenName %> is not a fan of any plans.</td> 
-        </tr>
-    </c:if>
-<c:forEach var="planFan" items="<%= planFans %>">
+
+<c:forEach var="planFan" items="<%= planFans %>" varStatus="status">
          <portlet:actionURL windowState="NORMAL" var="unfanURL">
+            
             <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
             <portlet:param name="<%= CommunityConstants.PLANFAN_PAGER_START %>" value="<%= String.valueOf(fanedPagerStart) %>" />
             <portlet:param name="<%= CommunityConstants.PLANFAN_ACTION %>" value="<%= String.valueOf(CommunityConstants.PLANFAN_REMOVE) %>" />
@@ -50,7 +53,7 @@ fanedTimeFormatDate.setTimeZone(TimeZone.getDefault());
              
             PlanFan planFan = (PlanFan)pageContext.getAttribute("planFan");
         %> 
-        <tr>
+        <tr class="${(status.index)%2 eq 0?'odd':'even'}">
             <td><a href="/web/guest/plans#plans=planId:${planFan.plan.planId}">${planFan.plan.name}</a></td>
             <td><%= fanedTimeFormatDate.format(planFan.getCreated()) %></td>
             <c:if test="<%= editEnabled %>">
@@ -64,7 +67,7 @@ fanedTimeFormatDate.setTimeZone(TimeZone.getDefault());
             </c:if>
         </tr>
     </c:forEach>
-</table><br /><br />
+</table>
           <portlet:renderURL windowState="NORMAL" var="firstPageURL">
             <portlet:param name="struts_action" value="<%=pageIteratorStrutsPath%>" />
             <portlet:param name="<%= CommunityConstants.PLANFAN_PAGER_START %>" value="<%= String.valueOf(fanedPagerFirst) %>" />
@@ -165,3 +168,4 @@ fanedTimeFormatDate.setTimeZone(TimeZone.getDefault());
             </div>
           </div>
 
+  </c:if>

@@ -346,7 +346,7 @@
             <div class="hd">
                 <div class="title">
                     <div class="name">
-                        <h2><%=editEnabled ? "I am" : screenName + " is "%> a fan of</h2>
+                        <h2><%=editEnabled ? "I am" : screenName + " is "%> a supporter of</h2>
                     </div>
                 </div>
             </div>
