@@ -35,7 +35,7 @@
 	<portlet:param name="isLoggingIn" value="true" />
 </portlet:actionURL>
 
-<h3 class="boxTitle">You have already an account? Log In!</h3>
+<h3 class="boxTitle">Already have an account? Log In!</h3>
 <form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />login" id='<portlet:namespace />loginForm'>
 	<input name="<portlet:namespace />redirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>" id='<portlet:namespace />loginRedirect'/>
 	<input id="<portlet:namespace />rememberMe" name="<portlet:namespace />rememberMe" type="hidden" value="<%= rememberMe %>" />
@@ -97,7 +97,7 @@
                </portlet:renderURL>
 	   
 	       <a href="${forgotURL}">
-	           <liferay-ui:icon image="help" />Forgot Password
+	           Forgot Password?
 	       </a>
 	       </td>
 	   </tr>

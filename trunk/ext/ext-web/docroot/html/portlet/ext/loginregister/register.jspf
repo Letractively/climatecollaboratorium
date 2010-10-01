@@ -42,7 +42,7 @@
     };
 </script>
 
-<h3 class="boxTitle">You don't have an account? Register!</h3>
+<h3 class="boxTitle">Don't have an account? Register!</h3>
 
 <form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />register">
     <input id="<portlet:namespace />source" name="<portlet:namespace />source" type="hidden" value="register" />

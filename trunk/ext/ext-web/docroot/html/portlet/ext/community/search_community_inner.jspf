@@ -141,7 +141,8 @@
     <div class="member-list-content">
         <c:if test='<%="Members".equals(selectedTab)%>'>
            <div class="inlineHelp">
-              Anyone in the world can become a <a href="/web/guest/members">Member</a> of the Climate CoLab community by <a href="/web/guest/loginregister">registering</a> on the site. The community also includes <a href="/web/guest/members?_community_selectedTab=Moderators">Moderators</a>, <a href="/web/guest/members?_community_selectedTab=Experts">Experts</a>, and <a href="/web/guest/members?_community_selectedTab=Staff">Project staff</a>.</div>
+              Anyone in the world can become a Member of the Climate CoLab community by
+               <a href="javascript:" onclick="return deferUntilLogin();">registering</a> on the site Send a message to a member by clicking on the screen name below to open their profile and then selecting "Send message."</div>
 
         </c:if>
 
