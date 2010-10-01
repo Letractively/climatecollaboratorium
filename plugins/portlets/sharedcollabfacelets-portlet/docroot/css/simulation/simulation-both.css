@@ -3,13 +3,22 @@
     
 }
 
+table.simulation {
+    width:100%;
+}
+
 .simulation td.outputs {
 	padding-left: 20px;
 }
 
 .simulation td.inputs,
 .simulation td.outputs {
+    width:50%;
 	vertical-align: top;
+}
+
+table.simulation .leftContent, table.simulation .right-content {
+    width:100%;
 }
 
 .left-content {

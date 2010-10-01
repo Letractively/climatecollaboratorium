@@ -69,7 +69,7 @@
 
 
 .physicalImpactsTab .contentsContainer {
-    width: 275px;
+    width: 312px;
     padding: 5px;
     background: #fff;
 }
@@ -121,7 +121,7 @@
 
     
 .run-the-model-to-see-inputs  {
-    border:1px solid #DFDFDF;
+    
     color:#999999;
     font-weight:bold;
     padding-bottom:100px;
@@ -177,35 +177,32 @@ ul.ui-tabs-nav li.ui-state-active a{
 }
 
 .impacts  {
-    width:409px;
+   
 }
 
 .impacts .corcen_top {
-    background:url("/collaboratorium-theme/images/impacts_corcen_top.gif") no-repeat scroll center top transparent;
-    margin:0 auto;
-    padding-top:8px;
     width:100%;
 }
 
 .impacts .corcen_bottom {
-    background:url("/collaboratorium-theme/images/impacts_corcen_bottom.gif") no-repeat scroll center bottom transparent;
-    padding-bottom:8px;
+   
     width:100%;
 }
 
 .impacts .corcen {
-    background:url("/collaboratorium-theme/images/impacts_corcen_bg.gif") repeat-y scroll 0 0 transparent;
+     border:thin solid #E1E1E1;
+    background:#FFFFFF;
     width:100%;
 }
 
 .impacts .title {
     background:none repeat scroll 0 0 #EBEBEB;
-    border-bottom:1px solid #E2E2E2;
-    border-top:1px solid #E2E2E2;
+    border-bottom:1px solid #E1E1E1;
+    border-top:1px solid #E1E1E1;
     height:42px;
     margin:0 auto;
     padding:0;
-    width:407px;
+    width:100%;
 }
 
 .impacts .title h2 {
@@ -222,6 +219,10 @@ ul.ui-tabs-nav li.ui-state-active a{
     margin: 5px 5px 5px 0;
 }
 
+.impacts input[type="submit"].prominantButton-dis {
+    float:right;
+    margin: 5px 5px 5px 0;
+}
 
 
 
