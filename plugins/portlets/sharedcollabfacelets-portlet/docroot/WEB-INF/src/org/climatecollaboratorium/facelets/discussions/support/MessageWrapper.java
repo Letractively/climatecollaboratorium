@@ -38,6 +38,12 @@ public class MessageWrapper {
     private DiscussionBean discussionBean;
     private boolean editing;
     private String filteredDescription;
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    private String shortDescription;
     private boolean goTo;
     private boolean added = false;
     
@@ -48,6 +54,7 @@ public class MessageWrapper {
         title = wrapped.getSubject();
         description = wrapped.getBody();
         filteredDescription = ContentFilterHelper.filterContent(description);
+        shortDescription = ContentFilterHelper.getShortString(description);
         this.discussionBean = discussionBean;
         
         
@@ -86,6 +93,8 @@ public class MessageWrapper {
     public String getFilteredDescription() {
         return filteredDescription;
     }
+
+    
     
     public List<MessageWrapper> getThreadMessages() throws SystemException {
         if (messages == null) {

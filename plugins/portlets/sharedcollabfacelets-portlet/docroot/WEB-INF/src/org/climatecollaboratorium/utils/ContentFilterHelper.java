@@ -7,6 +7,9 @@ import java.util.regex.Pattern;
 
 
 public class ContentFilterHelper {
+
+    public static int MAX_SHORTENED_LENGTH=80;
+
     public static String filterLineBreaks(String content) {
         return content.replaceAll("\n", "<br />\n");
     }
@@ -75,7 +78,40 @@ public class ContentFilterHelper {
     }
 
     
+     public static String getShortString(String content) {
 
+        //strip leading whitespace, breaks
+        content = content.trim();
+        content = content.replaceAll("\n+"," ");
+        content = content.replaceAll("(?:<br\\s*/\\s*>)+"," ");
+
+
+        Pattern p = Pattern.compile("((?:\\s*<br\\s*/\\s*>)*).*");
+        Matcher m = p.matcher(content);
+        m.find();
+        if (m.group(1).length()> 0) {
+            content = content.substring(m.group(1).length(),content.length());
+        }
+
+        //replace remaining breaks
+
+        if (content.length() <= MAX_SHORTENED_LENGTH) return content;
+        String remainder = content.substring(MAX_SHORTENED_LENGTH,content.length());
+        content = content.substring(0,MAX_SHORTENED_LENGTH);
+
+        System.err.println("Remainder = "+remainder);
+        Pattern pattern = Pattern.compile("\\[url=[^\\]]*\\][^\\[]*");
+        Matcher matcher = pattern.matcher(content);
+
+
+        if (matcher.find()) {
+              int idx = remainder.indexOf("[/url]");
+                System.err.println("Index of url closing tag is "+idx);
+              content+=remainder.substring(idx,idx+6);
+        }
+
+        return content+"...";
+    }
 
     private static String createLink(String url, String desc) {
         return createLink(url, desc, "");
@@ -98,4 +134,6 @@ public class ContentFilterHelper {
         
         return tmp;
     }
+
+   
 }
