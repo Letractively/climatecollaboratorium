@@ -90,7 +90,9 @@
         </ice:panelGroup>
 
 
-        <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}">
+        <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}"
+                styleClass="planDescription editTriggerContainer">
+            <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
             <ice:panelGroup styleClass="versionInfo" rendered="#{planBean.plan.planDescriptionHistoryItem != null and !planBean.plan.planDescriptionHistoryItem.latest}">
             
                 Viewing version from &amp;nbsp; <strong><ice:outputText

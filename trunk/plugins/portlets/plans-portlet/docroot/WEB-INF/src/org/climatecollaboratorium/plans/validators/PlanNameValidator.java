@@ -1,8 +1,11 @@
 package org.climatecollaboratorium.plans.validators;
 
+import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -27,16 +30,26 @@ public class PlanNameValidator implements Validator {
                 // if name hasn't changed, don't do anything
                 return;
             }
-            else if (! PlanItemLocalServiceUtil.isNameAvailable(name)) {
-                FacesMessage fm = new FacesMessage();
-                fm.setSummary("Plan with name \"" + name + "\" already existis, choose different name.");
-                fm.setSeverity(FacesMessage.SEVERITY_ERROR);
-                throw new ValidatorException(fm);
+            else {
+                PlanItem item = ((PlanItemWrapper) comp.getAttributes().get("plan")).getWrapped();
+
+                if (! PlanItemLocalServiceUtil.isNameAvailable(name,item.getContest())) {
+
+                    FacesMessage fm = new FacesMessage();
+                    fm.setSummary("Plan with name \"" + name + "\" already existis, choose different name.");
+                    fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    throw new ValidatorException(fm);
+                }
             }
         } catch (SystemException e) {
             FacesMessage fm = new FacesMessage();
             fm.setSummary("There was an error with plan name validation, please try again.");
             throw new ValidatorException(fm, e);
+        } catch (PortalException e) {
+            FacesMessage fm = new FacesMessage();
+            fm.setSummary("There was an error with plan name validation, please try again.");
+            throw new ValidatorException(fm, e);
+
         }
 
     }
