@@ -30,7 +30,7 @@
         <input type="hidden" class="chartTitle" value="#{output.name}" />
         <input type="hidden" class="indexMin" value="#{output.index.min[0]}" />
         <input type="hidden" class="indexMax" value="#{output.index.max[0]}" /> 
-        <ui:repeat value="#{output.series}" var="serie">
+        <ui:repeat value="#{output.visibleSeries}" var="serie">
             <div class="serieDef">
                 <input type="hidden" class="seriesType" value="#{serie.seriesType}" />
                 <input type="hidden" class="id" value="#{serie.metaData.id}" />
