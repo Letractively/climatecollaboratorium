@@ -10,9 +10,11 @@
         <ice:panelSeries value="#{debatesDetailsBean.debates}" var="debate">
             <div class="singleDebateSummary">
                 <h3 class="debateTitle"><a href="#{linkPatternPrefix}debate=debateId:#{debate.debateId}">#{debate.currentRoot.debateSummary}</a></h3>
+                <f:subview rendered="#{not empty debate.currentRoot.debateDetail}">
                 <p class="debateDetail">
                     #{debate.currentRoot.debateDetail}
                 </p>
+                </f:subview>
             </div>
             <div class="singleDebatePositions">
                 <ice:dataTable value="#{debate.currentRoot.children}" var="position" style="width: 100%" 
