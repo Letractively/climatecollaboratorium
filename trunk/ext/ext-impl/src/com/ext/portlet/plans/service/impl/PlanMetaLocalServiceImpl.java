@@ -32,7 +32,7 @@ public class PlanMetaLocalServiceImpl extends PlanMetaLocalServiceBaseImpl {
         planMeta.setPlanVersion(plan.getVersion());
         planMeta.setCreated(new Date());
         planMeta.setVotes(0);
-        planMeta.setOpen(true);
+        planMeta.setOpen(false);
         planMeta.setUpdateAuthorId(plan.getUpdateAuthorId());
         planMeta.setAuthorId(plan.getUpdateAuthorId());
         planMeta.setVersion(0L);
