@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.ext.portlet.debaterevision.model.DebateItem;
@@ -628,8 +629,13 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         }
     }
 
-    public boolean isNameAvailable(String planName) throws SystemException {
-        return PlanAttributeLocalServiceUtil.getPlanAttributesByNameValue(Attribute.NAME.name(), planName).size() == 0;
+    public boolean isNameAvailable(String planName, Contest c) throws SystemException, PortalException {
+        for (ContestPhase phase:c.getPhases()) {
+            for (PlanItem item:phase.getPlans()) {
+                if (item.getName().equals(planName)) return false;
+            }
+        }
+        return true;
     }
 
     public List<PlanItem> applyFilters(Map sessionMap, Map requestMap, PlanType planType, List<PlanItem> plans)

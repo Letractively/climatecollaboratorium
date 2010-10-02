@@ -160,8 +160,10 @@ public interface PlanItemLocalService {
             com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public boolean isNameAvailable(java.lang.String planName)
-        throws com.liferay.portal.SystemException;
+    public boolean isNameAvailable(java.lang.String planName,
+        com.ext.portlet.contests.model.Contest c)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.plans.model.PlanItem> applyFilters(
         java.util.Map sessionMap, java.util.Map requestMap,
