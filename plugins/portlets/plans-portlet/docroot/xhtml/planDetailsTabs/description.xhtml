@@ -73,7 +73,7 @@
             <ice:outputText value="#{planBean.plan.description}" escape="false"/>
         <ice:panelGroup styleClass="hidden ">
             <script type="text/javascript">
-                initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
+                initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable},true);
             </script>
         </ice:panelGroup>
 
@@ -111,7 +111,7 @@
         <ice:panelGroup styleClass="hidden ">
             <script type="text/javascript">
                 Collab.nav.addEditorDirtyValidationCallback(checkIfPlanDescriptionDirty);
-                initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
+                initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable},true);
             </script>
         </ice:panelGroup>
 
