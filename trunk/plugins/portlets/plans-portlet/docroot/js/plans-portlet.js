@@ -173,6 +173,10 @@ function hideModelUploadDialog(submit) {
     }
 }
 
+function navToWiki() {
+    
+}
+
 
 var columns = [];
 function drawColumnsConfigurationScreen() {

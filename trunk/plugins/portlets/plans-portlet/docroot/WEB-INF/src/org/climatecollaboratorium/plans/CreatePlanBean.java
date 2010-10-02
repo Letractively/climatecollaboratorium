@@ -78,6 +78,9 @@ public class CreatePlanBean {
                 }
                 planItem = PlanItemLocalServiceUtil.createPlan(planBean.getPlan().getWrapped(), phase, Helper.getLiferayUser().getUserId());
             } else {
+
+                //i don't think this is actually called.
+
                 plansIndexBean = (PlansIndexBean) e.getComponent().getAttributes().get("plansIndexBean");
                 String defaultDescription = preferences.getDefaultDescription();
                 planItem = PlanItemLocalServiceUtil.createPlan(plansIndexBean.getContestPhase().getPhase(), Helper.getLiferayUser().getUserId());
