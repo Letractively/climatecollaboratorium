@@ -316,6 +316,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
 
     @Override
     public boolean isVisible() {
+        _log.info("Checking if "+chartModel.getModelId()+":"+chartModel.getModelOutputLabel()+" is visible");
         if (chartModel.getModelChartIsVisible() == null) {
             try {
                 setVisible(true);
@@ -323,8 +324,9 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
                 _log.error("Error setting chart visibility to default of true", e);
             }
         }
-
-        return chartModel.getModelChartIsVisible() == null || chartModel.getModelChartIsVisible();
+        boolean result = chartModel.getModelChartIsVisible() == null || chartModel.getModelChartIsVisible();
+        _log.info(result);
+        return  result;
     }
 
 

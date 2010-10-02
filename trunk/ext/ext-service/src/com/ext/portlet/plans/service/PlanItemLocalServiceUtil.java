@@ -197,9 +197,11 @@ public class PlanItemLocalServiceUtil {
             end, sortColumn, sortDirection, applyFilters);
     }
 
-    public static boolean isNameAvailable(java.lang.String planName)
-        throws com.liferay.portal.SystemException {
-        return getService().isNameAvailable(planName);
+    public static boolean isNameAvailable(java.lang.String planName,
+        com.ext.portlet.contests.model.Contest c)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().isNameAvailable(planName, c);
     }
 
     public static java.util.List<com.ext.portlet.plans.model.PlanItem> applyFilters(
