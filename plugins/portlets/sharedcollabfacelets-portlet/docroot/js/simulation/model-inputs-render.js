@@ -491,8 +491,8 @@ function renderSingleChart(chartDef) {
 				yaxis.tickInterval = 1;
 				yaxis.tickOptions = {formatString:"%d"};
 			}
-			else {
-				yaxis.tickInterval = pickTickInterval(min, max, 10);
+			else if (max - min > 20 && max-min < 30) {
+				yaxis.tickInterval = 2;
 				yaxis.tickOptions = {formatString:"%.1f"};
 			}
 				
