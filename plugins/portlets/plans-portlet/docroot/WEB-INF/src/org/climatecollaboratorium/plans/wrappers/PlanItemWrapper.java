@@ -250,7 +250,7 @@ public class PlanItemWrapper {
     public void saveName(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             if (name != null && !name.equals(wrapped.getName())) {
-                if (! PlanItemLocalServiceUtil.isNameAvailable(name)) {
+                if (! PlanItemLocalServiceUtil.isNameAvailable(name, wrapped.getContest())) {
                     FacesMessage message = new FacesMessage();
                     message.setSeverity(FacesMessage.SEVERITY_ERROR);
                     message.setSummary("Name \"" + name + "\" is already taken, please choose different one.");

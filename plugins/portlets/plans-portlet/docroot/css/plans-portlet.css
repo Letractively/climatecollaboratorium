@@ -1038,14 +1038,16 @@ padding-top:20px;
 /** debate summary override**/
 
 .singleDebateSummary {
-    background:none repeat scroll 0 0 #EDEBEA;
+
 font-size:1.2em;
-margin-bottom:4px;
-margin-top:0px;
-padding-left:20px;
-padding-right:20px;
-padding-top:40px;
-padding-bottom:8px;
+
+margin-top: 5px;
+    margin-bottom:10px;
+
+}
+
+.singleDebateSummary h3 {
+    font-size:23px;
 }
 
 .plansContent .singleDebateSummary .debateDetail {
@@ -1072,12 +1074,11 @@ font-size:1.2em;
 font-weight:normal;
     padding: 12px 5px 5px;
     vertical-align:bottom;
+    text-align:center;
 }
 
 .singleDebatePositions table.debatePositions td {
     font-size:1.1em;
-    padding:5px;
-
 }
 
 .debateVotes, .debateVotes .debateVotesBg {
