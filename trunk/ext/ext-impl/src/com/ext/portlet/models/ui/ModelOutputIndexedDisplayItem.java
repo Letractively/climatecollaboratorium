@@ -162,6 +162,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
             visibleSeries = new ArrayList<ModelOutputSeriesDisplayItem>(getSeries());
             for (Iterator<ModelOutputSeriesDisplayItem> items = visibleSeries.iterator(); items.hasNext();) {
                 ModelOutputSeriesDisplayItem item = items.next();
+                _log.info(item.getMetaData().getInternalName()+" is visible");
                 if (!item.isVisible()) {
                     _log.info(item.getMetaData().getInternalName()+" should not be visible");
                     items.remove();
