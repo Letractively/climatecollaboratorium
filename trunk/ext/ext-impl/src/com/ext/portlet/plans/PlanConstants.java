@@ -77,13 +77,23 @@ public class PlanConstants {
 			}
 
 		}),
-		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_minicam_output", "_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"}, Double.class),
+
+
+		MAX_MITIGATION_COST(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"_Change_in_GDP_vs__baseline_minicam_output", "_Change_in_GDP_vs__baseline_igsm_output", "_Change_in_GDP_vs__baseline_merge_output"
+                }, Double.class),
 		        true, PlanFilterOperatorType.LESS_THAN_OR_NULL, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
 		}),
-        MIN_MITIGATION_COST_EMF(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {"Change_in_GDP_vs_baseline_merge_emf22_output0", "Change_in_GDP_vs_baseline_minicam_emf22_output0", "Change_in_GDP_vs_baseline_witch_emf22_output0"}, Double.class),
+        MIN_MITIGATION_COST_EMF(Double.class,"%.1f%%", attributeFunctionFactory.getMinFromLastValuesFunction(new String[] {
+                "Change_in_GDP_vs_baseline_witch_emf22_output1",
+                "Change_in_GDP_vs_baseline_minicam_emf22_output2",
+                "Change_in_GDP_vs_baseline_merge_emf22_output3",
+                "Change_in_GDP_vs_baseline_fund_emf23_output4",
+                "Change_in_GDP_vs_baseline_gcm_emf24_output5",
+                "Change_in_GDP_vs_baseline_merge_optimistic_emf25_output6",
+                "Change_in_GDP_vs_baseline_merge_pessimistic_emf26_output7"}, Double.class),
 		        true, PlanFilterOperatorType.GREATER_THAN_OR_NULL, new MoreThanFilter() {
 			@Override
 			public String getValue(PlanAttributeFilter filter) {
@@ -91,7 +101,14 @@ public class PlanConstants {
 			}
 
 		}),
-		MAX_MITIGATION_COST_EMF(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {"Change_in_GDP_vs_baseline_merge_emf22_output0", "Change_in_GDP_vs_baseline_minicam_emf22_output0", "Change_in_GDP_vs_baseline_witch_emf22_output0"}, Double.class),
+		MAX_MITIGATION_COST_EMF(Double.class,"%.1f%%", attributeFunctionFactory.getMaxFromLastValuesFunction(new String[] {
+                "Change_in_GDP_vs_baseline_witch_emf22_output1",
+                "Change_in_GDP_vs_baseline_minicam_emf22_output2",
+                "Change_in_GDP_vs_baseline_merge_emf22_output3",
+                "Change_in_GDP_vs_baseline_fund_emf23_output4",
+                "Change_in_GDP_vs_baseline_gcm_emf24_output5",
+                "Change_in_GDP_vs_baseline_merge_optimistic_emf25_output6",
+                "Change_in_GDP_vs_baseline_merge_pessimistic_emf26_output7"}, Double.class),
 		        true, PlanFilterOperatorType.LESS_THAN_OR_NULL, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
@@ -101,13 +118,13 @@ public class PlanConstants {
 		EMISSIONS_DEVELOPING_A(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingAFossilFuelEmissions", Double.class), true, null, null),
 		EMISSIONS_DEVELOPING_B(Double.class,"%.2f%%", attributeFunctionFactory.getLastValueFunction("DevelopingBFossilFuelEmissions", Double.class), true, null, null),
 		SEA_LEVEL(Integer.class,"%d", attributeFunctionFactory.getLastValueFunction("Sea_Level_Rise_output", Double.class), true, null, null),
-		MAX_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange95_output", Double.class), true, PlanFilterOperatorType.LESS_THAN, new LessThanFilter() {
+		MAX_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("change_in_GDP_vs_baseline_page_95__output3", Double.class), true, PlanFilterOperatorType.LESS_THAN, new LessThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
 			}
 		}),
 		
-		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange5_output", Double.class), true, PlanFilterOperatorType.GREATER_THAN, new MoreThanFilter() {
+		MIN_DAMAGE_COST(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("change_in_GDP_vs_baseline_page_5__output2", Double.class), true, PlanFilterOperatorType.GREATER_THAN, new MoreThanFilter() {
 			public String getValue(PlanAttributeFilter filter) {
                 return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
 			}
@@ -406,6 +423,20 @@ public class PlanConstants {
                                 return "N/A".equals(params[0]) && "N/A".equals(params[1])?1:0;
                             }
                         },Attribute.MIN_MITIGATION_COST, Attribute.MAX_MITIGATION_COST, Attribute.MITIGATION_COST_ERROR)),
+        MITIGATION_COST_EMF("Mitigation cost<br/>(%GDP in 2100)","Cost of efforts to prevent climate change (e.g., by reducing emissions). " +
+				"Costs are shown as a % of World GDP (Gross Domestic Product).	Values shown are the lowest and highest of the estimates " +
+				"produced by three models of these costs.","ShowMitigationCost",true, Attribute.MIN_MITIGATION_COST_EMF,
+                new PlanValueFactory.CustomizedAttributeGetter(
+                        new PlanValueFactory.SelectingFormatFunction(
+                                "%s to %s <div class='errors popup-info-box' style='display: none;" +
+                                        " position: absolute; width: 150px;'>%s</div>",
+                                "N/A <div class='errors popup-info-box' style='display: none;" +
+                                        " position: absolute; width: 150px;'>%3$s</div>") {
+                            @Override
+                            public int messageIndex(Object[] params) {
+                                return "N/A".equals(params[0]) && "N/A".equals(params[1])?1:0;
+                            }
+                        },Attribute.MIN_MITIGATION_COST_EMF, Attribute.MAX_MITIGATION_COST_EMF, Attribute.MITIGATION_COST_ERROR)),
 
 				
 		DAMAGE_COST("Damage cost<br/>(%GDP in 2100)","Cost of damages caused by climate change (e.g., damages from rising sea level, hurricanes, " +
