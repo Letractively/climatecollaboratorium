@@ -17,6 +17,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.climatecollaboratorium.plans.wrappers.PlanModelWrapper;
 
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 public class ContestBean {
@@ -32,7 +33,7 @@ public class ContestBean {
 
     public List<SelectItem> availableModels = new ArrayList<SelectItem>();
     public Long modelId;
-    
+    public boolean flag = true;
 
     private final static Log _log = LogFactoryUtil.getLog(ContestBean.class);
     
@@ -41,6 +42,8 @@ public class ContestBean {
         activeContest = true;
         initModels();
     }
+
+   
     
     public void init(NavigationEvent event) throws SystemException, NoSuchContestPhaseException, PortalException {
         Map<String, String> params = event.getParameters(PLANS_SOURCE);
