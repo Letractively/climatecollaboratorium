@@ -237,7 +237,7 @@ Semi Bold Italic		600	 italic
 
 
 
-/*  ADDITIONS - jei, to be moved when the time comes */
+/*  ADDITIONS - jei, to be moved when the time comes
 
 h1 { font-family: "gloriola-display-thin-1","gloriola-display-thin-2"; font-size:27px; font-style:normal; font-weight:400; color: #58534a; margin:20px 0 10px 0;}
 h2 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:21px; font-style:normal; font-weight:400; color: #58534a; margin:20px 0 10px 0;}
@@ -245,6 +245,19 @@ h3 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:18px; font-style:
 h4 {}
 h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:15px; font-style:normal; font-weight:400; margin:0 0 7px 0;}
 
+*/
+
+h1 { font-family: "gloriola-display-thin-1","gloriola-display-thin-2"; font-size:27px; font-style:normal; font-weight:400; color: #58534a; margin:20px 0 10px 0;}
+h2 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:21px; font-style:normal; font-weight:400; color: #58534a; margin:20px 0 10px;}
+h3 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:18px; font-style:normal; font-weight:400; color: #218aad; margin:10px 0 7px 0;}
+h4 { margin:7px 0 5px 0;}
+h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:15px; font-style:normal; font-weight:400; margin:0 0 7px 0;}
+
+
+ul li {
+    list-style:disc inside none;
+
+}
 
 
 .inlineHelp {
@@ -362,4 +375,54 @@ div.prominantButton:hover {
      background: #1f6f85;
     border:none;
 
+
+}
+
+/**
+Contests page
+**/
+
+.contests h1 {
+    margin:20px 0;
+}
+
+.contests .journal-content-article {
+    margin-left:60px;
+margin-right:60px;
+
+}
+
+
+.contests .journal-content-article {
+    font-size:1.2em;
+}
+
+.contests .info-elt {
+    margin-bottom:10px;
+margin-top:15px;
+padding:1px 30px 5px;
+    background:#FFF;
+}
+
+.contests .info-elt p {
+    margin:10px;
+}
+
+.contests .info-breakout-question {
+    margin:0 auto;
+    text-align:center;
+    margin-top:15px;
+    margin-bottom:15px;
+
+    
+}
+
+.contests .info-breakout-question h3 {
+    font-size:1.4em;
+
+    font-style:italic;
+}
+
+.contests ul li {
+   margin-left:2.0em; 
 }
