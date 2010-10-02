@@ -77,6 +77,12 @@ public class CreatePlanBean {
                     }
                 }
                 planItem = PlanItemLocalServiceUtil.createPlan(planBean.getPlan().getWrapped(), phase, Helper.getLiferayUser().getUserId());
+            } else {
+                plansIndexBean = (PlansIndexBean) e.getComponent().getAttributes().get("plansIndexBean");
+                String defaultDescription = preferences.getDefaultDescription();
+                planItem = PlanItemLocalServiceUtil.createPlan(plansIndexBean.getContestPhase().getPhase(), Helper.getLiferayUser().getUserId());
+                planItem.setDescription(defaultDescription, Helper.getLiferayUser().getUserId());
+
             }
             eventBus.fireEvent(new PlanCreatedEvent(planItem));
             planId = planItem.getPlanId();

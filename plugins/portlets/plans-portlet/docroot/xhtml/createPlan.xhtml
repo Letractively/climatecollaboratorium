@@ -45,7 +45,8 @@
     </div>
 </div>
 <div id="createPlanDialog" class="dialogdialog"></div>
-<f:subview rendered="#{createPlanBean.navigateToPlan}">    
+<f:subview rendered="#{createPlanBean.navigateToPlan}">
+    Getting ready
     <script language="javascript">
         Collab.nav.navigateAddParamsMulti({plans: {contests: "active" ,subview: "proposals", planId: #{createPlanBean.planId}, newPlan: 'true'}, planCondText: {value: "createNewProposal"}}, true);
     </script>

@@ -39,8 +39,19 @@ public class ContestWrapper {
     private String debatesIdsStr = null;
     private PlansIndexBean plansIndex;
     private EventBus eventBus;
+    public boolean flag;
     
+     public void setFlag(boolean b) {
+        flag = b;
+    }
 
+    public boolean getFlag() {
+        return flag;
+    }
+
+    public void test(ActionEvent e) {
+        setFlag(!flag);
+    }
 
     public ContestWrapper(Contest contest) throws SystemException, PortalException {
         this.contest = contest;
