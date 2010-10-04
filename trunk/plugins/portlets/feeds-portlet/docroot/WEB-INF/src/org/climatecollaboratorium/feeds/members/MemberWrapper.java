@@ -1,16 +1,13 @@
 package org.climatecollaboratorium.feeds.members;
 
+import java.util.Date;
+
 import org.climatecollaboratorium.feeds.Helper;
-import org.climatecollaboratorium.feeds.activities.SocialActivityWrapper;
 
 import com.liferay.portal.model.User;
-import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityFeedEntry;
 import com.liferay.portlet.social.service.SocialActivityInterpreterLocalServiceUtil;
-import sun.util.calendar.BaseCalendar;
-
-import java.util.Date;
 
 public class MemberWrapper {
     private User user;
