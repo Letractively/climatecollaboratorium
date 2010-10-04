@@ -92,9 +92,9 @@
                         <h3>#{singleContest.plansIndex.contestPhase.description}
                             (#{singleContest.plansIndex.plansCount} proposals #{singleContest.plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION' ? 'thus far' : ''})
                         </h3>
-                        <h4>Closes &amp;nbsp;
+                        <h4>#{singleContest.plansIndex.contestPhase.name} closes &amp;nbsp;
                             <ice:outputText value="#{singleContest.plansIndex.contestPhase.endDate}">
-                                <f:convertDateTime pattern="MMMMM d, yyyy"/>
+                                <f:convertDateTime pattern="MMMMM d"/>
                             </ice:outputText>
                         </h4>
                     </f:subview>
