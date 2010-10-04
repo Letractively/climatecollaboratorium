@@ -13,6 +13,8 @@ import org.climatecollaboratorium.feeds.FeedsPreferences;
 import com.ext.portlet.Activity.ActivityUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.social.model.SocialActivity;
@@ -23,6 +25,8 @@ public class MembersBean {
     private List<MemberWrapper> recentlyJoinedUsers;
     private List<MemberWrapper> recentlyActiveUsers;
     private int feedSize;
+    
+    private final static Log _log = LogFactoryUtil.getLog(MembersBean.class);
     
     public MembersBean(FeedsPreferences preferences) {
         feedSize = preferences.getFeedSize();
@@ -81,8 +85,13 @@ public class MembersBean {
                         continue;
                     }
                     usersAlreadyAdded.add(activity.getUserId());
-                    recentlyActiveUsers.add(
-                            new MemberWrapper(UserLocalServiceUtil.getUser(activity.getUserId()), activity));
+                    try {
+                        recentlyActiveUsers.add(
+                                new MemberWrapper(UserLocalServiceUtil.getUser(activity.getUserId()), activity));
+                    }
+                    catch (Exception e) {
+                        _log.error("An error was thrown when retrieving a user. ", e);
+                    }
                     if (recentlyActiveUsers.size() == feedSize) {
                         break;
                     }
