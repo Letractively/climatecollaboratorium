@@ -256,11 +256,10 @@ public class EditMessagingMessageAction extends PortletAction {
         if (!isNullOrEmpty(messageSenderName)) {
             from.setPersonal(messageSenderName);    
         }
-        /*
         for(MessagingMessageRecipient rec: recipients) {
             InternetAddress to = new InternetAddress(rec.getEmailAddress());
             MailEngine.send(from, to, subject, body.replaceAll(MessagingConstants.RECIPIENT_ID_PLACEHOLDER, String.valueOf(rec.getRecipientId())), true);
-        }*/
+        }
         
         SessionMessages.add(actionRequest, "Message was sent");
         actionResponse.sendRedirect(MessagingConstants.VIEW_MESSAGE_DETAILS + messageId);
