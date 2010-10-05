@@ -8,10 +8,13 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 
 import com.ext.portlet.debaterevision.model.DebateItem;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.ratings.model.RatingsStats;
@@ -108,6 +111,12 @@ public class Helper {
         PortletRequest pReq = (PortletRequest)ec.getRequest();
         PortletPreferences prefs = pReq.getPreferences();
         return prefs;
+    }
+
+    public static boolean isUserAdmin(long id) throws SystemException, PortalException {
+        Role r = RoleLocalServiceUtil.getRole(getThemeDisplay().getCompanyId(),"Administrator");
+        return RoleLocalServiceUtil.hasUserRole(id,r.getRoleId());
+
     }
 
 

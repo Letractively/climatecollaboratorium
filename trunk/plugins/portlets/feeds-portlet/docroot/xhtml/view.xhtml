@@ -7,7 +7,9 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     >
     <ice:portlet>
+        <f:subview rendered="#{preferences.feedTitle ne ''}">
         <h2 class="feedTitle">#{preferences.feedTitle}</h2>
+        </f:subview>
         <f:subview rendered="#{preferences.feedType == 'ACTIVITIES'}">
             <ui:include src="./feeds/activities.xhtml" />
         </f:subview>

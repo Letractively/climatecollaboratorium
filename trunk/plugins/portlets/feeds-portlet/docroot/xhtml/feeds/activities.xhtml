@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<f:view 
+<f:view xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:h="http://java.sun.com/jsf/html"  
@@ -8,25 +8,24 @@
     >
         <table>
         <ui:repeat value="#{feedsBean.activitiesBean.activities}" var="activity">
-            <f:subview rendered="#{activity.indicateNewDate}">
+                <f:subview id="entry" rendered="#{not activity.isEmpty}">
                 <tr>
-                    <td colspan="2">
-                        <ice:outputText value="Today" rendered="#{activity.today}" />
-                        <ice:outputText value="Yesterday" rendered="#{activity.yesterday}" />
-                        <ice:outputText value="#{activity.createDate}" rendered="#{not activity.today and not activity.yesterday}" >
+                    <td class="activity-time">
+                        <ice:outputText styleClass="date" value="Today" rendered="#{activity.today}" />
+                        <ice:outputText styleClass="date" value="Yesterday" rendered="#{activity.yesterday}" />
+                        <ice:outputText styleClass="date" value="#{activity.createDate}" rendered="#{not activity.today and not activity.yesterday}" >
                             <f:convertDateTime pattern="MMMM d"/>
+                        </ice:outputText>
+                        <ice:outputText styleClass="time" value="#{activity.createDate}" >
+                        <f:convertDateTime pattern="h:mm a z"/>
                         </ice:outputText>
                     </td>
                 </tr>
-            </f:subview>
+
             <tr>
-                <td>
-                    <ice:outputText value="#{activity.createDate}" >
-                        <f:convertDateTime pattern="h:mm a z"/>
-                    </ice:outputText>
-                </td>
-                <td>#{activity.body}</td>
+                <td class="activity-body">#{activity.body}</td>
             </tr>
+            </f:subview>
         </ui:repeat>
         </table>
 </f:view>
