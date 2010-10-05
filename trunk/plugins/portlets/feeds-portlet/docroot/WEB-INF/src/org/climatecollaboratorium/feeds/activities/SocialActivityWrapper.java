@@ -3,6 +3,9 @@ package org.climatecollaboratorium.feeds.activities;
 import java.util.Date;
 import java.util.TimeZone;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
 import org.climatecollaboratorium.feeds.Helper;
 
 import com.liferay.portal.kernel.util.DateUtil;
@@ -15,6 +18,8 @@ public class SocialActivityWrapper {
     private SocialActivityFeedEntry activityFeedEntry;
     private int daysBetween;
     private boolean indicateNewDate;
+    private final static Log _log = LogFactoryUtil.getLog(SocialActivityWrapper.class);
+
 
     public SocialActivityWrapper(SocialActivity activity, int daysBetween, boolean indicateNewDate) {
         Helper.getThemeDisplay();
@@ -59,10 +64,13 @@ public class SocialActivityWrapper {
 
     public static Boolean isEmpty(SocialActivity activity) {
         try {
+
+            UserLocalServiceUtil.getUser(activity.getUserId());
             SocialActivityFeedEntry entry = SocialActivityInterpreterLocalServiceUtil.interpret(activity,
-                Helper.getThemeDisplay());
+            Helper.getThemeDisplay());
             return isEmpty(entry);
         } catch (Throwable e) {
+            _log.error("Some error interpreting activity: "+e.getMessage());
             return false;
         }
     }
