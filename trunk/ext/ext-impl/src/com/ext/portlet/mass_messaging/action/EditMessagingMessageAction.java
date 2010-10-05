@@ -227,6 +227,7 @@ public class EditMessagingMessageAction extends PortletAction {
                     
                     msgRecipient.setEmailAddress(user.getEmailAddress());
                     msgRecipient.setUserId(user.getUserId());
+                    recipients.add(msgRecipient);
                 }
             }
         }
