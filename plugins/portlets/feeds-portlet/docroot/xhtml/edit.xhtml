@@ -45,7 +45,15 @@
                         <ice:outputLabel for="feedTitle" value="Feed title"/>
                         <ice:inputText id="feedTitle" value="#{preferences.feedTitle}" />
                         <ice:message for="feedTitle" />
-                        
+
+                        <ice:outputLabel for="feedStyle" value="Feed style"/>
+                        <ice:inputText id="feedStyle" value="#{preferences.feedStyle}"/>
+                        <ice:message for="feedStyle"/>
+
+                        <ice:outputLabel for="removeAdmin" value="Remove administrative actions"/>
+                        <ice:selectBooleanCheckbox id="removeAdmin" value="#{preferences.removeAdmin}"/>
+                        <ice:message for="removeAdmin"/>
+
                     </ice:panelGrid>
                     
 					<ice:commandButton action="#{preferences.submit}" value="#{language['submit']}" />

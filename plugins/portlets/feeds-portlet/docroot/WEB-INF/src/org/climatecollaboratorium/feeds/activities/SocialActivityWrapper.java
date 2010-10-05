@@ -19,9 +19,12 @@ public class SocialActivityWrapper {
     public SocialActivityWrapper(SocialActivity activity, int daysBetween, boolean indicateNewDate) {
         Helper.getThemeDisplay();
         this.activity = activity;
-        
+        try {
         activityFeedEntry = SocialActivityInterpreterLocalServiceUtil.interpret(activity,
                 Helper.getThemeDisplay());
+        } catch(Exception e) {
+            //ignore
+        }
         this.daysBetween = daysBetween;
         this.indicateNewDate = indicateNewDate;
     }
@@ -46,4 +49,21 @@ public class SocialActivityWrapper {
         return indicateNewDate;
     }
 
+    public Boolean getIsEmpty() {
+       return isEmpty(activityFeedEntry); 
+    }
+    
+    public static Boolean isEmpty(SocialActivityFeedEntry entry) {
+        return entry == null || entry.getBody() == null || entry.getBody().trim().length()==0;
+    }
+
+    public static Boolean isEmpty(SocialActivity activity) {
+        try {
+            SocialActivityFeedEntry entry = SocialActivityInterpreterLocalServiceUtil.interpret(activity,
+                Helper.getThemeDisplay());
+            return isEmpty(entry);
+        } catch (Throwable e) {
+            return false;
+        }
+    }
 }

@@ -8,22 +8,26 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     <ice:portlet>
-        <table class="activityFeed">
+        <table>
+        <ui:repeat value="#{feedsBean.membersBean.recentlyActiveMembers}" var="activity">
+                <f:subview id="entry" rendered="#{not activity.isEmpty}">
+                <tr>
+                    <td class="activity-time">
+                        <ice:outputText styleClass="date" value="Today" rendered="#{activity.today}" />
+                        <ice:outputText styleClass="date" value="Yesterday" rendered="#{activity.yesterday}" />
+                        <ice:outputText styleClass="date" value="#{activity.createDate}" rendered="#{not activity.today and not activity.yesterday}" >
+                            <f:convertDateTime pattern="MMMM d"/>
+                        </ice:outputText>
+                        <ice:outputText styleClass="time" value="#{activity.createDate}" >
+                        <f:convertDateTime pattern="h:mm a z"/>
+                        </ice:outputText>
+                    </td>
+                </tr>
+
             <tr>
-                <th class="screenName">Screen Name</th>
-                <th class="date">Date</th>
-                <th class="activity">Activity</th>
+                <td class="activity-body">#{activity.body}</td>
             </tr>
-        <ui:repeat value="#{feedsBean.membersBean.recentlyActiveMembers}" var="member">
-            <tr>
-                <td  class="screenName"><collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}" /></td>
-                <td class="date">
-                    <ice:outputText value="#{member.lastActivityDate}" styleClass="date">
-                        <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
-                    </ice:outputText>
-                </td>
-                <td class="activity">#{member.lastActivityBody}</td>
-            </tr>
+            </f:subview>
         </ui:repeat>
         </table>
     </ice:portlet>

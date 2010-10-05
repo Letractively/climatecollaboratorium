@@ -1,35 +1,31 @@
 package org.climatecollaboratorium.feeds.members;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import com.liferay.portal.kernel.util.DateUtil;
 import org.climatecollaboratorium.feeds.FeedsPreferences;
 
 
 import com.ext.portlet.Activity.ActivityUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
+import org.climatecollaboratorium.feeds.Helper;
+import org.climatecollaboratorium.feeds.activities.SocialActivityWrapper;
 
 public class MembersBean {
     private List<MemberWrapper> mostActiveUsers;
     private List<MemberWrapper> recentlyJoinedUsers;
-    private List<MemberWrapper> recentlyActiveUsers;
+    private List<SocialActivityWrapper> recentlyActiveUsers;
     private int feedSize;
-    
-    private final static Log _log = LogFactoryUtil.getLog(MembersBean.class);
+    private boolean showAdmin = false;
     
     public MembersBean(FeedsPreferences preferences) {
         feedSize = preferences.getFeedSize();
+        showAdmin = !preferences.getRemoveAdmin();
     }
     
     public List<MemberWrapper> getMostActiveMembers() throws SystemException {
@@ -71,27 +67,29 @@ public class MembersBean {
         return recentlyJoinedUsers;
     }
     
-    public List<MemberWrapper> getRecentlyActiveMembers() throws SystemException, PortalException {
+    public List<SocialActivityWrapper> getRecentlyActiveMembers() throws SystemException, PortalException {
         if (recentlyActiveUsers == null) {
-            recentlyActiveUsers = new ArrayList<MemberWrapper>();
+            recentlyActiveUsers = new ArrayList<SocialActivityWrapper>();
             Set<Long> usersAlreadyAdded = new HashSet<Long>();
             int activitiesCount = ActivityUtil.getAllActivitiesCount();
             int currentStart = 0;
+
+            int lastDaysBetween = -1;
+            Date now = new Date();
+
             while (usersAlreadyAdded.size() < feedSize && currentStart < activitiesCount) {
                 int currentEnd = currentStart + 10 * feedSize;
             // get latest 
                 for (SocialActivity activity: ActivityUtil.retrieveAllActivities(currentStart, currentEnd)) {
-                    if (usersAlreadyAdded.contains(activity.getUserId())) {
+                    if (usersAlreadyAdded.contains(activity.getUserId()) || (!showAdmin && Helper.isUserAdmin(activity.getUserId())) || SocialActivityWrapper.isEmpty(activity) ) {
                         continue;
                     }
                     usersAlreadyAdded.add(activity.getUserId());
-                    try {
-                        recentlyActiveUsers.add(
-                                new MemberWrapper(UserLocalServiceUtil.getUser(activity.getUserId()), activity));
-                    }
-                    catch (Exception e) {
-                        _log.error("An error was thrown when retrieving a user. ", e);
-                    }
+
+                    int curDaysBetween = DateUtil.getDaysBetween(activity.getCreateDate(), now, TimeZone.getDefault());
+                    recentlyActiveUsers.add(new SocialActivityWrapper(activity, curDaysBetween, lastDaysBetween < curDaysBetween));
+                    lastDaysBetween = curDaysBetween;
+
                     if (recentlyActiveUsers.size() == feedSize) {
                         break;
                     }
