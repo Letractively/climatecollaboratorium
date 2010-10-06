@@ -7,7 +7,7 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:collab_comps="http://climatecollaboratorium.org/components">
     <collab:debatesDetailsSupport debatesDetailsBean="#{debatesDetailsBean}" debatesIds="#{debatesIds}" >
-        <ice:panelSeries value="#{debatesDetailsBean.debates}" var="debate">
+        <ice:panelSeries value="#{debatesDetailsBean.debates}" var="debate" styleClass="debatelist">
             <div class="singleDebateSummary">
                 <h3 class="debateTitle"><a href="#{linkPatternPrefix}debate=debateId:#{debate.debateId}">#{debate.currentRoot.debateSummary}</a></h3>
                 <f:subview rendered="#{not empty debate.currentRoot.debateDetail}">
