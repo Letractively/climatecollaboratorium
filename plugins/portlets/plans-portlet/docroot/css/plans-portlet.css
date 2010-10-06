@@ -108,9 +108,13 @@ a.helpMessageTrigger.helpHidden {
     margin-top:-23px;
 }
 
+.contestContent .debatelist {
+  margin-top:30px;  
+}
+
 .contestContent a.helpMessageTrigger.helpHidden {
-     margin-left:-20px;
-    margin-top:-10px;
+     margin-left:0px;
+    margin-top:-37px;
 }
 
 

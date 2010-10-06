@@ -81,8 +81,8 @@
             <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
             <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
                 <div class="assumption">
-                    <h3 class="question">#{question.debateAnchor}</h3>
-                    <h4 class="position">#{question.selectedPosition.itemAnchor}</h4>
+                 <h3 class="question"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></h3>
+                    <h4 class="position"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId},itemId:#{question.selectedPosition.debateItemId}">#{question.selectedPosition.debateSummary}</a></h4>
                 </div>
             </ice:panelSeries>
             <ice:panelGroup rendered="#{not planBean.planPositionsBean.positionsSet}" styleClass="editTriggerContainer">
@@ -107,7 +107,7 @@
         <ice:panelGroup>
             <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
                 <div class="assumption">
-                    <h3 class="question">#{question.debateAnchor}</h3>
+                   <h3 class="question"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></h3>
                     <ice:selectOneRadio value="#{question.position}" styleClass="versionedRadio positionItem"
                                         layout="pageDirection">
                         <f:selectItems value="#{question.positions}"><br/></f:selectItems>

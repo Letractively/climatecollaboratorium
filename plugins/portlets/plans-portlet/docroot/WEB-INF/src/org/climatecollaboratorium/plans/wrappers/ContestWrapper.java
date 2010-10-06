@@ -183,7 +183,7 @@ public class ContestWrapper {
             if (questions.size() == 0) {
                 Set<Long> selectedPositionsIds = new HashSet<Long>(contest.getDebatesIds());
                 for (Debate debate : DebateLocalServiceUtil.getDebates()) {
-                    questions.add(new DebateQuestionWrapper(debate.getCurrentRoot(), selectedPositionsIds));
+                    questions.add(new DebateQuestionWrapper(contest,debate.getCurrentRoot(), selectedPositionsIds));
                 }
             }
             return questions;
