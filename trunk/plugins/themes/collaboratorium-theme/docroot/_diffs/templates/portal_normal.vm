@@ -84,9 +84,10 @@ $theme.include($bottom_include)
 <script type="text/javascript">
 /* <![CDATA[ */
     try {
+        var path = window.location.pathname + window.location.search + window.location.hash;
         var pageTracker = _gat._getTracker("UA-11944310-1");
         pageTracker._setAllowAnchor(true);
-        pageTracker._trackPageview();
+        pageTracker._trackPageview(path);
     } catch(err) {}
 /* ]]> */
 </script>
