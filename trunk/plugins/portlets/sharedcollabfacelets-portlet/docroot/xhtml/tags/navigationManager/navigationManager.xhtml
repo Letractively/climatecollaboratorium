@@ -17,6 +17,13 @@
 			jQuery(document).ready(function() {
 				if (#{navigationManagerBean.token} > 0) {
 					Collab.nav.unblock();
+                    
+                    // track page view, first page entry should be done with 
+                    try {
+                        var pageTracker = _gat._getTracker("UA-11944310-1");
+                        pageTracker._setAllowAnchor(true);
+                        pageTracker._trackPageview();
+                    } catch(err) { alert(err); }
 				}
 			});
 		</script>
