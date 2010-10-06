@@ -9,6 +9,20 @@ public class DebateItemWrapper {
         this.wrapped = wrapped;
     }
 
+    public Long getDebateId() {
+        return wrapped.getDebateId();
+    }
+
+    public String getDebateSummary() {
+        return wrapped.getDebateSummary();
+    }
+
+    public Long getDebateItemId() {
+        return wrapped.getDebateItemId();
+    }
+
+    
+
     public String getItemAnchor() {
         return "<a href='" + getItemLink() + "' target='_blank'>" + wrapped.getDebateSummary() + "</a>";
     }

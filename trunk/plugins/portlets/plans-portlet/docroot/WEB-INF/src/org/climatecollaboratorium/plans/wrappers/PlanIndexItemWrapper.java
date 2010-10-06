@@ -45,7 +45,7 @@ public class PlanIndexItemWrapper {
         this.availableDebates = availableDebates;
     }
 
-    public List<DebateQuestionWrapper> getPositions() throws NoSuchPlanPositionsException, SystemException {
+    public List<DebateQuestionWrapper> getPositions() throws PortalException, SystemException {
         if (questions == null) {
             questions = new ArrayList<DebateQuestionWrapper>();
             Set<Long> planPositionsIds = new HashSet<Long>(wrapped.getPositionsIds());
@@ -59,7 +59,7 @@ public class PlanIndexItemWrapper {
                     }
                 }
                 if (positionFromDebateSelected) {
-                    questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), planPositionsIds));
+                    questions.add(new DebateQuestionWrapper(wrapped.getContest(),d.getCurrentRoot(), planPositionsIds));
                 }
             }
         }

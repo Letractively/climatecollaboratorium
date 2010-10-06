@@ -57,7 +57,7 @@ public class PlanPositionsBean {
         updatePositions = true;
     }
 
-    public List<DebateQuestionWrapper> getAvailablePositions() throws NoSuchPlanPositionsException, SystemException {
+    public List<DebateQuestionWrapper> getAvailablePositions() throws PortalException, SystemException {
         if (updatePositions) {
             Set<Long> planPositionsIds = new HashSet<Long>(positionsIds);
             positionsSet = planPositionsIds.size() > 0;
@@ -66,7 +66,7 @@ public class PlanPositionsBean {
             if (editing) {
                 // we are editing all debates should be shown
                 for (Debate d : availableDebates) {
-                    questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), planPositionsIds));
+                    questions.add(new DebateQuestionWrapper(plan.getContest(),d.getCurrentRoot(), planPositionsIds));
                 }
             }
             else {
@@ -80,7 +80,7 @@ public class PlanPositionsBean {
                         }
                     }
                     if (positionFromDebateSelected) {
-                        questions.add(new DebateQuestionWrapper(d.getCurrentRoot(), planPositionsIds));
+                        questions.add(new DebateQuestionWrapper(plan.getContest(),d.getCurrentRoot(), planPositionsIds));
                     }
                 }
             }

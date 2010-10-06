@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans.wrappers;
 
+import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.debaterevision.model.DebateItem;
 
 import java.util.*;
@@ -11,6 +12,7 @@ public class DebateQuestionWrapper {
     private List<SelectItem> positions = new ArrayList<SelectItem>();
     private Long position;
    private List<Long> multiplePositions = new ArrayList<Long>();
+    private Contest contest;
 
     private DebateItemWrapper selectedPosition;
     private List<DebateItem> multipleSelectedPositions = new ArrayList<DebateItem>();
@@ -20,9 +22,10 @@ public class DebateQuestionWrapper {
         this(wrapped, planPositions.getPositionsIds());
     }
     */
-    public DebateQuestionWrapper(DebateItem wrapped, Set<Long> planPositionsIds) {
+    public DebateQuestionWrapper(Contest c, DebateItem wrapped, Set<Long> planPositionsIds) {
 
         this.wrapped = wrapped;
+        this.contest = c;
 
         for (DebateItem position: wrapped.getChildren()) {
             positions.add(new SelectItem(position.getDebateItemId(), getPositionAnchor(position)));
@@ -100,14 +103,16 @@ public class DebateQuestionWrapper {
     }
 
     public String getPositionLink(DebateItem position) {
-        return "/web/guest/debates#debate=" + wrapped.getDebateId() + ";item=" + position.getDebateItemId();
+        return "#plans=contests:"+(contest.getContestActive()?"active":"past")+",subview:issues;debate=debateId:"+wrapped.getDebateId()+",itemId:"+position.getDebateItemId();
     }
 
     public String getPositionAnchor(DebateItem position) {
-        return "<a href='" + getPositionLink(position) + "' target='_blank'>" + position.getDebateSummary() + "</a>";
+
+
+        return "<a href='" + getPositionLink(position) + "'>" + position.getDebateSummary() + "</a>";
     }
 
     public String getDebateAnchor() {
-        return "<a href='" + getDebateLink() + "' target='_blank'>" + getDebateSummary() + "</a>";
+        return "<a href='" + getDebateLink() + ">" + getDebateSummary() + "</a>";
     }
 }
