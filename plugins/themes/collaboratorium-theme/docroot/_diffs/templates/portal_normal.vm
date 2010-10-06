@@ -85,6 +85,7 @@ $theme.include($bottom_include)
 /* <![CDATA[ */
     try {
         var pageTracker = _gat._getTracker("UA-11944310-1");
+        pageTracker._setAllowAnchor(true);
         pageTracker._trackPageview();
     } catch(err) {}
 /* ]]> */
