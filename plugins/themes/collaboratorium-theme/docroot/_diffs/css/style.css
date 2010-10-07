@@ -192,7 +192,7 @@ body { background:url(../images/bg_main.gif) repeat-x #f5f5f5; font:12px Helveti
 
 .home h1 {}
 .home h2 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:20px; font-style:normal; font-weight:400; color: #e65608; margin:20px 0 10px 0;}
-.home h3 { font-size:15px; color: #464646; margin:0 0 10px 0;}
+.home h3 { font-family: "helvetica", "sans serif"; font-size:16px; font-weight: bold; color: #464646; margin:0 0 10px 0;}
 .home h4 {}
 .home h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:17px; font-style:normal; font-weight:400; margin:0 0 7px 0;}
 
