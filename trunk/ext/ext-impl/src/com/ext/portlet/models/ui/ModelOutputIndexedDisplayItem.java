@@ -162,9 +162,9 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
             visibleSeries = new ArrayList<ModelOutputSeriesDisplayItem>(getSeries());
             for (Iterator<ModelOutputSeriesDisplayItem> items = visibleSeries.iterator(); items.hasNext();) {
                 ModelOutputSeriesDisplayItem item = items.next();
-                _log.info(item.getMetaData().getInternalName()+" is visible");
+                _log.debug(item.getMetaData().getInternalName()+" is visible");
                 if (!item.isVisible()) {
-                    _log.info(item.getMetaData().getInternalName()+" should not be visible");
+                    _log.debug(item.getMetaData().getInternalName()+" should not be visible");
                     items.remove();
                 }
             }
@@ -319,7 +319,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
 
     @Override
     public boolean isVisible() {
-        _log.info("Checking if "+chartModel.getModelId()+":"+chartModel.getModelOutputLabel()+" is visible");
+        _log.debug("Checking if "+chartModel.getModelId()+":"+chartModel.getModelOutputLabel()+" is visible");
         if (chartModel.getModelChartIsVisible() == null) {
             try {
                 setVisible(true);
@@ -328,7 +328,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
             }
         }
         boolean result = chartModel.getModelChartIsVisible() == null || chartModel.getModelChartIsVisible();
-        _log.info(result);
+        _log.debug(result);
         return  result;
     }
 
