@@ -17,7 +17,6 @@ boolean fanedEnableLast = fanedPagerStart < fanedPagerLast;
 boolean fanedEnableFirst = fanedPagerFirst < fanedPagerStart;
 
 String fanedUserparam = "&userId="+userId;
-    System.err.println("Company is "+company);
 
 DateFormat fanedTimeFormatDate = new SimpleDateFormat("MM/dd/yy");
 fanedTimeFormatDate.setTimeZone(TimeZone.getDefault());
