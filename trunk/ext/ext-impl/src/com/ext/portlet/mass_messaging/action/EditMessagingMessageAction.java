@@ -232,11 +232,19 @@ public class EditMessagingMessageAction extends PortletAction {
             }
         }
         
+        if (recipients.size() == 0) {
+            SessionErrors.add(actionRequest, "No recipients given.");
+            return;
+        }
+        
+        
         // save all recipients
         for(MessagingMessageRecipient rec: recipients) {
             rec.setMessageId(messageId);
             MessagingMessageRecipientLocalServiceUtil.addMessagingMessageRecipient(rec);
         }
+        
+        
         
         message.setName(name);
         message.setDescription(description);
