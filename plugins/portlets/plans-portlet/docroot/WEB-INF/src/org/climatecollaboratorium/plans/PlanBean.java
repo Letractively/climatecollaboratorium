@@ -50,11 +50,11 @@ public class PlanBean {
     private PlansIndexBean plansIndexBean;
  
     static {
+
         tabNameIndexMap.put("admin", tabNameIndexMap.size());
+        tabNameIndexMap.put("description", tabNameIndexMap.size());
         tabNameIndexMap.put("actionsimpacts", tabNameIndexMap.size());
         tabNameIndexMap.put("positions", tabNameIndexMap.size());
-        tabNameIndexMap.put("description", tabNameIndexMap.size());
-        
         tabNameIndexMap.put("discussion", tabNameIndexMap.size());
         tabNameIndexMap.put("team", tabNameIndexMap.size());
     }
@@ -86,11 +86,13 @@ public class PlanBean {
             return;
         }
         planId = candidatePlanId;
+
+         refresh();
         
         if (parameters.containsKey("tab")) {
             try {
                 Integer tmp = tabNameIndexMap.get( parameters.get("tab") );
-                selectedTabIndex = tmp != null ? tmp : tabNameIndexMap.get(DEFAULT_TAB);
+                selectedTabIndex = tmp != null ? tmp : getDefaultTab();
             }
             catch (NumberFormatException e) {
                 _log.error("Can't parse tab number: " + parameters.get("tab"), e);
@@ -98,9 +100,9 @@ public class PlanBean {
         }
         else {
             // default tab if no tab is set
-            selectedTabIndex = tabNameIndexMap.get(DEFAULT_TAB);
+            selectedTabIndex = getDefaultTab();
         }
-        refresh();
+
         if (parameters.containsKey(NEW_PLAN_PARAM)) {
             // 
             if (planItem.getPlanDescriptions().get(0).getVersion() == 1) {
@@ -129,6 +131,12 @@ public class PlanBean {
                 planPositionsBean.edit(null);
             }
         }
+    }
+
+    public int getDefaultTab() throws SystemException, PortalException {      
+        if (planItem.getAllPlanModelRuns().get(0).getVersion() == 0 && permissions.getCanEdit()) {
+            return tabNameIndexMap.get("actionsimpacts");
+        } else return tabNameIndexMap.get("description");
     }
     
     public void clear() {

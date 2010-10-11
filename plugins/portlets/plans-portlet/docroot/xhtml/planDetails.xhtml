@@ -108,7 +108,20 @@
         <collab:helpMessageTrigger messageId="planAdminHelp">+show help</collab:helpMessageTrigger>
 
     </ice:panelGroup>
-    <ice:panelGroup rendered="#{plan.selectedTab==1}">
+     <ice:panelGroup rendered="#{plan.selectedTab==1}">
+        <collab:helpMessage messageId="planDescriptionHelp" styleClass="planHelp"
+                            hideThisMessage="Hide this message" defaultState="closed">
+            Teams are invited to outline:
+            <ul>
+                <li>why their proposed actions and anticipated impacts are desirable</li>
+                <li>how the designated commitments can be achieved</li>
+            </ul>
+            Teams may also include a vision of how the future will look under their proposal, through videos, pictures, or stories.
+            <a href="/web/guest/resources/-/wiki/Main/About+proposals">See more</a>.
+        </collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planDescriptionHelp">+show help</collab:helpMessageTrigger>
+    </ice:panelGroup>
+    <ice:panelGroup rendered="#{plan.selectedTab==2}">
         <collab:helpMessage messageId="planModelRunHelp" styleClass="planHelp"
                             hideThisMessage="Hide this message" defaultState="closed">
             Key Actions for proposals in the 2010 contest are commitments to:
@@ -125,7 +138,7 @@
     </ice:panelGroup>
 
 
-    <ice:panelGroup rendered="#{plan.selectedTab==2}">
+    <ice:panelGroup rendered="#{plan.selectedTab==3}">
         <collab:helpMessage messageId="planPositionHelp" styleClass="planHelp"
                             hideThisMessage="Hide this message" defaultState="closed">
             Teams are invited to delineate the positions their proposal takes on key issues in the debate over international climate agreements.
@@ -133,24 +146,7 @@
         </collab:helpMessage>
         <collab:helpMessageTrigger messageId="planPositionHelp">+show help</collab:helpMessageTrigger>
     </ice:panelGroup>
-
-    <ice:panelGroup rendered="#{plan.selectedTab==3}">
-        <collab:helpMessage messageId="planDescriptionHelp" styleClass="planHelp"
-                            hideThisMessage="Hide this message" defaultState="closed">
-            Teams are invited to outline:
-            <ul>
-                <li>why their proposed actions and anticipated impacts are desirable</li>
-                <li>how the designated commitments can be achieved</li>
-            </ul>
-            Teams may also include a vision of how the future will look under their proposal, through videos, pictures, or stories.
-            <a href="/web/guest/resources/-/wiki/Main/About+proposals">See more</a>.
-        </collab:helpMessage>
-        <collab:helpMessageTrigger messageId="planDescriptionHelp">+show help</collab:helpMessageTrigger>
-    </ice:panelGroup>
-    
-
-
-    <ice:panelGroup rendered="#{plan.selectedTab==4}">
+   <ice:panelGroup rendered="#{plan.selectedTab==4}">
         <collab:helpMessage messageId="planDiscussionHelp" styleClass="planHelp"
                             hideThisMessage="Hide this message" defaultState="closed">
             Climate CoLab members are invited to comment on proposals. <a
@@ -185,24 +181,25 @@
                                     <ui:include src="planDetailsTabs/admin.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
+                             <ice:panelTab label="Description" styleClass="description-tab"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/description.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
                             <ice:panelTab label="Actions &amp; Impacts" styleClass="actionsImpacts"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'actionsimpacts'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/actionsImpacts.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Positions"
+                            <ice:panelTab label="Positions" styleClass="positions-tab"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/assumptions.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Description" styleClass="description-tab"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
-                                <f:subview>
-                                    <ui:include src="planDetailsTabs/description.xhtml"/>
-                                </f:subview>
-                            </ice:panelTab>
+
                             <ice:panelTab label="Discussion" styleClass="discussion-tab"
                                           onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'discussion'}, 'discussion': {}}); return;">
                                 <f:subview>
