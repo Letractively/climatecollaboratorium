@@ -116,7 +116,7 @@ body { background:url(../images/bg_main.gif) repeat-x #f5f5f5; font:12px Helveti
 #boxwin ol li { margin-bottom:15px; }
 #boxwin a { background:url(../images/link_bg.gif) repeat-x; display:inline-block; height:30px; padding:0 5px 0 5px; border-bottom:2px solid #67ac5c; font-family: "bree-1","bree-2"; font-size:24px; font-style:normal; font-weight:700; color:#67ac5c;}  /* Bree - bold - 25.5px */
 #boxwin a:hover { background:#67ac5c; color:#fff; } /*  color:#e76118; border-bottom:2px solid #e76118;  */
-#boxwin #screen1 { padding:45px 71px 0 48px; height:305px; background:#fff; border:1px solid #9ac191; font-family: "gloriola-display-thin-1","gloriola-display-thin-2"; font-size:44px; line-height:50px; font-style:normal; font-weight:200; color:#0b97c0; }
+#boxwin #screen1 { padding:20px 71px 0 48px; height:329px; background:#fff; border:1px solid #9ac191; font-family: "gloriola-display-thin-1","gloriola-display-thin-2"; font-size:44px; line-height:50px; font-style:normal; font-weight:200; color:#0b97c0; }
 #boxwin #screen2 { display:none; padding:30px 50px 0 44px; height:320px; background:#fff; border:1px solid #9ac191; font-family: "gloriola-web-1","gloriola-web-2"; font-size:25px; line-height:35px; font-style:normal; font-weight:200; color:#339dc0; }
 #boxwin #screen3 { display:none; padding:40px 50px 0 40px; height:310px; background:#fff; border:1px solid #9ac191; font-family: "gloriola-web-1","gloriola-web-2"; font-size:25px; line-height:35px; font-style:normal; font-weight:200; color:#339dc0; }
 #boxwin #screen4 { display:none; padding:40px 50px 0 48px; height:310px; background:#fff; border:1px solid #9ac191; font-family: "gloriola-web-1","gloriola-web-2"; font-size:25px; line-height:35px; font-style:normal; font-weight:200; color:#339dc0; }
