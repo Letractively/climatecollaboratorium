@@ -330,10 +330,10 @@ public class PlansIndexBean {
 
 
             final Long userId = Helper.isUserLoggedIn() ? Helper.getLiferayUser().getUserId() : -1;
-            for (PlanItem plan : PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
-
+            for (Iterator<PlanItem> i = PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans).iterator();i.hasNext();) {
+                PlanItem plan = i.next();
                 if (plan.getVersion() < 2) {
-                    notFilteredPlans.remove(plan);
+                    i.remove();
                     continue;
                 }
 
