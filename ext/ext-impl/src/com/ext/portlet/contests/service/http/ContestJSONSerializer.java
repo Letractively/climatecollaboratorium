@@ -38,6 +38,10 @@ public class ContestJSONSerializer {
         jsonObj.put("ContestName", model.getContestName());
         jsonObj.put("ContestShortName", model.getContestShortName());
         jsonObj.put("ContestDescription", model.getContestDescription());
+        jsonObj.put("ContestModelDescription",
+            model.getContestModelDescription());
+        jsonObj.put("ContestPositionsDescription",
+            model.getContestPositionsDescription());
         jsonObj.put("PlanTypeId", model.getPlanTypeId());
 
         Date created = model.getCreated();

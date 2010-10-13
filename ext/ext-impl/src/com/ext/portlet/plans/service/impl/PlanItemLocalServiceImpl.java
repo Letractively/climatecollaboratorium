@@ -86,6 +86,9 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
      */
     public static final String DEFAULT_GROUP_DESCRIPTION = "Group working on plan %s";
 
+
+    public static final String DEFAULT_UNTITLED_PLAN_STEM_NAME = "Untitled Proposal ";
+
     /**
      * Default forum category name.
      */
@@ -100,7 +103,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         long planItemId = CounterLocalServiceUtil.increment(PlanItem.class.getName());
         long planId = CounterLocalServiceUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
         long planTypeId = phase.getContest().getPlanTypeId();
-        String name = "Untitled Plan " + planId;
+        String name = DEFAULT_UNTITLED_PLAN_STEM_NAME + planId;
         PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
         planItem.setPlanId(planId);
         planItem.setVersion(0L);
@@ -163,7 +166,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         long planItemId = CounterLocalServiceUtil.increment(PlanItem.class.getName());
         long planId = CounterLocalServiceUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
 
-        String name = "Untitled Plan " + planId;
+        String name = DEFAULT_UNTITLED_PLAN_STEM_NAME + planId;
         PlanItem planItem = PlanItemLocalServiceUtil.createPlanItem(planItemId);
         planItem.setPlanId(planId);
         planItem.setVersion(0L);

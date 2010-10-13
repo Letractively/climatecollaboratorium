@@ -229,6 +229,8 @@ create table Contest (
 	ContestName VARCHAR(75) null,
 	ContestShortName VARCHAR(75) null,
 	ContestDescription VARCHAR(75) null,
+	ContestModelDescription VARCHAR(75) null,
+	ContestPositionsDescription VARCHAR(75) null,
 	PlanTypeId LONG,
 	created DATE null,
 	updated DATE null,

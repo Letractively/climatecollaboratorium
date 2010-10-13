@@ -55,6 +55,12 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "ContestDescription", new Integer(Types.VARCHAR) },
             
 
+            { "ContestModelDescription", new Integer(Types.VARCHAR) },
+            
+
+            { "ContestPositionsDescription", new Integer(Types.VARCHAR) },
+            
+
             { "PlanTypeId", new Integer(Types.BIGINT) },
             
 
@@ -69,7 +75,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
             { "contestActive", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -86,6 +92,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private String _ContestName;
     private String _ContestShortName;
     private String _ContestDescription;
+    private String _ContestModelDescription;
+    private String _ContestPositionsDescription;
     private Long _PlanTypeId;
     private Date _created;
     private Date _updated;
@@ -103,6 +111,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setContestName(soapModel.getContestName());
         model.setContestShortName(soapModel.getContestShortName());
         model.setContestDescription(soapModel.getContestDescription());
+        model.setContestModelDescription(soapModel.getContestModelDescription());
+        model.setContestPositionsDescription(soapModel.getContestPositionsDescription());
         model.setPlanTypeId(soapModel.getPlanTypeId());
         model.setCreated(soapModel.getCreated());
         model.setUpdated(soapModel.getUpdated());
@@ -166,6 +176,23 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _ContestDescription = ContestDescription;
     }
 
+    public String getContestModelDescription() {
+        return GetterUtil.getString(_ContestModelDescription);
+    }
+
+    public void setContestModelDescription(String ContestModelDescription) {
+        _ContestModelDescription = ContestModelDescription;
+    }
+
+    public String getContestPositionsDescription() {
+        return GetterUtil.getString(_ContestPositionsDescription);
+    }
+
+    public void setContestPositionsDescription(
+        String ContestPositionsDescription) {
+        _ContestPositionsDescription = ContestPositionsDescription;
+    }
+
     public Long getPlanTypeId() {
         return _PlanTypeId;
     }
@@ -227,6 +254,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setContestName(HtmlUtil.escape(getContestName()));
             model.setContestShortName(HtmlUtil.escape(getContestShortName()));
             model.setContestDescription(HtmlUtil.escape(getContestDescription()));
+            model.setContestModelDescription(HtmlUtil.escape(
+                    getContestModelDescription()));
+            model.setContestPositionsDescription(HtmlUtil.escape(
+                    getContestPositionsDescription()));
             model.setPlanTypeId(getPlanTypeId());
             model.setCreated(getCreated());
             model.setUpdated(getUpdated());
@@ -248,6 +279,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setContestName(getContestName());
         clone.setContestShortName(getContestShortName());
         clone.setContestDescription(getContestDescription());
+        clone.setContestModelDescription(getContestModelDescription());
+        clone.setContestPositionsDescription(getContestPositionsDescription());
         clone.setPlanTypeId(getPlanTypeId());
         clone.setCreated(getCreated());
         clone.setUpdated(getUpdated());
@@ -308,6 +341,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getContestShortName());
         sb.append(", ContestDescription=");
         sb.append(getContestDescription());
+        sb.append(", ContestModelDescription=");
+        sb.append(getContestModelDescription());
+        sb.append(", ContestPositionsDescription=");
+        sb.append(getContestPositionsDescription());
         sb.append(", PlanTypeId=");
         sb.append(getPlanTypeId());
         sb.append(", created=");
@@ -345,6 +382,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>ContestDescription</column-name><column-value><![CDATA[");
         sb.append(getContestDescription());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>ContestModelDescription</column-name><column-value><![CDATA[");
+        sb.append(getContestModelDescription());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>ContestPositionsDescription</column-name><column-value><![CDATA[");
+        sb.append(getContestPositionsDescription());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>PlanTypeId</column-name><column-value><![CDATA[");

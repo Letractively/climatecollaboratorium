@@ -46,6 +46,15 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setContestDescription(String ContestDescription);
 
+    public String getContestModelDescription();
+
+    public void setContestModelDescription(String ContestModelDescription);
+
+    public String getContestPositionsDescription();
+
+    public void setContestPositionsDescription(
+        String ContestPositionsDescription);
+
     public Long getPlanTypeId();
 
     public void setPlanTypeId(Long PlanTypeId);
