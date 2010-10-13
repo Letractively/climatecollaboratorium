@@ -326,11 +326,15 @@ public class PlansIndexBean {
             }
 
             List<PlanItem> popularPlans = Collections.emptyList();
+            List<PlanIndexItemWrapper> untitledPlans = new ArrayList<PlanIndexItemWrapper>();
 
 
             final Long userId = Helper.isUserLoggedIn() ? Helper.getLiferayUser().getUserId() : -1;
             for (PlanItem plan : PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
 
+                if (plan.getVersion() < 2) {
+                    continue;
+                }
 
                 switch (current_mode) {
                       case PROPOSALS_ALL: {
@@ -370,8 +374,14 @@ public class PlansIndexBean {
 
                 }
 
-
-                plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
+                if (plan.getName().startsWith("Untitled")) {
+                   untitledPlans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
+                } else {
+                    plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
+                }
+            }
+            if (!untitledPlans.isEmpty()) {
+                plans.addAll(untitledPlans);
             }
             updateErrorNotes = true;
         }

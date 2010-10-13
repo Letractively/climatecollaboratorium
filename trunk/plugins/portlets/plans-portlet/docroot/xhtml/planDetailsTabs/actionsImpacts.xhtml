@@ -102,7 +102,12 @@
                 <strong><ice:outputText value="#{planBean.plan.simulationVersionAuthor.screenName}"/></strong>
             </a>
         </ice:panelGroup>
-
+         <div class="model-info">
+        <ice:outputText escape="false">
+            The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
+                href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
+        </ice:outputText>
+        </div>
 
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
             <f:subview rendered="#{permissions.canEdit}">
@@ -146,12 +151,7 @@
         </ice:panelGroup>
 
         <div class="modelSelection">
-            <div class="model-info">
-        <ice:outputText escape="false">
-            The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
-                href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
-        </ice:outputText>
-        </div>  
+
         <ice:panelGrid columns="2">
             <ice:panelGroup>
                
@@ -169,7 +169,7 @@
 
             </ice:panelGroup>
             <ice:panelGroup>
-                or upload your own model.
+                You can also upload your own disaggregation mode.
             </ice:panelGroup>
         </ice:panelGrid>
         </div>

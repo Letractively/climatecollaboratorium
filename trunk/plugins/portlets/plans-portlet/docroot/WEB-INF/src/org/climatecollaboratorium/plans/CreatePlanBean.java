@@ -77,6 +77,7 @@ public class CreatePlanBean {
                     }
                 }
                 planItem = PlanItemLocalServiceUtil.createPlan(planBean.getPlan().getWrapped(), phase, Helper.getLiferayUser().getUserId());
+                planItem.setName(planItem.getName()+"(copy of "+planBean.getPlan().getWrapped().getName()+")",Helper.getLiferayUser().getUserId());
             } else {
 
                 //i don't think this is actually called.
