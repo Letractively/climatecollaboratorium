@@ -289,6 +289,8 @@ table.pseudo-tab-nav > tbody > tr:first-child > td.selected a {
 }
 
 
+
+
 /** directory **/
 
 .pseudo-tab-nav-block a {
@@ -358,6 +360,10 @@ overview
 
 div.themed-content.community.featured-expert td.bio {
     padding:10px;
+}
+
+p.news-link {
+    text-align:right;
 }
 
 

@@ -1,3 +1,7 @@
 .portlet-wiki h2 {margin:0;padding:20px 0 10px;}
 .portlet-wiki h3 {margin:0;padding:10px 0 7px;}
 .portlet-wiki h4 {margin:0;padding:7px 0 5px;}
+
+.resources div.child-pages {
+    display:none;
+}
