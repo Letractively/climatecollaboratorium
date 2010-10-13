@@ -130,6 +130,17 @@ public class PlanConstants {
 			}
 		}),
 		
+		MAX_DAMAGE_COST_2010(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange95_output", Double.class), true, PlanFilterOperatorType.LESS_THAN, new LessThanFilter() {
+			public String getValue(PlanAttributeFilter filter) {
+                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MAX_VALUE);
+			}
+		}),
+		
+		MIN_DAMAGE_COST_2010(Double.class,"%.1f%%", attributeFunctionFactory.getLastValueFunction("PercentChange5_output", Double.class), true, PlanFilterOperatorType.GREATER_THAN, new MoreThanFilter() {
+			public String getValue(PlanAttributeFilter filter) {
+                return String.valueOf(filter.getStringVal() != null ? filter.getStringVal() : Double.MIN_VALUE);
+			}
+		}),
 		
 		NAME(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("name"), true, PlanFilterOperatorType.LIKE, new LikeFilter() {
             public String getValue(PlanAttributeFilter filter) {
@@ -444,6 +455,13 @@ public class PlanConstants {
 				"90% confidence interval for these costs. That is, the models predict there is only a 5% chance that the costs would be l" +
 				"ess than the lower number and a 5% chance that the costs would be greater than the higher number.","ShowDamageCost",true, 
 				Attribute.MIN_DAMAGE_COST, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST,Attribute.MAX_DAMAGE_COST)),
+		
+		DAMAGE_COST_2010("Damage cost<br/>(%GDP in 2100)","Cost of damages caused by climate change (e.g., damages from rising sea level, hurricanes, " +
+				"droughts, etc.). Costs are shown as a % of World GDP (Gross Domestic Product). Values shown are estimates of the " +
+				"90% confidence interval for these costs. That is, the models predict there is only a 5% chance that the costs would be l" +
+				"ess than the lower number and a 5% chance that the costs would be greater than the higher number.","ShowDamageCost",true, 
+				Attribute.MIN_DAMAGE_COST_2010, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST_2010,Attribute.MAX_DAMAGE_COST_2010)),
+		
 		
         SEEKING_ASSISTANCE("Seeking<br />assistance","Does this plan team seeks for new members?","ShowSeekingAssistance",true, Attribute.SEEKING_ASSISTANCE, new AttributeGetter("%s",Attribute.SEEKING_ASSISTANCE)),
 
