@@ -50,7 +50,7 @@
 		<column name="userName" type="String" />
 		<column name="userScreenName" type="String" />
 		<column name="modifiedDate" type="Date" />
-
+        <column name="userEdited" type="Boolean" />
 
 		<!-- Relationship -->
 		<column name="planAttributes" type="Collection" entity="PlanAttribute" mapping-key="planId"/>

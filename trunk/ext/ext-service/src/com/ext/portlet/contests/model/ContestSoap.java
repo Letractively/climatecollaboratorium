@@ -30,6 +30,8 @@ public class ContestSoap implements Serializable {
     private String _ContestName;
     private String _ContestShortName;
     private String _ContestDescription;
+    private String _ContestModelDescription;
+    private String _ContestPositionsDescription;
     private Long _PlanTypeId;
     private Date _created;
     private Date _updated;
@@ -46,6 +48,8 @@ public class ContestSoap implements Serializable {
         soapModel.setContestName(model.getContestName());
         soapModel.setContestShortName(model.getContestShortName());
         soapModel.setContestDescription(model.getContestDescription());
+        soapModel.setContestModelDescription(model.getContestModelDescription());
+        soapModel.setContestPositionsDescription(model.getContestPositionsDescription());
         soapModel.setPlanTypeId(model.getPlanTypeId());
         soapModel.setCreated(model.getCreated());
         soapModel.setUpdated(model.getUpdated());
@@ -129,6 +133,23 @@ public class ContestSoap implements Serializable {
 
     public void setContestDescription(String ContestDescription) {
         _ContestDescription = ContestDescription;
+    }
+
+    public String getContestModelDescription() {
+        return _ContestModelDescription;
+    }
+
+    public void setContestModelDescription(String ContestModelDescription) {
+        _ContestModelDescription = ContestModelDescription;
+    }
+
+    public String getContestPositionsDescription() {
+        return _ContestPositionsDescription;
+    }
+
+    public void setContestPositionsDescription(
+        String ContestPositionsDescription) {
+        _ContestPositionsDescription = ContestPositionsDescription;
     }
 
     public Long getPlanTypeId() {
