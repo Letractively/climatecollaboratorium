@@ -3,6 +3,10 @@ package org.climatecollaboratorium.plans;
 public enum ContestSubView {
     PROPOSALS,
     ISSUES,
-    MODEL
+    MODEL;
+    
+    public String getName() {
+        return name();
+    }
 
 }

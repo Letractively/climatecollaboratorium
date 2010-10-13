@@ -52,15 +52,18 @@ input[type="submit"].prominantButton.createNewPlanButton {
 
 .container_top .topActions {
 	text-align: right;
-	padding: 5px;
+	padding-bottom: 10px;
     float:right;
-    margin-top:-10px;
 
 }
 
 .container_top table.topActions {
     border-collapse:separate;
-    border-spacing:10px;
+
+}
+
+.container_top table.topActions td {
+    padding-right:5px;
 }
 
 .topActions input[type="submit"].prominantButton {
@@ -104,17 +107,18 @@ a.helpMessageTrigger.helpHidden {
     display:inline;
     color: #8c96b4;
     float:left;
-    margin-left:23px;
-    margin-top:-23px;
+    margin-left:30px;
+  
 }
 
 .contestContent .debatelist {
-  margin-top:30px;  
+  margin-top:20px;
+  padding-top:10px;
 }
 
 .contestContent a.helpMessageTrigger.helpHidden {
      margin-left:0px;
-    margin-top:-37px;
+    margin-top:-10px;
 }
 
 
@@ -374,8 +378,11 @@ td.contestTabSetCnt {
 
 .title .icon {
     float:left;
-    width: auto;
+    width: 580px;
+    margin-bottom:10px;
     padding-top:20px;
+    padding-bottom:10px;
+    overflow:hidden;
 }
 
 
@@ -1154,6 +1161,12 @@ table.plan-mode-select.iceSelOneRb td label, table.plan-mode-select.iceSelMnyCb 
 .sectionContent {
     background:#EDEBEA;
     padding:10px;
+}
+
+p.special-info {
+    margin-left:20px;
+    margin-right:20px;
+    margin-bottom:5px;
 }
 
 

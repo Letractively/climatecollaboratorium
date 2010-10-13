@@ -77,6 +77,14 @@ public class ContestWrapper {
         return contest.getContestDescription();
     }
 
+    public String getModelDescription() {
+        return contest.getContestModelDescription();
+    }
+
+    public String getPositionsDescription() {
+        return contest.getContestPositionsDescription();
+    }
+
     public List<ContestPhaseWrapper> getPhases() {
         return phases;
     }
@@ -113,6 +121,8 @@ public class ContestWrapper {
 
         String name;
         String description;
+        String modelDescription;
+        String positionsDescription;
         String shortName;
         boolean editing = false;
         boolean editingPositions = false;
@@ -127,6 +137,22 @@ public class ContestWrapper {
 
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public String getModelDescription() {
+            return modelDescription;
+        }
+
+        public void setModelDescription(String description) {
+            this.modelDescription = description;
+        }
+
+        public String getPositionsDescription() {
+            return positionsDescription;
+        }
+
+        public void setPositionsDescription(String description) {
+            this.positionsDescription = description;
         }
 
         public String getName() {
@@ -155,13 +181,18 @@ public class ContestWrapper {
             editing = true;
             this.name = contest.getContestName();
             this.description = contest.getContestDescription();
+            this.positionsDescription = contest.getContestPositionsDescription();
+            this.modelDescription = contest.getContestModelDescription();
             this.shortName = contest.getContestShortName();
+
         }
 
         public void save() throws SystemException {
 
             contest.setContestName(name);
             contest.setContestDescription(description);
+            contest.setContestModelDescription(modelDescription);
+            contest.setContestPositionsDescription(positionsDescription);
             contest.setContestShortName(shortName);
             ContestLocalServiceUtil.updateContest(contest);
             editing = false;
