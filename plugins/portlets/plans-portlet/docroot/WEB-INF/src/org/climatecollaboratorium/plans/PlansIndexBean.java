@@ -333,6 +333,7 @@ public class PlansIndexBean {
             for (PlanItem plan : PlanItemLocalServiceUtil.applyFilters(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPhase().getContest().getPlanType(), notFilteredPlans)) {
 
                 if (plan.getVersion() < 2) {
+                    notFilteredPlans.remove(plan);
                     continue;
                 }
 
