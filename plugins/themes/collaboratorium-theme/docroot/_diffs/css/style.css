@@ -464,3 +464,9 @@ padding:1px 30px 5px;
     padding-left:40px;
 }
 
+/** facebook stuff on home page **/
+
+.pts .fan_box .connect_top.clearfix {
+    float:left;
+    margin-top:10px;
+}
