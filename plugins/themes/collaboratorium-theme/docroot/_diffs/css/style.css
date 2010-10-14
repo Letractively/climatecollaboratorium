@@ -468,6 +468,17 @@ padding:1px 30px 5px;
 
 .fan_box .full_widget .connect_top.clearfix {
     float:left;
-    margin-top:10px;
     background-color: transparent;
+}
+
+.fan_box div.full_widget {
+    border:none;
+    background-color:#F5F5F5;
+}
+
+.fan_box .full_widget .connect_top .connections {
+   border:none;
+    min-height:0;
+    padding:0;
+
 }
