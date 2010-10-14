@@ -7,6 +7,7 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 import com.liferay.portal.theme.ThemeDisplay;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
@@ -16,8 +17,12 @@ import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
 import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
+
 import javax.faces.event.ActionEvent;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -300,6 +305,11 @@ public class PlanBean {
 
     public boolean isPlanOpenForEditing() {
         return planOpenForEditing;
+    }
+
+    public String getRelativeUrl() throws SystemException, PortalException, UnsupportedEncodingException {
+        String result = "http://climatecolab.org/web/guest/plans#plans=contests:"+(plan.getWrapped().getContest().isActive()?"active":"past")+",subview:proposals,planId"+getPlanId();
+        return URLEncoder.encode(result,"UTF-8");
     }
     
     
