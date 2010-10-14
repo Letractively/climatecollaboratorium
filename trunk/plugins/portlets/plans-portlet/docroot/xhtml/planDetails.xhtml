@@ -5,7 +5,8 @@
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:collab="http://climatecollaboratorium.org/components">
+        xmlns:collab="http://climatecollaboratorium.org/components"
+        >
 
     <ice:panelGroup styleClass="portlet">
         <div class="container">
@@ -48,6 +49,8 @@
 
                                                         <ice:commandLink value="rename" actionListener="#{plan.editName}"
                                                                          rendered="#{permissions.canEdit}"/>
+
+                                <iframe src="http://www.facebook.com/plugins/like.php?href=#{plan.relativeUrl}&amp;layout=button_count&amp;show_faces=false&amp;width=55&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;padding-left:10px;margin-bottom:-4px" allowTransparency="true"></iframe>
                                                     
 
                             </f:subview>
