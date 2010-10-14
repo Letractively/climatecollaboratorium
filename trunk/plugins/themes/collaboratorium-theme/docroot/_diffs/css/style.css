@@ -105,7 +105,7 @@ body { background:url(../images/bg_main.gif) repeat-x #f5f5f5; font:12px Helveti
 
 /*  HOMEPAGE "BOX"  ----------------------- */
 
-#box { background:url(../images/box_border.png) no-repeat; margin-top:135px; width:980px; height:381px;}
+#box { background:url(../images/box_border.png) no-repeat; margin-top:100px; width:980px; height:381px;}
 
 /* sliding window (left side) */
 #boxwin { float:left; background:#fff; margin:11px 0 0 12px; width:578px; height:351px; }
@@ -160,7 +160,7 @@ body { background:url(../images/bg_main.gif) repeat-x #f5f5f5; font:12px Helveti
 
 /*  MESSAGE AREA   ---------------------------------- */
 
-#message { margin:37px auto; text-align:center; font-family: "gloriola-web-1","gloriola-web-2";  font-size:16px; font-style:normal; font-weight:400;}
+#message { margin:37px auto -12px; text-align:center; font-family: "gloriola-web-1","gloriola-web-2";  font-size:16px; font-style:normal; font-weight:400;}
 #message img { margin:0 5px;}
 #message span { background:#eeeee9; color:#208b82; height:18px; padding:4px 0;}
 #message a  { color:#66ae5c; font-family: "bree-1","bree-2";  font-size:16px; font-style:normal; font-weight:700;}
@@ -476,9 +476,13 @@ padding:1px 30px 5px;
     background-color:#F5F5F5;
 }
 
-.fan_box .full_widget .connect_top .connections {
+.fan_box div.full_widget .connections {
    border:none;
     min-height:0;
-    padding:0;
+}
 
+#message .fb_iframe_widget span {
+    background-color:transparent;
+    padding:0;
+    height:auto;
 }
