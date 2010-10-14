@@ -466,7 +466,8 @@ padding:1px 30px 5px;
 
 /** facebook stuff on home page **/
 
-.pts .fan_box .connect_top.clearfix {
+.fan_box .full_widget .connect_top.clearfix {
     float:left;
     margin-top:10px;
+    background-color: transparent;
 }
