@@ -303,7 +303,8 @@ public class PlanBean {
     }
 
     public String getRelativeUrl() throws SystemException, PortalException, UnsupportedEncodingException {
-        String result = "http://climatecolab.org/web/guest/plans#plans=contests:"+(plan.getWrapped().getContest().isActive()?"active":"past")+",subview:proposals,planId"+getPlanId();
+        String result = "http://climatecolab.org/web/guest/plans/-/plans/contestId/" + 
+            plan.getWrapped().getContest().getContestPK() + "/planId/" + getPlanId();
         return URLEncoder.encode(result,"UTF-8");
     }
     
