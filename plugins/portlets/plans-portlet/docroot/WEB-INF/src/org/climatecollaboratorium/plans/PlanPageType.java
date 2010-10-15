@@ -117,9 +117,9 @@ public enum PlanPageType {
     static {
         allowedPredecessorsMap.put(PLAN_DETAILS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {})));
         allowedPredecessorsMap.put(ISSUE_DETAILS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, PLAN_DETAILS})));
-        allowedPredecessorsMap.put(CONTEST_ISSUES, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTESTS, CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
-        allowedPredecessorsMap.put(CONTEST_MODEL, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTESTS, CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
-        allowedPredecessorsMap.put(CONTEST_PROPOSALS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTESTS, CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
+        allowedPredecessorsMap.put(CONTEST_ISSUES, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
+        allowedPredecessorsMap.put(CONTEST_MODEL, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
+        allowedPredecessorsMap.put(CONTEST_PROPOSALS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
         allowedPredecessorsMap.put(CONTESTS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {} )));
     }
     
