@@ -52,7 +52,6 @@
 #end
     
 <body class="$body_style_class">
-
     <div id="fb-root"></div>
     <script>
       window.fbAsyncInit = function() {
@@ -108,6 +107,17 @@ $theme.include($bottom_include)
     } catch(err) {}
 /* ]]> */
 </script>
+
+
+## only for testing ... 
+
+#if ($collab_plan)
+        <h1>Plan: $collab_plan</h1>
+    #end
+    
+    #if ($collab_contest)
+        <h2>Contest $collab_contest</h2>
+    #end
 	
 </body>
 </html>
