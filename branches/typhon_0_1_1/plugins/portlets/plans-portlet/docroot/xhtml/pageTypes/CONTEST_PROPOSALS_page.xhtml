@@ -9,7 +9,8 @@
 <ui:composition template="../templates/contestPageTemplateWithButtons.xhtml">
 
 <ui:define name="plans_breadcrumb">
-    <a href="#">Contests Index</a> &amp;gt;&amp;gt; &amp;nbsp; <strong>#{contest.contest.shortName}</strong>
+    <collab:contestsPageLink text="Contests Index" /> &amp;gt;&amp;gt; &amp;nbsp;  
+    <strong><ice:outputText>#{contest.contest.shortName}</ice:outputText></strong>
 </ui:define>
 
 <ui:define name="contest_content">
@@ -81,150 +82,12 @@
     <div class="clear"></div>
 
 </div>
-<ice:form>
-    <ice:dataTable value="#{plansIndex.plans}" styleClass="plansTable" rowClasses="odd,even"
-                   var="singlePlan" sortColumn="#{plansIndex.sortColumn}"
-                   sortAscending="#{plansIndex.sortAscending}" id="plansIndex"
-                   rows="#{plansIndex.pageSize}" headerClass="#{plansIndex.columns}">
-        <ice:columns value="#{plansIndex.columns}" var="column">
-            <f:facet name="header">
-                <div>
-                    <div class="popup-info-box hidden"
-                         id="info-popup-#{column}">#{column.description}</div>
-                    <div class="clear"></div>
-                    <ice:commandSortHeader styleClass="column-hover" columnName="#{column}">
-                        <ice:outputText id="column-#{column}" value="#{column.name}"
-                                        escape="false"/>
-                    </ice:commandSortHeader>
-                </div>
-            </f:facet>
-            <ice:panelGroup rendered="#{column == 'NAME'}" styleClass="table-cell-padding #{column}">
-                <ice:outputLink
-                        value="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals,planId:#{singlePlan.planId}"
-                        onclick="Collab.nav.navigate('plans', {contests: '#{contest.contest.contestActive ? 'active' : 'past'}', subview: 'proposals', planId: #{singlePlan.planId}}, true); return false;">
-                    <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
-                </ice:outputLink>
-            </ice:panelGroup>
-            <ice:panelGroup rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}"
-                            styleClass="table-cell-padding #{column}">
-                N/A
-            </ice:panelGroup>
-            <ice:panelGroup rendered="#{column == 'POSITIONS' and singlePlan.hasPositions}"
-                            styleClass="table-cell-padding #{column}">
-                <a href="javascript:;" class="showPositions"
-                   onclick="showPositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}');return;"/>
-
-                <div class="hidden" id="plan_positions_#{singlePlan.planId}">
-                    <div class="positionsDialog">
-                        <div class="positionsDialog_top">
-                            <div class="title"><h2>Positions for #{singlePlan.planName}</h2></div>
-                        </div>
-                        <div class="positionsDialog_bg">
-                            <div class="scrollBox">
-                                <ice:panelSeries value="#{singlePlan.positions}" var="question">
-                                    <div class="assumption">
-                                        <h3 class="question">#{question.debateAnchor}</h3>
-                                        <h4 class="position">#{question.selectedPosition.itemAnchor}</h4>
-                                    </div>
-                                </ice:panelSeries>
-                            </div>
-                        </div>
-                        <div class="positionsDialog_bottom">
-                            <a href="javascript:;"
-                               onclick="hidePositionsOnIndexPageDialog('plan_positions_#{singlePlan.planId}')">Close</a>
-                        </div>
-                    </div>
-                </div>
-            </ice:panelGroup>
-            <ice:panelGroup
-                    rendered="#{column == 'SEEKING_ASSISTANCE' and singlePlan.columnValues[column] == 'true'}"
-                    styleClass="table-cell-padding #{column}">
-                <img src="/collaboratorium-theme/images/hand_icon.png"/>
-            </ice:panelGroup>
-            <ice:panelGroup rendered="#{column == 'IS_PLAN_OPEN'}" styleClass="table-cell-padding #{column}">
-                <ice:outputText value="Anyone"
-                                rendered="#{singlePlan.columnValues[column] == 'true'}"/>
-                <ice:outputText value="Team only"
-                                rendered="#{singlePlan.columnValues[column] != 'true'}"/>
-            </ice:panelGroup>
-            <ice:panelGroup
-                    rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE' and column != 'IS_PLAN_OPEN'}"
-                    styleClass="table-cell-padding #{column}">
-                <ice:outputText value="#{singlePlan.columnValues[column]}"
-                                escape="false"/>
-            </ice:panelGroup>
-
-        </ice:columns>
-        <ice:column rendered="#{plansIndex.contestPhase.canVote}" styleClass="table-cell-padding">
-            <f:facet name="header">
-                <div class="voteForPlan"><span>Vote for Plan</span></div>
-            </f:facet>
-
-            <ice:commandLink actionListener="#{singlePlan.vote}"
-                             onclick="if(! deferUntilLogin()) return false; "
-                             styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} ">
-            </ice:commandLink>
-        </ice:column>
-    </ice:dataTable>
-
-    <ice:panelGroup styleClass="hidden">
-        #{plansIndexBean.plans}
-        <script language="javascript">
-            initializeColumnsInfo();
-            makeNANotesVisible();
-        </script>
-    </ice:panelGroup>
-
-    <div class="pageBottom">
-
-        <div class="pageNum">
-
-
-            <ice:dataPaginator id="dataScroll_2" for="plansIndex" rowsCountVar="rowsCount"
-                               displayedRowsCountVar="displayedRowsCountVar"
-                               firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex"
-                               pageCountVar="pageCount" pageIndexVar="pageIndex"
-                               styleClass="paginatorInfo">
-                <ice:outputFormat
-                        value="Displaying &lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt; Proposals"
-                        styleClass="paginatorInfo" escape="false">
-                    <f:param value="#{firstRowIndex}"/>
-                    <f:param value="#{lastRowIndex}"/>
-                    <f:param value="#{rowsCount}"/>
-                </ice:outputFormat>
-            </ice:dataPaginator>
-
-            <ice:dataPaginator id="dataScroll_1" rendered="true" for="plansIndex" paginator="true"
-                               paginatorMaxPages="1" styleClass="paginator">
-                <f:facet name="first">
-                    <ice:panelGroup>
-                        <ice:outputText value="First Page" styleClass="first"/>
-                    </ice:panelGroup>
-                </f:facet>
-                <f:facet name="last">
-                    <ice:panelGroup>
-                        <ice:outputText value="Last Page" styleClass="last"/>
-                    </ice:panelGroup>
-                </f:facet>
-                <f:facet name="previous">
-                    <ice:panelGroup>
-                        <ice:outputText value="Previous" styleClass="prev"/>
-                    </ice:panelGroup>
-                </f:facet>
-                <f:facet name="next">
-                    <ice:panelGroup>
-                        <ice:outputText value="Next" styleClass="next"/>
-                    </ice:panelGroup>
-                </f:facet>
-            </ice:dataPaginator>
-
-            <div class="clear"></div>
-        </div>
-        <div class="clear"></div>
-    </div>
-
-
-</ice:form>
+    <ice:form>
+    <ui:decorate template="../templates/plansList.xhtml">
+        <ui:param name="maxRows" value="#{plansIndex.pageSize}" />
+        <ui:param name="renderPaginator" value="false" />
+    </ui:decorate>
+    </ice:form>
 
 
 </ui:define>
