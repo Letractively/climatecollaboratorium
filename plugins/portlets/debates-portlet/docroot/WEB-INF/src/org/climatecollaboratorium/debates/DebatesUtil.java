@@ -25,8 +25,8 @@ public class DebatesUtil {
 
     public static SimpleDateFormat longformat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
 
-    private final static String DEBATE_ITEM_URL_ACTIVE_FORMAT = "/web/guest/plans#plans=contests:active,subview:issues;debate=debateId:%d,itemId:%d";
-    private final static String DEBATE_ITEM_URL_PAST_FORMAT = "/web/guest/plans#plans=contests:past,subview:issues;debate=debateId:%d,itemId:%d";
+    private final static String DEBATE_ITEM_URL_ACTIVE_FORMAT = "/web/guest/plans/-/plans/contestId/%d#plans=subview:issues;debate=debateId:%d,itemId:%d";
+    private final static String DEBATE_ITEM_URL_PAST_FORMAT = "/web/guest/plans/-/plans/contestId/%d#plans=subview:issues;debate=debateId:%d,itemId:%d";
     
     private final static Log _log = LogFactoryUtil.getLog(DebatesUtil.class);
     public static Object getItemURL(DebateItem item) {
@@ -37,18 +37,20 @@ public class DebatesUtil {
 
         // check if debate item is part of
         Contest activeContest;
+        Long pastContestId = 1L;
         try {
             activeContest = ContestLocalServiceUtil.getContestByActiveFlag(true);
+            pastContestId = ContestLocalServiceUtil.getContestByActiveFlag(false).getContestPK();
             Set<Long> debateIds = new HashSet<Long>(activeContest.getDebatesIds());
             if (debateIds.contains(debateId)) {
-                return String.format(DEBATE_ITEM_URL_ACTIVE_FORMAT, debateId, itemId);
+                return String.format(DEBATE_ITEM_URL_ACTIVE_FORMAT, activeContest.getContestPK(), debateId, itemId);
             }
         } catch (NoSuchContestException e) {
             _log.error("Can't find active contest", e);
         } catch (SystemException e) {
             _log.error("Error when retrieving contest and its debates", e);
         }
-        return String.format(DEBATE_ITEM_URL_PAST_FORMAT, debateId, itemId);
+        return String.format(DEBATE_ITEM_URL_PAST_FORMAT, pastContestId, debateId, itemId);
     }
 
 
