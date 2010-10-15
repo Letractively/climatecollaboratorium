@@ -100,9 +100,9 @@ public class NavigationBean {
                         case CONTEST_ISSUES:
                             contestBean.init(event);
                             plansIndexBean.init(contestBean.getCurrentPhase(), event);
-                            issuesBean.init(event);
                             break;
                     }
+                    issuesBean.init(event);
                     createPlanBean.init(event);
                 } catch (NoSuchContestPhaseException e) {
                     _log.error("Can't init plan related beans", e);
