@@ -82,10 +82,13 @@ Collab.nav = new function() {
 		//alert("after parsing token " + hash + "try to force navigation..." + jQuery(".navigationManagerForm .submit").length + " " + jQuery(".navigationManagerForm .navigationToken").length);
 		if(!initialized) {
 			initialized = true;
-			Collab.nav.block();
+			if (jQuery.trim(hash).length > 0) {
+				forceNavigation();
+			}
 		}
-		forceNavigation();
-		//alert("navigation forced? " + jQuery(".navigationManagerForm .submit").length);
+		else {
+			forceNavigation();
+		}
 	}
 	
 	this.block = function() {
