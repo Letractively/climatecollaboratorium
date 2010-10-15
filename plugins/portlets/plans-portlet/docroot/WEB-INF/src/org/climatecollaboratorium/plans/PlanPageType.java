@@ -131,9 +131,7 @@ public enum PlanPageType {
     }
     
     public static PlanPageType getPageTypeForNavEvent(NavigationEvent e, PlanPageType oldType) {
-        System.out.println("From view: " + oldType);
         for (PlanPageType type: values()) {
-            System.out.println("allowed transition to " + type + "\t" + type.allowedPredecessorsMap.get(type).contains(oldType));
             if (type.allowedPredecessorsMap.get(type).contains(oldType) && type.pageDeterminator.determine(e)) {
                 return type;
             }
