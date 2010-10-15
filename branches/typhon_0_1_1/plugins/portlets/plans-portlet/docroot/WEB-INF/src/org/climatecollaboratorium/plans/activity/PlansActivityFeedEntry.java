@@ -117,7 +117,7 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 	
 
     private static String getPlanURL(PlanItem p) throws SystemException, PortalException {
-        return String.format("/web/guest/plans#plans=contests:%s,planId:%d", p.getContest().isActive() ? "active" : "past", p.getPlanId());
+        return String.format("/web/guest/plans/-/plans/contestId/" + p.getContest().getContestPK() + "/planId/" + p.getPlanId());
     }
 
 }

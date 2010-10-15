@@ -261,7 +261,8 @@ public class MigrationTool {
                     DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(basePlan.getCategoryGroupId());
 
             categoryGroup.setDescription(basePlan.getName() + " discussion");
-            categoryGroup.setUrl("/web/guest/plans#plans=planId:" + basePlan.getPlanId() + ",tab:discussion");
+            categoryGroup.setUrl("/web/guest/plans/-/plans/contestId/" + basePlan.getContest().getContestPK() + 
+                    "/planId/" + basePlan.getPlanId() + "#plans=tab:discussion");
             categoryGroup.store();
         }
         _log.info("Update successful");
@@ -411,5 +412,7 @@ public class MigrationTool {
         return ret;
 
     }
+    
+
 
 }
