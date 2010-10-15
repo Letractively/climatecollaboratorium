@@ -1,0 +1,45 @@
+.assumption {
+    background: #eee;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.positionsActions {
+	float: right;
+	position: relative;
+}
+
+div.positionsContent, div.editWithVersions {
+    padding-right:20px;
+    padding-left:20px;
+}
+
+
+
+
+.assumption .question {
+    background:url("../img/question_icon_small.png") no-repeat scroll 3px 3px transparent;
+    padding:3px 9px;
+    padding-left: 20px;
+    font-weight: normal;
+}
+
+.assumption .position,
+.assumption .positionItem label {
+    background:url("../img/position_icon_small.png") no-repeat scroll 3px 0 transparent;
+    padding:3px 9px;
+    padding-left: 20px;
+    margin-left: 40px;
+    font-weight: normal;
+}
+
+
+.assumption .positionItem label {
+	margin-left: 10px;
+}
+
+.assumption .positionItem td {
+    padding: 0px 0px 10px 10px;
+}
+
+

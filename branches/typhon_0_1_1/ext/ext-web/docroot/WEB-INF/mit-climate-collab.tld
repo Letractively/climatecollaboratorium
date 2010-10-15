@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+        "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<!-- a tag library descriptor -->
+
+<taglib>
+   <tlibversion>1.0</tlibversion>
+   <jspversion>1.1</jspversion>
+   <shortname>MIT Climate Collab</shortname>
+   <uri></uri>
+   <info>Simple tag library for working withing the collaboratorium</info>
+
+  <tag>
+    <name>climate-user</name>
+    <tagclass>com.ext.portlet.community.tags.ClimateUserTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>Provides a link to the user profile page</info>
+    <attribute>
+     <name>userId</name>
+     <required>true</required>
+     <rtexprvalue>true</rtexprvalue>
+      </attribute>
+  </tag>   
+  <tag>
+    <name>display-info</name>
+    <tagclass>com.ext.portlet.util.tags.DisplayInfoTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>Provides a hover for popup information about an element</info>
+    <attribute>
+     <name>helpText</name>
+     <required>true</required>
+     <rtexprvalue>true</rtexprvalue>
+     </attribute>
+  </tag>      
+</taglib>

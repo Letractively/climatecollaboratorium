@@ -1,0 +1,195 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+    /**
+     *
+     *
+     * User registration form.
+     *
+     * @author TCSDEVELOPER
+     * @version 1.0
+     */
+%>
+<%
+    String openId = ParamUtil.getString(request, "openId");
+
+    User user2 = null;
+    Contact contact2 = null;
+
+    Calendar birthday = CalendarFactoryUtil.getCalendar();
+
+    birthday.set(Calendar.MONTH, Calendar.JANUARY);
+    birthday.set(Calendar.DATE, 1);
+    birthday.set(Calendar.YEAR, 1970);
+
+    boolean male = BeanParamUtil.getBoolean(contact2, request, "male", true);
+%>
+
+<portlet:actionURL var="submitURL">
+    <portlet:param name="saveLastPath" value="1"/>
+    <portlet:param name="struts_action" value="/ext/user_info/create_account"/>
+    <portlet:param name="isRegistering" value="true"/>
+</portlet:actionURL>
+
+<script language="javascript">
+    function <portlet:namespace />doRegister() {
+        var redirect = jQuery('#<portlet:namespace />baseUrl').val();
+        jQuery('#<portlet:namespace />registerRedirect').val(redirect + document.location.hash);
+        document.<portlet:namespace />register.submit();
+    };
+</script>
+
+<form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />register">
+
+    <script type="tezt/javascript">
+        jQuery(document).ready(function() {
+            jQuery("div.taglib-captcha table tr:last").append("<td><span class='required'>*required</span></td>");
+        });
+    </script>
+
+
+    <c:if test="<%= error != null && isRegistering %>">
+        <div id="userInfoErrorMessages" style="display: none">
+            <span><%= LanguageUtil.get(pageContext, loginErrors.get(error)) %></span>
+        </div>
+    </c:if>
+
+
+    <input name="<portlet:namespace /><%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>"/>
+    <input name="<portlet:namespace />openId" type="hidden" value="<%= HtmlUtil.escape(openId) %>"/>
+    <input name="<portlet:namespace />baseUrl" id="<portlet:namespace />baseUrl" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"/>
+    <input name="<portlet:namespace />redirect" id="<portlet:namespace />registerRedirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"/>
+
+    <!--mark-->
+
+    <div class="DialogBox">
+        <div class="DialogNWCorner">
+        </div>
+        <div class="DialogNEdge">
+            <div class="content">
+                <h4>Register</h4>
+            </div>
+        </div>
+        <div class="DialogNECorner">
+        </div>
+        <br class="clearfloat"/>
+
+        <div class="DialogWEdge">
+        </div>
+        <div class="DialogBody">
+
+            <div class="content">
+                <table>
+                    <c:if test="<%= !PropsValues.USERS_SCREEN_NAME_ALWAYS_AUTOGENERATE %>">
+                        <tr>
+                            <td><label class="lable"><liferay-ui:message key="screen-name"/></label>
+                            </td>
+                            <td><input class="text" type="text" name="<portlet:namespace />screenName"
+                                       value="<%= ParamUtil.getString(renderRequest, "screenName") %>"/>
+                            </td>
+                            <td><span class="required">*required</span></td>
+                        </tr>
+
+                    </c:if>
+
+                    <tr>
+                        <td><label class="lable"><liferay-ui:message key="email-address"/></label></td>
+                        <td><input class="text" type="text" name="<portlet:namespace />emailAddress"
+                                   value="<%= ParamUtil.getString(renderRequest, "emailAddress") %>"/></td>
+                        <td><span class="required">*required</span></td>
+
+                    </tr>
+
+                    <tr>
+                        <td><label class="lable" for="<portlet:namespace />firstName"><liferay-ui:message
+                                key="first-name"/></label></td>
+                        <td><input class="text" type="text" name="<portlet:namespace />firstName"
+                                   value="<%= ParamUtil.getString(renderRequest, "firstName") %>"/></td>
+                        <td><span class="optional">optional</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><label class="lable" for="<portlet:namespace />lastName"><liferay-ui:message
+                                key="last-name"/></label></td>
+                        <td><input class="text" type="text" name="<portlet:namespace />lastName"
+                                   value="<%= ParamUtil.getString(renderRequest, "lastName") %>"/>
+                        </td>
+                        <td><span class="optional">optional</span>
+                        </td>
+                    </tr>
+
+
+                    <c:if test="<%= PropsValues.LOGIN_CREATE_ACCOUNT_ALLOW_CUSTOM_PASSWORD %>">
+                        <tr>
+                            <td><label class="lable"><liferay-ui:message key="password"/></label></td>
+                            <td><input class="text" name="<portlet:namespace />password1" type="password"
+                                       value=""/></td>
+                            <td><span class="required">*required</span></td>
+
+                        </tr>
+
+                        <tr>
+                            <td><label class="lable"><liferay-ui:message key="enter-again"/></label>
+                            </td>
+                            <td><input class="text" name="<portlet:namespace />password2"  type="password"
+                                       value=""/>
+                            </td>
+                            <td><span class="required">*required</span>
+                            </td>
+                        </tr>
+
+                    </c:if>
+
+
+                    <input name="<portlet:namespace />birthdayMonth" type="hidden" value="<%= Calendar.JANUARY %>"/>
+                    <input name="<portlet:namespace />birthdayDay" type="hidden" value="1"/>
+                    <input name="<portlet:namespace />birthdayYear" type="hidden" value="1970"/>
+
+
+                    <c:if test="<%= PropsValues.CAPTCHA_CHECK_PORTAL_CREATE_ACCOUNT %>">
+                        <tr>
+                            <portlet:actionURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>"
+                                               var="captchaURL">
+                                <portlet:param name="struts_action" value="/ext/user_info/captcha"/>
+                            </portlet:actionURL>
+
+                            <td colspan="3"><liferay-ui:captcha url="<%= captchaURL %>"/></td>
+                        </tr>
+                    </c:if>
+                    <tr>
+                        <td colspan="3">
+                            By registering for this site, you agree to abide by the
+                            <a href="http://cci.mit.edu/research/climatehelp/CollaboratoriumTermsUse.html">Terms of Use</a>.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div class="DialogEEdge">
+        </div>
+        <br class="clearfloat"/>
+
+        <div class="DialogSWCorner">
+        </div>
+        <div class="DialogSEdge">
+            <div class="content">
+                <a href="javascript:pageTracker._trackPageview('/user/registerSubmit');<portlet:namespace />doRegister();"
+                   class="checkIcon"><span class="hidden">OK</span></a>
+                <a href="javascript:;"
+                   onClick="pageTracker._trackPageview('/user/registerCancel');<portlet:namespace />closeDialog('registerDialog')"
+                   class="cancelIcon"><span class="hidden">CANCEL</span></a>
+
+
+            </div>
+        </div>
+        <div class="DialogSECorner">
+        </div>
+        <br class="clearfloat"/>
+    </div>
+
+</form>

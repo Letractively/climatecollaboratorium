@@ -1,0 +1,37 @@
+.description {
+	position: relative;
+}
+
+.descriptionInput .iceInpRchTxt {
+    height: 500px;
+    padding:0 20px 20px;
+}
+
+div.planDescription {
+    padding:0 20px 20px;
+}
+
+.planDescription ul li {
+    list-style: disc;
+    margin-left: 30px;
+}
+
+.planDescription ol li {
+    margin-left: 15px;
+}
+	
+
+.planDescription p {
+    margin: 12px 0;
+}
+
+.descriptionActions {
+	width: 100%;
+}
+.descriptionActions .chooseVersionWidget {
+    float: right;
+}
+
+td#xEditingArea {
+    border:none;
+}

@@ -1,0 +1,495 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+
+/** Home **/
+
+.branding {
+    height:120px;
+    background-color: #b7c7e0;
+}
+
+div.tabbed-content {
+    border:15px solid;
+    border-color: #E3DFD7;
+    background:#F9F9F8;
+    height:350px;
+    color: #80807E;
+   
+}
+
+div.tabbed-content table {
+    width:100%;
+    height:100%;
+}
+
+div.tabbed-content table td {
+      vertical-align:top;
+}
+
+
+div.tabbed-content table td#selectors {
+    width:40%;
+    font-size:1.2em;
+}
+
+
+div.learn {
+    background: url(../images/learn.png) no-repeat scroll 0 center;
+  
+}
+
+div.explore {
+    background: url(../images/explore.png) no-repeat scroll 0 center;
+
+}
+
+div.involve {
+    background: url(../images/getInvolved.png) no-repeat scroll 0 center;
+
+
+}
+
+div.connect {
+    background: url(../images/connect.png) no-repeat scroll 0 center;
+
+
+}
+
+div.learn:hover, div.learn.selected {
+    background: url(../images/learn-selected.png) no-repeat scroll -9px center #F69D75;
+
+}
+
+div.explore:hover, div.explore.selected {
+    background: url(../images/explore-selected.png) no-repeat scroll -9px center #F69D75;;
+
+}
+
+div.involve:hover, div.involve.selected {
+    background: url(../images/getInvolved-selected.png) no-repeat scroll -9px center #F69D75;
+
+}
+
+div.connect:hover, div.connect.selected {
+    background: url(../images/connect-selected.png) no-repeat scroll -9px center #F69D75;
+
+}
+
+div.tabbed-content td#selectors table td div {
+   height:81px;
+    padding-left:86px;
+     display:table-cell;
+    vertical-align:middle; 
+}
+
+
+
+
+div.tabbed-content td#selectors table td {
+    vertical-align:middle;
+    background: #c5d1c0;
+
+}
+
+div.tabbed-content td#selectors table td div:hover,
+div.tabbed-content td#selectors table td div.selected,
+div.tabbed-content td#selectors table td div.selected a,
+div.tabbed-content td#selectors table td div:hover a {
+    color:#FFFFFF;
+}
+
+div.tabbed-content td#selectors table td.odd {
+
+    background:#D5E2D0;
+}
+
+div.tabbed-content td#selectors table td.spacer {
+    height:25px;
+}
+
+
+
+div.tabbed-content table td#selectors a {
+    color:#009ebb;
+    font-weight:bold;
+}
+
+
+div.tabbed-content table td#tabs {
+    font-size:2.0em;
+    padding: 25px 40px 10px 10px;
+}
+
+div.tabbed-content td#tabs div.tab-content {
+   display:none;
+
+}
+
+div.tabbed-content td#tabs div.default {
+   display:block;
+
+}
+
+
+
+
+div.themed-content {
+   
+}
+
+.themed-content {
+    font-family:tahoma,sans-serif;
+    color: #4E4E4e;
+}
+
+.themed-content h2 {
+    font-family:Helvetica, sans-serif;
+    font-size:1.2em;
+    color:#009ebb;
+    font-weight:bold;
+    margin-bottom:20px;
+
+}
+
+.themed-content h3 {
+    font-family:Helvetica, sans-serif;
+    color:#518255;
+    font-size:1.2em;
+    margin-bottom:12px;
+}
+
+
+
+
+
+/** Community **/
+
+
+div.community.themed-content.global {
+    padding:10px;
+    background:#F9F9F8;
+    font-size:1.6em;
+    
+}
+
+div.community.filler {
+    height:120px;
+    background:#D0C0C0;
+}
+
+div.learn.filler {
+    height:222px;
+    background:#D0C0C0;
+}
+
+
+
+/**
+div.othermembers td#column-1{
+    border:15px  solid #E3DFD7;
+}
+
+**/
+
+div.discussion td#column-2,
+div.community td#column-2,
+div.news td#column-2,
+div.othermembers td#column-2{
+    border-left:15px solid #E3DFD7;
+    border-right:15px solid #E3DFD7;
+    border-top:15px solid #E3DFD7;
+}
+
+div.community td#column-3,
+div.news td#column-3 {
+
+    border-left:15px solid #E3DFD7;
+    border-bottom:15px solid #E3DFD7;
+
+}
+
+div.othermembers td#column-3, div.discussion td#column-3 {
+
+    border-right:15px solid #E3DFD7;
+     border-left:15px solid #E3DFD7;
+    border-bottom:15px solid #E3DFD7;
+}
+
+
+div.community td#column-4,
+div.news td#column-4 {
+    border-right:15px solid #E3DFD7;
+    border-bottom:15px solid #E3DFD7;
+
+}
+ div.discussion td#column-2 div,
+div.community td#column-2 div,
+div.news td#column-2 div,
+div.othermembers td#column-2 div{
+    background-color:#EDEBEA;
+    color:#676767;
+    font-size:16px
+    
+}
+
+
+
+,
+div.othermembers div#layout-column_column-1 {
+    padding:10px;
+    background:#F9F9F8;
+
+}
+
+
+div.community div#layout-column_column-3,
+div.news div#layout-column_column-3,
+div.othermembers div#layout-column_column-3{
+    padding:20px;
+}
+
+div.community div#layout-column_column-4,
+div.news div#layout-column_column-4,
+div.othermembers div#layout-column_column-4{
+    padding:20px;
+}
+
+div.community div#layout-column_column-4 .portlet-borderless-container {
+    margin-bottom:25px;
+}
+
+table.pseudo-tab-nav {
+    border-collapse:collapse;
+
+}
+
+table.pseudo-tab-nav> tbody > tr:first-child > td {
+    margin-top:12px;
+    height:30px;
+    padding:16px 20px 10px;
+}
+
+table.pseudo-tab-nav> tbody > tr:first-child > td a {
+    text-decoration:none;
+    color: #606060;
+}
+
+table.pseudo-tab-nav > tbody > tr:first-child > td:hover a {
+    color:#C74430;
+     text-decoration:underline;
+
+
+}
+
+table.pseudo-tab-nav > tbody > tr:first-child > td.selected a {
+    color: #C74430;
+}
+
+
+
+
+/** directory **/
+
+.pseudo-tab-nav-block a {
+    display: block;
+    background: #999c8d;
+    margin-right: 1.1em;
+    padding: .4em .3em;
+    font-weight: normal;
+    font-size:12px;
+    color: #676767;
+}
+
+.pseudo-tab-nav-block td.selected a {
+    background: #EDEBEA;
+    color: #C74430;
+}
+
+.pseudo-tab-nav-block {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.pseudo-tab-nav-block td {
+    width: 20%;
+}
+
+div.member-list-content {
+    padding:10px;
+    padding-top:20px;
+    background:#EDEBEA;
+}
+
+div.member-list-content input[type="text"] {
+    
+    font-size:1.2em;
+padding-bottom:8px;
+padding-top:8px;
+width:78%;
+}
+
+div.member-list-content input[type="submit"] {
+    background:none repeat scroll 0 0 #E3DFD7;
+border:medium solid #d6d2cb;
+color:#C74430;
+font-size:1.2em;
+padding:7px;
+}
+
+div.member-list-content input[type="submit"]:hover {
+   background:none repeat scroll 0 0 #e6dbc8;
+}
+
+div.community div.right.floatLeft {
+    padding-left:14px;
+    
+}
+
+
+/**
+overview
+**/
+
+
+
+div.themed-content.community.featured-expert td.bio {
+    padding:10px;
+}
+
+p.news-link {
+    text-align:right;
+}
+
+
+/** news **/
+
+div.contentContainer.community div#content-wrapper,
+div.contentContainer.resources {
+     background:#F9F9F8;
+}
+
+
+/** CONTESTS TAB **/
+
+div.contests.themed-content {
+    border:15px solid;
+    border-color: #E3DFD7;
+    background:#F9F9F8;
+    padding-left:70px;
+padding-right:70px;
+padding-top:50px;
+    padding-bottom:50px;
+    font-size:1.3em;
+}
+
+div.contests.themed-content table {
+    width:100%;
+}
+
+div.contests.themed-content table td {
+    vertical-align:top;
+}
+
+div.contests.themed-content table td.left {
+
+    
+    padding-top:20px;
+}
+
+div.contests.themed-content div.indent {
+margin-left:1.5em;
+margin-top:1em;
+}
+
+/** ABOUT TAB **/
+ div.about.intro.themed-content {
+    border-left:15px solid;
+     border-right:15px solid;
+     border-top:15px solid;
+    border-color: #E3DFD7;
+    background:#F9F9F8;
+     padding: 30px 70px;
+     font-size:2.2em;
+     font-family:Myriad Pro, Helvetica, sans-serif;
+     font-style:italic;
+     line-height:1.0em;
+     color: #C74430;
+}
+
+div.about.subtext.themed-content {
+    border-left:15px solid;
+     border-right:15px solid;
+     border-bottom:15px solid;
+    border-color: #E3DFD7;
+    background:#F9F9F8;
+     padding: 30px 70px;
+     font-size:1.3em;
+     font-family:Tahoma, Helvetica, sans-serif;
+     
+}
+
+
+div.about.subtext.themed-content td.right {
+    padding:15px;
+}
+
+div.about.subtext.themed-content td.right div.shadow {
+    background:none repeat scroll 0 0 #968e7a;
+}
+
+div.about.subtext.themed-content td.right div.shadow img {
+    position:relative;
+    left:-10px;
+    top:-10px;
+}
+
+ /** misc **/
+.inlineHelp {
+background:none repeat scroll 0 0 #FFFFDB;
+border:1px solid #CFC8B1;
+color:#858572;
+font-size:10pt;
+margin:10px 40px;
+padding:10px;
+}
+
+.member-list-content .inlineHelp {
+    margin: 5px 2px;   
+}
+
+
+
+
+/** LIFERAY OVERRIDES **/
+
+
+.portlet-blogs-aggregator  .entry-title a {
+    color: #518255;
+    font-family:Helvetica,sans-serif;
+    font-size:1.0em;
+}
+
+.portlet-blogs .entry-title a {
+    color: #518255;
+    font-family:Helvetica,sans-serif;
+    font-size:.9em;
+}
+
+.portlet-blogs .search-form {
+    float:none;
+}
+
+div.contentContainer.resources {
+}
+
+
+div.contentContainer.resources #mainContent .inner {
+    width: auto;
+}

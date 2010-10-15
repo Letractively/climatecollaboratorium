@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+@CHARSET "UTF-8";
+
+#my-profile {
+	position: absolute; 
+	right: 5px; 
+	height: 26px; 
+	top: 3px;
+}
+
+#my-profile a {
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+#my-profile a span {
+	background: transparent url(../images/dock/my_account.png) no-repeat;
+	padding: 0px 0px 0px 20px;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"  >
+    
+<ice:portlet>
+    <f:subview name="index" rendered="#{navigation.pageType == 'INDEX'}">
+        <ui:include src="plansIndex.xhtml">
+            <ui:param value="#{navigation.plansIndex}" name="plansIndexBean" />
+        </ui:include>
+    </f:subview>
+    <f:subview name="details" rendered="#{navigation.pageType == 'DETAILS'}">
+        <ui:include src="planDetails.xhtml">
+            <ui:param value="#{navigation.planBean}" name="planBean" />
+        </ui:include>
+    </f:subview>
+</ice:portlet>
+</f:view>

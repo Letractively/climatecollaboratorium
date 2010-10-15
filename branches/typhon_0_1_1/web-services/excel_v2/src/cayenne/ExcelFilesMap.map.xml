@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+  project-version="3.0.0.1">
+	<property name="defaultPackage" value="mit.excelwrapper.model"/>
+	<db-entity name="ExcelModel">
+		<db-attribute name="ID" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="128"/>
+		<db-attribute name="Path" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="format" type="VARCHAR" length="64"/>
+		<db-attribute name="worksheet" type="INTEGER"/>
+	</db-entity>
+	<db-entity name="InputParam">
+		<db-attribute name="ColNum" type="INTEGER" isMandatory="true" length="16"/>
+		<db-attribute name="DataType" type="VARCHAR" isMandatory="true" length="16"/>
+		<db-attribute name="ID" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+		<db-attribute name="InternalName" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="ModelID" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="RowNum" type="INTEGER" isMandatory="true" length="16"/>
+		<db-attribute name="numRows" type="INTEGER" isMandatory="true" length="64"/>
+	</db-entity>
+	<db-entity name="OutputParam">
+		<db-attribute name="ColNum" type="INTEGER" isMandatory="true" length="64"/>
+		<db-attribute name="ID" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="128"/>
+		<db-attribute name="InternalName" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="ModelID" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="NumRows" type="INTEGER" isMandatory="true" length="64"/>
+		<db-attribute name="RowNum" type="INTEGER" isMandatory="true" length="64"/>
+	</db-entity>
+	<obj-entity name="ExcelModel" className="mit.excelwrapper.model.ExcelModel" dbEntityName="ExcelModel">
+		<obj-attribute name="format" type="java.lang.String" db-attribute-path="format"/>
+		<obj-attribute name="id" type="java.lang.Integer" db-attribute-path="ID"/>
+		<obj-attribute name="path" type="java.lang.String" db-attribute-path="Path"/>
+		<obj-attribute name="worksheet" type="java.lang.Integer" db-attribute-path="worksheet"/>
+	</obj-entity>
+	<obj-entity name="InputParam" className="mit.excelwrapper.model.InputParam" dbEntityName="InputParam">
+		<obj-attribute name="colNum" type="java.lang.Integer" db-attribute-path="ColNum"/>
+		<obj-attribute name="dataType" type="java.lang.String" db-attribute-path="DataType"/>
+		<obj-attribute name="internalName" type="java.lang.String" db-attribute-path="InternalName"/>
+		<obj-attribute name="numRows" type="java.lang.Integer" db-attribute-path="numRows"/>
+		<obj-attribute name="rowNum" type="java.lang.Integer" db-attribute-path="RowNum"/>
+	</obj-entity>
+	<obj-entity name="OutputParam" className="mit.excelwrapper.model.OutputParam" dbEntityName="OutputParam">
+		<obj-attribute name="colNum" type="java.lang.Integer" db-attribute-path="ColNum"/>
+		<obj-attribute name="internalName" type="java.lang.String" db-attribute-path="InternalName"/>
+		<obj-attribute name="numRows" type="java.lang.Integer" db-attribute-path="NumRows"/>
+		<obj-attribute name="rowNum" type="java.lang.Integer" db-attribute-path="RowNum"/>
+	</obj-entity>
+	<db-relationship name="inputParams" source="ExcelModel" target="InputParam" toMany="true">
+		<db-attribute-pair source="ID" target="ModelID"/>
+	</db-relationship>
+	<db-relationship name="outputParams" source="ExcelModel" target="OutputParam" toMany="true">
+		<db-attribute-pair source="ID" target="ModelID"/>
+	</db-relationship>
+	<db-relationship name="model" source="InputParam" target="ExcelModel" toMany="false">
+		<db-attribute-pair source="ModelID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="model" source="OutputParam" target="ExcelModel" toMany="false">
+		<db-attribute-pair source="ModelID" target="ID"/>
+	</db-relationship>
+	<obj-relationship name="inputParams" source="ExcelModel" target="InputParam" deleteRule="Cascade" db-relationship-path="inputParams"/>
+	<obj-relationship name="outputParams" source="ExcelModel" target="OutputParam" deleteRule="Cascade" db-relationship-path="outputParams"/>
+	<obj-relationship name="model" source="InputParam" target="ExcelModel" db-relationship-path="model"/>
+	<obj-relationship name="model" source="OutputParam" target="ExcelModel" db-relationship-path="model"/>
+</data-map>

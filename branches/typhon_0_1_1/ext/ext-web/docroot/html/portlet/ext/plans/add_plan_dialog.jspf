@@ -1,0 +1,57 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * Add plan dialog box.
+ *
+ * @author TCSDEVELOPER
+ * @version 1.0
+ */
+ %>
+<!-- prepare form submit action URL -->
+<%@page import="com.ext.portlet.plans.PlanLocalServiceHelper"%>
+
+<portlet:actionURL windowState="NORMAL" var="submitActionURLaddplan">
+<portlet:param name="struts_action" value="/ext/plans/edit_plan" />
+	
+</portlet:actionURL>
+
+<portlet:renderURL windowState="NORMAL" var="viewPlanURLadd">
+	<portlet:param name="struts_action" value="/ext/plans/view_plan" />
+	<portlet:param name="<%= PlanConstants.PLAN_ID %>" value="<%= PlanConstants.ID_PLACEHOLDER %>" />
+</portlet:renderURL>
+
+	<div class="addPlan">
+		<div class="addPlan_top">
+    		<div class="title"><h4>Add Plan</h4></div>
+    	</div>
+    	<div class="interior">
+    		<form name="test"></form>
+			<form action="${submitActionURLaddplan}" method="post" name="<portlet:namespace />addPlanForm" id="addplan-form">
+				<div class="row">
+					<label><liferay-ui:message key="name" />:</label>
+					<input type="text" name="<portlet:namespace />name" />
+					
+				</div>
+               <div class="note">Note: You can change the name of your plan after it's been created.</div>
+
+			<input name="<portlet:namespace /><%= Constants.CMD %>" type="hidden" value="<%= Constants.ADD %>" id="COMMAND"/>
+			<input name="<portlet:namespace /><%= PlanConstants.REDIRECT %>" type="hidden" value="${viewPlanURLadd}" />
+			<input name="<portlet:namespace /><%= PlanConstants.PLAN_TYPE_ID %>" type="hidden" value="${planTypeId}" />
+			
+            </form>
+    	</div>
+     	<div class="addPlan_bottom">
+     		<div class="btnBox">
+        		<a href="#" class="checkBtn" onClick="document.<portlet:namespace />addPlanForm.submit(); return false;" ><span class="hidden">Check</span></a>
+            	<a href="javascript:;" class="cancelBtn" onClick="<portlet:namespace />closeDialog('add-plan-dialog')"><span class="hidden">Cancel</span></a>
+	        </div>
+	     </div>
+	</div>
+

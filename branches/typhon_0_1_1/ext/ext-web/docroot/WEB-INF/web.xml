@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
+    
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    </filter>
+    
+    
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+        
+        
+    <servlet>
+        <servlet-name>MessagingServlet</servlet-name>
+        <servlet-class>com.ext.portlet.mass_messaging.MessagingServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>GoogleAnalyticsFilterCookie</servlet-name>
+        <servlet-class>com.ext.googleanalytycs.CollabStaffMemberCookieServlet</servlet-class>
+    </servlet>
+    
+
+    <servlet-mapping>
+        <servlet-name>MessagingServlet</servlet-name>
+        <url-pattern>/convert/*</url-pattern>
+    </servlet-mapping>   
+    
+    <servlet-mapping>
+        <servlet-name>GoogleAnalyticsFilterCookie</servlet-name>
+        <url-pattern>/googleanalyticsfilter</url-pattern>
+    </servlet-mapping>
+    
+</web-app>

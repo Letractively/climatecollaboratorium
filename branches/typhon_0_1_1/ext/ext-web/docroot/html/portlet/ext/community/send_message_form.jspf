@@ -1,0 +1,31 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+    /**
+     *
+     *
+     * User login form.
+     *
+     * @author TCSDEVELOPER
+     * @version 1.0
+     */
+%>
+
+<form class="uni-form" name="<portlet:namespace />sendMessage">
+    <div>
+        <dl>
+            <dd><label for="subject">Subject:</label> &nbsp;&nbsp; <span class="error subject"> </span> </dd>
+            <dt><input name="subject" type="text"></input></dt>
+            <dd><label for="content">Message text:</label> &nbsp;&nbsp; <span class="error content"></span></dd>
+            <dt><textarea name="content"></textarea></dt>
+        </dl>
+    </div>
+    <div class="buttons_area" >
+        <button onclick="<portlet:namespace/>sendUserMessage()">OK</button>
+        <button onclick="<portlet:namespace/>closeDialog('sendMessagePopup');return false;">Cancel</button>
+    </div>
+</form>

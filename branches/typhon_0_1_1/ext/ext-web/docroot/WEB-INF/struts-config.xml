@@ -1,0 +1,427 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+        "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+    <action-mappings>
+
+        <!-- Plans -->
+
+        <action path="/ext/plans/view_plans" type="com.ext.portlet.plans.action.ViewPlansAction">
+
+            <forward name="portlet.ext.plans.view" path="portlet.ext.plans.view"/>
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+
+        </action>
+
+        <action path="/ext/plans/configure_columns" type="com.ext.portlet.plans.action.ConfigureColumnsAction">
+            <forward name="portlet.ext.plans.configure_columns" path="portlet.ext.plans.configure_columns"/>
+        </action>
+
+        <action path="/ext/plans/update_filters" type="com.ext.portlet.plans.action.UpdateFiltersAction">
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+        </action>
+
+        <action path="/ext/plans/plan_vote" type="com.ext.portlet.plans.action.PlanVoteAction">
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+        </action>
+
+        <action path="/ext/plans/configure_columns" type="com.ext.portlet.plans.action.ConfigureColumnsAction">
+            <forward name="portlet.ext.plans.configure_columns" path="portlet.ext.plans.configure_columns"/>
+        </action>
+
+        <action path="/ext/plans/update_filters" type="com.ext.portlet.plans.action.UpdateFiltersAction">
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+        </action>
+
+        <action path="/ext/plans/plan_vote" type="com.ext.portlet.plans.action.PlanVoteAction">
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+        </action>
+
+        <action path="/ext/plans/view_plan" type="com.ext.portlet.plans.action.ViewPlanAction">
+
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+            <forward name="portlet.ext.plans.view_plan" path="portlet.ext.plans.view_plan"/>
+            <forward name="portlet.ext.plans.view_plan.actions" path="portlet.ext.plans.view_plan.actions"/>
+            <forward name="portlet.ext.plans.view_plan.description" path="portlet.ext.plans.view_plan.description"/>
+            <forward name="portlet.ext.plans.view_plan.discussion" path="portlet.ext.plans.view_plan.discussion"/>
+            <forward name="portlet.ext.plans.view_plan.impacts" path="portlet.ext.plans.view_plan.impacts"/>
+            <forward name="portlet.ext.plans.view_plan.members" path="portlet.ext.plans.view_plan.members"/>
+            <forward name="portlet.ext.plans.view_plan.model" path="portlet.ext.plans.view_plan.model"/>
+
+        </action>
+
+        <action path="/ext/plans/edit_plan" type="com.ext.portlet.plans.action.EditPlanAction">
+
+            <forward name="portlet.ext.plans.edit_plan" path="portlet.ext.plans.edit_plan"/>
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+
+        </action>
+
+        <action path="/ext/plans/select_positions" type="com.ext.portlet.plans.action.EditPlanAction">
+        </action>
+
+        <action path="/ext/plans/configure_columns" type="com.ext.portlet.plans.action.ConfigureColumnsAction">
+            <forward name="portlet.ext.plans.configure_columns" path="portlet.ext.plans.configure_columns"/>
+        </action>
+
+        <action path="/ext/plans/update_filters" type="com.ext.portlet.plans.action.UpdateFiltersAction">
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+        </action>
+
+        <action path="/ext/plans/plan_vote" type="com.ext.portlet.plans.action.PlanVoteAction">
+            <forward name="portlet.ext.plans.view_plans" path="portlet.ext.plans.view_plans"/>
+        </action>
+
+        <action path="/ext/plans/edit_members" type="com.ext.portlet.plans.action.EditMembersAction"/>
+
+        <!-- Argument message boards -->
+
+        <action path="/ext/debates/ban_user" type="com.liferay.portlet.messageboards.action.BanUserAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.error"/>
+        </action>
+
+        <action path="/ext/debates/captcha" type="com.liferay.portal.captcha.CaptchaPortletAction"/>
+
+        <action path="/ext/debates/delete_thread" type="com.liferay.portlet.messageboards.action.DeleteThreadAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.error"/>
+        </action>
+
+        <action path="/ext/debates/edit_category" type="com.liferay.portlet.messageboards.action.EditCategoryAction">
+            <forward name="portlet.message_boards.edit_category" path="portlet.ext.debates.edit_category"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.error"/>
+        </action>
+
+        <action path="/ext/debates/edit_message" type="com.ext.portlet.debates.action.EditDebateMessageAction">
+            <forward name="portlet.message_boards.edit_message" path="portlet.ext.debates.edit_message"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.error"/>
+        </action>
+
+        <action path="/ext/debates/find_category" type="com.liferay.portlet.messageboards.action.FindCategoryAction"/>
+
+        <action path="/ext/debates/find_message" type="com.liferay.portlet.messageboards.action.FindMessageAction"/>
+
+        <action path="/ext/debates/find_thread" type="com.liferay.portlet.messageboards.action.FindThreadAction"/>
+
+        <action path="/ext/debates/get_message_attachment"
+                type="com.liferay.portlet.messageboards.action.GetMessageAttachmentAction"/>
+
+        <action path="/ext/debates/move_thread" type="com.liferay.portlet.messageboards.action.MoveThreadAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.error"/>
+            <forward name="portlet.message_boards.move_thread" path="portlet.ext.debates.move_thread"/>
+        </action>
+
+        <action path="/ext/debates/rss" type="com.liferay.portlet.messageboards.action.RSSAction"/>
+
+        <action path="/ext/debates/search" forward="portlet.ext.debates.search"/>
+
+        <action path="/ext/debates/select_category" type="com.liferay.portlet.messageboards.action.EditCategoryAction">
+            <forward name="portlet.message_boards.edit_category" path="portlet.ext.debates.select_category"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.error"/>
+        </action>
+
+        <action path="/ext/debates/split_thread" type="com.liferay.portlet.messageboards.action.SplitThreadAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.error"/>
+            <forward name="portlet.message_boards.split_thread" path="portlet.ext.debates.split_thread"/>
+        </action>
+
+        <action path="/ext/debates/add_debate_discussion"
+                type="com.ext.portlet.debates.action.AddDebateDiscussionAction"/>
+
+        <action path="/ext/debates/view_message" type="com.liferay.portlet.messageboards.action.ViewMessageAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.error"/>
+            <forward name="portlet.message_boards.view_message" path="portlet.ext.debates.view_message"/>
+        </action>
+
+        <action path="/ext/debates/view" type="com.ext.portlet.debates.action.ViewDebatesAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.message_boards.error"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.debates.message_boards.view"/>
+            <forward name="portlet.ext.debates.view" path="portlet.ext.debates.view"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.debates.message_boards.view"/>
+            <forward name="portlet.ext.debates.view_discussion" path="portlet.ext.debates.view_discussion"/>
+        </action>
+
+        <action path="/ext/debates/edit_topic" type="com.ext.portlet.debates.action.EditTopicAction">
+            <forward name="portlet.message_boards.edit_category" path="portlet.ext.debates.edit_topic"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.debates.view"/>
+        </action>
+
+        <action path="/ext/debates/edit_issue" type="com.ext.portlet.debates.action.EditIssueAction">
+            <forward name="portlet.ext.debates.edit_issue" path="portlet.ext.debates.edit_issue"/>
+        </action>
+
+        <action path="/ext/debates/view_debate" type="com.ext.portlet.debates.action.ViewDebateAction">
+            <forward name="portlet.ext.debates.view_debate" path="portlet.ext.debates.view_debate"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.message_boards.error"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.debates.message_boards.view"/>
+            <forward name="portlet.ext.debates.view_discussion" path="portlet.ext.debates.view_discussion"/>
+        </action>
+
+        <action path="/ext/debates/move_message" type="com.ext.portlet.debates.action.MoveMessageAction">
+            <forward name="portlet.ext.debates.move_message" path="portlet.ext.debates.move_message"/>
+        </action>
+
+        <!-- Models -->
+        <action path="/ext/models/view_models" type="com.ext.portlet.models.action.ViewModelsAction">
+            <forward name="portlet.ext.models.view_models" path="portlet.ext.models.view_models"/>
+            <forward name="portlet.ext.models.view_models_debate" path="portlet.ext.models.view_models_debate"/>
+        </action>
+        <action path="/ext/models/run_model" type="com.ext.portlet.models.action.RunModelAction">
+            <forward name="portlet.ext.models.run_model" path="portlet.ext.models.run_model"/>
+        </action>
+        <action path="/ext/models/visualize_model" type="com.ext.portlet.models.action.VisualizeModelAction">
+            <forward name="portlet.ext.models.visualize_model" path="portlet.ext.models.visualize_model"/>
+        </action>
+
+        <action path="/ext/models/ban_user"
+                type="com.liferay.portlet.messageboards.action.BanUserAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+        </action>
+
+        <action path="/ext/models/captcha" type="com.liferay.portal.captcha.CaptchaPortletAction"/>
+        <action path="/ext/models/delete_thread"
+                type="com.liferay.portlet.messageboards.action.DeleteThreadAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+        </action>
+        <action path="/ext/models/edit_topic"
+                type="com.liferay.portlet.messageboards.action.EditCategoryAction">
+            <forward name="portlet.message_boards.edit_category" path="portlet.ext.models.edit_topic"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.models.view_debates"/>
+        </action>
+        <action path="/ext/models/edit_issue" type="com.ext.portlet.models.action.EditIssueAction">
+            <forward name="portlet.ext.models.edit_issue" path="portlet.ext.models.edit_issue"/>
+        </action>
+        <action path="/ext/models/edit_category"
+                type="com.liferay.portlet.messageboards.action.EditCategoryAction">
+            <forward name="portlet.message_boards.edit_category" path="portlet.ext.models.edit_category"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+        </action>
+        <action path="/ext/models/edit_message"
+                type="com.ext.portlet.debates.action.EditDebateMessageAction">
+            <forward name="portlet.message_boards.edit_message" path="portlet.ext.models.edit_message"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+        </action>
+        <action path="/ext/models/edit_message"
+                type="com.ext.portlet.models.action.EditDebateMessageAction">
+            <forward name="portlet.message_boards.edit_message" path="portlet.ext.models.edit_message"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+        </action>
+        <action path="/ext/models/find_category"
+                type="com.liferay.portlet.messageboards.action.FindCategoryAction"/>
+        <action path="/ext/models/find_message"
+                type="com.liferay.portlet.messageboards.action.FindMessageAction"/>
+        <action path="/ext/models/find_thread"
+                type="com.liferay.portlet.messageboards.action.FindThreadAction"/>
+        <action path="/ext/models/get_message_attachment"
+                type="com.liferay.portlet.messageboards.action.GetMessageAttachmentAction"/>
+
+
+        <action path="/ext/models/move_message" type="com.ext.portlet.models.action.MoveMessageAction">
+            <forward name="portlet.ext.models.move_message" path="portlet.ext.models.move_message"/>
+        </action>
+        <action path="/ext/models/move_thread" type="com.liferay.portlet.messageboards.action.MoveThreadAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+            <forward name="portlet.message_boards.move_thread" path="portlet.ext.models.move_thread"/>
+        </action>
+        <action path="/ext/models/run_model" type="com.ext.portlet.models.action.RunModelAction">
+            <forward name="portlet.ext.models.run_model" path="portlet.ext.models.run_model"/>
+        </action>
+        <action path="/ext/models/rss" type="com.liferay.portlet.messageboards.action.RSSAction"/>
+
+
+        <action path="/ext/models/search" forward="portlet.ext.models.search"/>
+        <action path="/ext/models/select_category" type="com.liferay.portlet.messageboards.action.EditCategoryAction">
+            <forward name="portlet.message_boards.edit_category" path="portlet.ext.models.select_category"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+        </action>
+        <action path="/ext/models/select_category" type="com.liferay.portlet.messageboards.action.EditCategoryAction">
+            <forward name="portlet.message_boards.edit_category" path="portlet.ext.models.select_category"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+        </action>
+        <action path="/ext/models/split_thread" type="com.liferay.portlet.messageboards.action.SplitThreadAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+            <forward name="portlet.message_boards.split_thread" path="portlet.ext.models.split_thread"/>
+        </action>
+
+
+        <action path="/ext/models/view_message" type="com.liferay.portlet.messageboards.action.ViewMessageAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.error"/>
+            <forward name="portlet.message_boards.view_message" path="portlet.ext.models.message_boards.view_message"/>
+        </action>
+
+        <action path="/ext/models/view_models" type="com.ext.portlet.models.action.ViewModelsAction">
+            <forward name="portlet.ext.models.view_models" path="portlet.ext.models.view_models"/>
+            <forward name="portlet.ext.modeldebates.view" path="portlet.ext.modeldebates.view"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.message_boards.error"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.models.message_boards.view"/>
+            <forward name="portlet.ext.models.view_debates" path="portlet.ext.models.view_debates"/>
+            <forward name="portlet.ext.models.view_discussion" path="portlet.ext.models.view_discussion"/>
+        </action>
+
+        <action path="/ext/models/view_discussion" type="com.ext.portlet.models.action.ViewModelDiscussionAction">
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.message_boards.error"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.models.message_boards.view"/>
+            <forward name="portlet.ext.models.view_debates" path="portlet.ext.models.view_debates"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.models.message_boards.view"/>
+            <forward name="portlet.ext.models.view_discussion" path="portlet.ext.models.view_discussion"/>
+        </action>
+
+
+        <action path="/ext/models/view_debates" type="com.ext.portlet.models.action.ViewModelDebatesAction">
+            <!-- <forward name="portlet.message_boards.error" path="portlet.ext.models.error" /> -->
+            <forward name="portlet.message_boards.error" path="portlet.ext.models.message_boards.error"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.models.message_boards.view"/>
+            <forward name="portlet.ext.models.view_debates" path="portlet.ext.models.view_debates"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.models.message_boards.view"/>
+            <forward name="portlet.ext.models.view_discussion" path="portlet.ext.models.view_discussion"/>
+        </action>
+
+
+        <action path="/ext/models/view_debate" type="com.ext.portlet.models.action.ViewDebateAction">
+            <forward name="portlet.ext.models.view_debate" path="portlet.ext.models.view_debate"/>
+            <forward name="portlet.message_boards.error" path="portlet.ext.debates.message_boards.error"/>
+            <forward name="portlet.message_boards.view" path="portlet.ext.debates.message_boards.view"/>
+            <forward name="portlet.ext.models.view_discussion" path="portlet.ext.models.view_discussion"/>
+
+        </action>
+        <action path="/ext/models/visualize_model" type="com.ext.portlet.models.action.VisualizeModelAction">
+            <forward name="portlet.ext.models.visualize_model" path="portlet.ext.models.visualize_model"/>
+        </action>
+
+        <action path="/ext/models/select_positions" type="com.ext.portlet.models.action.EditModelAction">
+            <forward name="portlet.ext.models.edit_model" path="portlet.ext.models.select_positions"/>
+        </action>
+
+
+        <!-- User profile -->
+        <action path="/ext/user_profile/view" forward="/portlet/ext/user_profile/view.jsp"/>
+
+        <!-- User info box -->
+        <action path="/ext/user_info/view" forward="/portlet/ext/user_info/view.jsp"/>
+
+        <action path="/ext/user_info/captcha" type="com.liferay.portal.captcha.CaptchaPortletAction"/>
+
+        <action path="/ext/user_info/create_account" type="com.ext.portlet.user_info.action.CreateAccountAction">
+            <forward name="portlet.login.create_account" path="portlet.ext.user_info.view"/>
+        </action>
+
+        <action path="/ext/user_info/login" type="com.liferay.portlet.login.action.LoginAction">
+            <forward name="portlet.login.login" path="portlet.ext.user_info.view"/>
+        </action>
+        
+        <action path="/ext/user_info/forgot_password" type="com.ext.portlet.user_info.action.CollabForgotPasswordAction">
+            <forward name="portlet.login.forgot_password" path="portlet.ext.user_info.view"/>
+        </action>
+
+        <!-- Community -->
+        <action path="/ext/community/view" type="com.ext.portlet.community.action.ViewProfileAction">
+            <forward name="portlet.ext.community.profile" path="portlet.ext.community.profile"/>
+            <forward name="portlet.ext.community.search" path="portlet.ext.community.search"/>
+            <forward name="portlet.ext.community.login_message" path="portlet.ext.community.login_message"/>
+        </action>
+
+        <action path="/ext/community/search" forward="portlet.ext.community.search"/>
+
+        <action path="/ext/community/edit_profile" type="com.ext.portlet.community.action.EditProfileAction">
+            <forward name="portlet.ext.community.profile" path="portlet.ext.community.profile"/>
+        </action>
+
+        <action path="/ext/community/portlet_prefs" type="com.ext.portlet.community.action.PortletPreferencesAction">
+            <forward name="portlet.ext.community.prefs" path="portlet.ext.community.prefs"/>
+            <forward name="portlet.ext.community.profile" path="portlet.ext.community.profile"/>
+        </action>
+
+        <action path="/ext/community/edit_portrait" type="com.ext.portlet.community.action.EditUserPortraitAction">
+            <forward name="portlet.ext.community.edit_user_portrait" path="portlet.ext.community.edit_user_portrait"/>
+            <forward name="portlet.enterprise_admin.error" path="portlet.enterprise_admin.error"/>
+        </action>
+
+        <!-- Activities -->
+        <action path="/ext/activities/view_activities" type="com.ext.portlet.Activity.action.ViewActivitiesAction">
+            <forward name="portlet.ext.activities.view" path="portlet.ext.activities.view"/>
+        </action>
+
+        <action path="/ext/activities/manage_subscriptions"
+                type="com.ext.portlet.Activity.action.ManageSubscriptionsAction">
+            <forward name="portlet.ext.activities.manage_subs" path="portlet.ext.activities.manage_subs"/>
+        </action>
+
+
+        <!-- Messaging tool -->
+        <action path="/ext/messaging/view_messages" type="com.ext.portlet.messaging.action.ViewMessages">
+            <forward name="portlet.ext.messaging.view" path="portlet.ext.messaging.view"/>
+
+        </action>
+        <action path="/ext/messaging/move_messages" type="com.ext.portlet.messaging.action.MoveMessages"/>
+
+        <action path="/ext/messaging/compose_messages" type="com.ext.portlet.messaging.action.ComposeMessage"/>
+
+        <action path="/ext/messaging/view_preferences" type="com.ext.portlet.messaging.action.ManagePreferences">
+            <forward name="portlet.ext.messaging.view_preferences" path="portlet.ext.messaging.view_preferences"/>
+        </action>
+
+
+        <action path="/ext/messaging/update_preferences" type="com.ext.portlet.messaging.action.ManagePreferences"/>
+
+        <!-- Migration tool -->
+        <action path="/ext/migration/view" type="com.ext.portlet.migration.action.ViewMigrationForm">
+            <forward name="portlet.ext.migration.view" path="portlet.ext.migration.view"/>
+        </action>
+
+        <action path="/ext/migration/debates" type="com.ext.portlet.migration.action.MigrateDebates">
+            <forward name="portlet.ext.migration.migrate_debates" path="portlet.ext.migration.migrate_debates"/>
+        </action>
+
+        <action path="/ext/migration/select_category" type="com.ext.portlet.migration.action.SelectCategoryAction">
+            <forward name="portlet.ext.migration.select_category" path="portlet.ext.migration.select_category"/>
+        </action>
+
+        <!-- Autologin console -->
+        <action path="/ext/autologin/view" forward="portlet.ext.autologin.view"/>
+
+        <!-- Messaging tool -->
+        <action path="/ext/mass_messaging/view" type="com.ext.portlet.mass_messaging.action.ViewMessagingPanelAction">
+            <forward name="portlet.ext.mass_messaging.view" path="portlet.ext.mass_messaging.view"/>
+        </action>
+
+        <action path="/ext/mass_messaging/edit_message"
+                type="com.ext.portlet.mass_messaging.action.EditMessagingMessageAction">
+            <forward name="portlet.ext.mass_messaging.edit_message" path="portlet.ext.mass_messaging.edit_message"/>
+        </action>
+
+        <action path="/ext/mass_messaging/view_message"
+                type="com.ext.portlet.mass_messaging.action.ViewMessagingMessageAction">
+            <forward name="portlet.ext.mass_messaging.view_message" path="portlet.ext.mass_messaging.view_message"/>
+        </action>
+       <action path="/ext/mass_messaging/manage_ignored_recipients" type="com.ext.portlet.mass_messaging.action.ManageIgnoredRecipientsAction">
+            <forward name="portlet.ext.mass_messaging.manage_ignored_recipients" path="portlet.ext.mass_messaging.manage_ignored_recipients"/>
+        </action>
+        
+        <!-- Autologin console -->
+        <action path="/ext/loginregister/view" forward="portlet.ext.loginregister.view"/>
+        <!-- Autologin console -->
+        
+         <action path="/ext/loginregister/captcha" type="com.liferay.portal.captcha.CaptchaPortletAction"/>
+
+        <action path="/ext/loginregister/create_account" type="com.ext.portlet.user_info.action.CreateAccountAction">
+            <forward name="portlet.login.create_account" path="portlet.ext.loginregister.view"/>
+        </action>
+
+        <action path="/ext/loginregister/login" type="com.liferay.portlet.login.action.LoginAction">
+            <forward name="portlet.login.login" path="portlet.ext.loginregister.view"/>
+        </action>
+        
+        <action path="/ext/loginregister/forgotpassword" type="com.ext.portlet.user_info.action.CollabForgotPasswordAction">
+            <forward name="portlet.login.forgotpassword" path="portlet.ext.loginregister.forgotpassword"/>
+            <forward name="portlet.login.forgot_password" path="portlet.ext.loginregister.forgotpassword"/>
+        </action>
+        
+
+    </action-mappings>
+</struts-config>

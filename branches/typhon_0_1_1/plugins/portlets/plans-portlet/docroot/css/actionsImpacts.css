@@ -1,0 +1,25 @@
+
+
+.actionImpactsButtons {
+	float: right;
+	margin-right: 125px;
+}
+
+.actionImpactsButtons input {
+    margin-left: 5px;
+    
+}
+
+.inputsAndOutputsWidget {
+    
+    padding-top: 8px;
+}
+
+.inputsAndOutputsWidget table.simulation {
+    margin:auto;
+}
+/*
+.simButtons {
+    display:none;
+}
+*/

@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+.custom-3-column table td {
+    vertical-align: top;
+}
+
+
+.lrContentPlaceholder {
+}
+
+blockquote, ul, ol, dl {
+    margin: auto;
+}
+
+.custom-3-column .lfr-grid,
+.custom-2-column .lfr-grid
+{
+
+}
+
+#layout-grid {
+    
+}
+
+.customLayoutTpl {
+    background: #ffffff;
+    border: 10px solid #E3DFD7;
+    border-bottom: 0;
+}
+
+
+body.other_pages { background:url(../images/bg_main_other_page.gif) repeat-x #F5F5F5; }
+
+
+#content_home_other { width:976px; background:#fff; line-height:22px; }

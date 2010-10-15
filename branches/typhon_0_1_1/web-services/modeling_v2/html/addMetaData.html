@@ -1,0 +1,57 @@
+<html>
+<head>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script>
+	$(function(){
+		//onload function
+		$("#runButton").click(function(){
+			var idValue = $("#idBox").val();
+			if(idValue == "") {
+				alert("Please enter an id value!");
+				return;
+			}
+			$("#createSimulation").attr("action","/simulation-servlet/rest/createsim/"+idValue);
+			$("#createSimulation").submit();
+		});
+
+
+	});
+</script>
+<style type="text/css">
+body {
+font-family:Arial,Verdana,Helvetica,sans-serif;
+font-size:14px;
+}
+</style>
+	</head>
+	<body>
+		<h1>Add Metadata</h1>
+
+
+        Simulation Id:<input id="idBox" type="text" name="id" value=""  /> <br/>
+
+		<form id="createSimulation" name="createSimulation"
+			action="../conf"
+			method="post"
+            >
+            type (input|output):<input type="text" name="type" value=""  /><br/>
+            vartype (RANGE|FREE|CATAGORICAL): <input type="text" name="type2" value=""  /><br/>
+			varcontext (SCALAR|INDEXED|INDEX): <input type="text" name="varcontext" value=""  /> <br/>
+            datatype (DOUBLE|INTEGER|TEXT): <input type="text" name="datatype" value=""  /> <br/>
+            internalname: <input type="text" name="intName" value=""  /> <br/>
+			description: <input type="text" name="description" value=""  /> <br/>
+			name: <input type="text" name="name" value=""  /> <br/>
+            units: <input type="text" name="units" value=""  /> <br/>
+            label: <input type="text" name="label" value=""  /> <br/>
+            min: <input type="text" name="min" value=""  /> <br/>
+            max: <input type="text" name="max" value=""  /> <br/>
+            categories: <input type="text" name="categories" value=""  /> <br/>
+            defaultvalue: categories: <input type="text" name="value" value=""  /> <br/>
+            externalinfo: <input type="text" name="external"/> <br/>
+
+		</form>
+        <button value="Create Simulation" id="runButton">Create Simulation</button>
+
+	</body>
+</html>

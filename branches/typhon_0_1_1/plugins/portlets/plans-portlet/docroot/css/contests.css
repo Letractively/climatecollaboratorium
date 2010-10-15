@@ -1,0 +1,87 @@
+.selectContestType a {
+	float: left;
+	display: block;
+	margin-right: 10px;
+	padding: 10px 15px;
+	font-weight: normal;
+    font-size:16px;
+	color:#676767
+}
+
+.selectContestType a.active {
+    color:#C74430;
+}
+
+
+	
+.contestNavItems a div {
+    display: block;
+   
+   
+}
+
+
+td.contestNavItems {
+    width: 25%;
+    padding:18px;
+}
+
+div.contestContent {
+    margin:0 37px 37px;
+}
+
+.subViewContent {
+	margin: auto;
+    margin-top: 25px;
+    width: 85%;
+}
+    
+.contestPhaseInfo {
+    background: #EDEBEA;
+    padding: 9px 10px 5px;
+}
+
+.proposalsListNav a {
+    float: left;
+    display: block;
+    background: #cccccc;
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-weight: bold;
+    color: #333;
+    margin-left: 10px;
+}
+
+.proposalsListNav a.active {
+    background: #dfdfdf;
+    color: #333;
+}
+
+.proposalsListNav {
+    margin-top: 5px;
+    margin-bottom:5px;
+}
+
+.proposalsListNav .filters {
+    float:right;
+}
+
+.proposalsListNav .filters h3 {
+    display:inline;
+    margin-right:10px;
+}
+
+.proposalsListNav select {
+  font-family:"gloriola-web-1","gloriola-web-2";
+  font-size:1.4em;
+   padding:3px;
+}
+
+.createNewPlanButton {
+    float: right;
+}
+
+.contestPhaseInfo .details {
+	float: left;
+}
+

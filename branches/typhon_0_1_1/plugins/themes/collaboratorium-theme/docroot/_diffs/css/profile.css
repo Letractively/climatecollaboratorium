@@ -1,0 +1,188 @@
+@charset "utf-8";
+
+
+
+#Profile .PortletBox .bd {
+    padding-top: 18px;
+    padding-left: 10px;
+    padding-right:10px;
+}
+
+#Profile .PortletBox .ft {
+    padding-top: 15px;
+}
+
+
+#Profile .hd .name {
+     
+     position:relative;
+     z-index: 1;
+}
+
+
+
+#Profile .content-inner {
+
+    background:none repeat scroll 0 0 #FFFFFF;
+    border:medium solid #DADADA;
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    padding-left:5px;
+    padding-right:5px;
+     width: auto;
+     margin: auto;
+}
+
+
+#Profile .userFace{
+	width:120px;
+	float:left;
+	display:inline;
+	margin-right: 10px;
+    font-size: 12px;
+}
+
+img.userFace {
+    width:120px;
+}
+
+#Profile  .userProfileInfo{
+	width:auto;
+	margin-left:10px;
+}
+#Profile  .userProfileInfo dt{
+	width:100px;
+	float:left;
+	display:inline;
+	font-size:14px;
+	line-height:1.5em;
+	font-family:"Times New Roman", Times, serif;
+	  margin-left: 0px;
+}
+#Profile .userProfileInfo dd{
+	float:left;
+	display:inline;
+	font-size:14px;
+	line-height:1.5em;
+	font-family:"Times New Roman", Times, serif;
+	  margin-left: 0px;
+}
+#Profile  .aboutMe{
+	margin-top:10px;
+	margin-left:19px;
+	margin-right:28px;
+	padding-bottom:24px;
+	border-top:#d8d8d8 solid 1px;
+}
+#Profile .aboutMe h4{
+	width:100%;
+	height:12px;
+	padding-top:14px;
+}
+
+#Profile .aboutMe p{
+	/*width:525px*/;
+	line-height:1.5em;
+	margin-top:18px;
+}
+#Profile .aboutMe p.first{
+	margin-top:8px;
+}
+
+
+#Profile .editView input {
+     width:100%;
+}
+
+#Profile .editView textarea {
+     width: 100%;
+     height: 300px;
+}
+
+#Profile .changePassword {
+     padding-right:22px;
+     padding-top:5px;
+     padding-bottom:5px;
+}
+
+#Profile .changePassword input {
+     width: 170px;
+
+}
+
+#Profile .password-buttons {
+     padding-left:100px;
+}
+
+
+#Profile .buttons {
+      height: 40px;
+      padding-right: 11px;
+}
+
+#Profile .saveProfileBtn{
+	padding-left:106px;
+    width: 106px;
+	padding-bottom:34px;
+	background:url(../images/profile_saveBtn.png) no-repeat;
+}
+
+#Profile .cancelProfileBtn{
+	padding-left:106px;
+    width:106px;
+	padding-bottom:34px;
+	background:url(../images/profile_cancelBtn.png) no-repeat;
+}
+
+
+
+
+#blank-profile-content {
+     height:415px;
+
+}
+
+#Profile .select-profile {
+     height:100%;
+
+}
+
+.othermembers .community {
+     overflow: hidden;
+     margin-bottom:20px;
+}
+
+.othermembers .left {
+     width: 415px;
+    
+}
+
+.othermembers .taglib-search-iterator-page-iterator-top div.taglib-page-iterator {
+     display:none;
+
+}
+
+
+#Profile .user-info .first {
+	width: 110px;
+	padding-top: 5px;
+}
+	
+#Profile .send-user-a-message {
+    float: left;
+    background: url(../images/send_message.png) no-repeat;
+    height: 20px;
+    padding-left: 25px;
+    margin-top:-8px;
+}
+
+#MyFanedPlans .fanedplans-table {
+	width: 100%; 
+    text-align: center;
+}
+
+#MyFanedPlans .fanedplans-table td {
+	vertical-align: middle;
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+#parse ($init)
+
+<html dir="#language ("lang.dir")" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Climate Collaboratorium - harvesting the world's intelligence to save the planet" />
+        <title>Climate CoLab</title>
+        
+        $theme.include($top_head_include)
+
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery/jquery.css?tt=$themeTimestamp" media="all" />
+
+    #if ($page.getName($locale).toLowerCase().replaceAll("\s","") != 'home')
+
+
+#if (false)
+	<link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen-ie6.css?tt=$themeTimestamp" media="all" />
+	
+	<script type="text/javascript" src="/collaboratorium-theme/javascript/script.js?tt=$themeTimestamp"></script>
+	<script type="text/javascript" src="/collaboratorium-theme/javascript/iepngfix_tilebg.js?tt=$themeTimestamp"></script>
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen.css?tt=$themeTimestamp" media="all" />
+#end
+	
+        
+	#end
+        <link rel="stylesheet" href="/collaboratorium-theme/css/forms.css?tt=$themeTimestamp" type="text/css" />
+        <link rel="stylesheet" href="/collaboratorium-theme/css/moth_additional_styles.css?tt=$themeTimestamp" type="text/css" />
+        <link rel="stylesheet" href="/collaboratorium-theme/css/pages/main.css?tt=$themeTimestamp" type="text/css" />
+        <link rel="stylesheet" href="/collaboratorium-theme/css/style.css?tt=$themeTimestamp" type="text/css" />
+        <link rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" type="text/css" />
+        <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/loginregister.css?tt=$themeTimestamp" media="all" />
+        <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wiki.css?tt=$themeTimestamp" media="all" />
+        <!--[if IE]><script type="text/javascript" src="/collaboratorium-theme/javascript/excanvas.js"></script><![endif]-->
+        
+        
+        <script type="text/javascript" src="http://use.typekit.com/uvv6okq.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        
+        
+        <script type="text/javascript" src="/collaboratorium-theme/javascript/moth_init_script.js"></script>
+        <script type="text/javascript" src="/collaboratorium-theme/javascript/loginregister.js"></script>
+        
+	
+</head>
+
+
+#if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
+    #set ($body_style_class = "")
+#else
+    #set ($body_style_class = "other_pages")
+#end
+    
+<body class="$body_style_class">
+
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({appId: '103678866365275', status: true, cookie: true,
+                 xfbml: true});
+      };
+      (function() {
+        var e = document.createElement('script');
+        e.type = 'text/javascript';
+        e.src = document.location.protocol +
+          '//connect.facebook.net/en_US/all.js';
+        e.async = true;
+        document.getElementById('fb-root').appendChild(e);
+      }());
+    </script>
+    #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
+        <div id="earth"></div>
+    #end
+  
+    <div id="wrapper">
+	   #parse ("$full_templates_path/header.vm")
+	
+	   <div class="$page.getName($locale).toLowerCase().replaceAll("\s","") contentContainer">
+
+		  #if ($selectable)
+			 $theme.include($content_include)
+		  #else
+			 $portletDisplay.recycle()
+
+			 $portletDisplay.setTitle($the_title)
+
+			 $theme.wrapPortlet("portlet.vm", $content_include)
+		  #end
+        </div> <!-- /.contentContainer -->
+        
+	</div> <!-- /#wrapper -->
+	
+$theme.include($bottom_include)
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+    try {
+        var path = window.location.pathname + window.location.search + window.location.hash;
+        var pageTracker = _gat._getTracker("UA-11944310-1");
+        pageTracker._setAllowAnchor(true);
+        pageTracker._trackPageview(path);
+    } catch(err) {}
+/* ]]> */
+</script>
+	
+</body>
+</html>

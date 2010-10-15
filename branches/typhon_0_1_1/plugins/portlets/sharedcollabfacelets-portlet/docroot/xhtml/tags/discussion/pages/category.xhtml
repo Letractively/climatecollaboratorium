@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    
+<ui:composition template="./discussionTemplate.xhtml">
+
+    <ui:define name="discussion_breadcrumb">
+        Category:&amp;nbsp;<ice:outputText value="#{discussionBean.currentCategory.title}" />
+    </ui:define>
+    
+    
+    <ui:define name="discussion_content">
+        
+        <div class="description">
+            <ice:outputText value="#{discussionBean.currentCategory.filteredDescription}" escape="false" />
+        </div>
+        
+        <ui:decorate template="./paginator.xhtml">
+            <ui:param name="paginatorFor" value="threadsList"/>
+            <ui:param name="entityName" value="Discussions"/>
+        </ui:decorate>
+             
+        <ui:decorate template="./threadsList.xhtml">
+            <ui:param name="threads" value="#{discussionBean.currentCategory.threads}" />
+            <ui:param name="listId" value="threadsList" />
+        </ui:decorate>
+
+        <ice:panelGroup rendered="#{fn:length(discussionBean.currentCategory.threads) ne 0}">
+        <ui:decorate template="./paginator.xhtml">
+            <ui:param name="paginatorFor" value="threadsList"/>
+            <ui:param name="entityName" value="Discussions"/>
+        </ui:decorate>
+        </ice:panelGroup>
+            
+    </ui:define>
+</ui:composition>
+</f:view>

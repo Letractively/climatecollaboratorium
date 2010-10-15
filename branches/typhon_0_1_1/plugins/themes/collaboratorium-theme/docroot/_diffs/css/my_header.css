@@ -1,0 +1,379 @@
+@charset "utf-8";
+
+#header{
+
+	zoom: 1;
+	position: relative;
+}
+#header .head_outlay{
+	width:100%;
+	position: relative;
+}
+#header .head_bg{
+    background:url(../images/collab.moth.theme.header.slice.png) repeat-x;
+	width:100%;
+	height:86px;
+	margin:0 auto;
+	padding: 0;
+}
+
+/* all link and text color */
+#header .head_outlay{
+
+}
+
+/* head background */
+#banner #loginBox{
+	background:url(../images/login_outlay.png) no-repeat;
+}
+
+#banner{
+	width:960px;
+	height:35px;
+	margin:0 auto;
+	position: relative;
+}
+#banner .site-logo{
+    background:url(../images/collab.moth.logo.png) no-repeat;
+	width:50px;
+	height:48px;
+    margin-top:12px;
+	float:left;
+	display:inline;
+
+}
+
+#banner .site-name{
+	background:url(../images/collab.moth.name.logo.png) no-repeat;
+	width:188px;
+	height:23px;
+	float:left;
+	margin-top:25px;
+}
+
+#banner h1{
+	width:422px;
+	height:26px;
+	float:left;
+	display:inline;
+	margin-top:32px;
+	background:url(../images/ClimateColabLogo.png) no-repeat;
+}
+
+div.earthimg {
+    width:100%;
+	height:200px;
+	float:left;
+	display:inline;
+    background:url(../images/earthstrip1.png) repeat-x;
+}
+
+#banner #loginArea{
+	width:183px;
+	font-size:12px;
+	float:right;
+	display:inline;
+	z-index:1000;
+	line-height:1.3em;
+}
+#banner #loginBox{
+	width:169px;
+	height:43px;
+	margin:0 auto;
+}
+#banner #loginBox .userImg{
+	width:30px;
+	height:30px;
+	float:left;
+	display:inline;
+	margin-top:4px;
+	margin-left:6px;
+	margin-right:5px;
+	border:#d8d8d8 solid 1px;
+}
+
+#banner #loginBox .userImg img {
+	width: 30px;
+	height: 30px;
+}
+#banner #loginBox .registerImg{
+	width:67px;
+	height:30px;
+	float:left;
+	display:inline;
+	margin-left:6px;
+	margin-right:5px;
+	position:relative;
+	top:-4px;
+}
+#banner #loginBox .registerImg span{
+	width:67px;
+	height:49px;
+	display:block;
+	position:absolute;
+	z-index:1000;
+	background:url(../images/register_icon.png) no-repeat;
+}
+
+#banner #loginBox .register{
+	width:auto;
+	float:left;
+	margin-top:6px;
+}
+
+#banner #loginBox .register p{
+	line-height: normal;
+}
+
+#banner #loginBox .welCome .info{
+	font-size:11px;
+}
+#banner #loginBox .welCome .name{
+	color:#35a4af;
+}
+#banner #loginBox .register a{
+	font-weight:bold;
+	color:#35a4af;
+}
+#banner #loginBox .register p{
+	margin-bottom:0px;
+}
+#banner .topLink{
+	padding:6px 0;
+	text-align:center;
+}
+#banner .topLink a{
+	color:#000;
+}
+#banner .topLink a.current{
+	font-weight:bold;
+}
+#banner #loginArea #login{
+	width:183px;
+	height:168px;
+	display:none;
+	z-index: 10;
+	position: relative;
+}
+#banner #loginArea #register{
+	width:183px;
+	height:233px;
+}
+#banner #loginArea #login .inner{
+	width:150px;
+	margin:0 auto;
+}
+#banner #loginArea #register .inner{
+	width:156px;
+	margin:0 auto;
+}
+#banner #loginArea #login .row{
+	margin-top:6px;
+}
+#banner #loginArea #register .row{
+	margin-top:4px;
+}
+#banner #loginArea #login .btnBox,#banner #loginArea #register .btnBox{
+	margin-left:46px;
+}
+#banner #loginArea #login .rememberMe{
+	margin-top:2px;
+}
+
+#banner #loginArea #login .forgotPassword {
+    margin-top:5px 0;
+}
+#banner #loginArea #login .lable{
+	display:block;
+	font-size:11px;
+}
+#banner #loginArea #login .text,#banner #loginArea #register .text{
+	width:146px;
+	height:16px;
+	padding:1px;
+	border:#05828e solid 1px;
+}
+
+#banner #loginArea .interactive-mode{
+	background: transparent none;
+	left: 50px;
+	top: 33px;
+	
+}
+/* end #loginBox */
+
+#mainNav{
+	width:700px;
+    margin: -23px auto 0 45px;
+    line-height: normal;
+    float:left;
+}
+#mainNav ul{
+	width:700px;
+	margin:0 auto;
+}
+#mainNav ul li{
+	width:auto;
+	float:left;
+	display:inline;
+	text-align:center;
+	margin-right:2px;
+    margin-top:8px;
+	padding:10px 10px 5px;
+}
+
+#mainNav ul li.first {
+    padding:0;
+}
+#mainNav ul li.first span{
+	width:2px;
+	height:39px;
+	padding:0px;
+}
+#mainNav ul li a{
+	width:auto;
+	float:left;
+	display:inline;
+	font-family:Myriad Pro, Helvetica, serif;
+	font-size:13px;
+	font-weight:bold;
+}
+
+
+
+#mainNav ul li span{
+	height:28px;
+	float:left;
+	margin-right:0px;
+	padding: 0px;
+	padding-top: 14px;
+	cursor:hand;
+}
+
+
+
+}
+
+#mainNav ul li:last-child {
+	background:none;
+	position: relative;
+}
+
+
+
+
+#mainNav ul li:hover {
+
+}
+
+#mainNav ul li.current {
+
+
+
+}
+
+#mainNav ul li a:hover {
+    color: #C74430;
+	text-decoration:none;
+}
+
+#mainNav ul li a{
+   color:#847463;
+}
+
+#mainNav ul li.current a {
+  color: #C74430;
+}
+
+
+
+
+#mainContent .portlet-journal-content .logBox{
+	width:960px;
+	height:168px;
+	margin-top:34px;
+	padding-top:20px;
+}
+
+#mainContent .portlet-journal-content .logBox .text {
+	width:700px;
+	padding-left:28px;
+    padding-top:23px;
+}
+
+
+#mainContent .portlet-journal-content .logBox .first{
+	width:274px;
+	margin-left:18px;
+}
+#mainContent .portlet-journal-content .logBox .second{
+	width:285px;
+	margin-left:35px;
+}
+#mainContent .portlet-journal-content .logBox .third{
+	width:147px;
+	margin-left:25px;
+	padding-top:48px;
+}
+#mainContent .portlet-journal-content .logBox p{
+	color:#676767;
+	padding-bottom:3px;
+}
+
+table.news-items {
+     margin:10px;
+     width:476px;
+}
+
+.news-items tbody {
+     height: 125px;
+}
+
+.news-items td {
+     padding: 5px;
+}
+
+.news-items thead td {
+     background-color: #5588AA;
+     color: #FFFFFF;
+}
+
+.news {
+     padding-top:5px;
+}
+
+.news .news-heading {
+     border-bottom: 1px solid #C0C0C0;
+     margin-top:10px;
+     margin-left:3px;
+     margin-right:11px;
+}
+
+#registeredUsersArea {
+    display:inline;
+    float:right;
+    padding-top:117px;
+    font-size:18px;
+    font-style:italic;
+    color: #2e5269;
+    padding-right:7px;
+
+}
+
+#registeredUsersArea a {
+   color: #5c7382;
+}
+
+#registeredUsersArea a:hover {
+    color: #c9e5fb;
+
+}
+
+#mainContent .portlet-journal-content .rightContent .news li {
+     margin-top:10px;
+}
+ 
+ 
+
+
+/* end #header */

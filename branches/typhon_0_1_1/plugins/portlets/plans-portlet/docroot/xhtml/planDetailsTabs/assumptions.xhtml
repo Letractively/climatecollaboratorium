@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:collab="http://climatecollaboratorium.org/components">
+
+    <ice:commandLink styleClass="editButton editStateTrigger hidden" value="Edit" actionListener="#{planBean.planPositionsBean.edit}"/>
+    <ice:panelGroup styleClass="hidden">
+        <script type="text/javascript">
+            Collab.nav.addEditorDirtyValidationCallback(checkIfPlanPositionsDirty);
+        </script>
+    </ice:panelGroup>
+
+    <div class="versionsContainer">
+        <div class="versions">
+            <ice:dataTable value="#{planBean.planPositionsBean.planPositionsVersions}" rows="10" var="historyItem">
+                <ice:column>
+                    <f:facet name="header">
+                        <ice:outputText value="Date"/>
+                    </f:facet>
+                    <ice:commandLink value="#{historyItem.updateDate}" actionListener="#{planBean.planPositionsBean.selectVersion}">
+                        <f:attribute name="item" value="#{historyItem}"/>
+                    </ice:commandLink>
+
+
+                </ice:column>
+                <ice:column>
+                    <f:facet name="header">
+                        <ice:outputText value="User"/>
+                    </f:facet>
+                    <ice:outputText value="#{historyItem.updateAuthor.screenName}"/>
+
+
+                </ice:column>
+            </ice:dataTable>
+            <br/>
+
+        </div>
+    </div>
+
+    <ice:panelGrid styleClass="toolbar" columns="2">
+    <ice:panelGroup styleClass="save editControls" rendered="#{planBean.planPositionsBean.editing}">
+        <ice:commandLink value="Save Changes" actionListener="#{planBean.planPositionsBean.updatePositions}"/>
+    </ice:panelGroup>
+    <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{planBean.planPositionsBean.editing}">
+        <ice:commandLink value="Cancel edits" actionListener="#{planBean.planPositionsBean.edit}"/>
+    </ice:panelGroup>
+
+
+    </ice:panelGrid>
+    
+        <ice:panelGroup styleClass="chooseVersionWidget">
+        <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" class="versionsTrigger">Show old versions</a>
+
+
+    </ice:panelGroup>
+    
+    <div class="clear"></div>
+    
+    <ice:panelGroup styleClass="edit editControls hidden"
+                    rendered="#{not planBean.planPositionsBean.editing and permissions.canEdit}">
+        <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{planBean.planPositionsBean.edit}"/>
+
+
+    </ice:panelGroup>
+    
+
+
+   
+
+
+    <ice:panelGroup styleClass="positionsContent" rendered="#{not planBean.planPositionsBean.editing}">
+        <ice:panelGroup styleClass="versionInfo" rendered="#{not planBean.planPositionsBean.latestVersion}">
+            Viewing version from &amp;nbsp; <strong><ice:outputText value="#{planBean.planPositionsBean.versionDate}"/></strong> by &amp;nbsp;
+            <a href="/web/guest/members?userId=#{planBean.planPositionsBean.versionAuthor.userId}">
+                <strong><ice:outputText value="#{planBean.planPositionsBean.versionAuthor.screenName}"/></strong>
+            </a>
+        </ice:panelGroup>
+        <div class="editTriggerContainer">
+            <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
+            <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
+                <div class="assumption">
+                 <h3 class="question"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></h3>
+                    <h4 class="position"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId},itemId:#{question.selectedPosition.debateItemId}">#{question.selectedPosition.debateSummary}</a></h4>
+                </div>
+            </ice:panelSeries>
+            <ice:panelGroup rendered="#{not planBean.planPositionsBean.positionsSet}" styleClass="editTriggerContainer">
+                <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
+                <div class="nothingSetInfo">
+                    <div class="nothingSetMessage">No positions set.</div>
+                </div>
+            </ice:panelGroup>
+            <ice:panelGroup styleClass="hidden ">
+                <script type="text/javascript">
+                    initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable},true);
+                </script>
+            </ice:panelGroup>
+        </div>
+    </ice:panelGroup>
+
+    <ice:messages/>
+
+
+    <ice:panelGroup rendered="#{planBean.planPositionsBean.editing}" styleClass="editWithVersions">
+
+        <ice:panelGroup>
+            <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
+                <div class="assumption">
+                   <h3 class="question"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></h3>
+                    <ice:selectOneRadio value="#{question.position}" styleClass="versionedRadio positionItem"
+                                        layout="pageDirection">
+                        <f:selectItems value="#{question.positions}"><br/></f:selectItems>
+                    </ice:selectOneRadio>
+                </div>
+
+            </ice:panelSeries>
+            <ice:panelGroup>
+                <script language="javascript" type="text/javascript">
+                    updatePositionsSelection(#{planBean.planPositionsBean.positionsIds});
+                </script>
+            </ice:panelGroup>
+
+        </ice:panelGroup>
+
+    </ice:panelGroup>
+
+
+</f:view>

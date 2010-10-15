@@ -1,0 +1,41 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<div class="positions">
+<div class="corcen_top">
+     <div class="corcen_bottom">
+          <div class="corcen">
+               <div class="title"><h3><span class="hidden">Position</span></h3>
+	               	<c:if test="<%=showAddPositions %>">
+	               	<a href="javascript:;" class="edit" onClick="<portlet:namespace />showDialog('select-positions-dialog', { width: 500, height: 500 })">
+					edit
+					</a>
+					</c:if>
+				</div>
+				<br/>
+	             <div>
+                        <c:forEach items="<%=positions%>" var="position">
+                                 <%
+                                     DebateItem p = (DebateItem)pageContext.getAttribute("position");
+                                     DebateItem q = p.getDebate().getCurrentRoot();
+
+                                 %>
+                                <ul class="plan-positions">
+                                <a href='<%=constructDebateUrl(q)%>'><strong><%=q.getDebateSummary()%></strong></a>
+                                <ul >
+
+                                    <li>
+									<a href='<%=constructDebateUrl(p)%>'><strong><%=p.getDebateSummary()%></strong></a>
+                                    </li>
+                                 </ul>
+                                </ul>
+                         </c:forEach>
+
+                    </div>
+	       </div>
+	   </div>
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<div id="top-left">
+    <div id="logo"><a href="/"><img src="/collaboratorium-theme/images/climate-colab.png" width="223" height="46" alt="Climate CoLab" /></a></div>
+    #if ($has_navigation)
+        #parse ("$full_templates_path/navigation.vm")
+    #end
+</div>
+<div id="top-right">
+    <div id="loginContainer">
+        
+        <div id="loginStatus">
+            #parse ("$full_templates_path/dock.vm")
+        </div>
+        
+        <ul id="login">
+            #if ($themeDisplay.signedIn)
+                <li id="signin"><a href="/c/portal/logout" >Sign out</a></li>
+                <li id="reg"><a href="/web/guest/myprofile">My profile</a></li>
+            #else 
+                <li id="signin"><a href="/web/guest/loginregister?p_p_id=loginregister" onclick="modifyLoginRegisterURL(this);">Sign In</a></li>
+                <li id="reg"><a href="/web/guest/loginregister?p_p_id=loginregister" onclick="modifyLoginRegisterURL(this);">Register</a></li>
+            #end
+            
+        </ul>
+        <div class="clear">&nbsp;</div>
+    </div>
+    <div id="menu">
+        <ul>
+            <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
+            <li><a href="/web/guest/feedback">Contact</a></li>
+        </ul>
+        <form action="">
+            <input id="searchinput" class="nofocus" name="searchinput" type="text" value="" />
+            <input id="searchsubmit" type="button" name="submit" value="Go" />
+        </form>
+    </div> <!-- /menu -->
+</div> <!-- /top-right -->
+<div class="clear">&nbsp;</div>
