@@ -139,6 +139,9 @@ public class PlansIndexBean {
         columnsUpdate();
         
         queryPhases.add(contestPhase.getPhase());
+        if (contestPhaseWrapper != null) {
+            getPlans();
+        }
         
     }
 
