@@ -132,7 +132,13 @@ public class EditProfileAction extends PortletAction {
 			if (changed) {
 				user.setModifiedDate(new Date());
 			}
-			UserLocalServiceUtil.updateUser(user);
+			try {
+			    UserLocalServiceUtil.updateUser(user);
+			}
+			catch (Exception e) {
+			    _log.error("Can't update user " + user.getScreenName(), e);
+			    SessionErrors.add(actionRequest, e.getClass().getName());
+			}
 		}
 
 		 if (redirect != null && !redirect.equals("")) {
