@@ -149,11 +149,12 @@ public class MessageUtil {
     public static MessagingUserPreferences getMessagingPreferences(long userId) throws SystemException {
         MessagingUserPreferences prefs = MessagingUserPreferencesLocalServiceUtil.findByUser(userId);
         if (prefs == null) {
-        long nextid = CounterLocalServiceUtil.increment(MessagingUserPreferencesLocalServiceUtil.class.getName());
-        prefs = MessagingUserPreferencesLocalServiceUtil.createMessagingUserPreferences(nextid);
-        prefs.setEmailOnReceipt(true);
-        prefs.setEmailOnSend(false);
-        MessagingUserPreferencesLocalServiceUtil.addMessagingUserPreferences(prefs);
+            long nextid = CounterLocalServiceUtil.increment(MessagingUserPreferencesLocalServiceUtil.class.getName());
+            prefs = MessagingUserPreferencesLocalServiceUtil.createMessagingUserPreferences(nextid);
+            prefs.setEmailOnReceipt(true);
+            prefs.setEmailOnSend(false);
+            prefs.setUserId(userId);
+            MessagingUserPreferencesLocalServiceUtil.addMessagingUserPreferences(prefs);
         }
         return prefs;
     }
