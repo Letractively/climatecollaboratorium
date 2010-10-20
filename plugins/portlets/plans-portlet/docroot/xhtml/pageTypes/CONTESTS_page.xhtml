@@ -216,18 +216,18 @@
         </div>
     </ice:form>
 </ice:panelSeries>
-                <ice:panelGroup styleClass="hidden" >
-			#{contests}
-                        <script type="text/javascript">
-				jQuery(document).ready(function() {
-					setTimeout(function() {
-	                                initializeColumnsInfo();
-		                        makeNANotesVisible();
-}, 3000);
-				});
+    <ice:panelGroup styleClass="hidden" >
+	    #{contests}
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                setTimeout(function() {
+                   initializeColumnsInfo();
+                    makeNANotesVisible();
+                }, 3000);
+            });
 
-                        </script>
-                </ice:panelGroup>
+        </script>
+    </ice:panelGroup>
 
 </ui:define>
 </ui:composition>
