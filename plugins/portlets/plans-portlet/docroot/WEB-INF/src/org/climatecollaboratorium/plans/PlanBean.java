@@ -90,6 +90,7 @@ public class PlanBean {
     public void init(NavigationEvent event) throws SystemException, PortalException {
         Map<String, String> parameters = event.getParameters(PLANS_SOURCE);
         if (parameters == null) {
+            selectedTabIndex = getDefaultTab();
             return;
         }
 
