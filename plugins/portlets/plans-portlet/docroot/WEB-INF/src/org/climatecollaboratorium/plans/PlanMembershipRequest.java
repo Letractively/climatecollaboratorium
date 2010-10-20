@@ -84,5 +84,9 @@ public class PlanMembershipRequest {
         }
         planBean.refresh();
     }
+    
+    public Long getUserId() {
+        return user.getUserId();
+    }
 
 }

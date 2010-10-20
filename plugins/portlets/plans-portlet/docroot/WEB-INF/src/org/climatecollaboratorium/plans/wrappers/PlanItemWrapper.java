@@ -470,15 +470,21 @@ public class PlanItemWrapper {
         return wrapped.getFans();
     }
     
-    public void becomeAFan(ActionEvent e) throws SystemException {
+    public void becomeAFan(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             wrapped.addFan(Helper.getLiferayUser().getUserId());
+
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.BECOME_A_SUPPORTER.id(),null, 0);
         }
     }
     
-    public void unfan(ActionEvent e) throws SystemException {
+    public void unfan(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             wrapped.removeFan(Helper.getLiferayUser().getUserId());
+            
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.STOPPED_BEEING_A_SUPPORTER.id(),null, 0);
         }
     }
     

@@ -36,12 +36,14 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 	public static String PLAN_SCENARIO_UPDATED = "%s updated the model run in plan %s";
 	public static String PLAN_DESCRIPTION_UPDATED="%s updated the description in plan %s";
 	public static String PLAN_VOTED = "%s voted for plan %s";
-	public static String PLAN_UNVOTED = "%s retracted for for plan %s";
+	public static String PLAN_UNVOTED = "%s retracted vote for plan %s";
 	public static String PLAN_VOTE_SWITCHED="%s switched vote to plan %s";
 	public static String PLAN_USER_ADDED="%s joined plan %s";
 	public static String PLAN_USER_REMOVED = "%s left plan %s";
 	public static String PLAN_PUBLISHED = "%s published plan %s";
     public static String PLAN_NAME_UPDATED="%s updated the name in plan %s";
+    public static String PLAN_SUPPORTED="%s became a supporter of plan %s";
+    public static String PLAN_UNSUPPORTED="%s is no longer a supporter of plan %s";
 
 	public static Map<PlanActivityKeys,String> msgMap = new HashMap<PlanActivityKeys,String>();
 	static {
@@ -57,6 +59,8 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 		msgMap.put(PlanActivityKeys.PUBLISH_UPDATES, PLAN_PUBLISHED);
         msgMap.put(PlanActivityKeys.EDIT_NAME, PLAN_NAME_UPDATED);
         msgMap.put(PlanActivityKeys.REMOVE_PLAN, PLAN_REMOVED);
+        msgMap.put(PlanActivityKeys.BECOME_A_SUPPORTER, PLAN_SUPPORTED);
+        msgMap.put(PlanActivityKeys.STOPPED_BEEING_A_SUPPORTER, PLAN_UNSUPPORTED);
 
 	}
 
