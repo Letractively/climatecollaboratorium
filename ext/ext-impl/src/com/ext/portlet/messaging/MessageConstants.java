@@ -46,10 +46,11 @@ public class MessageConstants {
 
     public static final String EMAIL_MESSAGE_SUBJECT = "[Climate Collaboratorium] Message from $USER";
     public static final String EMAIL_MESSAGE_TEMPLATE = "Climate Collaboratorium user $USER has sent you " +
-            "the following message:</br></br>" +
-            "Subject: $SUBJECT</br></br>$MESSAGE</br></br>" +
-            "--------------</br>"+
-            "</br></br>Please do not reply to this email. You can view and respond to this message <a href='$URL'>here</a>.</br></br>" +
+            "the following message:\n<br /><br />" +
+            "Subject: $SUBJECT\n" +
+            "<br /><br />$MESSAGE<br /><br /> \n" +
+            "--------------<br />\n"+
+            "<br /><br />Please do not reply to this email. You can view and respond to this message <a href='$URL'>here</a>.<br /><br />" +
             "(If the above link does not work, please paste the following link directly into your browser.: $URL)";
 
     public static final String EMAIL_MESSAGE_VAR_USER = "$USER";

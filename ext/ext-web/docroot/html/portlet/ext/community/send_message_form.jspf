@@ -15,7 +15,7 @@
      */
 %>
 
-<form class="uni-form" name="<portlet:namespace />sendMessage">
+<form class="uni-form" method="post" name="<portlet:namespace />sendMessage">
     <div>
         <dl>
             <dd><label for="subject">Subject:</label> &nbsp;&nbsp; <span class="error subject"> </span> </dd>
