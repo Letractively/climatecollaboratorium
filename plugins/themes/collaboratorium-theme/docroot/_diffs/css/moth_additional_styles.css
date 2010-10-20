@@ -37,3 +37,7 @@ body.other_pages { background:url(../images/bg_main_other_page.gif) repeat-x #F5
 
 
 #content_home_other { width:976px; background:#fff; line-height:22px; }
+
+#earth {
+	min-width: 992px;
+}
