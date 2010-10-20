@@ -54,7 +54,7 @@
                     <f:facet name="header">
                         <ice:outputText value="User"/>
                     </f:facet>
-                    <ice:outputText value="#{historyItem.updateAuthor.screenName}"/>
+                    <collab:userLinkSimple userId="#{historyItem.updateAuthor.userId}" text="#{historyItem.updateAuthor.screenName}"/>
 
 
                 </ice:column>
