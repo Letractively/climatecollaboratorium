@@ -17,9 +17,9 @@
 <urlrewrite>
 <rule>
     <name>Domain Name Check</name>
-    <condition name="host" operator="notequal">^localhost:8080$</condition>
+    <condition name="host" operator="notequal">^climatecolab.org$</condition>
     <from>^(.*)$</from>
-    <to type="redirect">http://localhost:8080$1</to>
+    <to type="redirect">http://climatecolab.org$1</to>
 </rule>
 
 
