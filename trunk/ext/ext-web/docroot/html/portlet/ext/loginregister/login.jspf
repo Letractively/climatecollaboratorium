@@ -108,7 +108,7 @@
 	   </tr>
         <tr class="row buttons">
             <td colspan="2">
-                <fb:login-button></fb:login-button>
+                <fb:login-button perm="email"></fb:login-button>
             </td>
         </tr>
     </table>
