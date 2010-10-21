@@ -72,7 +72,7 @@ public class FacebookPreAction extends ServicePreAction {
             String cookiename = COOKIE_DESC + PropsUtil.get("collaboratorium.facebook.appid");
             Cookie fbcookie = null;
             for (Cookie c : req.getCookies()) {
-
+                 _log.info("Looking at cookie "+c.getName());
                 if (cookiename.equals(c.getName())) {
                     fbcookie = c;
                     break;
@@ -87,6 +87,8 @@ public class FacebookPreAction extends ServicePreAction {
                     throw new ActionException(e);
                 }
 
+            } else {
+                throw new ActionException("Could not identify cookie: "+cookiename);
             }
 
             redirect(req,res,themeDisplay);   
@@ -366,6 +368,7 @@ public class FacebookPreAction extends ServicePreAction {
 
 
     private static Map<String, String> parseCookie(String cookieval) {
+        _log.info("Parse cookie "+cookieval);
         Map<String, String> result = new HashMap<String, String>();
         cookieval = cookieval.substring(1, cookieval.length() - 1);
         for (String portion : cookieval.split("&")) {
