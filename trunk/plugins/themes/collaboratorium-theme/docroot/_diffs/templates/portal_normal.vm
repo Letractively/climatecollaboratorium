@@ -80,6 +80,8 @@
     </script>
     #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
         <div id="earth"  class="e1"></div>
+    #else 
+        <div id="earth_pattern"></div>
     #end
   
     <div id="wrapper">
