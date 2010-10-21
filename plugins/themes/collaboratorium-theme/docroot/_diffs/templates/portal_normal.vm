@@ -63,7 +63,7 @@
         #set ($body_style_class = "other_pages")
     #end
 
-    $theme.runtime("fb_registration")
+   
 
 <body class="$body_style_class">
 
