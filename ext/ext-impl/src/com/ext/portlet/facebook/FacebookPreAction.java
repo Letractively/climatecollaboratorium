@@ -63,7 +63,6 @@ public class FacebookPreAction extends ServicePreAction {
     public void run(HttpServletRequest req, HttpServletResponse res)
             throws ActionException {
 
-        Map<String, Object> vmVariables = new HashMap<String, Object>();
         ThemeDisplay themeDisplay = (ThemeDisplay) req.getAttribute(WebKeys.THEME_DISPLAY);
         String fbSignIn = req.getParameter("fbEvent");
         if (fbSignIn != null) {
@@ -83,6 +82,7 @@ public class FacebookPreAction extends ServicePreAction {
                 JSONObject userinfo = JSONObject.fromObject(request("https://graph.facebook.com/me", new NameValuePair[]{new NameValuePair("access_token", splitCookie.get(ACCESS_TOKEN))}));
                 try {
                     User u = identifyUser(userinfo,PortalUtil.getCompany(req));
+                    signIn(req, res,u);
                 } catch (Exception e) {
                     throw new ActionException(e);
                 }
