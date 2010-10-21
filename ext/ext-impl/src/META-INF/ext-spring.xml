@@ -1194,4 +1194,22 @@
 	<bean id="com.ext.conditionaltext.service.persistence.ConditionalTextSettingUtil" class="com.ext.conditionaltext.service.persistence.ConditionalTextSettingUtil">
 		<property name="persistence" ref="com.ext.conditionaltext.service.persistence.ConditionalTextSettingPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingLocalService.impl" class="com.ext.portlet.facebook.service.impl.UserFacebookMappingLocalServiceImpl" />
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.facebook.service.UserFacebookMappingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingLocalServiceUtil" class="com.ext.portlet.facebook.service.UserFacebookMappingLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" class="com.ext.portlet.facebook.service.impl.UserFacebookMappingServiceImpl" />
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingServiceUtil" class="com.ext.portlet.facebook.service.UserFacebookMappingServiceUtil">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.persistence.UserFacebookMappingPersistence.impl" class="com.ext.portlet.facebook.service.persistence.UserFacebookMappingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.facebook.service.persistence.UserFacebookMappingUtil" class="com.ext.portlet.facebook.service.persistence.UserFacebookMappingUtil">
+		<property name="persistence" ref="com.ext.portlet.facebook.service.persistence.UserFacebookMappingPersistence.impl" />
+	</bean>
 </beans>

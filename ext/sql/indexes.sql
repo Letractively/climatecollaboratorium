@@ -646,6 +646,8 @@ create index IX_41AFC20C on TasksReview (proposalId, stage, completed, rejected)
 create index IX_36F512E6 on TasksReview (userId);
 create unique index IX_5C6BE4C7 on TasksReview (userId, proposalId);
 
+create index IX_54908C78 on UserFacebookMapping (facebookId);
+
 create index IX_524FEFCE on UserGroup (companyId);
 create unique index IX_23EAD0D on UserGroup (companyId, name);
 create index IX_69771487 on UserGroup (companyId, parentUserGroupId);

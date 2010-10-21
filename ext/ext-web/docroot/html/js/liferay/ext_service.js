@@ -42,3 +42,5 @@ Liferay.Service.register("Liferay.Service.inlinehelp", "com.ext.inlinehelp.servi
 Liferay.Service.register("Liferay.Service.Discussions", "com.ext.portlet.discussions.service");
 
 Liferay.Service.register("Liferay.Service.Contests", "com.ext.portlet.contests.service");
+
+Liferay.Service.register("Liferay.Service.facebook", "com.ext.portlet.facebook.service");

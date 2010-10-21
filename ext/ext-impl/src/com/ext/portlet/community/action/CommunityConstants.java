@@ -45,4 +45,5 @@ public class CommunityConstants {
     public static final String PLANFAN_ACTION = "planfan_action";
     public static final String PLANFAN_REMOVE = "planfan_remove";
     public static final String PLANFAN_ID = "planfan_id";
+    public static final String FB_ID = "facebook_id";
 }

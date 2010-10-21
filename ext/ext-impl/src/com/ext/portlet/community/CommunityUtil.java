@@ -42,7 +42,13 @@ public class CommunityUtil {
 		ExpandoColumnLocalServiceUtil.addColumn(
 				table.getTableId(),CommunityConstants.BIO,
 				ExpandoColumnConstants.STRING);
+		
+
+        ExpandoColumnLocalServiceUtil.addColumn(
+				table.getTableId(),CommunityConstants.FB_ID,
+				ExpandoColumnConstants.STRING);
 		}
+
 		catch (DuplicateColumnNameException dcne) {
 			_log.warn("Expando column already exists");
 			

@@ -11,6 +11,8 @@ import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserLocalServiceUtil;
 import org.climatecollaboratorium.test.BaseCollabTest;
 
 import java.util.List;
@@ -36,6 +38,13 @@ public class ContestServiceTest extends BaseCollabTest {
         }
         }
 
+    }
+
+    public void testUsers() throws SystemException, PortalException {
+        List<User> users = UserLocalServiceUtil.getUsers(0,Integer.MAX_VALUE);
+        for (User u:users) {
+            System.err.println(u.getScreenName()+" - "+u.getGroup());
+        }
     }
 
 }
