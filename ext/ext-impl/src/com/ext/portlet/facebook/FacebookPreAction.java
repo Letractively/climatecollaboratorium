@@ -380,11 +380,13 @@ public class FacebookPreAction extends ServicePreAction {
         HttpClient client = new HttpClient();
         GetMethod get = new GetMethod(url);
         get.setQueryString(params);
-
+        _log.info("Sending request to facebook "+get);
         get.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
         try {
             client.executeMethod(get);
-            return get.getResponseBodyAsString();
+            String result =  get.getResponseBodyAsString();
+            _log.info("Got response "+result);
+            return result;
 
         } catch (HttpException e) {
             throw new ActionException("Error connecting to server", e);
