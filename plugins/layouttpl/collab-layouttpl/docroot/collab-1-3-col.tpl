@@ -9,11 +9,7 @@
     
     
     
-<div id="content_wrap">
-    <div id="content_bdr"></div>
-    <div id="content_shade">
-        <div id="content_home">
-        
+<div id="content">
             <div  class="left lrContentPlaceholder lfr-column">&nbsp;
                 $processor.processColumn("column-3")
             </div>
@@ -55,8 +51,4 @@
                 </div>
                 $processor.processColumn("column-9")
             </div>
-        </div> <!-- /content_home -->
-    </div> <!-- /content shade -->
-    <div id="footshade"><div class="wht"></div></div>
-    
-</div> <!-- /#content_wrap -->
+</div> <!-- /#content -->
