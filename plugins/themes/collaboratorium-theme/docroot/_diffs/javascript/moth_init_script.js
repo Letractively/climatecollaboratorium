@@ -64,7 +64,7 @@ function insertParam(key, value)
     key = escape(key); value = escape(value);
 
     var kvp = document.location.search.substr(1).split('&');
-
+    alert("kvp before is "+kvp);
     var i=kvp.length; var x; while(i--)
     {
         x = kvp[i].split('=');
@@ -78,7 +78,7 @@ function insertParam(key, value)
     }
 
     if(i<0) {kvp[kvp.length] = [key,value].join('=');}
-    alert("kvp="+kvp);
+    alert("kvp after is "+kvp);
     //this will reload the page, it's likely better to store this until finished
     document.location.search = kvp.length==1?kvp.join('&'):kvp;
 }
