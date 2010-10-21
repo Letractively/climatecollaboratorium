@@ -80,7 +80,7 @@ function insertParam(key, value)
     if(i<0) {kvp[kvp.length] = [key,value].join('=');}
 
     //this will reload the page, it's likely better to store this until finished
-    document.location.search = kvp.join('&');
+    document.location.search = kvp.length==1?kvp.join('&'):kvp;
 }
 
 jQuery(document).ready(function() {
