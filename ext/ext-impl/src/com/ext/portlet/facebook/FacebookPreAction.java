@@ -118,12 +118,13 @@ public class FacebookPreAction extends ServicePreAction {
 
     public User identifyUser(JSONObject userinfo, Company company) throws SystemException, PortalException {
         String fbid = (String) userinfo.get("id");
+        _log.info("Retrieved "+userinfo.toString());
         User user =  UserFacebookMappingLocalServiceUtil.findUserByFacebookId(fbid);
         if (user==null) {
 
             //no previous login association via facebook, resolve via email
             String email = (String) userinfo.get("email");
-            if (email == null) throw new SystemException("Could not retreive email");
+            if (email == null) throw new SystemException("Could not retrieve email");
             user = UserLocalServiceUtil.getUserByEmailAddress(company.getCompanyId(),email);
         
             if (user !=null) {
