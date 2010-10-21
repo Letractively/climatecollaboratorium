@@ -1859,6 +1859,11 @@ create table TasksReview (
 	rejected BOOLEAN
 );
 
+create table UserFacebookMapping (
+	userId LONG not null primary key,
+	facebookId VARCHAR(75) null
+);
+
 create table UserHelpSetting (
 	userHelpSettingId LONG not null primary key,
 	userId LONG,

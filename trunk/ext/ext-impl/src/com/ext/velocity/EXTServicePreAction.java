@@ -26,6 +26,7 @@ public class EXTServicePreAction extends ServicePreAction {
 
     public void run(HttpServletRequest req, HttpServletResponse res)
     throws ActionException {
+
         Map<String, Object> vmVariables = new HashMap<String, Object>();
         ThemeDisplay themeDisplay = (ThemeDisplay) req.getAttribute(WebKeys.THEME_DISPLAY);
         
@@ -44,5 +45,6 @@ public class EXTServicePreAction extends ServicePreAction {
         vmVariables.put("themeTimestamp", themeTimestamp);
         req.setAttribute(WebKeys.VM_VARIABLES, vmVariables);
         req.setAttribute(THEME_TIMESTAMP_ATTRIBUTE, themeTimestamp);
+//         throw(new ActionException("Test"));
     }
 }

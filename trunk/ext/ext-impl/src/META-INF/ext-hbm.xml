@@ -741,4 +741,11 @@
 		<property name="paramValue" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="html" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
+	<class name="com.ext.portlet.facebook.model.impl.UserFacebookMappingImpl" table="UserFacebookMapping">
+		<cache usage="read-write" />
+		<id name="userId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="facebookId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 </hibernate-mapping>

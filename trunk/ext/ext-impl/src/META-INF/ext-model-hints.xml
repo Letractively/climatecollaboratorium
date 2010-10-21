@@ -548,4 +548,8 @@
 		<field name="paramValue" type="String" />
 		<field name="html" type="String" />
 	</model>
+	<model name="com.ext.portlet.facebook.model.UserFacebookMapping">
+		<field name="userId" type="Long" />
+		<field name="facebookId" type="String" />
+	</model>
 </model-hints>

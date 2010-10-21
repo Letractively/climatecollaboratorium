@@ -775,4 +775,16 @@
 		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
 		<property name="serviceInterface" value="com.ext.conditionaltext.service.ConditionalTextSettingService" />
 	</bean>
+	<bean name="/com_ext_portlet_facebook_service_spring_UserFacebookMappingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.facebook.service.UserFacebookMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_facebook_service_spring_UserFacebookMappingService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.facebook.service.UserFacebookMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_facebook_service_spring_UserFacebookMappingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.facebook.service.UserFacebookMappingService" />
+	</bean>
 </beans>
