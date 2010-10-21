@@ -64,7 +64,9 @@ function insertParam(key, value)
     key = escape(key); value = escape(value);
 
     var kvp = document.location.search.substr(1).split('&');
-    alert("kvp before is"+kvp+"length "+kvp.length);
+    if (kvp.length==1 && kvp[0].length==0) {
+      kvp=[];
+    }
     var i=kvp.length; var x; while(i--)
     {
         x = kvp[i].split('=');
