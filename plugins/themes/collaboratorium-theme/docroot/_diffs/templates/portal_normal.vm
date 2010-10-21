@@ -54,7 +54,7 @@
 <body class="$body_style_class">
 
     <div id="fb-root"></div>
-    <script>
+    <script type="text/javascript">
       window.fbAsyncInit = function() {
         FB.init({appId: '103678866365275', status: true, cookie: true,
                  xfbml: true});
@@ -69,7 +69,7 @@
       }());
     </script>
     #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
-        <div id="earth"></div>
+        <div id="earth"  class="e1"></div>
     #end
   
     <div id="wrapper">
@@ -89,6 +89,9 @@
         </div> <!-- /.contentContainer -->
         
 	</div> <!-- /#wrapper -->
+	
+<div id="foot_wrap">
+</div>
 	
 $theme.include($bottom_include)
 

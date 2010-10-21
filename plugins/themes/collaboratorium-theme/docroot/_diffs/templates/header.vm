@@ -7,10 +7,6 @@
 <div id="top-right">
     <div id="loginContainer">
         
-        <div id="loginStatus">
-            #parse ("$full_templates_path/dock.vm")
-        </div>
-        
         <ul id="login">
             #if ($themeDisplay.signedIn)
                 <li id="signin"><a href="/c/portal/logout" >Sign out</a></li>
@@ -21,17 +17,22 @@
             #end
             
         </ul>
-        <div class="clear">&nbsp;</div>
+        
+        <div id="loginStatus">
+            #parse ("$full_templates_path/dock.vm")
+        </div>
+        
     </div>
     <div id="menu">
-        <ul>
-            <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
-            <li><a href="/web/guest/feedback">Contact</a></li>
-        </ul>
         <form action="">
             <input id="searchinput" class="nofocus" name="searchinput" type="text" value="" />
             <input id="searchsubmit" type="button" name="submit" value="Go" />
         </form>
+        <ul>
+            <li><a href="/web/guest/feedback">Contact</a></li>
+            <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
+        </ul>
     </div> <!-- /menu -->
 </div> <!-- /top-right -->
+  
 <div class="clear">&nbsp;</div>
