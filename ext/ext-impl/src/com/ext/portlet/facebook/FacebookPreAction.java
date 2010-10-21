@@ -370,11 +370,12 @@ public class FacebookPreAction extends ServicePreAction {
     private static Map<String, String> parseCookie(String cookieval) {
         _log.info("Parse cookie "+cookieval);
         Map<String, String> result = new HashMap<String, String>();
-        cookieval = cookieval.substring(1, cookieval.length() - 1);
+
         for (String portion : cookieval.split("&")) {
             String[] tmp = portion.split("=");
             result.put(tmp[0], tmp[1]);
         }
+        _log.info("Split cookie "+result);
         return result;
     }
 
