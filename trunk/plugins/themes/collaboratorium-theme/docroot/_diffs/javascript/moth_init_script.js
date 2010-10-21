@@ -1,16 +1,4 @@
-jQuery(document).ready(function() {
-	jQuery('#boxwin').cycle({ 
-		fx:     'cover',
-		speed:  'slow', 
-		timeout: 0, 
-		pager:  '#boxnav', 
-			pagerAnchorBuilder: function(idx, slide) { 
-				return '#boxnav li:eq(' + idx + ') a'; 
-			}     
-		}
-	);
-	initSearchUpperBox();
-});
+
 
 
 function initSearchUpperBox() {
@@ -69,3 +57,22 @@ function deferUntilLoginTargeted(loc) {
     	window.location = loginregister;
     }
 }
+
+jQuery(document).ready(function() {
+	initSearchUpperBox();
+	if (jQuery('#boxwin').length > 0) {
+		jQuery('#boxwin').cycle({ 
+			fx:     'cover',
+			speed:  'slow', 
+			timeout: 0, 
+			pager:  '#boxnav', 
+				pagerAnchorBuilder: function(idx, slide) { 
+					return '#boxnav li:eq(' + idx + ') a'; 
+				}     
+			}
+		);
+	}
+	
+	var footer = jQuery("#footmenu").next();
+	footer.appendTo(jQuery("#foot_wrap"));
+});
