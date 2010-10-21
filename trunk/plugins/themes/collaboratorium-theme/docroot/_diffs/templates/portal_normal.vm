@@ -50,14 +50,24 @@
 #else
     #set ($body_style_class = "other_pages")
 #end
+
+    $theme.runtime("fb_registration")
     
 <body class="$body_style_class">
 
     <div id="fb-root"></div>
     <script type="text/javascript">
       window.fbAsyncInit = function() {
-        FB.init({appId: '103678866365275', status: true, cookie: true,
+        FB.init({appId: '$propsUtil.get("collaboratorium.facebook.appid")', status: true, cookie: true,
                  xfbml: true});
+
+        FB.Event.subscribe('auth.sessionChange', function(response) {
+    if (response.session) {
+      insertParam("fbEvent","true");
+    } else {
+      insertParam("fbEvent","false");
+    }
+
       };
       (function() {
         var e = document.createElement('script');
