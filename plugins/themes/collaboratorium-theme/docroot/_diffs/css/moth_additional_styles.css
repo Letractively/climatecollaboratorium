@@ -90,3 +90,8 @@ blockquote, ul, ol, dl {
 .loginregister #content_home
 .feedback #content_home
  { width:976px; background:#F9F9F8; line-height:22px; }
+ 
+ .contentContainer.home {
+    margin-top: 0px;
+    line-height: normal;
+ }
