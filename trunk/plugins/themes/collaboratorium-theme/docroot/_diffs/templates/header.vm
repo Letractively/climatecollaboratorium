@@ -29,8 +29,9 @@
             <input id="searchsubmit" type="button" name="submit" value="Go" />
         </form>
         <ul>
-            <li><a href="/web/guest/feedback">Contact</a></li>
             <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
+            <li><a href="/web/guest/feedback">Contact</a></li>
+            <li><a class="facebook-link" href="http://www.facebook.com/pages/Climate-CoLab/138039566244509">Find us on facebook!</a></li>
         </ul>
     </div> <!-- /menu -->
 </div> <!-- /top-right -->

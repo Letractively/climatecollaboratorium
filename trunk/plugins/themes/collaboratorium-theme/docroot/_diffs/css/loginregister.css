@@ -28,3 +28,16 @@
     padding: 10px 5px;
     margin-bottom: 10px;
 }
+
+.loginRegisterTable .boxTitle.secondary {
+    margin-top:15px;
+}
+
+.loginRegisterTable td.login table {
+    width:100%;
+}
+
+
+div.facebook-button {
+    text-align:center;
+}
