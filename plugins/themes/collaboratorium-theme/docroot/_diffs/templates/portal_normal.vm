@@ -90,7 +90,16 @@
                 '//connect.facebook.net/en_US/all.js';
         e.async = true;
         document.getElementById('fb-root').appendChild(e);
+        postFbInit();
     }());
+
+    function postFbInit() {
+        alert("running init");
+        jQuery("a.fb_button").click(function () {
+            alert("I freaking clicked you!");
+        }) ;
+    }
+
 </script>
     #set ($pageName = $page.getName($locale).toLowerCase().replaceAll("\s","").replaceAll("/", ""))
     #if ($page.parentLayoutId > 0) 
