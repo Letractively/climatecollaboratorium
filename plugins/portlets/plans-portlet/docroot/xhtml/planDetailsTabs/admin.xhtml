@@ -102,8 +102,8 @@
                                     </ice:selectOneRadio>
                                 </div>
                                 <div class="manageMembersActions">
-                                    <a class="checkBtn first" href="javascript:;" onclick="respondToMembershipRequest('manage_membership_request_#{membershipRequest.id}')"></a>
-                                    <a class="cancelBtn"  href="javascript:;" onclick="hideManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')"></a>
+                                    <button class="checkBtn first" onclick="respondToMembershipRequest('manage_membership_request_#{membershipRequest.id}')">OK</button>
+                                    <button class="cancelBtn"  onclick="hideManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')">Cancel</button>
                                 </div>
                             </div>
                             <ice:commandLink actionListener="#{membershipRequest.update}" styleClass="hidden membershipRequestResponseSubmitButton" />
