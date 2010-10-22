@@ -68,6 +68,8 @@
 <body class="$body_style_class">
 <div id="fb-root"></div>
 <script type="text/javascript">
+    var FB_LOGIN_RESULT = $facebookLoginResult;
+    alert(FB_LOGIN_RESULT);
     window.fbAsyncInit = function() {
         FB.init({appId: '$propsUtil.get("collaboratorium.facebook.appid")', status: true, cookie: true,
             xfbml: true});
