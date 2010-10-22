@@ -91,16 +91,36 @@
         document.getElementById('fb-root').appendChild(e);
     }());
 </script>
-    #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
-    <div id="earth" class="e1"></div>
+    #if ($page.parentLayoutId > 0) 
+        ## we have a parent page, find it's name
+        #foreach ($parentLayoutCand in $layouts) 
+            #if ($parentLayoutCand.layoutId == $page.parentLayoutId)
+                #set ($parentLayout = $parentLayoutCand)
+            #end
+        #end
+        #set ($parentPageName = $parentLayout.getName($locale).toLowerCase().replaceAll("\s",""))
+        #set ($subPage = true)
+        #set ($subPageClass = 'sub')
     #else 
-        <div id="earth_pattern"></div>
+        #set ($subPageClass = '')
+        #set ($parentPageName = '')
     #end
+
+    #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
+        <div id="earth" class="e1"></div>
+    #else 
+        <div id="earth_pattern" class="$subPageClass"></div>
+    #end
+    
+    #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn'))
+        <div id="bread_bg">&nbsp;</div>
+    #end
+    
+    
 
 <div id="wrapper">
     #parse ("$full_templates_path/header.vm")
-
-    <div class="$page.getName($locale).toLowerCase().replaceAll("\s","") contentContainer">
+    <div class="$parentPageName $page.getName($locale).toLowerCase().replaceAll("\s","") contentContainer $subPageClass">
 
         #if ($selectable)
 			 $theme.include($content_include)

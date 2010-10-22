@@ -52,6 +52,12 @@ blockquote, ul, ol, dl {
 
 .clear {
     clear: both;
+    height: 0px;
+}
+
+.clearfix {
+	height: 0px;
+    clear: both;
 }
 
 #loginContainer {
