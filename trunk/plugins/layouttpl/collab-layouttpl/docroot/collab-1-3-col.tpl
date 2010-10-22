@@ -2,11 +2,6 @@
     &nbsp;
     $processor.processColumn("column-1")
 </div>
-<div id="message" class="lrContentPlaceholder lfr-column">
-    &nbsp;
-    $processor.processColumn("column-2")
-</div>
-    
     
     
 <div id="content">
