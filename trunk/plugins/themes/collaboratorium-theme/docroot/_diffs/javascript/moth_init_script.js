@@ -83,7 +83,7 @@ function insertParam(key, value)
     if(i<0) {kvp[kvp.length] = [key,value].join('=');}
     alert("kvp after is "+kvp);
     //this will reload the page, it's likely better to store this until finished
-    document.location.search = kvp.length>1?kvp.join('&'):kvp;
+    document.location.search = kvp.length>1?kvp.join('&'):kvp[0];
 }
 
 jQuery(document).ready(function() {
