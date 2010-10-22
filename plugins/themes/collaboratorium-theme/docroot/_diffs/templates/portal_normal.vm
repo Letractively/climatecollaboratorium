@@ -91,7 +91,7 @@
         document.getElementById('fb-root').appendChild(e);
     }());
 </script>
-    #set (pageName = $page.getName($locale).toLowerCase().replaceAll("\s",""))
+    #set ($pageName = $page.getName($locale).toLowerCase().replaceAll("\s",""))
     
     #if ($page.parentLayoutId > 0) 
         ## we have a parent page, find it's name
