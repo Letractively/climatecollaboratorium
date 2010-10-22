@@ -72,26 +72,284 @@ blockquote, ul, ol, dl {
 
 
 .plans #content_shade,
+.proposals #content_shade,
 .community #content_shade,
 .news #content_shade,
 .discussion #content_shade,
 .members #content_shade,
 .resources #content_shade,
-.loginregister #content_shade
+.loginregister #content_shade,
 .feedback #content_shade
  { width:984px; background:url(../images/content_shade.png);}
  
- .plans #content_home,
+.plans #content_home,
+.proposals #content_home,
 .community #content_home,
 .news #content_home,
 .discussion #content_home,
 .members #content_home,
 .resources #content_home,
-.loginregister #content_home
+.loginregister #content_home,
 .feedback #content_home
  { width:976px; background:#F9F9F8; line-height:22px; }
+ 
+ .plans.contentContainer,
+.proposals.contentContainer,
+.community.contentContainer,
+.news.contentContainer,
+.discussion.contentContainer,
+.members.contentContainer,
+.resources.contentContainer,
+.loginregister.contentContainer,
+.feedback.contentContainer
+ { margin-top: 30px;}
  
  .contentContainer.home {
     margin-top: 0px;
     line-height: normal;
  }
+ 
+ h1 .page-actions span {
+    font-size: 11px;
+ }
+ 
+ 
+.proposals h2 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:20px; font-style:normal; font-weight:400; color: #58534A; margin:20px 0 10px 0;}
+.proposals h1 { font-family: "gloriola-display-thin-1","gloriola-display-thin-2"; font-size:27px; font-style:normal; font-weight:400; color: #58534a; margin:20px 0 10px 0;}
+
+.proposals h3 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:18px; font-style:normal; font-weight:400; color: #218aad; margin:10px 0 7px 0;}
+.proposals h4 { margin:7px 0 5px 0;}
+.proposals h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:15px; font-style:normal; font-weight:400; margin:0 0 7px 0;}
+
+
+
+
+/**** FROM OLD STYLE.CSS ****/
+
+
+.inlineHelp {
+    border: 1px solid #cfc8b1;
+    background: #ffffdb;
+    padding: 10px;
+    font-size:10pt;
+    color: #858572;
+    margin:10px 40px;
+
+}
+
+
+.basicTable, .taglib-search-iterator  {
+    border:0 none;
+    border-collapse:collapse;
+    width:100%;
+}
+
+
+
+.basicTable th, .taglib-search-iterator th {
+
+    padding:5px;
+    border-right: 1px solid #efefef;
+    vertical-align:bottom;
+    font-weight: normal;
+    font-size: 1.1em;
+    background: #E3DFD7;
+    text-align: center;
+
+}
+
+.basicTable th a {
+   color:#000000;
+
+}
+
+.basicTable th a:hover {
+   color:#000000;
+
+}
+
+.basicTable .iceDatTblRow td, .taglib-search-iterator .results-row td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+    text-align: center;
+}
+
+
+
+
+.basicTable .odd td, .taglib-search-iterator .results-row td {
+    background: #EDEBEA;
+}
+
+.basicTable .even td,  .taglib-search-iterator .results-row.alt td {
+    background: #dedcdb;
+}
+.basicTable th table {
+    margin: auto;
+}
+
+.basicTable th .iceOutTxt {
+    padding: 0;
+}
+
+
+input[type="submit"].prominantButton-dis {
+    background: #E3DFD7;
+    background-image:none;
+    color: #c7b9b9;
+    margin: 5px 0;
+    font-size: 1.5em;
+    border:none;
+
+}
+
+input[type="submit"].prominantButton-dis:hover {
+    cursor:pointer;
+}
+
+input[type="submit"].prominantButton {
+    background: #2c9cbb;
+    background-image:none;
+    font-weight: 600;
+    font-family: "gloriola-web-1","gloriola-web-2";
+    color: #FFF;
+    margin: 5px 0;
+    font-size: 1.5em;
+    border:none;
+}
+input[type="submit"].prominantButton:hover {
+     background: #1f6f85;
+    background-image:none;
+
+    border:none;
+}
+
+div.prominantButton {
+     padding: 5px 10px;
+    font-weight: 600;
+    font-family: "gloriola-web-1","gloriola-web-2";
+    font-size:18px;
+    text-align:center;
+    background: #2c9cbb;
+    background-image:none;
+    color: #FFF;
+    margin: 5px 0;
+    border:none;
+}
+
+div.prominantButton:hover {
+    background-image:none;
+     background: #1f6f85;
+    border:none;
+
+
+}
+
+/**
+Contests page
+**/
+
+
+.web-content h1 {
+    margin:20px 0;
+}
+
+.web-content {
+    margin-left:60px;
+margin-right:60px;
+
+}
+
+
+.web-content  {
+    font-size:1.2em;
+}
+
+.web-content .info-elt {
+    margin-bottom:10px;
+margin-top:15px;
+padding:1px 30px 5px;
+    background:#FFF;
+}
+
+.web-content .info-elt p {
+    margin:10px;
+}
+
+.web-content .info-breakout-question {
+    margin:0 auto;
+    text-align:center;
+    margin-top:15px;
+    margin-bottom:15px;
+
+    
+}
+
+.web-content .info-breakout-question h3 {
+    font-size:1.4em;
+
+    font-style:italic;
+}
+
+.web-content ul li {
+   margin-left:2.0em; 
+}
+
+.about .centered {
+    width:500px;
+    margin: 0 auto;
+}
+
+.about .main-question {
+    color:#E65608;
+    font-family:"gloriola-web-1","gloriola-web-2";
+    font-size:24px;
+    font-style:normal;
+    font-weight:400;
+    margin:20px 0 10px;
+}
+
+.about .main-question h1 {
+    font-size:32px;
+}
+
+.about .main-answer h3 {
+    color:#E65608;
+   font-weight:600;
+    margin-top:25px
+}
+
+.about .info-title h3 {
+    font-size:24px;
+}
+
+.about .response h2 {
+    margin-top:35px;
+}
+
+.about .response {
+    padding-left:40px;
+}
+
+/** facebook stuff on home page **/
+
+.fan_box .full_widget .connect_top.clearfix {
+    float:left;
+    background-color: transparent;
+}
+
+.fan_box div.full_widget {
+    border:none;
+    background-color:#F5F5F5;
+}
+
+.fan_box div.full_widget .connections {
+   border:none;
+    min-height:0;
+}
+
+#message .fb_iframe_widget span {
+    background-color:transparent;
+    padding:0;
+    height:auto;
+}

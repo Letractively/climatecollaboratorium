@@ -53,6 +53,6 @@ div.about.subtext.themed-content {
     top:-10px;
 }
 
-.resources #content {
+.resources #content .lfr-portlet-column {
     padding: 15px;
 }
