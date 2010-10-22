@@ -71,4 +71,16 @@
         <tag-name>debatesDetailsSupport</tag-name>
         <handler-class>org.climatecollaboratorium.facelets.debates.DebatesDetailsSupportTag</handler-class>
     </tag>
+    <tag>
+        <tag-name>planLink</tag-name>
+        <source>xhtml/tags/planLink/planLink.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>contestLink</tag-name>
+        <source>xhtml/tags/contestLink/contestLink.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>contestsPageLink</tag-name>
+        <source>xhtml/tags/contestsPageLink/contestsPageLink.xhtml</source>
+    </tag>
 </facelet-taglib>
