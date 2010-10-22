@@ -79,7 +79,8 @@ blockquote, ul, ol, dl {
 .members #content_shade,
 .resources #content_shade,
 .loginregister #content_shade,
-.feedback #content_shade
+.feedback #content_shade,
+.loginregistertocolab #content_shade
  { width:984px; background:url(../images/content_shade.png);}
  
 .plans #content_home,
@@ -90,7 +91,8 @@ blockquote, ul, ol, dl {
 .members #content_home,
 .resources #content_home,
 .loginregister #content_home,
-.feedback #content_home
+.feedback #content_home,
+.loginregistertocolab #content_home
  { width:976px; background:#F9F9F8; line-height:22px; }
  
  .plans.contentContainer,
@@ -101,7 +103,8 @@ blockquote, ul, ol, dl {
 .members.contentContainer,
 .resources.contentContainer,
 .loginregister.contentContainer,
-.feedback.contentContainer
+.feedback.contentContainer,
+.loginregistertocolab.contentContainer
  { margin-top: 30px;}
  
  .contentContainer.home {
@@ -353,3 +356,4 @@ padding:1px 30px 5px;
     padding:0;
     height:auto;
 }
+
