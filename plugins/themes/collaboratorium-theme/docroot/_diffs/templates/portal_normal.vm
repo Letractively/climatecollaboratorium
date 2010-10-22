@@ -111,7 +111,7 @@
     #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
         <div id="earth" class="e1"></div>
     #else 
-        #if ($pageName != 'resources') 
+        #if ($pageName == 'resources') 
             <div id="earth_pattern"></div>
         #else 
             <div id="earth_pattern" class="$subPageClass"></div>
