@@ -9,6 +9,7 @@ import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.navigation.NavigationEvent;
+import org.climatecollaboratorium.plans.exceptions.BeanInitializationException;
 
 import com.ext.portlet.contests.NoSuchContestPhaseException;
 import com.liferay.portal.PortalException;
@@ -33,18 +34,30 @@ public class NavigationBean {
     
     private static Log _log = LogFactoryUtil.getLog(NavigationBean.class);
     
-    public NavigationBean() throws SystemException, PortalException {
-        contestBean = new ContestBean();
-        plansIndexBean = new PlansIndexBean(contestBean.getCurrentPhase());
-        planBean = new PlanBean();
-        plansPermissionsBean = new PlansPermissionsBean();
-        issuesBean = new IssuesBean();
-        createPlanBean = new CreatePlanBean(plansIndexBean);
+    public NavigationBean() throws SystemException, PortalException, BeanInitializationException {
+
+        Map<String, String> params = Helper.getUrlParametersMap();
+        try {
+            plansPermissionsBean = new PlansPermissionsBean();
+            contestBean = new ContestBean(params);
+            plansIndexBean = new PlansIndexBean(contestBean.getCurrentPhase());
+            
+            planBean = new PlanBean(params, plansPermissionsBean);
+            issuesBean = new IssuesBean();
+            createPlanBean = new CreatePlanBean(plansIndexBean);
+            
+            contestsBean = new ContestsBean();
+            
+            
+            planBean.setPermissions(plansPermissionsBean);
+            planBean.setPlansIndexBean(plansIndexBean);
+        }
+        catch (BeanInitializationException e) {
+            _log.error("Exception thrown when initializing plans beans", e);
+            throw e;
+        }
+        pageType = PlanPageType.getPageTypeForParams(params);
         
-        contestsBean = new ContestsBean();
-        
-        planBean.setPermissions(plansPermissionsBean);
-        planBean.setPlansIndexBean(plansIndexBean);
         
     }
     
@@ -72,16 +85,24 @@ public class NavigationBean {
 
             @Override
             public void onEvent(NavigationEvent event) {
+                pageType = PlanPageType.getPageTypeForNavEvent(event, pageType);
                 // init all beans and update plan type
-                pageType = PlanPageType.getPageTypeForNavEvent(event);
                 try {
-                    contestBean.init(event);
-                    
-                    plansIndexBean.init(contestBean.getCurrentPhase(), event);
-                    planBean.init(event);
-                    
+                    switch (pageType) {
+                        case PLAN_DETAILS:
+                            planBean.init(event);
+                            break;
+                        case CONTEST_PROPOSALS:
+                        case CONTEST_MODEL:
+                            contestBean.init(event);
+                            plansIndexBean.init(contestBean.getCurrentPhase(), event);
+                            break;
+                        case CONTEST_ISSUES:
+                            contestBean.init(event);
+                            plansIndexBean.init(contestBean.getCurrentPhase(), event);
+                            break;
+                    }
                     issuesBean.init(event);
-                    
                     createPlanBean.init(event);
                 } catch (NoSuchContestPhaseException e) {
                     _log.error("Can't init plan related beans", e);

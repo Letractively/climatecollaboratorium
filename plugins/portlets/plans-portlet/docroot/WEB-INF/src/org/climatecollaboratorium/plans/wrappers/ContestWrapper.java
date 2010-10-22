@@ -265,4 +265,7 @@ public class ContestWrapper {
         plansIndex.setEventBus(eventBus);
     }
     
+    public Long getContestId() {
+        return contest.getContestPK();
+    }
 }

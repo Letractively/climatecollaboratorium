@@ -57,15 +57,10 @@
                             </td>
                             <td class="contestNavItems">
 
-                                <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:issues"
-                                   class="#{contest.subView == 'ISSUES' ? 'active' : ''}">
-                                    <div class="prominantButton">Debate the issues</div>
-                                </a>
 
-                                <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:model"
-                                   class="#{contest.subView == 'MODEL' ? 'active' : ''}">
-                                    <div class="prominantButton">Run the model</div>
-                                </a>
+                                <collab:contestLink contestId="#{contest.contestId}" hashString="plans=subview:issues" text="&lt;div class='prominantButton' &gt;Debate the issues&lt;/div&gt;" />
+                    
+                                <collab:contestLink contestId="#{contest.contestId}" hashString="plans=subview:model" text="&lt;div class='prominantButton' &gt;Run the model&lt;/div&gt;" />                            
                             </td>
                         </tr>
                     </table>

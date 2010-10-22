@@ -9,7 +9,7 @@
 
     <ui:composition template="../templates/singlePageWithBreadcrumb.xhtml">
         <ui:define name="plans_breadcrumb">
-            <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:issues">&amp;lt;&amp;lt; Back to contest</a>
+            <collab:contestLink contestId="#{contest.contestId}" text="&amp;lt;&amp;lt; Back to contest" />
         </ui:define>
         <ui:define name="plans_content">
             <div class="debateDetail">

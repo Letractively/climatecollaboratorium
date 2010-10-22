@@ -6,6 +6,7 @@
 		<portlet-name>plansportlet</portlet-name>
 		<icon>/icon.png</icon>
 		<indexer-class>com.ext.portlet.plans.util.Indexer</indexer-class>
+		<friendly-url-mapper-class>org.climatecollaboratorium.plans.utils.PlansFriendlyURLMapper</friendly-url-mapper-class>
 		<social-activity-interpreter-class>org.climatecollaboratorium.plans.activity.PlansActivityFeedEntry</social-activity-interpreter-class>
 		<instanceable>true</instanceable>
 		<!--<header-portlet-css>/xmlhttp/css/xp/xp-portlet.css</header-portlet-css>-->
