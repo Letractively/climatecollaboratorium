@@ -6,16 +6,19 @@
 
 package com.ext.portlet.facebook;
 
-import com.ext.portlet.community.action.CommunityConstants;
 import com.ext.portlet.facebook.model.UserFacebookMapping;
 import com.ext.portlet.facebook.service.UserFacebookMappingLocalServiceUtil;
+import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.events.ServicePreAction;
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.*;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
@@ -23,9 +26,6 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.struts.LastPath;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.*;
-import com.liferay.portal.util.PropsUtil;
-import com.liferay.portal.util.WebKeys;
-import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.util.Encryptor;
 import com.liferay.util.EncryptorException;
 import com.liferay.util.PwdGenerator;
@@ -70,57 +70,57 @@ public class FacebookPreAction extends ServicePreAction {
             throws ActionException {
 
 
-
         ThemeDisplay themeDisplay = (ThemeDisplay) req.getAttribute(WebKeys.THEME_DISPLAY);
         Map<String, Object> vmVariables = (Map<String, Object>) req.getAttribute(WebKeys.VM_VARIABLES);
-        if (vmVariables==null) {
-            vmVariables = new HashMap<String,Object>();
-            req.setAttribute(WebKeys.VM_VARIABLES,vmVariables);
+        if (vmVariables == null) {
+            vmVariables = new HashMap<String, Object>();
+            req.setAttribute(WebKeys.VM_VARIABLES, vmVariables);
         }
-        vmVariables.put(FACEBOOK_RESULT,RESULT_SUCCESS);
+        vmVariables.put(FACEBOOK_RESULT, RESULT_SUCCESS);
 
         String fbSignIn = req.getParameter("fbEvent");
+
         if (fbSignIn != null) {
-                if ("true".equals(fbSignIn) && !themeDisplay.isSignedIn())
-            {
-            String cookiename = COOKIE_DESC + PropsUtil.get("collaboratorium.facebook.appid");
-            Cookie fbcookie = null;
-            for (Cookie c : req.getCookies()) {
-                 _log.info("Looking at cookie "+c.getName());
-                if (cookiename.equals(c.getName())) {
-                    fbcookie = c;
-                    break;
+            if ("true".equals(fbSignIn) && !themeDisplay.isSignedIn()) {
+                String cookiename = COOKIE_DESC + PropsUtil.get("collaboratorium.facebook.appid");
+                Cookie fbcookie = null;
+                for (Cookie c : req.getCookies()) {
+                    _log.info("Looking at cookie " + c.getName());
+                    if (cookiename.equals(c.getName())) {
+                        fbcookie = c;
+                        break;
+                    }
                 }
-            }
-            if (fbcookie != null) {
-                Map<String, String> splitCookie = parseCookie(fbcookie.getValue());
-                JSONObject userinfo = JSONObject.fromObject(request("https://graph.facebook.com/me", new NameValuePair[]{new NameValuePair("access_token", splitCookie.get(ACCESS_TOKEN))}));
-                try {
-                    User u = identifyUser(userinfo,PortalUtil.getCompany(req),vmVariables);
-                    signIn(req, res,u);
-                } catch (Exception e) {
-                    vmVariables.put(FACEBOOK_RESULT,RESULT_SYSTEM_ERR);
+                if (fbcookie != null) {
+                    Map<String, String> splitCookie = parseCookie(fbcookie.getValue());
+                    JSONObject userinfo = JSONObject.fromObject(request("https://graph.facebook.com/me", new NameValuePair[]{new NameValuePair("access_token", splitCookie.get(ACCESS_TOKEN))}));
+                    try {
+                        User u = identifyUser(userinfo, PortalUtil.getCompany(req), vmVariables);
+                        if (u == null) return;
+                        else {
+                            signIn(req, res, u);
+                        }
+                    } catch (Exception e) {
+                        vmVariables.put(FACEBOOK_RESULT, RESULT_SYSTEM_ERR);
+                        return;
+                    }
+
+                } else {
+                    vmVariables.put(FACEBOOK_RESULT, RESULT_COOKIE_ERR);
                     return;
                 }
 
-            } else {
-                vmVariables.put(FACEBOOK_RESULT,RESULT_COOKIE_ERR);
-                return;
-            }
-
-            redirect(req,res,themeDisplay);   
-        } else if ("false".equals(fbSignIn)  && !themeDisplay.isSignedIn()) {
-               _log.info("Could sign out");
+                redirect(req, res, themeDisplay);
+            } else if ("false".equals(fbSignIn) && !themeDisplay.isSignedIn()) {
+                _log.info("Could sign out");
             }
         }
-
-
 
 
         if (DEBUG && req.getParameter("debugLogin") != null) {
             String email = req.getParameter("debugLogin");
             try {
-                signIn(req, res, UserLocalServiceUtil.getUserByEmailAddress(PortalUtil.getCompany(req).getCompanyId(),email));
+                signIn(req, res, UserLocalServiceUtil.getUserByEmailAddress(PortalUtil.getCompany(req).getCompanyId(), email));
             } catch (SystemException e) {
                 throw new ActionException(e);
             } catch (PortalException e) {
@@ -128,44 +128,48 @@ public class FacebookPreAction extends ServicePreAction {
             } catch (EncryptorException e) {
                 throw new ActionException(e);
             }
-            redirect(req,res,themeDisplay);
+            redirect(req, res, themeDisplay);
 
 
         }
 
     }
 
-    public User identifyUser(JSONObject userinfo, Company company,Map<String,Object> vmVariables) throws SystemException, PortalException {
+    public User identifyUser(JSONObject userinfo, Company company, Map<String, Object> vmVariables) throws SystemException, PortalException {
         String fbid = (String) userinfo.get("id");
-        _log.info("Retrieved "+userinfo.toString());
-        User user =  UserFacebookMappingLocalServiceUtil.findUserByFacebookId(fbid);
-        if (user==null) {
+        _log.info("Retrieved " + userinfo.toString());
+        User user = UserFacebookMappingLocalServiceUtil.findUserByFacebookId(fbid);
+        if (user == null) {
 
             //no previous login association via facebook, resolve via email
             String email = (String) userinfo.get("email");
-            if (email == null) {
-                vmVariables.put(FACEBOOK_RESULT,RESULT_NO_EMAIL);
+            if (email == null || email.trim().length() == 0) {
+                vmVariables.put(FACEBOOK_RESULT, RESULT_NO_EMAIL);
                 return null;
             }
-            user = UserLocalServiceUtil.getUserByEmailAddress(company.getCompanyId(),email);
-        
-            if (user !=null) {
-               createFacebookMapping(user,fbid);
+
+            try {
+                user = UserLocalServiceUtil.getUserByEmailAddress(company.getCompanyId(), email);
+            } catch (NoSuchUserException e) {
+                //don't worry about it
+            }
+            if (user != null) {
+                createFacebookMapping(user, fbid);
             }
         }
 
-        if (user==null) {
+        if (user == null) {
             //user is null, need to register
-            user =  registerUser(userinfo,company);
-            createFacebookMapping(user,fbid);
+            user = registerUser(userinfo, company);
+            createFacebookMapping(user, fbid);
             return user;
-        } else return updateUser(user,userinfo);
+        } else return updateUser(user, userinfo);
     }
 
     public void createFacebookMapping(User user, String fbid) throws SystemException {
         UserFacebookMapping mapping = UserFacebookMappingLocalServiceUtil.createUserFacebookMapping(user.getUserId());
-                mapping.setFacebookId(fbid);
-                UserFacebookMappingLocalServiceUtil.addUserFacebookMapping(mapping);
+        mapping.setFacebookId(fbid);
+        UserFacebookMappingLocalServiceUtil.addUserFacebookMapping(mapping);
     }
 
     public User updateUser(User user, JSONObject userinfo) throws SystemException {
@@ -173,16 +177,16 @@ public class FacebookPreAction extends ServicePreAction {
         String lastName = (String) userinfo.get("last_name");
         String screenName = (String) userinfo.get("username");
         String emailAddress = (String) userinfo.get("email");
-        String localeString = (String)userinfo.get("locale");
-        Locale locale = localeString==null?Locale.ENGLISH:LocaleUtil.fromLanguageId(localeString);
+        String localeString = (String) userinfo.get("locale");
+        Locale locale = localeString == null ? Locale.ENGLISH : LocaleUtil.fromLanguageId(localeString);
         if (!user.getFirstName().equals(firstName)) {
             user.setFirstName(firstName);
         }
         if (!user.getLastName().equals(lastName)) {
             user.setLastName(lastName);
         }
-        if (screenName!=null && !user.getScreenName().equals(screenName)) {
-          user.setScreenName(screenName);
+        if (screenName != null && !user.getScreenName().equals(screenName)) {
+            user.setScreenName(screenName);
         }
         UserLocalServiceUtil.updateUser(user);
         return user;
@@ -191,61 +195,58 @@ public class FacebookPreAction extends ServicePreAction {
 
     public User registerUser(JSONObject userinfo, Company company) throws SystemException, PortalException {
         long creatorUserId = 0;
-		boolean autoPassword = false;
-		String password1 = PwdGenerator.getPassword();
-		String password2 = password1;
-		String firstName = (String) userinfo.get("first_name");
+        boolean autoPassword = false;
+        String password1 = PwdGenerator.getPassword();
+        String password2 = password1;
+        String firstName = (String) userinfo.get("first_name");
         String lastName = (String) userinfo.get("last_name");
         String screenName = (String) userinfo.get("username");
         String emailAddress = (String) userinfo.get("email");
-        String localeString = (String)userinfo.get("locale");
-        Locale locale = localeString==null?Locale.ENGLISH:LocaleUtil.fromLanguageId(localeString);
-        boolean autoScreenName = (screenName ==null);
-		String openId = StringPool.BLANK;
-		String middleName = StringPool.BLANK;
-		int prefixId = 0;
-		int suffixId = 0;
-		boolean male = !"female".equals(userinfo.get("gender"));
+        String localeString = (String) userinfo.get("locale");
+        Locale locale = localeString == null ? Locale.ENGLISH : LocaleUtil.fromLanguageId(localeString);
+        boolean autoScreenName = (screenName == null);
+        String openId = StringPool.BLANK;
+        String middleName = StringPool.BLANK;
+        int prefixId = 0;
+        int suffixId = 0;
+        boolean male = !"female".equals(userinfo.get("gender"));
 
-        
-		int birthdayMonth = Calendar.JANUARY;
-		int birthdayDay = 1;
-		int birthdayYear = 1970;
-		String jobTitle = StringPool.BLANK;
-		long[] groupIds = null;
-		long[] organizationIds = null;
-		long[] roleIds = null;
-		long[] userGroupIds = null;
-		boolean sendEmail = false;
-		ServiceContext serviceContext = new ServiceContext();
 
-		return UserLocalServiceUtil.addUser(
-			creatorUserId, company.getCompanyId(), autoPassword, password1, password2,
-			autoScreenName, screenName, emailAddress, openId, locale, firstName,
-			middleName, lastName, prefixId, suffixId, male, birthdayMonth,
-			birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds,
-			roleIds, userGroupIds, sendEmail, serviceContext);
+        int birthdayMonth = Calendar.JANUARY;
+        int birthdayDay = 1;
+        int birthdayYear = 1970;
+        String jobTitle = StringPool.BLANK;
+        long[] groupIds = null;
+        long[] organizationIds = null;
+        long[] roleIds = null;
+        long[] userGroupIds = null;
+        boolean sendEmail = false;
+        ServiceContext serviceContext = new ServiceContext();
+
+        return UserLocalServiceUtil.addUser(
+                creatorUserId, company.getCompanyId(), autoPassword, password1, password2,
+                autoScreenName, screenName, emailAddress, openId, locale, firstName,
+                middleName, lastName, prefixId, suffixId, male, birthdayMonth,
+                birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds,
+                roleIds, userGroupIds, sendEmail, serviceContext);
     }
-
 
 
     protected void redirect(HttpServletRequest req, HttpServletResponse res, ThemeDisplay themeDisplay) throws ActionException {
-          String redirect = ParamUtil.getString(req, "redirect");
-            try {
-                if (Validator.isNotNull(redirect)) {
+        String redirect = ParamUtil.getString(req, "redirect");
+        try {
+            if (Validator.isNotNull(redirect)) {
 
-                    res.sendRedirect(redirect);
+                res.sendRedirect(redirect);
 
-                } else {
-                    res.sendRedirect(themeDisplay.getURLHome());
-                }
-            } catch (IOException e) {
-                _log.error("Could not redirect", e);
-                throw new ActionException(e);
+            } else {
+                res.sendRedirect(themeDisplay.getURLHome());
             }
+        } catch (IOException e) {
+            _log.error("Could not redirect", e);
+            throw new ActionException(e);
+        }
     }
-
-
 
 
     public void signIn(HttpServletRequest request, HttpServletResponse response, User user) throws SystemException, PortalException, EncryptorException {
@@ -385,14 +386,14 @@ public class FacebookPreAction extends ServicePreAction {
 
 
     private static Map<String, String> parseCookie(String cookieval) {
-        _log.info("Parse cookie "+cookieval);
+        _log.info("Parse cookie " + cookieval);
         Map<String, String> result = new HashMap<String, String>();
 
         for (String portion : cookieval.split("&")) {
             String[] tmp = portion.split("=");
             result.put(tmp[0], tmp[1]);
         }
-        _log.info("Split cookie "+result);
+        _log.info("Split cookie " + result);
         return result;
     }
 
@@ -401,12 +402,12 @@ public class FacebookPreAction extends ServicePreAction {
         HttpClient client = new HttpClient();
         GetMethod get = new GetMethod(url);
         get.setQueryString(params);
-        _log.info("Sending request to facebook "+get);
+        _log.info("Sending request to facebook " + get);
         get.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
         try {
             client.executeMethod(get);
-            String result =  get.getResponseBodyAsString();
-            _log.info("Got response "+result);
+            String result = get.getResponseBodyAsString();
+            _log.info("Got response " + result);
             return result;
 
         } catch (HttpException e) {
