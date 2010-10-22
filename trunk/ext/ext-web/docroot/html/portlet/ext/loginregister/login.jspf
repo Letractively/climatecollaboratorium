@@ -111,7 +111,7 @@
 </form>
 <h3 class="boxTitle secondary">Have a facebook account?</h3>
 <div class="facebook-button">
-<fb:login-button perms="email"></fb:login-button>
+<fb:login-button></fb:login-button>
 </div>
 
 <script type="text/javascript">
