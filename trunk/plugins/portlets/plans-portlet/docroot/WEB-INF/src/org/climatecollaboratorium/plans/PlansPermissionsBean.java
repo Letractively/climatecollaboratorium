@@ -22,9 +22,9 @@ public class PlansPermissionsBean {
 
     public PlansPermissionsBean() throws SystemException, PortalException {
         permissionChecker = Helper.getPermissionChecker();
-        groupId = Helper.groupId;
-        primKey = Helper.primKey;
-        portletId = Helper.portletId;
+        groupId = Helper.getGroupId();
+        primKey = Helper.getPrimKey();
+        portletId = Helper.getPortletId();
         if (Helper.isUserLoggedIn()) {
             userId = Helper.getLiferayUser().getUserId();
         }

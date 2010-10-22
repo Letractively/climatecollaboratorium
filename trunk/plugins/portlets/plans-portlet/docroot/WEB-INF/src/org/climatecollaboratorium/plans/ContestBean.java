@@ -6,6 +6,7 @@ import java.util.Map;
 
 import mit.simulation.climate.client.Simulation;
 import org.climatecollaboratorium.navigation.NavigationEvent;
+import org.climatecollaboratorium.plans.exceptions.BeanInitializationException;
 import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
 import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
 
@@ -37,9 +38,21 @@ public class ContestBean {
 
     private final static Log _log = LogFactoryUtil.getLog(ContestBean.class);
     
-    public ContestBean() throws SystemException, PortalException {
-        contest = new ContestWrapper(ContestLocalServiceUtil.getContestByActiveFlag(activeContest));
-        activeContest = true;
+    public ContestBean(Map<String, String> params) throws SystemException, PortalException, BeanInitializationException {
+        Long contestId = null;
+        if (params.containsKey("contestId")) {
+            try {
+                contestId = Long.parseLong(params.get("contestId"));
+                contest = new ContestWrapper(ContestLocalServiceUtil.getContest(contestId));
+            }
+            catch (NumberFormatException e) {
+                throw new BeanInitializationException("Can't parse contest id", e);
+            }
+        }
+        else {
+            contest = new ContestWrapper(ContestLocalServiceUtil.getContestByActiveFlag(true));
+        }
+        activeContest = contest.isContestActive();
         initModels();
     }
 
@@ -55,18 +68,6 @@ public class ContestBean {
             if (tmp != subView) {
                 subView = tmp;
             }
-        }
-        
-        String contestsStr = params.get(CONTESTS_PARAM);
-        // we use past contests only when contests parameter of the navigation event is set to past
-        boolean curActiveContests = contestsStr != null && contestsStr.equals(PAST_CONTESTS_PARAM_VAL) ? false : true;
-        
-        if (this.activeContest != curActiveContests) {
-            this.activeContest = curActiveContests;
-            subView = ContestSubView.PROPOSALS;
-            
-            contest = new ContestWrapper(ContestLocalServiceUtil.getContestByActiveFlag(activeContest));
-            initModels();
         }
     }
     
@@ -113,6 +114,10 @@ public class ContestBean {
 
     public void setModelId(Long id) {
         this.modelId = id;
+    }
+    
+    public Long getContestId() {
+        return contest.getContest().getContestPK();
     }
 
 }
