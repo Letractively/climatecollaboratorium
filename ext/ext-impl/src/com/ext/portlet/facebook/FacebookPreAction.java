@@ -57,13 +57,28 @@ public class FacebookPreAction extends ServicePreAction {
     private static String COOKIE_DESC = "fbs_";
     private static String ACCESS_TOKEN = "access_token";
     private static boolean DEBUG = false;
+    private static String FACEBOOK_RESULT = "facebookLoginResult";
+
+    private static String RESULT_SUCCESS = "success";
+    private static String RESULT_SYSTEM_ERR = "systemerror";
+    private static String RESULT_COOKIE_ERR = "cookieerror";
+    private static String RESULT_NO_EMAIL = "email";
 
     private static Log _log = LogFactoryUtil.getLog(FacebookPreAction.class);
 
     public void run(HttpServletRequest req, HttpServletResponse res)
             throws ActionException {
 
+
+
         ThemeDisplay themeDisplay = (ThemeDisplay) req.getAttribute(WebKeys.THEME_DISPLAY);
+        Map<String, Object> vmVariables = (Map<String, Object>) req.getAttribute(WebKeys.VM_VARIABLES);
+        if (vmVariables==null) {
+            vmVariables = new HashMap<String,Object>();
+            req.setAttribute(WebKeys.VM_VARIABLES,vmVariables);
+        }
+        vmVariables.put(FACEBOOK_RESULT,RESULT_SUCCESS);
+
         String fbSignIn = req.getParameter("fbEvent");
         if (fbSignIn != null) {
                 if ("true".equals(fbSignIn) && !themeDisplay.isSignedIn())
@@ -81,14 +96,16 @@ public class FacebookPreAction extends ServicePreAction {
                 Map<String, String> splitCookie = parseCookie(fbcookie.getValue());
                 JSONObject userinfo = JSONObject.fromObject(request("https://graph.facebook.com/me", new NameValuePair[]{new NameValuePair("access_token", splitCookie.get(ACCESS_TOKEN))}));
                 try {
-                    User u = identifyUser(userinfo,PortalUtil.getCompany(req));
+                    User u = identifyUser(userinfo,PortalUtil.getCompany(req),vmVariables);
                     signIn(req, res,u);
                 } catch (Exception e) {
-                    throw new ActionException(e);
+                    vmVariables.put(FACEBOOK_RESULT,RESULT_SYSTEM_ERR);
+                    return;
                 }
 
             } else {
-                throw new ActionException("Could not identify cookie: "+cookiename);
+                vmVariables.put(FACEBOOK_RESULT,RESULT_COOKIE_ERR);
+                return;
             }
 
             redirect(req,res,themeDisplay);   
@@ -118,7 +135,7 @@ public class FacebookPreAction extends ServicePreAction {
 
     }
 
-    public User identifyUser(JSONObject userinfo, Company company) throws SystemException, PortalException {
+    public User identifyUser(JSONObject userinfo, Company company,Map<String,Object> vmVariables) throws SystemException, PortalException {
         String fbid = (String) userinfo.get("id");
         _log.info("Retrieved "+userinfo.toString());
         User user =  UserFacebookMappingLocalServiceUtil.findUserByFacebookId(fbid);
@@ -126,7 +143,10 @@ public class FacebookPreAction extends ServicePreAction {
 
             //no previous login association via facebook, resolve via email
             String email = (String) userinfo.get("email");
-            if (email == null) throw new SystemException("Could not retrieve email");
+            if (email == null) {
+                vmVariables.put(FACEBOOK_RESULT,RESULT_NO_EMAIL);
+                return null;
+            }
             user = UserLocalServiceUtil.getUserByEmailAddress(company.getCompanyId(),email);
         
             if (user !=null) {
@@ -225,10 +245,7 @@ public class FacebookPreAction extends ServicePreAction {
             }
     }
 
-    public void signInOrRegister(JSONObject userinfo) {
 
-
-    }
 
 
     public void signIn(HttpServletRequest request, HttpServletResponse response, User user) throws SystemException, PortalException, EncryptorException {
