@@ -1,5 +1,5 @@
 <div id="top-left">
-    <div id="logo"><a href="/"><img src="/collaboratorium-theme/images/climate-colab.png" width="223" height="46" alt="Climate CoLab" /></a></div>
+    <div id="logo"><a href="/"><img src="/collaboratorium-theme/images/climate-colab.png" width="206" height="42" alt="Climate CoLab" /></a></div>
     #if ($has_navigation)
         #parse ("$full_templates_path/navigation.vm")
     #end
