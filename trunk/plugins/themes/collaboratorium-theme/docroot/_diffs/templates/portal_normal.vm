@@ -91,6 +91,8 @@
         document.getElementById('fb-root').appendChild(e);
     }());
 </script>
+    #set (pageName = $page.getName($locale).toLowerCase().replaceAll("\s",""))
+    
     #if ($page.parentLayoutId > 0) 
         ## we have a parent page, find it's name
         #foreach ($parentLayoutCand in $layouts) 
@@ -109,10 +111,15 @@
     #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
         <div id="earth" class="e1"></div>
     #else 
-        <div id="earth_pattern" class="$subPageClass"></div>
+        #if ($pageName != 'resources') 
+            <div id="earth_pattern"></div>
+        #else 
+            <div id="earth_pattern" class="$subPageClass"></div>
+        #end
+            
     #end
     
-    #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn'))
+    #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn' || $parentPageName == 'about') && $pageName != 'resources')
         <div id="bread_bg">&nbsp;</div>
     #end
     
@@ -120,7 +127,7 @@
 
 <div id="wrapper">
     #parse ("$full_templates_path/header.vm")
-    <div class="$parentPageName $page.getName($locale).toLowerCase().replaceAll("\s","") contentContainer $subPageClass">
+    <div class="$parentPageName $pageName contentContainer $subPageClass">
 
         #if ($selectable)
 			 $theme.include($content_include)
