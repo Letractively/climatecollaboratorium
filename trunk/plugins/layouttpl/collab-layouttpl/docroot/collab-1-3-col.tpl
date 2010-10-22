@@ -4,7 +4,7 @@
 </div>
     
     
-<div id="content">
+<div id="content" class="home">
             <div  class="left lrContentPlaceholder lfr-column">&nbsp;
                 $processor.processColumn("column-3")
             </div>
