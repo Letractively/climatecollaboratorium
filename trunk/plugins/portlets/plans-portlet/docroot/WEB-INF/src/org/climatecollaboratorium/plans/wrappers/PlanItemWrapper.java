@@ -284,7 +284,7 @@ public class PlanItemWrapper {
             wrapped.vote(Helper.getLiferayUser().getUserId());
             PlanActivityKeys activityKey = PlanActivityKeys.VOTE_FOR_PLAN;
             try {
-                    if (PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId()) != null) {
+                    if (PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId(), wrapped.getContest().getContestPK()) != null) {
                         activityKey = PlanActivityKeys.SWICTH_VOTE_FOR_PLAN;
                     }
             }

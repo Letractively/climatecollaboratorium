@@ -15,8 +15,10 @@ import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
+import com.ext.portlet.plans.model.PlanVote;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.ResourceConstants;
@@ -427,8 +429,24 @@ public class MigrationTool {
             }
             
         }
+        FacesMessage fm = new FacesMessage();
+        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+        fm.setSummary("Update successful");
         
         
+        return null;
+    }
+    
+    public String updateOldPlanVotes() throws SystemException {
+        for (PlanVote planVote: PlanVoteLocalServiceUtil.getPlanVotes(0, Integer.MAX_VALUE)) {
+            if (planVote.getContestId() == null || planVote.getContestId().equals(0L)) {
+                planVote.setContestId(1L);
+                planVote.store();
+            }
+        }
+        FacesMessage fm = new FacesMessage();
+        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+        fm.setSummary("Update successful");
         return null;
     }
     

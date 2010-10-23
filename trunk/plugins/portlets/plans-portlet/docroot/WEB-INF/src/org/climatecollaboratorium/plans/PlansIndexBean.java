@@ -498,7 +498,7 @@ public class PlansIndexBean {
     public boolean getHasUserVoted() throws PortalException, SystemException {
         if (Helper.isUserLoggedIn()) {
             try {
-                PlanVote vote = PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId());
+                PlanVote vote = PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId(), contestPhase.getContest().getContestId());
                 return vote != null;
             }
             catch (NoSuchPlanVoteException e) {
