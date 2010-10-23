@@ -139,6 +139,11 @@ function showSliders() {
 		var currentValue = jQuery(this).find(".fieldValue").text();
 		var type = jQuery(this).find(".type").text();
 		var unit = jQuery(this).find(".unit").text();
+		var interval = parseFloat(jQuery(this).find(".interval").text());
+		
+		if (isNaN(interval)) {
+			interval = 1;
+		}
 
 		if (! isNaN(parseFloat(currentValue))) {
 			defaultVal = currentValue;
@@ -146,8 +151,9 @@ function showSliders() {
 
 		var sliderMax = max;
 		var sliderMin = min;
+		
 
-		if (isDouble(dataType)) {
+		if (interval == 1 && isDouble(dataType)) {
 			sliderMax = SLIDER_MAX;
 			sliderMin = SLIDER_MIN;
 		} 
@@ -183,12 +189,13 @@ function showSliders() {
 		var sliderStep = (max-min)/(sliderMax - sliderMin);
 
 		slider.slider('destroy');
-
+		
 
 		slider.addClass('sliderInit');
 		slider.slider({ 
 			min: sliderMin,
 			max: sliderMax, 
+			step: interval,
 			slide: function(event, ui) {
 				
 				if (isInteger(dataType)) {
