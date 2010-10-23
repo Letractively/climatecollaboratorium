@@ -554,7 +554,7 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
         List<PlanItem> plans = getPlans(planType.getPublishedCounterpartId(),0,Integer.MAX_VALUE,sortColumn,sortDirection);
         PlanVote vote = null;
         try {
-            vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
+            vote = PlanVoteLocalServiceUtil.getPlanVote(new PlanVotePK(userId, 1L));
         } catch (Exception e) {
             _log.warn("Error retrieving vote for user "+userId);
             return -1;

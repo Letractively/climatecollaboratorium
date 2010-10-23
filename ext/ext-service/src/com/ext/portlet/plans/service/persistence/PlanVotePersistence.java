@@ -11,9 +11,11 @@ public interface PlanVotePersistence extends BasePersistence {
 
     public void clearCache();
 
-    public com.ext.portlet.plans.model.PlanVote create(java.lang.Long userId);
+    public com.ext.portlet.plans.model.PlanVote create(
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK);
 
-    public com.ext.portlet.plans.model.PlanVote remove(java.lang.Long userId)
+    public com.ext.portlet.plans.model.PlanVote remove(
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException;
 
@@ -50,54 +52,50 @@ public interface PlanVotePersistence extends BasePersistence {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanVote findByPrimaryKey(
-        java.lang.Long userId)
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanVote fetchByPrimaryKey(
-        java.lang.Long userId) throws com.liferay.portal.SystemException;
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
+        throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.plans.model.PlanVote findByuserId(
+    public com.ext.portlet.plans.model.PlanVote findBycontestId(
         java.lang.Long userId)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.plans.model.PlanVote fetchByuserId(
+    public com.ext.portlet.plans.model.PlanVote fetchBycontestId(
         java.lang.Long userId) throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.plans.model.PlanVote fetchByuserId(
+    public com.ext.portlet.plans.model.PlanVote fetchBycontestId(
         java.lang.Long userId, boolean retrieveFromCache)
         throws com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.plans.model.PlanVote> findByplanId(
+    public com.ext.portlet.plans.model.PlanVote findByPlanId(
+        java.lang.Long planId)
+        throws com.ext.portlet.plans.NoSuchPlanVoteException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanVote fetchByPlanId(
         java.lang.Long planId) throws com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.plans.model.PlanVote> findByplanId(
-        java.lang.Long planId, int start, int end)
+    public com.ext.portlet.plans.model.PlanVote fetchByPlanId(
+        java.lang.Long planId, boolean retrieveFromCache)
         throws com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.plans.model.PlanVote> findByplanId(
-        java.lang.Long planId, int start, int end,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
+    public com.ext.portlet.plans.model.PlanVote findByContestIdUserId(
+        java.lang.Long contestId, java.lang.Long userId)
+        throws com.ext.portlet.plans.NoSuchPlanVoteException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanVote fetchByContestIdUserId(
+        java.lang.Long contestId, java.lang.Long userId)
         throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.plans.model.PlanVote findByplanId_First(
-        java.lang.Long planId,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanVoteException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.plans.model.PlanVote findByplanId_Last(
-        java.lang.Long planId,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanVoteException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.plans.model.PlanVote[] findByplanId_PrevAndNext(
-        java.lang.Long userId, java.lang.Long planId,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.plans.NoSuchPlanVoteException,
-            com.liferay.portal.SystemException;
+    public com.ext.portlet.plans.model.PlanVote fetchByContestIdUserId(
+        java.lang.Long contestId, java.lang.Long userId,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException;
 
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -117,20 +115,29 @@ public interface PlanVotePersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
-    public void removeByuserId(java.lang.Long userId)
+    public void removeBycontestId(java.lang.Long userId)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException;
 
-    public void removeByplanId(java.lang.Long planId)
-        throws com.liferay.portal.SystemException;
+    public void removeByPlanId(java.lang.Long planId)
+        throws com.ext.portlet.plans.NoSuchPlanVoteException,
+            com.liferay.portal.SystemException;
+
+    public void removeByContestIdUserId(java.lang.Long contestId,
+        java.lang.Long userId)
+        throws com.ext.portlet.plans.NoSuchPlanVoteException,
+            com.liferay.portal.SystemException;
 
     public void removeAll() throws com.liferay.portal.SystemException;
 
-    public int countByuserId(java.lang.Long userId)
+    public int countBycontestId(java.lang.Long userId)
         throws com.liferay.portal.SystemException;
 
-    public int countByplanId(java.lang.Long planId)
+    public int countByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
+
+    public int countByContestIdUserId(java.lang.Long contestId,
+        java.lang.Long userId) throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

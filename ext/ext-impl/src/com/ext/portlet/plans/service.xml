@@ -143,16 +143,24 @@
 	
 	<entity name="PlanVote" local-service="true" persistence-class="com.ext.portlet.plans.service.persistence.PlanVotePersistenceImpl">
 		<column name="userId" type="Long" primary="true" />
+        <column name="contestId" type="Long" primary="true" />
 		<column name="planId" type="Long" />
+        
 		<column name="createDate" type="Date" />
-
-		<finder name="userId" return-type="PlanVote">
-			<finder-column name="userId" />
-		</finder>
-
-		<finder name="planId" return-type="Collection">
-			<finder-column name="planId" />
-		</finder>
+        
+        
+        <finder name="contestId" return-type="PlanVote">
+            <finder-column name="userId" />
+        </finder>
+        
+        <finder name="PlanId" return-type="PlanVote">
+            <finder-column name="planId" />
+        </finder>        
+        
+        <finder name="ContestIdUserId" return-type="PlanVote">
+            <finder-column name="contestId" />
+            <finder-column name="userId" />
+        </finder>
 	</entity>
 	
 	<entity name="PlansFilter" local-service="true" persistence-class="com.ext.portlet.plans.service.persistence.PlansFilterPersistenceImpl">

@@ -22,6 +22,7 @@ import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanVote;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
+import com.ext.portlet.plans.service.persistence.PlanVotePK;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -54,7 +55,7 @@ public class PlanVoteAction extends ViewPlansAction {
         long userId = themeDisplay.getUserId();
         PlanVote currentVote = null;
         try {
-            currentVote = PlanVoteLocalServiceUtil.getPlanVote(userId);
+            currentVote = PlanVoteLocalServiceUtil.getPlanVote(userId, 1L);
         } catch (NoSuchPlanVoteException e) {
             // ignore
         }
@@ -74,7 +75,7 @@ public class PlanVoteAction extends ViewPlansAction {
         	SocialActivityLocalServiceUtil.addActivity(userId, themeDisplay.getScopeGroupId(), "com.ext.portlet.Activity", planId,PlanActivityKeys.VOTE_FOR_PLAN.id(), StringPool.BLANK, 0);
         }
         if (updateType.equals(PlanConstants.VOTE)) {
-            PlanVote planVote = PlanVoteLocalServiceUtil.createPlanVote(userId);
+            PlanVote planVote = PlanVoteLocalServiceUtil.createPlanVote(new PlanVotePK(userId, 1L));
             planVote.setPlanId(planId);
             planVote.setCreateDate(new Date());
             PlanVoteLocalServiceUtil.updatePlanVote(planVote);
@@ -85,7 +86,7 @@ public class PlanVoteAction extends ViewPlansAction {
         } 
         else {
             try {
-                PlanVoteLocalServiceUtil.deletePlanVote(userId);
+                PlanVoteLocalServiceUtil.deletePlanVote(new PlanVotePK(userId, 1L));
                 SocialActivityLocalServiceUtil.addActivity(userId, themeDisplay.getScopeGroupId(), "com.ext.portlet.Activity", planId,PlanActivityKeys.RETRACT_VOTE_FOR_PLAN.id(), StringPool.BLANK, 0);
             } catch (NoSuchPlanVoteException e) {
                 // ignore

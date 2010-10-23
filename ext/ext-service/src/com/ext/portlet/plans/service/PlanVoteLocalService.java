@@ -40,9 +40,10 @@ public interface PlanVoteLocalService {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanVote createPlanVote(
-        java.lang.Long userId);
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK);
 
-    public void deletePlanVote(java.lang.Long userId)
+    public void deletePlanVote(
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
@@ -59,7 +60,7 @@ public interface PlanVoteLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.plans.model.PlanVote getPlanVote(
-        java.lang.Long userId)
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
@@ -82,7 +83,13 @@ public interface PlanVoteLocalService {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
-    public boolean unvote(java.lang.Long userId)
+    public boolean unvote(java.lang.Long userId, java.lang.Long contestId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanVote getPlanVote(
+        java.lang.Long userId, java.lang.Long contestId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 

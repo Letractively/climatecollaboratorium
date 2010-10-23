@@ -450,6 +450,8 @@ create index IX_5BE2C986 on PlanTeamHistory (planId, userId);
 
 create index IX_7F5652DE on PlanType (isDefault);
 
+create index IX_171DA55E on PlanVote (contestId, planId);
+create index IX_97DAE500 on PlanVote (contestId, userId);
 create index IX_33130471 on PlanVote (planId);
 create index IX_B3D04413 on PlanVote (userId);
 

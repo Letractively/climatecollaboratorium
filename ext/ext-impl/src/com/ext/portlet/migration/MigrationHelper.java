@@ -385,15 +385,15 @@ public class MigrationHelper {
                 AlternativeEntity alternative = manager.getAlternativeById().get(vote.getAlternative());
                 if (alternative.isPlan()) {
                     _log.debug("Adding vote for plan");
-                    try {
-                        PlanVote planVote = PlanVoteLocalServiceUtil.getPlanVote(userId);
-                        PlanVoteLocalServiceUtil.deletePlanVote(userId);
-                    } catch (NoSuchPlanVoteException e) {
+                    //try {
+                        //PlanVote planVote = PlanVoteLocalServiceUtil.getPlanVote(new PlanWouserId);
+                        //PlanVoteLocalServiceUtil.deletePlanVote(userId);
+                    //} catch (NoSuchPlanVoteException e) {
                         // ignore
-                    }
-                    PlanVote planVote = PlanVoteLocalServiceUtil.createPlanVote(userId);
-                    planVote.setPlanId(entityId);
-                    PlanVoteLocalServiceUtil.addPlanVote(planVote);
+                    //}
+                    //PlanVote planVote = PlanVoteLocalServiceUtil.createPlanVote(userId);
+                    //planVote.setPlanId(entityId);
+                    //PlanVoteLocalServiceUtil.addPlanVote(planVote);
                 } 
                 else {
                     _log.debug("Adding vote for position");

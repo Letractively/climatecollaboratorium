@@ -1,5 +1,7 @@
 package com.ext.portlet.plans.model;
 
+import com.ext.portlet.plans.service.persistence.PlanVotePK;
+
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import java.util.List;
  */
 public class PlanVoteSoap implements Serializable {
     private Long _userId;
+    private Long _contestId;
     private Long _planId;
     private Date _createDate;
 
@@ -37,6 +40,7 @@ public class PlanVoteSoap implements Serializable {
         PlanVoteSoap soapModel = new PlanVoteSoap();
 
         soapModel.setUserId(model.getUserId());
+        soapModel.setContestId(model.getContestId());
         soapModel.setPlanId(model.getPlanId());
         soapModel.setCreateDate(model.getCreateDate());
 
@@ -79,12 +83,13 @@ public class PlanVoteSoap implements Serializable {
         return soapModels.toArray(new PlanVoteSoap[soapModels.size()]);
     }
 
-    public Long getPrimaryKey() {
-        return _userId;
+    public PlanVotePK getPrimaryKey() {
+        return new PlanVotePK(_userId, _contestId);
     }
 
-    public void setPrimaryKey(Long pk) {
-        setUserId(pk);
+    public void setPrimaryKey(PlanVotePK pk) {
+        setUserId(pk.userId);
+        setContestId(pk.contestId);
     }
 
     public Long getUserId() {
@@ -93,6 +98,14 @@ public class PlanVoteSoap implements Serializable {
 
     public void setUserId(Long userId) {
         _userId = userId;
+    }
+
+    public Long getContestId() {
+        return _contestId;
+    }
+
+    public void setContestId(Long contestId) {
+        _contestId = contestId;
     }
 
     public Long getPlanId() {

@@ -25,6 +25,7 @@
 		<field name="userName" type="String" />
 		<field name="userScreenName" type="String" />
 		<field name="modifiedDate" type="Date" />
+		<field name="userEdited" type="Boolean" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanAttribute">
 		<field name="attributeId" type="Long" />
@@ -51,6 +52,7 @@
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanVote">
 		<field name="userId" type="Long" />
+		<field name="contestId" type="Long" />
 		<field name="planId" type="Long" />
 		<field name="createDate" type="Date" />
 	</model>

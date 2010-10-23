@@ -3066,7 +3066,8 @@ create table Plan (
 	userId LONG,
 	userName VARCHAR(75) null,
 	userScreenName VARCHAR(75) null,
-	modifiedDate DATE null
+	modifiedDate DATE null,
+	userEdited BOOLEAN
 );
 
 create table PlanAttribute (
@@ -3087,9 +3088,11 @@ create table PlanPosition (
 );
 
 create table PlanVote (
-	userId LONG not null primary key,
+	userId LONG not null,
+	contestId LONG not null,
 	planId LONG,
-	createDate DATE null
+	createDate DATE null,
+	primary key (userId, contestId)
 );
 
 create table PlansFilter (

@@ -44,6 +44,7 @@ public class PlanSoap implements Serializable {
     private String _userName;
     private String _userScreenName;
     private Date _modifiedDate;
+    private Boolean _userEdited;
 
     public PlanSoap() {
     }
@@ -69,6 +70,7 @@ public class PlanSoap implements Serializable {
         soapModel.setUserName(model.getUserName());
         soapModel.setUserScreenName(model.getUserScreenName());
         soapModel.setModifiedDate(model.getModifiedDate());
+        soapModel.setUserEdited(model.getUserEdited());
 
         return soapModel;
     }
@@ -259,5 +261,13 @@ public class PlanSoap implements Serializable {
 
     public void setModifiedDate(Date modifiedDate) {
         _modifiedDate = modifiedDate;
+    }
+
+    public Boolean getUserEdited() {
+        return _userEdited;
+    }
+
+    public void setUserEdited(Boolean userEdited) {
+        _userEdited = userEdited;
     }
 }

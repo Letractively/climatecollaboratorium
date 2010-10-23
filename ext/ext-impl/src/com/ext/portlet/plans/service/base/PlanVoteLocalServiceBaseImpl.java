@@ -61,6 +61,7 @@ import com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypeAttributePersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypePersistence;
+import com.ext.portlet.plans.service.persistence.PlanVotePK;
 import com.ext.portlet.plans.service.persistence.PlanVotePersistence;
 import com.ext.portlet.plans.service.persistence.PlansFilterPersistence;
 import com.ext.portlet.plans.service.persistence.PlansFilterPositionPersistence;
@@ -212,13 +213,13 @@ public abstract class PlanVoteLocalServiceBaseImpl
         return planVotePersistence.update(planVote, false);
     }
 
-    public PlanVote createPlanVote(Long userId) {
-        return planVotePersistence.create(userId);
+    public PlanVote createPlanVote(PlanVotePK planVotePK) {
+        return planVotePersistence.create(planVotePK);
     }
 
-    public void deletePlanVote(Long userId)
+    public void deletePlanVote(PlanVotePK planVotePK)
         throws PortalException, SystemException {
-        planVotePersistence.remove(userId);
+        planVotePersistence.remove(planVotePK);
     }
 
     public void deletePlanVote(PlanVote planVote) throws SystemException {
@@ -235,9 +236,9 @@ public abstract class PlanVoteLocalServiceBaseImpl
         return planVotePersistence.findWithDynamicQuery(dynamicQuery, start, end);
     }
 
-    public PlanVote getPlanVote(Long userId)
+    public PlanVote getPlanVote(PlanVotePK planVotePK)
         throws PortalException, SystemException {
-        return planVotePersistence.findByPrimaryKey(userId);
+        return planVotePersistence.findByPrimaryKey(planVotePK);
     }
 
     public List<PlanVote> getPlanVotes(int start, int end)
