@@ -35,6 +35,7 @@ public class PlanVoteJSONSerializer {
         JSONObject jsonObj = JSONFactoryUtil.createJSONObject();
 
         jsonObj.put("userId", model.getUserId());
+        jsonObj.put("contestId", model.getContestId());
         jsonObj.put("planId", model.getPlanId());
 
         Date createDate = model.getCreateDate();

@@ -1,5 +1,7 @@
 package com.ext.portlet.plans.model;
 
+import com.ext.portlet.plans.service.persistence.PlanVotePK;
+
 import com.liferay.portal.model.BaseModel;
 
 import java.util.Date;
@@ -26,13 +28,17 @@ import java.util.Date;
  *
  */
 public interface PlanVoteModel extends BaseModel<PlanVote> {
-    public Long getPrimaryKey();
+    public PlanVotePK getPrimaryKey();
 
-    public void setPrimaryKey(Long pk);
+    public void setPrimaryKey(PlanVotePK pk);
 
     public Long getUserId();
 
     public void setUserId(Long userId);
+
+    public Long getContestId();
+
+    public void setContestId(Long contestId);
 
     public Long getPlanId();
 

@@ -102,5 +102,9 @@ public interface PlanModel extends BaseModel<Plan> {
 
     public void setModifiedDate(Date modifiedDate);
 
+    public Boolean getUserEdited();
+
+    public void setUserEdited(Boolean userEdited);
+
     public Plan toEscapedModel();
 }

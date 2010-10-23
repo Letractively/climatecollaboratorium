@@ -16,6 +16,7 @@ import com.ext.portlet.debates.DebatesUtil;
 import com.ext.portlet.plans.PlanConstants.Columns;
 import com.ext.portlet.plans.model.*;
 import com.ext.portlet.plans.service.*;
+import com.ext.portlet.plans.service.persistence.PlanVotePK;
 import com.ext.portlet.plans.service.persistence.PlansFilterPositionPK;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.counter.service.CounterServiceUtil;
@@ -852,7 +853,7 @@ public class PlanLocalServiceHelper {
         ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
         long userId = themeDisplay.getUserId();
         try {
-            PlanVote planVote = PlanVoteLocalServiceUtil.getPlanVote(userId);
+            PlanVote planVote = PlanVoteLocalServiceUtil.getPlanVote(new PlanVotePK(userId, 1L));
             request.setAttribute(PlanConstants.VOTE, planVote);
         } catch (NoSuchPlanVoteException e) {
             // ignore

@@ -37,27 +37,26 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = PlanVoteImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
-    public static final FinderPath FINDER_PATH_FETCH_BY_USERID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_FETCH_BY_CONTESTID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
             PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_ENTITY,
-            "fetchByuserId", new String[] { Long.class.getName() });
-    public static final FinderPath FINDER_PATH_COUNT_BY_USERID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
+            "fetchBycontestId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_CONTESTID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
             PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
-            "countByuserId", new String[] { Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_PLANID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
-            PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
-            "findByplanId", new String[] { Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_OBC_PLANID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
-            PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
-            "findByplanId",
-            new String[] {
-                Long.class.getName(),
-                
-            "java.lang.Integer", "java.lang.Integer",
-                "com.liferay.portal.kernel.util.OrderByComparator"
-            });
+            "countBycontestId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FETCH_BY_PLANID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
+            PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_ENTITY,
+            "fetchByPlanId", new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_COUNT_BY_PLANID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
             PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
-            "countByplanId", new String[] { Long.class.getName() });
+            "countByPlanId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FETCH_BY_CONTESTIDUSERID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
+            PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_ENTITY,
+            "fetchByContestIdUserId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_CONTESTIDUSERID = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
+            PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByContestIdUserId",
+            new String[] { Long.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
             PlanVoteModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -112,8 +111,15 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         EntityCacheUtil.putResult(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
             PlanVoteImpl.class, planVote.getPrimaryKey(), planVote);
 
-        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTID,
             new Object[] { planVote.getUserId() }, planVote);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+            new Object[] { planVote.getPlanId() }, planVote);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDUSERID,
+            new Object[] { planVote.getContestId(), planVote.getUserId() },
+            planVote);
     }
 
     public void cacheResult(List<PlanVote> planVotes) {
@@ -133,16 +139,16 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
     }
 
-    public PlanVote create(Long userId) {
+    public PlanVote create(PlanVotePK planVotePK) {
         PlanVote planVote = new PlanVoteImpl();
 
         planVote.setNew(true);
-        planVote.setPrimaryKey(userId);
+        planVote.setPrimaryKey(planVotePK);
 
         return planVote;
     }
 
-    public PlanVote remove(Long userId)
+    public PlanVote remove(PlanVotePK planVotePK)
         throws NoSuchPlanVoteException, SystemException {
         Session session = null;
 
@@ -150,16 +156,16 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
             session = openSession();
 
             PlanVote planVote = (PlanVote) session.get(PlanVoteImpl.class,
-                    userId);
+                    planVotePK);
 
             if (planVote == null) {
                 if (_log.isWarnEnabled()) {
                     _log.warn("No PlanVote exists with the primary key " +
-                        userId);
+                        planVotePK);
                 }
 
                 throw new NoSuchPlanVoteException(
-                    "No PlanVote exists with the primary key " + userId);
+                    "No PlanVote exists with the primary key " + planVotePK);
             }
 
             return remove(planVote);
@@ -214,8 +220,18 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
 
         PlanVoteModelImpl planVoteModelImpl = (PlanVoteModelImpl) planVote;
 
-        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_USERID,
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTESTID,
             new Object[] { planVoteModelImpl.getOriginalUserId() });
+
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANID,
+            new Object[] { planVoteModelImpl.getOriginalPlanId() });
+
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTESTIDUSERID,
+            new Object[] {
+                planVoteModelImpl.getOriginalContestId(),
+                
+            planVoteModelImpl.getOriginalUserId()
+            });
 
         EntityCacheUtil.removeResult(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
             PlanVoteImpl.class, planVote.getPrimaryKey());
@@ -301,39 +317,78 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         if (!isNew &&
                 (!Validator.equals(planVote.getUserId(),
                     planVoteModelImpl.getOriginalUserId()))) {
-            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_USERID,
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTESTID,
                 new Object[] { planVoteModelImpl.getOriginalUserId() });
         }
 
         if (isNew ||
                 (!Validator.equals(planVote.getUserId(),
                     planVoteModelImpl.getOriginalUserId()))) {
-            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTID,
                 new Object[] { planVote.getUserId() }, planVote);
         }
 
-        return planVote;
-    }
+        if (!isNew &&
+                (!Validator.equals(planVote.getPlanId(),
+                    planVoteModelImpl.getOriginalPlanId()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANID,
+                new Object[] { planVoteModelImpl.getOriginalPlanId() });
+        }
 
-    public PlanVote findByPrimaryKey(Long userId)
-        throws NoSuchPlanVoteException, SystemException {
-        PlanVote planVote = fetchByPrimaryKey(userId);
+        if (isNew ||
+                (!Validator.equals(planVote.getPlanId(),
+                    planVoteModelImpl.getOriginalPlanId()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+                new Object[] { planVote.getPlanId() }, planVote);
+        }
 
-        if (planVote == null) {
-            if (_log.isWarnEnabled()) {
-                _log.warn("No PlanVote exists with the primary key " + userId);
-            }
+        if (!isNew &&
+                (!Validator.equals(planVote.getContestId(),
+                    planVoteModelImpl.getOriginalContestId()) ||
+                !Validator.equals(planVote.getUserId(),
+                    planVoteModelImpl.getOriginalUserId()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTESTIDUSERID,
+                new Object[] {
+                    planVoteModelImpl.getOriginalContestId(),
+                    
+                planVoteModelImpl.getOriginalUserId()
+                });
+        }
 
-            throw new NoSuchPlanVoteException(
-                "No PlanVote exists with the primary key " + userId);
+        if (isNew ||
+                (!Validator.equals(planVote.getContestId(),
+                    planVoteModelImpl.getOriginalContestId()) ||
+                !Validator.equals(planVote.getUserId(),
+                    planVoteModelImpl.getOriginalUserId()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDUSERID,
+                new Object[] { planVote.getContestId(), planVote.getUserId() },
+                planVote);
         }
 
         return planVote;
     }
 
-    public PlanVote fetchByPrimaryKey(Long userId) throws SystemException {
+    public PlanVote findByPrimaryKey(PlanVotePK planVotePK)
+        throws NoSuchPlanVoteException, SystemException {
+        PlanVote planVote = fetchByPrimaryKey(planVotePK);
+
+        if (planVote == null) {
+            if (_log.isWarnEnabled()) {
+                _log.warn("No PlanVote exists with the primary key " +
+                    planVotePK);
+            }
+
+            throw new NoSuchPlanVoteException(
+                "No PlanVote exists with the primary key " + planVotePK);
+        }
+
+        return planVote;
+    }
+
+    public PlanVote fetchByPrimaryKey(PlanVotePK planVotePK)
+        throws SystemException {
         PlanVote planVote = (PlanVote) EntityCacheUtil.getResult(PlanVoteModelImpl.ENTITY_CACHE_ENABLED,
-                PlanVoteImpl.class, userId, this);
+                PlanVoteImpl.class, planVotePK, this);
 
         if (planVote == null) {
             Session session = null;
@@ -341,7 +396,7 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
             try {
                 session = openSession();
 
-                planVote = (PlanVote) session.get(PlanVoteImpl.class, userId);
+                planVote = (PlanVote) session.get(PlanVoteImpl.class, planVotePK);
             } catch (Exception e) {
                 throw processException(e);
             } finally {
@@ -356,9 +411,9 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         return planVote;
     }
 
-    public PlanVote findByuserId(Long userId)
+    public PlanVote findBycontestId(Long userId)
         throws NoSuchPlanVoteException, SystemException {
-        PlanVote planVote = fetchByuserId(userId);
+        PlanVote planVote = fetchBycontestId(userId);
 
         if (planVote == null) {
             StringBuilder msg = new StringBuilder();
@@ -379,18 +434,18 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         return planVote;
     }
 
-    public PlanVote fetchByuserId(Long userId) throws SystemException {
-        return fetchByuserId(userId, true);
+    public PlanVote fetchBycontestId(Long userId) throws SystemException {
+        return fetchBycontestId(userId, true);
     }
 
-    public PlanVote fetchByuserId(Long userId, boolean retrieveFromCache)
+    public PlanVote fetchBycontestId(Long userId, boolean retrieveFromCache)
         throws SystemException {
         Object[] finderArgs = new Object[] { userId };
 
         Object result = null;
 
         if (retrieveFromCache) {
-            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_USERID,
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CONTESTID,
                     finderArgs, this);
         }
 
@@ -427,7 +482,7 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
                 PlanVote planVote = null;
 
                 if (list.isEmpty()) {
-                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTID,
                         finderArgs, list);
                 } else {
                     planVote = list.get(0);
@@ -436,7 +491,7 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
 
                     if ((planVote.getUserId() == null) ||
                             !planVote.getUserId().equals(userId)) {
-                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTID,
                             finderArgs, planVote);
                     }
                 }
@@ -446,7 +501,7 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
                 throw processException(e);
             } finally {
                 if (result == null) {
-                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTID,
                         finderArgs, new ArrayList<PlanVote>());
                 }
 
@@ -461,13 +516,45 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public List<PlanVote> findByplanId(Long planId) throws SystemException {
+    public PlanVote findByPlanId(Long planId)
+        throws NoSuchPlanVoteException, SystemException {
+        PlanVote planVote = fetchByPlanId(planId);
+
+        if (planVote == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanVote exists with the key {");
+
+            msg.append("planId=" + planId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchPlanVoteException(msg.toString());
+        }
+
+        return planVote;
+    }
+
+    public PlanVote fetchByPlanId(Long planId) throws SystemException {
+        return fetchByPlanId(planId, true);
+    }
+
+    public PlanVote fetchByPlanId(Long planId, boolean retrieveFromCache)
+        throws SystemException {
         Object[] finderArgs = new Object[] { planId };
 
-        List<PlanVote> list = (List<PlanVote>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PLANID,
-                finderArgs, this);
+        Object result = null;
 
-        if (list == null) {
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_PLANID,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
             Session session = null;
 
             try {
@@ -493,183 +580,167 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
                     qPos.add(planId.longValue());
                 }
 
-                list = q.list();
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (list == null) {
-                    list = new ArrayList<PlanVote>();
-                }
+                List<PlanVote> list = q.list();
 
-                cacheResult(list);
+                result = list;
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_PLANID,
-                    finderArgs, list);
+                PlanVote planVote = null;
 
-                closeSession(session);
-            }
-        }
-
-        return list;
-    }
-
-    public List<PlanVote> findByplanId(Long planId, int start, int end)
-        throws SystemException {
-        return findByplanId(planId, start, end, null);
-    }
-
-    public List<PlanVote> findByplanId(Long planId, int start, int end,
-        OrderByComparator obc) throws SystemException {
-        Object[] finderArgs = new Object[] {
-                planId,
-                
-                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
-            };
-
-        List<PlanVote> list = (List<PlanVote>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_PLANID,
-                finderArgs, this);
-
-        if (list == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append("FROM com.ext.portlet.plans.model.PlanVote WHERE ");
-
-                if (planId == null) {
-                    query.append("planId IS NULL");
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+                        finderArgs, list);
                 } else {
-                    query.append("planId = ?");
+                    planVote = list.get(0);
+
+                    cacheResult(planVote);
+
+                    if ((planVote.getPlanId() == null) ||
+                            !planVote.getPlanId().equals(planId)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+                            finderArgs, planVote);
+                    }
                 }
 
-                query.append(" ");
-
-                if (obc != null) {
-                    query.append("ORDER BY ");
-                    query.append(obc.getOrderBy());
-                }
-
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (planId != null) {
-                    qPos.add(planId.longValue());
-                }
-
-                list = (List<PlanVote>) QueryUtil.list(q, getDialect(), start,
-                        end);
+                return planVote;
             } catch (Exception e) {
                 throw processException(e);
             } finally {
-                if (list == null) {
-                    list = new ArrayList<PlanVote>();
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANID,
+                        finderArgs, new ArrayList<PlanVote>());
                 }
-
-                cacheResult(list);
-
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_PLANID,
-                    finderArgs, list);
 
                 closeSession(session);
             }
-        }
-
-        return list;
-    }
-
-    public PlanVote findByplanId_First(Long planId, OrderByComparator obc)
-        throws NoSuchPlanVoteException, SystemException {
-        List<PlanVote> list = findByplanId(planId, 0, 1, obc);
-
-        if (list.isEmpty()) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append("No PlanVote exists with the key {");
-
-            msg.append("planId=" + planId);
-
-            msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-            throw new NoSuchPlanVoteException(msg.toString());
         } else {
-            return list.get(0);
-        }
-    }
-
-    public PlanVote findByplanId_Last(Long planId, OrderByComparator obc)
-        throws NoSuchPlanVoteException, SystemException {
-        int count = countByplanId(planId);
-
-        List<PlanVote> list = findByplanId(planId, count - 1, count, obc);
-
-        if (list.isEmpty()) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append("No PlanVote exists with the key {");
-
-            msg.append("planId=" + planId);
-
-            msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-            throw new NoSuchPlanVoteException(msg.toString());
-        } else {
-            return list.get(0);
-        }
-    }
-
-    public PlanVote[] findByplanId_PrevAndNext(Long userId, Long planId,
-        OrderByComparator obc) throws NoSuchPlanVoteException, SystemException {
-        PlanVote planVote = findByPrimaryKey(userId);
-
-        int count = countByplanId(planId);
-
-        Session session = null;
-
-        try {
-            session = openSession();
-
-            StringBuilder query = new StringBuilder();
-
-            query.append("FROM com.ext.portlet.plans.model.PlanVote WHERE ");
-
-            if (planId == null) {
-                query.append("planId IS NULL");
+            if (result instanceof List) {
+                return null;
             } else {
-                query.append("planId = ?");
+                return (PlanVote) result;
+            }
+        }
+    }
+
+    public PlanVote findByContestIdUserId(Long contestId, Long userId)
+        throws NoSuchPlanVoteException, SystemException {
+        PlanVote planVote = fetchByContestIdUserId(contestId, userId);
+
+        if (planVote == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanVote exists with the key {");
+
+            msg.append("contestId=" + contestId);
+
+            msg.append(", ");
+            msg.append("userId=" + userId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
             }
 
-            query.append(" ");
+            throw new NoSuchPlanVoteException(msg.toString());
+        }
 
-            if (obc != null) {
-                query.append("ORDER BY ");
-                query.append(obc.getOrderBy());
+        return planVote;
+    }
+
+    public PlanVote fetchByContestIdUserId(Long contestId, Long userId)
+        throws SystemException {
+        return fetchByContestIdUserId(contestId, userId, true);
+    }
+
+    public PlanVote fetchByContestIdUserId(Long contestId, Long userId,
+        boolean retrieveFromCache) throws SystemException {
+        Object[] finderArgs = new Object[] { contestId, userId };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CONTESTIDUSERID,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("FROM com.ext.portlet.plans.model.PlanVote WHERE ");
+
+                if (contestId == null) {
+                    query.append("contestId IS NULL");
+                } else {
+                    query.append("contestId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (userId == null) {
+                    query.append("userId IS NULL");
+                } else {
+                    query.append("userId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestId != null) {
+                    qPos.add(contestId.longValue());
+                }
+
+                if (userId != null) {
+                    qPos.add(userId.longValue());
+                }
+
+                List<PlanVote> list = q.list();
+
+                result = list;
+
+                PlanVote planVote = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDUSERID,
+                        finderArgs, list);
+                } else {
+                    planVote = list.get(0);
+
+                    cacheResult(planVote);
+
+                    if ((planVote.getContestId() == null) ||
+                            !planVote.getContestId().equals(contestId) ||
+                            (planVote.getUserId() == null) ||
+                            !planVote.getUserId().equals(userId)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDUSERID,
+                            finderArgs, planVote);
+                    }
+                }
+
+                return planVote;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDUSERID,
+                        finderArgs, new ArrayList<PlanVote>());
+                }
+
+                closeSession(session);
             }
-
-            Query q = session.createQuery(query.toString());
-
-            QueryPos qPos = QueryPos.getInstance(q);
-
-            if (planId != null) {
-                qPos.add(planId.longValue());
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (PlanVote) result;
             }
-
-            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc, planVote);
-
-            PlanVote[] array = new PlanVoteImpl[3];
-
-            array[0] = (PlanVote) objArray[0];
-            array[1] = (PlanVote) objArray[1];
-            array[2] = (PlanVote) objArray[2];
-
-            return array;
-        } catch (Exception e) {
-            throw processException(e);
-        } finally {
-            closeSession(session);
         }
     }
 
@@ -770,17 +841,25 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public void removeByuserId(Long userId)
+    public void removeBycontestId(Long userId)
         throws NoSuchPlanVoteException, SystemException {
-        PlanVote planVote = findByuserId(userId);
+        PlanVote planVote = findBycontestId(userId);
 
         remove(planVote);
     }
 
-    public void removeByplanId(Long planId) throws SystemException {
-        for (PlanVote planVote : findByplanId(planId)) {
-            remove(planVote);
-        }
+    public void removeByPlanId(Long planId)
+        throws NoSuchPlanVoteException, SystemException {
+        PlanVote planVote = findByPlanId(planId);
+
+        remove(planVote);
+    }
+
+    public void removeByContestIdUserId(Long contestId, Long userId)
+        throws NoSuchPlanVoteException, SystemException {
+        PlanVote planVote = findByContestIdUserId(contestId, userId);
+
+        remove(planVote);
     }
 
     public void removeAll() throws SystemException {
@@ -789,10 +868,10 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public int countByuserId(Long userId) throws SystemException {
+    public int countBycontestId(Long userId) throws SystemException {
         Object[] finderArgs = new Object[] { userId };
 
-        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_USERID,
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CONTESTID,
                 finderArgs, this);
 
         if (count == null) {
@@ -830,7 +909,7 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
                     count = Long.valueOf(0);
                 }
 
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_USERID,
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CONTESTID,
                     finderArgs, count);
 
                 closeSession(session);
@@ -840,7 +919,7 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
         return count.intValue();
     }
 
-    public int countByplanId(Long planId) throws SystemException {
+    public int countByPlanId(Long planId) throws SystemException {
         Object[] finderArgs = new Object[] { planId };
 
         Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PLANID,
@@ -882,6 +961,70 @@ public class PlanVotePersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PLANID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByContestIdUserId(Long contestId, Long userId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { contestId, userId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CONTESTIDUSERID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append("FROM com.ext.portlet.plans.model.PlanVote WHERE ");
+
+                if (contestId == null) {
+                    query.append("contestId IS NULL");
+                } else {
+                    query.append("contestId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (userId == null) {
+                    query.append("userId IS NULL");
+                } else {
+                    query.append("userId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestId != null) {
+                    qPos.add(contestId.longValue());
+                }
+
+                if (userId != null) {
+                    qPos.add(userId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CONTESTIDUSERID,
                     finderArgs, count);
 
                 closeSession(session);

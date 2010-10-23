@@ -93,9 +93,12 @@ public class PlanModelImpl extends BaseModelImpl<Plan> {
             { "userScreenName", new Integer(Types.VARCHAR) },
             
 
-            { "modifiedDate", new Integer(Types.TIMESTAMP) }
+            { "modifiedDate", new Integer(Types.TIMESTAMP) },
+            
+
+            { "userEdited", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Plan (planId LONG not null primary key,name VARCHAR(75) null,content VARCHAR(75) null,shortcontent VARCHAR(75) null,planTypeId LONG,companyId LONG,groupId LONG,childGroupId LONG,MBCategoryId LONG,scenarioId VARCHAR(75) null,topicId VARCHAR(75) null,votes INTEGER,createDate DATE null,publishDate DATE null,userId LONG,userName VARCHAR(75) null,userScreenName VARCHAR(75) null,modifiedDate DATE null)";
+    public static final String TABLE_SQL_CREATE = "create table Plan (planId LONG not null primary key,name VARCHAR(75) null,content VARCHAR(75) null,shortcontent VARCHAR(75) null,planTypeId LONG,companyId LONG,groupId LONG,childGroupId LONG,MBCategoryId LONG,scenarioId VARCHAR(75) null,topicId VARCHAR(75) null,votes INTEGER,createDate DATE null,publishDate DATE null,userId LONG,userName VARCHAR(75) null,userScreenName VARCHAR(75) null,modifiedDate DATE null,userEdited BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table Plan";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -126,6 +129,7 @@ public class PlanModelImpl extends BaseModelImpl<Plan> {
     private String _userName;
     private String _userScreenName;
     private Date _modifiedDate;
+    private Boolean _userEdited;
 
     public PlanModelImpl() {
     }
@@ -151,6 +155,7 @@ public class PlanModelImpl extends BaseModelImpl<Plan> {
         model.setUserName(soapModel.getUserName());
         model.setUserScreenName(soapModel.getUserScreenName());
         model.setModifiedDate(soapModel.getModifiedDate());
+        model.setUserEdited(soapModel.getUserEdited());
 
         return model;
     }
@@ -321,6 +326,14 @@ public class PlanModelImpl extends BaseModelImpl<Plan> {
         _modifiedDate = modifiedDate;
     }
 
+    public Boolean getUserEdited() {
+        return _userEdited;
+    }
+
+    public void setUserEdited(Boolean userEdited) {
+        _userEdited = userEdited;
+    }
+
     public Plan toEscapedModel() {
         if (isEscapedModel()) {
             return (Plan) this;
@@ -348,6 +361,7 @@ public class PlanModelImpl extends BaseModelImpl<Plan> {
             model.setUserName(HtmlUtil.escape(getUserName()));
             model.setUserScreenName(HtmlUtil.escape(getUserScreenName()));
             model.setModifiedDate(getModifiedDate());
+            model.setUserEdited(getUserEdited());
 
             model = (Plan) Proxy.newProxyInstance(Plan.class.getClassLoader(),
                     new Class[] { Plan.class }, new ReadOnlyBeanHandler(model));
@@ -377,6 +391,7 @@ public class PlanModelImpl extends BaseModelImpl<Plan> {
         clone.setUserName(getUserName());
         clone.setUserScreenName(getUserScreenName());
         clone.setModifiedDate(getModifiedDate());
+        clone.setUserEdited(getUserEdited());
 
         return clone;
     }
@@ -458,6 +473,8 @@ public class PlanModelImpl extends BaseModelImpl<Plan> {
         sb.append(getUserScreenName());
         sb.append(", modifiedDate=");
         sb.append(getModifiedDate());
+        sb.append(", userEdited=");
+        sb.append(getUserEdited());
         sb.append("}");
 
         return sb.toString();
@@ -541,6 +558,10 @@ public class PlanModelImpl extends BaseModelImpl<Plan> {
         sb.append(
             "<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
         sb.append(getModifiedDate());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>userEdited</column-name><column-value><![CDATA[");
+        sb.append(getUserEdited());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

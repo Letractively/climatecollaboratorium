@@ -29,6 +29,7 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="userScreenName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="userEdited" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanAttributeImpl" table="PlanAttribute">
 		<cache usage="read-write" />
@@ -64,9 +65,10 @@
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanVoteImpl" table="PlanVote">
 		<cache usage="read-write" />
-		<id name="userId" type="java.lang.Long">
-			<generator class="assigned" />
-		</id>
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanVotePK">
+			<key-property name="userId" />
+			<key-property name="contestId" />
+		</composite-id>
 		<property name="planId" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 	</class>

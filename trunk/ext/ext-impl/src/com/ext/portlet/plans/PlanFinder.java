@@ -26,6 +26,7 @@ import com.ext.portlet.plans.model.impl.PlanImpl;
 import com.ext.portlet.plans.model.impl.PlanPositionImpl;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
+import com.ext.portlet.plans.service.persistence.PlanVotePK;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactory;
@@ -511,7 +512,7 @@ public class PlanFinder extends BasePersistenceImpl {
     	List<Plan> plans = getPlans(planType.getPublishedCounterpartId(),0,Integer.MAX_VALUE,sortColumn,sortDirection);
     	PlanVote vote = null;
     	try {
-    		vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
+    		vote = PlanVoteLocalServiceUtil.getPlanVote(new PlanVotePK(userId, 1L));
     	} catch (Exception e) {
     		_log.warn("Error retrieving vote for user "+userId);
     		return -1;
@@ -565,7 +566,7 @@ public class PlanFinder extends BasePersistenceImpl {
     	List<Plan> plans = getFilteredPlans(planUserSettings,0,Integer.MAX_VALUE,sortColumn,sortDirection);
     	PlanVote vote = null;
     	try {
-    		vote = PlanVoteLocalServiceUtil.getPlanVote(userId);
+    		vote = PlanVoteLocalServiceUtil.getPlanVote(new PlanVotePK(userId, 1L));
     	} catch (Exception e) {
     		_log.warn("Error retrieving vote for user "+userId);
     		return -1;

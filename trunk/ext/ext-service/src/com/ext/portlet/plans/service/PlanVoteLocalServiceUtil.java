@@ -32,14 +32,15 @@ public class PlanVoteLocalServiceUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanVote createPlanVote(
-        java.lang.Long userId) {
-        return getService().createPlanVote(userId);
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK) {
+        return getService().createPlanVote(planVotePK);
     }
 
-    public static void deletePlanVote(java.lang.Long userId)
+    public static void deletePlanVote(
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        getService().deletePlanVote(userId);
+        getService().deletePlanVote(planVotePK);
     }
 
     public static void deletePlanVote(
@@ -61,10 +62,10 @@ public class PlanVoteLocalServiceUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanVote getPlanVote(
-        java.lang.Long userId)
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        return getService().getPlanVote(userId);
+        return getService().getPlanVote(planVotePK);
     }
 
     public static java.util.List<com.ext.portlet.plans.model.PlanVote> getPlanVotes(
@@ -96,10 +97,17 @@ public class PlanVoteLocalServiceUtil {
         return getService().voteForPlan(planId, userId);
     }
 
-    public static boolean unvote(java.lang.Long userId)
+    public static boolean unvote(java.lang.Long userId, java.lang.Long contestId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        return getService().unvote(userId);
+        return getService().unvote(userId, contestId);
+    }
+
+    public static com.ext.portlet.plans.model.PlanVote getPlanVote(
+        java.lang.Long userId, java.lang.Long contestId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().getPlanVote(userId, contestId);
     }
 
     public static int coutPlanVotes(java.lang.Long planId)

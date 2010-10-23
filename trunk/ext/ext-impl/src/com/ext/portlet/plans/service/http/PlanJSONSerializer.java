@@ -79,6 +79,7 @@ public class PlanJSONSerializer {
         }
 
         jsonObj.put("modifiedDate", modifiedDateJSON);
+        jsonObj.put("userEdited", model.getUserEdited());
 
         return jsonObj;
     }

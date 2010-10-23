@@ -2,6 +2,7 @@ package com.ext.portlet.plans.model.impl;
 
 import com.ext.portlet.plans.model.PlanVote;
 import com.ext.portlet.plans.model.PlanVoteSoap;
+import com.ext.portlet.plans.service.persistence.PlanVotePK;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -44,12 +45,15 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
             { "userId", new Integer(Types.BIGINT) },
             
 
+            { "contestId", new Integer(Types.BIGINT) },
+            
+
             { "planId", new Integer(Types.BIGINT) },
             
 
             { "createDate", new Integer(Types.TIMESTAMP) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanVote (userId LONG not null primary key,planId LONG,createDate DATE null)";
+    public static final String TABLE_SQL_CREATE = "create table PlanVote (userId LONG not null,contestId LONG not null,planId LONG,createDate DATE null,primary key (userId, contestId))";
     public static final String TABLE_SQL_DROP = "drop table PlanVote";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -64,7 +68,10 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
                 "lock.expiration.time.com.ext.portlet.plans.model.PlanVote"));
     private Long _userId;
     private Long _originalUserId;
+    private Long _contestId;
+    private Long _originalContestId;
     private Long _planId;
+    private Long _originalPlanId;
     private Date _createDate;
 
     public PlanVoteModelImpl() {
@@ -74,6 +81,7 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
         PlanVote model = new PlanVoteImpl();
 
         model.setUserId(soapModel.getUserId());
+        model.setContestId(soapModel.getContestId());
         model.setPlanId(soapModel.getPlanId());
         model.setCreateDate(soapModel.getCreateDate());
 
@@ -90,16 +98,17 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
         return models;
     }
 
-    public Long getPrimaryKey() {
-        return _userId;
+    public PlanVotePK getPrimaryKey() {
+        return new PlanVotePK(_userId, _contestId);
     }
 
-    public void setPrimaryKey(Long pk) {
-        setUserId(pk);
+    public void setPrimaryKey(PlanVotePK pk) {
+        setUserId(pk.userId);
+        setContestId(pk.contestId);
     }
 
     public Serializable getPrimaryKeyObj() {
-        return _userId;
+        return new PlanVotePK(_userId, _contestId);
     }
 
     public Long getUserId() {
@@ -118,12 +127,36 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
         return _originalUserId;
     }
 
+    public Long getContestId() {
+        return _contestId;
+    }
+
+    public void setContestId(Long contestId) {
+        _contestId = contestId;
+
+        if (_originalContestId == null) {
+            _originalContestId = contestId;
+        }
+    }
+
+    public Long getOriginalContestId() {
+        return _originalContestId;
+    }
+
     public Long getPlanId() {
         return _planId;
     }
 
     public void setPlanId(Long planId) {
         _planId = planId;
+
+        if (_originalPlanId == null) {
+            _originalPlanId = planId;
+        }
+    }
+
+    public Long getOriginalPlanId() {
+        return _originalPlanId;
     }
 
     public Date getCreateDate() {
@@ -144,6 +177,7 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
             model.setEscapedModel(true);
 
             model.setUserId(getUserId());
+            model.setContestId(getContestId());
             model.setPlanId(getPlanId());
             model.setCreateDate(getCreateDate());
 
@@ -159,6 +193,7 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
         PlanVoteImpl clone = new PlanVoteImpl();
 
         clone.setUserId(getUserId());
+        clone.setContestId(getContestId());
         clone.setPlanId(getPlanId());
         clone.setCreateDate(getCreateDate());
 
@@ -166,7 +201,7 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
     }
 
     public int compareTo(PlanVote planVote) {
-        Long pk = planVote.getPrimaryKey();
+        PlanVotePK pk = planVote.getPrimaryKey();
 
         return getPrimaryKey().compareTo(pk);
     }
@@ -184,7 +219,7 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
             return false;
         }
 
-        Long pk = planVote.getPrimaryKey();
+        PlanVotePK pk = planVote.getPrimaryKey();
 
         if (getPrimaryKey().equals(pk)) {
             return true;
@@ -202,6 +237,8 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
 
         sb.append("{userId=");
         sb.append(getUserId());
+        sb.append(", contestId=");
+        sb.append(getContestId());
         sb.append(", planId=");
         sb.append(getPlanId());
         sb.append(", createDate=");
@@ -221,6 +258,10 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
         sb.append(
             "<column><column-name>userId</column-name><column-value><![CDATA[");
         sb.append(getUserId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>contestId</column-name><column-value><![CDATA[");
+        sb.append(getContestId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>planId</column-name><column-value><![CDATA[");
