@@ -91,6 +91,10 @@ public class PlanIndexItemWrapper {
     public Long getContestPhaseId() throws SystemException, PortalException {
         return wrapped.getContestPhase().getContestPhasePK();
     }
+    
+    public Long getContestId() throws PortalException, SystemException {
+        return wrapped.getContest().getContestPK();
+    }
 
     public boolean isVotedOn() throws PortalException, SystemException {
         boolean voted = false;
