@@ -34,4 +34,9 @@ public interface ModelInputItem extends ModelInputItemModel {
         throws com.liferay.portal.SystemException;
 
     public java.util.Map<String, String> getPropertyMap();
+
+    public void saveProperties(java.util.Map<String, String> props)
+        throws com.liferay.portal.SystemException;
+
+    public void store() throws com.liferay.portal.SystemException;
 }
