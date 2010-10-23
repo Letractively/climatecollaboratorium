@@ -22,7 +22,7 @@
                 </div>
             </f:facet>
             <ice:panelGroup rendered="#{column == 'NAME'}" styleClass="table-cell-padding #{column}">
-                <collab:planLink planId="#{singlePlan.planId}" contestId="#{contest.contestId}" text="#{singlePlan.columnValues[column]}" />
+                <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.columnValues[column]}" />
             </ice:panelGroup>
             <ice:panelGroup rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}"
                             styleClass="table-cell-padding #{column}">
