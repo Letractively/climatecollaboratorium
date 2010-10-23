@@ -113,6 +113,10 @@ function processUserInput(newVal, unit, min, max, id) {
 	return true;
 }
 
+function rerenderInputs() {
+	jQuery(".sliderDef").removeClass("processed");
+}
+
 function showSliders() {
    
 	var msg = "";

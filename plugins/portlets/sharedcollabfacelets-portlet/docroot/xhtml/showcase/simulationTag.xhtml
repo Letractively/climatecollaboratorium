@@ -30,6 +30,10 @@
             <td><ice:selectBooleanCheckbox value="#{simulationBeanTest.showRunButton}" /></td>
         </tr>
         <tr>
+            <td>Edit/cancel:</td>
+            <td><ice:commandButton actionListener="#{simulationBean.editActions}" value="edit/cancel"/></td>
+        </tr>
+        <tr>
             <td colspan="2"><ice:commandButton value="update" /></td>
         </tr>
     </table>

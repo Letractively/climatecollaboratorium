@@ -51,9 +51,16 @@
                         </ice:panelTabSet>
                         <ice:panelGroup styleClass="hidden">
                             <div class="hidden">#{simulationBean.display}</div>
+                            <ice:panelGroup rendered="#{! simulationBean.embeddedEditing}">
+                                
+                                <script type="text/javascript">
+                                    rerenderInputs();
+                                </script>
+                            </ice:panelGroup>
                             <script type="text/javascript">
                                 showSliders();
                             </script>
+                            
                         </ice:panelGroup>
                     </div>
                 </div>
