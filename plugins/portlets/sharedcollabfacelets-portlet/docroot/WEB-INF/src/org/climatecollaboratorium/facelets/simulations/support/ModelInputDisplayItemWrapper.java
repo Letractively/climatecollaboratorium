@@ -100,6 +100,10 @@ public class ModelInputDisplayItemWrapper {
     public boolean getHasLabels() {
         return (wrappedItem instanceof ModelInputIndividualDisplayItem && ((ModelInputIndividualDisplayItem) wrappedItem).getProperty(ModelWidgetProperty.Slider.MAX_LABEL) != null);
     }
+    
+    public boolean getHasInterval() {
+        return (wrappedItem instanceof ModelInputIndividualDisplayItem && ((ModelInputIndividualDisplayItem) wrappedItem).getProperty(ModelWidgetProperty.Slider.INTERVAL) != null);
+    }
 
     public String getMaxLabel() {
         return getHasLabels()? ((ModelInputIndividualDisplayItem) wrappedItem).getProperty(ModelWidgetProperty.Slider.MAX_LABEL):"";
@@ -108,7 +112,10 @@ public class ModelInputDisplayItemWrapper {
 
     public String getMinLabel() {
         return getHasLabels()? ((ModelInputIndividualDisplayItem) wrappedItem).getProperty(ModelWidgetProperty.Slider.MIN_LABEL):"";
-
+    }
+    
+    public String getInterval() {
+        return getHasInterval()? ((ModelInputIndividualDisplayItem) wrappedItem).getProperty(ModelWidgetProperty.Slider.INTERVAL):"";
     }
 
 }
