@@ -6,6 +6,10 @@ import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
+import com.ext.portlet.models.model.ModelInputItem;
+import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
+import com.ext.portlet.models.ui.ModelInputIndividualDisplayItem;
+import com.ext.portlet.models.ui.ModelWidgetProperty;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.Plan;
@@ -411,6 +415,21 @@ public class MigrationTool {
 
         return ret;
 
+    }
+    
+
+    public String setIntervals() throws SystemException {
+        for (ModelInputItem modelInput: ModelInputItemLocalServiceUtil.getModelInputItems(0, Integer.MAX_VALUE)) {
+            Map<String, String> props = modelInput.getPropertyMap();
+            if (props.size() > 0) {
+                props.put(ModelWidgetProperty.Slider.INTERVAL.name(), "5");
+                modelInput.saveProperties(props);
+            }
+            
+        }
+        
+        
+        return null;
     }
     
 
