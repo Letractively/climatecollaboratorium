@@ -33,5 +33,9 @@
                 <ui:include src="showcase/#{tagsDemo.tag}.xhtml" />
             </f:subview>
         </div>
+        <ice:form>
+            <ice:inputRichText toolbar="Default" customConfigPath="/js/fckeditor/config.js" value="#{simulationBeanTest.showEditButton}" />
+        </ice:form> 
     </ui:composition>
+    
 </f:view>
