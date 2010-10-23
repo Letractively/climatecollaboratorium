@@ -8,6 +8,7 @@ package com.ext.portlet.models.model.impl;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.model.ModelInputItem;
+import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import mit.simulation.climate.client.MetaData;
 import mit.simulation.climate.client.Simulation;
@@ -45,6 +46,30 @@ public class ModelInputItemImpl extends ModelInputItemModelImpl
             }
         }
         return result;
+    }
+     
+    public void saveProperties(Map<String, String> props) throws SystemException {
+        StringBuilder sb = new StringBuilder();
+        
+        for (String key: props.keySet()) {
+            sb.append(key);
+            sb.append("=");
+            sb.append(props.get(key));
+            sb.append(";");
+        }
+        
+        setProperties(sb.toString());
+        store();
+        
+    }
+    
+    public void store() throws SystemException {
+        if (isNew()) {
+            ModelInputItemLocalServiceUtil.addModelInputItem(this);
+        }
+        else {
+            ModelInputItemLocalServiceUtil.updateModelInputItem(this);
+        }
     }
 }
 

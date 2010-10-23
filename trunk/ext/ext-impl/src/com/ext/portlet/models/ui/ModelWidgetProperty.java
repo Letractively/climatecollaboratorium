@@ -16,6 +16,6 @@ package com.ext.portlet.models.ui;
 public interface ModelWidgetProperty {
 
     public static enum Slider implements ModelWidgetProperty {
-        MIN_LABEL, MAX_LABEL
+        MIN_LABEL, MAX_LABEL, INTERVAL
     }
 }
