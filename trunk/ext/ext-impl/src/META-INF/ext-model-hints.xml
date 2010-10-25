@@ -25,7 +25,6 @@
 		<field name="userName" type="String" />
 		<field name="userScreenName" type="String" />
 		<field name="modifiedDate" type="Date" />
-		<field name="userEdited" type="Boolean" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanAttribute">
 		<field name="attributeId" type="Long" />

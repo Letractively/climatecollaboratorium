@@ -3066,8 +3066,7 @@ create table Plan (
 	userId LONG,
 	userName VARCHAR(75) null,
 	userScreenName VARCHAR(75) null,
-	modifiedDate DATE null,
-	userEdited BOOLEAN
+	modifiedDate DATE null
 );
 
 create table PlanAttribute (

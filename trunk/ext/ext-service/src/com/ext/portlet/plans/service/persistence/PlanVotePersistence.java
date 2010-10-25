@@ -11,11 +11,9 @@ public interface PlanVotePersistence extends BasePersistence {
 
     public void clearCache();
 
-    public com.ext.portlet.plans.model.PlanVote create(
-        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK);
+    public com.ext.portlet.plans.model.PlanVote create(PlanVotePK planVotePK);
 
-    public com.ext.portlet.plans.model.PlanVote remove(
-        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
+    public com.ext.portlet.plans.model.PlanVote remove(PlanVotePK planVotePK)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException;
 
@@ -52,13 +50,12 @@ public interface PlanVotePersistence extends BasePersistence {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanVote findByPrimaryKey(
-        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
+        PlanVotePK planVotePK)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanVote fetchByPrimaryKey(
-        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
-        throws com.liferay.portal.SystemException;
+        PlanVotePK planVotePK) throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanVote findBycontestId(
         java.lang.Long userId)

@@ -18,12 +18,12 @@ public class PlanVoteUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanVote create(
-        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK) {
+        PlanVotePK planVotePK) {
         return getPersistence().create(planVotePK);
     }
 
     public static com.ext.portlet.plans.model.PlanVote remove(
-        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
+        PlanVotePK planVotePK)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException {
         return getPersistence().remove(planVotePK);
@@ -70,15 +70,14 @@ public class PlanVoteUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanVote findByPrimaryKey(
-        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
+        PlanVotePK planVotePK)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException {
         return getPersistence().findByPrimaryKey(planVotePK);
     }
 
     public static com.ext.portlet.plans.model.PlanVote fetchByPrimaryKey(
-        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
-        throws com.liferay.portal.SystemException {
+        PlanVotePK planVotePK) throws com.liferay.portal.SystemException {
         return getPersistence().fetchByPrimaryKey(planVotePK);
     }
 
