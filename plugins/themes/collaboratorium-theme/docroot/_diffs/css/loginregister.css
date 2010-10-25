@@ -49,3 +49,11 @@ a.fb_button.fb_button_medium {
 a#pseudo-fb {
     display:inline-block;
 }
+
+#fb-email-msg {
+    background-color:#FFD0D0;
+    border:thin solid red;
+    margin:10px;
+    padding:5px;
+    text-align:left;
+}
