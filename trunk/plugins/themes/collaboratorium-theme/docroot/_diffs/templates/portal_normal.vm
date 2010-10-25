@@ -78,9 +78,10 @@
 
         FB.Event.subscribe('auth.sessionChange', function(response) {
             if (response.session) {
+                if (Liferay.ThemeDisplay.isSignedIn())
                 insertParam("fbEvent", "true");
             } else {
-                insertParam("fbEvent", "false");
+                //do nothing
             }
 
         });
@@ -101,13 +102,6 @@
     }());
 
     function postFbInit() {
-      
-      //  var button = jQuery("a.fb_button");
-//
-//        button.bind("click", function(event) {
-//          alert("I freaking clicked you!");
-//           event.preventDefault();
-//        });
 
     }
 
