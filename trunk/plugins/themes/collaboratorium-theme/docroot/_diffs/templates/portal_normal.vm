@@ -78,8 +78,8 @@
 
         FB.Event.subscribe('auth.sessionChange', function(response) {
             if (response.session) {
-                if (Liferay.ThemeDisplay.isSignedIn())
-                insertParam("fbEvent", "true");
+                if (!Liferay.ThemeDisplay.isSignedIn())
+                    insertParam("fbEvent", "true");
             } else {
                 //do nothing
             }
