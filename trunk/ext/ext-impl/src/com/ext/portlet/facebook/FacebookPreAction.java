@@ -99,9 +99,9 @@ public class FacebookPreAction extends ServicePreAction {
                         User u = identifyUserByFbId(PortalUtil.getCompany(req),splitCookie);
                         if (u == null) {
                             addUser(company,vmVariables,splitCookie);
-                        } else {
-                            signIn(req, res, u);
                         }
+                        signIn(req, res, u);
+                        
                     } catch (Exception e) {
                         vmVariables.put(FACEBOOK_RESULT, RESULT_SYSTEM_ERR);
                         return;
