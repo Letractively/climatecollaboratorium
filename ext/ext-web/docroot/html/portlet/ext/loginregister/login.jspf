@@ -122,7 +122,7 @@
 <h3 class="boxTitle secondary">Have a facebook account?</h3>
 
 <div class="facebook-button">
-    <fb:login-button></fb:login-button>
+    <fb:login-button perms="email"></fb:login-button>
     <div id="fb-email-msg" class="fb-info" style="display:none">
         In order to log into the CoLab with your Facebook account, you will need to grant the CoLab
         access to your email address. We will never share your email with anyone, and will only use
