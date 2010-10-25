@@ -144,6 +144,11 @@ function showSliders() {
 		if (isNaN(interval)) {
 			interval = 1;
 		}
+		else {
+			if ((min % interval) != 0) {
+				min = min - (min % interval);
+			}
+		}
 
 		if (! isNaN(parseFloat(currentValue))) {
 			defaultVal = currentValue;
@@ -186,7 +191,7 @@ function showSliders() {
 			return;
 		}
 		var slider = jQuery(this).find(".slider");
-		var sliderStep = (max-min)/(sliderMax - sliderMin);
+		var sliderStep = interval != 1 ? interval : (max-min)/(sliderMax - sliderMin);
 
 		slider.slider('destroy');
 		
@@ -200,16 +205,16 @@ function showSliders() {
 				
 				if (isInteger(dataType)) {
 					valueField.val(formatFieldValue(ui.value, unit,null));
-	        		inputValues[id] = formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null);
+	        		inputValues[id] = formatFieldValue( (ui.value).toFixed(2), unit,null);
 				}
 				else if (isDouble(dataType)) {
-					valueField.val(formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null));
-	        		inputValues[id] = formatFieldValue( (min + sliderStep * (ui.value)).toFixed(2), unit,null);
+					valueField.val(formatFieldValue( (ui.value).toFixed(2), unit,null));
+	        		inputValues[id] = formatFieldValue((ui.value).toFixed(2), unit,null);
 				}
 
             	valueBinding.val(valueField.val());
 			},
-			change: function(event, ui) {
+			stop: function(event, ui) {
 				if (jQuery(this).hasClass('sliderInit')) {
 					jQuery(this).removeClass('sliderInit');
 				}
