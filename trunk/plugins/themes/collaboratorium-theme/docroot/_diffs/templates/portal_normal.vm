@@ -68,10 +68,12 @@
 <body class="$body_style_class">
 <div id="fb-root"></div>
 <script type="text/javascript">
+    var FB_APP_ID = '$propsUtil.get("collaboratorium.facebook.appid")';
     var FB_LOGIN_RESULT = '$facebookLoginResult';
-    alert(FB_LOGIN_RESULT);
+
+
     window.fbAsyncInit = function() {
-        FB.init({appId: '$propsUtil.get("collaboratorium.facebook.appid")', status: true, cookie: true,
+        FB.init({appId: FB_APP_ID, status: true, cookie: true,
             xfbml: true});
 
         FB.Event.subscribe('auth.sessionChange', function(response) {
@@ -82,6 +84,12 @@
             }
 
         });
+
+        FB.Event.subscribe("xfbml.render", function(response) {
+            
+          postFbInit();
+
+        });
     };
     (function() {
         var e = document.createElement('script');
@@ -90,15 +98,21 @@
                 '//connect.facebook.net/en_US/all.js';
         e.async = true;
         document.getElementById('fb-root').appendChild(e);
-        postFbInit();
     }());
 
     function postFbInit() {
-        alert("running init");
-        jQuery("a.fb_button").click(function () {
-            alert("I freaking clicked you!");
-        }) ;
+      
+        var button = jQuery("a.fb_button");
+//
+//        button.bind("click", function(event) {
+//          alert("I freaking clicked you!");
+//           event.preventDefault();
+//        });
+
     }
+
+
+
 
 </script>
     #set ($pageName = $page.getName($locale).toLowerCase().replaceAll("\s","").replaceAll("/", ""))
