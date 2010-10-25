@@ -29,7 +29,6 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="userScreenName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="userEdited" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanAttributeImpl" table="PlanAttribute">
 		<cache usage="read-write" />
