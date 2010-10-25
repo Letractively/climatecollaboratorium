@@ -11,7 +11,7 @@ public class ContentFilterHelper {
     public static int MAX_SHORTENED_LENGTH=80;
 
     public static String filterLineBreaks(String content) {
-        return content.replaceAll("\n", "<br />\n");
+        return content.replaceAll("\n", " <br />\n");
     }
     
     public static String filterUrlEmbeddedLinks(String content) {
