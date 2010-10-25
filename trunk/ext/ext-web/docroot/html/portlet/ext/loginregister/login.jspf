@@ -24,16 +24,9 @@
 %>
 
 <script language="javascript">
-    function
-    <
-    portlet:namespace
-    />doLogin() {
-    document. < portlet
-    :
-    namespace
-    />login.submit();
-    }
-    ;
+    function <portlet:namespace/>doLogin() {
+        document. < portlet:namespace/>login.submit();
+    };
 </script>
 
 <portlet:actionURL secure="<%= PropsValues.COMPANY_SECURITY_AUTH_REQUIRES_HTTPS || request.isSecure() %>"
@@ -130,7 +123,7 @@
 
 <div class="facebook-button">
     <fb:login-button></fb:login-button>
-    <div id="fb-email-msg" class="hidden fb-info">
+    <div id="fb-email-msg" class="fb-info" style="display:none">
         In order to log into the CoLab with your Facebook account, you will need to grant the CoLab
         access to your email address. We will never share your email with anyone, and will only use
         it to get in touch with you about important events on the CoLab.
@@ -142,9 +135,12 @@
 </div>
 
 <script type="text/javascript">
-    jQuery(
+    
+
+    jQuery(function() {
             jQuery('#<portlet:namespace />rememberMeCheckbox').click(
                     function() {
+
                         var checked = 'off';
 
                         if (this.checked) {
@@ -152,16 +148,18 @@
                         }
                         jQuery('#<portlet:namespace />rememberMe').val(checked);
                     }
-                    )
-
-
-           if (FB_LOGIN_RESULT == "email") {
-              jQuery("#fb-email-msg").show();
-           }
+                    );
 
 
 
-            );
+
+
+
+
+            if (FB_LOGIN_RESULT=="email") {
+                jQuery("#fb-email-msg").show();
+            }
+    });
 
 
 </script>
