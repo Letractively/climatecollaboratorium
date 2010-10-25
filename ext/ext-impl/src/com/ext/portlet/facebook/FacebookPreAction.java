@@ -62,6 +62,7 @@ public class FacebookPreAction extends ServicePreAction {
     private static String RESULT_SUCCESS = "success";
     private static String RESULT_SYSTEM_ERR = "systemerror";
     private static String RESULT_COOKIE_ERR = "cookieerror";
+    private static String RESULT_FB_ERR = "facebookerror";
     private static String RESULT_NO_EMAIL = "email";
 
     private static Log _log = LogFactoryUtil.getLog(FacebookPreAction.class);
@@ -93,11 +94,12 @@ public class FacebookPreAction extends ServicePreAction {
                 }
                 if (fbcookie != null) {
                     Map<String, String> splitCookie = parseCookie(fbcookie.getValue());
-                    JSONObject userinfo = JSONObject.fromObject(request("https://graph.facebook.com/me", new NameValuePair[]{new NameValuePair("access_token", splitCookie.get(ACCESS_TOKEN))}));
                     try {
-                        User u = identifyUser(userinfo, PortalUtil.getCompany(req), vmVariables);
-                        if (u == null) return;
-                        else {
+                        Company company = PortalUtil.getCompany(req);
+                        User u = identifyUserByFbId(PortalUtil.getCompany(req),splitCookie);
+                        if (u == null) {
+                            addUser(company,vmVariables,splitCookie);
+                        } else {
                             signIn(req, res, u);
                         }
                     } catch (Exception e) {
@@ -132,14 +134,33 @@ public class FacebookPreAction extends ServicePreAction {
 
 
         }
-
     }
 
-    public User identifyUser(JSONObject userinfo, Company company, Map<String, Object> vmVariables) throws SystemException, PortalException {
-        String fbid = (String) userinfo.get("id");
-        _log.info("Retrieved " + userinfo.toString());
-        User user = UserFacebookMappingLocalServiceUtil.findUserByFacebookId(fbid);
-        if (user == null) {
+    public User identifyUserByFbId( Company company, Map<String,String> splitcookie) throws SystemException, PortalException {
+        User u = UserFacebookMappingLocalServiceUtil.findUserByFacebookId((String)splitcookie.get("uid"));
+        if (u != null) {
+            String accesstoken =  (String)splitcookie.get(ACCESS_TOKEN);
+            _log.info("Access token is "+accesstoken);
+            JSONObject userinfo = JSONObject.fromObject(request("https://graph.facebook.com/me", new NameValuePair[]{new NameValuePair("access_token",accesstoken)}));
+            if (userinfo != null) {
+                updateUser(u, userinfo);
+            } else {
+                _log.warn("Could not retrieve info from facebook for user " + u.getUserId());
+            }
+        }
+        return u;
+    }
+
+    public User addUser(Company company, Map<String, Object> vmVariables, Map<String,String> splitCookie) throws SystemException, PortalException {
+         String accesstoken =  (String)splitCookie.get(ACCESS_TOKEN);
+            _log.info("Access token is "+accesstoken);
+        JSONObject userinfo = JSONObject.fromObject(request("https://graph.facebook.com/me", new NameValuePair[]{new NameValuePair("access_token", accesstoken)}));
+        User user = null;
+        if (userinfo != null) {
+
+            String fbid = (String) userinfo.get("id");
+            _log.info("Retrieved " + userinfo.toString());
+
 
             //no previous login association via facebook, resolve via email
             String email = (String) userinfo.get("email");
@@ -156,14 +177,19 @@ public class FacebookPreAction extends ServicePreAction {
             if (user != null) {
                 createFacebookMapping(user, fbid);
             }
-        }
 
-        if (user == null) {
-            //user is null, need to register
-            user = registerUser(userinfo, company);
-            createFacebookMapping(user, fbid);
-            return user;
-        } else return updateUser(user, userinfo);
+
+            if (user == null) {
+                //user is null, need to register
+                user = registerUser(userinfo, company);
+                createFacebookMapping(user, fbid);
+                return user;
+            }
+        } else {
+            vmVariables.put(FACEBOOK_RESULT, RESULT_FB_ERR);
+
+        }
+        return user;
     }
 
     public void createFacebookMapping(User user, String fbid) throws SystemException {
