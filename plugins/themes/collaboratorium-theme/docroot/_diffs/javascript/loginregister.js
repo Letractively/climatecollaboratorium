@@ -10,3 +10,13 @@ function modifyLoginRegisterURL(anchor) {
         anchor.href = location + "&redirect=" + escape(window.location);
     }
 }
+
+
+function clickFacebookButton() {
+
+    if (Get_Cookie("fbs_"+FB_APP_ID)) {
+        insertParam("fbEvent", "true");
+    } else {
+        jQuery("a.fb_button").not("#pseudo-fb").click();
+    }
+}

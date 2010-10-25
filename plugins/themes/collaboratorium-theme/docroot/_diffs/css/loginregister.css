@@ -41,3 +41,11 @@
 div.facebook-button {
     text-align:center;
 }
+
+a.fb_button.fb_button_medium {
+    display:none;
+}
+
+a#pseudo-fb {
+    display:inline-block;
+}
