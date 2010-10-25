@@ -40,10 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -70,6 +67,9 @@ public class FacebookPreAction extends ServicePreAction {
     public void run(HttpServletRequest req, HttpServletResponse res)
             throws ActionException {
 
+
+        _log.info("Request uri "+req.getRequestURL());
+        _log.info("Request params "+req.getParameterMap());
 
         ThemeDisplay themeDisplay = (ThemeDisplay) req.getAttribute(WebKeys.THEME_DISPLAY);
         Map<String, Object> vmVariables = (Map<String, Object>) req.getAttribute(WebKeys.VM_VARIABLES);
@@ -266,12 +266,25 @@ public class FacebookPreAction extends ServicePreAction {
                 res.sendRedirect(redirect);
 
             } else {
-                res.sendRedirect(themeDisplay.getURLHome());
+
+                res.sendRedirect(buildUrl(req));
             }
         } catch (IOException e) {
             _log.error("Could not redirect", e);
             throw new ActionException(e);
         }
+    }
+
+    public String buildUrl(HttpServletRequest req) {
+        StringBuffer buff = req.getRequestURL();
+        String sep = "?";
+        for (Enumeration e=req.getParameterNames();e.hasMoreElements();) {
+            String key = (String) e.nextElement();
+            if ("fbEvent".equals(key)) continue;
+            buff.append(sep).append(key).append("=").append(req.getParameterMap().get(key));
+            sep = "&";
+        }
+        return buff.toString();
     }
 
 
