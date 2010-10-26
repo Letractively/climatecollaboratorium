@@ -262,15 +262,20 @@ public class FacebookPreAction extends ServicePreAction {
     }
 
     public String buildUrl(HttpServletRequest req) {
-        StringBuffer buff = new StringBuffer(PortalUtil.getCurrentURL(req));
+        String url = PortalUtil.getCurrentURL(req);
+        String[] pieces = url.split("\\?");
+        url = pieces[0];
+        
+        String[] params = pieces[1].split("\\&");
+
         String sep = "?";
-        for (Enumeration e=req.getParameterNames();e.hasMoreElements();) {
-            String key = (String) e.nextElement();
-            if ("fbEvent".equals(key)) continue;
-            buff.append(sep).append(key).append("=").append(req.getParameter(key));
+        for (String param:params) {
+            String[] keyval = param.split("=");
+            if ("fbEvent".equals(keyval[0])) continue;
+            url+=sep+keyval[0]+"="+keyval[1];
             sep = "&";
         }
-        return buff.toString();
+        return url;
     }
 
 
