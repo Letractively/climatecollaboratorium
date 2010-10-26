@@ -39,9 +39,15 @@ function isDouble(dataType) {
 }
 
 function formatFieldValue(value, unit, dataType) {
+	// simulationId
+	var simulationId = jQuery('#simulationId').text();
 	if (unit.toLowerCase().indexOf("percent") >= 0 || unit.toLowerCase().indexOf("%") >= 0) {
-		//return (value * 100).toFixed(0) + "%";
-		return (value * 1).toFixed(0) + "%";
+		if (simulationId == '760') {
+			return (value * 100).toFixed(0) + "%";
+		}
+		else {	
+			return (value * 1).toFixed(0) + "%";
+		}
 	}
     else if (dataType!=null && isInteger(dataType)) {
         return (value *1).toFixed(0);
@@ -141,9 +147,6 @@ function showSliders() {
 		var unit = jQuery(this).find(".unit").text();
 		var interval = parseFloat(jQuery(this).find(".interval").text());
 		
-		if (isNaN(interval)) {
-			interval = 1;
-		}
 		else {
 			if ((min % interval) != 0) {
 				min = min - (min % interval);
@@ -158,9 +161,10 @@ function showSliders() {
 		var sliderMin = min;
 		
 
-		if (interval == 1 && isDouble(dataType)) {
+		if (isNaN(interval) && isDouble(dataType)) {
 			sliderMax = SLIDER_MAX;
 			sliderMin = SLIDER_MIN;
+			interval = 1;
 		} 
 
 		if (isNaN(defaultVal)) {
@@ -204,8 +208,8 @@ function showSliders() {
 			slide: function(event, ui) {
 				
 				if (isInteger(dataType)) {
-					valueField.val(formatFieldValue(ui.value, unit,null));
-	        		inputValues[id] = formatFieldValue( (ui.value).toFixed(2), unit,null);
+					//valueField.val(formatFieldValue(ui.value, unit,null));
+		        		//inputValues[id] = formatFieldValue( (ui.value).toFixed(2), unit,null);
 				}
 				else if (isDouble(dataType)) {
 					valueField.val(formatFieldValue( (ui.value).toFixed(2), unit,null));
