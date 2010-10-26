@@ -119,21 +119,7 @@ public class FacebookPreAction extends ServicePreAction {
         }
 
 
-        if (DEBUG && req.getParameter("debugLogin") != null) {
-            String email = req.getParameter("debugLogin");
-            try {
-                signIn(req, res, UserLocalServiceUtil.getUserByEmailAddress(PortalUtil.getCompany(req).getCompanyId(), email));
-            } catch (SystemException e) {
-                throw new ActionException(e);
-            } catch (PortalException e) {
-                throw new ActionException(e);
-            } catch (EncryptorException e) {
-                throw new ActionException(e);
-            }
-            redirect(req, res, themeDisplay);
 
-
-        }
     }
 
     public User identifyUserByFbId( Company company, Map<String,String> splitcookie) throws SystemException, PortalException {
@@ -262,12 +248,13 @@ public class FacebookPreAction extends ServicePreAction {
         String redirect = ParamUtil.getString(req, "redirect");
         try {
             if (Validator.isNotNull(redirect)) {
-
+                _log.info("Redirecting to specified: "+redirect);
                 res.sendRedirect(redirect);
 
             } else {
-
-                res.sendRedirect(buildUrl(req));
+                String url =buildUrl(req);
+                _log.info("Redirecting to constructed: "+url);
+                res.sendRedirect(url);
             }
         } catch (IOException e) {
             _log.error("Could not redirect", e);
