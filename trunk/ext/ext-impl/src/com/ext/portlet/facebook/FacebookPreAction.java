@@ -68,8 +68,7 @@ public class FacebookPreAction extends ServicePreAction {
             throws ActionException {
 
 
-        _log.info("Request uri "+req.getRequestURL());
-        _log.info("Request params "+req.getParameterMap());
+
 
         ThemeDisplay themeDisplay = (ThemeDisplay) req.getAttribute(WebKeys.THEME_DISPLAY);
         Map<String, Object> vmVariables = (Map<String, Object>) req.getAttribute(WebKeys.VM_VARIABLES);
@@ -263,12 +262,12 @@ public class FacebookPreAction extends ServicePreAction {
     }
 
     public String buildUrl(HttpServletRequest req) {
-        StringBuffer buff = req.getRequestURL();
+        StringBuffer buff = new StringBuffer(PortalUtil.getCurrentURL(req));
         String sep = "?";
         for (Enumeration e=req.getParameterNames();e.hasMoreElements();) {
             String key = (String) e.nextElement();
             if ("fbEvent".equals(key)) continue;
-            buff.append(sep).append(key).append("=").append(req.getParameterMap().get(key));
+            buff.append(sep).append(key).append("=").append(req.getParameter(key));
             sep = "&";
         }
         return buff.toString();
