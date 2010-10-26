@@ -20,3 +20,8 @@ function clickFacebookButton() {
         jQuery("a.fb_button").not("#pseudo-fb").click();
     }
 }
+
+
+function deleteFBCookie() {
+   Delete_Cookie("fbs_"+FB_APP_ID); 
+}
