@@ -138,6 +138,11 @@
                             <%@ include file="/html/portlet/ext/loginregister/login.jspf" %>
                         </div>
                     </div>
+                    <div class="login">
+                        <div>
+                            <%@ include file="/html/portlet/ext/loginregister/facebooklogin.jspf" %>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </table>
