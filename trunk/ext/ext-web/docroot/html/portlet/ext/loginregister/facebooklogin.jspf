@@ -27,20 +27,22 @@
 
         <span class="fb_button_text">Login with facebook</span>
     </a>
+    <div class="reg-info">
     If you register using your Facebook account, you agree to abide by the
                             <a href="http://cci.mit.edu/research/climatehelp/CollaboratoriumTermsUse.html">Terms of Use</a>.
-</div>
+    </div>
+    </div>
 <script type="text/javascript">
       jQuery(function() {
         if (FB_LOGIN_RESULT=="email") {
                 deleteFBCookie();
                 jQuery("#fb-email-msg").show();
             }
-          else if (FB_LOGIN_RESULT="cookieerror") {
+          else if (FB_LOGIN_RESULT=="cookieerror") {
             jQuery("#fb-cookieerr-msg").show();
-        } else if (FB_LOGIN_RESULT="systemerror") {
+        } else if (FB_LOGIN_RESULT=="systemerror") {
            jQuery("#fb-systemerr-msg").show();
-        } else if (FB_LOGIN_RESULT="facebookerror") {
+        } else if (FB_LOGIN_RESULT=="facebookerror") {
            jQuery("#fb-facebookerr-msg").show();
         }
       });
