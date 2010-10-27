@@ -16,10 +16,10 @@
                     <ice:panelGroup>
                     <ice:form>
                             <ice:commandButton styleClass="prominantButton" value="Vote for this proposal" actionListener="#{plan.plan.vote}"
-                                               rendered="#{not plan.plan.votedOn}" onclick="if(!deferUntilLogin()) return false;"/>
+                                               rendered="#{votingPhase and not plan.plan.votedOn}" onclick="if(!deferUntilLogin()) return false;"/>
                             <ice:commandButton styleClass="prominantButton" value="Retract vote for this proposal"
                                                actionListener="#{plan.plan.unvote}"
-                                               rendered="#{plan.plan.votedOn}"/>
+                                               rendered="#{votingPhase and plan.plan.votedOn}"/>
                             <ice:commandButton styleClass="prominantButton" value="Support this proposal" actionListener="#{plan.plan.becomeAFan}"
                                                rendered="#{!votingPhase and not plan.plan.userAFan}" onclick="if(!deferUntilLogin()) return false;"/>
                             <ice:commandButton styleClass="prominantButton" value="Retract support for this proposal"
