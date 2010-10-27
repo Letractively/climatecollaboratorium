@@ -97,12 +97,13 @@ public class FacebookPreAction extends ServicePreAction {
                         Company company = PortalUtil.getCompany(req);
                         User u = identifyUserByFbId(PortalUtil.getCompany(req),splitCookie);
                         if (u == null) {
-                            addUser(company,vmVariables,splitCookie);
+                            u = addUser(company,vmVariables,splitCookie);
                         }
                         signIn(req, res, u);
                         
                     } catch (Exception e) {
                         vmVariables.put(FACEBOOK_RESULT, RESULT_SYSTEM_ERR);
+			_log.error("Exception has been thrown when trying to add user/sign in", e);
                         return;
                     }
 
