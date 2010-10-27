@@ -147,7 +147,7 @@ function showSliders() {
 		var unit = jQuery(this).find(".unit").text();
 		var interval = parseFloat(jQuery(this).find(".interval").text());
 		
-		else {
+		if (! isNaN(interval)) {
 			if ((min % interval) != 0) {
 				min = min - (min % interval);
 			}
