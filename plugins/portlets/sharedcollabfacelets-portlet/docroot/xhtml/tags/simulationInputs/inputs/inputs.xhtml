@@ -51,7 +51,7 @@
                         </ice:panelTabSet>
                         <ice:panelGroup styleClass="hidden">
                             <div class="hidden">#{simulationBean.display}</div>
-                            <ice:panelGroup rendered="#{! simulationBean.embeddedEditing}">
+                            <ice:panelGroup rendered="#{! rerenderOnCancel and  simulationBean.embeddedEditing}">
                                 
                                 <script type="text/javascript">
                                     rerenderInputs();

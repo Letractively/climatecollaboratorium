@@ -72,10 +72,10 @@ function oneOfValuesChangedEvent() {
 	if (runSimulationOnclick) {
 		jQuery(".runSimulationButton").click(runSimulationOnclick);
 	}
+	jQuery(".runSimulationButton").removeClass('prominantButton-dis');
+	jQuery(".runSimulationButton").addClass('prominantButton');
 	jQuery(".runSimulationButton").effect("highlight", {}, 2000);
 	jQuery(".simulationInputsStatus").addClass("valueChanged");
-	jQuery(".runSimulationButton").addClass('prominantButton');
-	jQuery(".runSimulationButton").removeClass('prominantButton-dis');
 }
 
 function disableRunButton() {
@@ -159,13 +159,19 @@ function showSliders() {
 
 		var sliderMax = max;
 		var sliderMin = min;
+		var sliderDoubleVals = true;
 		
 
 		if (isNaN(interval) && isDouble(dataType)) {
 			sliderMax = SLIDER_MAX;
 			sliderMin = SLIDER_MIN;
-			interval = 1;
+			interval = (max-min)/(sliderMax - sliderMin);
 		} 
+		else {
+			sliderMax = (max - min)/interval;
+			sliderMin = 0;
+			sliderDoubleVals = false;
+		}
 
 		if (isNaN(defaultVal)) {
 			defaultVal = (min+max)/2;
@@ -195,8 +201,8 @@ function showSliders() {
 			return;
 		}
 		var slider = jQuery(this).find(".slider");
-		var sliderStep = interval != 1 ? interval : (max-min)/(sliderMax - sliderMin);
-
+		
+		
 		slider.slider('destroy');
 		
 
@@ -204,16 +210,15 @@ function showSliders() {
 		slider.slider({ 
 			min: sliderMin,
 			max: sliderMax, 
-			step: interval,
 			slide: function(event, ui) {
 				
 				if (isInteger(dataType)) {
-					//valueField.val(formatFieldValue(ui.value, unit,null));
-		        		//inputValues[id] = formatFieldValue( (ui.value).toFixed(2), unit,null);
+					valueField.val(formatFieldValue(min + interval * ui.value, unit,null));
+		        	inputValues[id] = formatFieldValue(min + interval * ui.value.toFixed(2), unit,null);
 				}
 				else if (isDouble(dataType)) {
-					valueField.val(formatFieldValue( (ui.value).toFixed(2), unit,null));
-	        		inputValues[id] = formatFieldValue((ui.value).toFixed(2), unit,null);
+					valueField.val(formatFieldValue(min + interval *  ui.value.toFixed(2), unit,null));
+	        		inputValues[id] = formatFieldValue(min + interval * ui.value.toFixed(2), unit,null);
 				}
 
             	valueBinding.val(valueField.val());
