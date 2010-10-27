@@ -117,7 +117,8 @@
                                    showDisabledMessage="false"
                                    disabledMessage="Click &lt;b&gt;Edit&lt;/b&gt; to change inputs" 
                                    editActions="#{planBean.planOpenForEditing}" 
-                                   showRunButton="#{simulationBean.embeddedEditing}" />
+                                   showRunButton="#{simulationBean.embeddedEditing}" 
+                                   rerenderOnCancel="true" />
                 <script type="text/javascript">
                     if (#{ not simulationBean.embeddedEditing} ) {
                         initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
