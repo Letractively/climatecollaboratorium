@@ -107,8 +107,11 @@
                                value="Begin a new proposal"/>
                 </f:subview>
                 <f:subview rendered="#{navigation.createPlanBean.navigateToPlan}">
-                    <script type="text/javascript" language="javascript">
-                        Collab.nav.navigateAddParamsMulti({plans: {contests: "active" ,subview: "proposals", planId: #{navigation.createPlanBean.planId}, newPlan: 'true'}, planCondText: {value: "createNewProposal"}}, true);
+                    <div class="hidden">
+                        <collab:planLink planId="#{navigation.createPlanBean.planId}" contestId="#{singleContest.contestId}" hashString="plans=newPlan:true;planCondText=value:createNewProposal" text="createdPlanLink" linkClass="newlyCreatedPlanLink" />
+                    </div>
+                    <script language="javascript">
+                        window.location = jQuery(".newlyCreatedPlanLink").attr("href");
                     </script>
                     </f:subview>
 
