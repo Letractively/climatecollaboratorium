@@ -5,3 +5,7 @@
 Although the basic technologies use in the collaboratorium are fairly straightforward, navigating the source tree can be a little daunting.  This guide should serve as a good starting point.
 
 == Overview ==
+
+== Stats ==
+
+<wiki:gadget url="http://www.ohloh.net/p/gwt/widgets/project_basic_stats.xml" height="220" border="1" />
