@@ -37,6 +37,10 @@ import com.liferay.portlet.wiki.model.WikiPage;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
 import org.apache.log4j.Logger;
 import org.climatecollaboratorium.utils.Helper;
+import mit.simulation.climate.client.MetaData;
+import mit.simulation.climate.client.Scenario;
+import mit.simulation.climate.client.Simulation;
+import mit.simulation.climate.client.Variable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -451,5 +455,40 @@ public class MigrationTool {
     }
     
 
+    public String rerunPlansSimulations() throws SystemException, com.liferay.portal.PortalException, java.io.IOException, 
+	mit.simulation.climate.client.comm.ModelNotFoundException {
+	mit.simulation.climate.client.comm.ClientRepository repository = com.ext.portlet.models.CollaboratoriumModelingService.repository();
 
+        for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
+		if (basePlan.getContest().getContestPK().equals(2L) && basePlan.getScenarioId() != null && basePlan.getScenarioId() > 0) {
+		_log.info("reruning simulation for plan: " + basePlan.getPlanId() + "\t" + basePlan.getName());
+		// rerun only plans that belong to cancun contest
+		try {
+			Scenario scenario = repository.getScenario(basePlan.getScenarioId());
+			Map<Long, Object> values = new HashMap<Long, Object>();
+        	        for (Variable v: scenario.getInputSet()) {
+                	    values.put(v.getMetaData().getId(), v.getValue().get(0).getValues()[0]);
+	                }
+			Scenario newScenario = repository.runModel(scenario.getSimulation(), values, 10144L, true);
+		        FacesMessage fm = new FacesMessage();
+		        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+		        fm.setSummary("Update successful");
+
+		        FacesContext.getCurrentInstance().addMessage(null, fm);
+			_log.info("rerun successful");
+		}	
+		catch (Exception e) {
+			_log.error("Exception thrown when reruning plan: " + basePlan.getPlanId());
+			FacesMessage fm = new FacesMessage();
+		        fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        fm.setSummary("Error when reruning plan " + basePlan.getName());
+        		FacesContext.getCurrentInstance().addMessage(null, fm);
+		}
+
+			
+	}
+
+    }
+        return null;
+	}
 }
