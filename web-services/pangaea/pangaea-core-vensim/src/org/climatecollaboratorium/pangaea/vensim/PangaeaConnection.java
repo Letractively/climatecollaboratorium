@@ -43,7 +43,9 @@ public class PangaeaConnection {
 
     private static final String EMISSIONS_REFERENCE_YEAR_VARNAME = "Emissions reference year";
     private static final float EMISSIONS_REFERENCE_YEAR_VALUE = 2005;
-
+    
+    private static final String APPLY_TO_CO2E="Apply to CO2eq";
+    private static final float APPLY_TO_CO2E_VALUE=1;
 
     /**
      * Helper for Vensim communication.
@@ -81,8 +83,9 @@ public class PangaeaConnection {
         SimulationResults result = new SimulationResults();
         try {
 
-            vensimHelper.setVariable(EMISSIONS_REFERENCE_YEAR_VARNAME,EMISSIONS_REFERENCE_YEAR_VALUE);
-
+	    //   vensimHelper.setVariable(EMISSIONS_REFERENCE_YEAR_VARNAME,EMISSIONS_REFERENCE_YEAR_VALUE);
+	    vensimHelper.setVariable(APPLY_TO_CO2E,APPLY_TO_CO2E_VALUE);
+	    
             for (SimulationInput.InputVariable var : input.getAllVariables().keySet()) {
                 System.out.println(var.internalName + " " + input.getValue(var));
                 System.out.println("vensim helper: " + vensimHelper);
@@ -112,6 +115,7 @@ public class PangaeaConnection {
 
             for (SimulationResults.CompositeVariable cv: SimulationResults.CompositeVariable.values()) {
                 result.addDataPoints(cv,cv.process(result));
+		
             }
         } catch (VensimException e) {
 
