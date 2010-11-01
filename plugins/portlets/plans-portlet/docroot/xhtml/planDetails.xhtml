@@ -34,7 +34,7 @@
                             <ui:param value="#{plan.createPlanBean}" name="createPlanBean"/>
                         </ui:include>    
                     <ice:commandButton styleClass="prominantButton" value="Copy this proposal" onclick="if(!deferUntilLogin()) return false;"
-                                           actionListener="#{plan.createPlanBean.createPlan}"></ice:commandButton>
+                                           actionListener="#{plan.createPlanBean.createPlan}" rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}" ></ice:commandButton>
 
                          </ice:form>
                 </ice:panelGroup>
