@@ -50,7 +50,7 @@
     }</script>
 
 
-    <script type="text/javascript" src="/collaboratorium-theme/javascript/moth_init_script.js"></script>
+    <script type="text/javascript" src="/collaboratorium-theme/javascript/moth_init_script.js?tt=$themeTimestamp"></script>
     <script type="text/javascript" src="/collaboratorium-theme/javascript/loginregister.js"></script>
 
 
