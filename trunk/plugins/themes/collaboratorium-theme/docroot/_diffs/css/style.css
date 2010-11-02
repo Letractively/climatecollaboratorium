@@ -45,6 +45,8 @@ a:active { outline:0;}
 * html .clearfix { height: 1%;} /* Hides from IE-mac \*/
 .clearfix { display: block;}
 
+ul li, ol li {list-style: disc inside none;}
+.journal-content-article ul {margin-left:1em}
 
 
 /*  LAYOUT  --------------------------------------------------- */
