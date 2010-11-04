@@ -8,5 +8,6 @@ public enum DiscussionPageType {
     THREAD,
     THREAD_ADD,
     SEARCH_RESULTS,
-    PERMISSIONS_CONFIG
+    PERMISSIONS_CONFIG,
+    COMMENTS
 }

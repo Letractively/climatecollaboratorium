@@ -39,6 +39,7 @@ public class MessageWrapper {
     private boolean editing;
     private String filteredDescription;
 
+    
     public String getShortDescription() {
         return shortDescription;
     }
@@ -46,8 +47,9 @@ public class MessageWrapper {
     private String shortDescription;
     private boolean goTo;
     private boolean added = false;
+    private int messageNum;
     
-    public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category, DiscussionBean discussionBean) {
+    public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category, DiscussionBean discussionBean, int messageNum) {
         this.category = category;
         this.wrapped = wrapped;
 
@@ -56,6 +58,7 @@ public class MessageWrapper {
         filteredDescription = ContentFilterHelper.filterContent(description);
         shortDescription = ContentFilterHelper.getShortString(description);
         this.discussionBean = discussionBean;
+        messageNum = messageNum;
         
         
         if (wrapped.getThreadId() == null) {
@@ -101,7 +104,7 @@ public class MessageWrapper {
             messages = new ArrayList<MessageWrapper>();
             messages.add(this);
             for (DiscussionMessage message: wrapped.getThreadMessages()) {
-                messages.add(new MessageWrapper(message, category, discussionBean));
+                messages.add(new MessageWrapper(message, category, discussionBean, 0));
             }
             
             Collections.sort(messages, new Comparator<MessageWrapper>() {
@@ -111,6 +114,11 @@ public class MessageWrapper {
                     return o1.getCreateDate().compareTo(o2.getCreateDate());
                 }
             });
+            int messageNum = 1;
+            for (MessageWrapper message: messages) {
+                message.messageNum = messageNum;
+                messageNum++;
+            }
         }
         return messages;
     }
@@ -171,6 +179,34 @@ public class MessageWrapper {
         }
     }
     
+    public void addComment(ActionEvent e) throws SystemException, PortalException {
+        if (!added && discussionBean.getPermissions().getCanAddComment()) {
+
+            UIInput messageInput = (UIInput) e.getComponent().getParent().findComponent("messageContent"); 
+            UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("messageTitle");
+            
+            if (!ValueRequiredValidator.validateComponent(nameInput) || 
+                    !ValueRequiredValidator.validateComponent(messageInput)) {
+                return;
+            }
+            
+            wrapped = discussionBean.getDiscussion().addComment(title, description, Helper.getLiferayUser());
+            added = true;
+            if (discussionBean.getCommentsThread() != null) {
+                discussionBean.getCommentsThread().addMessage(this);
+            }
+
+            discussionBean.commentAdded(this);
+            
+            filteredDescription = ContentFilterHelper.filterContent(description);
+            Helper.sendInfoMessage("Comment \"" + title + "\" has been added.");
+
+            ThemeDisplay td = Helper.getThemeDisplay();
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    DiscussionMessage.class.getName(), wrapped.getMessageId(), DiscussionActivityKeys.ADD_DISCUSSION_COMMENT.id(),null, 0);
+        }
+    }
+    
     public void updateMessage(ActionEvent e) throws SystemException {
         if (discussionBean.getPermissions().getCanAdminMessages()) {
 
@@ -201,6 +237,7 @@ public class MessageWrapper {
     }
     
     private void addMessage(MessageWrapper messageWrapper) {
+        messageWrapper.messageNum = messages.get(messages.size() - 1).messageNum + 1;
         messages.add(messageWrapper);
         newMessage = new MessageWrapper(this);
     }
@@ -233,7 +270,7 @@ public class MessageWrapper {
         this.categoryId = categoryId;
     }
     
-    public void delete(ActionEvent e) throws SystemException {
+    public void delete(ActionEvent e) throws SystemException, PortalException {
         if (discussionBean.getPermissions().getCanAdminMessages()) {
             wrapped.delete();
             if (thread != null) {
@@ -271,5 +308,9 @@ public class MessageWrapper {
 
     public boolean isGoTo() {
         return goTo;
+    }
+    
+    public int getMessageNum() {
+        return messageNum;
     }
 }
