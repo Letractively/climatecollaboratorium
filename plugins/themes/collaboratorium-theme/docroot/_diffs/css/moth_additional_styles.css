@@ -358,7 +358,7 @@ padding:1px 30px 5px;
 .iceDatTbl.colab.prohome thead tr { background:#f4f3eb;}
 
 .protitle { margin:60px 0 19px 0;}
-.protitle img { float:left; margin-right:15px;}ela
+.protitle img { float:left; margin-right:15px;}
 .protitle h2 { color:#2498b3; display:inline-block; margin-right:15px;}
 .protitle h4 { color:#3f3f3f; margin:5px 0 0 0;}
 #earth_pattern.proposals { height: 95px; }
@@ -408,3 +408,6 @@ div#pager { float:right; width:320px; height:20px; text-align:right; padding-top
 .colab td.name {
     width: 340px;
 }
+.wf-active #bread.contest,
+#bread.contest { margin-top:25px; margin-bottom: 20px;}
+
