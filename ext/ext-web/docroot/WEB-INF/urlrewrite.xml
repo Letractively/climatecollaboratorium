@@ -15,13 +15,15 @@
 
 -->
 <urlrewrite>
+
+<!-- 
 <rule>
     <name>Domain Name Check</name>
     <condition name="host" operator="notequal">^climatecolab.org$</condition>
     <from>^(.*)$</from>
     <to type="redirect">http://climatecolab.org$1</to>
 </rule>
-
-
+ -->
+ 
 </urlrewrite>
 

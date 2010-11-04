@@ -474,6 +474,7 @@
 		<field name="id" type="Long" />
 		<field name="description" type="String" />
 		<field name="url" type="String" />
+		<field name="commentsThread" type="Long" />
 	</model>
 	<model name="com.ext.portlet.discussions.model.DiscussionCategory">
 		<field name="pk" type="Long" />
@@ -552,5 +553,10 @@
 	<model name="com.ext.portlet.facebook.model.UserFacebookMapping">
 		<field name="userId" type="Long" />
 		<field name="facebookId" type="String" />
+	</model>
+	<model name="com.ext.utils.model.UserForgotPasswordRequest">
+		<field name="token" type="String" />
+		<field name="userId" type="Long" />
+		<field name="created" type="Date" />
 	</model>
 </model-hints>

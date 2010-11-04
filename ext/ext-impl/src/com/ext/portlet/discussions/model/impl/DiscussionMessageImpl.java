@@ -71,10 +71,13 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
         this.store();
         
         // set last activity info in category
-        DiscussionCategory category = getCategory();
-        category.setLastActivityAuthorId(msg.getAuthorId());
-        category.setLastActivityDate(msg.getCreateDate());
-        category.store();
+        if (getCategoryId() != null && getCategoryId() > 0L) {
+            DiscussionCategory category = getCategory();
+        
+            category.setLastActivityAuthorId(msg.getAuthorId());
+            category.setLastActivityDate(msg.getCreateDate());
+            category.store();
+        }
         
         
         return msg;
@@ -88,7 +91,7 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
         return UserLocalServiceUtil.getUser(getLastActivityAuthorId());
     }
     
-    public void delete() throws SystemException {
+    public void delete() throws SystemException, PortalException {
         setDeleted(new Date());
         store();
         try {
@@ -98,6 +101,12 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
                 for (DiscussionMessage msg: DiscussionMessageLocalServiceUtil.getThreadMessages(getMessageId())) {
                     Indexer.deleteEntry(10112L, msg.getMessageId());
                 }
+            }
+            if (getCategoryGroup().getCommentsThread() == getMessageId()) {
+                // this is a comment thread, remove it from discussion
+                DiscussionCategoryGroup discussion = getCategoryGroup();
+                discussion.setCommentsThread(null);
+                discussion.store();
             }
         } catch (SearchException e) {
             _log.warn("Can't remove message with id: " + getMessageId() + " from search cache", e);

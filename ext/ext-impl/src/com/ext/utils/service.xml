@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
+
+<service-builder package-path="com.ext.utils">
+	<namespace>utils</namespace>
+	<entity name="UserForgotPasswordRequest" local-service="true">
+        <column name="token" type="String" primary="true" />
+        <column name="userId" type="Long" />
+        <column name="created" type="Date" />
+   
+        <order by="desc">
+            <order-column name="created" />
+        </order>
+             
+				
+	   <!-- Finder methods -->
+
+		<finder name="UserId" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+		
+	</entity>
+	
+	</service-builder>

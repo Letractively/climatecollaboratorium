@@ -8,6 +8,7 @@ package com.ext.portlet.plans.service.impl;
 
 import java.util.Date;
 
+import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.model.PlanItem;
@@ -79,5 +80,10 @@ public class PlanVoteLocalServiceImpl extends PlanVoteLocalServiceBaseImpl {
 
     public int countPlanVotes(PlanType type) throws SystemException {
         return PlanItemFinderUtil.countVotesForPlanType(type);
+    }
+    
+
+    public int countPlanVotes(Contest contest) throws SystemException {
+        return planVotePersistence.countBycontestId(contest.getContestPK());
     }
 }

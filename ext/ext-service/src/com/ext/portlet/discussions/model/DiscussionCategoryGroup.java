@@ -46,4 +46,18 @@ public interface DiscussionCategoryGroup extends DiscussionCategoryGroupModel {
         throws com.liferay.portal.SystemException;
 
     public void store() throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage getCommentThread()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionMessage addComment(
+        java.lang.String title, java.lang.String description,
+        com.liferay.portal.model.User author)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public int getCommentsCount()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

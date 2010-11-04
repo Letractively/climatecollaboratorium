@@ -787,4 +787,16 @@
 		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.facebook.service.UserFacebookMappingService" />
 	</bean>
+	<bean name="/com_ext_utils_service_spring_UserForgotPasswordRequestService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+		<property name="serviceInterface" value="com.ext.utils.service.UserForgotPasswordRequestService" />
+	</bean>
+	<bean name="/com_ext_utils_service_spring_UserForgotPasswordRequestService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+		<property name="serviceInterface" value="com.ext.utils.service.UserForgotPasswordRequestService" />
+	</bean>
+	<bean name="/com_ext_utils_service_spring_UserForgotPasswordRequestService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+		<property name="serviceInterface" value="com.ext.utils.service.UserForgotPasswordRequestService" />
+	</bean>
 </beans>

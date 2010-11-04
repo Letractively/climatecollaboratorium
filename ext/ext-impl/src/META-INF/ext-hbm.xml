@@ -646,6 +646,7 @@
 		</id>
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="url" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="commentsThread" />
 	</class>
 	<class name="com.ext.portlet.discussions.model.impl.DiscussionCategoryImpl" table="DiscussionCategory">
 		<cache usage="read-write" />
@@ -748,5 +749,13 @@
 			<generator class="assigned" />
 		</id>
 		<property name="facebookId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.utils.model.impl.UserForgotPasswordRequestImpl" table="UserForgotPasswordRequest">
+		<cache usage="read-write" />
+		<id name="token" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
 	</class>
 </hibernate-mapping>

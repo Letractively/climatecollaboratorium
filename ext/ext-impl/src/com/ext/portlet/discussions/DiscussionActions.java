@@ -7,7 +7,8 @@ public enum DiscussionActions {
     ADD_MESSAGE("Add message"),
     ADMIN_CATEGORIES("Admin categories"),
     ADMIN_MESSAGES("Admin messages"),
-    ADMIN("Admin");
+    ADMIN("Admin"), 
+    ADD_COMMENT("Add comment");
     
     private final String printName;
     

@@ -120,6 +120,12 @@ public class PlanVoteLocalServiceUtil {
         return getService().countPlanVotes(type);
     }
 
+    public static int countPlanVotes(
+        com.ext.portlet.contests.model.Contest contest)
+        throws com.liferay.portal.SystemException {
+        return getService().countPlanVotes(contest);
+    }
+
     public static PlanVoteLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanVoteLocalService is not set");

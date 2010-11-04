@@ -495,7 +495,8 @@ create table DiscussionCategory (
 create table DiscussionCategoryGroup (
 	id_ LONG not null primary key,
 	description VARCHAR(75) null,
-	url VARCHAR(75) null
+	url VARCHAR(75) null,
+	commentsThread LONG
 );
 
 create table DiscussionMessage (
@@ -1862,6 +1863,12 @@ create table TasksReview (
 create table UserFacebookMapping (
 	userId LONG not null primary key,
 	facebookId VARCHAR(75) null
+);
+
+create table UserForgotPasswordRequest (
+	token VARCHAR(75) not null primary key,
+	userId LONG,
+	created DATE null
 );
 
 create table UserHelpSetting (

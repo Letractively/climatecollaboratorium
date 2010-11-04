@@ -47,9 +47,12 @@ public class DiscussionCategoryGroupModelImpl extends BaseModelImpl<DiscussionCa
             { "description", new Integer(Types.VARCHAR) },
             
 
-            { "url", new Integer(Types.VARCHAR) }
+            { "url", new Integer(Types.VARCHAR) },
+            
+
+            { "commentsThread", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table DiscussionCategoryGroup (id_ LONG not null primary key,description VARCHAR(75) null,url VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table DiscussionCategoryGroup (id_ LONG not null primary key,description VARCHAR(75) null,url VARCHAR(75) null,commentsThread LONG)";
     public static final String TABLE_SQL_DROP = "drop table DiscussionCategoryGroup";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -65,6 +68,7 @@ public class DiscussionCategoryGroupModelImpl extends BaseModelImpl<DiscussionCa
     private Long _id;
     private String _description;
     private String _url;
+    private Long _commentsThread;
 
     public DiscussionCategoryGroupModelImpl() {
     }
@@ -76,6 +80,7 @@ public class DiscussionCategoryGroupModelImpl extends BaseModelImpl<DiscussionCa
         model.setId(soapModel.getId());
         model.setDescription(soapModel.getDescription());
         model.setUrl(soapModel.getUrl());
+        model.setCommentsThread(soapModel.getCommentsThread());
 
         return model;
     }
@@ -127,6 +132,14 @@ public class DiscussionCategoryGroupModelImpl extends BaseModelImpl<DiscussionCa
         _url = url;
     }
 
+    public Long getCommentsThread() {
+        return _commentsThread;
+    }
+
+    public void setCommentsThread(Long commentsThread) {
+        _commentsThread = commentsThread;
+    }
+
     public DiscussionCategoryGroup toEscapedModel() {
         if (isEscapedModel()) {
             return (DiscussionCategoryGroup) this;
@@ -139,6 +152,7 @@ public class DiscussionCategoryGroupModelImpl extends BaseModelImpl<DiscussionCa
             model.setId(getId());
             model.setDescription(HtmlUtil.escape(getDescription()));
             model.setUrl(HtmlUtil.escape(getUrl()));
+            model.setCommentsThread(getCommentsThread());
 
             model = (DiscussionCategoryGroup) Proxy.newProxyInstance(DiscussionCategoryGroup.class.getClassLoader(),
                     new Class[] { DiscussionCategoryGroup.class },
@@ -154,6 +168,7 @@ public class DiscussionCategoryGroupModelImpl extends BaseModelImpl<DiscussionCa
         clone.setId(getId());
         clone.setDescription(getDescription());
         clone.setUrl(getUrl());
+        clone.setCommentsThread(getCommentsThread());
 
         return clone;
     }
@@ -199,6 +214,8 @@ public class DiscussionCategoryGroupModelImpl extends BaseModelImpl<DiscussionCa
         sb.append(getDescription());
         sb.append(", url=");
         sb.append(getUrl());
+        sb.append(", commentsThread=");
+        sb.append(getCommentsThread());
         sb.append("}");
 
         return sb.toString();
@@ -222,6 +239,10 @@ public class DiscussionCategoryGroupModelImpl extends BaseModelImpl<DiscussionCa
         sb.append(
             "<column><column-name>url</column-name><column-value><![CDATA[");
         sb.append(getUrl());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>commentsThread</column-name><column-value><![CDATA[");
+        sb.append(getCommentsThread());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

@@ -450,6 +450,7 @@ create index IX_5BE2C986 on PlanTeamHistory (planId, userId);
 
 create index IX_7F5652DE on PlanType (isDefault);
 
+create index IX_BD01B2C6 on PlanVote (contestId);
 create index IX_171DA55E on PlanVote (contestId, planId);
 create index IX_97DAE500 on PlanVote (contestId, userId);
 create index IX_33130471 on PlanVote (planId);
@@ -649,6 +650,8 @@ create index IX_36F512E6 on TasksReview (userId);
 create unique index IX_5C6BE4C7 on TasksReview (userId, proposalId);
 
 create index IX_54908C78 on UserFacebookMapping (facebookId);
+
+create index IX_7E19C526 on UserForgotPasswordRequest (userId);
 
 create index IX_524FEFCE on UserGroup (companyId);
 create unique index IX_23EAD0D on UserGroup (companyId, name);

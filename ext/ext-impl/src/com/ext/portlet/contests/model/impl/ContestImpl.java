@@ -16,6 +16,7 @@ import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.debaterevision.util.Indexer;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -91,6 +92,10 @@ public class ContestImpl extends ContestModelImpl implements Contest {
             ret.add(DebateLocalServiceUtil.findLastVersion(pos.getDebateId()));
         }
         return ret;
+    }
+    
+    public Integer getTotalVotes() throws SystemException {
+        return PlanVoteLocalServiceUtil.countPlanVotes(this);
     }
 
 }
