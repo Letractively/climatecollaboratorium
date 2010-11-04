@@ -71,8 +71,6 @@ blockquote, ul, ol, dl {
 }
 
 
-.plans #content_shade,
-.proposals #content_shade,
 .community #content_shade,
 .news #content_shade,
 .discussion #content_shade,
@@ -82,9 +80,7 @@ blockquote, ul, ol, dl {
 .feedback #content_shade,
 .loginregistertocolab #content_shade
  { width:984px; background:url(../images/content_shade.png);}
- 
-.plans #content_home,
-.proposals #content_home,
+
 .community #content_home,
 .news #content_home,
 .discussion #content_home,
@@ -95,8 +91,6 @@ blockquote, ul, ol, dl {
 .loginregistertocolab #content_home
  { width:976px; background:#F9F9F8; line-height:22px; }
  
- .plans.contentContainer,
-.proposals.contentContainer,
 .community.contentContainer,
 .news.contentContainer,
 .discussion.contentContainer,
@@ -116,14 +110,14 @@ blockquote, ul, ol, dl {
     font-size: 11px;
  }
  
- 
+ /*
 .proposals h2 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:20px; font-style:normal; font-weight:400; color: #58534A; margin:20px 0 10px 0;}
-.proposals h1 { font-family: "gloriola-display-thin-1","gloriola-display-thin-2"; font-size:27px; font-style:normal; font-weight:400; color: #58534a; margin:20px 0 10px 0;}
+.proposals h1 { font-family: "gloriola-display-thin-1","gloriola-display-thin-2"; font-size:27px; font-style:normal; font-weight:400; color: #58534a;}
 
 .proposals h3 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:18px; font-style:normal; font-weight:400; color: #218aad; margin:10px 0 7px 0;}
 .proposals h4 { margin:7px 0 5px 0;}
 .proposals h5 { font-family: "gloriola-web-1","gloriola-web-2"; font-size:15px; font-style:normal; font-weight:400; margin:0 0 7px 0;}
-
+*/
 
 
 
@@ -357,3 +351,60 @@ padding:1px 30px 5px;
     height:auto;
 }
 
+
+
+/** CHANGES AFTER 2.11.2010 **/
+
+.iceDatTbl.colab.prohome thead tr { background:#f4f3eb;}
+
+.protitle { margin:60px 0 19px 0;}
+.protitle img { float:left; margin-right:15px;}ela
+.protitle h2 { color:#2498b3; display:inline-block; margin-right:15px;}
+.protitle h4 { color:#3f3f3f; margin:5px 0 0 0;}
+#earth_pattern.proposals { height: 95px; }
+
+
+input.selectbox { padding:0 44px 0 9px; width:100%; height:35px; display:block; background: url(../images/butt_arrowbdr.png) no-repeat right;	font-size:17px; font-style:italic; color:#666; border:none; cursor: pointer;}
+input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:#e36f0f;}
+
+.top_separator { margin: 0; padding: 0; height: 0px; }
+
+
+#earth_pattern.proposals.planDetails { height:121px;}
+
+#main {
+    padding-top: 15px;
+}
+
+.mainTabs {
+    width: 100%;
+}
+
+
+.odd .l { width:149px; font-size:12px; line-height:20px; background:url(../images/comment_arrow1.gif) no-repeat right 38px #e8e8dd; padding:15px 35px 30px 15px;}
+    .wf-active .odd .l { width:149px; font-size:14px; line-height:20px; background:url(../images/comment_arrow1.gif) no-repeat right 38px #e8e8dd; padding:15px 35px 30px 15px;}
+.odd .r { width:740px; font-size:14px; line-height:27px; background:#f3f3ed; padding:15px 30px 0 15px;}
+    .wf-active .odd .r { width:740px; font-size:16px; line-height:27px; background:#f3f3ed; padding:15px 30px 0 15px;}
+.even .l { width:149px; font-size:12px; line-height:20px; background:url(../images/comment_arrow2.gif) no-repeat right 38px #efeee7; padding:15px 35px 30px 15px;}
+    .wf-active .even .l { width:149px; font-size:14px; line-height:20px; background:url(../images/comment_arrow2.gif) no-repeat right 38px #efeee7; padding:15px 35px 30px 15px;}
+.even .r { width:740px; font-size:14px; line-height:27px; background:#fafaf8; padding:15px 30px 0 15px;}
+    .wf-active .even .r { width:740px; font-size:16px; line-height:27px; background:#fafaf8; padding:15px 30px 0 15px;}
+    
+div#pager { float:right; width:320px; height:20px; text-align:right; padding-top:30px;}
+
+#pager .controls.pagerNext {float: left; }
+#pager .controls.pagerPrev {float: left; }
+
+#pager .paginatorInfo {
+    float: left;
+}
+
+#pager td.pagerNextScrBtn, 
+#pager td.pagerNextScrCol,
+#pager td.pagerNextCol {
+    padding-right: 5px;
+}
+
+.colab td.name {
+    width: 340px;
+}

@@ -102,6 +102,15 @@ jQuery(document).ready(function() {
 	
 	var footer = jQuery("#footmenu").next();
 	footer.appendTo(jQuery("#foot_wrap"));
+	
+	jQuery('.close').click(function() { 
+		jQuery('.chooseround li:eq(0) a').triggerHandler('click'); 
+		return false; 
+	});
+
+	jQuery('.selectbox1').selectbox({
+		inputClass: 'selectbox'
+	});
 
     setTimeout(function() {
       jQuery("div.contestPhaseInfo:first .details h3").text("Round 1 completed, voting begins Nov. 1  (29 final proposals)");  

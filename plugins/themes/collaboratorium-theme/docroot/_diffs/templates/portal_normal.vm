@@ -110,6 +110,11 @@
 
 </script>
     #set ($pageName = $page.getName($locale).toLowerCase().replaceAll("\s","").replaceAll("/", ""))
+    
+    #if ($collab_plan) 
+        #set ($pageName = $pageName + " planDetails")
+    #end
+     
     #if ($page.parentLayoutId > 0) 
         ## we have a parent page, find it's name
         #foreach ($parentLayoutCand in $layouts) 
@@ -126,12 +131,12 @@
     #end
 
     #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
-        <div id="earth" class="e1"></div>
+        <div id="earth" class="e1 $pageName"></div>
     #else 
         #if ($pageName == 'resources') 
-            <div id="earth_pattern"></div>
+            <div id="earth_pattern" class='$pageName'></div>
         #else 
-            <div id="earth_pattern" class="$subPageClass"></div>
+            <div id="earth_pattern" class="$pageName $subPageClass"></div>
         #end
             
     #end
@@ -139,6 +144,11 @@
     #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn' || $parentPageName == 'about') && $pageName != 'resources')
         <div id="bread_bg">&nbsp;</div>
     #end
+    #if ($collab_plan)
+        <div id="bread_bg" class="pro">&nbsp;</div>
+        <div id="tabs_bg">&nbsp;</div>
+    #end
+    
     
     
 
