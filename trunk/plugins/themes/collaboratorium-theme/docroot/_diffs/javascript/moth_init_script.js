@@ -107,10 +107,14 @@ jQuery(document).ready(function() {
 		jQuery('.chooseround li:eq(0) a').triggerHandler('click'); 
 		return false; 
 	});
+	
+	var selectboxOnChange = jQuery('.selectbox1').get(0).getAttribute("onchange");
+	alert(selectboxOnChange);
 
 	jQuery('.selectbox1').selectbox({
 		inputClass: 'selectbox'
 	});
+	jQuery(".selectbox").get(0).setAttribute("onchange", selectboxOnChange);
 
     setTimeout(function() {
       jQuery("div.contestPhaseInfo:first .details h3").text("Round 1 completed, voting begins Nov. 1  (29 final proposals)");  

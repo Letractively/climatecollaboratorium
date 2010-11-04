@@ -114,6 +114,9 @@
     #if ($collab_plan) 
         #set ($pageName = $pageName + " planDetails")
     #end
+    #if ($collab_contest) 
+        #set ($pageName = $pageName + " contestDetails")
+    #end
      
     #if ($page.parentLayoutId > 0) 
         ## we have a parent page, find it's name
@@ -147,6 +150,9 @@
     #if ($collab_plan)
         <div id="bread_bg" class="pro">&nbsp;</div>
         <div id="tabs_bg">&nbsp;</div>
+    #end
+    #if (!$collab_plan and  $collab_contest) 
+        <div id="bread_bg" class="contest">&nbsp;</div>
     #end
     
     
