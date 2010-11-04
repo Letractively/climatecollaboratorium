@@ -430,7 +430,6 @@ td.contestTabSetCnt {
     /*border:15px solid;
     border-color: #E3DFD7;
     */
-    padding: 0px 20px;
   
 }
 
@@ -462,6 +461,7 @@ table.categoryContentsTable td.phasePlanCount {
  * DETAIL TABS
  *
  */
+ /*
 
 table.mainTabs {
     width:100%;
@@ -543,6 +543,63 @@ table.mainTabs > tbody > tr:first-child table .MidMid a {
 table.mainTabs > tbody > tr:first-child table .icePnlTbOver .MidMid td {
 	color: #C74430;
 }
+*/
+
+
+ table.mainTabs > tbody > tr:first-child table .icePnlTb,
+ table.mainTabs > tbody > tr:first-child tableSpcr {
+
+    border: 0;
+ }
+ 
+ table.mainTabs > tbody > tr:first-child table .icePnlTbSetCnt  {
+    border: 0;
+ }
+ 
+table.mainTabs > tbody > tr:first-child table .LftMid,
+table.mainTabs > tbody > tr:first-child table .RtMid,
+table.mainTabs > tbody > tr:first-child table .LftTop,
+table.mainTabs > tbody > tr:first-child table .RtTop,
+table.mainTabs > tbody > tr:first-child table .MidTop,
+table.mainTabs > tbody > tr:first-child table .LftBtm,
+table.mainTabs > tbody > tr:first-child table .RtBtm,
+table.mainTabs > tbody > tr:first-child table .MidBtm {
+    background: none;
+    display: none;
+}
+
+
+table.mainTabs {
+	margin-top: -34px;
+}
+
+table.mainTabs .MidMid a {
+    background:url(/collaboratorium-theme/images/tab_off.gif) no-repeat #2498b3; 
+    height:23px; 
+    padding:7px 12px 0 12px; 
+    margin:3px 6px 0 0; 
+    display:inline-block; 
+    font-size:12px; 
+    font-weight:600; 
+    color:#fff;
+}
+table.mainTabs .icePnlTbOn a {
+    background:url(/collaboratorium-theme/images/tab_on.png) no-repeat right #fff; 
+    height:23px; 
+    padding:10px 16px 0 8px; 
+    margin:0 2px 0 0; 
+    color:#2498b3;
+}
+
+table.mainTabs .icePnlTbOver a {
+    background:url(/collaboratorium-theme/images/tab_on.png) no-repeat right #fff; 
+    height:23px; 
+    padding:10px 16px 0 8px;
+    margin-top: 0px; 
+    margin-right:6px;  
+    margin-left:6px;
+    color:#2498b3;
+}
 
 /**
 TAB CONTENTS
@@ -553,7 +610,7 @@ table.icePnlTbSet.contestTabSet {
 }
 
 td.icePnlTbSetCnt.mainTabsCnt {
-    background-color: #FFFFFF;
+    background-color: transparent;
 }
 
 .toolbar {

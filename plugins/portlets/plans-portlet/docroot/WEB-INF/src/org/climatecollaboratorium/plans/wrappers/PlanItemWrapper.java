@@ -22,6 +22,9 @@ import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
 
 import com.ext.portlet.PlanStatus;
 import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.plans.NoSuchPlanPositionsException;
+import com.ext.portlet.plans.PlanConstants;
+import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.model.PlanItem;
@@ -69,6 +72,7 @@ public class PlanItemWrapper {
     private static String[] EMPTY_ARRAY = new String[]{};
     
     private EventBus eventBus;
+    private Map<String, String> planAttributes;
 
     public enum PlanStatusSelection {SUBMITTED(PlanStatus.SUBMITTED,"An entry in the contest"),
         DRAFT(PlanStatus.UNDER_DEVELOPMENT,"Just a draft");
@@ -275,10 +279,6 @@ public class PlanItemWrapper {
         planBean.setEditingName(false);
     }
 
-    
-    public int getVotes() throws SystemException {
-        return wrapped.getVotes();
-    }
     public void vote(ActionEvent e) throws PortalException, SystemException {
         if (Helper.isUserLoggedIn()) {
             wrapped.vote(Helper.getLiferayUser().getUserId());
@@ -470,6 +470,14 @@ public class PlanItemWrapper {
         return wrapped.getFans();
     }
     
+    public List<PlanFan> getPlanFansHalf1() throws SystemException {
+        return wrapped.getFans().subList(0, wrapped.getFans().size() / 2 + wrapped.getFans().size() % 2);
+    }
+    
+    public List<PlanFan> getPlanFansHalf2() throws SystemException {
+        return wrapped.getFans().subList(wrapped.getFans().size() / 2 + wrapped.getFans().size() % 2, wrapped.getFans().size());
+    }
+    
     public void becomeAFan(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             wrapped.addFan(Helper.getLiferayUser().getUserId());
@@ -541,6 +549,47 @@ public class PlanItemWrapper {
     
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
+    }
+    
+    public Integer getVotesPercent() throws SystemException, PortalException {
+        Integer totalVotes = wrapped.getContest().getTotalVotes();
+        Integer planVotes = wrapped.getVotes();
+        if (totalVotes == null || totalVotes == 0 || planVotes == null || planVotes <= 0) {
+            return 0;
+        }
+        return (planVotes * 100)/ totalVotes;
+    }
+    
+    public Integer getVotes() throws SystemException, PortalException {
+        Integer planVotes = wrapped.getVotes();
+        return planVotes != null ? planVotes : 0;
+    }
+    
+    public Map<String, String> getAttributes() throws SystemException, PortalException {
+        if (planAttributes == null) {
+            planAttributes = new HashMap<String, String>();
+            for (PlanAttribute attr: wrapped.getPlanAttributes()) {
+                planAttributes.put(attr.getAttributeName(), attr.getAttributeValue());
+            }
+            
+            for (PlanConstants.Columns column: PlanConstants.Columns.values()) {
+                planAttributes.put(column.name(), column.getValue(wrapped));
+            }
+        }
+        return planAttributes;
+        
+    }
+    
+    public int getPositionsCount() throws NoSuchPlanPositionsException, SystemException {
+        return wrapped.getPositionsIds().size();
+    }
+    
+    public int getMembersCount() throws SystemException {
+        return wrapped.getMembers().size();
+    }
+    
+    public int getCommentsCount() throws PortalException, SystemException {
+        return wrapped.getDiscussionCategoryGroup().getCommentsCount();
     }
 
 }

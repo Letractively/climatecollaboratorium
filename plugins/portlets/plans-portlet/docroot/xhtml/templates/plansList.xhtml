@@ -5,10 +5,10 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets">
         
-    <ice:dataTable value="#{plansIndex.plans}" styleClass="plansTable" rowClasses="odd,even"
+    <ice:dataTable value="#{plansIndex.plans}" styleClass="colab prohome" rowClasses="nt,t" columnClasses="ng,g"
                    var="singlePlan" sortColumn="#{plansIndex.sortColumn}"
                    sortAscending="#{plansIndex.sortAscending}" id="plansIndex"
-                   rows="#{maxRows}" headerClass="#{plansIndex.columns}">
+                   rows="#{maxRows}" headerClasses="ng,g">
         <ice:columns value="#{plansIndex.columns}" var="column">
             <f:facet name="header">
                 <div>

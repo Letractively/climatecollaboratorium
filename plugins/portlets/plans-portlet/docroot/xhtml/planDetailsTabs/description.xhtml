@@ -2,11 +2,27 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets" 
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collab="http://climatecollaboratorium.org/facelets">
         <ice:commandLink styleClass="editStateTrigger hidden" value="Edit" actionListener="#{planBean.editDescription}" />
-    <div class="description normal">
-        <div class="versionsContainer">
+        
+        <ui:decorate template="breadcrumb.xhtml">
+            <ui:define name="breadcrumbButtons">
+                <ice:panelGroup rendered="#{permissions.canEdit}" styleClass="breadbutt">
+                    <img src="/collaboratorium-theme/images/icon_edit-page.gif" width="19" height="21" alt=" " />
+                    <ice:commandLink actionListener="#{planBean.editDescription}"> 
+                        edit page
+                    </ice:commandLink>
+                </ice:panelGroup>
+                <div class="breadbutt">
+                    <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " /> 
+                    <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden">hide history</span><span id="show">show history</span></a>
+                </div>
+            </ui:define>
+        </ui:decorate>
+  
+        <div class="versionsContainer hidden">
             <div class="versions">
                 <ice:dataTable value="#{planBean.plan.allDescriptionVersions}" rows="10" var="historyItem" styleClass="basicTable" rowClasses="odd,even">
                     <ice:column>
@@ -33,6 +49,7 @@
 
             </div>
         </div>
+        
          <ice:panelGrid styleClass="toolbar" columns="2">
             <ice:panelGroup styleClass="save editControls" rendered="#{planBean.editingDescription}">
                 <ice:commandLink value="Save Changes" actionListener="#{planBean.plan.saveDescription}"/>
@@ -41,9 +58,9 @@
                 <ice:commandLink value="Cancel edits" actionListener="#{planBean.editDescription}"/>
             </ice:panelGroup>
 
-
     </ice:panelGrid>
-    
+            <div class="clear"></div>
+    <!-- 
         <ice:panelGroup styleClass="chooseVersionWidget">
             <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" class="versionsTrigger">Show old versions</a>
         </ice:panelGroup>
@@ -56,12 +73,21 @@
                             rendered="#{permissions.canEdit and not planBean.editingDescription}">
                 <ice:commandLink styleClass="editButton" value="Edit" actionListener="#{planBean.editDescription}"
                         />
-            </ice:panelGroup>
+            </ice:panelGroup> 
+         -->
             
-       
+    <div class="content">
+  
+        <div id="main" class="desc">
+        <!-- 
         <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}"
                         styleClass="planDescription editTriggerContainer">
+                         -->
+        <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}"
+                        styleClass="planDescription">
+                        <!-- 
                         <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
+                         -->
             <ice:panelGroup styleClass="versionInfo" rendered="#{planBean.plan.planDescriptionHistoryItem != null and !planBean.plan.planDescriptionHistoryItem.latest}">
             
                 Viewing version from &amp;nbsp; <strong><ice:outputText
@@ -90,9 +116,13 @@
         </ice:panelGroup>
 
 
+<!-- 
         <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}"
                 styleClass="planDescription editTriggerContainer">
             <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
+             -->
+             <ice:panelGroup rendered="#{not planBean.plan.descriptionSet and not planBean.editingDescription}"
+                styleClass="planDescription">
             <ice:panelGroup styleClass="versionInfo" rendered="#{planBean.plan.planDescriptionHistoryItem != null and !planBean.plan.planDescriptionHistoryItem.latest}">
             
                 Viewing version from &amp;nbsp; <strong><ice:outputText
@@ -108,6 +138,57 @@
             </div>
         </ice:panelGroup>
 
+        </div>
+        
+    <div id="desc-right">
+      <div class="grid-gray">
+        <div class="icon"><img src="/collaboratorium-theme/images/icon_blue-chk.gif" width="29" height="23" /></div>
+        <div class="info"><span>${planBean.plan.votes}</span> <em>votes (#{planBean.plan.votesPercent}%)</em></div>
+        <div class="icon"><img src="/collaboratorium-theme/images/icon_comments.gif" width="32" height="30" /></div>
+        <div class="info"><span>#{planBean.plan.commentsCount}</span> <em>comments</em></div>
+        <div class="clearfix">&amp;nbsp;</div>
+      </div>
+      
+        <div class="grid-blue">
+        <div class="icon"><img src="/collaboratorium-theme/images/icon_blue-arrows.gif" width="30" height="23" /></div>
+        <div class="info">
+            <div class="infohead">
+                <collab:planLink contestId="#{contest.contestId}" planId="#{planBean.planId}" text="ACTIONS &amp; IMPACTS" hashString="plans=tab:actionsimpacts" />
+            </div>
+          <div class="infotext">
+            <p><strong>CO2 concentration</strong><br />#{planBean.plan.attributes['CO2_CONCENTRATION']}</p>
+            <p><strong>Temperature Increase</strong><br />#{planBean.plan.attributes['TEMP_CHANGE']}</p>
+            <p><strong>Mitigation Costs</strong><br />#{planBean.plan.attributes['MITIGATION_COST']}</p>
+            <strong>Damage Costs</strong><br />#{planBean.plan.attributes['DAMAGE_COST']}
+            </div>
+        </div>
+        <div class="icon"><img src="/collaboratorium-theme/images/icon_blue-flag.gif" width="27" height="28" /></div>
+        <div class="info">
+            <div class="infohead">
+                <collab:planLink contestId="#{contest.contestId}" planId="#{planBean.planId}" text="POSITIONS" hashString="plans=tab:positions" />
+            </div>
+          <div class="infotext">
+                <collab:planLink contestId="#{contest.contestId}" planId="#{planBean.planId}" text="View #{planBean.plan.positionsCount} positions..." hashString="plans=tab:positions" />
+          </div>
+                </div>
+         <div class="clearfix"></div>        
+     </div>
+
+        <div class="grid-gray">
+        <div class="icon"><img src="/collaboratorium-theme/images/icon_people.gif" width="32" height="29" /></div>
+        <div class="info"><span>#{plan.plan.membersCount}</span> <em>team members</em></div>
+        <div class="icon"><img src="/collaboratorium-theme/images/icon_thumb-up.gif" width="27" height="31" /></div>
+        <div class="info"><span>#{plan.plan.attributes['SUPPORTERS']}</span> <em>supporters</em></div>
+        <div class="clearfix"></div>
+      </div>
+
+    </div> <!-- /proright -->
+        
+        
+        
+        </div>
+
+
         <ice:panelGroup styleClass="hidden ">
             <script type="text/javascript">
                 Collab.nav.addEditorDirtyValidationCallback(checkIfPlanDescriptionDirty);
@@ -115,5 +196,4 @@
             </script>
         </ice:panelGroup>
 
-    </div>
 </f:view>

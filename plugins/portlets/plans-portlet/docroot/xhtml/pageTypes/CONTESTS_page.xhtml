@@ -23,10 +23,19 @@
     <ice:form>
 
 
-        <ice:panelGroup styleClass="categoryHeader" rendered="#{not singleContest.editor.editing}">
+        <ice:panelGroup styleClass="protitle" rendered="#{not singleContest.editor.editing}">
+            <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
             <h2>
-                <collab:contestLink contestId="#{singleContest.contestId}" text="#{singleContest.name}" />
+                <collab:contestLink contestId="#{singleContest.contestId}" text="#{singleContest.shortName}" />
             </h2>
+            <f:subview rendered="#{singleContest.contestActive}">
+                <div class="t_wrap"><div class="txt1">CURRENT CONTEST</div></div>
+            </f:subview>
+            <f:subview rendered="#{not singleContest.contestActive}">
+                <div class="t_wrap"><div class="txt1">ARCHIVED CONTEST</div></div>
+            </f:subview>
+            <h4><ice:outputText value="#{singleContest.name}" /></h4>
+            
             <ice:commandButton styleClass="editCategoryButton" value="Edit"
                                action="#{singleContest.editor.edit}"
                                rendered="#{not singleContest.editor.editing and permissions.canAdminAll}"/>
@@ -41,45 +50,81 @@
             <ice:outputLabel for="shortName">Short name</ice:outputLabel>
             <ice:inputText id="shortName" value="#{singleContest.editor.shortName}"/>
         </ice:panelGroup>
-        <table class="single-contest-layout">
-            <tr>
-                <td class="description">
-
-
-                    <ice:panelGroup styleClass="categoryDescription"
-                                    rendered="#{not singleContest.editor.editing}">
-
+        <div class="probox">
+            <div class="boxtext">
+                    <f:subview rendered="#{not singleContest.editor.editing}">
                         <ice:outputText id="description" value="#{singleContest.description}"
                                         escape="false"/>
-                    </ice:panelGroup>
-                    <ice:panelGroup styleClass="categoryDescription"
-                                    rendered="#{singleContest.editor.editing}">
+                    </f:subview>
+                    <f:subview rendered="#{singleContest.editor.editing}">
                         <ice:inputTextarea value="#{singleContest.editor.description}"/>
-                    </ice:panelGroup>
+                    </f:subview>
                     <ice:panelGrid columns="2" styleClass="editCategory buttonPanel"
                                    rendered="#{singleContest.editor.editing}">
                         <ice:commandButton value="Save" action="#{singleContest.editor.save}"/>
                         <ice:commandButton value="Cancel" action="#{singleContest.editor.cancel}"/>
                     </ice:panelGrid>
-
-                </td>
-                <td class="contestNavItems">
-
-                    <collab:contestLink contestId="#{singleContest.contestId}" hashString="plans=subview:issues" text="&lt;div class='prominantButton' &gt;Debate the issues&lt;/div&gt;" />
-                    
-                    <collab:contestLink contestId="#{singleContest.contestId}" hashString="plans=subview:model" text="&lt;div class='prominantButton' &gt;Run the model&lt;/div&gt;" />
-                </td>
-            </tr>
-        </table>
+            </div>
+            
+            <div class="buttbox">
+                <div class="buttbdr">
+                    <collab:contestLink contestId="#{singleContest.contestId}" hashString="plans=subview:issues" text="&lt;span &gt; DEBATE &lt;/span&gt; the issues" />
+                </div>
+                <div class="buttbdr">
+                    <collab:contestLink contestId="#{singleContest.contestId}" hashString="plans=subview:model" text="&lt;span &gt;Run&lt;/span&gt; the model" />
+                </div>
+                
+            </div>
+            <ul id="tabs" class="prohome">
+                <li class="c"><a href="#">CURRENT: ROUND 2</a></li>
+                <li><a href="description.html">ROUND 1</a></li>
+            </ul>
+            <div class="clearfix"></div>    
+        </div>
     </ice:form>
 
 
     <ice:form>
 
 
-        <div class="contestContent">
-            <div class="contestPhaseInfo">
-                <div class="details">
+    <div id="pro-info">
+        <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{singleContest.plansIndex.plansCount}</span> proposals
+        <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" /> <strong>
+        <f:subview rendered="#{singleContest.plansIndex.contestPhase.status != 'FINISHED'}">
+            #{singleContest.plansIndex.contestPhase.name} closes &amp;nbsp;
+            <ice:outputText value="#{singleContest.plansIndex.contestPhase.endDate}">
+                <f:convertDateTime pattern="MMMMM d"/>
+            </ice:outputText>
+        </f:subview>
+        <f:subview rendered="#{singleContest.plansIndex.contestPhase.status == 'FINISHED'}">
+            Contest completed &amp;nbsp;
+            <ice:outputText value="#{singleContest.plansIndex.contestPhase.endDate}">
+                <f:convertDateTime pattern="MMMMM d, yyyy"/>
+            </ice:outputText>
+        </f:subview>
+        </strong>
+        <div class="butt_wrap">
+        <div class="buttbdr"><a href="#"><span>CREATE</span> proposal</a></div>
+        <div class="select-pro_wrap">
+        <form>
+          <select name="plans" class="selectbox1" style="width:180px;">
+            <option value="000">&lt;span&gt;Show:&lt;/span&gt; All plans</option>
+            <option value="001">Plan 00000001</option>
+            <option value="002">Plan 002</option>
+            <option value="003">Plan 003</option>
+            <option value="004">Plan 004</option>
+            <option value="005">Plan 005</option>
+            <option value="006">Plan 006</option>
+            <option value="007">Plan 007</option>
+            <option value="008">Plan 008</option>
+            <option value="009">Plan 009</option>
+          </select>
+        </form>
+        </div>
+      </div> <!-- /butt_wrap -->
+    </div> <!-- /proinfo -->
+    
+    <!-- 
                     <f:subview rendered="#{singleContest.plansIndex.contestPhase.status != 'FINISHED'}">
                         <h3>#{singleContest.plansIndex.contestPhase.description}
                             (#{singleContest.plansIndex.plansCount} proposals #{singleContest.plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION' ? 'thus far' : ''})
@@ -117,6 +162,7 @@
 
                 <div class="clear"></div>
             </div>
+            -->
             
             <ui:decorate template="../templates/plansList.xhtml">
                 <ui:param name="plansIndex" value="#{singleContest.plansIndex}" />
@@ -129,7 +175,6 @@
                 <collab:contestLink contestId="#{singleContest.contestId}" text="&lt;strong&gt;View all proposals&lt;/strong&gt;"/>
             </div>
 
-        </div>
     </ice:form>
 </ice:panelSeries>
     <ice:panelGroup styleClass="hidden" >

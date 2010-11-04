@@ -20,6 +20,8 @@ public class PlanMembershipBean {
     private PlanItem plan;
     private PlanBean planBean;
     private List<PlanMember> planMembers;
+    private List<PlanMember> planMembersHalf1;
+    private List<PlanMember> planMembersHalf2;
     private List<PlanMembershipRequest> planMembershipRequests;
     private String comment;
     private PlansPermissionsBean permissions;
@@ -31,7 +33,8 @@ public class PlanMembershipBean {
         this.permissions = permissions;
 
         planMembers = new ArrayList<PlanMember>();
-
+        planMembersHalf1 = new ArrayList<PlanMember>();
+        planMembersHalf2 = new ArrayList<PlanMember>();
 
 
         planMembershipRequests = new ArrayList<PlanMembershipRequest>();
@@ -40,12 +43,35 @@ public class PlanMembershipBean {
 
 
     public List<PlanMember> getPlanMembers() throws SystemException {
-        planMembers.clear();
-        for (User user: plan.getMembers()) {
-            planMembers.add(new PlanMember(plan, user, this, permissions));
+        if (planMembers.size() == 0) {
+            planMembers.clear();
+            for (User user: plan.getMembers()) {
+                planMembers.add(new PlanMember(plan, user, this, permissions));
+            }
         }
-
         return planMembers;
+    }
+    
+    public List<PlanMember> getPlanMembersHalf1() throws SystemException {
+        if (planMembersHalf1.size() == 0) {
+            planMembersHalf1.addAll(getPlanMembersSublist(0, (plan.getMembers().size() / 2) + (plan.getMembers().size() % 2)));
+        }
+        return planMembersHalf1;
+    }
+    
+    public List<PlanMember> getPlanMembersHalf2() throws SystemException {
+        if (planMembersHalf2.size() == 0) {
+            planMembersHalf2.addAll(getPlanMembersSublist((plan.getMembers().size() / 2) + (plan.getMembers().size() % 2), plan.getMembers().size()));
+        }
+        return planMembersHalf2;
+    }
+    
+    private List<PlanMember> getPlanMembersSublist(int from, int to) throws SystemException {
+        List<PlanMember> ret = new ArrayList<PlanMember>();
+        for (int i=from; i < to; i++) {
+            ret.add(new PlanMember(plan, plan.getMembers().get(i), this, permissions));
+        }
+        return ret;
     }
     
 

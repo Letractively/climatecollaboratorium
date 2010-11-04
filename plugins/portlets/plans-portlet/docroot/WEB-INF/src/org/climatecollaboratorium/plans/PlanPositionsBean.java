@@ -158,5 +158,9 @@ public class PlanPositionsBean {
     public List<Long> getPositionsIds() {
         return positionsIds;
     }
+    
+    public int getPositionsCount() {
+        return positionsIds.size();
+    }
 
 }

@@ -4,12 +4,8 @@
 
 .descriptionInput .iceInpRchTxt {
     height: 500px;
-    padding:0 20px 20px;
 }
 
-div.planDescription {
-    padding:0 20px 20px;
-}
 
 .planDescription ul li {
     list-style: disc;
