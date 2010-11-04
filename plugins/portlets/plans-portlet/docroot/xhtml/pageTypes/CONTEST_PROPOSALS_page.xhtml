@@ -7,11 +7,19 @@
         xmlns:collab="http://climatecollaboratorium.org/facelets">
 
 <ui:composition template="../templates/contestPageTemplateWithButtons.xhtml">
+    <ui:param name="showBread" value="true" />
 
-<ui:define name="plans_breadcrumb">
-    <collab:contestsPageLink text="Contests Index" /> &amp;gt;&amp;gt; &amp;nbsp;  
-    <strong><ice:outputText>#{contest.contest.shortName}</ice:outputText></strong>
-</ui:define>
+        <ui:define name="page_subtitle">#{contest.contest.shortName}</ui:define>
+        <ui:define name="plans_breadcrumb">
+        
+            <collab:contestsPageLink text="Contests Index" /> 
+            <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+            
+            <collab:contestLink contestId="#{contest.contestId}" text="#{contest.contest.shortName}" />
+            
+        </ui:define>
+        
+
 
 <ui:define name="contest_content">
 <ice:form>
@@ -19,7 +27,7 @@
         <ui:param value="#{navigation.createPlanBean}" name="createPlanBean"/>
     </ui:include>
 </ice:form>
-
+<!-- 
 <div class="contestPhaseInfo">
     <div class="details">
         <f:subview rendered="#{plansIndex.contestPhase.status != 'FINISHED'}">
@@ -80,8 +88,67 @@
 
 
     <div class="clear"></div>
-
 </div>
+ -->
+ 
+  <ice:panelGroup styleClass="protitle" rendered="#{not contest.contest.editor.editing}">
+            <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
+            <h2>
+                <collab:contestLink contestId="#{contest.contest.contestId}" text="#{contest.contest.shortName}" />
+            </h2>
+            <f:subview rendered="#{contest.contest.contestActive}">
+                <div class="t_wrap"><div class="txt1">CURRENT CONTEST</div></div>
+            </f:subview>
+            <f:subview rendered="#{not contest.contest.contestActive}">
+                <div class="t_wrap"><div class="txt1">ARCHIVED CONTEST</div></div>
+            </f:subview>
+            <h4><ice:outputText value="#{contest.contest.name}" /></h4>
+            
+            <ice:commandButton styleClass="editCategoryButton" value="Edit"
+                               action="#{contest.contest.editor.edit}"
+                               rendered="#{not contest.contest.editor.editing and permissions.canAdminAll}"/>
+        </ice:panelGroup>
+        <ice:panelGroup styleClass="categoryHeader" rendered="#{contest.contest.editor.editing}">
+            <ice:outputLabel for="name">Name</ice:outputLabel>
+
+            <h2><ice:inputText id="name" styleClass="categoryName" value="#{contest.contest.editor.name}"/>
+            </h2>
+        </ice:panelGroup>
+        <ice:panelGroup styleClass="categoryShortName" rendered="#{contest.contest.editor.editing}">
+            <ice:outputLabel for="shortName">Short name</ice:outputLabel>
+            <ice:inputText id="shortName" value="#{contest.contest.editor.shortName}"/>
+        </ice:panelGroup>
+        <div class="probox">
+            <div class="boxtext">
+                    <f:subview rendered="#{not contest.contest.editor.editing}">
+                        <ice:outputText id="description" value="#{contest.contest.description}"
+                                        escape="false"/>
+                    </f:subview>
+                    <f:subview rendered="#{contest.contest.editor.editing}">
+                        <ice:inputTextarea value="#{contest.contest.editor.description}"/>
+                    </f:subview>
+                    <ice:panelGrid columns="2" styleClass="editCategory buttonPanel"
+                                   rendered="#{contest.contest.editor.editing}">
+                        <ice:commandButton value="Save" action="#{contest.contest.editor.save}"/>
+                        <ice:commandButton value="Cancel" action="#{contest.contest.editor.cancel}"/>
+                    </ice:panelGrid>
+            </div>
+            
+            <div class="buttbox">
+                <div class="buttbdr">
+                    <collab:contestLink contestId="#{contest.contest.contestId}" hashString="plans=subview:issues" text="&lt;span &gt; DEBATE &lt;/span&gt; the issues" />
+                </div>
+                <div class="buttbdr">
+                    <collab:contestLink contestId="#{contest.contest.contestId}" hashString="plans=subview:model" text="&lt;span &gt;Run&lt;/span&gt; the model" />
+                </div>
+                
+            </div>
+            <ul id="tabs" class="prohome">
+                <li class="c"><a href="#">CURRENT: ROUND 2</a></li>
+                <li><a href="description.html">ROUND 1</a></li>
+            </ul>
+            <div class="clearfix"></div>    
+        </div>
     <ice:form>
     <ui:decorate template="../templates/plansList.xhtml">
         <ui:param name="maxRows" value="#{plansIndex.pageSize}" />

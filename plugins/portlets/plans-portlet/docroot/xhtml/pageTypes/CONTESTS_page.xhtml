@@ -106,20 +106,19 @@
         <div class="butt_wrap">
         <div class="buttbdr"><a href="#"><span>CREATE</span> proposal</a></div>
         <div class="select-pro_wrap">
+            <ice:selectOneMenu value="#{plansIndex.selectedMode}" partialSubmit="true" styleClass="selectbox1" style="width: 180px">
+                <f:selectItems value="#{plansIndex.availableModes}"/>
+            </ice:selectOneMenu>
+            
+        <!-- 
         <form>
           <select name="plans" class="selectbox1" style="width:180px;">
             <option value="000">&lt;span&gt;Show:&lt;/span&gt; All plans</option>
-            <option value="001">Plan 00000001</option>
-            <option value="002">Plan 002</option>
-            <option value="003">Plan 003</option>
-            <option value="004">Plan 004</option>
-            <option value="005">Plan 005</option>
-            <option value="006">Plan 006</option>
-            <option value="007">Plan 007</option>
-            <option value="008">Plan 008</option>
-            <option value="009">Plan 009</option>
+            <option value="001">Open proposals</option>
+            <option value="002">Proposals seeking help</option>
           </select>
         </form>
+        -->
         </div>
       </div> <!-- /butt_wrap -->
     </div> <!-- /proinfo -->
