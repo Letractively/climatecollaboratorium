@@ -5,9 +5,16 @@
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets">
-    <div class="plansBreadcrumb">
-        <h1>Proposals:</h1> <ui:insert name="plans_breadcrumb" />
+    <div>
+        <h1>Proposals: &amp;nbsp; <span><ui:insert name="page_subtitle" /></span></h1>
     </div>
+    
+    <f:subview rendered="#{showBread}">
+        <div id="bread" class="contest" >
+            <ui:insert name="plans_breadcrumb" />
+        </div>
+    </f:subview>
+    
     <div class="plansContent">
         <ui:insert name="plans_content" />
     </div>
