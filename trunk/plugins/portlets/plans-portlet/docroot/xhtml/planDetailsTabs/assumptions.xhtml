@@ -2,6 +2,7 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets" 
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collab="http://climatecollaboratorium.org/facelets">
 
@@ -11,6 +12,20 @@
             Collab.nav.addEditorDirtyValidationCallback(checkIfPlanPositionsDirty);
         </script>
     </ice:panelGroup>
+    
+    
+    <ui:decorate template="breadcrumb.xhtml">
+        <ui:define name="breadcrumbButtons">
+            <ice:panelGroup styleClass="breadbutt" rendered="#{not planBean.planPositionsBean.editing and permissions.canEdit}">
+                <img src="/collaboratorium-theme/images/icon_edit-page.gif" width="19" height="21" alt=" " /> 
+                <ice:commandLink value="edit page" actionListener="#{planBean.planPositionsBean.edit}" />
+            </ice:panelGroup>
+            <div class="breadbutt">
+                <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " /> 
+                <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden">hide history</span><span id="show">show history</span></a>
+            </div>
+        </ui:define>
+    </ui:decorate>
 
     <div class="versionsContainer">
         <div class="versions">
@@ -50,12 +65,14 @@
 
     </ice:panelGrid>
     
+    <!-- 
         <ice:panelGroup styleClass="chooseVersionWidget">
         <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" class="versionsTrigger">Show old versions</a>
 
 
     </ice:panelGroup>
-    
+     -->
+     
     <div class="clear"></div>
     
     <ice:panelGroup styleClass="edit editControls hidden"
@@ -77,16 +94,27 @@
                 <strong><ice:outputText value="#{planBean.planPositionsBean.versionAuthor.screenName}"/></strong>
             </a>
         </ice:panelGroup>
+        <!-- 
         <div class="editTriggerContainer">
             <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
+             -->
+        <div>
             <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
-                <div class="assumption">
-                 <h3 class="question"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></h3>
-                    <h4 class="position"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId},itemId:#{question.selectedPosition.debateItemId}">#{question.selectedPosition.debateSummary}</a></h4>
+                <div class="posbox">
+                    <div class="flag"></div>
+                    <div class="grid"></div>
+                    <div class="posbox_wrap">
+                        <div class="q"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></div>
+                        <div class="a"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId},itemId:#{question.selectedPosition.debateItemId}">#{question.selectedPosition.debateSummary}</a></div>
+                        <div class="votes" style="min-width: 15%; width:#{question.selectedPosition.votesPercent}%;">#{question.selectedPosition.votesCount} votes <span>#{question.selectedPosition.votesPercent}%</span></div>
+                    </div>
                 </div>
             </ice:panelSeries>
+            <!-- 
             <ice:panelGroup rendered="#{not planBean.planPositionsBean.positionsSet}" styleClass="editTriggerContainer">
                 <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
+                 -->
+             <ice:panelGroup rendered="#{not planBean.planPositionsBean.positionsSet}">     
                 <div class="nothingSetInfo">
                     <div class="nothingSetMessage">No positions set.</div>
                 </div>

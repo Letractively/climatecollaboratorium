@@ -12,6 +12,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.events.PlanDeletedEvent;
 import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
@@ -45,6 +46,7 @@ public class PlanBean {
     private static ThemeDisplay td = Helper.getThemeDisplay();
     private int selectedTabIndex = 0;
     private Long planId = -1L;
+    private DiscussionBean commentsBean = new DiscussionBean();
 
     private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
     private final static String PLANS_SOURCE = "plans";
@@ -62,8 +64,9 @@ public class PlanBean {
         tabNameIndexMap.put("description", tabNameIndexMap.size());
         tabNameIndexMap.put("actionsimpacts", tabNameIndexMap.size());
         tabNameIndexMap.put("positions", tabNameIndexMap.size());
-        tabNameIndexMap.put("discussion", tabNameIndexMap.size());
+        tabNameIndexMap.put("comments", tabNameIndexMap.size());
         tabNameIndexMap.put("team", tabNameIndexMap.size());
+        tabNameIndexMap.put("discussion", tabNameIndexMap.size());
     }
 
     private static Log _log = LogFactoryUtil.getLog(PlanBean.class);
@@ -218,7 +221,7 @@ public class PlanBean {
         return modelBean;
     }
 
-    public int getVotesPercent() throws SystemException {
+    public int getVotesPercent() throws SystemException, PortalException {
         int votes = plan.getVotes();
         int votesTotal = PlanVoteLocalServiceUtil.getPlanVotesCount();
         if (votes == 0 || votesTotal == 0) {
@@ -333,4 +336,9 @@ public class PlanBean {
             }
         }));
     }
+    
+    public DiscussionBean getCommentsBean() {
+        return commentsBean;
+    }
+        
 }

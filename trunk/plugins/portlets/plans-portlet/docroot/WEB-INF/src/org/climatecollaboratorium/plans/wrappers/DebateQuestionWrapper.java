@@ -2,6 +2,8 @@ package org.climatecollaboratorium.plans.wrappers;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.debaterevision.model.DebateItem;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
 
 import java.util.*;
 
@@ -89,7 +91,7 @@ public class DebateQuestionWrapper {
     private void updateSelectedPosition() {
         for (DebateItem item: wrapped.getChildren()) {
             if (item.getDebateItemId().equals(position)) {
-                selectedPosition = new DebateItemWrapper(item);
+                selectedPosition = new DebateItemWrapper(item, this);
             }
         }
     }
@@ -114,5 +116,10 @@ public class DebateQuestionWrapper {
 
     public String getDebateAnchor() {
         return "<a href='" + getDebateLink() + ">" + getDebateSummary() + "</a>";
+    }
+    
+    public Long getVotesCount() throws PortalException, SystemException {
+        
+        return wrapped.getVotesCount();
     }
 }

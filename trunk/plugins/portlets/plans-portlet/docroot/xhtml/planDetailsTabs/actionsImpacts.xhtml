@@ -2,6 +2,7 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets" 
         xmlns:collab="http://climatecollaboratorium.org/facelets"
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collabcomps="http://climatecollaboratorium.org/components">
@@ -13,6 +14,19 @@
             Collab.nav.addEditorDirtyValidationCallback(checkIfActionsImpactsDirty);
         </script>
     </ice:panelGroup>
+    
+    <ui:decorate template="breadcrumb.xhtml">
+        <ui:define name="breadcrumbButtons">
+            <ice:panelGroup styleClass="breadbutt" rendered="#{permissions.canEdit and simulationBean.embeddedEditing}">
+                <img src="/collaboratorium-theme/images/icon_edit-page.gif" width="19" height="21" alt=" " /> 
+                <ice:commandLink actionListener="#{simulationBean.editActions}" value="edit page" />
+            </ice:panelGroup>
+            <div class="breadbutt">
+                <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " /> 
+                <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden">hide history</span><span id="show">show history</span></a>
+            </div>
+        </ui:define>
+    </ui:decorate>
 
     <div id="model-upload" class="hidden">
         <div id="model-upload-popup-content">
@@ -78,9 +92,11 @@
 
     </ice:panelGrid>
     
+    <!-- 
         <ice:panelGroup styleClass="chooseVersionWidget">
             <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" class="versionsTrigger">Show old versions</a>
         </ice:panelGroup>
+        -->
         
     
     <div class="clear"></div>

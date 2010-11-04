@@ -4,10 +4,106 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collab="http://climatecollaboratorium.org/facelets"
+        xmlns:ui="http://java.sun.com/jsf/facelets" 
         xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     
+    <ui:decorate template="breadcrumb.xhtml">
+    </ui:decorate>
+    
+    
+    <div id="content">
+  
+    <div class="team_left">
+        <div class="team-top">
+        <div id="team-info"><img src="/collaboratorium-theme/images/icon_people-big.gif" width="47" height="42" /> <span>#{planBean.plan.planMembersCount}</span> members</div>
+      </div>
+            
+                <ice:dataTable value="#{planBean.membershipBean.planMembersHalf1}" var="member" styleClass="colab" rowClasses="t,nt" columnClasses="b name,b">
+                    <ice:column>
+                        <f:facet name="header">Name</f:facet>
+                        <collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}"/>
+                    </ice:column>
+                    
+                    <ice:column>
+                        <f:facet name="header">Status</f:facet>
+                        <f:subview
+                                rendered="#{(not permissions.canAdmin or permissions.planUserPermission gt member.planUserPermission or member.planUserPermission == 'OWNER') and not permissions.canAdminAll}">
+                            <ice:outputText value="#{member.planUserPermission.description}"/>
+                        </f:subview>
+                        <ice:selectOneMenu value="#{member.planUserPermissionStr}"
+                                           rendered="#{(permissions.canAdmin and permissions.planUserPermission le member.planUserPermission and not (member.planUserPermission == 'OWNER')) or permissions.canAdminAll}"
+                                           partialSubmit="true">
+                            <f:selectItems value="#{planBean.membershipBean.availableUserRoles}"/>
+                        </ice:selectOneMenu>
+                    </ice:column>
+                    <ice:column rendered="#{permissions.planOwner}">
+                        <f:facet name="header">Action</f:facet>
+                        <ice:commandLink value="remove" actionListener="#{member.remove}"/>
+                    </ice:column>
+                </ice:dataTable>
+        </div>
+  
+    <div class="team_right">
+        <div class="team-top">
+            <div class="buttgrid"><a href="#"><span>JOIN</span> the team</a></div>
+      </div>
+      
+                <ice:dataTable value="#{planBean.membershipBean.planMembersHalf2}" var="member" styleClass="colab" rowClasses="t,nt" columnClasses="b name,b">
+                    <ice:column>
+                        <f:facet name="header">Name</f:facet>
+                        <collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}"/>
+                    </ice:column>
+                    
+                    <ice:column>
+                        <f:facet name="header">Status</f:facet>
+                        <f:subview
+                                rendered="#{(not permissions.canAdmin or permissions.planUserPermission gt member.planUserPermission or member.planUserPermission == 'OWNER') and not permissions.canAdminAll}">
+                            <ice:outputText value="#{member.planUserPermission.description}"/>
+                        </f:subview>
+                        <ice:selectOneMenu value="#{member.planUserPermissionStr}"
+                                           rendered="#{(permissions.canAdmin and permissions.planUserPermission le member.planUserPermission and not (member.planUserPermission == 'OWNER')) or permissions.canAdminAll}"
+                                           partialSubmit="true">
+                            <f:selectItems value="#{planBean.membershipBean.availableUserRoles}"/>
+                        </ice:selectOneMenu>
+                    </ice:column>
+                    <ice:column rendered="#{permissions.planOwner}">
+                        <f:facet name="header">Action</f:facet>
+                        <ice:commandLink value="remove" actionListener="#{member.remove}"/>
+                    </ice:column>
+                </ice:dataTable>
+    </div>
+  
+        <div class="clearfix">&amp;nbsp;</div>
+        
+    <div class="team_left">
+        <div class="team-top">
+        <div id="team-info"><img src="/collaboratorium-theme/images/icon_thumb-up-big.gif" width="37" height="42" /> <span>#{planBean.plan.planFansCount}</span> supporters</div>
+      </div>
+      <ice:dataTable value="#{planBean.plan.planFansHalf1}" var="fan" styleClass="colab" rendered="#{fn:length(planBean.plan.planFans) > 0}" rowClasses="t,nt" columnClasses="b">
+                        <ice:column>
+                            <f:facet name="header">Name</f:facet>
+                            <collab:userLinkSimple userId="#{fan.user.userId}" text="#{fan.user.screenName}"/>
+                        </ice:column>
+      </ice:dataTable>
+    </div>
+  
+    <div class="team_right">
+        <div class="team-top">
+            <div class="buttgrid"><a href="#"><span>SUPPORT</span> this proposal</a></div>
+      </div>
+            <ice:dataTable value="#{planBean.plan.planFansHalf2}" var="fan" styleClass="colab" rendered="#{fn:length(planBean.plan.planFans) > 0}" rowClasses="t,nt" columnClasses="b">
+                        <ice:column>
+                            <f:facet name="header">Name</f:facet>
+                            <collab:userLinkSimple userId="#{fan.user.userId}" text="#{fan.user.screenName}"/>
+                        </ice:column>
+      </ice:dataTable>
+    </div>
+  
+        <div class="clearfix"></div>
+  </div> <!-- /content -->
+    
 
-
+<!-- 
     <table class="teamGrid">
         <tr>
             <td class="left">
@@ -75,39 +171,6 @@
             </td>
         </tr>
         <tr>
-            <td class="left">
-
-
-                <ice:panelGroup styleClass="entryCount" rendered="#{planBean.plan.planMembersCount > 0}">
-                    <i>#{planBean.plan.planMembersCount} Member#{planBean.plan.planMembersCount>1?"s":''}</i>
-                </ice:panelGroup>
-                <ice:dataTable value="#{planBean.membershipBean.planMembers}" var="member" styleClass="basicTable"
-                               rowClasses="odd,even">
-                    <ice:column>
-                        <f:facet name="header">Screen Name</f:facet>
-                        <collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}"/>
-                    </ice:column>
-                    
-                    <ice:column>
-                        <f:facet name="header">Status</f:facet>
-                        <f:subview
-                                rendered="#{(not permissions.canAdmin or permissions.planUserPermission gt member.planUserPermission or member.planUserPermission == 'OWNER') and not permissions.canAdminAll}">
-                            <ice:outputText value="#{member.planUserPermission.description}"/>
-                        </f:subview>
-                        <ice:selectOneMenu value="#{member.planUserPermissionStr}"
-                                           rendered="#{(permissions.canAdmin and permissions.planUserPermission le member.planUserPermission and not (member.planUserPermission == 'OWNER')) or permissions.canAdminAll}"
-                                           partialSubmit="true">
-                            <f:selectItems value="#{planBean.membershipBean.availableUserRoles}"/>
-                        </ice:selectOneMenu>
-                    </ice:column>
-                    <ice:column rendered="#{permissions.planOwner}">
-                        <f:facet name="header">Action</f:facet>
-                        <ice:commandLink value="remove" actionListener="#{member.remove}"/>
-                    </ice:column>
-                </ice:dataTable>
-
-
-            </td>
             <td class="right">
 
                 <ice:panelGroup styleClass="entryCount" rendered="#{planBean.plan.planFansCount > 0}">
@@ -139,4 +202,5 @@
         </tr>
 
     </table>
+    -->
 </f:view>
