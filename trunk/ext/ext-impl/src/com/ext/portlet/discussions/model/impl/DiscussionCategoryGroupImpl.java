@@ -10,8 +10,10 @@ import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserLocalServiceUtil;
 
 
 public class DiscussionCategoryGroupImpl
@@ -42,6 +44,44 @@ public class DiscussionCategoryGroupImpl
         }
         else {
             DiscussionCategoryGroupLocalServiceUtil.updateDiscussionCategoryGroup(this);
+        }
+    }
+    
+    public DiscussionMessage getCommentThread() throws SystemException, PortalException {
+        DiscussionMessage thread;
+        if (getCommentsThread() == null || getCommentsThread() <= 0L) {
+            return thread = null;
+        }
+        else {
+            thread = DiscussionMessageLocalServiceUtil.getThreadByThreadId(getCommentsThread());
+        }
+        
+        return thread;
+        
+    }
+    
+    public DiscussionMessage addComment(String title, String description, User author) throws SystemException, PortalException {
+        DiscussionMessage comment = null;
+        if (getCommentsThread() == null || getCommentsThread() <= 0L) {
+            // create new thread
+            comment = DiscussionMessageLocalServiceUtil.addThread(getId(), 0L, title, description, author);
+            this.setCommentsThread(comment.getMessageId());
+            
+            this.store();
+        }
+        else {
+            DiscussionMessage thread = getCommentThread();
+            comment = thread.addThreadMessage(title, description, author);
+        }
+        return comment;
+    }
+    
+    public int getCommentsCount() throws SystemException, PortalException {
+        if (getCommentsThread() == null || getCommentsThread() <= 0L) {
+            return 0;
+        }
+        else {
+            return getCommentThread().getThreadMessagesCount() + 1;
         }
     }
     

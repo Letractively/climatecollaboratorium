@@ -1212,4 +1212,22 @@
 	<bean id="com.ext.portlet.facebook.service.persistence.UserFacebookMappingUtil" class="com.ext.portlet.facebook.service.persistence.UserFacebookMappingUtil">
 		<property name="persistence" ref="com.ext.portlet.facebook.service.persistence.UserFacebookMappingPersistence.impl" />
 	</bean>
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestLocalService.impl" class="com.ext.utils.service.impl.UserForgotPasswordRequestLocalServiceImpl" />
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.utils.service.UserForgotPasswordRequestLocalService.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestLocalServiceUtil" class="com.ext.utils.service.UserForgotPasswordRequestLocalServiceUtil">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestLocalService.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestService.impl" class="com.ext.utils.service.impl.UserForgotPasswordRequestServiceImpl" />
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestServiceUtil" class="com.ext.utils.service.UserForgotPasswordRequestServiceUtil">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.persistence.UserForgotPasswordRequestPersistence.impl" class="com.ext.utils.service.persistence.UserForgotPasswordRequestPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.utils.service.persistence.UserForgotPasswordRequestUtil" class="com.ext.utils.service.persistence.UserForgotPasswordRequestUtil">
+		<property name="persistence" ref="com.ext.utils.service.persistence.UserForgotPasswordRequestPersistence.impl" />
+	</bean>
 </beans>

@@ -40,5 +40,9 @@ public interface DiscussionCategoryGroupModel extends BaseModel<DiscussionCatego
 
     public void setUrl(String url);
 
+    public Long getCommentsThread();
+
+    public void setCommentsThread(Long commentsThread);
+
     public DiscussionCategoryGroup toEscapedModel();
 }

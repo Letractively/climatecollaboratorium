@@ -28,6 +28,7 @@ public class DiscussionCategoryGroupSoap implements Serializable {
     private Long _id;
     private String _description;
     private String _url;
+    private Long _commentsThread;
 
     public DiscussionCategoryGroupSoap() {
     }
@@ -39,6 +40,7 @@ public class DiscussionCategoryGroupSoap implements Serializable {
         soapModel.setId(model.getId());
         soapModel.setDescription(model.getDescription());
         soapModel.setUrl(model.getUrl());
+        soapModel.setCommentsThread(model.getCommentsThread());
 
         return soapModel;
     }
@@ -112,5 +114,13 @@ public class DiscussionCategoryGroupSoap implements Serializable {
 
     public void setUrl(String url) {
         _url = url;
+    }
+
+    public Long getCommentsThread() {
+        return _commentsThread;
+    }
+
+    public void setCommentsThread(Long commentsThread) {
+        _commentsThread = commentsThread;
     }
 }

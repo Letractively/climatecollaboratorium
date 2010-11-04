@@ -14,6 +14,8 @@ import mit.simulation.climate.client.Simulation;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
+import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanFanException;
 import com.ext.portlet.plans.NoSuchPlanItemException;
@@ -674,6 +676,11 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
 
     private void updateSearchIndex() throws SearchException, SystemException {
         Indexer.updateEntry(10112L, this);
+        
+    }
+    
+    public DiscussionCategoryGroup getDiscussionCategoryGroup() throws PortalException, SystemException {
+        return DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(getCategoryGroupId());
         
     }
 

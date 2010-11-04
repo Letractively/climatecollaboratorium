@@ -51,4 +51,7 @@ public interface Contest extends ContestModel {
 
     public java.util.List<com.ext.portlet.debaterevision.model.Debate> getDebates()
         throws com.liferay.portal.SystemException;
+
+    public java.lang.Integer getTotalVotes()
+        throws com.liferay.portal.SystemException;
 }

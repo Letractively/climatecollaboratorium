@@ -150,7 +150,7 @@
         
         
         <finder name="contestId" return-type="PlanVote">
-            <finder-column name="userId" />
+            <finder-column name="contestId" />
         </finder>
         
         <finder name="PlanId" return-type="PlanVote">

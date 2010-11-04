@@ -274,4 +274,8 @@ public interface PlanItem extends PlanItemModel {
 
     public boolean isSeekingAssistance()
         throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionCategoryGroup getDiscussionCategoryGroup()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

@@ -18,12 +18,12 @@ public class PlanVoteUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanVote create(
-        PlanVotePK planVotePK) {
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK) {
         return getPersistence().create(planVotePK);
     }
 
     public static com.ext.portlet.plans.model.PlanVote remove(
-        PlanVotePK planVotePK)
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException {
         return getPersistence().remove(planVotePK);
@@ -70,33 +70,34 @@ public class PlanVoteUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanVote findByPrimaryKey(
-        PlanVotePK planVotePK)
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException {
         return getPersistence().findByPrimaryKey(planVotePK);
     }
 
     public static com.ext.portlet.plans.model.PlanVote fetchByPrimaryKey(
-        PlanVotePK planVotePK) throws com.liferay.portal.SystemException {
+        com.ext.portlet.plans.service.persistence.PlanVotePK planVotePK)
+        throws com.liferay.portal.SystemException {
         return getPersistence().fetchByPrimaryKey(planVotePK);
     }
 
     public static com.ext.portlet.plans.model.PlanVote findBycontestId(
-        java.lang.Long userId)
+        java.lang.Long contestId)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException {
-        return getPersistence().findBycontestId(userId);
+        return getPersistence().findBycontestId(contestId);
     }
 
     public static com.ext.portlet.plans.model.PlanVote fetchBycontestId(
-        java.lang.Long userId) throws com.liferay.portal.SystemException {
-        return getPersistence().fetchBycontestId(userId);
+        java.lang.Long contestId) throws com.liferay.portal.SystemException {
+        return getPersistence().fetchBycontestId(contestId);
     }
 
     public static com.ext.portlet.plans.model.PlanVote fetchBycontestId(
-        java.lang.Long userId, boolean retrieveFromCache)
+        java.lang.Long contestId, boolean retrieveFromCache)
         throws com.liferay.portal.SystemException {
-        return getPersistence().fetchBycontestId(userId, retrieveFromCache);
+        return getPersistence().fetchBycontestId(contestId, retrieveFromCache);
     }
 
     public static com.ext.portlet.plans.model.PlanVote findByPlanId(
@@ -165,10 +166,10 @@ public class PlanVoteUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
-    public static void removeBycontestId(java.lang.Long userId)
+    public static void removeBycontestId(java.lang.Long contestId)
         throws com.ext.portlet.plans.NoSuchPlanVoteException,
             com.liferay.portal.SystemException {
-        getPersistence().removeBycontestId(userId);
+        getPersistence().removeBycontestId(contestId);
     }
 
     public static void removeByPlanId(java.lang.Long planId)
@@ -188,9 +189,9 @@ public class PlanVoteUtil {
         getPersistence().removeAll();
     }
 
-    public static int countBycontestId(java.lang.Long userId)
+    public static int countBycontestId(java.lang.Long contestId)
         throws com.liferay.portal.SystemException {
-        return getPersistence().countBycontestId(userId);
+        return getPersistence().countBycontestId(contestId);
     }
 
     public static int countByPlanId(java.lang.Long planId)
