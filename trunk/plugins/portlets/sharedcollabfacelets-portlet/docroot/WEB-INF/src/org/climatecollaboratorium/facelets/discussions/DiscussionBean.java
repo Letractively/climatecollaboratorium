@@ -41,17 +41,20 @@ public class DiscussionBean {
     private Long threadId;
     private Long owningGroupId;
     private DiscussionPageType pageType = DiscussionPageType.DISCUSSIONS;
+    private Boolean showOnlyComments = false;
 
     private Long lastInitDiscussionId;
     private Long lastInitOwningGroupId;
     private EventBus eventBus;
     private CategoryWrapper currentCategory;
     private MessageWrapper currentThread;
+    private MessageWrapper commentsThread;
     private List<CategoryWrapper> categories;
     private List<MessageWrapper> threads;
     private Map<Long, CategoryWrapper> categoriesById;
     private Map<Long, MessageWrapper> threadsById;
     private DiscussionPageType prevPage;
+    private MessageWrapper newComment = new MessageWrapper(this);
 
     private CategoryWrapper newCategory;
     private String searchQuery;
@@ -81,7 +84,7 @@ public class DiscussionBean {
      * @throws SystemException
      * @throws PortalException
      */
-    public boolean init(Long discussionId, Long owningGroupId, DiscussionsPermissions permissions) 
+    public boolean init(Long discussionId, Long owningGroupId, DiscussionsPermissions permissions, Boolean comments) 
     throws PortalException, SystemException {
         if (discussionId == null) {
             return false;
@@ -95,7 +98,7 @@ public class DiscussionBean {
         }
         lastInitDiscussionId = discussionId;
         lastInitOwningGroupId = owningGroupId;
-        
+        showOnlyComments = comments != null ? comments : false;
         
         this.discussionId = discussionId;
         this.owningGroupId = owningGroupId;
@@ -195,6 +198,8 @@ public class DiscussionBean {
                     }
                     catch (SystemException e) {
                         _log.error("Can't update display", e);
+                    } catch (PortalException e) {
+                        _log.error("Can't update display", e);
                     }
                 }
                 else {
@@ -206,8 +211,8 @@ public class DiscussionBean {
         
     }
 
-    public void changePageType(ActionEvent e) throws NoSuchDiscussionCategoryException, SystemException,
-            NoSuchDiscussionMessageException {
+    public void changePageType(ActionEvent e) throws SystemException,
+            PortalException {
         if (e.getComponent().getAttributes().containsKey("pageType")) {
             try {
                 pageType = DiscussionPageType.valueOf(e.getComponent().getAttributes().get("pageType").toString());
@@ -234,11 +239,17 @@ public class DiscussionBean {
         updateDisplay();
     }
 
-    private void updateDisplay() throws SystemException {
+    private void updateDisplay() throws SystemException, PortalException {
         if (discussion == null) {
             return;
         }
-        if (pageType == DiscussionPageType.CATEGORY) {
+        if (showOnlyComments) {
+            pageType = DiscussionPageType.COMMENTS;
+            if (commentsThread == null && discussion.getCommentThread() != null) { 
+                commentsThread = new MessageWrapper(discussion.getCommentThread(), null, this, 0);
+            }
+        }
+        else if (pageType == DiscussionPageType.CATEGORY) {
             getCategories();
             currentCategory = categoriesById.get(categoryId);
         } else if (pageType == DiscussionPageType.THREAD) {
@@ -340,7 +351,7 @@ public class DiscussionBean {
         pageType = DiscussionPageType.SEARCH_RESULTS;
         searchResults.clear();
         for (DiscussionMessage message : DiscussionMessageLocalServiceUtil.search(searchQuery, discussion.getId())) {
-            searchResults.add(new MessageWrapper(message, null, this));
+            searchResults.add(new MessageWrapper(message, null, this, 0));
         }
     }
 
@@ -425,4 +436,25 @@ public class DiscussionBean {
         return discussionId;
     }
 
+    public MessageWrapper getCommentsThread() {
+        return commentsThread;
+    }
+    
+    public int getCommentsCount() throws SystemException {
+        if (commentsThread != null) {
+            return commentsThread.getThreadMessagesCount();
+        }
+        return 0;
+    }
+
+    public void commentAdded(MessageWrapper messageWrapper) {
+        if (commentsThread == null) {
+            commentsThread = messageWrapper;
+        }
+        newComment = new MessageWrapper(this);
+    }
+    
+    public MessageWrapper getNewComment() {
+        return newComment;
+    }
 }

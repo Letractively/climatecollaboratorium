@@ -82,4 +82,9 @@ public class DefaultDiscussionsPermissionsImpl implements DiscussionsPermissions
         PermissionChecker permCheck = Helper.getPermissionChecker();
         return Helper.getPermissionChecker();
     }
+
+    @Override
+    public boolean getCanAddComment() {
+        return getCanAdmin() || getCanAdminMessages() || permCheck().hasPermission(groupId, RESOURCE_NAME, primKey, DiscussionActions.ADD_COMMENT.name());
+    }
 }
