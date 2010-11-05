@@ -144,12 +144,51 @@
                 
             </div>
             <ul id="tabs" class="prohome">
-                <li class="c"><a href="#">CURRENT: ROUND 2</a></li>
-                <li><a href="description.html">ROUND 1</a></li>
+            
+                <ui:repeat value="#{contest.contest.activeOrPastPhases}" var="phase">
+                    <li class="#{phase.phaseId == contest.currentPhase.phaseId ? 'c' : ''}">
+                        <collab:contestLink contestId="#{contest.contest.contestId}" text="#{phase.name}" hashString="plans=phase:#{phase.phaseId}" /></li>
+                </ui:repeat>
             </ul>
             <div class="clearfix"></div>    
         </div>
     <ice:form>
+    
+        <div id="pro-info">
+        <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{plansIndex.plansCount}</span> proposals
+        <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" /> <strong>
+        <f:subview rendered="#{plansIndex.contestPhase.status != 'FINISHED'}">
+            #{plansIndex.contestPhase.name} closes &amp;nbsp;
+            <ice:outputText value="#{plansIndex.contestPhase.endDate}">
+                <f:convertDateTime pattern="MMMMM d"/>
+            </ice:outputText>
+        </f:subview>
+        <f:subview rendered="#{plansIndex.contestPhase.status == 'FINISHED'}">
+            Contest completed &amp;nbsp;
+            <ice:outputText value="#{plansIndex.contestPhase.endDate}">
+                <f:convertDateTime pattern="MMMMM d, yyyy"/>
+            </ice:outputText>
+        </f:subview>
+        </strong>
+        
+            <div class="butt_wrap">
+            <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
+            <div class="buttbdr">
+                <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();" styleClass="createNewPlanButton"
+                        actionListener="#{navigation.createPlanBean.createPlan}">
+                    <span>CREATE</span> proposal
+                </ice:commandLink>
+            </div>
+        </f:subview>
+            <div class="select-pro_wrap">
+                <ice:selectOneMenu value="#{plansIndex.selectedMode}" partialSubmit="true" styleClass="selectbox1" style="width: 180px">
+                    <f:selectItems value="#{plansIndex.availableModes}"/>
+                </ice:selectOneMenu>
+            </div>
+          </div> <!-- /butt_wrap -->
+      
+    </div> <!-- /proinfo -->
+    
     <ui:decorate template="../templates/plansList.xhtml">
         <ui:param name="maxRows" value="#{plansIndex.pageSize}" />
         <ui:param name="renderPaginator" value="false" />

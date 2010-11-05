@@ -599,4 +599,8 @@ public class PlansIndexBean {
 //     public boolean isShowProposalsThatNeedSupporters() {
 //         return showProposalsThatNeedSupporters;
 //     }
+    
+    public Columns getNameColumn() {
+        return PlanConstants.Columns.NAME;
+    }
 }

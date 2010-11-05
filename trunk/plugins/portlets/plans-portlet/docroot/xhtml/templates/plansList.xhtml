@@ -9,6 +9,36 @@
                    var="singlePlan" sortColumn="#{plansIndex.sortColumn}"
                    sortAscending="#{plansIndex.sortAscending}" id="plansIndex"
                    rows="#{maxRows}" headerClasses="ng,g">
+                   
+        <ice:column rendered="#{plansIndex.contestPhase.canVote}">
+            
+            <f:facet name="header">
+                <div>
+                    <div class="popup-info-box hidden"
+                         id="info-popup-#{plansIndex.nameColumn}">#{plansIndex.nameColumn.description}</div>
+                    <div class="clear"></div>
+                    <ice:commandSortHeader styleClass="column-hover" columnName="#{plansIndex.nameColumn}">
+                        <ice:outputText id="column-#{plansIndex.nameColumn}" value="#{plansIndex.nameColumn.name}"
+                                        escape="false"/>
+                    </ice:commandSortHeader>
+                </div>
+            </f:facet>
+            <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" />
+            
+        </ice:column>
+        
+        <ice:column rendered="#{plansIndex.contestPhase.canVote}" styleClass="table-cell-padding">
+            <f:facet name="header">
+                <div class="voteForPlan"><span>Vote for Plan</span></div>
+            </f:facet>
+
+            <ice:commandLink actionListener="#{singlePlan.vote}"
+                             onclick="if(! deferUntilLogin()) return false; "
+                             styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} ">
+            </ice:commandLink>
+        </ice:column>
+        
+        
         <ice:columns value="#{plansIndex.columns}" var="column">
             <f:facet name="header">
                 <div>
@@ -74,16 +104,6 @@
             </ice:panelGroup>
 
         </ice:columns>
-        <ice:column rendered="#{plansIndex.contestPhase.canVote}" styleClass="table-cell-padding">
-            <f:facet name="header">
-                <div class="voteForPlan"><span>Vote for Plan</span></div>
-            </f:facet>
-
-            <ice:commandLink actionListener="#{singlePlan.vote}"
-                             onclick="if(! deferUntilLogin()) return false; "
-                             styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} ">
-            </ice:commandLink>
-        </ice:column>
     </ice:dataTable>
 
     <ice:panelGroup styleClass="hidden">

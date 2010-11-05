@@ -99,4 +99,22 @@ public class ContestPhaseWrapper {
         }
         return true;
     }
+    
+    public boolean isActive() {
+        return phase.getPhaseActive() == null ? false : phase.getPhaseActive();
+    }
+    
+    public boolean getHasNextPhase() {
+        boolean hasNext = false;
+        boolean currentFound = false;
+        for (ContestPhaseWrapper phase: contestWrapper.getPhases()) {
+            if (currentFound) {
+                hasNext = true;
+            }
+            if (phase.getPhaseId().equals(this.phase.getContestPhasePK())) {
+                currentFound = true;
+            }
+        }
+        return hasNext;
+    }
 }

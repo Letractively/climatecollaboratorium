@@ -39,6 +39,7 @@ public class ContestWrapper {
     private String debatesIdsStr = null;
     private PlansIndexBean plansIndex;
     private EventBus eventBus;
+    private List<ContestPhaseWrapper> activeOrPastPhases = new ArrayList<ContestPhaseWrapper>();
     public boolean flag;
     
      public void setFlag(boolean b) {
@@ -54,10 +55,18 @@ public class ContestWrapper {
     }
 
     public ContestWrapper(Contest contest) throws SystemException, PortalException {
+        boolean addAsActiveOrPast = true;
         this.contest = contest;
         ContestPhaseWrapper activePhase = null;
         for (ContestPhase phase:contest.getPhases()) {
             ContestPhaseWrapper phaseWrapper = new ContestPhaseWrapper(this,phase);
+            if (addAsActiveOrPast) {
+                activeOrPastPhases.add(phaseWrapper);
+            }
+            if (phase.getPhaseActive() != null && phase.getPhaseActive()) {
+                // don't add next phases as they haven't started yet
+                addAsActiveOrPast = false;
+            }
             phases.add(phaseWrapper);
             index.put(phase.getContestPhasePK(),phaseWrapper);
             if (phase.getPhaseActive() != null && phase.getPhaseActive()) {
@@ -66,6 +75,9 @@ public class ContestWrapper {
         }
         editor = new EditContestBean();
         plansIndex = new PlansIndexBean(activePhase);
+
+        // reverse list to have active phase as the first one
+        Collections.reverse(activeOrPastPhases);
     }
 
     public String getName() {
@@ -267,5 +279,9 @@ public class ContestWrapper {
     
     public Long getContestId() {
         return contest.getContestPK();
+    }
+    
+    public List<ContestPhaseWrapper> getActiveOrPastPhases() {
+        return activeOrPastPhases;
     }
 }

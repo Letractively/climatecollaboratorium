@@ -76,13 +76,16 @@
                 
             </div>
             <ul id="tabs" class="prohome">
-                <li class="c"><a href="#">CURRENT: ROUND 2</a></li>
-                <li><a href="description.html">ROUND 1</a></li>
+                <ui:repeat value="#{singleContest.activeOrPastPhases}" var="phase">
+                    <li class="#{singleContest.contestActive and phase.active ? 'c' : ''}">
+                        <collab:contestLink contestId="#{singleContest.contestId}" text="#{phase.name}" hashString="plans=phase:#{phase.phaseId}" /></li>
+                </ui:repeat>
             </ul>
             <div class="clearfix"></div>    
         </div>
     </ice:form>
 
+            <f:subview rendered="#{singleContest.contestActive}">
 
     <ice:form>
 
@@ -106,19 +109,9 @@
         <div class="butt_wrap">
         <div class="buttbdr"><a href="#"><span>CREATE</span> proposal</a></div>
         <div class="select-pro_wrap">
-            <ice:selectOneMenu value="#{plansIndex.selectedMode}" partialSubmit="true" styleClass="selectbox1" style="width: 180px">
-                <f:selectItems value="#{plansIndex.availableModes}"/>
+            <ice:selectOneMenu value="#{singleContest.plansIndex.selectedMode}" partialSubmit="true" styleClass="selectbox1" style="width: 180px">
+                <f:selectItems value="#{singleContest.plansIndex.availableModes}"/>
             </ice:selectOneMenu>
-            
-        <!-- 
-        <form>
-          <select name="plans" class="selectbox1" style="width:180px;">
-            <option value="000">&lt;span&gt;Show:&lt;/span&gt; All plans</option>
-            <option value="001">Open proposals</option>
-            <option value="002">Proposals seeking help</option>
-          </select>
-        </form>
-        -->
         </div>
       </div> <!-- /butt_wrap -->
     </div> <!-- /proinfo -->
@@ -162,11 +155,10 @@
                 <div class="clear"></div>
             </div>
             -->
-            
-            <ui:decorate template="../templates/plansList.xhtml">
-                <ui:param name="plansIndex" value="#{singleContest.plansIndex}" />
-                <ui:param name="maxRows" value="#{preferences.maxProposalsPerContest[singleContest.contest.contestPK]}" />
-            </ui:decorate>
+                <ui:decorate template="../templates/plansList.xhtml">
+                    <ui:param name="plansIndex" value="#{singleContest.plansIndex}" />
+                    <ui:param name="maxRows" value="#{preferences.maxProposalsPerContest[singleContest.contest.contestPK]}" />
+                </ui:decorate>
             
 
             <div class="underLinks">
@@ -175,6 +167,8 @@
             </div>
 
     </ice:form>
+    
+            </f:subview>
 </ice:panelSeries>
     <ice:panelGroup styleClass="hidden" >
 	    #{contests}

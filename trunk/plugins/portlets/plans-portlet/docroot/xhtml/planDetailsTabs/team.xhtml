@@ -11,8 +11,22 @@
     </ui:decorate>
     
     
-    <div id="content">
-  
+    <div class="content">
+
+                <ice:panelGroup rendered="#{planBean.membershipBean.requesting}">
+                    <div class="manageMembersTop">
+                        <h4>Request Membership</h4>
+                    </div>
+                    <div class="manageMembersContent">
+                        Optional comment:
+                        <ice:inputTextarea value="#{planBean.membershipBean.comment}" styleClass="requestComment"/>
+                    </div>
+                    <ice:commandButton value="Request membership" styleClass="requestMembershipSubmitButton"
+                                       actionListener="#{planBean.membershipBean.requestMembership}"/>
+                    <ice:commandButton value="Cancel" actionListener="#{planBean.membershipBean.toggleRequestingOrJoin}"/>
+
+                </ice:panelGroup>
+                <div class="clear">&amp;nbsp;</div>  
     <div class="team_left">
         <div class="team-top">
         <div id="team-info"><img src="/collaboratorium-theme/images/icon_people-big.gif" width="47" height="42" /> <span>#{planBean.plan.planMembersCount}</span> members</div>
@@ -45,7 +59,20 @@
   
     <div class="team_right">
         <div class="team-top">
-            <div class="buttgrid"><a href="#"><span>JOIN</span> the team</a></div>
+            <div class="buttgrid">
+                  
+                <ice:commandLink actionListener="#{planBean.membershipBean.toggleRequestingOrJoin}"
+                                       escaped='false'
+                                       rendered="#{not planBean.plan.planMember and not planBean.membershipBean.requesting and not planBean.plan.hasRequestedMembership }"
+                                       onclick="if(!deferUntilLogin()) return false;">
+                    #{planBean.plan.open?'&lt;span&gt;JOIN&lt;/span&gt; this team':'&lt;span&gt;REQUEST&lt;/span&gt; membership'}
+                </ice:commandLink>
+                <ice:commandLink actionListener="#{planBean.membershipBean.removeCurrentUser}"
+                                       rendered="#{planBean.plan.planMember and not planBean.membershipBean.requesting}">
+                                       &lt;span&gt;REMOVE&lt;/span&gt; me
+                                       </ice:commandLink>
+                </div>
+
       </div>
       
                 <ice:dataTable value="#{planBean.membershipBean.planMembersHalf2}" var="member" styleClass="colab" rowClasses="t,nt" columnClasses="b name,b">
@@ -89,7 +116,19 @@
   
     <div class="team_right">
         <div class="team-top">
-            <div class="buttgrid"><a href="#"><span>SUPPORT</span> this proposal</a></div>
+            <div class="buttgrid">
+                    <ice:commandLink actionListener="#{planBean.plan.becomeAFan}"
+                                       rendered="#{not planBean.plan.userAFan}"
+                                       onclick="if(!deferUntilLogin()) return false;" >
+                        <span>SUPPORT</span> this proposal
+                    </ice:commandLink>
+                    <ice:commandLink actionListener="#{planBean.plan.unfan}"
+                                       rendered="#{planBean.plan.userAFan}" >
+                        <span>REMOVE</span> me
+                    </ice:commandLink>
+            
+            
+            </div>
       </div>
             <ice:dataTable value="#{planBean.plan.planFansHalf2}" var="fan" styleClass="colab" rendered="#{fn:length(planBean.plan.planFans) > 0}" rowClasses="t,nt" columnClasses="b">
                         <ice:column>

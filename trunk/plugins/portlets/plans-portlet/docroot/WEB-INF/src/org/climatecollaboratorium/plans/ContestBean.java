@@ -11,6 +11,7 @@ import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
 import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
 
 import com.ext.portlet.contests.NoSuchContestPhaseException;
+import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -26,11 +27,13 @@ public class ContestBean {
     private ContestWrapper contest;
     private boolean activeContest = true; 
     private ContestSubView subView = ContestSubView.PROPOSALS;
+    private ContestPhaseWrapper currentPhase;
     
     private final static String PLANS_SOURCE = "plans"; 
     private final static String SUBVIEW_PARAM = "subview";
     private final static String CONTESTS_PARAM = "contests";
     private final static String PAST_CONTESTS_PARAM_VAL = "past";
+    private static final String PHASE_PARAM = "phase";
 
     public List<SelectItem> availableModels = new ArrayList<SelectItem>();
     public Long modelId;
@@ -52,6 +55,13 @@ public class ContestBean {
         else {
             contest = new ContestWrapper(ContestLocalServiceUtil.getContestByActiveFlag(true));
         }
+        if (contest.getContest().isActive()) {
+            currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getActivePhase());
+        }
+        else {
+            currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getPhases().get(0));
+        }
+        
         activeContest = contest.isContestActive();
         initModels();
     }
@@ -67,6 +77,19 @@ public class ContestBean {
             ContestSubView tmp = ContestSubView.valueOf(params.get(SUBVIEW_PARAM).toUpperCase());
             if (tmp != subView) {
                 subView = tmp;
+            }
+        }
+        if (params.containsKey(PHASE_PARAM)) {
+            try {
+                Long phaseId = Long.parseLong(params.get(PHASE_PARAM));
+                for (ContestPhaseWrapper phase: contest.getPhases()) {
+                    if (phase.getPhaseId().equals(phaseId)) {
+                        currentPhase = phase;
+                    }
+                }
+            } 
+            catch (NumberFormatException e) {
+                _log.error("Error when parsing phase id: " + params.get(PHASE_PARAM), e);
             }
         }
     }
@@ -94,14 +117,7 @@ public class ContestBean {
     }
     
     public ContestPhaseWrapper getCurrentPhase() throws SystemException, NoSuchContestPhaseException {
-        // FIXME logic for fetching context phase should be more complex I guess
-        if (contest == null) {
-            return null;
-        }
-        if (contest.getContest().isActive()) {
-            return new ContestPhaseWrapper(contest, contest.getContest().getActivePhase());
-        }
-        return new ContestPhaseWrapper(contest, contest.getContest().getPhases().get(0));
+        return currentPhase;
     }
 
     public List<SelectItem> getAvailableModels() {
