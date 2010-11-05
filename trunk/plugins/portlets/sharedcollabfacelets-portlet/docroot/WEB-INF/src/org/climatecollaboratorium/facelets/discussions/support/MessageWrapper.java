@@ -47,6 +47,7 @@ public class MessageWrapper {
     private boolean goTo;
     private boolean added = false;
     private int messageNum;
+    private boolean oldestFirst = true;
     
     public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category, DiscussionBean discussionBean, int messageNum) {
         this.category = category;
@@ -185,13 +186,12 @@ public class MessageWrapper {
         if (!added && discussionBean.getPermissions().getCanAddComment()) {
 
             UIInput messageInput = (UIInput) e.getComponent().getParent().findComponent("messageContent"); 
-            UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("messageTitle");
             
-            if (!ValueRequiredValidator.validateComponent(nameInput) || 
-                    !ValueRequiredValidator.validateComponent(messageInput)) {
+           
+            if (!ValueRequiredValidator.validateComponent(messageInput)) {
                 return;
             }
-            
+            title = "Comment title";
             wrapped = discussionBean.getDiscussion().addComment(title, description, Helper.getLiferayUser());
             added = true;
 
@@ -328,5 +328,14 @@ public class MessageWrapper {
     
     public boolean isNewMsg() {
         return empty;
+    }
+    
+    public boolean isOldestFirst() {
+        return oldestFirst;
+    }
+    
+    public void revertMessages(ActionEvent e) {
+        Collections.reverse(messages);
+        oldestFirst = !oldestFirst;
     }
 }

@@ -8,44 +8,22 @@
 
     <div class="content">
   
-    <div id="com-info">
-      <div id="info-left">
+    <div class="com-info">
+      <div class="info-left">
         <img src="/collaboratorium-theme/images/icon_comments-big.png" width="53" height="50" /> 
         <span>#{discussionBean.commentsCount}</span> comments
         <img src="/collaboratorium-theme/images/icon_new-comment.png" width="44" height="41" class="spc" /> 
-        add new comment
+        <a href="javascript:;" onclick='jQuery.scrollTo(jQuery("#thecomment"));'>add new comment</a>
       </div>
-      
-      <div id="pager">
-        <table class="floatRight">
-            <tr><td>
-            <ice:dataPaginator for="commentsTable" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="paginatorInfo">
-                <ice:outputFormat value="page {0} of {1}" styleClass="paginatorInfo" escape="false">
-                <f:param value="#{pageIndex}" />
-                <f:param value="#{pageCount}" />
-            </ice:outputFormat>
-        </ice:dataPaginator>    
-        </td>
-        <td>
-            <ice:dataPaginator rendered="true" for="commentsTable" paginator="true" paginatorMaxPages="3" styleClass="controls pagerNext"  pageCountVar="pageCount" pageIndexVar="pageIndex"> 
-                <f:facet name="first" rendered="true">
-                    <ice:panelGroup />
-                </f:facet>
-                <f:facet name="last" rendered="true">
-                    <ice:panelGroup />
-                </f:facet>
-                <f:facet name="previous" rendered="true">
-                    <ice:outputText value="PREV PAGE" rendered="#{pageIndex > 1}"/>
-                </f:facet>
-                <f:facet name="next">
-                    <ice:outputText value="NEXT PAGE"  rendered="#{pageIndex lt pageCount}" />
-                </f:facet>
-            </ice:dataPaginator>
-            </td>
-            </tr>
-        </table>
-        <div class="clear">&amp;nbsp;</div>
-        </div>
+      <div class="com-info bot">
+          <div class="pager">
+            <ice:commandLink actionListener="#{discussionBean.commentsThread.revertMessages}" value="Oldest" rendered="#{not discussionBean.commentsThread.oldestFirst}" />
+            #{discussionBean.commentsThread.oldestFirst ? "Oldest" : ""}
+            <span class="vdiv">|</span> 
+            <ice:commandLink actionListener="#{discussionBean.commentsThread.revertMessages}" value="Newest" rendered="#{discussionBean.commentsThread.oldestFirst}" />
+            #{discussionBean.commentsThread.oldestFirst ? "" : "Newest"}
+          </div>
+      </div>
     </div>
     
     <ice:panelGroup  rendered="#{discussionBean.commentsThread.newMsg}">
@@ -53,7 +31,7 @@
             No comments have been posted. Be the first one to add a comment.
         </div>
     </ice:panelGroup> 
-    <ice:dataTable rows="10" value="#{discussionBean.commentsThread.threadMessages}" var="message" varStatus="messageStatus" columnClasses="l,r" rowClasses="odd,even" id="commentsTable" rendered="#{not discussionBean.commentsThread.newMsg}">
+    <ice:dataTable value="#{discussionBean.commentsThread.threadMessages}" var="message" varStatus="messageStatus" columnClasses="l,r" rowClasses="odd,even" id="commentsTable" rendered="#{not discussionBean.commentsThread.newMsg}">
         <ice:column>
             <div class="com_num">#{message.messageNum}</div>
             <collab:userLinkSimple text="#{message.author.screenName}" userId="#{message.author.userId}" /> <br />
@@ -67,17 +45,16 @@
         
         <ice:column>
             <ice:panelGroup rendered="#{not message.editing}">
-                    <h4 class="title">
-                        <ice:outputText value="#{message.title}" />
-                    </h4>
-                    <div class="actions">
+
+                    <div class="content">
+                        <ice:outputText value="#{message.filteredDescription}" escape="false" />
+                    </div>
+                    <div class="commentsActions">
                         <ice:commandButton actionListener="#{message.toggleEdit}" value="Edit" rendered='#{discussionBean.permissions.canAdminMessages}'/>
                         <ice:commandButton actionListener="#{message.delete}" value="Delete" rendered='#{discussionBean.permissions.canAdminMessages}'/>
                     </div>
                     <div class="clear"></div>
-                    <div class="content">
-                        <ice:outputText value="#{message.filteredDescription}" escape="false" />
-                    </div>
+                    
             </ice:panelGroup>
             <ice:panelGroup rendered="#{message.editing}" styleClass="newMessageForm">
                 <ice:outputLabel for="messageTitle" value="Title: " /><br />
@@ -94,17 +71,19 @@
         
         </ice:column>
     </ice:dataTable>
-    
-    <ice:panelGroup styleClass="newMessageForm" rendered="#{discussionBean.permissions.canAddComment}">
-        <ice:outputLabel for="messageTitle" value="Title:" /><br />
-        <ice:inputText id="messageTitle" value="#{discussionBean.newComment.title}" styleClass="title text" maxlength="255"/>
-        <ice:message for="messageTitle" />
-        <br />
-        
-        <ice:outputLabel for="messageContent" value="Comment:" /><br />
-        <ice:inputTextarea id="messageContent" value="#{discussionBean.newComment.description}" styleClass="description text" /><br />
-        <ice:message for="messageContent" />
-        <ice:commandButton value="Add" actionListener="#{discussionBean.newComment.addComment}" />
+
+    <ice:panelGroup styleClass="addcomment" rendered="#{discussionBean.permissions.canAddComment}">
+        <div id="add">
+            <strong>ADD YOUR COMMENT</strong>
+        </div>
+        <div id="thecomment">
+            <ice:inputHidden id="messageTitle" value="#{discussionBean.newComment.title}" styleClass="title text" maxlength="255"/>
+            <ice:inputTextarea id="messageContent" value="#{discussionBean.newComment.description}" styleClass="commentbox" /><br />
+            <ice:message for="messageContent" />
+            <ice:commandButton actionListener="#{discussionBean.newComment.addComment}" styleClass="comm_butt" />
+        </div>
     </ice:panelGroup>
+    
+        <div class="clearfix"></div>
     </div>
 </f:view>
