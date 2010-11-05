@@ -6,7 +6,7 @@
 ****		AUTHOR:							Chip Sheppard																					********
 ****		AUTHOR URI:				http://sheppco.com/																	********
 ****		CREATION DATE: 09/17/2010																								********
-****		LAST MODIFIED:  10/25/2010																								********
+****		LAST MODIFIED:  11/02/2010																								********
 ****																																															********
 ***************************************************************************************
 ***************************************************************************************/
@@ -47,8 +47,6 @@ a:active { outline:0;}
 * html .clearfix { height: 1%;} /* Hides from IE-mac \*/
 .clearfix { display: block;}
 
-ul li, ol li {list-style: disc inside none;}
-.journal-content-article ul {margin-left:1em}
 
 
 
@@ -310,6 +308,8 @@ h4 { font-size:21px; font-style:normal; font-weight:400; color:#6e6e6e; margin-b
 	.wf-active .vote a { padding-top:20px; display:inline-block; font-size:18px; font-style:italic; color:#666;}
 .vote a span { font-style:normal; font-weight:600; color:#e36f0f;}
 
+.viewall { font-size:17px; font-weight:600; text-align:right; padding:20px 20px 0 0;}
+
 /* FORMS */
 
 /* select boxes */
@@ -425,8 +425,9 @@ div.selectbox-wrapper ul li { list-style:none; display:block; font-size:12px; pa
 
 #act_left { float:left; width:422px; margin:15px 20px 0 0; background:url(../images/grid_act.gif);}
 #act_right { float:left; width:410px; margin:15px 0 0 0; background:url(../images/grid_act.gif);}
-.acthead { padding:18px 0 25px 28px; font-size:21px; color:#666;}
-	.wf-active .acthead { padding:18px 0 25px 28px; font-size:23px; color:#666;}
+.acthead { padding:18px 0 25px 16px; font-size:16px; font-weight:600;}
+	.wf-active .acthead { padding:18px 0 25px 16px; font-size:18px; font-weight:600;}
+.acthead img { padding-right:10px;}
 
 /* positions page */
 .posbox { width:716px; height:120px; margin-top:30px;}
@@ -464,28 +465,36 @@ div.selectbox-wrapper ul li { list-style:none; display:block; font-size:12px; pa
 .team_right .team-top { margin-top:20px; height:52px;}
 
 /* comments page */
-#com-info { margin:60px 0 20px 0; height:50px; font-size:15px; color:#666; font-style:italic;}
-	.wf-active #com-info { margin:60px 0 20px 0; height:50px; font-size:17px; color:#666; font-style:italic;}
-#info-left { float:left; width:480px; height:50px;}
-#info-left img { margin-right:5px;}
-#info-left img.spc { margin-left:40px;}
-#info-left span {color:#66b035; font-size:30px; font-weight:600; padding-right:5px; font-style:normal;}
-	.wf-active #info-left span {color:#66b035; font-size:32px; font-weight:600; padding-right:5px; font-style:normal;}
-#pager { float:right; width:220px; height:20px; text-align:right; padding-top:30px;}
-#pager a { font-weight:600; font-style:normal; margin-top:10px; font-size:13px;}
-	.wf-active #pager a { font-weight:600; font-style:normal; margin-top:10px; font-size:15px;}
+.com-info { margin:60px 0 20px 0; height:50px; font-size:15px; color:#666;}
+	.wf-active .com-info { margin:60px 0 20px 0; height:50px; font-size:17px; color:#666;}
+.com-info.bot { margin:0;}
+.info-left { float:left; width:480px; height:50px; font-style:italic;}
+.info-left img { margin-right:5px;}
+.info-left img.spc { margin-left:40px;}
+.info-left span {color:#66b035; font-size:30px; font-weight:600; padding-right:5px; font-style:normal;}
+	.wf-active .info-left span {color:#66b035; font-size:32px; font-weight:600; padding-right:5px; font-style:normal;}
+.pager { float:right; width:400px; height:20px; text-align:right; padding-top:30px;}
+.pager .page { background:#f3f3ed; padding:5px 10px; margin:0 10px; font-style:italic;}
+.pager .vdiv { color:#b8b8b8;}
+.pager .navigate { font-weight:600; font-style:normal; margin-top:10px; font-size:13px;}
+	.wf-active .pager .navigate { font-weight:600; font-style:normal; margin-top:10px; font-size:15px;}
 
 .odd-l { width:149px; font-size:12px; line-height:20px; background:url(../images/comment_arrow1.gif) no-repeat right 38px #e8e8dd; padding:15px 35px 30px 15px;}
-	.wf-active .odd-l { width:149px; font-size:14px; line-height:20px; background:url(../images/comment_arrow1.gif) no-repeat right 38px #e8e8dd; padding:15px 35px 30px 15px;}
-.odd-r { width:740px; font-size:14px; line-height:27px; background:#f3f3ed; padding:15px 30px 0 15px;}
-	.wf-active .odd-r { width:740px; font-size:16px; line-height:27px; background:#f3f3ed; padding:15px 30px 0 15px;}
+	.wf-active .odd-l { width:149px; font-size:14px; line-height:20px; background:url(../images/comment_arrow1.gif) no-repeat right 38px #e8e8dd; padding:15px 35px 30px 25px;}
+.odd-r { width:730px; font-size:14px; line-height:27px; background:#f3f3ed; padding:15px 30px 0 25px;}
+	.wf-active .odd-r { width:730px; font-size:16px; line-height:27px; background:#f3f3ed; padding:15px 30px 0 25px;}
 .even-l { width:149px; font-size:12px; line-height:20px; background:url(../images/comment_arrow2.gif) no-repeat right 38px #efeee7; padding:15px 35px 30px 15px;}
 	.wf-active .even-l { width:149px; font-size:14px; line-height:20px; background:url(../images/comment_arrow2.gif) no-repeat right 38px #efeee7; padding:15px 35px 30px 15px;}
-.even-r { width:740px; font-size:14px; line-height:27px; background:#fafaf8; padding:15px 30px 0 15px;}
-	.wf-active .even-r { width:740px; font-size:16px; line-height:27px; background:#fafaf8; padding:15px 30px 0 15px;}
+.even-r { width:730px; font-size:14px; line-height:27px; background:#fafaf8; padding:15px 30px 0 25px;}
+	.wf-active .even-r { width:730px; font-size:16px; line-height:27px; background:#fafaf8; padding:15px 30px 0 25px;}
 .com_num { font-weight:600; color:#2498b3; margin-bottom:10px; line-height:normal;}
 
-
+#addcomment { font-size:14px; margin-top:25px;}
+#addcomment #add { float:left; width:188px; padding:10px 0 0 6px;}
+#addcomment strong { font-weight:600;}
+#commentbox { height:178px; width:788px; border:2px solid #b7b6ae; margin-bottom:25px;}
+#thecomment { float:left; width:790px}
+.comm_butt { background: url(../images/comment_submit.gif); border:none; width:119px; height:30px; cursor:pointer;}
 
 
 /*  HELP  --------------------------------------------------- */
