@@ -40,7 +40,7 @@ public class PlanVoteLocalServiceImpl extends PlanVoteLocalServiceBaseImpl {
             try {
                 PlanItem planOldVote = PlanItemLocalServiceUtil.getPlan(vote.getPlanId());
                 oldVotePk.setContestId(planOldVote.getContest().getContestPK());
-                plan.unvote(userId);
+                planOldVote.unvote(userId);
             }
             catch (NoSuchPlanItemException e) {
                 // ignore

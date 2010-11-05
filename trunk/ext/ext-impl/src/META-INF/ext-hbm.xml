@@ -208,6 +208,8 @@
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updateAuthorId" />
 		<property name="modelId" />
+		<property name="promoted" />
+		<property name="previousContestPhase" />
 		<property name="contestPhase" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanModelRunImpl" table="PlanModelRun">

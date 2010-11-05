@@ -683,5 +683,28 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(getCategoryGroupId());
         
     }
+    
+    public PlanItem promote(User user) throws SystemException, PortalException {
+        ContestPhase contestPhase = getContestPhase().getNextContestPhase();
+        
+        PlanMeta planMeta = PlanMetaLocalServiceUtil.getCurrentForPlan(this);
+        planMeta.setPromoted(true);
+        planMeta.setPreviousContestPhase(planMeta.getContestPhase());
+        planMeta.setContestPhase(contestPhase.getContestPhasePK());
+        
+        planMeta.store();
+
+        return this;
+    }
+    
+    public boolean getPromoted() throws SystemException {
+        Boolean promoted = PlanMetaLocalServiceUtil.getCurrentForPlan(this).getPromoted();
+        return promoted != null ? promoted : false;
+        
+    }
+    
+    public int getCommentsCount() throws PortalException, SystemException {
+        return getDiscussionCategoryGroup().getCommentsCount();
+    }
 
 }

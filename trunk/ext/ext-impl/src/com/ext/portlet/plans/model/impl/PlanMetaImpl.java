@@ -32,7 +32,7 @@ public class PlanMetaImpl extends PlanMetaModelImpl implements PlanMeta {
     
     public void unvote() throws SystemException {
         int votes = this.getVotes();
-        this.setVotes(votes - 1);
+        this.setVotes(Math.max(votes - 1, 0));
         store();
     }
 }

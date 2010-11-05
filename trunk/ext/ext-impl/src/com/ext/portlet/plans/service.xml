@@ -341,6 +341,11 @@
         <column name="updateAuthorId" type="Long" />
         <!-- selected model -->
         <column name="modelId" type="Long"/>
+        <!-- true if plan has been promoted to next phase -->
+        <column name="promoted" type="Boolean" />
+        
+        <!-- Id of a contest phase from which this plan has been promoted -->
+        <column name="previousContestPhase" type="Long" />
 
          <column name="contestPhase" type="Long"/>
         

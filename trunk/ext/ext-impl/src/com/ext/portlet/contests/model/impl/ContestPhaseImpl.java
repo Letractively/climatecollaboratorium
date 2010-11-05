@@ -56,4 +56,17 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
         return ret;
     }
     
+    public ContestPhase getNextContestPhase() throws SystemException, PortalException {
+        boolean currentFound = false;
+        for (ContestPhase phase: ContestPhaseLocalServiceUtil.getPhasesForContest(getContest())) {
+            if (currentFound) {
+                return phase;
+            }
+            if (phase.getContestPhasePK().equals(getContestPhasePK())) {
+                currentFound = true;
+            }
+        }
+        throw new SystemException("Can't find next phase for phase with id: " + getContestPhasePK());
+    }
+    
 }

@@ -90,9 +90,15 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             { "modelId", new Integer(Types.BIGINT) },
             
 
+            { "promoted", new Integer(Types.BOOLEAN) },
+            
+
+            { "previousContestPhase", new Integer(Types.BIGINT) },
+            
+
             { "contestPhase", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,open BOOLEAN,status VARCHAR(75) null,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG,contestPhase LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanMeta (id_ LONG not null primary key,planId LONG,planTypeId LONG,planCreated LONG,authorId LONG,votes INTEGER,planGroupId LONG,open BOOLEAN,status VARCHAR(75) null,mbCategoryId LONG,categoryGroupId LONG,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,modelId LONG,promoted BOOLEAN,previousContestPhase LONG,contestPhase LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanMeta";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -122,6 +128,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
     private Date _created;
     private Long _updateAuthorId;
     private Long _modelId;
+    private Boolean _promoted;
+    private Long _previousContestPhase;
     private Long _contestPhase;
 
     public PlanMetaModelImpl() {
@@ -146,6 +154,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         model.setCreated(soapModel.getCreated());
         model.setUpdateAuthorId(soapModel.getUpdateAuthorId());
         model.setModelId(soapModel.getModelId());
+        model.setPromoted(soapModel.getPromoted());
+        model.setPreviousContestPhase(soapModel.getPreviousContestPhase());
         model.setContestPhase(soapModel.getContestPhase());
 
         return model;
@@ -309,6 +319,22 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         _modelId = modelId;
     }
 
+    public Boolean getPromoted() {
+        return _promoted;
+    }
+
+    public void setPromoted(Boolean promoted) {
+        _promoted = promoted;
+    }
+
+    public Long getPreviousContestPhase() {
+        return _previousContestPhase;
+    }
+
+    public void setPreviousContestPhase(Long previousContestPhase) {
+        _previousContestPhase = previousContestPhase;
+    }
+
     public Long getContestPhase() {
         return _contestPhase;
     }
@@ -342,6 +368,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
             model.setCreated(getCreated());
             model.setUpdateAuthorId(getUpdateAuthorId());
             model.setModelId(getModelId());
+            model.setPromoted(getPromoted());
+            model.setPreviousContestPhase(getPreviousContestPhase());
             model.setContestPhase(getContestPhase());
 
             model = (PlanMeta) Proxy.newProxyInstance(PlanMeta.class.getClassLoader(),
@@ -371,6 +399,8 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         clone.setCreated(getCreated());
         clone.setUpdateAuthorId(getUpdateAuthorId());
         clone.setModelId(getModelId());
+        clone.setPromoted(getPromoted());
+        clone.setPreviousContestPhase(getPreviousContestPhase());
         clone.setContestPhase(getContestPhase());
 
         return clone;
@@ -451,6 +481,10 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(getUpdateAuthorId());
         sb.append(", modelId=");
         sb.append(getModelId());
+        sb.append(", promoted=");
+        sb.append(getPromoted());
+        sb.append(", previousContestPhase=");
+        sb.append(getPreviousContestPhase());
         sb.append(", contestPhase=");
         sb.append(getContestPhase());
         sb.append("}");
@@ -528,6 +562,14 @@ public class PlanMetaModelImpl extends BaseModelImpl<PlanMeta> {
         sb.append(
             "<column><column-name>modelId</column-name><column-value><![CDATA[");
         sb.append(getModelId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>promoted</column-name><column-value><![CDATA[");
+        sb.append(getPromoted());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>previousContestPhase</column-name><column-value><![CDATA[");
+        sb.append(getPreviousContestPhase());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>contestPhase</column-name><column-value><![CDATA[");
