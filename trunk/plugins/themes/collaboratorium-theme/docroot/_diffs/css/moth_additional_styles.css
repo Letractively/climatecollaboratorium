@@ -411,3 +411,46 @@ div#pager { float:right; width:320px; height:20px; text-align:right; padding-top
 .wf-active #bread.contest,
 #bread.contest { margin-top:25px; margin-bottom: 20px;}
 
+.select-pro_wrap.floatRight {
+    float: right;	
+}
+
+.viewAllProposals {
+    font-weight: bold;
+    margin: 5px 10px;
+    font-size: 18px;
+}
+
+.wf-active #menu li a.facebook-link,
+#menu li a.facebook-link {
+    background: url(/collaboratorium-theme/images/facebook.gif) no-repeat 0% 50%;
+    margin-left: 10px;
+    padding-bottom: 2px;
+    padding-left: 22px;
+    padding-top: 6px;
+}
+
+#searchsubmit { width:32px; height:29px; text-align:center; vertical-align:middle; background:url(/collaboratorium-theme/images/header_btn-go.png) no-repeat; border:none; cursor:pointer;  font-size:14px; font-weight:600; color:#fff;}
+
+#bread {
+    font-size: 14px;
+}
+
+.wf-active div.q {
+    height: auto;
+}
+
+.addcomment { font-size:14px; margin-top:25px;}
+.addcomment #add { float:left; width:188px; padding:10px 0 0 6px;}
+.addcomment strong { font-weight:600;}
+
+
+.commentbox { height:178px; width:788px; border:2px solid #b7b6ae; margin-bottom:25px;}
+input.comm_butt[type="submit"], 
+input.comm_butt[type="submit"]:hover,
+input.comm_butt[type="submit"]:focus
+ { background: url(/collaboratorium-theme/images/comment_submit.gif); border:none; width:119px; height:30px; cursor:pointer;}
+ 
+ .commentsActions {
+    text-align: right;
+ }

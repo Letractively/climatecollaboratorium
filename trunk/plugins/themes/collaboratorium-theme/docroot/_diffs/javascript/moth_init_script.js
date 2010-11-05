@@ -107,6 +107,13 @@ jQuery(document).ready(function() {
 		jQuery('.chooseround li:eq(0) a').triggerHandler('click'); 
 		return false; 
 	});
+
+    setTimeout(function() {
+      jQuery("div.contestPhaseInfo:first .details h3").text("Round 1 completed, voting begins Nov. 1  (29 final proposals)");  
+    },1000);
+});
+
+function initSelectbox() {
 	if (jQuery('.selectbox1').length > 0) {
 		var selectboxOnChange = jQuery('.selectbox1').get(0).getAttribute("onchange");
 
@@ -118,9 +125,4 @@ jQuery(document).ready(function() {
 				}
 		});
 	}
-	
-
-    setTimeout(function() {
-      jQuery("div.contestPhaseInfo:first .details h3").text("Round 1 completed, voting begins Nov. 1  (29 final proposals)");  
-    },1000);
-});
+}
