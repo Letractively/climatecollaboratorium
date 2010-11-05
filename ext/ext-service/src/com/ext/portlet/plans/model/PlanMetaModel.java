@@ -94,6 +94,14 @@ public interface PlanMetaModel extends BaseModel<PlanMeta> {
 
     public void setModelId(Long modelId);
 
+    public Boolean getPromoted();
+
+    public void setPromoted(Boolean promoted);
+
+    public Long getPreviousContestPhase();
+
+    public void setPreviousContestPhase(Long previousContestPhase);
+
     public Long getContestPhase();
 
     public void setContestPhase(Long contestPhase);

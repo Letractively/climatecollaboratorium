@@ -278,4 +278,11 @@ public interface PlanItem extends PlanItemModel {
     public com.ext.portlet.discussions.model.DiscussionCategoryGroup getDiscussionCategoryGroup()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanItem promote(
+        com.liferay.portal.model.User user)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public boolean getPromoted() throws com.liferay.portal.SystemException;
 }

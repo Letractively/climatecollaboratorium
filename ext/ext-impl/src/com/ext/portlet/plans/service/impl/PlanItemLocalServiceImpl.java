@@ -523,8 +523,11 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         for (PlanItem planItem : planItemFinder.getPlans()) {
             if ((planType == null || (planItem.getPlanTypeId() != null && planItem.getPlanTypeId().equals(
                     planType.getPlanTypeId())))
-                    && (phase == null || (planItem.getPlanMeta().getContestPhase() != null && planItem.getPlanMeta()
-                            .getContestPhase().equals(phase.getContestPhasePK())))) {
+                    && (phase == null || 
+                            (planItem.getPlanMeta().getContestPhase() != null && planItem.getPlanMeta()
+                                    .getContestPhase().equals(phase.getContestPhasePK()))) || 
+                            (planItem.getPlanMeta().getPreviousContestPhase() != null && planItem.getPlanMeta()
+                                    .getPreviousContestPhase().equals(phase.getContestPhasePK()))) {
                 plans.add(planItem);
             }
         }

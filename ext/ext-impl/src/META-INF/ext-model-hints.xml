@@ -159,6 +159,8 @@
 		<field name="created" type="Date" />
 		<field name="updateAuthorId" type="Long" />
 		<field name="modelId" type="Long" />
+		<field name="promoted" type="Boolean" />
+		<field name="previousContestPhase" type="Long" />
 		<field name="contestPhase" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanModelRun">

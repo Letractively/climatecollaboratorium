@@ -158,7 +158,8 @@ public class PlanConstants {
         STATUS(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("status"), true, PlanFilterOperatorType.LIKE, null),
         SEEKING_ASSISTANCE(String.class, "%s", attributeFunctionFactory.getAttributeValue("SEEKING_ASSISTANCE"), true, null, null),
         SUPPORTERS(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("SUPPORTERS"), true, null, null),
-        IS_PLAN_OPEN(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("open"), true, null, null);
+        IS_PLAN_OPEN(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("open"), true, null, null),
+        COMMENTS(Integer.class, "%d", attributeFunctionFactory.getPlanPropertyFunction("commentsCount"), true, null, null);
 		
 		
 		private Class<?> clasz;
@@ -349,8 +350,10 @@ public class PlanConstants {
 
             @Override
             public String getValue(PlanItem plan) throws SystemException, PortalException {
-                int votesCount = PlanVoteLocalServiceUtil.getPlanVotesCount();
-                return String.format("%d %%", votesCount == 0 ? 0 : plan.getVotes() * 100 / PlanVoteLocalServiceUtil.getPlanVotesCount());
+                int votesCount = PlanVoteLocalServiceUtil.countPlanVotes(plan.getContest());
+                int planVotes = plan.getVotes();
+                
+                return String.format("%d %%", votesCount == 0 ? 0 : plan.getVotes() * 100 / votesCount);
             }
 			
 		}),
@@ -467,8 +470,21 @@ public class PlanConstants {
 
         SUPPORTERS("Supporters","Number of users supporting this plan","ShowSupporters",true, Attribute.SUPPORTERS, new AttributeGetter("%s",Attribute.SUPPORTERS)),
 		
-		IS_PLAN_OPEN("Who can<br /> edit", "Who can edit the plan", "ShowWhoCanEdit", true, Attribute.IS_PLAN_OPEN, new AttributeGetter("%s", Attribute.IS_PLAN_OPEN));
+		IS_PLAN_OPEN("Who can<br /> edit", "Who can edit the plan", "ShowWhoCanEdit", true, Attribute.IS_PLAN_OPEN, new AttributeGetter("%s", Attribute.IS_PLAN_OPEN)),
 		
+		COMMENTS("Number of comments", "Number of comments", "ShowComments", true, Attribute.COMMENTS, new PlanValueFactory() {
+
+            public String getValue(Plan plan) throws SystemException {
+                return String.valueOf(0);
+            }
+
+            @Override
+            public String getValue(PlanItem plan) throws SystemException, PortalException {
+                return String.format("%d", plan.getDiscussionCategoryGroup().getCommentsCount());
+            }
+            
+        });
+        
 		private String name;
 		private String description;
 		

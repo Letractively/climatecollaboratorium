@@ -1204,6 +1204,8 @@ create table PlanMeta (
 	created DATE null,
 	updateAuthorId LONG,
 	modelId LONG,
+	promoted BOOLEAN,
+	previousContestPhase LONG,
 	contestPhase LONG
 );
 
