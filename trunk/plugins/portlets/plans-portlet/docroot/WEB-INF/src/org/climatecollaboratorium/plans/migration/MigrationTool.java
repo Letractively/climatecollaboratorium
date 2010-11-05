@@ -316,7 +316,7 @@ public class MigrationTool {
                 DiscussionActions.ADD_THREAD.name()
         };
 
-        String[] userActions = {DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name()};
+        String[] userActions = {DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADD_COMMENT.name()};
 
         String[] guestActions = {};
 

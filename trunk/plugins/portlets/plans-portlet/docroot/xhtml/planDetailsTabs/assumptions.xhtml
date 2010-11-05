@@ -22,7 +22,7 @@
             </ice:panelGroup>
             <div class="breadbutt">
                 <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " /> 
-                <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden">hide history</span><span id="show">show history</span></a>
+                <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden">hide history</span><span class="versionsTrigger">show history</span></a>
             </div>
         </ui:define>
     </ui:decorate>
@@ -106,7 +106,7 @@
                     <div class="posbox_wrap">
                         <div class="q"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></div>
                         <div class="a"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId},itemId:#{question.selectedPosition.debateItemId}">#{question.selectedPosition.debateSummary}</a></div>
-                        <div class="votes" style="min-width: 15%; width:#{question.selectedPosition.votesPercent}%;">#{question.selectedPosition.votesCount} votes <span>#{question.selectedPosition.votesPercent}%</span></div>
+                        <div class="votes" style="min-width: 15%; width:#{question.selectedPosition.votesPercent}%;"> #{question.selectedPosition.votesCount} votes &amp;nbsp; <span>#{question.selectedPosition.votesPercent}%</span></div>
                     </div>
                 </div>
             </ice:panelSeries>

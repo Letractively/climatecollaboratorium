@@ -34,7 +34,11 @@
     </div>
     
         <f:subview rendered="#{not plan.editingName}">
-            <h1 class="spn">Proposals: &amp;nbsp;<ice:outputText styleClass="planName" value="#{plan.plan.name}"/>
+            <h1 class="spn">Proposals: &amp;nbsp;
+                <ice:outputText styleClass="planName" value="#{plan.plan.name}">
+                    <f:converter converterId="StringTruncateConverter"/>
+                    <f:attribute name="maxLength" value="35" />
+                </ice:outputText>
             <iframe src="http://www.facebook.com/plugins/like.php?href=#{plan.relativeUrl}&amp;layout=button_count&amp;show_faces=false&amp;width=55&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;padding-left:10px;margin-bottom:-4px" allowTransparency="true"></iframe>
                 
             </h1>
@@ -246,40 +250,40 @@
 
                                          selectedIndex="#{plan.selectedTab}">
 
-                            <ice:panelTab label="Admin"
+                            <ice:panelTab label="ADMIN"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;"
                                           rendered="#{permissions.canAdmin}" styleClass="admin">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/admin.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
-                             <ice:panelTab label="Description" styleClass="description-tab"
+                             <ice:panelTab label="DESCRIPTION" styleClass="description-tab"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/description.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Actions &amp; Impacts" styleClass="actionsImpacts"
+                            <ice:panelTab label="ACTIONS &amp; IMPACTS" styleClass="actionsImpacts"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'actionsimpacts'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/actionsImpacts.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
-                            <ice:panelTab label="Positions" styleClass="positions-tab"
+                            <ice:panelTab label="POSITIONS" styleClass="positions-tab"
                                           onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/assumptions.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
 
-                            <ice:panelTab label="Comments" styleClass="comments-tab"
+                            <ice:panelTab label="COMMENTS" styleClass="comments-tab"
                                           onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'comments'}, 'comments': {}}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/comments.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
 
-                            <ice:panelTab label="Team" onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return;">
+                            <ice:panelTab label="TEAM" onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/team.xhtml"/>
                                 </f:subview>

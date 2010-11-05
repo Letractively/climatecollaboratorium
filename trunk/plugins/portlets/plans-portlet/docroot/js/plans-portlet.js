@@ -559,14 +559,15 @@ function triggerVersionsContainerVisibility() {
     var trigger = jQuery(".versionsTrigger");
     var container = jQuery(".versionsContainer");
     if (! container.is(':visible')) {
-        trigger.html("Hide old versions")
+        trigger.html("hide history")
         container.show("slide", {direction: "up"});
     }
     else {
+        trigger.html("show history");
         container.hide("slide", {direction: "up"}, 'medium', function() {
-            trigger.html("Show old versions");
         });
     }
+    
 }
 
 
@@ -706,15 +707,15 @@ function hidePositionsOnIndexPageDialog(positionsContainerId) {
 
 
 function makeNANotesVisible() {
-    jQuery(".plansTable td .errors").each(function() {
+    jQuery(".colab.prohome td .errors").each(function() {
         var text = jQuery.trim(jQuery(this).text());
         if (text.length != 0 && !jQuery(this).hasClass('errorsSetUp')) {
             jQuery(this).parent().append('<img class="note" src="/plans-portlet/img/warning_icon16x16.png" />');
             jQuery(this).addClass('errorsSetUp');
         }
     });
-    jQuery(".plansTable td .note").unbind('hover');
-    jQuery(".plansTable td .note").hover(function() {
+    jQuery(".colab.prohome td .note").unbind('hover');
+    jQuery(".colab.prohome td .note").hover(function() {
         jQuery(this).parent().addClass("note-hover");
         var errors = jQuery(this).parent().find(".errors");
         if (errors.length > 0 && jQuery.trim(errors.text()).length != 0) {
@@ -730,8 +731,8 @@ function makeNANotesVisible() {
         }, 200);
     }
             );
-    jQuery(".plansTable td .popup-info-box").unbind('hover');
-    jQuery(".plansTable td .popup-info-box").hover(function() {
+    jQuery(".colab.prohome td .popup-info-box").unbind('hover');
+    jQuery(".colab.prohome td .popup-info-box").hover(function() {
         jQuery(this).parent().addClass("popup-hover");
         var errors = jQuery(this).parent().find(".errors");
         if (errors.length > 0 && jQuery.trim(errors.text()).length != 0) {

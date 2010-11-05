@@ -50,6 +50,7 @@
             <ui:param value="#{navigation.issuesBean}" name="issues" />
             <ui:param value="#{navigation.pageType}" name="pageType" />
             <ui:param value="#{navigation.contestsBean}" name="contests" />
+            <ui:param value="#{navigation.contestBean.currentPhase.status == 'VOTING'}" name="votingPhase" />
          </ui:include>
     
 </ice:portlet>

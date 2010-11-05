@@ -17,7 +17,7 @@
                 </ice:panelGroup>
                 <div class="breadbutt">
                     <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " /> 
-                    <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden">hide history</span><span id="show">show history</span></a>
+                    <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden historyHide">hide history</span><span class="versionsTrigger">show history</span></a>
                 </div>
             </ui:define>
         </ui:decorate>
@@ -156,10 +156,11 @@
                 <collab:planLink contestId="#{contest.contestId}" planId="#{planBean.planId}" text="ACTIONS &amp; IMPACTS" hashString="plans=tab:actionsimpacts" />
             </div>
           <div class="infotext">
-            <p><strong>CO2 concentration</strong><br />#{planBean.plan.attributes['CO2_CONCENTRATION']}</p>
-            <p><strong>Temperature Increase</strong><br />#{planBean.plan.attributes['TEMP_CHANGE']}</p>
-            <p><strong>Mitigation Costs</strong><br />#{planBean.plan.attributes['MITIGATION_COST']}</p>
-            <strong>Damage Costs</strong><br />#{planBean.plan.attributes['DAMAGE_COST']}
+            <p><strong>CO2 concentration</strong><br />#{planBean.plan.attributes['CO2_CONCENTRATION']} ppm in 2010</p>
+            <p><strong>Temperature Increase</strong><br />#{planBean.plan.attributes['TEMP_CHANGE']} &amp;deg;C</p>
+            <p><strong>Mitigation Costs</strong><br />#{planBean.plan.attributes['MITIGATION_COST_NO_ERRORS']} %GDP in 2010</p>
+            <strong>Damage Costs</strong><br />#{planBean.plan.attributes['DAMAGE_COST']} %GDP in 2010
+            
             </div>
         </div>
         <div class="icon"><img src="/collaboratorium-theme/images/icon_blue-flag.gif" width="27" height="28" /></div>

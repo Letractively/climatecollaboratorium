@@ -75,13 +75,22 @@
                 </div>
                 
             </div>
+            <!-- There are no tabs, display "View all proposals" for past contests and don't display anything for past contests -->
+            <!-- 
             <ul id="tabs" class="prohome">
                 <ui:repeat value="#{singleContest.activeOrPastPhases}" var="phase">
                     <li class="#{singleContest.contestActive and phase.active ? 'c' : ''}">
                         <collab:contestLink contestId="#{singleContest.contestId}" text="#{phase.name}" hashString="plans=phase:#{phase.phaseId}" /></li>
                 </ui:repeat>
             </ul>
-            <div class="clearfix"></div>    
+            
+             -->
+            <div class="clearfix"></div>
+             <f:subview rendered="#{not singleContest.contestActive}">
+                <div class="viewAllProposals">
+                    <collab:contestLink contestId="#{singleContest.contestId}" text="View all proposals" />
+                </div>
+             </f:subview> 
         </div>
     </ice:form>
 
@@ -107,12 +116,21 @@
         </f:subview>
         </strong>
         <div class="butt_wrap">
-        <div class="buttbdr"><a href="#"><span>CREATE</span> proposal</a></div>
+        <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
+            <div class="buttbdr">
+                <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();" styleClass="createNewPlanButton"
+                        actionListener="#{navigation.createPlanBean.createPlan}">
+                    <span>CREATE</span> proposal
+                </ice:commandLink>
+            </div>
+        </f:subview>
+        <!-- 
         <div class="select-pro_wrap">
             <ice:selectOneMenu value="#{singleContest.plansIndex.selectedMode}" partialSubmit="true" styleClass="selectbox1" style="width: 180px">
                 <f:selectItems value="#{singleContest.plansIndex.availableModes}"/>
             </ice:selectOneMenu>
         </div>
+         -->
       </div> <!-- /butt_wrap -->
     </div> <!-- /proinfo -->
     
@@ -161,9 +179,9 @@
                 </ui:decorate>
             
 
-            <div class="underLinks">
+            <div class="underLinks viewAllProposals">
             
-                <collab:contestLink contestId="#{singleContest.contestId}" text="&lt;strong&gt;View all proposals&lt;/strong&gt;"/>
+                <collab:contestLink contestId="#{singleContest.contestId}" text="View all proposals"/>
             </div>
 
     </ice:form>
