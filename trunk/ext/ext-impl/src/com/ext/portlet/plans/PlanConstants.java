@@ -452,6 +452,19 @@ public class PlanConstants {
                             }
                         },Attribute.MIN_MITIGATION_COST_EMF, Attribute.MAX_MITIGATION_COST_EMF, Attribute.MITIGATION_COST_ERROR)),
 
+         MITIGATION_COST_NO_ERRORS("Mitigation cost<br/>(%GDP in 2100)","Cost of efforts to prevent climate change (e.g., by reducing emissions). " +
+                                "Costs are shown as a % of World GDP (Gross Domestic Product).  Values shown are the lowest and highest of the estimates " +
+                                "produced by three models of these costs.","ShowMitigationCost",true, Attribute.MIN_MITIGATION_COST,
+                                new PlanValueFactory.CustomizedAttributeGetter(
+                                        new PlanValueFactory.SelectingFormatFunction(
+                                                "%s to %s",
+                                                "N/A") {
+                                            @Override
+                                            public int messageIndex(Object[] params) {
+                                                return "N/A".equals(params[0]) && "N/A".equals(params[1])?1:0;
+                                            }
+                                        },Attribute.MIN_MITIGATION_COST, Attribute.MAX_MITIGATION_COST, Attribute.MITIGATION_COST_ERROR)),                        
+
 				
 		DAMAGE_COST("Damage cost<br/>(%GDP in 2100)","Cost of damages caused by climate change (e.g., damages from rising sea level, hurricanes, " +
 				"droughts, etc.). Costs are shown as a % of World GDP (Gross Domestic Product). Values shown are estimates of the " +
