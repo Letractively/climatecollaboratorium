@@ -49,6 +49,7 @@ public class PlanItemWrapper {
      */
     private String name;
     private String description;
+    private boolean promoted;
     private PlanHistoryWrapper<PlanDescription> planDescriptionHistoryItem;
     private List<PlanHistoryWrapper> planDescriptionsAll = new ArrayList<PlanHistoryWrapper>(); 
 
@@ -160,6 +161,7 @@ public class PlanItemWrapper {
         this.planBean = planBean;
         
         this.permissions = permissions;
+        promoted = wrapped.getPromoted();
         
         getPlanModelRunVersionItems();
         
@@ -430,6 +432,20 @@ public class PlanItemWrapper {
             planBean.planDeleted();
         }
     }
+    
+    public void promote(ActionEvent e) throws PortalException, SystemException {
+        if (permissions.getCanAdminAll()) {
+            wrapped.promote(Helper.getLiferayUser());
+            
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.PROMOTE_PLAN.id(),null, 0);
+            
+            this.promoted = true;
+            
+            planBean.planDeleted();
+        }
+        
+    }
 
 
     public boolean getDeleted() {
@@ -566,7 +582,7 @@ public class PlanItemWrapper {
     }
     
     public Map<String, String> getAttributes() throws SystemException, PortalException {
-        if (planAttributes == null) {
+        //if (planAttributes == null) {
             planAttributes = new HashMap<String, String>();
             for (PlanAttribute attr: wrapped.getPlanAttributes()) {
                 planAttributes.put(attr.getAttributeName(), attr.getAttributeValue());
@@ -575,7 +591,7 @@ public class PlanItemWrapper {
             for (PlanConstants.Columns column: PlanConstants.Columns.values()) {
                 planAttributes.put(column.name(), column.getValue(wrapped));
             }
-        }
+        //}
         return planAttributes;
         
     }
@@ -590,6 +606,10 @@ public class PlanItemWrapper {
     
     public int getCommentsCount() throws PortalException, SystemException {
         return wrapped.getDiscussionCategoryGroup().getCommentsCount();
+    }
+    
+    public boolean isPromoted() {
+        return promoted;
     }
 
 }

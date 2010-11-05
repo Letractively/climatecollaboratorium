@@ -4,9 +4,12 @@
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collab="http://climatecollaboratorium.org/facelets"
+        xmlns:ui="http://java.sun.com/jsf/facelets" 
         xmlns:fn="http://java.sun.com/jsp/jstl/functions">
    
-   
+       
+    <ui:decorate template="breadcrumb.xhtml">
+    </ui:decorate>
 
     <table class="teamGrid">
         <tr>
@@ -51,6 +54,14 @@
                 </div> 
                 <div class="clear"></div>
 
+            <ice:panelGroup rendered="#{permissions.canAdminAll and contest.currentPhase.hasNextPhase and !planBean.plan.promoted}">
+                <div class="sectionTitle">
+                    <h2>Promote to next phase</h2>
+                </div>
+                <div class="sectionContent">
+                    <ice:commandButton styleClass="prominantButton promotePlan" value="Promote plan to next phase" actionListener="#{planBean.plan.promote}" onclick="if(!confirm('Are you sure you want to proceed with promoting this plan?')){ return false; }"/> 
+                </div>
+            </ice:panelGroup>
             
             <ice:panelGroup rendered="#{permissions.planOwner}">
                 <div class="sectionTitle">
@@ -60,6 +71,7 @@
                     <ice:commandButton styleClass="prominantButton deletePlan" value="Delete plan" rendered="#{permissions.canAdmin}"  actionListener="#{planBean.plan.delete}" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }"/>
                 </div>
             </ice:panelGroup>
+            
             </td>
             <td class="right">
                 <div class="plan-membership-requests">

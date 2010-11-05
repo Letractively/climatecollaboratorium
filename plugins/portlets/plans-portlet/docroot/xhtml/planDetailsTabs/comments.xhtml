@@ -9,6 +9,5 @@
         
     <ui:decorate template="breadcrumb.xhtml">
     </ui:decorate>
-    
-    <collab:discussion discussionBean="#{planBean.commentsBean}" discussionId="#{planBean.plan.categoryGroupId}" groupId="#{planBean.plan.groupId}" comments="true" />
+    <collab:comments discussionId="#{planBean.plan.categoryGroupId}" groupId="#{planBean.plan.groupId}" comments="true" />
 </f:view>

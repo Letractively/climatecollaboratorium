@@ -897,18 +897,18 @@ th.voteForPlan {
 	background: #FCFFB3;
 }
 .indexVoteForPlan {
-	width: 21px;
-	height: 21px;
+	width: 29px;
+	height: 24px;
 	display: block;
 	margin: auto;
 }
 
 .indexVoteForPlan.en {
-	background: url("/collaboratorium-theme/images/check_btn.gif") no-repeat scroll 0 center transparent;
+	background: url("/collaboratorium-theme/images/radio_chk.gif") no-repeat scroll 0 center transparent;
 }
 
 .indexVoteForPlan.dis {
-    background: url("/collaboratorium-theme/images/check_disable_btn.gif") no-repeat scroll 0 center transparent;
+    background: url("/collaboratorium-theme/images/radio.gif") no-repeat scroll 0 center transparent;
 }
 
 .nothingSetInfo {
