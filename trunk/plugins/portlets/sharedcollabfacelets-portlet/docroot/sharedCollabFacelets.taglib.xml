@@ -30,6 +30,10 @@
     <tag>
         <tag-name>discussion</tag-name>
         <source>xhtml/tags/discussion/discussion.xhtml</source>
+    </tag>   
+    <tag>
+        <tag-name>comments</tag-name>
+        <source>xhtml/tags/discussion/comments.xhtml</source>
     </tag>
     <tag>
         <tag-name>discussionSupport</tag-name>
