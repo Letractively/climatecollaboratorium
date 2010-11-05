@@ -88,6 +88,7 @@ public class PlansIndexBean {
 
     private static Log _log = LogFactoryUtil.getLog(PlansIndexBean.class);
     private boolean showPreviousProposals = false;
+    private int plansUpdateToken = 0;
 
 //    private boolean showProposalsThatUserOwns;
 //
@@ -309,6 +310,7 @@ public class PlansIndexBean {
         ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         availableDebates = contestPhase.getContest().getContest().getDebates();
         if (updatePlansList) {
+            plansUpdateToken++;
             plans.clear();
             updatePlansList = false;
             Columns sortCol = Columns.valueOf(sortColumn);
@@ -602,5 +604,9 @@ public class PlansIndexBean {
     
     public Columns getNameColumn() {
         return PlanConstants.Columns.NAME;
+    }
+    
+    public int getPlansUpdateToken() {
+        return plansUpdateToken;
     }
 }

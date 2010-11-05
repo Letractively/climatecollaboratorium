@@ -180,11 +180,15 @@
                 </ice:commandLink>
             </div>
         </f:subview>
-            <div class="select-pro_wrap">
+            <div class="select-pro_wrap floatRight">
                 <ice:selectOneMenu value="#{plansIndex.selectedMode}" partialSubmit="true" styleClass="selectbox1" style="width: 180px">
                     <f:selectItems value="#{plansIndex.availableModes}"/>
                 </ice:selectOneMenu>
+                <script type="text/javascript">
+                    jQuery(document).ready(initSelectbox());
+                </script>
             </div>
+            <div class="clearfix">&amp;nbsp;</div>
           </div> <!-- /butt_wrap -->
       
     </div> <!-- /proinfo -->
@@ -194,7 +198,6 @@
         <ui:param name="renderPaginator" value="false" />
     </ui:decorate>
     </ice:form>
-
 
 </ui:define>
 </ui:composition>

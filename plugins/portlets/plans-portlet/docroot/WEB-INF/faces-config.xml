@@ -6,6 +6,10 @@
 		<view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
 	</application>
 	<factory/>
+	<converter>
+		<converter-id>StringTruncateConverter</converter-id>
+		<converter-class>org.climatecollaboratorium.plans.converters.StringTruncateConverter</converter-class>
+	</converter>
 	<managed-bean>
 		<managed-bean-name>edit</managed-bean-name>
 		<managed-bean-class>com.liferay.util.bridges.jsf.common.PortletPreferencesManagedBean</managed-bean-class>
