@@ -6,7 +6,7 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces">
 
-    <div id="content">
+    <div class="content">
   
     <div id="com-info">
       <div id="info-left">
@@ -48,12 +48,12 @@
         </div>
     </div>
     
-    <ice:panelGroup rendered="#{discussionBean.commentsThread == null}">
+    <ice:panelGroup  rendered="#{discussionBean.commentsThread.newMsg}">
         <div>
             No comments have been posted. Be the first one to add a comment.
         </div>
     </ice:panelGroup> 
-    <ice:dataTable rows="10" value="#{discussionBean.commentsThread.threadMessages}" var="message" varStatus="messageStatus" columnClasses="l,r" rowClasses="odd,even" id="commentsTable">
+    <ice:dataTable rows="10" value="#{discussionBean.commentsThread.threadMessages}" var="message" varStatus="messageStatus" columnClasses="l,r" rowClasses="odd,even" id="commentsTable" rendered="#{not discussionBean.commentsThread.newMsg}">
         <ice:column>
             <div class="com_num">#{message.messageNum}</div>
             <collab:userLinkSimple text="#{message.author.screenName}" userId="#{message.author.userId}" /> <br />
@@ -101,7 +101,7 @@
         <ice:message for="messageTitle" />
         <br />
         
-        <ice:outputLabel for="messageContent" value="Message:" /><br />
+        <ice:outputLabel for="messageContent" value="Comment:" /><br />
         <ice:inputTextarea id="messageContent" value="#{discussionBean.newComment.description}" styleClass="description text" /><br />
         <ice:message for="messageContent" />
         <ice:commandButton value="Add" actionListener="#{discussionBean.newComment.addComment}" />

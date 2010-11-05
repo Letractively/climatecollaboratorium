@@ -13,10 +13,8 @@ import org.climatecollaboratorium.facelets.discussions.activity.DiscussionActivi
 import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
 import org.climatecollaboratorium.utils.HumanTime;
-import org.climatecollaboratorium.validation.CategoryNameValidator;
 import org.climatecollaboratorium.validation.ValueRequiredValidator;
 
-import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -38,6 +36,7 @@ public class MessageWrapper {
     private DiscussionBean discussionBean;
     private boolean editing;
     private String filteredDescription;
+    private boolean empty = false;
 
     
     public String getShortDescription() {
@@ -69,6 +68,8 @@ public class MessageWrapper {
 
     public MessageWrapper(DiscussionBean discussionBean) {
         this.discussionBean = discussionBean; 
+        empty = true;
+        messages = new ArrayList<MessageWrapper>();
     }
     
     public MessageWrapper(MessageWrapper thread) {
@@ -100,7 +101,7 @@ public class MessageWrapper {
     
     
     public List<MessageWrapper> getThreadMessages() throws SystemException {
-        if (messages == null) {
+        if (messages == null || messages.size() == 0) {
             messages = new ArrayList<MessageWrapper>();
             messages.add(this);
             for (DiscussionMessage message: wrapped.getThreadMessages()) {
@@ -180,6 +181,7 @@ public class MessageWrapper {
     }
     
     public void addComment(ActionEvent e) throws SystemException, PortalException {
+        try {
         if (!added && discussionBean.getPermissions().getCanAddComment()) {
 
             UIInput messageInput = (UIInput) e.getComponent().getParent().findComponent("messageContent"); 
@@ -192,11 +194,9 @@ public class MessageWrapper {
             
             wrapped = discussionBean.getDiscussion().addComment(title, description, Helper.getLiferayUser());
             added = true;
-            if (discussionBean.getCommentsThread() != null) {
-                discussionBean.getCommentsThread().addMessage(this);
-            }
 
             discussionBean.commentAdded(this);
+            empty = false;
             
             filteredDescription = ContentFilterHelper.filterContent(description);
             Helper.sendInfoMessage("Comment \"" + title + "\" has been added.");
@@ -205,9 +205,14 @@ public class MessageWrapper {
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     DiscussionMessage.class.getName(), wrapped.getMessageId(), DiscussionActivityKeys.ADD_DISCUSSION_COMMENT.id(),null, 0);
         }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     public void updateMessage(ActionEvent e) throws SystemException {
+        try {
         if (discussionBean.getPermissions().getCanAdminMessages()) {
 
             UIInput messageInput = (UIInput) e.getComponent().getParent().findComponent("messageContent"); 
@@ -221,6 +226,10 @@ public class MessageWrapper {
             wrapped.update(title, description);
             filteredDescription = ContentFilterHelper.filterContent(description);
             editing = false;
+        }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     
@@ -236,7 +245,10 @@ public class MessageWrapper {
         return wrapped.getCreateDate();
     }
     
-    private void addMessage(MessageWrapper messageWrapper) {
+    public void addMessage(MessageWrapper messageWrapper) throws SystemException {
+        if (messages == null) {
+            getThreadMessages();
+        }
         messageWrapper.messageNum = messages.get(messages.size() - 1).messageNum + 1;
         messages.add(messageWrapper);
         newMessage = new MessageWrapper(this);
@@ -312,5 +324,9 @@ public class MessageWrapper {
     
     public int getMessageNum() {
         return messageNum;
+    }
+    
+    public boolean isNewMsg() {
+        return empty;
     }
 }

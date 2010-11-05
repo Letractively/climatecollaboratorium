@@ -48,7 +48,7 @@ public class DiscussionBean {
     private EventBus eventBus;
     private CategoryWrapper currentCategory;
     private MessageWrapper currentThread;
-    private MessageWrapper commentsThread;
+    private MessageWrapper commentsThread = new MessageWrapper(this);
     private List<CategoryWrapper> categories;
     private List<MessageWrapper> threads;
     private Map<Long, CategoryWrapper> categoriesById;
@@ -110,6 +110,10 @@ public class DiscussionBean {
             threads = null;
 
             updatePageType();
+            
+            if (discussion.getCommentThread() != null) { 
+                commentsThread = new MessageWrapper(discussion.getCommentThread(), null, this, 0);
+            }
         } catch (Exception e) {
             _log.error("Error when initializing discussion bean", e);
             return false;
@@ -440,16 +444,16 @@ public class DiscussionBean {
         return commentsThread;
     }
     
-    public int getCommentsCount() throws SystemException {
-        if (commentsThread != null) {
-            return commentsThread.getThreadMessagesCount();
-        }
-        return 0;
+    public int getCommentsCount() throws SystemException, PortalException {
+        return discussion.getCommentsCount();
     }
 
-    public void commentAdded(MessageWrapper messageWrapper) {
-        if (commentsThread == null) {
+    public void commentAdded(MessageWrapper messageWrapper) throws SystemException {
+        if (commentsThread.isNewMsg()) {
             commentsThread = messageWrapper;
+        }
+        else {
+            getCommentsThread().addMessage(messageWrapper);
         }
         newComment = new MessageWrapper(this);
     }
