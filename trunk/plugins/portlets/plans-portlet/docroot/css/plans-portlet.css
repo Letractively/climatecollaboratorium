@@ -1219,7 +1219,7 @@ p.special-info {
 	display: block;
     margin-top: auto;
     margin-left: 5px;
-	background: url(/collaboratorium-theme/images/arrows/01_down.png) no-repeat center;
+    background: url(/collaboratorium-theme/images/sort-arrow-up_on.gif) no-repeat center;
 }
 
 .iceCmdSrtHdr .column-hoverAsc {
@@ -1228,5 +1228,13 @@ p.special-info {
     display: block;
     padding-top: 30%;
     margin-left: 5px;
-    background: url(/collaboratorium-theme/images/arrows/01_up.png) no-repeat center;
+    background: url(/collaboratorium-theme/images/sort-arrow-down_on.gif) no-repeat center;
+}
+
+.prohome .column-hover tr {
+	background: transparent;
+}
+
+.prohome .column-hover td {
+    padding: 0;
 }

@@ -118,6 +118,7 @@
             <ice:outputLabel for="shortName">Short name</ice:outputLabel>
             <ice:inputText id="shortName" value="#{contest.contest.editor.shortName}"/>
         </ice:panelGroup>
+        
         <div class="probox">
             <div class="boxtext">
                     <f:subview rendered="#{not contest.contest.editor.editing}">
@@ -143,18 +144,26 @@
                 </div>
                 
             </div>
+            &amp;nbsp;
             <ul id="tabs" class="prohome">
             
                 <ui:repeat value="#{contest.contest.activeOrPastPhases}" var="phase">
                     <li class="#{phase.phaseId == contest.currentPhase.phaseId ? 'c' : ''}">
                         <collab:contestLink contestId="#{contest.contest.contestId}" text="#{phase.name}" hashString="plans=phase:#{phase.phaseId}" /></li>
                 </ui:repeat>
+            <div class="clearfix"></div>
+            
             </ul>
-            <div class="clearfix"></div>    
+            &amp;nbsp;
+            <div class="clearfix"></div>
+            
         </div>
     <ice:form>
     
         <div id="pro-info">
+        <table width="100%">
+        <tr>
+        <td>
         <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{plansIndex.plansCount}</span> proposals
         <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" /> <strong>
         <f:subview rendered="#{plansIndex.contestPhase.status != 'FINISHED'}">
@@ -170,7 +179,8 @@
             </ice:outputText>
         </f:subview>
         </strong>
-        
+        </td>
+        <td>
             <div class="butt_wrap">
             <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
             <div class="buttbdr">
@@ -188,8 +198,8 @@
                     jQuery(document).ready(initSelectbox());
                 </script>
             </div>
-            <div class="clearfix">&amp;nbsp;</div>
           </div> <!-- /butt_wrap -->
+          </td></tr></table>
       
     </div> <!-- /proinfo -->
     

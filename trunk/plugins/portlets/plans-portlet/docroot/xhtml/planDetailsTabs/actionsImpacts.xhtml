@@ -27,7 +27,7 @@
             </div>
         </ui:define>
     </ui:decorate>
-
+    
     <div id="model-upload" class="hidden">
         <div id="model-upload-popup-content">
             <div class="upload-info">
@@ -77,6 +77,41 @@
 
         </div>
     </div>
+    
+        
+    <div id="actboxtop">
+      <div id="actboxdesc">
+        <img src="/collaboratorium-theme/images/icon_house.png" width="45" height="30" />
+            <div class="type"><strong>Model:</strong> The core simulation model for this contest is the &amp;nbsp;
+            <a href="/web/guest/resources/-/wiki/Main/MIT+composite+model">MIT Composite Model</a></div>
+      </div>
+      <div id="actboxtab">
+        <f:subview rendered="#{simulationBean.embeddedEditing}">
+            <a href="javascript:;" onclick="jQuery('#actbox, .hideOptions, .showOptions').toggle();" ><span class="hidden hideOptions">hide options</span><span class="showOptions">show options</span></a>
+        </f:subview>
+      </div>
+    </div>
+    
+    <div id="actbox" class="hidden">
+      <div id="actbox_l">
+        Select varying levels of geographic disaggregation for the actions
+        <div class="select-act_wrap">
+            <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" styleClass="selectbox1" style="width: 191px;" partialSubmit="true" valueChangeListener="#{planBean.modelBean.modelChagnedListener}">
+                <f:selectItems value="#{planBean.modelBean.availableModels}"/>
+            </ice:selectOneMenu>
+            <script type="text/javascript">
+                jQuery(document).ready(function() {initSelectbox()});
+            </script>
+        </div>
+      </div>      
+      <div id="actbox_r">
+        You can also upload your own disaggregation mode
+        <div class="butt_wrap">
+          <div class="button"><a href="/web/guest/resources/-/wiki/Main/Upload+model+help"><span>UPLOAD</span> model</a></div>
+        </div>
+      </div>
+    </div>
+    
 
 
     
@@ -118,12 +153,6 @@
                 <strong><ice:outputText value="#{planBean.plan.simulationVersionAuthor.screenName}"/></strong>
             </a>
         </ice:panelGroup>
-         <div class="model-info">
-        <ice:outputText escape="false">
-            The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
-                href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
-        </ice:outputText>
-        </div>
 
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
             <f:subview rendered="#{permissions.canEdit}">
@@ -167,29 +196,6 @@
             No model has been set.
         </ice:panelGroup>
 
-        <div class="modelSelection">
-
-        <ice:panelGrid columns="2">
-            <ice:panelGroup>
-               
-                <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" partialSubmit="true" disabled="#{not simulationBean.embeddedEditing}" valueChangeListener="#{planBean.modelBean.modelChagnedListener}">
-                    <f:selectItems value="#{planBean.modelBean.availableModels}"/>
-                </ice:selectOneMenu>
-            </ice:panelGroup>
-            
-            <ice:panelGroup>
-                You can select varying levels of geographic disaggregation for the actions in this model by using the menu to the left.
-            </ice:panelGroup>
-            <ice:panelGroup>
-                <a href="/web/guest/resources/-/wiki/Main/Upload+model+help"><div class="prominantButton">Upload model</div></a>
-               
-
-            </ice:panelGroup>
-            <ice:panelGroup>
-                You can also upload your own disaggregation mode.
-            </ice:panelGroup>
-        </ice:panelGrid>
-        </div>
 
     </ice:panelGroup>
 </f:view>
