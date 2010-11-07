@@ -114,7 +114,7 @@ jQuery(document).ready(function() {
 });
 
 function initSelectbox() {
-	if (jQuery('.selectbox1').length > 0) {
+	if (jQuery('.selectbox1, .selectbox1-dis-dis').length > 0) {
 		var selectboxOnChange = jQuery('.selectbox1').get(0).getAttribute("onchange");
 
 		jQuery('.selectbox1').selectbox({
