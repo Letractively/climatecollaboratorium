@@ -355,7 +355,7 @@ padding:1px 30px 5px;
 
 /** CHANGES AFTER 2.11.2010 **/
 
-.iceDatTbl.colab.prohome thead tr { background:#f4f3eb;}
+.iceDatTbl.colab.prohome thead tr.voteForPlan { background:#f4f3eb;}
 
 .protitle { margin:60px 0 19px 0;}
 .protitle img { float:left; margin-right:15px;}
@@ -454,3 +454,38 @@ input.comm_butt[type="submit"]:focus
  .commentsActions {
     text-align: right;
  }
+ 
+.colab.prohome th, .wf-active .colab.prohome th a {
+    color: #484848;
+}
+
+.info a {
+	color: #666;
+} 
+
+.acthead {
+    background: url(/collaboratorium-theme/images/grid_act.gif);
+}
+
+.acthead .buttbdr {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.acthead .buttDis,
+.wf-active .acthead .buttDis a {
+    background: #bbb;
+}
+
+h1 .page-actions, 
+h1 .page-actions span,
+.wf-active h1 .page-actions, 
+.wf-active h1 .page-actions span,
+.wf-active h1 .page-actions a,
+.wf-active h1 .page-actions img {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    
+    display: inline;
+}
