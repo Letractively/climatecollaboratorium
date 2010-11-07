@@ -101,4 +101,7 @@ public interface PlanVoteLocalService {
 
     public int countPlanVotes(com.ext.portlet.contests.model.Contest contest)
         throws com.liferay.portal.SystemException;
+
+    public int countPlanVotesByPlanId(java.lang.Long planId)
+        throws com.liferay.portal.SystemException;
 }

@@ -119,7 +119,7 @@ jQuery.SelectBox = function(selectobj, options) {
 			if(opt.debug) console.log('container visible and has focus')
 		} else {
 			// Workaround for ie scroll - thanks to Bernd Matzner
-			if((jQuery.browser.msie && jQuery.browser.version.substr(0,1) < 8) || jQuery.browser.safari){ // check for safari too - workaround for webkit
+			if((jQuery.browser.msie && jQuery.browser.version['number'] < 8) || jQuery.browser.safari){ // check for safari too - workaround for webkit
 				if(document.activeElement.getAttribute('id').indexOf('_container')==-1){
 					hideMe();
 				} else {

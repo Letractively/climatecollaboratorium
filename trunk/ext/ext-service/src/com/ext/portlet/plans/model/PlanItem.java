@@ -285,4 +285,8 @@ public interface PlanItem extends PlanItemModel {
             com.liferay.portal.SystemException;
 
     public boolean getPromoted() throws com.liferay.portal.SystemException;
+
+    public int getCommentsCount()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

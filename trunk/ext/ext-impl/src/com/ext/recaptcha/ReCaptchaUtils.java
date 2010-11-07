@@ -83,8 +83,9 @@ public class ReCaptchaUtils {
             post.addParameter("response", recaptchaResponse);
 
             client.executeMethod(post);
+            String response = post.getResponseBodyAsString();
 
-            if (post == null || !post.getResponseBodyAsString().startsWith("true")) {
+            if (post == null || !response.startsWith("true")) {
                 throw new CaptchaTextException("Invalid captcha text supplied");
             }
 

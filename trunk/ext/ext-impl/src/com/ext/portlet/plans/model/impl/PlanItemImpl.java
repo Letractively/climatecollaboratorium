@@ -291,7 +291,8 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     }
 
     public Integer getVotes() throws SystemException {
-        return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getVotes();
+        //return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getVotes();
+        return PlanVoteLocalServiceUtil.countPlanVotesByPlanId(this.getPlanId());
     }
 
     public boolean getOpen() throws SystemException {

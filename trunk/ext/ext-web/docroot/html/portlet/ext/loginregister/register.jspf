@@ -77,6 +77,7 @@
                         <tr><td colspan="3">
                             <c:if test="${isRegistering}">
                                 <liferay-ui:error exception="<%= UserScreenNameException.class %>" message="Invalid user name" />
+                                <liferay-ui:error exception="<%= DuplicateUserScreenNameException.class %>" message="Screen name already taken" />
                             </c:if>
                         </td></tr>
                         <tr>

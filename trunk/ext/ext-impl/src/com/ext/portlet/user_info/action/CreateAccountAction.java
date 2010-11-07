@@ -47,10 +47,12 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
      */
     public void processAction(ActionMapping mapping, ActionForm form, PortletConfig portletConfig,
             ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
-    	ReCaptchaUtils.validateCaptcha(actionRequest);
-        super.processAction(mapping, form, portletConfig, actionRequest, actionResponse);
-
-        if (SessionErrors.isEmpty(actionRequest)) {
+    	boolean captchaValid = ReCaptchaUtils.validateCaptcha(actionRequest);
+    	
+    	if (captchaValid) {
+    	    super.processAction(mapping, form, portletConfig, actionRequest, actionResponse);
+    	}
+        if (captchaValid && SessionErrors.isEmpty(actionRequest)) {
 
             ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
