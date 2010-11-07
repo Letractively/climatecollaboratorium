@@ -11,9 +11,20 @@
             <div class="corcen_top">
                 <div class="corcen_bottom">
                     <div class="corcen">
-                        <div class="title">
-                            <h2>Impacts</h2>
-                            <ice:commandButton actionListener="#{simulationBean.runSimulation}"  onclick="disableRunButton(); runSimulation();" styleClass="prominantButton runSimulationButton" value="Run the simulation" rendered="#{showRunButton}"/>
+                    
+                        <div class="acthead">
+                            <img src="/collaboratorium-theme/images/icon_act-arrows-r.png" width="35" height="25"></img>
+                            Impacts
+                            <f:subview rendered="#{showRunButton}">
+                                <div class="butt_wrap floatRight ">
+                                    <div class="buttbdr runSimulationButton">
+                                        <ice:commandLink actionListener="#{simulationBean.runSimulation}" onclick="disableRunButton(); runSimulation();">
+                                            <span>RUN</span> the model
+                                        </ice:commandLink>
+                                    </div>
+                                </div>
+                                <div class="clear">&amp;nbsp;</div>
+                            </f:subview>
 
                         </div>
                         <div class="clear"></div>

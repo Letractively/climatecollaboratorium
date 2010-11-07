@@ -72,8 +72,7 @@ function oneOfValuesChangedEvent() {
 	if (runSimulationOnclick) {
 		jQuery(".runSimulationButton").click(runSimulationOnclick);
 	}
-	jQuery(".runSimulationButton").removeClass('prominantButton-dis');
-	jQuery(".runSimulationButton").addClass('prominantButton');
+	jQuery(".runSimulationButton").removeClass('buttDis');
 	jQuery(".runSimulationButton").effect("highlight", {}, 2000);
 	jQuery(".simulationInputsStatus").addClass("valueChanged");
 }
@@ -84,8 +83,7 @@ function disableRunButton() {
 	}
 	jQuery(".runSimulationButton").unbind("click");
 	jQuery(".runSimulationButton").attr('onclick', "return false;");
-	jQuery(".runSimulationButton").addClass('prominantButton-dis');
-	jQuery(".runSimulationButton").removeClass('prominantButton');
+	jQuery(".runSimulationButton").addClass('buttDis');
 }
 
 
