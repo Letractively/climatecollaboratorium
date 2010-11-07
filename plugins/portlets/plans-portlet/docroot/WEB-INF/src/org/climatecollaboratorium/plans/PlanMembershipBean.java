@@ -53,17 +53,23 @@ public class PlanMembershipBean {
     }
     
     public List<PlanMember> getPlanMembersHalf1() throws SystemException {
+        /*
         if (planMembersHalf1.size() == 0) {
             planMembersHalf1.addAll(getPlanMembersSublist(0, (plan.getMembers().size() / 2) + (plan.getMembers().size() % 2)));
         }
         return planMembersHalf1;
+        */
+        return getPlanMembersSublist(0, (plan.getMembers().size() / 2) + (plan.getMembers().size() % 2)); 
     }
     
     public List<PlanMember> getPlanMembersHalf2() throws SystemException {
+        /*
         if (planMembersHalf2.size() == 0) {
             planMembersHalf2.addAll(getPlanMembersSublist((plan.getMembers().size() / 2) + (plan.getMembers().size() % 2), plan.getMembers().size()));
         }
         return planMembersHalf2;
+        */
+        return getPlanMembersSublist((plan.getMembers().size() / 2) + (plan.getMembers().size() % 2), plan.getMembers().size());
     }
     
     private List<PlanMember> getPlanMembersSublist(int from, int to) throws SystemException {

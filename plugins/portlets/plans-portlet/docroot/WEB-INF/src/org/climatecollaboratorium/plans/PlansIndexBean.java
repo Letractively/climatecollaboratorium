@@ -2,6 +2,7 @@ package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.contests.ContestPhaseHelper;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.model.ContestStatus;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.plans.NoSuchPlanVoteException;
 import com.ext.portlet.plans.PlanConstants;
@@ -40,6 +41,7 @@ public class PlansIndexBean {
     private List<Columns> columns;
 
     private String sortColumn = "SUPPORTERS";
+    private Columns defaultSortColumn;
     private boolean sortAscending = false;
     private boolean updatePlansList = true;
     private int pageSize = 50;
@@ -131,6 +133,13 @@ public class PlansIndexBean {
 
     public PlansIndexBean(ContestPhaseWrapper contestPhaseWrapper) throws PortalException, SystemException {
         this.contestPhase = contestPhaseWrapper;
+        if (contestPhase.getStatus() == ContestStatus.VOTING) {
+            defaultSortColumn = Columns.VOTES;
+        }
+        else {
+            defaultSortColumn = Columns.SUPPORTERS;
+        }
+        sortColumn = defaultSortColumn.name();
         dataPaginator = new DataPaginator();
 
         updatePlansList = true;
@@ -201,15 +210,15 @@ public class PlansIndexBean {
 
         if (isDirty) {
             refresh();
-            sortColumn = PlanConstants.Attribute.SUPPORTERS.name();
+            sortColumn = defaultSortColumn.name();
             sortAscending = false;
         }
 
     }
     private void initSortColun() {
-        sortColumn = Columns.SUPPORTERS.name();
+        sortColumn = defaultSortColumn.name();
         // if contest isn't active then we should sort by votes
-        if (!contestPhase.getContest().isContestActive()) {
+        if (!contestPhase.getContest().isContestActive() || contestPhase.getStatus() == ContestStatus.VOTING) {
             sortColumn = Columns.VOTES.name();
         }
         sortAscending = false;
@@ -450,10 +459,6 @@ public class PlansIndexBean {
         plansUserSettings = PlansUserSettingsLocalServiceUtil.getPlanUserSettings(ectx.getSessionMap(), ectx.getRequestMap(), contestPhase.getPlanType());
         columns = new ArrayList<Columns>();
         for (Columns col : ContestPhaseHelper.getPhaseColumns(contestPhase.getPhase())) {
-            /*if (col.getUserSetting(plansUserSettings)) {
-                columns.add(col);
-            }
-            */
             columns.add(col);
         }
         updatePlansList = true;

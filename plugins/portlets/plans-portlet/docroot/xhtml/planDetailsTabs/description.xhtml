@@ -145,7 +145,9 @@
         <div class="icon"><img src="/collaboratorium-theme/images/icon_blue-chk.gif" width="29" height="23" /></div>
         <div class="info"><span>${planBean.plan.votes}</span> <em>votes (#{planBean.plan.votesPercent}%)</em></div>
         <div class="icon"><img src="/collaboratorium-theme/images/icon_comments.gif" width="32" height="30" /></div>
-        <div class="info"><span>#{planBean.plan.commentsCount}</span> <em>comments</em></div>
+        <div class="info"><span>#{planBean.plan.commentsCount}</span> 
+            <collab:planLink planId="#{planBean.planId}" contestId="#{contest.contestId}" hashString="plans=tab:comments" text="&lt;em&gt;comments&lt;/em&gt;" />
+        </div>
         <div class="clearfix">&amp;nbsp;</div>
       </div>
       

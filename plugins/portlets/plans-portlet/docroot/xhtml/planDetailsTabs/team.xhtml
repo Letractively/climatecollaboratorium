@@ -26,6 +26,10 @@
                     <ice:commandButton value="Cancel" actionListener="#{planBean.membershipBean.toggleRequestingOrJoin}"/>
 
                 </ice:panelGroup>
+                <ice:panelGroup rendered="#{planBean.plan.hasRequestedMembership}">
+                    <br />
+                    <h2>You have requested to be a member of this team.</h2>
+                </ice:panelGroup>
                 <div class="clear">&amp;nbsp;</div>  
     <div class="team_left">
         <div class="team-top">
