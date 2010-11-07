@@ -183,6 +183,7 @@ table.modelInputsTab > tbody:first-child > tr:first-child table {
 
 /** my additions */
 
+/*
 td.inputTabStyle {
 
     border-top:1px solid #F0F0F0;
@@ -215,7 +216,6 @@ td.inputTabStyle {
 
 
 }
-
 .inputTabStyleOff.icePnlTbOff td {
     background-color:#C0C0C0;
     color: #606060;
@@ -229,3 +229,4 @@ td.inputTabStyle {
     font-weight:bold;
 
 }
+*/
