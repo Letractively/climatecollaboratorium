@@ -126,6 +126,11 @@ public class PlanVoteLocalServiceUtil {
         return getService().countPlanVotes(contest);
     }
 
+    public static int countPlanVotesByPlanId(java.lang.Long planId)
+        throws com.liferay.portal.SystemException {
+        return getService().countPlanVotesByPlanId(planId);
+    }
+
     public static PlanVoteLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanVoteLocalService is not set");

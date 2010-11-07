@@ -14,5 +14,5 @@ DELETE FROM ContestPhaseColumn WHERE ContestPhasePK = 4;
 INSERT INTO ContestPhaseColumn VALUES (31, 4,  "VOTES", 10);
 INSERT INTO ContestPhaseColumn VALUES (32, 4,  "COMMENTS", 20);
 INSERT INTO ContestPhaseColumn VALUES (33, 4,  "CO2_CONCENTRATION", 30);
-INSERT INTO ContestPhaseColumn VALUES (34, 4,  "MITIGATION_COST", 40);
+INSERT INTO ContestPhaseColumn VALUES (34, 4,  "MITIGATION_COST_EMF", 40);
 INSERT INTO ContestPhaseColumn VALUES (35, 4,  "DAMAGE_COST", 50);

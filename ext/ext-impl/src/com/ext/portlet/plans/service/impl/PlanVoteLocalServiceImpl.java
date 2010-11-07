@@ -86,4 +86,8 @@ public class PlanVoteLocalServiceImpl extends PlanVoteLocalServiceBaseImpl {
     public int countPlanVotes(Contest contest) throws SystemException {
         return planVotePersistence.countBycontestId(contest.getContestPK());
     }
+    
+    public int countPlanVotesByPlanId(Long planId) throws SystemException {
+        return planVotePersistence.countByPlanId(planId);
+    }
 }
