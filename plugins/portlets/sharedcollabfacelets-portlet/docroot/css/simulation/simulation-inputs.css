@@ -124,7 +124,7 @@ div.simulationInput {
     padding:3px 10px
 }
 
-.simulationInput.odd {
+.simulationInput.even {
     background: #EAEAEA;
 }
 
@@ -230,3 +230,34 @@ td.inputTabStyle {
 
 }
 */
+.actions .MidMid a,
+table.mainTabs .actions .MidMid a {
+    background:url(/collaboratorium-theme/images/tab_off_long.gif) no-repeat #2498b3; height:40px; padding:7px 12px 3px 12px; margin:3px 6px 0 0; display:inline-block; font-size:13px; font-weight:600; color:#fff;
+    background-position: top;  
+}
+
+.actions .icePnlTbOn a,
+.actions .icePnlTbOver a,
+table.mainTabs .actions .icePnlTbOn a,
+table.mainTabs .actions .icePnlTbOver a {
+    background:url(/collaboratorium-theme/images/tab_on_long.png) no-repeat right #fff; height:43px; padding:10px 16px 0 8px; margin:0 6px 0 0; color:#2498b3;
+    background-position: top right;
+}
+
+    
+table.mainTabs .inputTabStyle td.LftBtm, 
+table.mainTabs .inputTabStyle td.MidBtm,
+table.mainTabs .inputTabStyle td.RtBtm,
+table.mainTabs .inputTabStyle td.LftTop, 
+table.mainTabs .inputTabStyle td.MidTop,
+table.mainTabs .inputTabStyle td.RtTop,
+.inputTabStyle td.LftBtm, 
+.inputTabStyle td.MidBtm,
+.inputTabStyle td.RtBtm,
+.inputTabStyle td.LftTop, 
+.inputTabStyle td.MidTop,
+.inputTabStyle td.RtTop {
+    height: 0px;
+    width: 0px;
+    display: none;
+}
