@@ -3,7 +3,9 @@ package org.climatecollaboratorium.plans.wrappers;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
+import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.PlanConstants.Columns;
+import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanItem;
 
 import com.liferay.portal.PortalException;
@@ -114,5 +116,10 @@ public class PlanIndexItemWrapper {
             }
         }
         plansIndexBean.refresh();
+    }
+    
+    public Integer getPlace() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_PLACE.name());
+        return attr != null ? (Integer) attr.getTypedValue() : -1;
     }
 }

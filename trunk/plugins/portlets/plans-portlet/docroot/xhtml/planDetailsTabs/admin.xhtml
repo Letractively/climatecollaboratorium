@@ -53,13 +53,30 @@
                     
                 </div> 
                 <div class="clear"></div>
-
             <ice:panelGroup rendered="#{permissions.canAdminAll and contest.currentPhase.hasNextPhase and !planBean.plan.promoted}">
                 <div class="sectionTitle">
                     <h2>Promote to next phase</h2>
                 </div>
                 <div class="sectionContent">
                     <ice:commandButton styleClass="prominantButton promotePlan" value="Promote plan to next phase" actionListener="#{planBean.plan.promote}" onclick="if(!confirm('Are you sure you want to proceed with promoting this plan?')){ return false; }"/> 
+                </div>
+            </ice:panelGroup>
+            
+            <ice:panelGroup rendered="#{permissions.canAdminAll and planBean.plan.place le 0}">
+                <div class="sectionTitle">
+                    <h2>Mark as semi-finalist</h2>
+                </div>
+                <div class="sectionContent">
+                    <ice:commandButton styleClass="prominantButton promotePlan" value="Mark as semi-finalist" actionListener="#{planBean.plan.markAsSemiFinalist}" onclick="if(!confirm('Are you sure you want to proceed with marking this proposal as semi finalist?')){ return false; }"/> 
+                </div>
+            </ice:panelGroup>
+            
+            <ice:panelGroup rendered="#{permissions.canAdminAll and planBean.plan.place == 2}">
+                <div class="sectionTitle">
+                    <h2>Remove semi-finalist ribbon</h2>
+                </div>
+                <div class="sectionContent">
+                    <ice:commandButton styleClass="prominantButton promotePlan" value="Remove semi-finalist ribbon" actionListener="#{planBean.plan.removeSemiFinalistRibbon}" onclick="if(!confirm('Are you sure you want to remove semi-finalist ribbon?')){ return false; }"/> 
                 </div>
             </ice:panelGroup>
             

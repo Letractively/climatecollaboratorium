@@ -437,12 +437,10 @@ public class PlanItemWrapper {
         if (permissions.getCanAdminAll()) {
             wrapped.promote(Helper.getLiferayUser());
             
-            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.PROMOTE_PLAN.id(),null, 0);
+           //SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+           //         PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.PROMOTE_PLAN.id(),null, 0);
             
             this.promoted = true;
-            
-            planBean.planDeleted();
         }
         
     }
@@ -611,5 +609,23 @@ public class PlanItemWrapper {
     public boolean isPromoted() {
         return promoted;
     }
+    
+    public int getPlace() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_PLACE.name());
+        return attr != null ? (Integer) attr.getTypedValue() : -1;   
+    }
+    
+    public void markAsSemiFinalist(ActionEvent e) throws PortalException, SystemException {
+        if (permissions.getCanAdminAll()) {
+            wrapped.setPlace(2);
+        }
+    }
+    
+    public void removeSemiFinalistRibbon(ActionEvent e) throws PortalException, SystemException {
+        if (permissions.getCanAdminAll()) {
+            wrapped.removePlace();
+        }
+    }    
+    
 
 }

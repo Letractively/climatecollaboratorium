@@ -1238,3 +1238,19 @@ p.special-info {
 .prohome .column-hover td {
     padding: 0;
 }
+
+.planPlace {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+.planPlace.place_1 {
+    background: url(/collaboratorium-theme/images/ribbon-orange.gif);
+}
+
+.planPlace.place_2 {
+    background: url(/collaboratorium-theme/images/ribbon-blue.gif);
+}

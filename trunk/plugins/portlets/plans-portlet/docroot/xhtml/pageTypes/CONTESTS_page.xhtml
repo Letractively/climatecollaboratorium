@@ -86,12 +86,13 @@
             
              -->
             <div class="clearfix"></div>
+
+        </div>
              <f:subview rendered="#{not singleContest.contestActive}">
                 <div class="viewAllProposals">
-                    <collab:contestLink contestId="#{singleContest.contestId}" text="View all proposals" />
+                    <collab:contestLink contestId="#{singleContest.contestId}" text="View archived contest proposals &amp;raquo;" />
                 </div>
              </f:subview> 
-        </div>
     </ice:form>
 
             <f:subview rendered="#{singleContest.contestActive}">
