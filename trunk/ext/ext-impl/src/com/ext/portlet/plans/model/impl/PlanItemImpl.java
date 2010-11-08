@@ -694,6 +694,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planMeta.setContestPhase(contestPhase.getContestPhasePK());
         
         planMeta.store();
+        setAttribute(Attribute.PLAN_PLACE, String.valueOf(1));
 
         return this;
     }
@@ -706,6 +707,14 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     
     public int getCommentsCount() throws PortalException, SystemException {
         return getDiscussionCategoryGroup().getCommentsCount();
+    }
+    
+    public void setPlace(int place) throws SystemException {
+        setAttribute(Attribute.PLAN_PLACE, String.valueOf(place));
+    }
+    
+    public void removePlace() throws SystemException {
+        setAttribute(Attribute.PLAN_PLACE, String.valueOf(-1));
     }
 
 }

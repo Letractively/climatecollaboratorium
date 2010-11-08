@@ -16,3 +16,12 @@ INSERT INTO ContestPhaseColumn VALUES (32, 4,  "COMMENTS", 20);
 INSERT INTO ContestPhaseColumn VALUES (33, 4,  "CO2_CONCENTRATION", 30);
 INSERT INTO ContestPhaseColumn VALUES (34, 4,  "MITIGATION_COST_EMF", 40);
 INSERT INTO ContestPhaseColumn VALUES (35, 4,  "DAMAGE_COST", 50);
+
+
+UPDATE  `lportal`.`ContestPhase` SET  `ContestPhaseName` =  'Draft' WHERE  `ContestPhase`.`ContestPhasePK` =2;
+
+
+-- UPDATE 'PlanMeta' SET contestPhase = 3 where previousContestPhase IS NOT NULL;
+-- UPDATE PlanMeta SET ContestPhase = 3, previousContestPhase = null, promoted = null WHERE ContestPhase = 4 OR promoted = 1
+
+

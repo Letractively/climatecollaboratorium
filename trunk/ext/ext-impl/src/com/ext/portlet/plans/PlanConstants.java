@@ -159,7 +159,8 @@ public class PlanConstants {
         SEEKING_ASSISTANCE(String.class, "%s", attributeFunctionFactory.getAttributeValue("SEEKING_ASSISTANCE"), true, null, null),
         SUPPORTERS(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("SUPPORTERS"), true, null, null),
         IS_PLAN_OPEN(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("open"), true, null, null),
-        COMMENTS(Integer.class, "%d", attributeFunctionFactory.getPlanPropertyFunction("commentsCount"), true, null, null);
+        COMMENTS(Integer.class, "%d", attributeFunctionFactory.getPlanPropertyFunction("commentsCount"), true, null, null),
+        PLAN_PLACE(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("PLAN_PLACE"), true, null, null);
 		
 		
 		private Class<?> clasz;
@@ -497,6 +498,7 @@ public class PlanConstants {
             }
             
         });
+		
         
 		private String name;
 		private String description;
