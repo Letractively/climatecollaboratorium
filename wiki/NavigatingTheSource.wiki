@@ -8,4 +8,4 @@ Although the basic technologies use in the collaboratorium are fairly straightfo
 
 == Stats ==
 
-<wiki:gadget url="http://www.ohloh.net/p/gwt/widgets/project_basic_stats.xml" height="220" border="1" />
+<wiki:gadget url="http://www.ohloh.net/p/486220/widgets/project_basic_stats.xml" height="220" border="1"/>
