@@ -289,4 +289,8 @@ public interface PlanItem extends PlanItemModel {
     public int getCommentsCount()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public void setPlace(int place) throws com.liferay.portal.SystemException;
+
+    public void removePlace() throws com.liferay.portal.SystemException;
 }
