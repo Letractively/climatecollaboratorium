@@ -506,6 +506,33 @@ function initializeColumnsInfo() {
     jQuery(".voteForPlan").parent().addClass("voteForPlan");
 }
 
+function initializeRibbons() {
+    jQuery(".ribbon-hover").each(function() {
+        var button = jQuery(this);
+        var cont = button.parent().find(".popup-info-box");
+        button.hover(function() {
+            cont.css({'position': 'absolute', 'left': '-1000'});
+            cont.show();
+
+            var pos = button.parent().position();
+            var width = button.parent().width();
+            var height = cont.height();
+
+
+            var xpos = pos.left + width / 2.0 - 125;
+            var ypos = pos.top - height - 20;
+
+            cont.css({'position': 'absolute', 'top':ypos,'left':xpos, "width":'250px'});
+            cont.fadeIn("medium");
+
+        }, function() {
+            cont.fadeOut('medium');
+        });
+    });
+
+    jQuery(".voteForPlan").parent().addClass("voteForPlan");
+}
+
 function findUserVote(id) {
     //alert('looking for user vote' + jQuery(".userVote").length);
     jQuery(".userVote").parent().parent().addClass("active");
