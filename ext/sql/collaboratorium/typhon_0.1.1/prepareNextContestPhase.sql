@@ -22,6 +22,7 @@ INSERT INTO ContestPhaseColumn VALUES (28, 3,  "COMMENTS", 11);
 
 UPDATE  `lportal`.`ContestPhase` SET  `ContestPhaseName` =  'Draft' WHERE  `ContestPhase`.`ContestPhasePK` =2;
 UPDATE  `lportal`.`ContestPhase` SET  `PhaseEndDate` = '2010-09-01 00:00:00' where `ContestPhase`.`ContestPK` =1;
+UPDATE  `lportal`.`ContestPhase` SET  `PhaseStartDate` = '2010-11-08 00:00:00', `PhaseEndDate` = '2010-11-26 00:00:00' where `ContestPhase`.`ContestPhaesPK` =3;
 
 
 -- UPDATE 'PlanMeta' SET contestPhase = 3 where previousContestPhase IS NOT NULL;
