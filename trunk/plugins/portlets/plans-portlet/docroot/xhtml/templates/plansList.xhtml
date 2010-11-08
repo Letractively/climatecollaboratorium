@@ -53,8 +53,17 @@
             </f:facet>
             <ice:panelGroup rendered="#{column == 'NAME'}" styleClass="table-cell-padding #{column}">
                 <f:subview rendered="#{not plansIndex.contestPhase.active}">
-                    <div class="planPlace place_#{singlePlan.place}">
-                    </div> 
+                    <div class="ribbon-hover planPlace place_#{singlePlan.place}">
+                    </div>
+                    <div class="popup-info-box hidden">
+                        <ice:outputText rendered="#{singlePlan.place == 1}">
+                          Finalist: Proposal that went on to the voting round of the contest.
+                        </ice:outputText>
+                        <ice:outputText rendered="#{singlePlan.place == 2}">
+                          Honorable mention: Team undertook diligent work in its proposal and raised awareness of the Climate CoLab.
+                        </ice:outputText>
+
+                    </div>
                 </f:subview>
                 
                 <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.columnValues[column]}" />
@@ -115,6 +124,7 @@
         #{plansIndex.plansUpdateToken}
         <script language="javascript">
                 initializeColumnsInfo();
+                initializeRibbons();
                 makeNANotesVisible();
                
         </script>
