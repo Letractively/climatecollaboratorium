@@ -104,13 +104,13 @@
         <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{singleContest.plansIndex.plansCount}</span> proposals
         <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" /> <strong>
         <f:subview rendered="#{singleContest.plansIndex.contestPhase.status != 'FINISHED'}">
-            #{singleContest.plansIndex.contestPhase.name} closes &amp;nbsp;
+            #{singleContest.plansIndex.contestPhase.name} ends &amp;nbsp;
             <ice:outputText value="#{singleContest.plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM d"/>
             </ice:outputText>
         </f:subview>
         <f:subview rendered="#{singleContest.plansIndex.contestPhase.status == 'FINISHED'}">
-            Contest completed &amp;nbsp;
+            Contest ended &amp;nbsp;
             <ice:outputText value="#{singleContest.plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM d, yyyy"/>
             </ice:outputText>
