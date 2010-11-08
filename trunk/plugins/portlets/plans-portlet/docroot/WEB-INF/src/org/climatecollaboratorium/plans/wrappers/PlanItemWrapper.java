@@ -22,6 +22,7 @@ import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
 
 import com.ext.portlet.PlanStatus;
 import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanAttribute;
@@ -334,6 +335,10 @@ public class PlanItemWrapper {
 
     public Long getContestPhaseId() throws SystemException, PortalException {
         return wrapped.getContestPhase().getContestPhasePK();
+    }
+    
+    public ContestPhase getContestPhase() throws PortalException, SystemException {
+        return wrapped.getContestPhase();
     }
     
     public List<PlanHistoryWrapper> getAllDescriptionVersions() throws PortalException, SystemException {
