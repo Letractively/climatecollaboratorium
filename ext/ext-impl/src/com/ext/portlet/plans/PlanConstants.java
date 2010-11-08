@@ -417,7 +417,7 @@ public class PlanConstants {
 				"rapidly developing countries. Other developing countries includes smaller developing nations in the Middle East, Latin America, Africa, " +
 				"and Asia.","ShowDevelopingBEmissions",false, Attribute.EMISSIONS_DEVELOPING_B, new AttributeGetter("%s",Attribute.EMISSIONS_DEVELOPING_B)),
 		
-		CO2_CONCENTRATION("CO2 Concentration<br/>(ppm in 2100)","Atmospheric CO2 concentration in parts per million (ppm) in 2100","ShowCO2", true, Attribute.CO2, new AttributeGetter("%s",Attribute.CO2)),
+		CO2_CONCENTRATION("CO2","Atmospheric CO2 concentration in parts per million (ppm) in 2100","ShowCO2", true, Attribute.CO2, new AttributeGetter("%s",Attribute.CO2)),
 				
 		TEMP_CHANGE("Temperature Change<br/>(&#176;C in 2100)","Global average temperature change in degrees Celsius (C) from pre-industrial " +
 				"values to 2100","ShowTemperatureChange",true, Attribute.TEMP ,new AttributeGetter("%s",Attribute.TEMP)),
@@ -480,13 +480,13 @@ public class PlanConstants {
 				Attribute.MIN_DAMAGE_COST_2010, new MinMaxAttributeGetter("%s to %s",Attribute.MIN_DAMAGE_COST_2010,Attribute.MAX_DAMAGE_COST_2010)),
 		
 		
-        SEEKING_ASSISTANCE("Seeking<br />assistance","Does this plan team seeks for new members?","ShowSeekingAssistance",true, Attribute.SEEKING_ASSISTANCE, new AttributeGetter("%s",Attribute.SEEKING_ASSISTANCE)),
+        SEEKING_ASSISTANCE("Seeking<br />help","Does this plan team seeks for new members?","ShowSeekingAssistance",true, Attribute.SEEKING_ASSISTANCE, new AttributeGetter("%s",Attribute.SEEKING_ASSISTANCE)),
 
         SUPPORTERS("Supporters","Number of users supporting this plan","ShowSupporters",true, Attribute.SUPPORTERS, new AttributeGetter("%s",Attribute.SUPPORTERS)),
 		
 		IS_PLAN_OPEN("Who can<br /> edit", "Who can edit the plan", "ShowWhoCanEdit", true, Attribute.IS_PLAN_OPEN, new AttributeGetter("%s", Attribute.IS_PLAN_OPEN)),
 		
-		COMMENTS("Number of comments", "Number of comments", "ShowComments", true, Attribute.COMMENTS, new PlanValueFactory() {
+		COMMENTS("Comments", "Number of comments", "ShowComments", true, Attribute.COMMENTS, new PlanValueFactory() {
 
             public String getValue(Plan plan) throws SystemException {
                 return String.valueOf(0);

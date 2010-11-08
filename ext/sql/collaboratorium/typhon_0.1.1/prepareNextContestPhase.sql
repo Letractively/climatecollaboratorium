@@ -17,6 +17,8 @@ INSERT INTO ContestPhaseColumn VALUES (33, 4,  "CO2_CONCENTRATION", 30);
 INSERT INTO ContestPhaseColumn VALUES (34, 4,  "MITIGATION_COST_EMF", 40);
 INSERT INTO ContestPhaseColumn VALUES (35, 4,  "DAMAGE_COST", 50);
 
+INSERT INTO ContestPhaseColumn VALUES (28, 3,  "COMMENTS", 11);
+
 
 UPDATE  `lportal`.`ContestPhase` SET  `ContestPhaseName` =  'Draft' WHERE  `ContestPhase`.`ContestPhasePK` =2;
 
