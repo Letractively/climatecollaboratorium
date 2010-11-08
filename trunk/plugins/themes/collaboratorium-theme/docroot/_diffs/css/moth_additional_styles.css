@@ -489,3 +489,7 @@ h1 .page-actions span,
     
     display: inline;
 }
+
+#earth.home {
+    margin-top: 0;
+}
