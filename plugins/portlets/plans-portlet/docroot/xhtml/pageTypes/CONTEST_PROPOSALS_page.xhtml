@@ -173,7 +173,7 @@
             </ice:outputText>
         </f:subview>
         <f:subview rendered="#{plansIndex.contestPhase.status == 'FINISHED'}">
-            Contest completed &amp;nbsp;
+            #{plansIndex.contestPhase.name} completed &amp;nbsp;
             <ice:outputText value="#{plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM d, yyyy"/>
             </ice:outputText>

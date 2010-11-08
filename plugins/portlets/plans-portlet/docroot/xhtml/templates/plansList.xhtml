@@ -52,6 +52,11 @@
                 </div>
             </f:facet>
             <ice:panelGroup rendered="#{column == 'NAME'}" styleClass="table-cell-padding #{column}">
+                <f:subview rendered="#{not plansIndex.contestPhase.active}">
+                    <div class="planPlace place_#{singlePlan.place}">
+                    </div> 
+                </f:subview>
+                
                 <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.columnValues[column]}" />
             </ice:panelGroup>
             <ice:panelGroup rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}"
