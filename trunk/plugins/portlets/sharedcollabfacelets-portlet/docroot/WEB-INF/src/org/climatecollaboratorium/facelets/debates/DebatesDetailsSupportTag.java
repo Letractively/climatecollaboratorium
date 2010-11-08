@@ -43,7 +43,7 @@ public class DebatesDetailsSupportTag extends TagHandler {
             debatesIdsList.toArray(debatesIds);
         }
         else {
-            String debatesIdsStr = debatesIdsParam.getValue();
+            String debatesIdsStr = debatesIdsParam.getValue(ctx);
             String[] debatesIdsArrayStr = debatesIdsStr.split(",");
             debatesIds = new Long[debatesIdsArrayStr.length];
             for (int i=0; i < debatesIdsArrayStr.length; i++) {

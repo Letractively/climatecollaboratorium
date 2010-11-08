@@ -1180,13 +1180,15 @@ a.moderator, a.moderator:hover  {
 	border-left: 1px solid #6E9CFF;
     border-right: 1px solid #6E9CFF;
 	height: 100%;
+	margin-top: 2px;
 }
 
 .debateVotes,
 .debateVotes .debateVotesBg {
 	width: 100%;
-	margin: 0 5px;
+	margin: 0px 0px;
 	height: 100%;
+	vertical-align: middle;
 }
 
 .debatePositions td.name,
@@ -1211,10 +1213,7 @@ a.moderator, a.moderator:hover  {
 }
 
 .debatePositions td.debatePositionsCol {
-	text-align: center;
-	margin-left: 2px;
 	border: 1px solid #fff;
-	vertical-align: middle;
 	
 }
 .debateVotes,
@@ -1240,4 +1239,24 @@ a.moderator, a.moderator:hover  {
 .debatePositions {
     border-collapse: collapse;
     margin: 10px 0;
+}
+
+.wf-active .debatePositionsCol,
+.wf-active .debatePositionsCol.votes {
+	padding: 0;
+}
+
+.debateVotesTxt {
+	margin: auto;
+    color: #444;
+    padding-top: 6px;
+}
+
+.debatePositionsCol.comments {
+    text-align: center;
+    width: 50px;
+}
+
+.debatePositionsHdr {
+    text-align: center;
 }
