@@ -173,6 +173,12 @@ public class PlansIndexBean {
             contestPhase = currentPhase;
             queryPhases.add(contestPhase.getPhase());
             isDirty = true;
+            if (contestPhase.getStatus() == ContestStatus.VOTING) {
+                defaultSortColumn = Columns.VOTES;
+            }
+            else {
+                defaultSortColumn = Columns.SUPPORTERS;
+            }
         }
 
         Map<String, String> params = event.getParameters(PLANS_SOURCE);
@@ -220,6 +226,9 @@ public class PlansIndexBean {
         // if contest isn't active then we should sort by votes
         if (!contestPhase.getContest().isContestActive() || contestPhase.getStatus() == ContestStatus.VOTING) {
             sortColumn = Columns.VOTES.name();
+        }
+        else {
+            sortColumn = Columns.SUPPORTERS.name();
         }
         sortAscending = false;
     }
