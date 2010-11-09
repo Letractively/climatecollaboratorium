@@ -392,7 +392,10 @@ div.selectbox-wrapper ul li { list-style:none; display:block; font-size:12px; pa
 #desc-right { float:left; width:250px; margin:50px 0 0 54px; }
 .grid-gray { margin-bottom:7px; background:url(../images/grid_gray.gif) repeat-y;}
 .grid-blue { margin-bottom:7px; background:url(../images/grid_blue.gif) repeat-y;}
-.icon { clear:both; float:left; width:65px; height:40px; text-align:center; padding-top:15px;}
+.proposals .icon,
+.home .icon,
+.about .icon,
+.contests .icon { clear:both; float:left; width:65px; height:40px; text-align:center; padding-top:15px;}
 .info { float:left; width:170px; margin-left:15px; font-size:15px; color:#666;}
 	.wf-active .info { float:left; width:170px; margin-left:15px; padding-top:15px; font-size:17px; color:#666;}
 .infotext { font-family:'Lucida Grande', Arial, sans-serif; font-size:10px; padding:10px 0 15px 0; }
