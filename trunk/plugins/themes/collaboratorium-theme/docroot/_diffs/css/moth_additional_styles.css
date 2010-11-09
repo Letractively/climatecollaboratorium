@@ -66,8 +66,9 @@ blockquote, ul, ol, dl {
 
 #loginStatus {
     position: absolute;
-    top: 53px;
+    top: 59px;
     left: 160px;
+    font-size: 14px;
 }
 
 
@@ -486,10 +487,20 @@ h1 .page-actions span,
     font-size: 12px;
     margin: 0;
     padding: 0;
-    
-    display: inline;
 }
+
 
 #earth.home {
     margin-top: 0;
 }
+
+.wf-active .resources .icon,
+.resources .icon {
+	margin: 3px;
+	padding: 0;
+	width: auto;
+	height: auto;
+	display: inline;
+	clear: inherit;
+	float: none;
+} 
