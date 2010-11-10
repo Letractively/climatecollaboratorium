@@ -12,6 +12,7 @@ import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
 
 import com.ext.portlet.contests.NoSuchContestPhaseException;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.model.ContestStatus;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -57,6 +58,13 @@ public class ContestBean {
         }
         if (contest.getContest().isActive()) {
             currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getActivePhase());
+            // not very clean but when current phase is a voting phase we should display previous
+            // phase
+            if (currentPhase.getStatus() == ContestStatus.VOTING) {
+                List<ContestPhase> previousPhases = currentPhase.getPhase().getPreviousPhases();
+                ContestPhase phase = previousPhases.get(previousPhases.size() - 1);
+                currentPhase = new ContestPhaseWrapper(contest, phase);
+            }
         }
         else {
             currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getPhases().get(0));
