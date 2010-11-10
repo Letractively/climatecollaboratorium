@@ -503,4 +503,8 @@ h1 .page-actions span,
 	display: inline;
 	clear: inherit;
 	float: none;
-} 
+}
+
+.journal-content-article ul li {
+    list-style: disc inside none;
+}
