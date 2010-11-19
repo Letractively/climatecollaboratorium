@@ -16,7 +16,7 @@ public enum PlanPageType {
         @Override
         public boolean determine(NavigationEvent e) {
             Map<String, String> params = e.getParameters(PLANS_SOURCE);
-            return params == null ? false : params.get(PLANID_PARAM) != null;
+            return params != null && e.getParameters(DEBATE_SOURCE) == null;
         }
 
         @Override
@@ -115,7 +115,7 @@ public enum PlanPageType {
     
     private final static Map<PlanPageType, Set<PlanPageType>> allowedPredecessorsMap = new HashMap<PlanPageType, Set<PlanPageType>>();
     static {
-        allowedPredecessorsMap.put(PLAN_DETAILS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {})));
+        allowedPredecessorsMap.put(PLAN_DETAILS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {ISSUE_DETAILS})));
         allowedPredecessorsMap.put(ISSUE_DETAILS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, PLAN_DETAILS})));
         allowedPredecessorsMap.put(CONTEST_ISSUES, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
         allowedPredecessorsMap.put(CONTEST_MODEL, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
