@@ -346,7 +346,8 @@ public class PlanConstants {
 				votes = votes == 0 ? 1 : votes;
 //				return (plan.getVotes() == null || plan.getVotes() == 0)?"N/A":
 //					(plan.getVotes()+" ("+String.valueOf(100*plan.getVotes() / votes)+"%)");
-				return String.valueOf(100*plan.getVotes()/votes)+"%";
+				
+				return String.valueOf((double) Math.round((100*plan.getVotes())/votes))+"%";
 			}
 
             @Override
@@ -354,7 +355,7 @@ public class PlanConstants {
                 int votesCount = PlanVoteLocalServiceUtil.countPlanVotes(plan.getContest());
                 int planVotes = plan.getVotes();
                 
-                return String.format("%d %%", votesCount == 0 ? 0 : plan.getVotes() * 100 / votesCount);
+                return String.format("%d %%", votesCount == 0 ? 0 : Math.round(((double) plan.getVotes() * 100) / votesCount));
             }
 			
 		}),
