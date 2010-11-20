@@ -71,8 +71,10 @@ label span.required {
 }
 
 .email-recipients {
-    width: 500px;
-    height: 360px;
+	margin: 10px 5px;
+    width: 90%;
+    height: 200px;
+    background: #f0f0f0;
 }
 
     

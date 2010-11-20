@@ -3,6 +3,7 @@
 <%@ page import="com.ext.portlet.mass_messaging.model.MessagingMessageConversionType" %>
 <%@ page import="com.ext.portlet.mass_messaging.service.MessagingMessageLocalServiceUtil"%>
 <%@ page import="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeLocalServiceUtil" %>
+<%@ page import="com.ext.portlet.mass_messaging.InvalidMessageRecipientException" %>
 <%--
   ~ Copyright (c) 2010. M.I.T. All Rights Reserved
   ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
