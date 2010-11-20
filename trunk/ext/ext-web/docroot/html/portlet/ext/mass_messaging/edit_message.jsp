@@ -179,14 +179,18 @@ function <portlet:namespace />addRecipients(recipientsArray) {
                 recipients: "Specify at least one recipient."
             }
         });
-        jQuery('#<portlet:namespace />enterRecipientsByEmail').dialog({ 
-            autoOpen: false, 
-            height: 500, 
-            width: 600, 
-            modal: true, 
-            open: function() { jQuery('#emailRecipients').val('') }
-        });
+        
+        if (jQuery.trim(jQuery("#emailRecipients").val()).length > 0) {
+            jQuery("#emailRecipients").val( jQuery.trim(jQuery("#emailRecipients").val()).replace(/\|/g, ",") );
+            
+            <portlet:namespace />addRecipientsByName();
+        }
     });
+    
+    function showEnterRecipientsDialog() {
+        jQuery("#emailRecipients").val('');
+        jQuery('#<portlet:namespace />enterRecipientsByEmail').slideDown();
+    }
 
     function <portlet:namespace />addRecipientsByName() {
         var recipientsStr = jQuery('#emailRecipients').val();
@@ -242,9 +246,13 @@ function <portlet:namespace />addRecipients(recipientsArray) {
         }
         else {
             <portlet:namespace />addRecipients(recipientsArray);
-            jQuery('#<portlet:namespace />enterRecipientsByEmail').dialog('close');
+            jQuery('#<portlet:namespace />enterRecipientsByEmail').slideUp();
         }
         
+    }
+    function initMessageTextEditor(arg1, arg2, arg3) {
+        var messageText = jQuery('#messageTextVal').val();
+        return messageText;
     }
 </script>
 
@@ -252,15 +260,28 @@ function <portlet:namespace />addRecipients(recipientsArray) {
     <portlet:param name="struts_action" value="/ext/mass_messaging/edit_message" />
 </portlet:actionURL>
 
+<%
+    String name = ParamUtil.getString(request, "name");
+    String description = ParamUtil.getString(request, "description");
+    String replyTo = ParamUtil.getString(request, "replyto");
+    String messageSenderName = ParamUtil.getString(request, "messageSenderName");
+    String subject = ParamUtil.getString(request, "subject");
+    String messageText = ParamUtil.getString(request, "body");
+    String recipients = ParamUtil.getString(request, "recipients");
+%>
+
+
+
 <form action="${submitActionURL}" id='<portlet:namespace />messageForm' method="POST" name="<portlet:namespace />messageForm" onsubmit="return <portlet:namespace />preSubmit()" >
 
+<liferay-ui:error exception="<%= InvalidMessageRecipientException.class %>"  message="Provided message recipients are invalid."></liferay-ui:error>
 <fieldset>
     <legend>Basic message information</legend>
     <dl>
         <dt><label for="name">Message name <span class="required">*</span></label></dt>
-        <dd><input name="name" type="text" size="40"/></dd>
+        <dd><input name="name" type="text" size="40" value="<%= name %>"></dd>
         <dt><label for="description">Description</label></dt>
-        <dd><textarea name="description" rows="5" cols="40"></textarea></dd>
+        <dd><textarea name="description" rows="5" cols="40"><%= description %></textarea></dd>
     </dl>
 </fieldset>
 
@@ -268,14 +289,15 @@ function <portlet:namespace />addRecipients(recipientsArray) {
     <legend>Message details</legend>
     <dl>
         <dt><label for="replyto">Reply to <span class="required">*</span> </label></dt>
-        <dd><input name="replyto" type="text" /></dd>
+        <dd><input name="replyto" type="text" value="<%= replyTo %>" /></dd>
         <dt><label for="replyto">Name of message sender</label></dt>
-        <dd><input name="messageSenderName" type="text" /></dd>
+        <dd><input name="messageSenderName" type="text" value="<%= messageSenderName %>"/></dd>
         <dt><label for="subject">Message subject <span class="required">*</span></label></dt>
-        <dd><input name="subject" type="text" /></dd>
+        <dd><input name="subject" type="text" value="<%= subject %>"/></dd>
         
         <dt><label for="body">Message text <span class="required">*</span></label></dt>
-        <dd><input type="hidden" name="body" /> <liferay-ui:input-editor width="100%"/>
+        <dd><input id="messageTextVal" type="hidden" name="body" value="<%=messageText %>"/> 
+        <liferay-ui:input-editor width="100%" initMethod="initMessageTextEditor"/>
             <p><strong>Note</strong> Any link added in this field will be modified to track if user has clicked it.</p>
         
         
@@ -288,11 +310,27 @@ function <portlet:namespace />addRecipients(recipientsArray) {
 
 <fieldset>
     <legend>Message recipients</legend>
+    <liferay-ui:error exception="<%= InvalidMessageRecipientException.class %>"  message="Provided message recipients are invalid."></liferay-ui:error>
     <input type="hidden" name="recipients" />
     
     <div class="action-link">
-        <a href="#" class="action" onclick="jQuery('#<portlet:namespace />enterRecipientsByEmail').dialog('open')"> <liferay-ui:icon image="add" /> Add recipients</a>
+        <a href="javascript:;" class="action" onclick="showEnterRecipientsDialog()"> <liferay-ui:icon image="add" /> Add recipients</a>
     </div>
+    
+    <div id="<portlet:namespace />enterRecipientsByEmail" style="display:none">
+        <div>
+            <div>
+                <label for="emailRecipients">Email addresses or screen names separated by comma, semicolon or new line <span class="required">*</span></label><br />
+                <textarea class="email-recipients" name="emailRecipients" id="emailRecipients"> <%= recipients %> </textarea><br />
+            </div>
+    
+            <div class="action-link">
+                <button onClick="jQuery('#<portlet:namespace />enterRecipientsByEmail').slideUp(); return false;"><span><liferay-ui:icon image="close" />Cancel</span></button>
+                <button onClick="<portlet:namespace />addRecipientsByName(); return false;" ><span><liferay-ui:icon image="checked" />Add</span></button>
+            </div>
+        </div>
+    </div>
+    
     
     <dl>
         <dt><span>Email recipients</span></dt>
@@ -317,16 +355,3 @@ function <portlet:namespace />addRecipients(recipientsArray) {
 <input name="operation" type="submit" value="Send" />
 
 </form>
-
-
-<div id="<portlet:namespace />enterRecipientsByEmail" class="hidden">
-    <dl>
-        <dt><label for="emailRecipients">Email addresses or screen names separated by comma, semicolon or new line <span class="required">*</span></label></dt>
-        <dd><textarea class="email-recipients" name="emailRecipients" id="emailRecipients"></textarea></dd>
-    </dl>
-    
-    <div class="action-link">
-        <a href="javascript:;" class="action" onClick="jQuery('#<portlet:namespace />enterRecipientsByEmail').dialog('close')"><span><liferay-ui:icon image="close" />Cancel</span></a>
-        <a href="#" class="action" onClick="<portlet:namespace />addRecipientsByName()" ><span><liferay-ui:icon image="checked" />Add</span></a>
-    </div>
-</div>
