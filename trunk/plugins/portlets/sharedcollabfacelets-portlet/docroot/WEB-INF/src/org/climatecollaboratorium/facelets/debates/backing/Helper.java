@@ -118,7 +118,7 @@ public class Helper {
     
     
     public static String filterLineBreaks(String content) {
-        return content.replaceAll("\n", "<br />\n");
+        return content.replaceAll("\n", " <br />\n");
     }
     
     public static String filterUrlEmbeddedLinks(String content) {
