@@ -518,6 +518,11 @@ function renderSingleChart(chartDef) {
 				yaxis.tickInterval = 2;
 				yaxis.tickOptions = {formatString:"%.1f"};
 			}
+			else if (max - min == 20) {
+				yaxis.tickOptions = {formatString:"%d"};
+			}
+				
+				
 				
 			//yaxis.tickInterval = 1;
 			
