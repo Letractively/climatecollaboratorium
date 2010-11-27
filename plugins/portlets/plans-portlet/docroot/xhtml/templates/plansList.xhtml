@@ -10,7 +10,7 @@
                    sortAscending="#{plansIndex.sortAscending}" id="plansIndex"
                    rows="#{maxRows}" headerClasses="ng,g">
                    
-        <ice:column rendered="#{plansIndex.contestPhase.canVote}">
+        <ice:column rendered="#{plansIndex.contestPhase.canVote or plansIndex.contestPhase.active}">
             
             <f:facet name="header">
                 <div>
