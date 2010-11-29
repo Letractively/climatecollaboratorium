@@ -293,4 +293,13 @@ public interface PlanItem extends PlanItemModel {
     public void setPlace(int place) throws com.liferay.portal.SystemException;
 
     public void removePlace() throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanVote> getPlanVotes()
+        throws com.liferay.portal.SystemException;
+
+    public void setRibbon(java.lang.Integer ribbon)
+        throws com.liferay.portal.SystemException;
+
+    public void setRibbonText(java.lang.String ribbonText)
+        throws com.liferay.portal.SystemException;
 }

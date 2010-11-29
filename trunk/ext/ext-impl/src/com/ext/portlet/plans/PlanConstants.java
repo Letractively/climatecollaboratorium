@@ -160,7 +160,9 @@ public class PlanConstants {
         SUPPORTERS(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("SUPPORTERS"), true, null, null),
         IS_PLAN_OPEN(String.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("open"), true, null, null),
         COMMENTS(Integer.class, "%d", attributeFunctionFactory.getPlanPropertyFunction("commentsCount"), true, null, null),
-        PLAN_PLACE(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("PLAN_PLACE"), true, null, null);
+        PLAN_PLACE(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("PLAN_PLACE"), true, null, null),
+        PLAN_RIBBON(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("PLAN_RIBBON"), true, null, null),
+        PLAN_RIBBON_TEXT(String.class, "%s", attributeFunctionFactory.getAttributeValue("PLAN_RIBBON_TEXT"), true, null, null);
 		
 		
 		private Class<?> clasz;

@@ -7,6 +7,7 @@
 package com.ext.portlet.plans.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.plans.NoSuchPlanItemException;
@@ -76,6 +77,10 @@ public class PlanVoteLocalServiceImpl extends PlanVoteLocalServiceBaseImpl {
     
     public int coutPlanVotes(Long planId) throws SystemException {
         return planVotePersistence.countByPlanId(planId);   
+    }
+    
+    public List<PlanVote> getPlanVotes(Long planId) throws SystemException {
+        return planVotePersistence.findByPlanId(planId);
     }
 
     public int countPlanVotes(PlanType type) throws SystemException {

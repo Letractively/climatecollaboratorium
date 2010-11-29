@@ -96,6 +96,10 @@ public interface PlanVoteLocalService {
     public int coutPlanVotes(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanVote> getPlanVotes(
+        java.lang.Long planId) throws com.liferay.portal.SystemException;
+
     public int countPlanVotes(com.ext.portlet.plans.model.PlanType type)
         throws com.liferay.portal.SystemException;
 

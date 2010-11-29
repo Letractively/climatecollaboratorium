@@ -85,4 +85,54 @@ public class DiscussionCategoryGroupImpl
         }
     }
     
+    public void copyEverything(DiscussionCategoryGroup source) throws SystemException, PortalException {
+        // copy categories
+        for (DiscussionCategory category: source.getCategories()) {
+            DiscussionCategory newCategory = DiscussionCategoryLocalServiceUtil.createDebateCategory(
+                    this.getId(), 
+                    category.getName(), 
+                    category.getDescription(), 
+                    category.getAuthor());
+            newCategory.setCreateDate(category.getCreateDate());
+            
+            newCategory.setLastActivityAuthorId(category.getLastActivityAuthorId());
+            newCategory.setLastActivityDate(category.getLastActivityDate());
+            
+            newCategory.store();
+            
+            for (DiscussionMessage thread: category.getThreads()) {
+                DiscussionMessage newThread = newCategory.addThread(thread.getSubject(), thread.getBody(), thread.getAuthor());
+                newThread.setCreateDate(thread.getCreateDate());
+                newThread.setLastActivityAuthorId(thread.getLastActivityAuthorId());
+                newThread.setLastActivityDate(thread.getLastActivityDate());
+
+                newThread.store();
+                
+                for (DiscussionMessage msg: thread.getThreadMessages()) {
+                    DiscussionMessage newMsg = newThread.addThreadMessage(msg.getSubject(), msg.getBody(), msg.getAuthor());
+                    newMsg.setCreateDate(msg.getCreateDate());
+                    
+                    newMsg.store();
+                }
+            }
+        }
+        
+        if (source.getCommentsThread() != null) {
+            DiscussionMessage commentsThread = source.getCommentThread();
+            DiscussionMessage newCommentsThread = addComment(commentsThread.getSubject(), commentsThread.getBody(), commentsThread.getAuthor());
+            newCommentsThread.setLastActivityAuthorId(commentsThread.getLastActivityAuthorId());
+            newCommentsThread.setLastActivityDate(commentsThread.getLastActivityDate());
+            newCommentsThread.setCreateDate(commentsThread.getCreateDate());
+            newCommentsThread.store();
+            
+            for (DiscussionMessage msg: commentsThread.getThreadMessages()) {
+                DiscussionMessage newMsg = newCommentsThread.addThreadMessage(msg.getSubject(), msg.getBody(), msg.getAuthor());
+                newMsg.setCreateDate(msg.getCreateDate());
+                
+                newMsg.store();
+            }
+        }
+        
+    }
+        
 }

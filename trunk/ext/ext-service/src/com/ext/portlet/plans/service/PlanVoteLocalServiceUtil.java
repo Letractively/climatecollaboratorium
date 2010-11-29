@@ -115,6 +115,11 @@ public class PlanVoteLocalServiceUtil {
         return getService().coutPlanVotes(planId);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanVote> getPlanVotes(
+        java.lang.Long planId) throws com.liferay.portal.SystemException {
+        return getService().getPlanVotes(planId);
+    }
+
     public static int countPlanVotes(com.ext.portlet.plans.model.PlanType type)
         throws com.liferay.portal.SystemException {
         return getService().countPlanVotes(type);

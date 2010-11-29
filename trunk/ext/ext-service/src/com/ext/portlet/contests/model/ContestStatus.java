@@ -16,6 +16,7 @@ package com.ext.portlet.contests.model;
 public enum ContestStatus {
 
     NOT_YET_OPEN("Not yet open",false,false),
+    OPEN_FOR_EDIT("Open for editing",true,false),
     OPEN_FOR_SUBMISSION("Open for submission",true,false),
     CLOSED_FOR_JUDGING("Closed for judging",false,false),
     VOTING("Open for voting",false,true),

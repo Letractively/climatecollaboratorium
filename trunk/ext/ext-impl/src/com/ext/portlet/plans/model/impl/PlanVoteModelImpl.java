@@ -71,7 +71,6 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
     private Long _contestId;
     private Long _originalContestId;
     private Long _planId;
-    private Long _originalPlanId;
     private Date _createDate;
 
     public PlanVoteModelImpl() {
@@ -149,14 +148,6 @@ public class PlanVoteModelImpl extends BaseModelImpl<PlanVote> {
 
     public void setPlanId(Long planId) {
         _planId = planId;
-
-        if (_originalPlanId == null) {
-            _originalPlanId = planId;
-        }
-    }
-
-    public Long getOriginalPlanId() {
-        return _originalPlanId;
     }
 
     public Date getCreateDate() {
