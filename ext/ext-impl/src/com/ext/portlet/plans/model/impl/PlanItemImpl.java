@@ -716,5 +716,18 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     public void removePlace() throws SystemException {
         setAttribute(Attribute.PLAN_PLACE, String.valueOf(-1));
     }
+    
+    public List<PlanVote> getPlanVotes() throws SystemException {
+        return PlanVoteLocalServiceUtil.getPlanVotes(this.getPlanId());
+    }
+    
+    public void setRibbon(Integer ribbon) throws SystemException {
+        setAttribute(Attribute.PLAN_RIBBON, String.valueOf(ribbon));
+    }
+    
+
+    public void setRibbonText(String ribbonText) throws SystemException {
+        setAttribute(Attribute.PLAN_RIBBON_TEXT, String.valueOf(ribbonText));
+    }
 
 }

@@ -83,5 +83,6 @@ public class DiscussionCategoryImpl extends DiscussionCategoryModelImpl
     public DiscussionCategoryGroup getCategoryGroup() throws PortalException, SystemException {
         return DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(getCategoryGroupId());
     }
+    
 }
 

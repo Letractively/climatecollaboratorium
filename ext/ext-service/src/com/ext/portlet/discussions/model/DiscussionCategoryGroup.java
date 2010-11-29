@@ -60,4 +60,9 @@ public interface DiscussionCategoryGroup extends DiscussionCategoryGroupModel {
     public int getCommentsCount()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public void copyEverything(
+        com.ext.portlet.discussions.model.DiscussionCategoryGroup source)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }
