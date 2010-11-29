@@ -1239,7 +1239,8 @@ p.special-info {
     padding: 0;
 }
 
-.planPlace {
+.planPlace,
+.planRibbon {
     width: 16px;
     height: 16px;
     margin-right: 5px;
@@ -1247,10 +1248,18 @@ p.special-info {
     float: left;
 }
 
-.planPlace.place_2 {
+.planPlace.place_2,
+.planRibbon.ribbon_2  {
     background: url(/collaboratorium-theme/images/ribbon-orange.gif);
 }
 
-.planPlace.place_1 {
+.planPlace.place_1,
+.planRibbon.ribbon_1  {
     background: url(/collaboratorium-theme/images/ribbon-blue.gif);
 }
+
+.planPlace.place_3,
+.planRibbon.ribbon_3  {
+    background: url(/collaboratorium-theme/images/ribbon-green.gif);
+}
+

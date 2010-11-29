@@ -620,6 +620,17 @@ public class PlanItemWrapper {
         return attr != null ? (Integer) attr.getTypedValue() : -1;   
     }
     
+    public Integer getRibbon() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_RIBBON.name());
+        return attr != null ? Integer.parseInt(attr.getAttributeValue()) : null;
+    }
+    
+    public String getRibbonText() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_RIBBON_TEXT.name());
+        return attr != null ? attr.getAttributeValue() : null;
+    }
+    
+    
     public void markAsSemiFinalist(ActionEvent e) throws PortalException, SystemException {
         if (permissions.getCanAdminAll()) {
             wrapped.setPlace(2);
@@ -631,6 +642,14 @@ public class PlanItemWrapper {
             wrapped.removePlace();
         }
     }    
+    
+    public void setRibbon(Integer ribbon) throws SystemException {
+        wrapped.setRibbon(ribbon);
+    }
+    
+    public void setRibbonText(String ribbonText) throws SystemException {
+        wrapped.setRibbonText(ribbonText);
+    }
     
 
 }

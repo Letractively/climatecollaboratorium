@@ -80,6 +80,23 @@
                 </div>
             </ice:panelGroup>
             
+            <ice:panelGroup rendered="#{permissions.canAdminAll}">
+            <!--  ribbons -->
+                <div class="sectionTitle">
+                    <h2>Set ribbon type (integer value 1 to 3)</h2>
+                </div>
+                <div class="sectionContent">
+                    <ice:inputText value="#{planBean.plan.ribbon}" partialSubmit="true" /> 
+                </div>
+                
+                <div class="sectionTitle">
+                    <h2>Set ribbon text (it will be shown when user hovers over the ribbon)</h2>
+                </div>
+                <div class="sectionContent">
+                    <ice:inputText value="#{planBean.plan.ribbonText}" partialSubmit="true" /> 
+                </div>
+            </ice:panelGroup>
+            
             <ice:panelGroup rendered="#{permissions.planOwner}">
                 <div class="sectionTitle">
                     <h2>Owner actions</h2>
