@@ -51,10 +51,10 @@
                     Collab.nav.addEditorDirtyValidationCallback(checkIfPlanNameDirty);
                 </script>
             </ice:panelGroup>
-                               
+                      
+            <ice:form>         
             <h2>
-                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput'
-                onchange="jQuery(this).addClass('valueChanged');">
+                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput' onchange="jQuery(this).addClass('valueChanged');" partialSubmit="true">
                     <f:attribute name="plan" value="#{plan.plan}"/>
                     <f:validator validatorId="planNameValidator"/>
                     <f:attribute name="planName" value="#{plan.plan.name}" />
@@ -62,11 +62,10 @@
             </h2>
 
             <div class="actions">
-            <ice:form>
                 <ice:commandButton actionListener="#{plan.plan.saveName}"  value="Save"/>&amp;nbsp;&amp;nbsp;
                 <ice:commandButton actionListener="#{plan.editName}" immediate="true" value="Cancel"/>
-            </ice:form>
             </div>
+            </ice:form>
             <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>
         </f:subview>
 

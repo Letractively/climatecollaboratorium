@@ -62,8 +62,35 @@
 			<ice:commandButton value="rerun simulations" action="#{migrationTool.rerunPlansSimulations}" /><br />
                 
                 </ice:panelTab>
-                <ice:panelTab label="Wiki migration">
-                    <ice:commandButton value="Migrate wiki " action="#{migrationTool.migrateWiki}" />
+                <ice:panelTab label="Plan Copy Tool">
+                    <ice:messages />
+                    <table>
+                        <tr>
+                            <td>Choose source contest phase</td>
+                            <td>
+                                <ice:selectOneMenu value="#{planCopyTool.sourceContestPhase}" partialSubmit="true">
+                                    <f:selectItems value="#{planCopyTool.availableContestPhases}" />
+                                </ice:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Choose target contest phase</td>
+                            <td>
+                                <ice:selectOneMenu value="#{planCopyTool.targetContestPhase}" partialSubmit="true">
+                                    <f:selectItems value="#{planCopyTool.availableContestPhases}" />
+                                </ice:selectOneMenu>
+                            </td>
+                        </tr>
+                        <f:subview rendered="#{planCopyTool.readyForCopy}">
+                            <tr>
+                                <td colspan="2">
+                                    <ice:commandButton actionListener="#{planCopyTool.copy}" value="Copy" />
+                                </td>
+                            </tr>
+                        </f:subview>
+                    </table>
+                    
+                    
                 
                 </ice:panelTab>
 			</ice:panelTabSet>
