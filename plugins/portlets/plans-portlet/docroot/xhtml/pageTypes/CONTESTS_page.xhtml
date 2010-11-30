@@ -111,6 +111,8 @@
             </ice:outputText>
         </f:subview>
         <f:subview rendered="#{singleContest.plansIndex.contestPhase.status == 'FINISHED'}">
+            <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />
+            #{singleContest.plansIndex.contestPhase.name} ends &amp;nbsp;
             Contest ended &amp;nbsp;
             <ice:outputText value="#{singleContest.plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM d, yyyy"/>
