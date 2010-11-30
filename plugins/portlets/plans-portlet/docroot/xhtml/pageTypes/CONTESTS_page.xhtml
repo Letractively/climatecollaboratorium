@@ -102,8 +102,9 @@
 
     <div id="pro-info">
         <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{singleContest.plansIndex.plansCount}</span> proposals
+        <strong>
         <f:subview rendered="#{singleContest.plansIndex.contestPhase.status != 'FINISHED' and singleContest.plansIndex.contestPhase.endDate != null}">
-            <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" /> <strong>
+            <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />
             #{singleContest.plansIndex.contestPhase.name} ends &amp;nbsp;
             <ice:outputText value="#{singleContest.plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM d"/>
