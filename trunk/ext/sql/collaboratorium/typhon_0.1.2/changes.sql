@@ -30,8 +30,8 @@ INSERT INTO `ContestPhaseColumn` (`id_`, `ContestPhasePK`, `columnName`, `column
 (71, 7, 'VOTES', 10),
 (75, 7, 'DAMAGE_COST', 50);
 
+ALTER TABLE  `ContestPhaseColumn` ADD  `defaultSort` TINYINT( 1 ) NULL AFTER  `columnWeight`;
 
-ALTER `lportal`.`ContestPhaseColumn` ADD COLUMN defaultSort int(1);
 UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 1 AND columnName = 'VOTES';
 UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 2 AND columnName = 'NAME';
 UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 3 AND columnName = 'SUPPORTERS';
