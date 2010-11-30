@@ -165,8 +165,9 @@
         <tr>
         <td>
         <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{plansIndex.plansCount}</span> proposals
-        <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" /> <strong>
-        <f:subview rendered="#{plansIndex.contestPhase.contest.contest.contestPK== 1}">
+        <strong>
+        <f:subview rendered="#{plansIndex.contestPhase.contest.contest.contestPK== 1 and plansIndex.contestPhase.endDate!=null}">
+           <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />  
            Contest ended&amp;nbsp;
             <ice:outputText value="#{plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM yyyy"/>
@@ -174,13 +175,15 @@
         </f:subview>
 
 
-        <f:subview rendered="#{plansIndex.contestPhase.status != 'FINISHED' and plansIndex.contestPhase.contest.contest.contestPK> 1}">
+        <f:subview rendered="#{plansIndex.contestPhase.status != 'FINISHED' and plansIndex.contestPhase.contest.contest.contestPK> 1 and plansIndex.contestPhase.endDate!=null}">
+             <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />
             #{plansIndex.contestPhase.name} ends &amp;nbsp;
             <ice:outputText value="#{plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM d"/>
             </ice:outputText>
         </f:subview>
-        <f:subview rendered="#{plansIndex.contestPhase.status == 'FINISHED' and plansIndex.contestPhase.contest.contest.contestPK> 1}}">
+        <f:subview rendered="#{plansIndex.contestPhase.status == 'FINISHED' and plansIndex.contestPhase.contest.contest.contestPK> 1 and plansIndex.contestPhase.endDate!=null}}">
+             <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />
             #{plansIndex.contestPhase.name} ended &amp;nbsp;
             <ice:outputText value="#{plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM d, yyyy"/>
