@@ -50,9 +50,12 @@ public class ContestPhaseColumnModelImpl extends BaseModelImpl<ContestPhaseColum
             { "columnName", new Integer(Types.VARCHAR) },
             
 
-            { "columnWeight", new Integer(Types.INTEGER) }
+            { "columnWeight", new Integer(Types.INTEGER) },
+            
+
+            { "defaultSort", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ContestPhaseColumn (id_ LONG not null primary key,ContestPhasePK LONG,columnName VARCHAR(75) null,columnWeight INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table ContestPhaseColumn (id_ LONG not null primary key,ContestPhasePK LONG,columnName VARCHAR(75) null,columnWeight INTEGER,defaultSort BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table ContestPhaseColumn";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -69,6 +72,7 @@ public class ContestPhaseColumnModelImpl extends BaseModelImpl<ContestPhaseColum
     private Long _ContestPhasePK;
     private String _columnName;
     private Integer _columnWeight;
+    private Boolean _defaultSort;
 
     public ContestPhaseColumnModelImpl() {
     }
@@ -80,6 +84,7 @@ public class ContestPhaseColumnModelImpl extends BaseModelImpl<ContestPhaseColum
         model.setContestPhasePK(soapModel.getContestPhasePK());
         model.setColumnName(soapModel.getColumnName());
         model.setColumnWeight(soapModel.getColumnWeight());
+        model.setDefaultSort(soapModel.getDefaultSort());
 
         return model;
     }
@@ -139,6 +144,14 @@ public class ContestPhaseColumnModelImpl extends BaseModelImpl<ContestPhaseColum
         _columnWeight = columnWeight;
     }
 
+    public Boolean getDefaultSort() {
+        return _defaultSort;
+    }
+
+    public void setDefaultSort(Boolean defaultSort) {
+        _defaultSort = defaultSort;
+    }
+
     public ContestPhaseColumn toEscapedModel() {
         if (isEscapedModel()) {
             return (ContestPhaseColumn) this;
@@ -152,6 +165,7 @@ public class ContestPhaseColumnModelImpl extends BaseModelImpl<ContestPhaseColum
             model.setContestPhasePK(getContestPhasePK());
             model.setColumnName(HtmlUtil.escape(getColumnName()));
             model.setColumnWeight(getColumnWeight());
+            model.setDefaultSort(getDefaultSort());
 
             model = (ContestPhaseColumn) Proxy.newProxyInstance(ContestPhaseColumn.class.getClassLoader(),
                     new Class[] { ContestPhaseColumn.class },
@@ -168,6 +182,7 @@ public class ContestPhaseColumnModelImpl extends BaseModelImpl<ContestPhaseColum
         clone.setContestPhasePK(getContestPhasePK());
         clone.setColumnName(getColumnName());
         clone.setColumnWeight(getColumnWeight());
+        clone.setDefaultSort(getDefaultSort());
 
         return clone;
     }
@@ -221,6 +236,8 @@ public class ContestPhaseColumnModelImpl extends BaseModelImpl<ContestPhaseColum
         sb.append(getColumnName());
         sb.append(", columnWeight=");
         sb.append(getColumnWeight());
+        sb.append(", defaultSort=");
+        sb.append(getDefaultSort());
         sb.append("}");
 
         return sb.toString();
@@ -248,6 +265,10 @@ public class ContestPhaseColumnModelImpl extends BaseModelImpl<ContestPhaseColum
         sb.append(
             "<column><column-name>columnWeight</column-name><column-value><![CDATA[");
         sb.append(getColumnWeight());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>defaultSort</column-name><column-value><![CDATA[");
+        sb.append(getDefaultSort());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

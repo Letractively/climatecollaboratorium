@@ -44,5 +44,9 @@ public interface ContestPhaseColumnModel extends BaseModel<ContestPhaseColumn> {
 
     public void setColumnWeight(Integer columnWeight);
 
+    public Boolean getDefaultSort();
+
+    public void setDefaultSort(Boolean defaultSort);
+
     public ContestPhaseColumn toEscapedModel();
 }

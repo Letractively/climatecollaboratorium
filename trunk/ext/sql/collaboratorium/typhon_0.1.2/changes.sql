@@ -1,4 +1,7 @@
-INSERT INTO `lportal`.`Contest` (`ContestPK`, `ContestName`, `ContestDescription`, `PlanTypeId`, `created`, `updated`, `authorId`, `contestActive`, `ContestShortName`, `ContestModelDescription`, `ContestPositionsDescription`) VALUES ('3', 'How can the Climate CoLab 2010 finalists be improved?', NULL, 3, '2010-11-29 20:12:16', '2010-11-29 20:12:20', '10144', '0', '2010 contest follow on', NULL, NULL);
+UPDATE  `lportal`.`Contest` SET  `contestActive` =  '0' WHERE  `Contest`.`ContestPK` =2;
+UPDATE  `lportal`.`Contest` SET  `contestActive` =  '1' WHERE  `Contest`.`ContestPK` =3;
+
+INSERT INTO `lportal`.`Contest` (`ContestPK`, `ContestName`, `ContestDescription`, `PlanTypeId`, `created`, `updated`, `authorId`, `contestActive`, `ContestShortName`, `ContestModelDescription`, `ContestPositionsDescription`) VALUES ('3', 'How can the Climate CoLab 2010 finalists be improved?', NULL, 3, '2010-11-29 20:12:16', '2010-11-29 20:12:20', '10144', '1', '2010 contest follow on', NULL, NULL);
 
 INSERT INTO `lportal`.`ContestPhase` (`ContestPhasePK`, `ContestPK`, `ContestPhaseName`, `ContestPhaseDescription`, `ContestPhaseStatus`, `PhaseStartDate`, `PhaseEndDate`, `nextStatus`, `created`, `updated`, `authorId`, `phaseActive`) VALUES ('6', '3', 'Sandbox', 'Sandbox', 'OPEN_FOR_SUBMISSION', '2010-11-28 12:00:00', NULL, '', '2010-11-29 20:16:10', '2010-11-29 20:16:12', '10144', '0');
 
@@ -26,3 +29,13 @@ INSERT INTO `ContestPhaseColumn` (`id_`, `ContestPhasePK`, `columnName`, `column
 (72, 7, 'COMMENTS', 20),
 (71, 7, 'VOTES', 10),
 (75, 7, 'DAMAGE_COST', 50);
+
+
+ALTER `lportal`.`ContestPhaseColumn` ADD COLUMN defaultSort int(1);
+UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 1 AND columnName = 'VOTES';
+UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 2 AND columnName = 'NAME';
+UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 3 AND columnName = 'SUPPORTERS';
+UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 4 AND columnName = 'VOTES';
+UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 5 AND columnName = 'VOTES';
+UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 6 AND columnName = 'NAME';
+UPDATE ContestPhaseColumn set defaultSort = 1 WHERE ContestPhasePK = 7 AND columnName = 'VOTES';

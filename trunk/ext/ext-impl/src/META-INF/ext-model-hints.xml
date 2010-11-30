@@ -544,6 +544,7 @@
 		<field name="ContestPhasePK" type="Long" />
 		<field name="columnName" type="String" />
 		<field name="columnWeight" type="Integer" />
+		<field name="defaultSort" type="Boolean" />
 	</model>
 	<model name="com.ext.conditionaltext.model.ConditionalTextSetting">
 		<field name="ConditionalTextSettingId" type="Long" />

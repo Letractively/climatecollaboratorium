@@ -44,6 +44,10 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
         return ret;
     }
     
+    public List<ContestPhaseColumn> getPhaseColumnsRaw() throws SystemException {
+        return ContestPhaseColumnLocalServiceUtil.getPhaseColumns(getContestPhasePK());
+    }
+    
 
     public List<ContestPhase> getPreviousPhases() throws SystemException, PortalException {
         List<ContestPhase> phases = ContestPhaseLocalServiceUtil.getPhasesForContest(getContest());

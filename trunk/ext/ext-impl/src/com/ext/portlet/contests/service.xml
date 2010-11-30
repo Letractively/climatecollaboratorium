@@ -80,6 +80,7 @@
         <column name="ContestPhasePK" type="Long" />
         <column name="columnName" type="String" />
         <column name="columnWeight" type="Integer" />
+        <column name="defaultSort" type="Boolean" />
         
         
         <order>
