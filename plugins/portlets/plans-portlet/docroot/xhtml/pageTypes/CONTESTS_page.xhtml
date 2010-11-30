@@ -13,6 +13,12 @@
         xmlns:collab="http://climatecollaboratorium.org/facelets"
         xmlns:sharedcollab="http://climatecollaboratorium.org/components">
 
+		<ice:panelGroup styleClass="hidden" >
+			#{contests}
+			<script type="text/javascript">
+				initializeColumnsInfo();
+			</script>
+		</ice:panelGroup>
 
 <ui:composition template="../templates/singlePageWithBreadcrumb.xhtml">
 
