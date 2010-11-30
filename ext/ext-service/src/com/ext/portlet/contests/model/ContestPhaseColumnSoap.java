@@ -29,6 +29,7 @@ public class ContestPhaseColumnSoap implements Serializable {
     private Long _ContestPhasePK;
     private String _columnName;
     private Integer _columnWeight;
+    private Boolean _defaultSort;
 
     public ContestPhaseColumnSoap() {
     }
@@ -40,6 +41,7 @@ public class ContestPhaseColumnSoap implements Serializable {
         soapModel.setContestPhasePK(model.getContestPhasePK());
         soapModel.setColumnName(model.getColumnName());
         soapModel.setColumnWeight(model.getColumnWeight());
+        soapModel.setDefaultSort(model.getDefaultSort());
 
         return soapModel;
     }
@@ -121,5 +123,13 @@ public class ContestPhaseColumnSoap implements Serializable {
 
     public void setColumnWeight(Integer columnWeight) {
         _columnWeight = columnWeight;
+    }
+
+    public Boolean getDefaultSort() {
+        return _defaultSort;
+    }
+
+    public void setDefaultSort(Boolean defaultSort) {
+        _defaultSort = defaultSort;
     }
 }

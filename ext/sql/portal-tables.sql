@@ -263,7 +263,8 @@ create table ContestPhaseColumn (
 	id_ LONG not null primary key,
 	ContestPhasePK LONG,
 	columnName VARCHAR(75) null,
-	columnWeight INTEGER
+	columnWeight INTEGER,
+	defaultSort BOOLEAN
 );
 
 create table ContestPosition (

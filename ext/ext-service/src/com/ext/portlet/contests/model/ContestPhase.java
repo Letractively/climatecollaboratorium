@@ -40,6 +40,9 @@ public interface ContestPhase extends ContestPhaseModel {
     public java.util.List<String> getPhaseColumns()
         throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.contests.model.ContestPhaseColumn> getPhaseColumnsRaw()
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.contests.model.ContestPhase> getPreviousPhases()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;

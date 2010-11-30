@@ -734,6 +734,7 @@
 		<property name="ContestPhasePK" />
 		<property name="columnName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="columnWeight" />
+		<property name="defaultSort" />
 	</class>
 	<class name="com.ext.conditionaltext.model.impl.ConditionalTextSettingImpl" table="ConditionalTextSetting">
 		<cache usage="read-write" />

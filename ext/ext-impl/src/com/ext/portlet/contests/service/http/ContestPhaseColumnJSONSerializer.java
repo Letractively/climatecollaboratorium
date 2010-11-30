@@ -36,6 +36,7 @@ public class ContestPhaseColumnJSONSerializer {
         jsonObj.put("ContestPhasePK", model.getContestPhasePK());
         jsonObj.put("columnName", model.getColumnName());
         jsonObj.put("columnWeight", model.getColumnWeight());
+        jsonObj.put("defaultSort", model.getDefaultSort());
 
         return jsonObj;
     }
