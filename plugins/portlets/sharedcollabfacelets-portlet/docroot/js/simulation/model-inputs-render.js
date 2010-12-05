@@ -288,6 +288,7 @@ function showSliders() {
 	}
 
 	jQuery(".sliderDef").eq(0).addClass("processed");
+	makeInfoBoxesVisible('input');
 
 }
 
@@ -697,6 +698,7 @@ function showTabContents(tabHeader) {
 	if (! jQuery(tabHeader).hasClass("ui-state-processed")) {
 		renderSingleChart(jQuery(tabHeader).next());
 		jQuery(tabHeader).addClass("ui-state-processed");
+		makeInfoBoxesVisible('output');
 	}
 }
 
@@ -887,3 +889,39 @@ function initEditForms() {
 }
 
 
+function makeInfoBoxesVisible(type) {
+    jQuery("." + type + "-info-trigger").unbind('hover');
+    jQuery("." + type + "-info-trigger").hover(function() {
+    jQuery(this).parent().addClass("note-hover");
+        var popups = jQuery(this).parent().find(".popup-info-box");
+        if (popups.length > 0 && jQuery.trim(popups.text()).length != 0) {
+            popups.fadeIn("medium");
+        }
+    }, function() {
+        jQuery(this).parent().removeClass("note-hover");
+        var popups = jQuery(this).parent().find(".popup-info-box");
+        setTimeout(function() {
+            if (! popups.parent().hasClass("note-hover") && !popups.parent().hasClass("popup-hover")) {
+                popups.fadeOut("medium");
+            }
+        }, 200);
+    }
+            );
+    jQuery("." + type + "s .popup-info-box").unbind('hover');
+    jQuery("." + type + "s .popup-info-box").hover(function() {
+        jQuery(this).parent().addClass("popup-hover");
+        var popups = jQuery(this).parent().find(".popup-info-box");
+        if (popups.length > 0 && jQuery.trim(popups.text()).length != 0) {
+        	popups.fadeIn("medium");
+        }
+    }, function() {
+        jQuery(this).parent().removeClass("popup-hover");
+        var popups = jQuery(this).parent().find(".popup-info-box");
+        setTimeout(function() {
+            if (! popups.parent().hasClass("note-hover") && !popups.parent().hasClass("popup-hover")) {
+            	popups.fadeOut("medium");
+            }
+        }, 200);
+    }
+            );
+}
