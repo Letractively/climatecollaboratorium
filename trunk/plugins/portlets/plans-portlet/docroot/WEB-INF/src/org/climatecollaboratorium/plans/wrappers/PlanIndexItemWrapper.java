@@ -7,9 +7,12 @@ import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.PlanConstants.Columns;
 import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +26,7 @@ import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
 import org.climatecollaboratorium.plans.Helper;
 import org.climatecollaboratorium.plans.PlansIndexBean;
+import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 
 public class PlanIndexItemWrapper {
 
@@ -33,6 +37,7 @@ public class PlanIndexItemWrapper {
     private PlansIndexBean plansIndexBean;
     private List<DebateQuestionWrapper> questions;
     private List<Debate> availableDebates;
+    private ThemeDisplay td = Helper.getThemeDisplay();
 
     public PlanIndexItemWrapper(PlanItem wrapped, PlansIndexBean plansIndexBean, List<Debate> availableDebates)
             throws SystemException, PortalException {
@@ -107,14 +112,28 @@ public class PlanIndexItemWrapper {
     }
 
     public void vote(ActionEvent e) throws PortalException, SystemException {
+        PlanActivityKeys activityKey = PlanActivityKeys.VOTE_FOR_PLAN;
+
 
         if (Helper.isUserLoggedIn()) {
             if (isVotedOn()) {
                 wrapped.unvote(Helper.getLiferayUser().getUserId());
+                activityKey = PlanActivityKeys.RETRACT_VOTE_FOR_PLAN;
             } else {
+                try {
+                    if (PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId(), wrapped.getContest().getContestPK()) != null) {
+                        activityKey = PlanActivityKeys.SWICTH_VOTE_FOR_PLAN;
+                    }
+                   
+                }
+                catch (Throwable ex) {
+                    // backend can throw no such vote exception, it should be ignored as this is a normal case
+                }
                 wrapped.vote(Helper.getLiferayUser().getUserId());
             }
         }
+        SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                PlanItem.class.getName(), wrapped.getPlanId(), activityKey.id(),null, 0);
         plansIndexBean.refresh();
     }
     

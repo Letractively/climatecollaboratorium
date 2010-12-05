@@ -284,16 +284,17 @@ public class PlanItemWrapper {
 
     public void vote(ActionEvent e) throws PortalException, SystemException {
         if (Helper.isUserLoggedIn()) {
-            wrapped.vote(Helper.getLiferayUser().getUserId());
             PlanActivityKeys activityKey = PlanActivityKeys.VOTE_FOR_PLAN;
             try {
-                    if (PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId(), wrapped.getContest().getContestPK()) != null) {
-                        activityKey = PlanActivityKeys.SWICTH_VOTE_FOR_PLAN;
-                    }
+                if (PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId(), wrapped.getContest().getContestPK()) != null) {
+                    activityKey = PlanActivityKeys.SWICTH_VOTE_FOR_PLAN;
+                }
+               
             }
             catch (Throwable ex) {
-                // ignore
+                // backend can throw no such vote exception, it should be ignored as this is a normal case
             }
+            wrapped.vote(Helper.getLiferayUser().getUserId());
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), activityKey.id(),null, 0);
 
@@ -570,13 +571,13 @@ public class PlanItemWrapper {
         this.eventBus = eventBus;
     }
     
-    public Integer getVotesPercent() throws SystemException, PortalException {
+    public long getVotesPercent() throws SystemException, PortalException {
         Integer totalVotes = wrapped.getContest().getTotalVotes();
         Integer planVotes = wrapped.getVotes();
         if (totalVotes == null || totalVotes == 0 || planVotes == null || planVotes <= 0) {
             return 0;
         }
-        return (planVotes * 100)/ totalVotes;
+        return Math.round( ((double) planVotes * 100)/ totalVotes);
     }
     
     public Integer getVotes() throws SystemException, PortalException {
