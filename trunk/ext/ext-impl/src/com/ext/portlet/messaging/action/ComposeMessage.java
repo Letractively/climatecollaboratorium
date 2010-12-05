@@ -12,6 +12,7 @@ import com.ext.portlet.messaging.MessageConstants;
 import com.ext.portlet.messaging.MessageUtil;
 import com.ext.portlet.messaging.model.Message;
 import com.ext.portlet.messaging.service.MessageLocalServiceUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.struts.PortletAction;
 import com.liferay.portal.theme.ThemeDisplay;
@@ -50,7 +51,13 @@ public class ComposeMessage extends PortletAction {
         List<Long> recipients = new ArrayList<Long>();
 
         for (String receiver:receiverIds) {
-          recipients.add(Long.parseLong(receiver));
+            try {
+                recipients.add(Long.parseLong(receiver));
+            }
+            catch (NumberFormatException e) {
+                SessionErrors.add(actionRequest, e.getClass().getName());
+                return;
+            }
         }
 
         MessageUtil.sendMessage(subject,content,userId,replyTo,recipients,actionRequest);

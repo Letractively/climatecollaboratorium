@@ -218,6 +218,9 @@
         <portlet:namespace/>inputobject = input.get(0);
 
 
+        jQuery("#composeMessageForm").validate();
+                
+                
             
     });
 
@@ -270,7 +273,10 @@
     function <portlet:namespace/>submitSendForm() {
         var values = jQuery(".as-values").val();
         jQuery("input:hidden[name='<portlet:namespace/><%=MessageConstants.COMPOSE_RECIPIENTS%>']").val(values);
-        document.<portlet:namespace/>composeFm.submit();
+        if (jQuery("#composeMessageForm").valid()) {
+            document.<portlet:namespace/>composeFm.submit();
+        }
+        
     }
 
     <c:if test="<%=selectedMessage!=null%>">
@@ -437,8 +443,8 @@
                             <tr>
                                 <td><label>To:</label></td>
                                 <td class="stretch">
-                                    <input id="<portlet:namespace/>userSelectorInput" type="text">
-                                    <input type="hidden" name="<portlet:namespace/><%=MessageConstants.COMPOSE_RECIPIENTS%>" />
+                                    <input id="<portlet:namespace/>userSelectorInput" type="text" >
+                                    <input type="hidden" class="required" name="<portlet:namespace/><%=MessageConstants.COMPOSE_RECIPIENTS%>" />
                                 
                                            <div class="hidden" id="please_choose_from_list">
                                              <span class="error">
@@ -449,14 +455,14 @@
                             </tr>
                             <tr>
                                 <td><label>Subject:</label></td>
-                                <td class="stretch"><input name="<portlet:namespace/><%=MessageConstants.COMPOSE_SUBJECT%>"
+                                <td class="stretch"><input  class="required" name="<portlet:namespace/><%=MessageConstants.COMPOSE_SUBJECT%>"
                                            type="text"/>
 
                                 </td>
                             </tr>
                         </table>
                         <div id="composemessage">
-                            <textarea rows='10'
+                            <textarea rows='10' class="required"
                                       name="<portlet:namespace/><%=MessageConstants.COMPOSE_CONTENT%>"></textarea>
                         </div>
                         <div id="composeactions">
