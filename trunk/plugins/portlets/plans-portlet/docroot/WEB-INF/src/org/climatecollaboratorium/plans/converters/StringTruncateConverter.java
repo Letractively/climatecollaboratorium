@@ -13,7 +13,7 @@ public class StringTruncateConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-        return truncateStr(arg1, arg2.toString());
+        return arg2 != null ? truncateStr(arg1, arg2.toString()) : "";
     }
     
     private String truncateStr(UIComponent comp, String str) {
