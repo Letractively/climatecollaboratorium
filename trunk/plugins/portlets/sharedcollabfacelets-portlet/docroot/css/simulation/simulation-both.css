@@ -64,3 +64,9 @@ table.simulation .leftContent, table.simulation .right-content {
     white-space: nowrap;
     
 }
+
+
+.simulation .popup-info-box {
+    position: absolute;
+    font-size: 12px;
+}
