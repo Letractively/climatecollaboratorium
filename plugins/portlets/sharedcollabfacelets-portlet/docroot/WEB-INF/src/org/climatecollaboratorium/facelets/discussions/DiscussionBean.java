@@ -461,4 +461,8 @@ public class DiscussionBean {
     public MessageWrapper getNewComment() {
         return newComment;
     }
+    
+    public boolean getHasComments() throws SystemException {
+        return commentsThread.getWrapped() != null;  
+    }
 }
