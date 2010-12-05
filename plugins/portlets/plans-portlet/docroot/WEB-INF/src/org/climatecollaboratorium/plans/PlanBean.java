@@ -129,10 +129,10 @@ public class PlanBean {
             planOpenForEditing = false;
             editingDescription = false;
             editingName = false;
-            if (simulationBean.isEditing()) {
+            if (simulationBean != null && simulationBean.isEditing()) {
                 simulationBean.edit(null);
             }
-            if (planPositionsBean.isEditing()) {
+            if (planPositionsBean != null && planPositionsBean.isEditing()) {
                 planPositionsBean.edit(null);
             }
         }
