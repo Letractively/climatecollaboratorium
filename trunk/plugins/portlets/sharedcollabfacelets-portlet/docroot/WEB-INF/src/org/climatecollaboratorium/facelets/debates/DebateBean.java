@@ -90,6 +90,10 @@ public class DebateBean {
     public Debate getDebate() {
         return debate;
     }
+    
+    public String getDebateName() {
+        return debate.getCurrentRoot().getDebateSummary();
+    }
 
     public DebateItemCommentsBean getDebateItemCommentsBean() {
         return debateItemCommentsBean;

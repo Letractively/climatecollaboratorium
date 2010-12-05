@@ -750,8 +750,11 @@ td.editDebateItemContent {
     width: 400px;
 }
 
-.debateMap .votes {
+.debateMap .votes,
+.wf-active .debateMap .votes {
 	width: 70px;
+	background: none;
+	color: #000000;
 }
 
 .debateMap .votes .iceOutProgBg{
