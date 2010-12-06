@@ -186,3 +186,9 @@ img.userFace {
 #MyFanedPlans .fanedplans-table td {
 	vertical-align: middle;
 }
+
+#Profile .adminInfoBox {
+    background: #C6E5F5;
+    border: 1px solid #1A5778;
+    padding: 10px;
+}
