@@ -13,9 +13,11 @@ import com.ext.portlet.models.ui.ModelWidgetProperty;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.Plan;
+import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.model.PlanVote;
+import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
@@ -491,4 +493,16 @@ public class MigrationTool {
     }
         return null;
 	}
+    
+    public String updateUrlsInErrors() throws SystemException {
+        for (PlanAttribute attr: PlanAttributeLocalServiceUtil.getPlanAttributes(0, Integer.MAX_VALUE)) {
+            String val = attr.getAttributeValue();
+            if (val.contains("climatecollaboratorium.org")) {
+                val = val.replaceAll("climatecollaboratorium\\.org", "climatecolab.org");
+                attr.setAttributeValue(val);
+                PlanAttributeLocalServiceUtil.updatePlanAttribute(attr);
+            }
+        }
+        return null;
+    }
 }
