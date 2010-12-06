@@ -684,7 +684,8 @@ function renderModelOutputs() {
 	/* end of physical impacts hack */
 	
 	initAccordion();
-	jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height());
+
+	setTimeout( function() { jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height()) }, 700);
 	jQuery(".outputDef").eq(0).addClass("processed");
 	jQuery(".outputDef").show();
 	
@@ -724,7 +725,8 @@ function initAccordion() {
 
 		showTabContents(this);
 
-		setTimeout( function() { jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height()) }, 250);
+		
+		setTimeout( function() { jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height()) }, 500);
 		return false;
 	});
 
@@ -743,6 +745,8 @@ function initAccordion() {
 			jQuery(this).next().hide();
 		}
 		else {
+			// this is needed for IE 7 to work correctly
+			jQuery(this).next().css("height", 350);
 			jQuery(this).addClass("ui-state-active");
 			jQuery(this).next().show();
 			showTabContents(this);
