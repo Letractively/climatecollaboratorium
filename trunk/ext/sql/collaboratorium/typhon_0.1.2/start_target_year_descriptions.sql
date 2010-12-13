@@ -1,3 +1,5 @@
+ALTER TABLE  `ModelInputGroup` CHANGE  `description`  `description` VARCHAR( 512 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
 UPDATE  `lportal`.`ModelInputGroup` SET  `description` =  'Start year is the year when reduction begins and target year is the year at which reduction will be complete for developed countries.' WHERE  `ModelInputGroup`.`modelInputGroupPK` =612;
 UPDATE  `lportal`.`ModelInputGroup` SET  `description` =  'Start year is the year when reduction begins and target year is the year at which reduction will be complete for developed countries.' WHERE  `ModelInputGroup`.`modelInputGroupPK` =606;
 
