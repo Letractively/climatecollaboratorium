@@ -513,3 +513,7 @@ body .resources , .resources h2, .resources { font-family:"gloriola-web-2", Verd
 .journal-content-article ul li {
     list-style: disc inside none;
 }
+
+#pro-info .butt_wrap .buttbdr {
+    margin-right: 8px;
+}
