@@ -16,13 +16,13 @@
             Boolean deletePortrait = false;
             boolean editEnabled = (Boolean) request.getAttribute(CommunityConstants.EDIT_ENABLED_PARAMETER);
             boolean isMine = editEnabled && themeDisplay.isSignedIn() && themeDisplay.getUserId() == profileUser.getUserId();
-            boolean isAdmin = profileUser.getUserId() == 10144L;
             
             boolean canSendMessage = themeDisplay.isSignedIn() && themeDisplay.getUserId() != profileUser.getUserId();
 
 
 
 %>
+
 <liferay-portlet:actionURL windowState="<%= WindowState.NORMAL.toString()%>" var="submitActionURL">
     <portlet:param name="struts_action" value="/ext/community/edit_profile" />
     <portlet:param name="<%= CommunityConstants.REDIRECT%>" value="<%= currentURL%>" />
@@ -148,9 +148,6 @@
                     }
                 });
             }
-            else {
-                return false;
-            }
             
         }
 
@@ -176,20 +173,9 @@
                             <span class="configure"><a href="<%= configurePortlet%>">configure</a></span>
                         </c:if>
                     </div>
-                    
                      <div class="name">
                         <h2><%=editEnabled ? "My" : screenName + "'s"%> Profile</h2>
                     </div>
-                    
-            <c:if test="<%= isAdmin %>">
-                <div class="adminInfoBox">
-                    <p>
-                        This screen name is used by members of the Climate CoLab project staff to perform administrative 
-                        tasks on the site. If you send a message to the Administrator, it will be received by a member 
-                        of the project staff.
-                    </p>
-                </div>
-            </c:if>
             </div>
             <div class="bd">
 
