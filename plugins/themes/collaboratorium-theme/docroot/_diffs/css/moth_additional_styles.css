@@ -514,6 +514,7 @@ body .resources , .resources h2, .resources { font-family:"gloriola-web-2", Verd
     list-style: disc inside none;
 }
 
-#pro-info .butt_wrap .buttbdr {
+.plansContent #pro-info .butt_wrap .buttbdr {
+	margin: 0 8px 0 0;
     margin-right: 8px;
 }
