@@ -502,6 +502,12 @@ public class MigrationTool {
                 attr.setAttributeValue(val);
                 PlanAttributeLocalServiceUtil.updatePlanAttribute(attr);
             }
+            // add space after a comma
+            if (val.contains(",")) {
+                val = val.replaceAll(",", ", ");
+                attr.setAttributeValue(val);
+                PlanAttributeLocalServiceUtil.updatePlanAttribute(attr);
+            }
         }
         return null;
     }
