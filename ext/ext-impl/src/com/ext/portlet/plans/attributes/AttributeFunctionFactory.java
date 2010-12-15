@@ -342,7 +342,7 @@ public class AttributeFunctionFactory {
                                         ModelOutputSeriesDisplayItem serieItem = indexedItem.getSeriesWithInvalidError().get(i);
                                         outputs.append(serieItem.getName());
                                         if (i < indexedItem.getSeriesWithInvalidError().size() - 1) {
-                                            outputs.append(",");
+                                            outputs.append(", ");
                                         }
                                     }
                                     errors.append(msg.replaceAll("%outputs", outputs.toString()));
