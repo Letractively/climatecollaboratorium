@@ -1,0 +1,50 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<h3 class="boxTitle">Register or log in with your Facebook account</h3>
+
+<div class="facebook-button">
+    <fb:login-button perms="email"></fb:login-button>
+    <div id="fb-email-msg" class="fb-info" style="display:none">
+        In order to log into the CoLab with your Facebook account, you will need to grant the CoLab
+        access to your email address. As described in our <a href="/web/guest/resources/-/wiki/Main/Privacy+policy">privacy policy</a> we will never share your email with anyone else.
+    </div>
+    <div id="fb-cookieerr-msg" class="fb-info" style="display:none">
+        Sorry! There was a problem setting your login credentials in this browser.  Please ensure that your browser allows cookies from both our site and facebook. If you uncertain how
+        to do this, please <a href="/web/guest/feedback">contact</a> a site administrator and we will get back to you as soon as possible.
+    </div>
+    <div id="fb-systemerr-msg" class="fb-info" style="display:none">
+        Sorry! There was a system error when trying log you in the CoLab.  Please <a href="/web/guest/feedback">contact</a> a site administrator and we will resolve the issue as soon as possible.
+    </div>
+    <div id="fb-facebookerr-msg" class="fb-info" style="display:none">
+        Sorry! We were unable to communicate with facebook. Please try again later or create an account using the form to the left. If you continue to have difficulties please <a href="/web/guest/feedback">contact</a> a site administrator and we will get back to you as soon as possible.
+    </div>
+    
+    <a id="pseudo-fb" class="fb_button fb_button_medium" onclick="clickFacebookButton()">
+
+        <span class="fb_button_text">Login with facebook</span>
+    </a>
+    <div class="reg-info">
+    If you register using your Facebook account, you agree to abide by the
+                            <a href="http://cci.mit.edu/research/climatehelp/CollaboratoriumTermsUse.html">Terms of Use</a>.
+    </div>
+    </div>
+<script type="text/javascript">
+      jQuery(function() {
+        if (FB_LOGIN_RESULT=="email") {
+                deleteFBCookie();
+                jQuery("#fb-email-msg").show();
+            }
+          else if (FB_LOGIN_RESULT=="cookieerror") {
+            jQuery("#fb-cookieerr-msg").show();
+        } else if (FB_LOGIN_RESULT=="systemerror") {
+           jQuery("#fb-systemerr-msg").show();
+        } else if (FB_LOGIN_RESULT=="facebookerror") {
+           jQuery("#fb-facebookerr-msg").show();
+        }
+      });
+
+</script>

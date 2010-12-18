@@ -1,0 +1,29 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<div class="DialogBox">
+	<div class="DialogNWCorner">
+	</div>
+	<div class="DialogNEdge">
+	</div>
+	<div class="DialogNECorner">
+	</div>
+	<br class="clearfloat" />
+	<div class="DialogWEdge">
+	</div>
+	<div class="DialogBody">
+	</div>
+	<div class="DialogEEdge">
+	</div>
+	<br class="clearfloat" />
+	<div class="DialogSWCorner">
+	</div>
+	<div class="DialogSEdge">
+	</div>
+	<div class="DialogSECorner">
+	</div>
+	<br class="clearfloat" />
+</div>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
+<service-builder package-path="com.ext.portlet.migration">
+	<namespace>Migration</namespace>
+	<entity name="MigrationData" remote-service="true" local-service="true" persistence-class="com.ext.portlet.migration.service.persistence.MigrationDataPersistenceImpl">
+
+		<!-- PK field -->
+		<column name="migrationId" type="Long" primary="true" />
+		
+
+		<!-- Main fields -->
+
+		<column name="name" type="String" />
+		<column name="xml" type="String" />
+		<column name="description" type="String" />
+		<column name="users" type="Integer" />
+		<column name="plans" type="Integer" />
+		<column name="questions" type="Integer" />
+		<column name="alternatives" type="Integer" />
+		<column name="arguments" type="Integer" />
+		<column name="votes" type="Integer" />
+
+		<!-- Audit fields -->
+		<column name="userId" type="Long" />
+		<column name="modifiedDate" type="Date" />		
+		<column name="createdDate" type="Date" />
+		
+
+
+		<!-- Order columns -->
+
+		<order by="desc">
+			<order-column name="createdDate" case-sensitive="false" />
+		</order>
+
+	</entity>
+	<entity name="MigrationMapping" local-service="true" persistence-class="com.ext.portlet.migration.service.persistence.MigrationMappingPersistenceImpl">
+
+		<!-- PK field -->
+		<column name="entityName" type="String" primary="true" />
+		<column name="oldId" type="String" primary="true" />
+		<column name="newId" type="Long" />
+
+		<!-- Audit fields -->
+		<column name="userId" type="Long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Finder methods -->
+
+		<finder name="OldId" return-type="MigrationMapping">
+			<finder-column name="oldId" />
+		</finder>
+		
+		<finder name="NewId" return-type="MigrationMapping">
+			<finder-column name="newId" />
+		</finder>
+		
+		<finder name="entityName" return-type="Collection">
+			<finder-column name="newId" />
+		</finder>
+
+	</entity>
+
+	<exceptions>
+		<exception>NoSuchMigrationData</exception>
+		<exception>NoSuchMigrationMapping</exception>
+	</exceptions>
+</service-builder>

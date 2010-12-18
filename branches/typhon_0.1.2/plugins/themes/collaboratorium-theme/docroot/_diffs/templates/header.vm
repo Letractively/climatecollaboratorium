@@ -1,0 +1,40 @@
+<div id="top-left">
+    <div id="logo"><a href="/"><img src="/collaboratorium-theme/images/climate-colab.png" width="206" height="42" alt="Climate CoLab" /></a></div>
+    #if ($has_navigation)
+        #parse ("$full_templates_path/navigation.vm")
+    #end
+</div>
+<div id="top-right">
+    <div id="loginContainer">
+        
+        <ul id="login">
+            #if ($themeDisplay.signedIn)
+                <li id="signin"><a href="/c/portal/logout" >Sign out</a></li>
+                <li id="reg"><a href="/web/guest/myprofile">My profile</a></li>
+            #else 
+                <li id="signin"><a href="/web/guest/loginregister?p_p_id=loginregister" onclick="modifyLoginRegisterURL(this);">Sign In</a></li>
+                <li id="reg"><a href="/web/guest/loginregister?p_p_id=loginregister" onclick="modifyLoginRegisterURL(this);">Register</a></li>
+            #end
+            
+        </ul>
+        
+        <div id="loginStatus">
+            #parse ("$full_templates_path/dock.vm")
+        </div>
+        
+    </div>
+    <div id="menu">
+        <form action="">
+            <input id="searchinput" class="nofocus" name="searchinput" type="text" value="" />
+            <input id="searchsubmit" type="button" name="submit" value="Go" />
+        </form>
+        <ul>
+            <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
+            <li><a href="/web/guest/feedback">Contact</a></li>
+            <li><a class="facebook-link" target="_blank" href="http://www.facebook.com/pages/Climate-CoLab/138039566244509">Find us on facebook!</a></li>
+            <li style="clear: both;"></li>
+        </ul>
+    </div> <!-- /menu -->
+</div> <!-- /top-right -->
+  
+<div class="clear">&nbsp;</div>

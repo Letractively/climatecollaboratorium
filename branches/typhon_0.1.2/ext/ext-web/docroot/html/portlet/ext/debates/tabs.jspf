@@ -1,0 +1,105 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+    /**
+     *
+     * Tab panel for Debates portlet (included in most pages).
+     *
+     * version 1.1: themed to be consistent with collaboratorium theme
+     *
+     * @author janusz.p, TCSDEVELOPER
+     * @version 1.1
+     */
+%>
+<%
+    // determin type of view (debate summary / debate index)
+
+    String selectedTab = ParamUtil.getString(request, DebatesConstants.VIEW_DEBATES_INDEX_TABS, DebatesConstants.DEBATE_INDEX_TAB);
+    String tabNames = DebatesConstants.DEBATE_INDEX_TAB + "," + DebatesConstants.DISCUSSION_TAB;
+
+   
+
+    String currentView = DebatesUtil.getViewType(renderRequest);
+    MBCategory baseCategory = MBCategoryLocalServiceUtil.getCategory(baseCategoryId);
+    MBMessage topDebateMessage = null;
+    long discussCatId = 0;
+    if (baseCategoryId > 0) {
+        MBCategory discussCategory = DebatesUtil.getSubcategory(baseCategory,
+                DebatesConstants.ISSUE_DISCUSSION_CATEGORY_NAME);
+        MBCategory debateCategory = DebatesUtil.getSubcategory(baseCategory,
+                DebatesConstants.ISSUE_DEBATE_CATEGORY_NAME);
+         if (debateCategory != null) {
+             topDebateMessage = DebatesUtil.getDebateMessage(debateCategory.getCategoryId());
+         }
+        discussCatId = BeanParamUtil.getLong(discussCategory, request, "categoryId");
+    }
+
+
+%>
+
+<liferay-portlet:renderURL var="debateIndexURL">
+    <portlet:param name="struts_action" value="/ext/debates/view"/>
+</liferay-portlet:renderURL>
+<c:choose>
+    <c:when test='<%= currentView.equals(DebatesConstants.DEBATE_INDEX_VIEW) %>'>
+        <liferay-portlet:renderURL var="discussionURL">
+            <portlet:param name="struts_action" value="/ext/debates/view"/>
+            <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS %>"
+                           value="<%= DebatesConstants.DISCUSSION_TAB %>"/>
+        </liferay-portlet:renderURL>
+    </c:when>
+    <c:otherwise>
+        <liferay-portlet:renderURL var="debateSummaryURL">
+            <portlet:param name="struts_action" value="/ext/debates/view_debate"/>
+            <portlet:param name="<%= DebatesConstants.BASE_CATEGORY_ID %>"
+                           value="<%= String.valueOf(baseCategoryId) %>"/>
+        </liferay-portlet:renderURL>
+        <liferay-portlet:renderURL var="discussionURL">
+            <portlet:param name="struts_action" value="/ext/debates/view"/>
+            <portlet:param name="<%= DebatesConstants.BASE_CATEGORY_ID %>"
+                           value="<%= String.valueOf(baseCategoryId) %>"/>
+            <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS %>"
+                           value="<%= DebatesConstants.DISCUSSION_TAB %>"/>
+            <portlet:param name="<%= DebatesConstants.CATEGORY_ID %>" value="<%= String.valueOf(discussCatId) %>"/>
+        </liferay-portlet:renderURL>
+
+
+        <%
+            tabNames = DebatesConstants.DEBATE_SUMMARY_TAB + "," + DebatesConstants.DISCUSSION_TAB;
+        %>
+    </c:otherwise>
+</c:choose>
+
+<!-- end #header -->
+<div class="debates">
+    <div class="inner">
+        <div class="tabContent_top">
+            <div class="tabContent_bottom outterContent">
+                <div class="tabContent">
+                    <div class="tabinner">
+
+                        <div class="header">
+                            <h2 class="debate-title">
+                                <c:choose>
+                                    <c:when test="<%= currentView.equals(DebatesConstants.DEBATE_SUMMARY_VIEW) %>">
+
+                                        <a href="${debateIndexURL}" class="DebateTitle">Debate Index</a>
+                                        &gt;
+                                        <span>Debate</h2>
+                            </c:when>
+                            <c:otherwise>
+                                Debate Index
+                            </c:otherwise>
+                            </c:choose>
+                            </h2>
+                        </div>
+                    </div>
+
+
+                  
+                   
+

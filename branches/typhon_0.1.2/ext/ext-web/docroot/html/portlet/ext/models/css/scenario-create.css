@@ -1,0 +1,134 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+@CHARSET "ISO-8859-1";
+
+
+	div.page-content
+	{
+		/*  background-color: green;*/
+		height: 600px;
+		width: 1000px;
+		position: absolute;
+		left: 120px;
+		top: 120px;
+	}
+	
+	
+	div#sliders 
+	{
+		top: 50px;
+		font-size: 50%;
+		width: 350px;
+		height: 250px;
+		overflow: auto;
+		border-style: solid;
+		border-color: #737373;
+		border-width: 1px;
+		background-color: #C9C9C9;
+	}
+	
+	div#infoBox
+	{
+		/*display: none; */
+		width: 85%;
+		height: 250px;
+		border-style: solid;
+		border-color: #737373;
+		border-width: 1px;
+		background-color: #C9C9C9;
+		overflow: auto;
+	}
+	
+	/*div.slider
+	{
+		margin-left:100px;
+		width: 100px;
+	}*/
+	
+	label#slider
+	{
+		font-size: 200%;
+		margin-left: 50px;
+	}
+	
+	label#amount
+	{
+		margin-left: 150px;
+		font-size: 200%;
+	}
+	
+	.slider
+	{
+		width: 100px;
+		margin-top: 5px;
+		margin-left: 50px;
+		
+	}
+	
+	button#submit
+	{
+	}
+	
+	button#restore
+	{
+		margin-left: 25px;
+		margin-top: 10px;
+		margin-bottom: 25px;
+	}
+	
+	button#run
+	{
+		
+	}
+	
+	button#savesim
+	{
+		margin-top: 10px;
+		margin-left: 25px;
+	}
+	
+	button#displayparams
+	{
+		margin-left: 25px;
+		margin-bottom: 10px;
+	}
+	
+	#list-display
+	{
+		margin-top: 40px;
+	}
+	
+	select.simlist
+	{
+		margin-left: 0px;
+	}
+	
+	table
+	{
+		background-color: white:
+	}
+	
+	div.page-content
+	{
+		margin-left: 100px;
+	}
+	
+	#login-logout
+	{
+		margin-left: 1150px;
+	}
+	
+	#login
+	{
+		text-decoration: none;
+		font-color: #EBDDE2;
+	}
+	
+	select
+	{
+		max-width: 100px;
+	}

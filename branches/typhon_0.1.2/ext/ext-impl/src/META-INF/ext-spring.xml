@@ -1,0 +1,1233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<bean id="com.ext.portlet.plans.service.PlanLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanLocalServiceUtil" class="com.ext.portlet.plans.service.PlanLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanService.impl" class="com.ext.portlet.plans.service.impl.PlanServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanServiceUtil" class="com.ext.portlet.plans.service.PlanServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanUtil" class="com.ext.portlet.plans.service.persistence.PlanUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanAttributeLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanAttributeLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanAttributeLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanAttributeLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil" class="com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanAttributeService.impl" class="com.ext.portlet.plans.service.impl.PlanAttributeServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanAttributeService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanAttributeService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanAttributeServiceUtil" class="com.ext.portlet.plans.service.PlanAttributeServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanAttributePersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanAttributePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanAttributeUtil" class="com.ext.portlet.plans.service.persistence.PlanAttributeUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanAttributePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanPositionLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanPositionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanPositionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionLocalServiceUtil" class="com.ext.portlet.plans.service.PlanPositionLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionService.impl" class="com.ext.portlet.plans.service.impl.PlanPositionServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanPositionService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanPositionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionServiceUtil" class="com.ext.portlet.plans.service.PlanPositionServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPositionPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanPositionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPositionUtil" class="com.ext.portlet.plans.service.persistence.PlanPositionUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanPositionPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansUserSettingsLocalService.impl" class="com.ext.portlet.plans.service.impl.PlansUserSettingsLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlansUserSettingsLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlansUserSettingsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil" class="com.ext.portlet.plans.service.PlansUserSettingsLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansUserSettingsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansUserSettingsService.impl" class="com.ext.portlet.plans.service.impl.PlansUserSettingsServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlansUserSettingsService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlansUserSettingsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansUserSettingsServiceUtil" class="com.ext.portlet.plans.service.PlansUserSettingsServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansUserSettingsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlansUserSettingsPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlansUserSettingsPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlansUserSettingsUtil" class="com.ext.portlet.plans.service.persistence.PlansUserSettingsUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlansUserSettingsPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanVoteLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanVoteLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanVoteLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanVoteLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanVoteLocalServiceUtil" class="com.ext.portlet.plans.service.PlanVoteLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanVoteLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanVoteService.impl" class="com.ext.portlet.plans.service.impl.PlanVoteServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanVoteService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanVoteService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanVoteServiceUtil" class="com.ext.portlet.plans.service.PlanVoteServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanVoteService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanVotePersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanVotePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanVoteUtil" class="com.ext.portlet.plans.service.persistence.PlanVoteUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanVotePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansFilterLocalService.impl" class="com.ext.portlet.plans.service.impl.PlansFilterLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlansFilterLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlansFilterLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansFilterLocalServiceUtil" class="com.ext.portlet.plans.service.PlansFilterLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansFilterService.impl" class="com.ext.portlet.plans.service.impl.PlansFilterServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlansFilterService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlansFilterService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansFilterServiceUtil" class="com.ext.portlet.plans.service.PlansFilterServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlansFilterPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlansFilterPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlansFilterUtil" class="com.ext.portlet.plans.service.persistence.PlansFilterUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlansFilterPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanAttributeFilterLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanAttributeFilterLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanAttributeFilterLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanAttributeFilterLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanAttributeFilterLocalServiceUtil" class="com.ext.portlet.plans.service.PlanAttributeFilterLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeFilterLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanAttributeFilterService.impl" class="com.ext.portlet.plans.service.impl.PlanAttributeFilterServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanAttributeFilterService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanAttributeFilterService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanAttributeFilterServiceUtil" class="com.ext.portlet.plans.service.PlanAttributeFilterServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeFilterService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanAttributeFilterPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanAttributeFilterPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanAttributeFilterUtil" class="com.ext.portlet.plans.service.persistence.PlanAttributeFilterUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanAttributeFilterPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPropertyFilterLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanPropertyFilterLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanPropertyFilterLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanPropertyFilterLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPropertyFilterLocalServiceUtil" class="com.ext.portlet.plans.service.PlanPropertyFilterLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPropertyFilterLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPropertyFilterService.impl" class="com.ext.portlet.plans.service.impl.PlanPropertyFilterServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanPropertyFilterService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanPropertyFilterService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPropertyFilterServiceUtil" class="com.ext.portlet.plans.service.PlanPropertyFilterServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPropertyFilterService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPropertyFilterUtil" class="com.ext.portlet.plans.service.persistence.PlanPropertyFilterUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanColumnSettingsLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanColumnSettingsLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanColumnSettingsLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanColumnSettingsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanColumnSettingsLocalServiceUtil" class="com.ext.portlet.plans.service.PlanColumnSettingsLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanColumnSettingsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanColumnSettingsService.impl" class="com.ext.portlet.plans.service.impl.PlanColumnSettingsServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanColumnSettingsService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanColumnSettingsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanColumnSettingsServiceUtil" class="com.ext.portlet.plans.service.PlanColumnSettingsServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanColumnSettingsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanColumnSettingsPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanColumnSettingsPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanColumnSettingsUtil" class="com.ext.portlet.plans.service.persistence.PlanColumnSettingsUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanColumnSettingsPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansFilterPositionLocalService.impl" class="com.ext.portlet.plans.service.impl.PlansFilterPositionLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlansFilterPositionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlansFilterPositionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansFilterPositionLocalServiceUtil" class="com.ext.portlet.plans.service.PlansFilterPositionLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterPositionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansFilterPositionService.impl" class="com.ext.portlet.plans.service.impl.PlansFilterPositionServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlansFilterPositionService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlansFilterPositionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlansFilterPositionServiceUtil" class="com.ext.portlet.plans.service.PlansFilterPositionServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterPositionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlansFilterPositionPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlansFilterPositionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlansFilterPositionUtil" class="com.ext.portlet.plans.service.persistence.PlansFilterPositionUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlansFilterPositionPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanTypeLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanTypeLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanTypeLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeLocalServiceUtil" class="com.ext.portlet.plans.service.PlanTypeLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeService.impl" class="com.ext.portlet.plans.service.impl.PlanTypeServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanTypeService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanTypeService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeServiceUtil" class="com.ext.portlet.plans.service.PlanTypeServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanTypePersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanTypePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanTypeUtil" class="com.ext.portlet.plans.service.persistence.PlanTypeUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanTypePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeAttributeLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanTypeAttributeLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanTypeAttributeLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanTypeAttributeLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeAttributeLocalServiceUtil" class="com.ext.portlet.plans.service.PlanTypeAttributeLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeAttributeLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeAttributeService.impl" class="com.ext.portlet.plans.service.impl.PlanTypeAttributeServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanTypeAttributeService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanTypeAttributeService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeAttributeServiceUtil" class="com.ext.portlet.plans.service.PlanTypeAttributeServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeAttributeService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanTypeAttributePersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanTypeAttributePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanTypeAttributeUtil" class="com.ext.portlet.plans.service.persistence.PlanTypeAttributeUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanTypeAttributePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeColumnLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanTypeColumnLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanTypeColumnLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanTypeColumnLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeColumnLocalServiceUtil" class="com.ext.portlet.plans.service.PlanTypeColumnLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeColumnLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeColumnService.impl" class="com.ext.portlet.plans.service.impl.PlanTypeColumnServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanTypeColumnService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanTypeColumnService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTypeColumnServiceUtil" class="com.ext.portlet.plans.service.PlanTypeColumnServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeColumnService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanTypeColumnUtil" class="com.ext.portlet.plans.service.persistence.PlanTypeColumnUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanItemLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanItemLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanItemLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanItemLocalServiceUtil" class="com.ext.portlet.plans.service.PlanItemLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanItemService.impl" class="com.ext.portlet.plans.service.impl.PlanItemServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanItemService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanItemServiceUtil" class="com.ext.portlet.plans.service.PlanItemServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanItemPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanItemUtil" class="com.ext.portlet.plans.service.persistence.PlanItemUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanItemPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanItemFinder.impl" class="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanItemFinderUtil" class="com.ext.portlet.plans.service.persistence.PlanItemFinderUtil">
+		<property name="finder" ref="com.ext.portlet.plans.service.persistence.PlanItemFinder.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanDescriptionLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanDescriptionLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanDescriptionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanDescriptionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanDescriptionLocalServiceUtil" class="com.ext.portlet.plans.service.PlanDescriptionLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanDescriptionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanDescriptionService.impl" class="com.ext.portlet.plans.service.impl.PlanDescriptionServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanDescriptionService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanDescriptionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanDescriptionServiceUtil" class="com.ext.portlet.plans.service.PlanDescriptionServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanDescriptionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanDescriptionPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanDescriptionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanDescriptionUtil" class="com.ext.portlet.plans.service.persistence.PlanDescriptionUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanDescriptionPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanMetaLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanMetaLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanMetaLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanMetaLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanMetaLocalServiceUtil" class="com.ext.portlet.plans.service.PlanMetaLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanMetaLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanMetaService.impl" class="com.ext.portlet.plans.service.impl.PlanMetaServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanMetaService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanMetaService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanMetaServiceUtil" class="com.ext.portlet.plans.service.PlanMetaServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanMetaService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanMetaPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanMetaPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanMetaUtil" class="com.ext.portlet.plans.service.persistence.PlanMetaUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanMetaPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanModelRunLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanModelRunLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanModelRunLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanModelRunLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil" class="com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanModelRunService.impl" class="com.ext.portlet.plans.service.impl.PlanModelRunServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanModelRunService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanModelRunServiceUtil" class="com.ext.portlet.plans.service.PlanModelRunServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanModelRunPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanModelRunPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanModelRunUtil" class="com.ext.portlet.plans.service.persistence.PlanModelRunUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanModelRunPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionsLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanPositionsLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanPositionsLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanPositionsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil" class="com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionsService.impl" class="com.ext.portlet.plans.service.impl.PlanPositionsServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanPositionsService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanPositionsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionsServiceUtil" class="com.ext.portlet.plans.service.PlanPositionsServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPositionsPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanPositionsPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPositionsUtil" class="com.ext.portlet.plans.service.persistence.PlanPositionsUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanPositionsPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionItemLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanPositionItemLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanPositionItemLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanPositionItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionItemLocalServiceUtil" class="com.ext.portlet.plans.service.PlanPositionItemLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionItemService.impl" class="com.ext.portlet.plans.service.impl.PlanPositionItemServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanPositionItemService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanPositionItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanPositionItemServiceUtil" class="com.ext.portlet.plans.service.PlanPositionItemServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanPositionItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanPositionItemUtil" class="com.ext.portlet.plans.service.persistence.PlanPositionItemUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanFanLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanFanLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanFanLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanFanLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanFanLocalServiceUtil" class="com.ext.portlet.plans.service.PlanFanLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanFanLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanFanService.impl" class="com.ext.portlet.plans.service.impl.PlanFanServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanFanService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanFanService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanFanServiceUtil" class="com.ext.portlet.plans.service.PlanFanServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanFanService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanFanPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanFanUtil" class="com.ext.portlet.plans.service.persistence.PlanFanUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanFanPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTeamHistoryLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanTeamHistoryLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanTeamHistoryLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanTeamHistoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTeamHistoryLocalServiceUtil" class="com.ext.portlet.plans.service.PlanTeamHistoryLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTeamHistoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTeamHistoryService.impl" class="com.ext.portlet.plans.service.impl.PlanTeamHistoryServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanTeamHistoryService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanTeamHistoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanTeamHistoryServiceUtil" class="com.ext.portlet.plans.service.PlanTeamHistoryServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTeamHistoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanTeamHistoryUtil" class="com.ext.portlet.plans.service.persistence.PlanTeamHistoryUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.PlanFinder.impl" class="com.ext.portlet.plans.PlanFinder" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.ModelDiscussionLocalService.impl" class="com.ext.portlet.models.service.impl.ModelDiscussionLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelDiscussionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelDiscussionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelDiscussionLocalServiceUtil" class="com.ext.portlet.models.service.ModelDiscussionLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelDiscussionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelDiscussionService.impl" class="com.ext.portlet.models.service.impl.ModelDiscussionServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelDiscussionService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelDiscussionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelDiscussionServiceUtil" class="com.ext.portlet.models.service.ModelDiscussionServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelDiscussionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelDiscussionPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelDiscussionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelDiscussionUtil" class="com.ext.portlet.models.service.persistence.ModelDiscussionUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelDiscussionPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelPositionLocalService.impl" class="com.ext.portlet.models.service.impl.ModelPositionLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelPositionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelPositionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelPositionLocalServiceUtil" class="com.ext.portlet.models.service.ModelPositionLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelPositionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelPositionService.impl" class="com.ext.portlet.models.service.impl.ModelPositionServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelPositionService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelPositionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelPositionServiceUtil" class="com.ext.portlet.models.service.ModelPositionServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelPositionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelPositionPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelPositionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelPositionUtil" class="com.ext.portlet.models.service.persistence.ModelPositionUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelPositionPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.impl" class="com.ext.portlet.models.service.impl.ModelGlobalPreferenceLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil" class="com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" class="com.ext.portlet.models.service.impl.ModelGlobalPreferenceServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelGlobalPreferenceServiceUtil" class="com.ext.portlet.models.service.ModelGlobalPreferenceServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl" class="com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelGlobalPreferenceUtil" class="com.ext.portlet.models.service.persistence.ModelGlobalPreferenceUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelGlobalPreferencePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelCategoryLocalService.impl" class="com.ext.portlet.models.service.impl.ModelCategoryLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelCategoryLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelCategoryLocalServiceUtil" class="com.ext.portlet.models.service.ModelCategoryLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelCategoryService.impl" class="com.ext.portlet.models.service.impl.ModelCategoryServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelCategoryService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelCategoryServiceUtil" class="com.ext.portlet.models.service.ModelCategoryServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelCategoryPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelCategoryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelCategoryUtil" class="com.ext.portlet.models.service.persistence.ModelCategoryUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelCategoryPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" class="com.ext.portlet.models.service.impl.ModelInputGroupLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil" class="com.ext.portlet.models.service.ModelInputGroupLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputGroupService.impl" class="com.ext.portlet.models.service.impl.ModelInputGroupServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelInputGroupService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputGroupServiceUtil" class="com.ext.portlet.models.service.ModelInputGroupServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelInputGroupPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputGroupUtil" class="com.ext.portlet.models.service.persistence.ModelInputGroupUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelInputGroupPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputItemLocalService.impl" class="com.ext.portlet.models.service.impl.ModelInputItemLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelInputItemLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelInputItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputItemLocalServiceUtil" class="com.ext.portlet.models.service.ModelInputItemLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputItemService.impl" class="com.ext.portlet.models.service.impl.ModelInputItemServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelInputItemService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelInputItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelInputItemServiceUtil" class="com.ext.portlet.models.service.ModelInputItemServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelInputItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelInputItemUtil" class="com.ext.portlet.models.service.persistence.ModelInputItemUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelInputItemPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderLocalService.impl" class="com.ext.portlet.models.service.impl.ModelOutputChartOrderLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputChartOrderLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderLocalServiceUtil" class="com.ext.portlet.models.service.ModelOutputChartOrderLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" class="com.ext.portlet.models.service.impl.ModelOutputChartOrderServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputChartOrderServiceUtil" class="com.ext.portlet.models.service.ModelOutputChartOrderServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputChartOrderUtil" class="com.ext.portlet.models.service.persistence.ModelOutputChartOrderUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelOutputChartOrderPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemLocalService.impl" class="com.ext.portlet.models.service.impl.ModelOutputItemLocalServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputItemLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemLocalServiceUtil" class="com.ext.portlet.models.service.ModelOutputItemLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemService.impl" class="com.ext.portlet.models.service.impl.ModelOutputItemServiceImpl" />
+	<bean id="com.ext.portlet.models.service.ModelOutputItemService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.ModelOutputItemServiceUtil" class="com.ext.portlet.models.service.ModelOutputItemServiceUtil">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl" class="com.ext.portlet.models.service.persistence.ModelOutputItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.models.service.persistence.ModelOutputItemUtil" class="com.ext.portlet.models.service.persistence.ModelOutputItemUtil">
+		<property name="persistence" ref="com.ext.portlet.models.service.persistence.ModelOutputItemPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.Activity.service.ActivitySubscriptionLocalService.impl" class="com.ext.portlet.Activity.service.impl.ActivitySubscriptionLocalServiceImpl" />
+	<bean id="com.ext.portlet.Activity.service.ActivitySubscriptionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.Activity.service.ActivitySubscriptionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil" class="com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.Activity.service.ActivitySubscriptionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.Activity.service.ActivitySubscriptionService.impl" class="com.ext.portlet.Activity.service.impl.ActivitySubscriptionServiceImpl" />
+	<bean id="com.ext.portlet.Activity.service.ActivitySubscriptionService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.Activity.service.ActivitySubscriptionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.Activity.service.ActivitySubscriptionServiceUtil" class="com.ext.portlet.Activity.service.ActivitySubscriptionServiceUtil">
+		<property name="service" ref="com.ext.portlet.Activity.service.ActivitySubscriptionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPersistence.impl" class="com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.Activity.service.persistence.ActivitySubscriptionUtil" class="com.ext.portlet.Activity.service.persistence.ActivitySubscriptionUtil">
+		<property name="persistence" ref="com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPersistence.impl" />
+	</bean>
+	<!-- velocity additions -->
+	<!--  overrides -->
+	<bean id="com.liferay.portal.service.UserLocalService.impl" class="com.liferay.portal.ext.service.impl.ExtUserLocalServiceImpl" />
+	<bean id="com.liferay.portal.service.UserLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.liferay.portal.service.UserLocalService.impl" />
+	</bean>
+	<bean id="com.liferay.portal.util.PortalUtil" class="com.liferay.portal.util.PortalUtil">
+		<property name="portal">
+			<bean class="com.liferay.portal.ext.util.ExtPortalImpl" />
+		</property>
+	</bean>
+	<bean id="com.ext.portlet.migration.service.MigrationDataLocalService.impl" class="com.ext.portlet.migration.service.impl.MigrationDataLocalServiceImpl" />
+	<bean id="com.ext.portlet.migration.service.MigrationDataLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.migration.service.MigrationDataLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.MigrationDataLocalServiceUtil" class="com.ext.portlet.migration.service.MigrationDataLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationDataLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.MigrationDataService.impl" class="com.ext.portlet.migration.service.impl.MigrationDataServiceImpl" />
+	<bean id="com.ext.portlet.migration.service.MigrationDataService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.migration.service.MigrationDataService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.MigrationDataServiceUtil" class="com.ext.portlet.migration.service.MigrationDataServiceUtil">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationDataService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.persistence.MigrationDataPersistence.impl" class="com.ext.portlet.migration.service.persistence.MigrationDataPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.migration.service.persistence.MigrationDataUtil" class="com.ext.portlet.migration.service.persistence.MigrationDataUtil">
+		<property name="persistence" ref="com.ext.portlet.migration.service.persistence.MigrationDataPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.MigrationMappingLocalService.impl" class="com.ext.portlet.migration.service.impl.MigrationMappingLocalServiceImpl" />
+	<bean id="com.ext.portlet.migration.service.MigrationMappingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.migration.service.MigrationMappingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.MigrationMappingLocalServiceUtil" class="com.ext.portlet.migration.service.MigrationMappingLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationMappingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.MigrationMappingService.impl" class="com.ext.portlet.migration.service.impl.MigrationMappingServiceImpl" />
+	<bean id="com.ext.portlet.migration.service.MigrationMappingService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.migration.service.MigrationMappingService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.MigrationMappingServiceUtil" class="com.ext.portlet.migration.service.MigrationMappingServiceUtil">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationMappingService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.migration.service.persistence.MigrationMappingPersistence.impl" class="com.ext.portlet.migration.service.persistence.MigrationMappingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.migration.service.persistence.MigrationMappingUtil" class="com.ext.portlet.migration.service.persistence.MigrationMappingUtil">
+		<property name="persistence" ref="com.ext.portlet.migration.service.persistence.MigrationMappingPersistence.impl" />
+	</bean>
+	<!--  custom mb messages local service  -->
+	<bean id="com.liferay.portlet.messageboards.service.MBMessageLocalService.impl" class="com.ext.portlet.Activity.CustomMBMessageLocalServiceImpl" />
+	<bean id="com.liferay.portlet.messageboards.service.MBMessageLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.liferay.portlet.messageboards.service.MBMessageLocalService.impl" />
+	</bean>
+	<bean id="com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil" class="com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil">
+		<property name="service" ref="com.liferay.portlet.messageboards.service.MBMessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debates.service.DebateDiscussionMapLocalService.impl" class="com.ext.portlet.debates.service.impl.DebateDiscussionMapLocalServiceImpl" />
+	<bean id="com.ext.portlet.debates.service.DebateDiscussionMapLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debates.service.DebateDiscussionMapLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debates.service.DebateDiscussionMapLocalServiceUtil" class="com.ext.portlet.debates.service.DebateDiscussionMapLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debates.service.DebateDiscussionMapLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debates.service.DebateDiscussionMapService.impl" class="com.ext.portlet.debates.service.impl.DebateDiscussionMapServiceImpl" />
+	<bean id="com.ext.portlet.debates.service.DebateDiscussionMapService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debates.service.DebateDiscussionMapService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debates.service.DebateDiscussionMapServiceUtil" class="com.ext.portlet.debates.service.DebateDiscussionMapServiceUtil">
+		<property name="service" ref="com.ext.portlet.debates.service.DebateDiscussionMapService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debates.service.persistence.DebateDiscussionMapPersistence.impl" class="com.ext.portlet.debates.service.persistence.DebateDiscussionMapPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debates.service.persistence.DebateDiscussionMapUtil" class="com.ext.portlet.debates.service.persistence.DebateDiscussionMapUtil">
+		<property name="persistence" ref="com.ext.portlet.debates.service.persistence.DebateDiscussionMapPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessageLocalService.impl" class="com.ext.portlet.messaging.service.impl.MessageLocalServiceImpl" />
+	<bean id="com.ext.portlet.messaging.service.MessageLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.messaging.service.MessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessageLocalServiceUtil" class="com.ext.portlet.messaging.service.MessageLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessageService.impl" class="com.ext.portlet.messaging.service.impl.MessageServiceImpl" />
+	<bean id="com.ext.portlet.messaging.service.MessageService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.messaging.service.MessageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessageServiceUtil" class="com.ext.portlet.messaging.service.MessageServiceUtil">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.persistence.MessagePersistence.impl" class="com.ext.portlet.messaging.service.persistence.MessagePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.messaging.service.persistence.MessageUtil" class="com.ext.portlet.messaging.service.persistence.MessageUtil">
+		<property name="persistence" ref="com.ext.portlet.messaging.service.persistence.MessagePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessageRecipientStatusLocalService.impl" class="com.ext.portlet.messaging.service.impl.MessageRecipientStatusLocalServiceImpl" />
+	<bean id="com.ext.portlet.messaging.service.MessageRecipientStatusLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.messaging.service.MessageRecipientStatusLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessageRecipientStatusLocalServiceUtil" class="com.ext.portlet.messaging.service.MessageRecipientStatusLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageRecipientStatusLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessageRecipientStatusService.impl" class="com.ext.portlet.messaging.service.impl.MessageRecipientStatusServiceImpl" />
+	<bean id="com.ext.portlet.messaging.service.MessageRecipientStatusService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.messaging.service.MessageRecipientStatusService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessageRecipientStatusServiceUtil" class="com.ext.portlet.messaging.service.MessageRecipientStatusServiceUtil">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageRecipientStatusService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.persistence.MessageRecipientStatusPersistence.impl" class="com.ext.portlet.messaging.service.persistence.MessageRecipientStatusPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.messaging.service.persistence.MessageRecipientStatusUtil" class="com.ext.portlet.messaging.service.persistence.MessageRecipientStatusUtil">
+		<property name="persistence" ref="com.ext.portlet.messaging.service.persistence.MessageRecipientStatusPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessagingUserPreferencesLocalService.impl" class="com.ext.portlet.messaging.service.impl.MessagingUserPreferencesLocalServiceImpl" />
+	<bean id="com.ext.portlet.messaging.service.MessagingUserPreferencesLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.messaging.service.MessagingUserPreferencesLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessagingUserPreferencesLocalServiceUtil" class="com.ext.portlet.messaging.service.MessagingUserPreferencesLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessagingUserPreferencesLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessagingUserPreferencesService.impl" class="com.ext.portlet.messaging.service.impl.MessagingUserPreferencesServiceImpl" />
+	<bean id="com.ext.portlet.messaging.service.MessagingUserPreferencesService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.messaging.service.MessagingUserPreferencesService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.MessagingUserPreferencesServiceUtil" class="com.ext.portlet.messaging.service.MessagingUserPreferencesServiceUtil">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessagingUserPreferencesService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.messaging.service.persistence.MessagingUserPreferencesPersistence.impl" class="com.ext.portlet.messaging.service.persistence.MessagingUserPreferencesPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.messaging.service.persistence.MessagingUserPreferencesUtil" class="com.ext.portlet.messaging.service.persistence.MessagingUserPreferencesUtil">
+		<property name="persistence" ref="com.ext.portlet.messaging.service.persistence.MessagingUserPreferencesPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageLocalService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingMessageLocalServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingMessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageLocalServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingMessageLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingMessageServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingMessageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingMessageServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingMessagePersistence.impl" class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessagePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageUtil" class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageUtil">
+		<property name="persistence" ref="com.ext.portlet.mass_messaging.service.persistence.MessagingMessagePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientLocalService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingMessageRecipientLocalServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientLocalServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingMessageRecipientServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageRecipientPersistence.impl" class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageRecipientPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageRecipientUtil" class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageRecipientUtil">
+		<property name="persistence" ref="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageRecipientPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeLocalService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingMessageConversionTypeLocalServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeLocalServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingMessageConversionTypeServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionTypePersistence.impl" class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionTypePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionTypeUtil" class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionTypeUtil">
+		<property name="persistence" ref="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionTypePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionLocalService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingMessageConversionLocalServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionLocalServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingMessageConversionLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingMessageConversionServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingMessageConversionServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingMessageConversionServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionPersistence.impl" class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionUtil" class="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionUtil">
+		<property name="persistence" ref="com.ext.portlet.mass_messaging.service.persistence.MessagingMessageConversionPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkLocalService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingRedirectLinkLocalServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkLocalServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingRedirectLinkServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingRedirectLinkPersistence.impl" class="com.ext.portlet.mass_messaging.service.persistence.MessagingRedirectLinkPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingRedirectLinkUtil" class="com.ext.portlet.mass_messaging.service.persistence.MessagingRedirectLinkUtil">
+		<property name="persistence" ref="com.ext.portlet.mass_messaging.service.persistence.MessagingRedirectLinkPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsLocalService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingIgnoredRecipientsLocalServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsLocalServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService.impl" class="com.ext.portlet.mass_messaging.service.impl.MessagingIgnoredRecipientsServiceImpl" />
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsServiceUtil" class="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsServiceUtil">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingIgnoredRecipientsPersistence.impl" class="com.ext.portlet.mass_messaging.service.persistence.MessagingIgnoredRecipientsPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.mass_messaging.service.persistence.MessagingIgnoredRecipientsUtil" class="com.ext.portlet.mass_messaging.service.persistence.MessagingIgnoredRecipientsUtil">
+		<property name="persistence" ref="com.ext.portlet.mass_messaging.service.persistence.MessagingIgnoredRecipientsPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateLocalService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateLocalServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateLocalServiceUtil" class="com.ext.portlet.debaterevision.service.DebateLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateServiceUtil" class="com.ext.portlet.debaterevision.service.DebateServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebatePersistence.impl" class="com.ext.portlet.debaterevision.service.persistence.DebatePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateUtil">
+		<property name="persistence" ref="com.ext.portlet.debaterevision.service.persistence.DebatePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateFinder.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateFinderImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateFinderUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateFinderUtil">
+		<property name="finder" ref="com.ext.portlet.debaterevision.service.persistence.DebateFinder.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemLocalService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateItemLocalServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil" class="com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateItemServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemServiceUtil" class="com.ext.portlet.debaterevision.service.DebateItemServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemPersistence.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateItemUtil">
+		<property name="persistence" ref="com.ext.portlet.debaterevision.service.persistence.DebateItemPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemFinder.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateItemFinderImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemFinderUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateItemFinderUtil">
+		<property name="finder" ref="com.ext.portlet.debaterevision.service.persistence.DebateItemFinder.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemReferenceLocalService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateItemReferenceLocalServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemReferenceLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateItemReferenceLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemReferenceLocalServiceUtil" class="com.ext.portlet.debaterevision.service.DebateItemReferenceLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemReferenceLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemReferenceService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateItemReferenceServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemReferenceService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateItemReferenceService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemReferenceServiceUtil" class="com.ext.portlet.debaterevision.service.DebateItemReferenceServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemReferenceService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemReferencePersistence.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateItemReferencePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemReferenceUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateItemReferenceUtil">
+		<property name="persistence" ref="com.ext.portlet.debaterevision.service.persistence.DebateItemReferencePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryLocalService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateCategoryLocalServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryLocalServiceUtil" class="com.ext.portlet.debaterevision.service.DebateCategoryLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateCategoryServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryServiceUtil" class="com.ext.portlet.debaterevision.service.DebateCategoryServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateCategoryPersistence.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateCategoryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateCategoryUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateCategoryUtil">
+		<property name="persistence" ref="com.ext.portlet.debaterevision.service.persistence.DebateCategoryPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateCategoryFinder.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateCategoryFinderImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateCategoryFinderUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateCategoryFinderUtil">
+		<property name="finder" ref="com.ext.portlet.debaterevision.service.persistence.DebateCategoryFinder.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryMapLocalService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateCategoryMapLocalServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryMapLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateCategoryMapLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryMapLocalServiceUtil" class="com.ext.portlet.debaterevision.service.DebateCategoryMapLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryMapLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryMapService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateCategoryMapServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryMapService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateCategoryMapService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCategoryMapServiceUtil" class="com.ext.portlet.debaterevision.service.DebateCategoryMapServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryMapService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateCategoryMapPersistence.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateCategoryMapPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateCategoryMapUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateCategoryMapUtil">
+		<property name="persistence" ref="com.ext.portlet.debaterevision.service.persistence.DebateCategoryMapPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCommentLocalService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateCommentLocalServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateCommentLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateCommentLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCommentLocalServiceUtil" class="com.ext.portlet.debaterevision.service.DebateCommentLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCommentLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCommentService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateCommentServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateCommentService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateCommentService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateCommentServiceUtil" class="com.ext.portlet.debaterevision.service.DebateCommentServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCommentService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateCommentPersistence.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateCommentPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateCommentUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateCommentUtil">
+		<property name="persistence" ref="com.ext.portlet.debaterevision.service.persistence.DebateCommentPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteLocalService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateItemVoteLocalServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateItemVoteLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteLocalServiceUtil" class="com.ext.portlet.debaterevision.service.DebateItemVoteLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateItemVoteServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateItemVoteService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteServiceUtil" class="com.ext.portlet.debaterevision.service.DebateItemVoteServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemVotePersistence.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateItemVotePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemVoteUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateItemVoteUtil">
+		<property name="persistence" ref="com.ext.portlet.debaterevision.service.persistence.DebateItemVotePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteStatsLocalService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateItemVoteStatsLocalServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteStatsLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateItemVoteStatsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteStatsLocalServiceUtil" class="com.ext.portlet.debaterevision.service.DebateItemVoteStatsLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteStatsLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService.impl" class="com.ext.portlet.debaterevision.service.impl.DebateItemVoteStatsServiceImpl" />
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.DebateItemVoteStatsServiceUtil" class="com.ext.portlet.debaterevision.service.DebateItemVoteStatsServiceUtil">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemVoteStatsPersistence.impl" class="com.ext.portlet.debaterevision.service.persistence.DebateItemVoteStatsPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debaterevision.service.persistence.DebateItemVoteStatsUtil" class="com.ext.portlet.debaterevision.service.persistence.DebateItemVoteStatsUtil">
+		<property name="persistence" ref="com.ext.portlet.debaterevision.service.persistence.DebateItemVoteStatsPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationLocalService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationLocalServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationLocalServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationPersistence.impl" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationUtil" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationUtil">
+		<property name="persistence" ref="com.ext.portlet.debatemigration.service.persistence.DebateMigrationPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCategoryLocalService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationCategoryLocalServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCategoryLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCategoryLocalServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationCategoryLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationCategoryServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCategoryServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationCategoryServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCategoryPersistence.impl" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCategoryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCategoryUtil" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCategoryUtil">
+		<property name="persistence" ref="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCategoryPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationDebateLocalService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationDebateLocalServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationDebateLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationDebateLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationDebateLocalServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationDebateLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationDebateLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationDebateService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationDebateServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationDebateService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationDebateService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationDebateServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationDebateServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationDebateService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationDebatePersistence.impl" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationDebatePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationDebateUtil" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationDebateUtil">
+		<property name="persistence" ref="com.ext.portlet.debatemigration.service.persistence.DebateMigrationDebatePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationItemLocalService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationItemLocalServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationItemLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationItemLocalServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationItemLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationItemLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationItemService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationItemServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationItemService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationItemServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationItemServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationItemService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationItemPersistence.impl" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationItemUtil" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationItemUtil">
+		<property name="persistence" ref="com.ext.portlet.debatemigration.service.persistence.DebateMigrationItemPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCommentLocalService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationCommentLocalServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCommentLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationCommentLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCommentLocalServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationCommentLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCommentLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCommentService.impl" class="com.ext.portlet.debatemigration.service.impl.DebateMigrationCommentServiceImpl" />
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCommentService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.debatemigration.service.DebateMigrationCommentService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.DebateMigrationCommentServiceUtil" class="com.ext.portlet.debatemigration.service.DebateMigrationCommentServiceUtil">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCommentService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCommentPersistence.impl" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCommentPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCommentUtil" class="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCommentUtil">
+		<property name="persistence" ref="com.ext.portlet.debatemigration.service.persistence.DebateMigrationCommentPersistence.impl" />
+	</bean>
+	<bean id="com.ext.inlinehelp.service.HelpUserSettingLocalService.impl" class="com.ext.inlinehelp.service.impl.HelpUserSettingLocalServiceImpl" />
+	<bean id="com.ext.inlinehelp.service.HelpUserSettingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.inlinehelp.service.HelpUserSettingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.inlinehelp.service.HelpUserSettingLocalServiceUtil" class="com.ext.inlinehelp.service.HelpUserSettingLocalServiceUtil">
+		<property name="service" ref="com.ext.inlinehelp.service.HelpUserSettingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.inlinehelp.service.HelpUserSettingService.impl" class="com.ext.inlinehelp.service.impl.HelpUserSettingServiceImpl" />
+	<bean id="com.ext.inlinehelp.service.HelpUserSettingService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.inlinehelp.service.HelpUserSettingService.impl" />
+	</bean>
+	<bean id="com.ext.inlinehelp.service.HelpUserSettingServiceUtil" class="com.ext.inlinehelp.service.HelpUserSettingServiceUtil">
+		<property name="service" ref="com.ext.inlinehelp.service.HelpUserSettingService.impl" />
+	</bean>
+	<bean id="com.ext.inlinehelp.service.persistence.HelpUserSettingPersistence.impl" class="com.ext.inlinehelp.service.persistence.HelpUserSettingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.inlinehelp.service.persistence.HelpUserSettingUtil" class="com.ext.inlinehelp.service.persistence.HelpUserSettingUtil">
+		<property name="persistence" ref="com.ext.inlinehelp.service.persistence.HelpUserSettingPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionCategoryGroupLocalServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil" class="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionCategoryGroupServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryGroupServiceUtil" class="com.ext.portlet.discussions.service.DiscussionCategoryGroupServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupPersistence.impl" class="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupUtil" class="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupUtil">
+		<property name="persistence" ref="com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryLocalService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionCategoryLocalServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil" class="com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionCategoryServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionCategoryServiceUtil" class="com.ext.portlet.discussions.service.DiscussionCategoryServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionCategoryPersistence.impl" class="com.ext.portlet.discussions.service.persistence.DiscussionCategoryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionCategoryUtil" class="com.ext.portlet.discussions.service.persistence.DiscussionCategoryUtil">
+		<property name="persistence" ref="com.ext.portlet.discussions.service.persistence.DiscussionCategoryPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageLocalService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionMessageLocalServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionMessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil" class="com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionMessageServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageServiceUtil" class="com.ext.portlet.discussions.service.DiscussionMessageServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence.impl" class="com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionMessageUtil" class="com.ext.portlet.discussions.service.persistence.DiscussionMessageUtil">
+		<property name="persistence" ref="com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestLocalServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestLocalServiceUtil" class="com.ext.portlet.contests.service.ContestLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestService.impl" class="com.ext.portlet.contests.service.impl.ContestServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestServiceUtil" class="com.ext.portlet.contests.service.ContestServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestUtil" class="com.ext.portlet.contests.service.persistence.ContestUtil">
+		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestDebateLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestDebateLocalServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestDebateLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestDebateLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestDebateLocalServiceUtil" class="com.ext.portlet.contests.service.ContestDebateLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestDebateLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestDebateService.impl" class="com.ext.portlet.contests.service.impl.ContestDebateServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestDebateService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestDebateService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestDebateServiceUtil" class="com.ext.portlet.contests.service.ContestDebateServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestDebateService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.persistence.ContestDebatePersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestDebatePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestDebateUtil" class="com.ext.portlet.contests.service.persistence.ContestDebateUtil">
+		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestDebatePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseLocalServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestPhasePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseUtil">
+		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseColumnLocalServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnLocalServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseColumnLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseColumnServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseColumnServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil">
+		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" class="com.ext.conditionaltext.service.impl.ConditionalTextSettingLocalServiceImpl" />
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalServiceUtil" class="com.ext.conditionaltext.service.ConditionalTextSettingLocalServiceUtil">
+		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" class="com.ext.conditionaltext.service.impl.ConditionalTextSettingServiceImpl" />
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingServiceUtil" class="com.ext.conditionaltext.service.ConditionalTextSettingServiceUtil">
+		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
+	</bean>
+	<bean id="com.ext.conditionaltext.service.persistence.ConditionalTextSettingPersistence.impl" class="com.ext.conditionaltext.service.persistence.ConditionalTextSettingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.conditionaltext.service.persistence.ConditionalTextSettingUtil" class="com.ext.conditionaltext.service.persistence.ConditionalTextSettingUtil">
+		<property name="persistence" ref="com.ext.conditionaltext.service.persistence.ConditionalTextSettingPersistence.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingLocalService.impl" class="com.ext.portlet.facebook.service.impl.UserFacebookMappingLocalServiceImpl" />
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.facebook.service.UserFacebookMappingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingLocalServiceUtil" class="com.ext.portlet.facebook.service.UserFacebookMappingLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" class="com.ext.portlet.facebook.service.impl.UserFacebookMappingServiceImpl" />
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.UserFacebookMappingServiceUtil" class="com.ext.portlet.facebook.service.UserFacebookMappingServiceUtil">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.facebook.service.persistence.UserFacebookMappingPersistence.impl" class="com.ext.portlet.facebook.service.persistence.UserFacebookMappingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.facebook.service.persistence.UserFacebookMappingUtil" class="com.ext.portlet.facebook.service.persistence.UserFacebookMappingUtil">
+		<property name="persistence" ref="com.ext.portlet.facebook.service.persistence.UserFacebookMappingPersistence.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestLocalService.impl" class="com.ext.utils.service.impl.UserForgotPasswordRequestLocalServiceImpl" />
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.utils.service.UserForgotPasswordRequestLocalService.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestLocalServiceUtil" class="com.ext.utils.service.UserForgotPasswordRequestLocalServiceUtil">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestLocalService.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestService.impl" class="com.ext.utils.service.impl.UserForgotPasswordRequestServiceImpl" />
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.UserForgotPasswordRequestServiceUtil" class="com.ext.utils.service.UserForgotPasswordRequestServiceUtil">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+	</bean>
+	<bean id="com.ext.utils.service.persistence.UserForgotPasswordRequestPersistence.impl" class="com.ext.utils.service.persistence.UserForgotPasswordRequestPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.utils.service.persistence.UserForgotPasswordRequestUtil" class="com.ext.utils.service.persistence.UserForgotPasswordRequestUtil">
+		<property name="persistence" ref="com.ext.utils.service.persistence.UserForgotPasswordRequestPersistence.impl" />
+	</bean>
+</beans>

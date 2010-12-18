@@ -1,0 +1,58 @@
+.about ul,
+.about ol,
+.resources ul,
+.resources ol {
+    margin-left: 10px;
+}
+
+.about li,
+.resources li {
+    margin-left: 10px;
+}
+
+/** ABOUT TAB **/
+ div.about.intro.themed-content {
+    background:#F9F9F8;
+     padding: 0px 70px;
+     font-size:2.2em;
+     font-family:Myriad Pro, Helvetica, sans-serif;
+     font-style:italic;
+     line-height:1.0em;
+     color: #C74430;
+}
+
+div.about.subtext.themed-content {
+    background:#F9F9F8;
+     padding: 30px 70px;
+     padding-bottom: 0px;
+     font-size:1.3em;
+     font-family:Tahoma, Helvetica, sans-serif;
+     
+}
+
+
+#content_home div.about.subtext.themed-content td.left {
+	padding: 0;
+	margin: 0;
+	float: none;
+	width: auto;
+}
+
+#content_home  div.about.subtext.themed-content td.right {
+    padding:15px;
+    float: none;
+}
+
+#content_home div.about.subtext.themed-content td.right div.shadow {
+    background:none repeat scroll 0 0 #968e7a;
+}
+
+#content_home div.about.subtext.themed-content td.right div.shadow img {
+    position:relative;
+    left:-10px;
+    top:-10px;
+}
+
+.resources #content .lfr-portlet-column {
+    padding: 15px;
+}

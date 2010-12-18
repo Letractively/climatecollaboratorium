@@ -1,0 +1,149 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+    /**
+     *
+     *
+     * User login form.
+     *
+     * @author TCSDEVELOPER
+     * @version 1.0
+     */
+%>
+<%@page import="com.liferay.portlet.login.util.LoginUtil" %>
+<%
+    String login = LoginUtil.getLogin(request, "login", company);
+    String password = StringPool.BLANK;
+    boolean rememberMe = ParamUtil.getBoolean(request, "rememberMe");
+
+
+%>
+
+<script language="javascript">
+    function <portlet:namespace/>doLogin() {
+        document. < portlet:namespace/>login.submit();
+    };
+</script>
+
+<portlet:actionURL secure="<%= PropsValues.COMPANY_SECURITY_AUTH_REQUIRES_HTTPS || request.isSecure() %>"
+                   var="submitURL">
+    <portlet:param name="saveLastPath" value="0"/>
+    <portlet:param name="struts_action" value="/ext/loginregister/login"/>
+    <portlet:param name="isLoggingIn" value="true"/>
+</portlet:actionURL>
+
+<h3 class="boxTitle">Log in with your Climate CoLab account</h3>
+
+<form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />login"
+      id='<portlet:namespace />loginForm'>
+    <input name="<portlet:namespace />redirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"
+           id='<portlet:namespace />loginRedirect'/>
+    <input id="<portlet:namespace />rememberMe" name="<portlet:namespace />rememberMe" type="hidden"
+           value="<%= rememberMe %>"/>
+    <input id="<portlet:namespace />source" name="<portlet:namespace />source" type="hidden" value="login"/>
+
+    <c:if test='<%= SessionMessages.contains(request, "user_added") %>'>
+
+        <%
+            String userEmailAddress = (String) SessionMessages.get(request, "user_added");
+            String userPassword = (String) SessionMessages.get(request, "user_added_password");
+        %>
+
+		<span class="portlet-msg-success">
+			<c:choose>
+                <c:when test="<%= company.isStrangersVerify() || Validator.isNull(userPassword) %>">
+                    <%= LanguageUtil.format(pageContext, "thank-you-for-creating-an-account-your-password-has-been-sent-to-x", userEmailAddress) %>
+                </c:when>
+                <c:otherwise>
+                    <%= LanguageUtil.format(pageContext, "thank-you-for-creating-an-account-your-password-is-x", new Object[]{userPassword, userEmailAddress}) %>
+                </c:otherwise>
+            </c:choose>
+		</span>
+    </c:if>
+    <table>
+        <tr class="row">
+            <td colspan="2">
+                <c:if test="${isLoggingIn}">
+                    <liferay-ui:error exception="<%= AuthException.class%>"
+                                      message="Authentication failed"></liferay-ui:error>
+                    <liferay-ui:error exception="<%= UserPasswordException.class %>"
+                                      message="Authentication failed"></liferay-ui:error>
+                    <liferay-ui:error exception="<%= UserScreenNameException.class %>" message="Invalid screen name"/>
+                </c:if>
+            </td>
+        </tr>
+        <tr class="row">
+            <td>
+                <label class="lable" for="<portlet:namespace />login">Screen name:</label>
+            </td>
+            <td>
+                <input class="text" name="<portlet:namespace />login" type="text"
+                       value="<%= HtmlUtil.escape(login) %>"/>
+            </td>
+        </tr>
+        <tr class="row">
+            <td>
+                <label class="lable" for="<portlet:namespace />password">Password:</label>
+            </td>
+            <td>
+                <input class="text" id="<portlet:namespace />password" name="<portlet:namespace />password"
+                       type="password" value="<%= password %>"/>
+            </td>
+        </tr>
+        <tr class="row rememberMe">
+            <td colspan="2">
+                <input <%= rememberMe ? "checked" : "" %> id="<portlet:namespace />rememberMeCheckbox" type="checkbox"/>
+                <label for="<portlet:namespace />rememberMeCheckbox"><liferay-ui:message key="remember-me"/></label>
+            </td>
+        </tr>
+        <tr class="row forgotPassword">
+            <td colspan="2">
+                <portlet:renderURL var="forgotURL">
+                    <portlet:param name="struts_action" value="/ext/loginregister/forgotpassword"/>
+                </portlet:renderURL>
+
+                <a href="${forgotURL}">
+                    Forgot Password?
+                </a>
+            </td>
+        </tr>
+        <tr class="row buttons">
+            <td colspan="2">
+                <input type="button" value="Log In" onClick="<portlet:namespace />doLogin(); return false;"/>
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+<script type="text/javascript">
+    
+
+    jQuery(function() {
+            jQuery('#<portlet:namespace />rememberMeCheckbox').click(
+                    function() {
+
+                        var checked = 'off';
+
+                        if (this.checked) {
+                            checked = 'on';
+                        }
+                        jQuery('#<portlet:namespace />rememberMe').val(checked);
+                    }
+                    );
+
+
+
+
+
+
+
+           
+    });
+
+
+</script>

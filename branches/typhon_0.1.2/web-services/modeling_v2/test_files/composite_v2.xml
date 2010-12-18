@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+    <inputs>
+        <simulation id="720">
+            <input included="false" internalname="Developed start year"/>
+            <input included="false" internalname="Developing A start year"/>
+            <input included="false" internalname="Developing B start year"/>
+            <input included="false" internalname="Developed target year"/>
+            <input included="false" internalname="Developing A target year"/>
+            <input included="false" internalname="Developing B target year"/>
+            <input included="false" internalname="Pct change in Developed FF emissions"/>
+            <input included="false" internalname="Pct change in Developing A FF emissions"/>
+            <input included="false" internalname="Pct change in Developing B FF emissions"/>
+        </simulation>
+        <simulation id="780"/>
+        <simulation id="781">
+            <input included="false" internalname="MERGE_Costs_input1"/>
+            <input included="false" internalname="MiniCAM_Costs_input2"/>
+            <input included="false" internalname="IGSM_Costs_input3"/>
+        </simulation>
+    </inputs>
+    <step>
+        <simulation id="780"/>
+        <simulation id="720">
+            <input internalname="Developed start year" source="780.Developed_Nations_Change_Start_Year_output1"/>
+            <input internalname="Developing A start year" source="780.Developing_Nations_Start_Year_output4"/>
+            <input internalname="Developing B start year" source="780.Other_Nations_Start_Year_output7"/>
+            <input internalname="Developed target year" source="780.Developed_Nations_Change_Target_Year_output2"/>
+            <input internalname="Developing A target year" source="780.Developing_Nations_Target_Year_output5"/>
+            <input internalname="Developing B target year" source="780.Other_Nations_Target_Year_output8"/>
+            <input internalname="Pct change in Developed FF emissions" source="780.Developed_Nations_Emissions_Reductions_output0"/>
+            <input internalname="Pct change in Developing A FF emissions" source="780.Developing_Nations_Emissions_Reductions_output3"/>
+            <input internalname="Pct change in Developing B FF emissions" source="780.Other_Nations_Emissions_Reducions_output6"/>
+        </simulation>
+
+    </step>
+    <step>
+        <simulation id="586">
+            <input internalname="Temperature" map="all" source="720.GlobalTempChange"/>
+        </simulation>
+        <simulation id="587">
+            <input internalname="Temperature" map="all" source="720.GlobalTempChange"/>
+        </simulation>
+        <simulation id="583">
+            <input internalname="Atmospheric_CO2_concentration" map="all" source="720.AtmosphericCO2Concentration"/>
+            <input internalname="Time" interval="10" map="some" source="720.Year"/>
+        </simulation>
+        <simulation id="584">
+            <input internalname="Atmospheric_CO2_concentration" map="all" source="720.AtmosphericCO2Concentration"/>
+            <input internalname="Time" interval="10" map="some" source="720.Year"/>
+        </simulation>
+         <simulation id="585">
+            <input internalname="Atmospheric_CO2_concentration" map="all" source="720.AtmosphericCO2Concentration"/>
+            <input internalname="Time" interval="10" map="some" source="720.Year"/>
+        </simulation>
+        <simulation id="588">
+            <input internalname="Temperature_Change" map="max" source="720.GlobalTempChange"/>
+        </simulation>
+        <simulation id="681">
+            <input internalname="Temperature_Change" map="max" source="720.GlobalTempChange"/>
+        </simulation>
+        <simulation accumulate="true" id="621">
+            <input internalname="Temperature" map="all" source="720.GlobalTempChange"/>
+        </simulation>
+       <simulation id="781">
+            <input internalname="MERGE_Costs_input1" map="max" source="583._Change_in_GDP_vs__baseline_igsm_output"/>
+            <input internalname="MiniCAM_Costs_input2" map="max" source="584._Change_in_GDP_vs__baseline_merge_output"/>
+            <input internalname="IGSM_Costs_input3" map="max" source="585._Change_in_GDP_vs__baseline_minicam_output"/>
+        </simulation>
+    </step>
+    <outputs>
+        <simulation id="720"/>
+        <simulation id="621"/>
+        <simulation id="583"/>
+        <simulation id="584"/>
+        <simulation id="585"/>
+        <simulation id="586"/>
+        <simulation id="587"/>
+        <simulation id="681"/>
+        <simulation id="588"/>
+        <simulation id="781"/>
+    </outputs>
+</root>

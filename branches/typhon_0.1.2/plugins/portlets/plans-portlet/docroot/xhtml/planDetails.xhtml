@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:collab="http://climatecollaboratorium.org/components"
+        >
+
+    <div class="top_separator">&amp;nbsp;</div>
+    <div id="protop">
+        <div class="vote">
+            <ice:form>
+                <ice:commandLink styleClass="prominantButton"  actionListener="#{plan.plan.vote}"
+                    rendered="#{votingPhase and not plan.plan.votedOn}" onclick="if(!deferUntilLogin()) return false;">
+                    <span>VOTE</span> for proposal
+                </ice:commandLink>
+                <ice:commandLink styleClass="prominantButton"
+                    actionListener="#{plan.plan.unvote}" rendered="#{votingPhase and plan.plan.votedOn}">
+                    <span>RETRACT</span>vote
+                </ice:commandLink>
+                <ice:commandLink styleClass="prominantButton" actionListener="#{plan.plan.becomeAFan}"
+                    rendered="#{!votingPhase and not plan.plan.userAFan}" onclick="if(!deferUntilLogin()) return false;">
+                    <span>SUPPORT</span> proposal
+                </ice:commandLink>
+                <ice:commandLink styleClass="prominantButton"
+                    actionListener="#{plan.plan.unfan}" rendered="#{!votingPhase and plan.plan.userAFan}">
+                    <span>RETRACT</span> support
+                </ice:commandLink>
+            </ice:form>
+        </div>
+    </div>
+    
+        <f:subview rendered="#{not plan.editingName}">
+            <h1 class="spn">Proposals: &amp;nbsp;
+                <ice:outputText styleClass="planName" value="#{plan.plan.name}">
+                    <f:converter converterId="StringTruncateConverter"/>
+                    <f:attribute name="maxLength" value="35" />
+                </ice:outputText>
+            </h1>
+            <ice:form style="display: inline">
+                <ice:commandLink value="rename" actionListener="#{plan.editName}" rendered="#{permissions.canEdit}"/>
+            </ice:form>
+        </f:subview>
+        <f:subview rendered="#{plan.editingName}">
+            <ice:panelGroup styleClass="hidden ">
+                <script type="text/javascript">
+                    Collab.nav.addEditorDirtyValidationCallback(checkIfPlanNameDirty);
+                </script>
+            </ice:panelGroup>
+                      
+            <ice:form>         
+            <h2>
+                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput' onchange="jQuery(this).addClass('valueChanged');" partialSubmit="true">
+                    <f:attribute name="plan" value="#{plan.plan}"/>
+                    <f:validator validatorId="planNameValidator"/>
+                    <f:attribute name="planName" value="#{plan.plan.name}" />
+                </ice:inputText>
+            </h2>
+
+            <div class="actions">
+                <ice:commandButton actionListener="#{plan.plan.saveName}"  value="Save"/>&amp;nbsp;&amp;nbsp;
+                <ice:commandButton actionListener="#{plan.editName}" immediate="true" value="Cancel"/>
+            </div>
+            </ice:form>
+            <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>
+        </f:subview>
+        
+        <f:subview rendered="#{not plan.editingName}">
+            <iframe src="http://www.facebook.com/plugins/like.php?href=#{plan.relativeUrl}&amp;layout=button_count&amp;show_faces=false&amp;width=55&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;padding-left:10px;margin-bottom:-4px" allowTransparency="true"></iframe>
+        </f:subview>
+                
+
+     <div class="clear"></div>
+    
+
+    <ice:panelGroup styleClass="portlet">
+        <div class="container">
+            <div class="container_top">
+<!-- 
+                <ice:panelGrid columns="2" styleClass="topActions">
+                    <ice:panelGroup>
+                    <ice:form>
+                            <ice:commandButton styleClass="prominantButton" value="Vote for this proposal" actionListener="#{plan.plan.vote}"
+                                               rendered="#{votingPhase and not plan.plan.votedOn}" onclick="if(!deferUntilLogin()) return false;"/>
+                            <ice:commandButton styleClass="prominantButton" value="Retract vote for this proposal"
+                                               actionListener="#{plan.plan.unvote}"
+                                               rendered="#{votingPhase and plan.plan.votedOn}"/>
+                            <ice:commandButton styleClass="prominantButton" value="Support this proposal" actionListener="#{plan.plan.becomeAFan}"
+                                               rendered="#{!votingPhase and not plan.plan.userAFan}" onclick="if(!deferUntilLogin()) return false;"/>
+                            <ice:commandButton styleClass="prominantButton" value="Retract support for this proposal"
+                                               actionListener="#{plan.plan.unfan}"
+                                               rendered="#{!votingPhase and plan.plan.userAFan}"/>
+                       </ice:form>
+
+                  </ice:panelGroup>
+                <ice:panelGroup>
+                    <ice:form>
+                        <ui:include src="./createPlan.xhtml">
+                            <ui:param value="#{plan.createPlanBean}" name="createPlanBean"/>
+                        </ui:include>    
+                    <ice:commandButton styleClass="prominantButton" value="Copy this proposal" onclick="if(!deferUntilLogin()) return false;"
+                                           actionListener="#{plan.createPlanBean.createPlan}"
+				 rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}"></ice:commandButton>
+
+                         </ice:form>
+                </ice:panelGroup>
+                
+
+                </ice:panelGrid>
+                
+                   -->   
+                   <!--  
+                 <div class="title">
+                    <ice:form>
+                        <div class="icon">
+                            <f:subview rendered="#{not plan.editingName}">
+                                <h1><span class="label">Proposal:</span> <ice:outputText styleClass="planName" value="#{plan.plan.name}"/></h1>
+
+
+                                                        <ice:commandLink value="rename" actionListener="#{plan.editName}"
+                                                                         rendered="#{permissions.canEdit}"/>
+
+                                <iframe src="http://www.facebook.com/plugins/like.php?href=#{plan.relativeUrl}&amp;layout=button_count&amp;show_faces=false&amp;width=55&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;padding-left:10px;margin-bottom:-4px" allowTransparency="true"></iframe>
+                                                    
+
+                            </f:subview>
+                            <f:subview rendered="#{plan.editingName}">
+
+                                <ice:panelGroup styleClass="hidden ">
+                                    <script type="text/javascript">
+                                        Collab.nav.addEditorDirtyValidationCallback(checkIfPlanNameDirty);
+                                    </script>
+                                </ice:panelGroup>
+                               
+                                <h2><ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput'
+                                               onchange="jQuery(this).addClass('valueChanged');">
+                                    <f:attribute name="plan" value="#{plan.plan}"/>
+                                    <f:validator validatorId="planNameValidator"/>
+                                    <f:attribute name="planName" value="#{plan.plan.name}" />
+                                </ice:inputText>
+                                </h2>
+
+                                <div class="actions">
+                                    <ice:commandButton actionListener="#{plan.plan.saveName}"  value="Save"/>&amp;nbsp;&amp;nbsp;
+                                    <ice:commandButton actionListener="#{plan.editName}"
+                                                     immediate="true" value="Cancel"/>
+                                </div>
+                                <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>
+                            </f:subview>
+
+                            <div class="clear"></div>
+                        </div>
+
+
+                    </ice:form>
+                </div>      
+                <div class="clear"></div>
+                -->
+
+
+            </div>
+            <ice:form>
+<!-- 
+    <ice:panelGroup rendered="#{plan.selectedTab==0}">
+
+        <collab:helpMessage messageId="planAdminHelp" styleClass="planHelp"
+                            hideThisMessage="Hide this message" defaultState="closed">
+            <p>
+                Teams can choose settings their proposal's status and editing options.
+            </p>
+
+            <p>
+                Teams can also seek help from other Climate CoLab members.
+            </p>
+
+            <p>
+                All versions get saved and can be viewed (and reverted, if desired) in a proposal's History.
+
+                <a href="/web/guest/resources/-/wiki/Main/About+proposals">See more</a>.
+            </p>
+        </collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planAdminHelp">+show help</collab:helpMessageTrigger>
+       
+
+    </ice:panelGroup>
+     <ice:panelGroup rendered="#{plan.selectedTab==1}">
+        <collab:helpMessage messageId="planDescriptionHelp" styleClass="planHelp"
+                            hideThisMessage="Hide this message" defaultState="closed">
+            Teams are invited to outline:
+            <ul>
+                <li>why their proposed actions and anticipated impacts are desirable</li>
+                <li>how the designated commitments can be achieved</li>
+            </ul>
+            Teams may also include a vision of how the future will look under their proposal, through videos, pictures, or stories.
+            <a href="/web/guest/resources/-/wiki/Main/About+proposals">See more</a>.
+        </collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planDescriptionHelp">+show help</collab:helpMessageTrigger>
+    </ice:panelGroup>
+    <ice:panelGroup rendered="#{plan.selectedTab==2}">
+        <collab:helpMessage messageId="planModelRunHelp" styleClass="planHelp"
+                            hideThisMessage="Hide this message" defaultState="closed">
+            Key Actions for proposals in the 2010 contest are commitments to:
+            <ul>
+                <li>reduce greenhouse gas emissions</li>
+                <li>reduce deforestation and increase tree cover</li>
+            </ul>
+            These actions become inputs to the&amp;nbsp;<a
+                href="/web/guest/resources/-/wiki/Main/MIT+Composite+Model">MIT Composite Model</a>.
+            The model projects the environmental and economic Impacts of the proposed actions.&amp;nbsp;<a
+                href="/web/guest/resources/-/wiki/Main/About+proposals">See more</a>.
+        </collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planModelRunHelp">+show help</collab:helpMessageTrigger>
+    </ice:panelGroup>
+
+
+    <ice:panelGroup rendered="#{plan.selectedTab==3}">
+        <collab:helpMessage messageId="planPositionHelp" styleClass="planHelp"
+                            hideThisMessage="Hide this message" defaultState="closed">
+            Teams are invited to delineate the positions their proposal takes on key issues in the debate over international climate agreements.
+            <a href="/web/guest/resources/-/wiki/Main/What+Are+Debates">See more</a>.
+        </collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planPositionHelp">+show help</collab:helpMessageTrigger>
+    </ice:panelGroup>
+   <ice:panelGroup rendered="#{plan.selectedTab==4}">
+        <collab:helpMessage messageId="planDiscussionHelp" styleClass="planHelp"
+                            hideThisMessage="Hide this message" defaultState="closed">
+            Climate CoLab members are invited to comment on proposals. <a
+                href="/web/guest/resources/-/wiki/Main/Discussions+help">See more</a>.
+        </collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planDiscussionHelp">+show help</collab:helpMessageTrigger>
+    </ice:panelGroup>
+
+    <ice:panelGroup rendered="#{plan.selectedTab==5}">
+        <collab:helpMessage messageId="planTeamHelp" styleClass="planHelp"
+                            hideThisMessage="Hide this message" defaultState="closed">
+            Climate CoLab members can join teams that are developing proposals or become supporters of proposals.
+            <a href="/web/guest/resources/-/wiki/Main/Teams">See more</a>.
+        </collab:helpMessage>
+        <collab:helpMessageTrigger messageId="planTeamHelp">+show help</collab:helpMessageTrigger>
+    </ice:panelGroup>
+ -->
+
+</ice:form>
+            <div class="container_middle">
+                <div class="content">
+                    <ice:form>
+                        <ice:panelTabSet styleClass="mainTabs"
+                                         columnClasses="admin,description,assumptions,models,actionsImpacts,discussion,team"
+
+                                         selectedIndex="#{plan.selectedTab}">
+
+                            <ice:panelTab label="ADMIN"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;"
+                                          rendered="#{permissions.canAdmin}" styleClass="admin">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/admin.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
+                             <ice:panelTab label="DESCRIPTION" styleClass="description-tab"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/description.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="ACTIONS &amp; IMPACTS" styleClass="actionsImpacts"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'actionsimpacts'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/actionsImpacts.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
+                            <ice:panelTab label="POSITIONS" styleClass="positions-tab"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/assumptions.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
+
+                            <ice:panelTab label="COMMENTS" styleClass="comments-tab"
+                                          onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'comments'}, 'comments': {}}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/comments.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
+
+                            <ice:panelTab label="TEAM" onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/team.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
+<!-- 
+                            <ice:panelTab label="Team Discussion" styleClass="discussion-tab"
+                                          onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'discussion'}, 'discussion': {}}); return;">
+                                <f:subview>
+                                    <ui:include src="planDetailsTabs/discussion.xhtml"/>
+                                </f:subview>
+                            </ice:panelTab>
+      -->                       
+                        </ice:panelTabSet>
+                    </ice:form>
+                </div>
+            </div>
+            <!-- .container_middle -->
+
+           
+        </div>
+        <!-- .container -->
+    </ice:panelGroup>
+</f:view>

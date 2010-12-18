@@ -1,0 +1,26 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ * Closing tags for tags opened in tabs.jsfp
+ *
+ * @author
+ * @version 1.0
+ */
+%>
+				<!-- 	</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	</div>
+</div>	</div>
+</div>	</div>
+</div>	</div>
+</div>

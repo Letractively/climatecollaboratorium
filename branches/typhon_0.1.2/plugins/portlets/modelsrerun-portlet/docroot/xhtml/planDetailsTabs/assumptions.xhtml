@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <h1>Assumptions</h1>
+    <ice:panelGroup rendered="#{not planBean.planPositionsBean.editing}">
+        <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
+            <h4>#{question.debateSummary}</h4>
+            <p>#{question.selectedPosition.debateSummary}</p>
+        </ice:panelSeries>
+        <ice:commandButton value="Edit" actionListener="#{planBean.planPositionsBean.edit}" />
+    </ice:panelGroup>
+    
+    
+    <ice:panelGroup rendered="#{planBean.planPositionsBean.editing}">
+        <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
+            <h1>#{question.debateSummary}</h1>
+            <ice:selectOneRadio value="#{question.position}">
+                <f:selectItems value="#{question.positions}" />
+            </ice:selectOneRadio>
+        </ice:panelSeries>
+        <ice:commandButton actionListener="#{planBean.planPositionsBean.updatePositions}" value="Save" />
+    </ice:panelGroup>
+</f:view>

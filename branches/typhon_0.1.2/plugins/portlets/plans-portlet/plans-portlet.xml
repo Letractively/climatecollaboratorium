@@ -1,0 +1,9 @@
+<!-- <Context
+path="plansportlet"
+docBase="/Users/jintrone/Documents/DEV/liferay-plugins-sdk-5.2.3/portlets/plans-portlet/docroot"
+/>
+-->
+<Context
+path="plansportlet"
+docBase="/home/janusz/workdir/liferay/plugins-svn/portlets/plans-portlet/docroot"
+/>

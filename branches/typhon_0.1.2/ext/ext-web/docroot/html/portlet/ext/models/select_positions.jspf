@@ -1,0 +1,112 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<script type="text/javascript">
+
+
+	/**
+	 * Updates positions for a plan with selected values.
+	 */
+	function <portlet:namespace />updateSelectedPositions() {
+		document.<portlet:namespace />selectPositionsForm.submit();
+	}
+
+    var radiostate = new Array();
+
+    function <portlet:namespace />toggle(button) {
+        if (radiostate[button.name]&&radiostate[button.name]==button.value) {
+           button.checked = false;
+           radiostate[button.name] = "";
+        } else {
+            radiostate[button.name] = button.value;
+        }
+
+	}
+
+
+</script>
+
+
+
+<!-- submit form url -->
+<portlet:actionURL windowState="NORMAL" var="submitActionURLselectpositions">
+	<portlet:param name="struts_action" value="/ext/models/select_positions" />
+	<portlet:param name="<%= ModelConstants.UPDATE_TYPE %>" value="<%= ModelConstants.UPDATE_POSITIONS %>" />
+	<portlet:param name="<%= ModelConstants.MODEL_ID %>" value="<%= modelId %>" />
+	<portlet:param name="<%=ModelConstants.MODEL_NAME%>" value="<%=modelName%>"/>
+	<portlet:param name="<%= ModelConstants.REDIRECT %>" value="<%=currentURL %>"/>
+	<portlet:param name="closeWindow" value="true" />
+</portlet:actionURL>
+
+<div class="position">
+	<div class="position_top">
+   		<div class="title"><h1 class="selectColumn">Select Positions</h1></div>
+   	</div>
+   	<div class="position_bg">
+           <div class="scrollpane">
+   		<div class="treeContent">
+               <form method="post" name="<portlet:namespace />selectPositionsForm" action="<%= submitActionURLselectpositions %>">
+                   <input type="hidden" name="<%= Constants.CMD %>" value="<%= Constants.UPDATE %>" />
+                    <input type="hidden" name="<%= ModelConstants.UPDATE_TYPE %>" value="<%= ModelConstants.UPDATE_POSITIONS %>" />
+                    <input name="<portlet:namespace /><%= ModelConstants.POSITIONS %>" type="hidden" />
+                    <input type="hidden" name="<portlet:namespace /><%= ModelConstants.MODEL_ID %>" value="<%= modelId %>" />
+
+
+
+
+                            <c:forEach items="<%=questions%>" var="question">
+                                 <%
+                                     DebateItem q = (DebateItem)pageContext.getAttribute("question");
+                                     List<DebateItem> qpositions = questionPositions.get(q);
+                                 %>
+                                <ul class="lv1">
+                                    <li>
+                                        <a href='<%=constructDebateUrl(q)%>'><strong><%=q.getDebateSummary()%></strong></a>
+                                    </li>
+                                    <ul>
+                                        <c:forEach items="<%=qpositions%>" var="position">
+                                          <%
+                                              DebateItem p = (DebateItem)pageContext.getAttribute("position");
+                                          %>
+                                            <li><input
+                                                id="<portlet:namespace/>Radio<%=p.getDebateItemId()%>"
+                                                type="radio"
+                                                class="portlet-plans-position"
+                                                name="questionposition<%=q.getDebateItemId()%>"
+                                                value="<%=p.getDebateItemId()%>" onclick="<portlet:namespace/>toggle(this)"
+                                                <c:if test="<%=positions!=null&&positions.contains(p)%>">
+                                                  checked='true'
+                                                </c:if>/>
+                                                &nbsp;
+                                                <a href='<%=constructDebateUrl(p)%>'><strong><%=p.getDebateSummary()%></strong></a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+
+                                </ul>
+                            </c:forEach>
+
+
+
+                   </form>
+
+
+
+		</div>
+               </div>
+	</div>
+   	<div class=position_bottom>
+   		<div class="btnBox">
+       		<a href="#" class="checkBtn first" onClick="<portlet:namespace />updateSelectedPositions(); return false;" ><span class="hidden">Check</span></a>
+           	<a href="javascript:;" class="cancelBtn" onClick="<portlet:namespace />closeDialog('select-positions-dialog')"><span class="hidden">Cancel</span></a>
+        </div>
+     </div>
+</div>
+<div class="clear"></div>
+
+
+
+

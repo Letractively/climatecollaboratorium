@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="docroot/WEB-INF/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Collaboratorium - Repo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
+	<classpathentry kind="src" path="/icefaces"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

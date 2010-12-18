@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<project name="MIT Simulation Web Service Assembly v1.0" default="compile" basedir=".">
+    <property file="${basedir}/build.properties"/>
+
+    <!-- directory set up -->
+    <property name="srcdir" value="${basedir}/src" />
+    <property name="libdir" value="${basedir}/lib" />
+    <property name="configdir" value="${basedir}/conf" />
+    <property name="testlogdir" value="${basedir}/log" />
+
+    <property name="testdir" value="${basedir}/test" />
+
+    <property name="builddir" value="build" />
+    <property name="build_classdir" value="${builddir}/classes" />
+    <property name="build_testclassdir" value="${builddir}/testClasses" />
+    
+    <property name="build_distdir" value="${builddir}/dist" />
+
+
+    <!-- classes needed to compile the  code -->
+    <path id="buildlibs">
+       <fileset dir="lib">
+         <include name="**/*.jar" />
+         <exclude name="test/*.jar" />
+       </fileset>
+    </path>
+
+    <!-- classes needed to compile the test code -->
+    <path id="test.build.classpath">
+        <pathelement location="${build_classdir}"/>
+        <path refid="buildlibs"/>
+        <fileset dir="lib">
+          <include name="test/*.jar" />
+        </fileset>
+    </path>
+
+    <!-- initialization -->
+    <target name="init">
+       <mkdir dir="${builddir}"/>
+       <mkdir dir="${build_classdir}"/>
+       <mkdir dir="${build_distdir}"/>
+    </target>
+
+    <!-- compile -->
+    <target name="compile" depends="init">
+        <javac destdir="${build_classdir}" debug="true" verbose="false">
+        	  <src path="${srcdir}" />
+            <classpath refid="buildlibs" />
+        </javac>
+    </target>
+
+    <target name="compile_tests" depends="compile">
+        <mkdir dir="${build_testclassdir}"/>
+        <javac srcdir="${testdir}" destdir="${build_testclassdir}" debug="true" verbose="false">
+            <classpath refid="test.build.classpath" />
+        </javac>
+    </target>
+    
+    <target name="test" depends="compile_tests">
+        <mkdir dir="${testlogdir}"/>
+        
+        <junit fork="true" haltonerror="false">
+            <classpath location="${build_testclassdir}" />
+            <classpath refid="test.build.classpath" />
+
+            <test name="mit.simulation.climate.AllTests" todir="${testlogdir}">
+                <formatter type="plain" usefile="true"/>
+                <formatter type="xml" usefile="true"/>
+            </test>            
+        </junit>
+
+    </target>    
+
+    <target name="dist" description="Generate jar." depends="compile">
+        <jar destfile="${project.name}.jar"
+             basedir="${build_classdir}"/>
+
+    </target>
+
+
+    <target name="clean" description="Remove all build generated files.">
+      <delete dir="${builddir}"/>
+    </target>
+    
+</project>

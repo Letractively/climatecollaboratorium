@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+
+
+.inlineHelp ul,
+.inlineHelp ol,
+.inlineHelp li {
+    margin-left: 10px;
+}
+    
+    
+.floatLeft{
+    width:auto;
+    float:left;
+    display:inline;
+}
+
+.floatRight{
+    width:auto;
+    float:right;
+    display:inline;
+}
+
+.hidden {
+    display: none;
+}

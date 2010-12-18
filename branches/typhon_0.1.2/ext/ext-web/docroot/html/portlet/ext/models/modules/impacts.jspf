@@ -1,0 +1,82 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ * A module responsible for rendering of full impacts view.
+ *
+ * Parameters (JavaScript variables):
+ *  - showProgress - if set to true, a "loading" indication will be shown
+ *  - showImpactsLazy - if set to true impacts won't be rendered, this can
+ *		be used to control by JS code on when to display impacts view
+ *
+ * !IMPORTANT! Remember to include init.jspf first. 
+ *    
+ * @author janusz.p
+ * @version 1.0
+ */
+%>
+<script type="text/javascript">
+$(document).ready(function() {
+	if (typeof(showProgress) !== 'undefined') {
+		ModelUtils.setImpactsPlaceholder('impactsContent');
+	}
+});
+ModelUtils.scenarioReady(function(type) {
+	if (type == "success") {
+		ModelUtils.setImpactsPlaceholder('impactsContent');
+		if (typeof(showImpactsLazy) === "undefined" || !showImpactsLazy) {
+			ModelUtils.showScenario('impactsContent');
+			$("#impacts-title").show();
+		}
+
+		// Fix for IE 6 as displaying model impacts caused various elements to disappear on IE 6, zindexes are recalculated
+		var browserName=navigator.appName; 
+		var browserVer=parseInt(navigator.appVersion);
+
+		if (browserName=="Microsoft Internet Explorer" && browserVer < 7) {
+
+			function ie6ZIndexFix() {
+				var zIndexNumber = 1000;
+				$('.actions div, h2, h3, .actions img, #mainContent a').each(function() {
+					$(this).css('zIndex', zIndexNumber);
+					zIndexNumber += 1;
+				});
+				/*
+				$('a.runModel, a.runModel span, a.createNewPlan, a.createNewPlan span').each(function() {
+					$(this).css('zIndex', zIndexNumber);
+					zIndexNumber += 1;
+				});*/
+			}
+			
+			var headers = $(".ui-accordion-header").unbind("click");//, ie6ZIndexFix);			
+			var headers = $(".ui-accordion-header").bind("click", ie6ZIndexFix);
+			headers.unbind("mouseenter.accordion");
+			headers.unbind("mouseleave.accordion");
+			headers.unbind("focus.accordion");
+			headers.unbind("blur.accordion");
+		
+		}
+	}
+});
+</script>
+
+<div class="impacts">
+     <div class="corcen_top">
+	     <div class="corcen_bottom">
+		       <div class="corcen">
+		       <div class="title"><h3><span class="hidden">Actions Input</span></h3></div>
+             <div class="impactsContent" id="impactsContent" >
+                    <div class='run-the-model-to-see-inputs'>
+	                     Run the model to see some impacts.
+                    </div>
+            </div>
+        </div>
+        </div>
+  </div>
+   </div>
+

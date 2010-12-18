@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    >
+        <table>
+        <ui:repeat value="#{feedsBean.activitiesBean.activities}" var="activity">
+                <f:subview id="entry" rendered="#{not activity.isEmpty}">
+                <tr>
+                    <td class="activity-time">
+                        <ice:outputText styleClass="date" value="Today" rendered="#{activity.today}" />
+                        <ice:outputText styleClass="date" value="Yesterday" rendered="#{activity.yesterday}" />
+                        <ice:outputText styleClass="date" value="#{activity.createDate}" rendered="#{not activity.today and not activity.yesterday}" >
+                            <f:convertDateTime pattern="MMMM d"/>
+                        </ice:outputText>
+                        <ice:outputText styleClass="time" value="#{activity.createDate}" >
+                        <f:convertDateTime pattern="h:mm a z"/>
+                        </ice:outputText>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="activity-body">#{activity.body}</td>
+            </tr>
+            </f:subview>
+        </ui:repeat>
+        </table>
+</f:view>

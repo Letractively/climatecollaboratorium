@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <inputs>
+        <simulation id="720"/>
+    </inputs>
+    <step>
+        <simulation id="720"/>
+    </step>
+    <step>
+        <simulation id="960">
+            <input internalname="Temperature_input0" map="toOne" source="720.GlobalTempChange"/>
+        </simulation>
+        <simulation id="966">
+            <input internalname="CO2e_input1" map="toOne" source="720.CumulativeEmissionsRel2005"/>
+            <input internalname="Time_input0" map="toOne" source="720.Year"/>
+        </simulation>
+        <simulation id="588">
+            <input internalname="Temperature_Change" map="max" source="720.GlobalTempChange"/>
+        </simulation>
+        <simulation id="681">
+            <input internalname="Temperature_Change" map="max" source="720.GlobalTempChange"/>
+        </simulation>
+    </step>
+    <outputs>
+        <simulation id="720"/>
+        <simulation id="621"/>
+        <simulation id="960"/>
+        <simulation id="966"/>
+        <simulation id="681"/>
+        <simulation id="588"/>
+    </outputs>
+</root>

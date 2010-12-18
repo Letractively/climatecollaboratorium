@@ -1,0 +1,10 @@
+<Context path="/sample-icefaces-portlet">
+
+	<!--
+	ICEfaces does not support persisted sessions. The following Manager element
+	will disable session persistence across Tomcat restarts.
+	-->
+
+	<Manager pathname="" />
+    
+</Context>
