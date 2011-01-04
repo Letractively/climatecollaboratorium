@@ -4,6 +4,7 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:h="http://java.sun.com/jsf/html"  
     xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     >
     <div id="content">
@@ -34,14 +35,14 @@
                 <f:facet name="header">
                     From
                 </f:facet>
-                #{message.from.screenName}
+                <collab:userLinkSimple userId="#{message.from.userId}" text="#{message.from.screenName}"/>
             </ice:column>
             <ice:column rendered="#{messagingBean.type == 'SENT'}">
                 <f:facet name="header">
                     To
                 </f:facet>
                 <ice:panelSeries value="#{message.to}" var="receipient" varStatus="status">
-                    #{receipient.screenName} 
+                    <collab:userLinkSimple userId="#{receipient.from.userId}" text="#{receipient.from.screenName}"/>
                     <f:subview rendered="#{not status.last}">
                         <br />
                     </f:subview>
