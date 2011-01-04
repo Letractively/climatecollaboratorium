@@ -17,8 +17,11 @@ public class UserActivityBean {
 
         activityFeedEntry = SocialActivityInterpreterLocalServiceUtil.interpret(activity,
                 Helper.getThemeDisplay());
-        body = activityFeedEntry.getBody();
-        body = body != null && body.trim().equals("") ? activityFeedEntry.getTitle() : body;
+        
+        if (activityFeedEntry != null) {
+            body = activityFeedEntry.getBody();
+            body = body != null && body.trim().equals("") ? activityFeedEntry.getTitle() : body;
+        }
     }
     
     public Date getCreatedDate() {
