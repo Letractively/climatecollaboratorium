@@ -42,7 +42,7 @@
                     To
                 </f:facet>
                 <ice:panelSeries value="#{message.to}" var="receipient" varStatus="status">
-                    <collab:userLinkSimple userId="#{receipient.from.userId}" text="#{receipient.from.screenName}"/>
+                    <collab:userLinkSimple userId="#{receipient.userId}" text="#{receipient.screenName}"/>
                     <f:subview rendered="#{not status.last}">
                         <br />
                     </f:subview>
