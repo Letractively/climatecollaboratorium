@@ -5,6 +5,7 @@
     xmlns:h="http://java.sun.com/jsf/html"  
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     <ice:portlet>
   
@@ -68,7 +69,7 @@
             </ice:columnGroup>
         </f:facet>
         <ice:column style="width:350px;">
-            <ice:outputText value="#{user.realName}" />
+            <collab:userLinkSimple userId="#{user.userId}" text="#{user.realName}"/>
         </ice:column>  
         <ice:column styleClass="b">
             <ice:outputText value="#{user.activityCount}" />

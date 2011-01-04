@@ -13,9 +13,10 @@ public class MemberListItemBean {
     private String realName;
     private int activityCount;
     private Date joinDate;
+    private Long userId;
     
     public MemberListItemBean(Document userDoc) throws SystemException, NumberFormatException, PortalException, ParseException {
-        Long userId = Long.parseLong(userDoc.get("userId"));
+        userId = Long.parseLong(userDoc.get("userId"));
         activityCount = SocialActivityLocalServiceUtil.getUserActivitiesCount(userId);
         realName = userDoc.get("realName");
         joinDate = userDoc.getDate("joinDate");
@@ -56,6 +57,10 @@ public class MemberListItemBean {
             default:
                 return realName;
         }
+    }
+    
+    public Long getUserId() {
+        return userId;
     }
     
 
