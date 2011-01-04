@@ -9,9 +9,9 @@
     >
     <ice:portlet>
         <table>
-        <ui:repeat value="#{feedsBean.membersBean.mostActiveMembers}" var="member">
+        <ui:repeat value="#{feedsBean.membersBean.mostActiveMembers}" var="memberFeedActivity">
             <tr>
-                <td><collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}" /></td>
+                <td><collab:userLinkSimple userId="#{memberFeedActivity.userId}" text="#{memberFeedActivity.screenName}" /></td>
             </tr>
         </ui:repeat>
         </table>
