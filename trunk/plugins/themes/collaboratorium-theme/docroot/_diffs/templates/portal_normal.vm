@@ -31,8 +31,6 @@
 
     #end
     <link rel="stylesheet" href="/collaboratorium-theme/css/forms.css?tt=$themeTimestamp" type="text/css"/>
-    <link rel="stylesheet" href="/collaboratorium-theme/css/moth_additional_styles.css?tt=$themeTimestamp"
-          type="text/css"/>
     <link rel="stylesheet" href="/collaboratorium-theme/css/pages/main.css?tt=$themeTimestamp" type="text/css"/>
     <link rel="stylesheet" href="/collaboratorium-theme/css/style.css?tt=$themeTimestamp" type="text/css"/>
     <link rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" type="text/css"/>
@@ -41,6 +39,9 @@
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wiki.css?tt=$themeTimestamp" media="all"/>
     <!--[if IE]>
     <script type="text/javascript" src="/collaboratorium-theme/javascript/excanvas.js"></script><![endif]-->
+    
+    <link rel="stylesheet" href="/collaboratorium-theme/css/moth_additional_styles.css?tt=$themeTimestamp"
+          type="text/css"/>
 
 
     <script type="text/javascript" src="http://use.typekit.com/uvv6okq.js"></script>
@@ -139,15 +140,16 @@
         #if ($pageName == 'resources') 
             <div id="earth_pattern" class='$pageName'></div>
         #else 
-            <div id="earth_pattern" class="$pageName $subPageClass"></div>
+            <div id="earth_pattern" class="parent_$parentPageName $pageName $subPageClass"></div>
         #end
             
     #end
     
+    
     #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn' || $parentPageName == 'about') && $pageName != 'resources')
         <div id="bread_bg">&nbsp;</div>
     #end
-    #if ($collab_plan)
+    #if ($collab_plan or ($parentPageName == 'community' or $pageName == 'community'))
         <div id="bread_bg" class="pro">&nbsp;</div>
         <div id="tabs_bg">&nbsp;</div>
     #end

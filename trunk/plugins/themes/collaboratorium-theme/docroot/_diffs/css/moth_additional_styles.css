@@ -11,10 +11,11 @@
 
 .lrContentPlaceholder {
 }
-
+/*
 blockquote, ul, ol, dl {
     margin: auto;
 }
+*/
 
 .custom-3-column .lfr-grid,
 .custom-2-column .lfr-grid
@@ -92,10 +93,6 @@ blockquote, ul, ol, dl {
 .loginregistertocolab #content_home
  { width:976px; background:#F9F9F8; line-height:22px; }
  
-.community.contentContainer,
-.news.contentContainer,
-.discussion.contentContainer,
-.members.contentContainer,
 .resources.contentContainer,
 .loginregister.contentContainer,
 .feedback.contentContainer,
@@ -289,8 +286,14 @@ padding:1px 30px 5px;
     font-style:italic;
 }
 
-.web-content ul li {
+.web-content ul li,
+.community #main ul li,
+.community ul li {
+	list-style: disc;
+	margin: 3px 0; 
    margin-left:2.0em; 
+   padding: 0;
+   background-image: none;
 }
 
 .about .centered {
@@ -371,7 +374,10 @@ input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:
 .top_separator { margin: 0; padding: 0; height: 0px; }
 
 
-#earth_pattern.proposals.planDetails { height:121px;}
+#earth_pattern.proposals.planDetails,
+#earth_pattern.community,
+#earth_pattern.parent_community.sub
+ { height:121px;}
 
 #main {
     padding-top: 15px;
@@ -518,3 +524,65 @@ body .resources , .resources h2, .resources { font-family:"gloriola-web-2", Verd
 	margin: 0 8px 0 0;
     margin-right: 8px;
 }
+
+
+.icons-container .icon-actions .icon,
+.edit-actions .icon,
+.taglib-discussion .icon {
+    clearn: none;
+    float: none;
+    width: auto;
+    height: auto;
+    display:inline;
+    padding-top: 0px;
+}
+
+.wf-active #tabs {
+    margin-top: 20px;
+}
+
+.wf-active #tabs li{
+    padding: 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+input[type="submit"].comm_submit { width:66px; height:29px; margin-left:10px; text-align:center; vertical-align:middle; background:url(../images/search_btn.gif) no-repeat; border:none; cursor:pointer; color:#fff; font-size:13px; font-weight:400;}
+    .wf-active input[type="submit"].comm_submit { font-size:15px; }
+    
+input[type="text"].comm_search { float:left; width:222px; height:25px; padding:2px 0 0 8px; background:#f9f9f7; border:1px solid #bcb6b1; color:#565656; font-size:13px; font-weight:400;}
+    .wf-active input[type="text"].comm_search { font-size:15px; }
+
+
+.community .comm_list ul, .community .comm_list li { list-style:none; }
+.community .comm_list li { font-size:15px; padding-top:20px; } 
+
+.community .comm_controls td { vertical-align: baseline; }
+.community .comm_controls {width: 100px;}
+.community .comm_controls .comm_controlsTbl {display: none;}
+.comm_controls .iceDatPgrScrBtn {padding: 2px 2px;}
+.pager .navigate {
+	margin-top: 0;
+}
+
+.community .colab .iceCmdSrtHdr td {
+    margin: 0;
+    padding: 0;
+}
+.model_upload .filepc { opacity: 0.0; -moz-opacity: 0.0; filter: alpha(opacity=00); width:133px; height:34px; cursor:pointer;}
+
+input[type="text"], input[type="password"] {padding: 2px; }
+
+ul.as-selections li.as-original input {
+	height: auto;
+}
+
+.community .sendMessage ul, 
+.community .sendMessage ul li {
+	list-style: none;
+	margin: 2px;
+	
+}
+.community .sendMessage ul li {
+	padding: 2px 2px 2px 8px;
+}
+
