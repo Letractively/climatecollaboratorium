@@ -53,5 +53,10 @@
 			<wap-template-path>/collab-1-col-2-rows-moth.tpl</wap-template-path>
 			<thumbnail-path>/custom-1-col-2-rows-moth.png</thumbnail-path>
 		</layout-template>
+        <layout-template id="collab-1-col-header-moth" name="CoLab One Column with header - moth">
+            <template-path>/collab-1-col-header-moth.tpl</template-path>
+            <wap-template-path>/collab-1-col-header-moth.tpl</wap-template-path>
+            <thumbnail-path>/custom-1-header-moth.png</thumbnail-path>
+        </layout-template>
 	</custom>
 </layout-templates>
