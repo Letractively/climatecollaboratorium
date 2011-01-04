@@ -8,6 +8,7 @@ import com.liferay.portal.model.User;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityFeedEntry;
 import com.liferay.portlet.social.service.SocialActivityInterpreterLocalServiceUtil;
+import com.ocpsoft.pretty.time.PrettyTime;
 
 public class MemberWrapper {
     private User user;
@@ -15,6 +16,7 @@ public class MemberWrapper {
     private SocialActivity activity;
     private String lastActivityBody;
     private Date lastActivityDate;
+    private static PrettyTime timeAgoConverter = new PrettyTime();
     
     public MemberWrapper(User user, int activitiesCount) {
         this.user = user;
@@ -58,5 +60,10 @@ public class MemberWrapper {
 
     public Date getLastActivityDate() {
         return lastActivityDate;
+    }
+    
+
+    public String getLastActivityDateAgo() {
+        return timeAgoConverter.format(lastActivityDate);
     }
 }
