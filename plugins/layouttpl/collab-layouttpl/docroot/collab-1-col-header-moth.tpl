@@ -15,11 +15,8 @@
 
                         </tr>
                         <tr id="column-center">
-                            <td class="lfr-column" id="main" valign="top">
+                            <td class="lfr-column" valign="top">
                                 $processor.processColumn("column-3")
-                            </td>
-                            <td class="lfr-column right_col" id="column-4" valign="top">
-                                $processor.processColumn("column-4")
                             </td>
                         </tr>
 
