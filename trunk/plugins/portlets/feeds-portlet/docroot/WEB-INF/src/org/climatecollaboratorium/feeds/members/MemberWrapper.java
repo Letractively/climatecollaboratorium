@@ -36,6 +36,18 @@ public class MemberWrapper {
         }
         lastActivityDate = activity.getCreateDate();
     }
+    
+    public MemberWrapper(SocialActivity activity) {
+        this.activity = activity;
+        if (activity != null) {
+            SocialActivityFeedEntry entry = SocialActivityInterpreterLocalServiceUtil.interpret(activity, Helper.getThemeDisplay());
+            lastActivityBody = entry != null ? entry.getBody() : null;
+            if (lastActivityBody == null || lastActivityBody.trim().length() == 0) {
+                lastActivityBody = entry != null ? entry.getTitle() : null;
+            }
+        }
+        lastActivityDate = activity.getCreateDate();
+    }
 
 
     public int getActivitiesCount() {
