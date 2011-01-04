@@ -1,0 +1,88 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%
+/**
+ * Copyright (c) 2000-2009 Liferay, Inc. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+%>
+
+<c:if test="<%= BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.VIEW) %>">
+    <div class="comm_news">
+
+		<%
+		PortletURL showBlogEntryURL = renderResponse.createRenderURL();
+
+		showBlogEntryURL.setParameter("struts_action", "/blogs_aggregator/view_entry");
+		showBlogEntryURL.setParameter("entryId", String.valueOf(entry.getEntryId()));
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(themeDisplay.getPathMain());
+		sb.append("/blogs/find_entry?redirect=");
+		sb.append(HttpUtil.encodeURL(currentURL));
+		sb.append("&noSuchEntryRedirect=");
+		sb.append(HttpUtil.encodeURL(showBlogEntryURL.toString()));
+		sb.append("&entryId=");
+		sb.append(entry.getEntryId());
+
+		String viewEntryURL = sb.toString();
+
+		sb.append("&showAllEntries=1");
+
+		String viewAllEntriesURL = sb.toString();
+        
+        SimpleDateFormat entryDateFormat = new SimpleDateFormat("MMMM d, yyyy");
+
+        long classNameId = PortalUtil.getClassNameId(BlogsEntry.class.getName());
+        int messagesCount = MBMessageLocalServiceUtil.getDiscussionMessagesCount(classNameId, entry.getEntryId());
+
+		%>
+
+		<h2><%= entry.getTitle() %></h2>
+        <div class="comm_meta">
+            <div class="comm_date">
+                <%= entryDateFormat.format(entry.getDisplayDate()) %>
+            
+            </div>
+            <div class="comm_icons">
+                <a href="<%= viewEntryURL %>#_33_messages_top">
+                    <c:if test="<%= messagesCount > 0 %>">
+                        <img src="/collaboratorium-theme/images/icon_comments2.gif" width="25" height="23" alt="messagesCount comments" /> <a href="#"><%= messagesCount %></a>
+                    </c:if>
+                    <c:if test="<%= messagesCount <= 0 %>">
+                        <img src="/collaboratorium-theme/images/icon_comments2-none.gif" width="25" height="23" alt="no comments" /> 
+                    </c:if>
+                </a>
+                <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" /></div>
+            </div>
+        </div>
+
+		<liferay-ui:tags-summary
+			className="<%= BlogsEntry.class.getName() %>"
+			classPK="<%= entry.getEntryId() %>"
+		/>
+	</div>
+    <div class="comm_div"></div>
+
+     <%= entry.getContent() %>
+    
+    
+        <p><a href="<%= viewEntryURL %>">Read more...</a></p>
+	</c:if>
