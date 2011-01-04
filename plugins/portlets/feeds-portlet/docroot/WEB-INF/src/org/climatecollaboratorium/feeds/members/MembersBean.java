@@ -19,7 +19,7 @@ import org.climatecollaboratorium.feeds.activities.SocialActivityWrapper;
 public class MembersBean {
     private List<MemberWrapper> mostActiveUsers;
     private List<MemberWrapper> recentlyJoinedUsers;
-    private List<SocialActivityWrapper> recentlyActiveUsers;
+    private ArrayList<MemberWrapper> recentlyActiveUsers;
     private int feedSize;
     private boolean showAdmin = false;
     
@@ -67,9 +67,9 @@ public class MembersBean {
         return recentlyJoinedUsers;
     }
     
-    public List<SocialActivityWrapper> getRecentlyActiveMembers() throws SystemException, PortalException {
+    public ArrayList<MemberWrapper> getRecentlyActiveMembers() throws SystemException, PortalException {
         if (recentlyActiveUsers == null) {
-            recentlyActiveUsers = new ArrayList<SocialActivityWrapper>();
+            recentlyActiveUsers = new ArrayList<MemberWrapper>();
             Set<Long> usersAlreadyAdded = new HashSet<Long>();
             int activitiesCount = ActivityUtil.getAllActivitiesCount();
             int currentStart = 0;
@@ -87,7 +87,7 @@ public class MembersBean {
                     usersAlreadyAdded.add(activity.getUserId());
 
                     int curDaysBetween = DateUtil.getDaysBetween(activity.getCreateDate(), now, TimeZone.getDefault());
-                    recentlyActiveUsers.add(new SocialActivityWrapper(activity, curDaysBetween, lastDaysBetween < curDaysBetween));
+                    recentlyActiveUsers.add(new MemberWrapper(activity));
                     lastDaysBetween = curDaysBetween;
 
                     if (recentlyActiveUsers.size() == feedSize) {
