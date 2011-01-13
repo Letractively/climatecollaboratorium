@@ -75,6 +75,8 @@ public class DiscussionCategoryPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.discussions.service.persistence.DiscussionCategoryPersistence discussionCategoryPersistence;
     @BeanReference(name = "com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence.impl")
     protected com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence discussionMessagePersistence;
+    @BeanReference(name = "com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagPersistence.impl")
+    protected com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagPersistence discussionMessageFlagPersistence;
 
     public void cacheResult(DiscussionCategory discussionCategory) {
         EntityCacheUtil.putResult(DiscussionCategoryModelImpl.ENTITY_CACHE_ENABLED,

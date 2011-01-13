@@ -685,6 +685,17 @@
 		<property name="lastActivityDate" type="org.hibernate.type.TimestampType" />
 		<property name="lastActivityAuthorId" />
 	</class>
+	<class name="com.ext.portlet.discussions.model.impl.DiscussionMessageFlagImpl" table="DiscussionMessageFlag">
+		<cache usage="read-write" />
+		<id name="pk" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="messageId" />
+		<property name="flagType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="data" column="data_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="userId" />
+	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestImpl" table="Contest">
 		<cache usage="read-write" />
 		<id name="ContestPK" type="java.lang.Long">

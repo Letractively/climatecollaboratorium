@@ -19,8 +19,8 @@ import com.liferay.portal.service.base.PrincipalBean;
 import com.liferay.portal.util.PortalUtil;
 
 
-public abstract class DiscussionMessageServiceBaseImpl extends PrincipalBean
-    implements DiscussionMessageService {
+public abstract class DiscussionMessageFlagServiceBaseImpl extends PrincipalBean
+    implements DiscussionMessageFlagService {
     @BeanReference(name = "com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService.impl")
     protected DiscussionCategoryGroupLocalService discussionCategoryGroupLocalService;
     @BeanReference(name = "com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl")

@@ -99,5 +99,18 @@
             <finder-column name="messageId" />
         </finder>
     </entity>
-	
+    
+    <entity name="DiscussionMessageFlag" local-service="true">
+        <column name="pk" type="Long" primary="true" />
+        <column name="messageId" type="Long" />
+        <column name="flagType" type="String" />
+        <column name="data" type="String" />
+        <column name="created" type="Date" />
+        <column name="userId" type="Long" />
+        
+        
+        <finder name="MessageId" return-type="Collection">
+            <finder-column name="messageId" />
+        </finder>
+    </entity>
 </service-builder>

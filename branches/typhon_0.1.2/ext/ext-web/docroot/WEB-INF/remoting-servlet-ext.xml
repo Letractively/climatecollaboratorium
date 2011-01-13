@@ -715,6 +715,18 @@
 		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageService" />
 	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageFlagService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageFlagService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageFlagService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageFlagService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageFlagService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageFlagService" />
+	</bean>
 	<bean name="/com_ext_portlet_contests_service_spring_ContestService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.contests.service.ContestService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestService" />
