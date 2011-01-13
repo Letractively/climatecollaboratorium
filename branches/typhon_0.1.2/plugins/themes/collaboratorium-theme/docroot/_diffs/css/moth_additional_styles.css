@@ -518,3 +518,21 @@ body .resources , .resources h2, .resources { font-family:"gloriola-web-2", Verd
 	margin: 0 8px 0 0;
     margin-right: 8px;
 }
+
+ 
+ 
+ .wf-active .even .r.expertReview {
+    background-color: #fffaf8;
+ }
+ 
+ .wf-active .odd .r.expertReview {
+    background-color: #fff3ed;
+ }
+ 
+ .wf-active .even .l.expertReview {
+    background-color: #FFEEE7;
+ }
+ 
+ .wf-active .odd .l.expertReview {
+    background-color: #FFE8DD;
+ }      
