@@ -1104,6 +1104,24 @@
 	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionMessageUtil" class="com.ext.portlet.discussions.service.persistence.DiscussionMessageUtil">
 		<property name="persistence" ref="com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageFlagLocalService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionMessageFlagLocalServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageFlagLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageFlagLocalServiceUtil" class="com.ext.portlet.discussions.service.DiscussionMessageFlagLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" class="com.ext.portlet.discussions.service.impl.DiscussionMessageFlagServiceImpl" />
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageFlagService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.DiscussionMessageFlagServiceUtil" class="com.ext.portlet.discussions.service.DiscussionMessageFlagServiceUtil">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagPersistence.impl" class="com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagUtil" class="com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagUtil">
+		<property name="persistence" ref="com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagPersistence.impl" />
+	</bean>
 	<bean id="com.ext.portlet.contests.service.ContestLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestLocalServiceImpl" />
 	<bean id="com.ext.portlet.contests.service.ContestLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.portlet.contests.service.ContestLocalService.impl" />

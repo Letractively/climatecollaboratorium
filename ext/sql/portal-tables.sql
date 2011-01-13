@@ -517,6 +517,15 @@ create table DiscussionMessage (
 	lastActivityAuthorId LONG
 );
 
+create table DiscussionMessageFlag (
+	pk LONG not null primary key,
+	messageId LONG,
+	flagType VARCHAR(75) null,
+	data_ VARCHAR(75) null,
+	created DATE null,
+	userId LONG
+);
+
 create table EmailAddress (
 	emailAddressId LONG not null primary key,
 	companyId LONG,

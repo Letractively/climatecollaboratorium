@@ -8,8 +8,10 @@ import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
+import com.ext.portlet.discussions.model.DiscussionMessageFlag;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionCategoryLocalServiceUtil;
+import com.ext.portlet.discussions.service.DiscussionMessageFlagLocalServiceUtil;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
 import com.ext.portlet.discussions.util.Indexer;
 import com.liferay.portal.PortalException;
@@ -139,5 +141,29 @@ public class DiscussionMessageImpl extends DiscussionMessageModelImpl
         }
         // this is a thread itself
         return this;
+    }
+    
+    public List<DiscussionMessageFlag> getFlags() throws SystemException {
+        return DiscussionMessageFlagLocalServiceUtil.findMessageFlags(getMessageId());
+    }
+    
+    public void addFlag(String flagType, String data, User user) throws SystemException  {
+        DiscussionMessageFlagLocalServiceUtil.createFlag(getMessageId(), flagType, data, user.getUserId());
+    }
+    
+    public void removeFlag(String flagType) throws SystemException {
+        DiscussionMessageFlag flag = findFlag(flagType);
+        if (flag != null) {
+            DiscussionMessageFlagLocalServiceUtil.deleteDiscussionMessageFlag(flag);
+        }
+    }
+    
+    private DiscussionMessageFlag findFlag(String flagType) throws SystemException {
+        for (DiscussionMessageFlag flag: getFlags()) {
+            if (flag.getFlagType().equals(flagType)) {
+                return flag;
+            }
+        }
+        return null;
     }
 }
