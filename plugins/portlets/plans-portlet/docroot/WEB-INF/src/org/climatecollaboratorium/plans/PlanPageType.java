@@ -116,7 +116,7 @@ public enum PlanPageType {
     private final static Map<PlanPageType, Set<PlanPageType>> allowedPredecessorsMap = new HashMap<PlanPageType, Set<PlanPageType>>();
     static {
         allowedPredecessorsMap.put(PLAN_DETAILS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {})));
-        allowedPredecessorsMap.put(ISSUE_DETAILS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, PLAN_DETAILS})));
+        allowedPredecessorsMap.put(ISSUE_DETAILS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, PLAN_DETAILS, ISSUE_DETAILS, CONTEST_PROPOSALS})));
         allowedPredecessorsMap.put(CONTEST_ISSUES, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {ISSUE_DETAILS, CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
         allowedPredecessorsMap.put(CONTEST_MODEL, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
         allowedPredecessorsMap.put(CONTEST_PROPOSALS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
