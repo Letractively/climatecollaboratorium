@@ -507,6 +507,14 @@
 		<field name="lastActivityDate" type="Date" />
 		<field name="lastActivityAuthorId" type="Long" />
 	</model>
+	<model name="com.ext.portlet.discussions.model.DiscussionMessageFlag">
+		<field name="pk" type="Long" />
+		<field name="messageId" type="Long" />
+		<field name="flagType" type="String" />
+		<field name="data" type="String" />
+		<field name="created" type="Date" />
+		<field name="userId" type="Long" />
+	</model>
 	<model name="com.ext.portlet.contests.model.Contest">
 		<field name="ContestPK" type="Long" />
 		<field name="ContestName" type="String" />

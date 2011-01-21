@@ -70,7 +70,6 @@
 
     
         <br class="clearfloat"/>
-
             <div class="content">
                 <table>
                     <c:if test="<%= !PropsValues.USERS_SCREEN_NAME_ALWAYS_AUTOGENERATE %>">

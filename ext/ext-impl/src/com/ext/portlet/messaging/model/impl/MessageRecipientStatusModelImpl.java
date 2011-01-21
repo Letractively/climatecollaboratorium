@@ -206,18 +206,9 @@ public class MessageRecipientStatusModelImpl extends BaseModelImpl<MessageRecipi
     }
 
     public int compareTo(MessageRecipientStatus messageRecipientStatus) {
-        int value = 0;
+        Long pk = messageRecipientStatus.getPrimaryKey();
 
-        value = getMessageRecipientId()
-                    .compareTo(messageRecipientStatus.getMessageRecipientId());
-
-        value = value * -1;
-
-        if (value != 0) {
-            return value;
-        }
-
-        return 0;
+        return getPrimaryKey().compareTo(pk);
     }
 
     public boolean equals(Object obj) {

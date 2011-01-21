@@ -72,7 +72,7 @@
                                       message="Authentication failed"></liferay-ui:error>
                     <liferay-ui:error exception="<%= UserPasswordException.class %>"
                                       message="Authentication failed"></liferay-ui:error>
-                    <liferay-ui:error exception="<%= UserScreenNameException.class %>" message="Invalid screen name"/>
+                    <liferay-ui:error exception="<%= com.liferay.portal.NoSuchUserException.class %>" message="Invalid screen name"/>
                 </c:if>
             </td>
         </tr>

@@ -4,7 +4,6 @@ import com.ext.portlet.messaging.model.Message;
 import com.ext.portlet.messaging.model.MessageSoap;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
-import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.model.impl.BaseModelImpl;
@@ -204,17 +203,9 @@ public class MessageModelImpl extends BaseModelImpl<Message> {
     }
 
     public int compareTo(Message message) {
-        int value = 0;
+        Long pk = message.getPrimaryKey();
 
-        value = DateUtil.compareTo(getCreateDate(), message.getCreateDate());
-
-        value = value * -1;
-
-        if (value != 0) {
-            return value;
-        }
-
-        return 0;
+        return getPrimaryKey().compareTo(pk);
     }
 
     public boolean equals(Object obj) {

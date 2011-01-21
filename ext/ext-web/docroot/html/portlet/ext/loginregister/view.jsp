@@ -18,9 +18,11 @@
  <portlet:defineObjects />
  
 <%
-    boolean isLoggingIn = ParamUtil.getString(renderRequest, "source", "login").equals("login");
+    boolean isLoggingIn = ParamUtil.getBoolean(renderRequest, "isLoggingIn", false);
+    boolean isRegistering = ParamUtil.getBoolean(renderRequest, "isRegistering", false);
+    boolean isForgotPassword = ParamUtil.getBoolean(request, "isForgotPassword");
     pageContext.setAttribute("isLoggingIn", isLoggingIn);
-    pageContext.setAttribute("isRegistering", !isLoggingIn);
+    pageContext.setAttribute("isRegistering", isRegistering);
     
     
 
@@ -72,8 +74,6 @@
 	loginErrors.put(UserScreenNameException.class.getName(), "please-enter-a-valid-screen-name");
 	
 	
-	boolean isRegistering = ParamUtil.getBoolean(request, "isRegistering");
-    boolean isForgotPassword = ParamUtil.getBoolean(request, "isForgotPassword");
 	String error = null;
 	boolean hasError = false;
     for(String loginError: loginErrors.keySet()) {
