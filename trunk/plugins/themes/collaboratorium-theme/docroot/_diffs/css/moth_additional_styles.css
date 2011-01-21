@@ -368,7 +368,7 @@ padding:1px 30px 5px;
 #earth_pattern.proposals { height: 95px; }
 
 
-input.selectbox { padding:0 44px 0 9px; width:100%; height:35px; display:block; background: url(../images/butt_arrowbdr.png) no-repeat right;	font-size:17px; font-style:italic; color:#666; border:none; cursor: pointer;}
+input.selectbox, input[type='text'].selectbox { padding:0 44px 0 9px; width:100%; height:35px; display:block; background: url(../images/butt_arrowbdr.png) no-repeat right;	font-size:17px; font-style:italic; color:#666; border:none; cursor: pointer; padding-right: 35px;}
 input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:#e36f0f;}
 
 .top_separator { margin: 0; padding: 0; height: 0px; }
@@ -570,8 +570,9 @@ input[type="text"].comm_search { float:left; width:222px; height:25px; padding:2
 }
 .model_upload .filepc { opacity: 0.0; -moz-opacity: 0.0; filter: alpha(opacity=00); width:133px; height:34px; cursor:pointer;}
 
+/*
 input[type="text"], input[type="password"] {padding: 2px; }
-
+*/
 ul.as-selections li.as-original input {
 	height: auto;
 }
@@ -586,3 +587,157 @@ ul.as-selections li.as-original input {
 	padding: 2px 2px 2px 8px;
 }
 
+#main.full {
+	width: 95%;
+}
+
+.addtrhead { font-size:12px; margin-top:25px;}
+    .wf-active .addthread { font-size:14px; }
+.addthread #add { width:188px; padding:10px 0 0 6px;}
+.addthread strong { font-weight:600;}
+
+
+.position_comment {
+	margin-bottom: 25px;
+	background: #fafafa;
+	padding: 5px;
+}
+
+.position_comment .position_comment_meta {
+	text-align: right;
+	font-style: italic;
+	font-weight: 600;
+}
+
+.position_comment_actions,
+.position_actions {
+	text-align: right;
+	font-weight: bold;
+	padding-right: 15px;
+}
+
+.position_comment_actions a,
+.position_actions a {
+	color: #116E95;
+}
+
+ 
+
+
+.advanced_inner  { width:100%; text-align:right; font-size:13px; padding-top:2px; }
+.advanced_inner img { vertical-align:middle; padding-left:7px; position:relative; top:-2px;}
+
+.positions_wrap { width:490px; position:inherit; height:1000px; background:#f8f8f4; margin-left: -20px}
+.questions_list-wrap {width: 492px; z-index: 3;}
+
+body {
+	font-size: 12px;
+}
+
+
+.rightColumnShadow {
+    background: url('../images/questions_shade.png') repeat-y;
+}
+
+.rightColumnShadow .position {
+	background: #EBEAE3 url('../images/questions_shade.png') repeat-y;
+}
+
+
+.debate_item_editor .title_editor {
+	background: url('../images/debate_item_edit_title_bg.png');
+	padding: 15px 25px 15px 25px;
+}
+
+.debate_item_editor .title_editor span {
+	font-weight: bold;
+	color: white;
+	font-size: 1.2em;
+	display: block;
+}
+
+.debate_item_editor .title_editor textarea {
+	margin-top: 10px;
+	width: 440px;
+	height: 50px;
+	font-size: 1.2em;
+}
+.debate_item_editor table {
+    width: 100%;
+}
+
+.debate_item_editor td {
+	padding: 5px;
+	padding-top: 8px;
+}
+
+.debate_item_editor .versions .t {
+	background: #deddcb;
+}
+
+.debate_item_editor .versions .nt {
+	background: #e6e7d9;
+}
+
+.debate_item_editor .versions .first {
+	background-image: url('../images/questions_shade.png');
+	background-repeat: repeat-y;
+	text-align: center;
+}
+
+.debate_item_editor .versions .last {
+	text-align: center;
+}
+
+.debate_item_editor .content {
+	margin-top: 20px;
+    padding: 15px 25px 15px 25px;
+}
+	
+
+.debate_item_editor .content table {
+	font-weight: bold;
+}
+
+.debate_item_editor .content  {
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+
+.debate_item_editor .content textarea {
+    margin-top: 10px;
+    width: 440px;
+    height: 150px;
+}
+
+.control_div {
+	margin-top: 10px;
+}
+.control_definition { font:11px Verdana, sans-serif; color:#727272;}
+
+.hp_box {
+	margin-top: 60px;
+}
+
+.hp_box li {
+	list-style: none;
+	background-image: none;
+
+}
+
+.homePageEarth {
+	background-image: url(/collaboratorium-theme/images/hp_e-static2.jpg);
+	background-position: center;
+}
+
+#hdr_signin {
+	left: -5px;
+	z-index: 1000;
+}
+
+.popupreg_recap #recaptcha_area,
+.popupreg_recap #recaptcha_table,
+.popupreg_recap #recaptcha_widget_div {
+	display: inline;
+}

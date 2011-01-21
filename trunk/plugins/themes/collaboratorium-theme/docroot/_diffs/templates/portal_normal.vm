@@ -30,7 +30,9 @@
 
 
     #end
+    <!--
     <link rel="stylesheet" href="/collaboratorium-theme/css/forms.css?tt=$themeTimestamp" type="text/css"/>
+    -->
     <link rel="stylesheet" href="/collaboratorium-theme/css/pages/main.css?tt=$themeTimestamp" type="text/css"/>
     <link rel="stylesheet" href="/collaboratorium-theme/css/style.css?tt=$themeTimestamp" type="text/css"/>
     <link rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" type="text/css"/>
@@ -53,6 +55,7 @@
 
     <script type="text/javascript" src="/collaboratorium-theme/javascript/moth_init_script.js?tt=$themeTimestamp"></script>
     <script type="text/javascript" src="/collaboratorium-theme/javascript/loginregister.js"></script>
+    <script type="text/javascript" src="/html/js/collaboratorium/cookies.js"></script>
 
 
 </head>
@@ -135,7 +138,7 @@
     #end
 
     #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
-        <div id="earth" class="e1 $pageName"></div>
+        <div class="e homePageEarth" ></div>
     #else 
         #if ($pageName == 'resources') 
             <div id="earth_pattern" class='$pageName'></div>
@@ -173,8 +176,39 @@
 
             $theme.wrapPortlet("portlet.vm", $content_include)
         #end
+    </div>  <!-- /.contentContainer -->
+    
+    <!-- popup login -->
+    <div class="popup_login" style="display: none;">
+        <div class="popup_login_form">
+        <div class="closepopuplogin"><a href="javascript:;"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
+        <div class="popup_login-message">This page requires you to login...</div>
+        <form method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Screen name:</strong> </p>
+                    </td>
+                    <td>
+                        <input name="login" class="popuplogin_input" type="text" value=""  />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><strong>Password:</strong></p>
+                    </td>
+                    <td>
+                        <input name="password" class="popuplogin_input" type="password" value=""  />
+                    </td>
+                </tr>
+            </table>
+          <input type="submit" name="submit" class="popuplogin_submit" value="Signin" /> or <span class="popuplogin_button"><a href="javascript:;" id="loginPopupCreateAccount">Create an Account</a></span>
+        </form>
+        <div class="popuplogin_facebook"><a href="javascript:clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a></div>
+      </div>
     </div>
-    <!-- /.contentContainer -->
+    <!-- /popup login -->
+    
 
 </div>
 <!-- /#wrapper -->
@@ -213,5 +247,6 @@
 ##        <h2>Contest $collab_contest</h2>
 ##    #end
 	
+    <fb:login-button perms="email"></fb:login-button>
 </body>
 </html>

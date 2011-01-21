@@ -3,19 +3,32 @@
     font-size: 1.1em;
     height: .8em;
     position: relative;
-    background-image: url(../../images/slider_bg.gif);
+    background: url(../../images/control-track.gif);
     background-repeat: repeat-x;
     background-position: 0 50%;
+    border: 0;
+    margin-top: 7px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 .ui-widget-content a.ui-slider-handle {
     position: absolute;
     z-index: 2;
-    top: -3px;
+    top: -5px;
     width: 11px;
-    height: 16px;
+    height: 20px;
     overflow:hidden;
     margin-left: -6px;
-    background:url(../../images/textures_glass.gif) no-repeat
+    background: url(../../images/control-grab.gif) no-repeat;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 0;
+    
 }
 .ui-widget-content a.ui-slider-handle-active, .ui-widget-content a.ui-slider-handle-active:hover {
     width: 11px;
@@ -48,3 +61,8 @@
 #content_home .teamGrid .right {
     float: none;
 }
+
+.chartContainer .jqplot-base-canvas {
+	background-color: transparent;
+}
+	
