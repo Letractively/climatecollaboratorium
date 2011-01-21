@@ -358,6 +358,10 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
         //return DebateItemVoteStatsLocalServiceUtil.getByDebateItemId(this.getDebateItemId()).getVotesCount();
     }
     
+    public int getVotesPercent() throws PortalException, SystemException {
+        return (int) Math.round((double) 100 * getVotesCount() / getDebate().getTotalVotesCount());
+    }
+    
     
     public int getCommentsCount() {
         return DebateItemLocalServiceUtil.getItemCommentsCount(getDebateItemId());

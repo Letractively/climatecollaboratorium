@@ -67,4 +67,14 @@ public interface DiscussionMessage extends DiscussionMessageModel {
     public com.ext.portlet.discussions.model.DiscussionMessage getThread()
         throws com.ext.portlet.discussions.NoSuchDiscussionMessageException,
             com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.discussions.model.DiscussionMessageFlag> getFlags()
+        throws com.liferay.portal.SystemException;
+
+    public void addFlag(java.lang.String flagType, java.lang.String data,
+        com.liferay.portal.model.User user)
+        throws com.liferay.portal.SystemException;
+
+    public void removeFlag(java.lang.String flagType)
+        throws com.liferay.portal.SystemException;
 }

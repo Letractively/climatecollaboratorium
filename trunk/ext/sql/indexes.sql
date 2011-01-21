@@ -158,6 +158,8 @@ create index IX_66919857 on DiscussionMessage (subject);
 create index IX_3538F7D5 on DiscussionMessage (subject, categoryGroupId);
 create index IX_472CEADE on DiscussionMessage (threadId);
 
+create index IX_743DB661 on DiscussionMessageFlag (messageId);
+
 create index IX_1BB072CA on EmailAddress (companyId);
 create index IX_49D2DEC4 on EmailAddress (companyId, classNameId);
 create index IX_551A519F on EmailAddress (companyId, classNameId, classPK);

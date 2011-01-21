@@ -1,4 +1,3 @@
-<%
 /**
  * Copyright (c) 2000-2009 Liferay, Inc. All rights reserved.
  *
@@ -20,31 +19,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-%>
 
-<%@ include file="/html/portlet/css_init.jsp" %>
+package com.ext.portlet.discussions;
 
-.portlet-blogs-aggregator .abstract {
-	margin-top: 1.5em;
-	margin-bottom: 1.5em;
-}
+import com.liferay.portal.PortalException;
 
-.portlet-blogs-aggregator .comments {
-	margin-top: 1.5em;
-}
+/**
+ * <a href="NoSuchDiscussionMessageFlagException.java.html"><b><i>View Source</i></b></a>
+ *
+ * @author Brian Wing Shun Chan
+ *
+ */
+public class NoSuchDiscussionMessageFlagException extends PortalException {
 
-.portlet-blogs-aggregator .entry-author {
-}
+	public NoSuchDiscussionMessageFlagException() {
+		super();
+	}
 
-.portlet-blogs-aggregator .entry-content {
-}
+	public NoSuchDiscussionMessageFlagException(String msg) {
+		super(msg);
+	}
 
-.portlet-blogs-aggregator .entry-title {
-	display: block;
-	font-size: 1.2em;
-	font-weight: bold;
-}
+	public NoSuchDiscussionMessageFlagException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
 
-.portlet-blogs-aggregator .search-container {
-	margin-top: 1.5em;
+	public NoSuchDiscussionMessageFlagException(Throwable cause) {
+		super(cause);
+	}
+
 }

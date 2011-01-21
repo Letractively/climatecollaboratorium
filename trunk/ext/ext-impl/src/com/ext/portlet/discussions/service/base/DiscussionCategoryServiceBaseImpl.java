@@ -4,10 +4,13 @@ import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalService;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupService;
 import com.ext.portlet.discussions.service.DiscussionCategoryLocalService;
 import com.ext.portlet.discussions.service.DiscussionCategoryService;
+import com.ext.portlet.discussions.service.DiscussionMessageFlagLocalService;
+import com.ext.portlet.discussions.service.DiscussionMessageFlagService;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalService;
 import com.ext.portlet.discussions.service.DiscussionMessageService;
 import com.ext.portlet.discussions.service.persistence.DiscussionCategoryGroupPersistence;
 import com.ext.portlet.discussions.service.persistence.DiscussionCategoryPersistence;
+import com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagPersistence;
 import com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence;
 
 import com.liferay.portal.SystemException;
@@ -36,6 +39,12 @@ public abstract class DiscussionCategoryServiceBaseImpl extends PrincipalBean
     protected DiscussionMessageService discussionMessageService;
     @BeanReference(name = "com.ext.portlet.discussions.service.persistence.DiscussionMessagePersistence.impl")
     protected DiscussionMessagePersistence discussionMessagePersistence;
+    @BeanReference(name = "com.ext.portlet.discussions.service.DiscussionMessageFlagLocalService.impl")
+    protected DiscussionMessageFlagLocalService discussionMessageFlagLocalService;
+    @BeanReference(name = "com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl")
+    protected DiscussionMessageFlagService discussionMessageFlagService;
+    @BeanReference(name = "com.ext.portlet.discussions.service.persistence.DiscussionMessageFlagPersistence.impl")
+    protected DiscussionMessageFlagPersistence discussionMessageFlagPersistence;
 
     public DiscussionCategoryGroupLocalService getDiscussionCategoryGroupLocalService() {
         return discussionCategoryGroupLocalService;
@@ -116,6 +125,33 @@ public abstract class DiscussionCategoryServiceBaseImpl extends PrincipalBean
     public void setDiscussionMessagePersistence(
         DiscussionMessagePersistence discussionMessagePersistence) {
         this.discussionMessagePersistence = discussionMessagePersistence;
+    }
+
+    public DiscussionMessageFlagLocalService getDiscussionMessageFlagLocalService() {
+        return discussionMessageFlagLocalService;
+    }
+
+    public void setDiscussionMessageFlagLocalService(
+        DiscussionMessageFlagLocalService discussionMessageFlagLocalService) {
+        this.discussionMessageFlagLocalService = discussionMessageFlagLocalService;
+    }
+
+    public DiscussionMessageFlagService getDiscussionMessageFlagService() {
+        return discussionMessageFlagService;
+    }
+
+    public void setDiscussionMessageFlagService(
+        DiscussionMessageFlagService discussionMessageFlagService) {
+        this.discussionMessageFlagService = discussionMessageFlagService;
+    }
+
+    public DiscussionMessageFlagPersistence getDiscussionMessageFlagPersistence() {
+        return discussionMessageFlagPersistence;
+    }
+
+    public void setDiscussionMessageFlagPersistence(
+        DiscussionMessageFlagPersistence discussionMessageFlagPersistence) {
+        this.discussionMessageFlagPersistence = discussionMessageFlagPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {

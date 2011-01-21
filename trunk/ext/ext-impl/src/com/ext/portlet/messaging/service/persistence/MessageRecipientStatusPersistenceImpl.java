@@ -428,10 +428,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
 
                 query.append(" ");
 
-                query.append("ORDER BY ");
-
-                query.append("messageRecipientId DESC");
-
                 Query q = session.createQuery(query.toString());
 
                 QueryPos qPos = QueryPos.getInstance(q);
@@ -498,11 +494,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
-                }
-                else {
-                    query.append("ORDER BY ");
-
-                    query.append("messageRecipientId DESC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -607,11 +598,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 query.append("ORDER BY ");
                 query.append(obc.getOrderBy());
             }
-            else {
-                query.append("ORDER BY ");
-
-                query.append("messageRecipientId DESC");
-            }
 
             Query q = session.createQuery(query.toString());
 
@@ -671,10 +657,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 }
 
                 query.append(" ");
-
-                query.append("ORDER BY ");
-
-                query.append("messageRecipientId DESC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -758,11 +740,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
-                }
-                else {
-                    query.append("ORDER BY ");
-
-                    query.append("messageRecipientId DESC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -886,11 +863,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 query.append("ORDER BY ");
                 query.append(obc.getOrderBy());
             }
-            else {
-                query.append("ORDER BY ");
-
-                query.append("messageRecipientId DESC");
-            }
 
             Query q = session.createQuery(query.toString());
 
@@ -946,10 +918,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 }
 
                 query.append(" ");
-
-                query.append("ORDER BY ");
-
-                query.append("messageRecipientId DESC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -1017,11 +985,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
-                }
-                else {
-                    query.append("ORDER BY ");
-
-                    query.append("messageRecipientId DESC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -1125,11 +1088,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 query.append("ORDER BY ");
                 query.append(obc.getOrderBy());
             }
-            else {
-                query.append("ORDER BY ");
-
-                query.append("messageRecipientId DESC");
-            }
 
             Query q = session.createQuery(query.toString());
 
@@ -1226,10 +1184,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 }
 
                 query.append(" ");
-
-                query.append("ORDER BY ");
-
-                query.append("messageRecipientId DESC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -1355,11 +1309,6 @@ public class MessageRecipientStatusPersistenceImpl extends BasePersistenceImpl
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
-                }
-                else {
-                    query.append("ORDER BY ");
-
-                    query.append("messageRecipientId DESC");
                 }
 
                 Query q = session.createQuery(query.toString());

@@ -55,7 +55,11 @@ public class DiscussionCategoryImpl extends DiscussionCategoryModelImpl
     }
     
     public User getLastActivityAuthor() throws PortalException, SystemException {
-        return UserLocalServiceUtil.getUser(getLastActivityAuthorId());
+        Long lastActivityAuthor = getLastActivityAuthorId();
+        if (lastActivityAuthor != null) {
+            return UserLocalServiceUtil.getUser(getLastActivityAuthorId());
+        }
+        return getAuthor();
     }
     
     public void delete() throws SystemException {

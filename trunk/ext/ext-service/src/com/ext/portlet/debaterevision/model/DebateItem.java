@@ -92,5 +92,9 @@ public interface DebateItem extends DebateItemModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public int getVotesPercent()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public int getCommentsCount();
 }
