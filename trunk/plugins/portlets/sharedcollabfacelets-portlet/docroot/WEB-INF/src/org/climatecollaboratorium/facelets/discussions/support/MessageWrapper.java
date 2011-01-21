@@ -15,7 +15,9 @@ import org.climatecollaboratorium.utils.Helper;
 import org.climatecollaboratorium.utils.HumanTime;
 import org.climatecollaboratorium.validation.ValueRequiredValidator;
 
+import com.ext.portlet.discussions.DiscussionMessageFlagType;
 import com.ext.portlet.discussions.model.DiscussionMessage;
+import com.ext.portlet.discussions.model.DiscussionMessageFlag;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
@@ -38,10 +40,6 @@ public class MessageWrapper {
     private String filteredDescription;
     private boolean empty = false;
 
-    
-    public String getShortDescription() {
-        return shortDescription;
-    }
 
     private String shortDescription;
     private boolean goTo;
@@ -163,17 +161,22 @@ public class MessageWrapper {
         if (!added && discussionBean.getPermissions().getCanAddMessage()) {
 
             UIInput messageInput = (UIInput) e.getComponent().getParent().findComponent("messageContent"); 
-            UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("messageTitle"); 
-            if (!ValueRequiredValidator.validateComponent(nameInput) || 
+            //UIInput nameInput = (UIInput) e.getComponent().getParent().findComponent("messageTitle"); 
+            /*if (!ValueRequiredValidator.validateComponent(nameInput) || 
                     !ValueRequiredValidator.validateComponent(messageInput)) {
                 return;
+            }*/
+            if (!ValueRequiredValidator.validateComponent(messageInput)) {
+                return;
             }
+            // title set by default
+            title = "message title";
             
             wrapped = thread.getWrapped().addThreadMessage(title, description, Helper.getLiferayUser());
             added = true;
             thread.addMessage(this);
             filteredDescription = ContentFilterHelper.filterContent(description);
-            Helper.sendInfoMessage("Message \"" + title + "\" has been added.");
+            Helper.sendInfoMessage("Message has been added.");
 
             ThemeDisplay td = Helper.getThemeDisplay();
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
@@ -266,8 +269,12 @@ public class MessageWrapper {
         return wrapped.getLastActivityAuthorId();
     }
     
-    public String getLastActivityDate() {
-        return HumanTime.exactly(new Date().getTime() - wrapped.getLastActivityDate().getTime());
+    public String getLastActivityDateStr() {
+        return HumanTime.exactly(new Date().getTime() - (wrapped.getLastActivityDate() != null ? wrapped.getLastActivityDate() : wrapped.getCreateDate()).getTime());
+    }
+    
+    public Date getLastActivityDate() {
+        return wrapped.getLastActivityDate() != null ? wrapped.getLastActivityDate() : wrapped.getCreateDate();
     }
     
     public User getLastActivityAuthor() throws PortalException, SystemException {
@@ -337,5 +344,40 @@ public class MessageWrapper {
     public void revertMessages(ActionEvent e) {
         Collections.reverse(messages);
         oldestFirst = !oldestFirst;
+    }
+    
+    public String getShortDescription() {
+        return shortDescription;
+    }
+    
+    public boolean isExpertReview() throws SystemException {
+        return hasFlag(DiscussionMessageFlagType.EXPERT_REVIEW);
+    }
+    
+    public boolean hasFlag(DiscussionMessageFlagType flagType) throws SystemException {
+        return hasFlag(flagType.name());
+    }
+    
+    public boolean hasFlag(String flagType) throws SystemException {
+        if (wrapped != null && wrapped.getMessageId() != null) {
+            for (DiscussionMessageFlag flag: wrapped.getFlags()) {
+                if (flag.getFlagType().equals(flagType)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public void addFlag(ActionEvent e) throws SystemException {
+        String flagType = e.getComponent().getAttributes().get("flagType").toString();
+        
+        wrapped.addFlag(flagType, null, Helper.getLiferayUser());
+    }
+    
+    public void removeFlag(ActionEvent e) throws SystemException {
+        String flagType = e.getComponent().getAttributes().get("flagType").toString();
+        
+        wrapped.removeFlag(flagType);
     }
 }

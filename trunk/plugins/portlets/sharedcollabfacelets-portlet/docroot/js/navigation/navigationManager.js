@@ -90,6 +90,9 @@ Collab.nav = new function() {
 			forceNavigation();
 		}
 	}
+	this.refresh = function() {
+		forceNavigation();
+	}
 	
 	this.block = function() {
 		jQuery("#content_wrap").block({message: "<center><img src='/collaboratorium-theme/images/ajax-loader.gif' /></center>"});

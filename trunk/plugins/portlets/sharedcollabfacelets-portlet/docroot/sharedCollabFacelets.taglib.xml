@@ -12,6 +12,14 @@
         <source>xhtml/tags/simulationInputs/simulationInputs.xhtml</source>
     </tag>
     <tag>
+        <tag-name>simulationInputsView</tag-name>
+        <source>xhtml/tags/simulationInputsView/simulationInputsView.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>simulationInputsEdit</tag-name>
+        <source>xhtml/tags/simulationInputsEdit/simulationInputsEdit.xhtml</source>
+    </tag>
+    <tag>
         <tag-name>simulationSupport</tag-name>
         <handler-class>org.climatecollaboratorium.facelets.simulations.support.SimulationSupportTag</handler-class>
     </tag>

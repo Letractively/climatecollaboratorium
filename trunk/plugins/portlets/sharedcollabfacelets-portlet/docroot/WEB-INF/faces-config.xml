@@ -10,6 +10,7 @@
      -->
 	<application>
 		<view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
+		<message-bundle>Messages</message-bundle>
 	</application>
 	<factory/>
 	<managed-bean>

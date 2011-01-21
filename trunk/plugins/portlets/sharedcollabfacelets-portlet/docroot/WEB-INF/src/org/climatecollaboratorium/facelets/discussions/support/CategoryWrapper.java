@@ -1,6 +1,8 @@
 package org.climatecollaboratorium.facelets.discussions.support;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +35,8 @@ public class CategoryWrapper {
     private String filteredDescription;
     private boolean goTo;
     private boolean added = false;
+    private boolean byNewest = true;
+    
 
 
     private List<MessageWrapper> threads = new ArrayList<MessageWrapper>();
@@ -135,7 +139,11 @@ public class CategoryWrapper {
     }
     
     public String getLastActivityDate() {
-        return HumanTime.exactly(new Date().getTime() - wrapped.getLastActivityDate().getTime());
+        Date lastActivity = wrapped.getLastActivityDate();
+        if (lastActivity == null) {
+            lastActivity = wrapped.getCreateDate();
+        }
+        return HumanTime.exactly(new Date().getTime() - lastActivity.getTime());
     }
     
     public User getLastActivityAuthor() throws PortalException, SystemException {
@@ -195,6 +203,22 @@ public class CategoryWrapper {
 
     public void setGoTo(boolean goTo) {
         this.goTo = goTo;
+    }
+    
+    public boolean isByNewest() {
+        return byNewest;
+    }
+    
+    public void resort(ActionEvent e) {
+        byNewest = !byNewest;
+        
+        Collections.sort(threads, new Comparator<MessageWrapper>() {
+
+            @Override
+            public int compare(MessageWrapper o1, MessageWrapper o2) {
+                return o1.getLastActivityDate().compareTo(o2.getLastActivityDate()) * (byNewest ? -1 : 1);
+            }
+        });
     }
     
 }

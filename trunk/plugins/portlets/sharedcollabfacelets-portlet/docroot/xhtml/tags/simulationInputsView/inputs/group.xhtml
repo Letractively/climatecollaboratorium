@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:liferay-faces="http://liferay.com/tld/faces"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+    <em>#{input.oryginalName}</em><br />
+    <ui:repeat value="#{input.displayItemsWrapped}" var="individualInput" varStatus="status">
+        <ui:include src="./outputValue.xhtml">
+            <ui:param value="#{individualInput.value}" name="value" />
+            <ui:param value="#{individualInput.metaData.units[0]}" name="unit" />
+            <ui:param value="#{individualInput.metaData.profile[0]}" name="dataType" />
+            <ui:param value="#{individualInput.metaData.labels[0]}" name="label" />
+        </ui:include>
+    </ui:repeat>
+</f:view>

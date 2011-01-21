@@ -83,6 +83,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
     public String getContent() {
         
         if (selectedHistoryVersion != null && editing) {
+            
             return selectedHistoryVersion.getDebateDetail();
         }
         
@@ -240,6 +241,7 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
                     }
                 }
             }
+            
         } catch (NumberFormatException e) {
             // ignore
         }
@@ -370,5 +372,18 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
             return ! item.getDebatePostType().equals(DebateItemType.QUESTION.toString());
         }
         return false;
+    }
+    
+    public List<DebateItem> getItemVersions() {
+        return item.getCompleteHistory();
+    }
+    
+    
+    public String getDebatePostType() {
+        return item.getDebatePostType();
+    }
+    
+    public void changeVersion(ActionEvent event) {
+        Long version = (Long) event.getComponent().getAttributes().get("version");
     }
 }

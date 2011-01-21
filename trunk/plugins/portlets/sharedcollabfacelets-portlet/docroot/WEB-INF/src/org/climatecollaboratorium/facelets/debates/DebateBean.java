@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.event.ActionEvent;
+
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
@@ -13,9 +15,13 @@ import org.climatecollaboratorium.facelets.debates.backing.DebatesPermissionsBea
 import org.climatecollaboratorium.facelets.debates.backing.DebatesSuggestBean;
 import org.climatecollaboratorium.facelets.debates.backing.EditDebateCommentBean;
 import org.climatecollaboratorium.facelets.debates.backing.EditDebateItemBean;
+import org.climatecollaboratorium.facelets.debates.support.DebateItemWrapper;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 
+import com.ext.portlet.debaterevision.DebateItemType;
 import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.debaterevision.model.DebateItem;
+import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -27,14 +33,19 @@ public class DebateBean {
     private Long lastInitDebateId;
     private Long debateId;
     private Debate debate;
+    private DebateItemWrapper currentItem;
+    private boolean showAdvanced;
+    
     private DebateDetailsBean debateDetailsBean = new DebateDetailsBean();
     private DebateItemCommentsBean debateItemCommentsBean = new DebateItemCommentsBean();
     private EditDebateCommentBean editDebateCommentBean = new EditDebateCommentBean();
+    private AddEditDebateItemBean addEditDebateItemBean = new AddEditDebateItemBean();
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     private DebatesPermissionsBean permissionsBean = new DebatesPermissionsBean();
     private EditDebateItemBean editDebateItemBean = new EditDebateItemBean();
     private DebatesSuggestBean debatesSuggestBean = new DebatesSuggestBean();
+    private DebatePageType pageType = DebatePageType.WELCOME;
     
     public DebateBean() {
         
@@ -48,8 +59,12 @@ public class DebateBean {
         editDebateItemBean.setPermissions(permissionsBean);
         
         debatesSuggestBean.setDebateDetailsBean(debateDetailsBean);
+        
+        addEditDebateItemBean.setPermissions(permissionsBean);
+        addEditDebateItemBean.setDebateBean(this);
     }
     private Log _log = LogFactoryUtil.getLog(DebateBean.class);
+    private boolean editing;
     
     public boolean init(Long debateId) {
         if ((debateId == null && lastInitDebateId == debateId) || (debateId != null && debateId.equals(lastInitDebateId))) {
@@ -122,8 +137,11 @@ public class DebateBean {
             public void onEvent(NavigationEvent event) {
                 if (event.hasSource("debate")) {
                     Map<String, String> parameters = event.getParameters("debate");
+                    System.out.println("mam debate event: " + parameters.get("itemId") + "\t");
                     if (parameters.containsKey("itemId")) {
                         Long itemId = Long.parseLong(parameters.get("itemId"));
+                        currentItem = new DebateItemWrapper(DebateItemLocalServiceUtil.getLastItem(itemId));
+                        pageType = DebatePageType.ITEM_DETAILS;
                         try {
                             debateDetailsBean.setSelectedItemId(itemId);
                         } catch (SystemException e) {
@@ -131,6 +149,9 @@ public class DebateBean {
                         } catch (PortalException e) {
                             _log.error("can't initialize debate details to item with id: " + itemId, e);
                         }
+                    }
+                    else {
+                        pageType = DebatePageType.WELCOME;
                     }
                 }
                 
@@ -150,6 +171,75 @@ public class DebateBean {
 
     public DebatesSuggestBean getDebatesSuggestBean() {
         return debatesSuggestBean;
+    }
+
+    public DebatePageType getPageType() {
+        return pageType;
+    }
+    public DebateItemWrapper getCurrentItem() {
+        return currentItem;
+    }
+
+    public void toggleAdvanced(ActionEvent e) {
+        showAdvanced = !showAdvanced;
+        
+    }
+
+    public boolean isShowAdvanced() {
+        return currentItem != null && showAdvanced;
+    }
+    
+    public void toggleEditing(ActionEvent e) throws SystemException {
+        editing = !editing;
+        if (currentItem != null) {
+            addEditDebateItemBean.setEditing(true);
+            addEditDebateItemBean.setItem(currentItem.getItem());
+            if (editing) {
+                pageType = DebatePageType.ITEM_EDIT;
+            }
+            else {
+                pageType = DebatePageType.ITEM_DETAILS;
+            }
+        }
+    }
+    
+    public void addDebateItem(ActionEvent e) {
+        DebateItemType type = DebateItemType.valueOf(e.getComponent().getAttributes().get("type").toString());
+        
+        addEditDebateItemBean.addDebateItem(type);
+        editing = true;
+        pageType = DebatePageType.ITEM_EDIT;
+        
+    }
+    
+
+    public void debateItemRemoved(DebateItem item) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public boolean isSubscribed() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public void subscribe() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void debateItemUpdated(DebateItem savedItem) throws SystemException {
+        toggleEditing(null);
+        
+    }
+
+    public void debateItemAdded(DebateItem savedItem) throws SystemException {
+        toggleEditing(null);
+        debate = DebateLocalServiceUtil.findLastVersion(debate.getDebateId());
+    }
+    
+    public AddEditDebateItemBean getAddEditBean() {
+        return addEditDebateItemBean;
     }
 
     

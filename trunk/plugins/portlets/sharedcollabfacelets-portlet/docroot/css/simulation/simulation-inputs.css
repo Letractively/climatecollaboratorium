@@ -1,8 +1,4 @@
 
-.sliderDef .value {
-    width: 50px;
-}
-
 .sliderDef .sliderCol {
     width: 125px;
 }
@@ -17,11 +13,8 @@
 }
 
 
-.slider-labels {
-    font-size:9px;
-}
-
 .slider-labels table {
+	margin-top: 5px;
     width:100%
 }
 
@@ -34,8 +27,8 @@ div.slider-labels table td {
 }
 
 div.slider-labels {
-    padding-right:8px;
-    padding-left:8px;
+    padding-right:2px;
+    padding-left:2px;
 }
 
 
@@ -98,6 +91,7 @@ table.inputDefTable {
 
 table.innerLayout td.label {
     text-align:right;
+    vertical-align: middle;
 
 }
 
@@ -260,4 +254,9 @@ table.mainTabs .inputTabStyle td.RtTop,
     height: 0px;
     width: 0px;
     display: none;
+}
+
+.modelInputValue .val {
+	color: #318EB5;
+	font-weight: bold;
 }

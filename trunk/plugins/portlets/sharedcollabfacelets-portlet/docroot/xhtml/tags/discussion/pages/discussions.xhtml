@@ -8,12 +8,15 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     
 <ui:composition template="./discussionTemplate.xhtml">
-    <ui:define name="discussion_breadcrumb">All Discussions</ui:define>
+    <ui:param name="displayedType" value="Topics" />
+    <ui:param name="displayedSubtype" value="All Categories" />
+    <ui:param name="displayedEntityType" value="discussions" />
+    <ui:param name="entitiesCount" value="#{discussionBean.threadsCount}" />
+    <ui:param name="showActions" value="true" />
+    
+    
+    <ui:define name="discussion_breadcrumb">All Categories</ui:define>
         <ui:define name="discussion_content">
-            <ui:decorate template="./paginator.xhtml">
-                <ui:param name="paginatorFor" value="threadsList"/>
-                <ui:param name="entityName" value="Discussions"/>
-            </ui:decorate>
              
             <ui:decorate template="./threadsList.xhtml">
                 <ui:param name="threads" value="#{discussionBean.threads}" />
@@ -24,9 +27,10 @@
             <ui:decorate template="./paginator.xhtml">
                 <ui:param name="paginatorFor" value="threadsList"/>
                 <ui:param name="entityName" value="Discussions"/>
+                <ui:param name="containerBean" value="#{discussionBean}" />
             </ui:decorate>
             </ice:panelGroup>
-            
+              
         </ui:define>
 </ui:composition>
 </f:view>

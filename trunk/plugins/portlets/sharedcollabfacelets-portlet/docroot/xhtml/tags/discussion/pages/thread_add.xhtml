@@ -7,36 +7,53 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     
 <ui:composition template="./discussionTemplate.xhtml">
-    <ui:define name="discussion_breadcrumb">
-        Add Discussion
-    </ui:define>
-    <ui:define name="discussion_content">
+    <ui:param name="displayedType" value="Add new" />
+    <ui:param name="displayedSubtype" value="Discussion" />
+    <!-- 
+    <ui:param name="displayedEntityType" value="discussions" />
+    <ui:param name="entitiesCount" value="#{fn:length(discussionBean.currentCategory.threads)}" />
+     -->
+    <ui:param name="showActions" value="true" />
+    <ui:param name="showAddDiscussion" value="false" />
     
-        <ice:panelGroup styleClass="newMessageForm">
-            <ice:outputLabel for="messageTitle" value="Title: " /><br />
-            <ice:inputText id="messageTitle" value="#{discussionBean.newThread.title}" styleClass="title text" maxlength="255" /><br />
-            <ice:message for="messageTitle" />
+    <ui:define name="discussion_content">
         
-            <ice:outputLabel for="category" value="Category: " /><br />
-            <ice:selectOneMenu id="category" value="#{discussionBean.newThread.categoryId}">
-                <f:selectItems value="#{discussionBean.categoriesItems}" />
-            </ice:selectOneMenu>
-            <br />
-            
-            <ice:outputLabel for="messageContent" value="Message: " /><br />
-            <ice:inputTextarea id="messageContent"  value="#{discussionBean.newThread.description}" styleClass="description text"/><br />
-            <ice:message for="messageContent" />
-            <ice:commandButton value="Add" actionListener="#{discussionBean.newThread.save}" />    
-            <ice:commandButton value="Cancel" actionListener="#{discussionBean.changePageType}">
-                <f:attribute name="pageType" value="CATEGORY" />
-                <f:param name="categoryId" value="#{discussionBean.currentCategory.id}" />
-            </ice:commandButton>
+        <ice:panelGroup styleClass="addthread" rendered="#{discussionBean.permissions.canAddMessage}">
+            <div id="thecomment">
+                <div id="add">
+                    <strong><ice:outputLabel for="category" value="Category: " /></strong>
+                </div>
+                <ice:selectOneMenu id="category" value="#{discussionBean.newThread.categoryId}" styleClass="selectbox1">
+                    <f:selectItems value="#{discussionBean.categoriesItems}" />
+                </ice:selectOneMenu>
+                <script type="text/javascript">
+                    jQuery(document).ready(function() {
+                        initSelectbox();
+                    });
+                </script>
+                
+                <div id="add">
+                    <strong><ice:outputLabel for="messageTitle">Title</ice:outputLabel></strong>
+                </div>
+                <ice:inputText id="messageTitle" value="#{discussionBean.newThread.title}" styleClass="commenttextbox" maxlength="255"/>
+                <ice:message for="messageTitle" />
+                                
+                <div id="add">
+                    <strong><ice:outputLabel for="messageTitle">Message</ice:outputLabel></strong>
+                </div>
+                <ice:inputTextarea id="messageContent" value="#{discussionBean.newThread.description}" styleClass="commentbox" /><br />
+                <ice:message for="messageContent" />
+                <!-- <ice:commandButton actionListener="#{discussionBean.currentThread.newMessage.addMessageToThread}" styleClass="comm_butt" />-->
+                <ice:commandButton value="Add" actionListener="#{discussionBean.newThread.save}" />    
+                <ice:commandButton value="Cancel" onclick="Collab.nav.refresh();" />
+                <f:subview rendered="#{discussionBean.currentThread.goTo}">
+                    <script type="text/javascript">
+                        Collab.nav.navigate('discussion', {pageType: 'THREAD', threadId: #{discussionBean.currentThread.id}}); return;
+                    </script>
+                </f:subview>
+            </div>
         </ice:panelGroup>
-        <ice:panelGroup rendered="#{discussionBean.newThread.goTo}">
-            <script language="javascript">
-            Collab.nav.navigate('discussion', {pageType: 'THREAD', threadId: '#{discussionBean.newThread.id}'});
-            </script>
-        </ice:panelGroup>
+        
     </ui:define>
 </ui:composition>
 </f:view>

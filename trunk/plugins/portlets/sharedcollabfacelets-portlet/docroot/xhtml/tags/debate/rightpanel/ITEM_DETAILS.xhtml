@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ice:panelGroup>
+        <ui:include src="./debateItemDetails/#{debateItem.debatePostType}.xhtml" />
+        
+        <f:subview rendered="#{fn:length(debateItem.references) > 0}">
+            <h3>References</h3>
+            <ul>
+                <ui:repeat value="#{debateItem.references}" var="reference">
+                    <li><a href="#{reference.url}">#{reference.text}</a></li>
+                </ui:repeat>
+            </ul>
+        </f:subview>
+        
+        <f:subview rendered="#{debateBean.debatesPermissionsBean.canDeleteComment}">
+            <div class="position_actions">
+                <ice:commandLink actionListener="#{debateBean.editCurrentItem}" value="edit" />
+                <span class="vdiv">|</span>
+                <ice:commandLink actionListener="#{debateItem.delete}" value="delete" />
+            </div>
+        </f:subview>
+        
+        <div class="position_comments">
+        <h3>Comments</h3>
+           
+            <ice:panelSeries var="comment" value="#{debateItem.comments}">
+                <div class="position_comment">
+                    <p>
+                        #{comment.debateCommentDetail}
+                    </p>
+                    
+                    <div class="position_comment_meta">
+                        By &amp;nbsp;<collab:userLinkSimple userId="#{comment.author.userId}" text="#{comment.author.screenName}" />
+                        on &amp;nbsp; 
+                        <ice:outputText value="#{comment.updated}">
+                            <f:convertDateTime pattern="MM/dd/yy hh:mm a"/>
+                        </ice:outputText>
+                    </div>
+                    <f:subview rendered="#{debateBean.debatesPermissionsBean.canDeleteComment}">
+                        <div class="position_comment_actions">
+                            <ice:commandLink actionListener="#{comment.delete}" value="delete" />
+                        </div>
+                    </f:subview>
+            
+                </div>
+            </ice:panelSeries>
+        
+            <ice:inputTextarea value="#{debateItem.newCommentText}" styleClass="position_comment-box"/>
+            <ice:message for="commentAdd" />
+            <ice:commandButton  id="commentAdd" actionListener="#{debateItem.addComment}" onclick="if(! deferUntilLogin()) return false;" styleClass="comm_butt right" />
+        </div>
+    </ice:panelGroup>
+</f:view>

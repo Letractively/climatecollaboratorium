@@ -5,41 +5,38 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <ice:panelSeries value="#{threads}" var="thread" varStatus="varStatus" id="threadsList" rows="10">
-        <div class="messageShort #{varStatus.index mod 2 != 0 ? 'odd' : 'even'}">
-            <div>
-                <h4 class="title">
+    <ice:dataTable styleClass="colab" value="#{threads}" var="thread" rowClasses="t,nt" id="threadsList" rows="20">
+        <ice:column>
+            <f:facet name="header">
+                Question
+            </f:facet>
+            
                     <ice:commandLink actionListener="#{discussionBean.changePageType}"
                                 onclick="Collab.nav.navigate('discussion', {pageType: 'THREAD', threadId: #{thread.id}}); return;">
                         <f:attribute name="pageType" value="THREAD" />
                         <f:param name="threadId" value="#{thread.id}" />
                         <ice:outputText value="#{thread.title}" />
                     </ice:commandLink>
-                </h4>
-                <div class="clear"></div>
-            </div>
-            <div class="content">
-                <ice:outputText value="#{thread.shortDescription}" escape="false"/>
-            </div>
-            <div class="meta">
-                <div class="floatLeft">
-                    Started by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.author.userId}">#{thread.author.screenName}</a> 
-                    :: Comments &amp;nbsp;<strong>#{thread.threadMessagesCount}</strong>
-                </div>
-
-                <ice:panelGroup styleClass="floatRight" rendered="#{thread.threadMessagesCount > 0}"> 
-                    
-                    Last response by &amp;nbsp;<a href="/web/guest/members?userId=#{thread.lastActivityAuthor.userId}">#{thread.lastActivityAuthor.screenName}</a>  
-                    :: Last active &amp;nbsp;<strong>#{thread.lastActivityDate} ago</strong>
-                </ice:panelGroup>
-                <div class="clear"></div>       
-                         
-                <ice:panelGroup rendered="#{showCategory}">
-                    Category:&amp;nbsp; 
-                    <a href="javascript:;" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{thread.category.id}})">#{thread.category.title}</a>
-                </ice:panelGroup>
-                
-            </div>            
-        </div>
-    </ice:panelSeries>
+        </ice:column>
+        <ice:column>
+            <f:facet name="header">
+                Replies
+            </f:facet>
+            #{thread.threadMessagesCount}
+        </ice:column>
+        <ice:column>
+            <f:facet name="header">
+                Last Comment
+            </f:facet>
+            <collab:userLinkSimple userId="#{thread.lastActivityAuthor.userId}" text="#{thread.lastActivityAuthor.screenName}" />
+        </ice:column>
+        <ice:column>
+            <f:facet name="header">
+                Date
+            </f:facet>
+            <ice:outputText value="#{thread.lastActivityDate}">
+                <f:convertDateTime pattern="MM/dd/yy hh:mm a"/>
+            </ice:outputText>
+        </ice:column>
+    </ice:dataTable>
 </f:view>

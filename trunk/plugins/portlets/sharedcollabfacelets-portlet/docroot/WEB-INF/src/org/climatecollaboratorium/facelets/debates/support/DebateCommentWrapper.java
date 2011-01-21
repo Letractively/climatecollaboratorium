@@ -1,21 +1,25 @@
 package org.climatecollaboratorium.facelets.debates.support;
 
+import java.util.Date;
+
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.debates.backing.DebatesPermissionsBean;
 import org.climatecollaboratorium.facelets.debates.backing.Helper;
 
 import com.ext.portlet.debaterevision.model.DebateComment;
-import com.ext.portlet.debaterevision.service.DebateCommentLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.User;
 
 public class DebateCommentWrapper {
     private DebateComment comment;
-    private DebatesPermissionsBean permissions;
+    private DebateItemWrapper item;
     
 
-    public DebateCommentWrapper(DebateComment comment) {
+    public DebateCommentWrapper(DebateComment comment, DebateItemWrapper item) {
         this.comment = comment;
+        this.item = item;
     }
 
     public DebateComment getComment() {
@@ -27,19 +31,20 @@ public class DebateCommentWrapper {
     }
     
     public void delete(ActionEvent event) throws SystemException {
-        if (permissions.getCanDeleteComment()) {
-            comment.delete();
-        }
+        comment.delete();
+        item.commentRemoved(this);
     }
 
-    public DebatesPermissionsBean getPermissions() {
-        return permissions;
-    }
-    public void setPermissions(DebatesPermissionsBean permissions) {
-        this.permissions = permissions;
-    }
     
     public String getDebateCommentDetail() {
         return Helper.filterContent(comment.getDebateCommentDetail());
+    }
+    
+    public User getAuthor() throws PortalException, SystemException {
+        return comment.getAuthor();
+    }
+    
+    public Date getUpdated() {
+        return comment.getUpdated();
     }
 }

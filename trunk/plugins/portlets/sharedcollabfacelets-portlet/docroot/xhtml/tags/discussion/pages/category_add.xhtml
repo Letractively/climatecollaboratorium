@@ -7,25 +7,35 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     
 <ui:composition template="./discussionTemplate.xhtml">
-    <ui:define name="discussion_breadcrumb">
-        Add category
-    </ui:define>
+    <ui:param name="displayedType" value="Add new" />
+    <ui:param name="displayedSubtype" value="Category" />
+    <!-- 
+    <ui:param name="displayedEntityType" value="discussions" />
+    <ui:param name="entitiesCount" value="#{fn:length(discussionBean.currentCategory.threads)}" />
+     -->
+    <ui:param name="showActions" value="true" />
+    <ui:param name="showAddDiscussion" value="true" />
+    
     <ui:define name="discussion_content">
-        <ice:panelGroup styleClass="newMessageForm">
-            <ice:outputLabel for="categoryName" value="Name" /><br />
-            <ice:inputText id="categoryName" value="#{discussionBean.newCategory.title}" styleClass="title text" maxlength="255" >
+        <ice:panelGroup styleClass="newMessageForm addthread">
+        
+            <div id="add">
+                <strong><ice:outputLabel for="categoryName">Name</ice:outputLabel></strong>
+            </div>
+            <ice:inputText id="categoryName" value="#{discussionBean.newCategory.title}" styleClass="commenttextbox" maxlength="255" >
                 <f:attribute name="categoryGroupId" value="#{discussionBean.discussionId}" />
             </ice:inputText>
-            <br />
-            <ice:message for="categoryName" />
         
-            <ice:outputLabel for="categoryDescription" value="Description" /><br />
-            <ice:inputTextarea id="categoryDescription"  value="#{discussionBean.newCategory.description}" styleClass="description text"/><br />
+            <ice:message for="categoryName" />
+            
+            <div id="add">
+                <strong><ice:outputLabel for="categoryDescription">Description</ice:outputLabel></strong>
+            </div>
+            <ice:inputTextarea id="categoryDescription"  value="#{discussionBean.newCategory.description}" styleClass="commentbox"/><br />
             <ice:message for="categoryDescription" />
             <ice:commandButton value="Add" actionListener="#{discussionBean.newCategory.save}" />    
-            <ice:commandButton value="Cancel" actionListener="#{discussionBean.changePageType}">
-                <f:attribute name="pageType" value="CATEGORIES" />
-            </ice:commandButton>
+            
+            <ice:commandButton value="Cancel" onclick="Collab.nav.refresh();" />
             <ice:panelGroup rendered="#{discussionBean.newCategory.goTo}">
                 <script language="javascript">
                 Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: '#{discussionBean.newCategory.id}'});

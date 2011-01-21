@@ -1,6 +1,9 @@
 package org.climatecollaboratorium.facelets.discussions;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +70,7 @@ public class DiscussionBean {
     private DiscussionsPermissions permissions;
     private DiscussionsPermissionsConfig permissionsConfig;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
+    private boolean byNewest = true;
 
     public DiscussionBean() {
     }
@@ -424,7 +428,7 @@ public class DiscussionBean {
     }
 
     public Long getOwningGroupId() {
-        if (owningGroupId == null) {
+        if (owningGroupId == null || owningGroupId <= 0) {
             owningGroupId = Helper.getThemeDisplay().getScopeGroupId();
         }
         return owningGroupId;
@@ -447,6 +451,13 @@ public class DiscussionBean {
     public int getCommentsCount() throws SystemException, PortalException {
         return discussion.getCommentsCount();
     }
+    
+    public int getThreadsCount() throws SystemException {
+        if (threads == null) {
+            getThreads();
+        }
+        return threads.size();
+    }
 
     public void commentAdded(MessageWrapper messageWrapper) throws SystemException {
         if (commentsThread.isNewMsg()) {
@@ -464,5 +475,22 @@ public class DiscussionBean {
     
     public boolean getHasComments() throws SystemException {
         return commentsThread.getWrapped() != null;  
+    }
+    
+    public boolean isByNewest() {
+        return byNewest;
+    }
+    
+    public void resort(ActionEvent e) {
+        byNewest = !byNewest;
+        
+        Collections.sort(threads, new Comparator<MessageWrapper>() {
+            @Override
+            public int compare(MessageWrapper o1, MessageWrapper o2) {
+                Date o1Date = o1.getLastActivityDate() != null ? o1.getLastActivityDate() : o1.getCreateDate();
+                Date o2Date = o2.getLastActivityDate() != null ? o2.getLastActivityDate() : o2.getCreateDate();
+                return o1Date.compareTo(o2Date) * (byNewest ? -1 : 1);
+            }
+        });
     }
 }
