@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ice:panelGroup rendered="#{debateBean.debatesPermissionsBean.canEditDebateMap}" styleClass="advanced">
+        <div class="advanced_inner">
+            <f:subview rendered="#{not debateBean.showAdvanced}">
+                <ice:commandLink value="advanced mode" actionListener="#{debateBean.toggleAdvanced}" />
+            </f:subview>
+            <f:subview rendered="#{debateBean.showAdvanced}">
+                
+                <ice:commandLink value="add argument for" actionListener="#{debateBean.addDebateItem}" rendered="#{debateBean.currentItem.canHaveSubargument}">
+                    <f:attribute name="type" value="ARGUMENT_PRO" />
+                </ice:commandLink>
+                 &amp;nbsp; &amp;nbsp;
+                
+                <ice:commandLink value="add argument against" actionListener="#{debateBean.addDebateItem}" rendered="#{debateBean.currentItem.canHaveSubargument}">
+                    <f:attribute name="type" value="ARGUMENT_CON" />
+                </ice:commandLink>
+                 &amp;nbsp; &amp;nbsp;
+                
+                <ice:commandLink value="add position" actionListener="#{debateBean.addDebateItem}" rendered="#{debateBean.currentItem.canHavePosition}">
+                    <f:attribute name="type" value="POSITION" />
+                </ice:commandLink>
+                 &amp;nbsp; &amp;nbsp;
+                
+                
+                <ice:commandLink value="edit" actionListener="#{debateBean.toggleEditing}" />
+                 &amp;nbsp; &amp;nbsp;
+                    
+            
+                <ice:commandLink value="close advanced" actionListener="#{debateBean.toggleAdvanced}" /> &amp;nbsp; &amp;nbsp;
+            </f:subview>
+      
+            <div class="advanced_open"><a href="#"><img src="/collaboratorium-theme/images/icon_advanced-chk.png" width="16" height="18" /> add argument pro</a> &amp;nbsp; &amp;nbsp; &amp;nbsp; <a href="#"><img src="/collaboratorium-theme/images/icon_advanced-x.png" width="16" height="18" /> add argument against</a> &amp;nbsp; &amp;nbsp; &amp;nbsp; <a href="#"><img src="/collaboratorium-theme/images/icon_advanced-edit.png" width="19" height="19" /> edit</a> &amp;nbsp; &amp;nbsp; &amp;nbsp; <a href="javascript:;" id="adv2">close advanced</a> &amp;nbsp; &amp;nbsp;</div>
+        </div>
+    </ice:panelGroup>
+</f:view>

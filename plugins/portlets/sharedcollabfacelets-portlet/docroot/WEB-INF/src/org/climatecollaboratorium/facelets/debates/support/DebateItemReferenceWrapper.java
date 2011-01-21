@@ -2,6 +2,7 @@ package org.climatecollaboratorium.facelets.debates.support;
 
 import javax.faces.event.ActionEvent;
 
+import org.climatecollaboratorium.facelets.debates.AddEditDebateItemBean;
 import org.climatecollaboratorium.facelets.debates.backing.EditDebateItemBean;
 
 import com.ext.portlet.debaterevision.model.DebateItemReference;
@@ -9,10 +10,16 @@ import com.ext.portlet.debaterevision.model.DebateItemReference;
 public class DebateItemReferenceWrapper  {
     private DebateItemReference reference;
     private EditDebateItemBean editDebateItemBean;
+    private AddEditDebateItemBean addEditDebateItemBean;
     
     public DebateItemReferenceWrapper(DebateItemReference reference, EditDebateItemBean editDebateItemBean) {
         this.reference = reference;
         this.editDebateItemBean = editDebateItemBean;
+    }
+    
+    public DebateItemReferenceWrapper(DebateItemReference reference, AddEditDebateItemBean addEditDebateItemBean) {
+        this.reference = reference;
+        this.addEditDebateItemBean = addEditDebateItemBean;
     }
     
     public DebateItemReference getReference() {
@@ -38,7 +45,11 @@ public class DebateItemReferenceWrapper  {
 
     
     public void removeReference(ActionEvent event) {
-        editDebateItemBean.removeReference(this);
+        if (addEditDebateItemBean != null) {
+            addEditDebateItemBean.removeReference(this);
+        }
+        else {
+            editDebateItemBean.removeReference(this);
+        }
     }
-    
 }

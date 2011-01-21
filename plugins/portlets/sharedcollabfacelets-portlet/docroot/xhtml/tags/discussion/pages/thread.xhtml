@@ -7,64 +7,87 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
 
 <ui:composition template="./discussionTemplate.xhtml">
+    <ui:param name="displayedType" value="Thread" />
+    <ui:param name="displayedSubtype" value="#{discussionBean.currentThread.title}" />
+    <ui:param name="displayedEntityType" value="messages" />
+    <ui:param name="entitiesCount" value="#{discussionBean.currentThread.threadMessagesCount}" />
+    <ui:param name="showActions" value="true" />
+    
     <ui:define name="discussion_breadcrumb">
         <a href="javascript:;" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{discussionBean.currentThread.category.id}}); return;"> 
             #{discussionBean.currentThread.category.title}:</a> #{discussionBean.currentThread.title}
     </ui:define>
     <ui:define name="discussion_content">
-    <ice:panelSeries value="#{discussionBean.currentThread.threadMessages}" var="message" varStatus="messageStatus">
-        <ice:panelGroup rendered="#{not message.editing}">
-            <div class="messageLong #{messageStatus.index mod 2 != 0 ? 'odd' : 'even' }">
-                <h4 class="title">
-                    <ice:outputText value="#{message.title}" />
-                </h4>
-                <div class="actions">
-                    <ice:commandButton actionListener="#{message.toggleEdit}" value="Edit" rendered='#{discussionBean.permissions.canAdminMessages}'/>
-                    <ice:commandButton actionListener="#{message.delete}" value="Delete" rendered='#{discussionBean.permissions.canAdminMessages}'/>
-                </div>
-                <div class="clear"></div>
-                <div class="meta">
-                    <div class="floatLeft">By &amp;nbsp;
-                        <a href="/web/guest/members?userId=#{thread.author.userId}">#{message.author.screenName}</a> 
-                    </div>
-                    <div class="floatRight">
-                        <ice:outputText value="#{message.createDate}">
-                            <f:convertDateTime pattern="MM/dd/yy hh:mm a"/>
-                        </ice:outputText>
-                    
-                    </div> 
-                    <div class="clear"></div>
-                </div>
-                <div class="content">
-                    <ice:outputText value="#{message.filteredDescription}" escape="false" />
-                </div>
-            </div>
-        </ice:panelGroup>
-        <ice:panelGroup rendered="#{message.editing}" styleClass="newMessageForm">
-            <ice:outputLabel for="messageTitle" value="Title: " /><br />
-            <ice:inputText id="messageTitle" value="#{message.title}" styleClass="title text"/>
-            <ice:message for="messageTitle" />
-            <br />
-            <ice:outputLabel for="messageContent" value="Message: " /><br />
-            <ice:inputTextarea id="messageContent"  value="#{message.description}" styleClass="description text"/>
-        <ice:message for="messageContent" /><br />
-        
-            <ice:commandButton actionListener="#{message.updateMessage}" value="Save" />
-            <ice:commandButton actionListener="#{message.toggleEdit}" value="Cancel" />
-        </ice:panelGroup>
-    </ice:panelSeries>
+
+
     
-    <ice:panelGroup styleClass="newMessageForm" rendered="#{discussionBean.permissions.canAddMessage}">
-        <ice:outputLabel for="messageTitle" value="Title:" /><br />
-        <ice:inputText id="messageTitle" value="#{discussionBean.currentThread.newMessage.title}" styleClass="title text" maxlength="255"/>
-        <ice:message for="messageTitle" />
-        <br />
+     <ice:dataTable value="#{discussionBean.currentThread.threadMessages}" var="message" varStatus="messageStatus" columnClasses="l,r" rowClasses="odd,even" id="commentsTable" rendered="#{not discussionBean.commentsThread.newMsg}">
+        <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
+            <div class="com_num">#{message.messageNum}</div>
+            <collab:userLinkSimple text="#{message.author.screenName}" userId="#{message.author.userId}" /> <br />
+            <f:subview rendered="#{message.expertReview}">
+                <strong>Expert Reviews</strong><br />
+            </f:subview>
+            <ice:outputText value="#{message.createDate}">
+                <f:convertDateTime pattern="MMM. dd, yyyy"/>
+            </ice:outputText><br />
+            <ice:outputText value="#{message.createDate}">
+                <f:convertDateTime pattern="hh:mm a"/>
+            </ice:outputText>
+        </ice:column>
         
-        <ice:outputLabel for="messageContent" value="Message:" /><br />
-        <ice:inputTextarea id="messageContent" value="#{discussionBean.currentThread.newMessage.description}" styleClass="description text" /><br />
-        <ice:message for="messageContent" />
-        <ice:commandButton value="Add" actionListener="#{discussionBean.currentThread.newMessage.addMessageToThread}" />
+        <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
+            <ice:panelGroup rendered="#{not message.editing}">
+                    <div class="content">
+                        <ice:outputText value="#{message.filteredDescription}" escape="false" />
+                    </div>
+                    <div class="commentsActions">
+                        <ice:commandButton actionListener="#{message.toggleEdit}" value="Edit" rendered='#{discussionBean.permissions.canAdminMessages}'/>
+                        <ice:commandButton actionListener="#{message.delete}" value="Delete" rendered='#{discussionBean.permissions.canAdminMessages}'/>
+                        <ice:commandButton actionListener="#{message.addFlag}" value="Mark as an expert review" rendered='#{discussionBean.permissions.canAdminMessages and not message.expertReview}' >
+                            <f:attribute name="flagType" value="EXPERT_REVIEW" />
+                        </ice:commandButton>
+                        <ice:commandButton actionListener="#{message.removeFlag}" value="Remove an expert review flag" rendered='#{discussionBean.permissions.canAdminMessages and message.expertReview}' >
+                            <f:attribute name="flagType" value="EXPERT_REVIEW" />
+                        </ice:commandButton>
+                    </div>
+                    <div class="clear"></div>
+                    
+            </ice:panelGroup>
+            <ice:panelGroup rendered="#{message.editing}" styleClass="newMessageForm">
+                <ice:outputLabel for="messageTitle" value="Title: " /><br />
+                <ice:inputText id="messageTitle" value="#{message.title}" styleClass="title text"/>
+                <ice:message for="messageTitle" />
+                <br />
+                <ice:outputLabel for="messageContent" value="Message: " /><br />
+                <ice:inputTextarea id="messageContent"  value="#{message.description}" styleClass="description text"/>
+            <ice:message for="messageContent" /><br />
+        
+                <ice:commandButton actionListener="#{message.updateMessage}" value="Save" />
+                <ice:commandButton actionListener="#{message.toggleEdit}" value="Cancel" />
+            </ice:panelGroup>
+        
+        </ice:column>
+    </ice:dataTable>
+
+    <ice:panelGroup styleClass="addthread" rendered="#{discussionBean.permissions.canAddMessage}">
+        <div id="add">
+            <strong>ADD YOUR RESPONSE</strong>
+        </div>
+        <div id="thecomment">
+            <ice:inputHidden id="messageTitle" value="#{discussionBean.currentThread.newMessage.title}" styleClass="title text" maxlength="255"/>
+            <ice:inputTextarea id="messageContent" value="#{discussionBean.currentThread.newMessage.description}" styleClass="commentbox" /><br />
+            <ice:message for="messageContent" />
+            <ice:commandButton actionListener="#{discussionBean.currentThread.newMessage.addMessageToThread}" styleClass="comm_butt" />
+        </div>
     </ice:panelGroup>
+    
+
+    
+        <div class="clearfix"></div>
+    
+    
+    
         
     </ui:define>
 </ui:composition>

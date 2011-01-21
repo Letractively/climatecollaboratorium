@@ -1,6 +1,4 @@
-.discussion {
-    padding: 5px;
-}
+
 .discussionContainer {
     width: 100%;
     border: 0;
@@ -142,7 +140,18 @@
     color: #ffffff;
 }
 
-.discussion .prominantButton.startDiscussion {
-    font-size: 2em;
-    white-space:normal;
+.comm_controlsTbl {
+	display: none;
 }
+
+.discussionCategories .active {
+	font-weight: bold;
+}
+
+.commenttextbox, input[type="text"].commenttextbox {
+    width: 650px;
+    border: 2px solid #B7B6AE;
+    margin-bottom: 10px;
+}
+
+.addthread .commentbox { width:650px;}

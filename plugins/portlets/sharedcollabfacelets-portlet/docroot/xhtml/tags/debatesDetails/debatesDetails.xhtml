@@ -9,29 +9,34 @@
     <collab:debatesDetailsSupport debatesDetailsBean="#{debatesDetailsBean}" debatesIds="#{debatesIds}" >
         <ice:panelSeries value="#{debatesDetailsBean.debates}" var="debate" styleClass="debatelist">
             <div class="singleDebateSummary">
-                <h3 class="debateTitle"><a href="#{linkPatternPrefix}debate=debateId:#{debate.debateId}">#{debate.currentRoot.debateSummary}</a></h3>
+                <h2 class="debate-issue"><a href="#{linkPatternPrefix}debate=debateId:#{debate.debateId}">#{debate.currentRoot.debateSummary}</a></h2>
                 <f:subview rendered="#{not empty debate.currentRoot.debateDetail}">
-                <p class="debateDetail">
+                <p>
                     #{debate.currentRoot.debateDetail}
                 </p>
                 </f:subview>
             </div>
-            <div class="singleDebatePositions">
+            <div>
                 <ice:dataTable value="#{debate.currentRoot.children}" var="position" style="width: 100%" 
-                        rowClasses="odd, even" styleClass="debatePositions" columnClasses="name,votes,comments">
+                        styleClass="issues" columnClasses="b,issue-votes,issue-com" headerClasses="nm,m,m">
                     <ice:column>
-                        <f:facet name="header">Name</f:facet>
+                        <f:facet name="header">NAME</f:facet>
                         <a href="#{linkPatternPrefix}debate=debateId:#{debate.debateId},itemId:#{position.debateItemId}">
-                            <span class="positionSummary">#{position.debateSummary}</span>
+                            #{position.debateSummary}
                         </a>
                     </ice:column>
                     <ice:column>
-                        <f:facet name="header">Votes</f:facet>
+                        <f:facet name="header">VOTES</f:facet>
+                        <ice:outputText value="#{debate.totalVotesCount == 0 ? 0 : position.votesCount/ debate.totalVotesCount}" >
+                            <f:convertNumber type="percent"/>
+                        </ice:outputText>
+                        <!-- 
                         <ice:outputProgress styleClass="debateVotes" value="#{debate.totalVotesCount == 0 ? 0 : (position.votesCount * 100 )/ debate.totalVotesCount}" />
+                         -->
                     </ice:column>
                     <ice:column>
-                        <f:facet name="header">Comments</f:facet>
-                        <span class="positionCommentsCount">#{position.commentsCount}</span>
+                        <f:facet name="header">COMMENTS</f:facet>
+                        #{position.commentsCount}
                     </ice:column>
                 </ice:dataTable>
              </div>

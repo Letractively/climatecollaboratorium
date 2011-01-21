@@ -567,6 +567,9 @@ function renderSingleChart(chartDef) {
 					location :'nw',
 					yoffset :300,
 					xoffset:0
+				},
+				grid: {
+					drawGridLines: true
 				}
 			}); 
 			

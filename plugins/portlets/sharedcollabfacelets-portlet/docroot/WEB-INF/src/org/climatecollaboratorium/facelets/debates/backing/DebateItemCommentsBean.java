@@ -29,8 +29,8 @@ public class DebateItemCommentsBean {
         DebateItem item = debateDetailsBean.getSelectedDebateItem().getItem();
         
         for (DebateComment comment: item.getComments()) {
-            DebateCommentWrapper commentWrapper = new DebateCommentWrapper(comment);
-            commentWrapper.setPermissions(permissions);
+            DebateCommentWrapper commentWrapper = new DebateCommentWrapper(comment, null);
+            //commentWrapper.setPermissions(permissions);
             comments.add(commentWrapper);
         
         }
