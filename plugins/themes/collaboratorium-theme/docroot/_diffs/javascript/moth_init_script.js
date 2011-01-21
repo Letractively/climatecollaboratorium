@@ -37,9 +37,10 @@ function deferUntilLogin(fn) {
     if (Liferay.ThemeDisplay.isSignedIn()) {
         return true;
     } else {
-    	var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
-    	loginregister += "&redirect=" + escape(window.location);
-    	window.location = loginregister;
+    	jQuery('.popup_login').show();
+    	//var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
+    	//loginregister += "&redirect=" + escape(window.location);
+    	//window.location = loginregister;
     }
 }
 
@@ -48,6 +49,8 @@ function deferUntilLoginTargeted(loc) {
     if (Liferay.ThemeDisplay.isSignedIn()) {
         window.location = loc;
     } else {
+    	jQuery('.popup_login').show();
+    	/*
     	var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
         if (loc!=null) {
           loginregister += "&redirect=" + escape(loc);
@@ -55,7 +58,9 @@ function deferUntilLoginTargeted(loc) {
     	    loginregister += "&redirect=" + escape(window.location);
         }
     	window.location = loginregister;
+    	*/
     }
+
 }
 
 
@@ -99,6 +104,53 @@ jQuery(document).ready(function() {
 			}
 		);
 	}
+	if (jQuery(".hp_boxwin").length > 0) {
+		
+		jQuery('.hp_boxwin').cycle({
+		    fx:      'custom',
+		    cssBefore: {  
+		        top:  -365,  
+		        left: 0,  
+						width: 540,
+						height:335,
+		        opacity: 0,
+		    }, 
+		    animIn: {  
+		        top: 0,  
+		        left: 0,  
+						width: 540,
+						height:335,
+		        opacity: 1,
+		    }, 
+		    animOut: {  
+		        top:  350,  
+		        left: 0,  
+		        opacity: 0,
+		    }, 
+		 			timeout: 0,
+					pager:  '.hp_boxnav',
+					pagerAnchorBuilder: function(idx, slide) {
+							// return selector string for existing anchor 
+							return '.hp_boxnav li:eq(' + idx + ') a';
+						}
+				});
+		
+	}
+	
+
+	jQuery('.popup_reg').hide();  
+		jQuery('.openreg').click(function() {  
+			jQuery('.popup_reg').fadeIn(300);
+			jQuery('#content').fadeOut(300);
+			jQuery('#foot_wrap').fadeOut(300);
+			jQuery('.hp_box').fadeOut(300);
+		}); 
+		jQuery('.closereg').click(function() {  
+			jQuery('.popup_reg').fadeOut(300);  
+			jQuery('#content').fadeIn(300);
+			jQuery('#foot_wrap').fadeIn(300);
+			jQuery('.hp_box').fadeIn(300);
+		});
 	
 	var footer = jQuery("#footmenu").next();
 	footer.appendTo(jQuery("#foot_wrap"));
@@ -111,6 +163,21 @@ jQuery(document).ready(function() {
     setTimeout(function() {
       jQuery("div.contestPhaseInfo:first .details h3").text("Round 1 completed, voting begins Nov. 1  (29 final proposals)");  
     },1000);
+    
+    
+    jQuery(".closepopuplogin a").click(function() {
+    	jQuery('.popup_login').hide();
+    });
+    
+    jQuery("#loginPopupCreateAccount").click(function() {
+    	jQuery('.popup_login').hide();
+    	
+    	/* show registration form */
+		jQuery('.popup_reg').fadeIn(300);
+		jQuery('#content').fadeOut(300);
+		jQuery('#foot_wrap').fadeOut(300);
+		jQuery('.hp_box').fadeOut(300);
+    });
 });
 
 function initSelectbox() {

@@ -13,7 +13,6 @@ function modifyLoginRegisterURL(anchor) {
 
 
 function clickFacebookButton() {
-
     if (Get_Cookie("fbs_"+FB_APP_ID)) {
         insertParam("fbEvent", "true");
     } else {
