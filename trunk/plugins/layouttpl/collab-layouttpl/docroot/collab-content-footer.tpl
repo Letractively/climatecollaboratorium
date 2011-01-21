@@ -2,7 +2,7 @@
     <div id="content_bdr"></div>
         <div id="content_shade">
             <div id="content_home">
-                <div id="content" class="lfr-column" style="min-width: 100px; min-height: 50px">
+                <div id="content_main" class="lfr-column" style="min-width: 100px; min-height: 50px">
                     $processor.processColumn("column-1")
                 </div>      
         

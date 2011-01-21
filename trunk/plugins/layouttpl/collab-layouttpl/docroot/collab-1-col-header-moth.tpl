@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content_main">
         <div class="custom-2-column" id="content-wrapper">
             <table class="lfr-grid" id="layout-grid">
                 <tr>
