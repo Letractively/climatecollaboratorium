@@ -27,26 +27,7 @@
             </div>
         </ui:define>
     </ui:decorate>
-    
-    <div id="model-upload" class="hidden">
-        <div id="model-upload-popup-content">
-            <div class="upload-info">
-                You can create your own disaggregated model, which we will consider for incorporation. A template
-                with instructions for creating a spreadsheet model is available <a
-                    href="http://www.google.com"> here</a>.
-                Once you have completed your model, please email to <a href="mailto:rjl@mit.edu">rjl@mit.edu</a>.
-            </div>
-
-            <ice:commandButton style-class="dialog-buttons" value="OK"
-                               onclick="hideModelUploadDialog(true);return false;"/>
-
-        </div>
-    </div>
-
-
-    <div class="hidden" id="model-selection-popup"></div>
-    <div class="hidden" id="model-upload-popup"></div>
-
+  
     <div class="versionsContainer">
         <div class="versions">
             <ice:dataTable value="#{planBean.plan.planModelRunVersionItems}" rows="10" var="historyItem" styleClass="basicTable" rowClasses="odd,even">
@@ -78,43 +59,10 @@
         </div>
     </div>
     
-        
-    <div id="actboxtop">
-      <div id="actboxdesc">
-        <img src="/collaboratorium-theme/images/icon_house.png" width="45" height="30" />
-            <div class="type"><strong>Model:</strong> The core simulation model for this contest is the &amp;nbsp;
-            <a href="/web/guest/resources/-/wiki/Main/MIT+composite+model">MIT Composite Model</a></div>
-      </div>
-      <div id="actboxtab">
-        <f:subview rendered="#{simulationBean.embeddedEditing}">
-            <a href="javascript:;" onclick="jQuery('#actbox, .hideOptions, .showOptions').toggle();" ><span class="hidden hideOptions">hide options</span><span class="showOptions">show options</span></a>
-        </f:subview>
-      </div>
+    <div class="actboxtop">
+        <div class="type"><strong>Model:</strong> The core simulation model for this contest is the &amp;nbsp;<a href="#">MIT Composite Model</a></div>
     </div>
-    
-    <div id="actbox" class="hidden">
-      <div id="actbox_l">
-        Select varying levels of geographic disaggregation for the actions
-        <div class="select-act_wrap">
-            <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" styleClass="selectbox1" style="width: 191px;" partialSubmit="true" valueChangeListener="#{planBean.modelBean.modelChagnedListener}">
-                <f:selectItems value="#{planBean.modelBean.availableModels}"/>
-            </ice:selectOneMenu>
-            <script type="text/javascript">
-                jQuery(document).ready(function() {initSelectbox()});
-            </script>
-        </div>
-      </div>      
-      <div id="actbox_r">
-        You can also upload your own disaggregation mode
-        <div class="butt_wrap">
-          <div class="button"><a href="/web/guest/resources/-/wiki/Main/Upload+model+help"><span>UPLOAD</span> model</a></div>
-        </div>
-      </div>
-    </div>
-    
-
-
-    
+           
     <ice:panelGrid styleClass="toolbar" columns="2">
         <ice:panelGroup styleClass="save editControls" rendered="#{simulationBean.embeddedEditing}">
             <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}" onclick="Collab.nav.block();"/>
@@ -153,7 +101,45 @@
                 <strong><ice:outputText value="#{planBean.plan.simulationVersionAuthor.screenName}"/></strong>
             </a>
         </ice:panelGroup>
+        <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
+            <ice:panelGroup rendered="#{simulationBean.embeddedEditing}">
+                <collab:simulationEdit simulationId="#{planBean.plan.selectedModel}"
+                                   scenarioId="#{planBean.plan.planModelRunScenarioId}" 
+                                   editActions="#{planBean.planOpenForEditing}" />
+            </ice:panelGroup>
+            <ice:panelGroup  rendered="#{not simulationBean.embeddedEditing}">
+                <collab:simulationView simulationId="#{planBean.plan.selectedModel}" showEditButton="#{permissions.canEdit}"
+                                   scenarioId="#{planBean.plan.planModelRunScenarioId}" rendered="#{not simulationBean.embeddedEditing}"/>
+            </ice:panelGroup>
+        </ice:panelGroup>
+        
+        <ice:panelGroup rendered="#{simulationBean.embeddedEditing}">
+            <br />
+            <div class="act-edit-box_left">
+                <p>Select varying levels of geographic disaggregation for the actions</p>
+                <div class="select-pro_wrap">
+                    <ice:selectOneMenu value="#{planBean.modelBean.selectedItem}" styleClass="selectbox1" style="width: 191px;" partialSubmit="true" valueChangeListener="#{planBean.modelBean.modelChagnedListener}">
+                        <f:selectItems value="#{planBean.modelBean.availableModels}"/>
+                    </ice:selectOneMenu>
+                    <script type="text/javascript">
+                        jQuery(document).ready(function() {initSelectbox()});
+                    </script>
+                </div>
 
+            </div>
+    
+        <div class="act-edit-box_right">
+            <p>You can also upload your own disaggregation mode</p>
+            <div class="butt_wrap">
+                <div class="button"><a href="/web/guest/resources/-/wiki/Main/Upload+model+help"><span>UPLOAD</span> model</a></div>
+            </div>
+        
+        </div>
+    </ice:panelGroup>
+    
+    <div class="clearfix"></div>
+    
+        <!-- 
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
             <f:subview rendered="#{permissions.canEdit}">
                 <collab:simulation simulationId="#{planBean.plan.selectedModel}"
@@ -175,7 +161,7 @@
                 </script>
             </f:subview>
             <f:subview rendered="#{not permissions.canEdit}">
-                <collab:simulation simulationId="#{planBean.modelBean.selectedItem}"
+                <collab:simulationView simulationId="#{planBean.modelBean.selectedItem}"
                                    scenarioId="#{planBean.plan.planModelRunScenarioId}"
                                    disableInputs="true" 
                                    showDisabledMessage="false"
@@ -192,6 +178,7 @@
                 </script>
             </f:subview>
         </ice:panelGroup>
+        -->
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
             No model has been set.
         </ice:panelGroup>
