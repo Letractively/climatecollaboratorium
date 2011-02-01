@@ -331,6 +331,10 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
         _log.debug(result);
         return  result;
     }
+    
+    public int getUniqueId() {
+        return hashCode();
+    }
 
 
 }
