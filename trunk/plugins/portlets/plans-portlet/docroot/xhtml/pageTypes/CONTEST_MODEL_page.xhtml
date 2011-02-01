@@ -23,6 +23,11 @@
         </ui:define>
 
         <ui:define name="contest_content">
+            
+    <div class="actboxtop">
+        <div class="type"><strong>Model:</strong> The core simulation model for this contest is the &amp;nbsp;<a href="#">MIT Composite Model</a></div>
+    </div>
+        <!-- 
              <ice:form>
             <sharedcollab:helpMessage messageId="contestModelHelp" styleClass="planHelp"
                                       hideThisMessage="Hide this message" defaultState="closed">
@@ -39,33 +44,37 @@
             <sharedcollab:helpMessageTrigger
                     messageId="contestModelHelp">+show help</sharedcollab:helpMessageTrigger>
             </ice:form>
-
+ -->
             <ice:form>
-                <collab:simulation simulationId="#{contest.modelId}" disableInputs="false" showEditArea="false"
-                                   showEditButton="false" showRunButton="#{true}"/>
-            </ice:form>
-
-            <div class="modelSelection">
-                 <div class="model-info">
-                <ice:outputText escape="false">
-                    The core simulation model for this contest is the MIT Composite Model. See more information&amp;nbsp;<a
-                        href="/web/guest/resources/-/wiki/Main/MIT+composite+model">here</a>.
-                </ice:outputText>
-            </div>
-            <ice:panelGrid columns="2">
-            <ice:panelGroup>
-                <ice:form>
-                    <ice:selectOneMenu value="#{contest.modelId}" partialSubmit="true">
+                <collab:simulationEdit simulationId="#{contest.modelId}"
+                                   editActions="0" />
+            
+            
+            <div class="clear"></div>
+            <br />
+            <div class="act-edit-box_left">
+                <p>Select varying levels of geographic disaggregation for the actions</p>
+                <div class="select-pro_wrap">
+                    <ice:selectOneMenu value="#{contest.modelId}" styleClass="selectbox1" style="width: 191px;" partialSubmit="true" valueChangeListener="#{planBean.modelBean.modelChagnedListener}">
                         <f:selectItems value="#{contest.availableModels}"/>
                     </ice:selectOneMenu>
-                </ice:form>
-            </ice:panelGroup>
+                    <script type="text/javascript">
+                        jQuery(document).ready(function() {initSelectbox()});
+                    </script>
+                </div>
 
-                    <ice:panelGroup>
-                        You can select varying levels of geographic disaggregation for the actions in this model by using the menu to the left.
-                    </ice:panelGroup>
-                </ice:panelGrid>
             </div>
+    
+        <div class="act-edit-box_right">
+            <p>You can also upload your own disaggregation mode</p>
+            <div class="butt_wrap">
+                <div class="button"><a href="/web/guest/resources/-/wiki/Main/Upload+model+help"><span>UPLOAD</span> model</a></div>
+            </div>
+        
+        </div>
+            <div class="clear"></div>
+        </ice:form>
+
         </ui:define>
     </ui:composition>
 </f:view>

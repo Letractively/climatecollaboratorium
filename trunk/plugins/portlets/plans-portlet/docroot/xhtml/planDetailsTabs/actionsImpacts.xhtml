@@ -138,47 +138,6 @@
     </ice:panelGroup>
     
     <div class="clearfix"></div>
-    
-        <!-- 
-        <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel != null}">
-            <f:subview rendered="#{permissions.canEdit}">
-                <collab:simulation simulationId="#{planBean.plan.selectedModel}"
-                                   scenarioId="#{planBean.plan.planModelRunScenarioId}"
-                                   showEditArea="true" showEditButton="false"
-                                   showDisabledMessage="false"
-                                   disabledMessage="Click &lt;b&gt;Edit&lt;/b&gt; to change inputs" 
-                                   editActions="#{planBean.planOpenForEditing}" 
-                                   showRunButton="#{simulationBean.embeddedEditing}" 
-                                   rerenderOnCancel="true" />
-                <script type="text/javascript">
-                    if (#{ not simulationBean.embeddedEditing} ) {
-                        initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
-                    }
-                    else {
-                        clearEditTrigger();
-                    }
-                    Collab.nav.unblock();
-                </script>
-            </f:subview>
-            <f:subview rendered="#{not permissions.canEdit}">
-                <collab:simulationView simulationId="#{planBean.modelBean.selectedItem}"
-                                   scenarioId="#{planBean.plan.planModelRunScenarioId}"
-                                   disableInputs="true" 
-                                   showDisabledMessage="false"
-                                   disabledMessage="#{permissions.loggedIn ? 'You need to become a team member to edit inputs' : 'You need to log in to edit inputs' }" 
-                                   editActions="false" />
-                <script type="text/javascript">
-                    if (#{ not simulationBean.embeddedEditing} ) {
-                        initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable});
-                    }
-                    else {
-                        clearEditTrigger();
-                    }
-                    Collab.nav.unblock();
-                </script>
-            </f:subview>
-        </ice:panelGroup>
-        -->
         <ice:panelGroup styleClass="inputsAndOutputsWidget" rendered="#{planBean.plan.selectedModel == null}">
             No model has been set.
         </ice:panelGroup>
