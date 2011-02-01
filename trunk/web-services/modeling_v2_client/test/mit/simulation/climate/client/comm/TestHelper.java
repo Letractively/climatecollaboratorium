@@ -17,8 +17,8 @@ import java.util.Map;
 public class TestHelper {
 
 
-    public static Scenario runCompositeOne(ClientRepository repo) throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
-       Simulation sim = repo.getSimulation(783L);
+    public static Scenario runComposite3region(ClientRepository repo, Long simId) throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
+       Simulation sim = repo.getSimulation(simId);
 
         Map<String, Object> inputs = new HashMap<String, Object>();
         //developed
@@ -34,11 +34,11 @@ public class TestHelper {
         //developing b
         inputs.put("Developing B start year", "2012");
         inputs.put("Developing B target year", "2050");
-        inputs.put("Pct change in Developing B FF emissions", "0");
+        inputs.put("Pct change in Developing B FF emissions", "144");
 
 
-        inputs.put("Target Sequestration", "0.50");  //sequestration (afforestation)
-        inputs.put("Global land use emissions change", "0.50");  //deforestation
+        inputs.put("Target Sequestration", "0.0");  //sequestration (afforestation)
+        inputs.put("Global land use emissions change", "0.0");  //deforestation
         Scenario scenario = repo.runModelWithInputNames(sim, inputs, 1L, true);
         return scenario;
     }

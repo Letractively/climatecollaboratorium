@@ -35,12 +35,12 @@ public class ClientRepositoryTest {
         repo.scenarioCache.clear();
 
         
-        Scenario old = TestHelper.runCompositeOne(repo);
+        Scenario old = TestHelper.runComposite3region(repo, 783L);
 
         List<Scenario> scenarios = new ArrayList<Scenario>();
-        scenarios.add(TestHelper.runCompositeOne(repo));
-        scenarios.add(TestHelper.runCompositeOne(repo));
-        scenarios.add(TestHelper.runCompositeOne(repo));
+        scenarios.add(TestHelper.runComposite3region(repo, 783L));
+        scenarios.add(TestHelper.runComposite3region(repo, 783L));
+        scenarios.add(TestHelper.runComposite3region(repo, 783L));
 
         Assert.assertEquals("Cache size should only grow to size of 3",3,repo.scenarioCache.size());
         Assert.assertTrue("Cache should contain last three elements accessed",repo.scenarioCache.values().containsAll(scenarios));
@@ -55,14 +55,14 @@ public class ClientRepositoryTest {
         repo.scenarioCache.clear();
 
 
-        Scenario a = TestHelper.runCompositeOne(repo);
+        Scenario a = TestHelper.runComposite3region(repo, 783L);
 
         List<Scenario> scenarios = new ArrayList<Scenario>();
-        Scenario b = TestHelper.runCompositeOne(repo);
-        Scenario c = TestHelper.runCompositeOne(repo);
+        Scenario b = TestHelper.runComposite3region(repo, 783L);
+        Scenario c = TestHelper.runComposite3region(repo, 783L);
 
         repo.getScenario(a.getId());
-        Scenario d = TestHelper.runCompositeOne(repo);
+        Scenario d = TestHelper.runComposite3region(repo, 783L);
 
         // should contain a, b, d
 
