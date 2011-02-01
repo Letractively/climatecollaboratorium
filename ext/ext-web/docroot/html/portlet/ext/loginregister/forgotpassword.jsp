@@ -31,12 +31,11 @@ if (Validator.isNull(authType)) {
 	authType = company.getAuthType();
 }
 %>
-
-<div class="inner">
-    <table class="loginRegisterTable">
-        <tr><td class="login">
-            <div class="login">
-            <h3 class="boxTitle">Forgotten password reminder</h3>
+ <div class="popup_reg">
+      <div class="popupreg_shade">
+        <div class="popupreg_form">
+          <div class="popupreg_head"><h3>Forgotten password reminder</h3></div>
+          
 <form action="<portlet:actionURL><portlet:param name="saveLastPath" value="0" /><portlet:param name="struts_action" value="/ext/loginregister/forgotpassword" /></portlet:actionURL>" class="uni-form" method="post" name="<portlet:namespace />fm">
 <input name="<portlet:namespace />redirect" type="hidden" value="<portlet:renderURL />" />
 
@@ -72,12 +71,12 @@ if (Validator.isNull(authType)) {
 			%>
 
 			<input name="<portlet:namespace />step" type="hidden" value="1" />
-
-			<div class="ctrl-holder">
-				<label for="<portlet:namespace /><%= loginParameter %>"><liferay-ui:message key="<%= loginLabel %>" /></label>
-
-				<input name="<portlet:namespace /><%= loginParameter %>" size="30" type="text" value="<%= HtmlUtil.escape(loginValue) %>" />
-			</div>
+            <p>
+                <div class="popupreg_txt req"><liferay-ui:message key="<%= loginLabel %>" /></div>
+                <input class="popupreg_input" name="<portlet:namespace /><%= loginParameter %>" size="30" type="text" value="<%= HtmlUtil.escape(loginValue) %>" />
+            </p>
+    
+    
 
 			<c:if test="<%= PropsValues.CAPTCHA_CHECK_PORTAL_SEND_PASSWORD && !PropsValues.USERS_REMINDER_QUERIES_ENABLED %>">
 				<portlet:actionURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="captchaURL">
@@ -87,9 +86,7 @@ if (Validator.isNull(authType)) {
 				<liferay-ui:captcha url="<%= captchaURL %>" />
 			</c:if>
 
-			<div class="button-holder">
-				<input type="submit" value="<liferay-ui:message key='<%= PropsValues.USERS_REMINDER_QUERIES_ENABLED ? "next" : "send-new-password" %>' />" />
-			</div>
+            <div class="popupreg_login_wrap"><input type="submit" name="submit" class="popupreg_send" value="" /></div>
 
 		</c:when>
 		<c:when test="<%= (user2 != null) && Validator.isNotNull(user2.getEmailAddress()) %>">
@@ -119,6 +116,7 @@ if (Validator.isNull(authType)) {
 			-->
 			
 			 <!-- recaptcha -->
+             <!-- 
                         <div>
                             <liferay-ui:error exception="<%= CaptchaTextException.class %>" message="Invalid captcha value" />
                         </div>
@@ -137,10 +135,9 @@ if (Validator.isNull(authType)) {
                                <input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
                            </noscript>
                            </div>
+                            -->
 
-			<div class="button-holder">
-				<input type="submit" value="<liferay-ui:message key="send-new-password" />" />
-			</div>
+            <div class="popupreg_login_wrap"><input type="submit" name="submit" class="popupreg_login" value="" /></div>
 		</c:when>
 		<c:otherwise>
 			<div class="portlet-msg-alert">
@@ -151,7 +148,11 @@ if (Validator.isNull(authType)) {
 </fieldset>
 
 </form>
-</td></td></tr></table>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
 
 <%@ include file="/html/portlet/login/navigation.jspf" %>
 

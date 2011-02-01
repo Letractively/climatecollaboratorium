@@ -112,52 +112,24 @@
      });
 	
 </script>
-
-<c:if test="<%= error != null && isLoggingIn %>">
-	<div id="userInfoErrorMessages" style="display: none">
-		<span><%= LanguageUtil.get(pageContext, loginErrors.get(error)) %></span>
-	</div>
-	
-</c:if>
-<div class="inner">
-    <c:if test="<%= ! themeDisplay.isSignedIn() %>">
-        <div class="tableSeparator">&nbsp;</div>
-        <table class="loginRegisterTable">
-            <tr>    
-
-                <td class="register">
-                    <div class="register">
-                        <div>
-                            <%@ include file="/html/portlet/ext/loginregister/register.jspf" %>
-                        </div>
-                    </div>
-                </td>
-                <td class="login">
-                    <div class="login">
-                        <div>
-                            <%@ include file="/html/portlet/ext/loginregister/login.jspf" %>
-                        </div>
-                    </div>
-                    <div class="login">
-                        <div>
-                            <%@ include file="/html/portlet/ext/loginregister/facebooklogin.jspf" %>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div class="tableSeparator">&nbsp;</div>
-    </c:if>
-    <c:if test="<%= themeDisplay.isSignedIn() %>">
-        <table class="loginRegisterTable">
-            <tr>    
-                <td class="login">
-                    <div class="login" style="text-align: center;">
-                        You are logged in. <a href="<%= HtmlUtil.escape(themeDisplay.getURLSignOut()) %>" id="logout_link">Sign Out</a>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    
-    </c:if>
+<div class="popup_reg" style="display: block;">
+    <div class="popupreg_shade" >
+        <div class="popupreg_form">
+            <c:if test="<%= ! themeDisplay.isSignedIn() %>">
+                <c:choose>
+                    <c:when test="<%= isRegistering %>">
+                        <%@ include file="/html/portlet/ext/loginregister/register.jspf" %>
+                    </c:when>
+                    <c:otherwise>
+                        <%@ include file="/html/portlet/ext/loginregister/login.jspf" %>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+            <c:if test="<%= themeDisplay.isSignedIn() %>">
+                You are logged in. <a href="<%= HtmlUtil.escape(themeDisplay.getURLSignOut()) %>" id="logout_link">Sign Out</a>
+            </c:if>
+        </div>
+    </div>
+    <div class="clearfix"></div>
 </div>
+<div class="clearfix"></div>
