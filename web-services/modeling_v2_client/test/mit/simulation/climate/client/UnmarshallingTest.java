@@ -12,9 +12,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -84,7 +82,18 @@ public class UnmarshallingTest {
     @Test
     public void testCompositeModelRun() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
         ClientRepository repo = ClientRepository.instance("localhost", 8080);
-        Scenario scenario = TestHelper.runCompositeOne(repo);
+        Scenario scenario = TestHelper.runComposite3region(repo, 783L);
+        log.info("Scenario: "+scenario.getName()+" id:"+scenario.getId());
+        log.info(getScenarioString(scenario));
+        Assert.assertEquals(EntityState.TEMPORARY,scenario.getState());
+
+    }
+
+
+     @Test
+    public void testCompositeModelRunOptimized() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
+        ClientRepository repo = ClientRepository.instance("climatecolab.org", 8080);
+        Scenario scenario = TestHelper.runComposite3region(repo, 862L);
         log.info("Scenario: "+scenario.getName()+" id:"+scenario.getId());
         log.info(getScenarioString(scenario));
         Assert.assertEquals(EntityState.TEMPORARY,scenario.getState());
@@ -102,7 +111,7 @@ public class UnmarshallingTest {
 
     @Test
     public void testCompositeModelRun3() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
-        ClientRepository repo = ClientRepository.instance("cognosis.mit.edu", 8888);
+        ClientRepository repo = ClientRepository.instance("climatecolab.org", 8080);
         Scenario scenario = TestHelper.runCompositeThree(repo);
         log.info("Scenario: "+scenario.getName()+" id:"+scenario.getId());
         log.info(getScenarioString(scenario));
