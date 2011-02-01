@@ -137,7 +137,6 @@ public class DebateBean {
             public void onEvent(NavigationEvent event) {
                 if (event.hasSource("debate")) {
                     Map<String, String> parameters = event.getParameters("debate");
-                    System.out.println("mam debate event: " + parameters.get("itemId") + "\t");
                     if (parameters.containsKey("itemId")) {
                         Long itemId = Long.parseLong(parameters.get("itemId"));
                         currentItem = new DebateItemWrapper(DebateItemLocalServiceUtil.getLastItem(itemId));

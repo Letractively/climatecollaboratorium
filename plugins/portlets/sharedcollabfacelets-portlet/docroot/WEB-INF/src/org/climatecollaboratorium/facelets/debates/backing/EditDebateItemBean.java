@@ -379,8 +379,8 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
     }
     
     
-    public String getDebatePostType() {
-        return item.getDebatePostType();
+    public DebateItemType getDebatePostType() {
+        return type;
     }
     
     public void changeVersion(ActionEvent event) {

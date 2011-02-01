@@ -8,13 +8,14 @@
     <ice:panelGroup>
         <ui:include src="./debateItemDetails/#{debateItem.debatePostType}.xhtml" />
         
+     <div class="position_comments">
         <f:subview rendered="#{fn:length(debateItem.references) > 0}">
-            <h3>References</h3>
-            <ul>
+            <p>
+                <strong>References:</strong><br />
                 <ui:repeat value="#{debateItem.references}" var="reference">
-                    <li><a href="#{reference.url}">#{reference.text}</a></li>
+                    <a href="#{reference.url}">#{reference.text}</a><br />
                 </ui:repeat>
-            </ul>
+            </p>
         </f:subview>
         
         <f:subview rendered="#{debateBean.debatesPermissionsBean.canDeleteComment}">
@@ -25,22 +26,21 @@
             </div>
         </f:subview>
         
-        <div class="position_comments">
         <h3>Comments</h3>
            
             <ice:panelSeries var="comment" value="#{debateItem.comments}">
                 <div class="position_comment">
+                    <strong>
+                        by &amp;nbsp;<collab:userLinkSimple userId="#{comment.author.userId}" text="#{comment.author.screenName}" />
+                        on &amp;nbsp;
+                        <ice:outputText value="#{comment.updated}">
+                            <f:convertDateTime pattern="MM/dd/yy hh:mm a"/>
+                        </ice:outputText>
+                    </strong>
                     <p>
                         #{comment.debateCommentDetail}
                     </p>
                     
-                    <div class="position_comment_meta">
-                        By &amp;nbsp;<collab:userLinkSimple userId="#{comment.author.userId}" text="#{comment.author.screenName}" />
-                        on &amp;nbsp; 
-                        <ice:outputText value="#{comment.updated}">
-                            <f:convertDateTime pattern="MM/dd/yy hh:mm a"/>
-                        </ice:outputText>
-                    </div>
                     <f:subview rendered="#{debateBean.debatesPermissionsBean.canDeleteComment}">
                         <div class="position_comment_actions">
                             <ice:commandLink actionListener="#{comment.delete}" value="delete" />

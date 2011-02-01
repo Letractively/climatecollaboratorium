@@ -52,7 +52,7 @@ public class AddEditDebateItemBean {
     }
     public void setItem(DebateItem item) throws SystemException {
         this.item = item;
-        
+        type = DebateItemType.valueOf(item.getDebatePostType());
         selectedHistoryVersion = item;
         setReferences(item.getReferences());
         setEditedItem(selectedHistoryVersion);

@@ -11,6 +11,8 @@
 //setTimeout(function() { log.toggle(); }, 1000);
 var debug = false;
 var inputValues = {};
+var currentTab = "CO2 Concentration";
+var defaultItem = "CO2 Concentration";
 function renderModelInputs(event) {
 	showSliders();
 }
@@ -403,7 +405,7 @@ function renderSingleChart(chartDef) {
 		
 		
 		var yaxis = {};
-		var xaxis = {label:'Year', autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks};
+		var xaxis = {autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks};
 		
 		
 		var series = [];
@@ -565,11 +567,13 @@ function renderSingleChart(chartDef) {
 				legend : {
 					show :true,
 					location :'nw',
-					yoffset :300,
+					yoffset :320,
 					xoffset:0
 				},
 				grid: {
-					drawGridLines: true
+					drawGridLines: true,
+					background: "#f3f2ec",
+					shadow: false
 				}
 			}); 
 			
@@ -611,6 +615,7 @@ function renderSingleChart(chartDef) {
 }
 		
 var counter = 0;
+var selectedItem = null;
 function renderModelOutputs() {
 	/* Check if outputs have been already processed, if they have been then there is no need
 	 * to rerender graphs.
@@ -624,9 +629,10 @@ function renderModelOutputs() {
 	/*
 	 * Render graphs
 	 */
-	jQuery(".outputDef").each(function() {
-		//renderSingleChart(this);
+	/*jQuery(".outputDef").each(function() {
+		renderSingleChart(this);
 	});
+	*/
 	
 	
 	/* this is rather ugly hack, used because there is no good handling of output grouping */
@@ -680,23 +686,60 @@ function renderModelOutputs() {
 		contentsContainer.find(".tabContent").eq(0).show();
 		tabsContainer.find("li").eq(0).click();
 
-		
 		//jQuery(".physicalImpactsTab .container").tabs().addClass('ui-tabs-vertical ui-helper-clearfix').find("li").removeClass('ui-corner-top').addClass('ui-corner-left');
+		
+
 	}
 	
 	/* end of physical impacts hack */
 	
-	initAccordion();
+	
+	
+	/* process physical impacts (add spaces after /)
+	 * init tabs
+	 */
+	var isTabFirst = true;
+	jQuery(".physicalImpactContent").hide();
+	jQuery("#freeOutputPhysical li a").each(function() {
+		var trigger = jQuery(this);
+		trigger.html(trigger.html().replace("/", "/ "));
+		trigger.click(function() {
+			trigger.parent().parent().find(".c").removeClass('c');
+			trigger.parent().addClass('c');
+			jQuery(".physicalImpactContent").hide();
+			jQuery("#" + trigger.attr('rel')).show();
+		});
+		
+		if (isTabFirst) {
+			trigger.parent().addClass('c');
+			jQuery("#" + trigger.attr('rel')).show();			
+		}
+		isTabFirst = false;
+	});
+	//initAccordion();
 
 	setTimeout( function() { jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height()) }, 700);
 	jQuery(".outputDef").eq(0).addClass("processed");
 	jQuery(".outputDef").show();
-	
+	var msg = '';
+	jQuery(".outputItemTrigger").each(function() {
+		
+		var trigger = jQuery(this);
+		var name = trigger.text();
+		if (selectedItem) {
+			if (selectedItem == name) {
+				trigger.click();
+			}
+		}
+		else if (defaultItem == name) {
+			trigger.click();
+		} 
+		
+	});
 	unlockImpactsScreen();
 	
+	
 }
-
-var currentTab = "CO2 Concentration";
 
 function showTabContents(tabHeader) {
 	if (! jQuery(tabHeader).hasClass("ui-state-processed")) {
@@ -704,6 +747,30 @@ function showTabContents(tabHeader) {
 		jQuery(tabHeader).addClass("ui-state-processed");
 		makeInfoBoxesVisible('output');
 	}
+}
+
+function showTabContentsById(id, trigger) {
+	var outputDef = jQuery("#" + id);
+	selectedItem = jQuery("#" + trigger).text();
+	// hide tab that is currently shown
+	// show current tab
+	if (! outputDef.hasClass("ui-state-processed")) {
+		outputDef.show();
+		
+		// tab contents haven't been rendered yet, render it
+		renderSingleChart(outputDef);
+		outputDef.addClass("ui-state-processed");
+		//makeInfoBoxesVisible('output');
+		outputDef.find('.chartContainer').attr('style', '').height('330');
+		
+
+	}
+	jQuery('.ui-state-visible').hide();
+	outputDef.show();
+	outputDef.addClass("ui-state-visible");
+	
+	jQuery('.ui-state-active-trigger').removeClass('c');
+	jQuery('#' + trigger).addClass('c').addClass('ui-state-active-trigger');
 }
 
 function initAccordion() {
@@ -892,7 +959,6 @@ function initEditForms() {
 	    
 	    updateItemsOrder();
 	}
-    
 }
 
 
@@ -931,4 +997,46 @@ function makeInfoBoxesVisible(type) {
         }, 200);
     }
             );
+}
+
+var showTips = true;
+
+function initActTooltips() {
+	jQuery('.actInputDef').each(function() {
+		var actInputDef = jQuery(this);
+		
+		var tooltip = actInputDef.find(".act_tooltip");
+		
+		actInputDef.mouseover(function() {
+			if (showTips) {
+				tooltip.show();
+			}
+		});
+		
+		actInputDef.mouseout(function() {
+			if (showTips) {
+				tooltip.hide();
+			}
+		});
+	});
+}
+
+function showHideTips() {
+	showTips = !showTips;
+	if (showTips) {
+		jQuery("#showHideTipsTrigger").text("HIDE TIPS");
+		jQuery(".act_tooltip").hide();
+	}
+	else {
+		jQuery("#showHideTipsTrigger").text("SHOW TIPS");
+	}
+	
+}
+
+function showInputs(id, trigger) {
+	jQuery("#" + id).show();
+	jQuery(".simulationInputsSet[id!='" + id + "']").hide();
+	jQuery(".simulationInputsSetTrigger").removeClass('c');
+	jQuery("#" + trigger).addClass('c');
+	
 }

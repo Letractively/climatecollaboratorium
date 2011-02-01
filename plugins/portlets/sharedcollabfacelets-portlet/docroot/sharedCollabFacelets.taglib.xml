@@ -20,6 +20,14 @@
         <source>xhtml/tags/simulationInputsEdit/simulationInputsEdit.xhtml</source>
     </tag>
     <tag>
+        <tag-name>simulationOutputsView</tag-name>
+        <source>xhtml/tags/simulationOutputsView/simulationOutputsView.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>simulationOutputsEdit</tag-name>
+        <source>xhtml/tags/simulationOutputsEdit/simulationOutputsEdit.xhtml</source>
+    </tag>
+    <tag>
         <tag-name>simulationSupport</tag-name>
         <handler-class>org.climatecollaboratorium.facelets.simulations.support.SimulationSupportTag</handler-class>
     </tag>
@@ -30,6 +38,14 @@
     <tag>
         <tag-name>simulation</tag-name>
         <source>xhtml/tags/simulation/simulation.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>simulationView</tag-name>
+        <source>xhtml/tags/simulationView/simulationView.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>simulationEdit</tag-name>
+        <source>xhtml/tags/simulationEdit/simulationEdit.xhtml</source>
     </tag>
     <tag>
         <tag-name>simulationModel</tag-name>

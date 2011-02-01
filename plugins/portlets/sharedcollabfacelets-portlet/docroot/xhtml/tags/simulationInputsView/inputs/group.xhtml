@@ -7,7 +7,7 @@
         xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 
-    <em>#{input.oryginalName}</em><br />
+    #{input.oryginalName}<br />
     <ui:repeat value="#{input.displayItemsWrapped}" var="individualInput" varStatus="status">
         <ui:include src="./outputValue.xhtml">
             <ui:param value="#{individualInput.value}" name="value" />
