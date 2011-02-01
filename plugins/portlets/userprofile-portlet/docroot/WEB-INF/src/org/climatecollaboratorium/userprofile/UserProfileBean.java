@@ -1,16 +1,28 @@
 package org.climatecollaboratorium.userprofile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.event.ActionEvent;
+import javax.mail.internet.AddressException;
 
+import com.ext.portlet.Activity.ActivityConstants;
+import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.messaging.MessageConstants;
+import com.ext.portlet.messaging.MessageUtil;
+import com.ext.portlet.messaging.model.Message;
+import com.ext.portlet.messaging.model.MessagingUserPreferences;
+import com.ext.portlet.messaging.service.MessagingUserPreferencesLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portlet.social.model.SocialActivity;
+import com.liferay.util.mail.MailEngineException;
 
 public class UserProfileBean {
     private UserWrapper currentUser; 
@@ -19,10 +31,15 @@ public class UserProfileBean {
     private final static Log _log = LogFactoryUtil.getLog(UserProfileBean.class);
     private boolean viewingOwnProfile = false;
     private boolean editing = false;
+    private String messageText;
+    private String messageSubject;
+    private List<MessageBean> messages;
+    private ArrayList<UserActivityBean> subscribedActivities;
+    private PageType pageType = PageType.PROFILE_NOT_INITIALIZED;
+    private UserSubscribtionsBean subscribtionsBean;
     
     public UserProfileBean() {
         
-        System.out.println("Parameters map: " + Helper.getUrlParametersMap());
         Map<String, String> parameters = Helper.getUrlParametersMap();
         
         if (parameters.containsKey(USER_ID_PARAM)) {
@@ -30,6 +47,8 @@ public class UserProfileBean {
                 Long userId = Long.parseLong(parameters.get(USER_ID_PARAM));
                 wrappedUser = UserLocalServiceUtil.getUser(userId);
                 currentUser = new UserWrapper(wrappedUser);
+                pageType = PageType.PROFILE_DETAILS;
+                subscribtionsBean = new UserSubscribtionsBean(wrappedUser);
             }
             catch (NumberFormatException e) {
                 _log.error("Can't parse user id: " + parameters.get(USER_ID_PARAM), e);
@@ -70,15 +89,95 @@ public class UserProfileBean {
     }
     
     public void toggleEditing(ActionEvent e) throws PortalException, SystemException {
-        if (editing) {
-            currentUser.cancelChanges();
-        }
         editing = !editing;
+        if (! editing) {
+            currentUser.cancelChanges();
+            pageType = PageType.PROFILE_DETAILS;
+        }
+        else {
+            pageType = PageType.PROFILE_EDIT;
+        }
     }
     
     public void updateUser(ActionEvent e) throws Exception {
         currentUser.persistChanges();
         editing = !editing;
+    }
+    
+    public void setMessageText(String message) {
+        this.messageText = message;
+    }
+    
+    public String getMessageText() {
+        return messageText;
+    }
+    
+    public void setMessageSubject(String subject) {
+        this.messageSubject = subject;   
+    }
+    
+    public String getMessageSubject() {
+        return messageSubject;
+    }
+    
+    
+    public void sendMessage(ActionEvent e) throws AddressException, SystemException, PortalException, MailEngineException {
+        if (messageText != null && messageText.trim().length() > 0 && wrappedUser != null && Helper.isUserLoggedIn()) {
+            //MessageUtil.sendMessage(subject, content, fromId, repliesTo, tousers, request)
+            
+            List<Long> recipients = new ArrayList<Long>();
+            recipients.add(wrappedUser.getUserId());
+            
+            MessageUtil.sendMessage(messageSubject, messageText, Helper.getLiferayUser().getUserId(), 
+                    Helper.getLiferayUser().getUserId(),recipients, null);
+        }
+        
+    }
+    
+    public List<MessageBean> getMessages() throws SystemException, PortalException {
+        if (messages == null) {
+            messages = new ArrayList<MessageBean>();
+            for (Message msg: MessageUtil.getMessages(currentUser.getUserId(), 0, 2, MessageConstants.INBOX)) {
+                messages.add(new MessageBean(msg));
+            }
+        }
+        return messages;
+    }
+    
+    public List<UserActivityBean> getSubscribedActivities() throws SystemException, PortalException {
+        if (subscribedActivities == null) {
+            subscribedActivities = new ArrayList<UserActivityBean>();
+            for (SocialActivity activity: ActivityUtil.retrieveActivities(wrappedUser.getUserId(), 0, 6)) {
+                subscribedActivities.add(new UserActivityBean(activity));
+            }
+        }
+        return subscribedActivities;
+    }
+    
+    public boolean getSendEmailOnMessage() throws SystemException {
+        MessagingUserPreferences prefs = MessageUtil.getMessagingPreferences(Helper.getLiferayUser().getUserId());
+        return prefs.getEmailOnReceipt();
+    }
+    
+    public void setSendEmailOnMessage(boolean send) throws SystemException {
+        MessagingUserPreferences prefs = MessageUtil.getMessagingPreferences(Helper.getLiferayUser().getUserId());
+        prefs.setEmailOnReceipt(send);
+        MessagingUserPreferencesLocalServiceUtil.updateMessagingUserPreferences(prefs);
+    }
+    
+    public void showPage(ActionEvent e) {
+        try {
+            String name = String.valueOf(e.getComponent().getAttributes().get("name"));
+            pageType = PageType.valueOf(name);
+        }
+        catch (Exception ex) {
+            // ignore
+        }
+    }
+
+
+    public PageType getPageType() {
+        return pageType;
     }
 
 }

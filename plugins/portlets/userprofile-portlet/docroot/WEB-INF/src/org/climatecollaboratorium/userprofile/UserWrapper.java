@@ -210,4 +210,8 @@ public class UserWrapper {
     public String getFilteredAbout() {
         return filteredAbout;
     }
+    
+    public Long getUserId() {
+        return user.getUserId();
+    }
 }
