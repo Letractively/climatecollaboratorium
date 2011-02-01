@@ -260,3 +260,7 @@ table.mainTabs .inputTabStyle td.RtTop,
 	color: #318EB5;
 	font-weight: bold;
 }
+
+.actInputDef {
+	font: normal 12px/20px Verdana, sans-serif;
+}

@@ -26,13 +26,13 @@
             </f:subview>
             TITLE
             </span>
-            <ice:inputTextarea value="#{editBean.title}" />
+            <ice:inputTextarea styleClass="argument_input-box" value="#{editBean.title}" />
         </div>
-        
-        <ice:panelGroup rendered="#{editBean.editing}" styleClass="versions">
-            <ice:dataTable value="#{editBean.itemVersions}" var="version" rendered="#{not editBean.adding}" varStatus="status" rowClasses="t,nt">
+        <div class="prev_args" id="pa"><a href="javascript:;" onclick="document.getElementById('pa').style.display='none' ; document.getElementById('pa').nextSibling.nextSibling.style.display='block'">previous versions</a></div>
+        <ice:panelGroup rendered="#{editBean.editing}" styleClass="versions" style="display: none;">
+            <ice:dataTable rows='5' id="versionsTable" value="#{editBean.itemVersions}" var="version" rendered="#{not editBean.adding}" varStatus="status" rowClasses="t,nt">
                 <ice:column styleClass="first">
-                    <ice:commandLink actionListener="#{editBean.changeVersion}">Version #{status.end - status.index + 1}
+                    <ice:commandLink actionListener="#{editBean.changeVersion}">Version #{status.index + 1}
                         <f:attribute name="version" value="#{version.debateItemPK}" /> 
                     </ice:commandLink>
                 </ice:column>
@@ -45,11 +45,51 @@
                     </ice:outputText>
                 </ice:column>
             </ice:dataTable>
+            <!--  paginator -->
+            <ice:panelGroup styleClass="pager versions">
+            <table style="float: right;" class="pagerInfo">
+                <tr>
+                    <td>
+                        <ice:dataPaginator for="versionsTable" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" 
+                                firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" 
+                                pageIndexVar="pageIndex" >
+                            <ice:outputFormat value="Versions {0} to {1} of {2}" styleClass="page" escape="false">
+                                <f:param value="#{firstRowIndex}" />
+                                <f:param value="#{lastRowIndex}" />
+                                <f:param value="#{rowsCount}" />
+                            </ice:outputFormat>
+                        </ice:dataPaginator>
+                    </td>     
+                    <td width="50">
+                    <ice:dataPaginator rendered="true" for="versionsTable" paginator="true" paginatorMaxPages="0" styleClass="comm_controls" style="display: inline;"> 
+                        <f:facet name="first" rendered="true">
+                            <ice:panelGroup />
+                        </f:facet>
+                        <f:facet name="last" rendered="true">
+                            <ice:panelGroup />
+                        </f:facet>
+                        <f:facet name="previous" rendered="true">
+                            <ice:panelGroup styleClass="controll_prev navigate">NEWER</ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="next">
+                            <ice:panelGroup styleClass="navigate">OLDER</ice:panelGroup>
+                        </f:facet>
+                    </ice:dataPaginator>
+                </td>
+            </tr>
+          </table>
+          <div class="clear"></div>
+          
+          
+          </ice:panelGroup>  
         </ice:panelGroup>
-        <div class="content">
+        
+        
+        
+        <div class="arg_text">
             <table>
                 <tr>
-                <td>
+                <td class="arg_title">
                 <f:subview rendered="#{editBean.debatePostType == 'QUESTION'}">
                     QUESTION
                 </f:subview>
@@ -64,7 +104,7 @@
                 </f:subview>
                 TEXT
                 </td>
-                <td class="version_meta">
+                <td class="arg_info">
                     <f:subview rendered="#{editBean.editing}">
                         by &amp;nbsp; <collab:userLinkSimple userId="#{editBean.historyItemAuthor.userId}" text="#{editBean.historyItemAuthor.screenName}" />
                         <ice:outputText value="#{editBean.historyItemDate}">
@@ -75,15 +115,13 @@
                 </td>
             </tr>
             </table>
-            <ice:inputTextarea value="#{editBean.content}" />
+            <ice:inputTextarea styleClass="position_comment-box" value="#{editBean.content}" />
             
-        </div>
-        <div class="references">
         
-            <h3>References</h3>
 
         
-            <ice:dataTable value="#{editBean.wrappedReferences}" var="reference"
+            <strong>References</strong>
+                <ice:dataTable value="#{editBean.wrappedReferences}" var="reference"
                                        styleClass="referencesTable" varStatus="status">
                             <ice:column>
                                 <em><a href="#{reference.url}">#{reference.text}</a></em>
@@ -95,39 +133,46 @@
                         </ice:dataTable>
                         <br />
                         <strong>
-                        <a href="javascript:;" id="addReferenceToggle" onclick="jQuery('#addDebateItemReference, #addReferenceToggle').toggle();">Add reference</a>
                         </strong>
-                        <div id="addDebateItemReference" style="display: none">
-                            <div id="referenceTextInput"> 
-                                <ice:outputLabel for="referenceText">Text</ice:outputLabel>
-                                <ice:inputText value="#{editBean.referenceText}"/>
-                                <div class="iceMsgError portlet-msg-error Error validationErrorError validationError hidden"
+                        <div class="arg_ref" id="addDebateItemReference" style="display:none;">
+                            <div id="referenceTextInput">
+                            <div class="arg_ref-label">Display Text</div><ice:inputText value="#{editBean.referenceText}"/><br />                                
+                            <div class="iceMsgError portlet-msg-error Error validationErrorError validationError hidden"
                                     style="display: none">This field is required
-                                </div>
+                            </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div id="referenceUrlInput">
+                                <div class="arg_ref-label">Reference Link</div> <ice:inputText value="#{editBean.referenceUrl}" /><br />
+                                    <div class="iceMsgError portlet-msg-error Error validationErrorError validationError hidden"
+                                        style="display: none">This field is required
+                                    </div>
+                            </div>
+                            <div class="clear" ></div>
+
+                            <div style="margin-left: 250px;">
+                                <a href="javascript:;" onclick="jQuery('#addDebateItemReference, #addReferenceToggle').toggle();">Hide</a>
+                               &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+ 
+                                <ice:commandLink onclick="if (! checkAddDebateItemReference()) {return false}; jQuery('#addDebateItemReference, #addReferenceToggle').toggle();" 
+                                    actionListener="#{editBean.addReference}" value="Add"/>
                             </div>
                             
-                            <div id="referenceUrlInput">
-                                <ice:outputLabel for="referenceText">Address</ice:outputLabel>
-                                <ice:inputText value="#{editBean.referenceUrl}"/>
-                                <div class="iceMsgError portlet-msg-error Error validationErrorError validationError hidden"
-                                        style="display: none">This field is required
-                                </div>
-                            </div>
-                            <strong>
-                            <a href="javascript:;" onclick="jQuery('#addDebateItemReference, #addReferenceToggle').toggle();">Hide</a>
-                            <ice:commandLink onclick="if (! checkAddDebateItemReference()) {return false}; jQuery('#addDebateItemReference, #addReferenceToggle').toggle();" 
-                                    actionListener="#{editBean.addReference}" value="Add"/>
-                            </strong>
-                                    
                         </div>
+                                                    
+                            
+                    </div>
+            <div class="control1">
+                <a href="javascript:;" id="addReferenceToggle" onclick="jQuery('#addDebateItemReference, #addReferenceToggle').toggle();">Add reference...</a>
+            </div>
+                    <div class="clear"></div>
         
-        </div>
-        <br /><br /><br />
+        <br />
         <div>
-            <strong>
-            <ice:commandLink actionListener="#{debateBean.toggleEditing}">Cancel</ice:commandLink>
-            <ice:commandLink actionListener="#{editBean.save}">Save</ice:commandLink>
-            </strong>
+            <div class="control2" style="text-align: right;">
+                <ice:commandLink actionListener="#{debateBean.toggleEditing}">Cancel</ice:commandLink>
+                <ice:commandButton actionListener="#{editBean.save}" styleClass="save_butt" />
+            </div>
         </div>
     </ice:panelGroup>
 </f:view>

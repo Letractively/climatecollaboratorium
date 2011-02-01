@@ -4,12 +4,16 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
-    <ice:panelGroup styleClass="actions_wrap">
-        <div class="rounded_button brn"><a href="actions-edit.html">EDIT</a></div> <div class="rounded_button blu"><a href="javascript:;">LEARN MORE</a></div>
-        <div class="clear"></div>
+    <ice:panelGroup>
+        <div class="act_left">
+            <div class="rounded_button brn">
+                <ice:commandLink styleClass="editButton" value="EDIT" actionListener="#{simulationBean.editActions}" rendered="#{showEditButton}"/>
+            </div>
+            <div class="rounded_button blu">
+                <a href="javascript:;" onclick="showHideTips()" id="showHideTipsTrigger">HIDE TIPS</a>
+            </div>
         
-        <div class="act-edit_left">
-            <ul>
+            <ul class="act_left-list">
                 <ui:repeat value="#{simulationBean.display.nonTabs}" var="input">
                     <li><ui:include src="./inputDef.xhtml" /></li>
                 </ui:repeat>
@@ -71,6 +75,12 @@
     </ice:panelGroup>
 </div>
 -->
-
+                        <ice:panelGroup styleClass="hidden">
+                            <div class="hidden">#{simulationBean.display}</div>
+            <script type="text/javascript">
+                initActTooltips();
+            </script>
+                           
+        </ice:panelGroup>
     </ice:panelGroup>
 </f:view>

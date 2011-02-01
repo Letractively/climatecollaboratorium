@@ -10,13 +10,17 @@
             </f:subview>
             <f:subview rendered="#{debateBean.showAdvanced}">
                 
-                <ice:commandLink value="add argument for" actionListener="#{debateBean.addDebateItem}" rendered="#{debateBean.currentItem.canHaveSubargument}">
+                <ice:commandLink actionListener="#{debateBean.addDebateItem}" rendered="#{debateBean.currentItem.canHaveSubargument}">
                     <f:attribute name="type" value="ARGUMENT_PRO" />
+                    <img src="/collaboratorium-theme/images/icon_advanced-chk.png" width="16" height="18" />
+                    add argument for
                 </ice:commandLink>
                  &amp;nbsp; &amp;nbsp;
                 
-                <ice:commandLink value="add argument against" actionListener="#{debateBean.addDebateItem}" rendered="#{debateBean.currentItem.canHaveSubargument}">
+                <ice:commandLink actionListener="#{debateBean.addDebateItem}" rendered="#{debateBean.currentItem.canHaveSubargument}">
                     <f:attribute name="type" value="ARGUMENT_CON" />
+                    <img src="/collaboratorium-theme/images/icon_advanced-x.png" width="16" height="18" />
+                    add argument against
                 </ice:commandLink>
                  &amp;nbsp; &amp;nbsp;
                 
@@ -26,7 +30,10 @@
                  &amp;nbsp; &amp;nbsp;
                 
                 
-                <ice:commandLink value="edit" actionListener="#{debateBean.toggleEditing}" />
+                <ice:commandLink actionListener="#{debateBean.toggleEditing}">
+                    <img src="/collaboratorium-theme/images/icon_advanced-edit.png" width="19" height="19" />
+                    edit
+                </ice:commandLink>
                  &amp;nbsp; &amp;nbsp;
                     
             
