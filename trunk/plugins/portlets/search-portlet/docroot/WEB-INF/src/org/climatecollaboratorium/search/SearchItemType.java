@@ -237,5 +237,13 @@ public enum SearchItemType {
     public String getSearchInDescription() {
         return searchInDescription;
     }
+    
+    public String getPrintName() {
+        return searchInDescription;
+    }
+    
+    public String getName() {
+        return name();
+    }
 
 }

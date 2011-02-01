@@ -33,8 +33,7 @@ public class SearchBean extends DataSource {
     private final static int RESULTS_PER_PAGE = 50;
     private int startFrom = 0;
     private int length = 0;
-    private static List<SelectItem> searchItemTypes;
-    private static SearchItemType[] selectedSearchItemTypes = SearchItemType.values();
+    private static SearchItemType selectedSearchItemType;
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     
@@ -107,6 +106,13 @@ public class SearchBean extends DataSource {
         if (searchPhrase == null || searchPhrase.length() == 0) {
             return new DataPage(0, 0, new ArrayList<SearchResultItem>());
         }
+        SearchItemType[] selectedSearchItemTypes;
+        if (selectedSearchItemType == null) {
+            selectedSearchItemTypes = SearchItemType.values();
+        }
+        else {
+            selectedSearchItemTypes = new SearchItemType[] { selectedSearchItemType };
+        } 
         
         for (SearchItemType type: selectedSearchItemTypes) {
             if (separator) {
@@ -166,26 +172,26 @@ public class SearchBean extends DataSource {
         return false;
     }
     
-    public List<SelectItem> getSearchItemTypes() {
-        if (searchItemTypes == null) {
-            searchItemTypes = new ArrayList<SelectItem>();
-            for (SearchItemType type: SearchItemType.values()) {
-                searchItemTypes.add(new SelectItem(type, type.getSearchInDescription()));
-            }
-        }
-        return searchItemTypes;
+    public SearchItemType[] getItemTypes() {
+        return SearchItemType.values();
     }
     
-    public SearchItemType[] getSelectedItemTypes() {
-        return selectedSearchItemTypes;
-    }
-
-    public void setSelectedItemTypes(SearchItemType[] types) {
-        if (types.length != selectedSearchItemTypes.length) {
-            onePageDataModel = null;
+    public void selectType(ActionEvent e) {
+        Object type = e.getComponent().getAttributes().get("type");
+        String typeStr = String.valueOf(type);
+        if (type == null || typeStr.equals("FULL_SITE")) {
+            selectedSearchItemType = null;
         }
-        selectedSearchItemTypes = types;
+        else {
+            selectedSearchItemType = SearchItemType.valueOf(typeStr);
+        }
+        onePageDataModel = null;
     }
+    
+    public SearchItemType getSelectedItemType() {
+        return selectedSearchItemType;
+    }
+    
     
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;

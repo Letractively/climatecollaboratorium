@@ -4,72 +4,111 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:h="http://java.sun.com/jsf/html"  
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     
     <ice:portlet>
     <collab:navigationManager />
+    <h1 class="spn">Search <span>&amp;nbsp;Results for "#{searchBean.searchPhrase}"</span></h1>
+
+  <div id="bread">
+    <a href="javascript:;">Search</a>
+    <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+    <a href="search-results.html">Results</a>
+  </div>
+  
+    <div id="content">
+  
+    <div id="main" class="searchresults">
     <ice:form>
-        <input type="text" value="#{searchBean.searchPhrase}" onkeypress="{if (event.keyCode==13) goSearch()}" class="searchInput" style="width: 90%"/> &amp;nbsp; 
-        <input type="button" value="Search" onclick="goSearch();"/><br />
-        <ice:selectManyCheckbox value="#{searchBean.selectedItemTypes}" partialSubmit="true">
-            <f:selectItems value="#{searchBean.searchItemTypes}" />
-        </ice:selectManyCheckbox>
-    </ice:form>
-            
+    <ice:panelGroup rendered="#{searchBean.data.rowCount == 0}">
+        <br /><br />
+        <p>Nothing has been found.</p>
+    </ice:panelGroup>
+    <ice:panelSeries var="item" value="#{searchBean.data}" id="searchResults" rows="20" rowClasses="odd,even" styleClass="searchTable" >
+    
+      <div class="result">
+        <div class="result_title"><a href="#{item.url}">#{item.title}</a></div>
+        <div class="result_locale">
+            <ice:outputText value="#{item.itemType.printName}" />
+        </div>
+      </div>
+      <div class="clear"></div>
+      #{item.content}
+      <div class="search-crumbs"><a href="#{item.url}">#{item.url}</a></div>
+    
+    </ice:panelSeries>
+    <ice:panelGroup styleClass="pager" rendered="#{searchBean.data.rowCount > 0}">
+            <table style="float: right;">
+                <tr>
+                    <td>
+                        <ice:dataPaginator for="searchResults" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" 
+                                firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" 
+                                pageIndexVar="pageIndex" >
+                            <ice:outputFormat value="Page {0} of {1}" styleClass="page" escape="false">
+                                <f:param value="#{pageIndex}" />
+                                <f:param value="#{pageCount}" />
+                            </ice:outputFormat>
+                        </ice:dataPaginator>
+                        
+                </td>     
+                <td>
+                    <ice:dataPaginator rendered="true" for="searchResults" paginator="true" paginatorMaxPages="0" styleClass="comm_controls" style="display: inline;"> 
+                        <f:facet name="first" rendered="true">
+                            <ice:panelGroup />
+                        </f:facet>
+                        <f:facet name="last" rendered="true">
+                            <ice:panelGroup />
+                        </f:facet>
+                        <f:facet name="previous" rendered="true">
+                            <ice:panelGroup styleClass="controll_prev navigate">PREV</ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="next">
+                            <ice:panelGroup styleClass="navigate">NEXT</ice:panelGroup>
+                        </f:facet>
+                    </ice:dataPaginator>
+                </td>
+            </tr>
+          </table>
+          <div class="clear"></div>
+          
+          </ice:panelGroup>  
+      </ice:form>
+    
+    
+    
+    
+    
+    </div> <!-- /main -->
     <ice:form>
-    <ice:dataTable var="item" value="#{searchBean.data}" id="searchTable" rows="20" rowClasses="odd,even" styleClass="searchTable" >
-        <ice:column styleClass="type">
-            <f:facet name="header">
-                Type
-            </f:facet>
-            <p>
-                <img src="/collaboratorium-theme/images/search/${item.itemType}.png" /><br />
-                <ice:outputText value="#{item.itemType}" />
-            </p>
-        </ice:column>
-    <ice:column>
-        <f:facet name="header">
-            Value
-        </f:facet>
-        <a href="#{item.url}">#{item.title}</a><br />
-        #{item.content} <br />
-        <a href="#{item.url}">#{item.url}</a>
-    </ice:column>
-    </ice:dataTable>
-        <div class="pagination #{additionalClass}">
-        <div class="pageInfo">
-            <ice:dataPaginator for="searchTable" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" pageIndexVar="pageIndex" styleClass="paginatorInfo">
-                <ice:outputFormat value="Displaying &lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt; #{entityName}" styleClass="paginatorInfo" escape="false">
-                <f:param value="#{firstRowIndex}" />
-                <f:param value="#{lastRowIndex}" />
-                <f:param value="#{rowsCount}" />
-            </ice:outputFormat>
-        </ice:dataPaginator> 
-        </div>           
-        <div class="controls">
-            <ice:dataPaginator rendered="true" for="searchTable" paginator="true" paginatorMaxPages="8" styleClass="controls" > 
-                <f:facet name="first" rendered="true">
-                    <ice:panelGroup />
-                </f:facet>
-                <f:facet name="last" rendered="true">
-                    <ice:panelGroup />
-                </f:facet>
-                <f:facet name="previous" rendered="true">
-                    <ice:panelGroup>
-                        &amp;nbsp;prev &lt;&lt; &amp;nbsp;
-                    </ice:panelGroup>
-                </f:facet>
-                <f:facet name="next">
-                    <ice:panelGroup>
-                        &amp;nbsp;&gt;&gt; next&amp;nbsp;
-                    </ice:panelGroup>
-                </f:facet>
-            </ice:dataPaginator>
-        </div>   
-        <div class="clear"></div>
-    </div>  
+    <div class="right_col">
+      <div class="comm_list">
+        Show results for:
+        <ul>
+            <li class="#{searchBean.selectedItemType == null ? 'c' : ''}">
+                    <ice:commandLink value="Full Site" actionListener="#{searchBean.selectType}">
+                            <f:attribute name="type" value="FULL_SITE" />
+                    </ice:commandLink>
+            </li>
+            <ui:repeat var="itemType"  value="#{searchBean.itemTypes}">
+                <li class="#{searchBean.selectedItemType == itemType ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{searchBean.selectType}">
+                        <f:attribute name="type" value="#{itemType.name}" />
+                        #{itemType.printName}
+                    </ice:commandLink>
+                </li>
+        
+            </ui:repeat>
+        </ul>
+      </div>
+    </div> <!-- /right_col -->
     </ice:form>
+        
+        <div class="clearfix"></div>
+  </div> <!-- /content -->
+    
+    
     
     
     </ice:portlet>
