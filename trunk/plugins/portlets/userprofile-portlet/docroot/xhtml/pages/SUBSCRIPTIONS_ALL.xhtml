@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    >
+  
+    <div id="bread" class="pro">
+        <a href="/web/guest/community">Community</a>
+        <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+        <a href="/web/guest/members">Members</a>
+        <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+        <a href="/web/guest/member/-/member/userId/#{currentUser.userId}">#{currentUser.screenName}</a>
+    </div>
+      
+  <h1 class="spn">Community <span>Subscriptions</span></h1>
+
+  <ul id="tabs">
+    <li><a href="community-news.html">NEWS</a></li>
+    <li class="c"><a href="community-members.html">MEMBERS</a></li>
+    <li><a href="community-discussions.html">DISCUSSIONS</a></li>
+  </ul>
+  
+  <div id="bread" class="pro">
+    <a href="community-news.html">Community</a>
+    <img src="images/arrow.gif" width="8" height="8" />
+    <a href="community-members.html">Members</a>
+    <img src="images/arrow.gif" width="8" height="8" />
+    <a href="community-members-jane-smith.html">Jane Smith</a>
+    <img src="images/arrow.gif" width="8" height="8" />
+    <a href="community-members-subscriptions.html">Mnage Subscriptions</a>
+  </div>
+  
+    <div id="content">
+  
+    <div class="main_long">
+    
+      <div class="comm_disc-head">        
+        <div class="comm_info-left subscriptions"><span>17</span> Subscriptions</div>
+      </div>
+            
+      <form>
+      <table border="0" cellpadding="0" cellspacing="0" class="colab">
+        <tr><th width="330">Subject</th><th width="255">Category</th><th>Updated</th></tr>
+        <tr class="t"><td><input type="checkbox" name="AskForHelp" value="subscribe1" /> <a href="javascript:;">Lorem ipsum dolor sit</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+        <tr><td><input type="checkbox" name="AskForHelp" value="subscribe2" /> <a href="javascript:;">Consectetur adipiscing elit etiam</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+        <tr class="t"><td><input type="checkbox" name="AskForHelp" value="subscribe1" /> <a href="javascript:;">Lorem ipsum dolor sit</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+        <tr><td><input type="checkbox" name="AskForHelp" value="subscribe2" /> <a href="javascript:;">Consectetur adipiscing elit etiam</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+        <tr class="t"><td><input type="checkbox" name="AskForHelp" value="subscribe1" /> <a href="javascript:;">Lorem ipsum dolor sit</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+        <tr><td><input type="checkbox" name="AskForHelp" value="subscribe2" /> <a href="javascript:;">Consectetur adipiscing elit etiam</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+        <tr class="t"><td><input type="checkbox" name="AskForHelp" value="subscribe1" /> <a href="javascript:;">Lorem ipsum dolor sit</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+        <tr><td><input type="checkbox" name="AskForHelp" value="subscribe2" /> <a href="javascript:;">Consectetur adipiscing elit etiam</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+        <tr class="t"><td><input type="checkbox" name="AskForHelp" value="subscribe1" /> <a href="javascript:;">Lorem ipsum dolor sit</a></td><td>Discussions</td><td>7/27/10 6:05AM</td></tr>
+      </table>
+      </form>
+
+      <div class="com-info bot">
+        <div class="select_sub"><a href="#">SELECT ALL</a> <a href="#">REMOVE SELECTED SUBSCRIPTIONS</a></div>
+      </div>
+      
+      <div class="subscribe-to"><a href="#">Subscribe to lorem ipsum dolor sit</a></div>
+
+        </div> <!-- /main -->
+    
+    <div class="right_col3">
+      
+      <div class="comm_list">
+        <h3>Display</h3>
+        <ul>
+            <li><a href="#"><strong>Show All Subscriptions</strong></a></li>
+            <li><a href="#">Category one</a></li>
+            <li><a href="#">Category two</a></li>
+            <li><a href="#">Category three</a></li>
+        </ul>
+      </div>
+
+    </div> <!-- /right_col4 -->
+        
+        <div class="clearfix"></div>
+    <div id="footdiv"></div>
+    <div id="footmenu">
+      <ul>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="help.html">Help</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+      </ul>
+    </div>
+
+  </div> <!-- /content -->
+  </f:view>
+  

@@ -31,5 +31,12 @@ public class UserActivityBean {
     public String getBody() {
         return body;
     }
+    
+    public long getDaysAgo() {
+        final int milisecondsInDay = 1000 * 60 * 60 * 24;
+        long createDay = activity.getCreateDate().getTime() / milisecondsInDay;
+        long daysNow = new Date().getTime() / milisecondsInDay;
+        return daysNow - createDay;
+    }
 
 }
