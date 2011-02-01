@@ -140,7 +140,7 @@
 
         </div>
         
-    <div id="desc-right">
+    <div class="right_col">
       <div class="grid-gray">
         <div class="icon"><img src="/collaboratorium-theme/images/icon_blue-chk.gif" width="29" height="23" /></div>
         <div class="info"><span>${planBean.plan.votes}</span> <em>votes (#{planBean.plan.votesPercent}%)</em></div>
@@ -158,10 +158,10 @@
                 <collab:planLink contestId="#{contest.contestId}" planId="#{planBean.planId}" text="ACTIONS &amp; IMPACTS" hashString="plans=tab:actionsimpacts" />
             </div>
           <div class="infotext">
-            <p><strong>CO2 concentration</strong><br />#{planBean.plan.attributes['CO2_CONCENTRATION']} ppm in 2010</p>
+            <p><strong>CO2 concentration</strong><br />#{planBean.plan.attributes['CO2_CONCENTRATION']} ppm in 2100</p>
             <p><strong>Temperature Increase</strong><br />#{planBean.plan.attributes['TEMP_CHANGE']} &amp;deg;C</p>
-            <p><strong>Mitigation Costs</strong><br />#{planBean.plan.attributes['MITIGATION_COST_NO_ERRORS']} %GDP in 2010</p>
-            <strong>Damage Costs</strong><br />#{planBean.plan.attributes['DAMAGE_COST']} %GDP in 2010
+            <p><strong>Mitigation Costs</strong><br />#{planBean.plan.attributes['MITIGATION_COST_NO_ERRORS']} %GDP in 2100</p>
+            <strong>Damage Costs</strong><br />#{planBean.plan.attributes['DAMAGE_COST']} %GDP in 2100
             
             </div>
         </div>

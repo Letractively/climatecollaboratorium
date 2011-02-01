@@ -145,7 +145,12 @@ public class PlanIndexItemWrapper {
     
     public Integer getRibbon() throws SystemException {
         PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_RIBBON.name());
-        return attr != null ? Integer.parseInt(attr.getAttributeValue()) : null;
+        try {
+            return attr != null ? Integer.parseInt(attr.getAttributeValue()) : null;
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
     }
     
     public String getRibbonText() throws SystemException {

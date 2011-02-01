@@ -623,7 +623,13 @@ public class PlanItemWrapper {
     
     public Integer getRibbon() throws SystemException {
         PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_RIBBON.name());
-        return attr != null ? Integer.parseInt(attr.getAttributeValue()) : null;
+        try {
+            return attr != null && attr.getAttributeValue() != null && attr.getAttributeValue().trim().length() > 0 ? 
+                    Integer.parseInt(attr.getAttributeValue()) : null;
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
     }
     
     public String getRibbonText() throws SystemException {
