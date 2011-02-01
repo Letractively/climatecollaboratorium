@@ -23,6 +23,7 @@
         </ui:define>
         
         <ui:define name="contest_content">
+            <div id="content">
             <f:subview rendered="#{contest.contest.editor.editingPositions}">
                 <ice:form>
                     <h2>Choose debates that you want to associate with contest</h2>
@@ -51,6 +52,8 @@
                 <collab:debatesDetails debateDetailsBean="#{debatesDetailsBean}" debatesIds="#{contest.contest.debatesIds}" 
                         linkPatternPrefix="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:issues;" />
             </f:subview>
+            </div>
         </ui:define>
+        
     </ui:composition>
 </f:view>
