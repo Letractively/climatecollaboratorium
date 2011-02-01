@@ -13,10 +13,14 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     <ice:portlet>
-       <collab:navigationManager />
-    <ice:form>
-        <collab:discussion discussionId="#{discussionPrefs.categoryId}" groupId="10136" />
-    </ice:form>
+    <ice:panelGroup style="display: none" id="navigationManager">
+        <collab:navigationManager />
+    </ice:panelGroup>
+    <ice:panelGroup>
+        <ice:form>
+            <collab:discussion discussionId="#{discussionPrefs.categoryId}" groupId="10136" />
+        </ice:form>
+    </ice:panelGroup>
     </ice:portlet>
 </f:view>         
 
