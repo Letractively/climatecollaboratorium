@@ -138,7 +138,7 @@ jQuery(document).ready(function() {
 	}
 	
 
-	jQuery('.popup_reg').hide();  
+	//jQuery('.popup_reg').hide();  
 		jQuery('.openreg').click(function() {  
 			jQuery('.popup_reg').fadeIn(300);
 			jQuery('#content').fadeOut(300);

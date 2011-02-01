@@ -77,7 +77,7 @@
             </script>
             <noscript>
                            
-                <iframe src="<%= PropsUtil.get("captcha.engine.recaptcha.url.noscript") %><%= PropsUtil.get("captcha.engine.recaptcha.key.public") %>"
+                <iframe src="$propsUtil.get("captcha.engine.recaptcha.url.noscript")$propsUtil.get("captcha.engine.recaptcha.key.public")"
                         height="300" width="500" frameborder="0"></iframe><br />
                 <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
                 <input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
