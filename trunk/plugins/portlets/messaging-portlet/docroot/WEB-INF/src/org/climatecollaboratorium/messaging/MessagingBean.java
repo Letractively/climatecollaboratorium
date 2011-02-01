@@ -35,19 +35,8 @@ public class MessagingBean {
         if (Helper.isUserLoggedIn()) {
             user = Helper.getLiferayUser();
             //MessageLocalServiceUtil.
+            messagesCount = MessageUtil.countMessages(user.getUserId(), messageType.getTypeStr());
         }
-        else {
-            try {
-                user = UserLocalServiceUtil.getUser(10144L);
-            } catch (PortalException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SystemException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        messagesCount = MessageUtil.countMessages(user.getUserId(), messageType.getTypeStr());
     }
     
     public boolean isInitialized() {
@@ -166,6 +155,10 @@ public class MessagingBean {
     }
     public boolean getSendingMessage() {
         return sendingMessage;
+    }
+    
+    public User getUser() {
+        return user;
     }
 
 }
