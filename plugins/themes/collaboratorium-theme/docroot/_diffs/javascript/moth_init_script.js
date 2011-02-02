@@ -44,6 +44,11 @@ function deferUntilLogin(fn) {
     }
 }
 
+function showForgotPasswordPopup() {
+	jQuery('.popup_login').hide();
+	jQuery('.popup_forgotpassword').show();
+}
+
 function deferUntilLoginTargeted(loc) {
 
     if (Liferay.ThemeDisplay.isSignedIn()) {
@@ -166,8 +171,9 @@ jQuery(document).ready(function() {
     
     
     jQuery(".closepopuplogin a").click(function() {
-    	jQuery('.popup_login').hide();
+    	jQuery('.popup_login, .popup_forgotpassword').hide();
     });
+    
     
     jQuery("#loginPopupCreateAccount").click(function() {
     	jQuery('.popup_login').hide();
@@ -192,4 +198,16 @@ function initSelectbox() {
 				}
 		});
 	}
+}
+
+function onBeforeRegister() {
+	jQuery('#createAccountForm').append(jQuery('<input type="hidden" value="' + window.location.toString() + '" name="redirect" />'));
+}
+
+function onBeforeLogin(formId) {
+	jQuery('#' + formId).append(jQuery('<input type="hidden" value="' + window.location.toString() + '" name="redirect" />'));
+}
+
+function addRedirectBeforeSubmit(formId) {
+	jQuery('#' + formId).append(jQuery('<input type="hidden" value="' + window.location.toString() + '" name="redirect" />'));
 }

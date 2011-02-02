@@ -182,8 +182,13 @@
     <div class="popup_login" style="display: none;">
         <div class="popup_login_form">
         <div class="closepopuplogin"><a href="javascript:;"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
-        <div class="popup_login-message">This page requires you to login...</div>
-        <form method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
+        
+            #if ($request.getParameter('isSigningIn')) 
+                #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
+            #else 
+                <div class="popup_login-message">This page requires you to login...</div>                
+            #end
+        <form id="signInFormPopup" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
             <table>
                 <tr>
                     <td>
@@ -202,9 +207,38 @@
                     </td>
                 </tr>
             </table>
-          <input type="submit" name="submit" class="popuplogin_submit" value="Signin" /> or <span class="popuplogin_button"><a href="javascript:;" id="loginPopupCreateAccount">Create an Account</a></span>
+          <input type="submit" name="submit" class="popuplogin_submit" value="Signin" onclick="addRedirectBeforeSubmit('signInFormPopup')" /> or <span class="popuplogin_button"><a href="javascript:;" id="loginPopupCreateAccount">Create an Account</a></span>
         </form>
         <div class="popuplogin_facebook"><a href="javascript:clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a></div>
+      </div>
+    </div>
+    <!-- /popup login -->
+    
+    <div class="popup_forgotpassword" style="display: none;">
+        <div class="popup_login_form">
+        <div class="closepopuplogin"><a href="javascript:;"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
+        
+        <div class="popup_login-message">Enter your screen name to get new password...</div> 
+        #if ($request.getParameter('isPasswordReminder')) 
+            #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
+        #end                
+        <form id="forgotPasswordForm" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Fforgotpassword">
+            <br />
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Screen name:</strong>&nbsp;&nbsp;</p>
+                    </td>
+                    <td>
+                        <input name="screenName" class="popuplogin_input" type="text" value=""  />
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+          <input type="submit" name="submit" class="popuplogin_submit" value="Request new password" onclick="addRedirectBeforeSubmit('forgotPasswordForm')" />
+        </form>
       </div>
     </div>
     <!-- /popup login -->
@@ -248,5 +282,25 @@
 ##    #end
 	
     <fb:login-button perms="email"></fb:login-button>
+#if ($request.getParameter('isRegistering') == 'true') 
+    <script type="text/javascript">
+        
+        jQuery('.popup_reg').fadeIn(300);
+        jQuery('#content').fadeOut(300);
+        jQuery('#foot_wrap').fadeOut(300);
+        jQuery('.hp_box').fadeOut(300);
+        
+    </script>
+#end
+#if ($request.getParameter('isSigningIn') == 'true')
+    <script type="text/javascript">
+        jQuery('.popup_login').show();
+    </script>
+#end
+#if ($request.getParameter('isPasswordReminder') == 'true')
+    <script type="text/javascript">
+        jQuery('.popup_forgotpassword').show();
+    </script>
+#end
 </body>
 </html>

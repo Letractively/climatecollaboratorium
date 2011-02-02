@@ -377,8 +377,10 @@ input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:
 
 #earth_pattern.proposals.planDetails,
 #earth_pattern.community,
-#earth_pattern.parent_community.sub,
- { height:121px;}
+#earth_pattern.parent_community.sub
+ { 
+ height:121px;
+ }
 
 #main {
     padding-top: 15px;
@@ -657,12 +659,7 @@ body {
 	display: block;
 }
 
-.debate_item_editor .title_editor textarea {
-	margin-top: 10px;
-	width: 440px;
-	height: 50px;
-	font-size: 1.2em;
-}
+
 .debate_item_editor table {
     width: 100%;
 }
@@ -831,6 +828,21 @@ div.jqplot-table-legend-swatch {
 }
 
 .versions.pager .pagerInfo {
-	width: 350px;
+	
 }
 
+.versions.pager .hide a {
+    color: #444;
+    font-size: 14px;
+    line-height: normal;
+}
+
+
+.popup_login .error-message {background:#f9edd8; border:1px solid #e1a43b; padding:10px; margin:0 50px 15px 0; color:#565656; font-size:18px; clear: both;}
+
+.popup_forgotpassword { position:absolute; top:120px; left:210px; width:500px; height:285px; padding:30px; background:url(../images/popuplogin_bg.png); font-size:16px;
+border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -khtml-border-radius:3px; }
+
+.popup_forgotpassword, .popup_login {
+	z-index: 300;
+}
