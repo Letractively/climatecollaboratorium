@@ -28,7 +28,9 @@
             </span>
             <ice:inputTextarea styleClass="argument_input-box" value="#{editBean.title}" />
         </div>
-        <div class="prev_args" id="pa"><a href="javascript:;" onclick="document.getElementById('pa').style.display='none' ; document.getElementById('pa').nextSibling.nextSibling.style.display='block'">previous versions</a></div>
+        <f:subview rendered="#{editBean.editing}">
+            <div class="prev_args" id="pa"><a href="javascript:;" onclick="document.getElementById('pa').style.display='none' ; document.getElementById('pa').nextSibling.nextSibling.style.display='block'">previous versions</a></div>
+        </f:subview>
         <ice:panelGroup rendered="#{editBean.editing}" styleClass="versions" style="display: none;">
             <ice:dataTable rows='5' id="versionsTable" value="#{editBean.itemVersions}" var="version" rendered="#{not editBean.adding}" varStatus="status" rowClasses="t,nt">
                 <ice:column styleClass="first">
@@ -49,6 +51,11 @@
             <ice:panelGroup styleClass="pager versions">
             <table style="float: right;" class="pagerInfo">
                 <tr>
+                    <td width="150">
+                        <div class="hide">
+                            <a href="javascript:;" onclick="document.getElementById('pa').style.display='block' ; document.getElementById('pa').nextSibling.nextSibling.style.display='none'">hide</a>
+                        </div>
+                    </td>
                     <td>
                         <ice:dataPaginator for="versionsTable" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" 
                                 firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" 
