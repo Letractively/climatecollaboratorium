@@ -413,7 +413,7 @@
             <forward name="portlet.login.create_account" path="portlet.ext.loginregister.view"/>
         </action>
 
-        <action path="/ext/loginregister/login" type="com.liferay.portlet.login.action.LoginAction">
+        <action path="/ext/loginregister/login" type="com.ext.portlet.user_info.action.CollabLoginAction">
             <forward name="portlet.login.login" path="portlet.ext.loginregister.view"/>
         </action>
         
