@@ -64,4 +64,8 @@ public class MessageBean {
         return receipients;
     }
     
+    public Long getMessageId() {
+        return message.getMessageId();
+    }
+    
 }

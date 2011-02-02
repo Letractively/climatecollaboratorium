@@ -2,6 +2,8 @@ package org.climatecollaboratorium.userprofile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -213,5 +215,21 @@ public class UserWrapper {
     
     public Long getUserId() {
         return user.getUserId();
+    }
+    
+    public String getUploadedFileName() throws UnsupportedEncodingException {
+        if (newUserProfile != null) {
+            return URLEncoder.encode(newUserProfile.getName(), "UTF-8");
+        }
+        return null;
+    }
+    
+    public File getUploadedFile() {
+        return newUserProfile;
+    }
+    
+    public void signalPictureUploaded(ActionEvent e) {
+        // do nothing, this method will be called thanks to javascript and will
+        // cause parent page to detect a file upload in an iframe
     }
 }

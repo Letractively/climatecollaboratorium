@@ -11,7 +11,15 @@
     <div id="main">
     
       <div class="comm_member">
-        <div class="comm_member-photo"><img src="#{currentUser.portrait}" width="150" height="150" alt="Jane Smith" /></div>
+        <div class="comm_member-photo">
+            <f:subview rendered="#{empty currentUser.uploadedFileName}">
+                <img src="#{currentUser.portrait}" width="150" height="150" alt="#{currentUser.screenName}" />
+            </f:subview>
+            <f:subview rendered="#{not empty currentUser.uploadedFileName}">
+                <img src="/userprofile-portlet/showUploadedImg?fileName=#{currentUser.uploadedFileName}" width="150" height="150" alt="#{currentUser.screenName}" />
+            </f:subview>
+        
+        </div>
         <div class="comm_member-info">
             <h2>Member Profile</h2>
             
@@ -27,10 +35,15 @@
                 </table>
                 
             <div class="profile_upload"> 
-              <ice:inputFile actionListener="#{currentUser.uploadPortrait}" styleClass="filepc" autoUpload="true">
-                <ice:outputStyle href="/css/userprofile.css" />
-              </ice:inputFile>
-              <div id="fakeinputfile"></div>
+                    <ice:inputFile actionListener="#{currentUser.uploadPortrait}" styleClass="filepc" autoUpload="true">
+                        <ice:outputStyle href="/css/userprofile.css" />
+                    </ice:inputFile>
+                    <ice:commandLink styleClass="hidden signalPictureUploaded" actionListener="#{currentUser.signalPictureUploaded}" />
+                    <script type="text/javascript">
+                        monitorUploadFrame();
+                    </script>
+                    
+                    
               <!-- 
               <input name="filepc" type="file" size="30" id="filepc" onchange="document.getElementById('fakefilepc').value = this.value;"/>
               <div id="fakeinputfile"><input name="fakefilepc" type="text" id="fakefilepc" /></div>
@@ -39,7 +52,6 @@
         </div>
         <div class="clearfix"></div>
       </div>
-  
       <table border="0" cellpadding="0" cellspacing="0" class="colab nlpad">
         <tr>
             <td class="b m" width="170">Screen Name</td>
