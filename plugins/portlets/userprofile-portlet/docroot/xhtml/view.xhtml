@@ -7,7 +7,6 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     >
     <ice:portlet>
-        <h1>#{userprofileBean.pageType}</h1>
         <ui:include src="./pages/#{userprofileBean.pageType}.xhtml">
             <ui:param value="#{userprofileBean.currentUser}" name="currentUser" />
         </ui:include>
