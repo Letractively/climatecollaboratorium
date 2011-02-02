@@ -123,11 +123,11 @@
                 <p>
                     <collab:userLinkSimple text="#{message.from.screenName}" userId="#{message.from.userId}" />
                     sent you a message:&amp;nbsp;
-                    <a href="/web/guest/messaging">#{message.subject}</a>
+                    <a href="/web/guest/messaging?messageId=#{message.messageId}">#{message.subject}</a>
                 </p>
             </ice:panelSeries>
             
-            <div class="rounded_button brn"><a href="/web/guest/messaging">COMPOSE</a></div> 
+            <div class="rounded_button brn"><a href="/web/guest/messaging?compose=true">COMPOSE</a></div> 
             <div class="rounded_button brn"><a href="/web/guest/messaging">ALL MESSAGES</a></div>
             
             <div class="clearfix"></div>

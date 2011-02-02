@@ -102,6 +102,7 @@ public class UserProfileBean {
     public void updateUser(ActionEvent e) throws Exception {
         currentUser.persistChanges();
         editing = !editing;
+        pageType = PageType.PROFILE_DETAILS;
     }
     
     public void setMessageText(String message) {
