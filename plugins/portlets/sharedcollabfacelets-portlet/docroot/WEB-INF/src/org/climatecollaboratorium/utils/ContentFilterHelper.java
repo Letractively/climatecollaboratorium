@@ -99,14 +99,12 @@ public class ContentFilterHelper {
         String remainder = content.substring(MAX_SHORTENED_LENGTH,content.length());
         content = content.substring(0,MAX_SHORTENED_LENGTH);
 
-        System.err.println("Remainder = "+remainder);
         Pattern pattern = Pattern.compile("\\[url=[^\\]]*\\][^\\[]*");
         Matcher matcher = pattern.matcher(content);
 
 
         if (matcher.find()) {
               int idx = remainder.indexOf("[/url]");
-                System.err.println("Index of url closing tag is "+idx);
               content+=remainder.substring(idx,idx+6);
         }
 
