@@ -28,7 +28,7 @@
                 <f:facet name="header">
                     Subject
                 </f:facet>
-                <a href="javascript:;" class="showContent">#{message.subject}</a>
+                <a href="javascript:;" class="showContent" id="message_#{message.messageId}">#{message.subject}</a>
                 <div class="msgContent hidden"><p>#{message.content}</p></div>
             </ice:column>
             <ice:column rendered="#{messagingBean.type != 'SENT'}">
@@ -68,10 +68,13 @@
                                 <f:param value="#{lastRowIndex}" />
                                 <f:param value="#{rowsCount}" />
                             </ice:outputFormat>
+                        </ice:dataPaginator>
                             <script type="text/javascript">
                                 initShowMessage();
+                                <f:subview rendered="#{messagingBean.messageToShow != null}">
+                                    showMessageById("message_#{messagingBean.messageToShow}");
+                                </f:subview>
                             </script>
-                        </ice:dataPaginator>
                 </td>     
                 <td>
                     <ice:dataPaginator rendered="true" for="messagesTable" paginator="true" paginatorMaxPages="0" styleClass="comm_controls" style="display: inline;"> 

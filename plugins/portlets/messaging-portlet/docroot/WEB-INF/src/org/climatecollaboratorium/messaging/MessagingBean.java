@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 
@@ -30,12 +31,30 @@ public class MessagingBean {
     private List<MessageBean> items = new ArrayList<MessageBean>();
     private boolean sendingMessage;
     private SendMessageBean sendMessageBean;
+    private Long messageToShow;
     
     public MessagingBean() throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             user = Helper.getLiferayUser();
             //MessageLocalServiceUtil.
             messagesCount = MessageUtil.countMessages(user.getUserId(), messageType.getTypeStr());
+            
+            Object composeObj = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("compose");
+            Object messageIdObj = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("messageId");
+            
+            if (composeObj != null && composeObj.toString().equals("true")) {
+                sendingMessage = true;
+            }
+            
+            if (messageIdObj != null) {
+                try {
+                    setMessageToShow(Long.parseLong(messageIdObj.toString()));
+                }
+                catch (NumberFormatException e) {
+                    // ignore
+                }
+            }
+            
         }
     }
     
@@ -159,6 +178,14 @@ public class MessagingBean {
     
     public User getUser() {
         return user;
+    }
+
+    public void setMessageToShow(Long messageToShow) {
+        this.messageToShow = messageToShow;
+    }
+
+    public Long getMessageToShow() {
+        return messageToShow;
     }
 
 }

@@ -15,6 +15,7 @@
                         <!-- <input type="hidden" class="messageReceipientsInput" />-->
                         <ice:inputText styleClass="hidden messageReceipientsInput" value="#{sendMessageBean.receipients}"/>
                         <!-- <input type="hidden" class="required profile_input"  />-->
+                        <div id="please_choose_from_list" style="display: none; color: red; font-weight: bold;">Please choose value from list</div>
                     </td>
                 </tr>
                 <tr>
@@ -42,6 +43,7 @@
             usersMap['#{user.screenName}'] = #{user.userId};
         </ui:repeat>
         jQuery(document).ready(function() {
+        alert('should init..');
                 initSendMessageForm(users, usersMap);
         });
     </script>
