@@ -44,6 +44,10 @@
 		<managed-bean-name>userprofileBean</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.userprofile.UserProfileBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>messagingPortletId</property-name>
+			<value>messaging_WAR_messagingportlet_INSTANCE_9HzD</value>
+		</managed-property>
 	</managed-bean>
 	<validator>
 		<validator-id>screenNameValidator</validator-id>
