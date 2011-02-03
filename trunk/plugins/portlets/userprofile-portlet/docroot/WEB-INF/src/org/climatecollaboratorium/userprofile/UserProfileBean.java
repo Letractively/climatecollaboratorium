@@ -20,6 +20,7 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.util.mail.MailEngineException;
@@ -37,9 +38,9 @@ public class UserProfileBean {
     private ArrayList<UserActivityBean> subscribedActivities;
     private PageType pageType = PageType.PROFILE_NOT_INITIALIZED;
     private UserSubscribtionsBean subscribtionsBean;
+    private String messagingPortletId;
     
     public UserProfileBean() {
-        
         Map<String, String> parameters = Helper.getUrlParametersMap();
         
         if (parameters.containsKey(USER_ID_PARAM)) {
@@ -179,6 +180,14 @@ public class UserProfileBean {
 
     public PageType getPageType() {
         return pageType;
+    }
+
+    public void setMessagingPortletId(String messagingPortletId) {
+        this.messagingPortletId = messagingPortletId;
+    }
+
+    public String getMessagingPortletId() {
+        return messagingPortletId;
     }
 
 }
