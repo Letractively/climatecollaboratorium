@@ -4,10 +4,6 @@
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
 	<display-name>discussions-portlet</display-name>
 	<context-param>
-		<param-name>facelets.REFRESH_PERIOD</param-name>
-		<param-value>-1</param-value>
-	</context-param>
-	<context-param>
 		<param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
 		<param-value>true</param-value>
 	</context-param>
@@ -61,7 +57,7 @@
 	</context-param>
 	<context-param>
 		<param-name>com.icesoft.faces.synchronousUpdate</param-name>
-		<param-value>false</param-value>
+		<param-value>true</param-value>
 	</context-param>
 	<context-param>
 		<param-name>com.icesoft.faces.uploadDirectory</param-name>
