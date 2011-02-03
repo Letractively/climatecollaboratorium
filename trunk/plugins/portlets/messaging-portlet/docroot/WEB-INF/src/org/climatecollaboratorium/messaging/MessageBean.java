@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import com.ext.portlet.messaging.model.Message;
 import com.ext.portlet.messaging.model.MessageRecipientStatus;
 import com.liferay.portal.PortalException;
@@ -57,4 +59,7 @@ public class MessageBean {
         return receipients;
     }
     
+    public Long getMessageId() {
+        return message.getMessageId();
+    }
 }

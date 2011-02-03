@@ -2,38 +2,64 @@ jQuery(document).ready(function() {
     initShowMessage();
 });
 
+
+function showMessageByElem(elem, highlight) {
+    var link = jQuery(elem);
+    var contentRow;
+    if (! link.hasClass('processed')) {
+        var content = link.parent().find(".msgContent");
+        // append content after current row
+        contentRow = jQuery("<tr class='contentRow hidden'><td colspan='4'>" + content.html() + "</td></tr>");
+        link.parent().parent().after(contentRow); 
+        contentRow.show();
+        
+        link.addClass("processed");
+    }
+    else {
+        contentRow = link.parent().parent().next();
+        if (contentRow.is(":visible")) {
+            contentRow.hide();
+        }
+        else {
+            contentRow.show();
+        }
+    
+    }	
+    if (highlight) {
+        contentRow.effect("highlight", {}, 3000);
+        link.parent().parent().effect("highlight", {}, 3000);
+    }
+}
+
+function showMessageById(id) {
+	showMessageByElem(document.getElementById(id), true);
+}
+
 function initShowMessage() {
     jQuery(".showContent").unbind("click");
     jQuery(".showContent").click(function() {
-        var link = jQuery(this);
-        if (! link.hasClass('processed')) {
-            var content = link.parent().find(".msgContent");
-            // append content after current row
-            var contentRow = jQuery("<tr class='contentRow hidden'><td colspan='3'>" + content.html() + "</td></tr>");
-            link.parent().parent().after(contentRow); 
-            contentRow.show();
-            
-            link.addClass("processed");
-        }
-        else {
-            var contentRow = link.parent().parent().next();
-            if (contentRow.is(":visible")) {
-                contentRow.hide();
-            }
-            else {
-                contentRow.show();
-            }
-        
-        }
-         
-        //jQuery(this).parent().find(".msgContent").show();
+    	showMessageByElem(this);
     });
 }
+
 
 var usersMap;
 
 function initSendMessageForm(users, usersMapParam) {
     usersMap = usersMapParam;
+    
+    jQuery('#userSelectorInput').focus(function() {
+        jQuery("#please_choose_from_list").hide();
+    });
+        
+    jQuery('#userSelectorInput').blur(function() {
+        var val = jQuery.trim(jQuery(this).val());
+        if (val != "") {
+            jQuery("#please_choose_from_list").show();
+        }
+        jQuery(this).val(""); 
+    });
+    
     var input = jQuery("#userSelectorInput").autoSuggest(users, {selectedItem: "username", searchObj: "username", startText: 'Begin typing for a list' });
     jQuery(".composeMessageForm").validate();
     
