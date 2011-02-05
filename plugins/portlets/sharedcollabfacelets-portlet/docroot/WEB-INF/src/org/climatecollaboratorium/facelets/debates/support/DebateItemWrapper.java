@@ -14,10 +14,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.climatecollaboratorium.facelets.debates.DebatesUtil;
 import org.climatecollaboratorium.facelets.debates.activity.DebateActivityKeys;
 import org.climatecollaboratorium.facelets.debates.backing.Helper;
 
 import com.ext.portlet.debaterevision.DebateItemType;
+import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateComment;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.model.DebateItemReference;
@@ -108,8 +110,8 @@ public class DebateItemWrapper {
             item.voteForThisItem(Helper.getLiferayUser().getUserId());
 
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                    DebateItem.class.getName(), item.getDebateItemId(), DebateActivityKeys.VOTE_FOR_POSITION.id(),
-                    StringPool.BLANK, 0);
+                    Debate.class.getName(), item.getDebateId(), DebateActivityKeys.VOTE_FOR_POSITION.id(),
+                    DebatesUtil.getActivityExtraData(item), 0);
         }
     }
 
@@ -118,8 +120,8 @@ public class DebateItemWrapper {
             item.unvoteThisItem(Helper.getLiferayUser().getUserId());
             
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                    DebateItem.class.getName(), item.getDebateItemId(), DebateActivityKeys.RETRACT_VOTE_FOR_POSITION.id(),
-                    StringPool.BLANK, 0);
+                    Debate.class.getName(), item.getDebateId(), DebateActivityKeys.RETRACT_VOTE_FOR_POSITION.id(),
+                    DebatesUtil.getActivityExtraData(item), 0);
         }
 
     }
@@ -146,18 +148,20 @@ public class DebateItemWrapper {
             
             DebateItemType type = DebateItemType.valueOf(item.getDebatePostType());
             if (type.equals(DebateItemType.POSITION)) {
-                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), DebateItem.class
-                        .getName(), item.getDebateItemId(), DebateActivityKeys.COMMENT_ON_POSITION.id(), StringPool.BLANK,
-                        0);
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), Debate.class.getName(),
+                        item.getDebateId(), DebateActivityKeys.COMMENT_ON_POSITION.id(), 
+                        DebatesUtil.getActivityExtraData(item), 0);
 
             } else if (type.equals(DebateItemType.ARGUMENT_CON) || type.equals(DebateItemType.ARGUMENT_PRO)) {
-                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), DebateItem.class
-                        .getName(), item.getDebateItemId(), DebateActivityKeys.COMMENT_ON_ARGUMENT.id(), StringPool.BLANK,
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), Debate.class.getName(), 
+                        item.getDebateId(), DebateActivityKeys.COMMENT_ON_ARGUMENT.id(), 
+                        DebatesUtil.getActivityExtraData(item),
                         0);
             }
             if (type.equals(DebateItemType.QUESTION)) {
-                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), DebateItem.class
-                        .getName(), item.getDebateItemId(), DebateActivityKeys.COMMENT_ON_QUESTION.id(), StringPool.BLANK,
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), Debate.class.getName(), 
+                        item.getDebateId(), DebateActivityKeys.COMMENT_ON_QUESTION.id(), 
+                        DebatesUtil.getActivityExtraData(item),
                         0);
 
             }

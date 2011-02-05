@@ -17,7 +17,9 @@ import org.climatecollaboratorium.utils.HumanTime;
 import org.climatecollaboratorium.validation.CategoryNameValidator;
 import org.climatecollaboratorium.validation.ValueRequiredValidator;
 
+import com.ext.portlet.Activity.ActivityUtil;
 import com.ext.portlet.discussions.model.DiscussionCategory;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -117,7 +119,9 @@ public class CategoryWrapper {
 
             ThemeDisplay td = Helper.getThemeDisplay();
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                    DiscussionMessage.class.getName(), wrapped.getCategoryId(), DiscussionActivityKeys.ADD_CATEGORY.id(),null, 0);
+                    DiscussionCategoryGroup.class.getName(), discussionBean.getDiscussionId(), 
+                    DiscussionActivityKeys.ADD_CATEGORY.id(), 
+                    ActivityUtil.getExtraDataForIds(wrapped.getCategoryId()), 0);
         }
     }
 

@@ -82,6 +82,10 @@
     </div> <!-- /main -->
     
     <ice:panelGroup rendered="#{showActions}" styleClass="right_col v2">
+        <ice:commandLink actionListener="#{discussionBean.subscribe}" rendered="#{discussionBean.pageType == 'DISCUSSIONS' or discussionBean.pageType == 'CATEGORY' or discussionBean.pageType == 'THREAD'}">
+            <img src="/collaboratorium-theme/images/icon_star-small.gif" />
+            Subscribe
+        </ice:commandLink>
       
       <div class="comm_list">
         <h3>Categories</h3>

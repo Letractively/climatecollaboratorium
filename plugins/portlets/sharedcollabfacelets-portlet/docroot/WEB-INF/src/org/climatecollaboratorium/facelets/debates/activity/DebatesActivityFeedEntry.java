@@ -7,6 +7,7 @@
 package org.climatecollaboratorium.facelets.debates.activity;
 
 
+import com.ext.portlet.Activity.ICollabActivityInterpreter;
 import com.ext.portlet.community.CommunityUtil;
 import com.ext.portlet.debaterevision.DebateItemType;
 import com.ext.portlet.debaterevision.model.Debate;
@@ -15,6 +16,7 @@ import com.ext.portlet.debaterevision.model.DebateComment;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.service.DebateCategoryLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
+import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -29,7 +31,7 @@ import org.climatecollaboratorium.facelets.debates.backing.EditDebateCommentBean
 import org.climatecollaboratorium.facelets.debates.backing.EditDebateItemBean;
 
 
-public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter{
+public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter implements ICollabActivityInterpreter {
 	
 	
 	public String[] getClassNames() {
@@ -210,5 +212,22 @@ public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter{
 	private DebateItem getDebateitem(SocialActivity activity) {
         return DebateItemLocalServiceUtil.getLastActiveItem(activity.getClassPK());
 	}
+
+    @Override
+    public String getName(Long classNameId, Long classPK, Integer type, String extraData) {
+        /* Name of activity stream for debates is debate name */
+
+        Debate debate;
+        try {
+            debate = DebateLocalServiceUtil.getDebate(classPK);
+            DebateItem item = debate.getCurrentRoot();
+            return String.format(hyperlink, DebatesUtil.getItemURL(item), item.getDebateSummary());
+        } catch (PortalException e) {
+            _log.error("Can't find activity stream name for classPK: " + classPK, e);
+        } catch (SystemException e) {
+            _log.error("Can't find activity stream name for classPK: " + classPK, e);
+        }
+        return "";
+    }
 
 }
