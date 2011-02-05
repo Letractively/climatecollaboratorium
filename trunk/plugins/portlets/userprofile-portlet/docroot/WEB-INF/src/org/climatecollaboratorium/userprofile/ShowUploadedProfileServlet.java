@@ -36,9 +36,6 @@ public class ShowUploadedProfileServlet extends HttpServlet {
             return;
         }
         
-        System.out.println(contentType == null);
-        System.out.println((! file.exists()));
-        System.out.println((! file.exists()) || contentType == null);
         
         response.setContentType(contentType);
         try {

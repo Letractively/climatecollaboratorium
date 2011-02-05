@@ -265,7 +265,7 @@ public class UserWrapper {
         BufferedImage cropedImage = img.getSubimage(cropX, cropY, cropSize, cropSize);
         
           
-        BufferedImage dimg = new BufferedImage(newW, newH, img.getType());  
+        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_4BYTE_ABGR);  
         Graphics2D g = dimg.createGraphics();  
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
         g.drawImage(cropedImage, 0, 0, newW, newH, 0, 0, cropSize, cropSize, null);  
