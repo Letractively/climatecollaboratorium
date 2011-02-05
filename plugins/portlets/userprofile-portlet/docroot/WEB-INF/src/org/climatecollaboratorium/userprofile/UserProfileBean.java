@@ -10,6 +10,7 @@ import javax.mail.internet.AddressException;
 
 import com.ext.portlet.Activity.ActivityConstants;
 import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.messaging.MessageConstants;
 import com.ext.portlet.messaging.MessageUtil;
 import com.ext.portlet.messaging.model.Message;
@@ -37,7 +38,7 @@ public class UserProfileBean {
     private List<MessageBean> messages;
     private ArrayList<UserActivityBean> subscribedActivities;
     private PageType pageType = PageType.PROFILE_NOT_INITIALIZED;
-    private UserSubscribtionsBean subscribtionsBean;
+    private UserSubscriptionsBean subscriptionsBean;
     private String messagingPortletId;
     
     public UserProfileBean() {
@@ -49,7 +50,7 @@ public class UserProfileBean {
                 wrappedUser = UserLocalServiceUtil.getUser(userId);
                 currentUser = new UserWrapper(wrappedUser);
                 pageType = PageType.PROFILE_DETAILS;
-                subscribtionsBean = new UserSubscribtionsBean(wrappedUser);
+                subscriptionsBean = new UserSubscriptionsBean(wrappedUser);
             }
             catch (NumberFormatException e) {
                 _log.error("Can't parse user id: " + parameters.get(USER_ID_PARAM), e);
@@ -149,9 +150,10 @@ public class UserProfileBean {
     public List<UserActivityBean> getSubscribedActivities() throws SystemException, PortalException {
         if (subscribedActivities == null) {
             subscribedActivities = new ArrayList<UserActivityBean>();
-            for (SocialActivity activity: ActivityUtil.retrieveActivities(wrappedUser.getUserId(), 0, 6)) {
+            for (SocialActivity activity: ActivitySubscriptionLocalServiceUtil.getActivities(wrappedUser.getUserId(), 0, 20)) {
                 subscribedActivities.add(new UserActivityBean(activity));
             }
+            
         }
         return subscribedActivities;
     }
@@ -188,6 +190,10 @@ public class UserProfileBean {
 
     public String getMessagingPortletId() {
         return messagingPortletId;
+    }
+
+    public UserSubscriptionsBean getSubscriptionsBean() {
+        return subscriptionsBean;
     }
 
 }
