@@ -7,6 +7,8 @@
 package org.climatecollaboratorium.debates.activity;
 
 
+import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.Activity.ICollabActivityInterpreter;
 import com.ext.portlet.community.CommunityUtil;
 import com.ext.portlet.debaterevision.DebateItemType;
 import com.ext.portlet.debaterevision.model.Debate;
@@ -15,6 +17,7 @@ import com.ext.portlet.debaterevision.model.DebateComment;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.service.DebateCategoryLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
+import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -29,7 +32,7 @@ import org.climatecollaboratorium.debates.bean.backing.EditDebateCommentBean;
 import org.climatecollaboratorium.debates.bean.backing.EditDebateItemBean;
 
 
-public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter{
+public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter implements ICollabActivityInterpreter {
 	
 	
 	public String[] getClassNames() {
@@ -122,7 +125,14 @@ public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter{
 		
 		String result = "<position removed>";
 		try {
-		    DebateItem item = getDebateitem(activity);
+		    DebateItem item = null;
+
+            if (activity.getClassName().equals(Debate.class.getName())) {
+                item = getlastDebateItemFromExtraData(activity.getExtraData());
+            }
+            else {
+                item = getDebateitem(activity);
+            }
 		    while (! item.getDebatePostType().equals(DebateItemType.POSITION.toString())) {
 		        item = item.getParent();
 		    }
@@ -139,20 +149,37 @@ public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter{
 	
 	private String getArgument(SocialActivity activity) {
 		String result = "<argument removed>";
+		DebateItem item = null;
 		try {
-            DebateItem item = getDebateitem(activity);
+            if (activity.getClassName().equals(Debate.class.getName())) {
+                item = getlastDebateItemFromExtraData(activity.getExtraData());
+            }
+            else {
+                item = getDebateitem(activity);
+            }
             result=String.format(hyperlink, DebatesUtil.getItemURL(item), item.getDebateSummary());
 		} catch (NumberFormatException e) {
 			_log.error(e);
-		}
+		} catch (PortalException e) {
+            _log.error(e);
+        } catch (SystemException e) {
+            _log.error(e);
+        }
 		return result;
 	}
 	
 	private String getQuestion(SocialActivity activity) {
 		String result = "<question removed>";
 		try {
-            DebateItem item = getDebateitem(activity);
-            item = item.getDebate().getCurrentRoot();
+		    DebateItem item = null;
+		    if (activity.getClassName().equals(Debate.class.getName())) {
+		        item = DebateLocalServiceUtil.findLastVersion(activity.getClassPK()).getCurrentRoot();
+		    }
+		    else {
+		        item = getDebateitem(activity);
+	            item = item.getDebate().getCurrentRoot();
+		    }
+		    
 
             result=String.format(hyperlink, DebatesUtil.getItemURL(item), item.getDebateSummary());
 		} catch (SystemException e) {
@@ -164,7 +191,13 @@ public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter{
     private String getQuestionFromExtraData(SocialActivity activity) {
 		String result = "<question removed>";
 		try {
-            DebateItem item = getDebateitemFromExtraData(activity);
+		    DebateItem item = null;
+		    if (activity.getClassName().equals(Debate.class.getName())) {
+		        item = DebateItemLocalServiceUtil.getLastActiveItem(ActivityUtil.getIdsFromExtraData(activity.getExtraData())[0]);
+		    }
+		    else {
+		        item = getDebateitemFromExtraData(activity);
+		    }
             result=String.format(hyperlink, DebatesUtil.getItemURL(item), item.getDebateSummary());
 		} catch (Exception e) {
 			_log.info(e.getMessage());
@@ -210,5 +243,28 @@ public class DebatesActivityFeedEntry extends BaseSocialActivityInterpreter{
 	private DebateItem getDebateitem(SocialActivity activity) {
         return DebateItemLocalServiceUtil.getLastActiveItem(activity.getClassPK());
 	}
+	
+
+    @Override
+    public String getName(Long classNameId, Long classPK, Integer type, String extraData) {
+        /* Name of activity stream for debates is debate name */
+
+        Debate debate;
+        try {
+            debate = DebateLocalServiceUtil.getDebate(classPK);
+            DebateItem item = debate.getCurrentRoot();
+            return String.format(hyperlink, DebatesUtil.getItemURL(item), item.getDebateSummary());
+        } catch (PortalException e) {
+            _log.error("Can't find activity stream name for classPK: " + classPK, e);
+        } catch (SystemException e) {
+            _log.error("Can't find activity stream name for classPK: " + classPK, e);
+        }
+        return "";
+    }
+    
+    private DebateItem getlastDebateItemFromExtraData(String extraData) throws PortalException, SystemException {
+        Long[] ids = ActivityUtil.getIdsFromExtraData(extraData);
+        return DebateItemLocalServiceUtil.getLastActiveItem(ids[ids.length-1]);
+    }
 
 }
