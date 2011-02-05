@@ -139,7 +139,7 @@
             <f:subview rendered="#{empty userprofileBean.subscribedActivities}">
                 <p>No new activities.</p>
             </f:subview>
-            <ice:panelSeries var="activity" value="#{userprofileBean.subscribedActivities}" rendered="#{not empty userprofileBean.subscribedActivities}">
+            <ice:panelSeries var="activity" value="#{userprofileBean.subscribedActivities}" rendered="#{not empty userprofileBean.subscribedActivities}" rows="5">
                 <div class="comm_rightcol-time">
                     <ice:outputText value="Today" rendered="#{activity.daysAgo == 0}" />
                     <ice:outputText value="Yesterday" rendered="#{activity.daysAgo == 1}" />
@@ -158,7 +158,7 @@
             
             </div> 
             <div class="rounded_button brn">
-                <ice:commandLink actionListener="#{userprofileBean.showPage}">
+                <ice:commandLink actionListener="#{userprofileBean.showPage}" rendered="#{not empty userprofileBean.subscribedActivities}">
                     <f:attribute name="name" value="SUBSCRIPTIONS_VIEW" />
                     SEE ALL
                 </ice:commandLink>

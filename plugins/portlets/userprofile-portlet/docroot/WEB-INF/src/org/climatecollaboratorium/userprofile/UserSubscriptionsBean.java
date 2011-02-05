@@ -53,5 +53,9 @@ public class UserSubscriptionsBean {
         }
         subscriptions = null;
     }
+    
+    public int getSubscriptionsCount() {
+        return subscriptions.size();
+    }
 
 }
