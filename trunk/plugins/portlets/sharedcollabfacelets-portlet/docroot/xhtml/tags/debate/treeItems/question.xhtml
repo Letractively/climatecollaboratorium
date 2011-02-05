@@ -8,7 +8,9 @@
             <div class="questions_head">
                 <div class="question_title">Question</div>
                 <div class="question_question">#{question.debateSummary}</div>
-                <div class="question_count"><span></span>#{question.commentsCount}</div>
+                <f:subview rendered="#{question.commentsCount > 0}">
+                    <div class="comments_count"><span></span>#{question.commentsCount}</div>
+                </f:subview>
             </div>
         </ice:panelGroup>
      </a>

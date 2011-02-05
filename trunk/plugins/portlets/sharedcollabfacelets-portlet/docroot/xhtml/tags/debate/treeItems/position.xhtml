@@ -8,6 +8,9 @@
             <div class="question_item top">
                 <div class="question_position-wrap">
                     <div class="question_position">#{position.debateSummary} &amp;nbsp; <span>#{position.votesPercent}% votes</span></div>
+                    <f:subview rendered="#{position.commentsCount > 0}">
+                        <div class="comments_count"><span></span> #{position.commentsCount}</div>
+                    </f:subview>
                 </div>
                 <div class="clearfix"></div>
             </div>

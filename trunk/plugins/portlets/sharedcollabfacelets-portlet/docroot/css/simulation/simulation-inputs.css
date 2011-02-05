@@ -258,9 +258,16 @@ table.mainTabs .inputTabStyle td.RtTop,
 
 .modelInputValue .val {
 	color: #318EB5;
-	font-weight: bold;
 }
 
 .actInputDef {
-	font: normal 12px/20px Verdana, sans-serif;
+	font: normal 11px/20px Verdana, sans-serif;
+}
+
+.input_def_header {
+	color: #000;
+}
+
+.input_def_inner_label {
+	color: #777777;
 }

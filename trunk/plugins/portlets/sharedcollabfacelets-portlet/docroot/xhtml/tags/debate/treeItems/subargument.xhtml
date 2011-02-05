@@ -8,7 +8,9 @@
             <div class="question_sub-item">
                 <div class="question_sub-arg-wrap">
                     <div class="#{argument.debatePostType == 'ARGUMENT_PRO' ? 'question_sub-arg-for' : 'question_sub-arg-against'}">#{subargument.debateSummary}</div>
-                    <div class="question_amount"><span></span> #{subargument.commentsCount}</div>
+                    <f:subview rendered="#{subargument.commentsCount > 0}">
+                        <div class="comments_count"><span></span> #{subargument.commentsCount}</div>
+                    </f:subview>
                 </div>
                 <div class="clearfix"></div>
             </div>

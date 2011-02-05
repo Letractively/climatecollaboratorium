@@ -87,6 +87,10 @@ public class DebateItemWrapper {
         return item.getVotesPercent();
     }
     
+    public Long getVotesCount() throws PortalException, SystemException {
+        return item.getVotesCount();
+    }
+    
     public boolean getHasUserVoted() throws PortalException, SystemException {
         if (Helper.isUserLoggedIn()) {
             return item.hasUserVotedForThisItem(Helper.getLiferayUser().getUserId());

@@ -140,10 +140,6 @@
     color: #ffffff;
 }
 
-.comm_controlsTbl {
-	display: none;
-}
-
 .discussionCategories .active {
 	font-weight: bold;
 }

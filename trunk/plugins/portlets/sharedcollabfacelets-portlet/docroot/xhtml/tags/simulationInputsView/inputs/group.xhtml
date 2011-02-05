@@ -6,14 +6,17 @@
         xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-
-    #{input.oryginalName}<br />
-    <ui:repeat value="#{input.displayItemsWrapped}" var="individualInput" varStatus="status">
+    <ice:panelSeries value="#{input.displayItemsWrapped}" var="individualInput" varStatus="status">
+        <f:subview rendered="#{status.first}">
+            <span class="input_def_header">#{input.oryginalName}</span><br />
+        </f:subview>
         <ui:include src="./outputValue.xhtml">
             <ui:param value="#{individualInput.value}" name="value" />
             <ui:param value="#{individualInput.metaData.units[0]}" name="unit" />
             <ui:param value="#{individualInput.metaData.profile[0]}" name="dataType" />
             <ui:param value="#{individualInput.metaData.labels[0]}" name="label" />
+            <ui:param value="#{not status.first}" name="showLabel" />
         </ui:include>
-    </ui:repeat>
+    
+    </ice:panelSeries>
 </f:view>
