@@ -561,7 +561,6 @@ input[type="text"].comm_search { float:left; width:222px; height:25px; padding:2
 
 .community .comm_controls td { vertical-align: baseline; }
 .community .comm_controls {width: 100px;}
-.community .comm_controls .comm_controlsTbl {display: none;}
 .comm_controls .iceDatPgrScrBtn {padding: 2px 2px;}
 .pager .navigate {
 	margin-top: 0;
@@ -853,3 +852,49 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -khtml-bor
 .info-left {
 	width: 600px;
 }
+
+.argument_input-box {
+	font-size: 21px;
+}
+
+.position_votes .votes_count {
+	line-height: 22px;
+	font-size: 16px;
+	color: #6E6E6E;
+}
+.position_votes {
+	width: 150px;
+}
+
+.position_left {
+	width: 250px;
+}
+
+.issues td.issue-votes-count { font-weight:600; font-size:26px; text-align:center; width:15%; color: #a7a7a7; }
+    .wf-active .issues td.issue-votes-count { font-size:28px;}
+    
+.iceDatPgrTbl td {
+	font-size: 17px;
+	padding: 0 2px;
+}
+.iceDatPgrTbl td.iceDatPgrScrCol {
+	font-weight: 600;
+	font-size: 16px;
+}
+
+.question_item-wrap {
+	position: relative;
+}
+.question_item-wrap .comments_count span { width:16px; height:15px; padding:0 8px; margin-right:5px; background:url(../images/icon_bubble-b.png) no-repeat;}
+.question_item-wrap .comments_count {
+	 font-weight:600; color:#2498b3; line-height:normal; height:15px;
+	position: absolute;
+	width: 50px;
+	right: 15px;
+	bottom: 15px;
+}
+
+.question_item-wrap:hover .comments_count {  color:#fff;}
+.question_item-wrap:hover .comments_count span { background:url(../images/icon_bubble-w.png) no-repeat;}
+.activeSlide .comments_count { color:#fff;}
+.activeSlide .comments_count span { background:url(../images/icon_bubble-w.png) no-repeat;}
