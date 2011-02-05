@@ -21,8 +21,8 @@ public class CompositeSubscriptionHolder {
 	
 	
 	public CompositeSubscriptionHolder(ActivitySubscription s) {
-		this.portletId = s.getPortletId();
-		this.entityId = s.getEntityId();
+		//this.portletId = s.getPortletId();
+		//this.entityId = s.getEntityId();
 		this.hash = createHash(s);
 		subscriptions.add(s);
 	}
@@ -60,7 +60,8 @@ public class CompositeSubscriptionHolder {
 	}
 	
 	public static String createHash(ActivitySubscription a) {
-		return a.getEntityId()+a.getPortletId();
+		//return a.getEntityId()+a.getPortletId();
+	    return String.valueOf(a.hashCode());
 	}
 
 }

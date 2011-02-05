@@ -11,7 +11,7 @@ import com.ext.portlet.plans.PlanActivityKeys;
 
 public class ActivityConstants {
 	
-	public static final SubscriberFactory[] SUBS_DEFAULTS = new SubscriberFactory[] { DebateActivityKeys.ALL, PlanActivityKeys.ALL };
+	//public static final SubscriberFactory[] SUBS_DEFAULTS = new SubscriberFactory[] { DebateActivityKeys.ALL, PlanActivityKeys.ALL };
 	
 	public static final String PAGER_START = "pagerStart";
 	public static final String PAGER_MAX = "pageMax";

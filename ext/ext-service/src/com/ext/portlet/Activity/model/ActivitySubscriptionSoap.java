@@ -1,12 +1,4 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.model;
-
-import com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK;
 
 import java.io.Serializable;
 
@@ -34,10 +26,12 @@ import java.util.List;
  *
  */
 public class ActivitySubscriptionSoap implements Serializable {
-    private Long _entityId;
+    private Long _pk;
+    private Long _classNameId;
+    private Long _classPK;
+    private Integer _type;
+    private String _extraData;
     private Long _receiverId;
-    private String _activitytype;
-    private String _portletId;
     private Date _createDate;
     private Date _modifiedDate;
 
@@ -48,10 +42,12 @@ public class ActivitySubscriptionSoap implements Serializable {
         ActivitySubscription model) {
         ActivitySubscriptionSoap soapModel = new ActivitySubscriptionSoap();
 
-        soapModel.setEntityId(model.getEntityId());
+        soapModel.setPk(model.getPk());
+        soapModel.setClassNameId(model.getClassNameId());
+        soapModel.setClassPK(model.getClassPK());
+        soapModel.setType(model.getType());
+        soapModel.setExtraData(model.getExtraData());
         soapModel.setReceiverId(model.getReceiverId());
-        soapModel.setActivitytype(model.getActivitytype());
-        soapModel.setPortletId(model.getPortletId());
         soapModel.setCreateDate(model.getCreateDate());
         soapModel.setModifiedDate(model.getModifiedDate());
 
@@ -97,24 +93,52 @@ public class ActivitySubscriptionSoap implements Serializable {
         return soapModels.toArray(new ActivitySubscriptionSoap[soapModels.size()]);
     }
 
-    public ActivitySubscriptionPK getPrimaryKey() {
-        return new ActivitySubscriptionPK(_entityId, _receiverId,
-            _activitytype, _portletId);
+    public Long getPrimaryKey() {
+        return _pk;
     }
 
-    public void setPrimaryKey(ActivitySubscriptionPK pk) {
-        setEntityId(pk.entityId);
-        setReceiverId(pk.receiverId);
-        setActivitytype(pk.activitytype);
-        setPortletId(pk.portletId);
+    public void setPrimaryKey(Long pk) {
+        setPk(pk);
     }
 
-    public Long getEntityId() {
-        return _entityId;
+    public Long getPk() {
+        return _pk;
     }
 
-    public void setEntityId(Long entityId) {
-        _entityId = entityId;
+    public void setPk(Long pk) {
+        _pk = pk;
+    }
+
+    public Long getClassNameId() {
+        return _classNameId;
+    }
+
+    public void setClassNameId(Long classNameId) {
+        _classNameId = classNameId;
+    }
+
+    public Long getClassPK() {
+        return _classPK;
+    }
+
+    public void setClassPK(Long classPK) {
+        _classPK = classPK;
+    }
+
+    public Integer getType() {
+        return _type;
+    }
+
+    public void setType(Integer type) {
+        _type = type;
+    }
+
+    public String getExtraData() {
+        return _extraData;
+    }
+
+    public void setExtraData(String extraData) {
+        _extraData = extraData;
     }
 
     public Long getReceiverId() {
@@ -123,22 +147,6 @@ public class ActivitySubscriptionSoap implements Serializable {
 
     public void setReceiverId(Long receiverId) {
         _receiverId = receiverId;
-    }
-
-    public String getActivitytype() {
-        return _activitytype;
-    }
-
-    public void setActivitytype(String activitytype) {
-        _activitytype = activitytype;
-    }
-
-    public String getPortletId() {
-        return _portletId;
-    }
-
-    public void setPortletId(String portletId) {
-        _portletId = portletId;
     }
 
     public Date getCreateDate() {

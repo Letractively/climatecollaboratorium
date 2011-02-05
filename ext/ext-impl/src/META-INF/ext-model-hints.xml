@@ -269,10 +269,12 @@
 		<field name="relatedOutputItem" type="Long" />
 	</model>
 	<model name="com.ext.portlet.Activity.model.ActivitySubscription">
-		<field name="entityId" type="Long" />
+		<field name="pk" type="Long" />
+		<field name="classNameId" type="Long" />
+		<field name="classPK" type="Long" />
+		<field name="type" type="Integer" />
+		<field name="extraData" type="String" />
 		<field name="receiverId" type="Long" />
-		<field name="activitytype" type="String" />
-		<field name="portletId" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 	</model>

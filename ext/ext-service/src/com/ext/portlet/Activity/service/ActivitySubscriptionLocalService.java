@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.service;
 
 import com.liferay.portal.PortalException;
@@ -46,10 +40,9 @@ public interface ActivitySubscriptionLocalService {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.Activity.model.ActivitySubscription createActivitySubscription(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK);
+        java.lang.Long pk);
 
-    public void deleteActivitySubscription(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK)
+    public void deleteActivitySubscription(java.lang.Long pk)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
@@ -67,7 +60,7 @@ public interface ActivitySubscriptionLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.Activity.model.ActivitySubscription getActivitySubscription(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK)
+        java.lang.Long pk)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
@@ -89,4 +82,39 @@ public interface ActivitySubscriptionLocalService {
 
     public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByUser(
         java.lang.Long userId) throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public boolean isSubscribed(java.lang.Long userId,
+        java.lang.Long classNameId, java.lang.Long classPK, int type,
+        java.lang.String extraData)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void addSubscription(java.lang.Long classNameId,
+        java.lang.Long classPK, java.lang.Integer type,
+        java.lang.String extraData, java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void addSubscription(java.lang.Class clasz, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void addActivityInterpreter(
+        com.ext.portlet.Activity.ICollabActivityInterpreter interpreter);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.Activity.ICollabActivityInterpreter getInterpreterForClass(
+        java.lang.String className);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.Activity.ICollabActivityInterpreter getInterpreterForClass(
+        java.lang.Long classNameId);
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.liferay.portlet.social.model.SocialActivity> getActivities(
+        java.lang.Long userId, int start, int count)
+        throws com.liferay.portal.SystemException;
 }
