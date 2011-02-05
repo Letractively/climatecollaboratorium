@@ -1,5 +1,8 @@
 package org.climatecollaboratorium.userprofile;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -9,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
+import javax.imageio.ImageIO;
 
 import com.ext.portlet.community.action.CommunityConstants;
 import com.ext.portlet.plans.model.PlanFan;
@@ -140,12 +144,14 @@ public class UserWrapper {
         return name;
     }
     
-    public void uploadPortrait(ActionEvent e) {
+    public void uploadPortrait(ActionEvent e) throws IOException {
         InputFile inputFile = (InputFile) e.getSource();
         if (inputFile.getStatus() == InputFile.INVALID) {
             _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
             return;
         }
+
+        resiseAndCropImage(inputFile.getFile());
         newUserProfile = inputFile.getFile();
         
     }
@@ -231,5 +237,44 @@ public class UserWrapper {
     public void signalPictureUploaded(ActionEvent e) {
         // do nothing, this method will be called thanks to javascript and will
         // cause parent page to detect a file upload in an iframe
+    }
+    private void resiseAndCropImage(File file) throws IOException {
+        int newW = 150;
+        int newH = 150;
+        
+        BufferedImage img = ImageIO.read(file);
+        // crop image
+        
+        int w = img.getWidth();  
+        int h = img.getHeight();
+        
+        int cropSize = 0;
+        int cropX = 0;
+        int cropY = 0;
+        
+        
+        if (h < w) {
+            cropSize = h;
+            cropX = (w - h) / 2;
+        }
+        else {
+            cropSize = w;
+            cropY = (h-w) / 2;
+        }
+        
+        BufferedImage cropedImage = img.getSubimage(cropX, cropY, cropSize, cropSize);
+        
+          
+        BufferedImage dimg = new BufferedImage(newW, newH, img.getType());  
+        Graphics2D g = dimg.createGraphics();  
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
+        g.drawImage(cropedImage, 0, 0, newW, newH, 0, 0, cropSize, cropSize, null);  
+        g.dispose(); 
+        
+        String imageType = file.getName();
+        imageType = imageType.substring(imageType.lastIndexOf(".") + 1);
+        
+        ImageIO.write(dimg, imageType, file);
+        
     }
 }
