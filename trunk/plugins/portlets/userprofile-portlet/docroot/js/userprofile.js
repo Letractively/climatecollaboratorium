@@ -4,3 +4,7 @@ function monitorUploadFrame() {
 	})
 
 }
+
+function selectAllSubscriptions() {
+	jQuery(".subscriptionSelect").attr('checked', 'true');
+}

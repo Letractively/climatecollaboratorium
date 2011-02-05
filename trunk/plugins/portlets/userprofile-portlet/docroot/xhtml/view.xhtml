@@ -9,6 +9,7 @@
     <ice:portlet>
         <ui:include src="./pages/#{userprofileBean.pageType}.xhtml">
             <ui:param value="#{userprofileBean.currentUser}" name="currentUser" />
+            <ui:param value="#{userprofileBean.subscriptionsBean}" name="userSubscriptionsBean" />
         </ui:include>
         
         <!-- 
