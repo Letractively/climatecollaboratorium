@@ -150,7 +150,7 @@ public class UserProfileBean {
     public List<UserActivityBean> getSubscribedActivities() throws SystemException, PortalException {
         if (subscribedActivities == null) {
             subscribedActivities = new ArrayList<UserActivityBean>();
-            for (SocialActivity activity: ActivitySubscriptionLocalServiceUtil.getActivities(wrappedUser.getUserId(), 0, 20)) {
+            for (SocialActivity activity: ActivitySubscriptionLocalServiceUtil.getActivities(wrappedUser.getUserId(), 0, 200)) {
                 subscribedActivities.add(new UserActivityBean(activity));
             }
             
