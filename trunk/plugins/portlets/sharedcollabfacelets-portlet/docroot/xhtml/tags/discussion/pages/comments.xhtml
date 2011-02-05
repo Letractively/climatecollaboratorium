@@ -14,6 +14,10 @@
         <span>#{discussionBean.commentsCount}</span> comments
         <img src="/collaboratorium-theme/images/icon_new-comment.png" width="44" height="41" class="spc" /> 
         <a href="javascript:;" onclick='if(!deferUntilLogin()) return false; jQuery.scrollTo(jQuery("#thecomment"));'>add new comment</a>
+        <ice:commandLink actionListener="#{discussionBean.subscribe}">
+            <img src="/collaboratorium-theme/images/icon_star.gif" class="spc" />
+            Subscribe
+        </ice:commandLink>
       </div>
       <div class="com-info bot">
           <ice:panelGroup rendered="#{discussionBean.hasComments}" styleClass="pager">

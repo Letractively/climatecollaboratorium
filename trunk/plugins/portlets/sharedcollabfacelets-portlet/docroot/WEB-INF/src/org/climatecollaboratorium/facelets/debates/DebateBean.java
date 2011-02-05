@@ -17,12 +17,15 @@ import org.climatecollaboratorium.facelets.debates.backing.EditDebateCommentBean
 import org.climatecollaboratorium.facelets.debates.backing.EditDebateItemBean;
 import org.climatecollaboratorium.facelets.debates.support.DebateItemWrapper;
 import org.climatecollaboratorium.navigation.NavigationEvent;
+import org.climatecollaboratorium.utils.Helper;
 
+import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.debaterevision.DebateItemType;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -222,8 +225,10 @@ public class DebateBean {
         return false;
     }
 
-    public void subscribe() {
-        // TODO Auto-generated method stub
+    public void subscribe(ActionEvent e) throws PortalException, SystemException {
+
+        ActivitySubscriptionLocalServiceUtil.addSubscription(Debate.class, debateId, 
+                null, DebatesUtil.getActivityExtraData(currentItem.getItem()), Helper.getLiferayUser().getUserId());
         
     }
 

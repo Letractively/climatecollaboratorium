@@ -7,14 +7,9 @@
 package org.climatecollaboratorium.facelets.discussions.activity;
 
 
+import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.Activity.ICollabActivityInterpreter;
 import com.ext.portlet.community.CommunityUtil;
-import com.ext.portlet.debaterevision.DebateItemType;
-import com.ext.portlet.debaterevision.model.Debate;
-import com.ext.portlet.debaterevision.model.DebateCategory;
-import com.ext.portlet.debaterevision.model.DebateComment;
-import com.ext.portlet.debaterevision.model.DebateItem;
-import com.ext.portlet.debaterevision.service.DebateCategoryLocalServiceUtil;
-import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
@@ -31,7 +26,7 @@ import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.model.SocialActivityFeedEntry;
 
 
-public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter{
+public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter implements ICollabActivityInterpreter {
 	
     private static final String[] _CLASS_NAMES = {
         DiscussionCategoryGroup.class.getName(),
@@ -48,9 +43,18 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter{
 	public static String CATEGORY_ADDED = "%s added category %s to %s"; // user, categorygroup
 	public static String DISCUSSION_ADDED = "%s started new discussion %s in %s"; // user, thread, categorygroup
     public static String COMMENT_ADDED = "%s added comment %s to discussion %s in %s"; // user, comment, thread, categorygroup
+    public static String DISCUSSION_COMMENT_ADDED = "%s added comment %s to discussion %s"; // user, comment, thread, categorygroup
 	
 	public static String hyperlink = "<a href=\"%s\">%s</a>";
 		
+	/**
+	 * Activities format is as follows:
+	 *  a) activity.className should be DiscussionCategoryGroup 
+	 *  b) if activity refers to category/thread their ids will be available in extra data (for category it will be just category
+	 *       for thread it will be: "categoryId,threadId", for message "categoryId,threadId,messageId"
+	 *  c) for backward compatibility approach mentioned above will be used only when activity class name is 
+	 *       DiscussionCategoryGroup 
+	 */
 	protected SocialActivityFeedEntry doInterpret(
 			SocialActivity activity, ThemeDisplay themeDisplay)
 		throws Exception {
@@ -60,27 +64,70 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter{
 		
 		String body =  "";
 		String title=activityType.getPrettyName();
+		Long[] ids = ActivityUtil.getIdsFromExtraData(activity.getExtraData());
 		
 		if (activityType == DiscussionActivityKeys.ADD_CATEGORY) {
-		    DiscussionCategory category = DiscussionCategoryLocalServiceUtil.getDiscussionCategoryById(activity.getClassPK());
+		    DiscussionCategory category = null;
+
+	        if (activity.getClassName().equals(DiscussionCategoryGroup.class.getName())) {
+	            category = DiscussionCategoryLocalServiceUtil.getDiscussionCategoryById(ids[0]);
+	        }
+	        else {
+	            category = DiscussionCategoryLocalServiceUtil.getDiscussionCategoryById(activity.getClassPK());
+	        }
 		    DiscussionCategoryGroup categoryGroup = category.getCategoryGroup();
 		    
 		    body = String.format(CATEGORY_ADDED, getUser(activity), getCategory(category), getCategoryGroup(categoryGroup));
             //body = String.format(CATEGORY_ADDED, navUrl.getUrlWithParameters("discussion", keyValue)getUser(activity), getCategory(category), getCategoryGroup(categoryGroup));
 		}
 		else if (activityType == DiscussionActivityKeys.ADD_DISCUSSION) {
-            DiscussionMessage discussion = DiscussionMessageLocalServiceUtil.getThreadByThreadId(activity.getClassPK());
+		    /*
+		     *  for backward compatibility check if class name is activity class name is discussioncategorygroup,
+		     *    if it is then read threadid from extra data
+		     *    if it is't, read thread id from classPK 
+		     */
+		    
+            DiscussionMessage discussion = null;
+            if (activity.getClassName().equals(DiscussionCategoryGroup.class.getName())) {
+                discussion = DiscussionMessageLocalServiceUtil.getThreadByThreadId(ids[1]);
+            }
+            else {
+                discussion = DiscussionMessageLocalServiceUtil.getThreadByThreadId(activity.getClassPK());
+            }
             DiscussionCategoryGroup categoryGroup = discussion.getCategoryGroup();
             
 		    body = String.format(DISCUSSION_ADDED, getUser(activity), getDiscussion(discussion), getCategoryGroup(categoryGroup));
 		}
 		else if (activityType == DiscussionActivityKeys.ADD_COMMENT) {
-            DiscussionMessage comment = DiscussionMessageLocalServiceUtil.getMessageByMessageId(activity.getClassPK());
+		    DiscussionMessage comment  = null;
+            
+            if (activity.getClassName().equals(DiscussionCategoryGroup.class.getName())) {
+                comment = DiscussionMessageLocalServiceUtil.getMessageByMessageId(ids[2]);
+            }
+            else {
+                comment = DiscussionMessageLocalServiceUtil.getMessageByMessageId(activity.getClassPK());
+            }
+            
             DiscussionMessage discussion = comment.getThread();
             DiscussionCategoryGroup categoryGroup = comment.getCategoryGroup();
 		    
             body = String.format(COMMENT_ADDED, getUser(activity), getComment(comment), getDiscussion(discussion), getCategoryGroup(categoryGroup));
         }
+		else if (activityType == DiscussionActivityKeys.ADD_DISCUSSION_COMMENT) {
+		    DiscussionMessage comment  = null;
+            
+            if (activity.getClassName().equals(DiscussionCategoryGroup.class.getName())) {
+                comment = DiscussionMessageLocalServiceUtil.getMessageByMessageId(ids[2]);
+            }
+            else {
+                comment = DiscussionMessageLocalServiceUtil.getMessageByMessageId(activity.getClassPK());
+            }
+            
+            DiscussionCategoryGroup categoryGroup = comment.getCategoryGroup();
+            DiscussionMessage discussion = comment.getThread();
+            
+            body = String.format(DISCUSSION_COMMENT_ADDED, getUser(activity),  getDiscussion(discussion), getCategoryGroup(categoryGroup));
+		}
 		
 		
 		return new SocialActivityFeedEntry("", title, body);
@@ -127,9 +174,60 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter{
         DiscussionCategoryGroup categoryGroup = comment.getCategoryGroup();
         NavigationUrl navUrl = new NavigationUrl(categoryGroup.getUrl());
         
+        String text = comment.getBody().trim();
+        text = text.substring(0, Math.min(20, text.length())) + "...";
+        
         return String.format(hyperlink,
-                navUrl.getUrlWithParameters("discussion", "pageType", "THREAD", "threadId", comment.getThreadId().toString(), "messageId", comment.getMessageId().toString()).toString(), 
-                comment.getSubject());
+                navUrl.getUrlWithParameters("discussion", "pageType", "THREAD", "threadId", 
+                        comment.getThreadId().toString(), "messageId", 
+                        comment.getMessageId().toString()).toString(), 
+                        text);
+    }
+
+
+    @Override
+    public String getName(Long classNameId, Long classPK, Integer type, String extraData) {
+        /*
+         *  activity stream name for given parameters is decoded in following way:
+         *  1. find discussion group category and take it name
+         *  2. if extraData is null end procedure
+         *  3. if extraData isn't null split it by comma
+         *  4. take first part of splited string, it represents id of discussioncategory (get name of that category)
+         *  5. take second part of splited string (if exists), it represents id of discussionthread
+         *  
+         *  After all of that return combined string. 
+         */
+        StringBuilder name = new StringBuilder();
+           
+        try {
+            DiscussionCategoryGroup group = DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(classPK);
+            name.append(getCategoryGroup(group));
+            
+            if (extraData != null && extraData.length() > 0) {
+                String[] ids = extraData.split(",");
+                if (ids.length > 0) {
+                    Long categoryId = Long.parseLong(ids[0]);
+                    DiscussionCategory category = DiscussionCategoryLocalServiceUtil.getDiscussionCategoryById(categoryId);
+                    name.append(" &gt; ");
+                    name.append(getCategory(category));
+                }
+                if (ids.length > 1) {
+                    Long threadId = Long.parseLong(ids[1]);
+                    DiscussionMessage message = DiscussionMessageLocalServiceUtil.getThreadByThreadId(threadId);
+                    
+                    name.append(" &gt; ");
+                    name.append(getDiscussion(message));
+                }
+            }
+        } catch (PortalException e) {
+            _log.error("Can't read activity name for discussion classPk: " + classPK + "\textra data: " + extraData, e);
+        } catch (SystemException e) {
+            _log.error("Can't read activity name for discussion classPk: " + classPK + "\textra data: " + extraData, e);
+        } catch (NumberFormatException e) {
+            _log.error("Can't read activity name for discussion classPk: " + classPK + "\textra data: " + extraData, e);
+        }
+        
+        return name.toString(); 
     }
 	
 	

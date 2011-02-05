@@ -5,6 +5,11 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <ice:panelGroup rendered="#{debateBean.debatesPermissionsBean.canEditDebateMap}" styleClass="advanced">
         <div class="advanced_inner">
+            <ice:commandLink actionListener="#{debateBean.subscribe}">
+                <img src="/collaboratorium-theme/images/icon_star-small.gif" />
+                Subscribe 
+            </ice:commandLink>
+            &amp;nbsp; | &amp;nbsp; 
             <f:subview rendered="#{not debateBean.showAdvanced}">
                 <ice:commandLink value="advanced mode" actionListener="#{debateBean.toggleAdvanced}" />
             </f:subview>

@@ -15,7 +15,9 @@ import org.climatecollaboratorium.utils.Helper;
 import org.climatecollaboratorium.utils.HumanTime;
 import org.climatecollaboratorium.validation.ValueRequiredValidator;
 
+import com.ext.portlet.Activity.ActivityUtil;
 import com.ext.portlet.discussions.DiscussionMessageFlagType;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.model.DiscussionMessageFlag;
 import com.liferay.portal.PortalException;
@@ -57,6 +59,9 @@ public class MessageWrapper {
         shortDescription = ContentFilterHelper.getShortString(description);
         this.discussionBean = discussionBean;
         messageNum = messageNum;
+        if (category != null) {
+            categoryId = category.getId();
+        }
         
         
         if (wrapped.getThreadId() == null) {
@@ -153,7 +158,9 @@ public class MessageWrapper {
             ThemeDisplay td = Helper.getThemeDisplay();
 
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                    DiscussionMessage.class.getName(), wrapped.getMessageId(), DiscussionActivityKeys.ADD_DISCUSSION.id(),null, 0);
+                    DiscussionCategoryGroup.class.getName(), discussionBean.getDiscussionId(), 
+                    DiscussionActivityKeys.ADD_DISCUSSION.id(), 
+                    ActivityUtil.getExtraDataForIds(wrapped.getCategoryId(), wrapped.getMessageId()), 0);
         }
     }
     
@@ -180,7 +187,9 @@ public class MessageWrapper {
 
             ThemeDisplay td = Helper.getThemeDisplay();
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                    DiscussionMessage.class.getName(), wrapped.getMessageId(), DiscussionActivityKeys.ADD_COMMENT.id(),null, 0);
+                    DiscussionCategoryGroup.class.getName(), discussionBean.getDiscussionId(), 
+                    DiscussionActivityKeys.ADD_COMMENT.id(), 
+                    ActivityUtil.getExtraDataForIds(wrapped.getCategoryId(), wrapped.getThreadId(), wrapped.getMessageId()), 0);
         }
     }
     
@@ -206,7 +215,9 @@ public class MessageWrapper {
 
             ThemeDisplay td = Helper.getThemeDisplay();
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                    DiscussionMessage.class.getName(), wrapped.getMessageId(), DiscussionActivityKeys.ADD_DISCUSSION_COMMENT.id(),null, 0);
+                    DiscussionCategoryGroup.class.getName(), discussionBean.getDiscussionId(), 
+                    DiscussionActivityKeys.ADD_DISCUSSION_COMMENT.id(), 
+                    ActivityUtil.getExtraDataForIds(wrapped.getCategoryId(), wrapped.getThreadId(), wrapped.getMessageId()), 0);
         }
         }
         catch (Exception ex) {
@@ -326,6 +337,10 @@ public class MessageWrapper {
     }
 
     public boolean isGoTo() {
+        if (goTo) {
+            goTo = false;
+            return true;
+        }
         return goTo;
     }
     

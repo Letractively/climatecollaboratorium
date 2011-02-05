@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.facelets.debates;
 
+import com.ext.portlet.Activity.ActivityUtil;
 import com.ext.portlet.debaterevision.DebateItemType;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateCategory;
@@ -21,6 +22,7 @@ import org.climatecollaboratorium.facelets.debates.backing.DebatesPermissionsBea
 import org.climatecollaboratorium.facelets.debates.backing.Helper;
 import org.climatecollaboratorium.facelets.debates.support.DebateCategoryWrapper;
 import org.climatecollaboratorium.facelets.debates.support.DebateItemReferenceWrapper;
+import org.compass.core.util.backport.java.util.Collections;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -158,48 +160,59 @@ public class AddEditDebateItemBean {
             } else if (type.equals(DebateItemType.POSITION)) {
                 Debate debate = debateBean.getDebate();
                 // USER ID has to be taken from the session
-                System.out.println("debate.getCurrentRoot(): " + debate.getCurrentRoot());
                 savedItem = debate.getCurrentRoot().addChild(title, content, userId, type.toString(), references, weight == null ? 0 : weight);
                 debateBean.debateItemAdded(savedItem);
                 
                 /* activity */
-                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), 
+                /*
+                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), 
                         DebateItem.class.getName(), savedItem.getDebateItemId(), DebateActivityKeys.ADD_POSITION.id(), 
                         StringPool.BLANK, 0);
+                */
+                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), 
+                        Debate.class.getName(), savedItem.getDebateId(), DebateActivityKeys.ADD_POSITION.id(), 
+                        ActivityUtil.getExtraDataForIds(debate.getCurrentRoot().getDebateItemId(), savedItem.getDebateItemId()), 0);
             }
             else {
                 DebateItem parent = debateBean.getCurrentItem().getItem();
                 savedItem = parent.addChild(title, content, userId, type.toString(), references, weight);
                 debateBean.debateItemAdded(savedItem);
+                Debate debate = savedItem.getDebate();
+
+                Long[] itemsIdsArray = DebatesUtil.getIdsOnDebatePath(savedItem);                
+                
                 
                 /* activity */
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), 
-                        DebateItem.class.getName(), savedItem.getDebateItemId(), DebateActivityKeys.ADD_ARGUMENT.id(), 
-                        StringPool.BLANK, 0);
+                        Debate.class.getName(), savedItem.getDebateId(), DebateActivityKeys.ADD_ARGUMENT.id(), 
+                        ActivityUtil.getExtraDataForIds(itemsIdsArray), 0);
             }
         }
         else {
             savedItem = item.update(title, content, references, userId, weight == null ? 0 : weight);
             debateBean.debateItemUpdated(savedItem);
             type = DebateItemType.valueOf(savedItem.getDebatePostType());
+            Debate debate = savedItem.getDebate();
+            
+            Long[] itemsIdsArray = DebatesUtil.getIdsOnDebatePath(savedItem);
             
             /* activity */
 
             if (type.equals(DebateItemType.POSITION)) {
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), 
-                        DebateItem.class.getName(), savedItem.getDebateItemId(), DebateActivityKeys.EDIT_POSITION.id(), 
-                        StringPool.BLANK, 0);
+                        Debate.class.getName(), debate.getDebateId(), DebateActivityKeys.EDIT_POSITION.id(), 
+                        ActivityUtil.getExtraDataForIds(itemsIdsArray), 0);
                 
             }
             else if (type.equals(DebateItemType.ARGUMENT_CON) || type.equals(DebateItemType.ARGUMENT_PRO)) {
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), 
-                        DebateItem.class.getName(), savedItem.getDebateItemId(), DebateActivityKeys.EDIT_ARGUMENT.id(), 
-                        StringPool.BLANK, 0);
+                        Debate.class.getName(), debate.getDebateId(), DebateActivityKeys.EDIT_ARGUMENT.id(), 
+                        ActivityUtil.getExtraDataForIds(itemsIdsArray), 0);
             }
         }
 
         if (! debateBean.isSubscribed()) {
-            debateBean.subscribe();
+            debateBean.subscribe(null);
         }
         hideForms();
 
@@ -306,6 +319,7 @@ public class AddEditDebateItemBean {
             return;
         }
         DebateItem item = debateBean.getCurrentItem().getItem();
+        Long[] itemsIdsArray = DebatesUtil.getIdsOnDebatePath(item);
         if (item != null) {
             /// check permissions
             item.delete(Helper.getLiferayUser().getUserId());
@@ -314,14 +328,14 @@ public class AddEditDebateItemBean {
         
         if (type.equals(DebateItemType.POSITION)) {
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), 
-                    DebateItem.class.getName(), item.getDebateItemId(), DebateActivityKeys.REMOVE_POSITION.id(), 
-                    StringPool.BLANK, 0);
+                    Debate.class.getName(), item.getDebateId(), DebateActivityKeys.REMOVE_POSITION.id(), 
+                    ActivityUtil.getExtraDataForIds(itemsIdsArray), 0);
             
         }
         else if (type.equals(DebateItemType.ARGUMENT_CON) || type.equals(DebateItemType.ARGUMENT_PRO)) {
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), 
-                    DebateItem.class.getName(), item.getDebateItemId(), DebateActivityKeys.REMOVE_ARGUMENT.id(), 
-                    StringPool.BLANK, 0);
+                    Debate.class.getName(), item.getDebateId(), DebateActivityKeys.REMOVE_ARGUMENT.id(), 
+                    ActivityUtil.getExtraDataForIds(itemsIdsArray), 0);
         }
     }
     public DebatesPermissionsBean getPermissions() {
@@ -382,4 +396,5 @@ public class AddEditDebateItemBean {
     public Date getHistoryItemDate() {
         return selectedHistoryVersion.getUpdated();
     }
+
 }

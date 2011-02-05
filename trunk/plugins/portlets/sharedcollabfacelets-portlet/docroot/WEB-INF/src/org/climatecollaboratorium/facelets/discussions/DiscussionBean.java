@@ -25,6 +25,7 @@ import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.utils.Helper;
 
 import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryException;
 import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
@@ -434,9 +435,21 @@ public class DiscussionBean {
         return owningGroupId;
     }
     
-    public void subscribe(ActionEvent e) throws SystemException {
+    public void subscribe(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
-            ActivityUtil.addSubscription(DiscussionActivityKeys.ALL, Helper.getLiferayUser().getUserId(), discussionId);
+            //ActivityUtil.addSubscription(DiscussionActivityKeys.ALL, Helper.getLiferayUser().getUserId(), discussionId);
+            StringBuilder extraData = new StringBuilder();
+            if (pageType == DiscussionPageType.CATEGORY) {
+                extraData.append(currentCategory.getId());
+            }
+            else if (pageType == DiscussionPageType.THREAD) {
+                extraData.append(currentThread.getCategoryId());
+                extraData.append(",");
+                extraData.append(currentThread.getId());
+                
+            }
+            ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, getDiscussionId(), 
+                    null, extraData.toString(), Helper.getLiferayUser().getUserId());
         }
     }
     

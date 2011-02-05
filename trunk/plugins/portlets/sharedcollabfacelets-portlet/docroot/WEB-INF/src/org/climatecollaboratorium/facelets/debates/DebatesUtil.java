@@ -6,11 +6,19 @@
 
 package org.climatecollaboratorium.facelets.debates;
 
+import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateCategory;
 import com.ext.portlet.debaterevision.model.DebateItem;
+import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
+import org.compass.core.util.backport.java.util.Collections;
 
 public class DebatesUtil {
 
@@ -28,6 +36,32 @@ public class DebatesUtil {
 
     public static String formatDateLong(Date d) {
       return longformat.format(d);
+    }
+    
+    
+    public static Long[] getIdsOnDebatePath(DebateItem item) throws PortalException, SystemException {            
+        DebateItem currentItem = item;
+        Debate debate = item.getDebate();
+        ArrayList<Long> itemsIds = new ArrayList<Long>();
+    
+        itemsIds.add(currentItem.getDebateItemId());
+    
+        while (! currentItem.getDebateItemId().equals(debate.getCurrentRoot().getDebateItemId())) {
+            currentItem = currentItem.getParent();
+            itemsIds.add(currentItem.getDebateItemId());
+        }
+        Collections.reverse(itemsIds);
+        
+        return itemsIds.toArray(new Long[] {});
+    }
+    
+    public static String getActivityExtraData(DebateItem item) throws PortalException, SystemException {
+        return ActivityUtil.getExtraDataForIds(getIdsOnDebatePath(item));
+    }
+    
+    public static DebateItem getlastDebateItemFromExtraData(String extraData) throws PortalException, SystemException {
+        Long[] ids = ActivityUtil.getIdsFromExtraData(extraData);
+        return DebateItemLocalServiceUtil.getLastActiveItem(ids[ids.length-1]);
     }
 
 }
