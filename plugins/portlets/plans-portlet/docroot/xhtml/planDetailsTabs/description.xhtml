@@ -142,6 +142,10 @@
         
     <div class="right_col">
       <div class="grid-gray">
+        <div class="icon"><img src="/collaboratorium-theme/images/icon_star.gif" /></div>
+        <div class="info">
+            <ice:commandLink actionListener="#{planBean.plan.subscribe}" onclick="if(!deferUntilLogin()) return false;" >Subscribe</ice:commandLink>
+        </div>
         <div class="icon"><img src="/collaboratorium-theme/images/icon_blue-chk.gif" width="29" height="23" /></div>
         <div class="info"><span>${planBean.plan.votes}</span> <em>votes (#{planBean.plan.votesPercent}%)</em></div>
         <div class="icon"><img src="/collaboratorium-theme/images/icon_comments.gif" width="32" height="30" /></div>

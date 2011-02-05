@@ -8,7 +8,9 @@ package org.climatecollaboratorium.plans.activity;
 
 
 
+import com.ext.portlet.Activity.ICollabActivityInterpreter;
 import com.ext.portlet.community.CommunityUtil;
+import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 
@@ -25,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
+public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter implements ICollabActivityInterpreter {
 
     private static Log _log =
 		 LogFactoryUtil.getLog(PlansActivityFeedEntry.class);
@@ -122,6 +124,26 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter{
 
     private static String getPlanURL(PlanItem p) throws SystemException, PortalException {
         return String.format("/web/guest/plans/-/plans/contestId/" + p.getContest().getContestPK() + "/planId/" + p.getPlanId());
+    }
+
+
+    @Override
+    public String getName(Long classNameId, Long classPK, Integer type, String extraData) {
+        // name of activity "stream" for given parameters is name of a plan that this activity relates to
+        try {
+            PlanItem plan = PlanItemLocalServiceUtil.getPlan(classPK);
+            return String.format(hyperlink, getPlanURL(plan),plan.getName());
+        }
+        catch (NoSuchPlanItemException e) {
+            _log.error("Can't find plan for id: " + classPK, e);
+        } catch (SystemException e) {
+            _log.error("Can't find plan for id: " + classPK, e);
+        } catch (PortalException e) {
+            _log.error("Can't find plan for id: " + classPK, e);
+        }
+        
+        return "";
+        
     }
 
 }

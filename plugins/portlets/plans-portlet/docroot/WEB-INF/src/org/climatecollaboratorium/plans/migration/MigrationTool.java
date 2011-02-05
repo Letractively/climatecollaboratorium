@@ -274,7 +274,7 @@ public class MigrationTool {
 
             categoryGroup.setDescription(basePlan.getName() + " discussion");
             categoryGroup.setUrl("/web/guest/plans/-/plans/contestId/" + basePlan.getContest().getContestPK() + 
-                    "/planId/" + basePlan.getPlanId() + "#plans=tab:discussion");
+                    "/planId/" + basePlan.getPlanId() + "#plans=tab:comments");
             categoryGroup.store();
         }
         _log.info("Update successful");
