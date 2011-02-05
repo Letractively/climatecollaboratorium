@@ -12,12 +12,28 @@
             <div class="rounded_button blu">
                 <a href="javascript:;" onclick="showHideTips()" id="showHideTipsTrigger">HIDE TIPS</a>
             </div>
-        
             <ul class="act_left-list">
                 <ui:repeat value="#{simulationBean.display.nonTabs}" var="input">
                     <li><ui:include src="./inputDef.xhtml" /></li>
                 </ui:repeat>
+                <f:subview rendered="#{simulationBean.hasTabs}">
+                    <ui:repeat value="#{simulationBean.display.tabsWrapped}" var="input1">
+                        <li class="u"><a href="javascript:;">#{input1.oryginalName}</a>
+                            <ul>
+                                <ui:repeat value="#{input1.allItems}" var="input">
+                                    <li><ui:include src="./inputDef.xhtml" /></li>
+                                </ui:repeat>
+                            </ul>
+                        </li>
+                    
+                    </ui:repeat>
+                    
+            
+                </f:subview>
             </ul>
+            
+            
+            
         </div>
     
     <!-- 
