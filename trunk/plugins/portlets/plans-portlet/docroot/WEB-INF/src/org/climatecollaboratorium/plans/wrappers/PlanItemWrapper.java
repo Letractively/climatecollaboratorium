@@ -22,6 +22,7 @@ import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
 
 import com.ext.portlet.PlanStatus;
 import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.PlanConstants;
@@ -323,9 +324,13 @@ public class PlanItemWrapper {
         return voted;
     }
     
-    public void subscribe(ActionEvent e) throws SystemException {
+    public void subscribe(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
+            /*
+            ActivitySubscriptionLocalServiceUtil.addSubscription(PlanActivityKeys.ALL, Helper.getLiferayUser(), wrapped.getPlanId());
             ActivityUtil.addSubscription(PlanActivityKeys.ALL, Helper.getLiferayUser().getUserId(), wrapped.getPlanId());
+            */
+            ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, wrapped.getPlanId(), null, null, Helper.getLiferayUser().getUserId());
         }
     }
 
