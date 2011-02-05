@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.service.persistence;
 
 import com.ext.portlet.Activity.NoSuchSubscriptionException;
@@ -42,23 +36,6 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = ActivitySubscriptionImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
-    public static final FinderPath FINDER_PATH_FIND_BY_ENTITYID = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByentityId",
-            new String[] { Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_OBC_ENTITYID = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByentityId",
-            new String[] {
-                Long.class.getName(),
-                
-            "java.lang.Integer", "java.lang.Integer",
-                "com.liferay.portal.kernel.util.OrderByComparator"
-            });
-    public static final FinderPath FINDER_PATH_COUNT_BY_ENTITYID = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "countByentityId",
-            new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_BY_RECEIVERID = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findByreceiverId",
@@ -76,63 +53,89 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countByreceiverId",
             new String[] { Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_ACTIVITYTYPE = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKRECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByactivitytype",
-            new String[] { String.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_OBC_ACTIVITYTYPE = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByactivitytype",
+            FINDER_CLASS_NAME_LIST, "findByClassNameIdClassPKReceiverId",
             new String[] {
-                String.class.getName(),
+                Long.class.getName(), Long.class.getName(), Long.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKRECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByClassNameIdClassPKReceiverId",
+            new String[] {
+                Long.class.getName(), Long.class.getName(), Long.class.getName(),
                 
             "java.lang.Integer", "java.lang.Integer",
                 "com.liferay.portal.kernel.util.OrderByComparator"
             });
-    public static final FinderPath FINDER_PATH_COUNT_BY_ACTIVITYTYPE = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKRECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "countByactivitytype",
-            new String[] { String.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_ENTITYRECEIVER = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByClassNameIdClassPKReceiverId",
+            new String[] {
+                Long.class.getName(), Long.class.getName(), Long.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPERECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByentityreceiver",
-            new String[] { Long.class.getName(), Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_OBC_ENTITYRECEIVER = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByentityreceiver",
+            FINDER_CLASS_NAME_LIST, "findByClassNameIdClassPKTypeReceiverId",
             new String[] {
                 Long.class.getName(), Long.class.getName(),
+                Integer.class.getName(), Long.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPERECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByClassNameIdClassPKTypeReceiverId",
+            new String[] {
+                Long.class.getName(), Long.class.getName(),
+                Integer.class.getName(), Long.class.getName(),
                 
             "java.lang.Integer", "java.lang.Integer",
                 "com.liferay.portal.kernel.util.OrderByComparator"
             });
-    public static final FinderPath FINDER_PATH_COUNT_BY_ENTITYRECEIVER = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPERECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "countByentityreceiver",
-            new String[] { Long.class.getName(), Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_ENTITYRECEIVERTYPE = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByentityreceivertype",
+            FINDER_CLASS_NAME_LIST, "countByClassNameIdClassPKTypeReceiverId",
             new String[] {
                 Long.class.getName(), Long.class.getName(),
-                String.class.getName()
+                Integer.class.getName(), Long.class.getName()
             });
-    public static final FinderPath FINDER_PATH_FIND_BY_OBC_ENTITYRECEIVERTYPE = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "findByentityreceivertype",
+            FINDER_CLASS_NAME_LIST,
+            "findByClassNameIdClassPKTypeExtraDataReceiverId",
             new String[] {
                 Long.class.getName(), Long.class.getName(),
-                String.class.getName(),
+                Integer.class.getName(), String.class.getName(),
+                Long.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST,
+            "findByClassNameIdClassPKTypeExtraDataReceiverId",
+            new String[] {
+                Long.class.getName(), Long.class.getName(),
+                Integer.class.getName(), String.class.getName(),
+                Long.class.getName(),
                 
             "java.lang.Integer", "java.lang.Integer",
                 "com.liferay.portal.kernel.util.OrderByComparator"
             });
-    public static final FinderPath FINDER_PATH_COUNT_BY_ENTITYRECEIVERTYPE = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_LIST, "countByentityreceivertype",
+            FINDER_CLASS_NAME_LIST,
+            "countByClassNameIdClassPKTypeExtraDataReceiverId",
             new String[] {
                 Long.class.getName(), Long.class.getName(),
-                String.class.getName()
+                Integer.class.getName(), String.class.getName(),
+                Long.class.getName()
             });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
@@ -168,18 +171,16 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
     }
 
-    public ActivitySubscription create(
-        ActivitySubscriptionPK activitySubscriptionPK) {
+    public ActivitySubscription create(Long pk) {
         ActivitySubscription activitySubscription = new ActivitySubscriptionImpl();
 
         activitySubscription.setNew(true);
-        activitySubscription.setPrimaryKey(activitySubscriptionPK);
+        activitySubscription.setPrimaryKey(pk);
 
         return activitySubscription;
     }
 
-    public ActivitySubscription remove(
-        ActivitySubscriptionPK activitySubscriptionPK)
+    public ActivitySubscription remove(Long pk)
         throws NoSuchSubscriptionException, SystemException {
         Session session = null;
 
@@ -187,18 +188,18 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
             session = openSession();
 
             ActivitySubscription activitySubscription = (ActivitySubscription) session.get(ActivitySubscriptionImpl.class,
-                    activitySubscriptionPK);
+                    pk);
 
             if (activitySubscription == null) {
                 if (_log.isWarnEnabled()) {
                     _log.warn(
                         "No ActivitySubscription exists with the primary key " +
-                        activitySubscriptionPK);
+                        pk);
                 }
 
                 throw new NoSuchSubscriptionException(
                     "No ActivitySubscription exists with the primary key " +
-                    activitySubscriptionPK);
+                    pk);
             }
 
             return remove(activitySubscription);
@@ -338,31 +339,28 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         return activitySubscription;
     }
 
-    public ActivitySubscription findByPrimaryKey(
-        ActivitySubscriptionPK activitySubscriptionPK)
+    public ActivitySubscription findByPrimaryKey(Long pk)
         throws NoSuchSubscriptionException, SystemException {
-        ActivitySubscription activitySubscription = fetchByPrimaryKey(activitySubscriptionPK);
+        ActivitySubscription activitySubscription = fetchByPrimaryKey(pk);
 
         if (activitySubscription == null) {
             if (_log.isWarnEnabled()) {
                 _log.warn(
                     "No ActivitySubscription exists with the primary key " +
-                    activitySubscriptionPK);
+                    pk);
             }
 
             throw new NoSuchSubscriptionException(
-                "No ActivitySubscription exists with the primary key " +
-                activitySubscriptionPK);
+                "No ActivitySubscription exists with the primary key " + pk);
         }
 
         return activitySubscription;
     }
 
-    public ActivitySubscription fetchByPrimaryKey(
-        ActivitySubscriptionPK activitySubscriptionPK)
+    public ActivitySubscription fetchByPrimaryKey(Long pk)
         throws SystemException {
         ActivitySubscription activitySubscription = (ActivitySubscription) EntityCacheUtil.getResult(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
-                ActivitySubscriptionImpl.class, activitySubscriptionPK, this);
+                ActivitySubscriptionImpl.class, pk, this);
 
         if (activitySubscription == null) {
             Session session = null;
@@ -371,7 +369,7 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 session = openSession();
 
                 activitySubscription = (ActivitySubscription) session.get(ActivitySubscriptionImpl.class,
-                        activitySubscriptionPK);
+                        pk);
             } catch (Exception e) {
                 throw processException(e);
             } finally {
@@ -384,228 +382,6 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
 
         return activitySubscription;
-    }
-
-    public List<ActivitySubscription> findByentityId(Long entityId)
-        throws SystemException {
-        Object[] finderArgs = new Object[] { entityId };
-
-        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ENTITYID,
-                finderArgs, this);
-
-        if (list == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append(
-                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
-
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
-                } else {
-                    query.append("entityId = ?");
-                }
-
-                query.append(" ");
-
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
-                }
-
-                list = q.list();
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (list == null) {
-                    list = new ArrayList<ActivitySubscription>();
-                }
-
-                cacheResult(list);
-
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_ENTITYID,
-                    finderArgs, list);
-
-                closeSession(session);
-            }
-        }
-
-        return list;
-    }
-
-    public List<ActivitySubscription> findByentityId(Long entityId, int start,
-        int end) throws SystemException {
-        return findByentityId(entityId, start, end, null);
-    }
-
-    public List<ActivitySubscription> findByentityId(Long entityId, int start,
-        int end, OrderByComparator obc) throws SystemException {
-        Object[] finderArgs = new Object[] {
-                entityId,
-                
-                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
-            };
-
-        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_ENTITYID,
-                finderArgs, this);
-
-        if (list == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append(
-                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
-
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
-                } else {
-                    query.append("entityId = ?");
-                }
-
-                query.append(" ");
-
-                if (obc != null) {
-                    query.append("ORDER BY ");
-                    query.append(obc.getOrderBy());
-                }
-
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
-                }
-
-                list = (List<ActivitySubscription>) QueryUtil.list(q,
-                        getDialect(), start, end);
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (list == null) {
-                    list = new ArrayList<ActivitySubscription>();
-                }
-
-                cacheResult(list);
-
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_ENTITYID,
-                    finderArgs, list);
-
-                closeSession(session);
-            }
-        }
-
-        return list;
-    }
-
-    public ActivitySubscription findByentityId_First(Long entityId,
-        OrderByComparator obc)
-        throws NoSuchSubscriptionException, SystemException {
-        List<ActivitySubscription> list = findByentityId(entityId, 0, 1, obc);
-
-        if (list.isEmpty()) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append("No ActivitySubscription exists with the key {");
-
-            msg.append("entityId=" + entityId);
-
-            msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-            throw new NoSuchSubscriptionException(msg.toString());
-        } else {
-            return list.get(0);
-        }
-    }
-
-    public ActivitySubscription findByentityId_Last(Long entityId,
-        OrderByComparator obc)
-        throws NoSuchSubscriptionException, SystemException {
-        int count = countByentityId(entityId);
-
-        List<ActivitySubscription> list = findByentityId(entityId, count - 1,
-                count, obc);
-
-        if (list.isEmpty()) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append("No ActivitySubscription exists with the key {");
-
-            msg.append("entityId=" + entityId);
-
-            msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-            throw new NoSuchSubscriptionException(msg.toString());
-        } else {
-            return list.get(0);
-        }
-    }
-
-    public ActivitySubscription[] findByentityId_PrevAndNext(
-        ActivitySubscriptionPK activitySubscriptionPK, Long entityId,
-        OrderByComparator obc)
-        throws NoSuchSubscriptionException, SystemException {
-        ActivitySubscription activitySubscription = findByPrimaryKey(activitySubscriptionPK);
-
-        int count = countByentityId(entityId);
-
-        Session session = null;
-
-        try {
-            session = openSession();
-
-            StringBuilder query = new StringBuilder();
-
-            query.append(
-                "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
-
-            if (entityId == null) {
-                query.append("entityId IS NULL");
-            } else {
-                query.append("entityId = ?");
-            }
-
-            query.append(" ");
-
-            if (obc != null) {
-                query.append("ORDER BY ");
-                query.append(obc.getOrderBy());
-            }
-
-            Query q = session.createQuery(query.toString());
-
-            QueryPos qPos = QueryPos.getInstance(q);
-
-            if (entityId != null) {
-                qPos.add(entityId.longValue());
-            }
-
-            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
-                    activitySubscription);
-
-            ActivitySubscription[] array = new ActivitySubscriptionImpl[3];
-
-            array[0] = (ActivitySubscription) objArray[0];
-            array[1] = (ActivitySubscription) objArray[1];
-            array[2] = (ActivitySubscription) objArray[2];
-
-            return array;
-        } catch (Exception e) {
-            throw processException(e);
-        } finally {
-            closeSession(session);
-        }
     }
 
     public List<ActivitySubscription> findByreceiverId(Long receiverId)
@@ -774,11 +550,10 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ActivitySubscription[] findByreceiverId_PrevAndNext(
-        ActivitySubscriptionPK activitySubscriptionPK, Long receiverId,
-        OrderByComparator obc)
+    public ActivitySubscription[] findByreceiverId_PrevAndNext(Long pk,
+        Long receiverId, OrderByComparator obc)
         throws NoSuchSubscriptionException, SystemException {
-        ActivitySubscription activitySubscription = findByPrimaryKey(activitySubscriptionPK);
+        ActivitySubscription activitySubscription = findByPrimaryKey(pk);
 
         int count = countByreceiverId(receiverId);
 
@@ -830,11 +605,12 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public List<ActivitySubscription> findByactivitytype(String activitytype)
+    public List<ActivitySubscription> findByClassNameIdClassPKReceiverId(
+        Long classNameId, Long classPK, Long receiverId)
         throws SystemException {
-        Object[] finderArgs = new Object[] { activitytype };
+        Object[] finderArgs = new Object[] { classNameId, classPK, receiverId };
 
-        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ACTIVITYTYPE,
+        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKRECEIVERID,
                 finderArgs, this);
 
         if (list == null) {
@@ -848,10 +624,26 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
 
-                if (activitytype == null) {
-                    query.append("activitytype IS NULL");
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
                 } else {
-                    query.append("activitytype = ?");
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (receiverId == null) {
+                    query.append("receiverId IS NULL");
+                } else {
+                    query.append("receiverId = ?");
                 }
 
                 query.append(" ");
@@ -860,8 +652,16 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (activitytype != null) {
-                    qPos.add(activitytype);
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (receiverId != null) {
+                    qPos.add(receiverId.longValue());
                 }
 
                 list = q.list();
@@ -874,7 +674,7 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 cacheResult(list);
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_ACTIVITYTYPE,
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKRECEIVERID,
                     finderArgs, list);
 
                 closeSession(session);
@@ -884,20 +684,27 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public List<ActivitySubscription> findByactivitytype(String activitytype,
-        int start, int end) throws SystemException {
-        return findByactivitytype(activitytype, start, end, null);
+    public List<ActivitySubscription> findByClassNameIdClassPKReceiverId(
+        Long classNameId, Long classPK, Long receiverId, int start, int end)
+        throws SystemException {
+        return findByClassNameIdClassPKReceiverId(classNameId, classPK,
+            receiverId, start, end, null);
     }
 
-    public List<ActivitySubscription> findByactivitytype(String activitytype,
-        int start, int end, OrderByComparator obc) throws SystemException {
+    public List<ActivitySubscription> findByClassNameIdClassPKReceiverId(
+        Long classNameId, Long classPK, Long receiverId, int start, int end,
+        OrderByComparator obc) throws SystemException {
         Object[] finderArgs = new Object[] {
-                activitytype,
+                classNameId,
+                
+                classPK,
+                
+                receiverId,
                 
                 String.valueOf(start), String.valueOf(end), String.valueOf(obc)
             };
 
-        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_ACTIVITYTYPE,
+        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKRECEIVERID,
                 finderArgs, this);
 
         if (list == null) {
@@ -911,10 +718,26 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
 
-                if (activitytype == null) {
-                    query.append("activitytype IS NULL");
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
                 } else {
-                    query.append("activitytype = ?");
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (receiverId == null) {
+                    query.append("receiverId IS NULL");
+                } else {
+                    query.append("receiverId = ?");
                 }
 
                 query.append(" ");
@@ -928,8 +751,16 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (activitytype != null) {
-                    qPos.add(activitytype);
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (receiverId != null) {
+                    qPos.add(receiverId.longValue());
                 }
 
                 list = (List<ActivitySubscription>) QueryUtil.list(q,
@@ -943,7 +774,7 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 cacheResult(list);
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_ACTIVITYTYPE,
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKRECEIVERID,
                     finderArgs, list);
 
                 closeSession(session);
@@ -953,18 +784,24 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public ActivitySubscription findByactivitytype_First(String activitytype,
-        OrderByComparator obc)
+    public ActivitySubscription findByClassNameIdClassPKReceiverId_First(
+        Long classNameId, Long classPK, Long receiverId, OrderByComparator obc)
         throws NoSuchSubscriptionException, SystemException {
-        List<ActivitySubscription> list = findByactivitytype(activitytype, 0,
-                1, obc);
+        List<ActivitySubscription> list = findByClassNameIdClassPKReceiverId(classNameId,
+                classPK, receiverId, 0, 1, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No ActivitySubscription exists with the key {");
 
-            msg.append("activitytype=" + activitytype);
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(", ");
+            msg.append("classPK=" + classPK);
+
+            msg.append(", ");
+            msg.append("receiverId=" + receiverId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -974,20 +811,27 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ActivitySubscription findByactivitytype_Last(String activitytype,
-        OrderByComparator obc)
+    public ActivitySubscription findByClassNameIdClassPKReceiverId_Last(
+        Long classNameId, Long classPK, Long receiverId, OrderByComparator obc)
         throws NoSuchSubscriptionException, SystemException {
-        int count = countByactivitytype(activitytype);
+        int count = countByClassNameIdClassPKReceiverId(classNameId, classPK,
+                receiverId);
 
-        List<ActivitySubscription> list = findByactivitytype(activitytype,
-                count - 1, count, obc);
+        List<ActivitySubscription> list = findByClassNameIdClassPKReceiverId(classNameId,
+                classPK, receiverId, count - 1, count, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No ActivitySubscription exists with the key {");
 
-            msg.append("activitytype=" + activitytype);
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(", ");
+            msg.append("classPK=" + classPK);
+
+            msg.append(", ");
+            msg.append("receiverId=" + receiverId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -997,13 +841,14 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ActivitySubscription[] findByactivitytype_PrevAndNext(
-        ActivitySubscriptionPK activitySubscriptionPK, String activitytype,
+    public ActivitySubscription[] findByClassNameIdClassPKReceiverId_PrevAndNext(
+        Long pk, Long classNameId, Long classPK, Long receiverId,
         OrderByComparator obc)
         throws NoSuchSubscriptionException, SystemException {
-        ActivitySubscription activitySubscription = findByPrimaryKey(activitySubscriptionPK);
+        ActivitySubscription activitySubscription = findByPrimaryKey(pk);
 
-        int count = countByactivitytype(activitytype);
+        int count = countByClassNameIdClassPKReceiverId(classNameId, classPK,
+                receiverId);
 
         Session session = null;
 
@@ -1015,10 +860,26 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
             query.append(
                 "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
 
-            if (activitytype == null) {
-                query.append("activitytype IS NULL");
+            if (classNameId == null) {
+                query.append("classNameId IS NULL");
             } else {
-                query.append("activitytype = ?");
+                query.append("classNameId = ?");
+            }
+
+            query.append(" AND ");
+
+            if (classPK == null) {
+                query.append("classPK IS NULL");
+            } else {
+                query.append("classPK = ?");
+            }
+
+            query.append(" AND ");
+
+            if (receiverId == null) {
+                query.append("receiverId IS NULL");
+            } else {
+                query.append("receiverId = ?");
             }
 
             query.append(" ");
@@ -1032,8 +893,16 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
             QueryPos qPos = QueryPos.getInstance(q);
 
-            if (activitytype != null) {
-                qPos.add(activitytype);
+            if (classNameId != null) {
+                qPos.add(classNameId.longValue());
+            }
+
+            if (classPK != null) {
+                qPos.add(classPK.longValue());
+            }
+
+            if (receiverId != null) {
+                qPos.add(receiverId.longValue());
             }
 
             Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
@@ -1053,11 +922,20 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public List<ActivitySubscription> findByentityreceiver(Long entityId,
-        Long receiverId) throws SystemException {
-        Object[] finderArgs = new Object[] { entityId, receiverId };
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeReceiverId(
+        Long classNameId, Long classPK, Integer type, Long receiverId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] {
+                classNameId,
+                
+                classPK,
+                
+                type,
+                
+                receiverId
+            };
 
-        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ENTITYRECEIVER,
+        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPERECEIVERID,
                 finderArgs, this);
 
         if (list == null) {
@@ -1071,10 +949,26 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
 
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
                 } else {
-                    query.append("entityId = ?");
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
                 }
 
                 query.append(" AND ");
@@ -1091,8 +985,16 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
                 }
 
                 if (receiverId != null) {
@@ -1109,7 +1011,7 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 cacheResult(list);
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_ENTITYRECEIVER,
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPERECEIVERID,
                     finderArgs, list);
 
                 closeSession(session);
@@ -1119,23 +1021,417 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public List<ActivitySubscription> findByentityreceiver(Long entityId,
-        Long receiverId, int start, int end) throws SystemException {
-        return findByentityreceiver(entityId, receiverId, start, end, null);
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeReceiverId(
+        Long classNameId, Long classPK, Integer type, Long receiverId,
+        int start, int end) throws SystemException {
+        return findByClassNameIdClassPKTypeReceiverId(classNameId, classPK,
+            type, receiverId, start, end, null);
     }
 
-    public List<ActivitySubscription> findByentityreceiver(Long entityId,
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeReceiverId(
+        Long classNameId, Long classPK, Integer type, Long receiverId,
+        int start, int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                classNameId,
+                
+                classPK,
+                
+                type,
+                
+                receiverId,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPERECEIVERID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
+                }
+
+                query.append(" AND ");
+
+                if (receiverId == null) {
+                    query.append("receiverId IS NULL");
+                } else {
+                    query.append("receiverId = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
+                }
+
+                if (receiverId != null) {
+                    qPos.add(receiverId.longValue());
+                }
+
+                list = (List<ActivitySubscription>) QueryUtil.list(q,
+                        getDialect(), start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ActivitySubscription>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPERECEIVERID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public ActivitySubscription findByClassNameIdClassPKTypeReceiverId_First(
+        Long classNameId, Long classPK, Integer type, Long receiverId,
+        OrderByComparator obc)
+        throws NoSuchSubscriptionException, SystemException {
+        List<ActivitySubscription> list = findByClassNameIdClassPKTypeReceiverId(classNameId,
+                classPK, type, receiverId, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ActivitySubscription exists with the key {");
+
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(", ");
+            msg.append("classPK=" + classPK);
+
+            msg.append(", ");
+            msg.append("type=" + type);
+
+            msg.append(", ");
+            msg.append("receiverId=" + receiverId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchSubscriptionException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ActivitySubscription findByClassNameIdClassPKTypeReceiverId_Last(
+        Long classNameId, Long classPK, Integer type, Long receiverId,
+        OrderByComparator obc)
+        throws NoSuchSubscriptionException, SystemException {
+        int count = countByClassNameIdClassPKTypeReceiverId(classNameId,
+                classPK, type, receiverId);
+
+        List<ActivitySubscription> list = findByClassNameIdClassPKTypeReceiverId(classNameId,
+                classPK, type, receiverId, count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ActivitySubscription exists with the key {");
+
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(", ");
+            msg.append("classPK=" + classPK);
+
+            msg.append(", ");
+            msg.append("type=" + type);
+
+            msg.append(", ");
+            msg.append("receiverId=" + receiverId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchSubscriptionException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ActivitySubscription[] findByClassNameIdClassPKTypeReceiverId_PrevAndNext(
+        Long pk, Long classNameId, Long classPK, Integer type, Long receiverId,
+        OrderByComparator obc)
+        throws NoSuchSubscriptionException, SystemException {
+        ActivitySubscription activitySubscription = findByPrimaryKey(pk);
+
+        int count = countByClassNameIdClassPKTypeReceiverId(classNameId,
+                classPK, type, receiverId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
+
+            if (classNameId == null) {
+                query.append("classNameId IS NULL");
+            } else {
+                query.append("classNameId = ?");
+            }
+
+            query.append(" AND ");
+
+            if (classPK == null) {
+                query.append("classPK IS NULL");
+            } else {
+                query.append("classPK = ?");
+            }
+
+            query.append(" AND ");
+
+            if (type == null) {
+                query.append("type_ IS NULL");
+            } else {
+                query.append("type_ = ?");
+            }
+
+            query.append(" AND ");
+
+            if (receiverId == null) {
+                query.append("receiverId IS NULL");
+            } else {
+                query.append("receiverId = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (classNameId != null) {
+                qPos.add(classNameId.longValue());
+            }
+
+            if (classPK != null) {
+                qPos.add(classPK.longValue());
+            }
+
+            if (type != null) {
+                qPos.add(type.intValue());
+            }
+
+            if (receiverId != null) {
+                qPos.add(receiverId.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    activitySubscription);
+
+            ActivitySubscription[] array = new ActivitySubscriptionImpl[3];
+
+            array[0] = (ActivitySubscription) objArray[0];
+            array[1] = (ActivitySubscription) objArray[1];
+            array[2] = (ActivitySubscription) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeExtraDataReceiverId(
+        Long classNameId, Long classPK, Integer type, String extraData,
+        Long receiverId) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                classNameId,
+                
+                classPK,
+                
+                type,
+                
+                extraData,
+                
+                receiverId
+            };
+
+        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
+                }
+
+                query.append(" AND ");
+
+                if (extraData == null) {
+                    query.append("extraData LIKE null");
+                } else {
+                    query.append("extraData LIKE ?");
+                }
+
+                query.append(" AND ");
+
+                if (receiverId == null) {
+                    query.append("receiverId IS NULL");
+                } else {
+                    query.append("receiverId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
+                }
+
+                if (extraData != null) {
+                    qPos.add(extraData);
+                }
+
+                if (receiverId != null) {
+                    qPos.add(receiverId.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ActivitySubscription>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeExtraDataReceiverId(
+        Long classNameId, Long classPK, Integer type, String extraData,
+        Long receiverId, int start, int end) throws SystemException {
+        return findByClassNameIdClassPKTypeExtraDataReceiverId(classNameId,
+            classPK, type, extraData, receiverId, start, end, null);
+    }
+
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeExtraDataReceiverId(
+        Long classNameId, Long classPK, Integer type, String extraData,
         Long receiverId, int start, int end, OrderByComparator obc)
         throws SystemException {
         Object[] finderArgs = new Object[] {
-                entityId,
+                classNameId,
+                
+                classPK,
+                
+                type,
+                
+                extraData,
                 
                 receiverId,
                 
                 String.valueOf(start), String.valueOf(end), String.valueOf(obc)
             };
 
-        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_ENTITYRECEIVER,
+        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID,
                 finderArgs, this);
 
         if (list == null) {
@@ -1149,10 +1445,34 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
 
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
                 } else {
-                    query.append("entityId = ?");
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
+                }
+
+                query.append(" AND ");
+
+                if (extraData == null) {
+                    query.append("extraData LIKE null");
+                } else {
+                    query.append("extraData LIKE ?");
                 }
 
                 query.append(" AND ");
@@ -1174,8 +1494,20 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
+                }
+
+                if (extraData != null) {
+                    qPos.add(extraData);
                 }
 
                 if (receiverId != null) {
@@ -1193,7 +1525,7 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 cacheResult(list);
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_ENTITYRECEIVER,
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID,
                     finderArgs, list);
 
                 closeSession(session);
@@ -1203,18 +1535,28 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public ActivitySubscription findByentityreceiver_First(Long entityId,
+    public ActivitySubscription findByClassNameIdClassPKTypeExtraDataReceiverId_First(
+        Long classNameId, Long classPK, Integer type, String extraData,
         Long receiverId, OrderByComparator obc)
         throws NoSuchSubscriptionException, SystemException {
-        List<ActivitySubscription> list = findByentityreceiver(entityId,
-                receiverId, 0, 1, obc);
+        List<ActivitySubscription> list = findByClassNameIdClassPKTypeExtraDataReceiverId(classNameId,
+                classPK, type, extraData, receiverId, 0, 1, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No ActivitySubscription exists with the key {");
 
-            msg.append("entityId=" + entityId);
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(", ");
+            msg.append("classPK=" + classPK);
+
+            msg.append(", ");
+            msg.append("type=" + type);
+
+            msg.append(", ");
+            msg.append("extraData=" + extraData);
 
             msg.append(", ");
             msg.append("receiverId=" + receiverId);
@@ -1227,20 +1569,31 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ActivitySubscription findByentityreceiver_Last(Long entityId,
+    public ActivitySubscription findByClassNameIdClassPKTypeExtraDataReceiverId_Last(
+        Long classNameId, Long classPK, Integer type, String extraData,
         Long receiverId, OrderByComparator obc)
         throws NoSuchSubscriptionException, SystemException {
-        int count = countByentityreceiver(entityId, receiverId);
+        int count = countByClassNameIdClassPKTypeExtraDataReceiverId(classNameId,
+                classPK, type, extraData, receiverId);
 
-        List<ActivitySubscription> list = findByentityreceiver(entityId,
-                receiverId, count - 1, count, obc);
+        List<ActivitySubscription> list = findByClassNameIdClassPKTypeExtraDataReceiverId(classNameId,
+                classPK, type, extraData, receiverId, count - 1, count, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 
             msg.append("No ActivitySubscription exists with the key {");
 
-            msg.append("entityId=" + entityId);
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(", ");
+            msg.append("classPK=" + classPK);
+
+            msg.append(", ");
+            msg.append("type=" + type);
+
+            msg.append(", ");
+            msg.append("extraData=" + extraData);
 
             msg.append(", ");
             msg.append("receiverId=" + receiverId);
@@ -1253,13 +1606,14 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ActivitySubscription[] findByentityreceiver_PrevAndNext(
-        ActivitySubscriptionPK activitySubscriptionPK, Long entityId,
-        Long receiverId, OrderByComparator obc)
+    public ActivitySubscription[] findByClassNameIdClassPKTypeExtraDataReceiverId_PrevAndNext(
+        Long pk, Long classNameId, Long classPK, Integer type,
+        String extraData, Long receiverId, OrderByComparator obc)
         throws NoSuchSubscriptionException, SystemException {
-        ActivitySubscription activitySubscription = findByPrimaryKey(activitySubscriptionPK);
+        ActivitySubscription activitySubscription = findByPrimaryKey(pk);
 
-        int count = countByentityreceiver(entityId, receiverId);
+        int count = countByClassNameIdClassPKTypeExtraDataReceiverId(classNameId,
+                classPK, type, extraData, receiverId);
 
         Session session = null;
 
@@ -1271,10 +1625,34 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
             query.append(
                 "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
 
-            if (entityId == null) {
-                query.append("entityId IS NULL");
+            if (classNameId == null) {
+                query.append("classNameId IS NULL");
             } else {
-                query.append("entityId = ?");
+                query.append("classNameId = ?");
+            }
+
+            query.append(" AND ");
+
+            if (classPK == null) {
+                query.append("classPK IS NULL");
+            } else {
+                query.append("classPK = ?");
+            }
+
+            query.append(" AND ");
+
+            if (type == null) {
+                query.append("type_ IS NULL");
+            } else {
+                query.append("type_ = ?");
+            }
+
+            query.append(" AND ");
+
+            if (extraData == null) {
+                query.append("extraData LIKE null");
+            } else {
+                query.append("extraData LIKE ?");
             }
 
             query.append(" AND ");
@@ -1296,326 +1674,24 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
             QueryPos qPos = QueryPos.getInstance(q);
 
-            if (entityId != null) {
-                qPos.add(entityId.longValue());
+            if (classNameId != null) {
+                qPos.add(classNameId.longValue());
+            }
+
+            if (classPK != null) {
+                qPos.add(classPK.longValue());
+            }
+
+            if (type != null) {
+                qPos.add(type.intValue());
+            }
+
+            if (extraData != null) {
+                qPos.add(extraData);
             }
 
             if (receiverId != null) {
                 qPos.add(receiverId.longValue());
-            }
-
-            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
-                    activitySubscription);
-
-            ActivitySubscription[] array = new ActivitySubscriptionImpl[3];
-
-            array[0] = (ActivitySubscription) objArray[0];
-            array[1] = (ActivitySubscription) objArray[1];
-            array[2] = (ActivitySubscription) objArray[2];
-
-            return array;
-        } catch (Exception e) {
-            throw processException(e);
-        } finally {
-            closeSession(session);
-        }
-    }
-
-    public List<ActivitySubscription> findByentityreceivertype(Long entityId,
-        Long receiverId, String activitytype) throws SystemException {
-        Object[] finderArgs = new Object[] { entityId, receiverId, activitytype };
-
-        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ENTITYRECEIVERTYPE,
-                finderArgs, this);
-
-        if (list == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append(
-                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
-
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
-                } else {
-                    query.append("entityId = ?");
-                }
-
-                query.append(" AND ");
-
-                if (receiverId == null) {
-                    query.append("receiverId IS NULL");
-                } else {
-                    query.append("receiverId = ?");
-                }
-
-                query.append(" AND ");
-
-                if (activitytype == null) {
-                    query.append("activitytype IS NULL");
-                } else {
-                    query.append("activitytype = ?");
-                }
-
-                query.append(" ");
-
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
-                }
-
-                if (receiverId != null) {
-                    qPos.add(receiverId.longValue());
-                }
-
-                if (activitytype != null) {
-                    qPos.add(activitytype);
-                }
-
-                list = q.list();
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (list == null) {
-                    list = new ArrayList<ActivitySubscription>();
-                }
-
-                cacheResult(list);
-
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_ENTITYRECEIVERTYPE,
-                    finderArgs, list);
-
-                closeSession(session);
-            }
-        }
-
-        return list;
-    }
-
-    public List<ActivitySubscription> findByentityreceivertype(Long entityId,
-        Long receiverId, String activitytype, int start, int end)
-        throws SystemException {
-        return findByentityreceivertype(entityId, receiverId, activitytype,
-            start, end, null);
-    }
-
-    public List<ActivitySubscription> findByentityreceivertype(Long entityId,
-        Long receiverId, String activitytype, int start, int end,
-        OrderByComparator obc) throws SystemException {
-        Object[] finderArgs = new Object[] {
-                entityId,
-                
-                receiverId,
-                
-                activitytype,
-                
-                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
-            };
-
-        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_ENTITYRECEIVERTYPE,
-                finderArgs, this);
-
-        if (list == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append(
-                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
-
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
-                } else {
-                    query.append("entityId = ?");
-                }
-
-                query.append(" AND ");
-
-                if (receiverId == null) {
-                    query.append("receiverId IS NULL");
-                } else {
-                    query.append("receiverId = ?");
-                }
-
-                query.append(" AND ");
-
-                if (activitytype == null) {
-                    query.append("activitytype IS NULL");
-                } else {
-                    query.append("activitytype = ?");
-                }
-
-                query.append(" ");
-
-                if (obc != null) {
-                    query.append("ORDER BY ");
-                    query.append(obc.getOrderBy());
-                }
-
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
-                }
-
-                if (receiverId != null) {
-                    qPos.add(receiverId.longValue());
-                }
-
-                if (activitytype != null) {
-                    qPos.add(activitytype);
-                }
-
-                list = (List<ActivitySubscription>) QueryUtil.list(q,
-                        getDialect(), start, end);
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (list == null) {
-                    list = new ArrayList<ActivitySubscription>();
-                }
-
-                cacheResult(list);
-
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_ENTITYRECEIVERTYPE,
-                    finderArgs, list);
-
-                closeSession(session);
-            }
-        }
-
-        return list;
-    }
-
-    public ActivitySubscription findByentityreceivertype_First(Long entityId,
-        Long receiverId, String activitytype, OrderByComparator obc)
-        throws NoSuchSubscriptionException, SystemException {
-        List<ActivitySubscription> list = findByentityreceivertype(entityId,
-                receiverId, activitytype, 0, 1, obc);
-
-        if (list.isEmpty()) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append("No ActivitySubscription exists with the key {");
-
-            msg.append("entityId=" + entityId);
-
-            msg.append(", ");
-            msg.append("receiverId=" + receiverId);
-
-            msg.append(", ");
-            msg.append("activitytype=" + activitytype);
-
-            msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-            throw new NoSuchSubscriptionException(msg.toString());
-        } else {
-            return list.get(0);
-        }
-    }
-
-    public ActivitySubscription findByentityreceivertype_Last(Long entityId,
-        Long receiverId, String activitytype, OrderByComparator obc)
-        throws NoSuchSubscriptionException, SystemException {
-        int count = countByentityreceivertype(entityId, receiverId, activitytype);
-
-        List<ActivitySubscription> list = findByentityreceivertype(entityId,
-                receiverId, activitytype, count - 1, count, obc);
-
-        if (list.isEmpty()) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append("No ActivitySubscription exists with the key {");
-
-            msg.append("entityId=" + entityId);
-
-            msg.append(", ");
-            msg.append("receiverId=" + receiverId);
-
-            msg.append(", ");
-            msg.append("activitytype=" + activitytype);
-
-            msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-            throw new NoSuchSubscriptionException(msg.toString());
-        } else {
-            return list.get(0);
-        }
-    }
-
-    public ActivitySubscription[] findByentityreceivertype_PrevAndNext(
-        ActivitySubscriptionPK activitySubscriptionPK, Long entityId,
-        Long receiverId, String activitytype, OrderByComparator obc)
-        throws NoSuchSubscriptionException, SystemException {
-        ActivitySubscription activitySubscription = findByPrimaryKey(activitySubscriptionPK);
-
-        int count = countByentityreceivertype(entityId, receiverId, activitytype);
-
-        Session session = null;
-
-        try {
-            session = openSession();
-
-            StringBuilder query = new StringBuilder();
-
-            query.append(
-                "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
-
-            if (entityId == null) {
-                query.append("entityId IS NULL");
-            } else {
-                query.append("entityId = ?");
-            }
-
-            query.append(" AND ");
-
-            if (receiverId == null) {
-                query.append("receiverId IS NULL");
-            } else {
-                query.append("receiverId = ?");
-            }
-
-            query.append(" AND ");
-
-            if (activitytype == null) {
-                query.append("activitytype IS NULL");
-            } else {
-                query.append("activitytype = ?");
-            }
-
-            query.append(" ");
-
-            if (obc != null) {
-                query.append("ORDER BY ");
-                query.append(obc.getOrderBy());
-            }
-
-            Query q = session.createQuery(query.toString());
-
-            QueryPos qPos = QueryPos.getInstance(q);
-
-            if (entityId != null) {
-                qPos.add(entityId.longValue());
-            }
-
-            if (receiverId != null) {
-                qPos.add(receiverId.longValue());
-            }
-
-            if (activitytype != null) {
-                qPos.add(activitytype);
             }
 
             Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
@@ -1734,13 +1810,6 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public void removeByentityId(Long entityId) throws SystemException {
-        for (ActivitySubscription activitySubscription : findByentityId(
-                entityId)) {
-            remove(activitySubscription);
-        }
-    }
-
     public void removeByreceiverId(Long receiverId) throws SystemException {
         for (ActivitySubscription activitySubscription : findByreceiverId(
                 receiverId)) {
@@ -1748,26 +1817,27 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public void removeByactivitytype(String activitytype)
-        throws SystemException {
-        for (ActivitySubscription activitySubscription : findByactivitytype(
-                activitytype)) {
+    public void removeByClassNameIdClassPKReceiverId(Long classNameId,
+        Long classPK, Long receiverId) throws SystemException {
+        for (ActivitySubscription activitySubscription : findByClassNameIdClassPKReceiverId(
+                classNameId, classPK, receiverId)) {
             remove(activitySubscription);
         }
     }
 
-    public void removeByentityreceiver(Long entityId, Long receiverId)
-        throws SystemException {
-        for (ActivitySubscription activitySubscription : findByentityreceiver(
-                entityId, receiverId)) {
+    public void removeByClassNameIdClassPKTypeReceiverId(Long classNameId,
+        Long classPK, Integer type, Long receiverId) throws SystemException {
+        for (ActivitySubscription activitySubscription : findByClassNameIdClassPKTypeReceiverId(
+                classNameId, classPK, type, receiverId)) {
             remove(activitySubscription);
         }
     }
 
-    public void removeByentityreceivertype(Long entityId, Long receiverId,
-        String activitytype) throws SystemException {
-        for (ActivitySubscription activitySubscription : findByentityreceivertype(
-                entityId, receiverId, activitytype)) {
+    public void removeByClassNameIdClassPKTypeExtraDataReceiverId(
+        Long classNameId, Long classPK, Integer type, String extraData,
+        Long receiverId) throws SystemException {
+        for (ActivitySubscription activitySubscription : findByClassNameIdClassPKTypeExtraDataReceiverId(
+                classNameId, classPK, type, extraData, receiverId)) {
             remove(activitySubscription);
         }
     }
@@ -1776,58 +1846,6 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         for (ActivitySubscription activitySubscription : findAll()) {
             remove(activitySubscription);
         }
-    }
-
-    public int countByentityId(Long entityId) throws SystemException {
-        Object[] finderArgs = new Object[] { entityId };
-
-        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ENTITYID,
-                finderArgs, this);
-
-        if (count == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append("SELECT COUNT(*) ");
-                query.append(
-                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
-
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
-                } else {
-                    query.append("entityId = ?");
-                }
-
-                query.append(" ");
-
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
-                }
-
-                count = (Long) q.uniqueResult();
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (count == null) {
-                    count = Long.valueOf(0);
-                }
-
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ENTITYID,
-                    finderArgs, count);
-
-                closeSession(session);
-            }
-        }
-
-        return count.intValue();
     }
 
     public int countByreceiverId(Long receiverId) throws SystemException {
@@ -1882,11 +1900,11 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         return count.intValue();
     }
 
-    public int countByactivitytype(String activitytype)
-        throws SystemException {
-        Object[] finderArgs = new Object[] { activitytype };
+    public int countByClassNameIdClassPKReceiverId(Long classNameId,
+        Long classPK, Long receiverId) throws SystemException {
+        Object[] finderArgs = new Object[] { classNameId, classPK, receiverId };
 
-        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ACTIVITYTYPE,
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKRECEIVERID,
                 finderArgs, this);
 
         if (count == null) {
@@ -1901,63 +1919,18 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
 
-                if (activitytype == null) {
-                    query.append("activitytype IS NULL");
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
                 } else {
-                    query.append("activitytype = ?");
+                    query.append("classNameId = ?");
                 }
 
-                query.append(" ");
+                query.append(" AND ");
 
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (activitytype != null) {
-                    qPos.add(activitytype);
-                }
-
-                count = (Long) q.uniqueResult();
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (count == null) {
-                    count = Long.valueOf(0);
-                }
-
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACTIVITYTYPE,
-                    finderArgs, count);
-
-                closeSession(session);
-            }
-        }
-
-        return count.intValue();
-    }
-
-    public int countByentityreceiver(Long entityId, Long receiverId)
-        throws SystemException {
-        Object[] finderArgs = new Object[] { entityId, receiverId };
-
-        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ENTITYRECEIVER,
-                finderArgs, this);
-
-        if (count == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append("SELECT COUNT(*) ");
-                query.append(
-                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
-
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
                 } else {
-                    query.append("entityId = ?");
+                    query.append("classPK = ?");
                 }
 
                 query.append(" AND ");
@@ -1974,8 +1947,12 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
                 }
 
                 if (receiverId != null) {
@@ -1990,7 +1967,7 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                     count = Long.valueOf(0);
                 }
 
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ENTITYRECEIVER,
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKRECEIVERID,
                     finderArgs, count);
 
                 closeSession(session);
@@ -2000,11 +1977,19 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         return count.intValue();
     }
 
-    public int countByentityreceivertype(Long entityId, Long receiverId,
-        String activitytype) throws SystemException {
-        Object[] finderArgs = new Object[] { entityId, receiverId, activitytype };
+    public int countByClassNameIdClassPKTypeReceiverId(Long classNameId,
+        Long classPK, Integer type, Long receiverId) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                classNameId,
+                
+                classPK,
+                
+                type,
+                
+                receiverId
+            };
 
-        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ENTITYRECEIVERTYPE,
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPERECEIVERID,
                 finderArgs, this);
 
         if (count == null) {
@@ -2019,10 +2004,26 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(
                     "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
 
-                if (entityId == null) {
-                    query.append("entityId IS NULL");
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
                 } else {
-                    query.append("entityId = ?");
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
                 }
 
                 query.append(" AND ");
@@ -2033,30 +2034,26 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                     query.append("receiverId = ?");
                 }
 
-                query.append(" AND ");
-
-                if (activitytype == null) {
-                    query.append("activitytype IS NULL");
-                } else {
-                    query.append("activitytype = ?");
-                }
-
                 query.append(" ");
 
                 Query q = session.createQuery(query.toString());
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                if (entityId != null) {
-                    qPos.add(entityId.longValue());
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
                 }
 
                 if (receiverId != null) {
                     qPos.add(receiverId.longValue());
-                }
-
-                if (activitytype != null) {
-                    qPos.add(activitytype);
                 }
 
                 count = (Long) q.uniqueResult();
@@ -2067,7 +2064,119 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                     count = Long.valueOf(0);
                 }
 
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ENTITYRECEIVERTYPE,
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPERECEIVERID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByClassNameIdClassPKTypeExtraDataReceiverId(
+        Long classNameId, Long classPK, Integer type, String extraData,
+        Long receiverId) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                classNameId,
+                
+                classPK,
+                
+                type,
+                
+                extraData,
+                
+                receiverId
+            };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
+                }
+
+                query.append(" AND ");
+
+                if (extraData == null) {
+                    query.append("extraData LIKE null");
+                } else {
+                    query.append("extraData LIKE ?");
+                }
+
+                query.append(" AND ");
+
+                if (receiverId == null) {
+                    query.append("receiverId IS NULL");
+                } else {
+                    query.append("receiverId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
+                }
+
+                if (extraData != null) {
+                    qPos.add(extraData);
+                }
+
+                if (receiverId != null) {
+                    qPos.add(receiverId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID,
                     finderArgs, count);
 
                 closeSession(session);

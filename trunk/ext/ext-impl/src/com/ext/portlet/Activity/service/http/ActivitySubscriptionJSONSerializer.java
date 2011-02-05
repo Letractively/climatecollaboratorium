@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.service.http;
 
 import com.ext.portlet.Activity.model.ActivitySubscription;
@@ -40,10 +34,12 @@ public class ActivitySubscriptionJSONSerializer {
     public static JSONObject toJSONObject(ActivitySubscription model) {
         JSONObject jsonObj = JSONFactoryUtil.createJSONObject();
 
-        jsonObj.put("entityId", model.getEntityId());
+        jsonObj.put("pk", model.getPk());
+        jsonObj.put("classNameId", model.getClassNameId());
+        jsonObj.put("classPK", model.getClassPK());
+        jsonObj.put("type", model.getType());
+        jsonObj.put("extraData", model.getExtraData());
         jsonObj.put("receiverId", model.getReceiverId());
-        jsonObj.put("activitytype", model.getActivitytype());
-        jsonObj.put("portletId", model.getPortletId());
 
         Date createDate = model.getCreateDate();
 

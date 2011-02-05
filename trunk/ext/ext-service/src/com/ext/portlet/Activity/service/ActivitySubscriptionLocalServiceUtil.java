@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.service;
 
 
@@ -38,15 +32,14 @@ public class ActivitySubscriptionLocalServiceUtil {
     }
 
     public static com.ext.portlet.Activity.model.ActivitySubscription createActivitySubscription(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK) {
-        return getService().createActivitySubscription(activitySubscriptionPK);
+        java.lang.Long pk) {
+        return getService().createActivitySubscription(pk);
     }
 
-    public static void deleteActivitySubscription(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK)
+    public static void deleteActivitySubscription(java.lang.Long pk)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        getService().deleteActivitySubscription(activitySubscriptionPK);
+        getService().deleteActivitySubscription(pk);
     }
 
     public static void deleteActivitySubscription(
@@ -68,10 +61,10 @@ public class ActivitySubscriptionLocalServiceUtil {
     }
 
     public static com.ext.portlet.Activity.model.ActivitySubscription getActivitySubscription(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK)
+        java.lang.Long pk)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        return getService().getActivitySubscription(activitySubscriptionPK);
+        return getService().getActivitySubscription(pk);
     }
 
     public static java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> getActivitySubscriptions(
@@ -100,6 +93,53 @@ public class ActivitySubscriptionLocalServiceUtil {
     public static java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByUser(
         java.lang.Long userId) throws com.liferay.portal.SystemException {
         return getService().findByUser(userId);
+    }
+
+    public static boolean isSubscribed(java.lang.Long userId,
+        java.lang.Long classNameId, java.lang.Long classPK, int type,
+        java.lang.String extraData)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService()
+                   .isSubscribed(userId, classNameId, classPK, type, extraData);
+    }
+
+    public static void addSubscription(java.lang.Long classNameId,
+        java.lang.Long classPK, java.lang.Integer type,
+        java.lang.String extraData, java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        getService()
+            .addSubscription(classNameId, classPK, type, extraData, userId);
+    }
+
+    public static void addSubscription(java.lang.Class clasz,
+        java.lang.Long classPK, java.lang.Integer type,
+        java.lang.String extraData, java.lang.Long userId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        getService().addSubscription(clasz, classPK, type, extraData, userId);
+    }
+
+    public static void addActivityInterpreter(
+        com.ext.portlet.Activity.ICollabActivityInterpreter interpreter) {
+        getService().addActivityInterpreter(interpreter);
+    }
+
+    public static com.ext.portlet.Activity.ICollabActivityInterpreter getInterpreterForClass(
+        java.lang.String className) {
+        return getService().getInterpreterForClass(className);
+    }
+
+    public static com.ext.portlet.Activity.ICollabActivityInterpreter getInterpreterForClass(
+        java.lang.Long classNameId) {
+        return getService().getInterpreterForClass(classNameId);
+    }
+
+    public static java.util.List<com.liferay.portlet.social.model.SocialActivity> getActivities(
+        java.lang.Long userId, int start, int count)
+        throws com.liferay.portal.SystemException {
+        return getService().getActivities(userId, start, count);
     }
 
     public static ActivitySubscriptionLocalService getService() {

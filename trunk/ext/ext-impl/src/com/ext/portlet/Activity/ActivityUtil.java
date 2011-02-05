@@ -55,13 +55,14 @@ public class ActivityUtil {
     };
 	
 	public static SubscriberFactory getAssociatedSubscriptionFactory(ActivitySubscription a) {
-		
+		/*
 		int activity = Integer.parseInt(a.getActivitytype());
 		if ("plans".equals(a.getPortletId())){
 			return PlanActivityKeys.fromId(activity);
 		} else if ("debates".equals(a.getPortletId())) {
 			return DebateActivityKeys.fromId(activity);
 		}
+		*/
 		return null;
 		
 	}
@@ -91,7 +92,7 @@ public class ActivityUtil {
 	}
 	
 	public static List<SocialActivity> retrieveActivities(long userId, int pagestart, int count) throws SystemException, PortalException {
-	
+	/*
 		List<ActivitySubscription> subscriptions = ActivitySubscriptionLocalServiceUtil.findByUser(userId);
 		Long companyId = UserLocalServiceUtil.getUser(userId).getCompanyId();
 		if (subscriptions.size() ==0) return Collections.emptyList();
@@ -133,9 +134,12 @@ public class ActivityUtil {
 		}
 		
 		return activities;
+		*/
+	    return null;
 	}
 	
 	public static void deleteSubscription(String portlet, long userid, long entityid, int type) throws SystemException {
+	    /*
 		ActivitySubscriptionPK subscriptionPK = new ActivitySubscriptionPK();
 		subscriptionPK.setEntityId(entityid);
 		subscriptionPK.setReceiverId(userid);
@@ -152,23 +156,24 @@ public class ActivityUtil {
         if (subscription!=null) {
             ActivitySubscriptionLocalServiceUtil.deleteActivitySubscription(subscription);
         }
-		
+		*/
 	}
 
     public static boolean isSubscribed(String portlet, long userid, long entityid, int type) throws SystemException {
-
+        /*
         ActivitySubscriptionPK subscriptionPK = new ActivitySubscriptionPK();
 		subscriptionPK.setPortletId(portlet);
         subscriptionPK.setEntityId(entityid);
 		subscriptionPK.setReceiverId(userid);
 		subscriptionPK.setActivitytype(type+"");
-
         try {
             ActivitySubscriptionLocalServiceUtil.getActivitySubscription(subscriptionPK);
         } catch (Exception e) {
            return false;
         }
 		return true;
+        */
+        return false;
 
 	}
 
@@ -191,7 +196,7 @@ public class ActivityUtil {
 	}
 	
 	public static void createSubscription(String portlet, long userid, long entityid, int type) throws SystemException {
-		
+		/*
 		
 		ActivitySubscriptionPK subscriptionPK= new ActivitySubscriptionPK();
 		subscriptionPK.setEntityId(entityid);
@@ -212,15 +217,17 @@ public class ActivityUtil {
 		subscription.setCreateDate(new Date());
 		subscription.setModifiedDate(new Date());
 		ActivitySubscriptionLocalServiceUtil.addActivitySubscription(subscription);
+		*/
 	}
 	
 	
 	
 	
 	public static void addDefaultSubscriptions(long userid) throws SystemException {
-		for (SubscriberFactory factory:ActivityConstants.SUBS_DEFAULTS) {
+		/*for (SubscriberFactory factory:ActivityConstants.SUBS_DEFAULTS) {
 			factory.subcribe(userid,-1, provider);
 		}
+		*/
 	}
 	
 	public static void clearSubscriptions(long userId) throws SystemException {
@@ -264,6 +271,31 @@ public class ActivityUtil {
         }
         
         return decodedMap;
+    }
+    
+
+    public static String getExtraDataForIds(Long... ids) {
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i < ids.length; i++) {
+            if (i > 0) {
+                sb.append(",");
+            }
+            sb.append(ids[i]);
+        }
+        return sb.toString();
+    }
+    
+    public static Long[] getIdsFromExtraData(String extraData) {
+        if (extraData == null || extraData.trim().length() == 0) {
+            return new Long[] {};
+        }
+        String[] idStrs = extraData.split(",");
+        Long[] ret = new Long[idStrs.length];
+        
+        for (int i=0; i < idStrs.length; i++) {
+            ret[i] = Long.parseLong(idStrs[i]);
+        }
+        return ret;
     }
 	
 }

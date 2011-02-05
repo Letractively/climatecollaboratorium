@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.service.persistence;
 
 import com.liferay.portal.service.persistence.BasePersistence;
@@ -19,10 +13,10 @@ public interface ActivitySubscriptionPersistence extends BasePersistence {
     public void clearCache();
 
     public com.ext.portlet.Activity.model.ActivitySubscription create(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK);
+        java.lang.Long pk);
 
     public com.ext.portlet.Activity.model.ActivitySubscription remove(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK)
+        java.lang.Long pk)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
@@ -59,44 +53,12 @@ public interface ActivitySubscriptionPersistence extends BasePersistence {
         boolean merge) throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.Activity.model.ActivitySubscription findByPrimaryKey(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK)
+        java.lang.Long pk)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.Activity.model.ActivitySubscription fetchByPrimaryKey(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK)
-        throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityId(
-        java.lang.Long entityId) throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityId(
-        java.lang.Long entityId, int start, int end)
-        throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityId(
-        java.lang.Long entityId, int start, int end,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.liferay.portal.SystemException;
-
-    public com.ext.portlet.Activity.model.ActivitySubscription findByentityId_First(
-        java.lang.Long entityId,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.Activity.NoSuchSubscriptionException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.Activity.model.ActivitySubscription findByentityId_Last(
-        java.lang.Long entityId,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.Activity.NoSuchSubscriptionException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.Activity.model.ActivitySubscription[] findByentityId_PrevAndNext(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK,
-        java.lang.Long entityId,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.Activity.NoSuchSubscriptionException,
-            com.liferay.portal.SystemException;
+        java.lang.Long pk) throws com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByreceiverId(
         java.lang.Long receiverId) throws com.liferay.portal.SystemException;
@@ -123,110 +85,122 @@ public interface ActivitySubscriptionPersistence extends BasePersistence {
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.Activity.model.ActivitySubscription[] findByreceiverId_PrevAndNext(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK,
+        java.lang.Long pk, java.lang.Long receiverId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.Activity.NoSuchSubscriptionException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Long receiverId) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Long receiverId, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Long receiverId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.Activity.model.ActivitySubscription findByClassNameIdClassPKReceiverId_First(
+        java.lang.Long classNameId, java.lang.Long classPK,
         java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByactivitytype(
-        java.lang.String activitytype)
-        throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByactivitytype(
-        java.lang.String activitytype, int start, int end)
-        throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByactivitytype(
-        java.lang.String activitytype, int start, int end,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.liferay.portal.SystemException;
-
-    public com.ext.portlet.Activity.model.ActivitySubscription findByactivitytype_First(
-        java.lang.String activitytype,
+    public com.ext.portlet.Activity.model.ActivitySubscription findByClassNameIdClassPKReceiverId_Last(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.Activity.model.ActivitySubscription findByactivitytype_Last(
-        java.lang.String activitytype,
+    public com.ext.portlet.Activity.model.ActivitySubscription[] findByClassNameIdClassPKReceiverId_PrevAndNext(
+        java.lang.Long pk, java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.Activity.model.ActivitySubscription[] findByactivitytype_PrevAndNext(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK,
-        java.lang.String activitytype,
-        com.liferay.portal.kernel.util.OrderByComparator obc)
-        throws com.ext.portlet.Activity.NoSuchSubscriptionException,
-            com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityreceiver(
-        java.lang.Long entityId, java.lang.Long receiverId)
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.Long receiverId)
         throws com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityreceiver(
-        java.lang.Long entityId, java.lang.Long receiverId, int start, int end)
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.Long receiverId, int start, int end)
         throws com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityreceiver(
-        java.lang.Long entityId, java.lang.Long receiverId, int start, int end,
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.Long receiverId, int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.Activity.model.ActivitySubscription findByentityreceiver_First(
-        java.lang.Long entityId, java.lang.Long receiverId,
+    public com.ext.portlet.Activity.model.ActivitySubscription findByClassNameIdClassPKTypeReceiverId_First(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.Activity.model.ActivitySubscription findByentityreceiver_Last(
-        java.lang.Long entityId, java.lang.Long receiverId,
+    public com.ext.portlet.Activity.model.ActivitySubscription findByClassNameIdClassPKTypeReceiverId_Last(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.Activity.model.ActivitySubscription[] findByentityreceiver_PrevAndNext(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK,
-        java.lang.Long entityId, java.lang.Long receiverId,
+    public com.ext.portlet.Activity.model.ActivitySubscription[] findByClassNameIdClassPKTypeReceiverId_PrevAndNext(
+        java.lang.Long pk, java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityreceivertype(
-        java.lang.Long entityId, java.lang.Long receiverId,
-        java.lang.String activitytype)
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeExtraDataReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        java.lang.Long receiverId) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeExtraDataReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        java.lang.Long receiverId, int start, int end)
         throws com.liferay.portal.SystemException;
 
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityreceivertype(
-        java.lang.Long entityId, java.lang.Long receiverId,
-        java.lang.String activitytype, int start, int end)
-        throws com.liferay.portal.SystemException;
-
-    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByentityreceivertype(
-        java.lang.Long entityId, java.lang.Long receiverId,
-        java.lang.String activitytype, int start, int end,
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeExtraDataReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        java.lang.Long receiverId, int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.Activity.model.ActivitySubscription findByentityreceivertype_First(
-        java.lang.Long entityId, java.lang.Long receiverId,
-        java.lang.String activitytype,
+    public com.ext.portlet.Activity.model.ActivitySubscription findByClassNameIdClassPKTypeExtraDataReceiverId_First(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.Activity.model.ActivitySubscription findByentityreceivertype_Last(
-        java.lang.Long entityId, java.lang.Long receiverId,
-        java.lang.String activitytype,
+    public com.ext.portlet.Activity.model.ActivitySubscription findByClassNameIdClassPKTypeExtraDataReceiverId_Last(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.Activity.model.ActivitySubscription[] findByentityreceivertype_PrevAndNext(
-        com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK activitySubscriptionPK,
-        java.lang.Long entityId, java.lang.Long receiverId,
-        java.lang.String activitytype,
+    public com.ext.portlet.Activity.model.ActivitySubscription[] findByClassNameIdClassPKTypeExtraDataReceiverId_PrevAndNext(
+        java.lang.Long pk, java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        java.lang.Long receiverId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
@@ -249,39 +223,41 @@ public interface ActivitySubscriptionPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
-    public void removeByentityId(java.lang.Long entityId)
-        throws com.liferay.portal.SystemException;
-
     public void removeByreceiverId(java.lang.Long receiverId)
         throws com.liferay.portal.SystemException;
 
-    public void removeByactivitytype(java.lang.String activitytype)
-        throws com.liferay.portal.SystemException;
-
-    public void removeByentityreceiver(java.lang.Long entityId,
+    public void removeByClassNameIdClassPKReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
         java.lang.Long receiverId) throws com.liferay.portal.SystemException;
 
-    public void removeByentityreceivertype(java.lang.Long entityId,
-        java.lang.Long receiverId, java.lang.String activitytype)
+    public void removeByClassNameIdClassPKTypeReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.Long receiverId)
         throws com.liferay.portal.SystemException;
+
+    public void removeByClassNameIdClassPKTypeExtraDataReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        java.lang.Long receiverId) throws com.liferay.portal.SystemException;
 
     public void removeAll() throws com.liferay.portal.SystemException;
-
-    public int countByentityId(java.lang.Long entityId)
-        throws com.liferay.portal.SystemException;
 
     public int countByreceiverId(java.lang.Long receiverId)
         throws com.liferay.portal.SystemException;
 
-    public int countByactivitytype(java.lang.String activitytype)
+    public int countByClassNameIdClassPKReceiverId(java.lang.Long classNameId,
+        java.lang.Long classPK, java.lang.Long receiverId)
         throws com.liferay.portal.SystemException;
 
-    public int countByentityreceiver(java.lang.Long entityId,
+    public int countByClassNameIdClassPKTypeReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.Long receiverId)
+        throws com.liferay.portal.SystemException;
+
+    public int countByClassNameIdClassPKTypeExtraDataReceiverId(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
         java.lang.Long receiverId) throws com.liferay.portal.SystemException;
-
-    public int countByentityreceivertype(java.lang.Long entityId,
-        java.lang.Long receiverId, java.lang.String activitytype)
-        throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

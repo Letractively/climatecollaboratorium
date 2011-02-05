@@ -1,19 +1,14 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.model.impl;
 
 import com.ext.portlet.Activity.model.ActivitySubscription;
 import com.ext.portlet.Activity.model.ActivitySubscriptionSoap;
-import com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.impl.BaseModelImpl;
+import com.liferay.portal.util.PortalUtil;
 
 import java.io.Serializable;
 
@@ -49,16 +44,22 @@ import java.util.List;
 public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscription> {
     public static final String TABLE_NAME = "ActivitySubscription";
     public static final Object[][] TABLE_COLUMNS = {
-            { "entityId", new Integer(Types.BIGINT) },
+            { "pk", new Integer(Types.BIGINT) },
+            
+
+            { "classNameId", new Integer(Types.BIGINT) },
+            
+
+            { "classPK", new Integer(Types.BIGINT) },
+            
+
+            { "type_", new Integer(Types.INTEGER) },
+            
+
+            { "extraData", new Integer(Types.VARCHAR) },
             
 
             { "receiverId", new Integer(Types.BIGINT) },
-            
-
-            { "activitytype", new Integer(Types.VARCHAR) },
-            
-
-            { "portletId", new Integer(Types.VARCHAR) },
             
 
             { "createDate", new Integer(Types.TIMESTAMP) },
@@ -66,7 +67,7 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
 
             { "modifiedDate", new Integer(Types.TIMESTAMP) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ActivitySubscription (entityId LONG not null,receiverId LONG not null,activitytype VARCHAR(75) not null,portletId VARCHAR(75) not null,createDate DATE null,modifiedDate DATE null,primary key (entityId, receiverId, activitytype, portletId))";
+    public static final String TABLE_SQL_CREATE = "create table ActivitySubscription (pk LONG not null primary key,classNameId LONG,classPK LONG,type_ INTEGER,extraData VARCHAR(75) null,receiverId LONG,createDate DATE null,modifiedDate DATE null)";
     public static final String TABLE_SQL_DROP = "drop table ActivitySubscription";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -79,10 +80,12 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
             true);
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
                 "lock.expiration.time.com.ext.portlet.Activity.model.ActivitySubscription"));
-    private Long _entityId;
+    private Long _pk;
+    private Long _classNameId;
+    private Long _classPK;
+    private Integer _type;
+    private String _extraData;
     private Long _receiverId;
-    private String _activitytype;
-    private String _portletId;
     private Date _createDate;
     private Date _modifiedDate;
 
@@ -93,10 +96,12 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
         ActivitySubscriptionSoap soapModel) {
         ActivitySubscription model = new ActivitySubscriptionImpl();
 
-        model.setEntityId(soapModel.getEntityId());
+        model.setPk(soapModel.getPk());
+        model.setClassNameId(soapModel.getClassNameId());
+        model.setClassPK(soapModel.getClassPK());
+        model.setType(soapModel.getType());
+        model.setExtraData(soapModel.getExtraData());
         model.setReceiverId(soapModel.getReceiverId());
-        model.setActivitytype(soapModel.getActivitytype());
-        model.setPortletId(soapModel.getPortletId());
         model.setCreateDate(soapModel.getCreateDate());
         model.setModifiedDate(soapModel.getModifiedDate());
 
@@ -114,29 +119,64 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
         return models;
     }
 
-    public ActivitySubscriptionPK getPrimaryKey() {
-        return new ActivitySubscriptionPK(_entityId, _receiverId,
-            _activitytype, _portletId);
+    public Long getPrimaryKey() {
+        return _pk;
     }
 
-    public void setPrimaryKey(ActivitySubscriptionPK pk) {
-        setEntityId(pk.entityId);
-        setReceiverId(pk.receiverId);
-        setActivitytype(pk.activitytype);
-        setPortletId(pk.portletId);
+    public void setPrimaryKey(Long pk) {
+        setPk(pk);
     }
 
     public Serializable getPrimaryKeyObj() {
-        return new ActivitySubscriptionPK(_entityId, _receiverId,
-            _activitytype, _portletId);
+        return _pk;
     }
 
-    public Long getEntityId() {
-        return _entityId;
+    public Long getPk() {
+        return _pk;
     }
 
-    public void setEntityId(Long entityId) {
-        _entityId = entityId;
+    public void setPk(Long pk) {
+        _pk = pk;
+    }
+
+    public String getClassName() {
+        if (getClassNameId() <= 0) {
+            return StringPool.BLANK;
+        }
+
+        return PortalUtil.getClassName(getClassNameId());
+    }
+
+    public Long getClassNameId() {
+        return _classNameId;
+    }
+
+    public void setClassNameId(Long classNameId) {
+        _classNameId = classNameId;
+    }
+
+    public Long getClassPK() {
+        return _classPK;
+    }
+
+    public void setClassPK(Long classPK) {
+        _classPK = classPK;
+    }
+
+    public Integer getType() {
+        return _type;
+    }
+
+    public void setType(Integer type) {
+        _type = type;
+    }
+
+    public String getExtraData() {
+        return GetterUtil.getString(_extraData);
+    }
+
+    public void setExtraData(String extraData) {
+        _extraData = extraData;
     }
 
     public Long getReceiverId() {
@@ -145,22 +185,6 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
 
     public void setReceiverId(Long receiverId) {
         _receiverId = receiverId;
-    }
-
-    public String getActivitytype() {
-        return GetterUtil.getString(_activitytype);
-    }
-
-    public void setActivitytype(String activitytype) {
-        _activitytype = activitytype;
-    }
-
-    public String getPortletId() {
-        return GetterUtil.getString(_portletId);
-    }
-
-    public void setPortletId(String portletId) {
-        _portletId = portletId;
     }
 
     public Date getCreateDate() {
@@ -188,10 +212,12 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
             model.setNew(isNew());
             model.setEscapedModel(true);
 
-            model.setEntityId(getEntityId());
+            model.setPk(getPk());
+            model.setClassNameId(getClassNameId());
+            model.setClassPK(getClassPK());
+            model.setType(getType());
+            model.setExtraData(HtmlUtil.escape(getExtraData()));
             model.setReceiverId(getReceiverId());
-            model.setActivitytype(HtmlUtil.escape(getActivitytype()));
-            model.setPortletId(HtmlUtil.escape(getPortletId()));
             model.setCreateDate(getCreateDate());
             model.setModifiedDate(getModifiedDate());
 
@@ -206,10 +232,12 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
     public Object clone() {
         ActivitySubscriptionImpl clone = new ActivitySubscriptionImpl();
 
-        clone.setEntityId(getEntityId());
+        clone.setPk(getPk());
+        clone.setClassNameId(getClassNameId());
+        clone.setClassPK(getClassPK());
+        clone.setType(getType());
+        clone.setExtraData(getExtraData());
         clone.setReceiverId(getReceiverId());
-        clone.setActivitytype(getActivitytype());
-        clone.setPortletId(getPortletId());
         clone.setCreateDate(getCreateDate());
         clone.setModifiedDate(getModifiedDate());
 
@@ -217,7 +245,7 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
     }
 
     public int compareTo(ActivitySubscription activitySubscription) {
-        ActivitySubscriptionPK pk = activitySubscription.getPrimaryKey();
+        Long pk = activitySubscription.getPrimaryKey();
 
         return getPrimaryKey().compareTo(pk);
     }
@@ -235,7 +263,7 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
             return false;
         }
 
-        ActivitySubscriptionPK pk = activitySubscription.getPrimaryKey();
+        Long pk = activitySubscription.getPrimaryKey();
 
         if (getPrimaryKey().equals(pk)) {
             return true;
@@ -251,14 +279,18 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("{entityId=");
-        sb.append(getEntityId());
+        sb.append("{pk=");
+        sb.append(getPk());
+        sb.append(", classNameId=");
+        sb.append(getClassNameId());
+        sb.append(", classPK=");
+        sb.append(getClassPK());
+        sb.append(", type=");
+        sb.append(getType());
+        sb.append(", extraData=");
+        sb.append(getExtraData());
         sb.append(", receiverId=");
         sb.append(getReceiverId());
-        sb.append(", activitytype=");
-        sb.append(getActivitytype());
-        sb.append(", portletId=");
-        sb.append(getPortletId());
         sb.append(", createDate=");
         sb.append(getCreateDate());
         sb.append(", modifiedDate=");
@@ -276,20 +308,28 @@ public class ActivitySubscriptionModelImpl extends BaseModelImpl<ActivitySubscri
         sb.append("</model-name>");
 
         sb.append(
-            "<column><column-name>entityId</column-name><column-value><![CDATA[");
-        sb.append(getEntityId());
+            "<column><column-name>pk</column-name><column-value><![CDATA[");
+        sb.append(getPk());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>classNameId</column-name><column-value><![CDATA[");
+        sb.append(getClassNameId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>classPK</column-name><column-value><![CDATA[");
+        sb.append(getClassPK());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>type</column-name><column-value><![CDATA[");
+        sb.append(getType());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>extraData</column-name><column-value><![CDATA[");
+        sb.append(getExtraData());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>receiverId</column-name><column-value><![CDATA[");
         sb.append(getReceiverId());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>activitytype</column-name><column-value><![CDATA[");
-        sb.append(getActivitytype());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>portletId</column-name><column-value><![CDATA[");
-        sb.append(getPortletId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>createDate</column-name><column-value><![CDATA[");

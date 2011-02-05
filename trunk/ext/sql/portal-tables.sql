@@ -2099,13 +2099,14 @@ create table Account_ (
 );
 
 create table ActivitySubscription (
-	entityId LONG not null,
-	receiverId LONG not null,
-	activitytype VARCHAR(75) not null,
-	portletId VARCHAR(75) not null,
+	pk LONG not null primary key,
+	classNameId LONG,
+	classPK LONG,
+	type_ INTEGER,
+	extraData VARCHAR(75) null,
+	receiverId LONG,
 	createDate DATE null,
-	modifiedDate DATE null,
-	primary key (entityId, receiverId, activitytype, portletId)
+	modifiedDate DATE null
 );
 
 create table Address (

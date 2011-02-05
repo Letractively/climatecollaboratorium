@@ -358,12 +358,14 @@
 	</class>
 	<class name="com.ext.portlet.Activity.model.impl.ActivitySubscriptionImpl" table="ActivitySubscription">
 		<cache usage="read-write" />
-		<composite-id name="primaryKey" class="com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK">
-			<key-property name="entityId" />
-			<key-property name="receiverId" />
-			<key-property name="activitytype" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-			<key-property name="portletId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		</composite-id>
+		<id name="pk" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="classNameId" />
+		<property name="classPK" />
+		<property name="type" column="type_" />
+		<property name="extraData" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="receiverId" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 	</class>

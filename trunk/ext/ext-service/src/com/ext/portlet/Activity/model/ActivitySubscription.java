@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.model;
 
 
@@ -33,4 +27,13 @@ package com.ext.portlet.Activity.model;
  *
  */
 public interface ActivitySubscription extends ActivitySubscriptionModel {
+    public void store() throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.Activity.ICollabActivityInterpreter getInterpreter();
+
+    public java.lang.String getName();
+
+    public com.ext.portlet.Activity.SubscriptionType getSubscriptionType();
+
+    public void delete() throws com.liferay.portal.SystemException;
 }

@@ -1,12 +1,4 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.model;
-
-import com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK;
 
 import com.liferay.portal.model.BaseModel;
 
@@ -34,25 +26,35 @@ import java.util.Date;
  *
  */
 public interface ActivitySubscriptionModel extends BaseModel<ActivitySubscription> {
-    public ActivitySubscriptionPK getPrimaryKey();
+    public Long getPrimaryKey();
 
-    public void setPrimaryKey(ActivitySubscriptionPK pk);
+    public void setPrimaryKey(Long pk);
 
-    public Long getEntityId();
+    public Long getPk();
 
-    public void setEntityId(Long entityId);
+    public void setPk(Long pk);
+
+    public String getClassName();
+
+    public Long getClassNameId();
+
+    public void setClassNameId(Long classNameId);
+
+    public Long getClassPK();
+
+    public void setClassPK(Long classPK);
+
+    public Integer getType();
+
+    public void setType(Integer type);
+
+    public String getExtraData();
+
+    public void setExtraData(String extraData);
 
     public Long getReceiverId();
 
     public void setReceiverId(Long receiverId);
-
-    public String getActivitytype();
-
-    public void setActivitytype(String activitytype);
-
-    public String getPortletId();
-
-    public void setPortletId(String portletId);
 
     public Date getCreateDate();
 

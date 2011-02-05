@@ -1,15 +1,8 @@
-/*
- * Copyright (c) 2010. M.I.T. All Rights Reserved
- * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
- * or the license.txt file included in this distribution for the full text of the license.
- */
-
 package com.ext.portlet.Activity.service.base;
 
 import com.ext.portlet.Activity.model.ActivitySubscription;
 import com.ext.portlet.Activity.service.ActivitySubscriptionLocalService;
 import com.ext.portlet.Activity.service.ActivitySubscriptionService;
-import com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPK;
 import com.ext.portlet.Activity.service.persistence.ActivitySubscriptionPersistence;
 
 import com.liferay.portal.PortalException;
@@ -38,15 +31,13 @@ public abstract class ActivitySubscriptionLocalServiceBaseImpl
             false);
     }
 
-    public ActivitySubscription createActivitySubscription(
-        ActivitySubscriptionPK activitySubscriptionPK) {
-        return activitySubscriptionPersistence.create(activitySubscriptionPK);
+    public ActivitySubscription createActivitySubscription(Long pk) {
+        return activitySubscriptionPersistence.create(pk);
     }
 
-    public void deleteActivitySubscription(
-        ActivitySubscriptionPK activitySubscriptionPK)
+    public void deleteActivitySubscription(Long pk)
         throws PortalException, SystemException {
-        activitySubscriptionPersistence.remove(activitySubscriptionPK);
+        activitySubscriptionPersistence.remove(pk);
     }
 
     public void deleteActivitySubscription(
@@ -65,10 +56,9 @@ public abstract class ActivitySubscriptionLocalServiceBaseImpl
             start, end);
     }
 
-    public ActivitySubscription getActivitySubscription(
-        ActivitySubscriptionPK activitySubscriptionPK)
+    public ActivitySubscription getActivitySubscription(Long pk)
         throws PortalException, SystemException {
-        return activitySubscriptionPersistence.findByPrimaryKey(activitySubscriptionPK);
+        return activitySubscriptionPersistence.findByPrimaryKey(pk);
     }
 
     public List<ActivitySubscription> getActivitySubscriptions(int start,
