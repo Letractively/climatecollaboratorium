@@ -578,6 +578,7 @@ input[type="text"], input[type="password"] {padding: 2px; }
 */
 ul.as-selections li.as-original input {
 	height: auto;
+	width: auto;
 }
 
 .community .sendMessage ul, 
@@ -845,4 +846,10 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -khtml-bor
 
 .popup_forgotpassword, .popup_login {
 	z-index: 300;
+}
+
+.question_amount { float:right; width:40px; margin:13px 5px 0 0; font-weight:600; color:#2498b3; text-align:left; line-height:normal; }
+
+.info-left {
+	width: 600px;
 }
