@@ -14,7 +14,14 @@
 		<column name="classNameId" type="Long" />
 		<column name="classPK" type="Long" />
 		<column name="type" type="Integer" />
+        
+        
+        <!--  TODO WRITE COMMENT -->
+        
+        
 		<column name="extraData" type="String" />
+        
+        
         <column name="receiverId" type="Long" />
 		
 		<!-- Audit fields -->
@@ -44,7 +51,7 @@
             <finder-column name="classNameId" />
             <finder-column name="classPK" />
             <finder-column name="type" />
-            <finder-column name="extraData" comparator="LIKE" />
+            <finder-column name="extraData"  />
             <finder-column name="receiverId" />
         </finder>
 

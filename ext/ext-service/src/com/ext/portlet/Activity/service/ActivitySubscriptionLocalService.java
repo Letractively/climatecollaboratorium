@@ -85,10 +85,26 @@ public interface ActivitySubscriptionLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public boolean isSubscribed(java.lang.Long userId,
-        java.lang.Long classNameId, java.lang.Long classPK, int type,
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public boolean isSubscribed(java.lang.Long userId, java.lang.Class clasz,
+        java.lang.Long classPK, java.lang.Integer type,
         java.lang.String extraData)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public void deleteSubscription(java.lang.Long userId,
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData)
+        throws com.liferay.portal.SystemException;
+
+    public void deleteSubscription(java.lang.Long userId,
+        java.lang.Class clasz, java.lang.Long classPK, java.lang.Integer type,
+        java.lang.String extraData) throws com.liferay.portal.SystemException;
 
     public void addSubscription(java.lang.Long classNameId,
         java.lang.Long classPK, java.lang.Integer type,

@@ -93,7 +93,7 @@ TagsAssetLocalServiceUtil.incrementViewCounter(WikiPage.class.getName(), wikiPag
 
 TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(WikiPage.class.getName(), wikiPage.getResourcePrimKey(), true));
 %>
-
+<div class="clearfix"></div>
 <c:choose>
 	<c:when test="<%= print %>">
 		<script type="text/javascript">
@@ -116,30 +116,7 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
     <liferay-util:include page="/html/portlet/wiki/top_links.jsp" />
 </c:if>
 
-<c:if test="<%= Validator.isNotNull(wikiPage.getParentTitle()) %>">
-	<div class="breadcrumbs">
-
-		<%
-		PortletURL viewParentPageURL = PortletURLUtil.clone(viewPageURL, renderResponse);
-
-		List parentPages = wikiPage.getParentPages();
-
-		for (int i = 0; i < parentPages.size(); i++) {
-			WikiPage curParentPage = (WikiPage)parentPages.get(i);
-
-			viewParentPageURL.setParameter("title", curParentPage.getTitle());
-		%>
-
-			<a href="<%= viewParentPageURL %>"><%= curParentPage.getTitle() %></a> &raquo;
-
-		<%
-		}
-		%>
-
-	</div>
-</c:if>
-
-<h1 class="page-title">
+<h1 class="spn">
 	<c:if test="<%= !print %>">
 		<div class="page-actions">
 			<c:if test="<%= WikiPagePermission.contains(permissionChecker, wikiPage, ActionKeys.UPDATE) %>">
@@ -164,6 +141,32 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 
 	<%= title %>
 </h1>
+
+    <div id="bread">
+        <a href="/web/guest/about">About</a>
+        <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
+        <a href="/web/guest/resources">Wiki</a>
+<c:if test="<%= Validator.isNotNull(wikiPage.getParentTitle()) %>">
+        
+        <%
+        PortletURL viewParentPageURL = PortletURLUtil.clone(viewPageURL, renderResponse);
+
+        List parentPages = wikiPage.getParentPages();
+
+        for (int i = 0; i < parentPages.size(); i++) {
+            WikiPage curParentPage = (WikiPage)parentPages.get(i);
+
+            viewParentPageURL.setParameter("title", curParentPage.getTitle());
+        %>
+            <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
+            <a href="<%= viewParentPageURL %>"><%= curParentPage.getTitle() %></a>
+
+        <%
+        }
+        %>
+
+    </c:if>
+    </div>
 
 <c:if test="<%= originalPage != null %>">
 
@@ -203,9 +206,11 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 	message="tags"
 	portletURL="<%= taggedPagesURL %>"
 />
-
-<div>
+<div class="clearfix"></div>
+<div id="content">
+    <div id="main">
 	<%@ include file="/html/portlet/wiki/view_page_content.jspf" %>
+        </div>
 </div>
 
 <c:if test="<%= themeDisplay.isSignedIn() && WikiPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_NODE) %>">
@@ -288,7 +293,6 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 		<c:if test="<%= discussionMessagesCount > 0 %>">
 			<br />
 
-			<liferay-ui:tabs names="comments" />
 		</c:if>
 
 		<portlet:actionURL var="discussionURL">

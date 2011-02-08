@@ -107,6 +107,9 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         updateAttribute(Attribute.NAME);
         //joinIfNotAMember(updateAuthorId);
         updateSearchIndex();
+        // update referenced discussion category group
+        DiscussionCategoryGroup dcg = getDiscussionCategoryGroup();
+        dcg.setDescription(name + " discussion");
     }
 
     public List<PlanDescription> getAllDescriptionVersions() throws SystemException {

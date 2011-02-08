@@ -23,7 +23,10 @@
 
 		<column name="subject" type="String"/>
         <column name="content" type="String" />
-
+        
+        <order by="desc">
+            <order-column name="createDate" />
+        </order>
 
 		<!-- Finder methods -->
 
@@ -43,6 +46,10 @@
         <column name="userId" type="Long"  />
         <column name="opened" type="Boolean"/>
 		<column name="archived" type="Boolean"/>
+        
+        <order by="desc">
+            <order-column name="messageId" />
+        </order>
 
 		<finder name="ReceivingUser" return-type="Collection">
 			<finder-column name="userId" />
