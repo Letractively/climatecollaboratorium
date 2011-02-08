@@ -149,7 +149,7 @@
     #end
     
     
-    #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn' || $parentPageName == 'about') && $pageName != 'resources' || $pageName == 'search')
+    #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn' || $parentPageName == 'about') || $pageName == 'resources' || $pageName == 'search')
         <div id="bread_bg">&nbsp;</div>
     #end
     #if ($collab_plan or ($parentPageName == 'community' or $pageName == 'community'))
