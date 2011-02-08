@@ -132,7 +132,7 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter implem
         // name of activity "stream" for given parameters is name of a plan that this activity relates to
         try {
             PlanItem plan = PlanItemLocalServiceUtil.getPlan(classPK);
-            return String.format(hyperlink, getPlanURL(plan),plan.getName());
+            return "Proposal: " + String.format(hyperlink, getPlanURL(plan),plan.getName());
         }
         catch (NoSuchPlanItemException e) {
             _log.error("Can't find plan for id: " + classPK, e);
