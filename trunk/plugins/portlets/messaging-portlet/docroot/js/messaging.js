@@ -2,6 +2,7 @@ jQuery(document).ready(function() {
     initShowMessage();
 });
 
+var usersMap;
 
 function showMessageByElem(elem, highlight) {
     var link = jQuery(elem);
@@ -43,7 +44,6 @@ function initShowMessage() {
 }
 
 
-var usersMap;
 
 function initSendMessageForm(users, usersMapParam) {
     usersMap = usersMapParam;
@@ -53,11 +53,25 @@ function initSendMessageForm(users, usersMapParam) {
     });
         
     jQuery('#userSelectorInput').blur(function() {
-        var val = jQuery.trim(jQuery(this).val());
-        if (val != "") {
-            jQuery("#please_choose_from_list").show();
-        }
-        jQuery(this).val(""); 
+    	var thiz = this;
+    	setTimeout(function() {
+    		//alert('robimy walidacje!');
+    		var receipients = [];
+    		jQuery(".as-selections li").each(function() {
+    			receipients.push(usersMap[jQuery(this).text().substring(1)]);
+    		});
+    		if (receipients.length > 1) {
+    			// valid
+    		}
+    		else {
+    			jQuery("#please_choose_from_list").show();
+    		}
+    		
+    		jQuery(thiz).val(""); 
+    		
+    		jQuery(".as-list .as-result-item").remove();
+    		//jQuery("#userSelectorInput").show();
+    	}, 200);
     });
     
     var input = jQuery("#userSelectorInput").autoSuggest(users, {selectedItem: "username", searchObj: "username", startText: 'Begin typing for a list' });
