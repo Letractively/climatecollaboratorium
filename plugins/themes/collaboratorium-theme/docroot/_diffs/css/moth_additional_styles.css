@@ -905,6 +905,7 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -khtml-bor
 #webContent { font-size: 14px; line-height: 27px; color: #6E6E6E; }
 
 .wf-active #webContent { font-size: 16px; }
+.resources #nav ul li {background: none};
 .wf-active #nav ul li ul li a, .wf-active #content #nav ul li.c ul li a { background:url(../images/nav_bullet.gif) no-repeat 0px 4px; font-family: "Lucida Grande", Arial, sans-serif; font-size:12px; font-weight:normal; padding:0 0 0 15px; color:#2498b3; }
 .wf-active #nav ul li ul li a:hover, .wf-active #webContent #nav ul li.c ul li.c a { color:#165c6c; }
 
@@ -971,3 +972,7 @@ td.jqplot-table-legend div.act_tooltip_label {width:266px; background:url(../ima
 td.jqplot-table-legend div.act_tt-wrap_label {background:url(../images/actions_tooltip-arrow_label.png) no-repeat 258px 8px;}
 td.jqplot-table-legend div.act_tt-txt_label {width:226px; background:url(../images/actions_tooltip-bg.png); padding:0 16px; font:11px/17px Verdana, sans-serif; color:#fff;}
 td.jqplot-table-legend div.act_tt-bot_label {background:url(../images/actions_tooltip-bottom.png) no-repeat left; height:20px; }
+
+.resources #main h2 {
+margin: 20px 0 15px 0;
+}
