@@ -16,6 +16,7 @@ import org.climatecollaboratorium.facelets.debates.backing.DebatesSuggestBean;
 import org.climatecollaboratorium.facelets.debates.backing.EditDebateCommentBean;
 import org.climatecollaboratorium.facelets.debates.backing.EditDebateItemBean;
 import org.climatecollaboratorium.facelets.debates.support.DebateItemWrapper;
+import org.climatecollaboratorium.facelets.discussions.DiscussionPageType;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.utils.Helper;
 
@@ -217,19 +218,30 @@ public class DebateBean {
 
     public void debateItemRemoved(DebateItem item) {
         // TODO Auto-generated method stub
-        
+
     }
 
-    public boolean isSubscribed() {
-        // TODO Auto-generated method stub
+    public boolean isSubscribed() throws PortalException, SystemException {
+        if (Helper.isUserLoggedIn()) {
+
+            return ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), Debate.class,
+                    debateId, null, currentItem != null ? DebatesUtil.getActivityExtraData(currentItem.getItem()) : "");
+
+        }
         return false;
     }
 
     public void subscribe(ActionEvent e) throws PortalException, SystemException {
-
-        ActivitySubscriptionLocalServiceUtil.addSubscription(Debate.class, debateId, 
-                null, DebatesUtil.getActivityExtraData(currentItem.getItem()), Helper.getLiferayUser().getUserId());
-        
+        if (Helper.isUserLoggedIn()) {
+            if (isSubscribed()) {
+                ActivitySubscriptionLocalServiceUtil.deleteSubscription(Helper.getLiferayUser().getUserId(), Debate.class,
+                    debateId, null, currentItem != null ? DebatesUtil.getActivityExtraData(currentItem.getItem()) : "");
+            }
+            else {
+                ActivitySubscriptionLocalServiceUtil.addSubscription(Debate.class, debateId, 
+                        null, currentItem != null ? DebatesUtil.getActivityExtraData(currentItem.getItem()) : "", Helper.getLiferayUser().getUserId());
+            }
+        }
     }
 
     public void debateItemUpdated(DebateItem savedItem) throws SystemException {

@@ -82,9 +82,17 @@
     </div> <!-- /main -->
     
     <ice:panelGroup rendered="#{showActions}" styleClass="right_col v2">
-        <ice:commandLink actionListener="#{discussionBean.subscribe}" rendered="#{discussionBean.pageType == 'DISCUSSIONS' or discussionBean.pageType == 'CATEGORY' or discussionBean.pageType == 'THREAD'}">
-            <img src="/collaboratorium-theme/images/icon_star-small.gif" />
-            Subscribe
+        <ice:commandLink actionListener="#{discussionBean.subscribe}" 
+                rendered="#{discussionBean.pageType == 'DISCUSSIONS' or discussionBean.pageType == 'CATEGORY' or discussionBean.pageType == 'THREAD'}"
+                onclick='if(!deferUntilLogin()) return false;'>
+                <f:subview rendered="#{discussionBean.subscribed}">
+                    <img src="/collaboratorium-theme/images/icon_star-small.gif" />
+                    Unsubscribe
+                </f:subview>
+                <f:subview rendered="#{not discussionBean.subscribed}">
+                    <img src="/collaboratorium-theme/images/icon_star-small.gif" />
+                    Subscribe
+                </f:subview>
         </ice:commandLink>
       
       <div class="comm_list">

@@ -227,9 +227,7 @@ function showSliders() {
 				if (jQuery(this).hasClass('sliderInit')) {
 					jQuery(this).removeClass('sliderInit');
 				}
-				else {
-					oneOfValuesChangedEvent();
-				}
+				oneOfValuesChangedEvent();
 			}
 		});
 
@@ -259,6 +257,7 @@ function showSliders() {
 			if (isDouble(dataType)) {
 				sliderVal = ((sliderVal - min) / (max-min)) * (sliderMax - sliderMin);
 			}
+    		oneOfValuesChangedEvent();
 
 			slider.slider("option", "value", sliderVal);
 			return true;
@@ -598,6 +597,28 @@ function renderSingleChart(chartDef) {
 		height +=  errorMessagesPlaceholder.height();
 		
 		jQuery("#" + chartPlaceholderId).parent().height(height + 30);
+		
+		// remove padding that is set by jqplot from legend
+		jQuery("#" + chartPlaceholderId + " .jqplot-table-legend td").attr('style', '');
+		
+		jQuery("#" + chartPlaceholderId + " td.jqplot-table-legend").each(function() {
+			
+			var currentTd = jQuery(this);
+			var parentTr = currentTd.parent();
+			
+			var tooltip = parentTr.find('.act_tooltip_label');
+			parentTr.hover(function() {
+				tooltip.attr('style', '');
+				tooltip.show();
+			});
+			
+			parentTr.hover(function() {
+				tooltip.show();
+			}, function() {
+				tooltip.hide();
+			});
+			
+		});
 
 	} catch (e) {
 		if (debug) {

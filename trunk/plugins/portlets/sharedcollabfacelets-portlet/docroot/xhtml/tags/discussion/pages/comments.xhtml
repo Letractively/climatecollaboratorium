@@ -14,9 +14,13 @@
         <span>#{discussionBean.commentsCount}</span> comments
         <img src="/collaboratorium-theme/images/icon_new-comment.png" width="44" height="41" class="spc" /> 
         <a href="javascript:;" onclick='if(!deferUntilLogin()) return false; jQuery.scrollTo(jQuery("#thecomment"));'>add new comment</a>
-        <ice:commandLink actionListener="#{discussionBean.subscribe}">
+        <ice:commandLink actionListener="#{discussionBean.subscribe}" onclick='if(!deferUntilLogin()) return false;' rendered="#{not discussionBean.subscribed}">
             <img src="/collaboratorium-theme/images/icon_star.gif" class="spc" />
             Subscribe
+        </ice:commandLink>
+        <ice:commandLink actionListener="#{discussionBean.subscribe}" onclick='if(!deferUntilLogin()) return false;' rendered="#{discussionBean.subscribed}">
+            <img src="/collaboratorium-theme/images/icon_star.gif" class="spc" />
+            Unsubscribe 
         </ice:commandLink>
       </div>
       <div class="com-info bot">
