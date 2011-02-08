@@ -214,6 +214,7 @@ public class AddEditDebateItemBean {
         if (! debateBean.isSubscribed()) {
             debateBean.subscribe(null);
         }
+        debateBean.debateItemAdded(savedItem);
         hideForms();
 
     }

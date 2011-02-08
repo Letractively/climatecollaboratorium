@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    >
+    
+<ui:composition template="../templates/tagShowcaseTemplate_noform.xhtml">
+    <ui:define name="title">Migration Tools showcase</ui:define>
+    <h3>Migration Tools</h3>
+    <ice:messages />
+    <ice:form>
+        <ice:commandLink actionListener="#{migrationTool.removeQuestionFromLabels}">Remove question marks from labels</ice:commandLink>
+    </ice:form>
+</ui:composition>
+</f:view>

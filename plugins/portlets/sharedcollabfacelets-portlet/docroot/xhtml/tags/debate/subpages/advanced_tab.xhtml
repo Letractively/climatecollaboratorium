@@ -5,9 +5,18 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <ice:panelGroup rendered="#{debateBean.debatesPermissionsBean.canEditDebateMap}" styleClass="advanced">
         <div class="advanced_inner">
-            <ice:commandLink actionListener="#{debateBean.subscribe}">
-                <img src="/collaboratorium-theme/images/icon_star-small.gif" />
-                Subscribe 
+            <ice:commandLink actionListener="#{debateBean.subscribe}" onclick='if(!deferUntilLogin()) return false;'>
+            
+                <f:subview rendered="#{debateBean.subscribed}">
+                    <img src="/collaboratorium-theme/images/icon_star-small.gif" />
+                    Unsubscribe
+                </f:subview>
+                
+                <f:subview rendered="#{not debateBean.subscribed}">
+                    <img src="/collaboratorium-theme/images/icon_star-small.gif" />
+                    Subscribe
+                </f:subview>
+                
             </ice:commandLink>
             &amp;nbsp; | &amp;nbsp; 
             <f:subview rendered="#{not debateBean.showAdvanced}">

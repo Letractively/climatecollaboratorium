@@ -448,9 +448,34 @@ public class DiscussionBean {
                 extraData.append(currentThread.getId());
                 
             }
-            ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, getDiscussionId(), 
-                    null, extraData.toString(), Helper.getLiferayUser().getUserId());
+            if (isSubscribed()) {
+                // user is subscribed, usubscribe
+                ActivitySubscriptionLocalServiceUtil.deleteSubscription(Helper.getLiferayUser().getUserId(), 
+                        DiscussionCategoryGroup.class, getDiscussionId(), null, extraData.toString());
+            }
+            else {
+                ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, getDiscussionId(), 
+                        null, extraData.toString(), Helper.getLiferayUser().getUserId());
+            }
         }
+    }
+    
+    public boolean isSubscribed() throws PortalException, SystemException {
+        if (Helper.isUserLoggedIn()) {
+            StringBuilder extraData = new StringBuilder();
+            if (pageType == DiscussionPageType.CATEGORY) {
+                extraData.append(currentCategory.getId());
+            }
+            else if (pageType == DiscussionPageType.THREAD) {
+                extraData.append(currentThread.getCategoryId());
+                extraData.append(",");
+                extraData.append(currentThread.getId());   
+            }
+            return ActivitySubscriptionLocalServiceUtil.isSubscribed(
+                    Helper.getLiferayUser().getUserId(), DiscussionCategoryGroup.class, getDiscussionId(), null, extraData.toString());
+            
+        }
+        return false;
     }
     
     public Long getDiscussionId() {
