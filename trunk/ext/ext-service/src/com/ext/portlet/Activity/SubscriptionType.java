@@ -7,7 +7,7 @@ import com.ext.portlet.plans.model.PlanItem;
 public enum SubscriptionType {
     DEBATE(Debate.class.getName(), "Debate"),
     DISCUSSION(DiscussionCategoryGroup.class.getName(), "Discussion"),
-    PLAN(PlanItem.class.getName(), "Plan");
+    PLAN(PlanItem.class.getName(), "Proposal");
     
     private String className;
     private String printName;

@@ -96,12 +96,34 @@ public class ActivitySubscriptionLocalServiceUtil {
     }
 
     public static boolean isSubscribed(java.lang.Long userId,
-        java.lang.Long classNameId, java.lang.Long classPK, int type,
-        java.lang.String extraData)
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
         return getService()
                    .isSubscribed(userId, classNameId, classPK, type, extraData);
+    }
+
+    public static boolean isSubscribed(java.lang.Long userId,
+        java.lang.Class clasz, java.lang.Long classPK, java.lang.Integer type,
+        java.lang.String extraData)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().isSubscribed(userId, clasz, classPK, type, extraData);
+    }
+
+    public static void deleteSubscription(java.lang.Long userId,
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData)
+        throws com.liferay.portal.SystemException {
+        getService()
+            .deleteSubscription(userId, classNameId, classPK, type, extraData);
+    }
+
+    public static void deleteSubscription(java.lang.Long userId,
+        java.lang.Class clasz, java.lang.Long classPK, java.lang.Integer type,
+        java.lang.String extraData) throws com.liferay.portal.SystemException {
+        getService().deleteSubscription(userId, clasz, classPK, type, extraData);
     }
 
     public static void addSubscription(java.lang.Long classNameId,

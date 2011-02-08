@@ -1347,9 +1347,9 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(" AND ");
 
                 if (extraData == null) {
-                    query.append("extraData LIKE null");
+                    query.append("extraData IS NULL");
                 } else {
-                    query.append("extraData LIKE ?");
+                    query.append("extraData = ?");
                 }
 
                 query.append(" AND ");
@@ -1470,9 +1470,9 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(" AND ");
 
                 if (extraData == null) {
-                    query.append("extraData LIKE null");
+                    query.append("extraData IS NULL");
                 } else {
-                    query.append("extraData LIKE ?");
+                    query.append("extraData = ?");
                 }
 
                 query.append(" AND ");
@@ -1650,9 +1650,9 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
             query.append(" AND ");
 
             if (extraData == null) {
-                query.append("extraData LIKE null");
+                query.append("extraData IS NULL");
             } else {
-                query.append("extraData LIKE ?");
+                query.append("extraData = ?");
             }
 
             query.append(" AND ");
@@ -2129,9 +2129,9 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 query.append(" AND ");
 
                 if (extraData == null) {
-                    query.append("extraData LIKE null");
+                    query.append("extraData IS NULL");
                 } else {
-                    query.append("extraData LIKE ?");
+                    query.append("extraData = ?");
                 }
 
                 query.append(" AND ");
