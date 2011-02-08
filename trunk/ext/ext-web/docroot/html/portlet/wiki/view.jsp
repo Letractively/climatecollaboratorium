@@ -166,7 +166,9 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
         %>
 
     </c:if>
-    </div>
+    <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
+    <%= title %>
+</div>
 
 <c:if test="<%= originalPage != null %>">
 
