@@ -326,12 +326,21 @@ public class PlanItemWrapper {
     
     public void subscribe(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
-            /*
-            ActivitySubscriptionLocalServiceUtil.addSubscription(PlanActivityKeys.ALL, Helper.getLiferayUser(), wrapped.getPlanId());
-            ActivityUtil.addSubscription(PlanActivityKeys.ALL, Helper.getLiferayUser().getUserId(), wrapped.getPlanId());
-            */
-            ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, wrapped.getPlanId(), null, null, Helper.getLiferayUser().getUserId());
+            if (isSubscribed()) {
+                ActivitySubscriptionLocalServiceUtil.deleteSubscription(Helper.getLiferayUser().getUserId(), PlanItem.class, wrapped.getPlanId(), null, "");
+            }
+            else {
+                ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, wrapped.getPlanId(), null, "", Helper.getLiferayUser().getUserId());
+            }
         }
+    }
+    
+    public boolean isSubscribed() throws PortalException, SystemException {
+        
+        if (Helper.isUserLoggedIn()) {
+            return ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), PlanItem.class, wrapped.getPlanId(), null, "");
+        }
+        return false;
     }
 
     public PlanItem getWrapped() {

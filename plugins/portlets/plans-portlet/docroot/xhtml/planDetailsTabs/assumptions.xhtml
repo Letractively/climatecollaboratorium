@@ -99,17 +99,22 @@
             <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
              -->
         <div>
-            <ice:panelSeries value="#{planBean.planPositionsBean.availablePositions}" var="question">
-                <div class="posbox">
-                    <div class="flag"></div>
-                    <div class="grid"></div>
-                    <div class="posbox_wrap">
-                        <div class="q"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></div>
-                        <div class="a"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId},itemId:#{question.selectedPosition.debateItemId}">#{question.selectedPosition.debateSummary}</a></div>
-                        <div class="votes" style="min-width: 15%; width:#{question.selectedPosition.votesPercent}%;"> #{question.selectedPosition.votesCount} votes &amp;nbsp; <span>#{question.selectedPosition.votesPercent}%</span></div>
-                    </div>
-                </div>
-            </ice:panelSeries>
+            <table>
+                <ui:repeat value="#{planBean.planPositionsBean.availablePositions}" var="question">
+                    <tr class="positions_separator"></tr>
+                        <td colspan="3"></td>
+                    <tr>
+                        <td class="flag"></td>
+                        <td class="grid">&amp;nbsp;</td>
+                        <td width="653">
+                            <div class="q"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId}">#{question.debateSummary}</a></div>
+                            <div class="a"><a href="#plans=contests:#{planBean.plan.wrapped.contest.contestActive ? 'active' : 'past'},subview:issues;debate=debateId:#{question.debateId},itemId:#{question.selectedPosition.debateItemId}">#{question.selectedPosition.debateSummary}</a></div>
+                            <div class="votes" style="min-width: 20%; width:#{20 + (8 * question.selectedPosition.votesPercent) / 10}%;"> <div class="votes_amount">#{question.selectedPosition.votesCount} votes &amp;nbsp; <span>#{question.selectedPosition.votesPercent}%</span></div></div>
+                        </td>
+                
+                    </tr>
+                </ui:repeat>
+            </table>
             <!-- 
             <ice:panelGroup rendered="#{not planBean.planPositionsBean.positionsSet}" styleClass="editTriggerContainer">
                 <div class="editTrigger hidden"><span class="message">Click to edit!</span></div>
