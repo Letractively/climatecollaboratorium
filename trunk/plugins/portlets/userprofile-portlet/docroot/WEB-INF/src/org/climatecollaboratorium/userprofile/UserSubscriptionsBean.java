@@ -58,4 +58,8 @@ public class UserSubscriptionsBean {
         return subscriptions.size();
     }
 
+    public SubscriptionType getTypeFilter() {
+        return typeFilter;
+    }
+
 }
