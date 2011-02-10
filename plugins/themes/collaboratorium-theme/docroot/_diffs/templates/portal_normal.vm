@@ -149,7 +149,7 @@
     #end
     
     
-    #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn' || $parentPageName == 'about') || $pageName == 'resources' || $pageName == 'search')
+    #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn' || $parentPageName == 'about') || $pageName == 'resources' || $pageName == 'search' || $pageName == 'feedback')
         <div id="bread_bg">&nbsp;</div>
     #end
     #if ($collab_plan or ($parentPageName == 'community' or $pageName == 'community'))
@@ -181,18 +181,21 @@
     <!-- popup login -->
     <div class="popup_login" style="display: none;">
         <div class="popup_login_form">
-        <div class="closepopuplogin"><a href="javascript:;"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
+        <div class="closepopuplogin"><a href="javascript:;" ><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
         
             #if ($request.getParameter('isSigningIn')) 
                 #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
+                #set($loginMessageClass='hidden')
             #else 
-                <div class="popup_login-message">This page requires you to login...</div>                
+                #set($loginMessageClass='')
+                                
             #end
+            <div class="popup_login-message $loginMessageClass ">This page requires you to login...</div>
         <form id="signInFormPopup" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
             <table>
                 <tr>
                     <td>
-                        <p><strong>Screen name:</strong> </p>
+                        <p><strong>Screen name:</strong>&nbsp;&nbsp; </p>
                     </td>
                     <td>
                         <input name="login" class="popuplogin_input" type="text" value=""  />

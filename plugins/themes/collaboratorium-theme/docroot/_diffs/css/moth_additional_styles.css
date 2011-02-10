@@ -551,6 +551,10 @@ body .resources , .resources h2, .resources { font-family:"gloriola-web-2", Verd
     margin: 0px 0px 0px 0px;
 }
 
+.wf-active #tabs li.c {
+	padding-left: 4px;
+}
+
 input[type="submit"].comm_submit { width:66px; height:29px; margin-left:10px; text-align:center; vertical-align:middle; background:url(../images/search_btn.gif) no-repeat; border:none; cursor:pointer; color:#fff; font-size:13px; font-weight:400;}
     .wf-active input[type="submit"].comm_submit { font-size:15px; }
     
@@ -563,7 +567,6 @@ input[type="text"].comm_search { float:left; width:222px; height:25px; padding:2
 
 .community .comm_controls td { vertical-align: baseline; }
 .community .comm_controls {width: 100px;}
-.comm_controls .iceDatPgrScrBtn {padding: 2px 2px;}
 .pager .navigate {
 	margin-top: 0;
 }
@@ -822,7 +825,6 @@ div.jqplot-table-legend-swatch {
 .versions.pager {
 	padding-top: 0;
 	background-color: #DEDDCB;
-	margin-top: 5px;
 	float: none;
 	clear: both;
 	height: 32px;
@@ -830,7 +832,7 @@ div.jqplot-table-legend-swatch {
 }
 
 .versions.pager .pagerInfo {
-	
+	text-align: left;
 }
 
 .versions.pager .hide a {
@@ -876,13 +878,34 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -khtml-bor
     .wf-active .issues td.issue-votes-count { font-size:28px;}
     
 .iceDatPgrTbl td {
-	font-size: 17px;
-	padding: 0 2px;
+	padding: 0 4px 0 4px;
 }
-.iceDatPgrTbl td.iceDatPgrScrCol {
+.iceDatPgr {
+    font-size: 12px;
+}
+
+.iceDatPgr .iceDatPgrScrBtn {
 	font-weight: 600;
-	font-size: 16px;
+    padding: 0 4px 0 4px;
 }
+
+.iceOutFrmt.page {
+	font-size: 12px;
+}
+
+.pager td.pageInfo {
+	padding-top: 2px;
+}
+
+.pager .oldestNewestPager {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.paginatorControls {
+	padding-left: 20px;
+}
+
 
 .question_item-wrap {
 	position: relative;
@@ -912,7 +935,7 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -khtml-bor
 #main ul li {background: url(../images/dash.gif) no-repeat 0px 11px; }
 #nav ul li a:hover, #webContent #nav ul li.c a { background:url(../images/nav_bg2.gif) no-repeat; color:#444444; }
 
-#earth_pattern.resources { height:90px;}
+#earth_pattern.resources, #earth_pattern.feedback{ height:90px;}
 
 body .resources {
 	font-family: "gloriola-web-1","gloriola-web-2", Verdana, sans-serif;
@@ -968,11 +991,87 @@ tr.jqplot-table-legend {
 	position: relative;
 }
 
-td.jqplot-table-legend div.act_tooltip_label {width:266px; background:url(../images/actions_tooltip-top.png) no-repeat left top; padding: 0; padding-top:14px; position:absolute; left:-270px; top:-18px; z-index:5;}
+td.jqplot-table-legend div.act_tooltip_label {width:275px; background:url(../images/actions_tooltip-top.png) no-repeat left top; padding: 0; padding-top:14px; position:absolute; left:-262px; top:-20px; z-index:5;}
 td.jqplot-table-legend div.act_tt-wrap_label {background:url(../images/actions_tooltip-arrow_label.png) no-repeat 258px 8px;}
 td.jqplot-table-legend div.act_tt-txt_label {width:226px; background:url(../images/actions_tooltip-bg.png); padding:0 16px; font:11px/17px Verdana, sans-serif; color:#fff;}
 td.jqplot-table-legend div.act_tt-bot_label {background:url(../images/actions_tooltip-bottom.png) no-repeat left; height:20px; }
 
 .resources #main h2 {
 margin: 20px 0 15px 0;
+}
+
+.prev_args {
+    margin-top: 0px;
+}
+
+.load_all {
+	margin-top: 0px;
+    background-color: #DEDDCB;
+    float: none;
+    clear: both;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.load_all .load {
+    padding: 5px 25px;
+}
+
+.question_sub-arg-wrap .comments_count {
+    font-family: "gloriola-web-1","gloriola-web-2", Verdana, sans-serif;
+    font-size: 16px;
+}
+
+.arg_ref {
+    float: none;
+    width: 100%;
+}
+
+.arg_ref input {
+	width: 290px;
+}
+
+.debateItemEditControls {
+	padding-left: 27px;
+}
+.debateItemEditControls .control1 {
+	margin-top: 5px;
+	float: left;
+}
+
+.debateItemEditControls .control2 {
+	float: right;
+	margin-right: 25px;
+}
+.arg_ref a {
+	font-weight: normal;
+}
+
+.iceDatPgr .iceCmdLnk-dis {
+	display:none;
+}
+
+.popup_reg {
+    background: url("../images/popuplogin_bg.png");
+    width: 760px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+}
+
+.info.subscribe {
+	padding-top: 23px;
+}
+
+
+.mothButton {
+	background: #2498b3;
+	color: #fff;
+	padding: 9px;
+	font-weight: 800;
+	font-size: 16px;
+	border: 0;
+	font-family: "gloriola-web-1","gloriola-web-2", Verdana, sans-serif;
+	margin-left: 10px;
+	cursor: pointer;
 }

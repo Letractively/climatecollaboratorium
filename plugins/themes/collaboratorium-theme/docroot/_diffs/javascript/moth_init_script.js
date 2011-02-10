@@ -38,6 +38,7 @@ function deferUntilLogin(fn) {
         return true;
     } else {
     	jQuery('.popup_login').show();
+    	jQuery.scrollTo(jQuery(".popup_login"));
     	//var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
     	//loginregister += "&redirect=" + escape(window.location);
     	//window.location = loginregister;
@@ -55,6 +56,7 @@ function deferUntilLoginTargeted(loc) {
         window.location = loc;
     } else {
     	jQuery('.popup_login').show();
+    	jQuery.scrollTo(jQuery(".popup_login"));
     	/*
     	var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
         if (loc!=null) {
@@ -171,6 +173,8 @@ jQuery(document).ready(function() {
     
     
     jQuery(".closepopuplogin a").click(function() {
+    	jQuery(".popup_login_form .error-message").remove();
+    	jQuery(".popup_login_form .popup_login-message").show();
     	jQuery('.popup_login, .popup_forgotpassword').hide();
     });
     
