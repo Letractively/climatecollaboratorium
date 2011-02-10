@@ -16,7 +16,7 @@
     </ice:panelGroup>
     <ice:panelGroup rendered="#{not empty debateBean.debate}">
         <ui:include src="./subpages/advanced_tab.xhtml" />
-    
+        
         <table>
             <tr>
                 <td class="questions_list-wrap">
@@ -30,12 +30,13 @@
             
                         <ice:panelSeries var="argument" value="#{position.children}">
                             <ui:include src="./treeItems/argument.xhtml" />
-                
-                            <ice:panelSeries var="subargument" value="#{argument.children}">
+                            
+                            <!-- Ice panel series didn't work correctly -->
+                            <ui:repeat var="subargument" value="#{argument.children}">
                                 <ui:include src="./treeItems/subargument.xhtml" >
-                                    <ui:param name="argument" value="#{subargument}" />
+                                    <ui:param name="subargument" value="#{subargument}" />
                                 </ui:include>
-                            </ice:panelSeries>
+                            </ui:repeat>
                 
                         </ice:panelSeries>
                     </ice:panelSeries>

@@ -86,7 +86,7 @@
                 rendered="#{discussionBean.pageType == 'DISCUSSIONS' or discussionBean.pageType == 'CATEGORY' or discussionBean.pageType == 'THREAD'}"
                 onclick='if(!deferUntilLogin()) return false;'>
                 <f:subview rendered="#{discussionBean.subscribed}">
-                    <img src="/collaboratorium-theme/images/icon_star-small.gif" />
+                <img src="/collaboratorium-theme/images/unsubscribe_small.png" />
                     Unsubscribe
                 </f:subview>
                 <f:subview rendered="#{not discussionBean.subscribed}">

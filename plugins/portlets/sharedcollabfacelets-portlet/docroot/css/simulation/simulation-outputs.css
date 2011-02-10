@@ -235,3 +235,32 @@ ul.ui-tabs-nav li.ui-state-active a{
 .chartMessagePlaceholder li {
     color: #571B22;
 }
+
+.wf-active .buttbdr a.runSimulationButton,
+.buttbdr a.runSimulationButton {
+	padding: 7px 11px 0px 6px;
+}
+.runSimulationButtonHighlight {
+	padding: 1px;
+}
+
+.runTheModelToSee_container {
+	height: 520px;
+}
+
+.runTheModelToSee {
+	padding: 230px 40px;
+}
+
+.runTheModelToSee_box {
+	border: 1px solid #b9b8b3;
+	line-height: 22px;
+	font-size: 16px;
+	padding: 10px 7px;
+	text-align: center;
+}
+
+
+.chartContainer {
+	padding-right: 12px;
+}

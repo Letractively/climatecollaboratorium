@@ -22,12 +22,13 @@
         var url = jQuery('#debateItemLinkUrl').val();
         var isValid = !jQuery.trim(text) == '' && !jQuery.trim(url) == '';
         if (isValid) {
-            var prevVal = jQuery('.debateItemContent').val();
+            var prevVal = jQuery('.debateItemContentTextarea').val();
             var linkCode = "<a href=\"" + url + "\">" + text + "</a> ";
 
-            jQuery('.debateItemContent').val(prevVal + linkCode);
-            //jQuery(caller).parent().parent().parent().parent().parent().dialog('destroy');
-            jQuery('#addLinkDialog').hide();
+            jQuery('.debateItemContentTextarea').val(prevVal + linkCode);
+            var text = jQuery('#debateItemLinkText').val('');
+            var url = jQuery('#debateItemLinkUrl').val('http://');
+            jQuery('#addLinkForm, #addLinkToogle').toggle();
         }
         else {
             alert('Provided values are invalid, all fields should contain values');
