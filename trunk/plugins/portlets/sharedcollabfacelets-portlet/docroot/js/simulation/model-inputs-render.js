@@ -75,7 +75,7 @@ function oneOfValuesChangedEvent() {
 		jQuery(".runSimulationButton").click(runSimulationOnclick);
 	}
 	jQuery(".runSimulationButton").removeClass('buttDis');
-	jQuery(".runSimulationButton").effect("highlight", {}, 2000);
+	jQuery(".runSimulationButtonHighlight").effect("highlight", {}, 2000);
 	jQuery(".simulationInputsStatus").addClass("valueChanged");
 }
 
@@ -782,7 +782,9 @@ function showTabContentsById(id, trigger) {
 		renderSingleChart(outputDef);
 		outputDef.addClass("ui-state-processed");
 		//makeInfoBoxesVisible('output');
-		outputDef.find('.chartContainer').attr('style', '').height('330');
+		var chartContainer = outputDef.find('.chartContainer');
+		chartContainer.attr('style', '');
+		chartContainer.height(chartContainer.height() + 15);
 		
 
 	}

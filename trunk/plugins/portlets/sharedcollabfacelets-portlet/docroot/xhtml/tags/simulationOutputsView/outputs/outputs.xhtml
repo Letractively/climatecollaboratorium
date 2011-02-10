@@ -5,15 +5,29 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:jstl="http://java.sun.com/jsp/jstl/functions" >
-<div class="act#{styleClass}_right impactsContent">
     <f:subview rendered='#{not simulationBean.embeddedEditing}'> 
         <div class="act_charts-top"></div>
     </f:subview>
     <f:subview rendered='#{simulationBean.embeddedEditing}'> 
         <div class="act_charts-top2"></div>
     </f:subview>
+<div class="act#{styleClass}_right  impactsContent">
     
     <div class="act#{styleClass}_charts-bot"></div>
+    
+  <f:subview rendered='#{empty simulationBean.scenario}'>
+    <div class="actions#{styleClass}_chart">
+        <div class="runTheModelToSee_container">
+            <div class="runTheModelToSee">
+                <div class="runTheModelToSee_box">
+                    Use the "RUN the model" button to show results
+                </div>
+            </div>
+        </div>
+    </div>
+  
+  </f:subview>
+  <f:subview rendered='#{not empty simulationBean.scenario}'>
     <div class="actions#{styleClass}_chart-head">
         <ice:panelGroup styleClass="actions#{styleClass}_chart-head-bg" rendered='#{not empty simulationBean.scenario}'>
             <ui:repeat value="#{simulationBean.display.outputs}" var="output">
@@ -62,5 +76,6 @@
         
         </div>
     </div>
+  </f:subview>
 </div>        
 </f:view>

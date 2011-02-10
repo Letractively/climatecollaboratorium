@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 public class AddEditDebateItemBean {
+    private static final int DEFAULT_ROWS_TO_SHOW = 4;
     private DebateItem item;
     private boolean adding;
     private boolean editing;
@@ -46,6 +47,9 @@ public class AddEditDebateItemBean {
     private ThemeDisplay td = Helper.getThemeDisplay();
     private DebateCategoryWrapper debateCategory;
     private Long weight = 0L;
+    private int rowsToShow = DEFAULT_ROWS_TO_SHOW;
+    private int versionsAvailable = 0;
+    private boolean showingAllVersions;
     
     private DebatesPermissionsBean permissions;
 
@@ -54,11 +58,16 @@ public class AddEditDebateItemBean {
     }
     public void setItem(DebateItem item) throws SystemException {
         this.item = item;
+        rowsToShow = DEFAULT_ROWS_TO_SHOW;
+        showingAllVersions = false;
+        versionsAvailable = item.getCompleteHistory().size();
         type = DebateItemType.valueOf(item.getDebatePostType());
         selectedHistoryVersion = item;
         setReferences(item.getReferences());
         setEditedItem(selectedHistoryVersion);
     }
+    
+    
 
     public boolean isAdding() {
         return adding;
@@ -161,7 +170,7 @@ public class AddEditDebateItemBean {
                 Debate debate = debateBean.getDebate();
                 // USER ID has to be taken from the session
                 savedItem = debate.getCurrentRoot().addChild(title, content, userId, type.toString(), references, weight == null ? 0 : weight);
-                debateBean.debateItemAdded(savedItem);
+                //debateBean.debateItemAdded(savedItem);
                 
                 /* activity */
                 /*
@@ -176,7 +185,7 @@ public class AddEditDebateItemBean {
             else {
                 DebateItem parent = debateBean.getCurrentItem().getItem();
                 savedItem = parent.addChild(title, content, userId, type.toString(), references, weight);
-                debateBean.debateItemAdded(savedItem);
+                //debateBean.debateItemAdded(savedItem);
                 Debate debate = savedItem.getDebate();
 
                 Long[] itemsIdsArray = DebatesUtil.getIdsOnDebatePath(savedItem);                
@@ -187,6 +196,7 @@ public class AddEditDebateItemBean {
                         Debate.class.getName(), savedItem.getDebateId(), DebateActivityKeys.ADD_ARGUMENT.id(), 
                         ActivityUtil.getExtraDataForIds(itemsIdsArray), 0);
             }
+            debateBean.debateItemAdded(savedItem);
         }
         else {
             savedItem = item.update(title, content, references, userId, weight == null ? 0 : weight);
@@ -214,7 +224,6 @@ public class AddEditDebateItemBean {
         if (! debateBean.isSubscribed()) {
             debateBean.subscribe(null);
         }
-        debateBean.debateItemAdded(savedItem);
         hideForms();
 
     }
@@ -282,6 +291,11 @@ public class AddEditDebateItemBean {
         
         references.add(reference);
         wrappedReferences.add(new DebateItemReferenceWrapper(reference, this));
+
+        // add reference
+        item = item.update(title, content, references, Helper.getLiferayUser().getUserId(), weight == null ? 0 : weight);
+        
+        
         referenceUrl = null;
         referenceText = null;
     }
@@ -396,6 +410,23 @@ public class AddEditDebateItemBean {
     
     public Date getHistoryItemDate() {
         return selectedHistoryVersion.getUpdated();
+    }
+    
+    public void showAllVersions(ActionEvent e) {
+        rowsToShow = item.getCompleteHistory().size();
+        showingAllVersions = true;
+    }
+    
+    public int getRowsToShow() {
+        return rowsToShow;
+    }
+    
+    public boolean isShowingAllVersions() {
+        return showingAllVersions;
+    }
+    
+    public int getVersionsAvailable() {
+        return versionsAvailable;
     }
 
 }
