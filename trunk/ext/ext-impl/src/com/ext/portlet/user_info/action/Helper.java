@@ -53,6 +53,11 @@ public class Helper {
         for (String key: parameters.keySet()) {
             sb.append("&" + key + "=" + URLEncoder.encode(parameters.get(key), "UTF-8"));
         }
+        
+        if (locationAndHash.length > 1) {
+            sb.append("#");
+            sb.append(locationAndHash[1]);
+        }
 
         redirect = sb.toString();
         SessionErrors.clear(actionRequest);

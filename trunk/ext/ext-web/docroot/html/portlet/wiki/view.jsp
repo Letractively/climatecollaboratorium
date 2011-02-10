@@ -143,8 +143,6 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 </h1>
 
     <div id="bread">
-        <a href="/web/guest/about">About</a>
-        <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
         <a href="/web/guest/resources">Wiki</a>
 <c:if test="<%= Validator.isNotNull(wikiPage.getParentTitle()) %>">
         

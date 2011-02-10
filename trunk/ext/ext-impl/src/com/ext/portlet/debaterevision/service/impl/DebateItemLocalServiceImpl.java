@@ -24,11 +24,13 @@ public class DebateItemLocalServiceImpl extends DebateItemLocalServiceBaseImpl {
     private static Object voteSynchro = new Object();
 
     public List<DebateItem> getChildren(DebateItem debateItem) {
+        System.out.println(debateItem.getDebateItemId() + ".\t" + debateItem.getDebatePostType() + "\t" + debateItem.getDebateSummary() + "\t" + debateItem.getDebateVersion() + "\t" + debateItem.getTreeVersion());
         List<DebateItem> result = DebateItemFinderUtil.findByParentInVersion(debateItem.getDebateVersion(), debateItem
                 .getDebateItemId());
         for (DebateItem item : result) {
             item.setDebateVersion(debateItem.getDebateVersion());
         }
+        System.out.println("\t" + result);
         return result;
     }
 

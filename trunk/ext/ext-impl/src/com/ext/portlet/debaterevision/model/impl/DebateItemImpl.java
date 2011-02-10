@@ -76,7 +76,6 @@ public class DebateItemImpl extends DebateItemModelImpl implements DebateItem {
     }
 
 
-
     // there should be a check for each of the below to make sure we are using only the most recent version of the tree
 
 
