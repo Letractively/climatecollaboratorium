@@ -20,7 +20,7 @@
       </div>
       
       <ice:form>
-      <ice:dataTable id="messagesTable" rows="20" styleClass="colab" value="#{messagingBean.data}" var="message" rowClasses="t,nt">
+      <ice:dataTable id="messagesTable" rows="2" styleClass="colab" value="#{messagingBean.data}" var="message" rowClasses="t,nt">
             <ice:column rendered="#{messagingBean.type == 'INBOX'}">
                 <ice:selectBooleanCheckbox value="#{message.selected}" />
             </ice:column>
@@ -57,6 +57,7 @@
                 </ice:outputText>
             </ice:column>
       </ice:dataTable>
+      <br />
             <table style="float: right;">
                 <tr>
                     <td>
@@ -76,19 +77,19 @@
                                 </f:subview>
                             </script>
                 </td>     
-                <td>
-                    <ice:dataPaginator rendered="true" for="messagesTable" paginator="true" paginatorMaxPages="0" styleClass="comm_controls" style="display: inline;"> 
+                <td class="paginatorControls">
+                    <ice:dataPaginator rendered="true" for="messagesTable" paginator="true" paginatorMaxPages="5" styleClass="comm_controls" style="display: inline;"> 
                         <f:facet name="first" rendered="true">
-                            <ice:panelGroup />
+                            <ice:panelGroup >First</ice:panelGroup>
                         </f:facet>
                         <f:facet name="last" rendered="true">
-                            <ice:panelGroup />
+                            <ice:panelGroup styleClass="">Last</ice:panelGroup>
                         </f:facet>
                         <f:facet name="previous" rendered="true">
-                            <ice:panelGroup styleClass="controll_prev navigate">PREV</ice:panelGroup>
+                            <ice:panelGroup styleClass="pagerPrev">&lt;</ice:panelGroup>
                         </f:facet>
                         <f:facet name="next">
-                            <ice:panelGroup styleClass="navigate">NEXT</ice:panelGroup>
+                            <ice:panelGroup styleClass="">Next &gt;</ice:panelGroup>
                         </f:facet>
                     </ice:dataPaginator>
                 </td>

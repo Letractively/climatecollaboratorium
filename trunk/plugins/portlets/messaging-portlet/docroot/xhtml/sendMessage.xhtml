@@ -29,9 +29,9 @@
                 <ice:inputTextarea rows="6" cols="30" styleClass="profile_about required" value="#{sendMessageBean.content}"/><br />
             </div>
             <div>
-                <input type="button" onclick='sendMessage()' value="SEND" />
+                <input type="button" onclick='sendMessage()' value="SEND" class="mothButton"/>
                 <ice:commandLink value="Send" actionListener="#{sendMessageBean.send}" styleClass="sendMessageLink hidden"/>
-                <ice:commandButton value="Cancel" actionListener="#{sendMessageBean.cancel}" styleClass="cancelMessage" />
+                <ice:commandButton value="Cancel" actionListener="#{sendMessageBean.cancel}" styleClass="cancelMessage mothButton" />
             </div>
         </ice:form>
     </div>
