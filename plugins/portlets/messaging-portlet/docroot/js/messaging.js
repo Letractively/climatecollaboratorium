@@ -73,9 +73,18 @@ function initSendMessageForm(users, usersMapParam) {
     		//jQuery("#userSelectorInput").show();
     	}, 200);
     });
-    
+
     var input = jQuery("#userSelectorInput").autoSuggest(users, {selectedItem: "username", searchObj: "username", startText: 'Begin typing for a list' });
     jQuery(".composeMessageForm").validate();
+    
+    jQuery('.messageReceipients').keypress(function(e) {
+    	 var code = (e.keyCode ? e.keyCode : e.which);
+    	 if (code == 13) {
+    		 // enter pressed ignore
+    		 return false;
+    	 }
+    	 
+    });
     
 }
 
