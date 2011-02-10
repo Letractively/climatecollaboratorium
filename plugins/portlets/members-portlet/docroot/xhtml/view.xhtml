@@ -92,29 +92,29 @@
         <ice:panelGroup rendered="#{membersBean.hasMembers}" styleClass="pager">
             <table style="float: right;">
                 <tr>
-                    <td>
+                    <td class="pageInfo">
                         <ice:dataPaginator for="searchTable" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" 
                                 firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" 
                                 pageIndexVar="pageIndex" >
                             <ice:outputFormat value="Page {0} of {1}" styleClass="page" escape="false">
-                                <f:param value="#{firstRowIndex}" />
-                                <f:param value="#{lastRowIndex}" />
+                                <f:param value="#{pageIndex}" />
+                                <f:param value="#{pageCount}" />
                             </ice:outputFormat>
                         </ice:dataPaginator>
                 </td>     
                 <td>
-                    <ice:dataPaginator rendered="true" for="searchTable" paginator="true" paginatorMaxPages="0" styleClass="comm_controls" style="display: inline;"> 
+                    <ice:dataPaginator rendered="true" for="searchTable" paginator="true" paginatorMaxPages="5" styleClass="comm_controls" style="display: inline;"> 
                         <f:facet name="first" rendered="true">
-                            <ice:panelGroup />
+                            <ice:panelGroup >First</ice:panelGroup>
                         </f:facet>
                         <f:facet name="last" rendered="true">
-                            <ice:panelGroup />
+                            <ice:panelGroup styleClass="">Last</ice:panelGroup>
                         </f:facet>
                         <f:facet name="previous" rendered="true">
-                            <ice:panelGroup styleClass="controll_prev navigate">PREV</ice:panelGroup>
+                            <ice:panelGroup styleClass="pagerPrev">&lt;</ice:panelGroup>
                         </f:facet>
                         <f:facet name="next">
-                            <ice:panelGroup styleClass="navigate">NEXT</ice:panelGroup>
+                            <ice:panelGroup styleClass="">Next &gt;</ice:panelGroup>
                         </f:facet>
                     </ice:dataPaginator>
                 </td>
