@@ -143,8 +143,8 @@
       <div class="grid-gray">
         <f:subview rendered="#{planBean.plan.subscribed}">
         
-            <div class="icon"><img src="/collaboratorium-theme/images/icon_star.gif" /></div>
-            <div class="info">
+            <div class="icon"><img src="/collaboratorium-theme/images/unsubscribe.png" /></div>
+            <div class="info subscribe">
                 <ice:commandLink actionListener="#{planBean.plan.subscribe}" onclick="if(!deferUntilLogin()) return false;" >Unubscribe</ice:commandLink>
             </div>
             
@@ -153,7 +153,7 @@
         <f:subview rendered="#{not planBean.plan.subscribed}">
         
             <div class="icon"><img src="/collaboratorium-theme/images/icon_star.gif" /></div>
-            <div class="info">
+            <div class="info subscribe">
                 <ice:commandLink actionListener="#{planBean.plan.subscribe}" onclick="if(!deferUntilLogin()) return false;" >Subscribe</ice:commandLink>
             </div>
         </f:subview>

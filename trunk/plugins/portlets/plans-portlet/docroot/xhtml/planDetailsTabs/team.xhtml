@@ -79,7 +79,7 @@
 
       </div>
       
-                <ice:dataTable value="#{planBean.membershipBean.planMembersHalf2}" var="member" styleClass="colab" rowClasses="t,nt" columnClasses="b name,b">
+                <ice:dataTable value="#{planBean.membershipBean.planMembersHalf2}" rendered="#{fn:length(planBean.membershipBean.planMembersHalf2) > 0}" var="member" styleClass="colab" rowClasses="t,nt" columnClasses="b name,b">
                     <ice:column>
                         <f:facet name="header">Name</f:facet>
                         <collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}"/>
