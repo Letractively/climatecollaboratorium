@@ -23,7 +23,6 @@ public class DebateImpl extends DebateModelImpl implements Debate {
     public DebateItem getCurrentRoot() {
         DebateItem item = DebateLocalServiceUtil.getCurrentRoot(this);
         item.setDebateVersion(this.getTreeVersion());
-        System.out.println("Current root dla, tree version: " + getTreeVersion() + "\titem,debateVersion: " + item.getDebateVersion());
         return item;
     }
 
