@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
@@ -57,6 +58,7 @@ public class PlanBean {
     // this is ver bad solution, we should use event bus for communication
     // between beans instead of direct references
     private PlansIndexBean plansIndexBean;
+    private org.climatecollaboratorium.facelets.simulations.SimulationBean externalSimulationBean;
 
     static {
 
@@ -90,7 +92,7 @@ public class PlanBean {
 
     }
 
-    public void init(NavigationEvent event) throws SystemException, PortalException {
+    public void init(NavigationEvent event) throws SystemException, PortalException, IllegalUIConfigurationException {
         Map<String, String> parameters = event.getParameters(PLANS_SOURCE);
         if (parameters == null) {
             selectedTabIndex = getDefaultTab();
@@ -117,6 +119,7 @@ public class PlanBean {
             if (planItem.getAllPlanModelRuns().get(0).getVersion() == 0) {
                 if (!simulationBean.isEditing()) {
                     simulationBean.edit(null);
+                    externalSimulationBean.editActions(null);
                 }
                 planOpenForEditing = true;
             }
@@ -339,6 +342,11 @@ public class PlanBean {
     
     public DiscussionBean getCommentsBean() {
         return commentsBean;
+    }
+
+    public void setExternalSimulationBean(org.climatecollaboratorium.facelets.simulations.SimulationBean externalSimulationBean) {
+        this.externalSimulationBean = externalSimulationBean;
+        
     }
         
 }

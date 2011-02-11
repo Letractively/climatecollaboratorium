@@ -8,10 +8,12 @@ import java.util.Map;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.exceptions.BeanInitializationException;
 
 import com.ext.portlet.contests.NoSuchContestPhaseException;
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -27,6 +29,7 @@ public class NavigationBean {
     private IssuesBean issuesBean;
     private CreatePlanBean createPlanBean;
     private ContestsBean contestsBean;
+    private SimulationBean externalSimulationBean;
     
     private EventBus eventBus;
     
@@ -110,6 +113,8 @@ public class NavigationBean {
                     _log.error("Can't init plan related beans", e);
                 } catch (SystemException e) {
                     _log.error("Can't init plan related beans", e);
+                } catch (IllegalUIConfigurationException e) {
+                    _log.error("Can't init plan related beans", e);
                 }
                 
             }
@@ -148,5 +153,14 @@ public class NavigationBean {
 
     public ContestsBean getContestsBean() {
         return contestsBean;
+    }
+
+    public void setExternalSimulationBean(SimulationBean externalSimulationBean) {
+        this.externalSimulationBean = externalSimulationBean;
+        planBean.setExternalSimulationBean(externalSimulationBean);
+    }
+
+    public SimulationBean getExternalSimulationBean() {
+        return externalSimulationBean;
     }
 }
