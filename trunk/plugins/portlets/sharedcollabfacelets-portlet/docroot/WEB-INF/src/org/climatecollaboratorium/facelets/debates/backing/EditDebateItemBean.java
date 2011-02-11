@@ -168,7 +168,6 @@ public class EditDebateItemBean implements SelectionListener<DebateItem>, Render
             } else if (type.equals(DebateItemType.POSITION)) {
                 Debate debate = debateDetailsBean.getDebate();
                 // USER ID has to be taken from the session
-                System.out.println("debate.getCurrentRoot(): " + debate.getCurrentRoot());
                 savedItem = debate.getCurrentRoot().addChild(title, content, userId, type.toString(), references, weight == null ? 0 : weight);
                 debateDetailsBean.debateItemAdded(savedItem);
                 

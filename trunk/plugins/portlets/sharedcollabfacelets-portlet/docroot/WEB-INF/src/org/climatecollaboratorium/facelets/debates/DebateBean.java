@@ -252,9 +252,7 @@ public class DebateBean {
 
     public void debateItemAdded(DebateItem savedItem) throws SystemException {
         toggleEditing(null);
-        System.out.println("version before: " + debate.getTreeVersion());
         debate = DebateLocalServiceUtil.findLastVersion(debate.getDebateId());
-        System.out.println("version after: " + debate.getTreeVersion());
     }
     
     public AddEditDebateItemBean getAddEditBean() {
