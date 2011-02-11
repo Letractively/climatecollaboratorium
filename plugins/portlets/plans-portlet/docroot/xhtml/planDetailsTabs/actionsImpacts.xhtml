@@ -15,6 +15,15 @@
         </script>
     </ice:panelGroup>
     
+    <ice:panelGroup styleClass='hidden'>
+    
+        <script type="text/javascript">
+            // #{simulationBean.display}
+            Collab.nav.unblock();
+        </script>
+        
+    </ice:panelGroup>
+    
     <ui:decorate template="breadcrumb.xhtml">
         <ui:define name="breadcrumbButtons">
             <ice:panelGroup styleClass="breadbutt" rendered="#{permissions.canEdit and simulationBean.embeddedEditing}">
