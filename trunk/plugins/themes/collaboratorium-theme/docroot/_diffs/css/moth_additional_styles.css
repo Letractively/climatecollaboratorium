@@ -1075,3 +1075,7 @@ margin: 20px 0 15px 0;
 	margin-left: 10px;
 	cursor: pointer;
 }
+.wf-active #tabs li:hover { margin-right: 4px;}
+.wf-active #tabs li.c { margin-right: 4px;}
+.act_charts-top { left: 250px; }
+..acthead-r.edit {padding-bottom: 22px;}
