@@ -24,13 +24,11 @@ public class DebateItemLocalServiceImpl extends DebateItemLocalServiceBaseImpl {
     private static Object voteSynchro = new Object();
 
     public List<DebateItem> getChildren(DebateItem debateItem) {
-        System.out.println(debateItem.getDebateItemId() + ".\t" + debateItem.getDebatePostType() + "\t" + debateItem.getDebateSummary() + "\t" + debateItem.getDebateVersion() + "\t" + debateItem.getTreeVersion());
         List<DebateItem> result = DebateItemFinderUtil.findByParentInVersion(debateItem.getDebateVersion(), debateItem
                 .getDebateItemId());
         for (DebateItem item : result) {
             item.setDebateVersion(debateItem.getDebateVersion());
         }
-        System.out.println("\t" + result);
         return result;
     }
 
@@ -51,23 +49,13 @@ public class DebateItemLocalServiceImpl extends DebateItemLocalServiceBaseImpl {
     public void voteForDebateItem(DebateItem debateItem, Long userId) throws PortalException, SystemException {
         // if user has voted for other position, unvote
         synchronized (voteSynchro) {
-            /*System.out.println("\n\nGłosuje na: " + debateItem.getDebateItemId());
-            System.out.println("przed votes count: " + DebateItemVoteLocalServiceUtil.getVotesByUserId(userId).size());
-            */
+
             for (DebateItem position : debateItem.getParent().getChildren()) {
-                //System.out.println("czy glosowalem na: " + position.getDebateItemId() + ": " + hasUserVotedForItem(position, userId));
                 if (hasUserVotedForItem(position, userId)) {
-                    //System.out.println("usuwam glos: " + position.getDebateItemId());
                     unvoteDebateItem(position, userId);
                 }
             }
-            /*
-            System.out.println("po votes count: " + DebateItemVoteLocalServiceUtil.getVotesByUserId(userId).size());
-            for (DebateItemVote vote: DebateItemVoteLocalServiceUtil.getVotesByUserId(userId)) {
-                System.out.println(" >>>>> " + vote.getDebateItemId());
-            }
-            */
-            
+
             
             // add vote
             long voteId = CounterLocalServiceUtil.increment(DebateItemVote.class.getName());
@@ -94,7 +82,6 @@ public class DebateItemLocalServiceImpl extends DebateItemLocalServiceBaseImpl {
             }
             DebateItemVoteLocalServiceUtil.flush();
             
-            //System.out.println("removed: " + debateItem.getDebateItemId() + "\tczy sie udalo?: " + hasUserVotedForItem(debateItem, userId));
         }
     }
 
