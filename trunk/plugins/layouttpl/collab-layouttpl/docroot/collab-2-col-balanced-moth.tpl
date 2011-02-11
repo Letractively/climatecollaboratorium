@@ -36,8 +36,8 @@
                                 <li><a href="/c/portal/logout">Sign out</a></li>
                                 <li><a href="/web/guest/myprofile">My profile</a></li>
                             #else 
-                                <li><a href="/web/guest/loginregister?p_p_id=loginregister" onclick="modifyLoginRegisterURL(this);">Register</a></li>
-                                <li><a href="/web/guest/loginregister?p_p_id=loginregister" onclick="modifyLoginRegisterURL(this);">Sign In</a></li>
+                                <li><a href="javascript:return false;" class="openreg">Register</a></li>
+                                <li><a href="javascript:return false;" onclick="deferUntilLogin();">Sign In</a></li>
                             #end
                         </ul>
                     </div>
