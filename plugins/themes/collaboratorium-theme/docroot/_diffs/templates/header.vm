@@ -115,7 +115,7 @@
             <div class="popupreg_terms-right">By registering for this site, you agree to abide by the <a href="http://cci.mit.edu/research/climatehelp/CollaboratoriumTermsUse.html">Terms of Use</a></div>
           </div>
           <div class="clearfix"></div>
-          <div class="popupreg_submit_wrap"><input type="submit" name="submit" value="" onclick="addRedirectBeforeSubmit('createAccountForm')" /></div>
+          <div class="popupreg_submit_wrap"><input type="submit" name="submit"  class="popupreg_submit closereg" value="" onclick="addRedirectBeforeSubmit('createAccountForm')" /></div>
         </form>
       </div>
     </div>
