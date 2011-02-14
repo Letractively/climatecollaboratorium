@@ -21,9 +21,9 @@
                         Optional comment:
                         <ice:inputTextarea value="#{planBean.membershipBean.comment}" styleClass="requestComment"/>
                     </div>
-                    <ice:commandButton value="Request membership" styleClass="requestMembershipSubmitButton"
-                                       actionListener="#{planBean.membershipBean.requestMembership}"/>
-                    <ice:commandButton value="Cancel" actionListener="#{planBean.membershipBean.toggleRequestingOrJoin}"/>
+                    <ice:commandButton value="REQUEST MEMBERSHIP"
+                                       actionListener="#{planBean.membershipBean.requestMembership}" styleClass="requestMembershipSubmitButton mothButton"/>
+                    <ice:commandButton value="CANCEL" actionListener="#{planBean.membershipBean.toggleRequestingOrJoin}" styleClass="mothButton"/>
 
                 </ice:panelGroup>
                 <ice:panelGroup rendered="#{planBean.plan.hasRequestedMembership}">

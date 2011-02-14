@@ -15,9 +15,11 @@
                         edit page
                     </ice:commandLink>
                 </ice:panelGroup>
-                <div class="breadbutt">
-                    <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " /> 
-                    <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden historyHide">hide history</span><span class="versionsTrigger">show history</span></a>
+                <div class="breadbutt"> 
+                    <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();">
+                        <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " />
+                        <span class="hidden historyHide">hide history</span><span class="versionsTrigger">show history</span>
+                    </a>
                 </div>
             </ui:define>
         </ui:decorate>
@@ -181,6 +183,7 @@
             
             </div>
         </div>
+        <!-- 
         <div class="icon"><img src="/collaboratorium-theme/images/icon_blue-flag.gif" width="27" height="28" /></div>
         <div class="info">
             <div class="infohead">
@@ -190,6 +193,7 @@
                 <collab:planLink contestId="#{contest.contestId}" planId="#{planBean.planId}" text="View #{planBean.plan.positionsCount} positions..." hashString="plans=tab:positions" />
           </div>
                 </div>
+        -->
          <div class="clearfix"></div>        
      </div>
 

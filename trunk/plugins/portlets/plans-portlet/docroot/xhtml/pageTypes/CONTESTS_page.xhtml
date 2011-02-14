@@ -25,12 +25,14 @@
 <ui:define name="plans_content">
 
 
-<ice:panelSeries value="#{contests.contests}" var="singleContest">
+<ice:panelSeries value="#{contests.contests}" var="singleContest" varStatus="status">
     <ice:form>
 
 
         <ice:panelGroup styleClass="protitle" rendered="#{not singleContest.editor.editing}">
-            <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
+            <f:subview rendered="#{status.first}">
+                <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
+            </f:subview>
             <h2>
                 <collab:contestLink contestId="#{singleContest.contestId}" text="#{singleContest.shortName}" />
             </h2>
@@ -77,7 +79,7 @@
                     <collab:contestLink contestId="#{singleContest.contestId}" hashString="plans=subview:issues" text="&lt;span &gt; DEBATE &lt;/span&gt; the issues" />
                 </div>
                 <div class="buttbdr">
-                    <collab:contestLink contestId="#{singleContest.contestId}" hashString="plans=subview:model" text="&lt;span &gt;Run&lt;/span&gt; the model" />
+                    <collab:contestLink contestId="#{singleContest.contestId}" hashString="plans=subview:model" text="&lt;span &gt;RUN&lt;/span&gt; the model" />
                 </div>
                 
             </div>
@@ -197,9 +199,9 @@
                 </ui:decorate>
             
 
-            <div class="underLinks viewAllProposals">
+            <div class="underLinks viewall">
             
-                <collab:contestLink contestId="#{singleContest.contestId}" text="View all proposals"/>
+                <collab:contestLink contestId="#{singleContest.contestId}" text="View all proposals &amp;raquo;" />
             </div>
 
     </ice:form>

@@ -71,9 +71,6 @@ input[type="submit"].prominantButton.createNewPlanButton {
     white-space:normal;
 }
 
-.plansContent {
-    background:none repeat scroll 0 0 #F9F9F8;
-}
 
 /** INLINE HELP **/
 
@@ -109,11 +106,6 @@ a.helpMessageTrigger.helpHidden {
     float:left;
     margin-left:30px;
   
-}
-
-.contestContent .debatelist {
-  margin-top:20px;
-  padding-top:10px;
 }
 
 .contestContent a.helpMessageTrigger.helpHidden {
@@ -570,17 +562,17 @@ table.mainTabs > tbody > tr:first-child table .MidBtm {
 
 
 table.mainTabs {
-	margin-top: -34px;
+	margin-top: -33px;
 }
 
 table.mainTabs .MidMid a {
-	background:url(/collaboratorium-theme/images/tab_off.gif) no-repeat #2498b3; height:20px; padding:7px 12px 3px 12px; margin:3px 6px 0 0; display:inline-block; font-size:13px; font-weight:600; color:#fff;
+	background:url(/collaboratorium-theme/images/tab_off.gif) no-repeat #2498b3; height:17px; padding:10px 12px 3px 12px; margin:3px 6px 0 0; display:inline-block; font-size:13px; font-weight:600; color:#fff;
      
 }
 
 table.mainTabs .icePnlTbOn a,
 table.mainTabs .icePnlTbOver a {
- background:url(/collaboratorium-theme/images/tab_on.png) no-repeat right #fff; height:23px; padding:10px 16px 0 8px; margin:0 6px 0 0; color:#2498b3;
+ background:url(/collaboratorium-theme/images/tab_on.png) no-repeat right #fff; height:20px; padding:13px 16px 0 8px; margin:0 6px 0 0; color:#2498b3;
 }
 
 /**
@@ -861,14 +853,6 @@ th.voteForPlan {
 	display: block;
 }
 
-.popup-info-box {
-    width: 250px;
-    background:none repeat scroll 0 0 #F5F5F5;
-    border:thin solid #DEDCDB;
-    padding:5px;
-    z-index: 1001;
-}
-
 
 .plansTable .iceCmdSrtHdr {
 	height: auto;
@@ -1088,24 +1072,6 @@ padding-top:20px;
 
 /** debate summary override**/
 
-.singleDebateSummary {
-
-font-size:1.2em;
-
-margin-top: 5px;
-    margin-bottom:10px;
-
-}
-
-.singleDebateSummary h3 {
-    font-size:23px;
-}
-
-.plansContent .singleDebateSummary .debateDetail {
-    background:none repeat scroll 0 0 #FFFFFF;
-margin:10px 0;
-padding:10px;
-}
 
 
 div.singleDebatePositions {
