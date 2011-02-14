@@ -5,6 +5,16 @@
     margin-left: 10px;
 }
 
+.about #nav ul,
+.about #nav ol,
+.resources #nav ul,
+.resources #nav ol,
+.about #nav li,
+.resources #nav li {
+	margin-left: 0;
+}
+
+
 .about li,
 .resources li {
     margin-left: 10px;
@@ -12,7 +22,6 @@
 
 /** ABOUT TAB **/
  div.about.intro.themed-content {
-    background:#F9F9F8;
      padding: 0px 70px;
      font-size:2.2em;
      font-family:Myriad Pro, Helvetica, sans-serif;
@@ -22,7 +31,6 @@
 }
 
 div.about.subtext.themed-content {
-    background:#F9F9F8;
      padding: 30px 70px;
      padding-bottom: 0px;
      font-size:1.3em;

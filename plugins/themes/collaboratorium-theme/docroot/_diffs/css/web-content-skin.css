@@ -15,7 +15,6 @@
 div.tabbed-content {
     border:15px solid;
     border-color: #E3DFD7;
-    background:#F9F9F8;
     height:350px;
     color: #80807E;
    
@@ -171,7 +170,6 @@ div.themed-content {
 
 div.community.themed-content.global {
     padding:10px;
-    background:#F9F9F8;
     font-size:1.6em;
     
 }
@@ -241,7 +239,6 @@ div.othermembers td#column-2 div{
 ,
 div.othermembers div#layout-column_column-1 {
     padding:10px;
-    background:#F9F9F8;
 
 }
 
@@ -370,18 +367,12 @@ p.news-link {
 
 /** news **/
 
-div.contentContainer.community div#content-wrapper,
-div.contentContainer.resources {
-     background:#F9F9F8;
-}
-
 
 /** CONTESTS TAB **/
 
 div.contests.themed-content {
     border:15px solid;
     border-color: #E3DFD7;
-    background:#F9F9F8;
     padding-left:70px;
 padding-right:70px;
 padding-top:50px;
@@ -414,7 +405,6 @@ margin-top:1em;
      border-right:15px solid;
      border-top:15px solid;
     border-color: #E3DFD7;
-    background:#F9F9F8;
      padding: 30px 70px;
      font-size:2.2em;
      font-family:Myriad Pro, Helvetica, sans-serif;
@@ -428,7 +418,6 @@ div.about.subtext.themed-content {
      border-right:15px solid;
      border-bottom:15px solid;
     border-color: #E3DFD7;
-    background:#F9F9F8;
      padding: 30px 70px;
      font-size:1.3em;
      font-family:Tahoma, Helvetica, sans-serif;

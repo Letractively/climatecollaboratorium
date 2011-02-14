@@ -1431,56 +1431,6 @@ span.desc{
 }
 
 
-/*
-div.contentContainer.home {
-    padding: 100px;
-    background: url("../images/earthstrip1.png") repeat-x scroll -1000px 0 #F9F9F8;
-	
-}
-div.contentContainer.about {
-    padding: 100px;
-    background: url("../images/earthstrip2.png") repeat-x scroll 0 0 #F9F9F8;
-
-}
-
-div.contentContainer.contests {
-    padding: 100px;
-    background: url("../images/earthstrip2.png") repeat-x scroll  -1000px 0 #F9F9F8;
-
-}
-
-div.contentContainer.proposals {
-    padding: 100px;
-    background: url("../images/earthstrip3.png") repeat-x scroll 0 0 #F9F9F8;
-
-}
-
-div.contentContainer.community {
-    padding: 100px;
-    background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
-
-}
-
-div.contentContainer.news {
-    padding: 100px;
-    background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
-
-}
-
-div.contentContainer.othermembers {
-    padding: 100px;
-    background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
-
-}
-
-div.contentContainer.discussion {
-    padding: 100px;
-    background: url("../images/earthstrip3.png") repeat-x scroll -1000px 0 #F9F9F8;
-
-}
-
-*/
-
 .comparsion .tableOutlay table tr.selected td {
 	height:44px;
 	background:url(../images/table_tr_selected.gif) no-repeat -12px 0;

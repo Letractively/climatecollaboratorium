@@ -249,8 +249,9 @@
 
 </div>
 <!-- /#wrapper -->
-
-<div id="foot_wrap">
+<div id="foot_container">
+    <div id="foot_wrap">
+    </div>
 </div>
 
     $theme.include($bottom_include)

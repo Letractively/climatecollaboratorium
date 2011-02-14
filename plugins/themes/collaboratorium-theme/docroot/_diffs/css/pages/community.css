@@ -13,7 +13,6 @@
 
 div.community.themed-content.global {
     padding:10px;
-    background:#F9F9F8;
     font-size:1.6em;
     
 }
@@ -28,85 +27,6 @@ div.learn.filler {
     background:#D0C0C0;
 }
 
-
-/* disabling borders */
-/*
-div.community td#column-1,
-div.othermembers td#column-1{
-    border:15px  solid #E3DFD7;
-}
-div.discussion td#column-2,
-div.community td#column-2,
-div.news td#column-2,
-div.othermembers td#column-2{
-    border-left:15px solid #E3DFD7;
-    border-right:15px solid #E3DFD7;
-    border-top:15px solid #E3DFD7;
-}
-
-div.community td#column-3,
-div.news td#column-3 {
-
-    border-left:15px solid #E3DFD7;
-    border-bottom:15px solid #E3DFD7;
-
-}
-
-div.discussion td#column-3 {
-
-    border-right:15px solid #E3DFD7;
-     border-left:15px solid #E3DFD7;
-    border-bottom:15px solid #E3DFD7;
-}
-
-div.othermembers td#column-3 {
-  border:15px solid #E3DFD7;
-}
-
-div.community td#column-4,
-div.news td#column-4 {
-    border-right:15px solid #E3DFD7;
-    border-bottom:15px solid #E3DFD7;
-
-}
-
- div.discussion td#column-2 div,
-div.community td#column-2 div,
-div.news td#column-2 div,
-div.othermembers td#column-2 div{
-    font-size:16px
-    
-}
-
-div.community div#layout-column_column-1 {
-  
-}
-
-,
-div.othermembers div#layout-column_column-1 {
-    padding:10px;
-    background:#F9F9F8;
-
-}
-
-div.community div#layout-column_column-3,
-div.news div#layout-column_column-3,
-div.othermembers div#layout-column_column-3{
-    padding:20px;
-}
-
-
-div.community div#layout-column_column-4,
-div.news div#layout-column_column-4,
-div.othermembers div#layout-column_column-4{
-    padding:20px;
-}
-
-
-div.community div#layout-column_column-4 .portlet-borderless-container {
-    margin-bottom:25px;
-}
-*/
 table.pseudo-tab-nav {
     border-collapse:collapse;
 
@@ -218,13 +138,6 @@ div.themed-content.community.featured-expert td.bio {
 }
 
 
-/** news **/
-/*
-div.contentContainer.community div#content-wrapper,
-div.contentContainer.resources {
-     background:#F9F9F8;
-}
-*/
 
 
 #content_home .community .left,
