@@ -143,19 +143,24 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 </h1>
 
     <div id="bread">
-        <a href="/web/guest/resources">Wiki</a>
-<c:if test="<%= Validator.isNotNull(wikiPage.getParentTitle()) %>">
+  <c:if test='<%= ! "About".equals(wikiPage.getTitle().trim()) %>'>
+        <a href="/web/guest/resources">About </a>
+    <c:if test="<%= Validator.isNotNull(wikiPage.getParentTitle()) %>">
         
-        <%
+    <%
         PortletURL viewParentPageURL = PortletURLUtil.clone(viewPageURL, renderResponse);
 
         List parentPages = wikiPage.getParentPages();
 
         for (int i = 0; i < parentPages.size(); i++) {
             WikiPage curParentPage = (WikiPage)parentPages.get(i);
+            
+            if (curParentPage.getTitle().equals("About")) {
+                continue;
+            }
 
             viewParentPageURL.setParameter("title", curParentPage.getTitle());
-        %>
+    %>
             <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
             <a href="<%= viewParentPageURL %>"><%= curParentPage.getTitle() %></a>
 
@@ -164,8 +169,11 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
         %>
 
     </c:if>
-    <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
+        <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif" />
+  </c:if>
+    <a href="<%= viewPageURL %>">
     <%= title %>
+    </a>
 </div>
 
 <c:if test="<%= originalPage != null %>">
