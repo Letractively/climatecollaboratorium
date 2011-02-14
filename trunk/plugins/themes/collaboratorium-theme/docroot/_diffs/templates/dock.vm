@@ -1,5 +1,5 @@
 #if ($themeDisplay.signedIn)
-	<div class="lfr-dock interactive-mode">
+	<div class="lfr-dock interactive-mode"  style="z-index: 9999;">
 		Welcome <strong class="name">$user.screenName</strong>
 		#if ($permissionChecker.isOmniadmin())
 		<ul class="lfr-dock-list">

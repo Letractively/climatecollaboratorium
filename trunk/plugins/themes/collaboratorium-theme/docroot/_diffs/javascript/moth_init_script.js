@@ -4,6 +4,7 @@
 function initSearchUpperBox() {
 	jQuery("#searchinput").focus(function() {
 		if (jQuery(this).hasClass("nofocus")) {
+			jQuery(this).val('');
 			jQuery(this).toggleClass("nofocus");
 		}
 	});
@@ -11,6 +12,9 @@ function initSearchUpperBox() {
 	jQuery("#searchinput").blur(function() {
 		if (jQuery.trim(this.value) == '' && !jQuery(this).hasClass("nofocus")) {
 			jQuery(this).toggleClass("nofocus");
+		}
+		if (jQuery(this).hasClass('nofocus')) {
+			jQuery(this).val('Search');
 		}
 	});
 	
@@ -99,34 +103,22 @@ function insertParam(key, value)
 
 jQuery(document).ready(function() {
 	initSearchUpperBox();
-	if (jQuery('#boxwin').length > 0) {
-		jQuery('#boxwin').cycle({ 
-			fx:     'cover',
-			speed:  'slow', 
-			timeout: 0, 
-			pager:  '#boxnav', 
-				pagerAnchorBuilder: function(idx, slide) { 
-					return '#boxnav li:eq(' + idx + ') a'; 
-				}     
-			}
-		);
-	}
+	
 	if (jQuery(".hp_boxwin").length > 0) {
-		
 		jQuery('.hp_boxwin').cycle({
 		    fx:      'custom',
 		    cssBefore: {  
 		        top:  -365,  
 		        left: 0,  
-						width: 540,
-						height:335,
+		                width: 540,
+		                height:335,
 		        opacity: 0,
 		    }, 
 		    animIn: {  
 		        top: 0,  
 		        left: 0,  
-						width: 540,
-						height:335,
+		                width: 540,
+		                height:335,
 		        opacity: 1,
 		    }, 
 		    animOut: {  
@@ -134,13 +126,13 @@ jQuery(document).ready(function() {
 		        left: 0,  
 		        opacity: 0,
 		    }, 
-		 			timeout: 0,
-					pager:  '.hp_boxnav',
-					pagerAnchorBuilder: function(idx, slide) {
-							// return selector string for existing anchor 
-							return '.hp_boxnav li:eq(' + idx + ') a';
-						}
-				});
+		            timeout: 0,
+		            pager:  '.hp_boxnav',
+		            pagerAnchorBuilder: function(idx, slide) {
+		                    // return selector string for existing anchor 
+		                    return '.hp_boxnav li:eq(' + idx + ') a';
+		                }
+		        });
 		
 	}
 	
@@ -214,4 +206,16 @@ function onBeforeLogin(formId) {
 
 function addRedirectBeforeSubmit(formId) {
 	jQuery('#' + formId).append(jQuery('<input type="hidden" value="' + window.location.toString() + '" name="redirect" />'));
+}
+
+
+function updateBreadcrumb(placeholder, items) {
+    var breadcrumb = [];
+    for (var i = 0; i < items.length; i++) {
+    	var item = items[i];
+        breadcrumb[2*i] = '<img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif" /> ';
+        breadcrumb[2*i + 1] = '<a href="' + item.href + '">' + item.text + '</a>';
+    }
+    
+    jQuery(placeholder).html(breadcrumb.join(''));
 }

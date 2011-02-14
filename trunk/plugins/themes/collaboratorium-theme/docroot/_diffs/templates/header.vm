@@ -11,18 +11,19 @@
             #if ($themeDisplay.signedIn)
                 <li id="signin"><a href="/c/portal/logout" >Sign out</a></li>
                 <li id="reg"><a href="/web/guest/member/-/member/userId/$user.userId">My profile</a></li>
-            #else 
-                <li><a href="javascript:;" onmouseover="document.getElementById('hdr_signin').style.visibility='visible'"><img src="/collaboratorium-theme/images/header_signin.png" width="73" height="28" alt="Signin" name="si" /></a></li>
-                <li id="reg"><a  href="javascript:;" class="openreg">Register</a></li>
+            #else
+                <li><a href="javascript:;" onmouseover="document.getElementById('hdr_signin').style.display='block'"><img src="/collaboratorium-theme/images/header_signin.png" width="73" height="28" alt="Signin" name="si" /></a></li>
+                <li id="reg"><a  href="javascript:;" class="openreg">Register</a></li> 
+                
             #end
         </ul>
         #if ($themeDisplay.signedIn)
             
-            <div id="loginStatus">
+            <div id="loginStatus" style="z-index: 9999;">
                 #parse ("$full_templates_path/dock.vm")
             </div>
         #else
-            <div id="hdr_signin" onmouseover="document.getElementById('hdr_signin').style.visibility='visible'" onmouseout="document.getElementById('hdr_signin').style.visibility='hidden'">
+            <div id="hdr_signin" onmouseover="document.getElementById('hdr_signin').style.display='block'" onmouseout="document.getElementById('hdr_signin').style.display='none'">
                 <form id="signInTopForm" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
                     <p>Screen name<br />
                     <input class="hdr_signinfield" name="login" type="text" value="" /></p>
@@ -37,12 +38,12 @@
     </div>
     <div id="menu">
         <form action="">
-            <input id="searchinput" class="nofocus" name="searchinput" type="text" value="" />
+            <input id="searchinput" class="nofocus" name="searchinput" type="text" value="Search" />
             <input id="searchsubmit" type="button" name="submit" value="Go" />
         </form>
         <ul>
-            <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
             <li><a href="/web/guest/feedback">Contact</a></li>
+            <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
             <li><a class="facebook-link" target="_blank" href="http://www.facebook.com/pages/Climate-CoLab/138039566244509">Find us on facebook!</a></li>
             <li style="clear: both;"></li>
         </ul>
