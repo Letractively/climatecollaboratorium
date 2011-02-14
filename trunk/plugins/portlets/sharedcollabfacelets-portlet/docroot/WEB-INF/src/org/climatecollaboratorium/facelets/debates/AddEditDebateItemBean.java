@@ -428,5 +428,12 @@ public class AddEditDebateItemBean {
     public int getVersionsAvailable() {
         return versionsAvailable;
     }
+    
+    public Long getDebateItemPK() {
+        if (selectedHistoryVersion != null) {
+            return selectedHistoryVersion.getDebateItemPK();
+        }
+        return -1L;
+    }
 
 }

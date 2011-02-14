@@ -500,8 +500,10 @@ public class DiscussionBean {
     public void commentAdded(MessageWrapper messageWrapper) throws SystemException {
         if (commentsThread.isNewMsg()) {
             commentsThread = messageWrapper;
+            messageWrapper.setTitle(messageWrapper.getTitle() + " " + 1);
         }
         else {
+            messageWrapper.setTitle(messageWrapper.getTitle() + " " + commentsThread.getThreadMessagesCount() + 2);
             getCommentsThread().addMessage(messageWrapper);
         }
         newComment = new MessageWrapper(this);

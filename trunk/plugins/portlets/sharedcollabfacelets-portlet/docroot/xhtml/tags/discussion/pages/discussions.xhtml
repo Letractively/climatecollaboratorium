@@ -17,6 +17,14 @@
     
     <ui:define name="discussion_breadcrumb">All Categories</ui:define>
         <ui:define name="discussion_content">
+                <script type="text/javascript">
+                    updateBreadcrumb('#bread .discussionBreadcrumbPlaceholder', [
+                        { 
+                            href: "javascript:Collab.nav.navigate('discussion', {pageType: 'DISCUSSIONS'}); return false;", 
+                            text: 'All Categories' 
+                        } 
+                    ]);
+                </script>
              
             <ui:decorate template="./threadsList.xhtml">
                 <ui:param name="threads" value="#{discussionBean.threads}" />

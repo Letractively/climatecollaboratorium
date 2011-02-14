@@ -14,24 +14,28 @@
         <span>#{discussionBean.commentsCount}</span> comments
         <img src="/collaboratorium-theme/images/icon_new-comment.png" width="44" height="41" class="spc" /> 
         <a href="javascript:;" onclick='if(!deferUntilLogin()) return false; jQuery.scrollTo(jQuery("#thecomment"));'>add new comment</a>
-        <ice:commandLink actionListener="#{discussionBean.subscribe}" onclick='if(!deferUntilLogin()) return false;' rendered="#{not discussionBean.subscribed}">
-            <img src="/collaboratorium-theme/images/icon_star.gif" class="spc" />
-            Subscribe
-        </ice:commandLink>
-        <ice:commandLink actionListener="#{discussionBean.subscribe}" onclick='if(!deferUntilLogin()) return false;' rendered="#{discussionBean.subscribed}">
-            <img src="/collaboratorium-theme/images/unsubscribe.png" class="spc" />
-            Unsubscribe 
-        </ice:commandLink>
+
       </div>
-      <div class="com-info bot">
-          <ice:panelGroup rendered="#{discussionBean.hasComments}" styleClass="pager">
+        <ice:panelGroup rendered="#{discussionBean.hasComments}" styleClass="pager">
+        
+            <ice:commandLink actionListener="#{discussionBean.subscribe}" onclick='if(!deferUntilLogin()) return false;' rendered="#{not discussionBean.subscribed}">
+                <img src="/collaboratorium-theme/images/icon_star-small.gif" class="spc" />
+                Subscribe
+            </ice:commandLink>
+            <ice:commandLink actionListener="#{discussionBean.subscribe}" onclick='if(!deferUntilLogin()) return false;' rendered="#{discussionBean.subscribed}">
+                <img src="/collaboratorium-theme/images/unsubscribe_small.png" class="spc" />
+                Unsubscribe 
+            </ice:commandLink>
+            &amp;nbsp;
+            &amp;nbsp;
+            &amp;nbsp;
+        
             <ice:commandLink actionListener="#{discussionBean.commentsThread.revertMessages}" value="Oldest" rendered="#{not discussionBean.commentsThread.oldestFirst}" />
             #{discussionBean.commentsThread.oldestFirst ? "Oldest" : ""}
             <span class="vdiv">|</span> 
             <ice:commandLink actionListener="#{discussionBean.commentsThread.revertMessages}" value="Newest" rendered="#{discussionBean.commentsThread.oldestFirst}" />
             #{discussionBean.commentsThread.oldestFirst ? "" : "Newest"}
-          </ice:panelGroup>
-      </div>
+        </ice:panelGroup>
     </div>
     
     <ice:panelGroup  rendered="#{discussionBean.commentsThread.newMsg}">

@@ -203,7 +203,7 @@ public class MessageWrapper {
             if (!ValueRequiredValidator.validateComponent(messageInput)) {
                 return;
             }
-            title = "Comment title";
+            title = discussionBean.getDiscussion().getDescription() + " comment"; 
             wrapped = discussionBean.getDiscussion().addComment(title, description, Helper.getLiferayUser());
             added = true;
 

@@ -25,23 +25,24 @@
                             #{position.debateSummary}
                         </a>
                     </ice:column>
-                    <ice:column>
+                    <ice:column style="width: 100px;">
                         <f:facet name="header">NO. OF VOTES</f:facet>
                             #{position.votesCount}
                         <!-- 
                         <ice:outputProgress styleClass="debateVotes" value="#{debate.totalVotesCount == 0 ? 0 : (position.votesCount * 100 )/ debate.totalVotesCount}" />
                          -->
                     </ice:column>
-                    <ice:column>
+                    <ice:column style="width: 70px;">
                         <f:facet name="header">VOTES</f:facet>
                         <ice:outputText value="#{debate.totalVotesCount == 0 ? 0 : position.votesCount/ debate.totalVotesCount}" >
-                            <f:convertNumber type="percent"/>
+                            <f:convertNumber type="percent" pattern="#"/>
                         </ice:outputText>
+                        %
                         <!-- 
                         <ice:outputProgress styleClass="debateVotes" value="#{debate.totalVotesCount == 0 ? 0 : (position.votesCount * 100 )/ debate.totalVotesCount}" />
                          -->
                     </ice:column>
-                    <ice:column>
+                    <ice:column style="width: 80px;">
                         <f:facet name="header">COMMENTS</f:facet>
                         #{position.commentsCount}
                     </ice:column>

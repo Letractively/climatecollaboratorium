@@ -15,12 +15,25 @@
     
     <div class="act#{styleClass}_charts-bot"></div>
     
-  <f:subview rendered='#{empty simulationBean.scenario}'>
+  <f:subview rendered='#{empty simulationBean.scenario and simulationBean.embeddedEditing}'>
     <div class="actions#{styleClass}_chart">
         <div class="runTheModelToSee_container">
             <div class="runTheModelToSee">
                 <div class="runTheModelToSee_box">
                     Use the "RUN the model" button to show results
+                </div>
+            </div>
+        </div>
+    </div>
+  
+  </f:subview>
+  
+  <f:subview rendered='#{empty simulationBean.scenario and not simulationBean.embeddedEditing}'>
+    <div class="actions#{styleClass}_chart">
+        <div class="runTheModelToSee_container">
+            <div class="runTheModelToSee">
+                <div class="runTheModelToSee_box">
+                    Model has not yet been run
                 </div>
             </div>
         </div>
