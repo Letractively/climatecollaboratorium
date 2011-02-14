@@ -29,7 +29,7 @@ public class Helper {
         sb.append("?");
         
 
-        if (locationAndQueryString.length > 1) {
+        if (locationAndQueryString.length > 1 && locationAndQueryString[1].length() > 0) {
             sb.append(locationAndQueryString[1]);
             sb.append("&");
         }
