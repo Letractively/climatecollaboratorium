@@ -1,22 +1,24 @@
-<div class="lrContentPlaceholder lfr-column">
-    &nbsp;
+<div>
     $processor.processColumn("column-1")
 </div>
     
     
 <div id="content" class="home">
-            <div  class="left lrContentPlaceholder lfr-column">&nbsp;
+        <div class="titleArea">
+            <div  class="left">&nbsp;
                 $processor.processColumn("column-3")
             </div>
-            <div  class="mid lrContentPlaceholder lfr-column">&nbsp;
+            <div  class="mid">&nbsp;
                 $processor.processColumn("column-4")
             </div>
-            <div  class="right lrContentPlaceholder lfr-column">&nbsp;
+            <div  class="right">&nbsp;
                 $processor.processColumn("column-5")
             </div>
  
            <div class="divider clear"></div>
+        </div>
         
+        <div class="contentArea">
             <div  class="left lrContentPlaceholder lfr-column">
                 $processor.processColumn("column-6")
             </div>
@@ -28,6 +30,7 @@
             </div>
         
             <div class="clear"></div>
+        </div>
         
             <div id="footer">
                 <div id="footdiv"></div>
