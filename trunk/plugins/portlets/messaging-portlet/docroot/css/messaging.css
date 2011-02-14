@@ -66,7 +66,19 @@ h2.feedTitle {
 
 .sendMessage .as-selections,
 .sendMessage .subject {
-	width: 602px;
+	width: 640px;
+	background-image: none;
+}
+
+.sendMessage .subject {
+	border-color: #BFBFBF #DEDEDE #DEDEDE #BFBFBF;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.sendMessage .profile_about {
+	width: 640px;
+	padding: 5px;
 }
 
 .sendMessage .subject {
