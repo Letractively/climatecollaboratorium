@@ -24,14 +24,19 @@
                         <ice:inputText styleClass="required profile_input subject" value="#{sendMessageBean.subject}"/><br />
                     </td>
                 </tr>
+                <tr>
+                    <td class="b">BODY:</td>
+                    <td>
+                        <div id="composemessage">
+                            <ice:inputTextarea rows="6" cols="30" styleClass="profile_about required" value="#{sendMessageBean.content}"/><br />
+                        </div>
+                    </td>
+                </tr>
             </table>
-            <div id="composemessage">
-                <ice:inputTextarea rows="6" cols="30" styleClass="profile_about required" value="#{sendMessageBean.content}"/><br />
-            </div>
             <div>
                 <input type="button" onclick='sendMessage()' value="SEND" class="mothButton"/>
-                <ice:commandLink value="Send" actionListener="#{sendMessageBean.send}" styleClass="sendMessageLink hidden"/>
-                <ice:commandButton value="Cancel" actionListener="#{sendMessageBean.cancel}" styleClass="cancelMessage mothButton" />
+                <ice:commandLink value="SEND" actionListener="#{sendMessageBean.send}" styleClass="sendMessageLink hidden"/>
+                <ice:commandButton value="CANCEL" actionListener="#{sendMessageBean.cancel}" styleClass="cancelMessage mothButton" />
             </div>
         </ice:form>
     </div>
