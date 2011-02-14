@@ -18,23 +18,29 @@
 
         <ice:panelGroup rendered="#{editBean.editing}" styleClass="versions #{editBean.showingAllVersions ? '' : 'hidden'}">
             <ice:dataTable rows='#{editBean.rowsToShow}' id="versionsTable" value="#{editBean.itemVersions}" var="version" rendered="#{not editBean.adding}" varStatus="status" rowClasses="t,nt">
-                <ice:column styleClass="first">
+                <ice:column styleClass="first #{version.debateItemPK == editBean.debateItemPK ? 'b' : ''}">
                     <ice:commandLink actionListener="#{editBean.changeVersion}">Version #{editBean.versionsAvailable - status.index}
                         <f:attribute name="version" value="#{version.debateItemPK}" />
                     </ice:commandLink>
                 </ice:column>
-                <ice:column>
+                <ice:column styleClass="#{version.debateItemPK == editBean.debateItemPK ? 'b' : ''}">
                     #{version.author.screenName}
                 </ice:column>
-                <ice:column styleClass="last">
+                <ice:column styleClass="last #{version.debateItemPK == editBean.debateItemPK ? 'b' : ''}">
                     <ice:outputText value="#{version.updated}">
                         <f:convertDateTime pattern="MM/dd/yy hh:mm a" />
                     </ice:outputText>
                 </ice:column>
             </ice:dataTable>
             <!--  paginator -->
-            <ice:panelGroup styleClass="load_all" rendered="#{not editBean.showingAllVersions and not (editBean.versionsAvailable le editBean.rowsToShow)}">
-                <div class="load"><ice:commandLink value="Load all versions" actionListener="#{editBean.showAllVersions}" /></div>
+            <ice:panelGroup styleClass="load_all" >
+                <ice:panelGroup styleClass="load" rendered="#{not editBean.showingAllVersions and not (editBean.versionsAvailable le editBean.rowsToShow)}">
+                    <ice:commandLink value="Load all versions" actionListener="#{editBean.showAllVersions}" />
+                </ice:panelGroup>
+                <div class="closeVersions">
+                    <a href="javascript:;" onclick="document.getElementById('pa').style.display='block' ; document.getElementById('pa').nextSibling.nextSibling.style.display='none'">close</a>
+                </div>
+                <div class="clear"></div>
             </ice:panelGroup>
 
             <div class="clear" />
@@ -71,15 +77,7 @@
         </div>
         <div class="clear" />
 
-        <div class="arg_text" id="addLinkForm" style="display: none;"><ice:dataTable value="#{editBean.wrappedReferences}" var="reference" styleClass="referencesTable" varStatus="status">
-            <ice:column>
-                <em><a href="#{reference.url}">#{reference.text}</a></em>
-            </ice:column>
-            <ice:column>
-                <ice:commandLink actionListener="#{reference.removeReference}" value="Remove" />
-            </ice:column>
-
-        </ice:dataTable>
+        <div class="arg_text" id="addLinkForm" style="display: none;">
         <div class="arg_ref" id="addDebateItemReference">
         <div>
         <div class="arg_ref-label">Link</div>

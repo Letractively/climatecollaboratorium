@@ -7,8 +7,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
+import com.ext.portlet.discussions.model.DiscussionMessage;
+import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.models.model.ModelOutputItem;
 import com.ext.portlet.models.service.ModelOutputItemLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 public class MigrationTool {
@@ -57,6 +61,23 @@ public class MigrationTool {
     
     private FacesMessage getMsg(String msg) {
         return new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null);
+    }
+    
+    public void updateDiscussionCommentsTitles(ActionEvent e) throws SystemException, PortalException {
+        for (DiscussionCategoryGroup dcg: DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroups(0, Integer.MAX_VALUE)) {
+            DiscussionMessage msg = dcg.getCommentThread();
+            if (msg == null) {
+                continue;
+            }
+            msg.setSubject(dcg.getDescription() + " comment " + 1);
+            msg.store();
+            int i = 2;
+            for (DiscussionMessage comment: msg.getThreadMessages()) {
+                comment.setSubject(dcg.getDescription() + " comment " + i++);
+                comment.store();
+            } 
+        }
+        FacesContext.getCurrentInstance().addMessage("Messages updated", getMsg("Messages updated"));
     }
 
 }

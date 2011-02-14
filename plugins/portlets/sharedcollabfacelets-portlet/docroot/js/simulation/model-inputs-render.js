@@ -785,6 +785,8 @@ function showTabContentsById(id, trigger) {
 		var chartContainer = outputDef.find('.chartContainer');
 		chartContainer.attr('style', '');
 		chartContainer.height(chartContainer.height() + 15);
+		var legendHeight = chartContainer.find("table.jqplot-table-legend").height();
+		chartContainer.css('margin-bottom', legendHeight + 30);
 		
 
 	}

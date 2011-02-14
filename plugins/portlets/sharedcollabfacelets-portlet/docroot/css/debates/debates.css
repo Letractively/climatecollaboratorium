@@ -1228,11 +1228,6 @@ a.moderator, a.moderator:hover  {
     background: #dddddd;
 }
 
-.singleDebateSummary {
-    margin-bottom: 40px;
-    margin-top: 30px;
-    font-size: 1.2em;
-}
 
 .singleDebateSummary .debateDetail {
 	margin: 10px 0;

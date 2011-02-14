@@ -18,6 +18,20 @@
             #{discussionBean.currentThread.category.title}:</a> #{discussionBean.currentThread.title}
     </ui:define>
     <ui:define name="discussion_content">
+    
+        <script type="text/javascript">
+                updateBreadcrumb('#bread .discussionBreadcrumbPlaceholder', [
+                    {
+                        href: "javascript:Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{discussionBean.currentThread.category.id}}); return;", 
+                        text: '#{discussionBean.currentThread.category.title}' 
+                
+                    },
+                    { 
+                        href: "javascript:Collab.nav.navigate('discussion', {pageType: 'THREAD', threadId: #{discussionBean.currentThread.id}}); return false;", 
+                        text: '#{discussionBean.currentThread.title}' 
+                    } 
+                ]);
+        </script>
 
 
     

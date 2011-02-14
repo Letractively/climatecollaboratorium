@@ -17,6 +17,13 @@
         </ui:define>
         
         <ui:define name="discussion_content">
+            <ice:panelGroup styleClass="hidden">
+                <script type="text/javascript">
+                    updateBreadcrumb('#bread .discussionBreadcrumbPlaceholder', [
+                                { href: "javascript:Collab.nav.navigate('discussion', {pageType: 'CATEGORIES'}); return false;", text: 'All categories' } 
+                            ]);
+                </script>
+            </ice:panelGroup>
         
             
             <ui:decorate template="./paginator.xhtml">

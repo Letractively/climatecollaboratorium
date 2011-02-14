@@ -14,12 +14,12 @@
             </div>
             <ul class="act_left-list">
                 <ui:repeat value="#{simulationBean.display.nonTabs}" var="input">
-                    <li><ui:include src="./inputDef.xhtml" /></li>
+                    <li class="act_left-list-child"><ui:include src="./inputDef.xhtml" /></li>
                 </ui:repeat>
                 <f:subview rendered="#{simulationBean.hasTabs}">
                     <ui:repeat value="#{simulationBean.display.tabsWrapped}" var="input1">
-                        <li class="u"><a href="javascript:;">#{input1.oryginalName}</a>
-                            <ul>
+                        <li class="u"><a href="javascript:;" onclick="jQuery('#inputInfo_#{input1.groupId}').toggle()">#{input1.oryginalName}</a>
+                            <ul id="inputInfo_#{input1.groupId}">
                                 <ui:repeat value="#{input1.allItems}" var="input">
                                     <li><ui:include src="./inputDef.xhtml" /></li>
                                 </ui:repeat>
