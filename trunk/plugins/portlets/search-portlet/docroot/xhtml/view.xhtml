@@ -7,8 +7,14 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
-    
     <ice:portlet>
+    
+        <ice:panelGroup styleClass="hidden">
+            <script type="text/javascript">
+                // #{searchBean.searchPhrase}
+                jQuery("#searchinput").removeClass('nofocus').val('#{searchBean.searchPhrase}');
+            </script>
+        </ice:panelGroup>
     <collab:navigationManager />
     <h1 class="spn">Search <span>&amp;nbsp;Results for "#{searchBean.searchPhrase}"</span></h1>
 
@@ -36,7 +42,6 @@
       </div>
       <div class="clear"></div>
       #{item.content}
-      <div class="search-crumbs"><a href="#{item.url}">#{item.url}</a></div>
     
     </ice:panelSeries>
     <ice:panelGroup styleClass="pager" rendered="#{searchBean.data.rowCount > 0}">
@@ -62,7 +67,7 @@
                             <ice:panelGroup styleClass="">Last</ice:panelGroup>
                         </f:facet>
                         <f:facet name="previous" rendered="true">
-                            <ice:panelGroup styleClass="pagerPrev">&lt;</ice:panelGroup>
+                            <ice:panelGroup styleClass="pagerPrev">&lt; Prev</ice:panelGroup>
                         </f:facet>
                         <f:facet name="next">
                             <ice:panelGroup styleClass="">Next &gt;</ice:panelGroup>
