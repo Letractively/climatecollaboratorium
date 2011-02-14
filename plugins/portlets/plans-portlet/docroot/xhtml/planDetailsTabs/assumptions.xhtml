@@ -20,9 +20,11 @@
                 <img src="/collaboratorium-theme/images/icon_edit-page.gif" width="19" height="21" alt=" " /> 
                 <ice:commandLink value="edit page" actionListener="#{planBean.planPositionsBean.edit}" />
             </ice:panelGroup>
-            <div class="breadbutt">
-                <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " /> 
-                <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();"><span class="hidden">hide history</span><span class="versionsTrigger">show history</span></a>
+            <div class="breadbutt"> 
+                <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();">
+                    <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " />
+                    <span class="hidden">hide history</span><span class="versionsTrigger">show history</span>
+                </a>
             </div>
         </ui:define>
     </ui:decorate>

@@ -11,8 +11,22 @@
         
             
             <ice:form>
-                <ice:panelGroup styleClass="categoryHeader" rendered="#{not contest.contest.editor.editing}">
-                    <h2><ice:outputText styleClass="categoryName" value="#{contest.contest.name}"/></h2>
+            
+            
+                <ice:panelGroup styleClass="protitle" rendered="#{not contest.contest.editor.editing}">
+                    <f:subview rendered="#{contest.contest.contestActive}">
+                        <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
+                    </f:subview>
+                    <h2>
+                        <collab:contestLink contestId="#{contest.contest.contestId}" text="#{contest.contest.shortName}" />
+                    </h2>
+                    <f:subview rendered="#{contest.contest.contestActive}">
+                        <div class="t_wrap"><div class="txt1">CURRENT CONTEST</div></div>
+                    </f:subview>
+                    <f:subview rendered="#{not contest.contest.contestActive}">
+                        <div class="t_wrap"><div class="txt1">ARCHIVED CONTEST</div></div>
+                    </f:subview>
+                    <h4><ice:outputText value="#{contest.contest.name}" /></h4>
                     <ice:commandButton styleClass="editCategoryButton" value="Edit" action="#{contest.contest.editor.edit}" rendered="#{not contest.contest.editor.editing and permissions.canAdminAll}"/>
                 </ice:panelGroup>
                 <ice:panelGroup styleClass="categoryHeader" rendered="#{contest.contest.editor.editing}">
