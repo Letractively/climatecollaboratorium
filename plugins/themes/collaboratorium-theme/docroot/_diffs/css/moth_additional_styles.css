@@ -1085,14 +1085,21 @@ margin: 20px 0 15px 0;
 .mothButton {
 	background: #2498b3;
 	color: #fff;
-	padding: 9px;
+	padding: 10px;
 	font-weight: 800;
 	font-size: 16px;
 	border: 0;
 	font-family: "gloriola-web-1","gloriola-web-2", Verdana, sans-serif;
 	margin-left: 10px;
 	cursor: pointer;
+	height: 33px;
 }
+
+.mothButton.orange {
+	background: #e57100;
+}
+
+
 .wf-active #tabs li:hover { margin-right: 4px;}
 .wf-active #tabs li.c { margin-right: 4px;}
 .act_charts-top { left: 250px; }
@@ -1185,4 +1192,46 @@ margin: 20px 0 15px 0;
 .q {
 	height: auto;
 	padding-bottom: 10px;
+}
+
+.saveEditCancel {
+	background: #e8f1f6;
+	border: 2px solid #a8a9a4;
+	border-left: 0;
+	border-right: 0;
+	width: 100%;
+	height: 51px;
+	margin-top: 24px;
+	margin-bottom: 10px;
+}
+
+.saveEditCancel td {
+    font-size:  17px;
+    vertical-align: middle;
+    color: #000;
+}
+
+.wf-active .right_col.v2 {
+	margin-top: 56px;
+}
+
+.comm_disc-title.thread {
+	width: 780px;
+}
+
+
+.comm_info-left.thread {
+	float: right;
+	width: 100px;
+	text-align: right;
+	font-size: 15px;
+}
+
+.subscribeLinkSmall {
+    font-size: 15px;
+}
+	
+
+.subscribeLinkSmall img {
+	margin-top: -4px;
 }

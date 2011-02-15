@@ -214,7 +214,7 @@ function updateBreadcrumb(placeholder, items) {
     for (var i = 0; i < items.length; i++) {
     	var item = items[i];
         breadcrumb[2*i] = '<img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif" /> ';
-        breadcrumb[2*i + 1] = '<a href="' + item.href + '">' + item.text + '</a>';
+        breadcrumb[2*i + 1] = '<a href="' + item.href + '" onclick="' + item.onclick + '; return false;">' + item.text + '</a>';
     }
     
     jQuery(placeholder).html(breadcrumb.join(''));
