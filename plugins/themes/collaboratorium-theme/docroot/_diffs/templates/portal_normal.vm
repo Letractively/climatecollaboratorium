@@ -62,7 +62,7 @@
 
 
     #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
-        #set ($body_style_class = "")
+        #set ($body_style_class = " homePage ")
     #else
         #set ($body_style_class = "other_pages")
     #end
