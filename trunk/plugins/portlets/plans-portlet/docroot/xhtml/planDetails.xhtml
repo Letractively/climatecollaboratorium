@@ -252,46 +252,46 @@
                                          selectedIndex="#{plan.selectedTab}">
 
                             <ice:panelTab label="ADMIN"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return;"
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return false;"
                                           rendered="#{permissions.canAdmin}" styleClass="admin">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/admin.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
                              <ice:panelTab label="DESCRIPTION" styleClass="description-tab"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return;">
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'description'}); return false;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/description.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
                             <ice:panelTab label="ACTIONS &amp; IMPACTS" styleClass="actionsImpacts"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'actionsimpacts'}); return;">
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'actionsimpacts'}); return false;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/actionsImpacts.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
                             <ice:panelTab label="POSITIONS" styleClass="positions-tab"
-                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return;">
+                                          onclick="Collab.nav.navigateAddParams('plans', {tab: 'positions'}); return false;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/assumptions.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
 
                             <ice:panelTab label="COMMENTS" styleClass="comments-tab"
-                                          onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'comments'}, 'comments': {}}); return;">
+                                          onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'comments'}, 'comments': {}}); return false;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/comments.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
 
-                            <ice:panelTab label="TEAM" onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return;">
+                            <ice:panelTab label="TEAM" onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return false;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/team.xhtml"/>
                                 </f:subview>
                             </ice:panelTab>
 <!-- 
                             <ice:panelTab label="Team Discussion" styleClass="discussion-tab"
-                                          onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'discussion'}, 'discussion': {}}); return;">
+                                          onclick="Collab.nav.navigateAddParamsMulti({'plans': {tab: 'discussion'}, 'discussion': {}}); return false;">
                                 <f:subview>
                                     <ui:include src="planDetailsTabs/discussion.xhtml"/>
                                 </f:subview>
