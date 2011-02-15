@@ -9,12 +9,14 @@
         
         <ui:decorate template="breadcrumb.xhtml">
             <ui:define name="breadcrumbButtons">
+            <!-- 
                 <ice:panelGroup rendered="#{permissions.canEdit}" styleClass="breadbutt">
                     <img src="/collaboratorium-theme/images/icon_edit-page.gif" width="19" height="21" alt=" " />
                     <ice:commandLink actionListener="#{planBean.editDescription}"> 
                         edit page
                     </ice:commandLink>
                 </ice:panelGroup>
+                 -->
                 <div class="breadbutt"> 
                     <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();">
                         <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " />
@@ -91,7 +93,7 @@
             
     <div class="content">
   
-        <div id="main" class="desc">
+        <div id="main" class="planDescription">
         <!-- 
         <ice:panelGroup rendered="#{not planBean.editingDescription and planBean.plan.descriptionSet}"
                         styleClass="planDescription editTriggerContainer">

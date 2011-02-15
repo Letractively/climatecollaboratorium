@@ -26,10 +26,12 @@
     
     <ui:decorate template="breadcrumb.xhtml">
         <ui:define name="breadcrumbButtons">
+        <!-- 
             <ice:panelGroup styleClass="breadbutt" rendered="#{permissions.canEdit and not simulationBean.embeddedEditing}">
                 <img src="/collaboratorium-theme/images/icon_edit-page.gif" width="19" height="21" alt=" " /> 
                 <ice:commandLink actionListener="#{simulationBean.editActions}" value="edit page" />
             </ice:panelGroup>
+             -->
             <div class="breadbutt">
                 <a href="javascript:;" id="showhistory" onclick="triggerVersionsContainerVisibility();">
                     <img src="/collaboratorium-theme/images/icon_show-history.gif" width="23" height="21" alt=" " />
