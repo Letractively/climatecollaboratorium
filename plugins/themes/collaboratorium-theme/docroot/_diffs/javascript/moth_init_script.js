@@ -1,6 +1,3 @@
-
-
-
 function initSearchUpperBox() {
 	jQuery("#searchinput").focus(function() {
 		if (jQuery(this).hasClass("nofocus")) {
@@ -112,19 +109,19 @@ jQuery(document).ready(function() {
 		        left: 0,  
 		                width: 540,
 		                height:335,
-		        opacity: 0,
+		        opacity: 0
 		    }, 
 		    animIn: {  
 		        top: 0,  
 		        left: 0,  
 		                width: 540,
 		                height:335,
-		        opacity: 1,
+		        opacity: 1
 		    }, 
 		    animOut: {  
 		        top:  350,  
 		        left: 0,  
-		        opacity: 0,
+		        opacity: 0
 		    }, 
 		            timeout: 0,
 		            pager:  '.hp_boxnav',
@@ -216,6 +213,6 @@ function updateBreadcrumb(placeholder, items) {
         breadcrumb[2*i] = '<img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif" /> ';
         breadcrumb[2*i + 1] = '<a href="' + item.href + '" onclick="' + item.onclick + '; return false;">' + item.text + '</a>';
     }
-    
+
     jQuery(placeholder).html(breadcrumb.join(''));
 }
