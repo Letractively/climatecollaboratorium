@@ -70,21 +70,31 @@
         </div>
     </div>
     
+            <ice:panelGroup rendered="#{permissions.canEdit}">
+            <table class="saveEditCancel">
+                <tr><td>
+                    <f:subview rendered="#{not simulationBean.embeddedEditing}">
+                        <ice:commandButton value="EDIT" styleClass="mothButton orange" actionListener="#{simulationBean.editActions}" />
+                            &amp;nbsp;&amp;nbsp; Edit this page to define proposal positions.
+                    </f:subview>
+                
+                    <f:subview rendered="#{simulationBean.embeddedEditing}">
+                        <ice:commandButton value="CANCEL" styleClass="mothButton orange" actionListener="#{simulationBean.editActions}" />
+                        <ice:commandButton value="SAVE" styleClass="mothButton orange" actionListener="#{simulationBean.saveScenario}" />
+                            &amp;nbsp;&amp;nbsp; You are currently editing this page, click "save" to keep your changes.
+                    </f:subview>
+                        
+                        
+                </td></tr>
+            </table>
+        </ice:panelGroup>   
+    
     <div class="actboxtop">
         <div class="type"><strong>Model:</strong> The core simulation model for this contest is the &amp;nbsp;<a href="/web/guest/resources/-/wiki/Main/MIT+composite+model">MIT Composite Model</a></div>
     </div>
            
-    <ice:panelGrid styleClass="toolbar" columns="2">
-        <ice:panelGroup styleClass="save editControls" rendered="#{simulationBean.embeddedEditing}">
-            <ice:commandLink value="Save Changes" actionListener="#{simulationBean.saveScenario}" onclick="Collab.nav.block();"/>
-        </ice:panelGroup>
-        <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{simulationBean.embeddedEditing}">
-            <ice:commandLink value="Cancel edits" actionListener="#{simulationBean.editActions}" onclick="convertTypedValuesToNumbers();"/>
-        </ice:panelGroup>
-        <ice:panelGroup styleClass="filler"></ice:panelGroup>
-
-
-    </ice:panelGrid>
+           
+        
     
     <!-- 
         <ice:panelGroup styleClass="chooseVersionWidget">

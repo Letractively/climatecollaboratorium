@@ -55,17 +55,27 @@
 
         </div>
     </div>
+    
+        <ice:panelGroup rendered="#{permissions.canEdit}">
+            <table class="saveEditCancel">
+                <tr><td>
+                    <f:subview rendered="#{not planBean.planPositionsBean.editing}">
+                        <ice:commandButton value="EDIT" styleClass="mothButton orange" actionListener="#{planBean.planPositionsBean.edit}" />
+                            &amp;nbsp;&amp;nbsp; Edit this page to define proposal positions.
+                    </f:subview>
+                
+                    <f:subview rendered="#{planBean.planPositionsBean.editing}">
+                        <ice:commandButton value="CANCEL" styleClass="mothButton orange" actionListener="#{planBean.planPositionsBean.edit}" />
+                        <ice:commandButton value="SAVE" styleClass="mothButton orange" actionListener="#{planBean.planPositionsBean.updatePositions}" />
+                            &amp;nbsp;&amp;nbsp; You are currently editing this page, click "save" to keep your changes.
+                    </f:subview>
+                        
+                        
+                </td></tr>
+            </table>
+        </ice:panelGroup>
 
-    <ice:panelGrid styleClass="toolbar" columns="2">
-    <ice:panelGroup styleClass="save editControls" rendered="#{planBean.planPositionsBean.editing}">
-        <ice:commandLink value="Save Changes" actionListener="#{planBean.planPositionsBean.updatePositions}"/>
-    </ice:panelGroup>
-    <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{planBean.planPositionsBean.editing}">
-        <ice:commandLink value="Cancel edits" actionListener="#{planBean.planPositionsBean.edit}"/>
-    </ice:panelGroup>
 
-
-    </ice:panelGrid>
     
     <!-- 
         <ice:panelGroup styleClass="chooseVersionWidget">

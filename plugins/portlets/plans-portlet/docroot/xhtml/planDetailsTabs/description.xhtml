@@ -52,16 +52,27 @@
             </div>
         </div>
         
-         <ice:panelGrid styleClass="toolbar" columns="2">
-            <ice:panelGroup styleClass="save editControls" rendered="#{planBean.editingDescription}">
-                <ice:commandLink value="Save Changes" actionListener="#{planBean.plan.saveDescription}"/>
-            </ice:panelGroup>
-            <ice:panelGroup styleClass="cancelEdit editControls" rendered="#{planBean.editingDescription}">
-                <ice:commandLink value="Cancel edits" actionListener="#{planBean.editDescription}"/>
-            </ice:panelGroup>
-
-    </ice:panelGrid>
             <div class="clear"></div>
+            
+        <ice:panelGroup rendered="#{permissions.canEdit}">
+            <table class="saveEditCancel">
+                <tr><td>
+                    <f:subview rendered="#{not planBean.editingDescription}">
+                        <ice:commandButton value="EDIT" styleClass="mothButton orange" actionListener="#{planBean.editDescription}" />
+                            &amp;nbsp;&amp;nbsp; Edit this page to define proposal description.
+                    </f:subview>
+                
+                    <f:subview rendered="#{planBean.editingDescription}">
+                        <ice:commandButton value="CANCEL" styleClass="mothButton orange" actionListener="#{planBean.editDescription}" />
+                        <ice:commandButton value="SAVE" styleClass="mothButton orange" actionListener="#{planBean.plan.saveDescription}" />
+                            &amp;nbsp;&amp;nbsp; You are currently editing this page, click "save" to keep your changes.
+                    </f:subview>
+                        
+                        
+                </td></tr>
+            </table>
+        </ice:panelGroup>
+
     <!-- 
         <ice:panelGroup styleClass="chooseVersionWidget">
             <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" class="versionsTrigger">Show old versions</a>
