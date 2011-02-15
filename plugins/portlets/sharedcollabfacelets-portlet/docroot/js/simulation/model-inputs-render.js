@@ -70,22 +70,25 @@ var runSimulationOnclick = false;
 function oneOfValuesChangedEvent() {
 	// uncomment code bellow to enable running simulation on every change
 	//jQuery(".runSimulationButton").click();
-	
+	/*
 	if (runSimulationOnclick) {
 		jQuery(".runSimulationButton").click(runSimulationOnclick);
 	}
+	*/
 	jQuery(".runSimulationButton").removeClass('buttDis');
 	jQuery(".runSimulationButtonHighlight").effect("highlight", {}, 2000);
 	jQuery(".simulationInputsStatus").addClass("valueChanged");
 }
 
 function disableRunButton() {
+	/*
 	if (! runSimulationOnclick) {
 		runSimulationOnclick = jQuery(".runSimulationButton").attr('onclick');
 	}
 	jQuery(".runSimulationButton").unbind("click");
 	jQuery(".runSimulationButton").attr('onclick', "return false;");
 	jQuery(".runSimulationButton").addClass('buttDis');
+	*/
 }
 
 

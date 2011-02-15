@@ -14,7 +14,7 @@
                         
     
         <div class="comm_disc-head">
-          <div class="comm_disc-title"><h2>#{displayedType} &amp;nbsp; <span>#{displayedSubtype}</span></h2></div>
+          <div class="comm_disc-title"><h2>#{displayedSubtype}</h2></div>
           <div class="comm_info-left">
             <f:subview rendered="#{entitiesCount >= 0}">
                 <span>#{entitiesCount}</span> #{displayedEntityType} 
@@ -84,13 +84,13 @@
     <ice:panelGroup rendered="#{showActions}" styleClass="right_col v2">
         <ice:commandLink actionListener="#{discussionBean.subscribe}" 
                 rendered="#{discussionBean.pageType == 'DISCUSSIONS' or discussionBean.pageType == 'CATEGORY' or discussionBean.pageType == 'THREAD'}"
-                onclick='if(!deferUntilLogin()) return false;'>
+                onclick='if(!deferUntilLogin()) return false;' styleClass="subscribeLinkSmall">
                 <f:subview rendered="#{discussionBean.subscribed}">
-                <img src="/collaboratorium-theme/images/unsubscribe_small.png" />
+                <img src="/collaboratorium-theme/images/unsubscribe_small_2.gif" />
                     Unsubscribe
                 </f:subview>
                 <f:subview rendered="#{not discussionBean.subscribed}">
-                    <img src="/collaboratorium-theme/images/icon_star-small.gif" />
+                    <img src="/collaboratorium-theme/images/subscribe_small_2.png" />
                     Subscribe
                 </f:subview>
         </ice:commandLink>
@@ -99,14 +99,14 @@
         <h3>Categories</h3>
         <ul class="discussionCategories">
             <li>
-                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="All Categories" onclick="Collab.nav.navigate('discussion', {pageType: 'DISCUSSIONS'}); return;"
+                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="All Discussions" onclick="Collab.nav.navigate('discussion', {pageType: 'DISCUSSIONS'}); return false;"
                         styleClass="#{discussionBean.pageType == 'DISCUSSIONS' ? 'active' : ''}">
                     <f:attribute name="pageType" value="DISCUSSIONS" />
                 </ice:commandLink>
             </li>
             <ui:repeat value="#{discussionBean.categories}" var="category">
                 <li>
-                    <ice:commandLink actionListener="#{discussionBean.changePageType}" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{category.id}}); return;" 
+                    <ice:commandLink actionListener="#{discussionBean.changePageType}" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{category.id}}); return false;" 
                             styleClass="#{(discussionBean.pageType == 'CATEGORY' and category == discussionBean.currentCategory) || (discussionBean.pageType == 'THREAD' and discussionBean.currentThread != null and category == discussionBean.currentThread.category) ? 'active' : ''}">
                         <f:param name="categoryId" value="#{category.id}" /> 
                         <f:attribute name="categoryId" value="#{category.id}" /> 

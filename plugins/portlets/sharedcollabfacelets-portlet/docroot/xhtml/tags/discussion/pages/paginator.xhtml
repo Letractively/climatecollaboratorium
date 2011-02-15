@@ -41,7 +41,9 @@
      -->
            <ice:panelGroup styleClass="pager">
             <table style="float: right;">
+            
                 <tr>
+                <!-- 
                     <td class="oldestNewestPager">
                         <ice:commandLink disabled="#{not containerBean.byNewest}" actionListener="#{containerBean.resort}">
                             Oldest
@@ -51,8 +53,7 @@
                             Newest
                         </ice:commandLink>
                     </td>
-                    <td>
-                    <!-- 
+                    <td> 
                         <ice:dataPaginator for="#{paginatorFor}" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" 
                                 firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" 
                                 pageIndexVar="pageIndex" >
@@ -61,8 +62,8 @@
                                 <f:param value="#{pageCount}" />
                             </ice:outputFormat>
                         </ice:dataPaginator>
-                    -->
                 </td>     
+                    -->
                 <td class="paginatorControls">
                     <ice:dataPaginator rendered="true" for="#{paginatorFor}" paginator="true" paginatorMaxPages="5" styleClass="comm_controls" style="display: inline;"> 
                         <f:facet name="first" rendered="true">

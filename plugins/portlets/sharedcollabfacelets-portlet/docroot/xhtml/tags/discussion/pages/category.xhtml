@@ -21,7 +21,8 @@
                 <script type="text/javascript">
                     updateBreadcrumb('#bread .discussionBreadcrumbPlaceholder', [
                         { 
-                            href: "javascript:Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{discussionBean.currentCategory.id}}); return false;", 
+                            onclick: "Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{discussionBean.currentCategory.id}});",
+                            href: "javascript:;", 
                             text: '#{discussionBean.currentCategory.title}' 
                         } 
                     ]);
