@@ -3,7 +3,7 @@
 </div>
     
     
-<div id="content" class="home">
+<div id="content" class="home" style="border: 1px solid #f5f5f5;">
         <div class="titleArea">
             <div  class="left">&nbsp;
                 $processor.processColumn("column-3")
