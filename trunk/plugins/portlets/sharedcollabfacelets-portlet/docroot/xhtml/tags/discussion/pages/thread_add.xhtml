@@ -44,8 +44,8 @@
                 <ice:inputTextarea id="messageContent" value="#{discussionBean.newThread.description}" styleClass="commentbox" /><br />
                 <ice:message for="messageContent" />
                 <!-- <ice:commandButton actionListener="#{discussionBean.currentThread.newMessage.addMessageToThread}" styleClass="comm_butt" />-->
-                <ice:commandButton value="Add" actionListener="#{discussionBean.newThread.save}" />    
-                <ice:commandButton value="Cancel" onclick="Collab.nav.refresh();" />
+                <ice:commandButton value="Add" actionListener="#{discussionBean.newThread.save}" styleClass="mothButton"/>    
+                <ice:commandButton value="Cancel" onclick="Collab.nav.refresh();"  styleClass="mothButton"/>
                 <f:subview rendered="#{discussionBean.currentThread.goTo}">
                     <script type="text/javascript">
                         Collab.nav.navigate('discussion', {pageType: 'THREAD', threadId: #{discussionBean.currentThread.id}}); return;

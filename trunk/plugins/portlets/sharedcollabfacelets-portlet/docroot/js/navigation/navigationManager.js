@@ -32,6 +32,7 @@ Collab.nav = new function() {
 	this.navigate = function(token, parameters, block) {
 		navigationItems[token] = parameters;
 		updateHash(block);
+		return false;
 	}
 	
 	this.navigateAddParams = function(token, additionalParameters, block) {
@@ -43,6 +44,7 @@ Collab.nav = new function() {
 		}
 
 		updateHash(block);
+		return false;
 	}
 	
 	/**
@@ -64,6 +66,8 @@ Collab.nav = new function() {
 		}
 
 		updateHash(block);
+		
+		return false;
 	}
 	
 	this.navigateRemoveParams = function(token, paramsToBeRemoved) {
@@ -73,11 +77,12 @@ Collab.nav = new function() {
 		for (var i=0; i < paramsToBeRemoved.length; i++) {
 			delete navigationItems[token][paramsToBeRemoved[i]];
 		}
+		
+		return false;
 	}
 	
 	
 	this.pageload = function(hash) {
-		//alert("pageload");
 		navigationItems = parseToken(hash);
 		//alert("after parsing token " + hash + "try to force navigation..." + jQuery(".navigationManagerForm .submit").length + " " + jQuery(".navigationManagerForm .navigationToken").length);
 		if(!initialized) {
@@ -109,6 +114,8 @@ Collab.nav = new function() {
 				jQuery(".navigationManagerForm .submit").click();
 			}, 0);
 		
+		return false;
+		
 	}
 		
 	function updateHash(block) {
@@ -125,7 +132,7 @@ Collab.nav = new function() {
 		if (block) {
 			Collab.nav.block();
 		}
-		window.location.hash = createToken();
+		jQuery.history.load(createToken());
 		initialized = true;
 	}
 	

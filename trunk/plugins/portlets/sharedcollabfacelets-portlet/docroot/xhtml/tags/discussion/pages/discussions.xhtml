@@ -9,7 +9,7 @@
     
 <ui:composition template="./discussionTemplate.xhtml">
     <ui:param name="displayedType" value="Topics" />
-    <ui:param name="displayedSubtype" value="All Categories" />
+    <ui:param name="displayedSubtype" value="All Discussions" />
     <ui:param name="displayedEntityType" value="discussions" />
     <ui:param name="entitiesCount" value="#{discussionBean.threadsCount}" />
     <ui:param name="showActions" value="true" />
@@ -20,7 +20,8 @@
                 <script type="text/javascript">
                     updateBreadcrumb('#bread .discussionBreadcrumbPlaceholder', [
                         { 
-                            href: "javascript:Collab.nav.navigate('discussion', {pageType: 'DISCUSSIONS'}); return false;", 
+                            onclick: "Collab.nav.navigate('discussion', {pageType: 'DISCUSSIONS'});",
+                            href: "javascript:;", 
                             text: 'All Categories' 
                         } 
                     ]);
