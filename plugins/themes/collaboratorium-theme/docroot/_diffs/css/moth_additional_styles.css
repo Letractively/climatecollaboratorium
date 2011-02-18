@@ -1248,8 +1248,8 @@ margin: 20px 0 15px 0;
     margin-top: 20px;
  }
  
- .right_col {
-   margin: 45px;
+.proposals.planDetails .right_col {
+   margin-top: 45px;
 }
  
 .prohome th {
@@ -1263,4 +1263,8 @@ margin: 20px 0 15px 0;
 
 .wiki-body {
 	margin-top: 20px;
+}
+
+.popupreg_recaptcha {
+	float: left;
 }
