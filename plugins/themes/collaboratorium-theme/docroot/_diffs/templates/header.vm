@@ -96,6 +96,7 @@
           <div class="clearfix"></div>
           #if (! $page.getName($locale).toLowerCase().contains('feedback'))
           <div class="popupreg_recap"><div class="popupreg_txt req recap">Retype the words</div>
+            <div class="popupreg_recaptcha">
             <script type="text/javascript">
                 var RecaptchaOptions = { lang : 'en'};
             </script>
@@ -108,6 +109,8 @@
                 <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
                 <input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
             </noscript>
+            </div>
+            <div class="clear"></div>
             
           </div>    
           #end      
