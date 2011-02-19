@@ -29,6 +29,9 @@ public class ReCaptchaUtils {
             String remoteIp = servletRequest.getRemoteAddr();
             String recaptchaChallenge = ParamUtil.getString(request, "recaptcha_challenge_field");
             String recaptchaResponse = ParamUtil.getString(request, "recaptcha_response_field");
+            if (remoteIp.trim().length() == 0 || recaptchaChallenge.trim().length() == 0 || recaptchaResponse.trim().length() == 0) {
+                return false;
+            }
             
             performValidation(recaptchaChallenge, recaptchaResponse, remoteIp);
         }
