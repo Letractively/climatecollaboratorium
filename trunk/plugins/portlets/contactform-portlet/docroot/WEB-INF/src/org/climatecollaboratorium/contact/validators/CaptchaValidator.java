@@ -27,7 +27,7 @@ public class CaptchaValidator implements Validator {
         HttpServletRequest request = PortalUtil.getHttpServletRequest(realPortletRequest);
         
         String remoteIp = request.getRemoteAddr();
-        String recaptchaChallenge = challenge.getValue().toString();
+        String recaptchaChallenge = challenge.getValue() != null ? challenge.getValue().toString() : "";
         String recaptchaResponse = value.toString();
         
         if (! ReCaptchaUtils.validateCaptcha(recaptchaChallenge, recaptchaResponse, remoteIp)) {
