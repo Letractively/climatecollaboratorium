@@ -19,6 +19,7 @@ import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalService;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
+import com.ext.utils.CollabMessageManager;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.events.ServicePreAction;
@@ -83,5 +84,8 @@ public class EXTServicePreAction extends ServicePreAction {
         req.setAttribute(WebKeys.VM_VARIABLES, vmVariables);
         req.setAttribute(THEME_TIMESTAMP_ATTRIBUTE, themeTimestamp);
 //         throw(new ActionException("Test"));
+        
+        /* CollabMessageManager for growl msgs */
+        vmVariables.put("collabMessageManager", new CollabMessageManager(req));
     }
 }

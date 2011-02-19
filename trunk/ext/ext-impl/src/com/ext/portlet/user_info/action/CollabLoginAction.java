@@ -28,6 +28,7 @@ public class CollabLoginAction extends LoginAction {
         redirect = Helper.removeParamFromRequestStr(redirect, "isSigningInPopup");
         redirect = Helper.removeParamFromRequestStr(redirect, "isSigningIn");
         redirect = Helper.removeParamFromRequestStr(redirect, "isRegistering");
+        redirect = Helper.removeParamFromRequestStr(redirect, "isPasswordReminder");
         
         super.processAction(mapping, form, portletConfig, actionRequest, actionResponse);
         

@@ -66,6 +66,7 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
         redirect = Helper.removeParamFromRequestStr(redirect, "signinRegError");
         redirect = Helper.removeParamFromRequestStr(redirect, "isRegistering");
         redirect = Helper.removeParamFromRequestStr(redirect, "isSigningIn");
+        redirect = Helper.removeParamFromRequestStr(redirect, "isPasswordReminder");
         redirect = Helper.removeParamFromRequestStr(redirect, "firstName");
         redirect = Helper.removeParamFromRequestStr(redirect, "lastName");
         redirect = Helper.removeParamFromRequestStr(redirect, "screenName");
