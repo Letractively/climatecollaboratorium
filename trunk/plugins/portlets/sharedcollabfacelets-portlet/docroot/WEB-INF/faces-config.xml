@@ -134,6 +134,11 @@
 		<managed-bean-class>org.climatecollaboratorium.utils.MigrationTool</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>plansTool</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.utils.PlansTool</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	<validator>
 		<validator-id>requiredFieldsValidator</validator-id>
 		<validator-class>org.climatecollaboratorium.validators.RequiredFieldValidator</validator-class>

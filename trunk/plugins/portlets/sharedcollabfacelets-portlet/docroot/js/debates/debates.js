@@ -55,3 +55,11 @@
 
         return valid;
     }
+    
+    function disableAddCommentButton() {
+    	jQuery(".addCommentButton").attr('disabled', 'true');
+    }
+    
+    function enableAddCommentButton() {
+    	jQuery(".addCommentButton").removeAttr('disabled');
+    }

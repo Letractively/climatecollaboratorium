@@ -13,7 +13,9 @@
             </f:subview> <f:subview rendered="#{editBean.debatePostType == 'ARGUMENT_CON'}">
             <img src="/collaboratorium-theme/images/icon_question-x-w.png" />
                 ARGUMENT
-            </f:subview> TITLE </span> <ice:inputTextarea styleClass="argument_input-box" value="#{editBean.title}" /></div>
+            </f:subview> TITLE </span> <ice:inputTextarea styleClass="argument_input-box" value="#{editBean.title}" required="true" id="itemTitle" /><br />
+                <ice:message for="itemTitle" />
+         </div>
             <f:subview rendered="#{not editBean.adding}">
                 <div class="prev_args" id="pa"><a href="javascript:;" onclick="document.getElementById('pa').style.display='none' ; document.getElementById('pa').nextSibling.nextSibling.style.display='block'">previous versions</a></div>
             </f:subview>

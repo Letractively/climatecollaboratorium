@@ -46,12 +46,12 @@
             <ui:repeat value="#{simulationBean.display.outputs}" var="output">
                 <f:subview rendered="#{output.visible and output.chartType == 'TIME_SERIES'}">
                     <div class="rounded_button blugrid" id="indexedOutput_trigger_#{output.uniqueId}">
-                        <a class="outputItemTrigger" href="javascript:;" onclick="showTabContentsById('indexedOutput_#{output.uniqueId}', 'indexedOutput_trigger_#{output.uniqueId}')" >#{output.name}</a>
+                        <a class="outputItemTrigger" href="javascript:;" onclick="showTabContentsById('indexedOutput_#{output.uniqueId}', 'indexedOutput_trigger_#{output.uniqueId}'); return false;" >#{output.name}</a>
                     </div>
                 </f:subview>
             </ui:repeat>
             <div class="rounded_button blugrid" id="freeOutputPhysical_trigger">
-                <a href="javascript:;" onclick="showTabContentsById('freeOutputPhysical', 'freeOutputPhysical_trigger')">Physical Impacts</a>
+                <a href="javascript:;" onclick="showTabContentsById('freeOutputPhysical', 'freeOutputPhysical_trigger'); return false;">Physical Impacts</a>
             </div>
             <div class="clearfix"></div>
         </ice:panelGroup>

@@ -49,6 +49,13 @@ public class MessageWrapper {
     private int messageNum;
     private boolean oldestFirst = true;
     
+    public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category, DiscussionBean discussionBean, 
+            MessageWrapper thread, int messageNum) {
+        this(wrapped, category, discussionBean, messageNum);
+        this.thread = thread;
+        
+    }
+    
     public MessageWrapper(DiscussionMessage wrapped, CategoryWrapper category, DiscussionBean discussionBean, int messageNum) {
         this.category = category;
         this.wrapped = wrapped;
@@ -58,7 +65,7 @@ public class MessageWrapper {
         filteredDescription = ContentFilterHelper.filterContent(description);
         shortDescription = ContentFilterHelper.getShortString(description);
         this.discussionBean = discussionBean;
-        messageNum = messageNum;
+        this.messageNum = messageNum;
         if (category != null) {
             categoryId = category.getId();
         }
@@ -265,7 +272,13 @@ public class MessageWrapper {
         }
         messageWrapper.messageNum = messages.get(messages.size() - 1).messageNum + 1;
         messages.add(messageWrapper);
+        messageWrapper.setThread(this);
         newMessage = new MessageWrapper(this);
+    }
+
+    private void setThread(MessageWrapper messageWrapper) {
+        this.thread = messageWrapper;
+        
     }
 
     public DiscussionMessage getWrapped() {
@@ -318,8 +331,16 @@ public class MessageWrapper {
     
     public void messageDeleted(MessageWrapper messageWrapper) {
         messages.remove(messageWrapper);
+        int i=1;
+        for (MessageWrapper msg: messages) {
+            msg.setMessageNum(i++);
+        }
     }
     
+    private void setMessageNum(int i) {
+        messageNum = i;
+    }
+
     public void toggleEdit(ActionEvent e) {
         editing = !editing;
     }
