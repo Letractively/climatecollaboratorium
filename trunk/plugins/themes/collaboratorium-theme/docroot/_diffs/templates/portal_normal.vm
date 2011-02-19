@@ -306,5 +306,11 @@
         jQuery('.popup_forgotpassword').show();
     </script>
 #end
+<script type="text/javascript">
+#foreach ($message in $collabMessageManager.messagesAndClear)
+    jQuery.growlUI("$message.message", "");
+#end
+</script>
+
 </body>
 </html>
