@@ -39,7 +39,7 @@ public enum SearchItemType {
             new String[] { "screenName" }, new String[] { "firstName", "lastName" }, new URLCreator() {
                 public String getUrl(Document doc) {
                     String id = doc.get(Field.USER_ID);
-                    return "/web/guest/members?userId=" + id;
+                    return "/web/guest/member/-/member/userId/" + id;
                 }
 
             }
