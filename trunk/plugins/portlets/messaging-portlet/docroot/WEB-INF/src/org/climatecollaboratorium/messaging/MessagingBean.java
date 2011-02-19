@@ -139,7 +139,7 @@ public class MessagingBean {
         return messagesCount;
     }
     
-    public void archiveSelectedMessages(ActionEvent e) throws NoSuchMessageRecipientStatusException, SystemException {
+    public void archiveSelectedMessages(ActionEvent e) throws SystemException, PortalException {
         for (MessageBean item: items) {
             if (item.isSelected()) {
                 Message message = item.getMessage(); 
@@ -148,6 +148,7 @@ public class MessagingBean {
                 }
             }
         }
+        messagesCount = MessageUtil.countMessages(user.getUserId(), messageType.getTypeStr());
         onePageDataModel = null;
     }
     
