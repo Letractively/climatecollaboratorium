@@ -87,12 +87,12 @@
           
           
           
-          <p><div class="popupreg_txt req">Screen name:</div><input name="screenName" class="popupreg_input" type="text" value="$screenName"  /></p>
-          <p><div class="popupreg_txt req">Email address:</div><input name="emailAddress" class="popupreg_input" type="text" value="$emailAddress"  /></p>
-          <p><div class="popupreg_txt">First name:</div><input name="firstName" class="popupreg_input" type="text" value="$firstName"  /></p>
-          <p><div class="popupreg_txt">Last name:</div><input name="lastName" class="popupreg_input" type="text" value="$lastName"  /></p>
-          <p><div class="popupreg_txt req">Password:</div><input name="password1" class="popupreg_input" type="password" value=""  /></p>
-          <p><div class="popupreg_txt req">Retype Password:</div><input name="password2" class="popupreg_input" type="password" value=""  /></p>
+          <p><div class="popupreg_txt req">Screen name:</div><input name="screenName" class="popupreg_input" type="text" value="$screenName" maxlength="75" /></p>
+          <p><div class="popupreg_txt req">Email address:</div><input name="emailAddress" class="popupreg_input" type="text" value="$emailAddress"  maxlength="255" /></p>
+          <p><div class="popupreg_txt">First name:</div><input name="firstName" class="popupreg_input" type="text" value="$firstName"  maxlength="75" /></p>
+          <p><div class="popupreg_txt">Last name:</div><input name="lastName" class="popupreg_input" type="text" value="$lastName"  maxlength="75 "/></p>
+          <p><div class="popupreg_txt req">Password:</div><input name="password1" class="popupreg_input" type="password" value=""  maxlength="75" /></p>
+          <p><div class="popupreg_txt req">Retype Password:</div><input name="password2" class="popupreg_input" type="password" value="" maxlength="75" /></p>
           <div class="clearfix"></div>
           #if (! $page.getName($locale).toLowerCase().contains('feedback'))
           <div class="popupreg_recap"><div class="popupreg_txt req recap">Retype the words</div>
@@ -116,7 +116,7 @@
           #end      
           <div class="popupreg_terms">
             <div class="popupreg_txt terms">Terms of use</div>
-            <div class="popupreg_terms-right">By registering for this site, you agree to abide by the <a href="http://cci.mit.edu/research/climatehelp/CollaboratoriumTermsUse.html">Terms of Use</a></div>
+            <div class="popupreg_terms-right">By registering for this site, you agree to abide by the <a href="http://cci.mit.edu/research/climatehelp/CollaboratoriumTermsUse.html" target="_blank">Terms of Use</a></div>
           </div>
           <div class="clearfix"></div>
           <div class="popupreg_submit_wrap"><input type="submit" name="submit"  class="popupreg_submit closereg" value="" onclick="addRedirectBeforeSubmit('createAccountForm')" /></div>

@@ -657,6 +657,9 @@ body {
 	display: block;
 }
 
+.debate_item_editor span.portlet-msg-error {
+	color: black;
+} 
 
 .debate_item_editor table {
     width: 100%;
@@ -1267,4 +1270,23 @@ margin: 20px 0 15px 0;
 
 .popupreg_recaptcha {
 	float: left;
+}
+
+.sendMessagePopup .error {
+	color: red;
+	font-weight: bold;
+}
+
+.selectbox1 {
+	overflow: hidden;
+}
+
+div.growlUI {}
+div.growlUI h1, div.growlUI h2 {
+    color: white; padding: 0px 20px 20px 20px; text-align: left;
+    font-size: 14px;
+}
+.wf-active .planDetails #bread.ISSUE_DETAILS,
+.planDetails #bread.ISSUE_DETAILS {
+	margin-top: 57px;
 }
