@@ -67,7 +67,7 @@ public class CommunityUtil {
 	
 	public static String generateUserHref(long userId) throws PortalException, SystemException {
 		if (userId <= 0) return StringPool.BLANK;
-		return CommunityConstants.USER_PROFILE_PATH + "?userId=" + userId;
+		return CommunityConstants.USER_PROFILE_PATH + userId;
 		
 	}
 
