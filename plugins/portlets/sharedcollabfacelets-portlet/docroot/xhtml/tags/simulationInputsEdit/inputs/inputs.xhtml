@@ -24,7 +24,7 @@
         <f:subview rendered="#{simulationBean.hasTabs}">
             <ice:panelSeries value="#{simulationBean.display.tabsWrapped}" var="input1" styleClass="act-edit_left-top" varStatus="statusTab">
                 <div class="simulationInputsSetTrigger rounded_button blugrid #{statusTab.first ? 'c' : ''}" id="inputs_set_trigger_#{statusTab.index}">
-                    <a href="javascript:;" onclick="showInputs('inputs_#{statusTab.index}', 'inputs_set_trigger_#{statusTab.index}')">#{input1.oryginalName}</a>
+                    <a href="javascript:;" onclick="showInputs('inputs_#{statusTab.index}', 'inputs_set_trigger_#{statusTab.index}'); return false;">#{input1.oryginalName}</a>
                 </div>
                 <f:subview rendered="#{statusTab.last}">
                             <div class="clearfix"></div>

@@ -10,12 +10,16 @@
     
 <ui:composition template="../templates/tagShowcaseTemplate_noform.xhtml">
     <ui:define name="title">Migration Tools showcase</ui:define>
-    <h3>Migration Tools</h3>
+    <h2>Migration Tools</h2>
     <ice:messages />
     <ice:form>
+        <h3>General</h3>
         <ice:commandLink actionListener="#{migrationTool.removeQuestionFromLabels}">Remove question marks from labels</ice:commandLink><br />
         
         <ice:commandLink actionListener="#{migrationTool.updateDiscussionCommentsTitles}">Update discussion comments titles</ice:commandLink>
+        <h3>Plans</h3>
+        <ice:commandLink actionListener="#{plansTool.updatePlanAttributes}">Update plan attributes</ice:commandLink><br />
+        
     </ice:form>
 </ui:composition>
 </f:view>

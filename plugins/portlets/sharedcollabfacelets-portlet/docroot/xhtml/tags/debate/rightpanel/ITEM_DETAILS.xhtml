@@ -40,10 +40,13 @@
             
                 </div>
             </ice:panelSeries>
-        
+            <script type="text/javascript">
+                // #{debateItem.comments}
+                enableAddCommentButton();
+            </script>
             <ice:inputTextarea value="#{debateItem.newCommentText}" styleClass="position_comment-box"/>
             <ice:message for="commentAdd" />
-            <ice:commandButton  id="commentAdd" actionListener="#{debateItem.addComment}" onclick="if(! deferUntilLogin()) return false;" styleClass="comm_butt right" />
+            <ice:commandButton  id="commentAdd" actionListener="#{debateItem.addComment}" onclick="if(! deferUntilLogin()) return false; disableAddCommentButton();" styleClass="comm_butt right addCommentButton" />
         </div>
     </ice:panelGroup>
 </f:view>
