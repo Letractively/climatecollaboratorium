@@ -59,7 +59,7 @@ public class PlanBean {
     // between beans instead of direct references
     private PlansIndexBean plansIndexBean;
     private org.climatecollaboratorium.facelets.simulations.SimulationBean externalSimulationBean;
-
+    private NavigationEvent lastNavEvent;
     static {
 
         tabNameIndexMap.put("admin", tabNameIndexMap.size());
@@ -93,6 +93,7 @@ public class PlanBean {
     }
 
     public void init(NavigationEvent event) throws SystemException, PortalException, IllegalUIConfigurationException {
+        lastNavEvent = event;
         Map<String, String> parameters = event.getParameters(PLANS_SOURCE);
         if (parameters == null) {
             selectedTabIndex = getDefaultTab();
@@ -111,7 +112,7 @@ public class PlanBean {
             selectedTabIndex = getDefaultTab();
         }
 
-        if (parameters.containsKey(NEW_PLAN_PARAM)) {
+        if (parameters.containsKey(NEW_PLAN_PARAM) && permissions.getCanEdit()) {
             // 
             if (planItem.getPlanDescriptions().get(0).getVersion() == 1) {
                 editingDescription = true;
@@ -156,6 +157,10 @@ public class PlanBean {
         return planId;
     }
 
+    public void refreshFull() throws SystemException, PortalException, IllegalUIConfigurationException {
+        init(lastNavEvent);
+    }
+    
     public void refresh() throws SystemException, PortalException {
         /*
          * if (simulationBean != null) { simulationBean.cleanup(); }
@@ -207,7 +212,9 @@ public class PlanBean {
         return editingName;
     }
 
-    public void editName(ActionEvent e) {
+    public void editName(ActionEvent e) throws SystemException {
+        plan.setName(plan.getWrapped().getName());
+        plan.setDescription(plan.getWrapped().getDescription());
         editingName = !editingName;
     }
 
@@ -347,6 +354,11 @@ public class PlanBean {
     public void setExternalSimulationBean(org.climatecollaboratorium.facelets.simulations.SimulationBean externalSimulationBean) {
         this.externalSimulationBean = externalSimulationBean;
         
+    }
+    
+    public void cancelSimulationEdit(ActionEvent e) throws SystemException, IllegalUIConfigurationException, PortalException {
+        externalSimulationBean.editActions(e);
+        refresh();
     }
         
 }

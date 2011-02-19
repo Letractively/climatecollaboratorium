@@ -20,10 +20,9 @@ function checkIfPlanNameDirty() {
 
 function checkIfPlanDescriptionDirty() {
 	// check every FCKEditor instance and if it is "dirty" then return true
-	if (typeof (window.FCKeditorAPI) !== 'undefined') {
+	if (jQuery('.descriptionInput').length > 0 && typeof (window.FCKeditorAPI) !== 'undefined') {
 		for (var key in window.FCKeditorAPI.Instances) {
 			if (window.FCKeditorAPI.Instances[key].IsDirty()) {
-				
 				return true;
 			}
 		}

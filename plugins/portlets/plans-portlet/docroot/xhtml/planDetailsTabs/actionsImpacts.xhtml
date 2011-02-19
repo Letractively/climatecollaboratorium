@@ -77,11 +77,11 @@
                 <tr><td>
                     <f:subview rendered="#{not simulationBean.embeddedEditing}">
                         <ice:commandButton value="EDIT" styleClass="mothButton orange" actionListener="#{simulationBean.editActions}" />
-                            &amp;nbsp;&amp;nbsp; Edit this page to define proposal positions.
+                            &amp;nbsp;&amp;nbsp; Edit this page to define proposal actions &amp; impacts.
                     </f:subview>
                 
                     <f:subview rendered="#{simulationBean.embeddedEditing}">
-                        <ice:commandButton value="CANCEL" styleClass="mothButton orange" actionListener="#{simulationBean.editActions}" />
+                        <ice:commandButton value="CANCEL" styleClass="mothButton orange" actionListener="#{planBean.cancelSimulationEdit}" />
                         <ice:commandButton value="SAVE" styleClass="mothButton orange" actionListener="#{simulationBean.saveScenario}" />
                             &amp;nbsp;&amp;nbsp; You are currently editing this page, click "save" to keep your changes.
                     </f:subview>
