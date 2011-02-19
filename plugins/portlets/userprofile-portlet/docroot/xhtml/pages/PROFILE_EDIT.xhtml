@@ -26,18 +26,25 @@
                 <table border="0" cellpadding="0" cellspacing="0" class="colab nlpad">
                     <tr>
                         <td class="b m" width="170">First Name</td>
-                        <td><ice:inputText value="#{currentUser.firstName}" styleClass="profile_input"/></td>
+                        <td>
+                            <ice:inputText id="firstName" value="#{currentUser.firstName}" styleClass="profile_input" required="true" partialSubmit="true" /><br />
+                            <ice:message for="firstName" styleClass="form_error_message"/>
+                        </td>
                     </tr>
                     <tr>
                         <td class="b">Last Name</td>
-                        <td><ice:inputText value="#{currentUser.lastName}" styleClass="profile_input"/></td>
+                        <td>
+                            <ice:inputText id="lastName" value="#{currentUser.lastName}" styleClass="profile_input" required="true"  partialSubmit="true"/><br />
+                            <ice:message for="lastName" styleClass="form_error_message"/>
+                        </td>
                     </tr>
                 </table>
                 
             <div class="profile_upload"> 
-                    <ice:inputFile actionListener="#{currentUser.uploadPortrait}" styleClass="filepc" autoUpload="true">
+                    <ice:inputFile id="profileImage" actionListener="#{currentUser.uploadPortrait}" styleClass="filepc" autoUpload="true" >
                         <ice:outputStyle href="/css/userprofile.css" />
-                    </ice:inputFile>
+                    </ice:inputFile><br />
+                    
                     <ice:commandLink styleClass="hidden signalPictureUploaded" actionListener="#{currentUser.signalPictureUploaded}" />
                     <script type="text/javascript">
                         monitorUploadFrame();
@@ -49,6 +56,13 @@
               <div id="fakeinputfile"><input name="fakefilepc" type="text" id="fakefilepc" /></div>
                -->
             </div>
+            
+            <f:subview rendered="#{not empty currentUser.fileErrorMessage}">
+                <span class="iceMsgError portlet-msg-error Error form_error_messageError">
+                    #{currentUser.fileErrorMessage}
+                </span>
+            </f:subview>
+            <ice:message for="profileImage" styleClass="form_error_message" />
         </div>
         <div class="clearfix"></div>
       </div>
@@ -56,7 +70,7 @@
         <tr>
             <td class="b m" width="170">Screen Name</td>
             <td>
-                <ice:inputText id="screenNameMessage" styleClass="profile_input" value="#{currentUser.screenName}" partialSubmit="true" >
+                <ice:inputText id="screenNameMessage" styleClass="profile_input" value="#{currentUser.screenName}" partialSubmit="true" required="true">
                     <f:attribute name="currentUser" value="#{currentUser}"/>
                     <f:validator validatorId="screenNameValidator"/>
                 </ice:inputText><br />
@@ -77,13 +91,46 @@
                 <ice:message for="email" styleClass="form_error_message"/>
             </td>
         </tr>
+        <tr>
+            <td class="b m">Current password</td>
+            <td>
+                <ice:inputSecret  id="currentPasswordInput" styleClass="profile_input" value="#{currentUser.currentPassword}">
+                    <f:attribute name="currentUser" value="#{currentUser}"/>
+                    <f:validator validatorId="userPasswordValidator"/>
+                    <f:attribute name="type" value="current" />
+                </ice:inputSecret><br />
+                <ice:message for="currentPasswordInput" styleClass="form_error_message"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="b m">New password</td>
+            <td>
+                <ice:inputSecret  id="newPasswordInput" styleClass="profile_input" value="#{currentUser.newPassword}" >
+                    <f:attribute name="currentUser" value="#{currentUser}"/>
+                    <f:validator validatorId="userPasswordValidator"/>
+                    <f:attribute name="type" value="new" />
+                </ice:inputSecret><br />
+                <ice:message for="newPasswordInput" styleClass="form_error_message"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="b m">New password retype</td>
+            <td>
+                <ice:inputSecret  id="newPasswordRetypeInput" styleClass="profile_input" value="#{currentUser.newPasswordRetype}" >
+                    <f:attribute name="currentUser" value="#{currentUser}"/>
+                    <f:attribute name="type" value="newRetype" />
+                    <f:validator validatorId="userPasswordValidator"/>
+                </ice:inputSecret><br />
+                <ice:message for="newPasswordRetypeInput" styleClass="form_error_message"/>
+            </td>
+        </tr>
       </table>
 
       <div class="profile_about-head">About me</div>
       <ice:inputTextarea rows="6" cols="30" styleClass="profile_about" value="#{currentUser.about}"/>
       
-      <ice:commandButton actionListener="#{userprofileBean.updateUser}" value="SAVE" styleClass="profile_save" />
-      <ice:commandButton actionListener="#{userprofileBean.toggleEditing}" value="CANCEL" styleClass="profile_reset" />
+      <ice:commandButton actionListener="#{userprofileBean.updateUser}" value="SAVE" styleClass="mothButton" />
+      <ice:commandButton actionListener="#{userprofileBean.toggleEditing}" value="CANCEL" styleClass="mothButton" />
       <!-- <input type="reset" name="reset" class="profile_reset" value="CANCEL" />-->
           
         </div> <!-- /main -->

@@ -22,6 +22,30 @@
             jQuery(".sendMessagePopup").show();
             
         }
+        
+        function sendMessageFormValid() {
+            var valid = true;
+            clearSendMessageForm();
+            var subj = jQuery.trim(jQuery(".sendMessage_subject");
+            var msg = jQuery.trim(jQuery(".sendMessage_message");
+            
+            if (jQuery.trim(subj.val()) == '') {
+                subj.parent().find(".error").show();
+                valid = false;
+            }
+            
+            if (jQuery.trim(msg.val()) == '') {
+                msg.parent().find(".error").show();
+                valid = false;
+            }
+            
+            return valid;
+        }
+        
+        function clearSendMessageForm() {
+            jQuery(".sendMessagePopup").hide();
+            jQuery(".sendMessage_subject .sendMessage_message").val('');
+        }
     </script>
     
     <div id="bread" class="pro">
@@ -32,6 +56,7 @@
         <a href="/web/guest/member/-/member/userId/#{currentUser.userId}">#{currentUser.screenName}</a>
     </div>
    
+    <h1>katakumba</h1>
     <div id="content">
   
     <div id="main">
@@ -177,16 +202,16 @@
         <div class="closepopuplogin"><a href="javascript:;" onclick="hideSendMessagForm();"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
         
             <p>
-                <strong>Subject:</strong><br />
-                <ice:inputText styleClass="popuplogin_input" value="#{userprofileBean.messageSubject}"/>
+                <strong>Subject:</strong> &amp;nbsp; &amp;nbsp; <span class="error hidden"> * value required</span><br />
+                <ice:inputText styleClass="popuplogin_input sendMessage_subject" value="#{userprofileBean.messageSubject}"/>
             </p>
             <p>
-                <strong>Message:</strong><br />
-                <ice:inputTextarea value="#{userprofileBean.messageText}"/>
+                <strong>Message:</strong> &amp;nbsp; &amp;nbsp; <span class="error hidden"> * value required</span><br />
+                <ice:inputTextarea value="#{userprofileBean.messageText}" styleClass="sendMessage_message"/>
             </p>
 
-          <ice:commandButton styleClass="popuplogin_submit" value="Send" onclick="hideSendMessagForm();" actionListener="#{userprofileBean.sendMessage}" /> or 
-          <span class="popuplogin_button"><a href="javascript:;" onclick="hideSendMessagForm();">Cancel</a></span>
+          <ice:commandButton styleClass="popuplogin_submit" value="Send" onclick="if (sendMessageFormValid()) hideSendMessagForm(); return false;" actionListener="#{userprofileBean.sendMessage}" /> or 
+          <span class="popuplogin_button"><a href="javascript:;" onclick="clearSendMessageForm(); hideSendMessagForm(); return false;">Cancel</a></span>
             
       </div>
     </div></ice:form>
