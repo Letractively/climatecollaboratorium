@@ -8,11 +8,17 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.imageio.ImageIO;
+
 
 import com.ext.portlet.community.action.CommunityConstants;
 import com.ext.portlet.plans.model.PlanFan;
@@ -27,9 +33,11 @@ import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
+import com.liferay.portal.security.pwd.PwdEncryptor;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
@@ -51,6 +59,10 @@ public class UserWrapper {
     private String screenName;
     private File newUserProfile;
     private String filteredAbout;
+    private String fileErrorMessage;
+    private String newPassword;
+    private String currentPassword;
+    private String newPasswordRetype;
     
     private final static Log _log = LogFactoryUtil.getLog(UserWrapper.class);
     
@@ -147,10 +159,17 @@ public class UserWrapper {
     public void uploadPortrait(ActionEvent e) throws IOException {
         InputFile inputFile = (InputFile) e.getSource();
         if (inputFile.getStatus() == InputFile.INVALID) {
+            fileErrorMessage = "Provided file isn't a valid image.";
             _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
             return;
         }
-
+        
+        if (! inputFile.getFileInfo().getContentType().startsWith("image")) {
+            fileErrorMessage = "Provided file isn't a valid image.";
+            _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
+            return;
+        }
+        fileErrorMessage = null;
         resiseAndCropImage(inputFile.getFile());
         newUserProfile = inputFile.getFile();
         
@@ -182,19 +201,17 @@ public class UserWrapper {
             user.setLastName(lastName);
             changed = true;
         }
-        if (newUserProfile != null) {
-            byte[] bytes = FileUtil.getBytes(newUserProfile);
-
-            if ((bytes != null) && (bytes.length > 0)) {
-                /* we need to set permission checker for liferay */
-                PermissionChecker permissionChecker =
-                    PermissionCheckerFactoryUtil.create(user, true);
-
-                PermissionThreadLocal.setPermissionChecker(permissionChecker);
-                UserServiceUtil.updatePortrait(user.getUserId(), bytes);
-            }
+        
+        if (newPassword.trim().length() > 0) {
+            user.setPassword(PwdEncryptor.encrypt(newPassword));
             changed = true;
         }
+
+        long companyId = CompanyThreadLocal.getCompanyId(); 
+        if (companyId == 0) {
+           CompanyThreadLocal.setCompanyId(Helper.getThemeDisplay().getCompanyId());
+        }
+        
 
         String existingBio = ExpandoValueLocalServiceUtil.getData(
                 User.class.getName(), CommunityConstants.EXPANDO,
@@ -208,6 +225,21 @@ public class UserWrapper {
         if (changed) {
             UserLocalServiceUtil.updateUser(user);
         }
+        
+        if (newUserProfile != null) {
+            byte[] bytes = FileUtil.getBytes(newUserProfile);
+
+            if ((bytes != null) && (bytes.length > 0)) {
+                /* we need to set permission checker for liferay */
+                PermissionChecker permissionChecker =
+                    PermissionCheckerFactoryUtil.create(user, true);
+
+                PermissionThreadLocal.setPermissionChecker(permissionChecker);
+                UserServiceUtil.updatePortrait(user.getUserId(), bytes);
+                user = UserLocalServiceUtil.getUser(user.getUserId());
+            }
+        }
+        
         init(user);
     }
     
@@ -280,5 +312,41 @@ public class UserWrapper {
         
         ImageIO.write(dimg, imageType, file);
         
+    }
+
+    public void setFileErrorMessage(String fileErrorMessage) {
+        this.fileErrorMessage = fileErrorMessage;
+    }
+
+    public String getFileErrorMessage() {
+        return fileErrorMessage;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
+    }
+
+    public String getNewPasswordRetype() {
+        return newPasswordRetype;
+    }
+
+    public void setNewPasswordRetype(String newPasswordRetype) {
+        this.newPasswordRetype = newPasswordRetype;
+    }
+
+    public User getWrapped() {
+        return user;
     }
 }

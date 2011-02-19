@@ -21,6 +21,7 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.social.model.SocialActivity;
@@ -43,6 +44,10 @@ public class UserProfileBean {
     
     public UserProfileBean() {
         Map<String, String> parameters = Helper.getUrlParametersMap();
+        long companyId = CompanyThreadLocal.getCompanyId(); 
+        if (companyId == 0) {
+            CompanyThreadLocal.setCompanyId(Helper.getThemeDisplay().getCompanyId());
+        }
         
         if (parameters.containsKey(USER_ID_PARAM)) {
             try {
