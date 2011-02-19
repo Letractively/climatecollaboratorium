@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.plans.PlanUserPermission;
 import com.ext.portlet.plans.model.PlanItem;
 
@@ -137,9 +138,10 @@ public class PlanMembershipBean {
         planMembers.remove(planMembers.indexOf(planMember));
     }
     
-    public void removeCurrentUser(ActionEvent e) throws SystemException {
+    public void removeCurrentUser(ActionEvent e) throws SystemException, PortalException, IllegalUIConfigurationException {
         if (Helper.isUserLoggedIn()) {
             plan.removeMember(Helper.getLiferayUser().getUserId(), Helper.getLiferayUser().getUserId());
+            planBean.refreshFull();
         }
     }
 

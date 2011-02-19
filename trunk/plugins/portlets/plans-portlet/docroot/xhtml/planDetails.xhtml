@@ -52,7 +52,8 @@
                       
             <ice:form>         
             <h2>
-                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='planNameInput' onchange="jQuery(this).addClass('valueChanged');" partialSubmit="true">
+                <br />
+                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='popupreg_input' onchange="jQuery(this).addClass('valueChanged');" partialSubmit="true" required="true" >
                     <f:attribute name="plan" value="#{plan.plan}"/>
                     <f:validator validatorId="planNameValidator"/>
                     <f:attribute name="planName" value="#{plan.plan.name}" />
@@ -60,9 +61,10 @@
             </h2>
 
             <div class="actions">
-                <ice:commandButton actionListener="#{plan.plan.saveName}"  value="Save"/>&amp;nbsp;&amp;nbsp;
-                <ice:commandButton actionListener="#{plan.editName}" immediate="true" value="Cancel"/>
+                <ice:commandButton actionListener="#{plan.plan.saveName}"  value="SAVE" styleClass="mothButton orange"/>&amp;nbsp;&amp;nbsp;
+                <ice:commandButton actionListener="#{plan.editName}" immediate="true" styleClass="mothButton orange" value="CANCEL"/>
             </div>
+                <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>
             </ice:form>
             <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>
         </f:subview>
