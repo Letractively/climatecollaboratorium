@@ -13,7 +13,7 @@ public class CommunityConstants {
     public static final String USER_PARAMETER = "userObject";
     public static final String LOGIN_MESSAGE_FORWARD = "portlet.ext.community.login_message";
     public static final String EDIT_ENABLED_PARAMETER = "editEnabled";
-    public static final String USER_PROFILE_PATH = "/web/guest/members";
+    public static final String USER_PROFILE_PATH = "/web/guest/member/-/member/userId/";
     public static final Object UPDATE_PASSWORD = "updatePassword";
     public static final String PASSWORD2 = "password2";
     public static final String PASSWORD1 = "password1";
