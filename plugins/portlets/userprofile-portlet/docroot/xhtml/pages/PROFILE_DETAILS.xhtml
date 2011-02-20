@@ -86,7 +86,9 @@
                     <f:convertDateTime pattern="MM/dd/yy"/>
                 </ice:outputText>
             </td></tr>
-            <tr><td class="b">Email</td><td><a href="mailto:#{currentUser.email}">#{currentUser.email}</a></td></tr>
+            <f:subview rendered="#{userprofileBean.viewingOwnProfile}">
+                <tr><td class="b">Email</td><td><a href="mailto:#{currentUser.email}">#{currentUser.email}</a></td></tr>
+            </f:subview>
           </table>
         </div>
         <div class="clearfix"></div>
