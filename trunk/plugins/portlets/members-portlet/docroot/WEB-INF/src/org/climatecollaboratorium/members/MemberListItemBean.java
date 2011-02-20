@@ -21,16 +21,11 @@ public class MemberListItemBean {
         realName = userDoc.get("realName");
         String screenName = userDoc.get("screenName");
         String firstName = userDoc.get("firstName");
-        if (realName.equals(screenName + " " + screenName)) {
-            realName = firstName;
-        }
-        if (realName.equals(firstName + " " + firstName)) {
-            realName = firstName;
-        }
+
         String firstPart = realName.substring(0, realName.length() / 2).trim();
         String secondPart = realName.substring(realName.length() / 2).trim();
         if (firstPart.equals(secondPart)) {
-            realName = firstName;
+            realName = firstPart;
         }
         
         
