@@ -20,7 +20,7 @@
       </div>
       
       <ice:form>
-      <ice:dataTable id="messagesTable" rows="2" styleClass="colab" value="#{messagingBean.data}" var="message" rowClasses="t,nt">
+      <ice:dataTable id="messagesTable" rows="10" styleClass="colab" value="#{messagingBean.data}" var="message" rowClasses="t,nt">
             <ice:column rendered="#{messagingBean.type == 'INBOX'}">
                 <ice:selectBooleanCheckbox value="#{message.selected}" />
             </ice:column>
