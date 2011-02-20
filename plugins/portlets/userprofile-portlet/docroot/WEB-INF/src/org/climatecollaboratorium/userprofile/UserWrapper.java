@@ -77,6 +77,13 @@ public class UserWrapper {
         filteredAbout = Helper.filterLineBreaks(about);
         
         realName = getName(user.getFullName(), user.getScreenName());
+        
+        String firstPart = realName.substring(0, realName.length() / 2).trim();
+        String secondPart = realName.substring(realName.length() / 2).trim();
+        if (firstPart.equals(secondPart)) {
+            realName = firstName;
+        }
+        
         firstName = user.getFirstName();
         lastName = user.getLastName();
         email = user.getEmailAddress();
