@@ -22,7 +22,7 @@ public class MemberListItemBean {
         String screenName = userDoc.get("screenName");
         String firstName = userDoc.get("firstName");
         if (realName.equals(screenName + " " + screenName)) {
-            realName = screenName;
+            realName = firstName;
         }
         if (realName.equals(firstName + " " + firstName)) {
             realName = firstName;
