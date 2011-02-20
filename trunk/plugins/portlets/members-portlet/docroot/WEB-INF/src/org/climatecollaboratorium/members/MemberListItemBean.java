@@ -27,6 +27,14 @@ public class MemberListItemBean {
         if (realName.equals(firstName + " " + firstName)) {
             realName = firstName;
         }
+        String firstPart = realName.substring(0, realName.length() / 2).trim();
+        String secondPart = realName.substring(realName.length() / 2).trim();
+        if (firstPart.equals(secondPart)) {
+            realName = firstName;
+        }
+        
+        
+        
         joinDate = userDoc.getDate("joinDate");
         category = MemberCategory.valueOf(userDoc.getValues("memberCategory")[0]);
         
