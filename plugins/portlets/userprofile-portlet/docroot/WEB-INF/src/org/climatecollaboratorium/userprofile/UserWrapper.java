@@ -77,17 +77,16 @@ public class UserWrapper {
         filteredAbout = Helper.filterLineBreaks(about);
         
         realName = getName(user.getFullName(), user.getScreenName());
+        firstName = user.getFirstName();
+        lastName = user.getLastName();
+        email = user.getEmailAddress();
+        screenName = user.getScreenName();
         
         String firstPart = realName.substring(0, realName.length() / 2).trim();
         String secondPart = realName.substring(realName.length() / 2).trim();
         if (firstPart.equals(secondPart)) {
             realName = firstName;
         }
-        
-        firstName = user.getFirstName();
-        lastName = user.getLastName();
-        email = user.getEmailAddress();
-        screenName = user.getScreenName();
         
         for (PlanFan supportedPlanInfo : PlanFanLocalServiceUtil.getPlanFansForUser(user.getUserId())) {
             supportedPlans.add(new SupportedPlanBean(supportedPlanInfo));
