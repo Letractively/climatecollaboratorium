@@ -16,7 +16,7 @@ public enum PlanPageType {
         @Override
         public boolean determine(NavigationEvent e) {
             Map<String, String> params = e.getParameters(PLANS_SOURCE);
-            return params != null && e.getParameters(DEBATE_SOURCE) == null;
+            return params != null && e.getParameters(DEBATE_SOURCE) == null && params.get(SUBVIEW_PARAM) == null;
         }
 
         @Override
