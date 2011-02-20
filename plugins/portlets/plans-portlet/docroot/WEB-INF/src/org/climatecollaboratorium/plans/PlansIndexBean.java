@@ -346,13 +346,7 @@ public class PlansIndexBean {
                 notFilteredPlans = PlanItemLocalServiceUtil.getPlans(ectx.getSessionMap(), ectx.getRequestMap(), null, contestPhase.getPhase(), 0, 1000, sortAttribute, sortAscending ? "ASC" : "DESC", false);
             }
             
-            System.out.println("sort column: " + sortAttribute);
             Attribute sortAttr = Attribute.valueOf(sortAttribute);
-            
-            for (PlanItem plan: notFilteredPlans) {
-                System.out.println(plan.getName() + ": " + sortAttr.getValue(plan) + "\t\t\t" + sortCol.getValue(plan));
-                
-            }
 
             List<PlanItem> popularPlans = Collections.emptyList();
             List<PlanIndexItemWrapper> untitledPlans = new ArrayList<PlanIndexItemWrapper>();
