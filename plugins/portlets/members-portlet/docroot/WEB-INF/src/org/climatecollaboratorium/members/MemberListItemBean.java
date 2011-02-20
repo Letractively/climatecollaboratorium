@@ -19,6 +19,10 @@ public class MemberListItemBean {
         userId = Long.parseLong(userDoc.get("userId"));
         activityCount = SocialActivityLocalServiceUtil.getUserActivitiesCount(userId);
         realName = userDoc.get("realName");
+        String screenName = userDoc.get("screenName");
+        if (realName.equals(screenName + " " + screenName)) {
+            realName = screenName;
+        }
         joinDate = userDoc.getDate("joinDate");
         category = MemberCategory.valueOf(userDoc.getValues("memberCategory")[0]);
         

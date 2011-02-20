@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 
@@ -30,8 +31,8 @@ public class MembersBean {
     private int RESULTS_PER_PAGE = 25;
     private final static long DEFAULT_COMPANY_ID = 10112L;
     private String sortColumnStr;
-    private MembersListColumns sortColumn = MembersListColumns.REAL_NAME;
-    private boolean sortAscending = true;
+    private MembersListColumns sortColumn = MembersListColumns.MEMBER_SINCE;
+    private boolean sortAscending = false;
     private String searchPhrase = "";
     private MemberCategory categoryFilter = null;
     
@@ -48,6 +49,16 @@ public class MembersBean {
     
     public MembersBean() throws SystemException, PortalException, NumberFormatException, ParseException {
         categoryRoleMap = new HashMap<MemberCategory, Role>();
+
+        Object filterObj = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("filter");
+        if (filterObj != null) {
+            try {
+                categoryFilter = MemberCategory.valueOf(filterObj.toString());
+            }
+            catch (Exception e) {
+                // ignore
+            }
+        }
         for (MemberCategory category: MemberCategory.values()) {
             categoryRoleMap.put(category, RoleLocalServiceUtil.getRole(DEFAULT_COMPANY_ID, category.getRoleName()));
         }
