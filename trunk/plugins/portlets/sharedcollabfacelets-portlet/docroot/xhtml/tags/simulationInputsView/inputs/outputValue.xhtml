@@ -6,9 +6,9 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 <span class="modelInputValue">
-    <ice:outputText value="#{label}" rendered="#{showLabel}" styleClass="input_def_inner_label"/>    
+    <ice:outputText value="#{label}" rendered="#{showLabel}" styleClass="input_def_inner_label"/>
     <span class="val">
-    <f:subview rendered="#{fn:contains(fn:toLowerCase(unit), 'percent') }">
+    <f:subview rendered="#{fn:contains(fn:toLowerCase(unit), 'percent') or fn:contains(fn:toLowerCase(unit), '%')}">
         <ice:outputText value="#{value / 100}">
             <f:convertNumber type="percent"/>
         </ice:outputText>

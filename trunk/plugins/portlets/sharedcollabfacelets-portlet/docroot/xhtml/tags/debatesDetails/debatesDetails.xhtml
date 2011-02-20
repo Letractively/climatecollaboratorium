@@ -32,10 +32,10 @@
                         <ice:outputProgress styleClass="debateVotes" value="#{debate.totalVotesCount == 0 ? 0 : (position.votesCount * 100 )/ debate.totalVotesCount}" />
                          -->
                     </ice:column>
-                    <ice:column style="width: 70px;">
+                    <ice:column style="width: 80px; text-align: center;">
                         <f:facet name="header">VOTES</f:facet>
-                        <ice:outputText value="#{debate.totalVotesCount == 0 ? 0 : position.votesCount/ debate.totalVotesCount}" >
-                            <f:convertNumber type="percent" pattern="#"/>
+                        <ice:outputText value="#{debate.totalVotesCount == 0 ? 0 : 100 * position.votesCount/ debate.totalVotesCount}" >
+                            <f:convertNumber pattern="###"/>
                         </ice:outputText>
                         %
                         <!-- 
