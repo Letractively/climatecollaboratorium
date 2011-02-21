@@ -1154,9 +1154,7 @@ margin: 20px 0 15px 0;
 	display: none;
 }
 
-.home.contentContainer .right td {
-	line-height: 27px;
-}
+
 
 .popup-info-box {
     width: 250px;
@@ -1289,4 +1287,29 @@ div.growlUI h1, div.growlUI h2 {
 .wf-active .planDetails #bread.ISSUE_DETAILS,
 .planDetails #bread.ISSUE_DETAILS {
 	margin-top: 57px;
+}
+
+#content.home {
+	line-height: 20px;
+}
+
+.home.contentContainer .right td {
+    line-height: 20px;
+}
+
+.home.contentContainer .right {
+	padding-top: 8px;
+}
+
+.titleArea h2 {
+    color: #2498B3;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 15px 0;
+}
+
+.divider {
+    background: url("../images/divider.gif") repeat-x scroll 0 0 transparent;
+    width: 920px;
+    margin: 0;
 }
