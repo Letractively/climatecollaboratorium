@@ -15,7 +15,7 @@
                 $processor.processColumn("column-5")
             </div>
  
-           <div class="divider clear"></div>
+           <div class="clear"></div>
         </div>
         
         <div class="contentArea">
