@@ -11,11 +11,8 @@ import java.util.Map;
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.liferay.portal.SystemException;
 
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.comm.ClientRepository;
-import mit.simulation.climate.client.comm.ModelNotFoundException;
-import mit.simulation.climate.client.comm.ScenarioNotFoundException;
+import edu.mit.cci.simulation.client.*;
+import edu.mit.cci.simulation.client.comm.*;
 
 public class SimulationsHelper {
     
@@ -88,6 +85,7 @@ public class SimulationsHelper {
 
 
     public void saveScenario(Scenario scenario) throws ScenarioNotFoundException, IOException {
-        repository.saveScenario(scenario);
+        // FIXME removing save scenario as it isn't available in client 2.0
+        // repository.saveScenario(scenario);
     }
 }
