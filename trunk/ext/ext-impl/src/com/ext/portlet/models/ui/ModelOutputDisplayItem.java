@@ -6,10 +6,10 @@
 
 package com.ext.portlet.models.ui;
 
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.Tuple;
-import mit.simulation.climate.client.TupleStatus;
-import mit.simulation.climate.client.Variable;
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.Tuple;
+import edu.mit.cci.simulation.client.TupleStatus;
+import edu.mit.cci.simulation.client.Variable;
 
 import java.util.List;
 import java.util.Map;

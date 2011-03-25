@@ -10,7 +10,7 @@ import com.ext.portlet.models.NoSuchModelOutputChartOrderException;
 import com.ext.portlet.models.model.ModelOutputChartOrder;
 import com.ext.portlet.models.service.base.ModelOutputChartOrderLocalServiceBaseImpl;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
 
 
 public class ModelOutputChartOrderLocalServiceImpl

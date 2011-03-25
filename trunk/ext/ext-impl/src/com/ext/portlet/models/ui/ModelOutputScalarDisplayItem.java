@@ -9,10 +9,7 @@ package com.ext.portlet.models.ui;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.TupleStatus;
-import mit.simulation.climate.client.Variable;
+import edu.mit.cci.simulation.client.*;
 
 import java.util.Collections;
 import java.util.Map;

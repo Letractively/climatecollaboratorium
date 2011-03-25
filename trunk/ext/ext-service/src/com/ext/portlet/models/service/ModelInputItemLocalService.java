@@ -82,11 +82,11 @@ public interface ModelInputItemLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.models.model.ModelInputItem> getItemsForModel(
-        mit.simulation.climate.client.Simulation sim);
+        edu.mit.cci.simulation.client.Simulation sim);
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.models.model.ModelInputItem getItemForMetaData(
-        java.lang.Long modelId, mit.simulation.climate.client.MetaData md);
+        java.lang.Long modelId, edu.mit.cci.simulation.client.MetaData md);
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.models.model.ModelInputItem> getItemForGroupId(

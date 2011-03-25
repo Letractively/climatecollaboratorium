@@ -33,9 +33,9 @@ public interface ModelInputGroup extends ModelInputGroupModel {
 
     public com.ext.portlet.models.model.ModelInputGroup getParent();
 
-    public mit.simulation.climate.client.Simulation getModel()
-        throws com.liferay.portal.SystemException;
+    public edu.mit.cci.simulation.client.Simulation getModel()
+        throws com.liferay.portal.SystemException, java.io.IOException;
 
-    public mit.simulation.climate.client.MetaData getMetaData()
-        throws com.liferay.portal.SystemException;
+    public edu.mit.cci.simulation.client.MetaData getMetaData()
+        throws com.liferay.portal.SystemException, java.io.IOException;
 }

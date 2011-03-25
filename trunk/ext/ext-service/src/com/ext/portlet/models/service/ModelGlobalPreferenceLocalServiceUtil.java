@@ -91,34 +91,34 @@ public class ModelGlobalPreferenceLocalServiceUtil {
                    .updateModelGlobalPreference(modelGlobalPreference, merge);
     }
 
-    public static boolean isVisible(mit.simulation.climate.client.Simulation s)
+    public static boolean isVisible(edu.mit.cci.simulation.client.Simulation s)
         throws com.liferay.portal.SystemException {
         return getService().isVisible(s);
     }
 
-    public static void setVisible(mit.simulation.climate.client.Simulation s,
+    public static void setVisible(edu.mit.cci.simulation.client.Simulation s,
         boolean visible) throws com.liferay.portal.SystemException {
         getService().setVisible(s, visible);
     }
 
-    public static int getWeight(mit.simulation.climate.client.Simulation s)
+    public static int getWeight(edu.mit.cci.simulation.client.Simulation s)
         throws com.liferay.portal.SystemException {
         return getService().getWeight(s);
     }
 
-    public static void setWeight(mit.simulation.climate.client.Simulation s,
+    public static void setWeight(edu.mit.cci.simulation.client.Simulation s,
         int weight) throws com.liferay.portal.SystemException {
         getService().setWeight(s, weight);
     }
 
     public static java.lang.Long getExpertEvaluationPageId(
-        mit.simulation.climate.client.Simulation s)
+        edu.mit.cci.simulation.client.Simulation s)
         throws com.liferay.portal.SystemException {
         return getService().getExpertEvaluationPageId(s);
     }
 
     public static void setExpertEvaluationPageId(
-        mit.simulation.climate.client.Simulation s, java.lang.Long pageId)
+        edu.mit.cci.simulation.client.Simulation s, java.lang.Long pageId)
         throws com.liferay.portal.SystemException {
         getService().setExpertEvaluationPageId(s, pageId);
     }
@@ -130,7 +130,7 @@ public class ModelGlobalPreferenceLocalServiceUtil {
     }
 
     public static com.ext.portlet.models.model.ModelCategory getCategory(
-        mit.simulation.climate.client.Simulation sim)
+        edu.mit.cci.simulation.client.Simulation sim)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
         return getService().getCategory(sim);
@@ -138,7 +138,7 @@ public class ModelGlobalPreferenceLocalServiceUtil {
 
     public static void updateModelCategory(
         com.ext.portlet.models.model.ModelCategory cat,
-        mit.simulation.climate.client.Simulation sim)
+        edu.mit.cci.simulation.client.Simulation sim)
         throws com.liferay.portal.SystemException {
         getService().updateModelCategory(cat, sim);
     }

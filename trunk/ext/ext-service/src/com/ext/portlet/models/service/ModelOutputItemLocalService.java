@@ -82,7 +82,7 @@ public interface ModelOutputItemLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.models.model.ModelOutputItem getOutputItem(
-        mit.simulation.climate.client.MetaData md)
+        edu.mit.cci.simulation.client.MetaData md)
         throws com.ext.portlet.models.NoSuchModelOutputItemException,
             com.liferay.portal.SystemException;
 }

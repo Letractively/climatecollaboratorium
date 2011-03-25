@@ -8,8 +8,8 @@ package com.ext.portlet.models.ui;
 
 import com.liferay.portal.SystemException;
 
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.MetaData;
 
 /**
  * Top level class for all input elements in a model / simulation

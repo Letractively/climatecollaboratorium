@@ -10,9 +10,9 @@ import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.model.ModelInputItem;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.*;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,11 +23,11 @@ public class ModelInputItemImpl extends ModelInputItemModelImpl
     public ModelInputItemImpl() {
     }
 
-    public MetaData getMetaData() throws SystemException {
+    public MetaData getMetaData() throws SystemException, IOException {
         return CollaboratoriumModelingService.repository().getMetaData(getModelInputItemID());
     }
 
-    public Simulation getModel() throws SystemException {
+    public Simulation getModel() throws SystemException, IOException {
         return CollaboratoriumModelingService.repository().getSimulation(getModelId());
     }
 

@@ -58,7 +58,8 @@ import com.liferay.portal.service.PermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import mit.simulation.climate.client.Simulation;
+
+import edu.mit.cci.simulation.client.Simulation;
 
 public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
@@ -454,16 +455,20 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
         String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
                 DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
-                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() };
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() ,
+                DiscussionActions.ADD_COMMENT.name()};
 
         String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
                 DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
-                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() };
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() ,
+                DiscussionActions.ADD_COMMENT.name() };
 
         String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
-                DiscussionActions.ADD_THREAD.name() };
+                DiscussionActions.ADD_THREAD.name() ,
+                DiscussionActions.ADD_COMMENT.name() };
 
-        String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name() };
+        String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name() ,
+                DiscussionActions.ADD_COMMENT.name() };
 
         String[] guestActions = {};
 

@@ -6,13 +6,16 @@
 
 package com.ext.portlet.models.ui;
 
+import java.io.IOException;
+
 import com.ext.portlet.models.model.ModelInputItem;
 import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.Variable;
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.Scenario;
+import edu.mit.cci.simulation.client.MetaData;
+import edu.mit.cci.simulation.client.Variable;
 
 /**
  * Layout information for individual (non-group) display elements.
@@ -26,7 +29,7 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
     ModelInputItem item;
 
 
-    public ModelInputIndividualDisplayItem(ModelInputItem item) throws SystemException {
+    public ModelInputIndividualDisplayItem(ModelInputItem item) throws SystemException, IOException {
         super(item.getModel(),item.getMetaData());
         this.item = item;
     }
@@ -98,8 +101,9 @@ public class ModelInputIndividualDisplayItem extends ModelInputDisplayItem {
      * @param type
      * @return
      * @throws SystemException
+     * @throws IOException 
      */
-    public static ModelInputIndividualDisplayItem create(Simulation sim, MetaData md, ModelInputWidgetType type) throws SystemException {
+    public static ModelInputIndividualDisplayItem create(Simulation sim, MetaData md, ModelInputWidgetType type) throws SystemException, IOException {
          Long pk = CounterLocalServiceUtil.increment(ModelInputItem.class.getName());
             ModelInputItem item = ModelInputItemLocalServiceUtil.createModelInputItem(pk);
             item.setModelId(sim.getId());

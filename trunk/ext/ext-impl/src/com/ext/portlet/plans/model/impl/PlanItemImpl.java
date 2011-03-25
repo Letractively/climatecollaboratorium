@@ -9,7 +9,7 @@ package com.ext.portlet.plans.model.impl;
 import java.util.Date;
 import java.util.List;
 
-import mit.simulation.climate.client.Simulation;
+
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
@@ -65,6 +65,8 @@ import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
+
+import edu.mit.cci.simulation.client.Simulation;
 
 public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     private final static Log _log = LogFactoryUtil.getLog(PlanItemImpl.class);

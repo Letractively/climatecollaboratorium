@@ -9,7 +9,7 @@ package com.ext.portlet.models.service.impl;
 import com.ext.portlet.models.model.ModelInputGroup;
 import com.ext.portlet.models.service.base.ModelInputGroupLocalServiceBaseImpl;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
 
 import java.util.Collections;
 import java.util.List;

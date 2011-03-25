@@ -225,9 +225,10 @@
 	<classpathentry kind="lib" path="lib/portal/xpp3.jar"/>
 	<classpathentry kind="lib" path="lib/portal/xstream.jar"/>
 	<classpathentry kind="lib" path="modules/portal-impl.jar" sourcepath="/Liferay Portal"/>
-	<classpathentry kind="lib" path="ext-lib/global/mit_collaboratorium_modeling_client_jar.jar" sourcepath="/modeling_v2_client"/>
 	<classpathentry kind="lib" path="ext-lib/global/json-lib.jar"/>
+	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/simulation-0.1.0.BUILD-SNAPSHOT.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
+	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/client-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="output"/>
 </classpath>

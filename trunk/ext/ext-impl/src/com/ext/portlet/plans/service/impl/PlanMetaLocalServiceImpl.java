@@ -10,7 +10,8 @@ import com.ext.portlet.plans.service.base.PlanMetaLocalServiceBaseImpl;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.Simulation;
+
+import edu.mit.cci.simulation.client.Simulation;
 
 import java.util.Date;
 import java.util.List;

@@ -13,7 +13,8 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.*;
+
+import edu.mit.cci.simulation.client.*;
 
 import java.util.*;
 
