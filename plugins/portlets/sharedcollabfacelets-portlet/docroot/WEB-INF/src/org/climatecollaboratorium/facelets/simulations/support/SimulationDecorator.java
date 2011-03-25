@@ -12,9 +12,8 @@ import java.util.regex.Pattern;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.SystemException;
 
-import mit.simulation.climate.client.EntityState;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.*;
+
 
 public class SimulationDecorator implements Simulation {
     private Simulation wrapped;

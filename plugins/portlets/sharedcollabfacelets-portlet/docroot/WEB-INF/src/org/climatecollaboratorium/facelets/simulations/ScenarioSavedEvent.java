@@ -1,6 +1,6 @@
 package org.climatecollaboratorium.facelets.simulations;
 
-import mit.simulation.climate.client.Scenario;
+import edu.mit.cci.simulation.client.*;
 
 import org.climatecollaboratorium.events.Event;
 

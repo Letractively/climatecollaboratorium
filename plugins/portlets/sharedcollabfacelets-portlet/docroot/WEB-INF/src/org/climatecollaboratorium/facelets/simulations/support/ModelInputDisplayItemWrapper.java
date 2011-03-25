@@ -6,10 +6,9 @@ import java.util.Map;
 import com.ext.portlet.models.ui.*;
 import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 
-import mit.simulation.climate.client.MetaData;
+import edu.mit.cci.simulation.client.MetaData;
 
 
-import com.liferay.portal.SystemException;
 
 public class ModelInputDisplayItemWrapper {
     protected ModelInputDisplayItem wrappedItem;

@@ -135,6 +135,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>simulationTester</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.utils.SimulationTester</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>plansTool</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.utils.PlansTool</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>

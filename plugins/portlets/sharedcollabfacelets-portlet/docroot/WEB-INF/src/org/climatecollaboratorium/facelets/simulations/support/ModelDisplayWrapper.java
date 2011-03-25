@@ -4,16 +4,10 @@ package org.climatecollaboratorium.facelets.simulations.support;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.climatecollaboratorium.facelets.simulations.SimulationBean;
-
-
-import mit.simulation.climate.client.Simulation;
-
 
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;

@@ -9,12 +9,9 @@ import java.util.Map;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.TupleStatus;
-import mit.simulation.climate.client.Variable;
-import mit.simulation.climate.client.comm.ModelNotFoundException;
-import mit.simulation.climate.client.comm.ScenarioNotFoundException;
+import edu.mit.cci.simulation.client.*;
+import edu.mit.cci.simulation.client.comm.*;
+
 import net.sf.json.JSONArray;
 
 import org.climatecollaboratorium.events.EventBus;
@@ -83,7 +80,7 @@ public class SimulationBean {
         return display;
     }
 
-    public void setSimulation(Simulation simulation) throws SystemException, IllegalUIConfigurationException {
+    public void setSimulation(Simulation simulation) throws SystemException, IllegalUIConfigurationException, IOException {
         if (simulation == null) {
             this.simulation = null;
             return;
@@ -98,7 +95,7 @@ public class SimulationBean {
 
     }
 
-    public void setScenario(Scenario scenario) throws SystemException, IllegalUIConfigurationException {
+    public void setScenario(Scenario scenario) throws SystemException, IllegalUIConfigurationException, IOException {
         if (scenario == null) {
             this.simulation = null;
             this.scenario = null;
@@ -148,7 +145,8 @@ public class SimulationBean {
 
     public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException, SystemException {
         simulation.setDescription(description);
-        SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
+        // FIXME removing updateSimulation as it isn't available in client 2.0
+        //SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
         editing = false;
     }
 
@@ -218,7 +216,7 @@ public class SimulationBean {
         return inputsValues;
     }
 
-    public void editActions(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
+    public void editActions(ActionEvent e) throws SystemException, IllegalUIConfigurationException, IOException {
         embeddedEditing = !embeddedEditing;
         scenarioSaved = false;
         if (! embeddedEditing) {
@@ -245,7 +243,7 @@ public class SimulationBean {
         this.scenarioSaved = scenarioSaved;
     }
     
-    public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
+    public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException, IOException {
         updateDisplay();
     }
     
@@ -254,7 +252,7 @@ public class SimulationBean {
         return wrappedInputs;
     }
     
-    public void updateDisplay() throws SystemException, IllegalUIConfigurationException {
+    public void updateDisplay() throws SystemException, IllegalUIConfigurationException, IOException {
         if (scenario != null) {
             display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this, inputsValues);
         }

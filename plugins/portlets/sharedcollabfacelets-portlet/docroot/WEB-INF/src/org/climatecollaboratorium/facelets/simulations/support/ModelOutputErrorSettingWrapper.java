@@ -1,10 +1,13 @@
 package org.climatecollaboratorium.facelets.simulations.support;
 
+import java.io.IOException;
+
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 
-import mit.simulation.climate.client.TupleStatus;
+import edu.mit.cci.simulation.client.*;
+
 
 import com.ext.portlet.models.ui.ErrorPolicy;
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
@@ -37,7 +40,7 @@ public class ModelOutputErrorSettingWrapper {
         return status;
     }
     
-    public void update(ActionEvent event) throws SystemException, IllegalUIConfigurationException {
+    public void update(ActionEvent event) throws SystemException, IllegalUIConfigurationException, IOException {
         if (item instanceof ModelOutputSeriesDisplayItem) {
             ((ModelOutputSeriesDisplayItem) item).setErrorBehavior(status, policy, msg);
         }

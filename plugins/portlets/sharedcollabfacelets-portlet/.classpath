@@ -5,9 +5,9 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
-	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/mit_collaboratorium_modeling_client_jar.jar"/>
-	<classpathentry kind="lib" path="/icefaces/lib/el-api.jar"/>
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/json-lib.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/client-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/plugins-svn/lib/el-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,6 +2,7 @@ package org.climatecollaboratorium.facelets.simulations.support;
 
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,8 @@ import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 
 import com.ext.portlet.models.service.base.ModelInputGroupType;
 
-import mit.simulation.climate.client.MetaData;
+import edu.mit.cci.simulation.client.MetaData;
+
 
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
@@ -50,7 +52,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         return ((ModelInputGroupDisplayItem)groupItem).getDisplayItems();
     }
     
-    public void update(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
+    public void update(ActionEvent e) throws SystemException, IllegalUIConfigurationException, IOException {
         if (groupItem == null) {
             // adding
             ModelInputGroupDisplayItem createdItem = null;
@@ -77,7 +79,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         simulationBean.updateDisplay();
     }
     
-    public void delete(ActionEvent e) throws PortalException, SystemException, IllegalUIConfigurationException {
+    public void delete(ActionEvent e) throws PortalException, SystemException, IllegalUIConfigurationException, IOException {
         if (groupItem != null) {
             ((ModelInputGroupDisplayItem) groupItem).delete();
             simulationBean.updateDisplay();
