@@ -90,12 +90,12 @@ public class ModelInputItemLocalServiceUtil {
     }
 
     public static java.util.List<com.ext.portlet.models.model.ModelInputItem> getItemsForModel(
-        mit.simulation.climate.client.Simulation sim) {
+        edu.mit.cci.simulation.client.Simulation sim) {
         return getService().getItemsForModel(sim);
     }
 
     public static com.ext.portlet.models.model.ModelInputItem getItemForMetaData(
-        java.lang.Long modelId, mit.simulation.climate.client.MetaData md) {
+        java.lang.Long modelId, edu.mit.cci.simulation.client.MetaData md) {
         return getService().getItemForMetaData(modelId, md);
     }
 

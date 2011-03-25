@@ -19,11 +19,10 @@ import com.ext.portlet.models.service.base.ModelInputGroupType;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.Variable;
-import mit.simulation.climate.client.comm.ClientRepository;
+
+import edu.mit.cci.simulation.client.*;
+
+import edu.mit.cci.simulation.client.comm.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -50,8 +49,9 @@ public class ModelUIFactory {
      *
      * @param s
      * @return
+     * @throws IOException 
      */
-    public ModelDisplay getDisplay(Simulation s) throws SystemException, IllegalUIConfigurationException {
+    public ModelDisplay getDisplay(Simulation s) throws SystemException, IllegalUIConfigurationException, IOException {
         return new ModelDisplay(s);
     }
 
@@ -63,8 +63,9 @@ public class ModelUIFactory {
      *
      * @param s
      * @return
+     * @throws IOException 
      */
-    public ModelDisplay getDisplay(Scenario s) throws SystemException, IllegalUIConfigurationException {
+    public ModelDisplay getDisplay(Scenario s) throws SystemException, IllegalUIConfigurationException, IOException {
         return new ModelDisplay(s);
     }
 
@@ -142,8 +143,9 @@ public class ModelUIFactory {
      * @return
      * @throws SystemException
      * @throws IllegalUIConfigurationException
+     * @throws IOException 
      */
-    private ModelInputGroupDisplayItem processGroup(ModelInputGroup group, Set<MetaData> bareMetaData) throws SystemException, IllegalUIConfigurationException {
+    private ModelInputGroupDisplayItem processGroup(ModelInputGroup group, Set<MetaData> bareMetaData) throws SystemException, IllegalUIConfigurationException, IOException {
         ModelInputGroupDisplayItem result=null;
         for (ModelInputItem item : group.getInputItems()) {
                 try {
@@ -158,6 +160,9 @@ public class ModelUIFactory {
         } catch (SystemException e) {
             _log.error(e);
             return null;
+        } catch (IOException e) {
+            _log.error(e);
+            return null;
         }
         for (ModelInputGroup g:group.getChildGroups()) {
            result.addChildGroup(processGroup(g,bareMetaData));
@@ -170,8 +175,9 @@ public class ModelUIFactory {
      *
      * @param s
      * @return
+     * @throws IOException 
      */
-    public List<ModelInputDisplayItem> parseInputs(Simulation s) throws SystemException, IllegalUIConfigurationException {
+    public List<ModelInputDisplayItem> parseInputs(Simulation s) throws SystemException, IllegalUIConfigurationException, IOException {
         List<ModelInputDisplayItem> result = new ArrayList<ModelInputDisplayItem>();
         Set<MetaData> inputs = new HashSet<MetaData>(s.getInputs());
 
@@ -192,6 +198,8 @@ public class ModelUIFactory {
 
                 } catch (SystemException e) {
                    _log.error(e);
+                } catch (IOException e) {
+                    _log.error(e);
                 }
             }
 
@@ -203,6 +211,8 @@ public class ModelUIFactory {
             return new ModelInputIndividualDisplayItem(item);
         } catch (SystemException e) {
             _log.error(e);
+        } catch (IOException e) {
+            _log.error(e);
         }
         return null;
 
@@ -212,6 +222,8 @@ public class ModelUIFactory {
         try {
             return new ModelInputGroupDisplayItem(item);
         } catch (SystemException e) {
+            _log.error(e);
+        } catch (IOException e) {
             _log.error(e);
         }
         return null;

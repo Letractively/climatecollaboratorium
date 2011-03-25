@@ -90,7 +90,7 @@ public class ModelInputGroupLocalServiceUtil {
     }
 
     public static java.util.List<com.ext.portlet.models.model.ModelInputGroup> getInputGroups(
-        mit.simulation.climate.client.Simulation sim) {
+        edu.mit.cci.simulation.client.Simulation sim) {
         return getService().getInputGroups(sim);
     }
 

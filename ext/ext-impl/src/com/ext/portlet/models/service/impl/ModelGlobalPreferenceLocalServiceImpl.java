@@ -16,7 +16,7 @@ import com.ext.portlet.models.service.base.ModelGlobalPreferenceLocalServiceBase
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
 
 import java.util.List;
 

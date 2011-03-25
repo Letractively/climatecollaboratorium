@@ -12,8 +12,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.util.portlet.PortletProps;
 
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.comm.ClientRepository;
+import edu.mit.cci.simulation.client.*;
+import edu.mit.cci.simulation.client.comm.*;
 
 import java.io.IOException;
 
@@ -57,9 +57,9 @@ public class CollaboratoriumModelingService {
                     _log.info("Loaded... " + s.getName());
                 }
                 _log.info("Modeling client initialized");
-            } catch (IOException e) {
+            } catch (Exception e) {
                 _log.error(e);
-                throw new SystemException("Error initializing modeling service client");
+                throw new SystemException("Error initializing modeling service client", e);
             }
 
         }

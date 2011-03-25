@@ -12,8 +12,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.util.PropsUtil;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.comm.ClientRepository;
+import edu.mit.cci.simulation.client.*;
+import edu.mit.cci.simulation.client.comm.*;
 
 /**
  *

@@ -14,12 +14,10 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Tuple;
-import mit.simulation.climate.client.TupleStatus;
-import mit.simulation.climate.client.Variable;
-import mit.simulation.climate.client.model.impl.ClientScenario;
-import mit.simulation.climate.client.model.impl.ClientVariable;
+import edu.mit.cci.simulation.client.*;
+import edu.mit.cci.simulation.client.model.impl.ClientScenario;
+import edu.mit.cci.simulation.client.model.impl.ClientVariable;
+
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.IOException;

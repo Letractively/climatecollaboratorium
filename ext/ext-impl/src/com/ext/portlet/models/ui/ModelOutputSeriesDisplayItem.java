@@ -14,11 +14,12 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.*;
+import edu.mit.cci.simulation.client.*;
 
+import java.io.IOException;
 import java.util.*;
 
-import mit.simulation.climate.client.comm.ClientRepository;
+import edu.mit.cci.simulation.client.comm.ClientRepository;
 
 /**
  * Wrapper around series metadata; series metadata is merely that
@@ -134,8 +135,9 @@ public class ModelOutputSeriesDisplayItem extends ModelOutputDisplayItem{
      *
      * @return
      * @throws SystemException
+     * @throws IOException 
      */
-    public MetaData getAssociatedMetaData() throws SystemException {
+    public MetaData getAssociatedMetaData() throws SystemException, IOException {
             Long l = item.getRelatedOutputItem();
             // FIXME CollaboratoriumModelingService won't work as PropsUtil can't be found from portlet
             //return l==null?null:CollaboratoriumModelingService.repository().getMetaData(item.getRelatedOutputItem());

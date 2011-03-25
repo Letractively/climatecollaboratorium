@@ -82,7 +82,7 @@ public interface ModelInputGroupLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.models.model.ModelInputGroup> getInputGroups(
-        mit.simulation.climate.client.Simulation sim);
+        edu.mit.cci.simulation.client.Simulation sim);
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.models.model.ModelInputGroup> getChildGroups(

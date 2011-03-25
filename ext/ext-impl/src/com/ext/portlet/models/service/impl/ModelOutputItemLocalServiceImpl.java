@@ -10,7 +10,7 @@ import com.ext.portlet.models.NoSuchModelOutputItemException;
 import com.ext.portlet.models.model.ModelOutputItem;
 import com.ext.portlet.models.service.base.ModelOutputItemLocalServiceBaseImpl;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.MetaData;
+import edu.mit.cci.simulation.client.MetaData;
 
 
 public class ModelOutputItemLocalServiceImpl

@@ -10,10 +10,11 @@ import com.ext.portlet.models.service.base.ModelInputGroupType;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.Scenario;
+import edu.mit.cci.simulation.client.MetaData;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -38,7 +39,7 @@ public class ModelDisplay {
 
     private Simulation sim;
 
-    public ModelDisplay(Simulation sim) throws SystemException, IllegalUIConfigurationException {
+    public ModelDisplay(Simulation sim) throws SystemException, IllegalUIConfigurationException, IOException {
         this.sim = sim;
         inputs = ModelUIFactory.getInstance().parseInputs(sim);
         for (ModelInputDisplayItem item:inputs) {
@@ -58,7 +59,7 @@ public class ModelDisplay {
 
     }
 
-    public ModelDisplay(Scenario scenario) throws SystemException, IllegalUIConfigurationException {
+    public ModelDisplay(Scenario scenario) throws SystemException, IllegalUIConfigurationException, IOException {
         this(scenario.getSimulation());
         try {
             setScenario(scenario);

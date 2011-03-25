@@ -1,5 +1,6 @@
 package com.ext.portlet.plans.model.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,8 +12,8 @@ import com.ext.portlet.plans.model.PlanTypeColumn;
 import com.ext.portlet.plans.service.PlanTypeColumnLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.model.impl.ClientSimulation;
+
+import edu.mit.cci.simulation.client.Simulation;
 
 
 public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
@@ -24,7 +25,12 @@ public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
         if (this.getModelTypeName()!=null && this.getModelTypeName().trim().length() > 0) {
                return new ArrayList<Simulation>(CollaboratoriumModelingService.repository().getSimulationsOfType(this.getModelTypeName()));
         } else if (this.getModelId()>0) {
+            try {
                 return Collections.singletonList(CollaboratoriumModelingService.repository().getSimulation(this.getModelId()));
+            }
+            catch (IOException e) {
+                throw new SystemException(e);
+            }
         } else return Collections.emptyList();
        }
 
@@ -32,7 +38,12 @@ public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
         if (this.getDefaultModelId() == null) {
             return null;
         } else {
-            return CollaboratoriumModelingService.repository().getSimulation(this.getDefaultModelId());
+            try {
+                return CollaboratoriumModelingService.repository().getSimulation(this.getDefaultModelId());
+            }
+            catch (IOException e) {
+                throw new SystemException(e);
+            }
         }
     }
 

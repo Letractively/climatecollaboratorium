@@ -27,11 +27,11 @@ package com.ext.portlet.models.model;
  *
  */
 public interface ModelInputItem extends ModelInputItemModel {
-    public mit.simulation.climate.client.MetaData getMetaData()
-        throws com.liferay.portal.SystemException;
+    public edu.mit.cci.simulation.client.MetaData getMetaData()
+        throws com.liferay.portal.SystemException, java.io.IOException;
 
-    public mit.simulation.climate.client.Simulation getModel()
-        throws com.liferay.portal.SystemException;
+    public edu.mit.cci.simulation.client.Simulation getModel()
+        throws com.liferay.portal.SystemException, java.io.IOException;
 
     public java.util.Map<String, String> getPropertyMap();
 

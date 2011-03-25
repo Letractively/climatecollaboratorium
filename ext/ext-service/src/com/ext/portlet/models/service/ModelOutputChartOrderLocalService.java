@@ -83,7 +83,7 @@ public interface ModelOutputChartOrderLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.models.model.ModelOutputChartOrder getChartOrder(
-        mit.simulation.climate.client.Simulation sim, java.lang.String label)
+        edu.mit.cci.simulation.client.Simulation sim, java.lang.String label)
         throws com.ext.portlet.models.NoSuchModelOutputChartOrderException,
             com.liferay.portal.SystemException;
 }

@@ -82,26 +82,26 @@ public interface ModelGlobalPreferenceLocalService {
         boolean merge) throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public boolean isVisible(mit.simulation.climate.client.Simulation s)
+    public boolean isVisible(edu.mit.cci.simulation.client.Simulation s)
         throws com.liferay.portal.SystemException;
 
-    public void setVisible(mit.simulation.climate.client.Simulation s,
+    public void setVisible(edu.mit.cci.simulation.client.Simulation s,
         boolean visible) throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public int getWeight(mit.simulation.climate.client.Simulation s)
+    public int getWeight(edu.mit.cci.simulation.client.Simulation s)
         throws com.liferay.portal.SystemException;
 
-    public void setWeight(mit.simulation.climate.client.Simulation s, int weight)
+    public void setWeight(edu.mit.cci.simulation.client.Simulation s, int weight)
         throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.lang.Long getExpertEvaluationPageId(
-        mit.simulation.climate.client.Simulation s)
+        edu.mit.cci.simulation.client.Simulation s)
         throws com.liferay.portal.SystemException;
 
     public void setExpertEvaluationPageId(
-        mit.simulation.climate.client.Simulation s, java.lang.Long pageId)
+        edu.mit.cci.simulation.client.Simulation s, java.lang.Long pageId)
         throws com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.models.model.ModelGlobalPreference> findByCategory(
@@ -110,12 +110,12 @@ public interface ModelGlobalPreferenceLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.models.model.ModelCategory getCategory(
-        mit.simulation.climate.client.Simulation sim)
+        edu.mit.cci.simulation.client.Simulation sim)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
     public void updateModelCategory(
         com.ext.portlet.models.model.ModelCategory cat,
-        mit.simulation.climate.client.Simulation sim)
+        edu.mit.cci.simulation.client.Simulation sim)
         throws com.liferay.portal.SystemException;
 }

@@ -7,8 +7,8 @@
 package com.ext.portlet.models.ui;
 
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.Scenario;
 
 /**
  * Top level class for a layout element in a simulation.  All visual elements in

@@ -8,7 +8,8 @@ package com.ext.portlet.models.ui;
 
 import com.ext.portlet.models.model.ModelOutputChartOrder;
 import com.ext.portlet.models.model.ModelOutputItem;
-import mit.simulation.climate.client.TupleStatus;
+
+import edu.mit.cci.simulation.client.TupleStatus;
 
 /**
  * Created by IntelliJ IDEA.

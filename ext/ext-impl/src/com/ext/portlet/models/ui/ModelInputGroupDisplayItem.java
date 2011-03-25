@@ -16,10 +16,11 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.Scenario;
+import edu.mit.cci.simulation.client.MetaData;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -49,8 +50,9 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      *
      * @param group
      * @throws SystemException
+     * @throws IOException 
      */
-    public ModelInputGroupDisplayItem(ModelInputGroup group) throws SystemException {
+    public ModelInputGroupDisplayItem(ModelInputGroup group) throws SystemException, IOException {
         super(group.getModel(), group.getMetaData());
         this.group = group;
         populateChildren();
@@ -67,7 +69,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
     }
 
 
-    private void populateChildren() throws SystemException {
+    private void populateChildren() throws SystemException, IOException {
         knownmd = new HashSet<MetaData>();
         items = new ArrayList<ModelInputDisplayItem>();
         for (ModelInputItem item : group.getInputItems()) {
@@ -95,6 +97,8 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
             return group.getName() == null || group.getName().trim().equals("") ? group.getMetaData() == null ? null : group.getMetaData().getName() : group.getName();
         } catch (SystemException e) {
             _log.error("Could not retrive group name", e);
+        } catch (IOException e) {
+            _log.error("Could not retrive group description", e);
         }
         return null;
     }
@@ -121,6 +125,8 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         try {
             return group.getDescription() == null || group.getDescription().trim().equals("") ? group.getMetaData() == null ? null : group.getMetaData().getDescription() : group.getDescription();
         } catch (SystemException e) {
+            _log.error("Could not retrive group description", e);
+        } catch (IOException e) {
             _log.error("Could not retrive group description", e);
         }
         return null;
@@ -194,8 +200,9 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      * @param d
      * @param type
      * @throws SystemException
+     * @throws IOException 
      */
-    public ModelInputDisplayItem addDisplayItem(MetaData d, ModelInputWidgetType type) throws SystemException {
+    public ModelInputDisplayItem addDisplayItem(MetaData d, ModelInputWidgetType type) throws SystemException, IOException {
         if (!knownmd.contains(d)) {
             ModelInputIndividualDisplayItem item = ModelInputIndividualDisplayItem.create(getSimulation(), d, type);
             item.item.setModelGroupId(group.getModelInputGroupPK());
@@ -211,7 +218,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
         return groups;
     }
 
-    public void setParent(ModelInputGroupDisplayItem parent) throws SystemException {
+    public void setParent(ModelInputGroupDisplayItem parent) throws SystemException, IOException {
         ModelInputGroupDisplayItem old = this.parent;
         group.setParentGroupPK(parent==null?null:parent.group.getModelInputGroupPK());
         ModelInputGroupLocalServiceUtil.updateModelInputGroup(group);
@@ -222,7 +229,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
 
     }
 
-    public void addChildGroup(ModelInputGroupDisplayItem group) throws IllegalUIConfigurationException, SystemException {
+    public void addChildGroup(ModelInputGroupDisplayItem group) throws IllegalUIConfigurationException, SystemException, IOException {
         if (group.getGroupType() == ModelInputGroupType.TAB) {
             throw new IllegalUIConfigurationException("Tabs cannot be contained by other groups");
         }
@@ -233,8 +240,9 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      * This method will remove a display item from this group, and update the backing store accordingly
      * @param d
      * @throws SystemException
+     * @throws IOException 
      */
-    public void removeDisplayItem(MetaData d) throws SystemException {
+    public void removeDisplayItem(MetaData d) throws SystemException, IOException {
         ModelInputIndividualDisplayItem toremove = null;
         for (ModelInputDisplayItem item : getDisplayItems()) {
             if (item.getMetaData().equals(d)) {
@@ -252,7 +260,7 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
     }
 
 
-    public void removeGroup(ModelInputGroupDisplayItem child) throws SystemException {
+    public void removeGroup(ModelInputGroupDisplayItem child) throws SystemException, IOException {
         if (groups.contains(child)) {
             child.setParent(null);
 
@@ -268,8 +276,9 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      * @param type
      * @return
      * @throws SystemException
+     * @throws IOException 
      */
-    public static ModelInputGroupDisplayItem create(Simulation s, String name, String description, ModelInputGroupType type) throws SystemException {
+    public static ModelInputGroupDisplayItem create(Simulation s, String name, String description, ModelInputGroupType type) throws SystemException, IOException {
         Long pk = CounterLocalServiceUtil.increment(ModelInputGroup.class.getName());
         ModelInputGroup group = ModelInputGroupLocalServiceUtil.createModelInputGroup(pk);
         group.setName(name);
@@ -286,9 +295,10 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
     /**
      * This is the preferred means for creating a new group with a piece of metadata to be used for the
      * name and description
+     * @throws IOException 
      *
      */
-    public static ModelInputGroupDisplayItem create(Simulation s, MetaData md, ModelInputGroupType type) throws SystemException {
+    public static ModelInputGroupDisplayItem create(Simulation s, MetaData md, ModelInputGroupType type) throws SystemException, IOException {
         Long pk = CounterLocalServiceUtil.increment(ModelInputGroup.class.getName());
         ModelInputGroup group = ModelInputGroupLocalServiceUtil.createModelInputGroup(pk);
         group.setModelId(s.getId());
@@ -302,8 +312,9 @@ public class ModelInputGroupDisplayItem extends ModelInputDisplayItem {
      * Removes given group from the model.
      * @throws SystemException 
      * @throws PortalException 
+     * @throws IOException 
      */
-    public void delete() throws PortalException, SystemException {
+    public void delete() throws PortalException, SystemException, IOException {
         for (ModelInputGroupDisplayItem gchild:getChildGroups()) {
             gchild.setParent(null);
         }

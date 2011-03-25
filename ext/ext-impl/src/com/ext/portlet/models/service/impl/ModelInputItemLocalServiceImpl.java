@@ -12,8 +12,8 @@ import com.ext.portlet.models.service.base.ModelInputItemLocalServiceBaseImpl;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.MetaData;
+import edu.mit.cci.simulation.client.Simulation;
 
 import java.util.Collections;
 import java.util.List;
