@@ -12,6 +12,7 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.theme.ThemeDisplay;
 
+import java.io.IOException;
 import java.util.*;
 
 import javax.faces.FacesException;
@@ -21,7 +22,7 @@ import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.plans.wrappers.PlanModelWrapper;
 
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
 
 /**
  * Created by IntelliJ IDEA.
@@ -72,6 +73,10 @@ public class PlanModelBean {
             throw new FacesException(e);
         } catch (SystemException e) {
            throw new FacesException(e);
+        } catch (NumberFormatException e) {
+            throw new FacesException(e);
+        } catch (IOException e) {
+            throw new FacesException(e);
         }
 
         //This is terrible - shouldn't happen, but if it does, just reset to the default model.

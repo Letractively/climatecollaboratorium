@@ -9,6 +9,7 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,7 +139,7 @@ public class PlanMembershipBean {
         planMembers.remove(planMembers.indexOf(planMember));
     }
     
-    public void removeCurrentUser(ActionEvent e) throws SystemException, PortalException, IllegalUIConfigurationException {
+    public void removeCurrentUser(ActionEvent e) throws SystemException, PortalException, IllegalUIConfigurationException, IOException {
         if (Helper.isUserLoggedIn()) {
             plan.removeMember(Helper.getLiferayUser().getUserId(), Helper.getLiferayUser().getUserId());
             planBean.refreshFull();
