@@ -6,12 +6,14 @@
 
 package org.climatecollaboratorium.plans.wrappers;
 
+import java.io.IOException;
+
 import com.ext.portlet.models.CollaboratoriumModelingService;
 
 import com.liferay.portal.SystemException;
 
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.model.impl.ClientSimulation;
+import edu.mit.cci.simulation.client.*;
+import edu.mit.cci.simulation.client.model.impl.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,7 +32,7 @@ public class PlanModelWrapper {
     boolean simple = false;
     String link = null;
 
-    public PlanModelWrapper(Simulation sim, boolean simple) {
+    public PlanModelWrapper(Simulation sim, boolean simple) throws NumberFormatException, IOException {
        coreModel = sim;
        this.simple = simple;
        if (!simple) {
@@ -42,12 +44,12 @@ public class PlanModelWrapper {
        }
     }
 
-    public PlanModelWrapper(Simulation sim) {
+    public PlanModelWrapper(Simulation sim) throws NumberFormatException, IOException {
          this(sim,true);
 
     }
 
-    private static Simulation lookupDisaggregationModel(Simulation sim) {
+    private static Simulation lookupDisaggregationModel(Simulation sim) throws NumberFormatException, IOException {
          String disaggid = ClientSimulation.parseTypes(sim).get("disagg");
         try {
             return disaggid==null?null: CollaboratoriumModelingService.repository().getSimulation(Long.parseLong(disaggid));
@@ -90,7 +92,7 @@ public class PlanModelWrapper {
     }
 
 
-    public static String getDisaggregationName(Simulation sim) {
+    public static String getDisaggregationName(Simulation sim) throws NumberFormatException, IOException {
        Simulation model= lookupDisaggregationModel(sim);
         if (model == null) {
             return DEFAULT_NAME;

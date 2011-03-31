@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +38,7 @@ public class NavigationBean {
     
     private static Log _log = LogFactoryUtil.getLog(NavigationBean.class);
     
-    public NavigationBean() throws SystemException, PortalException, BeanInitializationException {
+    public NavigationBean() throws SystemException, PortalException, BeanInitializationException, NumberFormatException, IOException {
 
         Map<String, String> params = Helper.getUrlParametersMap();
         try {
@@ -114,6 +115,8 @@ public class NavigationBean {
                 } catch (SystemException e) {
                     _log.error("Can't init plan related beans", e);
                 } catch (IllegalUIConfigurationException e) {
+                    _log.error("Can't init plan related beans", e);
+                } catch (IOException e) {
                     _log.error("Can't init plan related beans", e);
                 }
                 

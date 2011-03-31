@@ -1,10 +1,11 @@
 package org.climatecollaboratorium.plans;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import mit.simulation.climate.client.Simulation;
+import edu.mit.cci.simulation.client.Simulation;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.exceptions.BeanInitializationException;
 import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
@@ -42,7 +43,7 @@ public class ContestBean {
 
     private final static Log _log = LogFactoryUtil.getLog(ContestBean.class);
     
-    public ContestBean(Map<String, String> params) throws SystemException, PortalException, BeanInitializationException {
+    public ContestBean(Map<String, String> params) throws SystemException, PortalException, BeanInitializationException, NumberFormatException, IOException {
         Long contestId = null;
         if (params.containsKey("contestId")) {
             try {
@@ -103,12 +104,12 @@ public class ContestBean {
     }
     
 
-    public void initModels() throws SystemException, PortalException {
+    public void initModels() throws SystemException, PortalException, NumberFormatException, IOException {
         modelId = contest.getContest().getPlanType().getDefaultModelId();
             availableModels.clear();
             for (Simulation sim:contest.getContest().getPlanType().getAvailableModels()) {
 
-                availableModels.add(new SelectItem(sim.getId(), PlanModelWrapper.getDisaggregationName(sim)));
+                availableModels.add(new SelectItem(sim.getId(), sim.getName()));
             }
     }
 

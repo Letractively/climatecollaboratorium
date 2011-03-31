@@ -23,6 +23,7 @@ import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.event.ActionEvent;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -92,7 +93,7 @@ public class PlanBean {
 
     }
 
-    public void init(NavigationEvent event) throws SystemException, PortalException, IllegalUIConfigurationException {
+    public void init(NavigationEvent event) throws SystemException, PortalException, IllegalUIConfigurationException, IOException {
         lastNavEvent = event;
         Map<String, String> parameters = event.getParameters(PLANS_SOURCE);
         if (parameters == null) {
@@ -157,7 +158,7 @@ public class PlanBean {
         return planId;
     }
 
-    public void refreshFull() throws SystemException, PortalException, IllegalUIConfigurationException {
+    public void refreshFull() throws SystemException, PortalException, IllegalUIConfigurationException, IOException {
         init(lastNavEvent);
     }
     
@@ -362,7 +363,7 @@ public class PlanBean {
         
     }
     
-    public void cancelSimulationEdit(ActionEvent e) throws SystemException, IllegalUIConfigurationException, PortalException {
+    public void cancelSimulationEdit(ActionEvent e) throws SystemException, IllegalUIConfigurationException, PortalException, IOException {
         externalSimulationBean.editActions(e);
         refresh();
     }
