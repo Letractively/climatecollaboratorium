@@ -49,7 +49,10 @@ public class ModelInputGroupImpl extends ModelInputGroupModelImpl
     }
 
     public MetaData getMetaData() throws SystemException, IOException {
-        return CollaboratoriumModelingService.repository().getMetaData(getNameAndDescriptionMetaDataId());
+        if (getNameAndDescriptionMetaDataId() != null) {
+            return CollaboratoriumModelingService.repository().getMetaData(getNameAndDescriptionMetaDataId());
+        }
+        return null;
     }
 
 }

@@ -229,6 +229,6 @@
 	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/simulation-0.1.0.BUILD-SNAPSHOT.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
-	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/client-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/client-1.0-SNAPSHOT.jar" sourcepath="/simulation-client"/>
 	<classpathentry kind="output" path="output"/>
 </classpath>
