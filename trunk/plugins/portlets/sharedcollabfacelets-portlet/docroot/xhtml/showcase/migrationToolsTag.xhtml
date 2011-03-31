@@ -19,6 +19,26 @@
         <ice:commandLink actionListener="#{migrationTool.updateDiscussionCommentsTitles}">Update discussion comments titles</ice:commandLink>
         <h3>Plans</h3>
         <ice:commandLink actionListener="#{plansTool.updatePlanAttributes}">Update plan attributes</ice:commandLink><br />
+    </ice:form>
+    
+    <ice:form>
+        <h3>Models</h3>
+        
+        
+        <ice:outputLabel for="simulationMapping">Simulation mapping</ice:outputLabel>
+        <ice:inputTextarea value="#{migrationTool.simulationMapping}" id="simulationMapping" required="true" /><br />
+        
+        <ice:outputLabel for="scenarioMapping">Scenario mapping</ice:outputLabel>
+        <ice:inputTextarea value="#{migrationTool.scenarioMapping}" id="scenarioMapping" required="true" /><br />
+        
+        <ice:outputLabel for="variableMapping">Variable mapping</ice:outputLabel>
+        <ice:inputTextarea value="#{migrationTool.variableMapping}" id="variableMapping" required="true" /><br />
+        
+        <ice:commandLink value="migrate" actionListener="#{migrationTool.migrateSimulations}" />
+        
+        <ice:panelSeries var="msg" value="#{migrationTool.simulationMigrationMessages}">
+            <div>#{msg}</div>
+        </ice:panelSeries>
         
     </ice:form>
 </ui:composition>
