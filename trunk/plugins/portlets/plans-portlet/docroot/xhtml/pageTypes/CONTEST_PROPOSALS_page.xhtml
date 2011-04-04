@@ -90,7 +90,7 @@
     <div class="clear"></div>
 </div>
  -->
- 
+ <ice:form>
   <ice:panelGroup styleClass="protitle" rendered="#{not contest.contest.editor.editing}">
             <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
             <h2>
@@ -104,6 +104,7 @@
             </f:subview>
             <h4><ice:outputText value="#{contest.contest.name}" /></h4>
             
+            <h1>#{contest.contest.editor}</h1>
             <ice:commandButton styleClass="editCategoryButton" value="Edit"
                                action="#{contest.contest.editor.edit}"
                                rendered="#{not contest.contest.editor.editing and permissions.canAdminAll}"/>
@@ -158,6 +159,7 @@
             <div class="clearfix"></div>
             
         </div>
+        </ice:form>
     <ice:form>
     
         <div id="pro-info">
