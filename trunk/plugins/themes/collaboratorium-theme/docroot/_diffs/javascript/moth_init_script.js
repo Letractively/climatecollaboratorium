@@ -177,6 +177,28 @@ jQuery(document).ready(function() {
 		jQuery('#foot_wrap').fadeOut(300);
 		jQuery('.hp_box').fadeOut(300);
     });
+    
+    jQuery("#hdr_signin").mouseover(function() {
+    	jQuery("#hdr_signin").show();
+    });
+    
+    jQuery("#hdr_signin #signInTopForm").mouseover(function() {
+    	jQuery("#hdr_signin").addClass("inputFocus");
+    });
+    
+    jQuery("#hdr_signin #signInTopForm").mouseout(function() {
+    	jQuery("#hdr_signin").removeClass("inputFocus");
+    });
+    
+    jQuery("#hdr_signin").mouseout(function() {
+    	console.debug("state before: " + jQuery("#hdr_signin").hasClass("inputFocus"));
+    	setTimeout(function() {
+	    	console.debug("state after: " + jQuery("#hdr_signin").hasClass("inputFocus"));
+    		if (! jQuery("#hdr_signin").hasClass("inputFocus")) {
+    			jQuery("#hdr_signin").hide();
+    		}
+    	}, 300);
+    });
 });
 
 function initSelectbox() {
