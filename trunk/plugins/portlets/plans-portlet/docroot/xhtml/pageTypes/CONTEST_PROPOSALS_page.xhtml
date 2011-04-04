@@ -104,7 +104,6 @@
             </f:subview>
             <h4><ice:outputText value="#{contest.contest.name}" /></h4>
             
-            <h1>#{contest.contest.editor}</h1>
             <ice:commandButton styleClass="editCategoryButton" value="Edit"
                                action="#{contest.contest.editor.edit}"
                                rendered="#{not contest.contest.editor.editing and permissions.canAdminAll}"/>
