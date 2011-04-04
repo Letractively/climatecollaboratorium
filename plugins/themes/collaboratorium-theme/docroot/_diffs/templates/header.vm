@@ -23,7 +23,7 @@
                 #parse ("$full_templates_path/dock.vm")
             </div>
         #else
-            <div id="hdr_signin" onmouseover="document.getElementById('hdr_signin').style.display='block'" onmouseout="document.getElementById('hdr_signin').style.display='none'">
+            <div id="hdr_signin">
                 <form id="signInTopForm" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
                     <p>Screen name<br />
                     <input class="hdr_signinfield" name="login" type="text" value="" /></p>
