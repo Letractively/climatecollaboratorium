@@ -34,6 +34,8 @@ public class MembersBean {
     private MembersListColumns sortColumn = MembersListColumns.MEMBER_SINCE;
     private boolean sortAscending = false;
     private String searchPhrase = "";
+    
+
     private MemberCategory categoryFilter = null;
     
     /**
@@ -192,4 +194,7 @@ public class MembersBean {
         });
     }
 
+    public MemberCategory getCategoryFilter() {
+        return categoryFilter;
+    }
 }
