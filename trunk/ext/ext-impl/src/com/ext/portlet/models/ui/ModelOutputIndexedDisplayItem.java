@@ -129,6 +129,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
         for (MetaData md : getSeriesMetaData()) {
             result.add(varmap.get(md));
         }
+
         return result;
     }
 
@@ -142,6 +143,7 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
         for (ModelOutputSeriesDisplayItem item : getSeries()) {
             result.add(item.getMetaData());
         }
+        
         return result;
     }
 
@@ -153,7 +155,22 @@ public class ModelOutputIndexedDisplayItem extends ModelOutputDisplayItem {
      * @return
      */
     public List<ModelOutputSeriesDisplayItem> getSeries() {
-        Collections.sort(series);
+        Collections.sort(series, new Comparator<ModelOutputSeriesDisplayItem>() {
+           
+            @Override
+            public int compare(ModelOutputSeriesDisplayItem o1, ModelOutputSeriesDisplayItem o2) {
+                if (o1.getOrder() != -1) {
+                    o1.compareTo(o2);
+                }
+                
+                if (o1.getMetaData().getLabels().length >= 2 && o2.getMetaData().getLabels().length >= 2) {
+                    return o1.getMetaData().getLabels()[1].compareTo(o2.getMetaData().getLabels()[1]);
+                }
+                
+                return o1.getName().compareTo(o2.getName());
+            }
+            
+        });
         return series;
     }
 
