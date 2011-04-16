@@ -11,3 +11,5 @@ insert into ContestPhaseColumn VALUES (83, 8, 'MITIGATION_COST', 30, 0);
 insert into ContestPhaseColumn VALUES (84, 8, 'DAMAGE_COST', 40, 0);
 Insert into ContestPhaseColumn values (85, 8, 'IS_PLAN_OPEN', 50, 0);
 insert into ContestPhaseColumn VALUES (86, 8, 'SEEKING_ASSISTANCE', 60, 0);
+
+update ContestPhase set ContestPhaseStatus = 'OPEN_FOR_SUBMISSION' WHERE ContestPhasePK = 8;

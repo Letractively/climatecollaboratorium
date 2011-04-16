@@ -811,4 +811,28 @@
 		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
 		<property name="serviceInterface" value="com.ext.utils.service.UserForgotPasswordRequestService" />
 	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_SurveyService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.SurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.SurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_SurveyService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.SurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.SurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_SurveyService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.SurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.SurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_UserSurveyService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.UserSurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.UserSurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_UserSurveyService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.UserSurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.UserSurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_UserSurveyService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.UserSurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.UserSurveyService" />
+	</bean>
 </beans>

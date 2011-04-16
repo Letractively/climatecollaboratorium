@@ -774,4 +774,21 @@
 		<property name="userId" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
 	</class>
+	<class name="com.ext.portlet.surveys.model.impl.SurveyImpl" table="Survey">
+		<cache usage="read-write" />
+		<id name="eventName" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="url" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="type" column="type_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.surveys.model.impl.UserSurveyImpl" table="UserSurvey">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.surveys.service.persistence.UserSurveyPK">
+			<key-property name="userId" />
+			<key-property name="eventName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		</composite-id>
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+	</class>
 </hibernate-mapping>

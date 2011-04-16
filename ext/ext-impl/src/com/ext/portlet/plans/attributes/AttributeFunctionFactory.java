@@ -15,8 +15,8 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import edu.mit.cci.simulation.client.*;
-import edu.mit.cci.simulation.client.model.impl.ClientScenario;
-import edu.mit.cci.simulation.client.model.impl.ClientVariable;
+import edu.mit.cci.simulation.client.model.transitional.AdaptedScenario;
+import edu.mit.cci.simulation.client.model.transitional.AdaptedVariable;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -152,9 +152,9 @@ public class AttributeFunctionFactory {
 
     public Variable getVariableFromInternalName(String scenarioId, String name) throws SystemException {
 
-        ClientScenario s = null;
+        AdaptedScenario s = null;
         try {
-            s = (ClientScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+            s = (AdaptedScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
         } catch (IOException e) {
             throw new SystemException(e);
         }
@@ -189,16 +189,16 @@ public class AttributeFunctionFactory {
             @Override
             public T _process(String scenarioId) throws SystemException {
                 T result = null;
-                ClientScenario s = null;
+                AdaptedScenario s = null;
                 try {
-                    s = (ClientScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+                    s = (AdaptedScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
                 } catch (IOException e) {
                     throw new SystemException(e);
                 }
 
 
                 for(String variableName: variableNames) {
-                    ClientVariable v = (ClientVariable) s.getVariableForInternalname(variableName);
+                    AdaptedVariable v = (AdaptedVariable) s.getVariableForInternalname(variableName);
                     if (v == null) {
                         continue;
                     }
@@ -219,15 +219,15 @@ public class AttributeFunctionFactory {
             @Override 
             public T _process(String scenarioId) throws SystemException {
                 T result = null;
-                ClientScenario s = null;
+                AdaptedScenario s = null;
                 try {
-                    s = (ClientScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
+                    s = (AdaptedScenario) CollaboratoriumModelingService.repository().getScenario(Long.parseLong(scenarioId));
                 } catch (IOException e) {
                     throw new SystemException(e);
                 }
                 int outputsWithoutErrors = 0;
                 for(String variableName: variableNames) {
-                   ClientVariable v = (ClientVariable) s.getVariableForInternalname(variableName);                    
+                   AdaptedVariable v = (AdaptedVariable) s.getVariableForInternalname(variableName);                    
                    if (v == null) {
                        continue;
                    }

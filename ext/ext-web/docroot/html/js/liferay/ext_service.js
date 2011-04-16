@@ -46,3 +46,22 @@ Liferay.Service.register("Liferay.Service.Contests", "com.ext.portlet.contests.s
 Liferay.Service.register("Liferay.Service.facebook", "com.ext.portlet.facebook.service");
 
 Liferay.Service.register("Liferay.Service.utils", "com.ext.utils.service");
+
+Liferay.Service.register("Liferay.Service.Surveys", "com.ext.portlet.surveys.service");
+
+Liferay.Service.registerClass(
+	Liferay.Service.Surveys, "Survey",
+	{
+		getSurveys: true,
+		getSurvey: true
+	}
+);
+
+Liferay.Service.registerClass(
+	Liferay.Service.Surveys, "UserSurvey",
+	{
+		hasUserViewedSurveyForEvent: true,
+		setUserViewedSurvey: true,
+		removeUserViewedSurvey: true
+	}
+);

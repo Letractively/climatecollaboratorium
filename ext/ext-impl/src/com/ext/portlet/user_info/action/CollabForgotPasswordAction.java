@@ -61,7 +61,7 @@ public class CollabForgotPasswordAction extends com.liferay.portlet.login.action
             parameters.put("isPasswordReminder", "true");
 
             redirect = Helper.modifyRedirectUrl(redirect, actionRequest, parameters);
-            CollabMessageManager.addMessage(actionRequest, CollabMessage.Severity.ERROR, "Can't find something something.");
+            CollabMessageManager.addMessage(actionRequest, CollabMessage.Severity.ERROR, "Can't find user for given screen name.");
             
             
         }
