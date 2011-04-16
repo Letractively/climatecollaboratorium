@@ -302,14 +302,15 @@ function convertTypedValuesToNumbers() {
 			var val = jQuery(this).find('.value').val();
 			var valueBinding = jQuery(this).find('.valueBinding');
 			var unit = jQuery(this).find('.unit').text();
-		
 			valueBinding.val(parseFieldValue(val, unit));
+			
 		} catch (e) { 
 			if (debug) {
 				alert("Error one"+e);
 			}
 		}
 	});
+
 }
 
 function runSimulation() {

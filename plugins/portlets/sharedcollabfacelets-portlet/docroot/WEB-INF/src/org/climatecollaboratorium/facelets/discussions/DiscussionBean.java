@@ -486,6 +486,11 @@ public class DiscussionBean {
         return commentsThread;
     }
     
+    public void comentsThreadDeleted() throws PortalException, SystemException {
+        discussion = DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(discussionId);
+        commentsThread = new MessageWrapper(this);
+    }
+    
     public int getCommentsCount() throws SystemException, PortalException {
         return discussion.getCommentsCount();
     }

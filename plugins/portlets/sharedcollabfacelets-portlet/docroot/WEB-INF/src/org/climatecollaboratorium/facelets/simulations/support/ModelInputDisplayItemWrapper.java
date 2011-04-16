@@ -63,6 +63,14 @@ public class ModelInputDisplayItemWrapper {
     public void setValue(Double value) {
         this.value = value;
     }
+    
+    public String getInternalName() {
+        return getMetaData().getInternalName();
+    }
+    
+    public String getIdVal() {
+        return String.valueOf(hashCode());
+    }
 
     public ModelInputDisplayItem getWrapped() {
         return wrappedItem;

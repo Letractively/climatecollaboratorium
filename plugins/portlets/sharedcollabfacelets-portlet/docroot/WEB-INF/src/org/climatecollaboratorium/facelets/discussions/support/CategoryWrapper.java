@@ -21,6 +21,8 @@ import com.ext.portlet.Activity.ActivityUtil;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
+import com.ext.utils.userInput.UserInputException;
+import com.ext.utils.userInput.service.UserInputFilterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
@@ -83,8 +85,9 @@ public class CategoryWrapper {
         return wrapped != null ? wrapped.getDescription() : description;
     }
     
-    public void setDescription(String description) {
+    public void setDescription(String description) throws UserInputException {
         this.description = description;
+        description = UserInputFilterUtil.filterHtml(description);
         setFilteredDescription(ContentFilterHelper.filterContent(description));
     }
 

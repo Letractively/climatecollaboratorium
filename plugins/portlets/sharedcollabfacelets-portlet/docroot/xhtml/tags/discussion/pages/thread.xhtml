@@ -16,7 +16,7 @@
     
         <div class="comm_disc-head">
           <div class="comm_disc-title thread">
-            <h2>#{discussionBean.currentThread.title}</h2>
+            <h2><ice:outputText value="#{discussionBean.currentThread.title}" /></h2>
           </div>
           <div class="comm_info-left thread">
             <ice:commandLink actionListener="#{discussionBean.subscribe}"  styleClass="subscribeLinkSmall"
@@ -37,6 +37,7 @@
         
         <div class="clear"></div>
         <script type="text/javascript">
+                var txt = '<ice:outputText value="#{discussionBean.currentThread.title}" nospan="true" />';
                 updateBreadcrumb('#bread .discussionBreadcrumbPlaceholder', [
                     {
                         onclick: "Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{discussionBean.currentThread.category.id}});",
@@ -47,7 +48,7 @@
                     { 
                         onclick: "Collab.nav.navigate('discussion', {pageType: 'THREAD', threadId: #{discussionBean.currentThread.id}});",
                         href: "javascript:;", 
-                        text: '#{discussionBean.currentThread.title}' 
+                        text: txt 
                     } 
                 ]);
         </script>

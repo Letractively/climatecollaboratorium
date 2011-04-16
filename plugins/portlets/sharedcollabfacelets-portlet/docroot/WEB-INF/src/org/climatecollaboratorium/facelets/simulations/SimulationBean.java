@@ -91,7 +91,7 @@ public class SimulationBean {
         inputsValues.clear();
         editing = false;
 
-        updateDisplay();
+        updateDisplay(false);
 
     }
 
@@ -109,7 +109,7 @@ public class SimulationBean {
         updateInputValues();
         editing = false;
 
-        updateDisplay();
+        updateDisplay(false);
 
     }
     
@@ -195,7 +195,7 @@ public class SimulationBean {
             }
 
 
-            updateDisplay();
+            updateDisplay(true);
             
             scenarioSaved = false;
 
@@ -222,7 +222,7 @@ public class SimulationBean {
         if (! embeddedEditing) {
             // revert input values to old ones
             updateInputValues();
-            updateDisplay();
+            updateDisplay(false);
         }
         eventBus.fireEvent(new ScenarioEditEvent(embeddedEditing));
     }
@@ -244,7 +244,7 @@ public class SimulationBean {
     }
     
     public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException, IOException {
-        updateDisplay();
+        updateDisplay(false);
     }
     
     
@@ -252,18 +252,42 @@ public class SimulationBean {
         return wrappedInputs;
     }
     
-    public void updateDisplay() throws SystemException, IllegalUIConfigurationException, IOException {
+    public void updateDisplay(boolean reuseInputs) throws SystemException, IllegalUIConfigurationException, IOException {
+        List<ModelInputDisplayItemWrapper> oldDisplayInputs = new ArrayList<ModelInputDisplayItemWrapper>();
+        if (display != null) {
+            /*
+            System.out.println("Old display: " + String.valueOf(display.hashCode()));
+            for (ModelInputDisplayItemWrapper input: display.getWrappedInputs() ) {
+                System.out.println("\t" + input.getName() + ": " + String.valueOf(input.hashCode()));
+            }
+            */
+            oldDisplayInputs = display.getWrappedInputs();
+        }
         if (scenario != null) {
             display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this, inputsValues);
         }
         else {
             display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(simulation), this, inputsValues);
         } 
+        if (reuseInputs) {
+            display.reuseInputs(oldDisplayInputs);
+        }
+
+        /*
+         
+         System.out.println("New display: " + String.valueOf(display.hashCode()));
+         
+        for (ModelInputDisplayItemWrapper input: display.getWrappedInputs() ) {
+            System.out.println("\t" + input.getName() + ": " + String.valueOf(input.hashCode()));
+        }
+        */
+        
         wrappedInputs.clear();
+        
         for (ModelInputDisplayItem item: display.getWrapped().getInputs()) {
             wrappedInputs.put(item, ModelInputDisplayItemWrapper.getInputWrapper(item, this, inputsValues));
         }
-        
+
         newGroupWrapper = new ModelInputGroupDisplayItemWrapper(this);
     }
     

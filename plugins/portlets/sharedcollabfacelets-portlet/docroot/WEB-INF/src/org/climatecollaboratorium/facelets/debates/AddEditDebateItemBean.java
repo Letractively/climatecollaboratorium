@@ -8,6 +8,8 @@ import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.model.DebateItemReference;
 import com.ext.portlet.debaterevision.service.DebateItemReferenceLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
+import com.ext.utils.userInput.UserInputException;
+import com.ext.utils.userInput.service.UserInputFilterUtil;
 import com.icesoft.faces.async.render.Renderable;
 import com.icesoft.faces.webapp.xmlhttp.PersistentFacesState;
 import com.icesoft.faces.webapp.xmlhttp.RenderingException;
@@ -108,8 +110,9 @@ public class AddEditDebateItemBean {
         
         return content;
     }
-    public void setContent(String content) {
-        this.content = content;
+    
+    public void setContent(String content) throws UserInputException {
+        this.content = UserInputFilterUtil.filterHtml(content);
     }
 
     public void addQuestion(ActionEvent event) {

@@ -20,6 +20,8 @@ import com.ext.portlet.discussions.DiscussionMessageFlagType;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.model.DiscussionMessageFlag;
+import com.ext.utils.userInput.UserInputException;
+import com.ext.utils.userInput.service.UserInputFilterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
@@ -101,8 +103,8 @@ public class MessageWrapper {
     public String getDescription() {
         return description;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String description) throws UserInputException {
+        this.description = UserInputFilterUtil.filterHtml(description);
     }
     
     public String getFilteredDescription() {
@@ -270,8 +272,14 @@ public class MessageWrapper {
         if (messages == null) {
             getThreadMessages();
         }
-        messageWrapper.messageNum = messages.get(messages.size() - 1).messageNum + 1;
-        messages.add(messageWrapper);
+        if (oldestFirst) {
+            messageWrapper.messageNum = messages.get(messages.size() - 1).messageNum + 1;
+            messages.add(messageWrapper);
+        }
+        else {
+            messageWrapper.messageNum = messages.get(0).messageNum + 1;
+            messages.add(0, messageWrapper);
+        }
         messageWrapper.setThread(this);
         newMessage = new MessageWrapper(this);
     }
@@ -323,6 +331,10 @@ public class MessageWrapper {
             if (category != null) {
                 category.messageDeleted(this);
             }
+            if (discussionBean != null && discussionBean.getCommentsThread() == this) {
+                discussionBean.comentsThreadDeleted();
+            }
+            
             
             //category.messageDeleted(this);
             Helper.sendInfoMessage("Message \"" + wrapped.getSubject() + "\" has been deleted.");

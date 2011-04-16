@@ -16,7 +16,7 @@
                 Impacts
                 <div class="runmodel">
                     <div class="runSimulationButton_bdr">
-                        <ice:commandLink actionListener="#{simulationBean.runSimulation}" styleClass="runSimulationButton" onclick="disableRunButton(); runSimulation();">
+                        <ice:commandLink actionListener="#{simulationBean.runSimulation}" styleClass="runSimulationButton" onclick="disableRunButton(); convertTypedValuesToNumbers(); runSimulation();">
                             <div class="runSimulationButtonHighlight">
                                 <span>RUN</span> the model
                             </div>

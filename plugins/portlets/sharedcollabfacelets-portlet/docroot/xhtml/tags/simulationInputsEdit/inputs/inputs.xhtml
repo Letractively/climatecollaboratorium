@@ -33,13 +33,14 @@
             <div class="clear"></div>
             <ice:panelSeries value="#{simulationBean.display.tabsWrapped}" var="input1" varStatus="statusTab">
                 <div id="inputs_#{statusTab.index}" class="simulationInputsSet #{statusTab.first ? '' : 'hidden'}">
+                    
                     <ice:panelSeries value="#{input1.allItems}" var="input" varStatus="status">
                         <div>
                             <ui:include src="./inputDef.xhtml">
                                 <ui:param name="inputIndex" value="#{status.index + 1}" />
                             </ui:include>
-                            <ice:panelGroup styleClass="control_div" rendered="#{not status.last}"></ice:panelGroup>
                             
+                            <ice:panelGroup styleClass="control_div" rendered="#{not status.last}"></ice:panelGroup>
                         </div>
                     </ice:panelSeries>
                 </div>

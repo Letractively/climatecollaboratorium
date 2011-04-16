@@ -76,13 +76,13 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
             groupItem.setName(name);
             groupItem.setMetaData(md);
         }
-        simulationBean.updateDisplay();
+        simulationBean.updateDisplay(false);
     }
     
     public void delete(ActionEvent e) throws PortalException, SystemException, IllegalUIConfigurationException, IOException {
         if (groupItem != null) {
             ((ModelInputGroupDisplayItem) groupItem).delete();
-            simulationBean.updateDisplay();
+            simulationBean.updateDisplay(false);
         }
     }
     
@@ -162,5 +162,5 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
     protected boolean hasValue() {
         return false;
     }
-
+    
 }

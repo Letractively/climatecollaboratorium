@@ -14,7 +14,7 @@
                         
     
         <div class="comm_disc-head">
-          <div class="comm_disc-title"><h2>#{displayedSubtype}</h2></div>
+          <div class="comm_disc-title"><h2><ice:outputText value="#{displayedSubtype}" /></h2></div>
           <div class="comm_info-left">
             <f:subview rendered="#{entitiesCount >= 0}">
                 <span>#{entitiesCount}</span> #{displayedEntityType} 

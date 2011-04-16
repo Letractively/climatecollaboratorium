@@ -23,6 +23,8 @@ import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.model.DebateComment;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.debaterevision.model.DebateItemReference;
+import com.ext.utils.userInput.UserInputException;
+import com.ext.utils.userInput.service.UserInputFilterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.util.StringPool;
@@ -132,8 +134,8 @@ public class DebateItemWrapper {
 
 
 
-    public void setNewCommentText(String newCommentText) {
-        this.newCommentText = newCommentText;
+    public void setNewCommentText(String newCommentText) throws UserInputException {
+        this.newCommentText = UserInputFilterUtil.filterHtml(newCommentText);
     }
 
     public String getNewCommentText() {
