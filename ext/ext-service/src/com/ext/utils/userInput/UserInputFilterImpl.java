@@ -7,10 +7,11 @@ import org.owasp.validator.html.ScanException;
 
 public class UserInputFilterImpl implements IUserInputFilter {
     
+    
     private AntiSamy as;
     
-    public UserInputFilterImpl(AntiSamy as) {
-        this.as = as;
+    public UserInputFilterImpl(com.ext.utils.userInput.PolicyFct policyFactoryBean) throws Exception {
+        as = new AntiSamy(policyFactoryBean.getPolicy());
     }
 
     @Override
