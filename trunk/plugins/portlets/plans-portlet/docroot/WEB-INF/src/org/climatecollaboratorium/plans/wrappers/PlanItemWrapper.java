@@ -34,6 +34,8 @@ import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
+import com.ext.utils.userInput.UserInputException;
+import com.ext.utils.userInput.service.UserInputFilterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -243,10 +245,11 @@ public class PlanItemWrapper {
         this.name = name;
     }
     
-    public void saveDescription(ActionEvent e) throws SystemException, PortalException {
+    public void saveDescription(ActionEvent e) throws SystemException, PortalException, UserInputException {
         if (Helper.isUserLoggedIn()) {
-            if (description != null) {
-                wrapped.setDescription(description, Helper.getLiferayUser().getUserId());
+            String savedDescription = UserInputFilterUtil.filterHtml(description);
+            if (savedDescription != null) {
+                wrapped.setDescription(savedDescription, Helper.getLiferayUser().getUserId());
                 SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_DESCRIPTION.id(),null, 0);
                 eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
@@ -255,7 +258,7 @@ public class PlanItemWrapper {
         planBean.setEditingDescription(false);
     }
     
-    public void saveName(ActionEvent e) throws SystemException, PortalException {
+    public void saveName(ActionEvent e) throws SystemException, PortalException, UserInputException {
         if (Helper.isUserLoggedIn()) {
             if (name != null && !name.equals(wrapped.getName())) {
                 if (! PlanItemLocalServiceUtil.isNameAvailable(name, wrapped.getContest())) {
