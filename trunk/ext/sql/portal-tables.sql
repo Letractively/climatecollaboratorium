@@ -1763,6 +1763,13 @@ create table Subscription (
 	frequency VARCHAR(75) null
 );
 
+create table Survey (
+	eventName VARCHAR(75) not null primary key,
+	description VARCHAR(75) null,
+	url VARCHAR(75) null,
+	type_ VARCHAR(75) null
+);
+
 create table TagsAsset (
 	assetId LONG not null primary key,
 	groupId LONG,
@@ -1888,6 +1895,13 @@ create table UserHelpSetting (
 	userId LONG,
 	messageId VARCHAR(75) null,
 	visible BOOLEAN
+);
+
+create table UserSurvey (
+	userId LONG not null,
+	eventName VARCHAR(75) not null,
+	createDate DATE null,
+	primary key (userId, eventName)
 );
 
 create table User_ (

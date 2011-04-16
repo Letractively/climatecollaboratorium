@@ -48,12 +48,17 @@ public class DiscussionCategoryGroupImpl
     }
     
     public DiscussionMessage getCommentThread() throws SystemException, PortalException {
-        DiscussionMessage thread;
+        DiscussionMessage thread = null;
         if (getCommentsThread() == null || getCommentsThread() <= 0L) {
-            return thread = null;
+            thread = null;
         }
         else {
-            thread = DiscussionMessageLocalServiceUtil.getThreadByThreadId(getCommentsThread());
+            try {
+                thread = DiscussionMessageLocalServiceUtil.getThreadByThreadId(getCommentsThread());
+            }
+            catch (NoSuchDiscussionMessageException e) {
+                thread = null;
+            }
         }
         
         return thread;
@@ -62,7 +67,7 @@ public class DiscussionCategoryGroupImpl
     
     public DiscussionMessage addComment(String title, String description, User author) throws SystemException, PortalException {
         DiscussionMessage comment = null;
-        if (getCommentsThread() == null || getCommentsThread() <= 0L) {
+        if (getCommentThread() == null) {
             // create new thread
             comment = DiscussionMessageLocalServiceUtil.addThread(getId(), 0L, title, description, author);
             this.setCommentsThread(comment.getMessageId());
@@ -77,7 +82,7 @@ public class DiscussionCategoryGroupImpl
     }
     
     public int getCommentsCount() throws SystemException, PortalException {
-        if (getCommentsThread() == null || getCommentsThread() <= 0L) {
+        if (getCommentThread() == null) {
             return 0;
         }
         else {

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
+<service-builder package-path="com.ext.portlet.surveys">
+	<namespace>Surveys</namespace>
+	<entity name="Survey" local-service="true" remote-service="true" >
+	<!-- PK field -->
+        <column name="eventName" type="String" primary="true" />
+        <column name="description" type="String" />
+        <column name="url" type="String" />
+        <column name="type" type="String" />
+        
+	</entity>
+    
+    <entity name="UserSurvey" local-service='true' remote-service="true">
+        <column name="userId" type="Long" primary="true" />
+        <column name="eventName" type="String" primary="true" />
+        <column name="createDate" type="Date" />
+                
+        <finder name="UserId" return-type="Collection">
+            <finder-column name="userId" />
+        </finder>
+        
+        <finder name="EventName" return-type="Collection">
+            <finder-column name="eventName" />
+        </finder>
+        
+        <finder name="UserIdEventName" return-type="Collection">
+            <finder-column name="userId" />
+            <finder-column name="eventName" />
+        </finder>
+        
+    </entity>
+    
+</service-builder>

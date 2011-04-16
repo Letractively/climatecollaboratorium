@@ -625,6 +625,9 @@ create unique index IX_2E1A92D4 on Subscription (companyId, userId, classNameId,
 create index IX_54243AFD on Subscription (userId);
 create index IX_E8F34171 on Subscription (userId, classNameId);
 
+create index IX_C55DD20A on Survey (event);
+create index IX_A01F95F5 on Survey (eventName);
+
 create unique index IX_1AB6D6D2 on TagsAsset (classNameId, classPK);
 create index IX_AB3D8BCB on TagsAsset (companyId);
 
@@ -673,6 +676,14 @@ create index IX_99B1604E on UserHelpSetting (userId, messageId);
 create unique index IX_41A32E0D on UserIdMapper (type_, externalUserId);
 create index IX_E60EA987 on UserIdMapper (userId);
 create unique index IX_D1C44A6E on UserIdMapper (userId, type_);
+
+create index IX_A2723EBF on UserSurvey (event);
+create index IX_CF14A02A on UserSurvey (eventName);
+create index IX_AD0B37B4 on UserSurvey (surveyId);
+create index IX_8B5B62E5 on UserSurvey (userId);
+create index IX_9DE14C45 on UserSurvey (userId, event);
+create index IX_39957AB0 on UserSurvey (userId, eventName);
+create index IX_4D61F46E on UserSurvey (userId, surveyId);
 
 create index IX_29BA1CF5 on UserTracker (companyId);
 create index IX_46B0AE8E on UserTracker (sessionId);
