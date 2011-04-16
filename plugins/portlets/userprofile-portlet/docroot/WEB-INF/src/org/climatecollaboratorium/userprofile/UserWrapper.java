@@ -8,21 +8,17 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.imageio.ImageIO;
-
 
 import com.ext.portlet.community.action.CommunityConstants;
 import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.service.PlanFanLocalServiceUtil;
+import com.ext.utils.userInput.UserInputException;
+import com.ext.utils.userInput.service.UserInputFilterUtil;
 import com.icesoft.faces.component.inputfile.InputFile;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
@@ -43,7 +39,6 @@ import com.liferay.portal.service.UserServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
-import com.liferay.util.servlet.UploadException;
 
 public class UserWrapper {
 
@@ -88,10 +83,12 @@ public class UserWrapper {
             realName = firstName;
         }
         
+        supportedPlans.clear();
         for (PlanFan supportedPlanInfo : PlanFanLocalServiceUtil.getPlanFansForUser(user.getUserId())) {
             supportedPlans.add(new SupportedPlanBean(supportedPlanInfo));
         }
         
+        userActivities.clear();
         for (SocialActivity activity: SocialActivityLocalServiceUtil.getUserActivities(user.getUserId(), 0, maxActivitiesCount)) {;//userActivitiesCount - maxActivitiesCount, userActivitiesCount)) {
             userActivities.add(new UserActivityBean(activity));
         }
@@ -101,8 +98,8 @@ public class UserWrapper {
         return about;
     }
     
-    public void setAbout(String about) {
-        this.about = about;
+    public void setAbout(String about) throws UserInputException {
+        this.about = UserInputFilterUtil.filterHtml(about);
     }
     
     public String getScreenName() {
