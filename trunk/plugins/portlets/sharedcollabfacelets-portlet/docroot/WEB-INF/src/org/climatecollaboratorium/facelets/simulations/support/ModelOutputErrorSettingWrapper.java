@@ -47,7 +47,7 @@ public class ModelOutputErrorSettingWrapper {
         else if (item instanceof ModelOutputIndexedDisplayItem) {
             ((ModelOutputIndexedDisplayItem) item).setErrorBehavior(status, policy, msg);
         }
-        bean.updateDisplay();
+        bean.updateDisplay(false);
     }
     
     public String getPolicy() {

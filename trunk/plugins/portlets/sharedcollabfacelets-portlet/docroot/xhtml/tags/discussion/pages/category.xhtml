@@ -19,11 +19,12 @@
     <ui:define name="discussion_content">
             <ice:panelGroup styleClass="hidden">
                 <script type="text/javascript">
+                    var txt = '<ice:outputText value="#{discussionBean.currentCategory.title}" nospan="true" />';
                     updateBreadcrumb('#bread .discussionBreadcrumbPlaceholder', [
                         { 
                             onclick: "Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{discussionBean.currentCategory.id}});",
                             href: "javascript:;", 
-                            text: '#{discussionBean.currentCategory.title}' 
+                            text: txt 
                         } 
                     ]);
                 </script>

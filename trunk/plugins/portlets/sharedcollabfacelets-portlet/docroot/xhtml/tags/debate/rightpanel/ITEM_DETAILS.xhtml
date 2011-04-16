@@ -46,7 +46,7 @@
             </script>
             <ice:inputTextarea value="#{debateItem.newCommentText}" styleClass="position_comment-box"/>
             <ice:message for="commentAdd" />
-            <ice:commandButton  id="commentAdd" actionListener="#{debateItem.addComment}" onclick="if(! deferUntilLogin()) return false; disableAddCommentButton();" styleClass="comm_butt right addCommentButton" />
+            <ice:commandButton  id="commentAdd" actionListener="#{debateItem.addComment}" onclick="if(! deferUntilLogin()) return false; if (jQuery.trim(jQuery('.position_comment-box').val()).length > 0) { disableAddCommentButton(); }" styleClass="comm_butt right addCommentButton" />
         </div>
     </ice:panelGroup>
 </f:view>

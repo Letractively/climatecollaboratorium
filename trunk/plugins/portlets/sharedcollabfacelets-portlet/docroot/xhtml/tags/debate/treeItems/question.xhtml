@@ -7,7 +7,7 @@
         <ice:panelGroup styleClass="question_item-wrap #{question == debateBean.currentItem.item ? 'activeSlide' : ''}">
             <div class="questions_head">
                 <div class="question_title">Question</div>
-                <div class="question_question">#{question.debateSummary}</div>
+                <div class="question_question"><ice:outputText value="#{question.debateSummary}" /></div>
                 <f:subview rendered="#{question.commentsCount > 0}">
                     <div class="comments_count"><span></span>#{question.commentsCount}</div>
                 </f:subview>

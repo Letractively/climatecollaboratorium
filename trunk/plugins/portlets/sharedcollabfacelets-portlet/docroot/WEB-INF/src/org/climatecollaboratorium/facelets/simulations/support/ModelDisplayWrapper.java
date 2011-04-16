@@ -12,6 +12,7 @@ import org.climatecollaboratorium.facelets.simulations.SimulationBean;
 import com.ext.portlet.models.ui.ModelDisplay;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
+import com.ext.portlet.models.ui.ModelInputIndividualDisplayItem;
 import com.ext.portlet.models.ui.ModelOutputDisplayItem;
 
 public class ModelDisplayWrapper {
@@ -111,6 +112,57 @@ public class ModelDisplayWrapper {
     
     public List<ModelInputDisplayItemWrapper> getWrappedInputs() {
         return wrappedInputs;
+    }
+
+    public void reuseInputs(List<ModelInputDisplayItemWrapper> oldDisplayInputs) {
+        Map<String, ModelInputDisplayItemWrapper> oldInputsMap = new HashMap<String, ModelInputDisplayItemWrapper>();
+        
+        
+        for (ModelInputDisplayItemWrapper itemWrapper: oldDisplayInputs) {
+            oldInputsMap.put(itemWrapper.getWrapped().getName(), itemWrapper);
+        }
+        
+        List<ModelInputDisplayItemWrapper> newWrappedInputs = new ArrayList<ModelInputDisplayItemWrapper>();
+        for (ModelInputDisplayItemWrapper itemWrapper: wrappedInputs) {
+            if (oldInputsMap.containsKey(itemWrapper.getWrapped().getName())) {
+                // reuse old
+                newWrappedInputs.add(oldInputsMap.get(itemWrapper.getWrapped().getName()));
+            }
+            else {
+                // don't reuse
+                newWrappedInputs.add(itemWrapper);
+            }
+        }
+        wrappedInputs = newWrappedInputs;
+
+        List<ModelInputGroupDisplayItemWrapper> newTabsWrapped = new ArrayList<ModelInputGroupDisplayItemWrapper>(); 
+        for (ModelInputDisplayItemWrapper itemWrapper: wrappedTabs) {
+            if (itemWrapper instanceof ModelInputGroupDisplayItemWrapper && oldInputsMap.containsKey(itemWrapper.getWrapped().getName())) {
+                // reuse old
+                newTabsWrapped.add((ModelInputGroupDisplayItemWrapper) oldInputsMap.get( itemWrapper.getWrapped().getName()));
+            }
+            else {
+                // don't reuse
+                newTabsWrapped.add((ModelInputGroupDisplayItemWrapper) itemWrapper);
+            }
+        }
+        
+        wrappedTabs = newTabsWrapped;
+        
+
+        List<ModelInputDisplayItemWrapper> newWrappedNonTabs = new ArrayList<ModelInputDisplayItemWrapper>();
+        for (ModelInputDisplayItemWrapper itemWrapper: wrappedNonTabs) {
+            if (oldInputsMap.containsKey(itemWrapper.getWrapped().getName())) {
+                // reuse old
+                newWrappedNonTabs.add(oldInputsMap.get(itemWrapper.getWrapped().getName()));
+            }
+            else {
+                // don't reuse
+                newWrappedNonTabs.add(itemWrapper);
+            }
+        }
+        wrappedNonTabs = newWrappedNonTabs;
+        
     }
     
 

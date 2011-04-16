@@ -5,8 +5,8 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <div class="position">
         <img src="/collaboratorium-theme/images/icon_question-chk-b.png" width="24" height="22" /> <strong>Argument for</strong>
-        #{debateItem.parent.debateSummary}
-        <h2>#{debateItem.debateSummary}</h2>
+        <ice:outputText value="#{debateItem.parent.debateSummary}" />
+        <h2><ice:outputText value="#{debateItem.debateSummary}" /></h2>
     </div>
     
     <div class="position_comments">
