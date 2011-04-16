@@ -28,6 +28,9 @@ function initSearchUpperBox() {
 	
 	jQuery("#searchsubmit").click(function() {
 		var searchPhrase = escape(jQuery('#searchinput').val());
+		if (searchPhrase == 'Search') {
+			searchPhrase = '';
+		}
 		window.location = "/web/guest/search#search=searchPhrase:" + searchPhrase;
 	});
 		
@@ -191,9 +194,9 @@ jQuery(document).ready(function() {
     });
     
     jQuery("#hdr_signin").mouseout(function() {
-    	console.debug("state before: " + jQuery("#hdr_signin").hasClass("inputFocus"));
+    	//console.debug("state before: " + jQuery("#hdr_signin").hasClass("inputFocus"));
     	setTimeout(function() {
-	    	console.debug("state after: " + jQuery("#hdr_signin").hasClass("inputFocus"));
+	    	//console.debug("state after: " + jQuery("#hdr_signin").hasClass("inputFocus"));
     		if (! jQuery("#hdr_signin").hasClass("inputFocus")) {
     			jQuery("#hdr_signin").hide();
     		}
