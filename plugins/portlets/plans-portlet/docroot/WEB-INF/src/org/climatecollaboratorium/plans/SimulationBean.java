@@ -9,6 +9,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
+import edu.mit.cci.simulation.client.Scenario;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,7 @@ public class SimulationBean {
             public void onEvent(ScenarioSavedEvent arg0) {
                 if (Helper.isUserLoggedIn()) {
                     try {
+                        Scenario s = arg0.getScenario();
                         if (arg0.getScenario() == null) {
                             editing = false;
                             saved = false;

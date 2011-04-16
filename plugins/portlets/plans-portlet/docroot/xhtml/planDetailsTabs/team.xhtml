@@ -72,7 +72,9 @@
                     #{planBean.plan.open?'&lt;span&gt;JOIN&lt;/span&gt; this team':'&lt;span&gt;REQUEST&lt;/span&gt; membership'}
                 </ice:commandLink>
                 <ice:commandLink actionListener="#{planBean.membershipBean.removeCurrentUser}"
-                                       rendered="#{planBean.plan.planMember and not planBean.membershipBean.requesting}">
+                                       rendered="#{planBean.plan.planMember and not planBean.membershipBean.requesting}"
+                                       onclick="if (! confirm('Do you really want to leave this plan?')) { return; }"
+                                       >
                                        &lt;span&gt;REMOVE&lt;/span&gt; me
                                        </ice:commandLink>
                 </div>

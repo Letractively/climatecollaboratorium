@@ -67,8 +67,10 @@ public class PlansPermissionsBean {
     // when plan is published only site admin can admin it
     public boolean getCanAdmin() throws SystemException, PortalException {
         return (planIsEditable && (
-                        (getPlanMember() && permissionChecker.isCommunityAdmin(planGroupId)) 
-                        || getPlanOwner() 
+                        //(getPlanMember() && permissionChecker.isCommunityAdmin(planGroupId)) 
+                        //|| getPlanOwner()
+                        getPlanMember()
+                        || getPlanOwner()
                     )
                 ) || getCanAdminAll();
                 

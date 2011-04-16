@@ -61,8 +61,9 @@ public class PlanModelBean {
 
             for (Simulation sim : planItem.getPlanType().getAvailableModels()) {
                 PlanModelWrapper wrapper = new PlanModelWrapper(sim,simple);
-                SelectItem sitem = new SelectItem(wrapper.getId(),wrapper.getName());
+                SelectItem sitem = new SelectItem(sim.getId(), sim.getName());
                 availableItems.add(sitem);
+                
                 availableMap.put(wrapper.getId(),wrapper);
                 if (sim.getId().equals(planItem.getPlanMeta().getModelId())) {
                     selectedItem = wrapper.getId();

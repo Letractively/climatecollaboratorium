@@ -486,8 +486,8 @@ public class PlansIndexBean {
         return PlanVoteLocalServiceUtil.countPlanVotes(contestPhase.getPlanType());
     }
 
-    public int getPlansCount() {
-        return notFilteredPlans.size();
+    public int getPlansCount() throws SystemException, PortalException {
+        return getPlans().size();
     }
 
     public void findUserVote(ActionEvent e) throws PortalException, SystemException {

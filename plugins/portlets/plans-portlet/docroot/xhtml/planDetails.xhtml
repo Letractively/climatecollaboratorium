@@ -34,7 +34,7 @@
     
         <f:subview rendered="#{not plan.editingName}">
             <h1 class="spn">Proposals: &amp;nbsp;
-                <ice:outputText styleClass="planName" value="#{plan.plan.name}">
+                <ice:outputText styleClass="planName" value="#{plan.plan.name}" escaped="true">
                     <f:converter converterId="StringTruncateConverter"/>
                     <f:attribute name="maxLength" value="35" />
                 </ice:outputText>

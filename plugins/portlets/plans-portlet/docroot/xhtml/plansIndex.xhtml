@@ -7,6 +7,7 @@
         xmlns:collab="http://climatecollaboratorium.org/components">
 
 <div class="plansIndex">
+<h1>PLANS INDEX!</h1>
 <ice:panelGroup styleClass="categoryDetails">
     <ice:form>
         <div class="categoryHeader">
@@ -112,7 +113,7 @@
                                 value="#plans=phaseId:#{singlePlan.contestPhaseId},planId:#{singlePlan.planId};"
                                 rendered="#{column == 'NAME'}"
                                 >
-                            <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}"/>
+                            <ice:outputText value="#{singlePlan.columnValues[column]}" styleClass="#{column}" escape="true" />
                         </ice:outputLink>
                         <f:subview rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}">
                             N/A
@@ -124,7 +125,7 @@
                             <div class="hidden" id="plan_positions_#{singlePlan.planId}">
                                 <div class="positionsDialog">
                                     <div class="positionsDialog_top">
-                                        <div class="title"><h2>Positions for #{singlePlan.planName}</h2></div>
+                                        <div class="title"><h2>Positions for <ice:outputText value="#{singlePlan.planName}" escape="true" /></h2></div>
                                     </div>
                                     <div class="positionsDialog_bg">
                                         <div class="scrollBox">
@@ -145,7 +146,7 @@
                         </f:subview>
 
                         <ice:outputText value="#{singlePlan.columnValues[column]}"
-                                        rendered="#{column != 'NAME' and column != 'POSITIONS'}" escape="false"/>
+                                        rendered="#{column != 'NAME' and column != 'POSITIONS'}" escape="true"/>
                     </ice:columns>
                     <ice:column rendered="#{plansIndexBean.contestPhase.canVote}">
                         <f:facet name="header">

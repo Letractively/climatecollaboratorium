@@ -53,7 +53,9 @@ public class PlanMember {
                 planUserPermission = PlanUserPermission.OWNER; 
             }
             else if (isAdmin()) {
-                planUserPermission = PlanUserPermission.ADMIN;
+                //planUserPermission = PlanUserPermission.ADMIN;
+                // everyone is an admin
+                planUserPermission = PlanUserPermission.MEMBER;
             }
             else {
                 planUserPermission = PlanUserPermission.MEMBER;
