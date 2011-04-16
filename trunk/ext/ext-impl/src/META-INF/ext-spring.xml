@@ -6,15 +6,19 @@
   ~ or the license.txt file included in this distribution for the full text of the license.
   -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-	<bean id="policy" class="com.ext.utils.userInput.PolicyFactoryBean">
+
+	<bean id="policy" class="com.ext.utils.userInput.PolicyFct">
 		<property name="policyFile" value="classpath:antisamy-policy.xml" />
 	</bean>
+    <!-- 
 	<bean id="org.owasp.validator.html.AntiSamy" class="org.owasp.validator.html.AntiSamy">
-		<property name="policy" ref="policy" />
+		<property name="policy" ="policy" />
 	</bean>
+     -->
 	<bean id="com.ext.utils.userInput.UserInputFilterImpl" class="com.ext.utils.userInput.UserInputFilterImpl">
-		<constructor-arg ref="org.owasp.validator.html.AntiSamy" />
+		<constructor-arg ref="policy" />
 	</bean>
+    
 	<bean id="com.ext.utils.userInput.service.UserInputFilterUtil" class="com.ext.utils.userInput.service.UserInputFilterUtil">
 		<property name="service" ref="com.ext.utils.userInput.UserInputFilterImpl" />
 	</bean>
