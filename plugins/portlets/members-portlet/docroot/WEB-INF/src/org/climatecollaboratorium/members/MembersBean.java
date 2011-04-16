@@ -155,7 +155,13 @@ public class MembersBean {
             if (categoryFilter != null && !categoryFilter.equals(MemberCategory.MEMBER)) {
                 // user has enabled category filter, show results from given category and mark them as
                 // from that category
-                searchResults.add(new MemberListItemBean(userDoc, categoryFilter));
+                String[] categories = userDoc.getValues("memberCategory");
+                for (String s: categories) {
+                    if (s.equals(categoryFilter.name())) {
+                        searchResults.add(new MemberListItemBean(userDoc, categoryFilter));
+                        break;
+                    }
+                }
             }
             else {
                 // autodetect member category
@@ -186,8 +192,13 @@ public class MembersBean {
             public int compare(MemberListItemBean o1, MemberListItemBean o2) {
                 Comparable o1Val = o1.getColumnVal(sortColumn);
                 Comparable o2Val = o2.getColumnVal(sortColumn);
-                
-                int ret = o1Val.compareTo(o2Val);
+                int ret = 0;
+                if (o1Val instanceof String && o2Val instanceof String) {
+                    ret = ((String) o1Val).compareToIgnoreCase((String) o2Val);
+                }
+                else {
+                    ret = o1Val.compareTo(o2Val);
+                }
                 
                 return sortAscending ? ret : -ret;
             }
