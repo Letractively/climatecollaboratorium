@@ -109,6 +109,9 @@
 
 
     <div id="pro-info">
+        <table width="100%">
+        <tr>
+        <td>
         <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{singleContest.plansIndex.plansCount}</span> proposals
         <strong>
         <f:subview rendered="#{singleContest.plansIndex.contestPhase.status != 'FINISHED' and singleContest.plansIndex.contestPhase.endDate != null}">
@@ -127,10 +130,12 @@
             </ice:outputText>
         </f:subview>
         </strong>
+        </td>
+        <td>
         <div class="butt_wrap">
         <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
             <div class="buttbdr">
-                <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();" styleClass="createNewPlanButton"
+                <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();"
                         actionListener="#{navigation.createPlanBean.createPlan}">
                     <span>CREATE</span> proposal
                 </ice:commandLink>
@@ -152,6 +157,7 @@
         </div>
          -->
       </div> <!-- /butt_wrap -->
+      </td></tr></table>
     </div> <!-- /proinfo -->
     
     <!-- 

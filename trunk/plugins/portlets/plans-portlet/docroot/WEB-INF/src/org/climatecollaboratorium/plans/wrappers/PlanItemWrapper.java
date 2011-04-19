@@ -78,6 +78,7 @@ public class PlanItemWrapper {
     
     private EventBus eventBus;
     private Map<String, String> planAttributes;
+    private boolean subscribed;
 
     public enum PlanStatusSelection {SUBMITTED(PlanStatus.SUBMITTED,"An entry in the contest"),
         DRAFT(PlanStatus.UNDER_DEVELOPMENT,"Just a draft");
@@ -178,6 +179,10 @@ public class PlanItemWrapper {
         helpStatus = wrapped.isSeekingAssistance();
         
         scenarioId = wrapped.getScenarioId();
+        
+        if (Helper.isUserLoggedIn()) {
+            subscribed = wrapped.isUserAFan(Helper.getLiferayUser().getUserId());
+        }
     }
 
     public SelectItem[] getAllPlanModes() {
@@ -335,15 +340,13 @@ public class PlanItemWrapper {
             else {
                 ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, wrapped.getPlanId(), null, "", Helper.getLiferayUser().getUserId());
             }
+            
+            subscribed = !subscribed;
         }
     }
     
     public boolean isSubscribed() throws PortalException, SystemException {
-        
-        if (Helper.isUserLoggedIn()) {
-            return ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), PlanItem.class, wrapped.getPlanId(), null, "");
-        }
-        return false;
+        return subscribed;
     }
 
     public PlanItem getWrapped() {
@@ -521,6 +524,7 @@ public class PlanItemWrapper {
 
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.BECOME_A_SUPPORTER.id(),null, 0);
+            subscribed = true;
         }
     }
     
@@ -530,14 +534,12 @@ public class PlanItemWrapper {
             
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.STOPPED_BEEING_A_SUPPORTER.id(),null, 0);
+            subscribed = false;
         }
     }
     
     public boolean isUserAFan() throws SystemException {
-        if (Helper.isUserLoggedIn()) {
-            return wrapped.isUserAFan(Helper.getLiferayUser().getUserId());
-        }
-        return false;
+        return subscribed;
     }
     
     public boolean isPlanMember() throws SystemException {
