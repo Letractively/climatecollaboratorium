@@ -194,15 +194,19 @@
         </td>
         <td>
             <div class="butt_wrap">
-            <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
-            <div class="buttbdr">
-                <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();" styleClass="createNewPlanButton"
-                        actionListener="#{navigation.createPlanBean.createPlan}">
-                    <span>CREATE</span> proposal
-                </ice:commandLink>
+                <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
+                    <div class="buttbdr">
+                        <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();"
+                            actionListener="#{navigation.createPlanBean.createPlan}">
+                            <span>CREATE</span> proposal
+                        </ice:commandLink>
+                    </div>
+                </f:subview>
+          <!-- /butt_wrap -->
             </div>
-        </f:subview>
-            <div class="select-pro_wrap floatRight">
+         </td>
+         <td width="250">
+            <div class="select-pro_wrap">
                 <ice:selectOneMenu value="#{plansIndex.selectedMode}" partialSubmit="true" styleClass="selectbox1" style="width: 180px">
                     <f:selectItems value="#{plansIndex.availableModes}"/>
                 </ice:selectOneMenu>
@@ -210,8 +214,7 @@
                     jQuery(document).ready(initSelectbox());
                 </script>
             </div>
-          </div> <!-- /butt_wrap -->
-          </td></tr></table>
+         </td></tr></table>
       
     </div> <!-- /proinfo -->
     
