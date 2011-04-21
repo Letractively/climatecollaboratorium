@@ -1247,6 +1247,7 @@ margin: 20px 0 15px 0;
  
  .planDescription {
     margin-top: 20px;
+    font: 12px/20px Verdana, sans-serif;
  }
  
 .proposals.planDetails .right_col {
@@ -1312,4 +1313,8 @@ div.growlUI h1, div.growlUI h2 {
     background: url("../images/divider.gif") repeat-x scroll 0 0 transparent;
     width: 920px;
     margin: 0;
+}
+
+#pro-info .butt_wrap {
+    width: 180px;
 }
