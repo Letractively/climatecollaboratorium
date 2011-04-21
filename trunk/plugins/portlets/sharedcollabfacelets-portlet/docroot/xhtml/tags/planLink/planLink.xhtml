@@ -3,7 +3,7 @@
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:ice="http://www.icesoft.com/icefaces/component">
     <a href="/web/guest/plans/-/plans/contestId/#{contestId}/planId/#{planId}#{hashString != null ? '#' : ''}#{hashString}" class="#{linkClass}">
-        <ice:outputText value="#{text}" escape="#{escape}" />
+        <ice:outputText value="#{text}" escape="#{escape}" nospan="true"/>
     </a>
     
 </f:view>

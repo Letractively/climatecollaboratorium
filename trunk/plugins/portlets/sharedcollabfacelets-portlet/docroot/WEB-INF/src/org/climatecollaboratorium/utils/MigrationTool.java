@@ -220,16 +220,17 @@ public class MigrationTool {
         for (ModelOutputItem moi: ModelOutputItemLocalServiceUtil.getModelOutputItems(0, Integer.MAX_VALUE)) {
             if (simulationMapping.containsKey(moi.getModelId())) {
                 if (update) {
+                    
                     if (! variableMapping.containsKey(moi.getModelOutputItemId())) {
-                        throw new MigrationException("There is setting for input item for input " + 
-                                moi.getModelOutputItemId() + " but no mapping has been defined");
+                         throw new MigrationException("There is setting for input item for input " + 
+                                 moi.getModelOutputItemId() + " but no mapping has been defined");
                     }
                     if (moi.getRelatedOutputItem() != null && ! variableMapping.containsKey(moi.getRelatedOutputItem())) {
-
                         throw new MigrationException("There is setting for input item for input " + 
                                 moi.getRelatedOutputItem() + " but no mapping has been defined");
                         
                     }
+                    
                     if (update) {
                         moi.setModelId(simulationMapping.get(moi.getModelId()));
                         moi.setModelOutputItemId(variableMapping.get(moi.getModelOutputItemId()));
