@@ -501,7 +501,9 @@ public class PlanConstants {
                 return String.format("%d", plan.getDiscussionCategoryGroup().getCommentsCount());
             }
             
-        });
+        }),
+        REGION("Major country / Region","Major country / Region described by proposal","ShowSupporters",true, Attribute.REGION, new AttributeGetter("%s",Attribute.REGION)),
+        SUBREGION("Country / Subregion","Country / Subregion described by proposal","ShowSupporters",true, Attribute.SUBREGION, new AttributeGetter("%s",Attribute.SUBREGION));
 		
         
 		private String name;

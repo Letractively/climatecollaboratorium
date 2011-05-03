@@ -1,4 +1,4 @@
-insert into PlanType VALUES (4, 'regional plans May 2011', '', 0, 0, 0, 0, "", NULL, NULL)
+insert into PlanType VALUES (4, 'regional plans May 2011', '', 0, 0, 0, 0, "", NULL, NULL);
 
 insert into PlanTypeAttribute VALUES (40, 4, 'REGION');
 insert into PlanTypeAttribute VALUES (41, 4, 'SUBREGION');
@@ -16,5 +16,7 @@ insert into ContestPhaseColumn VALUES (91, 9, 'SUPPORTERS', 10, 0);
 -- insert into ContestPhaseColumn VALUES (94, 9, 'DAMAGE_COST', 40, 0);
 Insert into ContestPhaseColumn values (95, 9, 'IS_PLAN_OPEN', 50, 0);
 insert into ContestPhaseColumn VALUES (96, 9, 'SEEKING_ASSISTANCE', 60, 0);
+Insert into ContestPhaseColumn values (97, 9, 'REGION', 70, 0);
+insert into ContestPhaseColumn VALUES (98, 9, 'SUBREGION', 80, 0);
 
 update ContestPhase set ContestPhaseStatus = 'OPEN_FOR_SUBMISSION' WHERE ContestPhasePK = 9;
