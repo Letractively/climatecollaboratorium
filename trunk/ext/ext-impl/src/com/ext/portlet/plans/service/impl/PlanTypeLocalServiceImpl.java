@@ -2,6 +2,7 @@ package com.ext.portlet.plans.service.impl;
 
 import java.util.List;
 
+import com.ext.portlet.plans.NoSuchPlanTypeAttributeException;
 import com.ext.portlet.plans.NoSuchPlanTypeException;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlanTypeAttribute;
@@ -21,5 +22,14 @@ public class PlanTypeLocalServiceImpl extends PlanTypeLocalServiceBaseImpl {
     
     public List<PlanTypeAttribute> getAttributesByPlanTypeId(long planTypeId) throws SystemException {
         return planTypePersistence.getPlanTypeAttributes(planTypeId);
+    }
+    
+    public boolean isRegionalType(long planTypeId) throws SystemException {
+        try {
+            return planTypeAttributePersistence.findByPlanTypeIdAttributeName(planTypeId, "REGION") != null;
+        }
+        catch (NoSuchPlanTypeAttributeException e) {
+        }
+        return false;
     }
 }

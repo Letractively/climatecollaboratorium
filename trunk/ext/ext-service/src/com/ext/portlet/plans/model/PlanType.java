@@ -38,4 +38,6 @@ public interface PlanType extends PlanTypeModel {
 
     public java.util.List<com.ext.portlet.plans.model.PlanTypeAttribute> getAttributes()
         throws com.liferay.portal.SystemException;
+
+    public boolean isRegional() throws com.liferay.portal.SystemException;
 }

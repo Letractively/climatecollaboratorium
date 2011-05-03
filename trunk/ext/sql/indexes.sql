@@ -455,6 +455,8 @@ create index IX_5BE2C986 on PlanTeamHistory (planId, userId);
 
 create index IX_7F5652DE on PlanType (isDefault);
 
+create index IX_3F8F95E6 on PlanTypeAttribute (planTypeId, attributeName);
+
 create index IX_BD01B2C6 on PlanVote (contestId);
 create index IX_171DA55E on PlanVote (contestId, planId);
 create index IX_97DAE500 on PlanVote (contestId, userId);

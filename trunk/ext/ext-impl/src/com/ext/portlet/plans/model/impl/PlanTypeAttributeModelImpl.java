@@ -64,7 +64,9 @@ public class PlanTypeAttributeModelImpl extends BaseModelImpl<PlanTypeAttribute>
                 "lock.expiration.time.com.ext.portlet.plans.model.PlanTypeAttribute"));
     private Long _planTypeAttributeId;
     private Long _planTypeId;
+    private Long _originalPlanTypeId;
     private String _attributeName;
+    private String _originalAttributeName;
 
     public PlanTypeAttributeModelImpl() {
     }
@@ -116,6 +118,14 @@ public class PlanTypeAttributeModelImpl extends BaseModelImpl<PlanTypeAttribute>
 
     public void setPlanTypeId(Long planTypeId) {
         _planTypeId = planTypeId;
+
+        if (_originalPlanTypeId == null) {
+            _originalPlanTypeId = planTypeId;
+        }
+    }
+
+    public Long getOriginalPlanTypeId() {
+        return _originalPlanTypeId;
     }
 
     public String getAttributeName() {
@@ -124,6 +134,14 @@ public class PlanTypeAttributeModelImpl extends BaseModelImpl<PlanTypeAttribute>
 
     public void setAttributeName(String attributeName) {
         _attributeName = attributeName;
+
+        if (_originalAttributeName == null) {
+            _originalAttributeName = attributeName;
+        }
+    }
+
+    public String getOriginalAttributeName() {
+        return GetterUtil.getString(_originalAttributeName);
     }
 
     public PlanTypeAttribute toEscapedModel() {

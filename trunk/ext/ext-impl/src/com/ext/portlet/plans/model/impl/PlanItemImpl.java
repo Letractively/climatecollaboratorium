@@ -734,5 +734,9 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     public void setRibbonText(String ribbonText) throws SystemException {
         setAttribute(Attribute.PLAN_RIBBON_TEXT, String.valueOf(ribbonText));
     }
+    
+    public void setAttribute(String attributeName, String value) throws SystemException {
+        setAttribute(Attribute.valueOf(attributeName), value);
+    }
 
 }

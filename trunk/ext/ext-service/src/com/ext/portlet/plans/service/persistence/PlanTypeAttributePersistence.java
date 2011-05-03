@@ -61,6 +61,19 @@ public interface PlanTypeAttributePersistence extends BasePersistence {
         java.lang.Long planTypeAttributeId)
         throws com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanTypeAttribute findByPlanTypeIdAttributeName(
+        java.lang.Long planTypeId, java.lang.String attributeName)
+        throws com.ext.portlet.plans.NoSuchPlanTypeAttributeException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanTypeAttribute fetchByPlanTypeIdAttributeName(
+        java.lang.Long planTypeId, java.lang.String attributeName)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanTypeAttribute fetchByPlanTypeIdAttributeName(
+        java.lang.Long planTypeId, java.lang.String attributeName,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -79,7 +92,16 @@ public interface PlanTypeAttributePersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
+    public void removeByPlanTypeIdAttributeName(java.lang.Long planTypeId,
+        java.lang.String attributeName)
+        throws com.ext.portlet.plans.NoSuchPlanTypeAttributeException,
+            com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
+
+    public int countByPlanTypeIdAttributeName(java.lang.Long planTypeId,
+        java.lang.String attributeName)
+        throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

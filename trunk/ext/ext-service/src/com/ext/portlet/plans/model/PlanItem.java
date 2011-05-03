@@ -302,4 +302,7 @@ public interface PlanItem extends PlanItemModel {
 
     public void setRibbonText(java.lang.String ribbonText)
         throws com.liferay.portal.SystemException;
+
+    public void setAttribute(java.lang.String attributeName,
+        java.lang.String value) throws com.liferay.portal.SystemException;
 }

@@ -258,6 +258,11 @@
 	   <column name="planTypeAttributeId" type="Long" primary="true" />
 	   <column name="planTypeId" type="Long" />
 	   <column name="attributeName" type="String" />
+       
+       <finder name="PlanTypeIdAttributeName" return-type="PlanTypeAttribute" >
+            <finder-column name="planTypeId" />
+            <finder-column name="attributeName" />
+       </finder>
     </entity>
     
     <entity name="PlanTypeColumn" local-service="true">
