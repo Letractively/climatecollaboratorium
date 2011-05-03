@@ -287,4 +287,9 @@ public class ContestWrapper {
     public List<ContestPhaseWrapper> getActiveOrPastPhases() {
         return activeOrPastPhases;
     }
+    
+    public boolean getHasModel() throws PortalException, SystemException {
+        Long modelId = getContest().getPlanType().getDefaultModelId();
+        return modelId != null && modelId > 0;
+    }
 }

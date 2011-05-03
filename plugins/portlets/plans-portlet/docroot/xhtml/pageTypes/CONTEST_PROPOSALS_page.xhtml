@@ -139,9 +139,11 @@
                 <div class="buttbdr">
                     <collab:contestLink contestId="#{contest.contest.contestId}" hashString="plans=subview:issues" text="&lt;span &gt; DEBATE &lt;/span&gt; the issues" />
                 </div>
-                <div class="buttbdr">
-                    <collab:contestLink contestId="#{contest.contest.contestId}" hashString="plans=subview:model" text="&lt;span &gt;RUN&lt;/span&gt; the model" />
-                </div>
+                <f:subview rendered="#{contest.hasModel}">
+                    <div class="buttbdr">
+                        <collab:contestLink contestId="#{contest.contest.contestId}" hashString="plans=subview:model" text="&lt;span &gt;RUN&lt;/span&gt; the model" />
+                    </div>
+                </f:subview>
                 
             </div>
             &amp;nbsp;

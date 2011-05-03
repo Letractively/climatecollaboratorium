@@ -22,6 +22,7 @@ import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -144,7 +145,7 @@ public class PlanBean {
     }
 
     public int getDefaultTab() throws SystemException, PortalException {
-        if (planItem != null && planItem.getAllPlanModelRuns().get(0).getVersion() == 0 && permissions.getCanEdit()) {
+        if (planItem != null && planItem.getAllPlanModelRuns().get(0).getVersion() == 0 && permissions.getCanEdit() && planItem.getPlanType().getModelId() > 0) {
             return tabNameIndexMap.get("actionsimpacts");
         } else
             return tabNameIndexMap.get("description");
@@ -367,5 +368,8 @@ public class PlanBean {
         externalSimulationBean.editActions(e);
         refresh();
     }
+    
+    
+ 
         
 }

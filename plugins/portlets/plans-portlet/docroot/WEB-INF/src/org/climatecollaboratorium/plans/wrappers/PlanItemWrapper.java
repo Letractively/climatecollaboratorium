@@ -3,8 +3,10 @@ package org.climatecollaboratorium.plans.wrappers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -19,6 +21,7 @@ import org.climatecollaboratorium.plans.PlanHistoryWrapper;
 import org.climatecollaboratorium.plans.PlansPermissionsBean;
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
+import org.compass.core.util.backport.java.util.Arrays;
 
 import com.ext.portlet.PlanStatus;
 import com.ext.portlet.Activity.ActivityUtil;
@@ -79,7 +82,31 @@ public class PlanItemWrapper {
     private EventBus eventBus;
     private Map<String, String> planAttributes;
     private boolean subscribed;
+    
 
+    private final static String[] regionsDevelopedArr = {"United States", "European Union", "Russia/Former Soviet Union", "OECD Asia", "Canada"};
+    private final static String[] regionsRapidlyDevelopingArr = {"China", "India", "Brazil", "South Africa", "Mexico", "Rapidly developing Asia", };
+    private final static String[] regionsOtherDevelopingArr = {"Middle East",  "Latin America", "Africa", "Other developing Asia"};
+    
+    private final static Set<String> regionsDeveloped = new HashSet<String>(Arrays.asList(regionsDevelopedArr));
+    private final static Set<String> regionsRapidlyDeveloping = new HashSet<String>(Arrays.asList(regionsRapidlyDevelopingArr));
+    private final static Set<String> regionsOtherDeveloping = new HashSet<String>(Arrays.asList(regionsOtherDevelopingArr));
+    private final static List<SelectItem> availableRegions = new ArrayList<SelectItem>();
+    
+    static {
+        for (String region: regionsDevelopedArr) {
+            availableRegions.add(new SelectItem(region));
+        }
+
+        for (String region: regionsRapidlyDevelopingArr) {
+            availableRegions.add(new SelectItem(region));
+        }
+        
+        for (String region: regionsOtherDevelopingArr) {
+            availableRegions.add(new SelectItem(region));
+        }
+    }
+    
     public enum PlanStatusSelection {SUBMITTED(PlanStatus.SUBMITTED,"An entry in the contest"),
         DRAFT(PlanStatus.UNDER_DEVELOPMENT,"Just a draft");
 
@@ -677,5 +704,59 @@ public class PlanItemWrapper {
         wrapped.setRibbonText(ribbonText);
     }
     
+    public boolean getHasModel() throws PortalException, SystemException {
+        return wrapped.getPlanType().getDefaultModelId() != null && wrapped.getPlanType().getDefaultModelId()  > 0L; 
+    }
+    
+    public boolean isRegional() throws PortalException, SystemException {
+        return wrapped.getPlanType().isRegional();
+    }
+    
+
+    public String getRegionEconomy() throws SystemException {
+        String region = getRegion();
+        if (region != null) {
+            if (regionsDeveloped.contains(region)) {
+                return "Developed";
+            }
+            else if (regionsRapidlyDeveloping.contains(region)) {
+                return "Rapidly Developing";
+            }
+
+            else if (regionsOtherDeveloping.contains(region)) {
+                return "Other Developing";
+            }
+        }
+        return null;
+                
+    }
+    
+    public String getRegion() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute("REGION");
+        if (attr != null) {
+            return attr.getAttributeValue();
+        }
+        return null;
+    }
+    
+    public void setRegion(String region) throws SystemException {
+        wrapped.setAttribute("REGION", region);
+    }
+    
+    public void setSubregion(String subregion) throws SystemException {
+        wrapped.setAttribute("SUBREGION", subregion);
+    }
+    
+    public String getSubregion() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute("SUBREGION");
+        if (attr != null) {
+            return attr.getAttributeValue();
+        }
+        return null;
+    }
+    
+    public List<SelectItem> getAvailableRegions() {
+        return availableRegions;
+    }
 
 }
