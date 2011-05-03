@@ -144,5 +144,10 @@ public class ContestBean {
     public Long getContestId() {
         return contest.getContest().getContestPK();
     }
+    
+    public boolean getHasModel() throws PortalException, SystemException {
+        return contest.getHasModel();
+    }
+    
 
 }
