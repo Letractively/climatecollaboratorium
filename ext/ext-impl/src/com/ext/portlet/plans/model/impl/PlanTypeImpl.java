@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
+import com.ext.portlet.plans.NoSuchPlanTypeAttributeException;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlanTypeAttribute;
 import com.ext.portlet.plans.model.PlanTypeColumn;
@@ -56,5 +57,9 @@ public class PlanTypeImpl extends PlanTypeModelImpl implements PlanType {
     public List<PlanTypeAttribute> getAttributes() throws SystemException {
         List<PlanTypeAttribute> atts = PlanTypeLocalServiceUtil.getAttributesByPlanTypeId(this.getPlanTypeId());
         return atts==null? Collections.<PlanTypeAttribute>emptyList() :atts;
+    }
+    
+    public boolean isRegional() throws SystemException {
+        return PlanTypeLocalServiceUtil.isRegionalType(getPlanTypeId());
     }
 }

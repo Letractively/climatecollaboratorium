@@ -90,4 +90,8 @@ public interface PlanTypeLocalService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.plans.model.PlanTypeAttribute> getAttributesByPlanTypeId(
         long planTypeId) throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public boolean isRegionalType(long planTypeId)
+        throws com.liferay.portal.SystemException;
 }

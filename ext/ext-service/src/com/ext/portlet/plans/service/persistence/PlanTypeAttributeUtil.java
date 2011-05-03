@@ -82,6 +82,29 @@ public class PlanTypeAttributeUtil {
         return getPersistence().fetchByPrimaryKey(planTypeAttributeId);
     }
 
+    public static com.ext.portlet.plans.model.PlanTypeAttribute findByPlanTypeIdAttributeName(
+        java.lang.Long planTypeId, java.lang.String attributeName)
+        throws com.ext.portlet.plans.NoSuchPlanTypeAttributeException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByPlanTypeIdAttributeName(planTypeId, attributeName);
+    }
+
+    public static com.ext.portlet.plans.model.PlanTypeAttribute fetchByPlanTypeIdAttributeName(
+        java.lang.Long planTypeId, java.lang.String attributeName)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByPlanTypeIdAttributeName(planTypeId, attributeName);
+    }
+
+    public static com.ext.portlet.plans.model.PlanTypeAttribute fetchByPlanTypeIdAttributeName(
+        java.lang.Long planTypeId, java.lang.String attributeName,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByPlanTypeIdAttributeName(planTypeId, attributeName,
+            retrieveFromCache);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -110,8 +133,23 @@ public class PlanTypeAttributeUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
+    public static void removeByPlanTypeIdAttributeName(
+        java.lang.Long planTypeId, java.lang.String attributeName)
+        throws com.ext.portlet.plans.NoSuchPlanTypeAttributeException,
+            com.liferay.portal.SystemException {
+        getPersistence()
+            .removeByPlanTypeIdAttributeName(planTypeId, attributeName);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
+    }
+
+    public static int countByPlanTypeIdAttributeName(
+        java.lang.Long planTypeId, java.lang.String attributeName)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .countByPlanTypeIdAttributeName(planTypeId, attributeName);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

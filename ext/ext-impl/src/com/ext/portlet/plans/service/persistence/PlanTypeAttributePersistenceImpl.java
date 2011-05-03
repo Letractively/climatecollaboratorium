@@ -13,13 +13,16 @@ import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -34,6 +37,14 @@ public class PlanTypeAttributePersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = PlanTypeAttributeImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
+    public static final FinderPath FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME = new FinderPath(PlanTypeAttributeModelImpl.ENTITY_CACHE_ENABLED,
+            PlanTypeAttributeModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_ENTITY, "fetchByPlanTypeIdAttributeName",
+            new String[] { Long.class.getName(), String.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_PLANTYPEIDATTRIBUTENAME = new FinderPath(PlanTypeAttributeModelImpl.ENTITY_CACHE_ENABLED,
+            PlanTypeAttributeModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByPlanTypeIdAttributeName",
+            new String[] { Long.class.getName(), String.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(PlanTypeAttributeModelImpl.ENTITY_CACHE_ENABLED,
             PlanTypeAttributeModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -88,6 +99,13 @@ public class PlanTypeAttributePersistenceImpl extends BasePersistenceImpl
         EntityCacheUtil.putResult(PlanTypeAttributeModelImpl.ENTITY_CACHE_ENABLED,
             PlanTypeAttributeImpl.class, planTypeAttribute.getPrimaryKey(),
             planTypeAttribute);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME,
+            new Object[] {
+                planTypeAttribute.getPlanTypeId(),
+                
+            planTypeAttribute.getAttributeName()
+            }, planTypeAttribute);
     }
 
     public void cacheResult(List<PlanTypeAttribute> planTypeAttributes) {
@@ -192,6 +210,15 @@ public class PlanTypeAttributePersistenceImpl extends BasePersistenceImpl
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
 
+        PlanTypeAttributeModelImpl planTypeAttributeModelImpl = (PlanTypeAttributeModelImpl) planTypeAttribute;
+
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME,
+            new Object[] {
+                planTypeAttributeModelImpl.getOriginalPlanTypeId(),
+                
+            planTypeAttributeModelImpl.getOriginalAttributeName()
+            });
+
         EntityCacheUtil.removeResult(PlanTypeAttributeModelImpl.ENTITY_CACHE_ENABLED,
             PlanTypeAttributeImpl.class, planTypeAttribute.getPrimaryKey());
 
@@ -252,6 +279,10 @@ public class PlanTypeAttributePersistenceImpl extends BasePersistenceImpl
     public PlanTypeAttribute updateImpl(
         com.ext.portlet.plans.model.PlanTypeAttribute planTypeAttribute,
         boolean merge) throws SystemException {
+        boolean isNew = planTypeAttribute.isNew();
+
+        PlanTypeAttributeModelImpl planTypeAttributeModelImpl = (PlanTypeAttributeModelImpl) planTypeAttribute;
+
         Session session = null;
 
         try {
@@ -271,6 +302,32 @@ public class PlanTypeAttributePersistenceImpl extends BasePersistenceImpl
         EntityCacheUtil.putResult(PlanTypeAttributeModelImpl.ENTITY_CACHE_ENABLED,
             PlanTypeAttributeImpl.class, planTypeAttribute.getPrimaryKey(),
             planTypeAttribute);
+
+        if (!isNew &&
+                (!Validator.equals(planTypeAttribute.getPlanTypeId(),
+                    planTypeAttributeModelImpl.getOriginalPlanTypeId()) ||
+                !Validator.equals(planTypeAttribute.getAttributeName(),
+                    planTypeAttributeModelImpl.getOriginalAttributeName()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME,
+                new Object[] {
+                    planTypeAttributeModelImpl.getOriginalPlanTypeId(),
+                    
+                planTypeAttributeModelImpl.getOriginalAttributeName()
+                });
+        }
+
+        if (isNew ||
+                (!Validator.equals(planTypeAttribute.getPlanTypeId(),
+                    planTypeAttributeModelImpl.getOriginalPlanTypeId()) ||
+                !Validator.equals(planTypeAttribute.getAttributeName(),
+                    planTypeAttributeModelImpl.getOriginalAttributeName()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME,
+                new Object[] {
+                    planTypeAttribute.getPlanTypeId(),
+                    
+                planTypeAttribute.getAttributeName()
+                }, planTypeAttribute);
+        }
 
         return planTypeAttribute;
     }
@@ -318,6 +375,134 @@ public class PlanTypeAttributePersistenceImpl extends BasePersistenceImpl
         }
 
         return planTypeAttribute;
+    }
+
+    public PlanTypeAttribute findByPlanTypeIdAttributeName(Long planTypeId,
+        String attributeName)
+        throws NoSuchPlanTypeAttributeException, SystemException {
+        PlanTypeAttribute planTypeAttribute = fetchByPlanTypeIdAttributeName(planTypeId,
+                attributeName);
+
+        if (planTypeAttribute == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanTypeAttribute exists with the key {");
+
+            msg.append("planTypeId=" + planTypeId);
+
+            msg.append(", ");
+            msg.append("attributeName=" + attributeName);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchPlanTypeAttributeException(msg.toString());
+        }
+
+        return planTypeAttribute;
+    }
+
+    public PlanTypeAttribute fetchByPlanTypeIdAttributeName(Long planTypeId,
+        String attributeName) throws SystemException {
+        return fetchByPlanTypeIdAttributeName(planTypeId, attributeName, true);
+    }
+
+    public PlanTypeAttribute fetchByPlanTypeIdAttributeName(Long planTypeId,
+        String attributeName, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { planTypeId, attributeName };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanTypeAttribute WHERE ");
+
+                if (planTypeId == null) {
+                    query.append("planTypeId IS NULL");
+                } else {
+                    query.append("planTypeId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (attributeName == null) {
+                    query.append("attributeName IS NULL");
+                } else {
+                    query.append("attributeName = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planTypeId != null) {
+                    qPos.add(planTypeId.longValue());
+                }
+
+                if (attributeName != null) {
+                    qPos.add(attributeName);
+                }
+
+                List<PlanTypeAttribute> list = q.list();
+
+                result = list;
+
+                PlanTypeAttribute planTypeAttribute = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME,
+                        finderArgs, list);
+                } else {
+                    planTypeAttribute = list.get(0);
+
+                    cacheResult(planTypeAttribute);
+
+                    if ((planTypeAttribute.getPlanTypeId() == null) ||
+                            !planTypeAttribute.getPlanTypeId().equals(planTypeId) ||
+                            (planTypeAttribute.getAttributeName() == null) ||
+                            !planTypeAttribute.getAttributeName()
+                                                  .equals(attributeName)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME,
+                            finderArgs, planTypeAttribute);
+                    }
+                }
+
+                return planTypeAttribute;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANTYPEIDATTRIBUTENAME,
+                        finderArgs, new ArrayList<PlanTypeAttribute>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (PlanTypeAttribute) result;
+            }
+        }
     }
 
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
@@ -419,10 +604,84 @@ public class PlanTypeAttributePersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
+    public void removeByPlanTypeIdAttributeName(Long planTypeId,
+        String attributeName)
+        throws NoSuchPlanTypeAttributeException, SystemException {
+        PlanTypeAttribute planTypeAttribute = findByPlanTypeIdAttributeName(planTypeId,
+                attributeName);
+
+        remove(planTypeAttribute);
+    }
+
     public void removeAll() throws SystemException {
         for (PlanTypeAttribute planTypeAttribute : findAll()) {
             remove(planTypeAttribute);
         }
+    }
+
+    public int countByPlanTypeIdAttributeName(Long planTypeId,
+        String attributeName) throws SystemException {
+        Object[] finderArgs = new Object[] { planTypeId, attributeName };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PLANTYPEIDATTRIBUTENAME,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanTypeAttribute WHERE ");
+
+                if (planTypeId == null) {
+                    query.append("planTypeId IS NULL");
+                } else {
+                    query.append("planTypeId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (attributeName == null) {
+                    query.append("attributeName IS NULL");
+                } else {
+                    query.append("attributeName = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planTypeId != null) {
+                    qPos.add(planTypeId.longValue());
+                }
+
+                if (attributeName != null) {
+                    qPos.add(attributeName);
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PLANTYPEIDATTRIBUTENAME,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
     }
 
     public int countAll() throws SystemException {

@@ -105,6 +105,11 @@ public class PlanTypeLocalServiceUtil {
         return getService().getAttributesByPlanTypeId(planTypeId);
     }
 
+    public static boolean isRegionalType(long planTypeId)
+        throws com.liferay.portal.SystemException {
+        return getService().isRegionalType(planTypeId);
+    }
+
     public static PlanTypeLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanTypeLocalService is not set");
