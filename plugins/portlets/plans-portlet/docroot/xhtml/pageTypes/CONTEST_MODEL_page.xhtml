@@ -55,7 +55,7 @@
             <div class="act-edit-box_left">
                 <p>Select varying levels of geographic disaggregation for the actions</p>
                 <div class="select-pro_wrap">
-                    <ice:selectOneMenu value="#{contest.modelId}" styleClass="selectbox1" style="width: 191px;" partialSubmit="true" valueChangeListener="#{planBean.modelBean.modelChagnedListener}">
+                    <ice:selectOneMenu value="#{contest.modelId}" styleClass="selectbox1" style="width: 191px;" partialSubmit="true" >
                         <f:selectItems value="#{contest.availableModels}"/>
                     </ice:selectOneMenu>
                     <script type="text/javascript">
@@ -68,7 +68,7 @@
         <div class="act-edit-box_right">
             <p>You can also upload your own disaggregation mode</p>
             <div class="butt_wrap">
-                <div class="button"><a href="/web/guest/resources/-/wiki/Main/Upload+model+help"><span>UPLOAD</span> model</a></div>
+                <div class="button"><a href="/web/guest/resources/-/wiki/Main/Upload+model+help"><span>CONTRIBUTE</span> model</a></div>
             </div>
         
         </div>
