@@ -18,9 +18,11 @@
                 </f:subview>
                 
             </ice:commandLink>
+            <f:subview rendered="#{not debateBean.currentItem == null}">
             &amp;nbsp; | &amp;nbsp; 
-            <f:subview rendered="#{not debateBean.showAdvanced}">
-                <ice:commandLink value="advanced mode" actionListener="#{debateBean.toggleAdvanced}" />
+                <f:subview rendered="#{not debateBean.showAdvanced}">
+                    <ice:commandLink value="advanced mode" actionListener="#{debateBean.toggleAdvanced}" />
+                </f:subview>
             </f:subview>
             <f:subview rendered="#{debateBean.showAdvanced}">
                 
