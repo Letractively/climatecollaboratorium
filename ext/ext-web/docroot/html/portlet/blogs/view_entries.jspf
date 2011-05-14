@@ -1,0 +1,66 @@
+<%
+/**
+ * Copyright (c) 2000-2009 Liferay, Inc. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+%>
+
+<%
+boolean showAddEntryButton = BlogsPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_ENTRY);
+boolean showPermissionsButton = GroupPermissionUtil.contains(permissionChecker, scopeGroupId, ActionKeys.PERMISSIONS);
+showSearch = showSearch && (results.size() > 0);
+%>
+
+  <div id="bread" class="pro">
+    <a href="/web/guest/community">Community</a>
+    <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+    <a href="/web/guest/community">News</a>
+    <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+    History
+  </div>
+  
+<div id="content_inner">
+<%
+for (int i = 0; i < results.size(); i++) {
+	BlogsEntry entry = (BlogsEntry)results.get(i);
+
+	TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(BlogsEntry.class.getName(), entry.getEntryId(), true));
+%>
+
+	<%@ include file="/html/portlet/blogs/view_entry_content.jspf" %>
+
+	<div class="separator"><!-- --></div>
+
+<%
+}
+
+String rssURL = PortalUtil.getLayoutURL(layout, themeDisplay) + Portal.FRIENDLY_URL_SEPARATOR + "blogs/rss";
+
+if (rssURLParams.length() > 0) {
+	rssURL += "?" + rssURLParams.substring(1);
+}
+%>
+
+<liferay-util:html-top>
+	<link href="<%= rssURL %>" rel="alternate" title="RSS" type="application/rss+xml" />
+</liferay-util:html-top>
+
+<liferay-ui:search-paginator searchContainer="<%= searchContainer %>" />
+</div>

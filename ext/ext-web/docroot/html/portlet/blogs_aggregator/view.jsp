@@ -62,3 +62,9 @@ searchContainer.setResults(results);
 		Liferay.Util.focusFormField(document.<portlet:namespace />fm1.<portlet:namespace />keywords);
 	</script>
 </c:if>
+
+<div id="content_inner">
+    <div class="comm_div"></div>
+    <div class="floatRight"><a href="/web/guest/news/">Older posts...</a></div>
+    <div class="clear"></div>
+</div>
