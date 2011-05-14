@@ -530,7 +530,7 @@ h2.debate-issue { color:#318eb5; font-weight:400; margin:50px 0 10px 0;}
 #hide_tips { display:none;}
 .act_tooltip {width:266px; background:url(../images/actions_tooltip-top.png) no-repeat right top; padding-top:14px; position:absolute; left:245px; top:0px; z-index:5; visibility:hidden;}
 .act_tt-wrap {background:url(../images/actions_tooltip-arrow.png) no-repeat 0px 8px;}
-.act_tt-txt {width:226px; background:url(../images/actions_tooltip-bg.png); margin-left:8px; padding:0 16px; font:11px/17px Verdana, sans-serif; color:#fff;}
+.act_tt-txt {width:226px; background:url(../images/actions_tooltip-bg.png); margin-left:8px; padding:0 16px; font:11px/17px Verdana, sans-serif; color:#fff; min-height: 30px;}
 .act_tt-bot {background:url(../images/actions_tooltip-bottom.png) no-repeat right; height:20px; }
 
 /* charts */

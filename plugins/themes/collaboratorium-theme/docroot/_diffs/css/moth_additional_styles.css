@@ -1318,3 +1318,8 @@ div.growlUI h1, div.growlUI h2 {
 #pro-info .butt_wrap {
     width: 180px;
 }
+
+.control_title.actInputDef .act_tooltip {
+	top: -18px;
+	left: 350px;
+}
