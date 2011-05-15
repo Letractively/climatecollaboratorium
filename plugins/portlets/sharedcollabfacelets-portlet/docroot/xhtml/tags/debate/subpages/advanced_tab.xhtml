@@ -18,7 +18,7 @@
                 </f:subview>
                 
             </ice:commandLink>
-            <f:subview rendered="#{not debateBean.currentItem == null}">
+            <f:subview rendered="#{not (debateBean.currentItem == null) and not (debateBean.pageType == 'WELCOME')}">
             &amp;nbsp; | &amp;nbsp; 
                 <f:subview rendered="#{not debateBean.showAdvanced}">
                     <ice:commandLink value="advanced mode" actionListener="#{debateBean.toggleAdvanced}" />
