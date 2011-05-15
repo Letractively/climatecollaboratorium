@@ -352,6 +352,7 @@ public class DebatePersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
+                query.append("debateId ASC, ");
                 query.append("treeVersion ASC");
 
                 Query q = session.createQuery(query.toString());
@@ -438,6 +439,7 @@ public class DebatePersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
+                    query.append("debateId ASC, ");
                     query.append("treeVersion ASC");
                 }
 
@@ -560,6 +562,7 @@ public class DebatePersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
+                query.append("debateId ASC, ");
                 query.append("treeVersion ASC");
             }
 
@@ -627,6 +630,7 @@ public class DebatePersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
+                query.append("debateId ASC, ");
                 query.append("treeVersion ASC");
 
                 Query q = session.createQuery(query.toString());
@@ -713,6 +717,7 @@ public class DebatePersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
+                    query.append("debateId ASC, ");
                     query.append("treeVersion ASC");
                 }
 
@@ -835,6 +840,7 @@ public class DebatePersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
+                query.append("debateId ASC, ");
                 query.append("treeVersion ASC");
             }
 
@@ -937,6 +943,7 @@ public class DebatePersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
+                    query.append("debateId ASC, ");
                     query.append("treeVersion ASC");
                 }
 

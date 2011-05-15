@@ -77,23 +77,30 @@
                 
                 
                 <div class="comm_icons">
-                    <a href="#_33_messages_top" title="comments">
+                    <a href="<%= viewEntryURL %>#_33_messages_top" title="comments">
                         <c:if test="<%= messagesCount > 0 %>">
-                            <img src="/collaboratorium-theme/images/icon_comments2.gif" width="25" height="23" alt="messagesCount comments" /> &nbsp; <%= messagesCount %>                        </c:if>
+                            <img src="/collaboratorium-theme/images/icon_comments2.gif" width="25" height="23" alt="messagesCount comments" />&nbsp;<%= messagesCount %>
+                        </c:if>
                         <c:if test="<%= messagesCount <= 0 %>">
                             <img src="/collaboratorium-theme/images/icon_comments2-none.gif" width="25" height="23" alt="no comments" /> 
                         </c:if>
                     </a>
                                     
-                <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact">
+                
+                <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact"
+                      addthis:url="<%= HtmlUtil.escape(viewEntryURL) %>"
+                      addthis:title="<%= HtmlUtil.escape(entry.getTitle()) %>"
+                      addthis:description="<%= HtmlUtil.escape(HtmlUtil.extractText(entry.getContent()).substring(0,255)) %>"
+                
+                >
                     <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
                 </a>
                 <!-- AddThis Button BEGIN -->
                 <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
                 <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=climatecolab"></script>
                 <!-- AddThis Button END -->
-                </div>
                 
+                </div>
 			</div>
 		</div>
         
