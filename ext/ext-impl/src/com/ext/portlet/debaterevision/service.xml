@@ -37,6 +37,7 @@
 		<!-- Order columns -->
 
 		<order by="asc">
+            <order-column name="debateId" />
 			<order-column name="treeVersion"/>
 		</order>
 

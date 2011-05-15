@@ -219,6 +219,12 @@ public class DebateModelImpl extends BaseModelImpl<Debate> {
     public int compareTo(Debate debate) {
         int value = 0;
 
+        value = getDebateId().compareTo(debate.getDebateId());
+
+        if (value != 0) {
+            return value;
+        }
+
         value = getTreeVersion().compareTo(debate.getTreeVersion());
 
         if (value != 0) {
