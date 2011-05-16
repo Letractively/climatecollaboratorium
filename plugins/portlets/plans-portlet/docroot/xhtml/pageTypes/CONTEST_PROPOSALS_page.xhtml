@@ -126,8 +126,16 @@
                                         escape="false"/>
                     </f:subview>
                     <f:subview rendered="#{contest.contest.editor.editing}">
-                        <ice:inputTextarea value="#{contest.contest.editor.description}"/>
+                    
+                        <ice:outputLabel for="defaultPlanDescription">Default plan description:</ice:outputLabel><br />
+                        
+                        <ice:inputTextarea value="#{contest.contest.editor.description}" style="width: 500px; height: 50px;"/>
+                        <br />
+                        <ice:outputLabel for="defaultPlanDescription">Default plan description:</ice:outputLabel><br />
+                        <ice:inputTextarea id="defaultPlanDescription" value="#{contest.contest.editor.defaultPlanDescription}" style="width: 500px; height: 50px;"/>
+                        
                     </f:subview>
+                    <br />
                     <ice:panelGrid columns="2" styleClass="editCategory buttonPanel"
                                    rendered="#{contest.contest.editor.editing}">
                         <ice:commandButton value="Save" action="#{contest.contest.editor.save}"/>

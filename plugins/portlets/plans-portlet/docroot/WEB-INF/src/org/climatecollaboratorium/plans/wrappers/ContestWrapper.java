@@ -139,6 +139,7 @@ public class ContestWrapper {
         String modelDescription;
         String positionsDescription;
         String shortName;
+        String defaultPlanDescription;
         boolean editing = false;
         boolean editingPositions = false;
         private List<DebateQuestionWrapper> questions = new ArrayList<DebateQuestionWrapper>();
@@ -199,6 +200,7 @@ public class ContestWrapper {
             this.positionsDescription = contest.getContestPositionsDescription();
             this.modelDescription = contest.getContestModelDescription();
             this.shortName = contest.getContestShortName();
+            this.defaultPlanDescription = contest.getDefaultPlanDescription();
 
         }
 
@@ -209,6 +211,7 @@ public class ContestWrapper {
             contest.setContestModelDescription(modelDescription);
             contest.setContestPositionsDescription(positionsDescription);
             contest.setContestShortName(shortName);
+            contest.setDefaultPlanDescription(defaultPlanDescription);
             ContestLocalServiceUtil.updateContest(contest);
             editing = false;
         }
@@ -258,6 +261,14 @@ public class ContestWrapper {
                 
                 e.printStackTrace();
             }
+        }
+        
+        public String getDefaultPlanDescription() {
+            return defaultPlanDescription;
+        }
+        
+        public void setDefaultPlanDescription(String defaultPlanDescription) {
+            this.defaultPlanDescription = defaultPlanDescription;
         }
 
     }
