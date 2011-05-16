@@ -54,4 +54,7 @@ public interface Contest extends ContestModel {
 
     public java.lang.Integer getTotalVotes()
         throws com.liferay.portal.SystemException;
+
+    public void updateDefaultPlanDescription(java.lang.String description)
+        throws com.liferay.portal.SystemException;
 }

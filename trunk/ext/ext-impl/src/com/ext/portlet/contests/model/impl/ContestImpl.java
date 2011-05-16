@@ -9,6 +9,7 @@ import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestDebate;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestDebateLocalServiceUtil;
+import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
@@ -96,6 +97,11 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     
     public Integer getTotalVotes() throws SystemException {
         return PlanVoteLocalServiceUtil.countPlanVotes(this);
+    }
+    
+    public void updateDefaultPlanDescription(String description) throws SystemException {
+        this.setDefaultPlanDescription(description);
+        ContestLocalServiceUtil.updateContest(this);
     }
 
 }

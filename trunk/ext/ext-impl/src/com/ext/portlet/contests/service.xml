@@ -17,6 +17,7 @@
         <column name="ContestDescription" type="String" />
         <column name="ContestModelDescription" type="String" />
         <column name="ContestPositionsDescription" type="String" />
+        <column name="defaultPlanDescription" type="String" />
         <column name="PlanTypeId" type="Long" />
         <column name="created" type="Date" />
         <column name="updated" type="Date" />

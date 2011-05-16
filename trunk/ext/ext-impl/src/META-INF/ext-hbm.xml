@@ -708,6 +708,7 @@
 		<property name="ContestDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ContestModelDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ContestPositionsDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="defaultPlanDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="PlanTypeId" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />

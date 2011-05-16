@@ -61,6 +61,9 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "ContestPositionsDescription", new Integer(Types.VARCHAR) },
             
 
+            { "defaultPlanDescription", new Integer(Types.VARCHAR) },
+            
+
             { "PlanTypeId", new Integer(Types.BIGINT) },
             
 
@@ -75,7 +78,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
             { "contestActive", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -94,6 +97,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private String _ContestDescription;
     private String _ContestModelDescription;
     private String _ContestPositionsDescription;
+    private String _defaultPlanDescription;
     private Long _PlanTypeId;
     private Date _created;
     private Date _updated;
@@ -113,6 +117,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setContestDescription(soapModel.getContestDescription());
         model.setContestModelDescription(soapModel.getContestModelDescription());
         model.setContestPositionsDescription(soapModel.getContestPositionsDescription());
+        model.setDefaultPlanDescription(soapModel.getDefaultPlanDescription());
         model.setPlanTypeId(soapModel.getPlanTypeId());
         model.setCreated(soapModel.getCreated());
         model.setUpdated(soapModel.getUpdated());
@@ -193,6 +198,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _ContestPositionsDescription = ContestPositionsDescription;
     }
 
+    public String getDefaultPlanDescription() {
+        return GetterUtil.getString(_defaultPlanDescription);
+    }
+
+    public void setDefaultPlanDescription(String defaultPlanDescription) {
+        _defaultPlanDescription = defaultPlanDescription;
+    }
+
     public Long getPlanTypeId() {
         return _PlanTypeId;
     }
@@ -258,6 +271,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
                     getContestModelDescription()));
             model.setContestPositionsDescription(HtmlUtil.escape(
                     getContestPositionsDescription()));
+            model.setDefaultPlanDescription(HtmlUtil.escape(
+                    getDefaultPlanDescription()));
             model.setPlanTypeId(getPlanTypeId());
             model.setCreated(getCreated());
             model.setUpdated(getUpdated());
@@ -281,6 +296,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setContestDescription(getContestDescription());
         clone.setContestModelDescription(getContestModelDescription());
         clone.setContestPositionsDescription(getContestPositionsDescription());
+        clone.setDefaultPlanDescription(getDefaultPlanDescription());
         clone.setPlanTypeId(getPlanTypeId());
         clone.setCreated(getCreated());
         clone.setUpdated(getUpdated());
@@ -345,6 +361,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getContestModelDescription());
         sb.append(", ContestPositionsDescription=");
         sb.append(getContestPositionsDescription());
+        sb.append(", defaultPlanDescription=");
+        sb.append(getDefaultPlanDescription());
         sb.append(", PlanTypeId=");
         sb.append(getPlanTypeId());
         sb.append(", created=");
@@ -390,6 +408,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>ContestPositionsDescription</column-name><column-value><![CDATA[");
         sb.append(getContestPositionsDescription());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>defaultPlanDescription</column-name><column-value><![CDATA[");
+        sb.append(getDefaultPlanDescription());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>PlanTypeId</column-name><column-value><![CDATA[");
