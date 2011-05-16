@@ -1,6 +1,8 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
@@ -56,9 +58,23 @@ public class CreatePlanBean {
     public void createPlan(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             PlanItem planItem = null;
-            if (plansIndexBean != null) {
+            
+            
+            Object contestIdObj = e.getComponent().getAttributes().get("contestId");
+            if (contestIdObj != null) {
+                Long contestId = Long.parseLong(contestIdObj.toString());
+                Contest contest = ContestLocalServiceUtil.getContest(contestId);
+                contest.getActivePhase();
+                
+                String defaultDescription = contest.getDefaultPlanDescription();
+                planItem = PlanItemLocalServiceUtil.createPlan(contest.getActivePhase(), Helper.getLiferayUser().getUserId());
+
+                planItem.setDescription(defaultDescription, Helper.getLiferayUser().getUserId());
+            }
+            
+            else if (plansIndexBean != null) {
                 // get default description
-                String defaultDescription = preferences.getDefaultDescription();
+                String defaultDescription = plansIndexBean.getContestPhase().getPhase().getContest().getDefaultPlanDescription();
                 planItem = PlanItemLocalServiceUtil.createPlan(plansIndexBean.getContestPhase().getPhase(), Helper.getLiferayUser().getUserId());
                 planItem.setDescription(defaultDescription, Helper.getLiferayUser().getUserId());
             }

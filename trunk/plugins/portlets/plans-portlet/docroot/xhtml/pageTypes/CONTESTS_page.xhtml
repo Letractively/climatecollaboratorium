@@ -19,7 +19,6 @@
 				initializeColumnsInfo();
 			</script>
 		</ice:panelGroup>
-
 <ui:composition template="../templates/singlePageWithBreadcrumb.xhtml">
 
 <ui:define name="plans_content">
@@ -135,10 +134,11 @@
         </td>
         <td>
         <div class="butt_wrap">
-        <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
+        <f:subview rendered="#{singleContest.plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
             <div class="buttbdr">
                 <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();"
                         actionListener="#{navigation.createPlanBean.createPlan}">
+                        <f:attribute name="contestId" value="#{singleContest.contestId}" />
                     <span>CREATE</span> proposal
                 </ice:commandLink>
                 <f:subview rendered="#{navigation.createPlanBean.navigateToPlan}">
