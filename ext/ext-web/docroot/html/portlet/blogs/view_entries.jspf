@@ -35,7 +35,11 @@ showSearch = showSearch && (results.size() > 0);
     <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
     History
   </div>
-  
+
+<c:if test="<%= showAddEntryButton %>">
+    <input id="<portlet:namespace />addEntryButton" type="button" value="<liferay-ui:message key="add-blog-entry" />" onClick="location.href = '<portlet:renderURL><portlet:param name="struts_action" value="/blogs/edit_entry" /><portlet:param name="redirect" value="<%= currentURL %>" /></portlet:renderURL>';" />
+</c:if>
+
 <div id="content_inner">
 <%
 for (int i = 0; i < results.size(); i++) {
