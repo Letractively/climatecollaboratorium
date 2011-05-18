@@ -51,7 +51,11 @@ public class Helper {
         }
         
         for (String key: parameters.keySet()) {
-            sb.append("&" + key + "=" + URLEncoder.encode(parameters.get(key), "UTF-8"));
+            if (appendAnd) {
+                sb.append("&");
+                appendAnd = true;
+            }
+            sb.append(key + "=" + URLEncoder.encode(parameters.get(key), "UTF-8"));
         }
         
         if (locationAndHash.length > 1) {
