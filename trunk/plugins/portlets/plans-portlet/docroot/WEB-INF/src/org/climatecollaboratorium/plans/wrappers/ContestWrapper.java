@@ -20,6 +20,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.plans.CreatePlanBean;
 import org.climatecollaboratorium.plans.PlansIndexBean;
 
 import java.util.*;
@@ -40,6 +41,9 @@ public class ContestWrapper {
     private PlansIndexBean plansIndex;
     private EventBus eventBus;
     private List<ContestPhaseWrapper> activeOrPastPhases = new ArrayList<ContestPhaseWrapper>();
+
+    private CreatePlanBean createPlanBean;
+    
     public boolean flag;
     
      public void setFlag(boolean b) {
@@ -81,6 +85,7 @@ public class ContestWrapper {
 
         // reverse list to have active phase as the first one
         Collections.reverse(activeOrPastPhases);
+        createPlanBean = new CreatePlanBean(this);
     }
 
     public String getName() {
@@ -289,6 +294,7 @@ public class ContestWrapper {
     public void setEventBus(EventBus eventBus) {
         this.eventBus = eventBus;
         plansIndex.setEventBus(eventBus);
+        createPlanBean.setEventBus(eventBus);
     }
     
     public Long getContestId() {
@@ -303,4 +309,14 @@ public class ContestWrapper {
         Long modelId = getContest().getPlanType().getDefaultModelId();
         return modelId != null && modelId > 0;
     }
+
+    public void setCreatePlanBean(CreatePlanBean createPlanBean) {
+        this.createPlanBean = createPlanBean;
+    }
+
+    public CreatePlanBean getCreatePlanBean() {
+        return createPlanBean;
+    }
+    
+    
 }

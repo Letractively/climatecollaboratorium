@@ -148,6 +148,4 @@ public class ContestBean {
     public boolean getHasModel() throws PortalException, SystemException {
         return contest.getHasModel();
     }
-    
-
 }

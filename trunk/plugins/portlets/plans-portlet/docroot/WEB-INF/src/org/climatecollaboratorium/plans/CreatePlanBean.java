@@ -15,6 +15,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.events.PlanCreatedEvent;
+import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
 import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
 
 import javax.faces.event.ActionEvent;
@@ -32,6 +33,8 @@ public class CreatePlanBean {
     private boolean navigateToPlan;
     private PlansPreferencesBean preferences;
     private EventBus eventBus;
+
+    private ContestWrapper contestWrapper;
     
     private final static String PLANS_SOURCE = "plans"; 
     private final static String CREATE_PLAN_PARAM = "createPlan"; 
@@ -45,6 +48,11 @@ public class CreatePlanBean {
 
     public CreatePlanBean(PlanBean planBean) {
         this.planBean = planBean;
+        name = "";
+    }
+    
+    public CreatePlanBean(ContestWrapper contestWrapper) {
+        this.contestWrapper = contestWrapper;
         name = "";
     }
 
@@ -64,15 +72,18 @@ public class CreatePlanBean {
             if (contestIdObj != null) {
                 Long contestId = Long.parseLong(contestIdObj.toString());
                 Contest contest = ContestLocalServiceUtil.getContest(contestId);
-                contest.getActivePhase();
                 
                 String defaultDescription = contest.getDefaultPlanDescription();
                 planItem = PlanItemLocalServiceUtil.createPlan(contest.getActivePhase(), Helper.getLiferayUser().getUserId());
 
                 planItem.setDescription(defaultDescription, Helper.getLiferayUser().getUserId());
             }
-            
-            else if (plansIndexBean != null) {
+            else if (contestWrapper != null) {
+                String defaultDescription = contestWrapper.getContest().getDefaultPlanDescription();
+                
+                planItem = PlanItemLocalServiceUtil.createPlan(contestWrapper.getContest().getActivePhase(), Helper.getLiferayUser().getUserId());
+                planItem.setDescription(defaultDescription, Helper.getLiferayUser().getUserId());
+            } else if (plansIndexBean != null) {
                 // get default description
                 String defaultDescription = plansIndexBean.getContestPhase().getPhase().getContest().getDefaultPlanDescription();
                 planItem = PlanItemLocalServiceUtil.createPlan(plansIndexBean.getContestPhase().getPhase(), Helper.getLiferayUser().getUserId());
