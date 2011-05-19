@@ -137,13 +137,13 @@
         <f:subview rendered="#{singleContest.plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
             <div class="buttbdr">
                 <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();"
-                        actionListener="#{navigation.createPlanBean.createPlan}">
+                        actionListener="#{singleContest.createPlanBean.createPlan}">
                         <f:attribute name="contestId" value="#{singleContest.contestId}" />
                     <span>CREATE</span> proposal
                 </ice:commandLink>
-                <f:subview rendered="#{navigation.createPlanBean.navigateToPlan}">
+                <f:subview rendered="#{singleContest.createPlanBean.navigateToPlan}">
                     <div class="hidden">
-                        <collab:planLink planId="#{navigation.createPlanBean.planId}" contestId="#{singleContest.contestId}" hashString="plans=newPlan:true;planCondText=value:createNewProposal" text="createdPlanLink" linkClass="newlyCreatedPlanLink" />
+                        <collab:planLink planId="#{singleContest.createPlanBean.planId}" contestId="#{singleContest.contestId}" hashString="plans=newPlan:true;planCondText=value:createNewProposal" text="createdPlanLink" linkClass="newlyCreatedPlanLink" />
                     </div>
                     <script language="javascript">
                         window.location = jQuery(".newlyCreatedPlanLink").attr("href");
