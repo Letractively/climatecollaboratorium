@@ -19,23 +19,34 @@ public class SocialActivityWrapper {
     private int daysBetween;
     private boolean indicateNewDate;
     private final static Log _log = LogFactoryUtil.getLog(SocialActivityWrapper.class);
+    private long daysAgo = 0;
+    private String body;
 
 
     public SocialActivityWrapper(SocialActivity activity, int daysBetween, boolean indicateNewDate) {
         Helper.getThemeDisplay();
         this.activity = activity;
         try {
-        activityFeedEntry = SocialActivityInterpreterLocalServiceUtil.interpret(activity,
+            activityFeedEntry = SocialActivityInterpreterLocalServiceUtil.interpret(activity,
                 Helper.getThemeDisplay());
         } catch(Exception e) {
             //ignore
         }
         this.daysBetween = daysBetween;
         this.indicateNewDate = indicateNewDate;
+
+        final int milisecondsInDay = 1000 * 60 * 60 * 24;
+        long createDay = activity.getCreateDate().getTime() / milisecondsInDay;
+        long daysNow = new Date().getTime() / milisecondsInDay;
+        daysAgo = daysNow - createDay;
+        body = getBodyFromFeedEntry(activityFeedEntry);
     }
     
+    private static String getBodyFromFeedEntry(SocialActivityFeedEntry entry) {
+        return entry != null ? (entry.getBody().trim().equals("") ? entry.getTitle() : entry.getBody()) : null; 
+    }
     public String getBody() {
-        return activityFeedEntry != null ? activityFeedEntry.getBody() : null;
+        return body;
     }
 
     public boolean isToday() {
@@ -59,7 +70,8 @@ public class SocialActivityWrapper {
     }
     
     public static Boolean isEmpty(SocialActivityFeedEntry entry) {
-        return entry == null || entry.getBody() == null || entry.getBody().trim().length()==0;
+        String body = getBodyFromFeedEntry(entry);
+        return body == null || body.trim().length() == 0;
     }
 
     public static Boolean isEmpty(SocialActivity activity) {
@@ -73,5 +85,13 @@ public class SocialActivityWrapper {
             _log.error("Some error interpreting activity: "+e.getMessage());
             return false;
         }
+    }
+
+    public void setDaysAgo(long daysAgo) {
+        this.daysAgo = daysAgo;
+    }
+
+    public long getDaysAgo() {
+        return daysAgo;
     }
 }

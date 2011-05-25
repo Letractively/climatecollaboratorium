@@ -1,6 +1,7 @@
 package org.climatecollaboratorium.feeds;
 
 import org.climatecollaboratorium.feeds.activities.ActivitiesBean;
+import org.climatecollaboratorium.feeds.activities.PaginatedActivitiesBean;
 import org.climatecollaboratorium.feeds.members.MembersBean;
 
 
@@ -8,6 +9,7 @@ public class FeedsBean {
     private ActivitiesBean activitiesBean;
     private MembersBean membersBean;
     private FeedsPreferences preferences;
+    private PaginatedActivitiesBean paginatedActivitiesBean;
 
     public FeedsBean() {
     }
@@ -17,6 +19,13 @@ public class FeedsBean {
             activitiesBean = new ActivitiesBean(preferences);
         }
         return activitiesBean;
+    }
+    
+    public PaginatedActivitiesBean getPaginatedActivitiesBean() {
+        if (paginatedActivitiesBean == null) {
+            paginatedActivitiesBean = new PaginatedActivitiesBean(preferences);
+        }
+        return paginatedActivitiesBean;
     }
     
     public void setFeedsPreferences(FeedsPreferences preferences) {
