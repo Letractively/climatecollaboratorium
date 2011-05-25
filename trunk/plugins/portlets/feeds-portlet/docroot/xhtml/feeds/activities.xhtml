@@ -6,6 +6,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     >
+    <f:subview rendered="#{feedsBean.activitiesBean.feedStyle != 'FULL'}">
         <table>
         <ui:repeat value="#{feedsBean.activitiesBean.activities}" var="activity">
                 <f:subview id="entry" rendered="#{not activity.isEmpty}">
@@ -28,4 +29,48 @@
             </f:subview>
         </ui:repeat>
         </table>
+     </f:subview>
+     <f:subview rendered="#{feedsBean.activitiesBean.feedStyle == 'FULL'}">       
+     <ice:form>
+        <ice:dataTable id="activitiesTable" styleClass="colab" value="#{feedsBean.paginatedActivitiesBean.data}" rowClasses="t,nt" var="activity" rows="40">
+            <ice:column>
+                #{activity.body}
+            </ice:column>
+            <ice:column>
+                <ice:outputText value="#{activity.createDate}">
+                    <f:convertDateTime pattern="MM/dd/yy"/>
+                </ice:outputText>
+            </ice:column>
+        
+        </ice:dataTable>
+        
+        <ice:panelGroup styleClass="pager">
+            <table style="float: right;">
+            
+                <tr>
+                <td class="paginatorControls">
+                    <ice:dataPaginator rendered="true" for="activitiesTable" paginator="true" paginatorMaxPages="5" styleClass="comm_controls" style="display: inline;"> 
+                        <f:facet name="first" rendered="true">
+                            <ice:panelGroup >First</ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="last" rendered="true">
+                            <ice:panelGroup styleClass="">Last</ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="previous" rendered="true">
+                            <ice:panelGroup styleClass="pagerPrev">&lt; Prev</ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="next">
+                            <ice:panelGroup styleClass="">Next &gt;</ice:panelGroup>
+                        </f:facet>
+                    </ice:dataPaginator>
+                </td>
+            </tr>
+          </table>
+          <div class="clear"></div>
+          
+          
+        </ice:panelGroup>  
+          </ice:form>
+        
+     </f:subview>
 </f:view>
