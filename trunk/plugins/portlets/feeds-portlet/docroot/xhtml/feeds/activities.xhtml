@@ -32,7 +32,7 @@
      </f:subview>
      <f:subview rendered="#{feedsBean.activitiesBean.feedStyle == 'FULL'}">       
      <ice:form>
-        <ice:dataTable id="activitiesTable" styleClass="colab" value="#{feedsBean.paginatedActivitiesBean.data}" rowClasses="t,nt" var="activity" rows="40">
+        <ice:dataTable id="activitiesTable" styleClass="colab activitiesTableFull" value="#{feedsBean.paginatedActivitiesBean.data}" rowClasses="t,nt" var="activity" rows="40">
             <ice:column>
                 #{activity.body}
             </ice:column>
