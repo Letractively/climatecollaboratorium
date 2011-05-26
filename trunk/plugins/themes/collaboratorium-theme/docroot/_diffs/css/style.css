@@ -1078,3 +1078,7 @@ h3.noclr { color:#464646; }
 	.wf-active #footright #txt a { font-size:12px; }
 #footright #txt a:hover { color:#e65608; }
 #footright #cc { padding-top:6px;}
+
+.activitiesTableFull .colabCol2 {
+	padding-right: 6px;
+}
