@@ -129,7 +129,7 @@
             <ice:panelGroup rendered="#{planBean.plan.regional}">
                 <table><tr>
                     <td width="200px" style="vertical-align: middle;">
-                        Major country/Region
+                        Transnational group/large country
                     </td>
                     <td width="250">
                         <div class="select-pro_wrap">
@@ -144,7 +144,7 @@
                     </tr>
                     <tr>
                     <td width="200px" style="vertical-align: middle; height: 30px; padding-top: 10px;">
-                        Country/Subregion (optional)
+                        Country within transnational group (optional)
                     </td>
                     <td>
                         <ice:inputText value="#{planBean.plan.subregion}" styleClass="profile_input" style="margin-top: 10px;"/>
@@ -238,9 +238,9 @@
           </div>
           <div class="infotext">
             <p><strong>Economy</strong><br />#{planBean.plan.regionEconomy}</p>
-            <p><strong>Major country/Region</strong><br />#{planBean.plan.attributes['REGION']}</p>
+            <p><strong>Transnational group/large country</strong><br />#{planBean.plan.attributes['REGION']}</p>
             <f:subview rendered="#{not empty planBean.plan.subregion}">
-                <p><strong>Country/Subregion</strong><br />#{planBean.plan.attributes['SUBREGION']}</p>
+                <p><strong>Country within transnational group</strong><br />#{planBean.plan.attributes['SUBREGION']}</p>
             </f:subview>  
           </div>
         </div>

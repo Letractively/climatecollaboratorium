@@ -29,7 +29,7 @@
 
 
         <ice:panelGroup styleClass="protitle" rendered="#{not singleContest.editor.editing}">
-            <f:subview rendered="#{status.first}">
+            <f:subview rendered="#{singleContest.contestActive}">
                 <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
             </f:subview>
             <h2>
