@@ -502,8 +502,8 @@ public class PlanConstants {
             }
             
         }),
-        REGION("Major country / Region","Major country / Region described by proposal","ShowSupporters",true, Attribute.REGION, new AttributeGetter("%s",Attribute.REGION)),
-        SUBREGION("Country / Subregion","Country / Subregion described by proposal","ShowSupporters",true, Attribute.SUBREGION, new AttributeGetter("%s",Attribute.SUBREGION));
+        REGION("Transnational group/<br />large country","Transnational group/large country described by proposal","ShowSupporters",true, Attribute.REGION, new AttributeGetter("%s",Attribute.REGION)),
+        SUBREGION("Country within<br /> transnational group","Country within transnational group described by proposal","ShowSupporters",true, Attribute.SUBREGION, new AttributeGetter("%s",Attribute.SUBREGION));
 		
         
 		private String name;
