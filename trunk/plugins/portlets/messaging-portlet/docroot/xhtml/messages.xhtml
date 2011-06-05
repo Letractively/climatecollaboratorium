@@ -29,7 +29,16 @@
                     Subject
                 </f:facet>
                 <a href="javascript:;" class="showContent" id="message_#{message.messageId}">#{message.subject}</a>
-                <div class="msgContent hidden"><p>#{message.content}</p></div>
+                <div class="msgContent hidden"> 
+                    <p>#{message.content}</p>
+                    <div class="floatRight">
+                    <ice:commandButton actionListener="#{messagingBean.toggleSendMessage}" styleClass="mothButton" value="REPLY" >
+                        <f:attribute name="replyMessageId" value="#{message.messageId}" />
+                    </ice:commandButton>
+                    </div>
+                    <div class="clear"></div>
+                
+                </div>
             </ice:column>
             <ice:column rendered="#{messagingBean.type != 'SENT'}">
                 <f:facet name="header">
