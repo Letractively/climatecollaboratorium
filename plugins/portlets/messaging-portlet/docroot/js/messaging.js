@@ -45,7 +45,7 @@ function initShowMessage() {
 
 
 
-function initSendMessageForm(users, usersMapParam) {
+function initSendMessageForm(users, usersMapParam, preFill) {
     usersMap = usersMapParam;
     
     jQuery('#userSelectorInput').focus(function() {
@@ -74,7 +74,17 @@ function initSendMessageForm(users, usersMapParam) {
     	}, 200);
     });
 
-    var input = jQuery("#userSelectorInput").autoSuggest(users, {selectedItem: "username", searchObj: "username", startText: 'Begin typing for a list' });
+    try {
+    	if (preFill != null) {
+    		var input = jQuery("#userSelectorInput").autoSuggest(users, {selectedItemProp: "username", searchObjProps: "username", startText: 'Begin typing for a list', preFill: preFill});
+    	}
+    	else {
+    		var input = jQuery("#userSelectorInput").autoSuggest(users, {selectedItemProp: "username", searchObjProps: "username", startText: 'Begin typing for a list'});
+    	}
+    }
+    catch (e) {
+    	alert(e);
+    }
     jQuery(".composeMessageForm").validate();
     
     jQuery('.messageReceipients').keypress(function(e) {

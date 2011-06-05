@@ -24,6 +24,7 @@ public class SendMessageBean {
     private String subject;
     private String content;
     private MessagingBean messagingBean;
+    private MessageBean replyMessage;
     
     public SendMessageBean() throws SystemException {
         users = UserLocalServiceUtil.getUsers(0, Integer.MAX_VALUE);
@@ -57,14 +58,22 @@ public class SendMessageBean {
         
     }
     
-    public void cancel(ActionEvent e) {
-        messagingBean.toggleSendMessage();
+    public void cancel(ActionEvent e) throws PortalException, SystemException {
+        messagingBean.toggleSendMessage((MessageBean) null);
     }
     
     public void init() {
         content = "";
         subject = "";
         receipients = "";
+    }
+    
+    public void init(MessageBean replyMessage) throws PortalException, SystemException {
+        receipients = String.valueOf(replyMessage.getFrom().getUserId());
+        
+        subject = "RE: " + replyMessage.getSubject();
+        content = "-- original message begin --\n\n" + replyMessage.getContent() + "\n\n-- original message end --\n"; 
+        this.replyMessage = replyMessage;
     }
 
     public void setReceipients(String receipients) {
@@ -91,13 +100,17 @@ public class SendMessageBean {
         return content;
     }
 
-    public void setMessagingBean(MessagingBean messagingBean) {
+    public void setMessagingBean(MessagingBean messagingBean) throws PortalException, SystemException {
         this.messagingBean = messagingBean;
         messagingBean.setSendMessageBean(this);
     }
 
     public MessagingBean getMessagingBean() {
         return messagingBean;
+    }
+    
+    public MessageBean getReplyMessage() {
+        return replyMessage;
     }
     
 }

@@ -32,6 +32,7 @@ public class MessagingBean {
     private boolean sendingMessage;
     private SendMessageBean sendMessageBean;
     private Long messageToShow;
+    private MessageBean replyMessage;
     
     public MessagingBean() throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
@@ -152,15 +153,33 @@ public class MessagingBean {
         onePageDataModel = null;
     }
     
-    public void toggleSendMessage(ActionEvent e) {
-        toggleSendMessage();
+    public void toggleSendMessage(ActionEvent e) throws PortalException, SystemException {
+        Object replyMessageIdObj = e.getComponent().getAttributes().get("replyMessageId");
+        if (replyMessageIdObj != null) {
+            Long replyMessageId = Long.parseLong(replyMessageIdObj.toString());
+            for (MessageBean item: items) {
+                if (item.getMessageId().equals(replyMessageId)) {
+                    replyMessage = item;
+                    toggleSendMessage(item);
+                    return;
+                }
+            }
+        }
+        replyMessage = null;
+        toggleSendMessage((MessageBean) null);
+        
     }
 
-    public void toggleSendMessage() {
+    public void toggleSendMessage(MessageBean replyMessage) throws PortalException, SystemException {
         sendingMessage = !sendingMessage;
         if (sendingMessage) {
             if (sendMessageBean != null) {
-                sendMessageBean.init();
+                if (replyMessage != null) {
+                    sendMessageBean.init(replyMessage);
+                }
+                else {
+                    sendMessageBean.init();
+                }
             }
         }
         onePageDataModel = null;
@@ -170,8 +189,14 @@ public class MessagingBean {
         sendingMessage = false;
     }
 
-    public void setSendMessageBean(SendMessageBean sendMessageBean) {
+    public void setSendMessageBean(SendMessageBean sendMessageBean) throws PortalException, SystemException {
         this.sendMessageBean = sendMessageBean;
+        if (replyMessage != null) {
+            sendMessageBean.init(replyMessage);
+        }
+        else {
+            sendMessageBean.init();
+        }
     }
     public boolean getSendingMessage() {
         return sendingMessage;

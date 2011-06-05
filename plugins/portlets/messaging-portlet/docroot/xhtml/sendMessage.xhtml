@@ -43,12 +43,16 @@
     <script type="text/javascript">
         var users = [];
         var usersMap = {};
+        var preFill = null;
+        if (#{sendMessageBean.replyMessage != null}) {
+            preFill = [{username: '#{sendMessageBean.replyMessage.from.screenName}', value: #{sendMessageBean.replyMessage.from.userId}}];
+        }
         <ui:repeat var="user" value="#{sendMessageBean.usersList}">
             users.push({username: '#{user.screenName}', value: '#{user.userId}'});
             usersMap['#{user.screenName}'] = #{user.userId};
         </ui:repeat>
         jQuery(document).ready(function() {
-                initSendMessageForm(users, usersMap);
+                initSendMessageForm(users, usersMap, preFill);
         });
     </script>
     </div>
