@@ -44,20 +44,20 @@ public class MessageConstants {
     public static final String MESSAGE = "Message";
 
 
-    public static final String EMAIL_MESSAGE_SUBJECT = "[Climate Collaboratorium] Message from $USER";
-    public static final String EMAIL_MESSAGE_TEMPLATE = "Climate Collaboratorium user $USER has sent you " +
+    public static final String EMAIL_MESSAGE_SUBJECT = "[ClimateColab] Message from $USER";
+    public static final String EMAIL_MESSAGE_TEMPLATE = "ClimateColab user $USER has sent you " +
             "the following message:\n<br /><br />" +
             "Subject: $SUBJECT\n" +
             "<br /><br />$MESSAGE<br /><br /> \n" +
             "--------------<br />\n"+
             "<br /><br />Please do not reply to this email. You can view and respond to this message <a href='$URL'>here</a>.<br /><br />" +
-            "(If the above link does not work, please paste the following link directly into your browser.: $URL)";
+            "(If the above link does not work, please paste the following link directly into your browser.: $URL )";
 
     public static final String EMAIL_MESSAGE_VAR_USER = "$USER";
     public static final String EMAIL_MESSAGE_VAR_MESSAGE = "$MESSAGE";
     public static final String EMAIL_MESSAGE_VAR_URL = "$URL";
 
-    public static final String EMAIL_MESSAGE_URL_TEMPLATE = "/web/guest/myprofile?p_p_id=messaging&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-2&p_p_col_count=2&_messaging_struts_action=/ext/messaging/view_messages&_messaging_pagerStart=0&_messaging_MessageType=Inbox&_messaging_MessageId=";
+    public static final String EMAIL_MESSAGE_URL_TEMPLATE = "/web/guest/messaging?p_p_id=messaging_WAR_messagingportlet_INSTANCE_3LAh&messageId=";
 
 
     public static final String EMAIL_MESSAGE_VAR_SUBJECT = "$SUBJECT" ;

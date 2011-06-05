@@ -129,7 +129,7 @@ public class MessageUtil {
 
 
 
-        InternetAddress fromEmail = new InternetAddress("no-reply@climatecollaboratorium.org");
+        InternetAddress fromEmail = new InternetAddress("no-reply@climatecolab.org");
         InternetAddress toEmail = new InternetAddress(to.getEmailAddress());
         MailEngine.send(fromEmail, toEmail, subject, message, true);
 
@@ -137,7 +137,7 @@ public class MessageUtil {
 
 
     public static String createMessageURL(Message m, PortletRequest request) {
-        String home = "http://climatecollaboratorium.org";
+        String home = "http://climatecolab.org";
         if (request!=null) {
             int port = PortalUtil.getPortalPort();
             home = "http://"+PortalUtil.getHost(request)+(port!=80?":"+port:"");
