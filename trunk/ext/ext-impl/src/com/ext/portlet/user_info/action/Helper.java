@@ -53,8 +53,8 @@ public class Helper {
         for (String key: parameters.keySet()) {
             if (appendAnd) {
                 sb.append("&");
-                appendAnd = true;
             }
+            appendAnd = true;
             sb.append(key + "=" + URLEncoder.encode(parameters.get(key), "UTF-8"));
         }
         
