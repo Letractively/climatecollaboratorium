@@ -367,7 +367,7 @@ padding:1px 30px 5px;
 .protitle img { float:left; margin-right:15px;}
 .protitle h2 { color:#2498b3; display:inline-block; margin-right:15px;}
 .protitle h4 { color:#3f3f3f; margin:5px 0 0 0;}
-#earth_pattern.proposals,
+#earth_pattern.proposals, #earth_pattern.debates,
 #earth_pattern.search { height: 95px; }
 
 
