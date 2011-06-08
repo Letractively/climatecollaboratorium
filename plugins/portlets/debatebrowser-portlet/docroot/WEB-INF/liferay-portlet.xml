@@ -4,8 +4,11 @@
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>debatebrowser</portlet-name>
+		<friendly-url-mapper-class>org.climatecollaboratorium.debatebrowser.utils.DebateBrowserFriendlyURLMapper</friendly-url-mapper-class>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/css/debatebrowser.css</header-portlet-css>
+		<header-portlet-javascript>/xmlhttp/js/navigation/navigationManager.js</header-portlet-javascript>
+		<header-portlet-javascript>/xmlhttp/js/debates/debates.js</header-portlet-javascript>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

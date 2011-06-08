@@ -1,0 +1,15 @@
+.wf-active #bread.debatebrowser {
+	margin-top: 30px;
+	margin-bottom: 20px;
+	height: 30px;
+	overflow: hidden;
+}
+
+.debateBrowser .probox {
+	background-image: none;
+}
+
+h1.pageTitle {
+	overflow: hidden;
+	height: 49px;
+}
