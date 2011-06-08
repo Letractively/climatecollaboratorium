@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    >
+    
+    <ui:composition template="pageTemplate.xhtml">
+        <ui:define name="pageType">Debate details</ui:define>
+        <ui:define name="pageName">#{debateBrowserBean.debate.currentRoot.debateSummary}</ui:define>
+        <ui:define name="breadcrumb">
+            <img height="8" src="/collaboratorium-theme/images/arrow.gif" width="8" />
+            <a href="/web/guest/debate-browser/-/debates/categoryId/#{debateBrowserBean.category.debateCategoryPK}">#{debateBrowserBean.category.title}</a>
+            <img height="8" src="/collaboratorium-theme/images/arrow.gif" width="8" />
+            <a href="/web/guest/debate-browser/-/debates/categoryId/#{debateBrowserBean.category.debateCategoryPK}/debateId/#{debateBrowserBean.debate.debateId}">#{debateBrowserBean.debate.currentRoot.debateSummary}</a>
+        </ui:define>
+        
+        <div class="debateDetail">
+            <ice:form>
+                <collab:debate debateBean="#{debateBean}" debateId="#{debateBrowserBean.debate.debateId}" />
+            </ice:form>
+        </div>
+    </ui:composition>
+</f:view>

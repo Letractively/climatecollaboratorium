@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    >
+    <ui:composition template="./pageTemplate.xhtml">
+        <ui:define name="pageType">Debate category</ui:define>
+        <ui:define name="pageName">#{debateBrowserBean.category.title}</ui:define>
+        <ui:define name="breadcrumb">
+            <img height="8" src="/collaboratorium-theme/images/arrow.gif" width="8" />
+            <a href="/web/guest/debate-browser/-/debates/categoryId/#{debateBrowserBean.category.debateCategoryPK}">#{debateBrowserBean.category.title}</a>
+        </ui:define>
+        
+        <h2><a href="/web/guest/debate-browser/-/debates/categoryId/#{debateBrowserBean.category.debateCategoryPK}">#{debateBrowserBean.category.title}</a></h2>
+        
+        <p>#{debateBrowserBean.category.description}</p>
+        
+        <ice:dataTable var="debate" value="#{debateBrowserBean.category.debates}" styleClass="issues" columnClasses="b,issue-votes-count,issue-com">
+            <ice:column>
+                <f:facet name="header">DEBATE TITLE</f:facet>
+                <a href="/web/guest/debate-browser/-/debates/categoryId/#{debateBrowserBean.category.debateCategoryPK}/debateId/#{debate.debateId}">
+                    #{debate.currentRoot.debateSummary}   
+                </a>
+            </ice:column>
+            <ice:column style="width: 100px;">
+                <f:facet name="header">NO. OF VOTES</f:facet>
+                #{debate.totalVotesCount}
+            </ice:column>
+            <ice:column style="width: 80px;">
+                <f:facet name="header">COMMENTS</f:facet>
+                #{debate.numberOfComments}
+            </ice:column>
+        </ice:dataTable>
+        
+    
+    </ui:composition>
+</f:view>
