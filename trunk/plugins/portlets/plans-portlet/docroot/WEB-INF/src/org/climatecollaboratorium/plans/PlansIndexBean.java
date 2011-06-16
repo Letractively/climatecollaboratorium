@@ -397,8 +397,11 @@ public class PlansIndexBean {
                     }
 
                 }
-
-                if (plan.getName().startsWith("Untitled")) {
+                if (plan.getPlanAttribute("SCRAPBOOK") != null) {
+                    // we have a scrapbook plan, place it at the beginning
+                    plans.add(0, new PlanIndexItemWrapper(plan, this, availableDebates));
+                }
+                else if (plan.getName().startsWith("Untitled")) {
                    untitledPlans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
                 } else {
                     plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));

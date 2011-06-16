@@ -29,6 +29,9 @@
                         #{singlePlan.ribbonText}
                     </div>
                 </f:subview>
+                <f:subview rendered="#{singlePlan.scrapbook}">
+                    <img src="/collaboratorium-theme/images/scrapbook_icon.png"  class="scrapbook_icon"/>
+                </f:subview>
                 
             <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" escape="true" />
             
@@ -118,6 +121,11 @@
                     styleClass="table-cell-padding #{column}">
                 <img src="/collaboratorium-theme/images/hand_icon.png"/>
             </ice:panelGroup>
+            <ice:panelGroup
+                    rendered="#{column == 'SEEKING_ASSISTANCE'}" styleClass="table-cell-padding #{column}">
+                &amp;nbsp;
+            </ice:panelGroup>
+            
             <ice:panelGroup rendered="#{column == 'IS_PLAN_OPEN'}" styleClass="table-cell-padding #{column}">
                 <ice:outputText value="Anyone"
                                 rendered="#{singlePlan.columnValues[column] == 'true'}"/>
