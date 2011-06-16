@@ -758,5 +758,22 @@ public class PlanItemWrapper {
     public List<SelectItem> getAvailableRegions() {
         return availableRegions;
     }
+    
+    public boolean isScrapbook() throws SystemException {
+        return wrapped.getPlanAttribute("SCRAPBOOK") != null;
+    }
+    
+    public void toggleScrapbook(ActionEvent e) throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute("SCRAPBOOK");
+        if (attr != null) {
+            wrapped.removeAttribute("SCRAPBOOK");
+        }
+        else {
+            wrapped.setAttribute("SCRAPBOOK", "true");
+        }
+        
+    }
+    
+    
 
 }

@@ -84,6 +84,27 @@
             </div>
         </ice:panelGroup>
         
+        <ice:panelGroup rendered="#{permissions.canAdminAll}">
+          <h2>Scrapbook settings</h2>
+            
+          <div class="admin_box">
+            <div class="buttgrid">
+                <f:subview rendered="#{planBean.plan.scrapbook}">
+                    <ice:commandLink actionListener="#{planBean.plan.toggleScrapbook}">
+                        <span>REMOVE</span> scrapbook mark
+                    </ice:commandLink>
+                </f:subview>
+                
+                <f:subview rendered="#{not planBean.plan.scrapbook}">
+                    <ice:commandLink actionListener="#{planBean.plan.toggleScrapbook}">
+                        <span>MARK</span> proposal as a scrapbook
+                    </ice:commandLink>
+                </f:subview>
+                
+            </div>
+          </div>
+        </ice:panelGroup>
+        
         <ice:panelGroup rendered="#{permissions.planOwner}">
             <h2>Owner actions</h2>
             

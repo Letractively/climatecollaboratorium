@@ -158,4 +158,8 @@ public class PlanIndexItemWrapper {
         return attr != null ? attr.getAttributeValue() : null;
     }
     
+    public boolean isScrapbook() throws SystemException {
+        return wrapped.getPlanAttribute("SCRAPBOOK") != null;
+    }
+    
 }
