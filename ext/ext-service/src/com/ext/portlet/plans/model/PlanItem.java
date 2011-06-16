@@ -305,4 +305,7 @@ public interface PlanItem extends PlanItemModel {
 
     public void setAttribute(java.lang.String attributeName,
         java.lang.String value) throws com.liferay.portal.SystemException;
+
+    public void removeAttribute(java.lang.String attributeName)
+        throws com.liferay.portal.SystemException;
 }

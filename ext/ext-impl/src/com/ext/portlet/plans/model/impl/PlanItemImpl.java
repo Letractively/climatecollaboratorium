@@ -738,5 +738,13 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     public void setAttribute(String attributeName, String value) throws SystemException {
         setAttribute(Attribute.valueOf(attributeName), value);
     }
+    
+    public void removeAttribute(String attributeName) throws SystemException {
+        PlanAttribute attr = PlanAttributeLocalServiceUtil.findPlanAttribute(getPlanId(), attributeName);
+        
+        if (attr != null) {
+            PlanAttributeLocalServiceUtil.deletePlanAttribute(attr);
+        }
+    }
 
 }
