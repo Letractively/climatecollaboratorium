@@ -164,7 +164,8 @@ public class PlanConstants {
         PLAN_RIBBON(Integer.class, "%d", attributeFunctionFactory.getAttributeValue("PLAN_RIBBON"), true, null, null),
         PLAN_RIBBON_TEXT(String.class, "%s", attributeFunctionFactory.getAttributeValue("PLAN_RIBBON_TEXT"), true, null, null),
 		REGION(String.class, "%s", attributeFunctionFactory.getAttributeValue("REGION"), true, null, null),
-		SUBREGION(String.class, "%s", attributeFunctionFactory.getAttributeValue("SUBREGION"), true, null, null);
+		SUBREGION(String.class, "%s", attributeFunctionFactory.getAttributeValue("SUBREGION"), true, null, null),
+        SCRAPBOOK(String.class, "%s", attributeFunctionFactory.getAttributeValue("SCRAPBOOK"), true, null, null);
 		
 		private Class<?> clasz;
 		private String format;
