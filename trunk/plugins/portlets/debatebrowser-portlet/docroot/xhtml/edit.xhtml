@@ -22,57 +22,119 @@
  */
 -->
 
-<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:ice="http://www.icesoft.com/icefaces/component">
+<f:view xmlns:f="http://java.sun.com/jsf/core" 
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:ice="http://www.icesoft.com/icefaces/component">
 	<ice:portlet>
-		<ice:form>
-			<ice:panelTabSet styleClass="contactFormPreferences">
-				<ice:panelTab label="#{language['edit-preferences']}">
-					<ice:messages globalOnly="true" layout="table" />
-                    
-                    <strong>In messages you can use patterns like USER_NAME, USER_EMAIL, USER_MESSAGE as a placeholders for 
-                    values entered by user.</strong>
-                    
-					<ice:panelGrid columns="3" columnClasses="labels,inputs,messages" rowClasses="odd,even">
-						<ice:panelGroup>
-							<ice:outputText style="color: red;" value="*" />
-							<ice:outputLabel for="receipients" value="Comma separated list of email addresses to which contact message will be sent" />
-						</ice:panelGroup>
-                        
-						<ice:inputText id="receipients" partialSubmit="true" required="true" size="40" value="#{preferences.receipients}">
-                            <f:validator validatorId="emailListValidator" />
-                        </ice:inputText>
-						<ice:message for="receipients" />
-                        
-                        
+            <ice:outputStyle href="/xmlhttp/css/xp/xp-portlet.css" />
+    <div id="content" class="debateBrowserAdmin">
+        <ice:form>
+            <h1>Debate browser preferences</h1>
+            <div id="bread">&amp;nbsp;</div>
+            <ice:messages />
+            <ice:outputConnectionStatus /> 
+            <ice:panelTabSet>
+                <ice:panelTab>           
+                    <f:facet name="label">
                         <ice:panelGroup>
-                            <ice:outputText style="color: red;" value="*" />
-                            <ice:outputLabel for="subject" value="Subject of message that is to be sent" />
+                            <ice:outputText value="Categories visibility"/>
                         </ice:panelGroup>
-                        
-                        <ice:inputText id="subject" partialSubmit="true" required="true" size="40" value="#{preferences.messageSubject}" />
-                        <ice:message for="subject" />
-                        
-                        <ice:panelGroup>
-                            <ice:outputText style="color: red;" value="*" />
-                            <ice:outputLabel for="messageFormat" value="Format of email message body, use USER_MESSAGE to reference text entered by user" />
-                        </ice:panelGroup>
-                        
-                        <ice:inputTextarea id="messageFormat" partialSubmit="true" required="true" size="40" value="#{preferences.messageFormat}" />
-                        <ice:message for="messageFormat" />
-                        
-                        <ice:panelGroup>
-                            <ice:outputText style="color: red;" value="*" />
-                            <ice:outputLabel for="expandFormText" value="Expand contact form link text" />
-                        </ice:panelGroup>
-                        
-                        <ice:inputTextarea id="expandFormText" partialSubmit="true" required="true" size="40" value="#{preferences.expandLinkText}" />
-                        <ice:message for="expandFormText" />
-                        
-                    </ice:panelGrid>
+                    </f:facet>  
                     
-					<ice:commandButton action="#{preferences.submit}" value="#{language['submit']}" />
-				</ice:panelTab>
-			</ice:panelTabSet>
-		</ice:form>
+                    <h2>Categories visibility</h2><br />
+                    <ice:dataTable var="category" value="#{debateBrowserPreferences.categories}" style="width: 800px;">
+                        <ice:column label="Category">
+                                    <f:facet name="header">
+                                        Category
+                                    </f:facet>
+                                    #{category.debateCategory.title}
+                                </ice:column>
+                                <ice:column label="Visibility" style="width: 100px;">
+                                    <f:facet name="header">
+                                        Visibility
+                                    </f:facet>
+                                    <ice:selectBooleanCheckbox value="#{category.visible}" />
+                                </ice:column>
+                        
+                        
+                        </ice:dataTable>
+                        <ice:commandButton value="update" actionListener="#{debateBrowserPreferences.update}" />
+                </ice:panelTab>
+                
+                <ice:panelTab>
+                    <f:facet name="label">
+                        <ice:panelGroup>
+                            <ice:outputText value="Categories order"/>
+                        </ice:panelGroup>
+                    </f:facet>  
+                    
+                    <ul id="categoriesList">
+                        <ui:repeat var="category" value="#{debateBrowserPreferences.categories}">
+                            <f:subview rendered="#{category.visible}">
+                                <li id="category-#{category.debateCategory.debateCategoryPK}">#{category.debateCategory.title}</li>
+                            </f:subview>
+                        </ui:repeat>
+                            
+                    </ul>
+                    <button id="updateOrderButton">Update order</button>
+                    <ice:inputText value="#{debateBrowserPreferences.categoriesOrderString}" styleClass="hidden categoriesOrderStr" />
+                    <ice:commandButton actionListener="#{debateBrowserPreferences.updateOrder}" styleClass="hidden updateOrderButtonIce" />
+                    <script type="text/javascript">
+                        jQuery("#categoriesList").sortable(); 
+                         
+                        jQuery("#updateOrderButton").click(function() {
+                            var categories = [];
+                            jQuery("#categoriesList li").each(function() {
+                                var li = jQuery(this);
+                                categories.push(li.attr("id").replace("category-", ""));
+                            });
+                            jQuery(".categoriesOrderStr").val(categories.join(","));
+                            jQuery(".updateOrderButtonIce").click();
+                            
+                        });
+                              
+                    </script>
+                
+                </ice:panelTab>
+                <ice:panelTab>
+                    <f:facet name="label">
+                        <ice:panelGroup>
+                            <ice:outputText value="Debates per category (on index page)"/>
+                        </ice:panelGroup>
+                    </f:facet>  
+                    
+                    <ice:dataTable var="category" value="#{debateBrowserPreferences.categories}" style="width: 800px;">
+                        <ice:column label="Category">
+                                    <f:facet name="header">
+                                        Category
+                                    </f:facet>
+                                    #{category.debateCategory.title}
+                                </ice:column>
+                                <ice:column label="Visibility" style="width: 100px;">
+                                    <f:facet name="header">
+                                        Max items displayed
+                                    </f:facet>
+                                    <ice:inputText value="#{category.debatesOnIndex}" />
+                                </ice:column>
+                        
+                        
+                        </ice:dataTable>
+                        <ice:commandButton value="update" actionListener="#{debateBrowserPreferences.updateDebatesShownOnIndex}" />
+                        
+                
+                </ice:panelTab>
+                <ice:panelTab>
+                    <f:facet name="label">
+                        <ice:panelGroup>
+                            <ice:outputText value="Multiple associations"/>
+                        </ice:panelGroup>
+                    </f:facet>  
+                
+                    <ice:commandLink value="Clean multiple associations between debates and categories" actionListener="#{debateBrowserPreferences.cleanDebateMap}" />
+                </ice:panelTab>
+            </ice:panelTabSet>
+           
+        </ice:form>
+    </div>
 	</ice:portlet>
 </f:view>

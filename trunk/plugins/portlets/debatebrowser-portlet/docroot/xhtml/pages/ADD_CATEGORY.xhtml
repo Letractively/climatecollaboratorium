@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    >
+    
+    <ui:composition template="pageTemplate.xhtml">
+        <ui:define name="pageType">Debates</ui:define>
+        <ui:define name="pageName">Add new category</ui:define>
+        
+        <h1>Add category</h1>
+        <ice:messages />
+        
+        <ice:form>
+            <table>
+                <tr>
+                    <td>
+                        Title
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ice:inputText value="#{debateBrowserBean.newItem.title}" styleClass="profile_input" required="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Description
+                    </td>
+                 </tr>
+                 <tr>
+                    <td>
+                        <ice:inputTextarea value="#{debateBrowserBean.newItem.description}" styleClass="profile_about" />
+                    </td>
+                </tr>
+            </table>
+            
+            <ice:commandButton value="Add" actionListener="#{debateBrowserBean.addCategory}" styleClass="mothButton" />
+            <ice:commandButton value="Cancel" actionListener="#{debateBrowserBean.toggleAddCategoryForm}" styleClass="mothButton" partialSubmit="true" />
+            
+        
+        </ice:form>
+        
+        
+    </ui:composition>
+</f:view>

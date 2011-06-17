@@ -6,9 +6,27 @@
 		<view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
 	</application>
 	<factory/>
+    <managed-bean>
+        <managed-bean-name>permissions</managed-bean-name>
+        <managed-bean-class>org.climatecollaboratorium.debatebrowser.DebateBrowserPermissions</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+	<managed-bean>
+		<managed-bean-name>debateBrowserPreferences</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.debatebrowser.DebateBrowserPreferences</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>debateBrowserBean</managed-bean-name>
 		<managed-bean-class>org.climatecollaboratorium.debatebrowser.DebateBrowserBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>preferences</property-name>
+			<value>#{debateBrowserPreferences}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>initialize</property-name>
+			<value>initialize</value>
+		</managed-property>
 	</managed-bean>
 </faces-config>

@@ -13,3 +13,21 @@ h1.pageTitle {
 	overflow: hidden;
 	height: 49px;
 }
+
+.debateBrowserAdmin ul {
+	margin-left: 20px;
+}
+
+.debateBrowserAdmin ul li {
+	border: 1px solid orange;
+	list-style: none;
+	background: #FFEACF;
+	margin-bottom: 5px;
+	min-height: 10px;
+	padding: 3px;
+}
+
+.issues th td {
+	height: auto;
+	padding: 0;
+}

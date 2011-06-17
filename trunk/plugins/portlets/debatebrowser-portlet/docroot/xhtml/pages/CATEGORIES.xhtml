@@ -11,37 +11,58 @@
 
         <ui:define name="pageType">Debates</ui:define>
         <ui:define name="pageName">Categories index</ui:define>
-        
+        <ice:form>
+            <div class="floatRight">
+                <ice:commandButton styleClass="mothButton" value="Add category" actionListener="#{debateBrowserBean.toggleAddCategoryForm}" rendered="#{permissions.canAddCategory}" />
+            </div>
+            
+            <div class="clear">
+            </div>
+            
         <ice:panelSeries value="#{debateBrowserBean.categories}" var="category">
             <div>
                 <h2 class="debate-issue"><strong>
-                <a href="/web/guest/debate-browser/-/debates/categoryId/#{category.debateCategoryPK}">
+                
+                <a href="/web/guest/debate-browser/-/debates/categoryId/#{category.wrapped.debateCategoryPK}">
                     #{category.title}
                 </a></strong></h2>
                 <p>#{category.description}</p>
                 
-                <ice:dataTable var="debate" value="#{category.debates}" rows="5" styleClass="issues">
+                <ice:dataTable var="debate" value="#{category.debates}" rows="5" styleClass="issues" columnClasses="b,issue-votes-count,issue-com" sortColumn="#{category.sortColumn}" sortAscending="#{category.sortAscending}">
                     <ice:column>
-                        <f:facet name="header">DEBATE TITLE</f:facet>
-                        <a href="/web/guest/debate-browser/-/debates/categoryId/#{category.debateCategoryPK}/debateId/#{debate.debateId}">
+                        <f:facet name="header">
+                            <ice:commandSortHeader columnName="name" arrow="false">
+                                DEBATE TITLE
+                            </ice:commandSortHeader>
+                        </f:facet>
+                        <a href="/web/guest/debate-browser/-/debates/categoryId/#{category.wrapped.debateCategoryPK}/debateId/#{debate.debateId}">
                             #{debate.currentRoot.debateSummary}
                         </a>
                     </ice:column>
                      <ice:column style="width: 100px;">
-                        <f:facet name="header">NO. OF VOTES</f:facet>
-                            #{debate.totalVotesCount}
+                        <f:facet name="header">
+                            <ice:commandSortHeader columnName="votes" arrow="false">
+                                NO. OF VOTES
+                            </ice:commandSortHeader>
+                        </f:facet>
+                        #{debate.totalVotesCount}
+                        
                     </ice:column>
                      <ice:column style="width: 100px;">
-                        <f:facet name="header">COMMENTS</f:facet>
-                            #{debate.numberOfComments}
+                        <f:facet name="header">
+                            <ice:commandSortHeader columnName="comments" arrow="false">
+                                COMMENTS
+                            </ice:commandSortHeader>
+                        </f:facet>
+                        #{debate.numberOfComments}
                     </ice:column>
                 </ice:dataTable>
-                <div class="floatRight"><a href="/web/guest/debate-browser/-/debates/categoryId/#{category.debateCategoryPK}">View all debates...</a></div>
+                <div class="floatRight"><a href="/web/guest/debate-browser/-/debates/categoryId/#{category.wrapped.debateCategoryPK}">View all debates...</a></div>
                 <div class="clear"></div>
                 
             </div>
         
         </ice:panelSeries>
-        
+        </ice:form>
     </ui:composition>
 </f:view>
