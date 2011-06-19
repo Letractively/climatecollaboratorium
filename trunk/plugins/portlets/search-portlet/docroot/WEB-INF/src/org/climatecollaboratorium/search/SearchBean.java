@@ -33,7 +33,7 @@ public class SearchBean extends DataSource {
     private final static int RESULTS_PER_PAGE = 50;
     private int startFrom = 0;
     private int length = 0;
-    private static SearchItemType selectedSearchItemType;
+    private SearchItemType selectedSearchItemType;
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     
@@ -42,6 +42,7 @@ public class SearchBean extends DataSource {
     
     public SearchBean() {
         super("");
+        selectedSearchItemType = null;
     }
 
     public void setSearchPhrase(String searchPhrase) {
