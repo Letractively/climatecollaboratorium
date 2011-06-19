@@ -6,6 +6,7 @@
 		<portlet-name>members</portlet-name>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/css/members.css</header-portlet-css>
+		<header-portlet-javascript>/xmlhttp/js/navigation/navigationManager.js</header-portlet-javascript>
 		<footer-portlet-javascript>/js/members.js</footer-portlet-javascript>
 	</portlet>
 	<role-mapper>

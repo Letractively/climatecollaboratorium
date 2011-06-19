@@ -1,5 +1,7 @@
 package org.climatecollaboratorium.members;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +15,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 
+import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.events.EventHandler;
+import org.climatecollaboratorium.events.HandlerRegistration;
+import org.climatecollaboratorium.navigation.NavigationEvent;
+
 
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Sort;
@@ -24,6 +33,7 @@ import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portlet.login.util.LoginUtil;
 
 public class MembersBean {
     
@@ -34,6 +44,8 @@ public class MembersBean {
     private MembersListColumns sortColumn = MembersListColumns.MEMBER_SINCE;
     private boolean sortAscending = false;
     private String searchPhrase = "";
+    private EventBus eventBus;
+    private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     
 
     private MemberCategory categoryFilter = null;
@@ -48,6 +60,7 @@ public class MembersBean {
     
     // bound to rows attribute in dataTable
     protected int pageSize = 25;
+    private final static Log _log = LogFactoryUtil.getLog(MembersBean.class);
     
     public MembersBean() throws SystemException, PortalException, NumberFormatException, ParseException {
         categoryRoleMap = new HashMap<MemberCategory, Role>();
@@ -207,5 +220,41 @@ public class MembersBean {
 
     public MemberCategory getCategoryFilter() {
         return categoryFilter;
+    }
+    
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        bind();
+    }
+    
+    private void bind() {
+        for (HandlerRegistration reg: handlerRegistrations) {
+            reg.unregister();
+        }
+        
+        handlerRegistrations.add(eventBus.registerHandler(NavigationEvent.class, new EventHandler<NavigationEvent>() {
+
+            @Override
+            public void onEvent(NavigationEvent event) {
+                if (event.hasSource("members")) {
+                    try {
+                        String filter = event.getParameters("members").get("filter");
+                        
+                        if (filter != null) {
+                            MemberCategory filterCat = MemberCategory.valueOf(filter);
+                            if (filterCat != categoryFilter) {
+                                categoryFilter = filterCat;
+                                updateSearchResults();
+                            }
+                        }
+                    } catch (Exception e) {
+                        _log.error("error when trying to filter users", e);
+                        
+                    }
+                }
+            }
+            
+        }));
+        
     }
 }
