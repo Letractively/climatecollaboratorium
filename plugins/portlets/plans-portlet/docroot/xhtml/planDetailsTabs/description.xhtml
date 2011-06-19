@@ -33,8 +33,8 @@
                         <f:facet name="header">
                             <ice:outputText value="Date"/>
                         </f:facet>
-                        <ice:commandLink value="#{historyItem.updateDate}"
-                                         actionListener="#{planBean.plan.selectDescriptionVersion}">
+                        <ice:commandLink onclick="showAlertIfInEdit('Changing version will remove all changes that have been done, are you sure?'); "
+                                value="#{historyItem.updateDate}" actionListener="#{planBean.plan.selectDescriptionVersion}">
                             <f:attribute name="item" value="#{historyItem}"/>
                         </ice:commandLink>
 
@@ -114,9 +114,10 @@
             
             
             
-            <ice:outputText value="#{planBean.plan.description}" escape="false"/>
+            <ice:outputText value="#{planBean.plan.description}" escape="false" nospan="true" />
         <ice:panelGroup styleClass="hidden ">
             <script type="text/javascript">
+                setColabInEditMode(false); 
                 initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable},true);
             </script>
         </ice:panelGroup>
@@ -138,6 +139,7 @@
                             </ice:selectOneMenu>
                             <script type="text/javascript">
                                 jQuery(document).ready(initSelectbox());
+                                setColabInEditMode(true);
                             </script>
                         </div>
                     </td>
@@ -155,8 +157,11 @@
             </ice:panelGroup>
 
             <div class="descriptionInput">
-                <ice:inputRichText value="#{planBean.plan.description}" saveOnSubmit="true" skin="office2003"
-                                   height="500px" partialSubmit="true" customConfigPath="/xmlhttp/js/fckeditor/config.js" />
+                            <script type="text/javascript">
+                                setColabInEditMode(true);
+                            </script>
+                <ice:inputRichText value="#{planBean.plan.description}" saveOnSubmit="true" toolbar="colabTab" 
+                                   height="500px" partialSubmit="true" customConfigPath="/js/fckeditor_config.js" />
 
             </div>
         </ice:panelGroup>

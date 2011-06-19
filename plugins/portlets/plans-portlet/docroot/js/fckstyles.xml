@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Styles>
+    <Style name="Paragraph" element="p" />
+    <Style name="Header 1" element="h1" />
+    <Style name="Header 2" element="h2" />
+    <Style name="Header 3" element="h3" />
+</Styles>

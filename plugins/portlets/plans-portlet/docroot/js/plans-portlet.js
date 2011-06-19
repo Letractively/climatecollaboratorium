@@ -778,4 +778,15 @@ function makeNANotesVisible() {
 }
 
 
+function setColabInEditMode(mode) {
+	window.colabInEditMode = mode;
+}
 
+
+
+function showAlertIfInEdit(text) {
+	if (window.colabInEditMode && !confirm(text)) {
+		return false;
+	}
+	return true;
+}
