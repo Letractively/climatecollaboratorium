@@ -94,9 +94,10 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
             else {
                 discussion = DiscussionMessageLocalServiceUtil.getThreadByThreadId(activity.getClassPK());
             }
+            DiscussionCategory category = discussion.getCategory();
             DiscussionCategoryGroup categoryGroup = discussion.getCategoryGroup();
             
-		    body = String.format(DISCUSSION_ADDED, getUser(activity), getDiscussion(discussion), getCategoryGroup(categoryGroup));
+		    body = String.format(DISCUSSION_ADDED, getUser(activity), getDiscussion(discussion), getCategory(category));
 		}
 		else if (activityType == DiscussionActivityKeys.ADD_COMMENT) {
 		    DiscussionMessage comment  = null;
@@ -110,8 +111,12 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
             
             DiscussionMessage discussion = comment.getThread();
             DiscussionCategoryGroup categoryGroup = comment.getCategoryGroup();
-		    
-            body = String.format(COMMENT_ADDED, getUser(activity), getComment(comment), getDiscussion(discussion), getCategoryGroup(categoryGroup));
+		    if (discussion == categoryGroup.getCommentThread()) {
+		        body = String.format(COMMENT_ADDED, getUser(activity), getComment(comment), getDiscussion(discussion), getCategoryGroup(categoryGroup));
+		    }
+		    else {
+	            body = String.format(DISCUSSION_COMMENT_ADDED, getUser(activity),  getDiscussion(discussion), getCategory(discussion.getCategory()));
+		    }
         }
 		else if (activityType == DiscussionActivityKeys.ADD_DISCUSSION_COMMENT) {
 		    DiscussionMessage comment  = null;
