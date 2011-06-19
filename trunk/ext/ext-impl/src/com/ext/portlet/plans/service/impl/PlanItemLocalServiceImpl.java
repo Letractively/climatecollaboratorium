@@ -441,8 +441,13 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         Long parentCategoryId = 0L;
         DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil
                 .createDiscussionCategoryGroup("Category group for plan: " + plan.getPlanId());
+        
+        categoryGroup.setUrl("/web/guest/plans/-/plans/contestId/" + plan.getContest().getContestPK() + 
+                "/planId/" + plan.getPlanId() + "#plans=tab:comments");
+        
         DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil
                 .getUser(plan.getAuthorId()));
+        
 
         // set up permissions
 
