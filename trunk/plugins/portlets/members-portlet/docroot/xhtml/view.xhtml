@@ -8,6 +8,7 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     <ice:portlet>
+    <collab:navigationManager />
   
   <div id="bread" class="pro">
     <a href="/web/guest/community">Community</a>
@@ -145,23 +146,23 @@
         <h3>Categories</h3>
         <ice:form>
             <ul>
-                <li>
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="All Members">
+                <li class="#{membersBean.categoryFilter == null or membersBean.categoryFilter == 'MEMBER' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="All Members" onclick="Collab.nav.navigateAddParams('members', {filter: 'MEMBER'}); return false;">
                         <f:attribute name="category" value="MEMBER" />
                     </ice:commandLink>
                 </li>
-                <li>
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Experts">
+                <li class="#{membersBean.categoryFilter == 'EXPERT' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Experts" onclick="Collab.nav.navigateAddParams('members', {filter: 'EXPERT'}); return false;">
                         <f:attribute name="category" value="EXPERT" />
                     </ice:commandLink>
                 </li>
-                <li>
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Moderators">
+                <li class="#{membersBean.categoryFilter == 'MODERATOR' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Moderators" onclick="Collab.nav.navigateAddParams('members', {filter: 'MODERATOR'}); return false;">
                         <f:attribute name="category" value="MODERATOR" />
                     </ice:commandLink>
                 </li>
-                <li>
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Staff">
+                <li class="#{membersBean.categoryFilter == 'STAFF' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Staff" onclick="Collab.nav.navigateAddParams('members', {filter: 'STAFF'}); return false;">
                         <f:attribute name="category" value="STAFF" />
                     </ice:commandLink>
                 </li>
