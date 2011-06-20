@@ -112,6 +112,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         // update referenced discussion category group
         DiscussionCategoryGroup dcg = getDiscussionCategoryGroup();
         dcg.setDescription(name + " discussion");
+        dcg.store();
     }
 
     public List<PlanDescription> getAllDescriptionVersions() throws SystemException {
