@@ -42,8 +42,8 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
 	
 	public static String CATEGORY_ADDED = "%s added category %s to %s"; // user, categorygroup
 	public static String DISCUSSION_ADDED = "%s started new discussion %s in %s"; // user, thread, categorygroup
-    public static String COMMENT_ADDED = "%s added comment %s to discussion %s in %s"; // user, comment, thread, categorygroup
-    public static String DISCUSSION_COMMENT_ADDED = "%s added comment %s to discussion %s"; // user, comment, thread, categorygroup
+    public static String COMMENT_ADDED = "%s added comment to %s in %s"; // user, thread, category
+    public static String DISCUSSION_COMMENT_ADDED = "%s added comment to %s"; // user, comment, thread, categorygroup
 	
 	public static String hyperlink = "<a href=\"%s\">%s</a>";
 		
@@ -59,7 +59,7 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
 			SocialActivity activity, ThemeDisplay themeDisplay)
 		throws Exception {
 		
-				
+			try {	
 		DiscussionActivityKeys activityType = DiscussionActivityKeys.fromId(activity.getType());
 		
 		String body =  "";
@@ -112,10 +112,10 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
             DiscussionMessage discussion = comment.getThread();
             DiscussionCategoryGroup categoryGroup = comment.getCategoryGroup();
 		    if (discussion == categoryGroup.getCommentThread()) {
-		        body = String.format(COMMENT_ADDED, getUser(activity), getComment(comment), getDiscussion(discussion), getCategoryGroup(categoryGroup));
+	            body = String.format(DISCUSSION_COMMENT_ADDED, getUser(activity), getCategoryGroup(discussion.getCategoryGroup()));
 		    }
 		    else {
-	            body = String.format(DISCUSSION_COMMENT_ADDED, getUser(activity),  getDiscussion(discussion), getCategory(discussion.getCategory()));
+	            body = String.format(COMMENT_ADDED, getUser(activity),  getDiscussion(discussion), getCategory(discussion.getCategory()));
 		    }
         }
 		else if (activityType == DiscussionActivityKeys.ADD_DISCUSSION_COMMENT) {
@@ -128,14 +128,23 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
                 comment = DiscussionMessageLocalServiceUtil.getMessageByMessageId(activity.getClassPK());
             }
             
+            
+            
             DiscussionCategoryGroup categoryGroup = comment.getCategoryGroup();
             DiscussionMessage discussion = comment.getThread();
-            
-            body = String.format(DISCUSSION_COMMENT_ADDED, getUser(activity),  getDiscussion(discussion), getCategoryGroup(categoryGroup));
+
+            body = String.format(DISCUSSION_COMMENT_ADDED, getUser(activity), getCategoryGroup(discussion.getCategoryGroup()));
 		}
+
+        return new SocialActivityFeedEntry("", title, body);
+			}
+        
+		catch (Exception e) {
+		    e.printStackTrace();
+		}
+	
+		return null;
 		
-		
-		return new SocialActivityFeedEntry("", title, body);
 	}
 		
 	private String getUser(SocialActivity activity) {
