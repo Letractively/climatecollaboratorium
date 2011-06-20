@@ -198,7 +198,7 @@ public class MessageWrapper {
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     DiscussionCategoryGroup.class.getName(), discussionBean.getDiscussionId(), 
                     DiscussionActivityKeys.ADD_COMMENT.id(), 
-                    ActivityUtil.getExtraDataForIds(wrapped.getCategoryId(), wrapped.getThreadId(), wrapped.getMessageId()), 0);
+                    ActivityUtil.getExtraDataForIds(wrapped.getCategoryId(), getThreadId(wrapped), wrapped.getMessageId()), 0);
         }
     }
     
@@ -226,7 +226,7 @@ public class MessageWrapper {
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     DiscussionCategoryGroup.class.getName(), discussionBean.getDiscussionId(), 
                     DiscussionActivityKeys.ADD_DISCUSSION_COMMENT.id(), 
-                    ActivityUtil.getExtraDataForIds(wrapped.getCategoryId(), wrapped.getThreadId(), wrapped.getMessageId()), 0);
+                    ActivityUtil.getExtraDataForIds(wrapped.getCategoryGroupId(), getThreadId(wrapped), wrapped.getMessageId()), 0);
         }
         }
         catch (Exception ex) {
@@ -254,6 +254,10 @@ public class MessageWrapper {
         catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+    
+    private Long getThreadId(DiscussionMessage msg) {
+        return msg.getThreadId() != null ? msg.getThreadId() : msg.getMessageId();
     }
     
     public MessageWrapper getNewMessage() {
