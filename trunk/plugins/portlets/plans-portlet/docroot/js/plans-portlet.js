@@ -507,7 +507,7 @@ function initializeColumnsInfo() {
 }
 
 function initializeRibbons() {
-    jQuery(".ribbon-hover").each(function() {
+    jQuery(".scrapbookProposal, .ribbon-hover").each(function() {
         var button = jQuery(this);
         var cont = button.parent().find(".popup-info-box");
         button.hover(function() {
