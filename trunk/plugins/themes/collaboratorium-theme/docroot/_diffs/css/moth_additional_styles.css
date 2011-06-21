@@ -1323,3 +1323,21 @@ div.growlUI h1, div.growlUI h2 {
 	top: -18px;
 	left: 350px;
 }
+
+.iceCmdSrtHdr .column-hoverDesc {
+    width: 10px; 
+    height: 10px;
+    display: block;
+    margin-top: auto;
+    margin-left: 5px;
+    background: url(/collaboratorium-theme/images/sort-arrow-up_on.gif) no-repeat center;
+}
+
+.iceCmdSrtHdr .column-hoverAsc {
+    width: 10px; 
+    height: 10px;
+    display: block;
+    padding-top: 30%;
+    margin-left: 5px;
+    background: url(/collaboratorium-theme/images/sort-arrow-down_on.gif) no-repeat center;
+}
