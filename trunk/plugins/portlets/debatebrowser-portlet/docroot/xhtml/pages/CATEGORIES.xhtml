@@ -31,7 +31,7 @@
                 <ice:dataTable var="debate" value="#{category.debates}" rows="5" styleClass="issues" columnClasses="b,issue-votes-count,issue-com" sortColumn="#{category.sortColumn}" sortAscending="#{category.sortAscending}">
                     <ice:column>
                         <f:facet name="header">
-                            <ice:commandSortHeader columnName="name" arrow="false">
+                            <ice:commandSortHeader columnName="name" styleClass="column-hover">
                                 DEBATE TITLE
                             </ice:commandSortHeader>
                         </f:facet>
@@ -39,9 +39,9 @@
                             #{debate.currentRoot.debateSummary}
                         </a>
                     </ice:column>
-                     <ice:column style="width: 100px;">
+                     <ice:column style="width: 120px;">
                         <f:facet name="header">
-                            <ice:commandSortHeader columnName="votes" arrow="false">
+                            <ice:commandSortHeader columnName="votes" styleClass="column-hover">
                                 NO. OF VOTES
                             </ice:commandSortHeader>
                         </f:facet>
@@ -50,7 +50,7 @@
                     </ice:column>
                      <ice:column style="width: 100px;">
                         <f:facet name="header">
-                            <ice:commandSortHeader columnName="comments" arrow="false">
+                            <ice:commandSortHeader columnName="comments" styleClass="column-hover">
                                 COMMENTS
                             </ice:commandSortHeader>
                         </f:facet>
