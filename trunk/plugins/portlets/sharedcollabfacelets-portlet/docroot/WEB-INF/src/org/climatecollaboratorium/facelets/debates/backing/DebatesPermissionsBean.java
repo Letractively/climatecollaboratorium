@@ -16,8 +16,9 @@ public class DebatesPermissionsBean {
         // to reuse values from debates portlet
         //primKey = Helper.getThemeDisplay().getPortletDisplay().getResourcePK();
         //portletId = Helper.getThemeDisplay().getPortletDisplay().getRootPortletId();
-        portletId = "debates3_WAR_debatesportlet";
-        primKey = "10255_LAYOUT_debates3_WAR_debatesportlet_INSTANCE_d3Du";
+        primKey = Helper.getPrimKey();
+        //groupId = Helper.getGroupId();
+        portletId = Helper.getRootPortletId();
             
     }
     
