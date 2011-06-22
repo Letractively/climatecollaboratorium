@@ -42,7 +42,7 @@ public class Helper {
         return null;
     }
     
-    public static String getPortletId() {
+    public static String getRootPortletId() {
         ThemeDisplay td = getThemeDisplay();
         if (td != null) {
             return td.getPortletDisplay().getRootPortletId();
