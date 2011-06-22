@@ -1,7 +1,7 @@
 FCKConfig.CleanWordKeepsStructure = true ;
 FCKConfig.ToolbarSets['colabTab'] = [['Bold','Italic','Underline', 'Style' , '-', 'JustifyLeft','JustifyCenter','JustifyRight', '-', 'Table', 'Image', 'Link', 'SpecialChar', 'Source', 'PasteWord']];
 FCKConfig.CleanWordKeepsStructure = true ;
-//FCKConfig.ForcePasteAsPlainText = true;
+FCKConfig.ForcePasteAsPlainText = true;
 FCKConfig.CleanWordKeepsStructure = true ;
 FCKConfig.AutoDetectPasteFromWord = true;
 FCKConfig.CustomStyles = { };
