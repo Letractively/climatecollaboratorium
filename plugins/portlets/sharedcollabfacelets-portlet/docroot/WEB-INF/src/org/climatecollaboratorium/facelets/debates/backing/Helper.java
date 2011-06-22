@@ -95,9 +95,28 @@ public class Helper {
         return getThemeDisplay().getPermissionChecker();
     }
     
-    public static String getPortletID() {
-        Map map = getRequestMap();
-        return (String) map.get(WebKeys.PORTLET_ID);
+    public static String getRootPortletId() {
+        ThemeDisplay td = getThemeDisplay();
+        if (td != null) {
+            return td.getPortletDisplay().getRootPortletId();
+        }
+        return null;
+    }
+    
+    public static long getGroupId() {
+        ThemeDisplay td = getThemeDisplay();
+        if (td != null) {
+            return td.getScopeGroupId();
+        }
+        return -1;
+    }
+    
+    public static String getPrimKey() {
+        ThemeDisplay td = getThemeDisplay();
+        if (td != null) {
+            return td.getPortletDisplay().getResourcePK();
+        }
+        return null;
     }
     
     private static Map getRequestMap() {
