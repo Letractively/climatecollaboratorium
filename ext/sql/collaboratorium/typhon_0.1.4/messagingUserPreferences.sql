@@ -1,0 +1,1 @@
+ALTER TABLE  `MessagingUserPreferences` ADD  `emailOnActivity` TINYINT( 1 ) NOT NULL
