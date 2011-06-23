@@ -89,6 +89,7 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
             boolean rememberMe = ParamUtil.getBoolean(actionRequest, "rememberMe");
 
             String authType = preferences.getValue("authType", null);
+            //request.getSession().removeAttribute(arg0)
             try {
                 LoginUtil.login(request, response, login, password, rememberMe, authType);
             } catch (Exception e) {
@@ -98,6 +99,7 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
             if (PropsValues.PORTAL_JAAS_ENABLE) {
                 actionResponse.sendRedirect(themeDisplay.getPathMain() + "/portal/protected");
             }
+            request.getSession().setAttribute("collab_user_has_registered", true);
         }
         else {
             // url parameters
