@@ -434,6 +434,7 @@
 		<property name="userId" />
 		<property name="emailOnSend" />
 		<property name="emailOnReceipt" />
+		<property name="emailOnActivity" />
 	</class>
 	<class name="com.ext.portlet.mass_messaging.model.impl.MessagingMessageImpl" table="MessagingMessage">
 		<cache usage="read-write" />

@@ -36,6 +36,7 @@ public class MessagingUserPreferencesJSONSerializer {
         jsonObj.put("userId", model.getUserId());
         jsonObj.put("emailOnSend", model.getEmailOnSend());
         jsonObj.put("emailOnReceipt", model.getEmailOnReceipt());
+        jsonObj.put("emailOnActivity", model.getEmailOnActivity());
 
         return jsonObj;
     }
