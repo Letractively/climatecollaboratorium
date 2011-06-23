@@ -3,6 +3,7 @@
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:addthis="http://www.addthis.com/help/api-spec"
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces">
 
@@ -18,7 +19,27 @@
           <div class="comm_disc-title thread">
             <h2><ice:outputText value="#{discussionBean.currentThread.title}" /></h2>
           </div>
-          <div class="comm_info-left thread">
+          <div class="comm_info-left thread" style="width: 200px;">
+          
+            <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact"
+                      addthis:title="#{discussionBean.currentThread.title}"
+                      addthis:description="#{discussionBean.currentThread.filteredDescription}"
+                
+                >
+                <script type="text/javascript">
+                    if (typeof(addthis) != 'undefined') {
+                        addthis.button('.addthis_button_compact');
+                    }
+                    //#{debateBean.currentItem}
+                    
+                </script>
+                    <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
+                    Share
+                </a>
+                &amp;nbsp;
+                &amp;nbsp;
+                &amp;nbsp;
+        
             <ice:commandLink actionListener="#{discussionBean.subscribe}"  styleClass="subscribeLinkSmall"
                 rendered="#{discussionBean.pageType == 'DISCUSSIONS' or discussionBean.pageType == 'CATEGORY' or discussionBean.pageType == 'THREAD'}"
                             onclick='if(!deferUntilLogin()) return false;'>
