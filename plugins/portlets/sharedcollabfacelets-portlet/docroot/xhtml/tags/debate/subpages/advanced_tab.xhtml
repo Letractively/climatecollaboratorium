@@ -2,9 +2,24 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:f="http://java.sun.com/jsf/core" 
     xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:addthis="http://www.addthis.com/help/api-spec"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    <ice:panelGroup rendered="#{debateBean.debatesPermissionsBean.canEditDebateMap}" styleClass="advanced">
+    <div class="advanced">
         <div class="advanced_inner">
+        
+            <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact"
+                      addthis:title="#{debateBean.debate.currentRoot.debateSummary}"
+                      addthis:description="#{debateBean.debate.currentRoot.debateDetail}"
+                
+                >
+                    <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
+                    Share
+                </a>
+                <!-- AddThis Button BEGIN -->
+                <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=climatecolab"></script>
+                <!-- AddThis Button END -->
+            <f:subview  rendered="#{debateBean.debatesPermissionsBean.canEditDebateMap}" >
             <ice:commandLink actionListener="#{debateBean.subscribe}" onclick='if(!deferUntilLogin()) return false;'>
             
                 <f:subview rendered="#{debateBean.subscribed}">
@@ -57,6 +72,7 @@
             </f:subview>
       
             <div class="advanced_open"><a href="#"><img src="/collaboratorium-theme/images/icon_advanced-chk.png" width="16" height="18" /> add argument pro</a> &amp;nbsp; &amp;nbsp; &amp;nbsp; <a href="#"><img src="/collaboratorium-theme/images/icon_advanced-x.png" width="16" height="18" /> add argument against</a> &amp;nbsp; &amp;nbsp; &amp;nbsp; <a href="#"><img src="/collaboratorium-theme/images/icon_advanced-edit.png" width="19" height="19" /> edit</a> &amp;nbsp; &amp;nbsp; &amp;nbsp; <a href="javascript:;" id="adv2">close advanced</a> &amp;nbsp; &amp;nbsp;</div>
+            </f:subview>
         </div>
-    </ice:panelGroup>
+    </div>
 </f:view>
