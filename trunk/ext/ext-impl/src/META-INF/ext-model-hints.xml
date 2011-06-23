@@ -325,6 +325,7 @@
 		<field name="userId" type="Long" />
 		<field name="emailOnSend" type="Boolean" />
 		<field name="emailOnReceipt" type="Boolean" />
+		<field name="emailOnActivity" type="Boolean" />
 	</model>
 	<model name="com.ext.portlet.mass_messaging.model.MessagingMessage">
 		<field name="messageId" type="Long" />

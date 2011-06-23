@@ -49,9 +49,12 @@ public class MessagingUserPreferencesModelImpl extends BaseModelImpl<MessagingUs
             { "emailOnSend", new Integer(Types.BOOLEAN) },
             
 
-            { "emailOnReceipt", new Integer(Types.BOOLEAN) }
+            { "emailOnReceipt", new Integer(Types.BOOLEAN) },
+            
+
+            { "emailOnActivity", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table MessagingUserPreferences (messagingPreferencesId LONG not null primary key,userId LONG,emailOnSend BOOLEAN,emailOnReceipt BOOLEAN)";
+    public static final String TABLE_SQL_CREATE = "create table MessagingUserPreferences (messagingPreferencesId LONG not null primary key,userId LONG,emailOnSend BOOLEAN,emailOnReceipt BOOLEAN,emailOnActivity BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table MessagingUserPreferences";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -69,6 +72,7 @@ public class MessagingUserPreferencesModelImpl extends BaseModelImpl<MessagingUs
     private Long _originalUserId;
     private Boolean _emailOnSend;
     private Boolean _emailOnReceipt;
+    private Boolean _emailOnActivity;
 
     public MessagingUserPreferencesModelImpl() {
     }
@@ -81,6 +85,7 @@ public class MessagingUserPreferencesModelImpl extends BaseModelImpl<MessagingUs
         model.setUserId(soapModel.getUserId());
         model.setEmailOnSend(soapModel.getEmailOnSend());
         model.setEmailOnReceipt(soapModel.getEmailOnReceipt());
+        model.setEmailOnActivity(soapModel.getEmailOnActivity());
 
         return model;
     }
@@ -148,6 +153,14 @@ public class MessagingUserPreferencesModelImpl extends BaseModelImpl<MessagingUs
         _emailOnReceipt = emailOnReceipt;
     }
 
+    public Boolean getEmailOnActivity() {
+        return _emailOnActivity;
+    }
+
+    public void setEmailOnActivity(Boolean emailOnActivity) {
+        _emailOnActivity = emailOnActivity;
+    }
+
     public MessagingUserPreferences toEscapedModel() {
         if (isEscapedModel()) {
             return (MessagingUserPreferences) this;
@@ -161,6 +174,7 @@ public class MessagingUserPreferencesModelImpl extends BaseModelImpl<MessagingUs
             model.setUserId(getUserId());
             model.setEmailOnSend(getEmailOnSend());
             model.setEmailOnReceipt(getEmailOnReceipt());
+            model.setEmailOnActivity(getEmailOnActivity());
 
             model = (MessagingUserPreferences) Proxy.newProxyInstance(MessagingUserPreferences.class.getClassLoader(),
                     new Class[] { MessagingUserPreferences.class },
@@ -177,6 +191,7 @@ public class MessagingUserPreferencesModelImpl extends BaseModelImpl<MessagingUs
         clone.setUserId(getUserId());
         clone.setEmailOnSend(getEmailOnSend());
         clone.setEmailOnReceipt(getEmailOnReceipt());
+        clone.setEmailOnActivity(getEmailOnActivity());
 
         return clone;
     }
@@ -224,6 +239,8 @@ public class MessagingUserPreferencesModelImpl extends BaseModelImpl<MessagingUs
         sb.append(getEmailOnSend());
         sb.append(", emailOnReceipt=");
         sb.append(getEmailOnReceipt());
+        sb.append(", emailOnActivity=");
+        sb.append(getEmailOnActivity());
         sb.append("}");
 
         return sb.toString();
@@ -251,6 +268,10 @@ public class MessagingUserPreferencesModelImpl extends BaseModelImpl<MessagingUs
         sb.append(
             "<column><column-name>emailOnReceipt</column-name><column-value><![CDATA[");
         sb.append(getEmailOnReceipt());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>emailOnActivity</column-name><column-value><![CDATA[");
+        sb.append(getEmailOnActivity());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

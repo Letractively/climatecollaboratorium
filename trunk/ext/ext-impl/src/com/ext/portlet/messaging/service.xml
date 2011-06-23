@@ -83,6 +83,7 @@
         <column name="userId" type="Long"/>
 		<column name="emailOnSend" type="Boolean"/>
         <column name="emailOnReceipt" type="Boolean"/>
+        <column name="emailOnActivity" type="Boolean"/>
 
 
 

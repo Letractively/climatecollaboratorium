@@ -6,31 +6,30 @@
 
 package com.ext.portlet.messaging;
 
-import com.ext.portlet.mass_messaging.MessagingConstants;
-import com.ext.portlet.mass_messaging.model.MessagingMessageRecipient;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.portlet.PortletRequest;
+
 import com.ext.portlet.messaging.model.Message;
 import com.ext.portlet.messaging.model.MessageRecipientStatus;
 import com.ext.portlet.messaging.model.MessagingUserPreferences;
-import com.ext.portlet.messaging.service.*;
+import com.ext.portlet.messaging.service.MessageLocalServiceUtil;
+import com.ext.portlet.messaging.service.MessageRecipientStatusLocalServiceUtil;
+import com.ext.portlet.messaging.service.MessagingUserPreferencesLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
-import com.liferay.mail.service.MailService;
-import com.liferay.mail.service.MailServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.kernel.mail.MailMessage;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.mail.MailEngine;
 import com.liferay.util.mail.MailEngineException;
-import org.apache.ecs.xhtml.body;
-import org.jruby.RubyProcess;
-
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.portlet.PortletRequest;
-import java.net.InetAddress;
-import java.util.*;
 
 /**
  * @author jintrone
