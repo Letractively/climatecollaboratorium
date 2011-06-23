@@ -140,7 +140,22 @@
           <div class="comm_rightcol">
               <div class="comm_rightcol-title2">MESSAGE SETTINGS</div>
               <table border="0" cellpadding="0" cellspacing="0" class="colab">
-              <tr><td><ice:selectBooleanCheckbox styleClass="profile_cbx" value="#{userprofileBean.sendEmailOnMessage}" partialSubmit="true"/></td><td class="profile_settings">Send me an email copy of messages I receive.</td></tr>
+                <tr>
+                    <td>
+                        <ice:selectBooleanCheckbox styleClass="profile_cbx" value="#{userprofileBean.sendEmailOnMessage}" partialSubmit="true"/>
+                    </td>
+                    <td class="profile_settings">
+                        Send me an email copy of messages I receive.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ice:selectBooleanCheckbox styleClass="profile_cbx" value="#{userprofileBean.sendEmailOnActivity}" partialSubmit="true"/>
+                    </td>
+                    <td class="profile_settings">
+                        Send me an email copy of activities that I'm subscribed to.
+                    </td>
+                </tr>
         </table>
         <div class="clearfix"></div>
      </div>
