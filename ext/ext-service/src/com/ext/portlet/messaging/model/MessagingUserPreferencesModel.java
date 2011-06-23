@@ -44,5 +44,9 @@ public interface MessagingUserPreferencesModel extends BaseModel<MessagingUserPr
 
     public void setEmailOnReceipt(Boolean emailOnReceipt);
 
+    public Boolean getEmailOnActivity();
+
+    public void setEmailOnActivity(Boolean emailOnActivity);
+
     public MessagingUserPreferences toEscapedModel();
 }
