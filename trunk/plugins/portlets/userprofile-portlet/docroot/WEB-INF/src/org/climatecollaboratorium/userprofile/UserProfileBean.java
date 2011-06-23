@@ -174,6 +174,17 @@ public class UserProfileBean {
         MessagingUserPreferencesLocalServiceUtil.updateMessagingUserPreferences(prefs);
     }
     
+    public boolean getSendEmailOnActivity() throws SystemException {
+        MessagingUserPreferences prefs = MessageUtil.getMessagingPreferences(Helper.getLiferayUser().getUserId());
+        return prefs.getEmailOnActivity();
+    }
+    
+    public void setSendEmailOnActivity(boolean send) throws SystemException {
+        MessagingUserPreferences prefs = MessageUtil.getMessagingPreferences(Helper.getLiferayUser().getUserId());
+        prefs.setEmailOnActivity(send);
+        MessagingUserPreferencesLocalServiceUtil.updateMessagingUserPreferences(prefs);
+    }
+    
     public void showPage(ActionEvent e) {
         try {
             String name = String.valueOf(e.getComponent().getAttributes().get("name"));
