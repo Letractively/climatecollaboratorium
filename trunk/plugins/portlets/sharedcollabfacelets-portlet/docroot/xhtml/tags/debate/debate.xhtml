@@ -6,6 +6,7 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:sharedcollab="http://climatecollaboratorium.org/components"
+    xmlns:addthis="http://www.addthis.com/help/api-spec"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <collab:debateSupport debateBean="#{debateBean}" debateId="#{debateId}" >
         
@@ -14,7 +15,8 @@
     <ice:panelGroup rendered="#{empty debateBean.debate}">
         Nothing to see here.
     </ice:panelGroup>
-    <ice:panelGroup rendered="#{not empty debateBean.debate}">
+    <ice:panelGroup rendered="#{not empty debateBean.debate}">    
+                
         <ui:include src="./subpages/advanced_tab.xhtml" />
         
         <table>
