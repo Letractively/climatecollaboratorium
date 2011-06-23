@@ -273,6 +273,12 @@
     }
     /* ]]> */
 </script>
+#if ($request.getSession().getAttribute('collab_user_has_registered'))
+    <script type="text/javascript">
+        $request.getSession().removeAttribute('collab_user_has_registered')
+        pageTracker._trackPageview('/colab/$user.screenName/registered');
+    </script>
+#end
 
 
 ## only for testing ... Open graph stuff 
