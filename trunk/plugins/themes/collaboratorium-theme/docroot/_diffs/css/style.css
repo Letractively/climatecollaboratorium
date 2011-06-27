@@ -716,12 +716,12 @@ h2.debate-issue { color:#318eb5; font-weight:400; margin:50px 0 10px 0;}
 
 /* community - discussions */
 .comm_disc-head { margin:50px 0 10px 0; height:40px; }
-.comm_disc-title { float:left; width:380px;}
+.comm_disc-title { float:left; width:360px;}
 #main .comm_disc-title h2 { margin:0; }
 .comm_disc-title h2 span { color:#666; font-size:21px; font-weight:400; padding-right:5px; font-style:normal;}
 	.wf-active .comm_disc-title h2 span { font-size:23px;}
 
-.comm_info-left { float:left; width:290px; font-style:italic;}
+.comm_info-left { float:left; width:310px; font-style:italic;}
 .comm_info-large { float:left; width:310px; margin-left:130px; }
 .comm_info-left span {color:#66b035; font-size:30px; font-weight:600; padding-right:5px; font-style:normal;}
 	.wf-active .comm_info-left span { font-size:32px;}
