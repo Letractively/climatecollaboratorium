@@ -1,7 +1,9 @@
 package com.ext.portlet.Activity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -63,6 +65,14 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
         return activity;
     }
     
+    private final String MESSAGE_FOOTER_TEMPLATE = "<br /><br />\n---------------------------------------------------------------------------------------<br />\n" +
+            "To configure your notification preferences, visit your <a href=\"USER_PROFILE_LINK\">profile</a> page";
+    
+    private final String USER_PROFILE_LINK_PLACEHOLDER = "USER_PROFILE_LINK";
+    
+    private final String USER_PROFILE_LINK_TEMPLATE = "http://climatecolab.org/web/guest/member/-/member/userId/USER_ID";
+    
+    private final String USER_ID_PLACEHOLDER = "USER_ID";
     
     private void sendNotifications(SocialActivity activity) throws SystemException, PortalException {
         DynamicQuery query = DynamicQueryFactoryUtil.forClass(ActivitySubscription.class);
@@ -78,12 +88,12 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
         
         try {
             InternetAddress fromEmail = new InternetAddress("no-reply@climatecolab.org");
-            String subject = "New user activity: " + entry.getTitle();
-            String message = entry.getBody(); 
+            String subject = entry.getTitle();
+            String message = entry.getBody() + MESSAGE_FOOTER_TEMPLATE; 
             message = message.replaceAll("\"/web/guest", "\"http://climatecolab.org/web/guest")
                     .replaceAll("'/web/guest", "'http://climatecolab.org/web/guest")
                     .replaceAll("\n" ,"<br />");
-            
+            Set<User> receipients = new HashSet<User>();
         
             for (Object subscriptionObj: ActivitySubscriptionLocalServiceUtil.dynamicQuery(query)) {
                 ActivitySubscription subscription = (ActivitySubscription) subscriptionObj;
@@ -91,8 +101,12 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
                 if (subscription.getReceiverId() == activity.getUserId()) {
                     continue;
                 }
-                User receipient = UserLocalServiceUtil.getUser(subscription.getReceiverId());
+                receipients.add(UserLocalServiceUtil.getUser(subscription.getReceiverId()));
+            }
+            for (User receipient: receipients) {
                 InternetAddress toEmail = new InternetAddress(receipient.getEmailAddress());
+                message = message.replace(USER_PROFILE_LINK_PLACEHOLDER, getUserLink(receipient));
+                
                 if (MessageUtil.getMessagingPreferences(receipient.getUserId()).getEmailOnActivity()) {
                     MailEngine.send(fromEmail, toEmail, subject, message, true);
                 }
@@ -105,6 +119,10 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
         }
         
         
+    }
+    
+    private String getUserLink(User user) {
+        return USER_PROFILE_LINK_TEMPLATE.replaceAll(USER_ID_PLACEHOLDER, String.valueOf(user.getUserId()));
     }
 
 }

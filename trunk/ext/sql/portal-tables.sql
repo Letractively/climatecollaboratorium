@@ -2882,7 +2882,8 @@ create table MessagingUserPreferences (
 	messagingPreferencesId LONG not null primary key,
 	userId LONG,
 	emailOnSend BOOLEAN,
-	emailOnReceipt BOOLEAN
+	emailOnReceipt BOOLEAN,
+	emailOnActivity BOOLEAN
 );
 
 
