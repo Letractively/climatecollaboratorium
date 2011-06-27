@@ -89,8 +89,8 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
         try {
             InternetAddress fromEmail = new InternetAddress("no-reply@climatecolab.org");
             String subject = entry.getTitle();
-            String message = entry.getBody() + MESSAGE_FOOTER_TEMPLATE; 
-            message = message.replaceAll("\"/web/guest", "\"http://climatecolab.org/web/guest")
+            String messageTemplate = entry.getBody() + MESSAGE_FOOTER_TEMPLATE; 
+            messageTemplate = messageTemplate.replaceAll("\"/web/guest", "\"http://climatecolab.org/web/guest")
                     .replaceAll("'/web/guest", "'http://climatecolab.org/web/guest")
                     .replaceAll("\n" ,"<br />");
             Set<User> receipients = new HashSet<User>();
@@ -104,10 +104,10 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
                 receipients.add(UserLocalServiceUtil.getUser(subscription.getReceiverId()));
             }
             for (User receipient: receipients) {
-                InternetAddress toEmail = new InternetAddress(receipient.getEmailAddress());
-                message = message.replace(USER_PROFILE_LINK_PLACEHOLDER, getUserLink(receipient));
                 
                 if (MessageUtil.getMessagingPreferences(receipient.getUserId()).getEmailOnActivity()) {
+                    InternetAddress toEmail = new InternetAddress(receipient.getEmailAddress());
+                    String message = messageTemplate.replace(USER_PROFILE_LINK_PLACEHOLDER, getUserLink(receipient));
                     MailEngine.send(fromEmail, toEmail, subject, message, true);
                 }
             
