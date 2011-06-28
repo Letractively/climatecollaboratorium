@@ -293,7 +293,12 @@ public class ActivityUtil {
         Long[] ret = new Long[idStrs.length];
         
         for (int i=0; i < idStrs.length; i++) {
-            ret[i] = Long.parseLong(idStrs[i]);
+            try {
+                ret[i] = Long.parseLong(idStrs[i]);
+            }
+            catch (NumberFormatException e) {
+                ret[i] = 0L;
+            }
         }
         return ret;
     }
