@@ -373,7 +373,10 @@ public class PlanItemWrapper {
     }
     
     public boolean isSubscribed() throws PortalException, SystemException {
-        return ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), PlanItem.class, wrapped.getPlanId(), null, "");
+        if (Helper.isUserLoggedIn()) {
+            return ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), PlanItem.class, wrapped.getPlanId(), null, "");
+        }
+        return false;
     }
 
     public PlanItem getWrapped() {
