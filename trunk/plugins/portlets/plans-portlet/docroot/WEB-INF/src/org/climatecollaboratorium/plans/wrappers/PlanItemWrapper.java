@@ -208,7 +208,7 @@ public class PlanItemWrapper {
         scenarioId = wrapped.getScenarioId();
         
         if (Helper.isUserLoggedIn()) {
-            subscribed = wrapped.isUserAFan(Helper.getLiferayUser().getUserId());
+            subscribed = ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), PlanItem.class, wrapped.getPlanId(), null, "");
         }
     }
 
@@ -367,13 +367,13 @@ public class PlanItemWrapper {
             else {
                 ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, wrapped.getPlanId(), null, "", Helper.getLiferayUser().getUserId());
             }
-            
+            ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), PlanItem.class, wrapped.getPlanId(), null, "");
             subscribed = !subscribed;
         }
     }
     
     public boolean isSubscribed() throws PortalException, SystemException {
-        return subscribed;
+        return ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), PlanItem.class, wrapped.getPlanId(), null, "");
     }
 
     public PlanItem getWrapped() {
@@ -566,7 +566,10 @@ public class PlanItemWrapper {
     }
     
     public boolean isUserAFan() throws SystemException {
-        return subscribed;
+        if (Helper.isUserLoggedIn()) {
+            return wrapped.isUserAFan(Helper.getLiferayUser().getUserId());
+        }
+        return false;
     }
     
     public boolean isPlanMember() throws SystemException {
