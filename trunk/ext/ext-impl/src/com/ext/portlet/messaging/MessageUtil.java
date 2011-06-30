@@ -153,6 +153,7 @@ public class MessageUtil {
             prefs.setEmailOnReceipt(true);
             prefs.setEmailOnSend(false);
             prefs.setUserId(userId);
+            prefs.setEmailOnActivity(true);
             MessagingUserPreferencesLocalServiceUtil.addMessagingUserPreferences(prefs);
         }
         return prefs;
