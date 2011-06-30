@@ -147,7 +147,7 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
             _log.error(e);
         }
         if (entry.getBody() != null) {
-            return entry.getTitle();
+            return entry.getBody();
         }
         return entry.getTitle();
 
@@ -155,7 +155,7 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
 
     private String getMailSubject(SocialActivityFeedEntry entry) {
         try {
-            return (String) entry.getClass().getMethod("getMailBody").invoke(entry);
+            return (String) entry.getClass().getMethod("getMailSubject").invoke(entry);
         } catch (NoSuchMethodException e) {
             // ignore
         } catch (IllegalArgumentException e) {
