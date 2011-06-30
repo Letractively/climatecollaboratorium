@@ -779,6 +779,11 @@ public class PlanItemWrapper {
         }
         
     }
+
+    public void refresh() throws SystemException {
+        name = wrapped.getName();
+        description = wrapped.getDescription();
+    }
     
     
 
