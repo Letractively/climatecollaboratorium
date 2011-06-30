@@ -201,8 +201,9 @@ public class PlanBean {
         return editingDescription;
     }
 
-    public void editDescription(ActionEvent e) {
+    public void editDescription(ActionEvent e) throws SystemException {
         editingDescription = !editingDescription;
+        plan.refresh();
     }
 
     public void setEditingName(boolean editingName) throws SystemException, PortalException {
