@@ -8,8 +8,10 @@ package org.climatecollaboratorium.facelets.discussions.activity;
 
 
 import com.ext.portlet.Activity.ActivityUtil;
+import com.ext.portlet.Activity.BaseFeedEntryWithMailInfo;
 import com.ext.portlet.Activity.ICollabActivityInterpreter;
 import com.ext.portlet.community.CommunityUtil;
+import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
@@ -20,6 +22,7 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.model.BaseSocialActivityInterpreter;
 import com.liferay.portlet.social.model.SocialActivity;
@@ -63,7 +66,9 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
 		DiscussionActivityKeys activityType = DiscussionActivityKeys.fromId(activity.getType());
 		
 		String body =  "";
-		String title=activityType.getPrettyName();
+		String mailSubject = activityType.getPrettyName();
+		String mailBody = "";
+		String title = activityType.getPrettyName();
 		Long[] ids = ActivityUtil.getIdsFromExtraData(activity.getExtraData());
 		
 		if (activityType == DiscussionActivityKeys.ADD_CATEGORY) {
@@ -78,6 +83,7 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
 		    DiscussionCategoryGroup categoryGroup = category.getCategoryGroup();
 		    
 		    body = String.format(CATEGORY_ADDED, getUser(activity), getCategory(category), getCategoryGroup(categoryGroup));
+		    mailBody = body;
             //body = String.format(CATEGORY_ADDED, navUrl.getUrlWithParameters("discussion", keyValue)getUser(activity), getCategory(category), getCategoryGroup(categoryGroup));
 		}
 		else if (activityType == DiscussionActivityKeys.ADD_DISCUSSION) {
@@ -98,6 +104,7 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
             DiscussionCategoryGroup categoryGroup = discussion.getCategoryGroup();
             
 		    body = String.format(DISCUSSION_ADDED, getUser(activity), getDiscussion(discussion), getCategory(category));
+		    mailBody = getMailBodyForMessage(discussion);
 		}
 		else if (activityType == DiscussionActivityKeys.ADD_COMMENT) {
 		    DiscussionMessage comment  = null;
@@ -117,6 +124,7 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
 		    else {
 	            body = String.format(COMMENT_ADDED, getUser(activity),  getDiscussion(discussion), getCategory(discussion.getCategory()));
 		    }
+		    mailBody = getMailBodyForMessage(discussion);
         }
 		else if (activityType == DiscussionActivityKeys.ADD_DISCUSSION_COMMENT) {
 		    DiscussionMessage comment  = null;
@@ -134,9 +142,10 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
             DiscussionMessage discussion = comment.getThread();
 
             body = String.format(DISCUSSION_COMMENT_ADDED, getUser(activity), getCategoryGroup(discussion.getCategoryGroup()));
+            mailBody = getMailBodyForMessage(discussion);
 		}
 
-        return new SocialActivityFeedEntry("", title, body);
+        return new BaseFeedEntryWithMailInfo("", title, body, mailSubject, mailBody);
 			}
         
 		catch (Exception e) {
@@ -244,7 +253,29 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
         return name.toString(); 
     }
 	
+	private final static String DISCUSSION_MSG_MAIL_BODY_TEMPLATE = 
+	    "USER_LINK_PLACEHOLDER posted a new message in the forum THREAD_TOPIC_PLACEHOLDER:\n\n" +
+	    "MESSAGE_BODY_PLACEHOLDER\n\n" +
+	    "Visit MESSAGE_LINK_PLACEHOLDER to view and respond to this message.\n";
 	
+	private final static String USER_LINK_PLACEHOLDER = "USER_LINK_PLACEHOLDER";
+	private final static String THREAD_TOPIC_PLACEHOLDER = "THREAD_TOPIC_PLACEHOLDER";
+	private final static String MESSAGE_BODY_PLACEHOLDER = "MESSAGE_BODY_PLACEHOLDER";
+	private final static String MESSAGE_LINK_PLACEHOLDER = "MESSAGE_LINK_PLACEHOLDER";
+	        
+    private String getMailBodyForMessage(DiscussionMessage message) throws SystemException, PortalException {
+        DiscussionMessage thread = message.getThreadId() != null ? message.getThread() : message;
+        
+        return DISCUSSION_MSG_MAIL_BODY_TEMPLATE
+                .replaceAll(USER_LINK_PLACEHOLDER, getUserLink(message.getAuthor()))
+                .replaceAll(THREAD_TOPIC_PLACEHOLDER, thread.getSubject())
+                .replaceAll(MESSAGE_BODY_PLACEHOLDER, message.getBody())
+                .replaceAll(MESSAGE_LINK_PLACEHOLDER, getDiscussion(message));
+    }
+    
+    private String getUserLink(User user) {
+        return "<a href='http://climatecolab.org/web/guest/member/-/member/userId/" + user.getUserId() + "'>" + user.getScreenName() + "</a>";
+    }
 	
 
 }

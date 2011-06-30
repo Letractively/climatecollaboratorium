@@ -13,9 +13,9 @@ import com.liferay.portal.SystemException;
 public enum DiscussionActivityKeys implements SubscriberFactory {
 	
 	ALL("A discussion activity"),
-	ADD_CATEGORY("Question added"), 
+	ADD_CATEGORY("Category added"), 
 	ADD_DISCUSSION("Position added"),
-	ADD_COMMENT("Argument added"), 
+	ADD_COMMENT("Discussion post added"), 
 	ADD_DISCUSSION_COMMENT("Comment added");
 	
 	private String prettyName;
