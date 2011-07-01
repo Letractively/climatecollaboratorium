@@ -77,6 +77,7 @@ public class DebateBrowserBean {
     public void toggleAddCategoryForm(ActionEvent e) {
         if (pageType == DebateBrowserPageType.ADD_CATEGORY) {
             pageType = DebateBrowserPageType.CATEGORIES;
+            newItem = new NewItemEdit();
         } else {
             pageType = DebateBrowserPageType.ADD_CATEGORY;
             newItem = new NewItemEdit();
@@ -88,6 +89,7 @@ public class DebateBrowserBean {
             pageType = DebateBrowserPageType.CATEGORY_DEBATES;
             newItem = new NewItemEdit();
         } else {
+            newItem = new NewItemEdit();
             pageType = DebateBrowserPageType.ADD_DEBATE;
         }
     }
