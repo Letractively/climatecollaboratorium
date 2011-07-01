@@ -6,7 +6,6 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <div class="advanced">
         <div class="advanced_inner">
-            <ice:panelGroup>
             <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact"
                       addthis:title="#{debateBean.debate.currentRoot.debateSummary}"
                       addthis:description="#{debateBean.debate.currentRoot.debateDetail}"
@@ -22,7 +21,6 @@
                     <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
                     Share
                 </a>
-             </ice:panelGroup>
             <f:subview  rendered="#{debateBean.debatesPermissionsBean.canEditDebateMap}" >
             <ice:commandLink actionListener="#{debateBean.subscribe}" onclick='if(!deferUntilLogin()) return false;'>
             
