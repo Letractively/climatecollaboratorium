@@ -548,6 +548,15 @@ public class DiscussionBean {
                         // ignore
                     }
                 }
+                else if (sortColumn.equals(ThreadSortClumns.LAST_COMMENT.name())) {
+                    try {
+                        ret = o1.getLastActivityAuthor().getScreenName().compareToIgnoreCase(o2.getLastActivityAuthor().getScreenName());
+                    } catch (PortalException e) {
+                        // ignore
+                    } catch (SystemException e) {
+                        // ignore
+                    }
+                }
                 else {
                     ret = o1.getLastActivityDate().compareTo(o2.getLastActivityDate());
                 }

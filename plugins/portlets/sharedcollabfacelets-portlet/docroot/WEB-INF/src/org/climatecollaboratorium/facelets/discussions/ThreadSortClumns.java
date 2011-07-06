@@ -3,5 +3,6 @@ package org.climatecollaboratorium.facelets.discussions;
 public enum ThreadSortClumns {
     QUESTION,
     DATE,
-    REPLIES
+    REPLIES,
+    LAST_COMMENT
 }
