@@ -506,7 +506,7 @@ public class PlanConstants {
         }),
         REGION("Transnational group/<br />large country","Transnational group/large country described by proposal","ShowSupporters",true, Attribute.REGION, new AttributeGetter("%s",Attribute.REGION)),
         SUBREGION("Country within<br /> transnational group","Country within transnational group described by proposal","ShowSupporters",true, Attribute.SUBREGION, new AttributeGetter("%s",Attribute.SUBREGION)),
-        ABSTRACT("Plan description<br />abstract","Short description of what is main concern of a plan","ShowAbstract",true, Attribute.ABSTRACT, new AttributeGetter("%s",Attribute.ABSTRACT));
+        ABSTRACT("Plan summary","Tweet length summary for this proposal","ShowAbstract",true, Attribute.ABSTRACT, new AttributeGetter("%s",Attribute.ABSTRACT));
 		
         
 		private String name;
