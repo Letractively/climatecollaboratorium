@@ -10,6 +10,7 @@ import javax.faces.component.UIInput;
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.facelets.discussions.DiscussionBean;
+import org.climatecollaboratorium.facelets.discussions.ThreadSortClumns;
 import org.climatecollaboratorium.facelets.discussions.activity.DiscussionActivityKeys;
 import org.climatecollaboratorium.utils.ContentFilterHelper;
 import org.climatecollaboratorium.utils.Helper;
@@ -40,7 +41,10 @@ public class CategoryWrapper {
     private boolean goTo;
     private boolean added = false;
     private boolean byNewest = true;
-    
+
+    private String sortColumn = ThreadSortClumns.DATE.name();
+    private Boolean sortAscending = true;
+
 
 
     private List<MessageWrapper> threads = new ArrayList<MessageWrapper>();
@@ -51,6 +55,7 @@ public class CategoryWrapper {
         for (DiscussionMessage thread: category.getThreads()) {
             this.threads.add(new MessageWrapper(thread, this, discussionBean, 1));
         }
+        resort(null);
         
         this.title = category.getName();
         this.description = category.getDescription();
@@ -217,15 +222,47 @@ public class CategoryWrapper {
     }
     
     public void resort(ActionEvent e) {
-        byNewest = !byNewest;
         
         Collections.sort(threads, new Comparator<MessageWrapper>() {
 
             @Override
             public int compare(MessageWrapper o1, MessageWrapper o2) {
-                return o1.getLastActivityDate().compareTo(o2.getLastActivityDate()) * (byNewest ? -1 : 1);
+                int ret = 0;
+                
+                if (sortColumn.equals(ThreadSortClumns.QUESTION.name())) {
+                    ret = o1.getTitle().compareToIgnoreCase(o2.getTitle());
+                }
+                else if (sortColumn.equals(ThreadSortClumns.REPLIES.name())) {
+                    try {
+                        ret = o1.getThreadMessagesCount() - o2.getThreadMessagesCount();
+                    } catch (SystemException e) {
+                        // ignore
+                    }
+                }
+                else {
+                    ret = o1.getLastActivityDate().compareTo(o2.getLastActivityDate());
+                }
+                return sortAscending ? -ret : ret;
             }
         });
+    }
+
+    public void setSortAscending(Boolean sortAscending) {
+        this.sortAscending = sortAscending;
+        resort(null);
+    }
+
+    public Boolean getSortAscending() {
+        return sortAscending;
+    }
+
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+        resort(null);
+    }
+
+    public String getSortColumn() {
+        return sortColumn;
     }
     
 }
