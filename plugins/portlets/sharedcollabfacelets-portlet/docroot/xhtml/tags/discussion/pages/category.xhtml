@@ -37,6 +37,7 @@
         <ui:decorate template="./threadsList.xhtml">
             <ui:param name="threads" value="#{discussionBean.currentCategory.threads}" />
             <ui:param name="listId" value="threadsList" />
+            <ui:param name="dataBean" value="#{discussionBean.currentCategory}" />
         </ui:decorate>
 
         <ice:panelGroup rendered="#{fn:length(discussionBean.currentCategory.threads) ne 0}">

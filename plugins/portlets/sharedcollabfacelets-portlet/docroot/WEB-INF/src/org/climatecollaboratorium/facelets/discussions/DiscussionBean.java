@@ -66,6 +66,9 @@ public class DiscussionBean {
     private List<SelectItem> categoriesItems;
     private MessageWrapper newThread = new MessageWrapper(this);
 
+    private String sortColumn = ThreadSortClumns.DATE.name();
+    private Boolean sortAscending = true;
+
     private DiscussionCategoryGroup discussion;
     private static Log _log = LogFactoryUtil.getLog(DiscussionBean.class);
     private DiscussionsPermissions permissions;
@@ -289,6 +292,7 @@ public class DiscussionBean {
                     threadsById.put(thread.getId(), thread);
                 }
             }
+            resort(null);
         }
         return threads;
     }
@@ -527,15 +531,47 @@ public class DiscussionBean {
     }
     
     public void resort(ActionEvent e) {
-        byNewest = !byNewest;
         
         Collections.sort(threads, new Comparator<MessageWrapper>() {
+
             @Override
             public int compare(MessageWrapper o1, MessageWrapper o2) {
-                Date o1Date = o1.getLastActivityDate() != null ? o1.getLastActivityDate() : o1.getCreateDate();
-                Date o2Date = o2.getLastActivityDate() != null ? o2.getLastActivityDate() : o2.getCreateDate();
-                return o1Date.compareTo(o2Date) * (byNewest ? -1 : 1);
+                int ret = 0;
+                
+                if (sortColumn.equals(ThreadSortClumns.QUESTION.name())) {
+                    ret = o1.getTitle().compareToIgnoreCase(o2.getTitle());
+                }
+                else if (sortColumn.equals(ThreadSortClumns.REPLIES.name())) {
+                    try {
+                        ret = o1.getThreadMessagesCount() - o2.getThreadMessagesCount();
+                    } catch (SystemException e) {
+                        // ignore
+                    }
+                }
+                else {
+                    ret = o1.getLastActivityDate().compareTo(o2.getLastActivityDate());
+                }
+                return sortAscending ? -ret : ret;
             }
         });
     }
+
+    public void setSortAscending(Boolean sortAscending) {
+        this.sortAscending = sortAscending;
+        resort(null);
+    }
+
+    public Boolean getSortAscending() {
+        return sortAscending;
+    }
+
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+        resort(null);
+    }
+
+    public String getSortColumn() {
+        return sortColumn;
+    }
+    
 }
