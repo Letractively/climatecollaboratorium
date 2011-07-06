@@ -165,6 +165,7 @@ public class PlanConstants {
         PLAN_RIBBON_TEXT(String.class, "%s", attributeFunctionFactory.getAttributeValue("PLAN_RIBBON_TEXT"), true, null, null),
 		REGION(String.class, "%s", attributeFunctionFactory.getAttributeValue("REGION"), true, null, null),
 		SUBREGION(String.class, "%s", attributeFunctionFactory.getAttributeValue("SUBREGION"), true, null, null),
+        ABSTRACT(String.class, "%s", attributeFunctionFactory.getAttributeValue("ABSTRACT"), true, null, null),
         SCRAPBOOK(String.class, "%s", attributeFunctionFactory.getAttributeValue("SCRAPBOOK"), true, null, null);
 		
 		private Class<?> clasz;
@@ -504,7 +505,8 @@ public class PlanConstants {
             
         }),
         REGION("Transnational group/<br />large country","Transnational group/large country described by proposal","ShowSupporters",true, Attribute.REGION, new AttributeGetter("%s",Attribute.REGION)),
-        SUBREGION("Country within<br /> transnational group","Country within transnational group described by proposal","ShowSupporters",true, Attribute.SUBREGION, new AttributeGetter("%s",Attribute.SUBREGION));
+        SUBREGION("Country within<br /> transnational group","Country within transnational group described by proposal","ShowSupporters",true, Attribute.SUBREGION, new AttributeGetter("%s",Attribute.SUBREGION)),
+        ABSTRACT("Plan description<br />abstract","Short description of what is main concern of a plan","ShowAbstract",true, Attribute.ABSTRACT, new AttributeGetter("%s",Attribute.ABSTRACT));
 		
         
 		private String name;
