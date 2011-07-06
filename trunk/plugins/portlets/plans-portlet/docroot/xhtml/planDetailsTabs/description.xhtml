@@ -115,6 +115,15 @@
             
             
             
+            <ice:panelGroup rendered="#{planBean.hasAbstract}">
+                <h1 class="planDetailsSection">Pitch</h1>
+                <div class="abstractText">
+                    <ice:outputText value="#{planBean.plan.abstract}" />
+                </div>
+            </ice:panelGroup>
+            
+            <h1 class="planDetailsSection">Body</h1>
+                
             <ice:outputText value="#{planBean.plan.description}" escape="false" nospan="true" />
         <ice:panelGroup styleClass="hidden ">
             <script type="text/javascript">
@@ -157,32 +166,26 @@
                 <br />
             </ice:panelGroup>
             <ice:panelGroup rendered="#{planBean.hasAbstract}">
-                <table>
-                    <tr>
-                        <td width="200px" style="vertical-align: middle; height: 30px; padding-top: 10px;">Abstract</td>
-                        <td id="planAbstractContainer">
-                            <ice:inputText value="#{planBean.plan.abstract}" styleClass="profile_input" style="margin-top: 10px;" maxlength="140"/>
-                            <script type="text/javascript">
-                                jQuery('#planAbstractContainer input').jqEasyCounter({
+                <h1 class="planDetailsSection" title="Tweet length summary for your proposal">Pitch</h1>
+                <div id="planAbstractContainer">
+                    <ice:inputTextarea value="#{planBean.plan.abstract}" styleClass="abstractInput" style="margin-top: 10px;" maxlength="140"/>
+                </div>
+                <script type="text/javascript">
+                jQuery('#planAbstractContainer textarea').jqEasyCounter({
                                     'maxChars': 140,
                                     'maxCharsWarning': 130,
                                     'msgFontSize': '12px',
                                     'msgFontColor': '#000',
                                     'msgFontFamily': 'Arial',
-                                    'msgTextAlign': 'left',
-                                    'msgWarningColor': '#F00'});
+                                    'msgTextAlign': 'right',
+                                    'msgWarningColor': '#F00',
+                                    'msgAppendMethod': 'insertBefore'});
                                     
                                     
                             </script>
-                        </td>
-                        <td>
-                            <span id="charactersLeftOuptut"></span>
-                        </td>
-                    </tr>
-                
-                </table>
             </ice:panelGroup>
 
+            <h1 class="planDetailsSection">Body</h1>
             <div class="descriptionInput">
                             <script type="text/javascript">
                                 setColabInEditMode(true);

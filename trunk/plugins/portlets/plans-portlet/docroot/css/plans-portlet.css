@@ -1233,4 +1233,34 @@ p.special-info {
 	margin-right: 5px;
 	vertical-align: middle;
 }
-	
+
+
+.plansContent .SEEKING_ASSISTANCE {
+	text-align: center;
+}
+
+.scrapbookProposal {
+	height: 100%;
+}
+
+.plansContent .ABSTRACT {
+	vertical-align: top;
+	width: 400px;
+}
+
+h1.planDetailsSection {
+	font-size: 28px;
+	border-bottom: 1px solid #BBBBBB;
+	margin-top: 0px;
+	margin-bottom: 15px;
+}
+
+.abstractText {
+	margin-bottom: 20px;
+}
+
+.abstractInput {
+	width: 677px;
+	height: 44px;
+	font: 12px/20px Verdana, sans-serif;
+}

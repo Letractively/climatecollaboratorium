@@ -29,17 +29,16 @@
                         #{singlePlan.ribbonText}
                     </div>
                 </f:subview>
-                <f:subview rendered="#{singlePlan.scrapbook}">
                     <div class="scrapbookProposal">
-                        <img src="/collaboratorium-theme/images/scrapbook_icon.png"  class="scrapbook_icon" width="20px" height="20px" />
+                        <f:subview rendered="#{singlePlan.scrapbook}">
+                            <img src="/collaboratorium-theme/images/scrapbook_icon.png"  class="scrapbook_icon" width="20px" height="20px" />
                     
-                        <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" escape="true" />
+                            <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" escape="true" />
+                        </f:subview>
                     </div>
                     <div class="popup-info-box hidden">
                         Scrapbook of ideas and images - please add to it!
                     </div>
-                    
-                </f:subview>
                 <f:subview rendered="#{not singlePlan.scrapbook}">
                     <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" escape="true" />
                 </f:subview>
