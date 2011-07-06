@@ -134,6 +134,9 @@
                     styleClass="table-cell-padding #{column}">
                     &amp;nbsp;
             </ice:panelGroup>
+            <ice:panelGroup rendered="#{column == 'CREATOR'}">
+                <collab:userLinkSimple userId="#{singlePlan.author.userId}" text="#{singlePlan.author.screenName}" />
+            </ice:panelGroup>
             
             
             <ice:panelGroup rendered="#{column == 'IS_PLAN_OPEN'}" styleClass="table-cell-padding #{column}">
@@ -143,7 +146,7 @@
                                 rendered="#{singlePlan.columnValues[column] != 'true'}"/>
             </ice:panelGroup>
             <ice:panelGroup
-                    rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE' and column != 'IS_PLAN_OPEN'}"
+                    rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE' and column != 'IS_PLAN_OPEN' and column != 'CREATOR'}"
                     styleClass="table-cell-padding #{column}">
                 <ice:outputText value="#{singlePlan.columnValues[column]}"
                                 escape="false"/>

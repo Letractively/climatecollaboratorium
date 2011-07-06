@@ -11,6 +11,7 @@ import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
@@ -93,6 +94,10 @@ public class PlanIndexItemWrapper {
 
     public Long getPlanId() {
         return wrapped.getPlanId();
+    }
+    
+    public User getAuthor() throws PortalException, SystemException {
+        return wrapped.getAuthor();
     }
 
     public Long getContestPhaseId() throws SystemException, PortalException {
