@@ -156,6 +156,32 @@
                 <br />
                 <br />
             </ice:panelGroup>
+            <ice:panelGroup rendered="#{planBean.hasAbstract}">
+                <table>
+                    <tr>
+                        <td width="200px" style="vertical-align: middle; height: 30px; padding-top: 10px;">Abstract</td>
+                        <td id="planAbstractContainer">
+                            <ice:inputText value="#{planBean.plan.abstract}" styleClass="profile_input" style="margin-top: 10px;" maxlength="140"/>
+                            <script type="text/javascript">
+                                jQuery('#planAbstractContainer input').jqEasyCounter({
+                                    'maxChars': 140,
+                                    'maxCharsWarning': 130,
+                                    'msgFontSize': '12px',
+                                    'msgFontColor': '#000',
+                                    'msgFontFamily': 'Arial',
+                                    'msgTextAlign': 'left',
+                                    'msgWarningColor': '#F00'});
+                                    
+                                    
+                            </script>
+                        </td>
+                        <td>
+                            <span id="charactersLeftOuptut"></span>
+                        </td>
+                    </tr>
+                
+                </table>
+            </ice:panelGroup>
 
             <div class="descriptionInput">
                             <script type="text/javascript">

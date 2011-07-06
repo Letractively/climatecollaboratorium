@@ -1,6 +1,7 @@
 package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
+import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
@@ -370,7 +371,21 @@ public class PlanBean {
         refresh();
     }
     
-    
- 
+    private Boolean hasAbstract;
+    public boolean getHasAbstract() {
+        if (hasAbstract == null) {
+            hasAbstract = false;
+            for (PlanConstants.Columns c:  plansIndexBean.getColumns()) {
+                if (c == PlanConstants.Columns.ABSTRACT) {
+                    hasAbstract = true; 
+                    break;
+                }
+                
+            }
+            
+        }
+        
+        return hasAbstract;
+    }
         
 }

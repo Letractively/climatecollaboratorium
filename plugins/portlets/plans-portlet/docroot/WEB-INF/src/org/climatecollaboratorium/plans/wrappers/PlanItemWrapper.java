@@ -786,5 +786,16 @@ public class PlanItemWrapper {
     }
     
     
+    public void setAbstract(String abstractStr) throws SystemException {
+        wrapped.setAttribute("ABSTRACT", abstractStr);
+    }
+    
+    public String getAbstract() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute("ABSTRACT");
+        if (attr != null) {
+            return attr.getAttributeValue();
+        }
+        return null;
+    }
 
 }
