@@ -3,6 +3,7 @@ package org.climatecollaboratorium.plans;
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanTypeAttribute;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
@@ -372,11 +373,11 @@ public class PlanBean {
     }
     
     private Boolean hasAbstract;
-    public boolean getHasAbstract() {
+    public boolean getHasAbstract() throws SystemException, PortalException {
         if (hasAbstract == null) {
             hasAbstract = false;
-            for (PlanConstants.Columns c:  plansIndexBean.getColumns()) {
-                if (c == PlanConstants.Columns.ABSTRACT) {
+            for (PlanTypeAttribute a:  planItem.getPlanType().getAttributes()) {
+                if (a.getAttributeName().equals(PlanConstants.Columns.ABSTRACT.name())) {
                     hasAbstract = true; 
                     break;
                 }
