@@ -506,7 +506,7 @@ public class PlanConstants {
         }),
         REGION("Transnational group/<br />large country","Transnational group/large country described by proposal","ShowSupporters",true, Attribute.REGION, new AttributeGetter("%s",Attribute.REGION)),
         SUBREGION("Country within<br /> transnational group","Country within transnational group described by proposal","ShowSupporters",true, Attribute.SUBREGION, new AttributeGetter("%s",Attribute.SUBREGION)),
-        ABSTRACT("Pitch","Tweet length summary for this proposal","ShowAbstract",true, Attribute.ABSTRACT, new AttributeGetter("%s",Attribute.ABSTRACT));
+        ABSTRACT("Pitch","The pitch is a tweet-length (140 character) description of your proposal","ShowAbstract",true, Attribute.ABSTRACT, new AttributeGetter("%s",Attribute.ABSTRACT));
 		
         
 		private String name;
