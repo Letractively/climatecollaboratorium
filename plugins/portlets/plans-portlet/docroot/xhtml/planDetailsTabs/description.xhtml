@@ -116,7 +116,17 @@
             
             
             <ice:panelGroup rendered="#{planBean.hasAbstract}">
-                <h1 class="planDetailsSection">Pitch</h1>
+                <div>
+                    <h1 class="planDetailsSection pitch">Pitch</h1>
+                    <div class="popup-info-box hidden">
+                        The pitch is a tweet-length (140 character) description of your proposal
+                    </div>
+                </div>
+                <ice:panelGroup styleClass="hidden">
+                    <script language="javascript">
+                        initializePopups();
+                    </script>
+                </ice:panelGroup>
                 <div class="abstractText">
                     <ice:outputText value="#{planBean.plan.abstract}" />
                 </div>
@@ -166,7 +176,17 @@
                 <br />
             </ice:panelGroup>
             <ice:panelGroup rendered="#{planBean.hasAbstract}">
-                <h1 class="planDetailsSection" title="Tweet length summary for your proposal">Pitch</h1>
+                <div>
+                    <h1 class="planDetailsSection pitch">Pitch</h1>
+                    <div class="popup-info-box hidden">
+                        The pitch is a tweet-length (140 character) description of your proposal
+                    </div>
+                </div>
+                <ice:panelGroup styleClass="hidden">
+                    <script language="javascript">
+                        initializePopups();
+                    </script>
+                </ice:panelGroup>
                 <div id="planAbstractContainer">
                     <ice:inputTextarea value="#{planBean.plan.abstract}" styleClass="abstractInput" style="margin-top: 10px;" maxlength="140"/>
                 </div>
@@ -337,5 +357,6 @@
                 initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable},true);
             </script>
         </ice:panelGroup>
+        
 
 </f:view>

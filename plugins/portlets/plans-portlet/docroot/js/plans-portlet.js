@@ -507,7 +507,7 @@ function initializeColumnsInfo() {
 }
 
 function initializeRibbons() {
-    jQuery(".scrapbookProposal, .ribbon-hover").each(function() {
+    jQuery(".scrapbookProposal, .ribbon-hover, .planDetailsSection").each(function() {
         var button = jQuery(this);
         var cont = button.parent().find(".popup-info-box");
         button.hover(function() {
@@ -531,6 +531,32 @@ function initializeRibbons() {
     });
 
     jQuery(".voteForPlan").parent().addClass("voteForPlan");
+}
+
+
+function initializePopups() {
+    jQuery(".planDetailsSection.pitch").each(function() {
+        var button = jQuery(this);
+        var cont = button.parent().find(".popup-info-box");
+        button.hover(function() {
+            cont.css({'position': 'absolute', 'left': '-1000'});
+            cont.show();
+
+            var pos = button.parent().position();
+            var width = button.parent().width();
+            var height = cont.height();
+
+
+            var xpos = pos.left + 125;
+            var ypos = pos.top;
+
+            cont.css({'position': 'absolute', 'top':ypos,'left':xpos, "width":'250px'});
+            cont.fadeIn("medium");
+
+        }, function() {
+            cont.fadeOut('medium');
+        });
+    });
 }
 
 function findUserVote(id) {
