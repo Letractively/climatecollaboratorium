@@ -44,9 +44,11 @@
         var users = [];
         var usersMap = {};
         var preFill = null;
-        if (#{sendMessageBean.replyMessage != null}) {
+        
+        <f:subview rendered="#{sendMessageBean.replyMessage != null and sendMessageBean.replyMessage.from.userId != null}">
             preFill = [{username: '#{sendMessageBean.replyMessage.from.screenName}', value: #{sendMessageBean.replyMessage.from.userId}}];
-        }
+        </f:subview>
+        
         <ui:repeat var="user" value="#{sendMessageBean.usersList}">
             users.push({username: '#{user.screenName}', value: '#{user.userId}'});
             usersMap['#{user.screenName}'] = #{user.userId};
