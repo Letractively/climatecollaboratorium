@@ -23,23 +23,23 @@ public class DebatesPermissionsBean {
     }
     
     public boolean getCanVote() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_VOTE);
+        return getCanAdmin() || permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_VOTE);
     }
     
     public boolean getCanView() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_VIEW);
+        return getCanAdmin() || permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_VIEW);
     }
     
     public boolean getCanAddComment() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADD_COMMENT);
+        return getCanAdmin() || permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADD_COMMENT);
     }
     
     public boolean getCanEditDebateMap() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_EDIT_DEBATE_MAP);
+        return getCanAdmin() || permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_EDIT_DEBATE_MAP);
     }
 
     public boolean getCanSuggestEdits() {
-     return permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_SUGGEST_EDITS);
+     return getCanAdmin() || permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_SUGGEST_EDITS);
     }
 
     public boolean getShouldSuggestEdits() {
@@ -47,11 +47,11 @@ public class DebatesPermissionsBean {
     }
     
     public boolean getCanAdmin() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN);
+        return permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN) || permissionChecker.isOmniadmin();
     }
     
     public boolean getCanDeleteComment() {
-        return permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN);
+        return getCanAdmin() || permissionChecker.hasPermission(groupId, portletId, primKey, DebatesActions.CAN_ADMIN);
     }
 
     public boolean getCanSubscribe() {

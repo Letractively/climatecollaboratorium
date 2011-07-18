@@ -67,7 +67,10 @@
                     <img src="/collaboratorium-theme/images/icon_advanced-edit.png" width="19" height="19" />
                     edit
                 </ice:commandLink>
-                 &amp;nbsp; &amp;nbsp;
+                <ice:commandLink onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }" actionListener="#{debateBean.addEditBean.deleteSelectedItem}" rendered="#{debateBean.debatesPermissionsBean.canAdmin}">
+                    &amp;nbsp; &amp;nbsp; remove &amp;nbsp; &amp;nbsp; 
+                </ice:commandLink>
+                 
                     
             
                 <ice:commandLink value="close advanced" actionListener="#{debateBean.toggleAdvanced}" /> &amp;nbsp; &amp;nbsp;
