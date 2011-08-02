@@ -1252,7 +1252,9 @@ margin: 20px 0 15px 0;
  
 .proposals.planDetails .right_col {
    margin-top: 45px;
+   width: 200px;
 }
+.proposals.planDetails #main { float:left; width:710px;}
  
 .prohome th {
 	color: #484848;
