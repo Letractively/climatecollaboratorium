@@ -332,11 +332,11 @@ public class PlansIndexBean {
             Columns sortCol = Columns.valueOf(sortColumn);
 
             
-            String sortAttribute = Attribute.SUPPORTERS.name();
+            String sortAttribute = Attribute.LAST_MOD_DATE.name();
             // if contest isn't active then we should sort by votes
-            if (!contestPhase.getContest().isContestActive()) {
+            /*if (!contestPhase.getContest().isContestActive()) {
                 sortAttribute = Attribute.VOTES.name();
-            }
+            }*/
             if (sortCol.isSortable()) {
                 sortAttribute = sortCol.getSortAttribute().name();
             }
