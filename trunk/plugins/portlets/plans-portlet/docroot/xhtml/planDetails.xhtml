@@ -39,9 +39,11 @@
                     <f:attribute name="maxLength" value="35" />
                 </ice:outputText>
             </h1>
+            <!-- 
             <ice:form style="display: inline">
                 <ice:commandLink value="rename" actionListener="#{plan.editName}" rendered="#{permissions.canEdit}"/>
             </ice:form>
+             -->
         </f:subview>
         <f:subview rendered="#{plan.editingName}">
             <ice:panelGroup styleClass="hidden ">
@@ -60,10 +62,12 @@
                 </ice:inputText>
             </h2>
 
+<!-- 
             <div class="actions">
                 <ice:commandButton actionListener="#{plan.plan.saveName}"  value="SAVE" styleClass="mothButton orange"/>&amp;nbsp;&amp;nbsp;
                 <ice:commandButton actionListener="#{plan.editName}" immediate="true" styleClass="mothButton orange" value="CANCEL"/>
             </div>
+             -->
                 <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>
             </ice:form>
             <ice:message for="renamePlanName" styleClass="renamePlanMessage"/>

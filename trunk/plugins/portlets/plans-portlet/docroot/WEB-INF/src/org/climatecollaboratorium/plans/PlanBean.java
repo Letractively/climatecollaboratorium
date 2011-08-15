@@ -205,6 +205,11 @@ public class PlanBean {
 
     public void editDescription(ActionEvent e) throws SystemException {
         editingDescription = !editingDescription;
+        editingName = !editingName;
+        
+        plan.setName(plan.getWrapped().getName());
+        plan.setDescription(plan.getWrapped().getDescription());
+        
         plan.refresh();
     }
 

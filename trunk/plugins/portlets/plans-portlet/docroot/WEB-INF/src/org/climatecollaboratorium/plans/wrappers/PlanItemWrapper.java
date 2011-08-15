@@ -286,6 +286,7 @@ public class PlanItemWrapper {
                     PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_DESCRIPTION.id(),null, 0);
                 eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
             }
+            saveName(e);
         }
         planBean.setEditingDescription(false);
     }
