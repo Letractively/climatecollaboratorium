@@ -166,7 +166,8 @@ public class PlanConstants {
 		REGION(String.class, "%s", attributeFunctionFactory.getAttributeValue("REGION"), true, null, null),
 		SUBREGION(String.class, "%s", attributeFunctionFactory.getAttributeValue("SUBREGION"), true, null, null),
         ABSTRACT(String.class, "%s", attributeFunctionFactory.getAttributeValue("ABSTRACT"), true, null, null),
-        SCRAPBOOK(String.class, "%s", attributeFunctionFactory.getAttributeValue("SCRAPBOOK"), true, null, null);
+        SCRAPBOOK(String.class, "%s", attributeFunctionFactory.getAttributeValue("SCRAPBOOK"), true, null, null),
+        LAST_MOD_DATE(Date.class, "%1$tm/%1$te/%1$ty", attributeFunctionFactory.getPlanPropertyFunction("Updated"), true, PlanFilterOperatorType.DATE_FROM_TO, null);
 		
 		private Class<?> clasz;
 		private String format;
@@ -407,6 +408,18 @@ public class PlanConstants {
                 return pvf.getValue(plan);
             }
 		}),
+		UPDATE_DATE("Date updated","Date this plan was updated","Updated",false, Attribute.LAST_MOD_DATE,new PlanValueFactory() {
+            public String getValue(Plan plan) throws SystemException, PortalException {
+                Date d = plan.getPlanType().getPublished()?plan.getPublishDate():plan.getCreateDate();  
+                return DateFormats.getDate(LocaleUtil.getDefault()).format(d);
+            }
+
+            @Override
+            public String getValue(PlanItem plan) throws SystemException, PortalException {
+                PlanValueFactory pvf = new AttributeGetter("%s",Attribute.LAST_MOD_DATE);
+                return pvf.getValue(plan);
+            }
+        }),
 		POSITIONS("Positions","Positions on key issues that are emboded by this plan","ShowPositions",false, null, new EmptyFactory()),		
 		
 		COLUMN_DEVELOPED_EMISSIONS("Emissions change for developed countries<br/>(10^9 tons Carbon in 2050))","% change in emissions from 2005 to [2050?] in " +
