@@ -426,6 +426,8 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         this.setUpdateAuthorId(updateAuthorId);
         this.setNew(true);
         this.store();
+        
+        setAttribute(PlanConstants.Attribute.LAST_MOD_DATE, String.valueOf(this.getUpdated()));
 
         return this;
     }
