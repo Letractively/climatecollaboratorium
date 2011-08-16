@@ -11,6 +11,7 @@ import com.ext.portlet.models.service.ModelInputItemLocalServiceUtil;
 import com.ext.portlet.models.ui.ModelInputIndividualDisplayItem;
 import com.ext.portlet.models.ui.ModelWidgetProperty;
 import com.ext.portlet.plans.NoSuchPlanItemException;
+import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.Plan;
 import com.ext.portlet.plans.model.PlanAttribute;
@@ -43,6 +44,8 @@ import edu.mit.cci.simulation.client.*;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -506,6 +509,14 @@ public class MigrationTool {
                 PlanAttributeLocalServiceUtil.updatePlanAttribute(attr);
             }
         }
+        return null;
+    }
+    
+    public String updateLastUpdateDate() throws SystemException {
+        for (PlanItem plan: PlanItemLocalServiceUtil.getPlans()) {
+            plan.updateAttribute(PlanConstants.Attribute.LAST_MOD_DATE.name());
+        }
+        
         return null;
     }
 }
