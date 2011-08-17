@@ -470,10 +470,13 @@ public class DiscussionBean {
             if (pageType == DiscussionPageType.CATEGORY) {
                 extraData.append(currentCategory.getId());
             }
-            else if (pageType == DiscussionPageType.THREAD) {
+            else if (pageType == DiscussionPageType.THREAD && currentThread != null) {
                 extraData.append(currentThread.getCategoryId());
                 extraData.append(",");
                 extraData.append(currentThread.getId());   
+            }
+            else if (pageType == DiscussionPageType.THREAD && currentThread == null) {
+                return false;
             }
             return ActivitySubscriptionLocalServiceUtil.isSubscribed(
                     Helper.getLiferayUser().getUserId(), DiscussionCategoryGroup.class, getDiscussionId(), null, extraData.toString());
@@ -581,6 +584,10 @@ public class DiscussionBean {
 
     public String getSortColumn() {
         return sortColumn;
+    }
+    
+    public boolean isThreadNull() {
+        return currentThread == null;
     }
     
 }

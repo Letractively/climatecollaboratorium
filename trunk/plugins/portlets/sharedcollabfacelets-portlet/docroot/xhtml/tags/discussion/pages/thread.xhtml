@@ -9,6 +9,13 @@
 
     
 <div id="content">
+
+    <f:subview rendered="#{discussionBean.currentThread == null}">
+        <br /><br />
+        <h3>Requested thread doesn't exist. It has been either deleted or has never been created.</h3>
+    </f:subview>
+    <f:subview rendered="#{not (discussionBean.currentThread == null)}">
+    
     <div id="main" class="#{showActions ? '' : 'full'}">
         <div class="messagesArea">
             <ice:messages globalOnly="true"/>
@@ -142,6 +149,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
+    </f:subview>
 </div>
          
 <!-- 

@@ -14,7 +14,7 @@ public enum DiscussionActivityKeys implements SubscriberFactory {
 	
 	ALL("A discussion activity"),
 	ADD_CATEGORY("Category added"), 
-	ADD_DISCUSSION("Position added"),
+	ADD_DISCUSSION("Discussion created"),
 	ADD_COMMENT("Discussion post added"), 
 	ADD_DISCUSSION_COMMENT("Comment added");
 	

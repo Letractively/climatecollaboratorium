@@ -43,7 +43,7 @@
                 <div id="add">
                     <strong><ice:outputLabel for="messageTitle">Message</ice:outputLabel></strong>
                 </div>
-                <ice:inputTextarea id="messageContent" value="#{discussionBean.newThread.description}" styleClass="commentbox" /><br />
+                <ice:inputTextarea id="messageContent" value="#{discussionBean.newThread.description}" styleClass="commentbox discussion" /><br />
                 <ice:message for="messageContent" />
                 <!-- <ice:commandButton actionListener="#{discussionBean.currentThread.newMessage.addMessageToThread}" styleClass="comm_butt" />-->
                 <ice:commandButton value="Add" actionListener="#{discussionBean.newThread.save}" styleClass="mothButton"/>    
