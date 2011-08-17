@@ -450,6 +450,7 @@ div#pager { float:right; width:320px; height:20px; text-align:right; padding-top
 
 
 .commentbox { height:178px; width:788px; border:2px solid #b7b6ae; margin-bottom:25px;}
+.commentbox.discussion {width: 700px}
 input.comm_butt[type="submit"], 
 input.comm_butt[type="submit"]:hover,
 input.comm_butt[type="submit"]:focus
@@ -1252,7 +1253,7 @@ margin: 20px 0 15px 0;
  
 .proposals.planDetails .right_col {
    margin-top: 45px;
-   width: 200px;
+   margin-left: 24px;
 }
 .proposals.planDetails #main { float:left; width:710px;}
  
