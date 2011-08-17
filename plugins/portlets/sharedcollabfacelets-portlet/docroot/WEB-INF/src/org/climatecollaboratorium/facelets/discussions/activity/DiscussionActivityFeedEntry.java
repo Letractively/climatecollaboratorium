@@ -124,7 +124,7 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
 		    else {
 	            body = String.format(COMMENT_ADDED, getUser(activity),  getDiscussion(discussion), getCategory(discussion.getCategory()));
 		    }
-		    mailBody = getMailBodyForMessage(discussion);
+		    mailBody = getMailBodyForMessage(comment);
         }
 		else if (activityType == DiscussionActivityKeys.ADD_DISCUSSION_COMMENT) {
 		    DiscussionMessage comment  = null;
