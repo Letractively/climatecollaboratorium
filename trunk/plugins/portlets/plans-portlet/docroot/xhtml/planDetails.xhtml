@@ -9,6 +9,7 @@
         >
 
     <div class="top_separator">&amp;nbsp;</div>
+    
     <div id="protop">
         <div class="vote">
             <ice:form>
@@ -53,14 +54,13 @@
             </ice:panelGroup>
                       
             <ice:form>         
-            <h2>
-                <br />
-                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='popupreg_input' onchange="jQuery(this).addClass('valueChanged');" partialSubmit="true" required="true" >
+              <h1 class="spn">Proposals: &amp;nbsp;
+                <ice:inputText value="#{plan.plan.name}" id="renamePlanName" styleClass='' onchange="jQuery(this).addClass('valueChanged');" partialSubmit="true" required="true" style="float: none; font-size: 20px; padding: 3px 1px; width: 550px;" >
                     <f:attribute name="plan" value="#{plan.plan}"/>
                     <f:validator validatorId="planNameValidator"/>
                     <f:attribute name="planName" value="#{plan.plan.name}" />
                 </ice:inputText>
-            </h2>
+              </h1>
 
 <!-- 
             <div class="actions">
