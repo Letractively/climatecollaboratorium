@@ -33,6 +33,7 @@
                     <ice:messages globalOnly="false" layout="table" />
                     <ice:commandButton action="#{migrationTool.migrate}" value="MIGRATE" onclick="if(!confirm('Are you sure you want to proceed with migration?')){ return false; }"/>
                     <ice:commandButton action="#{migrationTool.updateLastUpdateDate}" value="Update last mod date" />
+                    <ice:commandButton action="#{migrationTool.subscribePlanCreators}" value="Subscribe creators to plans" />
                 </ice:panelTab>
                 <ice:panelTab label="Migrate discussions">
                     <ice:messages globalOnly="false" layout="table" />

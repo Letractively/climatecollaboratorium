@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
@@ -116,6 +117,9 @@ public class CreatePlanBean {
 
             }
             eventBus.fireEvent(new PlanCreatedEvent(planItem));
+            // subscribe plan
+
+            ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, planItem.getPlanId(), null, "", Helper.getLiferayUser().getUserId());
             planId = planItem.getPlanId();
             navigateToPlan = true;
         }

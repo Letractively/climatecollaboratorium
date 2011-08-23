@@ -120,6 +120,7 @@ public class PlanBean {
             // 
             if (planItem.getPlanDescriptions().get(0).getVersion() == 1) {
                 editingDescription = true;
+                editingName = true;
             }
             if (planItem.getAllPlanModelRuns().get(0).getVersion() == 0) {
                 if (!simulationBean.isEditing()) {
