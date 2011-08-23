@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans.migration;
 
+import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.NoSuchDiscussionCategoryGroupException;
 import com.ext.portlet.discussions.model.DiscussionCategory;
@@ -519,4 +520,16 @@ public class MigrationTool {
         
         return null;
     }
+    
+    public String subscribePlanCreators() throws SystemException, PortalException {
+        for (PlanItem plan: PlanItemLocalServiceUtil.getPlans()) {
+            if (! ActivitySubscriptionLocalServiceUtil.isSubscribed(plan.getAuthorId(), PlanItem.class, plan.getPlanId(), null, "")) {
+                ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, plan.getPlanId(), null, "", plan.getAuthorId());
+            }
+        }
+        
+        return null;
+    }
+    
+    
 }
