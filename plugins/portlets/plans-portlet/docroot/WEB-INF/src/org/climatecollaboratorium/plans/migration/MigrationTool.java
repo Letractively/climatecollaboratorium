@@ -526,6 +526,9 @@ public class MigrationTool {
             if (! ActivitySubscriptionLocalServiceUtil.isSubscribed(plan.getAuthorId(), PlanItem.class, plan.getPlanId(), null, "")) {
                 ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, plan.getPlanId(), null, "", plan.getAuthorId());
             }
+            if (! ActivitySubscriptionLocalServiceUtil.isSubscribed(plan.getAuthorId(), DiscussionCategoryGroup.class, plan.getCategoryGroupId(), null, "")) {
+                ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, plan.getCategoryGroupId(), null, "", plan.getAuthorId());
+            }
         }
         
         return null;

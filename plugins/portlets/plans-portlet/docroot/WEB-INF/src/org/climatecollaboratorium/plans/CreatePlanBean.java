@@ -4,6 +4,7 @@ import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
@@ -120,6 +121,8 @@ public class CreatePlanBean {
             // subscribe plan
 
             ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, planItem.getPlanId(), null, "", Helper.getLiferayUser().getUserId());
+            // subscribe to comments
+            ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, planItem.getCategoryGroupId(), null, "", planItem.getAuthorId());
             planId = planItem.getPlanId();
             navigateToPlan = true;
         }
