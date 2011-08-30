@@ -42,6 +42,8 @@
                 <f:subview rendered="#{not singlePlan.scrapbook}">
                     <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" escape="true" />
                 </f:subview>
+                by&amp;nbsp;
+                <collab:userLinkSimple userId="#{singlePlan.author.userId}" text="#{singlePlan.author.screenName}" />
      
         </ice:column>
         
