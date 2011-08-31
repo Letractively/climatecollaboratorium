@@ -563,9 +563,14 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
                         val2 = (Comparable) plan2Attr.getTypedValue();
                     }
                     else {
-                        Attribute attribute = Attribute.valueOf(sortColumn);
-                        val1 = (Comparable) attribute.calculateTypedValue(arg0);
-                        val2 = (Comparable) attribute.calculateTypedValue(arg1);
+                        try {
+                            Attribute attribute = Attribute.valueOf(sortColumn);
+                            val1 = (Comparable) attribute.calculateTypedValue(arg0);
+                            val2 = (Comparable) attribute.calculateTypedValue(arg1);
+                        }
+                        catch (Exception e) {
+                            // ignore
+                        }
                     }
 
                     
