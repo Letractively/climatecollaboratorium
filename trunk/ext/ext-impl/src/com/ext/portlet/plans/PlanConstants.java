@@ -285,7 +285,7 @@ public class PlanConstants {
 		    return val != null ? val.toString() : "";
 		}
 		
-	    public Object calculateValue(PlanItem plan) throws SystemException {
+		public Object calculateValue(PlanItem plan) throws SystemException {
 	        Object val = attributeFunction.process(plan);
 	        if (clasz.isArray()) {
 	            return TypedValueConverter.getStringForMultipleValues(val);
@@ -293,6 +293,15 @@ public class PlanConstants {
 	        
 	        return TypedValueConverter.getString(val);
 	    }
+		
+
+        public Object calculateTypedValue(PlanItem plan) throws SystemException {
+            Object val = attributeFunction.process(plan);
+            
+            return val != null ? TypedValueConverter.getValue(clasz, String.valueOf(val)) : null;   
+        }
+	    
+	    
 		
 		public static List<Attribute> getPlanTypeAttributes(PlanType planType) throws SystemException {
             List<PlanTypeAttribute> planTypeAttributes = planType.getAttributes();

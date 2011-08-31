@@ -23,6 +23,7 @@ import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.PlanLocalServiceHelper;
+import com.ext.portlet.plans.TypedValueConverter;
 import com.ext.portlet.plans.UpdateType;
 import com.ext.portlet.plans.PlanConstants.Attribute;
 import com.ext.portlet.plans.model.Plan;
@@ -552,10 +553,22 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             @Override
             public int compare(PlanItem arg0, PlanItem arg1) {
                 try {
+                    Comparable val1 = null; 
+                    Comparable val2 = null; 
                     PlanAttribute plan1Attr = arg0.getPlanAttribute(sortColumn);
                     PlanAttribute plan2Attr = arg1.getPlanAttribute(sortColumn);
-                    Comparable val1 = (Comparable) (plan1Attr != null ? plan1Attr.getTypedValue() : null);
-                    Comparable val2 = (Comparable) (plan2Attr != null ? plan2Attr.getTypedValue() : null);
+                    
+                    if (plan1Attr != null && plan2Attr != null) {
+                        val1 = (Comparable) plan1Attr.getTypedValue();
+                        val2 = (Comparable) plan2Attr.getTypedValue();
+                    }
+                    else {
+                        Attribute attribute = Attribute.valueOf(sortColumn);
+                        val1 = (Comparable) attribute.calculateTypedValue(arg0);
+                        val2 = (Comparable) attribute.calculateTypedValue(arg1);
+                    }
+
+                    
                     if (val1 != null) {
                         if (val2 != null) {
                             return val1.compareTo(val2) * directionModifier;
