@@ -88,7 +88,6 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
      */
     public static final String DEFAULT_GROUP_DESCRIPTION = "Group working on plan %s";
 
-
     public static final String DEFAULT_UNTITLED_PLAN_STEM_NAME = "Untitled Proposal ";
 
     /**
@@ -201,7 +200,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         planItem.updateAttribute(Attribute.IS_PLAN_OPEN.name());
         planItem.updateAttribute(Attribute.SEEKING_ASSISTANCE.name());
         planItem.updateAttribute(Attribute.STATUS.name());
-        
+
         // populate fields with default values
 
         return planItem;
@@ -336,7 +335,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         boolean hasScenario = false;
 
         planDescription.setDescription(description);
-        
+
         // meta
         planMeta.setAuthorId(authorId);
         planMeta.setUpdateAuthorId(authorId);
@@ -344,15 +343,13 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         planMeta.setMbCategoryId(basePlan.getMBCategoryId());
         planMeta.setPlanGroupId(basePlan.getChildGroupId());
         planMeta.setPlanTypeId(basePlan.getPlanTypeId());
-       
-        
+
         if (planMeta.getPlanTypeId().equals(1L)) {
             planMeta.setContestPhase(2L);
-        }
-        else {
+        } else {
             planMeta.setContestPhase(1L);
         }
-        
+
         if (planItem.getPlanType().getPublished()) {
             planMeta.setCreated(basePlan.getPublishDate());
         } else {
@@ -360,19 +357,17 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         }
 
         if (basePlan.getScenarioId().trim().length() > 0) {
-            // try to fetch the scenario 
+            // try to fetch the scenario
             try {
                 Long scenarioId = Long.parseLong(basePlan.getScenarioId());
                 if (CollaboratoriumModelingService.repository().getScenario(scenarioId) != null) {
                     planModelRun.setScenarioId(scenarioId);
                 }
                 hasScenario = true;
-                
-            }
-            catch (Throwable e) {
+
+            } catch (Throwable e) {
                 _log.error("Can't fetch scenario " + basePlan.getScenarioId());
             }
-            
 
         }
         planMeta.setVotes(PlanVoteLocalServiceUtil.coutPlanVotes(basePlan.getPlanId()));
@@ -442,13 +437,12 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         Long parentCategoryId = 0L;
         DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil
                 .createDiscussionCategoryGroup(plan.getName() + " discussion");
-        
-        categoryGroup.setUrl("/web/guest/plans/-/plans/contestId/" + plan.getContest().getContestPK() + 
-                "/planId/" + plan.getPlanId() + "#plans=tab:comments");
-        
-        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil
-                .getUser(plan.getAuthorId()));
-        
+
+        categoryGroup.setUrl("/web/guest/plans/-/plans/contestId/" + plan.getContest().getContestPK() + "/planId/"
+                + plan.getPlanId() + "#plans=tab:comments");
+
+        DiscussionCategory category = categoryGroup.addCategory("General discussion", null,
+                UserLocalServiceUtil.getUser(plan.getAuthorId()));
 
         // set up permissions
 
@@ -461,19 +455,18 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
         String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
                 DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
-                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() ,
-                DiscussionActions.ADD_COMMENT.name()};
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
+                DiscussionActions.ADD_COMMENT.name() };
 
         String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
                 DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
-                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() ,
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
                 DiscussionActions.ADD_COMMENT.name() };
 
         String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
-                DiscussionActions.ADD_THREAD.name() ,
-                DiscussionActions.ADD_COMMENT.name() };
+                DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADD_COMMENT.name() };
 
-        String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name() ,
+        String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
                 DiscussionActions.ADD_COMMENT.name() };
 
         String[] guestActions = {};
@@ -487,9 +480,9 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         rolesActionsMap.put(guest, guestActions);
 
         for (Role role : rolesActionsMap.keySet()) {
-            PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, DiscussionCategoryGroup.class
-                    .getName(), ResourceConstants.SCOPE_GROUP, String.valueOf(group.getGroupId()), rolesActionsMap
-                    .get(role));
+            PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId,
+                    DiscussionCategoryGroup.class.getName(), ResourceConstants.SCOPE_GROUP,
+                    String.valueOf(group.getGroupId()), rolesActionsMap.get(role));
         }
 
         // populate plan with id of created group, category
@@ -534,11 +527,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         for (PlanItem planItem : planItemFinder.getPlans()) {
             if ((planType == null || (planItem.getPlanTypeId() != null && planItem.getPlanTypeId().equals(
                     planType.getPlanTypeId())))
-                    && (phase == null || 
-                            (planItem.getPlanMeta().getContestPhase() != null && planItem.getPlanMeta()
-                                    .getContestPhase().equals(phase.getContestPhasePK()))) || 
-                            (planItem.getPlanMeta().getPreviousContestPhase() != null && planItem.getPlanMeta()
-                                    .getPreviousContestPhase().equals(phase.getContestPhasePK()))) {
+                    && (phase == null || (planItem.getPlanMeta().getContestPhase() != null && planItem.getPlanMeta()
+                            .getContestPhase().equals(phase.getContestPhasePK())))
+                    || (planItem.getPlanMeta().getPreviousContestPhase() != null && planItem.getPlanMeta()
+                            .getPreviousContestPhase().equals(phase.getContestPhasePK()))) {
                 plans.add(planItem);
             }
         }
@@ -547,48 +539,46 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             planType = phase.getContest().getPlanType();
         }
 
-        final int directionModifier = sortDirection.equals("DESC") ? -1 : 1;
-        Collections.sort(plans, new Comparator<PlanItem>() {
+        if (sortColumn != null || sortColumn.trim().length() > 0) {
+            final int directionModifier = sortDirection.equals("DESC") ? -1 : 1;
+            Collections.sort(plans, new Comparator<PlanItem>() {
 
-            @Override
-            public int compare(PlanItem arg0, PlanItem arg1) {
-                try {
-                    Comparable val1 = null; 
-                    Comparable val2 = null; 
-                    PlanAttribute plan1Attr = arg0.getPlanAttribute(sortColumn);
-                    PlanAttribute plan2Attr = arg1.getPlanAttribute(sortColumn);
-                    
-                    if (plan1Attr != null && plan2Attr != null) {
-                        val1 = (Comparable) plan1Attr.getTypedValue();
-                        val2 = (Comparable) plan2Attr.getTypedValue();
-                    }
-                    else {
-                        try {
-                            Attribute attribute = Attribute.valueOf(sortColumn);
-                            val1 = (Comparable) attribute.calculateTypedValue(arg0);
-                            val2 = (Comparable) attribute.calculateTypedValue(arg1);
-                        }
-                        catch (Exception e) {
-                            // ignore
-                        }
-                    }
+                @Override
+                public int compare(PlanItem arg0, PlanItem arg1) {
+                    try {
+                        Comparable val1 = null;
+                        Comparable val2 = null;
+                        PlanAttribute plan1Attr = arg0.getPlanAttribute(sortColumn);
+                        PlanAttribute plan2Attr = arg1.getPlanAttribute(sortColumn);
 
-                    
-                    if (val1 != null) {
-                        if (val2 != null) {
-                            return val1.compareTo(val2) * directionModifier;
+                        if (plan1Attr != null && plan2Attr != null) {
+                            val1 = (Comparable) plan1Attr.getTypedValue();
+                            val2 = (Comparable) plan2Attr.getTypedValue();
                         } else {
-                            return -1 * directionModifier;
+                            try {
+                                Attribute attribute = Attribute.valueOf(sortColumn);
+                                val1 = (Comparable) attribute.calculateTypedValue(arg0);
+                                val2 = (Comparable) attribute.calculateTypedValue(arg1);
+                            } catch (Exception e) {
+                            }
                         }
-                    } else {
-                        return 1 * directionModifier;
+
+                        if (val1 != null) {
+                            if (val2 != null) {
+                                return val1.compareTo(val2) * directionModifier;
+                            } else {
+                                return -1 * directionModifier;
+                            }
+                        } else {
+                            return 1 * directionModifier;
+                        }
+                    } catch (SystemException e) {
+                        e.printStackTrace();
                     }
-                } catch (SystemException e) {
-                    e.printStackTrace();
+                    return 0;
                 }
-                return 0;
-            }
-        });
+            });
+        }
         if (applyFilters) {
             return applyFilters(sessionMap, requestMap, planType, plans);
         } else {
@@ -621,8 +611,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         for (PlanItem planItem : planItemFinder.getPlans()) {
             if ((planType == null || (planItem.getPlanTypeId() != null && planItem.getPlanTypeId().equals(
                     planType.getPlanTypeId())))
-                    && (planItem.getPlanMeta().getContestPhase() != null && phasesIds
-                            .contains(planItem.getPlanMeta().getContestPhase()))) {
+                    && (planItem.getPlanMeta().getContestPhase() != null && phasesIds.contains(planItem.getPlanMeta()
+                            .getContestPhase()))) {
                 plans.add(planItem);
             }
         }
@@ -664,9 +654,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     }
 
     public boolean isNameAvailable(String planName, Contest c) throws SystemException, PortalException {
-        for (ContestPhase phase:c.getPhases()) {
-            for (PlanItem item:phase.getPlans()) {
-                if (item.getName().equals(planName)) return false;
+        for (ContestPhase phase : c.getPhases()) {
+            for (PlanItem item : phase.getPlans()) {
+                if (item.getName().equals(planName))
+                    return false;
             }
         }
         return true;
