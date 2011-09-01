@@ -67,4 +67,8 @@ public class NavigationManagerBean {
     public int getToken() {
         return token;
     }
+    
+    public String ping() {
+        return null;
+    }
 }
