@@ -290,6 +290,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             // update only attributes related to new values
             plan.updateAttribute(Attribute.DESCRIPTION.name());
             plan.updateAttribute(Attribute.POSITIONS.name());
+            plan.updateAttribute(Attribute.LAST_MOD_DATE.name());
         }
 
         return plan;
@@ -406,6 +407,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         planItem.updateAttribute(Attribute.IS_PLAN_OPEN.name());
         planItem.updateAttribute(Attribute.SEEKING_ASSISTANCE.name());
         planItem.updateAttribute(Attribute.STATUS.name());
+        planItem.updateAttribute(Attribute.LAST_MOD_DATE.name());
 
         return planItem;
     }
@@ -551,10 +553,14 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
                         PlanAttribute plan1Attr = arg0.getPlanAttribute(sortColumn);
                         PlanAttribute plan2Attr = arg1.getPlanAttribute(sortColumn);
 
-                        if (plan1Attr != null && plan2Attr != null) {
+                        if (plan1Attr != null) {
                             val1 = (Comparable) plan1Attr.getTypedValue();
+                        }
+                        if (plan2Attr != null) {
                             val2 = (Comparable) plan2Attr.getTypedValue();
-                        } else {
+                            
+                        } 
+                        if (val1 == null || val2 == null) {
                             try {
                                 Attribute attribute = Attribute.valueOf(sortColumn);
                                 val1 = (Comparable) attribute.calculateTypedValue(arg0);
@@ -567,10 +573,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
                             if (val2 != null) {
                                 return val1.compareTo(val2) * directionModifier;
                             } else {
-                                return -1 * directionModifier;
+                                return 1 * directionModifier;
                             }
                         } else {
-                            return 1 * directionModifier;
+                            return -1 * directionModifier;
                         }
                     } catch (SystemException e) {
                         e.printStackTrace();
