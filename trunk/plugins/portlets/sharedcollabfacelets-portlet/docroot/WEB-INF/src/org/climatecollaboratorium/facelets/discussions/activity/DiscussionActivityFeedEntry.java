@@ -186,11 +186,13 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
 	
 	public String getDiscussion(DiscussionMessage discussion) throws PortalException, SystemException {
         DiscussionCategoryGroup categoryGroup = discussion.getCategoryGroup();
+        
+        DiscussionMessage thread = discussion.getThreadId() != null ? discussion.getThread() : discussion;
 
         NavigationUrl navUrl = new NavigationUrl(categoryGroup.getUrl());
 	    return String.format(hyperlink, 
-	            navUrl.getUrlWithParameters("discussion", "pageType", "THREAD", "threadId", discussion.getMessageId().toString()).toString(), 
-	            discussion.getSubject());
+	            navUrl.getUrlWithParameters("discussion", "pageType", "THREAD", "threadId", thread.getMessageId().toString()).toString(), 
+	            thread.getSubject());
 	}
 	
 	public String getComment(DiscussionMessage comment) throws PortalException, SystemException {

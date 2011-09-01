@@ -10,6 +10,9 @@
             <ice:inputText value="#{navigationManagerBean.navigationToken}" styleClass="navigationToken" />
             <ice:commandButton value="Submit" styleClass="submit" action="#{navigationManagerBean.navigate}" />
         </ice:form>
+        <ice:form>
+            <ice:commandButton value="Submit" styleClass="submitLrPing" action="#{navigationManagerBean.ping}" />
+        </ice:form>
 	<ice:panelGroup>
         <script type="text/javascript">
             var lastTrackedToken = 0;
@@ -19,6 +22,16 @@
     <ice:panelGroup>
         <div id="tokenNumberNav" class="hidden">#{navigationManagerBean.token}</div>
 		<script type="text/javascript">
+        
+            if (typeof(window.lrPingRunning) == 'undefined') { 
+                window.lrPingRunning = false;
+            }
+            
+            function runLrPing() {
+                jQuery(".submitLrPing").click();
+                setTimeout(runLrPing, 60000);
+            }
+            
 			// #{navigationManagerBean.token}
 			jQuery(document).ready(function() {
 				if (#{navigationManagerBean.token} > 0) {
@@ -33,6 +46,10 @@
                         pageTracker._trackPageview(path);
                         lastTrackedToken = #{navigationManagerBean.token};
                     } catch(err) {}
+                }
+                if (!window.lrPingRunning) {
+                    window.lrPingRunning = true;
+                    runLrPing();
                 }
 			});
 		</script>
