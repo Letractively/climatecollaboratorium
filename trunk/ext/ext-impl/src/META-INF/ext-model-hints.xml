@@ -585,4 +585,10 @@
 		<field name="eventName" type="String" />
 		<field name="createDate" type="Date" />
 	</model>
+	<model name="com.ext.portlet.landingPage.model.LandingPage">
+		<field name="id" type="Long" />
+		<field name="baseUrl" type="String" />
+		<field name="targetUrl" type="String" />
+		<field name="updated" type="Date" />
+	</model>
 </model-hints>

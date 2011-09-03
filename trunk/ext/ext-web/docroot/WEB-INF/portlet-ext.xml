@@ -312,6 +312,26 @@
         </security-role-ref>
     </portlet>
     <portlet>
+        <portlet-name>landingpage</portlet-name>
+        <display-name>Climatecolab Landing Page</display-name>
+        <portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>
+        <init-param>
+            <name>view-action</name>
+            <value>/ext/landingpage/view</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+            <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <resource-bundle>com.liferay.portlet.StrutsResourceBundle</resource-bundle>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+    <portlet>
         <portlet-name>loginregister</portlet-name>
         <display-name>Login - register page</display-name>
         <portlet-class>com.liferay.portlet.StrutsPortlet</portlet-class>

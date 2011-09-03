@@ -1298,4 +1298,22 @@
 	<bean id="com.ext.portlet.surveys.service.persistence.UserSurveyUtil" class="com.ext.portlet.surveys.service.persistence.UserSurveyUtil">
 		<property name="persistence" ref="com.ext.portlet.surveys.service.persistence.UserSurveyPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.landingPage.service.LandingPageLocalService.impl" class="com.ext.portlet.landingPage.service.impl.LandingPageLocalServiceImpl" />
+	<bean id="com.ext.portlet.landingPage.service.LandingPageLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.landingPage.service.LandingPageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.landingPage.service.LandingPageLocalServiceUtil" class="com.ext.portlet.landingPage.service.LandingPageLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.landingPage.service.LandingPageService.impl" class="com.ext.portlet.landingPage.service.impl.LandingPageServiceImpl" />
+	<bean id="com.ext.portlet.landingPage.service.LandingPageService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.landingPage.service.LandingPageServiceUtil" class="com.ext.portlet.landingPage.service.LandingPageServiceUtil">
+		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.landingPage.service.persistence.LandingPagePersistence.impl" class="com.ext.portlet.landingPage.service.persistence.LandingPagePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.landingPage.service.persistence.LandingPageUtil" class="com.ext.portlet.landingPage.service.persistence.LandingPageUtil">
+		<property name="persistence" ref="com.ext.portlet.landingPage.service.persistence.LandingPagePersistence.impl" />
+	</bean>
 </beans>

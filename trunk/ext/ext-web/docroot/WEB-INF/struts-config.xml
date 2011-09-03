@@ -422,6 +422,13 @@
             <forward name="portlet.login.forgot_password" path="portlet.ext.loginregister.forgotpassword"/>
         </action>
         
+        
+        <!-- landing page tool -->
+        <action path="/ext/landingpage/view" type="com.ext.portlet.landingPage.action.ViewLandingPageAction">
+            <forward name="portlet.ext.landingpage.view" path="portlet.ext.landingpage.view"/>
+        </action>
+        
+        
 
     </action-mappings>
 </struts-config>

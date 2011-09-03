@@ -65,3 +65,5 @@ Liferay.Service.registerClass(
 		removeUserViewedSurvey: true
 	}
 );
+
+Liferay.Service.register("Liferay.Service.landingpage", "com.ext.portlet.landingPage.service");

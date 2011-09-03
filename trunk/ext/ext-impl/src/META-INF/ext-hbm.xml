@@ -793,4 +793,13 @@
 		</composite-id>
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 	</class>
+	<class name="com.ext.portlet.landingPage.model.impl.LandingPageImpl" table="LandingPage">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="baseUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="targetUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="updated" type="org.hibernate.type.TimestampType" />
+	</class>
 </hibernate-mapping>
