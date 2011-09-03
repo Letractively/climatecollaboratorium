@@ -786,6 +786,13 @@ create table JournalTemplate (
 	smallImageURL VARCHAR(75) null
 );
 
+create table LandingPage (
+	id_ LONG not null primary key,
+	baseUrl VARCHAR(75) null,
+	targetUrl VARCHAR(75) null,
+	updated DATE null
+);
+
 create table Layout (
 	plid LONG not null primary key,
 	groupId LONG,

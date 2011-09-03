@@ -126,5 +126,6 @@
 		<portlet id="community" />
         <portlet id="messaging" />
         <portlet id="loginregister" />
+        <portlet id="landingpage" />
 	</category>
 </display>

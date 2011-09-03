@@ -835,4 +835,16 @@
 		<property name="service" ref="com.ext.portlet.surveys.service.UserSurveyService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.surveys.service.UserSurveyService" />
 	</bean>
+	<bean name="/com_ext_portlet_landingPage_service_spring_LandingPageService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.landingPage.service.LandingPageService" />
+	</bean>
+	<bean name="/com_ext_portlet_landingPage_service_spring_LandingPageService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.landingPage.service.LandingPageService" />
+	</bean>
+	<bean name="/com_ext_portlet_landingPage_service_spring_LandingPageService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.landingPage.service.LandingPageService" />
+	</bean>
 </beans>

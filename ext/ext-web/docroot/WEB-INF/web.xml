@@ -30,6 +30,12 @@
         <servlet-class>com.ext.googleanalytycs.CollabStaffMemberCookieServlet</servlet-class>
     </servlet>
     
+    <servlet>
+        <servlet-name>LandingPageServlet</servlet-name>
+        <servlet-class>com.ext.portlet.landingPage.LandingPageServlet</servlet-class>
+    </servlet>
+    
+    
 
     <servlet-mapping>
         <servlet-name>MessagingServlet</servlet-name>
@@ -39,6 +45,12 @@
     <servlet-mapping>
         <servlet-name>GoogleAnalyticsFilterCookie</servlet-name>
         <url-pattern>/googleanalyticsfilter</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>LandingPageServlet</servlet-name>
+        <url-pattern>/landingpage/*</url-pattern>
+    
     </servlet-mapping>
     
 </web-app>

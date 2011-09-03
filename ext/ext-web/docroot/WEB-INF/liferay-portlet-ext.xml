@@ -113,6 +113,14 @@ i<?xml version="1.0"?>
         <struts-path>ext/loginregister</struts-path>
         <use-default-template>false</use-default-template>
     </portlet>
+    <portlet>
+        <portlet-name>landingpage</portlet-name>
+        <struts-path>ext/landingpage</struts-path>
+        <control-panel-entry-category>portal</control-panel-entry-category>
+        <control-panel-entry-weight>110.0</control-panel-entry-weight>
+        <use-default-template>false</use-default-template>
+        <instanceable>false</instanceable>
+    </portlet>
 
 	<!--
 	Liferay Portlets

@@ -290,4 +290,9 @@
     <definition name="portlet.ext.loginregister.forgotpassword" extends="portlet">
         <put name="portlet_content" value="/portlet/ext/loginregister/forgotpassword.jsp" />
     </definition>
+    
+    <!-- Landing Page tool -->
+    <definition name="portlet.ext.landingpage.view" extends="portlet">
+            <put name="portlet_content" value="/portlet/ext/landingpage/view.jsp" />
+    </definition>
 </tiles-definitions>
