@@ -231,5 +231,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
 	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/client-1.0-SNAPSHOT.jar" sourcepath="/simulation-client"/>
+	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/twitter4j-core-2.2.4.jar"/>
 	<classpathentry kind="output" path="output"/>
 </classpath>

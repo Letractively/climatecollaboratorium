@@ -591,4 +591,8 @@
 		<field name="targetUrl" type="String" />
 		<field name="updated" type="Date" />
 	</model>
+	<model name="com.ext.portlet.twitter.model.UserTwitterMapping">
+		<field name="twitterId" type="Long" />
+		<field name="userId" type="Long" />
+	</model>
 </model-hints>
