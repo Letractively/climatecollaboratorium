@@ -36,6 +36,17 @@
     </servlet>
     
     
+    <servlet>
+        <servlet-name>TwitterSigninServlet</servlet-name>
+        <servlet-class>com.ext.portlet.twitter.TwitterSigninServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>TwitterCallbackServlet</servlet-name>
+        <servlet-class>com.ext.portlet.twitter.TwitterCallbackServlet</servlet-class>
+    </servlet>
+    
+    
 
     <servlet-mapping>
         <servlet-name>MessagingServlet</servlet-name>
@@ -51,6 +62,17 @@
         <servlet-name>LandingPageServlet</servlet-name>
         <url-pattern>/landingpage/*</url-pattern>
     
+    </servlet-mapping>
+    
+    
+    <servlet-mapping>
+        <servlet-name>TwitterSigninServlet</servlet-name>
+        <url-pattern>/twitter/signIn</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>TwitterCallbackServlet</servlet-name>
+        <url-pattern>/twitter/callback</url-pattern>
     </servlet-mapping>
     
 </web-app>

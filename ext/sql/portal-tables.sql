@@ -1912,6 +1912,11 @@ create table UserSurvey (
 	primary key (userId, eventName)
 );
 
+create table UserTwitterMapping (
+	twitterId LONG not null primary key,
+	userId LONG
+);
+
 create table User_ (
 	uuid_ VARCHAR(75) null,
 	userId LONG not null primary key,

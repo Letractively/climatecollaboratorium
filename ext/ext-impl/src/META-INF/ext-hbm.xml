@@ -802,4 +802,11 @@
 		<property name="targetUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />
 	</class>
+	<class name="com.ext.portlet.twitter.model.impl.UserTwitterMappingImpl" table="UserTwitterMapping">
+		<cache usage="read-write" />
+		<id name="twitterId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+	</class>
 </hibernate-mapping>

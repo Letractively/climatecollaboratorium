@@ -847,4 +847,16 @@
 		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.landingPage.service.LandingPageService" />
 	</bean>
+	<bean name="/com_ext_portlet_twitter_service_spring_UserTwitterMappingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.twitter.service.UserTwitterMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.twitter.service.UserTwitterMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_twitter_service_spring_UserTwitterMappingService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.twitter.service.UserTwitterMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.twitter.service.UserTwitterMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_twitter_service_spring_UserTwitterMappingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.twitter.service.UserTwitterMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.twitter.service.UserTwitterMappingService" />
+	</bean>
 </beans>

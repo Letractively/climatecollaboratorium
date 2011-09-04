@@ -67,3 +67,5 @@ Liferay.Service.registerClass(
 );
 
 Liferay.Service.register("Liferay.Service.landingpage", "com.ext.portlet.landingPage.service");
+
+Liferay.Service.register("Liferay.Service.twitter", "com.ext.portlet.twitter.service");

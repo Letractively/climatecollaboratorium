@@ -25,7 +25,6 @@ public class LandingPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         try {
-            System.out.println(req.getRequestURI());
             Matcher m = landingPageUrlPattern.matcher(req.getRequestURI());
             if (m.find()) {
                 Long landingPageId = Long.parseLong(m.group(1));

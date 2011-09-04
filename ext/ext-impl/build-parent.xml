@@ -381,6 +381,12 @@ ${exception.message}
         	<param name="service.file" value="src/com/ext/portlet/facebook/service.xml" />
 	    </antcall>
 	 </target>
+
+    <target name="build-service-portlet-twitter">
+       <antcall target="build-service">
+           <param name="service.file" value="src/com/ext/portlet/twitter/service.xml" />
+       </antcall>
+    </target>
 	
     <target name="build-service-portlet-inlinehelp">
         <antcall target="build-service">
