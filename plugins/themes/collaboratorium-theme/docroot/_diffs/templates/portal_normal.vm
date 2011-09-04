@@ -213,6 +213,7 @@
           <input type="submit" name="submit" class="popuplogin_submit" value="Signin" onclick="addRedirectBeforeSubmit('signInFormPopup')" /> or <span class="popuplogin_button"><a href="javascript:;" id="loginPopupCreateAccount">Create an Account</a></span>
         </form>
         <div class="popuplogin_facebook"><a href="javascript:clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a></div>
+        <div class="popuplogin_twitter"><a href="javascript:clickTwitterButton()"><img src="/collaboratorium-theme/images/sign-in-with-twitter.png" width="154" height="22" alt="Login with Twitter" /></a></div>
       </div>
     </div>
     <!-- /popup login -->

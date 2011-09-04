@@ -24,3 +24,16 @@ function clickFacebookButton() {
 function deleteFBCookie() {
    Delete_Cookie("fbs_"+FB_APP_ID); 
 }
+
+function clickTwitterButton() {
+	var popup = window.open("/twitter/signIn", "Sign in with Twitter", "location=1,status=1,scrollbars=1,width=500,height=400,locationbar=0");
+	       
+	window.twitterSignIn = function(status) {
+		if (status) {
+			popup.close();
+			window.location.reload(true);
+		}
+	}
+}
+
+
