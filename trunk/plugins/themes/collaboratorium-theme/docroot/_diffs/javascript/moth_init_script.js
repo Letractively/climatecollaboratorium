@@ -193,14 +193,21 @@ jQuery(document).ready(function() {
     	jQuery("#hdr_signin").removeClass("inputFocus");
     });
     
-    jQuery("#hdr_signin").mouseout(function() {
-    	//console.debug("state before: " + jQuery("#hdr_signin").hasClass("inputFocus"));
-    	setTimeout(function() {
-	    	//console.debug("state after: " + jQuery("#hdr_signin").hasClass("inputFocus"));
-    		if (! jQuery("#hdr_signin").hasClass("inputFocus")) {
-    			jQuery("#hdr_signin").hide();
-    		}
-    	}, 300);
+    jQuery("#hdr_signin").mouseout(function(event) {
+    	console.log(event);
+    	// get hdr_signin height/width
+    	var offset = jQuery('#hdr_signin').offset();
+    	var left = offset.left;
+    	var top = offset.top;
+    	var bottom = top + jQuery('#hdr_signin').height();
+    	var right = left + jQuery('#hdr_signin').width();
+    	var pageX = event.pageX;
+    	var pageY = event.pageY;
+    	
+    	if (left <= pageX && pageX <= right && top <= pageY && pageY <= bottom) {
+    		return;
+    	}
+    	jQuery("#hdr_signin").hide();
     });
 });
 
@@ -241,3 +248,4 @@ function updateBreadcrumb(placeholder, items) {
 
     jQuery(placeholder).html(breadcrumb.join(''));
 }
+

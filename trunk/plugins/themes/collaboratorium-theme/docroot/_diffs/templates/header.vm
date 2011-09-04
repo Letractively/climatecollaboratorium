@@ -31,6 +31,8 @@
                     <input class="hdr_signinfield" name="password" type="password" value="" /></p>
                     <a href="javascript:;" onclick="showForgotPasswordPopup()">Forgot your password?</a> <input class="hdr_signinbutt" type="submit" name="submitsignin" value="" onclick="addRedirectBeforeSubmit('signInTopForm')" />
                 </form>
+                <div class="popuplogin_facebook"><a href="javascript:clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a></div>
+                <div class="popuplogin_twitter"><a href="javascript:clickTwitterButton()"><img src="/collaboratorium-theme/images/sign-in-with-twitter.png" width="154" height="22" alt="Login with Twitter" /></a></div>
             </div>
         #end
         
