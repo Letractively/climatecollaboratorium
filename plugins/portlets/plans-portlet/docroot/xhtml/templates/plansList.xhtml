@@ -147,8 +147,14 @@
                 <ice:outputText value="Team only"
                                 rendered="#{singlePlan.columnValues[column] != 'true'}"/>
             </ice:panelGroup>
+            
+            <ice:panelGroup rendered="#{column == 'COMMENTS'}">
+                <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.columnValues[column]}" hashString="plans%3Dtab%3Acomments%3Bcomments%3D" escape="true" />
+            </ice:panelGroup>
+                    
+            
             <ice:panelGroup
-                    rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE' and column != 'IS_PLAN_OPEN' and column != 'CREATOR'}"
+                    rendered="#{column != 'NAME' and column != 'POSITIONS' and column != 'SEEKING_ASSISTANCE' and column != 'IS_PLAN_OPEN' and column != 'CREATOR' and column != 'COMMENTS'}"
                     styleClass="table-cell-padding #{column}">
                 <ice:outputText value="#{singlePlan.columnValues[column]}"
                                 escape="false"/>
