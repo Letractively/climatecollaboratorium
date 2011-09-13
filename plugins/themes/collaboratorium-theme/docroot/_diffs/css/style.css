@@ -134,7 +134,7 @@ h5 { font-size:12px; font-style:normal; font-weight:600; color: #464646; margin:
 /* top left  */
 #top-left { float:left; width:400px; height:90px; }
 #logo { width:223px; padding-top:8px;  }
-#top-left ul { margin:12px 0 0 0; width:400px; }
+#top-left ul { margin:12px 0 0 0; width:500px; }
 	.wf-active #top-left ul { margin:18px 0 0 0; }
 #top-left li { float:left; list-style:none; margin-right:12px; }
 #top-left li a { display:inline-block; font-size:12px; font-weight:600; color:#2498b3;}
@@ -1084,4 +1084,8 @@ h3.noclr { color:#464646; }
 
 .activitiesTableFull .colabCol2 {
 	padding-right: 6px;
+}
+
+td.iceDatTblCol.l.expertReview {
+  background-color: #FFC0C0;
 }
