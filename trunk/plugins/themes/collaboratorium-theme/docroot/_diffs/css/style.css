@@ -1089,3 +1089,6 @@ h3.noclr { color:#464646; }
 td.iceDatTblCol.l.expertReview {
   background-color: #FFC0C0;
 }
+.othermembers .comm_info-left {
+  width: 210px;
+}
