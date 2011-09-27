@@ -237,6 +237,13 @@ function addRedirectBeforeSubmit(formId) {
 	jQuery('#' + formId).append(jQuery('<input type="hidden" value="' + window.location.toString() + '" name="redirect" />'));
 }
 
+function processForgotPasswordForm(formId) {
+	var screenName = jQuery('#' + formId + ' .screenName').val();
+	if (screenName.indexOf('@') > 0) {
+		jQuery('#' + formId).append('<input type="hidden" value="' + screenName + '" name="emailAddress" />');
+	}
+}
+
 
 function updateBreadcrumb(placeholder, items) {
     var breadcrumb = [];

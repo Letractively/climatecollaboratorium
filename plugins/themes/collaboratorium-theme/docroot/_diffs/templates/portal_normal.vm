@@ -46,7 +46,11 @@
           type="text/css"/>
 
 
+<!--
     <script type="text/javascript" src="http://use.typekit.com/uvv6okq.js"></script>
+
+-->
+    <script type="text/javascript" src="http://use.typekit.com/zdq3gry.js"></script>
     <script type="text/javascript">try {
         Typekit.load();
     } catch(e) {
@@ -223,7 +227,7 @@
         <div class="popup_login_form">
         <div class="closepopuplogin"><a href="javascript:;"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
         
-        <div class="popup_login-message">Enter your screen name to get new password...</div> 
+        <div class="popup_login-message">Enter your email or screen name to get new password...</div> 
         #if ($request.getParameter('isPasswordReminder')) 
             #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
         #end                
@@ -233,16 +237,16 @@
             <table>
                 <tr>
                     <td>
-                        <p><strong>Screen name:</strong>&nbsp;&nbsp;</p>
+                        <p><strong>Email/Screen name:</strong>&nbsp;&nbsp;</p>
                     </td>
                     <td>
-                        <input name="screenName" class="popuplogin_input" type="text" value=""  />
+                        <input name="screenName" class="popuplogin_input screenName" type="text" value=""  />
                     </td>
                 </tr>
             </table>
             <br />
             <br />
-          <input type="submit" name="submit" class="popuplogin_submit" value="Request new password" onclick="addRedirectBeforeSubmit('forgotPasswordForm')" />
+          <input type="submit" name="submit" class="popuplogin_submit" value="Request new password" onclick="addRedirectBeforeSubmit('forgotPasswordForm'); processForgotPasswordForm('forgotPasswordForm')" />
         </form>
       </div>
     </div>
@@ -277,8 +281,9 @@
 </script>
 #if ($request.getSession().getAttribute('collab_user_has_registered'))
     <script type="text/javascript">
-        $request.getSession().removeAttribute('collab_user_has_registered')
-        pageTracker._trackPageview('/colab/$user.screenName/registered');
+// disabled in test env
+//        $request.getSession().removeAttribute('collab_user_has_registered')
+//        pageTracker._trackPageview('/colab/$user.screenName/registered');
     </script>
 #end
 
