@@ -761,6 +761,10 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -khtml-bor
 	.wf-active .popup_login { font-size:18px; }
 .popup_login-message { clear:both; margin:0 0 25px 0;}
 .popup_login_form { background:url(../images/popuplogin_back.gif) no-repeat; width:432px; height:271px; padding:10px 0 0 65px;}
+.popup_forgotpassword .popup_login_form { background:url(../images/popuplogin_back.gif) no-repeat; width:492px; height:271px; padding:10px 0 0 35px;}
+.popup_forgotpassword .popup_login_form p { margin: 0; }  
+.popup_forgotpassword .popup_login_form td { vertical-align: middle; }  
+
 .popuplogin_input { border:none; background:url(../images/popuplogin_input.gif) no-repeat; width:270px; height:27px; padding:2px 0 0 8px; font-size:13px; font-weight:400;}
 	.wf-active .popuplogin_input { font-size:15px; }
 .popuplogin_submit { background:#2f97b1; border:none; text-align:center; height:30px; margin:0 7px 0 82px; padding:0px 15px 0 15px; font-size:11px; letter-spacing:1px; color:#fff; cursor:pointer;
@@ -1052,6 +1056,7 @@ h3.noclr { color:#464646; }
 .popupreg_forgot { float:right; width:200px; font-size:16px; margin:32px 100px 0 0;}
 
 .error-message {background:#f9edd8; border:1px solid #e1a43b; padding:10px; margin:0 35px; color:#565656; font-size:18px;}
+.popup_forgotpassword .error-message {margin:0px; width: 410px; }
 
 
 
