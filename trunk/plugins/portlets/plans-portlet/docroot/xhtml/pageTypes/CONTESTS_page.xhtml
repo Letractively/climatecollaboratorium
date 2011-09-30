@@ -122,14 +122,24 @@
                 <f:convertDateTime pattern="MMMMM d"/>
             </ice:outputText>
         </f:subview>
+        
         <f:subview rendered="#{singleContest.plansIndex.contestPhase.status == 'FINISHED'}">
             <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />
-            #{singleContest.plansIndex.contestPhase.name} ends &amp;nbsp;
-            Contest ended &amp;nbsp;
+            #{singleContest.plansIndex.contestPhase.name} ended &amp;nbsp;
             <ice:outputText value="#{singleContest.plansIndex.contestPhase.endDate}">
                 <f:convertDateTime pattern="MMMMM d, yyyy"/>
             </ice:outputText>
         </f:subview>
+        
+                    
+            <f:subview rendered="#{! singleContest.plansIndex.contestPhase.contest.contest.active }">
+                <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />  
+                    Contest ended&amp;nbsp;
+                    <ice:outputText value="#{plansIndex.contestPhase.endDate}">
+                    <f:convertDateTime pattern="MMMMM yyyy"/>
+                </ice:outputText>
+            </f:subview>
+            
         </strong>
         </td>
         <td>
