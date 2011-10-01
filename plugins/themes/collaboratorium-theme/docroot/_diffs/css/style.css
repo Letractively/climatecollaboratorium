@@ -158,7 +158,7 @@ h5 { font-size:12px; font-style:normal; font-weight:600; color: #464646; margin:
 #submit { width:32px; height:29px; text-align:center; vertical-align:middle; background:url(../images/header_btn-go.png) no-repeat; border:none; cursor:pointer;  font-size:14px; font-weight:600; color:#fff;}
 #submit:hover { color:#000; }
 
-#hdr_signin { position:absolute; top:8px; left:643px; width:255px; height:330px; padding:60px 0 0 20px; background:url(../images/header_signin-box.png) no-repeat; color:#494949; font-size:14px; font-weight:400; visibility:hidden; }
+#hdr_signin { position:absolute; top:8px; left:643px; width:255px; height:185px; padding:60px 0 0 20px; background:url(../images/header_signin-box.png) no-repeat; color:#494949; font-size:14px; font-weight:400; visibility:hidden; }
 .hdr_signin a { font-size:12px; }
 .hdr_signinfield { width:222px; height:26px; border:none; background:url(../images/header_signin-input.png) no-repeat; font-size:14px; line-height:normal; padding:4px 0 0 4px;}
 .hdr_signinbutt { width:73px; height:28px; border:none; background:url(../images/header_signin-box-butt.png) no-repeat; vertical-align:middle; margin-left:10px; cursor:pointer;}
@@ -778,7 +778,7 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -khtml-bor
 	.wf-active .popuplogin_button a { font-size:13px; height:20px; padding:10px 15px 0 15px; }
 .popuplogin_button a:hover { color:#000;}
 
-.closepopuplogin { float:right; height:20px; width:20px; margin-right:10px;}
+.closepopuplogin { float:right; height:20px; width:20px; margin-right:40px;}
 
 .popuplogin_facebook { margin:30px 0 0 82px;}
 .popup_login .popuplogin_twitter { margin:30px 0 0 82px;}
