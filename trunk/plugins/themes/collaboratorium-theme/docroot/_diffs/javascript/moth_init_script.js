@@ -185,30 +185,42 @@ jQuery(document).ready(function() {
     	jQuery("#hdr_signin").show();
     });
     
-    jQuery("#hdr_signin #signInTopForm").mouseover(function() {
-    	jQuery("#hdr_signin").addClass("inputFocus");
+    jQuery("#hdr_signin").mouseover(function() {
+    	jQuery("#hdr_signin").show();
     });
     
-    jQuery("#hdr_signin #signInTopForm").mouseout(function() {
-    	jQuery("#hdr_signin").removeClass("inputFocus");
+    jQuery("#hdr_signin input, #hdr_signin a").focus(function() {
+    	jQuery("#hdr_signin").addClass('inFocus');
+    });
+
+    jQuery("#hdr_signin input, #hdr_signin a").blur(function(event) {
+        jQuery("#hdr_signin").removeClass('inFocus');
+	setTimeout(function() {tryHidingSigninForm(event)}, 100);
     });
     
     jQuery("#hdr_signin").mouseout(function(event) {
-    	console.log(event);
-    	// get hdr_signin height/width
-    	var offset = jQuery('#hdr_signin').offset();
-    	var left = offset.left;
-    	var top = offset.top;
-    	var bottom = top + jQuery('#hdr_signin').height();
-    	var right = left + jQuery('#hdr_signin').width();
-    	var pageX = event.pageX;
-    	var pageY = event.pageY;
-    	
-    	if (left <= pageX && pageX <= right && top <= pageY && pageY <= bottom) {
-    		return;
-    	}
-    	jQuery("#hdr_signin").hide();
+        tryHidingSigninForm(event);
     });
+
+    function tryHidingSigninForm(event) {
+        // if any of the inputs / links has focus, stay opened
+        if (jQuery("#hdr_signin").hasClass('inFocus')) return;
+
+        var offset = jQuery('#hdr_signin').offset();
+        var left = offset.left;
+        var top = offset.top;
+        var bottom = top + jQuery('#hdr_signin').height();
+        var right = left + jQuery('#hdr_signin').width();
+        var pageX = event.pageX;
+        var pageY = event.pageY;
+
+	// if cursor is over sign in form, return
+        if (left <= pageX && pageX <= right && top <= pageY && pageY <= bottom) {
+                return;
+        }
+
+	jQuery("#hdr_signin").hide();
+    }
 });
 
 function initSelectbox() {
