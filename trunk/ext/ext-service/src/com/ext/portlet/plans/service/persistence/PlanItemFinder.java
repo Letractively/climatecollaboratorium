@@ -37,4 +37,7 @@ public interface PlanItemFinder {
 
     public java.util.List<com.ext.portlet.plans.model.PlanPosition> getPlansPositions(
         java.util.List<com.ext.portlet.plans.model.Plan> plans);
+
+    public com.ext.portlet.plans.model.PlanItem findLatestVersion(
+        java.lang.Long planId);
 }

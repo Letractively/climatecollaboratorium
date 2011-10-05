@@ -66,6 +66,11 @@ public class PlanItemFinderUtil {
         return getFinder().getPlansPositions(plans);
     }
 
+    public static com.ext.portlet.plans.model.PlanItem findLatestVersion(
+        java.lang.Long planId) {
+        return getFinder().findLatestVersion(planId);
+    }
+
     public static PlanItemFinder getFinder() {
         return _finder;
     }

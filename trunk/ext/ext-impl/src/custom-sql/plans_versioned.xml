@@ -126,4 +126,16 @@
             ORDER BY SORT_COLUMNS_PLACEHOLDER
         ]]>
     </sql>
+    
+    <sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getLatestPlanVersion">
+        <![CDATA[
+            SELECT 
+                {PlanItem.*}
+            FROM 
+                PlanItem 
+            WHERE 
+                planId = ? 
+            ORDER BY version DESC
+        ]]>
+    </sql>
 </custom-sql>

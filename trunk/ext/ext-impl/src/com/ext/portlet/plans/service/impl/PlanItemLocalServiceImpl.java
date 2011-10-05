@@ -505,7 +505,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     }
 
     public PlanItem getPlan(Long planId) throws NoSuchPlanItemException, SystemException {
-        return this.planItemPersistence.findByPlanId(planId);
+        return this.planItemFinder.findLatestVersion(planId);
     }
 
     public List<PlanItem> getPlans(Map sessionMap, Map requestMap, PlanType planType, ContestPhase phase, int start,

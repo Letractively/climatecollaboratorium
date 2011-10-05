@@ -111,6 +111,11 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      * Name of custom SQL statement that is responsible for retrieval of user vote position.
      */
     public static final String GET_PLANS_POSITIONS = PlanItemFinderImpl.class.getName() + ".getPlansPositions";
+    
+    /**
+     * Name of custom SQL statement that is responsible for retrieval of latest plan version for given id;
+     */
+    public static final String GET_LATEST_VERSION_OF_PLAN = PlanItemFinderImpl.class.getName() + ".getLatestPlanVersion";
 
     /**
      * Position of published parameter in custom queries.
@@ -659,6 +664,23 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
 //        return (List<PlanPosition>) query.list();
         return Collections.emptyList();
     }
+    
+
+    public PlanItem findLatestVersion(Long planId) {
+        Session session = openSession();
+
+        String sql = CustomSQLUtil.get(GET_LATEST_VERSION_OF_PLAN);
+
+        SQLQuery query = session.createSQLQuery(sql);
+
+        query.addEntity("PlanItem", PlanItemImpl.class);
+        query.setLong(0, planId);
+
+        List<PlanItem> ret =  (List<PlanItem>) QueryUtil.list(query, getDialect(), 0, 1);
+        
+        return ret.isEmpty() ? null : ret.get(0);
+        
+    }
 
     /**
      * Method responsible for adding position filtering and sorting
@@ -881,4 +903,5 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
     private String getPrefixedColumn(String column, String prefix) {
         return prefix + column;
     }
+    
 }
