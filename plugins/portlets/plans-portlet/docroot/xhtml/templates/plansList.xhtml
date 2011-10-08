@@ -4,12 +4,12 @@
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets">
-    <ice:dataTable value="#{plansIndex.plans}" styleClass="colab prohome" rowClasses="nt,t" columnClasses="ng,g"
+    <ice:dataTable value="#{multiContest ? plansIndex.plansMultiContestPage : plansIndex.plans}" styleClass="colab prohome" rowClasses="nt,t" columnClasses="ng,g"
                    var="singlePlan" sortColumn="#{plansIndex.sortColumn}"
                    sortAscending="#{plansIndex.sortAscending}" id="plansIndexTable"
                    rows="#{maxRows}" headerClasses="ng,g">
                    
-        <ice:column rendered="#{plansIndex.contestPhase.canVote or plansIndex.contestPhase.active}">
+        <ice:column>
             
             <f:facet name="header">
                 <div>
@@ -22,28 +22,42 @@
                     </ice:commandSortHeader>
                 </div>
             </f:facet>
+                <table class="ribbonsAndPlanName"><tr><td class="planRibbonsContainer">
+                <f:subview rendered="#{not plansIndex.contestPhase.active and singlePlan.place gt 0}">
+                    <div class="ribbon-hover planPlace place_#{singlePlan.place}">
+                    </div>
+                    <div class="popup-info-box hidden">
+                        <ice:outputText rendered="#{singlePlan.place == 1}">
+                          Finalist: Proposal that went on to the voting round of the contest.
+                        </ice:outputText>
+                        <ice:outputText rendered="#{singlePlan.place == 2}">
+                          Honorable mention: Team undertook diligent work in its proposal and raised awareness of the Climate CoLab.
+                        </ice:outputText>
+
+                    </div>
+                </f:subview>
                 <f:subview rendered="#{singlePlan.ribbon != null and singlePlan.ribbon > 0}">
                     <div class="ribbon-hover planRibbon ribbon_#{singlePlan.ribbon}">
                     </div>
                     <div class="popup-info-box hidden">
-                        #{singlePlan.ribbonText}
                     </div>
                 </f:subview>
+                
                     <div class="scrapbookProposal">
                         <f:subview rendered="#{singlePlan.scrapbook}">
                             <img src="/collaboratorium-theme/images/scrapbook_icon.png"  class="scrapbook_icon" width="20px" height="20px" />
-                    
-                            <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" escape="true" />
                         </f:subview>
                     </div>
                     <div class="popup-info-box hidden">
                         Scrapbook of ideas and images - please add to it!
                     </div>
-                <f:subview rendered="#{not singlePlan.scrapbook}">
+                </td>
+                <td>
                     <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" escape="true" />
-                </f:subview>
-                by&amp;nbsp;
-                <collab:userLinkSimple userId="#{singlePlan.author.userId}" text="#{singlePlan.author.screenName}" />
+                    by&amp;nbsp;
+                    <collab:userLinkSimple userId="#{singlePlan.author.userId}" text="#{singlePlan.author.screenName}" />
+                </td>
+                </tr></table>
      
         </ice:column>
         
@@ -71,6 +85,7 @@
                     </ice:commandSortHeader>
                 </div>
             </f:facet>
+            <!-- 
             <ice:panelGroup rendered="#{column == 'NAME'}" styleClass="table-cell-padding #{column}">
                 <f:subview rendered="#{not plansIndex.contestPhase.active}">
                     <div class="ribbon-hover planPlace place_#{singlePlan.place}">
@@ -95,6 +110,7 @@
                 
                 <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.columnValues[column]}" escape="true" />
             </ice:panelGroup>
+             -->
             <ice:panelGroup rendered="#{column == 'POSITIONS' and !singlePlan.hasPositions}"
                             styleClass="table-cell-padding #{column}">
                 N/A
