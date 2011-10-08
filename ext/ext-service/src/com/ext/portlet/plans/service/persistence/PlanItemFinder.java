@@ -3,6 +3,9 @@ package com.ext.portlet.plans.service.persistence;
 public interface PlanItemFinder {
     public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlans();
 
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlansForPhase(
+        java.lang.Long phaseId);
+
     public void removePlanWithHistory(long planId);
 
     public int countVotesForPlanType(com.ext.portlet.plans.model.PlanType type);

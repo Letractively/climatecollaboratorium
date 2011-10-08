@@ -7,6 +7,11 @@ public class PlanItemFinderUtil {
         return getFinder().getPlans();
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlansForPhase(
+        java.lang.Long phaseId) {
+        return getFinder().getPlansForPhase(phaseId);
+    }
+
     public static void removePlanWithHistory(long planId) {
         getFinder().removePlanWithHistory(planId);
     }
