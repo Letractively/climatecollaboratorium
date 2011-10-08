@@ -86,6 +86,20 @@
                             </td>
                         </tr>
                         <f:subview rendered="#{planCopyTool.readyForCopy}">
+                            <ice:dataTable value="#{planCopyTool.planCopyItems}" var="copyItem">
+                                <ice:column>
+                                    <f:facet name="header">Id</f:facet>
+                                    #{copyItem.planId}
+                                </ice:column>
+                                <ice:column>
+                                    <f:facet name="header">Plan name</f:facet>
+                                    #{copyItem.planName}
+                                </ice:column>
+                                <ice:column>
+                                    <f:facet name="header">Copy</f:facet>
+                                    <ice:selectBooleanCheckbox value="#{copyItem.selected}" /> 
+                                </ice:column>
+                            </ice:dataTable>
                             <tr>
                                 <td colspan="2">
                                     <ice:commandButton actionListener="#{planCopyTool.copy}" value="Copy" />

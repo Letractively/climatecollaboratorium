@@ -44,7 +44,7 @@ public class NavigationBean {
         try {
             plansPermissionsBean = new PlansPermissionsBean();
             contestBean = new ContestBean(params);
-            plansIndexBean = new PlansIndexBean(contestBean.getCurrentPhase());
+            plansIndexBean = contestBean.getPlansIndex();
             
             planBean = new PlanBean(params, plansPermissionsBean);
             issuesBean = new IssuesBean();

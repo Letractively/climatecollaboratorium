@@ -101,6 +101,7 @@ public class ContestBean {
                 _log.error("Error when parsing phase id: " + params.get(PHASE_PARAM), e);
             }
         }
+        //contest.init(this, event);
     }
     
 
@@ -147,5 +148,9 @@ public class ContestBean {
     
     public boolean getHasModel() throws PortalException, SystemException {
         return contest.getHasModel();
+    }
+    
+    public PlansIndexBean getPlansIndex() {
+        return contest.getPlansIndex();
     }
 }

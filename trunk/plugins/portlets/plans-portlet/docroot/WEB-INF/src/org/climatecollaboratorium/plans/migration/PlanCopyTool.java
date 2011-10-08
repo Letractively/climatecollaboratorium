@@ -27,6 +27,8 @@ public class PlanCopyTool {
     private Long targetContestPhase;
     private List<SelectItem> availableContestPhases = new ArrayList<SelectItem>();
     private boolean readyForCopy;
+
+    private List<PlanCopyItem> planCopyItems;
     
     public PlanCopyTool() throws PortalException, SystemException {
         availableContestPhases.add(new SelectItem(-1, "-- Select --"));
@@ -78,6 +80,12 @@ public class PlanCopyTool {
                 }
                 else {
                     readyForCopy = true;
+                    planCopyItems = new ArrayList<PlanCopyItem>();
+                    for (PlanItem plan: sourcePhase.getPlans()) {
+                        if (plan.getVersion() > 1 && !plan.getState().equals("DELETED")) {
+                            planCopyItems.add(new PlanCopyItem(plan));
+                        }
+                    }
                 }
             }
             else {
@@ -87,6 +95,11 @@ public class PlanCopyTool {
         else {
             readyForCopy = false;
         }
+    }
+    
+    
+    public List<PlanCopyItem> getPlanCopyItems() {
+        return planCopyItems;
     }
     
     public void copy(ActionEvent e) throws PortalException, SystemException {
@@ -100,13 +113,23 @@ public class PlanCopyTool {
             return;
         }
         
-        Set<Long> plansToBeCopiedIds = new HashSet<Long>();
+        //Set<Long> plansToBeCopiedIds = new HashSet<Long>();
         List<PlanItem> plansToBeCopied = new ArrayList<PlanItem>();
+        /*
         for (PlanItem plan: PlanItemLocalServiceUtil.getPlanItems(0, Integer.MAX_VALUE)) {
-            if (plan.getContestPhase().getContestPhasePK().equals(sourceContestPhase) && ! plansToBeCopiedIds.contains(plan.getPlanId())) {
+            if (plan.getContestPhase() != null && 
+                    plan.getContestPhase().getContestPhasePK().equals(sourceContestPhase) && 
+                    ! plansToBeCopiedIds.contains(plan.getPlanId()) && 
+                    plan.getVersion() > 1 && 
+                    !plan.getState().equals("DELETED")) {
                 // get latest version of a plan
                 plansToBeCopied.add(PlanItemLocalServiceUtil.getPlan(plan.getPlanId()));
                 plansToBeCopiedIds.add(plan.getPlanId());
+            }
+        }*/
+        for (PlanCopyItem item: planCopyItems) {
+            if (item.isSelected()) {
+                plansToBeCopied.add(item.getPlan());
             }
         }
         

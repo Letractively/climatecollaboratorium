@@ -13,21 +13,16 @@
         xmlns:collab="http://climatecollaboratorium.org/facelets"
         xmlns:sharedcollab="http://climatecollaboratorium.org/components">
 
-		<ice:panelGroup styleClass="hidden" >
-			#{contests}
-			<script type="text/javascript">
-				initializeColumnsInfo();
-			</script>
-		</ice:panelGroup>
+<ice:panelGroup styleClass="hidden" >
+  #{contests}
+  <script type="text/javascript">
+    initializeColumnsInfo();
+  </script>
+</ice:panelGroup>
 <ui:composition template="../templates/singlePageWithBreadcrumb.xhtml">
-
-<ui:define name="plans_content">
-
-
-<ice:panelSeries value="#{contests.contests}" var="singleContest" varStatus="status">
+  <ui:define name="plans_content">
+  <ice:panelSeries value="#{contests.contests}" var="singleContest" varStatus="status">
     <ice:form>
-
-
         <ice:panelGroup styleClass="protitle" rendered="#{not singleContest.editor.editing}">
             <f:subview rendered="#{singleContest.contestActive}">
                 <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
@@ -107,7 +102,6 @@
             <f:subview rendered="#{singleContest.contestActive}">
 
     <ice:form>
-
 
     <div id="pro-info">
         <table width="100%">
