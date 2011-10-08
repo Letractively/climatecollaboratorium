@@ -49,8 +49,15 @@
                     FROM PlanItem
                     GROUP BY PlanItem.planId
                 ) as t2
-                ON (PlanItem.id_ = t2.itemId)
-                WHERE PlanItem.state = 'ACTIVE'AND PlanItem.contestPhase = ?
+                ON (PlanItem.id_ = t2.itemId),
+                PlanMeta pm
+            WHERE 
+                PlanItem.state = 'ACTIVE' AND 
+                (pm.contestPhase = ?) AND 
+                pm.planId = PlanItem.planId
+                
+            GROUP BY pm.planId
+            ORDER BY PlanItem.id_ DESC
         ]]>
 
 </sql>
