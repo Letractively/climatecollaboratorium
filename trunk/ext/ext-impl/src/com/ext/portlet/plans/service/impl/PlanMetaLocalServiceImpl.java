@@ -28,8 +28,8 @@ public class PlanMetaLocalServiceImpl extends PlanMetaLocalServiceBaseImpl {
 
 
             PlanType type = PlanTypeLocalServiceUtil.getPlanType(planTypeId);
-            List<Simulation> models = type.getAvailableModels();
-            if (models.size() > 0) planMeta.setModelId(models.get(0).getId());
+            /*List<Simulation> models = type.getAvailableModels();
+            if (models.size() > 0) planMeta.setModelId(models.get(0).getId());*/
         planMeta.setPlanVersion(plan.getVersion());
         planMeta.setCreated(new Date());
         planMeta.setVotes(0);

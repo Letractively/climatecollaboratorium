@@ -45,14 +45,14 @@ public class PlanItemTest extends BaseCollabTest {
     private PlanItem plan;
     
     public void setUp() {
-        name = String.valueOf(rand.nextLong());
+        name = String.valueOf(rand.nextLong());/*
         try {
-            plan = PlanItemLocalServiceUtil.createPlan(defaultPlanTypeId, defaultAuthorId);
+            /*plan = PlanItemLocalServiceUtil.createPlan(defaultPlanTypeId, defaultAuthorId);
         } catch (SystemException e) {
             e.printStackTrace();
         } catch (PortalException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        }*/
     }
     
     public void tearDown() {
@@ -68,7 +68,7 @@ public class PlanItemTest extends BaseCollabTest {
     public void testCreation() throws SystemException, PortalException {
         // plans before
         List<PlanItem> plansBefore = PlanItemLocalServiceUtil.getPlans();
-        PlanItem plan = PlanItemLocalServiceUtil.createPlan(defaultPlanTypeId, defaultAuthorId);
+        PlanItem plan = null;//PlanItemLocalServiceUtil.createPlan(defaultPlanTypeId, defaultAuthorId);
         
         // check if version is properly set
         assertEquals(new Long(0), plan.getVersion());
