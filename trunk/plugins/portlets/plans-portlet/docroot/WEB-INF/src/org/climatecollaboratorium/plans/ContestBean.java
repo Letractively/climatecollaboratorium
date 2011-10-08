@@ -108,9 +108,14 @@ public class ContestBean {
     public void initModels() throws SystemException, PortalException, NumberFormatException, IOException {
         modelId = contest.getContest().getPlanType().getDefaultModelId();
             availableModels.clear();
+            try {
             for (Simulation sim:contest.getContest().getPlanType().getAvailableModels()) {
 
                 availableModels.add(new SelectItem(sim.getId(), sim.getName()));
+            }
+            }
+            catch (Exception e) {
+                _log.error(e);
             }
     }
 

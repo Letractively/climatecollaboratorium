@@ -318,6 +318,13 @@ public class PlansIndexBean {
 
         }));
     }
+    
+    public List<PlanIndexItemWrapper> getPlansMultiContestPage() throws SystemException, PortalException {
+        if (contestPhase.getContest().isContestActive()) {
+            return getPlans();
+        }
+        return null;
+    }
 
     public List<PlanIndexItemWrapper> getPlans() throws SystemException, PortalException {
         if (contestPhase == null) {

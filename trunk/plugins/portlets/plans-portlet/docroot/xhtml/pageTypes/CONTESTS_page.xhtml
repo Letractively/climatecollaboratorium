@@ -107,7 +107,7 @@
         <table width="100%">
         <tr>
         <td>
-        <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{singleContest.plansIndex.plansCount}</span> proposals
+        <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{singleContest.contestActive ? singleContest.plansIndex.plansCount : 0}</span> proposals
         <strong>
         <f:subview rendered="#{singleContest.plansIndex.contestPhase.status != 'FINISHED' and singleContest.plansIndex.contestPhase.endDate != null}">
             <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />
@@ -208,6 +208,7 @@
                 <ui:decorate template="../templates/plansList.xhtml">
                     <ui:param name="plansIndex" value="#{singleContest.plansIndex}" />
                     <ui:param name="maxRows" value="#{preferences.maxProposalsPerContest[singleContest.contest.contestPK]}" />
+                    <ui:param name="multiContest" value="true" />
                 </ui:decorate>
             
 

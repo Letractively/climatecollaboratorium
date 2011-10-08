@@ -1264,3 +1264,12 @@ h1.planDetailsSection {
 	height: 44px;
 	font: 12px/20px Verdana, sans-serif;
 }
+
+.planRibbonsContainer {
+	width: 22px;
+	vertical-align: top;
+}
+
+table.ribbonsAndPlanName td {
+	padding: 0;
+}
