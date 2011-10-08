@@ -22,6 +22,7 @@ import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUt
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanItemException;
+import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.PlanLocalServiceHelper;
 import com.ext.portlet.plans.TypedValueConverter;
 import com.ext.portlet.plans.UpdateType;
@@ -163,7 +164,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
      *            Id of user that is creating new plan
      * @deprecated Should use contest enabled plans
      */
-    public PlanItem createPlan(Long planTypeId, Long authorId) throws SystemException, PortalException {
+    private PlanItem createPlan(Long planTypeId, Long authorId) throws SystemException, PortalException {
         long planItemId = CounterLocalServiceUtil.increment(PlanItem.class.getName());
         long planId = CounterLocalServiceUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
 
@@ -185,7 +186,6 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         PlanPositionsLocalServiceUtil.createPlanPositions(planItem);
 
         // create community, Message Boards category
-        initPlan(planItem);
 
         /* update/create all attributes */
         // planItem.updateAllAttributes();
@@ -261,6 +261,9 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
         PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
         PlanPositions planPositions = PlanPositionsLocalServiceUtil.getCurrentForPlan(plan);
+        
+
+        initPlan(plan);
 
         // copy description
         description.setDescription(basePlan.getDescription());
@@ -286,12 +289,22 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         if (basePlan.getScenarioId() != null) {
             // update all attributes
             plan.updateAllAttributes();
-        } else {
-            // update only attributes related to new values
-            plan.updateAttribute(Attribute.DESCRIPTION.name());
-            plan.updateAttribute(Attribute.POSITIONS.name());
-            plan.updateAttribute(Attribute.LAST_MOD_DATE.name());
+        } 
+        // update only attributes related to new values
+        plan.updateAttribute(Attribute.DESCRIPTION.name());
+        plan.updateAttribute(Attribute.POSITIONS.name());
+        plan.updateAttribute(Attribute.LAST_MOD_DATE.name());
+        // set abstract and pitch
+        Attribute[] attributesToCopy = {Attribute.ABSTRACT, Attribute.LAST_MOD_DATE, Attribute.SCRAPBOOK, 
+                Attribute.SUBREGION, Attribute.REGION};
+        
+        for (Attribute attr: attributesToCopy) {
+            PlanAttribute pa = basePlan.getPlanAttribute(attr.name());
+            if (pa != null) {
+                plan.setAttribute(pa.getAttributeName(), pa.getAttributeValue());
+            }
         }
+        
 
         return plan;
     }

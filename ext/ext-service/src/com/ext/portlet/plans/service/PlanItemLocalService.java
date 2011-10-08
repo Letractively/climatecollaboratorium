@@ -84,11 +84,6 @@ public interface PlanItemLocalService {
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanItem createPlan(
-        java.lang.Long planTypeId, java.lang.Long authorId)
-        throws com.liferay.portal.PortalException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.plans.model.PlanItem createPlan(
         com.ext.portlet.plans.model.PlanItem basePlan, java.lang.Long authorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
