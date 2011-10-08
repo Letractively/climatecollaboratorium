@@ -6,6 +6,7 @@
 
 package org.climatecollaboratorium.plans.wrappers;
 
+import com.ext.portlet.contests.NoSuchContestPhaseException;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
@@ -20,6 +21,8 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.navigation.NavigationEvent;
+import org.climatecollaboratorium.plans.ContestBean;
 import org.climatecollaboratorium.plans.CreatePlanBean;
 import org.climatecollaboratorium.plans.PlansIndexBean;
 
@@ -316,6 +319,10 @@ public class ContestWrapper {
 
     public CreatePlanBean getCreatePlanBean() {
         return createPlanBean;
+    }
+
+    public void init(ContestBean contestBean, NavigationEvent event) throws NoSuchContestPhaseException, PortalException, SystemException {
+        plansIndex.init(contestBean.getCurrentPhase(), event);
     }
     
     

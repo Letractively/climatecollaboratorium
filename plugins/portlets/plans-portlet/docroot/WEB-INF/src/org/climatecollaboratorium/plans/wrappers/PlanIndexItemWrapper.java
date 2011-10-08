@@ -67,7 +67,8 @@ public class PlanIndexItemWrapper {
                     }
                 }
                 if (positionFromDebateSelected) {
-                    questions.add(new DebateQuestionWrapper(wrapped.getContest(),d.getCurrentRoot(), planPositionsIds));
+                    questions
+                            .add(new DebateQuestionWrapper(wrapped.getContest(), d.getCurrentRoot(), planPositionsIds));
                 }
             }
         }
@@ -78,8 +79,8 @@ public class PlanIndexItemWrapper {
         List<Long> positions = null;
         try {
             positions = wrapped.getPositionsIds();
-        } catch(Exception e) {
-            log.error("Error retrieving plan positions for "+wrapped.getName(),e);
+        } catch (Exception e) {
+            log.error("Error retrieving plan positions for " + wrapped.getName(), e);
         }
         return positions != null && positions.size() > 0;
     }
@@ -95,7 +96,7 @@ public class PlanIndexItemWrapper {
     public Long getPlanId() {
         return wrapped.getPlanId();
     }
-    
+
     public User getAuthor() throws PortalException, SystemException {
         return wrapped.getAuthor();
     }
@@ -103,7 +104,7 @@ public class PlanIndexItemWrapper {
     public Long getContestPhaseId() throws SystemException, PortalException {
         return wrapped.getContestPhase().getContestPhasePK();
     }
-    
+
     public Long getContestId() throws PortalException, SystemException {
         return wrapped.getContest().getContestPK();
     }
@@ -119,52 +120,56 @@ public class PlanIndexItemWrapper {
     public void vote(ActionEvent e) throws PortalException, SystemException {
         PlanActivityKeys activityKey = PlanActivityKeys.VOTE_FOR_PLAN;
 
-
         if (Helper.isUserLoggedIn()) {
             if (isVotedOn()) {
                 wrapped.unvote(Helper.getLiferayUser().getUserId());
                 activityKey = PlanActivityKeys.RETRACT_VOTE_FOR_PLAN;
             } else {
                 try {
-                    if (PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId(), wrapped.getContest().getContestPK()) != null) {
+                    if (PlanVoteLocalServiceUtil.getPlanVote(Helper.getLiferayUser().getUserId(), wrapped.getContest()
+                            .getContestPK()) != null) {
                         activityKey = PlanActivityKeys.SWICTH_VOTE_FOR_PLAN;
                     }
-                   
-                }
-                catch (Throwable ex) {
-                    // backend can throw no such vote exception, it should be ignored as this is a normal case
+
+                } catch (Throwable ex) {
+                    // backend can throw no such vote exception, it should be
+                    // ignored as this is a normal case
                 }
                 wrapped.vote(Helper.getLiferayUser().getUserId());
             }
         }
-        SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                PlanItem.class.getName(), wrapped.getPlanId(), activityKey.id(),null, 0);
+        SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), PlanItem.class.getName(),
+                wrapped.getPlanId(), activityKey.id(), null, 0);
         plansIndexBean.refresh();
     }
-    
+
     public Integer getPlace() throws SystemException {
         PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_PLACE.name());
         return attr != null ? (Integer) attr.getTypedValue() : -1;
     }
-    
-    
+
     public Integer getRibbon() throws SystemException {
         PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_RIBBON.name());
         try {
             return attr != null ? Integer.parseInt(attr.getAttributeValue()) : null;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return null;
         }
     }
-    
+
     public String getRibbonText() throws SystemException {
         PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.PLAN_RIBBON_TEXT.name());
         return attr != null ? attr.getAttributeValue() : null;
     }
-    
+
+
     public boolean isScrapbook() throws SystemException {
-        return wrapped.getPlanAttribute("SCRAPBOOK") != null;
+        PlanAttribute pa = wrapped.getPlanAttribute("SCRAPBOOK");
+        if (pa == null ||! pa.getAttributeValue().equals("true")) {
+            return false;
+        }
+        return true;
     }
     
+
 }

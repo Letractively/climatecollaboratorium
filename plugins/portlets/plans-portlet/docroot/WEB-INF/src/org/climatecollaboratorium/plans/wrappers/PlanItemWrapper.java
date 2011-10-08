@@ -767,7 +767,11 @@ public class PlanItemWrapper {
     }
     
     public boolean isScrapbook() throws SystemException {
-        return wrapped.getPlanAttribute("SCRAPBOOK") != null;
+        PlanAttribute pa = wrapped.getPlanAttribute("SCRAPBOOK");
+        if (pa == null ||! pa.getAttributeValue().equals("true")) {
+            return false;
+        }
+        return true;
     }
     
     public void toggleScrapbook(ActionEvent e) throws SystemException {
