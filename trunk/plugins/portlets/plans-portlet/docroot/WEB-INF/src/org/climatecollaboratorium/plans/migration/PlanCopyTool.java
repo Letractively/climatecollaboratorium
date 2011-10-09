@@ -20,6 +20,9 @@ import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
 import com.sun.facelets.FaceletContext;
 
 public class PlanCopyTool {
@@ -134,7 +137,11 @@ public class PlanCopyTool {
         }
         
         // create new plan in new contest phase
+        System.out.println("Plans to copy: " + plansToBeCopied.size());
+        int count = 0;
         for (PlanItem plan: plansToBeCopied) {
+            count++;
+            System.out.println("Copying plan " + count + " of " + plansToBeCopied.size());
             PlanItem newPlan = PlanItemLocalServiceUtil.createPlan(plan, targetPhase, plan.getAuthorId());
             newPlan.setName(plan.getName(), plan.getAuthorId());
             
@@ -157,8 +164,15 @@ public class PlanCopyTool {
             // update plan version
             newPlan.setVersion(2L);
             newPlan.store();
+
+            long[] userIds = UserLocalServiceUtil.getGroupUserIds(plan.getPlanGroupId());
+            UserLocalServiceUtil.addGroupUsers(newPlan.getPlanGroupId(), userIds);
+            
+            
             
         }
+        
+        System.out.println("Plans copied");
         
         
         ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Plans copied", ""));
