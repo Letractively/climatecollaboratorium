@@ -272,7 +272,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         // copy scenario id
         // check if there is a scenario with given ID
         try {
-            if (CollaboratoriumModelingService.repository().getScenario(basePlan.getScenarioId()) != null) {
+            if (basePlan.getScenarioId() != null && CollaboratoriumModelingService.repository().getScenario(basePlan.getScenarioId()) != null) {
                 planModelRun.setScenarioId(basePlan.getScenarioId());
 
             }
