@@ -85,8 +85,17 @@
                                 </ice:selectOneMenu>
                             </td>
                         </tr>
+                            
                         <f:subview rendered="#{planCopyTool.readyForCopy}">
-                            <ice:dataTable value="#{planCopyTool.planCopyItems}" var="copyItem">
+                        
+                            Add plan advanced to next phase ribbon: <ice:selectBooleanCheckbox value="#{planCopyTool.addSemiFinalistRibbon}" partialSubmit="true" /> <br />
+                            <f:subview rendered="#{planCopyTool.addSemiFinalistRibbon}">
+                                Ribbon text <ice:inputText value="#{planCopyTool.planAdvancedText}" />
+                            </f:subview>
+                            <br /><br />
+                             <button onclick="jQuery('.planCopyItemsTbl input[type=checkbox]').attr('checked', 'true')">Select all</button>
+                             
+                            <ice:dataTable value="#{planCopyTool.planCopyItems}" var="copyItem" styleClass="planCopyItemsTbl">
                                 <ice:column>
                                     <f:facet name="header">Id</f:facet>
                                     #{copyItem.planId}

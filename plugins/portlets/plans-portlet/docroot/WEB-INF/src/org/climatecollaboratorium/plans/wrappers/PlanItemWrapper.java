@@ -693,13 +693,15 @@ public class PlanItemWrapper {
     
     public void markAsSemiFinalist(ActionEvent e) throws PortalException, SystemException {
         if (permissions.getCanAdminAll()) {
-            wrapped.setPlace(2);
+            wrapped.setRibbon(3);
+            wrapped.setRibbonText("Plan advanced to next phase");
         }
     }
     
     public void removeSemiFinalistRibbon(ActionEvent e) throws PortalException, SystemException {
         if (permissions.getCanAdminAll()) {
-            wrapped.removePlace();
+            wrapped.setRibbon(null);
+            wrapped.setRibbonText(null);
         }
     }    
     
