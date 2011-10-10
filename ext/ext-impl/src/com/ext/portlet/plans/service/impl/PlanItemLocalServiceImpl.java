@@ -255,6 +255,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         }
 
         PlanItem plan = createPlan(contestPhase.getContest().getPlanType().getPlanTypeId(), authorId);
+        
+        plan.setUpdated(basePlan.getUpdated());
+        plan.store();
+        
         plan.getPlanMeta().setContestPhase(contestPhase.getContestPhasePK());
         plan.getPlanMeta().setModelId(basePlan.getPlanMeta().getModelId());
         PlanMetaLocalServiceUtil.updatePlanMeta(plan.getPlanMeta());
@@ -262,11 +266,13 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
         PlanPositions planPositions = PlanPositionsLocalServiceUtil.getCurrentForPlan(plan);
         
+        
 
         initPlan(plan);
 
         // copy description
         description.setDescription(basePlan.getDescription());
+        description.setName(basePlan.getName());
         description.store();
 
         // copy scenario id
@@ -291,12 +297,23 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             plan.updateAllAttributes();
         } 
         // update only attributes related to new values
+        
         plan.updateAttribute(Attribute.DESCRIPTION.name());
+        plan.updateAttribute(Attribute.NAME.name());
         plan.updateAttribute(Attribute.POSITIONS.name());
         plan.updateAttribute(Attribute.LAST_MOD_DATE.name());
+        plan.updateAttribute(Attribute.IS_PLAN_OPEN.name());
+        plan.updateAttribute(Attribute.SEEKING_ASSISTANCE.name());
+        plan.updateAttribute(Attribute.STATUS.name());
+        
+        if (basePlan.getOpen()) {
+            plan.getPlanMeta().setOpen(true);
+            plan.getPlanMeta().store();
+        }
+        
         // set abstract and pitch
         Attribute[] attributesToCopy = {Attribute.ABSTRACT, Attribute.LAST_MOD_DATE, Attribute.SCRAPBOOK, 
-                Attribute.SUBREGION, Attribute.REGION};
+                Attribute.SUBREGION, Attribute.REGION, Attribute.SEEKING_ASSISTANCE, Attribute.IS_PLAN_OPEN};
         
         for (Attribute attr: attributesToCopy) {
             PlanAttribute pa = basePlan.getPlanAttribute(attr.name());

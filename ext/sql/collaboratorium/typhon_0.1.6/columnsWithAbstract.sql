@@ -5,9 +5,10 @@ UPDATE ContestPhase set phaseActive = 0 WHERE ContestPhasePK = 8;
 
 
 delete from ContestPhaseColumn WHERE ContestPhasePK = 10;
-insert into ContestPhaseColumn Values(101, 10, 'CREATOR', 10, 0);
 insert into ContestPhaseColumn Values(102, 10, 'ABSTRACT', 20, 0);
 insert into ContestPhaseColumn Values(103, 10, 'SUPPORTERS', 30, 0);
+insert into ContestPhaseColumn Values(104, 10, 'COMMENTS', 40, 0);
+insert into ContestPhaseColumn Values(105, 10, 'UPDATE_DATE', 50, 0);
 
 
 delete from ContestPhase where ContestPhasePK = 11;
@@ -16,8 +17,10 @@ INSERT INTO `ContestPhase` (`ContestPhasePK`, `ContestPK`, `ContestPhaseName`, `
 UPDATE ContestPhase set phaseActive = 0 WHERE ContestPhasePK = 9;
 
 delete from ContestPhaseColumn WHERE ContestPhasePK = 11;
-insert into ContestPhaseColumn Values(111, 11, 'CREATOR', 10, 0);
-insert into ContestPhaseColumn Values(112, 11, 'ABSTRACT', 20, 0);
-insert into ContestPhaseColumn Values(113, 11, 'SUPPORTERS', 30, 0);
+insert into ContestPhaseColumn Values(111, 11, 'REGION', 10, 0);
+insert into ContestPhaseColumn Values(112, 11, 'SUBREGION', 20, 0);
+insert into ContestPhaseColumn Values(113, 11, 'ABSTRACT', 30, 0);
+insert into ContestPhaseColumn Values(114, 11, 'SUPPORTERS', 40, 0);
+insert into ContestPhaseColumn Values(115, 11, 'COMMENTS', 50, 0);
+insert into ContestPhaseColumn Values(116, 11, 'UPDATE_DATE', 60, 0);
 
-delete from ContestPhaseColumn WHERE ColumnName = 'NAME';
