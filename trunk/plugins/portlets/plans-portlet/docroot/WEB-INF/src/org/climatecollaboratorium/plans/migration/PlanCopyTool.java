@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
@@ -30,6 +31,8 @@ public class PlanCopyTool {
     private Long targetContestPhase;
     private List<SelectItem> availableContestPhases = new ArrayList<SelectItem>();
     private boolean readyForCopy;
+    private boolean addSemiFinalistRibbon;
+    private String planAdvancedText = "Plan advanced to next phase";
 
     private List<PlanCopyItem> planCopyItems;
     
@@ -143,7 +146,7 @@ public class PlanCopyTool {
             count++;
             System.out.println("Copying plan " + count + " of " + plansToBeCopied.size());
             PlanItem newPlan = PlanItemLocalServiceUtil.createPlan(plan, targetPhase, plan.getAuthorId());
-            newPlan.setName(plan.getName(), plan.getAuthorId());
+            //newPlan.setName(plan.getName(), plan.getAuthorId());
             
             // copy fans
             for (PlanFan planFan: plan.getFans()) {
@@ -168,6 +171,10 @@ public class PlanCopyTool {
             long[] userIds = UserLocalServiceUtil.getGroupUserIds(plan.getPlanGroupId());
             UserLocalServiceUtil.addGroupUsers(newPlan.getPlanGroupId(), userIds);
             
+            if (addSemiFinalistRibbon) {
+                plan.setRibbon(3);
+                plan.setRibbonText(planAdvancedText);
+            }
             
             
         }
@@ -178,6 +185,22 @@ public class PlanCopyTool {
         ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Plans copied", ""));
         
         return;
+    }
+
+    public void setAddSemiFinalistRibbon(boolean addSemiFinalistRibbon) {
+        this.addSemiFinalistRibbon = addSemiFinalistRibbon;
+    }
+
+    public boolean isAddSemiFinalistRibbon() {
+        return addSemiFinalistRibbon;
+    }
+
+    public void setPlanAdvancedText(String planAdvancedText) {
+        this.planAdvancedText = planAdvancedText;
+    }
+
+    public String getPlanAdvancedText() {
+        return planAdvancedText;
     }
     
 

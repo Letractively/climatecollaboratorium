@@ -23,34 +23,38 @@
                 </div>
             </f:facet>
                 <table class="ribbonsAndPlanName"><tr><td class="planRibbonsContainer">
-                <f:subview rendered="#{not plansIndex.contestPhase.active and singlePlan.place gt 0}">
-                    <div class="ribbon-hover planPlace place_#{singlePlan.place}">
-                    </div>
-                    <div class="popup-info-box hidden">
-                        <ice:outputText rendered="#{singlePlan.place == 1}">
-                          Finalist: Proposal that went on to the voting round of the contest.
-                        </ice:outputText>
-                        <ice:outputText rendered="#{singlePlan.place == 2}">
-                          Honorable mention: Team undertook diligent work in its proposal and raised awareness of the Climate CoLab.
-                        </ice:outputText>
-
-                    </div>
-                </f:subview>
-                <f:subview rendered="#{singlePlan.ribbon != null and singlePlan.ribbon > 0}">
-                    <div class="ribbon-hover planRibbon ribbon_#{singlePlan.ribbon}">
-                    </div>
-                    <div class="popup-info-box hidden">
-                    </div>
-                </f:subview>
-                
-                    <div class="scrapbookProposal">
-                        <f:subview rendered="#{singlePlan.scrapbook}">
+                    <f:subview rendered="#{singlePlan.place gt 0}">
+                        <div>
+                            <div class="ribbon-hover planPlace place_#{singlePlan.place}">
+                            </div>
+                            <div class="popup-info-box hidden">
+                                <ice:outputText rendered="#{singlePlan.place == 1}">
+                                Finalist: Proposal that went on to the voting round of the contest.
+                                </ice:outputText>
+                                <ice:outputText rendered="#{singlePlan.place == 2}">
+                                    Honorable mention: Team undertook diligent work in its proposal and raised awareness of the Climate CoLab.
+                                </ice:outputText>
+                            </div>
+                        </div>
+                    </f:subview>
+                    <f:subview rendered="#{singlePlan.ribbon != null and singlePlan.ribbon > 0}">
+                        <div>
+                            <div class="ribbon-hover planRibbon ribbon_#{singlePlan.ribbon}">
+                            </div>
+                            <div class="popup-info-box hidden">
+                                #{singlePlan.ribbonText}
+                            </div>
+                        </div>
+                    </f:subview>
+                    
+                    <f:subview rendered="#{singlePlan.scrapbook}">
+                        <div class="scrapbookProposal">
                             <img src="/collaboratorium-theme/images/scrapbook_icon.png"  class="scrapbook_icon" width="20px" height="20px" />
-                        </f:subview>
-                    </div>
-                    <div class="popup-info-box hidden">
-                        Scrapbook of ideas and images - please add to it!
-                    </div>
+                        </div>
+                        <div class="popup-info-box hidden">
+                            Scrapbook of ideas and images - please add to it!
+                        </div>
+                    </f:subview>
                 </td>
                 <td>
                     <collab:planLink planId="#{singlePlan.planId}" contestId="#{singlePlan.contestId}" text="#{singlePlan.planName}" escape="true" />

@@ -520,7 +520,7 @@ function initializeRibbons() {
 
 
             var xpos = pos.left + width / 2.0 - 125;
-            var ypos = pos.top - height - 20;
+            var ypos = pos.top - height - 40;
 
             cont.css({'position': 'absolute', 'top':ypos,'left':xpos, "width":'250px'});
             cont.fadeIn("medium");

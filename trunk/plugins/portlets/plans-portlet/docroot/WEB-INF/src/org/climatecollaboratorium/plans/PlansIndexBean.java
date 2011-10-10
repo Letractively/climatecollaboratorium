@@ -404,7 +404,9 @@ public class PlansIndexBean {
                     }
 
                 }
-                if (plan.getPlanAttribute("SCRAPBOOK") != null) {
+                if (plan.getPlanAttribute("SCRAPBOOK") != null && 
+                        plan.getPlanAttribute("SCRAPBOOK").getAttributeValue() != null && 
+                        plan.getPlanAttribute("SCRAPBOOK").getAttributeValue().equals("true")) {
                     // we have a scrapbook plan, place it at the beginning
                     plans.add(0, new PlanIndexItemWrapper(plan, this, availableDebates));
                 }
