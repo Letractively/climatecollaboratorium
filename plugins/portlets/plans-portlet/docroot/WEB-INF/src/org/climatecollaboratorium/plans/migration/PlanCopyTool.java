@@ -10,6 +10,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.plans.Helper;
+
+import com.ext.portlet.Activity.model.ActivitySubscription;
 import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
@@ -21,7 +24,13 @@ import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.dao.orm.Criterion;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.model.ClassName;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.service.ClassNameLocalServiceUtil;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.sun.facelets.FaceletContext;
@@ -174,6 +183,34 @@ public class PlanCopyTool {
             if (addSemiFinalistRibbon) {
                 plan.setRibbon(3);
                 plan.setRibbonText(planAdvancedText);
+            }
+            
+            // copy subscriptions for plan
+            DynamicQuery query = DynamicQueryFactoryUtil.forClass(ActivitySubscription.class);
+            
+            ClassName cn = ClassNameLocalServiceUtil.getClassName(PlanItem.class.getName());
+            Criterion criterionClassNameId = RestrictionsFactoryUtil.eq("classNameId", cn.getClassNameId());
+            Criterion criterionClassPK = RestrictionsFactoryUtil.eq("classPK", plan.getPlanId());
+            query.add(RestrictionsFactoryUtil.and(criterionClassNameId, criterionClassPK));
+            
+            for (Object subscriptionObj : ActivitySubscriptionLocalServiceUtil.dynamicQuery(query)) {
+                ActivitySubscription subscription = (ActivitySubscription) subscriptionObj;
+                
+                ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, newPlan.getPlanId(), null, "", subscription.getReceiverId());
+            }
+            
+            // copy subscriptions for comments
+            query = DynamicQueryFactoryUtil.forClass(ActivitySubscription.class);
+            
+            cn = ClassNameLocalServiceUtil.getClassName(DiscussionCategoryGroup.class.getName());
+            criterionClassNameId = RestrictionsFactoryUtil.eq("classNameId", cn.getClassNameId());
+            criterionClassPK = RestrictionsFactoryUtil.eq("classPK", plan.getCategoryGroupId());
+            query.add(RestrictionsFactoryUtil.and(criterionClassNameId, criterionClassPK));
+            
+            for (Object subscriptionObj : ActivitySubscriptionLocalServiceUtil.dynamicQuery(query)) {
+                ActivitySubscription subscription = (ActivitySubscription) subscriptionObj;
+                
+                ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, newPlan.getCategoryGroupId(), null, "", subscription.getReceiverId());
             }
             
             
