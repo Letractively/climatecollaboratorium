@@ -181,7 +181,7 @@ public class PlanCopyTool {
             UserLocalServiceUtil.addGroupUsers(newPlan.getPlanGroupId(), userIds);
             
             if (addSemiFinalistRibbon) {
-                plan.setRibbon(3);
+                plan.setRibbon(1);
                 plan.setRibbonText(planAdvancedText);
             }
             
