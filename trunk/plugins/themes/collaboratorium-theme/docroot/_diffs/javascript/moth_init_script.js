@@ -290,18 +290,20 @@ function updateBreadcrumb(placeholder, items) {
 	
 			};
 	
-	var loc = document.location.toString();
-	var planIdPos = loc.indexOf("/planId/");
-	if (planIdPos > 0) {
-		var planIdEnd = loc.indexOf("/", planIdPos);
-		if (planIdEnd = -1) {
-			planIdEnd = loc.length;
-		}
-		planIdPos += 8;
-		var planId = loc.substring(planIdPos,planIdEnd); 
+	if (collabUserId != 10144) {
+		var loc = document.location.toString();
+		var planIdPos = loc.indexOf("/planId/");
+		if (planIdPos > 0) {
+			var planIdEnd = loc.indexOf("/", planIdPos);
+			if (planIdEnd = -1) {
+				planIdEnd = loc.length;
+			}
+			planIdPos += 8;
+			var planId = loc.substring(planIdPos,planIdEnd); 
 		
-		if (planId in mapping) {
-			var newLoc = loc.replace(planId, mapping[planId]);
-			document.location = newLoc;
-		}
-	} 
+			if (planId in mapping) {
+				var newLoc = loc.replace(planId, mapping[planId]);
+				document.location = newLoc;
+			}
+		} 
+	}
