@@ -56,17 +56,18 @@
     } catch(e) {
     }</script>
 
+        <script type="text/javascript">
+    #if ($themeDisplay.signedIn)
+        window.collabUserId = $user.userId;
+    #else
+        window.collabUserId = -1;
+    #end
+        </script>
+
 
     <script type="text/javascript" src="/collaboratorium-theme/javascript/moth_init_script.js?tt=$themeTimestamp"></script>
     <script type="text/javascript" src="/collaboratorium-theme/javascript/loginregister.js"></script>
     <script type="text/javascript" src="/html/js/collaboratorium/cookies.js"></script>
-        <script type="text/javascript">
-    #if ($themeDisplay.signedIn)
-        collabUserId = $user.userId;
-    #else
-        collabUserId = -1;
-    #end
-        </script>
 
 </head>
 
