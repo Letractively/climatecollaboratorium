@@ -290,11 +290,11 @@ function updateBreadcrumb(placeholder, items) {
 	
 			};
 	
-	if (collabUserId != 10144) {
+	if (window.collabUserId != 10144) {
 		var loc = document.location.toString();
 		var planIdPos = loc.indexOf("/planId/");
 		if (planIdPos > 0) {
-			var planIdEnd = loc.indexOf("/", planIdPos);
+			var planIdEnd = loc.indexOf("#", planIdPos);
 			if (planIdEnd = -1) {
 				planIdEnd = loc.length;
 			}
