@@ -20,7 +20,7 @@
 		<header-portlet-javascript>/xmlhttp/js/navigation/navigationManager.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/simulation/model-inputs-render.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/debates/debates.js</header-portlet-javascript>
-		<footer-portlet-css>/css/main.css?1</footer-portlet-css>
+		<footer-portlet-css>/css/main.css?12</footer-portlet-css>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
