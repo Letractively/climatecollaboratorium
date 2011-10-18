@@ -12,8 +12,21 @@
         function clearSendMessageForm() {
             jQuery(".sendMessagePopup .popuplogin_input, .sendMessagePopup textarea").val('');
         }
+        
+        function lockSendMessageForm() {
+            jQuery(".sendMessagePopup").block({message: "Sending message"});
+        }
+        
+        function messageSent() {
+            jQuery.growlUI('Message has been sent', ''); 
+        }
+        
+        <f:subview rendered="#{userprofileBean.messageSent}">
+            messageSent();
+        </f:subview>
                 
         function hideSendMessagForm() {
+        alert('hiding');
             jQuery(".sendMessagePopup").hide();
         }
         
@@ -197,8 +210,9 @@
             
             
     <!-- SEND A MESSAGE FORM -->
-    <ice:form>
     <div class="sendMessagePopup" style="display: none;">
+    <ice:panelGroup>
+    <ice:form>
         <div class="popup_login_form">
         <div class="closepopuplogin"><a href="javascript:;" onclick="hideSendMessagForm();"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
         
@@ -211,12 +225,13 @@
                 <ice:inputTextarea value="#{userprofileBean.messageText}" styleClass="sendMessage_message"/>
             </p>
 
-          <ice:commandButton styleClass="popuplogin_submit" value="Send" onclick="if (sendMessageFormValid()) { hideSendMessagForm(); } else { return false; }" actionListener="#{userprofileBean.sendMessage}" /> or 
+          <ice:commandButton styleClass="popuplogin_submit" value="Send" onclick="if (sendMessageFormValid()) { lockSendMessageForm(); } else { return false; }" actionListener="#{userprofileBean.sendMessage}" /> or 
           <span class="popuplogin_button"><a href="javascript:;" onclick="clearSendMessageForm(); hideSendMessagForm(); return false;">Cancel</a></span>
           
+    </div></ice:form>
+    </ice:panelGroup>
             
       </div>
-    </div></ice:form>
     <!-- /popup login -->
         <div class="clearfix"></div>
 
