@@ -41,6 +41,7 @@ public class UserProfileBean {
     private PageType pageType = PageType.PROFILE_NOT_INITIALIZED;
     private UserSubscriptionsBean subscriptionsBean;
     private String messagingPortletId;
+    private boolean messageSent;
     
     public UserProfileBean() {
         Map<String, String> parameters = Helper.getUrlParametersMap();
@@ -138,8 +139,17 @@ public class UserProfileBean {
             
             MessageUtil.sendMessage(messageSubject, messageText, Helper.getLiferayUser().getUserId(), 
                     Helper.getLiferayUser().getUserId(),recipients, null);
+            messageSent = true;
         }
-        
+    }
+    
+    public boolean getMessageSent() {
+        if (messageSent) {
+            /* return message sent only once */
+            messageSent = false;
+            return true;
+        }
+        return messageSent;
     }
     
     public List<MessageBean> getMessages() throws SystemException, PortalException {
