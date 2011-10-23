@@ -25,9 +25,11 @@ import com.ext.portlet.plans.service.PlanLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.PermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -55,7 +57,6 @@ import java.util.regex.Pattern;
 public class MigrationTool {
     private static Logger _log = Logger.getLogger(MigrationTool.class);
 
-
     private long generalGroup = 701L;
     private long ADMIN = 10144L;
 
@@ -77,7 +78,8 @@ public class MigrationTool {
             _log.info("Starting migration of plans, plans to process: " + plansCount);
             for (Plan basePlan : PlanLocalServiceUtil.getPlans(0, Integer.MAX_VALUE)) {
                 try {
-                    String progressIndicator = counter + " of " + plansCount + ": [" + basePlan.getName() + " (" + basePlan.getPlanId() + ")] ";
+                    String progressIndicator = counter + " of " + plansCount + ": [" + basePlan.getName() + " ("
+                            + basePlan.getPlanId() + ")] ";
 
                     _log.info(progressIndicator + "migration started");
                     boolean alreadyMigrated = false;
@@ -86,8 +88,7 @@ public class MigrationTool {
                             alreadyMigrated = true;
                             _log.info(progressIndicator + "already migrated");
                         }
-                    }
-                    catch (NoSuchPlanItemException e) {
+                    } catch (NoSuchPlanItemException e) {
                         // ignore
                     }
                     if (!alreadyMigrated) {
@@ -107,8 +108,9 @@ public class MigrationTool {
                             + ") has failed");
                     fm.setDetail(ex.getMessage());
                     FacesContext.getCurrentInstance().addMessage(null, fm);
-                    _log.error("An exception was thrown when migrating plan " + basePlan.getPlanId() + " "
-                            + basePlan.getName(), ex);
+                    _log.error(
+                            "An exception was thrown when migrating plan " + basePlan.getPlanId() + " "
+                                    + basePlan.getName(), ex);
 
                 }
             }
@@ -139,18 +141,22 @@ public class MigrationTool {
                 fm.setSeverity(FacesMessage.SEVERITY_ERROR);
                 fm.setSummary("Could not get message category " + mbCategoryId);
             } else {
-                DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(generalGroup);
+                DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil
+                        .getDiscussionCategoryGroup(generalGroup);
                 if (categoryGroup == null) {
                     categoryGroup = DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup(generalGroup);
                 }
-                DiscussionCategory category = categoryGroup.addCategory("General", null, UserLocalServiceUtil.getUser(ADMIN));
+                DiscussionCategory category = categoryGroup.addCategory("General", null,
+                        UserLocalServiceUtil.getUser(ADMIN));
                 for (MBThread mbThread : MBThreadLocalServiceUtil.getThreads(mbCategory.getCategoryId(), 0, 10000)) {
                     DiscussionMessage thread = null;
                     for (MBMessage mbMessage : MBMessageLocalServiceUtil.getThreadMessages(mbThread.getThreadId())) {
                         if (thread == null) {
-                            thread = category.addThread(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
+                            thread = category.addThread(mbMessage.getSubject(), mbMessage.getBody(),
+                                    UserLocalServiceUtil.getUser(mbMessage.getUserId()));
                         } else {
-                            thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
+                            thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(),
+                                    UserLocalServiceUtil.getUser(mbMessage.getUserId()));
                         }
 
                     }
@@ -159,21 +165,20 @@ public class MigrationTool {
                 fm.setSummary("Success! We have won!");
             }
 
-
         } catch (NoSuchDiscussionCategoryGroupException e) {
-               fm.setSeverity(FacesMessage.SEVERITY_ERROR);
-                fm.setSummary("Could not get message category " + mbCategoryId);
-                fm.setDetail(e.getMessage());
+            fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fm.setSummary("Could not get message category " + mbCategoryId);
+            fm.setDetail(e.getMessage());
         } catch (SystemException e) {
             fm.setSeverity(FacesMessage.SEVERITY_INFO);
-                fm.setSummary("Wicked bummer");
-                fm.setDetail(e.getMessage());
+            fm.setSummary("Wicked bummer");
+            fm.setDetail(e.getMessage());
         } catch (PortalException e) {
             fm.setSeverity(FacesMessage.SEVERITY_INFO);
-                fm.setSummary("Wicked bummer");
-                fm.setDetail(e.getMessage());
+            fm.setSummary("Wicked bummer");
+            fm.setDetail(e.getMessage());
         }
-         FacesContext.getCurrentInstance().addMessage(null, fm);
+        FacesContext.getCurrentInstance().addMessage(null, fm);
         return "";
     }
 
@@ -184,28 +189,30 @@ public class MigrationTool {
             _log.info("Starting migration of discussions for plans, plans to process: " + plansCount);
             for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
                 try {
-                    String progressIndicator = counter + " of " + plansCount + ": [" + basePlan.getName() + " (" + basePlan.getPlanId() + ")] ";
+                    String progressIndicator = counter + " of " + plansCount + ": [" + basePlan.getName() + " ("
+                            + basePlan.getPlanId() + ")] ";
 
                     _log.info(progressIndicator + "migration started");
 
                     boolean alreadyMigrated = false;
                     try {
                         Long discussionCatId = basePlan.getMBCategoryId();
-                        DiscussionCategoryGroup discussionGroup = DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(discussionCatId);
+                        DiscussionCategoryGroup discussionGroup = DiscussionCategoryGroupLocalServiceUtil
+                                .getDiscussionCategoryGroup(discussionCatId);
                         if (discussionGroup != null) {
                             alreadyMigrated = true;
                             _log.info(progressIndicator + "already migrated");
                         }
-                    }
-                    catch (NoSuchDiscussionCategoryGroupException e) {
+                    } catch (NoSuchDiscussionCategoryGroupException e) {
                         // ignore
                     }
                     if (!alreadyMigrated) {
-                        DiscussionCategoryGroup categoryGroup =
-                                DiscussionCategoryGroupLocalServiceUtil.createDiscussionCategoryGroup("Category group for plan: " + basePlan.getId());
+                        DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil
+                                .createDiscussionCategoryGroup("Category group for plan: " + basePlan.getId());
 
-                        //  default category
-                        DiscussionCategory category = categoryGroup.addCategory("General discussion", null, UserLocalServiceUtil.getUser(basePlan.getAuthorId()));
+                        // default category
+                        DiscussionCategory category = categoryGroup.addCategory("General discussion", null,
+                                UserLocalServiceUtil.getUser(basePlan.getAuthorId()));
 
                         PlanMeta meta = basePlan.getPlanMeta();
                         meta.setCategoryGroupId(categoryGroup.getId());
@@ -214,19 +221,22 @@ public class MigrationTool {
 
                             MBCategory mbCategory = MBCategoryLocalServiceUtil.getCategory(basePlan.getMBCategoryId());
 
-                            for (MBThread mbThread : MBThreadLocalServiceUtil.getThreads(mbCategory.getCategoryId(), 0, 10000)) {
+                            for (MBThread mbThread : MBThreadLocalServiceUtil.getThreads(mbCategory.getCategoryId(), 0,
+                                    10000)) {
                                 DiscussionMessage thread = null;
-                                for (MBMessage mbMessage : MBMessageLocalServiceUtil.getThreadMessages(mbThread.getThreadId())) {
+                                for (MBMessage mbMessage : MBMessageLocalServiceUtil.getThreadMessages(mbThread
+                                        .getThreadId())) {
                                     if (thread == null) {
-                                        thread = category.addThread(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
+                                        thread = category.addThread(mbMessage.getSubject(), mbMessage.getBody(),
+                                                UserLocalServiceUtil.getUser(mbMessage.getUserId()));
                                     } else {
-                                        thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(), UserLocalServiceUtil.getUser(mbMessage.getUserId()));
+                                        thread.addThreadMessage(mbMessage.getSubject(), mbMessage.getBody(),
+                                                UserLocalServiceUtil.getUser(mbMessage.getUserId()));
                                     }
 
                                 }
                             }
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             _log.error("Error when migrating discussion for plan: " + basePlan.getPlanId());
                         }
                     }
@@ -244,8 +254,9 @@ public class MigrationTool {
                             + ") has failed");
                     fm.setDetail(ex.getMessage());
                     FacesContext.getCurrentInstance().addMessage(null, fm);
-                    _log.error("An exception was thrown when migrating plan " + basePlan.getPlanId() + " "
-                            + basePlan.getName(), ex);
+                    _log.error(
+                            "An exception was thrown when migrating plan " + basePlan.getPlanId() + " "
+                                    + basePlan.getName(), ex);
 
                 }
             }
@@ -270,12 +281,12 @@ public class MigrationTool {
 
     public String updateDiscussionUrlsAndDescriptions() throws SystemException, PortalException {
         for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
-            DiscussionCategoryGroup categoryGroup =
-                    DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(basePlan.getCategoryGroupId());
+            DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil
+                    .getDiscussionCategoryGroup(basePlan.getCategoryGroupId());
 
             categoryGroup.setDescription(basePlan.getName() + " discussion");
-            categoryGroup.setUrl("/web/guest/plans/-/plans/contestId/" + basePlan.getContest().getContestPK() + 
-                    "/planId/" + basePlan.getPlanId() + "#plans=tab:comments");
+            categoryGroup.setUrl("/web/guest/plans/-/plans/contestId/" + basePlan.getContest().getContestPK()
+                    + "/planId/" + basePlan.getPlanId() + "#plans=tab:comments");
             categoryGroup.store();
         }
         _log.info("Update successful");
@@ -291,12 +302,8 @@ public class MigrationTool {
     private static final int SCOPE = ResourceConstants.SCOPE_GROUP;
 
     public String updateDiscussionsPermissions() throws SystemException, PortalException {
-        String[] supportedRolesNames = {RoleConstants.COMMUNITY_OWNER,
-                RoleConstants.COMMUNITY_ADMINISTRATOR,
-                RoleConstants.COMMUNITY_MEMBER,
-                RoleConstants.USER,
-                RoleConstants.GUEST
-        };
+        String[] supportedRolesNames = { RoleConstants.COMMUNITY_OWNER, RoleConstants.COMMUNITY_ADMINISTRATOR,
+                RoleConstants.COMMUNITY_MEMBER, RoleConstants.USER, RoleConstants.GUEST };
         Long companyId = Helper.getThemeDisplay().getCompanyId();
 
         Role owner = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_OWNER);
@@ -305,21 +312,19 @@ public class MigrationTool {
         Role user = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
         Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
 
-        String[] ownerActions = {DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
-                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
-                DiscussionActions.ADMIN_MESSAGES.name()
-        };
+        String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() };
 
-        String[] adminActions = {DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
-                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
-                DiscussionActions.ADMIN_MESSAGES.name()
-        };
+        String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name() };
 
-        String[] memberActions = {DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
-                DiscussionActions.ADD_THREAD.name()
-        };
+        String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                DiscussionActions.ADD_THREAD.name() };
 
-        String[] userActions = {DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADD_COMMENT.name()};
+        String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                DiscussionActions.ADD_COMMENT.name() };
 
         String[] guestActions = {};
 
@@ -331,11 +336,10 @@ public class MigrationTool {
         rolesActionsMap.put(user, userActions);
         rolesActionsMap.put(guest, guestActions);
 
-
         for (PlanItem plan : PlanItemLocalServiceUtil.getPlans()) {
             for (Role role : rolesActionsMap.keySet()) {
-                PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, RESOURCE_NAME, SCOPE,
-                        plan.getPlanGroupId().toString(), rolesActionsMap.get(role));
+                PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId, RESOURCE_NAME, SCOPE, plan
+                        .getPlanGroupId().toString(), rolesActionsMap.get(role));
 
             }
         }
@@ -365,7 +369,6 @@ public class MigrationTool {
         return null;
     }
 
-
     public String migrateWiki() throws SystemException {
         Pattern pattern = Pattern.compile("plan", Pattern.CASE_INSENSITIVE);
         int pagesCount = 0;
@@ -386,33 +389,31 @@ public class MigrationTool {
                     occurrencesUppercase++;
                 }
 
-
             }
 
             if (occurrences > 0) {
                 pagesCount++;
-                System.out.println(pagesCount + ": " + page.getTitle() + "\t" + page.isHead() + "\toccurrences: " + occurrences + "\toccurrencesUppercase: " + occurrencesUppercase);
+                System.out.println(pagesCount + ": " + page.getTitle() + "\t" + page.isHead() + "\toccurrences: "
+                        + occurrences + "\toccurrencesUppercase: " + occurrencesUppercase);
             }
 
             String content = replaceUnwantedStrings(page.getContent());
             String title = replaceUnwantedStrings(page.getTitle());
             String parentTitle = replaceUnwantedStrings(page.getParentTitle());
 
-
             page.setTitle(title);
             page.setContent(content);
             page.setParentTitle(parentTitle);
 
-
             WikiPageLocalServiceUtil.updateWikiPage(page);
-
 
         }
         /*
-        for (WikiPageResource pageRes: WikiPageResourceLocalServiceUtil.getWikiPageResources(0, Integer.MAX_VALUE)) {
-            pageRes.setTitle(replacePlanOccurrences(pageRes.getTitle()));
-        }
-        */
+         * for (WikiPageResource pageRes:
+         * WikiPageResourceLocalServiceUtil.getWikiPageResources(0,
+         * Integer.MAX_VALUE)) {
+         * pageRes.setTitle(replacePlanOccurrences(pageRes.getTitle())); }
+         */
         return null;
     }
 
@@ -425,27 +426,25 @@ public class MigrationTool {
         return ret;
 
     }
-    
 
     public String setIntervals() throws SystemException {
-        for (ModelInputItem modelInput: ModelInputItemLocalServiceUtil.getModelInputItems(0, Integer.MAX_VALUE)) {
+        for (ModelInputItem modelInput : ModelInputItemLocalServiceUtil.getModelInputItems(0, Integer.MAX_VALUE)) {
             Map<String, String> props = modelInput.getPropertyMap();
             if (props.size() > 0) {
                 props.put(ModelWidgetProperty.Slider.INTERVAL.name(), "5");
                 modelInput.saveProperties(props);
             }
-            
+
         }
         FacesMessage fm = new FacesMessage();
         fm.setSeverity(FacesMessage.SEVERITY_INFO);
         fm.setSummary("Update successful");
-        
-        
+
         return null;
     }
-    
+
     public String updateOldPlanVotes() throws SystemException {
-        for (PlanVote planVote: PlanVoteLocalServiceUtil.getPlanVotes(0, Integer.MAX_VALUE)) {
+        for (PlanVote planVote : PlanVoteLocalServiceUtil.getPlanVotes(0, Integer.MAX_VALUE)) {
             if (planVote.getContestId() == null || planVote.getContestId().equals(0L)) {
                 planVote.setContestId(1L);
                 planVote.store();
@@ -456,47 +455,46 @@ public class MigrationTool {
         fm.setSummary("Update successful");
         return null;
     }
-    
 
-    public String rerunPlansSimulations() throws SystemException, com.liferay.portal.PortalException, java.io.IOException, 
-	edu.mit.cci.simulation.client.comm.ModelNotFoundException {
-        edu.mit.cci.simulation.client.comm.ClientRepository repository = com.ext.portlet.models.CollaboratoriumModelingService.repository();
+    public String rerunPlansSimulations() throws SystemException, com.liferay.portal.PortalException,
+            java.io.IOException, edu.mit.cci.simulation.client.comm.ModelNotFoundException {
+        edu.mit.cci.simulation.client.comm.ClientRepository repository = com.ext.portlet.models.CollaboratoriumModelingService
+                .repository();
 
         for (PlanItem basePlan : PlanItemLocalServiceUtil.getPlans()) {
-		if (basePlan.getContest().getContestPK().equals(2L) && basePlan.getScenarioId() != null && basePlan.getScenarioId() > 0) {
-		_log.info("reruning simulation for plan: " + basePlan.getPlanId() + "\t" + basePlan.getName());
-		// rerun only plans that belong to cancun contest
-		try {
-			Scenario scenario = repository.getScenario(basePlan.getScenarioId());
-			Map<Long, Object> values = new HashMap<Long, Object>();
-        	        for (Variable v: scenario.getInputSet()) {
-                	    values.put(v.getMetaData().getId(), v.getValue().get(0).getValues()[0]);
-	                }
-			Scenario newScenario = repository.runModel(scenario.getSimulation(), values, 10144L, true);
-		        FacesMessage fm = new FacesMessage();
-		        fm.setSeverity(FacesMessage.SEVERITY_INFO);
-		        fm.setSummary("Update successful");
+            if (basePlan.getContest().getContestPK().equals(2L) && basePlan.getScenarioId() != null
+                    && basePlan.getScenarioId() > 0) {
+                _log.info("reruning simulation for plan: " + basePlan.getPlanId() + "\t" + basePlan.getName());
+                // rerun only plans that belong to cancun contest
+                try {
+                    Scenario scenario = repository.getScenario(basePlan.getScenarioId());
+                    Map<Long, Object> values = new HashMap<Long, Object>();
+                    for (Variable v : scenario.getInputSet()) {
+                        values.put(v.getMetaData().getId(), v.getValue().get(0).getValues()[0]);
+                    }
+                    Scenario newScenario = repository.runModel(scenario.getSimulation(), values, 10144L, true);
+                    FacesMessage fm = new FacesMessage();
+                    fm.setSeverity(FacesMessage.SEVERITY_INFO);
+                    fm.setSummary("Update successful");
 
-		        FacesContext.getCurrentInstance().addMessage(null, fm);
-			_log.info("rerun successful");
-		}	
-		catch (Exception e) {
-			_log.error("Exception thrown when reruning plan: " + basePlan.getPlanId());
-			FacesMessage fm = new FacesMessage();
-		        fm.setSeverity(FacesMessage.SEVERITY_ERROR);
-		        fm.setSummary("Error when reruning plan " + basePlan.getName());
-        		FacesContext.getCurrentInstance().addMessage(null, fm);
-		}
+                    FacesContext.getCurrentInstance().addMessage(null, fm);
+                    _log.info("rerun successful");
+                } catch (Exception e) {
+                    _log.error("Exception thrown when reruning plan: " + basePlan.getPlanId());
+                    FacesMessage fm = new FacesMessage();
+                    fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    fm.setSummary("Error when reruning plan " + basePlan.getName());
+                    FacesContext.getCurrentInstance().addMessage(null, fm);
+                }
 
-			
-	}
+            }
 
-    }
+        }
         return null;
-	}
-    
+    }
+
     public String updateUrlsInErrors() throws SystemException {
-        for (PlanAttribute attr: PlanAttributeLocalServiceUtil.getPlanAttributes(0, Integer.MAX_VALUE)) {
+        for (PlanAttribute attr : PlanAttributeLocalServiceUtil.getPlanAttributes(0, Integer.MAX_VALUE)) {
             String val = attr.getAttributeValue();
             if (val.contains("climatecollaboratorium.org")) {
                 val = val.replaceAll("climatecollaboratorium\\.org", "climatecolab.org");
@@ -512,27 +510,86 @@ public class MigrationTool {
         }
         return null;
     }
-    
+
     public String updateLastUpdateDate() throws SystemException {
-        for (PlanItem plan: PlanItemLocalServiceUtil.getPlans()) {
+        for (PlanItem plan : PlanItemLocalServiceUtil.getPlans()) {
             plan.updateAttribute(PlanConstants.Attribute.LAST_MOD_DATE.name());
         }
-        
+
         return null;
     }
-    
+
     public String subscribePlanCreators() throws SystemException, PortalException {
-        for (PlanItem plan: PlanItemLocalServiceUtil.getPlans()) {
-            if (! ActivitySubscriptionLocalServiceUtil.isSubscribed(plan.getAuthorId(), PlanItem.class, plan.getPlanId(), null, "")) {
-                ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, plan.getPlanId(), null, "", plan.getAuthorId());
+        for (PlanItem plan : PlanItemLocalServiceUtil.getPlans()) {
+            if (!ActivitySubscriptionLocalServiceUtil.isSubscribed(plan.getAuthorId(), PlanItem.class,
+                    plan.getPlanId(), null, "")) {
+                ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, plan.getPlanId(), null, "",
+                        plan.getAuthorId());
             }
-            if (! ActivitySubscriptionLocalServiceUtil.isSubscribed(plan.getAuthorId(), DiscussionCategoryGroup.class, plan.getCategoryGroupId(), null, "")) {
-                ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, plan.getCategoryGroupId(), null, "", plan.getAuthorId());
+            if (!ActivitySubscriptionLocalServiceUtil.isSubscribed(plan.getAuthorId(), DiscussionCategoryGroup.class,
+                    plan.getCategoryGroupId(), null, "")) {
+                ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class,
+                        plan.getCategoryGroupId(), null, "", plan.getAuthorId());
             }
         }
-        
+
         return null;
     }
-    
-    
+
+    public String resetDiscussionCategoryGroupPermissions() throws PortalException, SystemException {
+
+        for (PlanItem planItem : PlanItemLocalServiceUtil.getPlans()) {
+            Group group = GroupLocalServiceUtil.getGroup(planItem.getPlanGroupId());
+            Long companyId = group.getCompanyId();
+            Role owner = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_OWNER);
+            Role admin = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_ADMINISTRATOR);
+            Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
+            Role userRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
+            Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
+            Role moderator = RoleLocalServiceUtil.getRole(companyId, "Moderator");
+
+            String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+                    DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                    DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
+                    DiscussionActions.ADD_COMMENT.name() };
+
+            String[] adminActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                    DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
+                    DiscussionActions.ADMIN_MESSAGES.name(), DiscussionActions.ADD_COMMENT.name() };
+
+            String[] moderatorActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                    DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
+                    DiscussionActions.ADMIN_MESSAGES.name(), DiscussionActions.ADD_COMMENT.name() };
+
+            String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                    DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADD_COMMENT.name() };
+
+            String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                    DiscussionActions.ADD_COMMENT.name() };
+
+            String[] guestActions = {};
+
+            Map<Role, String[]> rolesActionsMap = new HashMap<Role, String[]>();
+
+            rolesActionsMap.put(owner, ownerActions);
+            rolesActionsMap.put(admin, adminActions);
+            rolesActionsMap.put(member, memberActions);
+            rolesActionsMap.put(userRole, userActions);
+            rolesActionsMap.put(guest, guestActions);
+            rolesActionsMap.put(moderator, moderatorActions);
+
+            for (Role role : rolesActionsMap.keySet()) {
+                PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId,
+                        DiscussionCategoryGroup.class.getName(), ResourceConstants.SCOPE_GROUP,
+                        String.valueOf(group.getGroupId()), rolesActionsMap.get(role));
+            }
+        }
+
+        FacesMessage fm = new FacesMessage();
+        fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+        fm.setSummary("permissions set");
+        FacesContext.getCurrentInstance().addMessage(null, fm);
+        return null;
+    }
+
 }
