@@ -10,5 +10,6 @@
    <resource file="resource-actions/plan.xml" />
    <resource file="resource-actions/debates.xml" />
    <resource file="resource-actions/model.xml" />
+   <resource file="resource-actions/discussions.xml" />
 </resource-action-mapping>
 
