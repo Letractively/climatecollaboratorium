@@ -484,13 +484,19 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
         Role userRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
         Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
+        Role moderator = RoleLocalServiceUtil.getRole(companyId, "Moderator");
 
         String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
                 DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
                 DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
                 DiscussionActions.ADD_COMMENT.name() };
 
-        String[] adminActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+        String[] adminActions = { DiscussionActions.ADD_CATEGORY.name(),
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
+                DiscussionActions.ADD_COMMENT.name() };
+        
+        String[] moderatorActions = { DiscussionActions.ADD_CATEGORY.name(),
                 DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
                 DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
                 DiscussionActions.ADD_COMMENT.name() };
@@ -510,6 +516,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         rolesActionsMap.put(member, memberActions);
         rolesActionsMap.put(userRole, userActions);
         rolesActionsMap.put(guest, guestActions);
+        rolesActionsMap.put(moderator, moderatorActions);
 
         for (Role role : rolesActionsMap.keySet()) {
             PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId,
