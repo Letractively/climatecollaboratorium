@@ -142,7 +142,7 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
             DiscussionMessage discussion = comment.getThread();
 
             body = String.format(DISCUSSION_COMMENT_ADDED, getUser(activity), getCategoryGroup(discussion.getCategoryGroup()));
-            mailBody = getMailBodyForMessage(discussion);
+            mailBody = getMailBodyForMessage(comment);
 		}
 
         return new BaseFeedEntryWithMailInfo("", title, body, mailSubject, mailBody);

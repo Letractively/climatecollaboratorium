@@ -69,6 +69,7 @@ public class NavigationManagerBean {
     }
     
     public String ping() {
+        System.out.println("ping");
         return null;
     }
 }

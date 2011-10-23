@@ -131,6 +131,22 @@ public class Helper {
     public static void sendInfoMessage(String message) {
         sendMessage(message, null, FacesMessage.SEVERITY_INFO);
     }
+
+    public static String getRootPortletId() {        
+        ThemeDisplay td = getThemeDisplay();
+        if (td != null) {
+            return td.getPortletDisplay().getRootPortletId();
+        }
+        return null;
+    }
+    
+    public static String getPrimKey() {
+        ThemeDisplay td = getThemeDisplay();
+        if (td != null) {
+            return td.getPortletDisplay().getResourcePK();
+        }
+        return null;
+    }
     
     
 }

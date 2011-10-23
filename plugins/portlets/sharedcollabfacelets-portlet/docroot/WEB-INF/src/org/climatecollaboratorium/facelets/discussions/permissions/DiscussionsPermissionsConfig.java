@@ -102,7 +102,8 @@ public class DiscussionsPermissionsConfig {
                 RoleConstants.COMMUNITY_ADMINISTRATOR,
                 RoleConstants.COMMUNITY_MEMBER,
                 RoleConstants.USER,
-                RoleConstants.GUEST
+                RoleConstants.GUEST,
+                "Moderator"
         };
         if (permissionItems == null) {
             permissionItems = new ArrayList<PermissionItem>();
