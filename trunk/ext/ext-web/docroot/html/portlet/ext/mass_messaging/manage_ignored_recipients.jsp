@@ -91,10 +91,12 @@
 
   <h2>Ignored recipients</h2>
   
-  <liferay-ui:search-container emptyResultsMessage="There are no messages">
+  <liferay-ui:search-container emptyResultsMessage="There are no messages" delta="1000">
     <liferay-ui:search-container-results 
             results="<%= MessagingIgnoredRecipientsLocalServiceUtil.getMessagingIgnoredRecipientses(searchContainer.getStart(), searchContainer.getEnd()) %>"
             total="<%= MessagingIgnoredRecipientsLocalServiceUtil.getMessagingIgnoredRecipientsesCount() %>"
+            
+            
     />
     
     <liferay-ui:search-container-row
