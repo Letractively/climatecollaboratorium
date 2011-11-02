@@ -12,8 +12,6 @@ import com.ext.portlet.models.service.ModelCategoryLocalServiceUtil;
 import com.ext.portlet.models.service.ModelGlobalPreferenceLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.comm.ClientRepository;
 
 import org.climatecollaboratorium.models.support.ModelCategoryWrapper;
 import org.climatecollaboratorium.models.support.SimulationDecorator;
@@ -37,7 +35,6 @@ import java.util.Map;
  */
 public class CategoriesBean {
 
-    private ClientRepository r;
     public List<ModelCategoryWrapper> categories = new ArrayList<ModelCategoryWrapper>();
     public List<SelectItem> categoriesAsSelectItems = new ArrayList<SelectItem>();
     private Map<Long, ModelCategoryWrapper> categoriesById = new HashMap<Long,ModelCategoryWrapper>();

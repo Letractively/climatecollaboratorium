@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.models.support;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,13 +11,14 @@ import com.ext.portlet.models.service.base.ModelInputGroupType;
 import org.climatecollaboratorium.models.SimulationBean;
 import org.climatecollaboratorium.models.SimulationDetailsBean;
 
-import mit.simulation.climate.client.MetaData;
 
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.models.ui.ModelInputDisplayItem;
 import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+
+import edu.mit.cci.simulation.client.MetaData;
 
 public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrapper {
     private boolean editing;
@@ -54,7 +56,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         return ((ModelInputGroupDisplayItem)groupItem).getDisplayItems();
     }
     
-    public void update(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
+    public void update(ActionEvent e) throws SystemException, IllegalUIConfigurationException, IOException {
         if (groupItem == null) {
             // adding
             ModelInputGroupDisplayItem createdItem = null;
@@ -82,7 +84,7 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
         simulationBean.refresh();
     }
     
-    public void delete(ActionEvent e) throws PortalException, SystemException, IllegalUIConfigurationException {
+    public void delete(ActionEvent e) throws PortalException, SystemException, IllegalUIConfigurationException, IOException {
         if (groupItem != null) {
             ((ModelInputGroupDisplayItem) groupItem).delete();
             simulationBean.refresh();

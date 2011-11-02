@@ -15,11 +15,11 @@ import com.ext.portlet.models.service.ModelCategoryLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.comm.ClientRepository;
-import mit.simulation.climate.client.comm.ModelNotFoundException;
-import mit.simulation.climate.client.comm.ScenarioNotFoundException;
+import edu.mit.cci.simulation.client.Scenario;
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.comm.ClientRepository;
+import edu.mit.cci.simulation.client.comm.ModelNotFoundException;
+import edu.mit.cci.simulation.client.comm.ScenarioNotFoundException;
 
 public class SimulationsHelper {
     
@@ -96,7 +96,8 @@ public class SimulationsHelper {
 
 
     public void saveScenario(Scenario scenario) throws ScenarioNotFoundException, IOException {
-        repository.saveScenario(scenario);
+        //repository.saveScenario(scenario);
+        // FIXME we had save scenario in previous interface, should work out its support in current version
     }
 
     

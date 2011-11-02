@@ -5,13 +5,14 @@ import javax.faces.event.ActionEvent;
 import org.climatecollaboratorium.models.SimulationBean;
 import org.climatecollaboratorium.models.SimulationDetailsBean;
 
-import mit.simulation.climate.client.TupleStatus;
 
 import com.ext.portlet.models.ui.ErrorPolicy;
 import com.ext.portlet.models.ui.ModelOutputDisplayItem;
 import com.ext.portlet.models.ui.ModelOutputIndexedDisplayItem;
 import com.ext.portlet.models.ui.ModelOutputSeriesDisplayItem;
 import com.liferay.portal.SystemException;
+
+import edu.mit.cci.simulation.client.TupleStatus;
 
 public class ModelOutputErrorSettingWrapper {
     private ModelOutputDisplayItem item;

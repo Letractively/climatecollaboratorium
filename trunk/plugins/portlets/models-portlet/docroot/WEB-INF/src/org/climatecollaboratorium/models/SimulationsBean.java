@@ -5,13 +5,14 @@ import java.util.List;
 
 import javax.faces.event.ActionEvent;
 
-import mit.simulation.climate.client.comm.ClientRepository;
 
 import org.climatecollaboratorium.models.support.SimulationDecorator;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+
+import edu.mit.cci.simulation.client.comm.ClientRepository;
 
 public class SimulationsBean {
 

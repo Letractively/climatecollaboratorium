@@ -22,7 +22,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.portlet.PortletRequest;
 
-import mit.simulation.climate.client.comm.ClientRepository;
 import org.climatecollaboratorium.models.support.DebateQuestionWrapper;
 import org.climatecollaboratorium.models.support.ModelDisplayWrapper;
 import org.climatecollaboratorium.models.support.ModelInputDisplayItemWrapper;
@@ -31,9 +30,7 @@ import org.climatecollaboratorium.models.support.ModelOutputErrorSettingWrapper;
 import org.climatecollaboratorium.models.support.SimulationsHelper;
 import org.climatecollaboratorium.models.support.SupportBean;
 
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.TupleStatus;
-import mit.simulation.climate.client.comm.ModelNotFoundException;
+
 import ys.wikiparser.WikiParser;
 
 import com.ext.portlet.debaterevision.model.Debate;
@@ -55,6 +52,11 @@ import com.liferay.portlet.wiki.NoSuchPageResourceException;
 import com.liferay.portlet.wiki.model.WikiPage;
 import com.liferay.portlet.wiki.model.WikiPageResource;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
+
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.TupleStatus;
+import edu.mit.cci.simulation.client.comm.ClientRepository;
+import edu.mit.cci.simulation.client.comm.ModelNotFoundException;
 
 public class SimulationDetailsBean {
 
@@ -83,7 +85,7 @@ public class SimulationDetailsBean {
         return modelId;
     }
 
-    public void setModelId(Long modelId) throws SystemException, IllegalUIConfigurationException {
+    public void setModelId(Long modelId) throws SystemException, IllegalUIConfigurationException, IOException {
         this.modelId = modelId;
         ClientRepository repo = CollaboratoriumModelingService.repository();
         simulation = repo.getSimulation(modelId);
@@ -196,7 +198,9 @@ public class SimulationDetailsBean {
 
     public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException, SystemException, PortalException {
         simulation.setDescription(description);
-        SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
+
+        // FIXME updating was removed in new version of modeling svc
+        // SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
         toggleEdit(event);
     }
 
@@ -315,7 +319,7 @@ public class SimulationDetailsBean {
         return wrappedInputs;
     }
     
-    public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException {
+    public void updateInputs(ActionEvent e) throws SystemException, IllegalUIConfigurationException, IOException {
         refresh();
         FacesContext fc = FacesContext.getCurrentInstance();
         
@@ -325,7 +329,7 @@ public class SimulationDetailsBean {
         fc.addMessage(null, fm);
     }
     
-    public void refresh() throws SystemException, IllegalUIConfigurationException {
+    public void refresh() throws SystemException, IllegalUIConfigurationException, IOException {
         ClientRepository repo = CollaboratoriumModelingService.repository();
         simulation = repo.getSimulation(modelId);
         description = simulation.getDescription();

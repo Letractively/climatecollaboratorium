@@ -13,13 +13,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.portlet.PortletRequest;
 
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
-import mit.simulation.climate.client.TupleStatus;
-import mit.simulation.climate.client.Variable;
-import mit.simulation.climate.client.comm.ModelNotFoundException;
-import mit.simulation.climate.client.comm.ScenarioNotFoundException;
 import net.sf.json.JSONArray;
 
 import org.apache.commons.beanutils.DynaBean;
@@ -50,6 +43,15 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portlet.wiki.model.WikiPage;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
+
+import edu.mit.cci.simulation.client.MetaData;
+import edu.mit.cci.simulation.client.Scenario;
+import edu.mit.cci.simulation.client.Simulation;
+import edu.mit.cci.simulation.client.TupleStatus;
+import edu.mit.cci.simulation.client.Variable;
+import edu.mit.cci.simulation.client.comm.ModelNotFoundException;
+import edu.mit.cci.simulation.client.comm.ScenarioNotFoundException;
+
 
 public class SimulationBean implements JSEventHandler {
 
@@ -170,7 +172,8 @@ public class SimulationBean implements JSEventHandler {
 
     public void updateSimulation(ActionEvent event) throws IOException, ModelNotFoundException, SystemException, PortalException {
         simulation.setDescription(description);
-        SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
+        // FIXME updating simulations was turned off in new interface
+        //SimulationsHelper.getInstance().getRepository().updateSimulation(simulation);
         editing = false;
     }
 
