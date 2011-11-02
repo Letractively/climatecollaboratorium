@@ -45,6 +45,9 @@ public class ModelCategoryWrapper {
         visible.clear();
         for (ModelGlobalPreference pref:wrapped.getModelPreferences()) {
             SimulationDecorator dec =SimulationsHelper.getInstance().getSimulationById(pref.getModelId());
+            if (dec == null) {
+                continue;
+            }
             simulations.add(dec);
 
         }

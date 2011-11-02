@@ -2,7 +2,6 @@ package org.climatecollaboratorium.models.support;
 
 import java.util.Map;
 
-import mit.simulation.climate.client.MetaData;
 
 import org.climatecollaboratorium.models.SimulationDetailsBean;
 
@@ -12,6 +11,8 @@ import com.ext.portlet.models.ui.ModelInputGroupDisplayItem;
 import com.ext.portlet.models.ui.ModelInputIndividualDisplayItem;
 import com.ext.portlet.models.ui.ModelInputWidgetType;
 import com.liferay.portal.SystemException;
+
+import edu.mit.cci.simulation.client.MetaData;
 
 public class ModelInputDisplayItemWrapper {
     protected ModelInputDisplayItem wrappedItem;

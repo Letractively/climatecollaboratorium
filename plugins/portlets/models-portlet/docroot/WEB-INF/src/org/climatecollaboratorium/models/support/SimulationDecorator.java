@@ -7,6 +7,10 @@ import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
+import edu.mit.cci.simulation.client.EntityState;
+import edu.mit.cci.simulation.client.MetaData;
+import edu.mit.cci.simulation.client.Simulation;
+
 import java.net.URL;
 
 import java.util.Date;
@@ -16,9 +20,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import mit.simulation.climate.client.EntityState;
-import mit.simulation.climate.client.MetaData;
-import mit.simulation.climate.client.Simulation;
 
 public class SimulationDecorator implements Simulation {
     private Simulation wrapped;
@@ -135,12 +136,14 @@ public class SimulationDecorator implements Simulation {
 
         final Pattern paragraphStartPattern = Pattern.compile(paragraphStartRegex);
         final Pattern paragraphEndPattern = Pattern.compile(paragraphEndRegex);
+        String desc = wrapped.getDescription();
+        desc = desc == null ? "" : desc;
 
-        Matcher startMatcher = paragraphStartPattern.matcher(wrapped.getDescription());
-        Matcher endMatcher = paragraphEndPattern.matcher(wrapped.getDescription());
+        Matcher startMatcher = paragraphStartPattern.matcher(desc);
+        Matcher endMatcher = paragraphEndPattern.matcher(desc);
 
         int startIdx = 0;
-        int endIdx = wrapped.getDescription().length();
+        int endIdx = desc.length();
 
         if (startMatcher.find()) {
             startIdx = startMatcher.end();
@@ -150,7 +153,7 @@ public class SimulationDecorator implements Simulation {
             endIdx = endMatcher.start();
         }
 
-        return wrapped.getDescription().substring(startIdx, endIdx);
+        return desc.substring(startIdx, endIdx);
     }
 
     @Override

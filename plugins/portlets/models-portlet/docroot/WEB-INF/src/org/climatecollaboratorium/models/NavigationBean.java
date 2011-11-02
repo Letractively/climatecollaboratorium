@@ -7,8 +7,6 @@ import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
-import mit.simulation.climate.client.Scenario;
-import mit.simulation.climate.client.Simulation;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
@@ -22,6 +20,9 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import edu.mit.cci.simulation.client.Scenario;
+import edu.mit.cci.simulation.client.Simulation;
 
 public class NavigationBean {
     private final static String INDEX_PAGE = "index";
@@ -176,6 +177,8 @@ public class NavigationBean {
                             _log.error("Invalid model " + parameters.get("modelId"));
                         } catch (IllegalUIConfigurationException e) {
                             _log.error("Invalid model " + parameters.get("modelId"));
+                        } catch (IOException e) {
+                            _log.error("Invalid model " + parameters.get("modelId"), e);
                         }
                         
                     }
