@@ -41,6 +41,10 @@
         </div>
          -->
          <div class="hidden">#{debateBean}</div>
+         
+         
+         
+         
          <ui:include src="./mainView.xhtml">
             <ui:param value="#{navigation.contestBean}" name="contest" />
             <ui:param value="#{navigation.planBean}" name="plan" />
@@ -53,5 +57,33 @@
             <ui:param value="#{navigation.planBean.plan.contestPhase.contestStatus == 'VOTING'}" name="votingPhase" />
          </ui:include>
     
+    
+         <div class="hidden">
+            <script type="text/javascript">
+            jQuery(document).ready(function() {
+              if (${navigation.hasUserVoted}) {
+                // trigger click on vote
+                setTimeout(function() {
+                    jQuery('.voteForPlanTrigger_#{navigation.deferPlanIdVote}').click();
+                }, 500);
+                
+                // clear defer plan id
+              }
+            });
+              
+              function deferPlanVoteUntilLoggedIn(planId) {
+                jQuery(".deferVotePlanId").val(planId);
+                // send data
+                jQuery(".deferVoteCommit").click();
+              }
+            </script>
+         
+         
+         <ice:form>
+            <ice:inputText value="#{navigation.deferPlanIdVote}" styleClass="deferVotePlanId" />
+            <ice:commandButton value="" styleClass="deferVoteCommit" actionListener="#{navigation.deferVotingTo}" />
+         </ice:form>
+         
+         </div>
 </ice:portlet>
 </f:view>

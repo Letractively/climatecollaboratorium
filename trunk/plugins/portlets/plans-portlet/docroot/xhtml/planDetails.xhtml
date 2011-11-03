@@ -13,8 +13,8 @@
     <div id="protop">
         <div class="vote">
             <ice:form>
-                <ice:commandLink styleClass="prominantButton"  actionListener="#{plan.plan.vote}"
-                    rendered="#{votingPhase and not plan.plan.votedOn}" onclick="if(!deferUntilLogin()) return false;">
+                <ice:commandLink styleClass="prominantButton voteForPlanTrigger_#{plan.plan.planId}"  actionListener="#{plan.plan.vote}"
+                    rendered="#{votingPhase and not plan.plan.votedOn}" onclick="if(!deferUntilLogin()) { deferPlanVoteUntilLoggedIn(${plan.plan.planId}); return false; }">
                     <span>VOTE</span> for proposal
                 </ice:commandLink>
                 <ice:commandLink styleClass="prominantButton"

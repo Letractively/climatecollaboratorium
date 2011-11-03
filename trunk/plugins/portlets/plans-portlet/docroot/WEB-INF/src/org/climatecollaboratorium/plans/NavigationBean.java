@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.FacesEvent;
+
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
@@ -22,7 +26,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class NavigationBean {
     private PlanPageType pageType = PlanPageType.getDefaultPageType();
-    
+    public final static String DEFERED_PLAN_VOTE_ID_PARAM = "deferrPlanVoteIDSessionParam";
     private PlanBean planBean;
     private PlansIndexBean plansIndexBean;
     private ContestBean contestBean;
@@ -63,6 +67,26 @@ public class NavigationBean {
         pageType = PlanPageType.getPageTypeForParams(params);
         
         
+    }
+    public void setDeferPlanIdVote(Long planId) {
+        if (planId < 0 || planId == null) {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(DEFERED_PLAN_VOTE_ID_PARAM);
+        }
+        else {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(DEFERED_PLAN_VOTE_ID_PARAM, planId);
+        }
+            
+    }
+    
+    public void deferVotingTo(ActionEvent e) {
+    }
+    
+    public boolean getHasUserVoted() {
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(DEFERED_PLAN_VOTE_ID_PARAM) != null;
+    }
+    
+    public Long getDeferPlanIdVote() {
+        return (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(DEFERED_PLAN_VOTE_ID_PARAM);
     }
     
     public void setEventBus(EventBus eventBus) {
