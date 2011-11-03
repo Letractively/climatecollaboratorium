@@ -15,6 +15,7 @@ import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.plans.Helper;
+import org.climatecollaboratorium.plans.NavigationBean;
 import org.climatecollaboratorium.plans.PlanBean;
 import org.climatecollaboratorium.plans.PlanHistoryItem;
 import org.climatecollaboratorium.plans.PlanHistoryWrapper;
@@ -335,6 +336,8 @@ public class PlanItemWrapper {
             SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
                     PlanItem.class.getName(), wrapped.getPlanId(), activityKey.id(),null, 0);
 
+
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(NavigationBean.DEFERED_PLAN_VOTE_ID_PARAM);
             eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
         }
         
@@ -803,6 +806,10 @@ public class PlanItemWrapper {
             return attr.getAttributeValue();
         }
         return null;
+    }
+    
+    public Long getPlanId() {
+        return wrapped.getPlanId();
     }
 
 }

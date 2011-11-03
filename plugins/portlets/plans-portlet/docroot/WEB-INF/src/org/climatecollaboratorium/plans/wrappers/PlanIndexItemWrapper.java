@@ -22,10 +22,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 import org.climatecollaboratorium.plans.Helper;
+import org.climatecollaboratorium.plans.NavigationBean;
 import org.climatecollaboratorium.plans.PlansIndexBean;
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 
@@ -137,10 +139,13 @@ public class PlanIndexItemWrapper {
                 }
                 wrapped.vote(Helper.getLiferayUser().getUserId());
             }
-        }
-        SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), PlanItem.class.getName(),
+
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(NavigationBean.DEFERED_PLAN_VOTE_ID_PARAM);
+            SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(), PlanItem.class.getName(),
                 wrapped.getPlanId(), activityKey.id(), null, 0);
-        plansIndexBean.refresh();
+            plansIndexBean.refresh();
+        }
+        
     }
 
     public Integer getPlace() throws SystemException {

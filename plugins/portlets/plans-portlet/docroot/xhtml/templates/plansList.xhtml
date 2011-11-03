@@ -71,8 +71,9 @@
             </f:facet>
 
             <ice:commandLink actionListener="#{singlePlan.vote}"
-                             onclick="if(! deferUntilLogin()) return false; "
-                             styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} ">
+                             onclick="if(! deferUntilLogin()) { deferPlanVoteUntilLoggedIn(${singlePlan.planId}); return false; }"
+                             styleClass="indexVoteForPlan #{singlePlan.votedOn ? 'en userVote' : 'dis'} voteForPlanTrigger_#{singlePlan.planId}"
+                             id="vote_for_pan_#{singlePlan.planId}">
             </ice:commandLink>
         </ice:column>
         
