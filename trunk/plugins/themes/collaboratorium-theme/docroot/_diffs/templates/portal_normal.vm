@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="/collaboratorium-theme/css/forms.css?tt=$themeTimestamp" type="text/css"/>
     -->
     <link rel="stylesheet" href="/collaboratorium-theme/css/pages/main.css?tt=$themeTimestamp" type="text/css"/>
-    <link rel="stylesheet" href="/collaboratorium-theme/css/style.css?tt=$themeTimestamp" type="text/css"/>
+    <link rel="stylesheet" href="/collaboratorium-theme/css/style.css?tt=$themeTimestamp&i=2" type="text/css"/>
     <link rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" type="text/css"/>
     <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/loginregister.css?tt=$themeTimestamp"
           media="all"/>
@@ -42,10 +42,10 @@
     <!--[if IE]>
     <script type="text/javascript" src="/collaboratorium-theme/javascript/excanvas.js"></script><![endif]-->
     
-    <link rel="stylesheet" href="/collaboratorium-theme/css/moth_additional_styles.css?tt=$themeTimestamp"
+    <link rel="stylesheet" href="/collaboratorium-theme/css/moth_additional_styles.css?tt=$themeTimestamp&t=3"
           type="text/css"/>
 
-
+	<script type="text/javascript" src="http://use.typekit.com/bmu2xym.js"></script> 
 <!--
     <script type="text/javascript" src="http://use.typekit.com/uvv6okq.js"></script>
 
@@ -65,10 +65,9 @@
         </script>
 
 
-    <script type="text/javascript" src="/collaboratorium-theme/javascript/moth_init_script.js?tt=$themeTimestamp"></script>
+    <script type="text/javascript" src="/collaboratorium-theme/javascript/moth_init_script.js?tt=$themeTimestamp?tmp=30"></script>
     <script type="text/javascript" src="/collaboratorium-theme/javascript/loginregister.js"></script>
     <script type="text/javascript" src="/html/js/collaboratorium/cookies.js"></script>
-
 </head>
 
 

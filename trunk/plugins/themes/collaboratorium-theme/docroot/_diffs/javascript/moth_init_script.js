@@ -286,7 +286,17 @@ function updateBreadcrumb(placeholder, items) {
 			14620: 15112,
 			15070: 15107,
 			15015: 15111,
-			15056: 15109
+			15056: 15109,
+
+			15111: 15205,
+			15110: 15207,
+			15108: 15204,
+			15109: 15208,
+			15112: 15206,
+
+			15103: 15201,
+			15104: 15202,
+			15105: 15203	
 	
 			};
 	
@@ -295,7 +305,7 @@ function updateBreadcrumb(placeholder, items) {
 		var planIdPos = loc.indexOf("/planId/");
 		if (planIdPos > 0) {
 			var planIdEnd = loc.indexOf("#", planIdPos);
-			if (planIdEnd = -1) {
+			if (planIdEnd == -1) {
 				planIdEnd = loc.length;
 			}
 			planIdPos += 8;
