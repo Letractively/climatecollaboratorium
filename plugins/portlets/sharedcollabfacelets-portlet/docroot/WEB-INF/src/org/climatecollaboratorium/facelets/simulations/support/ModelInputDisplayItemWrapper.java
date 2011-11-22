@@ -31,7 +31,14 @@ public class ModelInputDisplayItemWrapper {
             }
             else {
                 String defVal = wrappedItem.getMetaData() != null && wrappedItem.getMetaData().getDefault() != null ? wrappedItem.getMetaData().getDefault()[0] : null;
-                value = defVal == null || defVal.trim().length() == 0 ? Double.parseDouble(wrappedItem.getMetaData().getMin()[0]) : Double.parseDouble(defVal);
+                if (defVal != null && defVal.trim().length() > 0) {
+                    value = Double.parseDouble(defVal);
+                }
+                else if (wrappedItem.getMetaData().getMin() != null && wrappedItem.getMetaData().getMin().length > 1) {
+                    value = Double.parseDouble(wrappedItem.getMetaData().getMin()[0]);
+                } else {
+                    value = 0.;
+                }
             }
         }
     }
