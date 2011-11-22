@@ -45,7 +45,6 @@
                     messageId="contestModelHelp">+show help</sharedcollab:helpMessageTrigger>
             </ice:form>
  -->
- <h1>#{contest}</h1>
             <ice:form>
                 <collab:simulationEdit simulationId="#{contest.modelId}"
                                    editActions="true" />
@@ -53,8 +52,9 @@
             
             <div class="clear"></div>
             <br />
-            <!-- 
+            <f:subview rendered="#{contest.contestId == 3 || contest.contestId == 2 || contest.contestId == 4}">
             <div class="act-edit-box_left">
+            
                 <p>Select varying levels of geographic disaggregation for the actions</p>
                 <div class="select-pro_wrap">
                     <ice:selectOneMenu value="#{contest.modelId}" styleClass="selectbox1" style="width: 191px;" partialSubmit="true" >
@@ -73,7 +73,7 @@
             </div>
         
         </div>
- -->
+        </f:subview>
             <div class="clear"></div>
         </ice:form>
 
