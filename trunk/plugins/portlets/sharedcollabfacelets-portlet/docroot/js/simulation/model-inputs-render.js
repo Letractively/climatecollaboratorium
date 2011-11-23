@@ -12,7 +12,9 @@
 var debug = false;
 var inputValues = {};
 var currentTab = "CO2 Concentration";
-var defaultItem = "CO2 Concentration";
+/* This is ugly, it selects tab on outputs tab, but it should be rather a parameter in database */
+var defaultItems = {"CO2 Concentration": true, "Total": true};
+
 function renderModelInputs(event) {
 	showSliders();
 }
@@ -507,6 +509,7 @@ function renderSingleChart(chartDef) {
 		          divideback*=10;
 		     }
 		     interval=(Math.round((interval / 10)*2)/2)/divideback ;
+		     console.log("picked variable: ", interval, min, max, preferredTicks);
 		     return interval;
 		}
 	
@@ -514,6 +517,10 @@ function renderSingleChart(chartDef) {
 			yaxis.min = min;
 			yaxis.max = max;
 
+			if (max - min > 1000) {
+				yaxis.tickInterval = 1000;
+				yaxis.tickOptions = {formatString:"%d"};	
+			}
 			if (max - min > 100) {
 				yaxis.tickInterval = 100;
 				yaxis.tickOptions = {formatString:"%d"};
@@ -661,6 +668,13 @@ function renderModelOutputs() {
 		renderSingleChart(this);
 	});
 	*/
+
+	if (jQuery(".physicalImpactContent").length == 0) {
+		jQuery("#freeOutputPhysical_trigger").remove();
+	}
+	else {
+		jQuery("#freeOutputPhysical_trigger").show();
+	}
 	
 	
 	/* this is rather ugly hack, used because there is no good handling of output grouping */
@@ -719,6 +733,7 @@ function renderModelOutputs() {
 
 	}
 	
+	
 	/* end of physical impacts hack */
 	
 	
@@ -759,7 +774,7 @@ function renderModelOutputs() {
 				trigger.click();
 			}
 		}
-		else if (defaultItem == name) {
+		else if (name in defaultItems) {
 			trigger.click();
 		} 
 		
