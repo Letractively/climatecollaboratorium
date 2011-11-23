@@ -517,11 +517,11 @@ function renderSingleChart(chartDef) {
 			yaxis.min = min;
 			yaxis.max = max;
 
-			if (max - min > 1000) {
+			if (max - min > 2000) {
 				yaxis.tickInterval = 1000;
 				yaxis.tickOptions = {formatString:"%d"};	
 			}
-			if (max - min > 100) {
+			else if (max - min > 100) {
 				yaxis.tickInterval = 100;
 				yaxis.tickOptions = {formatString:"%d"};
 			}
