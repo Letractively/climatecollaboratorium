@@ -357,7 +357,7 @@ h5 { font-size:12px; font-style:normal; font-weight:600; color: #464646; margin:
 
 .rounded_button.blugrid a { background:url(../images/grid_blue-bg.gif); color:#fff; border:1px solid #2498b3;}
 .rounded_button.blugrid a:hover { background:#fff; color:#2498b3;}
-.rounded_button.blugrid.c a { background:#fff; color:#2498b3; font-weight:bold;}
+.rounded_button.blugrid.c a { background:#fff; color:#2498b3;}
 
 .vote { background:url(../images/butt_vote.png) no-repeat; width:191px; height:58px; margin:30px auto 0; text-align:center;}
 .vote a { padding-top:20px; display:inline-block; font-size:16px; font-style:italic; color:#666;}
