@@ -244,6 +244,9 @@ function showSliders() {
 		if (isDouble(dataType)) {
 			sliderVal = parseInt(((defaultVal-min) / (max-min)) * (sliderMax - sliderMin));
 		}
+		if (isInteger(dataType)) {
+			sliderVal = parseInt(((defaultVal-min) / (max-min)) * (sliderMax - sliderMin));
+		}
 		slider.slider("option", "value", sliderVal);
 
 		valueField.change(function(eventObject) {
