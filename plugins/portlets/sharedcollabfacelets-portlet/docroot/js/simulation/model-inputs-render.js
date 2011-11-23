@@ -155,6 +155,9 @@ function showSliders() {
 				min = min - (min % interval);
 			}
 		}
+		else if (isInteger(dataType)) {
+			interval = 1;
+		}
 
 		if (! isNaN(parseFloat(currentValue))) {
 			defaultVal = currentValue;
@@ -170,7 +173,7 @@ function showSliders() {
 			sliderMin = SLIDER_MIN;
 			interval = (max-min)/(sliderMax - sliderMin);
 		} 
-		else {
+		else if (! isNaN(interval)){
 			sliderMax = (max - min)/interval;
 			sliderMin = 0;
 			sliderDoubleVals = false;
