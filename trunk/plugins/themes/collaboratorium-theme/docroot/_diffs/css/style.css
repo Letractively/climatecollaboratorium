@@ -563,10 +563,10 @@ h2.debate-issue { color:#318eb5; font-weight:400; margin:50px 0 10px 0;}
 .act-edit_left-top { width:450px; padding:15px; background:url(../images/actions_charttop-bg.gif);}
 
 
-.actions-edit_chart-head { width:489px; min-height:85px; }
+.actions-edit_chart-head { width:489px; min-height:40px; }
 .actions-edit_chart-head-bg { width:459px; padding:15px; background:url(../images/actions_charttop-bg.gif);}
 .actions-edit_chart-head-shade { position:absolute; z-index:5; width:489px; height:5px; background:url(../images/actions_charttop-shade.png) repeat-x;}
-.actions-edit_chart { width:489px; background:url(../images/actions_chart-bg.gif);}
+.actions-edit_chart { padding-top: 15px; width:489px; background:url(../images/actions_chart-bg.gif);}
 .actions-edit_chart_y-axis {float:left; width:50px; line-height:normal; font:11px Verdana, sans-serif; color:#656562;}
 .actions-edit_chart_y-axis li { list-style:none; padding:10px 0 0 12px; }
 .actions-edit_chart_grid {float:left; width:433px; height:380px; border-left:1px solid #b7b6b2; border-bottom:1px solid #b7b6b2; background:url(../images/actions_grid.png);}
