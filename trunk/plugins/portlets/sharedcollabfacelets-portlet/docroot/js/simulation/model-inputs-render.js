@@ -415,9 +415,8 @@ function renderSingleChart(chartDef) {
 		var max = null;
 		var chartType = 'NORMAL';
 		
-		
-		var yaxis = {};
-		var xaxis = {autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks};
+		var yaxis = {labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer};
+		var xaxis = {autoscale: false, tickOptions:{formatString:'%d'}, ticks: xaxisTicks, labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer, label: 'Year'};
 		
 		
 		var series = [];
@@ -428,6 +427,8 @@ function renderSingleChart(chartDef) {
 			var id = jQuery(this).find(".id").val();
 			var associatedId = jQuery(this).find(".associatedId").val();
 			var seriesType = jQuery(this).find(".seriesType").val();
+			
+			yaxis.label = unit;
 
 			//var error = jQuery(this).find(".error").val();
 
@@ -591,28 +592,40 @@ function renderSingleChart(chartDef) {
 				seriesDefaults = { fill: true};
 				stackSeries = true;
 			}
-			var plot = jQuery.jqplot(chartPlaceholderId, values, 
-				{ 
+
+			
+			var plotOptions = {
 					stackSeries: stackSeries,
 			    	showMarker: showMarker,
 			    	seriesDefaults: seriesDefaults,
 			    	series: series,
-				axes:{
-					xaxis: xaxis,
-					yaxis: yaxis
-				},
-				legend : {
-					show :true,
-					location :'nw',
-					yoffset :320,
-					xoffset:0
-				},
-				grid: {
-					drawGridLines: true,
-					background: "#f3f2ec",
-					shadow: false
+			    	axes:{
+			    		xaxis: xaxis,
+			    		yaxis: yaxis
+			    	},
+			    	legend : {
+			    		show :true,
+			    		location :'nw',
+			    		placement: 'insideGrid',
+			    		marginTop: "320px",
+			    		yoffset :320,
+			    		xoffset:0
+			    	},
+			    	grid: {
+			    		drawGridLines: true,
+			    		background: "#f3f2ec",
+			    		shadow: false
+			    	}
+			};
+			try { 
+				var plot = jQuery.jqplot(chartPlaceholderId, values, plotOptions); 
+			} catch (e) {
+				if (window.console) {
+					console.error(e);
+					console.log("values: ", values);
+					console.log("plotOptions: ", plotOptions);
 				}
-			}); 
+			}
 			
 		}
 		
