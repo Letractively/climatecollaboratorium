@@ -131,6 +131,10 @@ public class ContestWrapper {
     public String getShortName() {
         return contest.getContestShortName();
     }
+    
+    public String getContestModelDescription() {
+        return contest.getContestModelDescription();
+    }
 
     /**
      * Created by IntelliJ IDEA.

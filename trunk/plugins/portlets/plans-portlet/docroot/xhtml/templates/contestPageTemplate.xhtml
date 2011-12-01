@@ -47,9 +47,6 @@
                 </ice:panelGroup>
                 </f:subview>
                 <f:subview rendered="#{contest.subView.name eq 'MODEL'}">
-                <ice:panelGroup styleClass="categoryDescription" rendered="#{not contest.contest.editor.editing}">
-                    <ice:outputText id="description" value="#{contest.contest.modelDescription}" escape="false" />
-                </ice:panelGroup>
                 <ice:panelGroup styleClass="categoryDescription" rendered="#{contest.contest.editor.editing}">
                     <ice:inputTextarea value="#{contest.contest.editor.modelDescription}"/>
                 </ice:panelGroup>
