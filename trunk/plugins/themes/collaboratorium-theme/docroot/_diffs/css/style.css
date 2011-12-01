@@ -500,8 +500,8 @@ h2.debate-issue { color:#318eb5; font-weight:400; margin:50px 0 10px 0;}
 
  
 /* actions page */
-.actboxtop { height:41px; width:984px; margin-top:30px; position:relative; z-index:5; font-size:15px; color:#464646; line-height:normal; background:url(../images/grid_t.gif) #fff; border:1px solid #dad7cf;
-	-webkit-border:10px; -moz-border-radius:10px; border-radius:10px;  -khtml-border-radius:10px;}
+.actboxtop { width:984px; margin-top:30px; position:relative; z-index:5; font-size:15px; color:#464646; line-height:normal; background:url(../images/grid_t.gif) #fff; border:1px solid #dad7cf;
+	-webkit-border:10px; -moz-border-radius:10px; border-radius:10px;  -khtml-border-radius:10px; padding-bottom: 15px;}
 .actboxtop a { font-weight:600;}
 	.wf-active .actboxtop { font-size:17px;}
 .type { float:left; padding:16px 0 0 12px;}
