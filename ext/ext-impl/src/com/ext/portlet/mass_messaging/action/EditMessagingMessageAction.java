@@ -112,7 +112,7 @@ public class EditMessagingMessageAction extends PortletAction {
                 if (recipientName.trim().equals("")) {
                     continue;
                 }
-
+                
                 Long recipientId = CounterLocalServiceUtil.increment(MessagingMessageRecipient.class.getName());
                 MessagingMessageRecipient msgRecipient = 
                     MessagingMessageRecipientLocalServiceUtil.createMessagingMessageRecipient(recipientId);
@@ -267,7 +267,8 @@ public class EditMessagingMessageAction extends PortletAction {
         }
         for(MessagingMessageRecipient rec: recipients) {
             InternetAddress to = new InternetAddress(rec.getEmailAddress());
-            MailEngine.send(from, to, subject, body.replaceAll(MessagingConstants.RECIPIENT_ID_PLACEHOLDER, String.valueOf(rec.getRecipientId())), true);
+            System.out.println(to.getAddress());
+            //MailEngine.send(from, to, subject, body.replaceAll(MessagingConstants.RECIPIENT_ID_PLACEHOLDER, String.valueOf(rec.getRecipientId())), true);
         }
         
         SessionMessages.add(actionRequest, "Message was sent");

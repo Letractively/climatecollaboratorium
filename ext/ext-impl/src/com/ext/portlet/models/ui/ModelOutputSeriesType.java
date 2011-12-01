@@ -11,7 +11,5 @@ package com.ext.portlet.models.ui;
  * @date: May 25, 2010
  */
 public enum ModelOutputSeriesType {
-   CONF_INTERVAL_95, CONF_INTERVAL_5, NORMAL
-    
-
+   CONF_INTERVAL_95, CONF_INTERVAL_5, NORMAL, AREA_CHART
 }

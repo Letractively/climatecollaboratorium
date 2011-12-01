@@ -20,7 +20,8 @@ delete from ContestPhaseColumn WHERE ContestPhasePK = 9 AND columnName = 'SUBREG
 delete from ContestPhaseColumn WHERE ContestPhasePK = 11;
 
 insert into ContestPhaseColumn Values(111, 11, 'REGION', 10, 0);
-insert into ContestPhaseColumn Values(113, 11, 'ABSTRACT', 30, 0);
+insert into ContestPhaseColumn Values(113, 11, 'ABSTRACT', 30, 0);no
+
 insert into ContestPhaseColumn Values(114, 11, 'SUPPORTERS', 40, 0);
 insert into ContestPhaseColumn Values(115, 11, 'COMMENTS', 50, 0);
 insert into ContestPhaseColumn Values(116, 11, 'UPDATE_DATE', 60, 0);
