@@ -413,6 +413,7 @@ function renderSingleChart(chartDef) {
 		var confIntervalById = {};
 		var min = null;
 		var max = null;
+		var chartType = 'NORMAL';
 		
 		
 		var yaxis = {};
@@ -425,6 +426,9 @@ function renderSingleChart(chartDef) {
 			var label = jQuery(this).find(".label").val();
 			var unit = jQuery(this).find(".unit").val();
 			var id = jQuery(this).find(".id").val();
+			var associatedId = jQuery(this).find(".associatedId").val();
+			var seriesType = jQuery(this).find(".seriesType").val();
+
 			//var error = jQuery(this).find(".error").val();
 
             var invalidErrorMessage = jQuery(this).find(".invalidErrorMessage").val();
@@ -452,9 +456,6 @@ function renderSingleChart(chartDef) {
 					min = null;
 					max = null;
 				}
-				var associatedId = jQuery(this).find(".associatedId").val();
-				var seriesType = jQuery(this).find(".seriesType").val();
-
 				var chartVals = [];
 				
 				for (var i = 0; i < val.length; i++) {
@@ -468,7 +469,12 @@ function renderSingleChart(chartDef) {
 				valuesById[id] = chartVals;
 				labelsById[id] = label;
 			
-				if (seriesType != 'NORMAL' && parseInt(associatedId) > 0) {
+
+				if (seriesType == 'AREA_CHART') {
+					chartType = 'AREA';
+				}
+				if (seriesType != 'NORMAL' && seriesType != 'AREA_CHART' && parseInt(associatedId) > 0) {
+					chartType = 'INTERVAL';
 					if (typeof(confIntervalById[associatedId]) == 'undefined') {
 						confIntervalById[associatedId] = [];
 					}
@@ -481,6 +487,8 @@ function renderSingleChart(chartDef) {
 					}
 					series.push({showMarker: false, label: label});
 				}
+				
+				
 			}
 			if (rangeErrorPolicy) {
                 //log.debug("Range error policy is not null");
@@ -572,10 +580,23 @@ function renderSingleChart(chartDef) {
 		}
 
 		if (values.length > 0) {
+			
+
             //log.debug(chartTitle+":"+series+":"+values);
+			var seriesDefaults = {};
+			showMarker = false;
+			stackSeries = false;
+			
+			if (chartType == 'AREA') {
+				seriesDefaults = { fill: true};
+				stackSeries = true;
+			}
 			var plot = jQuery.jqplot(chartPlaceholderId, values, 
 				{ 
-				series: series,
+					stackSeries: stackSeries,
+			    	showMarker: showMarker,
+			    	seriesDefaults: seriesDefaults,
+			    	series: series,
 				axes:{
 					xaxis: xaxis,
 					yaxis: yaxis
