@@ -12,6 +12,7 @@
             <td class="first" colspan="#{fn:length(input.displayItems)}">
                 <div class="control_title actInputDef"><span>#{inputIndex}.</span>&amp;nbsp;#{input.oryginalName}<br />
                 
+                
         <div class="act_tooltip" style="display: none;">
             <div class="act_tt-wrap">
                 <div class="act_tt-txt">
@@ -29,16 +30,30 @@
         </div>
             
             </div>
-        
+            <div class="control_div"></div>
             </td>
         </tr>
         <ui:repeat value="#{input.displayItemsWrapped}" var="individualInput" varStatus="status">
             <tr>
-                <td>
-                    <span><ice:outputText value="#{individualInput.name}" ></ice:outputText></span>
+                <td style="padding-left: 20px;">
+                    <div class="control_title actInputDef">
+                        #{individualInput.name}&amp;nbsp;<br />
+                        <div class="act_tooltip" style="display: none;">
+                            <div class="act_tt-wrap">
+                                <div class="act_tt-txt">
+                                    #{individualInput.description}
+                                </div>
+                            </div>
+                            <div class="act_tt-bot"></div>
+                        </div>
+                    </div>
+                    <br />
                 </td>
+            </tr>
+            <tr>
                 
-                <td class="inputs">
+                <td class="inputs" style="padding-left: 40px;">
+                    
                     <table class="sliderDef">
                         <tr>
                             <td class="#{individualInput.type == 'SLIDER' ? 'sliderCol' : 'empty'}">
