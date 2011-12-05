@@ -21,6 +21,7 @@ import org.climatecollaboratorium.facelets.simulations.support.ModelInputGroupDi
 import org.climatecollaboratorium.facelets.simulations.support.ModelOutputErrorSettingWrapper;
 import org.climatecollaboratorium.facelets.simulations.support.SimulationsHelper;
 import org.climatecollaboratorium.facelets.simulations.support.SupportBean;
+import org.compass.core.util.backport.java.util.Arrays;
 
 import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
@@ -185,6 +186,14 @@ public class SimulationBean {
             _log.debug("Running simulation " + simulation.getId());
             firstRun = scenario == null;
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
+            List<Variable> variables = scenario.getInputSet();
+            System.out.println(variables);
+            for (Variable v: variables) {
+                System.out.println(v.getMetaData().getName());
+                for (Tuple t: v.getValue()) {
+                    System.out.println(Arrays.toString(t.getValues()));
+                }
+            }
             _log.debug("Scenario id after run: " + scenario.getId());
             
             for (Variable var: scenario.getInputSet()) {
