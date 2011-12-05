@@ -57,10 +57,10 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
             // adding
             ModelInputGroupDisplayItem createdItem = null;
             if (md != null) {
-                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), md, ModelInputGroupType.HORIZONTAL);
+                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), md, groupItem.getGroupType());
             }
             else {
-                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), name, description, ModelInputGroupType.HORIZONTAL);
+                createdItem = ModelInputGroupDisplayItem.create(simulationBean.getSimulation(), name, description, groupItem.getGroupType());
             }
 
             int maxOrder = Integer.MIN_VALUE;
@@ -157,6 +157,10 @@ public class ModelInputGroupDisplayItemWrapper extends ModelInputDisplayItemWrap
     public List<ModelInputDisplayItemWrapper> getAllItems() {
         return wrappedItems;
         
+    }
+
+    public String getGroupType() {
+        return groupItem.getGroupType().name();
     }
     
     protected boolean hasValue() {
