@@ -8,9 +8,13 @@
         <f:subview id="individualInput"  rendered="#{input.displayItemType == 'INDIVIDUAL'}">
             <ui:include src="./individual.xhtml" />
         </f:subview>
-    
-        <f:subview id="groupInput"  rendered="#{input.displayItemType == 'GROUP'}">
-            <ui:include src="./group.xhtml" />
+        
+        <f:subview id="groupInput"  rendered="#{input.displayItemType == 'GROUP' and input.groupType == 'HORIZONTAL'}">
+            <ui:include src="./hgroup.xhtml" />
+        </f:subview>
+        
+        <f:subview id="groupInput"  rendered="#{input.displayItemType == 'GROUP' and input.groupType == 'VERTICAL'}">
+            <ui:include src="./vgroup.xhtml" />
         </f:subview>
         
         
