@@ -5,7 +5,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
 
-<table>
+<table id="input_def_#{input.metaData.id}">
     <tr class="#{(status.index + 1) % 2 == 0 ? 'even' : 'odd'}">
         <td colspan="2" class="first">
             <div class="control_title actInputDef"><span>#{inputIndex}.</span>&amp;nbsp;#{input.name}&amp;nbsp;<br />

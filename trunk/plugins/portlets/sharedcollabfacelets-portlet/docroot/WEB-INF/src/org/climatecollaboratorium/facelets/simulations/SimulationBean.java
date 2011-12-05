@@ -13,6 +13,7 @@ import edu.mit.cci.simulation.client.*;
 import edu.mit.cci.simulation.client.comm.*;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.facelets.simulations.support.ModelDisplayWrapper;
@@ -186,23 +187,17 @@ public class SimulationBean {
             _log.debug("Running simulation " + simulation.getId());
             firstRun = scenario == null;
             scenario = SimulationsHelper.getInstance().runSimulation(simulation, inputs);
-            List<Variable> variables = scenario.getInputSet();
-            System.out.println(variables);
-            for (Variable v: variables) {
-                System.out.println(v.getMetaData().getName());
-                for (Tuple t: v.getValue()) {
-                    System.out.println(Arrays.toString(t.getValues()));
-                }
-            }
             _log.debug("Scenario id after run: " + scenario.getId());
-            
-            for (Variable var: scenario.getInputSet()) {
-                inputsValues.put(var.getId(), var.getValue().get(0).getValues()[0]);
-            }
+
             for (Long id: inputs.keySet()) {
                 inputsValues.put(id, inputs.get(id));
             }
-
+            
+            for (Variable var: scenario.getInputSet()) {
+                if (! var.getValue().isEmpty() && var.getValue().get(0).getValues().length > 0 && var.getValue().get(0).getValues()[0] != null) {
+                    inputsValues.put(var.getMetaData().getId(), var.getValue().get(0).getValues()[0]);
+                }
+            }
 
             updateDisplay(true);
             
@@ -223,6 +218,14 @@ public class SimulationBean {
 
     public Map<Long, Object> getInputValues() {
         return inputsValues;
+    }
+    
+    public String getInputValuesJson() {
+        Map<String, String> tmpVals = new HashMap<String, String>();
+        for (Map.Entry<Long, Object> entry: inputsValues.entrySet()) {
+            tmpVals.put(entry.getKey().toString(), String.valueOf(entry.getValue()));
+        }
+        return JSONObject.fromObject(tmpVals).toString();
     }
 
     public void editActions(ActionEvent e) throws SystemException, IllegalUIConfigurationException, IOException {
