@@ -521,7 +521,6 @@ function renderSingleChart(chartDef) {
 		          divideback*=10;
 		     }
 		     interval=(Math.round((interval / 10)*2)/2)/divideback ;
-		     console.log("picked variable: ", interval, min, max, preferredTicks);
 		     return interval;
 		}
 	
@@ -688,6 +687,53 @@ function renderSingleChart(chartDef) {
 		
 var counter = 0;
 var selectedItem = null;
+
+function updateModelInputsFromModelRun() {
+	try {
+		var tmp = eval('(' + jQuery("#inputsValues").text() + ')');
+		
+		for (var x in tmp) {
+			var inputDef = jQuery("#input_def_" + x);
+			
+			if (inputDef.length > 0) {
+				var min = parseFloat(inputDef.find(".min").text());
+				var id = inputDef.find(".id").text();
+				var max = parseFloat(inputDef.find(".max").text());
+				var defaultVal = parseFloat(inputDef.find(".default").text());
+				var dataType = inputDef.find(".dataType").text();
+				var currentValue = inputDef.find(".fieldValue").text();
+				var type = inputDef.find(".type").text();
+				var unit = inputDef.find(".unit").text();
+				var interval = parseFloat(inputDef.find(".interval").text());
+
+				var newValue = formatFieldValue(tmp[x], unit,dataType);
+				inputDef.find(".value").val(newValue);
+
+				var slider = inputDef.find('.slider');
+				if (slider.length > 0) {
+					var sliderVal = parseFieldValue(newValue, unit);
+					
+					var sliderMin = slider.slider('option', 'min');
+					var sliderMax = slider.slider('option', 'max');
+
+					if (isDouble(dataType)) {
+						sliderVal = ((sliderVal - min) / (max-min)) * (sliderMax - sliderMin);
+					}
+					slider.slider("option", "value", sliderVal);
+
+				}
+				
+			}
+		}
+	}
+	catch (e) {
+		if (window.console) {
+			console.error(e, jQuery("#inputsValues").text());
+		}
+		// ignore
+	}
+	
+}
 function renderModelOutputs() {
 	/* Check if outputs have been already processed, if they have been then there is no need
 	 * to rerender graphs.
@@ -697,6 +743,9 @@ function renderModelOutputs() {
 		//log.debug("model outputs already processed");
 		return;
 	}
+	
+	// update input values
+	updateModelInputsFromModelRun();
 	
 	/*
 	 * Render graphs

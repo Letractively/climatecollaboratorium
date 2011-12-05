@@ -5,6 +5,14 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     <ice:panelGroup>
+        <ice:panelGroup styleClass="hidden">
+            <span>#{simulationBean.display}</span>
+            <script type="text/html" id="inputsValues">
+                <ice:outputText value="#{simulationBean.inputValuesJson}" escape="false" nospan="true" />
+            </script>
+            
+        
+        </ice:panelGroup>
         <div class="act-edit_left">
         <ice:panelGroup styleClass="hidden" rendered="#{not disableInputs || (showEditArea and simulationBean.embeddedEditing)}" >
             <div class="simulationInputsStatus"></div>

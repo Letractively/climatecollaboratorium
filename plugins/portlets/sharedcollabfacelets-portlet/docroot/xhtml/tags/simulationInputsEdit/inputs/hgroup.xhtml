@@ -36,7 +36,7 @@
         <tr>
             <ui:repeat value="#{input.displayItemsWrapped}" var="individualInput" varStatus="status">
                 <td class="inputs">
-                    <table class="sliderDef">
+                    <table class="sliderDef" id="input_def_#{individualInput.metaData.id}">
                         <tr>
                             <td class="#{individualInput.type == 'SLIDER' ? 'sliderCol' : 'empty'}">
                                 <!-- <ice:panelGroup styleClass="slider" rendered="#{individualInput.type == 'SLIDER'}"/>-->
