@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+<f:view
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    >
+    <ice:portlet>
+        <style>
+            .odd {
+                background: #efefef;
+            }
+            td {
+                padding: 5px;
+            }
+            .breadcrumbs {
+                display: inline;
+            }
+            .breadcrumbItem {
+                display: inline;
+            }
+                
+        </style>
+        <ice:form>
+    
+            <h1>Ontology</h1>
+            <h2>Current selection:</h2>
+                <div class="breadcrumbItem">
+                <ice:commandLink value="ROOT" actionListener="#{ontologyAdmin.setTermId}">
+                    <f:attribute name="termId" value="null" />
+                </ice:commandLink>
+                </div>
+            <ice:panelSeries var="term" value="${ontologyAdmin.allTermParents}" styleClass="breadcrumbs">
+                &amp;raquo; 
+                <div class="breadcrumbItem">
+                <ice:commandLink value="${term.name}" actionListener="#{ontologyAdmin.setTermId}">
+                    <f:attribute name="termId" value="#{term.id}" />
+                </ice:commandLink>
+                </div>
+            </ice:panelSeries>
+                <ice:dataTable var="term" value="${ontologyAdmin.ontologyTerms}" style="width: 100%;" rowClasses="odd,even">
+                    <ice:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <ice:commandLink value="${term.name}" actionListener="#{ontologyAdmin.setTermId}">
+                            <f:attribute name="termId" value="#{term.id}" />
+                        </ice:commandLink>
+                    </ice:column>                    
+                    <ice:column>
+                        <f:facet name="header">
+                            Child terms count
+                        </f:facet>
+                        ${term.childTermsCount}
+                    </ice:column>
+                    <ice:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet>
+                        <ice:commandButton actionListener="#{ontologyAdmin.deleteTerm}" value="Delete">
+                            <f:attribute name="termId" value="#{term.id}" />
+                        </ice:commandButton>
+                    
+                    </ice:column>
+                
+                </ice:dataTable>
+            <h3>Add new term:</h3>
+        
+            <ice:inputText value="#{ontologyAdmin.newTerm}" />
+        
+            <ice:commandButton actionListener="#{ontologyAdmin.createNewTerm}" value="Add" />
+        </ice:form>
+    </ice:portlet>
+</f:view>         
+
+
