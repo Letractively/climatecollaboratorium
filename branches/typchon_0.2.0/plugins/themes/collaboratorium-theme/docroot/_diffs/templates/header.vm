@@ -1,0 +1,133 @@
+<div id="top-left">
+    <div id="logo"><a href="/"><img src="/collaboratorium-theme/images/climate-colab.png" width="206" height="42" alt="Climate CoLab" /></a></div>
+    #if ($has_navigation)
+        #parse ("$full_templates_path/navigation.vm")
+    #end
+</div>
+<div id="top-right">
+    <div id="loginContainer">
+        
+        <ul id="login">
+            #if ($themeDisplay.signedIn)
+                <li id="signin"><a href="/c/portal/logout" >Sign out</a></li>
+                <li id="reg"><a href="/web/guest/member/-/member/userId/$user.userId">My profile</a></li>
+            #else
+                <li><a href="javascript:;" onmouseover="document.getElementById('hdr_signin').style.display='block'"><img src="/collaboratorium-theme/images/header_signin.png" width="73" height="28" alt="Signin" name="si" /></a></li>
+                <li id="reg"><a  href="javascript:;" class="openreg">Register</a></li> 
+                
+            #end
+        </ul>
+        #if ($themeDisplay.signedIn)
+            
+            <div id="loginStatus" style="z-index: 9999;">
+                #parse ("$full_templates_path/dock.vm")
+            </div>
+        #else
+            <div id="hdr_signin">
+                <form id="signInTopForm" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
+                    <p>Screen name<br />
+                    <input class="hdr_signinfield" name="login" type="text" value="" /></p>
+                    <p>Password<br />
+                    <input class="hdr_signinfield" name="password" type="password" value="" /></p>
+                    <a href="javascript:;" onclick="showForgotPasswordPopup()">Forgot your password?</a> <input class="hdr_signinbutt" type="submit" name="submitsignin" value="" onclick="addRedirectBeforeSubmit('signInTopForm')" />
+                </form>
+        <!--
+                <div class="popuplogin_facebook"><a href="javascript:clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a></div>
+                -->
+            </div>
+        #end
+        
+        
+    </div>
+    <div id="menu">
+        <form action="">
+            <input id="searchinput" class="nofocus" name="searchinput" type="text" value="Search" />
+            <input id="searchsubmit" type="button" name="submit" value="Go" />
+        </form>
+        <ul>
+            <li><a href="/web/guest/feedback">Contact</a></li>
+            <li><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
+            <li><a class="facebook-link" target="_blank" href="http://www.facebook.com/pages/Climate-CoLab/138039566244509">Find us on facebook!</a></li>
+            <li style="clear: both;"></li>
+        </ul>
+    </div> <!-- /menu -->
+</div> <!-- /top-right -->
+#if (! $page.getName($locale).contains('Register')) 
+    <!-- Registration -->
+    <div class="popup_reg" style="display: none">
+      <div class="popupreg_form">
+        <div class="closepopupreg"><a href="javascript:;" class="closereg"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
+        <div class="popupreg_head"><h3>Join the CoLab</h3></div>
+        <div class="popupreg_message">This page requires you to login...<div class="popupreg_facebook"><a href="javascript:clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a></div></div>
+        <div class="is-required"><img src="/collaboratorium-theme/images/reg-star.png" width="8" height="7" align="texttop" /> is a required field.</div>      
+        <form method="post" id="createAccountForm" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=1&_loginregister_struts_action=%2Fext%2Floginregister%2Fcreate_account&_loginregister_isRegistering=true">
+          <input name="cmd" type="hidden" value="add"/>
+          <input name="birthdayMonth" type="hidden" value="0"/>
+          <input name="birthdayDay" type="hidden" value="1"/>
+          <input name="birthdayYear" type="hidden" value="1970"/>
+          
+          #if ($request.getParameter('isRegistering')) 
+            #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
+          #end
+          
+          #set ($screenName = '')
+          #set ($emailAddress = '')
+          #set ($lastName = '')
+          #set ($firstName = '')
+          
+          #if ($request.getParameter('screenName'))
+            #set ($screenName = $request.getParameter('screenName'))
+          #end          
+          #if ($request.getParameter('emailAddress'))
+            #set ($emailAddress = $request.getParameter('emailAddress'))
+          #end          
+          #if ($request.getParameter('lastName'))
+            #set ($lastName = $request.getParameter('lastName'))
+          #end          
+          #if ($request.getParameter('firstName'))
+            #set ($firstName = $request.getParameter('firstName'))
+          #end
+          
+          
+          
+          <p><div class="popupreg_txt req">Screen name:</div><input name="screenName" class="popupreg_input" type="text" value="$screenName" maxlength="75" /></p>
+          <p><div class="popupreg_txt req">Email address:</div><input name="emailAddress" class="popupreg_input" type="text" value="$emailAddress"  maxlength="255" /></p>
+          <p><div class="popupreg_txt">First name:</div><input name="firstName" class="popupreg_input" type="text" value="$firstName"  maxlength="75" /></p>
+          <p><div class="popupreg_txt">Last name:</div><input name="lastName" class="popupreg_input" type="text" value="$lastName"  maxlength="75 "/></p>
+          <p><div class="popupreg_txt req">Password:</div><input name="password1" class="popupreg_input" type="password" value=""  maxlength="75" /></p>
+          <p><div class="popupreg_txt req">Retype Password:</div><input name="password2" class="popupreg_input" type="password" value="" maxlength="75" /></p>
+          <div class="clearfix"></div>
+          #if (! $page.getName($locale).toLowerCase().contains('feedback'))
+          <div class="popupreg_recap"><div class="popupreg_txt req recap">Retype the words</div>
+            <div class="popupreg_recaptcha">
+            <script type="text/javascript">
+                var RecaptchaOptions = { lang : 'en'};
+            </script>
+            <script type="text/javascript" src="$propsUtil.get("captcha.engine.recaptcha.url.script")$propsUtil.get("captcha.engine.recaptcha.key.public")">
+            </script>
+            <noscript>
+                           
+                <iframe src="$propsUtil.get("captcha.engine.recaptcha.url.noscript")$propsUtil.get("captcha.engine.recaptcha.key.public")"
+                        height="300" width="500" frameborder="0"></iframe><br />
+                <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                <input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
+            </noscript>
+            </div>
+            <div class="clear"></div>
+            
+          </div>    
+          #end      
+          <div class="popupreg_terms">
+            <div class="popupreg_txt terms">Terms of use</div>
+            <div class="popupreg_terms-right">By registering for this site, you agree to abide by the <a href="http://cci.mit.edu/research/climatehelp/CollaboratoriumTermsUse.html" target="_blank">Terms of Use</a></div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="popupreg_submit_wrap"><input type="submit" name="submit"  class="popupreg_submit closereg" value="" onclick="addRedirectBeforeSubmit('createAccountForm')" /></div>
+        </form>
+      </div>
+    </div>
+    <!-- /Registration -->
+ #end 
+    
+  
+<div class="clear">&nbsp;</div>

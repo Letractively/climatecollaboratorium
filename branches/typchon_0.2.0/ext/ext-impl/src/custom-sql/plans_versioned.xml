@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<custom-sql>
+
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.countVotesByPlanType">
+        <![CDATA[
+            select count(*) as COUNT_VALUE from
+                PlanVote
+                inner join (
+                    select distinct (PlanMeta.planId) as planId from PlanMeta where PlanMeta.planTypeId=?)
+                    as temp
+                on temp.planId = PlanVote.planId;
+        ]]>
+
+</sql>
+
+
+
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getPlans">
+        <![CDATA[
+            SELECT
+                {PlanItem.*}
+            FROM
+                PlanItem
+                INNER JOIN (
+                    SELECT max(PlanItem.id_) as itemId, PlanItem.planId planId
+                    FROM PlanItem
+                    GROUP BY PlanItem.planId
+                ) as t2
+                ON (PlanItem.id_ = t2.itemId)
+                WHERE PlanItem.state = 'ACTIVE'
+        ]]>
+        
+</sql>
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getPlansForContestPhase">
+        <![CDATA[
+            SELECT
+                {PlanItem.*}
+            FROM
+                PlanItem
+                INNER JOIN (
+                    SELECT max(PlanItem.id_) as itemId, PlanItem.planId planId
+                    FROM PlanItem
+                    GROUP BY PlanItem.planId
+                ) as t2
+                ON (PlanItem.id_ = t2.itemId),
+                PlanMeta pm
+            WHERE 
+                PlanItem.state = 'ACTIVE' AND 
+                (pm.contestPhase = ?) AND 
+                pm.planId = PlanItem.planId
+                
+            GROUP BY pm.planId
+            ORDER BY PlanItem.id_ DESC
+        ]]>
+
+</sql>
+
+
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.removePlanWithHistory">
+        <![CDATA[
+            DELETE 
+                PlanItem, PlanDescription, PlanMeta, PlanModelRun 
+            FROM 
+                PlanModelRun, PlanMeta, PlanItem, PlanDescription 
+            WHERE 
+                PlanItem.planId = PlanDescription.planId AND 
+                PlanItem.planId = PlanMeta.planId AND
+                PlanItem.planId = PlanModelRun.planId AND
+                PlanItem.planId = ?
+        ]]>
+        
+</sql>
+
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getPlansForType">
+        <![CDATA[
+            SELECT
+                {PlanItem.*},
+                PLAN_ATTRIBUTE_NAME_PLACEHOLDER
+            FROM
+                PlanItem
+                INNER JOIN (
+                    SELECT max(PlanItem.id_) as itemId, PlanItem.planId planId
+                    FROM PlanItem
+                    GROUP BY PlanItem.planId
+                ) as t2
+                ON (PlanItem.id_ = t2.itemId)
+                INNER JOIN (
+                    SELECT max(PlanMeta.id_) as metaId, PlanMeta.planId planId, PlanMeta.planTypeId
+                    FROM PlanMeta
+                    GROUP BY PlanMeta.planId
+                ) as t3
+                ON (PlanItem.planId = t3.planId)
+                PLAN_ATTRIBUTE_VALUE_PLACEHOLDER
+            WHERE
+                t3.planTypeId = ?
+            ORDER BY
+                SORT_COLUMNS_PLACEHOLDER
+        ]]>
+        
+</sql>
+
+<sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getFilteredPlans">
+        <![CDATA[
+            SELECT 
+                {PlanItem.*}, PLAN_ATTRIBUTE_NAME_PLACEHOLDER
+            FROM
+                PlanItem
+                INNER JOIN (
+                    SELECT max(PlanItem.id_) as itemId, PlanItem.planId planId
+                    FROM PlanItem
+                    GROUP BY PlanItem.planId
+                ) as t2
+                ON (PlanItem.id_ = t2.itemId)
+                INNER JOIN (
+                    SELECT max(PlanMeta.id_) as metaId, PlanMeta.planId planId, PlanMeta.planTypeId
+                    FROM PlanMeta
+                    GROUP BY PlanMeta.planId
+                ) as t3
+                ON (PlanItem.planId = t3.planId)
+                LEFT JOIN PlanType ON (t3.planTypeId = PlanType.planTypeId)
+                PLAN_ATTRIBUTE_VALUE_PLACEHOLDER,
+                
+            (SELECT COUNT(*) AS countAll FROM PlanVote) AS Votes
+            WHERE
+                t3.planTypeId = ?
+            ORDER BY SORT_COLUMNS_PLACEHOLDER
+        ]]>
+    </sql>
+    
+    <sql id="com.ext.portlet.plans.service.persistence.PlanItemFinderImpl.getLatestPlanVersion">
+        <![CDATA[
+            SELECT 
+                {PlanItem.*}
+            FROM 
+                PlanItem 
+            WHERE 
+                planId = ? 
+            ORDER BY version DESC
+        ]]>
+    </sql>
+</custom-sql>

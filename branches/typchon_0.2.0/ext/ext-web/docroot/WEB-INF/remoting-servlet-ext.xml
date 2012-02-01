@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+<beans>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanAttributeService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanAttributeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanAttributeService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanAttributeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanAttributeService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanAttributeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansUserSettingsService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansUserSettingsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansUserSettingsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansUserSettingsService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansUserSettingsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansUserSettingsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansUserSettingsService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansUserSettingsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansUserSettingsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanVoteService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanVoteService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanVoteService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanVoteService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanVoteService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanVoteService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanVoteService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanVoteService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanVoteService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansFilterService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansFilterService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansFilterService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanAttributeFilterService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanAttributeFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanAttributeFilterService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanAttributeFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanAttributeFilterService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanAttributeFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanAttributeFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPropertyFilterService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPropertyFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPropertyFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPropertyFilterService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPropertyFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPropertyFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPropertyFilterService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPropertyFilterService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPropertyFilterService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanColumnSettingsService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanColumnSettingsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanColumnSettingsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanColumnSettingsService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanColumnSettingsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanColumnSettingsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanColumnSettingsService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanColumnSettingsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanColumnSettingsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansFilterPositionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansFilterPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansFilterPositionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansFilterPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlansFilterPositionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlansFilterPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlansFilterPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeAttributeService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeAttributeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeAttributeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeAttributeService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeAttributeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeAttributeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeAttributeService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeAttributeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeAttributeService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeColumnService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeColumnService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeColumnService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeColumnService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeColumnService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeColumnService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTypeColumnService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTypeColumnService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTypeColumnService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanDescriptionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanDescriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanDescriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanDescriptionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanDescriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanDescriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanDescriptionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanDescriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanDescriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanMetaService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanMetaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanMetaService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanMetaService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanMetaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanMetaService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanMetaService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanMetaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanMetaService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanModelRunService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanModelRunService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanModelRunService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanModelRunService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanModelRunService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanModelRunService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanModelRunService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionsService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionsService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionsService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionsService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanPositionItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanPositionItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanPositionItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanFanService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanFanService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanFanService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanFanService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanFanService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanFanService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanFanService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanFanService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanFanService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTeamHistoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTeamHistoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTeamHistoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTeamHistoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTeamHistoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTeamHistoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTeamHistoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTeamHistoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTeamHistoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelDiscussionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelDiscussionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelDiscussionService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelDiscussionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelDiscussionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelDiscussionService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelDiscussionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelDiscussionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelDiscussionService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelPositionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelPositionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelPositionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelPositionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelPositionService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelGlobalPreferenceService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelGlobalPreferenceService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelGlobalPreferenceService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelGlobalPreferenceService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelGlobalPreferenceService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelGlobalPreferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelGlobalPreferenceService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelCategoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelCategoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelCategoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelInputGroupService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelInputGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelInputGroupService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelInputGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelInputGroupService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelInputGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelInputItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelInputItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelInputItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelInputItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelInputItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelInputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelInputItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputChartOrderService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputChartOrderService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputChartOrderService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputChartOrderService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputChartOrderService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputChartOrderService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputChartOrderService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_models_service_spring_ModelOutputItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.models.service.ModelOutputItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelOutputItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_Activity_service_spring_ActivitySubscriptionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.Activity.service.ActivitySubscriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.Activity.service.ActivitySubscriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_Activity_service_spring_ActivitySubscriptionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.Activity.service.ActivitySubscriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.Activity.service.ActivitySubscriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_Activity_service_spring_ActivitySubscriptionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.Activity.service.ActivitySubscriptionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.Activity.service.ActivitySubscriptionService" />
+	</bean>
+	<bean name="/com_ext_portlet_migration_service_spring_MigrationDataService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationDataService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.migration.service.MigrationDataService" />
+	</bean>
+	<bean name="/com_ext_portlet_migration_service_spring_MigrationDataService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationDataService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.migration.service.MigrationDataService" />
+	</bean>
+	<bean name="/com_ext_portlet_migration_service_spring_MigrationDataService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationDataService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.migration.service.MigrationDataService" />
+	</bean>
+	<bean name="/com_ext_portlet_migration_service_spring_MigrationMappingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.migration.service.MigrationMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_migration_service_spring_MigrationMappingService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.migration.service.MigrationMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_migration_service_spring_MigrationMappingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.migration.service.MigrationMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.migration.service.MigrationMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_debates_service_spring_DebateDiscussionMapService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debates.service.DebateDiscussionMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debates.service.DebateDiscussionMapService" />
+	</bean>
+	<bean name="/com_ext_portlet_debates_service_spring_DebateDiscussionMapService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debates.service.DebateDiscussionMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debates.service.DebateDiscussionMapService" />
+	</bean>
+	<bean name="/com_ext_portlet_debates_service_spring_DebateDiscussionMapService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debates.service.DebateDiscussionMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debates.service.DebateDiscussionMapService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessageService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessageService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessageService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessageRecipientStatusService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageRecipientStatusService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessageRecipientStatusService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessageRecipientStatusService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageRecipientStatusService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessageRecipientStatusService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessageRecipientStatusService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessageRecipientStatusService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessageRecipientStatusService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessagingUserPreferencesService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessagingUserPreferencesService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessagingUserPreferencesService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessagingUserPreferencesService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessagingUserPreferencesService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessagingUserPreferencesService" />
+	</bean>
+	<bean name="/com_ext_portlet_messaging_service_spring_MessagingUserPreferencesService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.messaging.service.MessagingUserPreferencesService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.messaging.service.MessagingUserPreferencesService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageRecipientService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageRecipientService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageRecipientService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageRecipientService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageConversionTypeService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageConversionTypeService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageConversionTypeService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageConversionTypeService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageConversionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageConversionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingMessageConversionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingMessageConversionService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingRedirectLinkService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingRedirectLinkService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingRedirectLinkService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingRedirectLinkService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingIgnoredRecipientsService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingIgnoredRecipientsService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService" />
+	</bean>
+	<bean name="/com_ext_portlet_mass_messaging_service_spring_MessagingIgnoredRecipientsService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.mass_messaging.service.MessagingIgnoredRecipientsService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemReferenceService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemReferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemReferenceService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemReferenceService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemReferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemReferenceService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemReferenceService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemReferenceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemReferenceService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCategoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCategoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCategoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCategoryMapService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCategoryMapService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCategoryMapService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCategoryMapService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCategoryMapService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCategoryMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCategoryMapService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCommentService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCommentService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCommentService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCommentService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCommentService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCommentService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateCommentService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateCommentService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateCommentService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemVoteService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemVoteService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemVoteService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemVoteService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemVoteService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemVoteService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemVoteStatsService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemVoteStatsService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService" />
+	</bean>
+	<bean name="/com_ext_portlet_debaterevision_service_spring_DebateItemVoteStatsService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debaterevision.service.DebateItemVoteStatsService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationCategoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationCategoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationCategoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationDebateService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationDebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationDebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationDebateService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationDebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationDebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationDebateService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationDebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationDebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationItemService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationItemService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationItemService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationItemService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationItemService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationCommentService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCommentService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationCommentService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationCommentService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCommentService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationCommentService" />
+	</bean>
+	<bean name="/com_ext_portlet_debatemigration_service_spring_DebateMigrationCommentService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.debatemigration.service.DebateMigrationCommentService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.debatemigration.service.DebateMigrationCommentService" />
+	</bean>
+	<bean name="/com_ext_inlinehelp_service_spring_HelpUserSettingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.inlinehelp.service.HelpUserSettingService.impl" />
+		<property name="serviceInterface" value="com.ext.inlinehelp.service.HelpUserSettingService" />
+	</bean>
+	<bean name="/com_ext_inlinehelp_service_spring_HelpUserSettingService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.inlinehelp.service.HelpUserSettingService.impl" />
+		<property name="serviceInterface" value="com.ext.inlinehelp.service.HelpUserSettingService" />
+	</bean>
+	<bean name="/com_ext_inlinehelp_service_spring_HelpUserSettingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.inlinehelp.service.HelpUserSettingService.impl" />
+		<property name="serviceInterface" value="com.ext.inlinehelp.service.HelpUserSettingService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryGroupService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryGroupService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryGroupService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryGroupService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryGroupService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionCategoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionCategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionCategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageFlagService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageFlagService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageFlagService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageFlagService" />
+	</bean>
+	<bean name="/com_ext_portlet_discussions_service_spring_DiscussionMessageFlagService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.discussions.service.DiscussionMessageFlagService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.discussions.service.DiscussionMessageFlagService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestDebateService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestDebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestDebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestDebateService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestDebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestDebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestDebateService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestDebateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestDebateService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseColumnService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseColumnService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseColumnService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseColumnService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseColumnService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseColumnService" />
+	</bean>
+	<bean name="/com_ext_conditionaltext_service_spring_ConditionalTextSettingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
+		<property name="serviceInterface" value="com.ext.conditionaltext.service.ConditionalTextSettingService" />
+	</bean>
+	<bean name="/com_ext_conditionaltext_service_spring_ConditionalTextSettingService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
+		<property name="serviceInterface" value="com.ext.conditionaltext.service.ConditionalTextSettingService" />
+	</bean>
+	<bean name="/com_ext_conditionaltext_service_spring_ConditionalTextSettingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.conditionaltext.service.ConditionalTextSettingService.impl" />
+		<property name="serviceInterface" value="com.ext.conditionaltext.service.ConditionalTextSettingService" />
+	</bean>
+	<bean name="/com_ext_portlet_facebook_service_spring_UserFacebookMappingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.facebook.service.UserFacebookMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_facebook_service_spring_UserFacebookMappingService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.facebook.service.UserFacebookMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_facebook_service_spring_UserFacebookMappingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.facebook.service.UserFacebookMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.facebook.service.UserFacebookMappingService" />
+	</bean>
+	<bean name="/com_ext_utils_service_spring_UserForgotPasswordRequestService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+		<property name="serviceInterface" value="com.ext.utils.service.UserForgotPasswordRequestService" />
+	</bean>
+	<bean name="/com_ext_utils_service_spring_UserForgotPasswordRequestService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+		<property name="serviceInterface" value="com.ext.utils.service.UserForgotPasswordRequestService" />
+	</bean>
+	<bean name="/com_ext_utils_service_spring_UserForgotPasswordRequestService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.utils.service.UserForgotPasswordRequestService.impl" />
+		<property name="serviceInterface" value="com.ext.utils.service.UserForgotPasswordRequestService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_SurveyService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.SurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.SurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_SurveyService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.SurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.SurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_SurveyService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.SurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.SurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_UserSurveyService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.UserSurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.UserSurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_UserSurveyService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.UserSurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.UserSurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_surveys_service_spring_UserSurveyService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.surveys.service.UserSurveyService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.surveys.service.UserSurveyService" />
+	</bean>
+	<bean name="/com_ext_portlet_landingPage_service_spring_LandingPageService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.landingPage.service.LandingPageService" />
+	</bean>
+	<bean name="/com_ext_portlet_landingPage_service_spring_LandingPageService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.landingPage.service.LandingPageService" />
+	</bean>
+	<bean name="/com_ext_portlet_landingPage_service_spring_LandingPageService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.landingPage.service.LandingPageService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.landingPage.service.LandingPageService" />
+	</bean>
+	<bean name="/com_ext_portlet_twitter_service_spring_UserTwitterMappingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.twitter.service.UserTwitterMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.twitter.service.UserTwitterMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_twitter_service_spring_UserTwitterMappingService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.twitter.service.UserTwitterMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.twitter.service.UserTwitterMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_twitter_service_spring_UserTwitterMappingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.twitter.service.UserTwitterMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.twitter.service.UserTwitterMappingService" />
+	</bean>
+</beans>

@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    #parse ($init)
+
+<html dir="#language ("lang.dir")" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="Harnessing collective intelligence to address climate change."/>
+    <title>Climate CoLab</title>
+
+    $theme.include($top_head_include)
+
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/jquery/jquery.css?tt=$themeTimestamp"
+          media="all"/>
+
+    #if ($page.getName($locale).toLowerCase().replaceAll("\s","") != 'home')
+
+
+        #if (false)
+            <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen-ie6.css?tt=$themeTimestamp"
+                  media="all"/>
+
+            <script type="text/javascript"
+                    src="/collaboratorium-theme/javascript/script.js?tt=$themeTimestamp"></script>
+            <script type="text/javascript"
+                    src="/collaboratorium-theme/javascript/iepngfix_tilebg.js?tt=$themeTimestamp"></script>
+            <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/screen.css?tt=$themeTimestamp"
+                  media="all"/>
+        #end
+
+
+    #end
+    <!--
+    <link rel="stylesheet" href="/collaboratorium-theme/css/forms.css?tt=$themeTimestamp" type="text/css"/>
+    -->
+    <link rel="stylesheet" href="/collaboratorium-theme/css/pages/main.css?tt=$themeTimestamp" type="text/css"/>
+    <link rel="stylesheet" href="/collaboratorium-theme/css/style.css?tt=$themeTimestamp&i=2" type="text/css"/>
+    <link rel="stylesheet" href="/collaboratorium-theme/css/jquery.jqplot.min.css?tt=$themeTimestamp" type="text/css"/>
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/loginregister.css?tt=$themeTimestamp"
+          media="all"/>
+    <link type="text/css" rel="stylesheet" href="/collaboratorium-theme/css/wiki.css?tt=$themeTimestamp" media="all"/>
+    <!--[if IE]>
+    <script type="text/javascript" src="/collaboratorium-theme/javascript/excanvas.js"></script><![endif]-->
+    
+    <link rel="stylesheet" href="/collaboratorium-theme/css/moth_additional_styles.css?tt=$themeTimestamp&t=3"
+          type="text/css"/>
+
+	<script type="text/javascript" src="http://use.typekit.com/bmu2xym.js"></script> 
+<!--
+    <script type="text/javascript" src="http://use.typekit.com/uvv6okq.js"></script>
+
+-->
+    <script type="text/javascript" src="http://use.typekit.com/zdq3gry.js"></script>
+    <script type="text/javascript">try {
+        Typekit.load();
+    } catch(e) {
+    }</script>
+
+        <script type="text/javascript">
+    #if ($themeDisplay.signedIn)
+        window.collabUserId = $user.userId;
+    #else
+        window.collabUserId = -1;
+    #end
+        </script>
+
+
+    <script type="text/javascript" src="/collaboratorium-theme/javascript/moth_init_script.js?tt=$themeTimestamp?tmp=30"></script>
+    <script type="text/javascript" src="/collaboratorium-theme/javascript/loginregister.js"></script>
+    <script type="text/javascript" src="/html/js/collaboratorium/cookies.js"></script>
+</head>
+
+
+    #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
+        #set ($body_style_class = " homePage ")
+    #else
+        #set ($body_style_class = "other_pages")
+    #end
+
+   
+
+<body class="$body_style_class">
+<div id="fb-root"></div>
+<script type="text/javascript">
+    var FB_APP_ID = '$propsUtil.get("collaboratorium.facebook.appid")';
+    var FB_LOGIN_RESULT = '$facebookLoginResult';
+
+
+    window.fbAsyncInit = function() {
+        FB.init({appId: FB_APP_ID, status: true, cookie: true,
+            xfbml: true});
+
+        FB.Event.subscribe('auth.sessionChange', function(response) {
+            if (response.session) {
+                if (!Liferay.ThemeDisplay.isSignedIn())
+                    insertParam("fbEvent", "true");
+            } else {
+                //do nothing
+            }
+
+        });
+
+        FB.Event.subscribe("xfbml.render", function(response) {
+            
+          postFbInit();
+
+        });
+    };
+    (function() {
+        var e = document.createElement('script');
+        e.type = 'text/javascript';
+        e.src = document.location.protocol +
+                '//connect.facebook.net/en_US/all.js';
+        e.async = true;
+        document.getElementById('fb-root').appendChild(e);
+    }());
+
+    function postFbInit() {
+
+    }
+
+
+
+
+</script>
+    #set ($pageName = $page.getName($locale).toLowerCase().replaceAll("\s","").replaceAll("/", ""))
+    
+    #if ($collab_plan) 
+        #set ($pageName = $pageName + " planDetails")
+    #end
+    #if ($collab_contest) 
+        #set ($pageName = $pageName + " contestDetails")
+    #end
+     
+    #if ($page.parentLayoutId > 0) 
+        ## we have a parent page, find it's name
+        #foreach ($parentLayoutCand in $layouts) 
+            #if ($parentLayoutCand.layoutId == $page.parentLayoutId)
+                #set ($parentLayout = $parentLayoutCand)
+            #end
+        #end
+        #set ($parentPageName = $parentLayout.getName($locale).toLowerCase().replaceAll("\s",""))
+        #set ($subPage = true)
+        #set ($subPageClass = 'sub')
+    #else 
+        #set ($subPageClass = '')
+        #set ($parentPageName = '')
+    #end
+
+    #if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
+        <div class="e homePageEarth" ></div>
+    #else 
+        #if ($pageName == 'resources') 
+            <div id="earth_pattern" class='$pageName'></div>
+        #else 
+            <div id="earth_pattern" class="parent_$parentPageName $pageName $subPageClass"></div>
+        #end
+            
+    #end
+    
+    
+    #if ($subPage && ($parentPageName == 'contests' || $parentPageName == 'learn' || $parentPageName == 'about') || $pageName == 'resources' || $pageName == 'search' || $pageName == 'feedback' || $pageName == 'debates')
+        <div id="bread_bg">&nbsp;</div>
+    #end
+    #if ($collab_plan or ($parentPageName == 'community' or $pageName == 'community'))
+        <div id="bread_bg" class="pro">&nbsp;</div>
+        <div id="tabs_bg">&nbsp;</div>
+    #end
+    #if (!$collab_plan and  $collab_contest) 
+        <div id="bread_bg" class="contest">&nbsp;</div>
+    #end
+    
+    
+    
+
+<div id="wrapper">
+    #parse ("$full_templates_path/header.vm")
+    <div class="$parentPageName $pageName contentContainer $subPageClass">
+
+        #if ($selectable)
+			 $theme.include($content_include)
+		  #else
+            $portletDisplay.recycle()
+
+            $portletDisplay.setTitle($the_title)
+
+            $theme.wrapPortlet("portlet.vm", $content_include)
+        #end
+    </div>  <!-- /.contentContainer -->
+    
+    <!-- popup login -->
+    <div class="popup_login" style="display: none;">
+        <div class="popup_login_form">
+        <div class="closepopuplogin"><a href="javascript:;" ><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
+        
+            #if ($request.getParameter('isSigningIn')) 
+                #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
+                #set($loginMessageClass='hidden')
+            #else 
+                #set($loginMessageClass='')
+                                
+            #end
+            <div class="popup_login-message $loginMessageClass ">This page requires you to login...</div>
+        <form id="signInFormPopup" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Screen name:</strong>&nbsp;&nbsp; </p>
+                    </td>
+                    <td>
+                        <input name="login" class="popuplogin_input" type="text" value=""  />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><strong>Password:</strong></p>
+                    </td>
+                    <td>
+                        <input name="password" class="popuplogin_input" type="password" value=""  />
+                    </td>
+                </tr>
+            </table>
+          <input type="submit" name="submit" class="popuplogin_submit" value="Signin" onclick="addRedirectBeforeSubmit('signInFormPopup')" /> or <span class="popuplogin_button"><a href="javascript:;" id="loginPopupCreateAccount">Create an Account</a></span>
+        </form>
+        <!--
+        <div class="popuplogin_facebook"><a href="javascript:clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a></div>
+        -->
+      </div>
+    </div>
+    <!-- /popup login -->
+    
+    <div class="popup_forgotpassword" style="display: none;">
+        <div class="popup_login_form">
+        <div class="closepopuplogin"><a href="javascript:;"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
+        
+        <div class="popup_login-message">Enter your email or screen name to get new password...</div> 
+        #if ($request.getParameter('isPasswordReminder')) 
+            #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
+        #end                
+        <form id="forgotPasswordForm" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Fforgotpassword">
+            <br />
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        <p><strong>Email/Screen name:</strong>&nbsp;&nbsp;</p>
+                    </td>
+                    <td>
+                        <input name="screenName" class="popuplogin_input screenName" type="text" value=""  />
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+          <input type="submit" name="submit" class="popuplogin_submit" value="Request new password" onclick="addRedirectBeforeSubmit('forgotPasswordForm'); processForgotPasswordForm('forgotPasswordForm')" />
+        </form>
+      </div>
+    </div>
+    <!-- /popup login -->
+    
+
+</div>
+<!-- /#wrapper -->
+<div id="foot_container">
+    <div id="foot_wrap">
+    </div>
+</div>
+
+    $theme.include($bottom_include)
+
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    /* ]]> */
+</script>
+<script type="text/javascript">
+    /* <![CDATA[ */
+    try {
+        var path = window.location.pathname + window.location.search + window.location.hash;
+        var pageTracker = _gat._getTracker("UA-11944310-1");
+        pageTracker._setAllowAnchor(true);
+        pageTracker._trackPageview(path);
+    } catch(err) {
+    }
+    /* ]]> */
+</script>
+#if ($request.getSession().getAttribute('collab_user_has_registered'))
+    <script type="text/javascript">
+// disabled in test env
+//        $request.getSession().removeAttribute('collab_user_has_registered')
+//        pageTracker._trackPageview('/colab/$user.screenName/registered');
+    </script>
+#end
+
+#if ($request.getSession().getAttribute('user_from_landing_page'))
+    <script type="text/javascript">
+        pageTracker._trackPageview('$request.getSession().getAttribute("user_from_landing_page")');
+        $request.getSession().removeAttribute('user_from_landing_page')
+    </script>
+#end
+
+## only for testing ... Open graph stuff 
+## 
+##if ($collab_plan)
+##        <h1>Plan: $collab_plan</h1>
+##    ##end
+##    
+##    #if ($collab_contest)
+##        <h2>Contest $collab_contest</h2>
+##    #end
+	
+    <fb:login-button perms="email"></fb:login-button>
+#if ($request.getParameter('isRegistering') == 'true') 
+    <script type="text/javascript">
+        
+        jQuery('.popup_reg').fadeIn(300);
+        jQuery('#content').fadeOut(300);
+        jQuery('#foot_wrap').fadeOut(300);
+        jQuery('.hp_box').fadeOut(300);
+        
+    </script>
+#end
+#if ($request.getParameter('isSigningIn') == 'true')
+    <script type="text/javascript">
+        jQuery('.popup_login').show();
+    </script>
+#end
+#if ($request.getParameter('isPasswordReminder') == 'true')
+    <script type="text/javascript">
+        jQuery('.popup_forgotpassword').show();
+    </script>
+#end
+<script type="text/javascript">
+#foreach ($message in $collabMessageManager.messagesAndClear)
+    jQuery.growlUI("$message.message", "");
+#end
+</script>
+
+                <!-- AddThis Button BEGIN -->
+                <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=climatecolab"></script>
+                <!-- AddThis Button END -->
+
+</body>
+</html>

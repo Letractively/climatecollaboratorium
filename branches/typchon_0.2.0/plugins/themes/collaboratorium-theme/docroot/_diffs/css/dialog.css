@@ -1,0 +1,315 @@
+.clearfloat {
+    clear:both;
+    height:0px;
+}
+
+.DialogBox {
+
+    width:555px;
+    margin: 0px auto 0px 0px;
+    border: 0px solid #f0f0f0;
+
+}
+
+.DialogBox .DialogNWCorner {
+    margin-left:7px;
+    margin-top:6px;
+    width:41px;
+    height:61px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogNWCorner.png) no-repeat;
+    overflow:hidden;
+
+}
+.DialogBox .DialogNEdge {
+    margin-left:0px;
+    margin-top:6px;
+    width:456px;
+    height:61px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogNEdge.png) repeat-x;
+    overflow:hidden;
+
+}
+
+.DialogNEdge div.content {
+    padding-top: 27px;
+    font-size:18px;
+}
+
+
+.DialogBox .DialogNECorner {
+    margin-left:0px;
+    margin-top:6px;
+    width:51px;
+    height:61px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogNECorner.png) no-repeat;
+    overflow:hidden;
+
+}
+.DialogBox .DialogWEdge {
+    margin-left:7px;
+    margin-top:0px;
+    width:41px;
+    height:202px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogWEdge.png) repeat-y;
+    overflow:hidden;
+
+}
+.DialogBox .DialogBody {
+    margin-left:0px;
+    margin-top:0px;
+    width:456px;
+    height:202px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogBody.png) repeat;
+    overflow:hidden;
+
+}
+
+.DialogBody div.content {
+    padding-top:30px;
+}
+
+
+
+.DialogBox .DialogEEdge {
+    margin-left:0px;
+    margin-top:0px;
+    width:51px;
+    height:202px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogEEdge.png) repeat-y;
+    overflow:hidden;
+
+}
+.DialogBox .DialogSWCorner {
+    margin-left:7px;
+    margin-top:0px;
+    width:41px;
+    height:67px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogSWCorner.png) no-repeat;
+    overflow:hidden;
+
+}
+.DialogBox .DialogSEdge {
+    margin-left:0px;
+    margin-top:0px;
+    width:456px;
+    height:67px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogSEdge.png) repeat-x;
+    overflow:hidden;
+
+}
+
+.DialogSEdge div.content {
+    padding-top: 22px;
+    text-align: center;
+}
+
+.DialogSEdge div.content a {
+    padding: 6px 25px;
+}
+
+
+.DialogBox .DialogSECorner {
+    margin-left:0px;
+    margin-top:0px;
+    width:51px;
+    height:67px;
+    margin-bottom:0px;
+    float:left;
+    display:inline;
+    background: url(../images/DialogSECorner.png) no-repeat;
+    overflow:hidden;
+
+}
+
+/** Begin login dialog **/
+
+#loginPopupDialog .DialogBox {
+    width:455px;
+}
+
+#loginPopupDialog .DialogBody, #loginPopupDialog .DialogNEdge,#loginPopupDialog  .DialogSEdge {
+   width:350px;
+}
+
+
+#loginPopupDialog .DialogBody div.content-info {
+    padding-top: 10px;
+    font-size:14px;
+    font-style:italic;
+}
+
+
+#loginPopupDialog .DialogBody div.content {
+    padding-left: 15px;
+}
+
+#loginPopupDialog .DialogBody div.content table {
+    border-collapse: separate;
+    border-spacing: 5px;
+    font-size: 14px;
+}
+
+#loginPopupDialog .DialogBody div.content-register-link {
+    padding-top: 24px;
+    font-size:18px;
+    font-style:italic;
+    text-align: center;
+}
+
+
+
+
+/** Begin registration dialog **/
+
+#registerDialog .DialogBox {
+    width:440px;
+}
+
+#registerDialog .DialogBody, #registerDialog .DialogNEdge,#registerDialog .DialogSEdge {
+   width:333px;
+}
+
+#registerDialog .DialogBody, #registerDialog .DialogWEdge,#registerDialog .DialogEEdge {
+   height: 400px;
+}
+
+#registerDialog .row label,
+#forgotPasswordDialog .row label {
+    width:110px;
+    float:left;
+    display:inline;
+    padding-right:8px;
+    font-size:14px;
+    font-weight:bold;
+    text-align:right;
+}
+#registerDialog .row input.text,
+#forgotPasswordDialog .row input.text {
+    width:144px;
+    height:16px;
+    padding:1px;
+    float:left;
+    display:inline;
+    border:#05828e solid 1px;
+    background:url(../images/inputBg.gif) repeat-x;
+}
+
+#registerDialog  .row {
+    margin-bottom: 5px;
+}
+/*
+#registerDialog  .taglib-captcha img {
+    margin-left: 30px;
+}
+*/
+.taglib-captcha input {
+	width: 50px;
+}
+
+.taglib-captcha .why-necessary-dialog {
+	border: 2px solid #336699;
+	padding: 10px 5px;
+	position: absolute;
+	background: #eee;
+	width: 310px;
+}
+
+.taglib-captcha .why-necessary {
+	color: #336699;
+	cursor: pointer;
+}
+
+#registerDialog table {
+   border-collapse: separate;
+    border-spacing: 5px;
+}
+
+#registerDialog .taglib-captcha img,
+#forgotPasswordDialog .taglib-captcha img {
+    margin-left: 90px;
+}
+
+#registerDialog .required,
+#forgotPasswordDialog .required {
+    color: #CC1010;
+    font-style: italic;
+    margin-left: 8px;
+
+}
+
+#registerDialog .optional {
+    font-style:italic;
+    margin-left:8px;
+}
+
+#sendMessagePopup label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#sendMessagePopup dd {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+#sendMessagePopup input {
+    width: 450px;
+}
+
+#sendMessagePopup textarea {
+    width: 450px;
+    height: 105px;
+}
+
+#sendMessagePopup span.error {
+	color: #dd0000;
+	background: transparent;
+	border: 0;
+	font-weight: bold;
+	padding-right: 20px;
+}
+
+#forgotPasswordDialog .content {
+    padding-top: 15px;
+}
+
+#forgotPasswordDialog .content h4 {
+    padding-top: 10px;
+}
+
+
+#forgotPasswordDialog .taglib-captcha {
+    margin-left: 20px;
+}
+
+#forgotPasswordDialog .taglib-captcha img {
+    margin-left: 100px;
+}
+
+#forgotPasswordDialog .DialogBox {
+    height: 600px;
+}

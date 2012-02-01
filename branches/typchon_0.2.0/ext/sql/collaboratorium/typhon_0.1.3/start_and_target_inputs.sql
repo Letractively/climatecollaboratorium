@@ -1,0 +1,2 @@
+UPDATE  `lportal`.`ModelInputGroup` SET  `description` =  'Start and target years' WHERE  `ModelInputGroup`.`modelInputGroupPK` IN (606, 607, 608, 612, 613, 614);
+UPDATE  `lportal`.`ModelInputItem` SET  `type_` =  'SLIDER' WHERE  `ModelInputItem`.`modelInputItemID` IN (5, 6);

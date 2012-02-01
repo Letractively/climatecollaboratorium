@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    >
+    <ice:portlet>
+    <collab:navigationManager />
+  
+  <div id="bread" class="pro">
+    <a href="/web/guest/community">Community</a>
+    <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+    <a href="/web/guest/members">Members</a>
+  </div>
+  
+        
+  
+    <div id="content">
+  
+    <!-- HELP DIVS -->
+    <div class="help" id="help1">
+      <div class="helptop"><span>Registration and Contacting Members</span> <div class="closehelp"><a href="javascript:;" onclick="jQuery('#help1').hide()"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div></div>
+      <div class="helptext">Anyone in the world can become a Member of the Climate CoLab community by&amp;nbsp;<a href="#">registering</a> on the site. Send a message to a member by clicking on the screen name below to open their profile and then selecting "Send message."</div>
+    </div>
+    <!-- HELP DIVS -->
+    <ice:panelGroup rendered="#{membersBean.categoryFilter == 'EXPERT'}">
+        <p>
+            A group of world renowned experts, who serve on the Climate CoLab’s &amp;nbsp;
+            <a href="/web/guest/resources/-/wiki/Main/Expert%20advisory%20board">Expert Council</a>
+            and &amp;nbsp;
+            <a href="/web/guest/resources/-/wiki/Main/Expert+Council">Expert Advisory Board</a>
+            are a key part of the community. 
+        </p>
+    </ice:panelGroup>
+  
+    <div class="main_long">
+    
+<ice:form>
+
+      <div class="comm_disc-head">        
+        <div class="comm_info-left"><span>#{membersBean.usersCount}</span> Members</div>
+        <div class="comm_info-large">
+            <ice:inputText styleClass="comm_search" value="#{membersBean.searchPhrase}" partialSubmit="true" />
+            <ice:commandButton styleClass="comm_submit" actionListener="#{membersBean.doSearch}" value="Search" />
+            <!-- <input class="comm_submit" type="submit" name="submit" value="Search" />-->
+        </div>
+      </div>
+      
+      
+    <ice:dataTable var="user" value="#{membersBean.data}" id="searchTable" rows="20" styleClass="colab" rowClasses="t,nt"
+            sortColumn="#{membersBean.sortColumn}" sortAscending="#{membersBean.sortAscending}">
+        <f:facet name="header">
+            <ice:columnGroup>
+                <ice:headerRow>
+                    <ice:column style="width: 350px;">
+                        <ice:commandSortHeader styleClass="column-hover" columnName="REAL_NAME">
+                            Real Name
+                        </ice:commandSortHeader>
+                    </ice:column>
+                    <ice:column style="width:90px" columnName="REAL_NAME">
+                        <ice:commandSortHeader styleClass="column-hover" columnName="ACTIVITY">
+                            Activity
+                        </ice:commandSortHeader>
+                    </ice:column>
+                    <ice:column style="width:140px" colspan="2">
+                        <ice:commandSortHeader styleClass="column-hover" columnName="MEMBER_CATEGORY">
+                            Category
+                        </ice:commandSortHeader>
+                    </ice:column>
+                    <ice:column>
+                        <ice:commandSortHeader styleClass="column-hover" columnName="MEMBER_SINCE">
+                            Member Since
+                        </ice:commandSortHeader>
+                    </ice:column>
+                </ice:headerRow>
+            </ice:columnGroup>
+        </f:facet>
+        <ice:column style="width:350px;">
+            <collab:userLinkSimple userId="#{user.userId}" text="#{user.realName}"/>
+        </ice:column>  
+        <ice:column styleClass="b">
+            <ice:outputText value="#{user.activityCount}" />
+        </ice:column>  
+        <ice:column style="width: 16px">
+            <f:subview rendered="${user.category != 'MEMBER'}">
+                <img src="/collaboratorium-theme/images/icon_mem-${user.category.lowerCase}.png" width="16" height="16" />
+            </f:subview>
+        </ice:column>
+        <ice:column>
+            <ice:outputText value="#{user.category.printName}" />
+        </ice:column>  
+        <ice:column>
+            <ice:outputText value="#{user.memberSince}" >
+                <f:convertDateTime pattern="MM/dd/yy"/>
+            </ice:outputText>
+        </ice:column>    
+    </ice:dataTable>
+ 
+        <ice:panelGroup rendered="#{membersBean.hasMembers}" styleClass="pager">
+            <table style="float: right;">
+                <tr>
+                    <td class="pageInfo">
+                        <ice:dataPaginator for="searchTable" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" 
+                                firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" 
+                                pageIndexVar="pageIndex" >
+                            <ice:outputFormat value="Page {0} of {1}" styleClass="page" escape="false">
+                                <f:param value="#{pageIndex}" />
+                                <f:param value="#{pageCount}" />
+                            </ice:outputFormat>
+                        </ice:dataPaginator>
+                </td>     
+                <td>
+                    <ice:dataPaginator rendered="true" for="searchTable" paginator="true" paginatorMaxPages="5" styleClass="comm_controls" style="display: inline;"> 
+                        <f:facet name="first" rendered="true">
+                            <ice:panelGroup >First</ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="last" rendered="true">
+                            <ice:panelGroup styleClass="">Last</ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="previous" rendered="true">
+                            <ice:panelGroup styleClass="pagerPrev">&lt; Prev</ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="next">
+                            <ice:panelGroup styleClass="">Next &gt;</ice:panelGroup>
+                        </f:facet>
+                    </ice:dataPaginator>
+                </td>
+            </tr>
+          </table>
+          <div class="clear"></div>
+          
+          
+          </ice:panelGroup>
+          
+      
+</ice:form>
+
+        </div> <!-- /main -->
+    
+    <div class="right_col3">
+      
+      <div class="comm_list">
+        <h3>Categories</h3>
+        <ice:form>
+            <ul>
+                <li class="#{membersBean.categoryFilter == null or membersBean.categoryFilter == 'MEMBER' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="All Members" onclick="Collab.nav.navigateAddParams('members', {filter: 'MEMBER'}); return false;">
+                        <f:attribute name="category" value="MEMBER" />
+                    </ice:commandLink>
+                </li>
+                <li class="#{membersBean.categoryFilter == 'EXPERT' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Experts" onclick="Collab.nav.navigateAddParams('members', {filter: 'EXPERT'}); return false;">
+                        <f:attribute name="category" value="EXPERT" />
+                    </ice:commandLink>
+                </li>
+                <li class="#{membersBean.categoryFilter == 'MODERATOR' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Moderators" onclick="Collab.nav.navigateAddParams('members', {filter: 'MODERATOR'}); return false;">
+                        <f:attribute name="category" value="MODERATOR" />
+                    </ice:commandLink>
+                </li>
+                <li class="#{membersBean.categoryFilter == 'STAFF' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Staff" onclick="Collab.nav.navigateAddParams('members', {filter: 'STAFF'}); return false;">
+                        <f:attribute name="category" value="STAFF" />
+                    </ice:commandLink>
+                </li>
+            </ul>
+        </ice:form>
+      </div>
+
+    </div> <!-- /right_col4 -->
+        
+        <div class="clearfix"></div>
+    </div>
+        
+    </ice:portlet>
+</f:view>

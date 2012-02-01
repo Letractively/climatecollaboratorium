@@ -1,0 +1,13 @@
+@import "main.css";
+@import "style.css";
+@import "moth_additional_styles.css";
+
+
+body {
+	background-image: none;
+}
+
+
+h2 { margin:48px 0 15px 0; }
+
+h1 {font-family: "bree-1","bree-2", Verdana, sans-serif;}

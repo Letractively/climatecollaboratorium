@@ -1,0 +1,234 @@
+<%--
+~ Copyright (c) 2010. M.I.T. All Rights Reserved
+~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+~ or the license.txt file included in this distribution for the full text of the license.
+--%>
+
+<%
+            /**
+             * Copyright (c) 2000-2009 Liferay, Inc. All rights reserved.
+             *
+             * Permission is hereby granted, free of charge, to any person obtaining a copy
+             * of this software and associated documentation files (the "Software"), to deal
+             * in the Software without restriction, including without limitation the rights
+             * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+             * copies of the Software, and to permit persons to whom the Software is
+             * furnished to do so, subject to the following conditions:
+             *
+             * The above copyright notice and this permission notice shall be included in
+             * all copies or substantial portions of the Software.
+             *
+             * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+             * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+             * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+             * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+             * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+             * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+             * SOFTWARE.
+             */
+%>
+<%            /**
+             * Message view for Debate Summary message.
+             *
+             * File based on message_boards/view_message.jspf
+             * * version 1.1: themed to be consistent with collaboratorium theme
+             *
+             * @author janusz.p, TCSDEVELOPER
+             * @version 1.1
+             */
+%>
+
+
+<%@page import="com.ext.portlet.debates.DebatesUtil"%>
+
+<%@page import="com.ext.portlet.debates.DebatesConstants"%>
+
+<%          boolean isPosition = messageType.equals(DebatesConstants.POSITION_MSG_TYPE_NAME);
+
+
+            boolean canComment = permissionChecker.hasPermission(themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.COMMENT_ON_DEBATE);
+            boolean canMove = permissionChecker.hasPermission(themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.MOVE_DEBATE_TREE);
+
+
+            boolean canDelete = ((isPosition && permissionChecker.hasPermission(themeDisplay.getPortletGroupId(),
+                    portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.DELETE_DEBATE_POSITION))
+                    || permissionChecker.hasPermission(themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.DELETE_DEBATE_ARGUMENT));
+
+
+            boolean canReply = ((isPosition && permissionChecker.hasPermission(themeDisplay.getPortletGroupId(),
+                    portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.ADD_DEBATE_POSITION))
+                    || permissionChecker.hasPermission(themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.ADD_DEBATE_ARGUMENT));
+
+
+            boolean canEdit = ((isPosition && permissionChecker.hasPermission(themeDisplay.getPortletGroupId(),
+                    portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.UPDATE_DEBATE_POSITION))
+                    || permissionChecker.hasPermission(themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.UPDATE_DEBATE_ARGUMENT));
+
+
+
+            MBMessage m = DebatesUtil.getDebateMessageThread(message.getMessageId(), renderRequest);
+
+            long debateDiscussionId = m == null ? -1 : m.getMessageId();
+            int debateMessageCount = m == null ? -1 : m.getThread().getMessageCount() - 1;
+
+
+
+%>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+	
+        $(".rate-down ").hide();
+
+    });
+</script>
+<portlet:renderURL var="editURL">
+    <portlet:param name="struts_action" value="/ext/debates/edit_message" />
+    <portlet:param name="redirect" value="<%= currentURL%>" />
+    <portlet:param name="messageId" value="<%= String.valueOf(message.getMessageId())%>" />
+    <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>" value="<%= debatesIndexTab%>" />
+    <portlet:param name="<%= DebatesConstants.BASE_CATEGORY_ID%>" value="<%=ParamUtil.getString(request, DebatesConstants.BASE_CATEGORY_ID)%>" />
+</portlet:renderURL>
+
+<portlet:renderURL var="moveMessageURL">
+    <portlet:param name="struts_action" value="/ext/debates/move_message" />
+    <portlet:param name="<%= DebatesConstants.REDIRECT%>" value="<%= currentURL%>" />
+    <portlet:param name="messageId" value="<%= String.valueOf(message.getMessageId())%>" />
+    <portlet:param name="<%= DebatesConstants.BASE_CATEGORY_ID%>" value="<%=ParamUtil.getString(request, DebatesConstants.BASE_CATEGORY_ID)%>" />
+</portlet:renderURL>
+
+<c:choose>
+    <c:when test="<%= message.getParentMessageId() > 0%>">
+        <portlet:actionURL var="deleteURL">
+            <portlet:param name="struts_action" value="/ext/debates/edit_message" />
+            <portlet:param name="<%= Constants.CMD%>" value="<%= Constants.DELETE%>" />
+            <portlet:param name="redirect" value="<%= currentURL%>" />
+            <portlet:param name="messageId" value="<%= String.valueOf(message.getMessageId())%>" />
+            <portlet:param name="<%= DebatesConstants.MESSAGE_TYPE%>" value="<%= String.valueOf(msgTypeNumber)%>" />
+        </portlet:actionURL>
+    </c:when>
+    <c:otherwise>
+        <portlet:actionURL var="deleteURL">
+            <portlet:param name="struts_action" value="/ext/debates/delete_thread" />
+            <portlet:param name="<%= Constants.CMD%>" value="<%= Constants.DELETE%>" />
+            <portlet:param name="redirect" value="<%= currentURL%>" />
+            <portlet:param name="threadId" value="<%= String.valueOf(message.getThreadId())%>" />
+            <portlet:param name="<%= DebatesConstants.MESSAGE_TYPE%>" value="<%= String.valueOf(msgTypeNumber)%>" />
+            <portlet:param name="<%= DebatesConstants.BASE_CATEGORY_ID%>" value="<%=ParamUtil.getString(request, DebatesConstants.BASE_CATEGORY_ID)%>" />
+            <portlet:param name="<%= DebatesConstants.MESSAGE_TYPE%>" value="<%= String.valueOf(msgTypeNumber)%>" />
+        </portlet:actionURL>
+    </c:otherwise>
+</c:choose>
+
+<portlet:renderURL var="replyURL">
+    <portlet:param name="struts_action" value="/ext/debates/edit_message" />
+    <portlet:param name="redirect" value="<%= currentURL%>" />
+    <portlet:param name="categoryId" value="<%= String.valueOf(message.getCategoryId())%>" />
+    <portlet:param name="threadId" value="<%= String.valueOf(message.getThreadId())%>" />
+    <portlet:param name="parentMessageId" value="<%= String.valueOf(message.getMessageId())%>" />
+    <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>" value="<%= DebatesConstants.DEBATE_SUMMARY_TAB%>" />
+    <portlet:param name="<%= DebatesConstants.MESSAGE_TYPE_NAME%>" value="<%= DebatesConstants.ARGUMENT_MSG_TYPE_NAME%>" />
+    <portlet:param name="<%= DebatesConstants.BASE_CATEGORY_ID%>" value="<%=ParamUtil.getString(request, DebatesConstants.BASE_CATEGORY_ID)%>" />
+</portlet:renderURL>
+
+<c:if test="<%=debateDiscussionId > -1%>">     
+    <portlet:renderURL var="viewDiscussionURL">
+        <portlet:param name="struts_action" value="/ext/debates/view_message"/>
+        <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>" value="<%= DebatesConstants.DISCUSSION_TAB%>" />
+        <portlet:param name="messageId" value="<%=String.valueOf(debateDiscussionId)%>"/>
+        <portlet:param name="debatePostId" value="<%=String.valueOf(message.getMessageId())%>"/>
+    </portlet:renderURL>
+</c:if>
+<c:if test="<%=debateDiscussionId < 0%>">
+    <portlet:renderURL var="viewDiscussionURL">
+        <portlet:param name="struts_action" value="/ext/debates/view_message"/>
+         <portlet:param name="debatePostId" value="<%=String.valueOf(message.getMessageId())%>"/>
+        <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>" value="<%= DebatesConstants.DISCUSSION_TAB%>" />
+    </portlet:renderURL>
+
+</c:if>
+<portlet:actionURL var="addDiscussionURL">
+        <portlet:param name="struts_action" value="/ext/debates/add_debate_discussion"/>
+        <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>" value="<%= DebatesConstants.DISCUSSION_TAB%>" />
+        <portlet:param name="<%=DebatesConstants.DEBATE_MESSAGE_ID%>" value="<%= String.valueOf(message.getMessageId())%>"/>
+        <portlet:param name="redirect" value="${viewDiscussionURL}"/>
+    </portlet:actionURL>
+
+
+<div class="summay_largeCorcen_top" style="margin-left: <%= depth * 20%>px;">
+    <a id="<portlet:namespace />message_<%= message.getMessageId()%>"></a>
+    <div class="clear"></div>
+    <div class="top-left"></div>
+    <div class="top-right"></div>
+    <div class="clear"></div>
+    <div class="summay_largeCorcen_bottom">
+        <div class="summay_largeCorcen">
+            <c:choose>
+                <c:when test="<%= messageType.equals(DebatesConstants.POSITION_MSG_TYPE_NAME)%>">
+                    <div class="acitonInput">
+                </c:when>
+                <c:when test="<%= messageType.equals(DebatesConstants.ARGUMENT_PRO_MSG_TYPE_NAME)%>">
+                    <div class="pro">
+                </c:when>
+                <c:otherwise>
+                    <div class="con">
+                </c:otherwise>
+            </c:choose>
+            <div class="floatLeft titleTxt">
+                <h3><span class="hidden">Actions Input</span></h3>
+                <div class="postionName">&nbsp;&nbsp;</div>
+            </div>
+            <div class="topLink floatRight">
+                <c:if test="<%=canMove%>">
+                    <a href="${moveMessageURL}" class="black">move</a>
+                    <span class="linkLine">|</span>
+                </c:if>
+                <c:if test="<%=canEdit%>">
+                    <a href="${editURL}" class="black">edit</a>
+                    <span class="linkLine">|</span>
+                </c:if>
+                <c:if test="<%=canDelete%>">
+                    <a href="javascript:;" onClick='<portlet:namespace />deleteMessage("${deleteURL}")' class="black">delete</a>
+                </c:if>
+            </div>
+        </div>
+        <c:if test="<%= messageType.equals(DebatesConstants.POSITION_MSG_TYPE_NAME)%>">
+            <h4><%= message.getSubject()%> <%= messageType%></h4>
+        </c:if>
+        <p><%= message.getBody()%></p>
+        <div class="btnBox">
+
+
+                <liferay-ui:ratings
+                    className="<%= MBMessage.class.getName()%>"
+                    classPK="<%= message.getMessageId()%>"
+                    type="thumbs"
+                    />
+            <span class="floatRight">
+                <c:if test="<%=debateDiscussionId > -1 && debateMessageCount > 0%>">
+                    <a href="${viewDiscussionURL}"><%=debateMessageCount+" comment"+(debateMessageCount>1?"s":"")%></a>
+                </c:if>
+
+                <c:if test="<%=debateDiscussionId < 0 || debateMessageCount == 0%>">
+                    <c:if test="<%=canComment%>">
+                        <a href="javascript:;" onclick="submitForm(document.hrefFm, '${addDiscussionURL}');return true;">Add a comment</a>
+                    </c:if>
+                    <c:if test="<%=!canComment%>">
+                        <span><i>No comments</i></span>
+                    </c:if>
+                </c:if>
+                <c:if test="<%=canReply%>" >
+				|<a href="${replyURL}" class="reply"><span class="hidden">Reply</span></a>
+                </c:if>
+            </span>
+            <div class="clear"></div>
+           
+        </div>
+
+    </div>
+    <div class="clear"></div>
+    <div class="bottom-left"></div>
+    <div class="bottom-right"></div>
+    <div class="clear"></div>
+</div>
+</div>

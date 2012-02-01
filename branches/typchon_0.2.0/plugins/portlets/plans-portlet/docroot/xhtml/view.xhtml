@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"  >
+    
+<ice:portlet>
+    <collab:navigationManager />
+    <!-- 
+    <f:subview id="contests" rendered="#{navigation.pageType == 'CONTEST_INDEX'}">
+        <ui:include src="contestIndex.xhtml">
+            <ui:param value="#{navigation.plansTypeIndex}" name="plansTypeIndexBean" />
+        </ui:include>
+    </f:subview>
+    <f:subview id="contests" rendered="#{navigation.pageType == 'CONTEST_INDEX'}">
+        <ui:include src="contests.xhtml">
+            <ui:param value="#{navigation.plansTypeIndex}" name="plansTypeIndexBean" />
+        </ui:include>
+    </f:subview>
+    
+    <f:subview id="index" rendered="#{navigation.pageType == 'PHASE_INDEX'}">
+        <ui:include src="plansIndex.xhtml">
+            <ui:param value="#{navigation.plansIndex}" name="plansIndexBean" />
+        </ui:include>
+    </f:subview>
+    <f:subview id="details" rendered="#{navigation.pageType == 'DETAILS'}">
+        <ui:include src="planDetails.xhtml">
+            <ui:param value="#{navigation.planBean}" name="planBean" />
+        </ui:include>
+    </f:subview>
+     -->
+     <!-- 
+        <div>
+            <ui:include src="./indexViews/mainViewails.xhtml">
+                <ui:param value="#{navigation.contestsBean.contest}" name="contest" />
+                <ui:param value="#{navigation.contestsBean}" name="contestsBean" />
+            </ui:include>
+        </div>
+         -->
+         <div class="hidden">#{debateBean}</div>
+         
+         
+         
+         
+         <ui:include src="./mainView.xhtml">
+            <ui:param value="#{navigation.contestBean}" name="contest" />
+            <ui:param value="#{navigation.planBean}" name="plan" />
+            <ui:param value="#{navigation.planBean}" name="planBean" />
+            <ui:param value="#{navigation.plansPermissionsBean}" name="permissions" />
+            <ui:param value="#{navigation.plansIndexBean}" name="plansIndex" />
+            <ui:param value="#{navigation.issuesBean}" name="issues" />
+            <ui:param value="#{navigation.pageType}" name="pageType" />
+            <ui:param value="#{navigation.contestsBean}" name="contests" />
+            <ui:param value="#{navigation.planBean.plan.contestPhase.contestStatus == 'VOTING'}" name="votingPhase" />
+         </ui:include>
+    
+    
+         <div class="hidden">
+            <script type="text/javascript">
+            jQuery(document).ready(function() {
+              if (${navigation.hasUserVoted}) {
+                // trigger click on vote
+                setTimeout(function() {
+                    jQuery('.voteForPlanTrigger_#{navigation.deferPlanIdVote}').click();
+                }, 500);
+                
+                // clear defer plan id
+              }
+            });
+              
+              function deferPlanVoteUntilLoggedIn(planId) {
+                jQuery(".deferVotePlanId").val(planId);
+                // send data
+                jQuery(".deferVoteCommit").click();
+              }
+            </script>
+         
+         
+         <ice:form>
+            <ice:inputText value="#{navigation.deferPlanIdVote}" styleClass="deferVotePlanId" />
+            <ice:commandButton value="" styleClass="deferVoteCommit" actionListener="#{navigation.deferVotingTo}" />
+         </ice:form>
+         
+         </div>
+</ice:portlet>
+</f:view>

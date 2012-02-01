@@ -1,0 +1,51 @@
+<%--
+~ Copyright (c) 2010. M.I.T. All Rights Reserved
+~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+~ or the license.txt file included in this distribution for the full text of the license.
+--%>
+
+<%
+/**
+ *
+ *
+ * A module responsible for rendering of full model view.
+ *
+ * !IMPORTANT! Remember to include init.jspf first.
+ *
+ * @author janusz.p
+ * @version 1.0
+ */
+ %>
+
+
+
+
+
+
+
+<script type="text/javascript">
+ModelUtils.modelReady(function(type, model) {
+	if (type == "success") {
+		//$(".modelName.label").html(model.name);
+		$("#modelDescription").html(model.description);
+		$("#modelDescriptionDiv").show();
+	}
+});
+
+
+
+
+
+</script>
+
+<!-- Link to pop up that allows user to select positions -->
+<portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString() %>" var="editPositionsPopUp">
+	<portlet:param name="struts_action" value="/ext/models/select_positions" />
+	<portlet:param name="<%= PlanConstants.UPDATE_TYPE %>" value="<%= PlanConstants.UPDATE_POSITIONS %>" />
+	<portlet:param name="<%= ModelConstants.MODEL_ID %>" value="<%= String.valueOf(modelId) %>" />
+</portlet:renderURL>
+
+
+<div id="modelDescriptionDiv" class="instructions" style="display: none"><p id="modelDescription"></p></div>
+	
+

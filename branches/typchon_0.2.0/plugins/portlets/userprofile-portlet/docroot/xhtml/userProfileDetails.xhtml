@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    >
+                
+    <script type="text/javascript">
+        function clearSendMessageForm() {
+            jQuery(".sendMessagePopup .popuplogin_input, .sendMessagePopup textarea").val('');
+        }
+                
+        function hideSendMessagForm() {
+            jQuery(".sendMessagePopup").hide();
+        }
+        
+        function showSendMessageForm() {
+            clearSendMessageForm();
+            jQuery(".sendMessagePopup").show();
+            
+        }
+        
+        function sendMessageFormValid() {
+            var valid = true;
+            clearSendMessageForm();
+            var subj = jQuery.trim(jQuery(".sendMessage_subject");
+            var msg = jQuery.trim(jQuery(".sendMessage_message");
+            
+            if (jQuery.trim(subj.val()) == '') {
+                subj.parent().find(".error").show();
+                valid = false;
+            }
+            
+            if (jQuery.trim(msg.val()) == '') {
+                msg.parent().find(".error").show();
+                valid = false;
+            }
+            
+            return valid;
+        }
+        
+        function clearSendMessageForm() {
+            jQuery(".sendMessagePopup").hide();
+            jQuery(".sendMessage_subject .sendMessage_message").val('');
+        }
+    </script>
+    
+    <div id="bread" class="pro">
+        <a href="/web/guest/community">Community</a>
+        <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+        <a href="/web/guest/members">Members</a>
+        <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
+        <a href="/web/guest/member/-/member/userId/#{currentUser.userId}">#{currentUser.screenName}</a>
+    </div>
+   
+    <h1>katakumba</h1>
+    <div id="content">
+  
+    <div id="main">
+    
+      <div class="comm_member">
+        <div class="comm_member-photo">
+            <img src="#{currentUser.portrait}" width="150" height="150" alt="#{currentUser.realName}" />
+        </div>
+        <div class="comm_member-info">
+          <table border="0" cellpadding="0" cellspacing="0" class="colab members">
+            <tr><td colspan="2"><h2>Member Profile</h2></td></tr>
+            <tr><td class="memname">#{currentUser.realName}</td><td class="r btm">
+                <ice:form>
+                    <ice:commandLink rendered="#{userprofileBean.viewingOwnProfile}" actionListener="#{userprofileBean.toggleEditing}">
+                        Manage profile and settings &gt;&gt;
+                    </ice:commandLink>
+                </ice:form>
+                <f:subview rendered="#{not userprofileBean.viewingOwnProfile}">
+                    <a href="javascript:;" onclick="if (! deferUntilLogin()) { return false; } else { showSendMessageForm(); }">Send #{currentUser.firstName} a Message </a>
+                </f:subview>
+            </td></tr>
+          </table>
+          <div class="memdiv"></div>
+          <table border="0" cellpadding="0" cellspacing="0" class="colab members">
+            <tr><td class="b">Screen Name</td><td>#{currentUser.screenName}</td></tr>
+            <tr><td class="b">Member Since</td><td>
+                <ice:outputText value="#{currentUser.joinDate}" >
+                    <f:convertDateTime pattern="MM/dd/yy"/>
+                </ice:outputText>
+            </td></tr>
+            <f:subview rendered="#{userprofileBean.viewingOwnProfile}">
+                <tr><td class="b">Email</td><td><a href="mailto:#{currentUser.email}">#{currentUser.email}</a></td></tr>
+            </f:subview>
+          </table>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+            <h1>#{userprofileBean.viewingOwnProfile}</h1>
+      #{currentUser.filteredAbout}
+      
+
+    <h2>Supporting</h2>
+        <ice:dataTable var="supportedPlan" value="#{currentUser.supportedPlans}" styleClass="colab" rowClasses="t,nt">
+            <ice:column>
+                <collab:planLink planId="#{supportedPlan.planId}" contestId="#{supportedPlan.contestId}" text="#{supportedPlan.planName}" />
+            </ice:column>
+            
+            <ice:column style="width: 70px">
+                <ice:outputText value="#{supportedPlan.createdDate}">
+                    <f:convertDateTime pattern="MM/dd/yy"/>
+                </ice:outputText>
+            </ice:column>
+        
+        </ice:dataTable>
+        <f:subview rendered="#{empty currentUser.supportedPlans}">
+            #{currentUser.firstName} does not support any plan.
+        </f:subview>
+        
+
+    <h2>Activity feed</h2>
+        <ice:dataTable styleClass="colab" value="#{currentUser.activities}" rowClasses="t,nt" var="activity">
+            <ice:column>
+                #{activity.body}
+            </ice:column>
+            <ice:column>
+                <ice:outputText value="#{activity.createdDate}">
+                    <f:convertDateTime pattern="MM/dd/yy"/>
+                </ice:outputText>
+            </ice:column>
+        
+        </ice:dataTable>
+
+        </div> <!-- /main -->
+        
+    <ice:panelGroup rendered="#{userprofileBean.viewingOwnProfile}" styleClass="right_col3">
+      
+        <div class="comm_rightcol">
+            <div class="comm_rightcol-title">INBOX</div>
+            <f:subview rendered="#{empty userprofileBean.messages}">
+                <p>No new messages.</p>
+            </f:subview>
+            
+            <ice:panelSeries rendered="#{not empty userprofileBean.messages}" var="message" value="#{userprofileBean.messages}">
+                <div class="comm_rightcol-time">
+                    <ice:outputText value="Today" rendered="#{message.daysAgo == 0}" />
+                    <ice:outputText value="Yesterday" rendered="#{message.daysAgo == 1}" />
+                    <ice:outputText value="#{message.daysAgo} days ago" rendered="#{message.daysAgo > 1}" />
+                    <ice:outputText value="#{message.createDate}">
+                        <f:convertDateTime pattern="hh:mm a"/>
+                    </ice:outputText>
+                </div>
+                <p>
+                    <collab:userLinkSimple text="#{message.from.screenName}" userId="#{message.from.userId}" />
+                    sent you a message:&amp;nbsp;
+                    <a href="/web/guest/messaging">#{message.subject}</a>
+                </p>
+            </ice:panelSeries>
+            
+            <div class="rounded_button brn"><a href="/web/guest/messaging">COMPOSE</a></div> 
+            <div class="rounded_button brn"><a href="/web/guest/messaging">ALL MESSAGES</a></div>
+            
+            <div class="clearfix"></div>
+     </div>
+
+        <div class="comm_rightcol">
+            <ice:form>
+                <div class="comm_rightcol-title">SUBSCRIBED ACTIVITY</div>
+            <f:subview rendered="#{empty userprofileBean.subscribedActivities}">
+                <p>No new activities.</p>
+            </f:subview>
+            <ice:panelSeries var="activity" value="#{userprofileBean.subscribedActivities}" rendered="#{not empty userprofileBean.subscribedActivities}">
+                <div class="comm_rightcol-time">
+                    <ice:outputText value="Today" rendered="#{activity.daysAgo == 0}" />
+                    <ice:outputText value="Yesterday" rendered="#{activity.daysAgo == 1}" />
+                    <ice:outputText value="#{activity.daysAgo} days ago" rendered="#{activity.daysAgo > 1}" />
+                    <ice:outputText value="#{activity.createdDate}">
+                        <f:convertDateTime pattern="hh:mm a"/>
+                    </ice:outputText>
+                </div>
+                <p>#{activity.body}</p>
+            </ice:panelSeries>
+            <div class="rounded_button brn">
+                <ice:commandLink actionListener="#{userprofileBean.showPage}">
+                    <f:attribute name="name" value="SUBSCRIPTIONS_MANAGE" />
+                    MANAGE
+                </ice:commandLink>
+            
+            </div> 
+            <div class="rounded_button brn">
+                <ice:commandLink actionListener="#{userprofileBean.showPage}">
+                    <f:attribute name="name" value="SUBSCRIPTIONS_VIEW" />
+                    SEE ALL
+                </ice:commandLink>
+            </div>
+            </ice:form>
+     </div>
+
+    </ice:panelGroup> <!-- /right_col -->
+        
+            
+            
+    <!-- SEND A MESSAGE FORM -->
+    <ice:form>
+    <div class="sendMessagePopup" style="display: none;">
+        <div class="popup_login_form">
+        <div class="closepopuplogin"><a href="javascript:;" onclick="hideSendMessagForm();"><img src="/collaboratorium-theme/images/help_close.png" width="20" height="20" alt="X" /></a></div>
+        
+            <p>
+                <strong>Subject:</strong> &amp;nbsp; &amp;nbsp; <span class="error hidden"> * value required</span><br />
+                <ice:inputText styleClass="popuplogin_input sendMessage_subject" value="#{userprofileBean.messageSubject}"/>
+            </p>
+            <p>
+                <strong>Message:</strong> &amp;nbsp; &amp;nbsp; <span class="error hidden"> * value required</span><br />
+                <ice:inputTextarea value="#{userprofileBean.messageText}" styleClass="sendMessage_message"/>
+            </p>
+
+          <ice:commandButton styleClass="popuplogin_submit" value="Send" onclick="if (sendMessageFormValid()) hideSendMessagForm(); return false;" actionListener="#{userprofileBean.sendMessage}" /> or 
+          <span class="popuplogin_button"><a href="javascript:;" onclick="clearSendMessageForm(); hideSendMessagForm(); return false;">Cancel</a></span>
+            
+      </div>
+    </div></ice:form>
+    <!-- /popup login -->
+        <div class="clearfix"></div>
+
+  </div> <!-- /content -->
+   
+</f:view>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+	<!-- Plans -->
+
+	<definition name="portlet.ext.plans.view_plans" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plans.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.edit_plan" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/edit_plan.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.view_plan" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/summary.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.view_plan.actions" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/actions.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.view_plan.description" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/description.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.view_plan.discussion" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/discussion.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.view_plan.members" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/members.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.view_plan.impacts" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/impacts.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.view_plan.members" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/members.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.view_plan.model" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/model.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.select_positions" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/view_plan/select_positions.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.plans.configure_columns" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/plans/configure_columns.jsp" />
+	</definition>
+
+	<!-- Argument message boards -->
+
+	<definition name="portlet.ext.debates.view" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/debates/debate_index.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.view" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/debates/view.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.modeldebates.view" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/message_boards/debates/debate_index.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.modeldebates.view" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/view_models_debate.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates" extends="portlet" />
+
+	<definition name="portlet.ext.debates.delete_thread" extends="portlet.message_boards" />
+
+	<definition name="portlet.ext.debates.edit_category" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/edit_category.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.edit_message" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/edit_message.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.error" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/error.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.move_thread" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/move_thread.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.search" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/search.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.select_category" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/select_category.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.split_thread" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/split_thread.jsp" />
+	</definition>
+
+
+	<definition name="portlet.ext.debates.view_message" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/view_message.jsp" />
+	</definition>
+
+
+
+
+	<definition name="portlet.ext.debates.edit_topic" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/debates/edit_topic.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.edit_issue" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/debates/edit_topic.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.view_discussion" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/view.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.message_boards.view" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/debates/message_boards/view.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.view_debate" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/debates/view_debate.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.debates.move_message" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/debates/move_message.jsp" />
+	</definition>
+
+    <!-- Models -->
+	<definition name="portlet.ext.models.view_models" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/view_models.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.view_debates" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/view_models_debate.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.edit_category" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/models/message_boards/edit_category.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.edit_message" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/models/message_boards/edit_message.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.error" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/models/message_boards/error.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.move_thread" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/models/message_boards/move_thread.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.run_model" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/run_model.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.visualize_model" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/visualize_model.jsp" />
+	</definition>
+
+		<definition name="portlet.ext.models.edit_topic" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/edit_topic.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.edit_issue" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/edit_topic.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.view_discussion" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/message_boards/view.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.message_boards.view" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/models/message_boards/view.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.message_boards.view_message" extends="portlet.message_boards">
+		<put name="portlet_content" value="/portlet/ext/models/message_boards/view_message.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.view_debate" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/view_debate.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.move_message" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/move_message.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.models.select_positions" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/models/select_positions.jsp" />
+	</definition>
+
+	<!-- User info -->
+	<definition name="portlet.ext.user_info.view" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/user_info/view.jsp" />
+	</definition>
+
+	<!-- Community -->
+	<definition name="portlet.ext.community.profile" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/community/view_profile.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.community.search" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/community/view.jsp" />
+	</definition>
+	
+	<definition name="portlet.ext.community.edit_user_portrait" extends="portlet">
+ 		<put name="portlet_content" value="/portlet/ext/community/edit_user_portrait.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="portlet.ext.community.prefs" extends="portlet">
+ 		<put name="portlet_content" value="/portlet/ext/community/portlet_prefs.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="portlet.ext.activities.view" extends="portlet">
+ 		<put name="portlet_content" value="/portlet/ext/wall/view.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="portlet.ext.activities.manage_subs" extends="portlet">
+ 		<put name="portlet_content" value="/portlet/ext/wall/manage_subs.jsp" />
+ 	</definition>
+ 	
+ 	 <!-- Migration tool -->
+	<definition name="portlet.ext.migration.view" extends="portlet">
+      		<put name="portlet_content" value="/portlet/ext/migration/view.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.migration.migrate_debates" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/migration/migrate_debates.jsp" />
+	</definition>
+
+	<definition name="portlet.ext.migration.select_category" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/migration/select_category.jsp" />
+	</definition>
+
+    <!-- Messaging tool -->
+    <definition name="portlet.ext.messaging.view" extends="portlet">
+                  <put name="portlet_content" value="/portlet/ext/messaging/view.jsp" />
+        </definition>
+                     
+ 	 <definition name="portlet.ext.messaging.view_preferences" extends="portlet">
+                  <put name="portlet_content" value="/portlet/ext/messaging/view_preferences.jsp" />
+        </definition>
+ 	 	
+ 	 <!-- Autologin tool -->
+	<definition name="portlet.ext.autologin.view" extends="portlet">
+		<put name="portlet_content" value="/portlet/ext/autologin/view.jsp" />
+	</definition>
+	
+	
+	<!-- Messaging tool -->
+    <definition name="portlet.ext.mass_messaging.view" extends="portlet">
+            <put name="portlet_content" value="/portlet/ext/mass_messaging/view.jsp" />
+    </definition>
+    
+    <definition name="portlet.ext.mass_messaging.edit_message" extends="portlet">
+            <put name="portlet_content" value="/portlet/ext/mass_messaging/edit_message.jsp" />
+    </definition>
+
+    <definition name="portlet.ext.mass_messaging.view_message" extends="portlet">
+            <put name="portlet_content" value="/portlet/ext/mass_messaging/view_message.jsp" />
+    </definition>
+    
+    <definition name="portlet.ext.mass_messaging.manage_ignored_recipients" extends="portlet">
+            <put name="portlet_content" value="/portlet/ext/mass_messaging/manage_ignored_recipients.jsp" />
+    </definition>
+    
+    
+    <definition name="portlet.ext.loginregister.view" extends="portlet">
+        <put name="portlet_content" value="/portlet/ext/loginregister/view.jsp" />
+    </definition>
+
+    
+    <definition name="portlet.ext.loginregister.forgotpassword" extends="portlet">
+        <put name="portlet_content" value="/portlet/ext/loginregister/forgotpassword.jsp" />
+    </definition>
+    
+    <!-- Landing Page tool -->
+    <definition name="portlet.ext.landingpage.view" extends="portlet">
+            <put name="portlet_content" value="/portlet/ext/landingpage/view.jsp" />
+    </definition>
+</tiles-definitions>

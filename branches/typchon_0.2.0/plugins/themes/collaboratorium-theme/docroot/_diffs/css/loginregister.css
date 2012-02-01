@@ -1,0 +1,65 @@
+.loginRegisterTable {
+    width: 800px;
+    margin: auto;
+    vertical-align: top;
+    margin-bottom: 100px;
+}
+.loginRegisterTable td.login,
+.loginRegisterTable td.register {
+    vertical-align: top;
+    width: 45%;
+}
+	
+
+.loginRegisterTable div.login,
+.loginRegisterTable div.register {
+    border: 20px solid #E3DFD7;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    margin-bottom:20px;
+}
+
+.loginRegisterTable .buttons {
+    text-align: center;
+}
+
+.loginRegisterTable .boxTitle {
+    background: #EDEBEA;
+    padding: 10px 5px;
+    margin-bottom: 10px;
+}
+
+.loginRegisterTable .boxTitle.secondary {
+    margin-top:15px;
+}
+
+.loginRegisterTable td.login table {
+    width:100%;
+}
+
+
+div.facebook-button {
+    text-align:center;
+}
+
+a.fb_button.fb_button_medium {
+    display:none;
+}
+
+a#pseudo-fb {
+    display:inline-block;
+}
+
+.fb-info {
+    background-color:#FFD0D0;
+    border:thin solid red;
+    margin:10px;
+    padding:5px;
+    text-align:left;
+}
+
+.reg-info {
+    text-align:left;
+    margin-top:10px;
+}

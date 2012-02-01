@@ -1,0 +1,380 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ *
+ * File responsible for rendering filter plans form.
+ *
+ * version 1.1: themed to be consistent with collaboratorium theme
+ *
+ * @author janusz.p, TCSDEVELOPER
+ * @version 1.1
+ */
+%>
+<%
+	DateFormat fromToDateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+    DateFormat filterDateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+	
+    Date dateMin = (Date) request.getAttribute(PlanConstants.DATE_MIN);
+	Date dateMax = (Date) request.getAttribute(PlanConstants.DATE_MAX);
+
+	double damageCostMin = (Double) request.getAttribute(PlanConstants.DAMAGE_COST_MIN);
+	double damageCostMax = (Double) request.getAttribute(PlanConstants.DAMAGE_COST_MAX);
+
+	double mitigationCostMin = (Double) request.getAttribute(PlanConstants.MITIGATION_COST_MIN);
+	double mitigationCostMax = (Double) request.getAttribute(PlanConstants.MITIGATION_COST_MAX);
+
+	double co2Min = (Double) request.getAttribute(PlanConstants.CO2_MIN);
+	double co2Max = (Double) request.getAttribute(PlanConstants.CO2_MAX);
+%>
+
+
+
+<%@page import="com.ext.portlet.plans.PlanConstants"%>
+<%@page import="com.ext.portlet.plans.PlanConstants.Property"%>
+<%@page import="com.ext.portlet.plans.PlanConstants.Attribute"%><script type="text/javascript">
+	var prevJQuery;
+	if (jQuery) {
+		prevJQuery = jQuery;
+	}
+</script>
+<script type="text/javascript" src="/html/portlet/ext/models/js//jquery-1.3.2.js"></script>
+<script type="text/javascript" src="/html/portlet/ext/models/js/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/html/portlet/ext/models/js/ui.core.js"></script>
+<script type="text/javascript" src="/html/portlet/ext/models/js/ui.slider.js"></script>
+
+
+<!-- <link type="text/css" href="/html/portlet/ext/models/css/ui.all.css" rel="stylesheet" /> 
+<link type="text/css" href="/html/portlet/ext/models/css/models.css" rel="stylesheet" />-->
+<script type="text/javascript">
+	
+	if (prevJQuery) {
+		jQuery = prevJQuery;
+	}
+
+	function printDate(timestamp, ignoreUnit) {
+		var date = new Date();
+		date.setTime(timestamp);
+		return (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
+	}
+
+	function printPercent(percent, ignoreUnit) {
+		return percent + (ignoreUnit ? "" : "%");
+	}
+
+	function printNumber(number, ignoreUnit) {
+		return number;
+	}
+
+	/**
+	 * Toggles positions visibility for given question.
+	 *
+	 * @param questionid question id which positions are to be shown/hidden
+	 */
+	function <portlet:namespace />togglePositionsVisibility(questionId) {
+		jQuery("#<portlet:namespace />expandPositionsExpanded" + questionId).toggle();
+		jQuery("#<portlet:namespace />expandPositionsHidden" + questionId).toggle();
+		jQuery("#<portlet:namespace />positions" + questionId).toggle()
+	}
+
+	
+	// date values
+	var now = new Date();
+	var dateMin = new Date();
+	var dateMax = new Date();
+	var dateFrom = new Date();
+	var dateTo = new Date();
+
+	dateMin.setTime(Date.parse('<%= fromToDateFormat.format(dateMin) %>'));
+	dateMax.setTime(Date.parse('<%= fromToDateFormat.format(dateMax) %>'));
+	
+	dateFrom.setTime(<%= planUserSettings != null && PlanConstants.Property.DATE_FROM.isFilterDefined(planUserSettings) ? "Date.parse('" + fromToDateFormat.format(filterDateFormat.parse(Property.DATE_FROM.getValue(planUserSettings).toString()))   + "')" : "dateMin.getTime()" %>);
+	dateTo.setTime(<%= planUserSettings != null && PlanConstants.Property.DATE_TO.isFilterDefined(planUserSettings) ? "Date.parse('" + fromToDateFormat.format(filterDateFormat.parse(Property.DATE_TO.getValue(planUserSettings).toString()))  + "')" : "dateMax.getTime()" %>);
+	
+	var stepDate = 1000 * 60 * 60 * 24;
+	var sliders = new Array();
+	sliders.push({
+		name: "date",
+		min: dateMin.getTime(),
+		max: dateMax.getTime(),
+		to: dateTo.getTime(),
+		from: dateFrom.getTime(),
+		printFunction: printDate,
+		step: 60 * 60 * 24 * 1000 
+	});
+
+	var votesMin = 0;
+	var votesMax = 100;
+	var votesFrom = <%= published && planUserSettings != null && PlanConstants.Property.VOTES_FROM.isFilterDefined(planUserSettings) ? PlanConstants.Property.VOTES_FROM.getValue(planUserSettings) : "votesMin" %>;
+	var votesTo = <%= published && planUserSettings != null && PlanConstants.Property.VOTES_TO.isFilterDefined(planUserSettings) ?  PlanConstants.Property.VOTES_TO.getValue(planUserSettings) : "votesMax" %>;
+	var votesStep = 1;
+	sliders.push({
+		name: "votes",
+		min: votesMin,
+		max: votesMax,
+		from: votesFrom,
+		to: votesTo,
+		printFunction: printPercent,
+		step: votesStep
+	});
+
+	var mitigationMin = <%= mitigationCostMin %>;
+	var mitigationMax = <%= mitigationCostMax %>;
+	var mitigationFrom = <%= planUserSettings != null && PlanConstants.Attribute.MIN_MITIGATION_COST.isFilterDefined(planUserSettings) ? PlanConstants.Attribute.MIN_MITIGATION_COST.getAttributeFilter(planUserSettings).getStringVal() : "mitigationMin" %>;
+	var mitigationTo = <%= planUserSettings != null && PlanConstants.Attribute.MAX_MITIGATION_COST.isFilterDefined(planUserSettings) ? PlanConstants.Attribute.MAX_MITIGATION_COST.getAttributeFilter(planUserSettings).getStringVal() : "mitigationMax" %>;
+	var mitigationStep = 0.01;
+	sliders.push({
+		name: "mitigation",
+		min: mitigationMin,
+		max: mitigationMax,
+		from: mitigationFrom,
+		to: mitigationTo,
+		printFunction: printPercent,
+		step: mitigationStep
+	});
+
+	var damageMin = <%= damageCostMin %>;
+	var damageMax = <%= damageCostMax %>;
+	var damageFrom = <%= planUserSettings != null && PlanConstants.Attribute.MIN_DAMAGE_COST.isFilterDefined(planUserSettings) ? PlanConstants.Attribute.MIN_DAMAGE_COST.getAttributeFilter(planUserSettings).getStringVal() : "damageMin" %>;
+	var damageTo = <%= planUserSettings != null && PlanConstants.Attribute.MAX_DAMAGE_COST.isFilterDefined(planUserSettings) ? PlanConstants.Attribute.MAX_DAMAGE_COST.getAttributeFilter(planUserSettings).getStringVal() : "damageMax" %>;
+	var damageStep = 0.01;
+	sliders.push({
+		name: "damage",
+		min: damageMin,
+		max: damageMax,
+		from: damageFrom,
+		to: damageTo,
+		printFunction: printPercent,
+		step: damageStep
+	});
+
+	var co2Min = <%= co2Min %>;
+	var co2Max = <%= co2Max %>;
+	var co2From = <%= planUserSettings != null && PlanConstants.Attribute.CO2.isFilterDefined(planUserSettings) ? PlanConstants.Attribute.CO2.getAttributeFilter(planUserSettings).getMin() : "co2Min" %>;
+	var co2To = <%= planUserSettings != null && PlanConstants.Attribute.CO2.isFilterDefined(planUserSettings) ? PlanConstants.Attribute.CO2.getAttributeFilter(planUserSettings).getMax() : "co2Max" %>;
+	var co2Step = 1;
+	sliders.push({
+		name: "co2",
+		min: co2Min,
+		max: co2Max,
+		from: co2From,
+		to: co2To,
+		printFunction: printNumber,
+		step: co2Step
+	});
+	
+	function updateSlider(sliderOpt) {
+		return function(event, ui) {
+			$("#" + sliderOpt.name + "-from").text(sliderOpt.printFunction(ui.values[0]));
+			$("#" + sliderOpt.name + "-to").text(sliderOpt.printFunction(ui.values[1]));
+			$("#" + sliderOpt.name + "-input-from").val(sliderOpt.printFunction(ui.values[0], true));
+			$("#" + sliderOpt.name + "-input-to").val(sliderOpt.printFunction(ui.values[1], true));
+		}
+	}
+
+	function <portlet:namespace />updatePositions(positionId) {
+		var position = $("#<portlet:namespace />position-" + positionId);
+		var val = document.<portlet:namespace />filters.<portlet:namespace /><%= PlanConstants.POSITIONS %>.value;
+		if (position.attr("checked")) {
+			 val += "," + positionId;
+		} else {
+			var tmp = "," + positionId;
+			while (val.indexOf(tmp) >= 0) {
+				val = val.replace(tmp, "");
+			}
+		}
+		document.<portlet:namespace />filters.<portlet:namespace /><%= PlanConstants.POSITIONS %>.value = val;
+	}
+			
+		 
+	
+	$(document).ready(function() {
+		for (var i = 0; i < sliders.length; i++) {
+			sliderOpt = sliders[i];
+			$("#" + sliderOpt.name + "-from").text(sliderOpt.printFunction(sliderOpt.from)); 
+			$("#" + sliderOpt.name + "-to").text(sliderOpt.printFunction(sliderOpt.to));
+			$("#" + sliderOpt.name + "-input-from").val(sliderOpt.printFunction(sliderOpt.from, true));
+			$("#" + sliderOpt.name + "-input-to").val(sliderOpt.printFunction(sliderOpt.to, true));
+			
+			$("#" + sliderOpt.name + "-slider").slider({
+				range: true,
+				min: sliderOpt.min,
+				max: sliderOpt.max,
+				values: [sliderOpt.from, sliderOpt.to],
+				step: sliderOpt.step,
+				slide: updateSlider(sliderOpt)
+			});
+			$("#" + sliderOpt.name + "-slider").show();
+		}
+		<c:if test="<%= planUserSettings != null %>">
+			<c:forEach var="positionId" items="<%= planUserSettings.getPositionsIds() %>">
+				$("#<portlet:namespace />position-${positionId}").attr("checked", true);
+				<portlet:namespace />updatePositions(${positionId});
+			</c:forEach>
+		</c:if>
+	});
+</script>
+
+<!-- submit form url -->
+<portlet:actionURL windowState="NORMAL" var="submitURL">
+	<portlet:param name="struts_action" value="/ext/plans/update_filters" />
+</portlet:actionURL>
+<form name="test"></form>
+<form action="${submitURL}" method="post" name="<portlet:namespace />filters">
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.PUBLISHED %>" value="<%= published %>" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.POSITIONS %>" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.REDIRECT %>" value="<%= currentURL %>" />
+    <input type="hidden" name="<portlet:namespace /><%= PlanConstants.PLAN_TYPE_ID %>" value="<%= planType.getPlanTypeId() %>" />
+	<!-- 
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.DATE_MIN %>" id="date-input-from" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.DATE_MAX %>" id="date-input-to" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.CO2_MIN %>" id="co2-input-from" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.CO2_MAX %>" id="co2-input-to" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.MITIGATION_COST_MIN %>" id="mitigation-input-from" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.MITIGATION_COST_MAX %>" id="mitigation-input-to" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.DAMAGE_COST_MIN %>" id="damage-input-from" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.DAMAGE_COST_MAX %>" id="damage-input-to" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.VOTES_MIN %>" id="votes-input-from" />
+	<input type="hidden" name="<portlet:namespace /><%= PlanConstants.VOTES_MAX %>" id="votes-input-to" />
+	 -->
+
+<div class="planFilter">
+	<div class="planFilter_top">
+		<div class="title">
+			<h1><span class="hidden">Plan Preferences</span></h1>
+		</div>
+	</div>
+	<div class="planFilter_bg">
+		<div class="inner">
+			<div class="floatLeft leftForm">
+				<div class="row">
+					<label><liferay-ui:message key="name" />:</label>
+					<input class="text" name="<portlet:namespace /><%= PlanConstants.Property.NAME %>" type="text" value="<%= planUserSettings != null && PlanConstants.Property.NAME.isFilterDefined(planUserSettings) ? PlanConstants.Property.NAME.getValue(planUserSettings) : "" %>"  />
+					<div class="clear"></div>
+				</div>
+				<div class="row">
+					<label><liferay-ui:message key="creator" />:</label>
+					<input class="text" name="<portlet:namespace /><%= PlanConstants.Property.CREATOR %>" type="text" value="<%= planUserSettings != null && PlanConstants.Property.CREATOR.isFilterDefined(planUserSettings) ? PlanConstants.Property.CREATOR.getValue(planUserSettings) : "" %>" />
+					<div class="clear"></div>
+				</div>
+				<div class="row">
+					<label><liferay-ui:message key="description" />:</label>
+					<input class="text" name="<portlet:namespace /><%= PlanConstants.Property.DESCRIPTION %>" type="text" value="<%= planUserSettings != null && PlanConstants.Property.DESCRIPTION.isFilterDefined(planUserSettings) ? PlanConstants.Property.DESCRIPTION.getValue(planUserSettings) : "" %>" />
+					<div class="clear"></div>
+				</div>
+				<div class="row">
+					<label><liferay-ui:message key="date" />:</label>
+					<div class="silderBox">
+						<input type="text" class="text" name="<portlet:namespace /><%= PlanConstants.Property.DATE_FROM %>" id="date-input-from" />
+                    	<input type="text" class="text last" name="<portlet:namespace /><%= PlanConstants.Property.DATE_TO %>" id="date-input-to" />
+                        <div class="clear"></div>
+						<div id="date-slider"></div>
+					</div>
+				</div>
+				<c:if test="<%= published %>">
+					<div class="row">
+						<label><liferay-ui:message key="votes" />:</label>
+						<div class="silderBox">
+							<input type="text" class="text" name="<portlet:namespace /><%= PlanConstants.Property.VOTES_FROM %>" id="votes-input-from" />
+                	    	<input type="text" class="text last" name="<portlet:namespace /><%= PlanConstants.Property.VOTES_TO %>" id="votes-input-to"  />
+                	        <div class="clear"></div>
+							<div id="votes-slider"></div>
+						</div>
+					</div>
+				</c:if>
+				<div class="clear"></div>
+				<div class="row">
+					<label>Mitigation Cost:</label>
+					<div class="silderBox">
+						<input type="text" class="text" name="<portlet:namespace /><%= PlanConstants.Attribute.MIN_MITIGATION_COST %>" id="mitigation-input-from" />
+                    	<input type="text" class="text last" name="<portlet:namespace /><%= PlanConstants.Attribute.MAX_MITIGATION_COST %>" id="mitigation-input-to"  />
+                        <div class="clear"></div>
+						<div id="mitigation-slider"></div>
+					</div>
+				</div>
+				<div class="row">
+					<label>Damage Cost:</label>
+					<div class="silderBox">
+						<input type="text" class="text" name="<portlet:namespace /><%= PlanConstants.Attribute.MIN_DAMAGE_COST %>" id="damage-input-from" />
+                    	<input type="text" class="text last" name="<portlet:namespace /><%= PlanConstants.Attribute.MAX_DAMAGE_COST %>" id="damage-input-to"  />
+                        <div class="clear"></div>
+						<div id="damage-slider"></div>
+					</div>
+				</div>
+				<div class="row">
+					<label>CO2:</label>
+					<div class="silderBox">
+						<input type="text" class="text" name="<portlet:namespace /><%= PlanConstants.Attribute.CO2 %>_MIN" id="co2-input-from" />
+                    	<input type="text" class="text last" name="<portlet:namespace /><%= PlanConstants.Attribute.CO2 %>_MAX" id="co2-input-to"  />
+                        <div class="clear"></div>
+						<div id="co2-slider"></div>
+					</div>
+				</div>
+            </div>
+            <div class="floatLeft treeBox">
+                <h2>Positions :</h2>
+                <div class="treeContent">
+					<div class="filterPositions">
+                	<c:forEach var="question" items="<%= questions %>">
+						<%
+							MBMessage question = (MBMessage) pageContext.getAttribute("question");
+							String questionURL = planQuestionURL;
+							questionURL = questionURL.replaceAll(PlanConstants.DEBATE_CATEGORY_ID, String.valueOf(question.getCategoryId()));
+						%>
+						<ul class="lv1">
+							<li>
+								<a href="javascript:;" class="folder"><span class="hidden">folder/unfloder</span></a>
+								<a class="question" href="<%= questionURL %>"><strong>${question.subject}</strong></a>
+								<ul>
+									<c:forEach var="position" items="${questionPositions[question]}">
+										<li>
+											<input id="<portlet:namespace />position-${position.messageId}" 
+												type="checkbox" 
+												class="portlet-plans-position"
+												name="<portlet:namespace />question${question.categoryId}" 
+												onClick="<portlet:namespace />updatePositions(${position.messageId})"
+											/>
+											<%
+												MBMessage position = (MBMessage) pageContext.getAttribute("position"); 
+												String positionURL = planPositionURL;
+												positionURL = positionURL.replaceAll(PlanConstants.DEBATE_CATEGORY_ID, String.valueOf(question.getCategoryId()));
+												positionURL = positionURL.replaceAll(PlanConstants.POSITION_ID, String.valueOf(position.getMessageId()));
+											%>
+											<a href="<%= positionURL %>"><strong>${position.subject}</strong></a>
+										</li>
+									</c:forEach>
+								</ul>
+							</li>
+						</ul>
+					</c:forEach>
+					</div>
+					<div class="radioBox">
+						<div class="floatLeft anyRadio">
+							<input type="radio" name="<portlet:namespace /><%= PlanConstants.POSITIONS_FILTER_OPERATOR %>" value="<%= PlanConstants.ANY %>" <%= planUserSettings == null || planUserSettings.getFilterPositionsAll() == null || !planUserSettings.getFilterPositionsAll() ? "checked='true'" : "" %>>
+								<label><liferay-ui:message key="any" /></label>
+							</input>
+						</div>
+						<div class="floatLeft allRadio">			
+							<input type="radio" name="<portlet:namespace /><%= PlanConstants.POSITIONS_FILTER_OPERATOR %>" value="<%= PlanConstants.ALL %>" <%= planUserSettings != null && planUserSettings.getFilterPositionsAll() != null && planUserSettings.getFilterPositionsAll() ? "checked='true'" : "" %>>
+								<label><liferay-ui:message key="all" /></label>
+							</input>
+                    	</div>
+                	</div>
+            	</div>
+    		</div>
+    		<div class="clear"></div>
+    	</div>
+	</div>
+	<div class="planFilter_bottom">
+    	<div class="btnBox" style="z-axis: 9999">
+       		<a href="#" onClick="document.<portlet:namespace />filters.submit(); return false;" class="checkBtn"><span class="hidden">Check</span></a>
+       		<a href="javascript:;" class="cancelBtn" onClick="<portlet:namespace />closeDialog('filters-dialog')"><span class="hidden">Cancel</span></a>
+       	</div>
+    </div>
+</div>
+</form>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    >
+    <ice:portlet>
+        <collab:navigationManager />
+        <!-- <ui:include src="pages/CATEGORY_DEBATES.xhtml" />-->
+        <ui:include src="pages/#{debateBrowserBean.pageType}.xhtml" />
+    </ice:portlet>
+</f:view>

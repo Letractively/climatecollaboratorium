@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <div style="overflow: hidden;">
+        <h1 class="pageTitle"><ui:insert name="pageType" />: &amp;nbsp; <span><ui:insert name="pageName" /></span> </h1>
+    </div>
+    <div id="bread" class="debatebrowser"  style="overflow: hidden;">
+        <a href="/web/guest/debate-browser">Debates</a>
+        <ui:insert name="breadcrumb" />
+    </div>
+    <div id="content" class="debateBrowser">
+        <ui:insert />
+    </div>
+</f:view>

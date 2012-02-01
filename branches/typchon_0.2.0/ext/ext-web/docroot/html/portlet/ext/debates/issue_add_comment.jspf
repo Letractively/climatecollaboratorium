@@ -1,0 +1,63 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+                    <c:if test="<%=topDebateMessage!=null%>">
+                        <%
+                            MBMessage m = DebatesUtil.getDebateMessageThread(topDebateMessage.getMessageId(), renderRequest);
+                            long debateDiscussionId = m == null ? -1 : m.getMessageId();
+                            int debateMessageCount = m == null ? -1 : m.getThread().getMessageCount() - 1;
+                            boolean canComment = permissionChecker.hasPermission(themeDisplay.getPortletGroupId(), portletDisplay.getRootPortletId(), portletDisplay.getResourcePK(), DebatesConstants.COMMENT_ON_DEBATE);
+
+                        %>
+                        <c:if test="<%=debateDiscussionId > -1%>">
+                            <portlet:renderURL var="viewDiscussionURL">
+                                <portlet:param name="struts_action" value="/ext/debates/view_message"/>
+                                <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>"
+                                               value="<%= DebatesConstants.DISCUSSION_TAB%>"/>
+                                <portlet:param name="messageId" value="<%=String.valueOf(debateDiscussionId)%>"/>
+                                <portlet:param name="debatePostId"
+                                               value="<%=String.valueOf(topDebateMessage.getMessageId())%>"/>
+                            </portlet:renderURL>
+                        </c:if>
+                        <c:if test="<%=debateDiscussionId < 0%>">
+                            <portlet:renderURL var="viewDiscussionURL">
+                                <portlet:param name="struts_action" value="/ext/debates/view_message"/>
+                                <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>"
+                                               value="<%= DebatesConstants.DISCUSSION_TAB%>"/>
+                                <portlet:param name="debatePostId"
+                                               value="<%=String.valueOf(topDebateMessage.getMessageId())%>"/>
+                            </portlet:renderURL>
+
+                        </c:if>
+                        <portlet:actionURL var="addDiscussionURL">
+                            <portlet:param name="struts_action" value="/ext/debates/add_debate_discussion"/>
+                            <portlet:param name="<%= DebatesConstants.VIEW_DEBATES_INDEX_TABS%>"
+                                           value="<%= DebatesConstants.DISCUSSION_TAB%>"/>
+                            <portlet:param name="<%=DebatesConstants.DEBATE_MESSAGE_ID%>"
+                                           value="<%= String.valueOf(topDebateMessage.getMessageId())%>"/>
+                            <portlet:param name="redirect" value="${viewDiscussionURL}"/>
+                        </portlet:actionURL>
+
+                        <div class="debatesSummaryTitle"><h3><%=topDebateMessage.getSubject()%>
+                        </h3> <div class="comment-box">
+                        <c:if test="<%=debateDiscussionId > -1 && debateMessageCount > 0%>">
+                            <a href="${discussionURL}"><%=debateMessageCount + " comment" + (debateMessageCount > 1 ? "s" : "")%>
+                            </a>
+                        </c:if>
+
+                        <c:if test="<%=debateDiscussionId < 0 || debateMessageCount == 0%>">
+                            <c:if test="<%=canComment%>">
+                                <a href="javascript:;"
+                                   onclick="submitForm(document.hrefFm, '${addDiscussionURL}');return true;">Add a
+                                    comment</a>
+                            </c:if>
+                            <c:if test="<%=!canComment%>">
+                                <i>No comments</i>
+                            </c:if>
+                        </c:if>
+                        </div>
+                    </c:if>
+                    </div>

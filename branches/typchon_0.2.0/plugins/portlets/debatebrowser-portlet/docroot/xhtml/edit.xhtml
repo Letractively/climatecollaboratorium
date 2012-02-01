@@ -1,0 +1,140 @@
+<!--
+/**
+ * Copyright (c) 2000-2007 Liferay, Inc. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+-->
+
+<f:view xmlns:f="http://java.sun.com/jsf/core" 
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:portlet>
+            <ice:outputStyle href="/xmlhttp/css/xp/xp-portlet.css" />
+    <div id="content" class="debateBrowserAdmin">
+        <ice:form>
+            <h1>Debate browser preferences</h1>
+            <div id="bread">&amp;nbsp;</div>
+            <ice:messages />
+            <ice:outputConnectionStatus /> 
+            <ice:panelTabSet>
+                <ice:panelTab>           
+                    <f:facet name="label">
+                        <ice:panelGroup>
+                            <ice:outputText value="Categories visibility"/>
+                        </ice:panelGroup>
+                    </f:facet>  
+                    
+                    <h2>Categories visibility</h2><br />
+                    <ice:dataTable var="category" value="#{debateBrowserPreferences.categories}" style="width: 800px;">
+                        <ice:column label="Category">
+                                    <f:facet name="header">
+                                        Category
+                                    </f:facet>
+                                    #{category.debateCategory.title}
+                                </ice:column>
+                                <ice:column label="Visibility" style="width: 100px;">
+                                    <f:facet name="header">
+                                        Visibility
+                                    </f:facet>
+                                    <ice:selectBooleanCheckbox value="#{category.visible}" />
+                                </ice:column>
+                        
+                        
+                        </ice:dataTable>
+                        <ice:commandButton value="update" actionListener="#{debateBrowserPreferences.update}" />
+                </ice:panelTab>
+                
+                <ice:panelTab>
+                    <f:facet name="label">
+                        <ice:panelGroup>
+                            <ice:outputText value="Categories order"/>
+                        </ice:panelGroup>
+                    </f:facet>  
+                    
+                    <ul id="categoriesList">
+                        <ui:repeat var="category" value="#{debateBrowserPreferences.categories}">
+                            <f:subview rendered="#{category.visible}">
+                                <li id="category-#{category.debateCategory.debateCategoryPK}">#{category.debateCategory.title}</li>
+                            </f:subview>
+                        </ui:repeat>
+                            
+                    </ul>
+                    <button id="updateOrderButton">Update order</button>
+                    <ice:inputText value="#{debateBrowserPreferences.categoriesOrderString}" styleClass="hidden categoriesOrderStr" />
+                    <ice:commandButton actionListener="#{debateBrowserPreferences.updateOrder}" styleClass="hidden updateOrderButtonIce" />
+                    <script type="text/javascript">
+                        jQuery("#categoriesList").sortable(); 
+                         
+                        jQuery("#updateOrderButton").click(function() {
+                            var categories = [];
+                            jQuery("#categoriesList li").each(function() {
+                                var li = jQuery(this);
+                                categories.push(li.attr("id").replace("category-", ""));
+                            });
+                            jQuery(".categoriesOrderStr").val(categories.join(","));
+                            jQuery(".updateOrderButtonIce").click();
+                            
+                        });
+                              
+                    </script>
+                
+                </ice:panelTab>
+                <ice:panelTab>
+                    <f:facet name="label">
+                        <ice:panelGroup>
+                            <ice:outputText value="Debates per category (on index page)"/>
+                        </ice:panelGroup>
+                    </f:facet>  
+                    
+                    <ice:dataTable var="category" value="#{debateBrowserPreferences.categories}" style="width: 800px;">
+                        <ice:column label="Category">
+                                    <f:facet name="header">
+                                        Category
+                                    </f:facet>
+                                    #{category.debateCategory.title}
+                                </ice:column>
+                                <ice:column label="Visibility" style="width: 100px;">
+                                    <f:facet name="header">
+                                        Max items displayed
+                                    </f:facet>
+                                    <ice:inputText value="#{category.debatesOnIndex}" />
+                                </ice:column>
+                        
+                        
+                        </ice:dataTable>
+                        <ice:commandButton value="update" actionListener="#{debateBrowserPreferences.updateDebatesShownOnIndex}" />
+                        
+                
+                </ice:panelTab>
+                <ice:panelTab>
+                    <f:facet name="label">
+                        <ice:panelGroup>
+                            <ice:outputText value="Multiple associations"/>
+                        </ice:panelGroup>
+                    </f:facet>  
+                
+                    <ice:commandLink value="Clean multiple associations between debates and categories" actionListener="#{debateBrowserPreferences.cleanDebateMap}" />
+                </ice:panelTab>
+            </ice:panelTabSet>
+           
+        </ice:form>
+    </div>
+	</ice:portlet>
+</f:view>

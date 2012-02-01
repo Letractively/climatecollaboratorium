@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<f:view
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:collab="http://climatecollaboratorium.org/facelets">
+    <ui:composition template="./singlePageWithBreadcrumb.xhtml">
+    
+        <ui:define name="plans_content">
+        
+            
+            <ice:form>
+            
+            
+                <ice:panelGroup styleClass="protitle" rendered="#{not contest.contest.editor.editing}">
+                    <f:subview rendered="#{contest.contest.contestActive}">
+                        <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
+                    </f:subview>
+                    <h2>
+                        <collab:contestLink contestId="#{contest.contest.contestId}" text="#{contest.contest.shortName}" />
+                    </h2>
+                    <f:subview rendered="#{contest.contest.contestActive}">
+                        <div class="t_wrap"><div class="txt1">CURRENT CONTEST</div></div>
+                    </f:subview>
+                    <f:subview rendered="#{not contest.contest.contestActive}">
+                        <div class="t_wrap"><div class="txt1">ARCHIVED CONTEST</div></div>
+                    </f:subview>
+                    <h4><ice:outputText value="#{contest.contest.name}" /></h4>
+                    <ice:commandButton styleClass="editCategoryButton" value="Edit" action="#{contest.contest.editor.edit}" rendered="#{not contest.contest.editor.editing and permissions.canAdminAll}"/>
+                </ice:panelGroup>
+                <ice:panelGroup styleClass="categoryHeader" rendered="#{contest.contest.editor.editing}">
+                    <ice:outputLabel for="name">Name</ice:outputLabel>
+                    <h2><ice:inputText id="name" styleClass="categoryName" value="#{contest.contest.editor.name}"/></h2>
+                </ice:panelGroup>
+
+                <ice:panelGroup styleClass="categoryShortName" rendered="#{contest.contest.editor.editing}">
+                    <ice:outputLabel for="shortName">Short name</ice:outputLabel>
+                    <ice:inputText id="shortName" value="#{contest.contest.editor.shortName}"/>
+                </ice:panelGroup>
+                <f:subview rendered="#{contest.subView.name eq 'PROPOSALS'}">
+                <ice:panelGroup styleClass="categoryDescription" rendered="#{not contest.contest.editor.editing}">
+                    <ice:outputText id="description" value="#{contest.contest.description}" escape="false" />
+                </ice:panelGroup>
+                <ice:panelGroup styleClass="categoryDescription" rendered="#{contest.contest.editor.editing}">
+                    <ice:inputTextarea value="#{contest.contest.editor.description}"/>
+                </ice:panelGroup>
+                </f:subview>
+                <f:subview rendered="#{contest.subView.name eq 'MODEL'}">
+                <ice:panelGroup styleClass="categoryDescription" rendered="#{contest.contest.editor.editing}">
+                    <ice:inputTextarea value="#{contest.contest.editor.modelDescription}"/>
+                </ice:panelGroup>
+                </f:subview>
+                <f:subview rendered="#{contest.subView.name eq 'ISSUES'}">
+                <ice:panelGroup styleClass="categoryDescription" rendered="#{not contest.contest.editor.editing}">
+                    <ice:outputText id="description" value="#{contest.contest.positionsDescription}" escape="false" />
+                </ice:panelGroup>
+                <ice:panelGroup styleClass="categoryDescription" rendered="#{contest.contest.editor.editing}">
+                    <ice:inputTextarea value="#{contest.contest.editor.positionsDescription}"/>
+                </ice:panelGroup>
+                </f:subview>
+                <ice:panelGrid columns="2" styleClass="editCategory buttonPanel" rendered="#{contest.contest.editor.editing}">
+                    <ice:commandButton value="Save" action="#{contest.contest.editor.save}"/>
+                    <ice:commandButton value="Cancel" action="#{contest.contest.editor.cancel}"/>
+                </ice:panelGrid>
+            </ice:form>
+            <!--
+            <table class="contestNavItems">
+                <tr>
+                    <td>
+                        <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals" class="#{contest.subView == 'PROPOSALS' ? 'active' : ''}" >Proposals</a>
+                    </td>
+                    <td>
+                        <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:issues" class="#{contest.subView == 'ISSUES' ? 'active' : ''}">Issues</a>
+                    </td>
+                    <td>
+                        <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:model" class="#{contest.subView == 'MODEL' ? 'active' : ''}">Model</a>
+                    </td>
+                </tr>
+            </table>
+            -->
+            <div class="contestContent">
+                
+                <ui:insert name="contest_content" />
+            </div>
+        </ui:define>
+    
+    </ui:composition>    
+</f:view>

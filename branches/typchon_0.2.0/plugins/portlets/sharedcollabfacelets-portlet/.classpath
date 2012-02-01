@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="docroot/WEB-INF/src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Collaboratorium - Repo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/json-lib.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/client-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/plugins-svn/lib/el-api.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

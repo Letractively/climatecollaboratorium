@@ -1,0 +1,62 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ * Tab panel for Debates portlet (included in most pages).
+ *
+ * version 1.1: themed to be consistent with collaboratorium theme
+ *
+ * @author janusz.p
+ * @version 1.1
+ */
+ %>
+ <%
+ 	// determin type of view (debate summary / debate index)
+ 	String selectedTab = ParamUtil.getString(request, ModelConstants.VIEW_MODEL_INDEX_TABS, ModelConstants.MODEL_TAB);
+ 	String modelId = ParamUtil.getString(request,ModelConstants.MODEL_ID);
+ 	
+ %>
+ 
+	<liferay-portlet:renderURL var="modelIndexURL">
+		<portlet:param name="struts_action" value="/ext/models/view_models" />
+		<portlet:param name="<%= ModelConstants.MODEL_ID %>" value="<%= modelId%>" />
+		<portlet:param name="<%=ModelConstants.MODEL_NAME%>" value="<%=modelName%>"/>
+		<portlet:param name="<%= ModelConstants.VIEW_MODEL_INDEX_TABS%>" value="<%=ModelConstants.MODEL_TAB%>"/>
+	</liferay-portlet:renderURL>
+
+
+	<liferay-portlet:renderURL var="modelURL">
+		<portlet:param name="struts_action" value="/ext/models/run_model" />
+		<portlet:param name="<%= ModelConstants.MODEL_ID %>" value="<%= modelId%>" />
+		<portlet:param name="<%=ModelConstants.MODEL_NAME%>" value="<%=modelName%>"/>
+		<portlet:param name="<%= ModelConstants.VIEW_MODEL_INDEX_TABS%>" value="<%=ModelConstants.MODEL_TAB%>"/>
+	</liferay-portlet:renderURL>
+
+
+	<liferay-portlet:renderURL var="discussionURL">
+		<portlet:param name="struts_action" value="/ext/models/view_discussion" />
+		<portlet:param name="<%= ModelConstants.MODEL_ID %>" value="<%= modelId%>" />
+		<portlet:param name="<%=ModelConstants.MODEL_NAME%>" value="<%=modelName%>"/>
+		<portlet:param name="<%= ModelConstants.VIEW_MODEL_INDEX_TABS%>" value="<%=ModelConstants.DISCUSSION_TAB%>"/>
+	</liferay-portlet:renderURL>
+
+<!-- end #header -->
+
+	
+<div class="modelContent">
+    <br />
+	<div class="inner-tab">
+		<ul>
+
+			<li class="<%= selectedTab.equals(ModelConstants.MODEL_TAB) ? "current" : "" %>" ><a href="${modelURL}" >Model</a></li>
+			<li class="<%= selectedTab.equals(ModelConstants.DISCUSSION_TAB) ? "current" : "" %>" ><a href="${discussionURL}">Discussion</a></li>
+		</ul>
+		<div class="clear"></div>
+    </div>
+						
+								<!-- <div id="discussionTabContent" class="tabContent <%= selectedTab %>"> -->

@@ -1,0 +1,50 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+/**
+ *
+ * Navigation panel for debate summary page, shows list of positions.
+ *
+ * version 1.1: themed to be consistent with collaboratorium theme
+ *
+ * @author janusz.p
+ * @version 1.1
+ */
+ %>
+<%
+    List<MBMessage> msgs = new ArrayList<MBMessage>();
+    for(MBMessageDisplay msgDisplay: positions) {
+    	msgs.add(msgDisplay.getMessage());
+    }
+%>
+<table class='debate-navigation'>
+	<thead>
+		<tr>
+			<th class="first">Position</th>
+			<th class="last">&nbsp;</th>
+		
+		</tr>
+	
+	</thead>
+	<%
+		boolean even = false;
+		boolean isRowGreen = true;
+	%>
+	<c:forEach var="message" items="<%= msgs %>">
+		<tr class="<%= even ? "even" : "" %> <%= isRowGreen ? "green" : "" %>">
+			<td colspan="2" class="first last" >
+				<a href="#<portlet:namespace />message_${message.messageId}" class="<%= isRowGreen ? "white" : "black" %>" >
+					${message.subject}
+				</a>
+			</td>
+		</tr>
+		<%
+			even = !even;
+			isRowGreen = false;
+		%>
+	</c:forEach>
+</table>

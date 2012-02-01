@@ -1,0 +1,106 @@
+<%--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  --%>
+
+<%
+    /**
+     *
+     *
+     * User login form.
+     *
+     * @author TCSDEVELOPER
+     * @version 1.0
+     */
+%>
+<%@page import="com.liferay.portlet.login.util.LoginUtil" %>
+<%
+    String login = LoginUtil.getLogin(request, "login", company);
+    String password = StringPool.BLANK;
+    boolean rememberMe = ParamUtil.getBoolean(request, "rememberMe");
+
+
+%>
+
+<script language="javascript">
+    function <portlet:namespace/>doLogin() {
+        document. < portlet:namespace/>login.submit();
+    };
+</script>
+
+<portlet:actionURL secure="<%= PropsValues.COMPANY_SECURITY_AUTH_REQUIRES_HTTPS || request.isSecure() %>"
+                   var="submitURL">
+    <portlet:param name="saveLastPath" value="0"/>
+    <portlet:param name="struts_action" value="/ext/loginregister/login"/>
+    <portlet:param name="isLoggingIn" value="true"/>
+</portlet:actionURL>
+
+
+<div class="popupreg_head"><h3>Login</h3></div>
+<div class="popupreg_message">
+    <portlet:renderURL var="registerURL">
+        <portlet:param name="struts_action" value="/ext/loginregister/view"/>
+        <portlet:param name="isRegistering" value="true"/>
+    </portlet:renderURL>
+    Sign in below, login with Facebook Connect, or 
+    <a href="${registerURL}">Register here</a>
+    <div class="popupreg_facebook">
+        <a href="javascript:;" onclick="clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a>
+    </div>
+</div>
+
+<c:if test="<%= error != null && isLoggingIn %>">
+    <div class="error-message"><%= LanguageUtil.get(pageContext, loginErrors.get(error)) %></div>
+</c:if>
+ 
+<form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />login"
+      id='<portlet:namespace />loginForm'>
+    <input name="<portlet:namespace />redirect" type="hidden" value="<%= HtmlUtil.escape(redirect) %>"
+           id='<portlet:namespace />loginRedirect'/>
+    <input id="<portlet:namespace />rememberMe" name="<portlet:namespace />rememberMe" type="hidden"
+           value="<%= rememberMe %>"/>
+    <input id="<portlet:namespace />source" name="<portlet:namespace />source" type="hidden" value="login"/>
+
+    <p>
+        <div class="popupreg_txt">
+            Screen name:
+        </div>
+        <input class="popupreg_input" name="<portlet:namespace />login" type="text" value="<%= HtmlUtil.escape(login) %>"/>
+    </p>
+    <p>
+        <div class="popupreg_txt">
+            Password:
+        </div>
+        <input class="popupreg_input" id="<portlet:namespace />password" name="<portlet:namespace />password" type="password" value="<%= password %>"/>
+    </p>    
+    
+    <div class="clearfix"></div>
+    <div class="popupreg_login_wrap"><input type="button" class="popupreg_login"  onclick="<portlet:namespace />doLogin(); return false;" /></div>
+            
+    <portlet:renderURL var="forgotURL">
+        <portlet:param name="struts_action" value="/ext/loginregister/forgotpassword"/>
+    </portlet:renderURL>
+    <div class="popupreg_forgot"><a href="${forgotURL}">Forget your password?</a></div>
+    <div class="clearfix"></div>
+</form>
+
+<script type="text/javascript">
+    
+
+    jQuery(function() {
+            jQuery('#<portlet:namespace />rememberMeCheckbox').click(
+                    function() {
+
+                        var checked = 'off';
+
+                        if (this.checked) {
+                            checked = 'on';
+                        }
+                        jQuery('#<portlet:namespace />rememberMe').val(checked);
+                    }
+                    );
+    });
+
+
+</script>

@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2010. M.I.T. All Rights Reserved
+ * Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+ * or the license.txt file included in this distribution for the full text of the license.
+ */
+
+.editTriggerContainer {
+	position: relative;
+}
+
+
+
+.editTrigger {
+    position: absolute;
+     padding: 5px 10px;
+    font-weight: 600;
+    font-family: "gloriola-web-1","gloriola-web-2";
+    font-size:18px;
+    text-align:center;
+    background: #2c9cbb;
+    background-image:none;
+    color: #FFF;
+    right: 0px;
+	top: 0px;
+    border:none;
+    cursor: pointer;
+}
+
+editTrigger:hover {
+    background-image:none;
+     background: #1f6f85;
+    border:none;
+
+
+}
