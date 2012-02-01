@@ -389,6 +389,13 @@ create index IX_46EED065 on ModelOutputItem (modelOutputItemId);
 create index IX_DB3398BC on ModelPosition (modelId);
 create index IX_64397830 on ModelPosition (positionId);
 
+create index IX_D17A1280 on OntologyTerm (name);
+create index IX_F229DF5A on OntologyTerm (parentId);
+
+create index IX_222A254A on OntologyTermEntity (classNameId);
+create index IX_E20301D9 on OntologyTermEntity (classNameId, classPK);
+create index IX_8E77BEDF on OntologyTermEntity (termId);
+
 create index IX_A425F71A on OrgGroupPermission (groupId);
 create index IX_6C53DA4E on OrgGroupPermission (permissionId);
 
@@ -449,6 +456,10 @@ create index IX_BBE72D81 on PlanPositionItem (planPositionsId);
 create index IX_998C103F on PlanPositions (planId);
 
 create index IX_74EB9856 on PlanPropertyFilter (planUserSettingsId, propertyName);
+
+create index IX_8AF88237 on PlanRelated (relatedPlanId);
+
+create index IX_918E76BA on PlanSection (planId);
 
 create index IX_F4A17D4C on PlanTeamHistory (planId);
 create index IX_5BE2C986 on PlanTeamHistory (planId, userId);

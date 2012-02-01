@@ -264,6 +264,44 @@
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updateAuthorId" />
 	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanSectionDefinitionImpl" table="PlanSectionDefinition">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="defaultText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ontologyTermId" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanSectionImpl" table="PlanSection">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanSectionPK">
+			<key-property name="planSectionDefinitionId" />
+			<key-property name="planId" />
+		</composite-id>
+		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanRelatedImpl" table="PlanRelated">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanRelatedPK">
+			<key-property name="sectionId" />
+			<key-property name="relatedPlanId" />
+		</composite-id>
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanTemplateImpl" table="PlanTemplate">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanTemplateSectionImpl" table="PlanTemplateSection">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanTemplateSectionPK">
+			<key-property name="id" column="id_" />
+			<key-property name="planSectionId" />
+		</composite-id>
+	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelDiscussionImpl" table="ModelDiscussion">
 		<cache usage="read-write" />
 		<id name="modelDiscussionId" type="java.lang.Long">
@@ -808,5 +846,22 @@
 			<generator class="assigned" />
 		</id>
 		<property name="userId" />
+	</class>
+	<class name="com.ext.portlet.ontology.model.impl.OntologyTermImpl" table="OntologyTerm">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="parentId" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.ontology.model.impl.OntologyTermEntityImpl" table="OntologyTermEntity">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="termId" />
+		<property name="classNameId" />
+		<property name="classPK" />
 	</class>
 </hibernate-mapping>

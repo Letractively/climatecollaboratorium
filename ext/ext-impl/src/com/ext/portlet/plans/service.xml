@@ -465,10 +465,45 @@
             <finder-column name="planId" />
             <finder-column name="userId" />
         </finder>
-
-        
-        
     </entity>
+    
+    <entity name="PlanSectionDefinition" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="title" type="String" />
+        <column name="defaultText" type="String" />
+        <column name="ontologyTermId" type="Long" />
+    </entity>
+    
+    <entity name="PlanSection" local-service="true">
+        <column name="planSectionDefinitionId" type="Long" primary="true" />
+        <column name="planId" type="Long" primary="true" />
+        <column name="content" type="String" />
+        
+        <finder name="PlanId" return-type="Collection">
+            <finder-column name="planId" />
+        </finder>
+    </entity>
+    
+    <entity name="PlanRelated" local-service="true">
+        <column name="sectionId" type="Long" primary="true" />
+        <column name="relatedPlanId" type="Long" primary="true" />
+        
+        <finder name="PlanId" return-type="Collection">
+            <finder-column name="relatedPlanId" />
+        </finder>
+    </entity>
+    
+    <entity name="PlanTemplate" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="name" type="String" />
+    </entity>
+    
+    <entity name="PlanTemplateSection" local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="planSectionId" type="Long" primary="true" />
+    </entity>
+    
+    
 
 	<exceptions>
 		<exception>PlanName</exception>

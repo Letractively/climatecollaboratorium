@@ -96,6 +96,16 @@ public class PlanAttributeFilterPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanFanPersistence planFanPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence planTeamHistoryPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanSectionDefinitionPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanSectionDefinitionPersistence planSectionDefinitionPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanSectionPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanSectionPersistence planSectionPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanRelatedPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanRelatedPersistence planRelatedPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTemplatePersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanTemplatePersistence planTemplatePersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTemplateSectionPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanTemplateSectionPersistence planTemplateSectionPersistence;
 
     public void cacheResult(PlanAttributeFilter planAttributeFilter) {
         EntityCacheUtil.putResult(PlanAttributeFilterModelImpl.ENTITY_CACHE_ENABLED,
