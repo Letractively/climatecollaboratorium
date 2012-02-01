@@ -26,9 +26,19 @@ import com.ext.portlet.plans.service.PlanPositionsLocalService;
 import com.ext.portlet.plans.service.PlanPositionsService;
 import com.ext.portlet.plans.service.PlanPropertyFilterLocalService;
 import com.ext.portlet.plans.service.PlanPropertyFilterService;
+import com.ext.portlet.plans.service.PlanRelatedLocalService;
+import com.ext.portlet.plans.service.PlanRelatedService;
+import com.ext.portlet.plans.service.PlanSectionDefinitionLocalService;
+import com.ext.portlet.plans.service.PlanSectionDefinitionService;
+import com.ext.portlet.plans.service.PlanSectionLocalService;
+import com.ext.portlet.plans.service.PlanSectionService;
 import com.ext.portlet.plans.service.PlanService;
 import com.ext.portlet.plans.service.PlanTeamHistoryLocalService;
 import com.ext.portlet.plans.service.PlanTeamHistoryService;
+import com.ext.portlet.plans.service.PlanTemplateLocalService;
+import com.ext.portlet.plans.service.PlanTemplateSectionLocalService;
+import com.ext.portlet.plans.service.PlanTemplateSectionService;
+import com.ext.portlet.plans.service.PlanTemplateService;
 import com.ext.portlet.plans.service.PlanTypeAttributeLocalService;
 import com.ext.portlet.plans.service.PlanTypeAttributeService;
 import com.ext.portlet.plans.service.PlanTypeColumnLocalService;
@@ -57,7 +67,12 @@ import com.ext.portlet.plans.service.persistence.PlanPositionItemPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPositionPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPositionsPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistence;
+import com.ext.portlet.plans.service.persistence.PlanRelatedPersistence;
+import com.ext.portlet.plans.service.persistence.PlanSectionDefinitionPersistence;
+import com.ext.portlet.plans.service.persistence.PlanSectionPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence;
+import com.ext.portlet.plans.service.persistence.PlanTemplatePersistence;
+import com.ext.portlet.plans.service.persistence.PlanTemplateSectionPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypeAttributePersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypeColumnPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTypePersistence;
@@ -205,6 +220,36 @@ public abstract class PlanTypeLocalServiceBaseImpl
     protected PlanTeamHistoryService planTeamHistoryService;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence.impl")
     protected PlanTeamHistoryPersistence planTeamHistoryPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanSectionDefinitionLocalService.impl")
+    protected PlanSectionDefinitionLocalService planSectionDefinitionLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanSectionDefinitionService.impl")
+    protected PlanSectionDefinitionService planSectionDefinitionService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanSectionDefinitionPersistence.impl")
+    protected PlanSectionDefinitionPersistence planSectionDefinitionPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanSectionLocalService.impl")
+    protected PlanSectionLocalService planSectionLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanSectionService.impl")
+    protected PlanSectionService planSectionService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanSectionPersistence.impl")
+    protected PlanSectionPersistence planSectionPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanRelatedLocalService.impl")
+    protected PlanRelatedLocalService planRelatedLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanRelatedService.impl")
+    protected PlanRelatedService planRelatedService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanRelatedPersistence.impl")
+    protected PlanRelatedPersistence planRelatedPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanTemplateLocalService.impl")
+    protected PlanTemplateLocalService planTemplateLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanTemplateService.impl")
+    protected PlanTemplateService planTemplateService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTemplatePersistence.impl")
+    protected PlanTemplatePersistence planTemplatePersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanTemplateSectionLocalService.impl")
+    protected PlanTemplateSectionLocalService planTemplateSectionLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanTemplateSectionService.impl")
+    protected PlanTemplateSectionService planTemplateSectionService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTemplateSectionPersistence.impl")
+    protected PlanTemplateSectionPersistence planTemplateSectionPersistence;
 
     public PlanType addPlanType(PlanType planType) throws SystemException {
         planType.setNew(true);
@@ -818,6 +863,138 @@ public abstract class PlanTypeLocalServiceBaseImpl
     public void setPlanTeamHistoryPersistence(
         PlanTeamHistoryPersistence planTeamHistoryPersistence) {
         this.planTeamHistoryPersistence = planTeamHistoryPersistence;
+    }
+
+    public PlanSectionDefinitionLocalService getPlanSectionDefinitionLocalService() {
+        return planSectionDefinitionLocalService;
+    }
+
+    public void setPlanSectionDefinitionLocalService(
+        PlanSectionDefinitionLocalService planSectionDefinitionLocalService) {
+        this.planSectionDefinitionLocalService = planSectionDefinitionLocalService;
+    }
+
+    public PlanSectionDefinitionService getPlanSectionDefinitionService() {
+        return planSectionDefinitionService;
+    }
+
+    public void setPlanSectionDefinitionService(
+        PlanSectionDefinitionService planSectionDefinitionService) {
+        this.planSectionDefinitionService = planSectionDefinitionService;
+    }
+
+    public PlanSectionDefinitionPersistence getPlanSectionDefinitionPersistence() {
+        return planSectionDefinitionPersistence;
+    }
+
+    public void setPlanSectionDefinitionPersistence(
+        PlanSectionDefinitionPersistence planSectionDefinitionPersistence) {
+        this.planSectionDefinitionPersistence = planSectionDefinitionPersistence;
+    }
+
+    public PlanSectionLocalService getPlanSectionLocalService() {
+        return planSectionLocalService;
+    }
+
+    public void setPlanSectionLocalService(
+        PlanSectionLocalService planSectionLocalService) {
+        this.planSectionLocalService = planSectionLocalService;
+    }
+
+    public PlanSectionService getPlanSectionService() {
+        return planSectionService;
+    }
+
+    public void setPlanSectionService(PlanSectionService planSectionService) {
+        this.planSectionService = planSectionService;
+    }
+
+    public PlanSectionPersistence getPlanSectionPersistence() {
+        return planSectionPersistence;
+    }
+
+    public void setPlanSectionPersistence(
+        PlanSectionPersistence planSectionPersistence) {
+        this.planSectionPersistence = planSectionPersistence;
+    }
+
+    public PlanRelatedLocalService getPlanRelatedLocalService() {
+        return planRelatedLocalService;
+    }
+
+    public void setPlanRelatedLocalService(
+        PlanRelatedLocalService planRelatedLocalService) {
+        this.planRelatedLocalService = planRelatedLocalService;
+    }
+
+    public PlanRelatedService getPlanRelatedService() {
+        return planRelatedService;
+    }
+
+    public void setPlanRelatedService(PlanRelatedService planRelatedService) {
+        this.planRelatedService = planRelatedService;
+    }
+
+    public PlanRelatedPersistence getPlanRelatedPersistence() {
+        return planRelatedPersistence;
+    }
+
+    public void setPlanRelatedPersistence(
+        PlanRelatedPersistence planRelatedPersistence) {
+        this.planRelatedPersistence = planRelatedPersistence;
+    }
+
+    public PlanTemplateLocalService getPlanTemplateLocalService() {
+        return planTemplateLocalService;
+    }
+
+    public void setPlanTemplateLocalService(
+        PlanTemplateLocalService planTemplateLocalService) {
+        this.planTemplateLocalService = planTemplateLocalService;
+    }
+
+    public PlanTemplateService getPlanTemplateService() {
+        return planTemplateService;
+    }
+
+    public void setPlanTemplateService(PlanTemplateService planTemplateService) {
+        this.planTemplateService = planTemplateService;
+    }
+
+    public PlanTemplatePersistence getPlanTemplatePersistence() {
+        return planTemplatePersistence;
+    }
+
+    public void setPlanTemplatePersistence(
+        PlanTemplatePersistence planTemplatePersistence) {
+        this.planTemplatePersistence = planTemplatePersistence;
+    }
+
+    public PlanTemplateSectionLocalService getPlanTemplateSectionLocalService() {
+        return planTemplateSectionLocalService;
+    }
+
+    public void setPlanTemplateSectionLocalService(
+        PlanTemplateSectionLocalService planTemplateSectionLocalService) {
+        this.planTemplateSectionLocalService = planTemplateSectionLocalService;
+    }
+
+    public PlanTemplateSectionService getPlanTemplateSectionService() {
+        return planTemplateSectionService;
+    }
+
+    public void setPlanTemplateSectionService(
+        PlanTemplateSectionService planTemplateSectionService) {
+        this.planTemplateSectionService = planTemplateSectionService;
+    }
+
+    public PlanTemplateSectionPersistence getPlanTemplateSectionPersistence() {
+        return planTemplateSectionPersistence;
+    }
+
+    public void setPlanTemplateSectionPersistence(
+        PlanTemplateSectionPersistence planTemplateSectionPersistence) {
+        this.planTemplateSectionPersistence = planTemplateSectionPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {

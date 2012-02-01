@@ -259,6 +259,66 @@
 		<property name="service" ref="com.ext.portlet.plans.service.PlanTeamHistoryService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTeamHistoryService" />
 	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionDefinitionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionDefinitionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionDefinitionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionDefinitionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionDefinitionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionDefinitionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionDefinitionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionDefinitionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionDefinitionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanRelatedService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanRelatedService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanRelatedService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanRelatedService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanRelatedService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanRelatedService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanRelatedService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanRelatedService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanRelatedService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTemplateService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTemplateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTemplateService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTemplateService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTemplateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTemplateService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTemplateService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTemplateService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTemplateService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTemplateSectionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTemplateSectionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTemplateSectionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTemplateSectionService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTemplateSectionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTemplateSectionService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanTemplateSectionService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanTemplateSectionService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanTemplateSectionService" />
+	</bean>
 	<bean name="/com_ext_portlet_models_service_spring_ModelDiscussionService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.models.service.ModelDiscussionService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.models.service.ModelDiscussionService" />
@@ -858,5 +918,29 @@
 	<bean name="/com_ext_portlet_twitter_service_spring_UserTwitterMappingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
 		<property name="service" ref="com.ext.portlet.twitter.service.UserTwitterMappingService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.twitter.service.UserTwitterMappingService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologyTermService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologyTermService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologyTermService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologyTermEntityService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermEntityService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermEntityService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologyTermEntityService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermEntityService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermEntityService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologyTermEntityService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermEntityService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermEntityService" />
 	</bean>
 </beans>

@@ -200,6 +200,29 @@
 		<field name="created" type="Date" />
 		<field name="updateAuthorId" type="Long" />
 	</model>
+	<model name="com.ext.portlet.plans.model.PlanSectionDefinition">
+		<field name="id" type="Long" />
+		<field name="title" type="String" />
+		<field name="defaultText" type="String" />
+		<field name="ontologyTermId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanSection">
+		<field name="planSectionDefinitionId" type="Long" />
+		<field name="planId" type="Long" />
+		<field name="content" type="String" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanRelated">
+		<field name="sectionId" type="Long" />
+		<field name="relatedPlanId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanTemplate">
+		<field name="id" type="Long" />
+		<field name="name" type="String" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanTemplateSection">
+		<field name="id" type="Long" />
+		<field name="planSectionId" type="Long" />
+	</model>
 	<model name="com.ext.portlet.models.model.ModelDiscussion">
 		<field name="modelDiscussionId" type="Long" />
 		<field name="modelId" type="Long" />
@@ -594,5 +617,16 @@
 	<model name="com.ext.portlet.twitter.model.UserTwitterMapping">
 		<field name="twitterId" type="Long" />
 		<field name="userId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.ontology.model.OntologyTerm">
+		<field name="id" type="Long" />
+		<field name="parentId" type="Long" />
+		<field name="name" type="String" />
+	</model>
+	<model name="com.ext.portlet.ontology.model.OntologyTermEntity">
+		<field name="id" type="Long" />
+		<field name="termId" type="Long" />
+		<field name="classNameId" type="Long" />
+		<field name="classPK" type="Long" />
 	</model>
 </model-hints>

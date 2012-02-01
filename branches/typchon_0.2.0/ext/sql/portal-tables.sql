@@ -1046,6 +1046,19 @@ create table ModelOutputItemOrder (
 	type_ VARCHAR(75) null
 );
 
+create table OntologyTerm (
+	id_ LONG not null primary key,
+	parentId LONG,
+	name VARCHAR(75) null
+);
+
+create table OntologyTermEntity (
+	id_ LONG not null primary key,
+	termId LONG,
+	classNameId LONG,
+	classPK LONG
+);
+
 create table Organization_ (
 	organizationId LONG not null primary key,
 	companyId LONG,
@@ -1259,6 +1272,26 @@ create table PlanPropertyFilter (
 	value VARCHAR(75) null
 );
 
+create table PlanRelated (
+	sectionId LONG not null,
+	relatedPlanId LONG not null,
+	primary key (sectionId, relatedPlanId)
+);
+
+create table PlanSection (
+	planSectionDefinitionId LONG not null,
+	planId LONG not null,
+	content VARCHAR(75) null,
+	primary key (planSectionDefinitionId, planId)
+);
+
+create table PlanSectionDefinition (
+	id_ LONG not null primary key,
+	title VARCHAR(75) null,
+	defaultText VARCHAR(75) null,
+	ontologyTermId LONG
+);
+
 create table PlanTeamHistory (
 	id_ LONG not null primary key,
 	planId LONG,
@@ -1267,6 +1300,17 @@ create table PlanTeamHistory (
 	payload VARCHAR(75) null,
 	created DATE null,
 	updateAuthorId LONG
+);
+
+create table PlanTemplate (
+	id_ LONG not null primary key,
+	name VARCHAR(75) null
+);
+
+create table PlanTemplateSection (
+	id_ LONG not null,
+	planSectionId LONG not null,
+	primary key (id_, planSectionId)
 );
 
 create table PlanType (

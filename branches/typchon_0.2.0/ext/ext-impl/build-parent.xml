@@ -423,6 +423,12 @@ ${exception.message}
               <param name="service.file" value="src/com/ext/portlet/surveys/service.xml" />
           </antcall>
        </target>
+	
+    <target name="build-service-ontology">
+          <antcall target="build-service">
+              <param name="service.file" value="src/com/ext/portlet/ontology/service.xml" />
+          </antcall>
+       </target>
     
 	<target name="build-services">
 		<antcall target="build-service-portlet-plans" />
@@ -435,6 +441,9 @@ ${exception.message}
 	<target name="build-services-activity">
 				<antcall target="build-service-portlet-activity" />
 			</target>
+    <target name="build-services-ontology">
+                <antcall target="build-service-portlet-ontology" />
+            </target>
 		
 	<target name="build-wsdd" depends="compile">
 		<java
