@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -36,21 +37,37 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = PlanSectionImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
-    public static final FinderPath FINDER_PATH_FIND_BY_PLANID = new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_FIND_BY_PLANIDSECTIONDEFINITIONID =
+        new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
             PlanSectionModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
-            "findByPlanId", new String[] { Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FIND_BY_OBC_PLANID = new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
+            "findByPlanIdSectionDefinitionId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_PLANIDSECTIONDEFINITIONID =
+        new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
             PlanSectionModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
-            "findByPlanId",
+            "findByPlanIdSectionDefinitionId",
             new String[] {
-                Long.class.getName(),
+                Long.class.getName(), Long.class.getName(),
                 
             "java.lang.Integer", "java.lang.Integer",
                 "com.liferay.portal.kernel.util.OrderByComparator"
             });
-    public static final FinderPath FINDER_PATH_COUNT_BY_PLANID = new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_COUNT_BY_PLANIDSECTIONDEFINITIONID =
+        new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
             PlanSectionModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
-            "countByPlanId", new String[] { Long.class.getName() });
+            "countByPlanIdSectionDefinitionId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID =
+        new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
+            PlanSectionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_ENTITY,
+            "fetchByCurrentPlanIdSectionDefinitionId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_CURRENTPLANIDSECTIONDEFINITIONID =
+        new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
+            PlanSectionModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByCurrentPlanIdSectionDefinitionId",
+            new String[] { Long.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
             PlanSectionModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -114,6 +131,13 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
     public void cacheResult(PlanSection planSection) {
         EntityCacheUtil.putResult(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
             PlanSectionImpl.class, planSection.getPrimaryKey(), planSection);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+            new Object[] {
+                planSection.getPlanId(),
+                
+            planSection.getPlanSectionDefinitionId()
+            }, planSection);
     }
 
     public void cacheResult(List<PlanSection> planSections) {
@@ -133,16 +157,16 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
     }
 
-    public PlanSection create(PlanSectionPK planSectionPK) {
+    public PlanSection create(Long id) {
         PlanSection planSection = new PlanSectionImpl();
 
         planSection.setNew(true);
-        planSection.setPrimaryKey(planSectionPK);
+        planSection.setPrimaryKey(id);
 
         return planSection;
     }
 
-    public PlanSection remove(PlanSectionPK planSectionPK)
+    public PlanSection remove(Long id)
         throws NoSuchPlanSectionException, SystemException {
         Session session = null;
 
@@ -150,17 +174,16 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
             session = openSession();
 
             PlanSection planSection = (PlanSection) session.get(PlanSectionImpl.class,
-                    planSectionPK);
+                    id);
 
             if (planSection == null) {
                 if (_log.isWarnEnabled()) {
                     _log.warn("No PlanSection exists with the primary key " +
-                        planSectionPK);
+                        id);
                 }
 
                 throw new NoSuchPlanSectionException(
-                    "No PlanSection exists with the primary key " +
-                    planSectionPK);
+                    "No PlanSection exists with the primary key " + id);
             }
 
             return remove(planSection);
@@ -214,6 +237,15 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         }
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
+
+        PlanSectionModelImpl planSectionModelImpl = (PlanSectionModelImpl) planSection;
+
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+            new Object[] {
+                planSectionModelImpl.getOriginalPlanId(),
+                
+            planSectionModelImpl.getOriginalPlanSectionDefinitionId()
+            });
 
         EntityCacheUtil.removeResult(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
             PlanSectionImpl.class, planSection.getPrimaryKey());
@@ -275,6 +307,10 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
     public PlanSection updateImpl(
         com.ext.portlet.plans.model.PlanSection planSection, boolean merge)
         throws SystemException {
+        boolean isNew = planSection.isNew();
+
+        PlanSectionModelImpl planSectionModelImpl = (PlanSectionModelImpl) planSection;
+
         Session session = null;
 
         try {
@@ -294,30 +330,54 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         EntityCacheUtil.putResult(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
             PlanSectionImpl.class, planSection.getPrimaryKey(), planSection);
 
-        return planSection;
-    }
+        if (!isNew &&
+                (!Validator.equals(planSection.getPlanId(),
+                    planSectionModelImpl.getOriginalPlanId()) ||
+                !Validator.equals(planSection.getPlanSectionDefinitionId(),
+                    planSectionModelImpl.getOriginalPlanSectionDefinitionId()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+                new Object[] {
+                    planSectionModelImpl.getOriginalPlanId(),
+                    
+                planSectionModelImpl.getOriginalPlanSectionDefinitionId()
+                });
+        }
 
-    public PlanSection findByPrimaryKey(PlanSectionPK planSectionPK)
-        throws NoSuchPlanSectionException, SystemException {
-        PlanSection planSection = fetchByPrimaryKey(planSectionPK);
-
-        if (planSection == null) {
-            if (_log.isWarnEnabled()) {
-                _log.warn("No PlanSection exists with the primary key " +
-                    planSectionPK);
-            }
-
-            throw new NoSuchPlanSectionException(
-                "No PlanSection exists with the primary key " + planSectionPK);
+        if (isNew ||
+                (!Validator.equals(planSection.getPlanId(),
+                    planSectionModelImpl.getOriginalPlanId()) ||
+                !Validator.equals(planSection.getPlanSectionDefinitionId(),
+                    planSectionModelImpl.getOriginalPlanSectionDefinitionId()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+                new Object[] {
+                    planSection.getPlanId(),
+                    
+                planSection.getPlanSectionDefinitionId()
+                }, planSection);
         }
 
         return planSection;
     }
 
-    public PlanSection fetchByPrimaryKey(PlanSectionPK planSectionPK)
-        throws SystemException {
+    public PlanSection findByPrimaryKey(Long id)
+        throws NoSuchPlanSectionException, SystemException {
+        PlanSection planSection = fetchByPrimaryKey(id);
+
+        if (planSection == null) {
+            if (_log.isWarnEnabled()) {
+                _log.warn("No PlanSection exists with the primary key " + id);
+            }
+
+            throw new NoSuchPlanSectionException(
+                "No PlanSection exists with the primary key " + id);
+        }
+
+        return planSection;
+    }
+
+    public PlanSection fetchByPrimaryKey(Long id) throws SystemException {
         PlanSection planSection = (PlanSection) EntityCacheUtil.getResult(PlanSectionModelImpl.ENTITY_CACHE_ENABLED,
-                PlanSectionImpl.class, planSectionPK, this);
+                PlanSectionImpl.class, id, this);
 
         if (planSection == null) {
             Session session = null;
@@ -326,7 +386,7 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
                 session = openSession();
 
                 planSection = (PlanSection) session.get(PlanSectionImpl.class,
-                        planSectionPK);
+                        id);
             } catch (Exception e) {
                 throw processException(e);
             } finally {
@@ -341,11 +401,11 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         return planSection;
     }
 
-    public List<PlanSection> findByPlanId(Long planId)
-        throws SystemException {
-        Object[] finderArgs = new Object[] { planId };
+    public List<PlanSection> findByPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId) throws SystemException {
+        Object[] finderArgs = new Object[] { planId, planSectionDefinitionId };
 
-        List<PlanSection> list = (List<PlanSection>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PLANID,
+        List<PlanSection> list = (List<PlanSection>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PLANIDSECTIONDEFINITIONID,
                 finderArgs, this);
 
         if (list == null) {
@@ -365,7 +425,19 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
                     query.append("planId = ?");
                 }
 
+                query.append(" AND ");
+
+                if (planSectionDefinitionId == null) {
+                    query.append("planSectionDefinitionId IS NULL");
+                } else {
+                    query.append("planSectionDefinitionId = ?");
+                }
+
                 query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("id_ DESC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -373,6 +445,10 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
 
                 if (planId != null) {
                     qPos.add(planId.longValue());
+                }
+
+                if (planSectionDefinitionId != null) {
+                    qPos.add(planSectionDefinitionId.longValue());
                 }
 
                 list = q.list();
@@ -385,7 +461,7 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
 
                 cacheResult(list);
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_PLANID,
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_PLANIDSECTIONDEFINITIONID,
                     finderArgs, list);
 
                 closeSession(session);
@@ -395,20 +471,25 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public List<PlanSection> findByPlanId(Long planId, int start, int end)
+    public List<PlanSection> findByPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId, int start, int end)
         throws SystemException {
-        return findByPlanId(planId, start, end, null);
+        return findByPlanIdSectionDefinitionId(planId, planSectionDefinitionId,
+            start, end, null);
     }
 
-    public List<PlanSection> findByPlanId(Long planId, int start, int end,
-        OrderByComparator obc) throws SystemException {
+    public List<PlanSection> findByPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId, int start, int end, OrderByComparator obc)
+        throws SystemException {
         Object[] finderArgs = new Object[] {
                 planId,
+                
+                planSectionDefinitionId,
                 
                 String.valueOf(start), String.valueOf(end), String.valueOf(obc)
             };
 
-        List<PlanSection> list = (List<PlanSection>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_PLANID,
+        List<PlanSection> list = (List<PlanSection>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_PLANIDSECTIONDEFINITIONID,
                 finderArgs, this);
 
         if (list == null) {
@@ -428,11 +509,24 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
                     query.append("planId = ?");
                 }
 
+                query.append(" AND ");
+
+                if (planSectionDefinitionId == null) {
+                    query.append("planSectionDefinitionId IS NULL");
+                } else {
+                    query.append("planSectionDefinitionId = ?");
+                }
+
                 query.append(" ");
 
                 if (obc != null) {
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("id_ DESC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -441,6 +535,10 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
 
                 if (planId != null) {
                     qPos.add(planId.longValue());
+                }
+
+                if (planSectionDefinitionId != null) {
+                    qPos.add(planSectionDefinitionId.longValue());
                 }
 
                 list = (List<PlanSection>) QueryUtil.list(q, getDialect(),
@@ -454,7 +552,7 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
 
                 cacheResult(list);
 
-                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_PLANID,
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_PLANIDSECTIONDEFINITIONID,
                     finderArgs, list);
 
                 closeSession(session);
@@ -464,9 +562,11 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public PlanSection findByPlanId_First(Long planId, OrderByComparator obc)
+    public PlanSection findByPlanIdSectionDefinitionId_First(Long planId,
+        Long planSectionDefinitionId, OrderByComparator obc)
         throws NoSuchPlanSectionException, SystemException {
-        List<PlanSection> list = findByPlanId(planId, 0, 1, obc);
+        List<PlanSection> list = findByPlanIdSectionDefinitionId(planId,
+                planSectionDefinitionId, 0, 1, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
@@ -474,6 +574,9 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
             msg.append("No PlanSection exists with the key {");
 
             msg.append("planId=" + planId);
+
+            msg.append(", ");
+            msg.append("planSectionDefinitionId=" + planSectionDefinitionId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -483,11 +586,14 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public PlanSection findByPlanId_Last(Long planId, OrderByComparator obc)
+    public PlanSection findByPlanIdSectionDefinitionId_Last(Long planId,
+        Long planSectionDefinitionId, OrderByComparator obc)
         throws NoSuchPlanSectionException, SystemException {
-        int count = countByPlanId(planId);
+        int count = countByPlanIdSectionDefinitionId(planId,
+                planSectionDefinitionId);
 
-        List<PlanSection> list = findByPlanId(planId, count - 1, count, obc);
+        List<PlanSection> list = findByPlanIdSectionDefinitionId(planId,
+                planSectionDefinitionId, count - 1, count, obc);
 
         if (list.isEmpty()) {
             StringBuilder msg = new StringBuilder();
@@ -495,6 +601,9 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
             msg.append("No PlanSection exists with the key {");
 
             msg.append("planId=" + planId);
+
+            msg.append(", ");
+            msg.append("planSectionDefinitionId=" + planSectionDefinitionId);
 
             msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -504,12 +613,13 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public PlanSection[] findByPlanId_PrevAndNext(PlanSectionPK planSectionPK,
-        Long planId, OrderByComparator obc)
+    public PlanSection[] findByPlanIdSectionDefinitionId_PrevAndNext(Long id,
+        Long planId, Long planSectionDefinitionId, OrderByComparator obc)
         throws NoSuchPlanSectionException, SystemException {
-        PlanSection planSection = findByPrimaryKey(planSectionPK);
+        PlanSection planSection = findByPrimaryKey(id);
 
-        int count = countByPlanId(planId);
+        int count = countByPlanIdSectionDefinitionId(planId,
+                planSectionDefinitionId);
 
         Session session = null;
 
@@ -526,11 +636,24 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
                 query.append("planId = ?");
             }
 
+            query.append(" AND ");
+
+            if (planSectionDefinitionId == null) {
+                query.append("planSectionDefinitionId IS NULL");
+            } else {
+                query.append("planSectionDefinitionId = ?");
+            }
+
             query.append(" ");
 
             if (obc != null) {
                 query.append("ORDER BY ");
                 query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("id_ DESC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -539,6 +662,10 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
 
             if (planId != null) {
                 qPos.add(planId.longValue());
+            }
+
+            if (planSectionDefinitionId != null) {
+                qPos.add(planSectionDefinitionId.longValue());
             }
 
             Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
@@ -555,6 +682,139 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
             throw processException(e);
         } finally {
             closeSession(session);
+        }
+    }
+
+    public PlanSection findByCurrentPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId)
+        throws NoSuchPlanSectionException, SystemException {
+        PlanSection planSection = fetchByCurrentPlanIdSectionDefinitionId(planId,
+                planSectionDefinitionId);
+
+        if (planSection == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanSection exists with the key {");
+
+            msg.append("planId=" + planId);
+
+            msg.append(", ");
+            msg.append("planSectionDefinitionId=" + planSectionDefinitionId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchPlanSectionException(msg.toString());
+        }
+
+        return planSection;
+    }
+
+    public PlanSection fetchByCurrentPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId) throws SystemException {
+        return fetchByCurrentPlanIdSectionDefinitionId(planId,
+            planSectionDefinitionId, true);
+    }
+
+    public PlanSection fetchByCurrentPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { planId, planSectionDefinitionId };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanSection WHERE ");
+
+                if (planId == null) {
+                    query.append("planId IS NULL");
+                } else {
+                    query.append("planId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (planSectionDefinitionId == null) {
+                    query.append("planSectionDefinitionId IS NULL");
+                } else {
+                    query.append("planSectionDefinitionId = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("id_ DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planId != null) {
+                    qPos.add(planId.longValue());
+                }
+
+                if (planSectionDefinitionId != null) {
+                    qPos.add(planSectionDefinitionId.longValue());
+                }
+
+                List<PlanSection> list = q.list();
+
+                result = list;
+
+                PlanSection planSection = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+                        finderArgs, list);
+                } else {
+                    planSection = list.get(0);
+
+                    cacheResult(planSection);
+
+                    if ((planSection.getPlanId() == null) ||
+                            !planSection.getPlanId().equals(planId) ||
+                            (planSection.getPlanSectionDefinitionId() == null) ||
+                            !planSection.getPlanSectionDefinitionId()
+                                            .equals(planSectionDefinitionId)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+                            finderArgs, planSection);
+                    }
+                }
+
+                return planSection;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+                        finderArgs, new ArrayList<PlanSection>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (PlanSection) result;
+            }
         }
     }
 
@@ -626,6 +886,11 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
                 }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("id_ DESC");
+                }
 
                 Query q = session.createQuery(query.toString());
 
@@ -656,10 +921,21 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
-    public void removeByPlanId(Long planId) throws SystemException {
-        for (PlanSection planSection : findByPlanId(planId)) {
+    public void removeByPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId) throws SystemException {
+        for (PlanSection planSection : findByPlanIdSectionDefinitionId(planId,
+                planSectionDefinitionId)) {
             remove(planSection);
         }
+    }
+
+    public void removeByCurrentPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId)
+        throws NoSuchPlanSectionException, SystemException {
+        PlanSection planSection = findByCurrentPlanIdSectionDefinitionId(planId,
+                planSectionDefinitionId);
+
+        remove(planSection);
     }
 
     public void removeAll() throws SystemException {
@@ -668,10 +944,11 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public int countByPlanId(Long planId) throws SystemException {
-        Object[] finderArgs = new Object[] { planId };
+    public int countByPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId) throws SystemException {
+        Object[] finderArgs = new Object[] { planId, planSectionDefinitionId };
 
-        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PLANID,
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PLANIDSECTIONDEFINITIONID,
                 finderArgs, this);
 
         if (count == null) {
@@ -692,6 +969,14 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
                     query.append("planId = ?");
                 }
 
+                query.append(" AND ");
+
+                if (planSectionDefinitionId == null) {
+                    query.append("planSectionDefinitionId IS NULL");
+                } else {
+                    query.append("planSectionDefinitionId = ?");
+                }
+
                 query.append(" ");
 
                 Query q = session.createQuery(query.toString());
@@ -702,6 +987,10 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
                     qPos.add(planId.longValue());
                 }
 
+                if (planSectionDefinitionId != null) {
+                    qPos.add(planSectionDefinitionId.longValue());
+                }
+
                 count = (Long) q.uniqueResult();
             } catch (Exception e) {
                 throw processException(e);
@@ -710,7 +999,72 @@ public class PlanSectionPersistenceImpl extends BasePersistenceImpl
                     count = Long.valueOf(0);
                 }
 
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PLANID,
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PLANIDSECTIONDEFINITIONID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByCurrentPlanIdSectionDefinitionId(Long planId,
+        Long planSectionDefinitionId) throws SystemException {
+        Object[] finderArgs = new Object[] { planId, planSectionDefinitionId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CURRENTPLANIDSECTIONDEFINITIONID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanSection WHERE ");
+
+                if (planId == null) {
+                    query.append("planId IS NULL");
+                } else {
+                    query.append("planId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (planSectionDefinitionId == null) {
+                    query.append("planSectionDefinitionId IS NULL");
+                } else {
+                    query.append("planSectionDefinitionId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planId != null) {
+                    qPos.add(planId.longValue());
+                }
+
+                if (planSectionDefinitionId != null) {
+                    qPos.add(planSectionDefinitionId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CURRENTPLANIDSECTIONDEFINITIONID,
                     finderArgs, count);
 
                 closeSession(session);

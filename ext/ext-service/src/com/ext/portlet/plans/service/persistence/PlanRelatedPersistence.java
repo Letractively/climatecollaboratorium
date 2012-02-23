@@ -12,10 +12,10 @@ public interface PlanRelatedPersistence extends BasePersistence {
     public void clearCache();
 
     public com.ext.portlet.plans.model.PlanRelated create(
-        PlanRelatedPK planRelatedPK);
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK);
 
     public com.ext.portlet.plans.model.PlanRelated remove(
-        PlanRelatedPK planRelatedPK)
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK)
         throws com.ext.portlet.plans.NoSuchPlanRelatedException,
             com.liferay.portal.SystemException;
 
@@ -52,12 +52,13 @@ public interface PlanRelatedPersistence extends BasePersistence {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanRelated findByPrimaryKey(
-        PlanRelatedPK planRelatedPK)
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK)
         throws com.ext.portlet.plans.NoSuchPlanRelatedException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanRelated fetchByPrimaryKey(
-        PlanRelatedPK planRelatedPK) throws com.liferay.portal.SystemException;
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK)
+        throws com.liferay.portal.SystemException;
 
     public java.util.List<com.ext.portlet.plans.model.PlanRelated> findByPlanId(
         java.lang.Long relatedPlanId) throws com.liferay.portal.SystemException;
@@ -84,7 +85,8 @@ public interface PlanRelatedPersistence extends BasePersistence {
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanRelated[] findByPlanId_PrevAndNext(
-        PlanRelatedPK planRelatedPK, java.lang.Long relatedPlanId,
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK,
+        java.lang.Long relatedPlanId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.plans.NoSuchPlanRelatedException,
             com.liferay.portal.SystemException;

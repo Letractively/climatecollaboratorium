@@ -35,7 +35,7 @@ public class PlanSectionDefinitionJSONSerializer {
         jsonObj.put("id", model.getId());
         jsonObj.put("title", model.getTitle());
         jsonObj.put("defaultText", model.getDefaultText());
-        jsonObj.put("ontologyTermId", model.getOntologyTermId());
+        jsonObj.put("categoryId", model.getCategoryId());
 
         return jsonObj;
     }

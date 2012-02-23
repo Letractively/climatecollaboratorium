@@ -14,7 +14,8 @@ public enum UpdateType {
     PLAN_DELETED("Deleted"), 
     PLAN_OPENED("Opened"),
     PLAN_CLOSED("Closed"),
-    PLAN_STATUS_UPDATED("Updated status");
+    PLAN_STATUS_UPDATED("Updated status"),
+    PLAN_SECTION_UPDATED("Updated section");
 
     private final String description;
     UpdateType(String description) {

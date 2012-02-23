@@ -18,12 +18,12 @@ public class PlanRelatedUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanRelated create(
-        PlanRelatedPK planRelatedPK) {
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK) {
         return getPersistence().create(planRelatedPK);
     }
 
     public static com.ext.portlet.plans.model.PlanRelated remove(
-        PlanRelatedPK planRelatedPK)
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK)
         throws com.ext.portlet.plans.NoSuchPlanRelatedException,
             com.liferay.portal.SystemException {
         return getPersistence().remove(planRelatedPK);
@@ -70,14 +70,15 @@ public class PlanRelatedUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanRelated findByPrimaryKey(
-        PlanRelatedPK planRelatedPK)
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK)
         throws com.ext.portlet.plans.NoSuchPlanRelatedException,
             com.liferay.portal.SystemException {
         return getPersistence().findByPrimaryKey(planRelatedPK);
     }
 
     public static com.ext.portlet.plans.model.PlanRelated fetchByPrimaryKey(
-        PlanRelatedPK planRelatedPK) throws com.liferay.portal.SystemException {
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK)
+        throws com.liferay.portal.SystemException {
         return getPersistence().fetchByPrimaryKey(planRelatedPK);
     }
 
@@ -116,7 +117,8 @@ public class PlanRelatedUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanRelated[] findByPlanId_PrevAndNext(
-        PlanRelatedPK planRelatedPK, java.lang.Long relatedPlanId,
+        com.ext.portlet.plans.service.persistence.PlanRelatedPK planRelatedPK,
+        java.lang.Long relatedPlanId,
         com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.ext.portlet.plans.NoSuchPlanRelatedException,
             com.liferay.portal.SystemException {

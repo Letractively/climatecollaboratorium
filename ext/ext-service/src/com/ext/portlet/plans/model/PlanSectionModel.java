@@ -1,8 +1,8 @@
 package com.ext.portlet.plans.model;
 
-import com.ext.portlet.plans.service.persistence.PlanSectionPK;
-
 import com.liferay.portal.model.BaseModel;
+
+import java.util.Date;
 
 
 /**
@@ -26,9 +26,13 @@ import com.liferay.portal.model.BaseModel;
  *
  */
 public interface PlanSectionModel extends BaseModel<PlanSection> {
-    public PlanSectionPK getPrimaryKey();
+    public Long getPrimaryKey();
 
-    public void setPrimaryKey(PlanSectionPK pk);
+    public void setPrimaryKey(Long pk);
+
+    public Long getId();
+
+    public void setId(Long id);
 
     public Long getPlanSectionDefinitionId();
 
@@ -41,6 +45,22 @@ public interface PlanSectionModel extends BaseModel<PlanSection> {
     public String getContent();
 
     public void setContent(String content);
+
+    public Date getCreated();
+
+    public void setCreated(Date created);
+
+    public Long getVersion();
+
+    public void setVersion(Long version);
+
+    public Long getPlanVersion();
+
+    public void setPlanVersion(Long planVersion);
+
+    public Long getUpdateAuthorId();
+
+    public void setUpdateAuthorId(Long updateAuthorId);
 
     public PlanSection toEscapedModel();
 }

@@ -30,13 +30,17 @@ public interface PlanTemplateSectionModel extends BaseModel<PlanTemplateSection>
 
     public void setPrimaryKey(PlanTemplateSectionPK pk);
 
-    public Long getId();
+    public Long getPlanTemplateId();
 
-    public void setId(Long id);
+    public void setPlanTemplateId(Long planTemplateId);
 
     public Long getPlanSectionId();
 
     public void setPlanSectionId(Long planSectionId);
+
+    public Integer getWeight();
+
+    public void setWeight(Integer weight);
 
     public PlanTemplateSection toEscapedModel();
 }

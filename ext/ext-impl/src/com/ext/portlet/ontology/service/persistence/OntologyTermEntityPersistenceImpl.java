@@ -98,6 +98,10 @@ public class OntologyTermEntityPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.ontology.service.persistence.OntologyTermPersistence ontologyTermPersistence;
     @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence.impl")
     protected com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence ontologyTermEntityPersistence;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.CategoryPersistence.impl")
+    protected com.ext.portlet.ontology.service.persistence.CategoryPersistence categoryPersistence;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence.impl")
+    protected com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence categoryOntologyTermPersistence;
 
     public void cacheResult(OntologyTermEntity ontologyTermEntity) {
         EntityCacheUtil.putResult(OntologyTermEntityModelImpl.ENTITY_CACHE_ENABLED,

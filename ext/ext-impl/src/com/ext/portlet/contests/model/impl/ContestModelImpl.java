@@ -76,9 +76,12 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "authorId", new Integer(Types.BIGINT) },
             
 
-            { "contestActive", new Integer(Types.BOOLEAN) }
+            { "contestActive", new Integer(Types.BOOLEAN) },
+            
+
+            { "planTemplateId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -104,6 +107,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Long _authorId;
     private Boolean _contestActive;
     private Boolean _originalContestActive;
+    private Long _planTemplateId;
 
     public ContestModelImpl() {
     }
@@ -123,6 +127,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setUpdated(soapModel.getUpdated());
         model.setAuthorId(soapModel.getAuthorId());
         model.setContestActive(soapModel.getContestActive());
+        model.setPlanTemplateId(soapModel.getPlanTemplateId());
 
         return model;
     }
@@ -254,6 +259,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         return _originalContestActive;
     }
 
+    public Long getPlanTemplateId() {
+        return _planTemplateId;
+    }
+
+    public void setPlanTemplateId(Long planTemplateId) {
+        _planTemplateId = planTemplateId;
+    }
+
     public Contest toEscapedModel() {
         if (isEscapedModel()) {
             return (Contest) this;
@@ -278,6 +291,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setUpdated(getUpdated());
             model.setAuthorId(getAuthorId());
             model.setContestActive(getContestActive());
+            model.setPlanTemplateId(getPlanTemplateId());
 
             model = (Contest) Proxy.newProxyInstance(Contest.class.getClassLoader(),
                     new Class[] { Contest.class },
@@ -302,6 +316,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setUpdated(getUpdated());
         clone.setAuthorId(getAuthorId());
         clone.setContestActive(getContestActive());
+        clone.setPlanTemplateId(getPlanTemplateId());
 
         return clone;
     }
@@ -373,6 +388,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getAuthorId());
         sb.append(", contestActive=");
         sb.append(getContestActive());
+        sb.append(", planTemplateId=");
+        sb.append(getPlanTemplateId());
         sb.append("}");
 
         return sb.toString();
@@ -432,6 +449,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>contestActive</column-name><column-value><![CDATA[");
         sb.append(getContestActive());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>planTemplateId</column-name><column-value><![CDATA[");
+        sb.append(getPlanTemplateId());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

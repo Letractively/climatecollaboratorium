@@ -27,8 +27,9 @@ import java.util.List;
  *
  */
 public class PlanTemplateSectionSoap implements Serializable {
-    private Long _id;
+    private Long _planTemplateId;
     private Long _planSectionId;
+    private Integer _weight;
 
     public PlanTemplateSectionSoap() {
     }
@@ -36,8 +37,9 @@ public class PlanTemplateSectionSoap implements Serializable {
     public static PlanTemplateSectionSoap toSoapModel(PlanTemplateSection model) {
         PlanTemplateSectionSoap soapModel = new PlanTemplateSectionSoap();
 
-        soapModel.setId(model.getId());
+        soapModel.setPlanTemplateId(model.getPlanTemplateId());
         soapModel.setPlanSectionId(model.getPlanSectionId());
+        soapModel.setWeight(model.getWeight());
 
         return soapModel;
     }
@@ -82,20 +84,20 @@ public class PlanTemplateSectionSoap implements Serializable {
     }
 
     public PlanTemplateSectionPK getPrimaryKey() {
-        return new PlanTemplateSectionPK(_id, _planSectionId);
+        return new PlanTemplateSectionPK(_planTemplateId, _planSectionId);
     }
 
     public void setPrimaryKey(PlanTemplateSectionPK pk) {
-        setId(pk.id);
+        setPlanTemplateId(pk.planTemplateId);
         setPlanSectionId(pk.planSectionId);
     }
 
-    public Long getId() {
-        return _id;
+    public Long getPlanTemplateId() {
+        return _planTemplateId;
     }
 
-    public void setId(Long id) {
-        _id = id;
+    public void setPlanTemplateId(Long planTemplateId) {
+        _planTemplateId = planTemplateId;
     }
 
     public Long getPlanSectionId() {
@@ -104,5 +106,13 @@ public class PlanTemplateSectionSoap implements Serializable {
 
     public void setPlanSectionId(Long planSectionId) {
         _planSectionId = planSectionId;
+    }
+
+    public Integer getWeight() {
+        return _weight;
+    }
+
+    public void setWeight(Integer weight) {
+        _weight = weight;
     }
 }

@@ -204,12 +204,17 @@
 		<field name="id" type="Long" />
 		<field name="title" type="String" />
 		<field name="defaultText" type="String" />
-		<field name="ontologyTermId" type="Long" />
+		<field name="categoryId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanSection">
+		<field name="id" type="Long" />
 		<field name="planSectionDefinitionId" type="Long" />
 		<field name="planId" type="Long" />
 		<field name="content" type="String" />
+		<field name="created" type="Date" />
+		<field name="version" type="Long" />
+		<field name="planVersion" type="Long" />
+		<field name="updateAuthorId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanRelated">
 		<field name="sectionId" type="Long" />
@@ -220,8 +225,9 @@
 		<field name="name" type="String" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanTemplateSection">
-		<field name="id" type="Long" />
+		<field name="planTemplateId" type="Long" />
 		<field name="planSectionId" type="Long" />
+		<field name="weight" type="Integer" />
 	</model>
 	<model name="com.ext.portlet.models.model.ModelDiscussion">
 		<field name="modelDiscussionId" type="Long" />
@@ -554,6 +560,7 @@
 		<field name="updated" type="Date" />
 		<field name="authorId" type="Long" />
 		<field name="contestActive" type="Boolean" />
+		<field name="planTemplateId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.contests.model.ContestDebate">
 		<field name="id" type="Long" />
@@ -628,5 +635,13 @@
 		<field name="termId" type="Long" />
 		<field name="classNameId" type="Long" />
 		<field name="classPK" type="Long" />
+	</model>
+	<model name="com.ext.portlet.ontology.model.Category">
+		<field name="id" type="Long" />
+		<field name="name" type="String" />
+	</model>
+	<model name="com.ext.portlet.ontology.model.CategoryOntologyTerm">
+		<field name="categoryId" type="Long" />
+		<field name="ontologyTerm" type="Long" />
 	</model>
 </model-hints>

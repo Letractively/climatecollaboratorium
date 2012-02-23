@@ -80,4 +80,17 @@ public interface PlanTemplateSectionLocalService {
     public com.ext.portlet.plans.model.PlanTemplateSection updatePlanTemplateSection(
         com.ext.portlet.plans.model.PlanTemplateSection planTemplateSection,
         boolean merge) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanTemplateSection> findByPlanTemplateId(
+        java.lang.Long planTemplateId)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanTemplateSection addPlanTemplateSection(
+        java.lang.Long planTemplateId, java.lang.Long sectionId, int weight)
+        throws com.liferay.portal.SystemException;
+
+    public void removePlanTemplateSection(java.lang.Long planTemplateId,
+        java.lang.Long sectionId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

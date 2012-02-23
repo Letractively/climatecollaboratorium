@@ -166,6 +166,17 @@ create table CalEvent (
 	secondReminder INTEGER
 );
 
+create table Category (
+	id_ LONG not null primary key,
+	name VARCHAR(75) null
+);
+
+create table CategoryOntologyTerm (
+	categoryId LONG not null,
+	ontologyTerm LONG not null,
+	primary key (categoryId, ontologyTerm)
+);
+
 create table ClassName_ (
 	classNameId LONG not null primary key,
 	value VARCHAR(200) null
@@ -236,7 +247,8 @@ create table Contest (
 	created DATE null,
 	updated DATE null,
 	authorId LONG,
-	contestActive BOOLEAN
+	contestActive BOOLEAN,
+	planTemplateId LONG
 );
 
 create table ContestDebate (
@@ -1279,17 +1291,21 @@ create table PlanRelated (
 );
 
 create table PlanSection (
-	planSectionDefinitionId LONG not null,
-	planId LONG not null,
+	id_ LONG not null primary key,
+	planSectionDefinitionId LONG,
+	planId LONG,
 	content VARCHAR(75) null,
-	primary key (planSectionDefinitionId, planId)
+	created DATE null,
+	version LONG,
+	planVersion LONG,
+	updateAuthorId LONG
 );
 
 create table PlanSectionDefinition (
 	id_ LONG not null primary key,
 	title VARCHAR(75) null,
 	defaultText VARCHAR(75) null,
-	ontologyTermId LONG
+	categoryId LONG
 );
 
 create table PlanTeamHistory (
@@ -1308,9 +1324,10 @@ create table PlanTemplate (
 );
 
 create table PlanTemplateSection (
-	id_ LONG not null,
+	planTemplateId LONG not null,
 	planSectionId LONG not null,
-	primary key (id_, planSectionId)
+	weight INTEGER,
+	primary key (planTemplateId, planSectionId)
 );
 
 create table PlanType (

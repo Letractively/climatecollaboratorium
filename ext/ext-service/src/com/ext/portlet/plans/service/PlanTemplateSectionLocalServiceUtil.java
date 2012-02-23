@@ -90,6 +90,26 @@ public class PlanTemplateSectionLocalServiceUtil {
         return getService().updatePlanTemplateSection(planTemplateSection, merge);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanTemplateSection> findByPlanTemplateId(
+        java.lang.Long planTemplateId)
+        throws com.liferay.portal.SystemException {
+        return getService().findByPlanTemplateId(planTemplateId);
+    }
+
+    public static com.ext.portlet.plans.model.PlanTemplateSection addPlanTemplateSection(
+        java.lang.Long planTemplateId, java.lang.Long sectionId, int weight)
+        throws com.liferay.portal.SystemException {
+        return getService()
+                   .addPlanTemplateSection(planTemplateId, sectionId, weight);
+    }
+
+    public static void removePlanTemplateSection(
+        java.lang.Long planTemplateId, java.lang.Long sectionId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        getService().removePlanTemplateSection(planTemplateId, sectionId);
+    }
+
     public static PlanTemplateSectionLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

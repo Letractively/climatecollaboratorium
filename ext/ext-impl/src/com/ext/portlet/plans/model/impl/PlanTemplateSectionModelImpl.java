@@ -41,12 +41,15 @@ import java.util.List;
 public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSection> {
     public static final String TABLE_NAME = "PlanTemplateSection";
     public static final Object[][] TABLE_COLUMNS = {
-            { "id_", new Integer(Types.BIGINT) },
+            { "planTemplateId", new Integer(Types.BIGINT) },
             
 
-            { "planSectionId", new Integer(Types.BIGINT) }
+            { "planSectionId", new Integer(Types.BIGINT) },
+            
+
+            { "weight", new Integer(Types.INTEGER) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanTemplateSection (id_ LONG not null,planSectionId LONG not null,primary key (id_, planSectionId))";
+    public static final String TABLE_SQL_CREATE = "create table PlanTemplateSection (planTemplateId LONG not null,planSectionId LONG not null,weight INTEGER,primary key (planTemplateId, planSectionId))";
     public static final String TABLE_SQL_DROP = "drop table PlanTemplateSection";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -59,8 +62,9 @@ public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSect
             true);
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
                 "lock.expiration.time.com.ext.portlet.plans.model.PlanTemplateSection"));
-    private Long _id;
+    private Long _planTemplateId;
     private Long _planSectionId;
+    private Integer _weight;
 
     public PlanTemplateSectionModelImpl() {
     }
@@ -68,8 +72,9 @@ public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSect
     public static PlanTemplateSection toModel(PlanTemplateSectionSoap soapModel) {
         PlanTemplateSection model = new PlanTemplateSectionImpl();
 
-        model.setId(soapModel.getId());
+        model.setPlanTemplateId(soapModel.getPlanTemplateId());
         model.setPlanSectionId(soapModel.getPlanSectionId());
+        model.setWeight(soapModel.getWeight());
 
         return model;
     }
@@ -86,24 +91,24 @@ public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSect
     }
 
     public PlanTemplateSectionPK getPrimaryKey() {
-        return new PlanTemplateSectionPK(_id, _planSectionId);
+        return new PlanTemplateSectionPK(_planTemplateId, _planSectionId);
     }
 
     public void setPrimaryKey(PlanTemplateSectionPK pk) {
-        setId(pk.id);
+        setPlanTemplateId(pk.planTemplateId);
         setPlanSectionId(pk.planSectionId);
     }
 
     public Serializable getPrimaryKeyObj() {
-        return new PlanTemplateSectionPK(_id, _planSectionId);
+        return new PlanTemplateSectionPK(_planTemplateId, _planSectionId);
     }
 
-    public Long getId() {
-        return _id;
+    public Long getPlanTemplateId() {
+        return _planTemplateId;
     }
 
-    public void setId(Long id) {
-        _id = id;
+    public void setPlanTemplateId(Long planTemplateId) {
+        _planTemplateId = planTemplateId;
     }
 
     public Long getPlanSectionId() {
@@ -112,6 +117,14 @@ public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSect
 
     public void setPlanSectionId(Long planSectionId) {
         _planSectionId = planSectionId;
+    }
+
+    public Integer getWeight() {
+        return _weight;
+    }
+
+    public void setWeight(Integer weight) {
+        _weight = weight;
     }
 
     public PlanTemplateSection toEscapedModel() {
@@ -123,8 +136,9 @@ public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSect
             model.setNew(isNew());
             model.setEscapedModel(true);
 
-            model.setId(getId());
+            model.setPlanTemplateId(getPlanTemplateId());
             model.setPlanSectionId(getPlanSectionId());
+            model.setWeight(getWeight());
 
             model = (PlanTemplateSection) Proxy.newProxyInstance(PlanTemplateSection.class.getClassLoader(),
                     new Class[] { PlanTemplateSection.class },
@@ -137,16 +151,23 @@ public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSect
     public Object clone() {
         PlanTemplateSectionImpl clone = new PlanTemplateSectionImpl();
 
-        clone.setId(getId());
+        clone.setPlanTemplateId(getPlanTemplateId());
         clone.setPlanSectionId(getPlanSectionId());
+        clone.setWeight(getWeight());
 
         return clone;
     }
 
     public int compareTo(PlanTemplateSection planTemplateSection) {
-        PlanTemplateSectionPK pk = planTemplateSection.getPrimaryKey();
+        int value = 0;
 
-        return getPrimaryKey().compareTo(pk);
+        value = getWeight().compareTo(planTemplateSection.getWeight());
+
+        if (value != 0) {
+            return value;
+        }
+
+        return 0;
     }
 
     public boolean equals(Object obj) {
@@ -178,10 +199,12 @@ public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSect
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("{id=");
-        sb.append(getId());
+        sb.append("{planTemplateId=");
+        sb.append(getPlanTemplateId());
         sb.append(", planSectionId=");
         sb.append(getPlanSectionId());
+        sb.append(", weight=");
+        sb.append(getWeight());
         sb.append("}");
 
         return sb.toString();
@@ -195,12 +218,16 @@ public class PlanTemplateSectionModelImpl extends BaseModelImpl<PlanTemplateSect
         sb.append("</model-name>");
 
         sb.append(
-            "<column><column-name>id</column-name><column-value><![CDATA[");
-        sb.append(getId());
+            "<column><column-name>planTemplateId</column-name><column-value><![CDATA[");
+        sb.append(getPlanTemplateId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>planSectionId</column-name><column-value><![CDATA[");
         sb.append(getPlanSectionId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>weight</column-name><column-value><![CDATA[");
+        sb.append(getWeight());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

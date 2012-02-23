@@ -63,6 +63,10 @@ create index IX_F6006202 on CalEvent (remindBy);
 create index IX_C1AD2122 on CalEvent (uuid_);
 create unique index IX_5CCE79C8 on CalEvent (uuid_, groupId);
 
+create index IX_D8F0A23 on Category (name);
+
+create index IX_22892C8C on CategoryOntologyTerm (categoryId);
+
 create unique index IX_B27A301F on ClassName_ (value);
 
 create index IX_38EFE3FD on Company (logoId);
@@ -460,9 +464,12 @@ create index IX_74EB9856 on PlanPropertyFilter (planUserSettingsId, propertyName
 create index IX_8AF88237 on PlanRelated (relatedPlanId);
 
 create index IX_918E76BA on PlanSection (planId);
+create index IX_D6FF7AA0 on PlanSection (planId, planSectionDefinitionId);
 
 create index IX_F4A17D4C on PlanTeamHistory (planId);
 create index IX_5BE2C986 on PlanTeamHistory (planId, userId);
+
+create index IX_910676FA on PlanTemplateSection (planTemplateId);
 
 create index IX_7F5652DE on PlanType (isDefault);
 
