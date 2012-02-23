@@ -35,6 +35,7 @@ import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanModelRun;
+import com.ext.portlet.plans.model.PlanSection;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
@@ -793,6 +794,8 @@ public class PlanItemWrapper {
     public void refresh() throws SystemException {
         name = wrapped.getName();
         description = wrapped.getDescription();
+        sections.clear();
+        sectionsShown.clear();
     }
     
     
@@ -810,6 +813,20 @@ public class PlanItemWrapper {
     
     public Long getPlanId() {
         return wrapped.getPlanId();
+    }
+    
+    private Set<Long> sectionsShown = new HashSet<Long>();
+    private List<PlanSectionWrapper> sections = new ArrayList<PlanSectionWrapper>();
+    
+    public List<PlanSectionWrapper> getSections() throws PortalException, SystemException {
+        for (PlanSection ps: wrapped.getPlanSections()) {
+            Long id = ps.getId() == null ? ps.getDefinition().getId() : ps.getId();
+            if (! sectionsShown.contains(id)) {
+                sections.add(new PlanSectionWrapper(ps, this));
+                sectionsShown.add(id);
+            }
+        }
+        return sections;
     }
 
 }

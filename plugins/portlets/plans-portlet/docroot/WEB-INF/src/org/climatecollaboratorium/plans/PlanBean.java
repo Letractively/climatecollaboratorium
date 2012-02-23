@@ -69,7 +69,7 @@ public class PlanBean {
         tabNameIndexMap.put("admin", tabNameIndexMap.size());
         tabNameIndexMap.put("description", tabNameIndexMap.size());
         tabNameIndexMap.put("actionsimpacts", tabNameIndexMap.size());
-        tabNameIndexMap.put("positions", tabNameIndexMap.size());
+        tabNameIndexMap.put("sections", tabNameIndexMap.size());
         tabNameIndexMap.put("comments", tabNameIndexMap.size());
         tabNameIndexMap.put("team", tabNameIndexMap.size());
         tabNameIndexMap.put("discussion", tabNameIndexMap.size());
