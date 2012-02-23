@@ -69,7 +69,6 @@ import com.ext.portlet.plans.service.persistence.PlanPositionsPersistence;
 import com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistence;
 import com.ext.portlet.plans.service.persistence.PlanRelatedPersistence;
 import com.ext.portlet.plans.service.persistence.PlanSectionDefinitionPersistence;
-import com.ext.portlet.plans.service.persistence.PlanSectionPK;
 import com.ext.portlet.plans.service.persistence.PlanSectionPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTemplatePersistence;
@@ -259,13 +258,13 @@ public abstract class PlanSectionLocalServiceBaseImpl
         return planSectionPersistence.update(planSection, false);
     }
 
-    public PlanSection createPlanSection(PlanSectionPK planSectionPK) {
-        return planSectionPersistence.create(planSectionPK);
+    public PlanSection createPlanSection(Long id) {
+        return planSectionPersistence.create(id);
     }
 
-    public void deletePlanSection(PlanSectionPK planSectionPK)
+    public void deletePlanSection(Long id)
         throws PortalException, SystemException {
-        planSectionPersistence.remove(planSectionPK);
+        planSectionPersistence.remove(id);
     }
 
     public void deletePlanSection(PlanSection planSection)
@@ -284,9 +283,9 @@ public abstract class PlanSectionLocalServiceBaseImpl
             end);
     }
 
-    public PlanSection getPlanSection(PlanSectionPK planSectionPK)
+    public PlanSection getPlanSection(Long id)
         throws PortalException, SystemException {
-        return planSectionPersistence.findByPrimaryKey(planSectionPK);
+        return planSectionPersistence.findByPrimaryKey(id);
     }
 
     public List<PlanSection> getPlanSections(int start, int end)

@@ -308,4 +308,22 @@ public interface PlanItem extends PlanItemModel {
 
     public void removeAttribute(java.lang.String attributeName)
         throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanTemplate getPlanTemplate()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanSection> getPlanSections()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void setSectionContent(
+        com.ext.portlet.plans.model.PlanSectionDefinition psd,
+        java.lang.String content, java.lang.Long updateAuthorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanSection> getAllPlanSections(
+        com.ext.portlet.plans.model.PlanSectionDefinition psd)
+        throws com.liferay.portal.SystemException;
 }

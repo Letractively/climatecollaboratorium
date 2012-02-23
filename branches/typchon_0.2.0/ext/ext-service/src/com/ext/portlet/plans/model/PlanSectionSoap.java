@@ -1,10 +1,9 @@
 package com.ext.portlet.plans.model;
 
-import com.ext.portlet.plans.service.persistence.PlanSectionPK;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -27,9 +26,14 @@ import java.util.List;
  *
  */
 public class PlanSectionSoap implements Serializable {
+    private Long _id;
     private Long _planSectionDefinitionId;
     private Long _planId;
     private String _content;
+    private Date _created;
+    private Long _version;
+    private Long _planVersion;
+    private Long _updateAuthorId;
 
     public PlanSectionSoap() {
     }
@@ -37,9 +41,14 @@ public class PlanSectionSoap implements Serializable {
     public static PlanSectionSoap toSoapModel(PlanSection model) {
         PlanSectionSoap soapModel = new PlanSectionSoap();
 
+        soapModel.setId(model.getId());
         soapModel.setPlanSectionDefinitionId(model.getPlanSectionDefinitionId());
         soapModel.setPlanId(model.getPlanId());
         soapModel.setContent(model.getContent());
+        soapModel.setCreated(model.getCreated());
+        soapModel.setVersion(model.getVersion());
+        soapModel.setPlanVersion(model.getPlanVersion());
+        soapModel.setUpdateAuthorId(model.getUpdateAuthorId());
 
         return soapModel;
     }
@@ -80,13 +89,20 @@ public class PlanSectionSoap implements Serializable {
         return soapModels.toArray(new PlanSectionSoap[soapModels.size()]);
     }
 
-    public PlanSectionPK getPrimaryKey() {
-        return new PlanSectionPK(_planSectionDefinitionId, _planId);
+    public Long getPrimaryKey() {
+        return _id;
     }
 
-    public void setPrimaryKey(PlanSectionPK pk) {
-        setPlanSectionDefinitionId(pk.planSectionDefinitionId);
-        setPlanId(pk.planId);
+    public void setPrimaryKey(Long pk) {
+        setId(pk);
+    }
+
+    public Long getId() {
+        return _id;
+    }
+
+    public void setId(Long id) {
+        _id = id;
     }
 
     public Long getPlanSectionDefinitionId() {
@@ -111,5 +127,37 @@ public class PlanSectionSoap implements Serializable {
 
     public void setContent(String content) {
         _content = content;
+    }
+
+    public Date getCreated() {
+        return _created;
+    }
+
+    public void setCreated(Date created) {
+        _created = created;
+    }
+
+    public Long getVersion() {
+        return _version;
+    }
+
+    public void setVersion(Long version) {
+        _version = version;
+    }
+
+    public Long getPlanVersion() {
+        return _planVersion;
+    }
+
+    public void setPlanVersion(Long planVersion) {
+        _planVersion = planVersion;
+    }
+
+    public Long getUpdateAuthorId() {
+        return _updateAuthorId;
+    }
+
+    public void setUpdateAuthorId(Long updateAuthorId) {
+        _updateAuthorId = updateAuthorId;
     }
 }

@@ -7,23 +7,23 @@ import java.io.Serializable;
 
 public class PlanTemplateSectionPK implements Comparable<PlanTemplateSectionPK>,
     Serializable {
-    public Long id;
+    public Long planTemplateId;
     public Long planSectionId;
 
     public PlanTemplateSectionPK() {
     }
 
-    public PlanTemplateSectionPK(Long id, Long planSectionId) {
-        this.id = id;
+    public PlanTemplateSectionPK(Long planTemplateId, Long planSectionId) {
+        this.planTemplateId = planTemplateId;
         this.planSectionId = planSectionId;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPlanTemplateId() {
+        return planTemplateId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPlanTemplateId(Long planTemplateId) {
+        this.planTemplateId = planTemplateId;
     }
 
     public Long getPlanSectionId() {
@@ -41,7 +41,7 @@ public class PlanTemplateSectionPK implements Comparable<PlanTemplateSectionPK>,
 
         int value = 0;
 
-        value = id.compareTo(pk.id);
+        value = planTemplateId.compareTo(pk.planTemplateId);
 
         if (value != 0) {
             return value;
@@ -69,7 +69,8 @@ public class PlanTemplateSectionPK implements Comparable<PlanTemplateSectionPK>,
             return false;
         }
 
-        if ((id.equals(pk.id)) && (planSectionId.equals(pk.planSectionId))) {
+        if ((planTemplateId.equals(pk.planTemplateId)) &&
+                (planSectionId.equals(pk.planSectionId))) {
             return true;
         } else {
             return false;
@@ -77,7 +78,7 @@ public class PlanTemplateSectionPK implements Comparable<PlanTemplateSectionPK>,
     }
 
     public int hashCode() {
-        return (id.toString() + planSectionId.toString()).hashCode();
+        return (planTemplateId.toString() + planSectionId.toString()).hashCode();
     }
 
     public String toString() {
@@ -85,9 +86,9 @@ public class PlanTemplateSectionPK implements Comparable<PlanTemplateSectionPK>,
 
         sb.append(StringPool.OPEN_CURLY_BRACE);
 
-        sb.append("id");
+        sb.append("planTemplateId");
         sb.append(StringPool.EQUAL);
-        sb.append(id);
+        sb.append(planTemplateId);
 
         sb.append(StringPool.COMMA);
         sb.append(StringPool.SPACE);

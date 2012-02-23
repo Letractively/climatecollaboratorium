@@ -27,4 +27,7 @@ package com.ext.portlet.plans.model;
  *
  */
 public interface PlanTemplateSection extends PlanTemplateSectionModel {
+    public void store() throws com.liferay.portal.SystemException;
+
+    public void remove() throws com.liferay.portal.SystemException;
 }

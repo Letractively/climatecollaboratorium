@@ -32,8 +32,9 @@ public class PlanTemplateSectionJSONSerializer {
     public static JSONObject toJSONObject(PlanTemplateSection model) {
         JSONObject jsonObj = JSONFactoryUtil.createJSONObject();
 
-        jsonObj.put("id", model.getId());
+        jsonObj.put("planTemplateId", model.getPlanTemplateId());
         jsonObj.put("planSectionId", model.getPlanSectionId());
+        jsonObj.put("weight", model.getWeight());
 
         return jsonObj;
     }

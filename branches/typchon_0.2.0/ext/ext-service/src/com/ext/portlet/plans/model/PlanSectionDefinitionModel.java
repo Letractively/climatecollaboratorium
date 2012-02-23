@@ -40,9 +40,9 @@ public interface PlanSectionDefinitionModel extends BaseModel<PlanSectionDefinit
 
     public void setDefaultText(String defaultText);
 
-    public Long getOntologyTermId();
+    public Long getCategoryId();
 
-    public void setOntologyTermId(Long ontologyTermId);
+    public void setCategoryId(Long categoryId);
 
     public PlanSectionDefinition toEscapedModel();
 }

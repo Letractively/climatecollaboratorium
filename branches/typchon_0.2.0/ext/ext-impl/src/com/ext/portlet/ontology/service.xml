@@ -8,10 +8,10 @@
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
 
 <service-builder package-path="com.ext.portlet.ontology">
-	<namespace>ontology</namespace>
-	<entity name="OntologyTerm" local-service="true">
-	    <!-- PK field -->
-		<column name="id" type="Long" primary="true" />
+    <namespace>ontology</namespace>
+    <entity name="OntologyTerm" local-service="true">
+        <!-- PK field -->
+        <column name="id" type="Long" primary="true" />
         <column name="parentId" type="Long" />
         <column name="name" type="String" />
         
@@ -48,12 +48,37 @@
         </finder>
         
     </entity>
+    
+    
+    <entity name="Category" local-service="true">
+        <!-- PK field -->
+        <column name="id" type="Long" primary="true" />
+        <column name="name" type="String" />
+        
+        <finder name="Name" return-type="Category">
+            <finder-column name="name" />
+        </finder>
+        
+    </entity>
+    
+    <entity name="CategoryOntologyTerm" local-service="true">
+        <!-- PK field -->
+        <column name="categoryId" type="Long" primary="true" />
+        <column name="ontologyTerm" type="Long" primary="true" />
+        
+        <finder name="CategoryId" return-type="Collection">
+            <finder-column name="categoryId" />
+        </finder>
+        
+    </entity>
 
-	
-	<exceptions>
+    
+    <exceptions>
 
-		<exception>NoSuchOntologyTermException</exception>
+        <exception>NoSuchOntologyTermException</exception>
         <exception>NoSuchOntologyTermEntityException</exception>
+        <exception>NoSuchCategoryException</exception>
+        <exception>NoSuchCategoryTermException</exception>
       
-	</exceptions>
+    </exceptions>
 </service-builder>

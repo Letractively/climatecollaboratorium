@@ -79,5 +79,9 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setContestActive(Boolean contestActive);
 
+    public Long getPlanTemplateId();
+
+    public void setPlanTemplateId(Long planTemplateId);
+
     public Contest toEscapedModel();
 }

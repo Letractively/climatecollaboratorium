@@ -32,15 +32,14 @@ public class PlanSectionLocalServiceUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanSection createPlanSection(
-        com.ext.portlet.plans.service.persistence.PlanSectionPK planSectionPK) {
-        return getService().createPlanSection(planSectionPK);
+        java.lang.Long id) {
+        return getService().createPlanSection(id);
     }
 
-    public static void deletePlanSection(
-        com.ext.portlet.plans.service.persistence.PlanSectionPK planSectionPK)
+    public static void deletePlanSection(java.lang.Long id)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        getService().deletePlanSection(planSectionPK);
+        getService().deletePlanSection(id);
     }
 
     public static void deletePlanSection(
@@ -62,10 +61,10 @@ public class PlanSectionLocalServiceUtil {
     }
 
     public static com.ext.portlet.plans.model.PlanSection getPlanSection(
-        com.ext.portlet.plans.service.persistence.PlanSectionPK planSectionPK)
+        java.lang.Long id)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {
-        return getService().getPlanSection(planSectionPK);
+        return getService().getPlanSection(id);
     }
 
     public static java.util.List<com.ext.portlet.plans.model.PlanSection> getPlanSections(
@@ -88,6 +87,42 @@ public class PlanSectionLocalServiceUtil {
         com.ext.portlet.plans.model.PlanSection planSection, boolean merge)
         throws com.liferay.portal.SystemException {
         return getService().updatePlanSection(planSection, merge);
+    }
+
+    public static com.ext.portlet.plans.model.PlanSection getCurrentForPlanSectionDef(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def)
+        throws com.liferay.portal.SystemException {
+        return getService().getCurrentForPlanSectionDef(plan, def);
+    }
+
+    public static com.ext.portlet.plans.model.PlanSection getCurrentForPlanSectionDef(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def,
+        boolean createOnEmpty) throws com.liferay.portal.SystemException {
+        return getService().getCurrentForPlanSectionDef(plan, def, createOnEmpty);
+    }
+
+    public static com.ext.portlet.plans.model.PlanSection createNewVersionForPlanSectionDefinition(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def)
+        throws com.liferay.portal.SystemException {
+        return getService().createNewVersionForPlanSectionDefinition(plan, def);
+    }
+
+    public static com.ext.portlet.plans.model.PlanSection createNewVersionForPlanSectionDefinition(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def, boolean store)
+        throws com.liferay.portal.SystemException {
+        return getService()
+                   .createNewVersionForPlanSectionDefinition(plan, def, store);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanSection> getAllForPlanDefinition(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def)
+        throws com.liferay.portal.SystemException {
+        return getService().getAllForPlanDefinition(plan, def);
     }
 
     public static PlanSectionLocalService getService() {

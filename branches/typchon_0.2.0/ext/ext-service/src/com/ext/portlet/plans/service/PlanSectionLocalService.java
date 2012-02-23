@@ -40,10 +40,9 @@ public interface PlanSectionLocalService {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanSection createPlanSection(
-        com.ext.portlet.plans.service.persistence.PlanSectionPK planSectionPK);
+        java.lang.Long id);
 
-    public void deletePlanSection(
-        com.ext.portlet.plans.service.persistence.PlanSectionPK planSectionPK)
+    public void deletePlanSection(java.lang.Long id)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
@@ -61,7 +60,7 @@ public interface PlanSectionLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.ext.portlet.plans.model.PlanSection getPlanSection(
-        com.ext.portlet.plans.service.persistence.PlanSectionPK planSectionPK)
+        java.lang.Long id)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
@@ -78,5 +77,33 @@ public interface PlanSectionLocalService {
 
     public com.ext.portlet.plans.model.PlanSection updatePlanSection(
         com.ext.portlet.plans.model.PlanSection planSection, boolean merge)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanSection getCurrentForPlanSectionDef(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanSection getCurrentForPlanSectionDef(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def,
+        boolean createOnEmpty) throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanSection createNewVersionForPlanSectionDefinition(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanSection createNewVersionForPlanSectionDefinition(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def, boolean store)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanSection> getAllForPlanDefinition(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def)
         throws com.liferay.portal.SystemException;
 }

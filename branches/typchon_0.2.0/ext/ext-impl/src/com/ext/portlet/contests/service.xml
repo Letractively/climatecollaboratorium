@@ -23,6 +23,7 @@
         <column name="updated" type="Date" />
         <column name="authorId" type="Long" />
         <column name="contestActive" type="Boolean"/>
+        <column name="planTemplateId" type="Long" />
         
         <order by="desc">
             <order-column name="created" />

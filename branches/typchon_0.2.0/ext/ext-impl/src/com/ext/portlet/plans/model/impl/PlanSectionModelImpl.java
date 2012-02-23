@@ -2,7 +2,6 @@ package com.ext.portlet.plans.model.impl;
 
 import com.ext.portlet.plans.model.PlanSection;
 import com.ext.portlet.plans.model.PlanSectionSoap;
-import com.ext.portlet.plans.service.persistence.PlanSectionPK;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -16,6 +15,7 @@ import java.lang.reflect.Proxy;
 import java.sql.Types;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,15 +42,30 @@ import java.util.List;
 public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
     public static final String TABLE_NAME = "PlanSection";
     public static final Object[][] TABLE_COLUMNS = {
+            { "id_", new Integer(Types.BIGINT) },
+            
+
             { "planSectionDefinitionId", new Integer(Types.BIGINT) },
             
 
             { "planId", new Integer(Types.BIGINT) },
             
 
-            { "content", new Integer(Types.VARCHAR) }
+            { "content", new Integer(Types.VARCHAR) },
+            
+
+            { "created", new Integer(Types.TIMESTAMP) },
+            
+
+            { "version", new Integer(Types.BIGINT) },
+            
+
+            { "planVersion", new Integer(Types.BIGINT) },
+            
+
+            { "updateAuthorId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanSection (planSectionDefinitionId LONG not null,planId LONG not null,content VARCHAR(75) null,primary key (planSectionDefinitionId, planId))";
+    public static final String TABLE_SQL_CREATE = "create table PlanSection (id_ LONG not null primary key,planSectionDefinitionId LONG,planId LONG,content VARCHAR(75) null,created DATE null,version LONG,planVersion LONG,updateAuthorId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanSection";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -63,9 +78,16 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
             true);
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
                 "lock.expiration.time.com.ext.portlet.plans.model.PlanSection"));
+    private Long _id;
     private Long _planSectionDefinitionId;
+    private Long _originalPlanSectionDefinitionId;
     private Long _planId;
+    private Long _originalPlanId;
     private String _content;
+    private Date _created;
+    private Long _version;
+    private Long _planVersion;
+    private Long _updateAuthorId;
 
     public PlanSectionModelImpl() {
     }
@@ -73,9 +95,14 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
     public static PlanSection toModel(PlanSectionSoap soapModel) {
         PlanSection model = new PlanSectionImpl();
 
+        model.setId(soapModel.getId());
         model.setPlanSectionDefinitionId(soapModel.getPlanSectionDefinitionId());
         model.setPlanId(soapModel.getPlanId());
         model.setContent(soapModel.getContent());
+        model.setCreated(soapModel.getCreated());
+        model.setVersion(soapModel.getVersion());
+        model.setPlanVersion(soapModel.getPlanVersion());
+        model.setUpdateAuthorId(soapModel.getUpdateAuthorId());
 
         return model;
     }
@@ -90,17 +117,24 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
         return models;
     }
 
-    public PlanSectionPK getPrimaryKey() {
-        return new PlanSectionPK(_planSectionDefinitionId, _planId);
+    public Long getPrimaryKey() {
+        return _id;
     }
 
-    public void setPrimaryKey(PlanSectionPK pk) {
-        setPlanSectionDefinitionId(pk.planSectionDefinitionId);
-        setPlanId(pk.planId);
+    public void setPrimaryKey(Long pk) {
+        setId(pk);
     }
 
     public Serializable getPrimaryKeyObj() {
-        return new PlanSectionPK(_planSectionDefinitionId, _planId);
+        return _id;
+    }
+
+    public Long getId() {
+        return _id;
+    }
+
+    public void setId(Long id) {
+        _id = id;
     }
 
     public Long getPlanSectionDefinitionId() {
@@ -109,6 +143,14 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
 
     public void setPlanSectionDefinitionId(Long planSectionDefinitionId) {
         _planSectionDefinitionId = planSectionDefinitionId;
+
+        if (_originalPlanSectionDefinitionId == null) {
+            _originalPlanSectionDefinitionId = planSectionDefinitionId;
+        }
+    }
+
+    public Long getOriginalPlanSectionDefinitionId() {
+        return _originalPlanSectionDefinitionId;
     }
 
     public Long getPlanId() {
@@ -117,6 +159,14 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
 
     public void setPlanId(Long planId) {
         _planId = planId;
+
+        if (_originalPlanId == null) {
+            _originalPlanId = planId;
+        }
+    }
+
+    public Long getOriginalPlanId() {
+        return _originalPlanId;
     }
 
     public String getContent() {
@@ -125,6 +175,38 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
 
     public void setContent(String content) {
         _content = content;
+    }
+
+    public Date getCreated() {
+        return _created;
+    }
+
+    public void setCreated(Date created) {
+        _created = created;
+    }
+
+    public Long getVersion() {
+        return _version;
+    }
+
+    public void setVersion(Long version) {
+        _version = version;
+    }
+
+    public Long getPlanVersion() {
+        return _planVersion;
+    }
+
+    public void setPlanVersion(Long planVersion) {
+        _planVersion = planVersion;
+    }
+
+    public Long getUpdateAuthorId() {
+        return _updateAuthorId;
+    }
+
+    public void setUpdateAuthorId(Long updateAuthorId) {
+        _updateAuthorId = updateAuthorId;
     }
 
     public PlanSection toEscapedModel() {
@@ -136,9 +218,14 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
             model.setNew(isNew());
             model.setEscapedModel(true);
 
+            model.setId(getId());
             model.setPlanSectionDefinitionId(getPlanSectionDefinitionId());
             model.setPlanId(getPlanId());
             model.setContent(HtmlUtil.escape(getContent()));
+            model.setCreated(getCreated());
+            model.setVersion(getVersion());
+            model.setPlanVersion(getPlanVersion());
+            model.setUpdateAuthorId(getUpdateAuthorId());
 
             model = (PlanSection) Proxy.newProxyInstance(PlanSection.class.getClassLoader(),
                     new Class[] { PlanSection.class },
@@ -151,17 +238,30 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
     public Object clone() {
         PlanSectionImpl clone = new PlanSectionImpl();
 
+        clone.setId(getId());
         clone.setPlanSectionDefinitionId(getPlanSectionDefinitionId());
         clone.setPlanId(getPlanId());
         clone.setContent(getContent());
+        clone.setCreated(getCreated());
+        clone.setVersion(getVersion());
+        clone.setPlanVersion(getPlanVersion());
+        clone.setUpdateAuthorId(getUpdateAuthorId());
 
         return clone;
     }
 
     public int compareTo(PlanSection planSection) {
-        PlanSectionPK pk = planSection.getPrimaryKey();
+        int value = 0;
 
-        return getPrimaryKey().compareTo(pk);
+        value = getId().compareTo(planSection.getId());
+
+        value = value * -1;
+
+        if (value != 0) {
+            return value;
+        }
+
+        return 0;
     }
 
     public boolean equals(Object obj) {
@@ -177,7 +277,7 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
             return false;
         }
 
-        PlanSectionPK pk = planSection.getPrimaryKey();
+        Long pk = planSection.getPrimaryKey();
 
         if (getPrimaryKey().equals(pk)) {
             return true;
@@ -193,12 +293,22 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("{planSectionDefinitionId=");
+        sb.append("{id=");
+        sb.append(getId());
+        sb.append(", planSectionDefinitionId=");
         sb.append(getPlanSectionDefinitionId());
         sb.append(", planId=");
         sb.append(getPlanId());
         sb.append(", content=");
         sb.append(getContent());
+        sb.append(", created=");
+        sb.append(getCreated());
+        sb.append(", version=");
+        sb.append(getVersion());
+        sb.append(", planVersion=");
+        sb.append(getPlanVersion());
+        sb.append(", updateAuthorId=");
+        sb.append(getUpdateAuthorId());
         sb.append("}");
 
         return sb.toString();
@@ -212,6 +322,10 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
         sb.append("</model-name>");
 
         sb.append(
+            "<column><column-name>id</column-name><column-value><![CDATA[");
+        sb.append(getId());
+        sb.append("]]></column-value></column>");
+        sb.append(
             "<column><column-name>planSectionDefinitionId</column-name><column-value><![CDATA[");
         sb.append(getPlanSectionDefinitionId());
         sb.append("]]></column-value></column>");
@@ -222,6 +336,22 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
         sb.append(
             "<column><column-name>content</column-name><column-value><![CDATA[");
         sb.append(getContent());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>created</column-name><column-value><![CDATA[");
+        sb.append(getCreated());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>version</column-name><column-value><![CDATA[");
+        sb.append(getVersion());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>planVersion</column-name><column-value><![CDATA[");
+        sb.append(getPlanVersion());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>updateAuthorId</column-name><column-value><![CDATA[");
+        sb.append(getUpdateAuthorId());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

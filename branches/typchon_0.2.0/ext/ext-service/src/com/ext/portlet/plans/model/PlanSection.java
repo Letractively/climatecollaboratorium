@@ -27,4 +27,9 @@ package com.ext.portlet.plans.model;
  *
  */
 public interface PlanSection extends PlanSectionModel {
+    public void store() throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanSectionDefinition getDefinition()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

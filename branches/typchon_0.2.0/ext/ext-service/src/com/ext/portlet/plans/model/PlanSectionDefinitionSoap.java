@@ -28,7 +28,7 @@ public class PlanSectionDefinitionSoap implements Serializable {
     private Long _id;
     private String _title;
     private String _defaultText;
-    private Long _ontologyTermId;
+    private Long _categoryId;
 
     public PlanSectionDefinitionSoap() {
     }
@@ -40,7 +40,7 @@ public class PlanSectionDefinitionSoap implements Serializable {
         soapModel.setId(model.getId());
         soapModel.setTitle(model.getTitle());
         soapModel.setDefaultText(model.getDefaultText());
-        soapModel.setOntologyTermId(model.getOntologyTermId());
+        soapModel.setCategoryId(model.getCategoryId());
 
         return soapModel;
     }
@@ -116,11 +116,11 @@ public class PlanSectionDefinitionSoap implements Serializable {
         _defaultText = defaultText;
     }
 
-    public Long getOntologyTermId() {
-        return _ontologyTermId;
+    public Long getCategoryId() {
+        return _categoryId;
     }
 
-    public void setOntologyTermId(Long ontologyTermId) {
-        _ontologyTermId = ontologyTermId;
+    public void setCategoryId(Long categoryId) {
+        _categoryId = categoryId;
     }
 }

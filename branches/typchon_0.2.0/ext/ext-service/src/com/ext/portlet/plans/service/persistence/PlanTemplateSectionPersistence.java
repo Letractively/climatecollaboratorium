@@ -13,10 +13,10 @@ public interface PlanTemplateSectionPersistence extends BasePersistence {
     public void clearCache();
 
     public com.ext.portlet.plans.model.PlanTemplateSection create(
-        PlanTemplateSectionPK planTemplateSectionPK);
+        com.ext.portlet.plans.service.persistence.PlanTemplateSectionPK planTemplateSectionPK);
 
     public com.ext.portlet.plans.model.PlanTemplateSection remove(
-        PlanTemplateSectionPK planTemplateSectionPK)
+        com.ext.portlet.plans.service.persistence.PlanTemplateSectionPK planTemplateSectionPK)
         throws com.ext.portlet.plans.NoSuchPlanTemplateSectionException,
             com.liferay.portal.SystemException;
 
@@ -53,13 +53,45 @@ public interface PlanTemplateSectionPersistence extends BasePersistence {
         boolean merge) throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanTemplateSection findByPrimaryKey(
-        PlanTemplateSectionPK planTemplateSectionPK)
+        com.ext.portlet.plans.service.persistence.PlanTemplateSectionPK planTemplateSectionPK)
         throws com.ext.portlet.plans.NoSuchPlanTemplateSectionException,
             com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanTemplateSection fetchByPrimaryKey(
-        PlanTemplateSectionPK planTemplateSectionPK)
+        com.ext.portlet.plans.service.persistence.PlanTemplateSectionPK planTemplateSectionPK)
         throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanTemplateSection> findByPlanTemplateId(
+        java.lang.Long planTemplateId)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanTemplateSection> findByPlanTemplateId(
+        java.lang.Long planTemplateId, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanTemplateSection> findByPlanTemplateId(
+        java.lang.Long planTemplateId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanTemplateSection findByPlanTemplateId_First(
+        java.lang.Long planTemplateId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanTemplateSectionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanTemplateSection findByPlanTemplateId_Last(
+        java.lang.Long planTemplateId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanTemplateSectionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanTemplateSection[] findByPlanTemplateId_PrevAndNext(
+        com.ext.portlet.plans.service.persistence.PlanTemplateSectionPK planTemplateSectionPK,
+        java.lang.Long planTemplateId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.plans.NoSuchPlanTemplateSectionException,
+            com.liferay.portal.SystemException;
 
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -79,7 +111,13 @@ public interface PlanTemplateSectionPersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
+    public void removeByPlanTemplateId(java.lang.Long planTemplateId)
+        throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
+
+    public int countByPlanTemplateId(java.lang.Long planTemplateId)
+        throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

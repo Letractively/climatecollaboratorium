@@ -38,6 +38,7 @@ public class ContestSoap implements Serializable {
     private Date _updated;
     private Long _authorId;
     private Boolean _contestActive;
+    private Long _planTemplateId;
 
     public ContestSoap() {
     }
@@ -57,6 +58,7 @@ public class ContestSoap implements Serializable {
         soapModel.setUpdated(model.getUpdated());
         soapModel.setAuthorId(model.getAuthorId());
         soapModel.setContestActive(model.getContestActive());
+        soapModel.setPlanTemplateId(model.getPlanTemplateId());
 
         return soapModel;
     }
@@ -200,5 +202,13 @@ public class ContestSoap implements Serializable {
 
     public void setContestActive(Boolean contestActive) {
         _contestActive = contestActive;
+    }
+
+    public Long getPlanTemplateId() {
+        return _planTemplateId;
+    }
+
+    public void setPlanTemplateId(Long planTemplateId) {
+        _planTemplateId = planTemplateId;
     }
 }

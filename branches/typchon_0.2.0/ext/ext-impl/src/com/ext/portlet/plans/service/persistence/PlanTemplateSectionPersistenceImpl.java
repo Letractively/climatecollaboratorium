@@ -13,12 +13,14 @@ import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.BatchSessionUtil;
@@ -34,6 +36,23 @@ public class PlanTemplateSectionPersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = PlanTemplateSectionImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
+    public static final FinderPath FINDER_PATH_FIND_BY_PLANTEMPLATEID = new FinderPath(PlanTemplateSectionModelImpl.ENTITY_CACHE_ENABLED,
+            PlanTemplateSectionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByPlanTemplateId",
+            new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_PLANTEMPLATEID = new FinderPath(PlanTemplateSectionModelImpl.ENTITY_CACHE_ENABLED,
+            PlanTemplateSectionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByPlanTemplateId",
+            new String[] {
+                Long.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_PLANTEMPLATEID = new FinderPath(PlanTemplateSectionModelImpl.ENTITY_CACHE_ENABLED,
+            PlanTemplateSectionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByPlanTemplateId",
+            new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(PlanTemplateSectionModelImpl.ENTITY_CACHE_ENABLED,
             PlanTemplateSectionModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -333,6 +352,243 @@ public class PlanTemplateSectionPersistenceImpl extends BasePersistenceImpl
         return planTemplateSection;
     }
 
+    public List<PlanTemplateSection> findByPlanTemplateId(Long planTemplateId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { planTemplateId };
+
+        List<PlanTemplateSection> list = (List<PlanTemplateSection>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PLANTEMPLATEID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanTemplateSection WHERE ");
+
+                if (planTemplateId == null) {
+                    query.append("planTemplateId IS NULL");
+                } else {
+                    query.append("planTemplateId = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("weight ASC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planTemplateId != null) {
+                    qPos.add(planTemplateId.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<PlanTemplateSection>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_PLANTEMPLATEID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<PlanTemplateSection> findByPlanTemplateId(Long planTemplateId,
+        int start, int end) throws SystemException {
+        return findByPlanTemplateId(planTemplateId, start, end, null);
+    }
+
+    public List<PlanTemplateSection> findByPlanTemplateId(Long planTemplateId,
+        int start, int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                planTemplateId,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<PlanTemplateSection> list = (List<PlanTemplateSection>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_PLANTEMPLATEID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanTemplateSection WHERE ");
+
+                if (planTemplateId == null) {
+                    query.append("planTemplateId IS NULL");
+                } else {
+                    query.append("planTemplateId = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("weight ASC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planTemplateId != null) {
+                    qPos.add(planTemplateId.longValue());
+                }
+
+                list = (List<PlanTemplateSection>) QueryUtil.list(q,
+                        getDialect(), start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<PlanTemplateSection>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_PLANTEMPLATEID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public PlanTemplateSection findByPlanTemplateId_First(Long planTemplateId,
+        OrderByComparator obc)
+        throws NoSuchPlanTemplateSectionException, SystemException {
+        List<PlanTemplateSection> list = findByPlanTemplateId(planTemplateId,
+                0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanTemplateSection exists with the key {");
+
+            msg.append("planTemplateId=" + planTemplateId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchPlanTemplateSectionException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public PlanTemplateSection findByPlanTemplateId_Last(Long planTemplateId,
+        OrderByComparator obc)
+        throws NoSuchPlanTemplateSectionException, SystemException {
+        int count = countByPlanTemplateId(planTemplateId);
+
+        List<PlanTemplateSection> list = findByPlanTemplateId(planTemplateId,
+                count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanTemplateSection exists with the key {");
+
+            msg.append("planTemplateId=" + planTemplateId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchPlanTemplateSectionException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public PlanTemplateSection[] findByPlanTemplateId_PrevAndNext(
+        PlanTemplateSectionPK planTemplateSectionPK, Long planTemplateId,
+        OrderByComparator obc)
+        throws NoSuchPlanTemplateSectionException, SystemException {
+        PlanTemplateSection planTemplateSection = findByPrimaryKey(planTemplateSectionPK);
+
+        int count = countByPlanTemplateId(planTemplateId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.plans.model.PlanTemplateSection WHERE ");
+
+            if (planTemplateId == null) {
+                query.append("planTemplateId IS NULL");
+            } else {
+                query.append("planTemplateId = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("weight ASC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (planTemplateId != null) {
+                qPos.add(planTemplateId.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    planTemplateSection);
+
+            PlanTemplateSection[] array = new PlanTemplateSectionImpl[3];
+
+            array[0] = (PlanTemplateSection) objArray[0];
+            array[1] = (PlanTemplateSection) objArray[1];
+            array[2] = (PlanTemplateSection) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -402,6 +658,11 @@ public class PlanTemplateSectionPersistenceImpl extends BasePersistenceImpl
                     query.append("ORDER BY ");
                     query.append(obc.getOrderBy());
                 }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("weight ASC");
+                }
 
                 Query q = session.createQuery(query.toString());
 
@@ -432,10 +693,71 @@ public class PlanTemplateSectionPersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
+    public void removeByPlanTemplateId(Long planTemplateId)
+        throws SystemException {
+        for (PlanTemplateSection planTemplateSection : findByPlanTemplateId(
+                planTemplateId)) {
+            remove(planTemplateSection);
+        }
+    }
+
     public void removeAll() throws SystemException {
         for (PlanTemplateSection planTemplateSection : findAll()) {
             remove(planTemplateSection);
         }
+    }
+
+    public int countByPlanTemplateId(Long planTemplateId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { planTemplateId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PLANTEMPLATEID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanTemplateSection WHERE ");
+
+                if (planTemplateId == null) {
+                    query.append("planTemplateId IS NULL");
+                } else {
+                    query.append("planTemplateId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planTemplateId != null) {
+                    qPos.add(planTemplateId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PLANTEMPLATEID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
     }
 
     public int countAll() throws SystemException {

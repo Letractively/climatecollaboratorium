@@ -6,6 +6,7 @@
 
 package com.ext.portlet.plans.model.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,10 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
+import com.ext.portlet.plans.model.PlanSection;
+import com.ext.portlet.plans.model.PlanSectionDefinition;
 import com.ext.portlet.plans.model.PlanTeamHistory;
+import com.ext.portlet.plans.model.PlanTemplate;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlanVote;
 import com.ext.portlet.plans.service.PlanAttributeLocalServiceUtil;
@@ -44,6 +48,7 @@ import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanModelRunLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanPositionsLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanSectionLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTeamHistoryLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
@@ -707,6 +712,8 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return this;
     }
     
+    
+    
     public boolean getPromoted() throws SystemException {
         Boolean promoted = PlanMetaLocalServiceUtil.getCurrentForPlan(this).getPromoted();
         return promoted != null ? promoted : false;
@@ -748,6 +755,36 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         if (attr != null) {
             PlanAttributeLocalServiceUtil.deletePlanAttribute(attr);
         }
+    }
+    
+    public PlanTemplate getPlanTemplate() throws PortalException, SystemException {
+        return getContest().getPlanTemplate();
+    }
+    
+    public List<PlanSection> getPlanSections() throws PortalException, SystemException {
+        List<PlanSection> ret = new ArrayList<PlanSection>();
+        
+        for (PlanSectionDefinition psd: getPlanTemplate().getSections()) {
+            ret.add(PlanSectionLocalServiceUtil.getCurrentForPlanSectionDef(this, psd));
+            
+        }
+        
+        return ret;
+    }
+    
+    public void setSectionContent(PlanSectionDefinition psd, String content, Long updateAuthorId) 
+    throws SystemException, PortalException {
+        newVersion(UpdateType.PLAN_SECTION_UPDATED, updateAuthorId);
+
+        PlanSection ps = PlanSectionLocalServiceUtil.createNewVersionForPlanSectionDefinition(this, psd, false);
+        ps.setUpdateAuthorId(updateAuthorId);
+        ps.setContent(content);
+        ps.store();
+        
+    }
+    
+    public List<PlanSection> getAllPlanSections(PlanSectionDefinition psd) throws SystemException {
+        return PlanSectionLocalServiceUtil.getAllForPlanDefinition(this, psd);
     }
 
 }

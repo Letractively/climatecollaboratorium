@@ -57,4 +57,10 @@ public interface Contest extends ContestModel {
 
     public void updateDefaultPlanDescription(java.lang.String description)
         throws com.liferay.portal.SystemException;
+
+    public void store() throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanTemplate getPlanTemplate()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

@@ -27,4 +27,24 @@ package com.ext.portlet.plans.model;
  *
  */
 public interface PlanTemplate extends PlanTemplateModel {
+    public void store() throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanSectionDefinition> getSections()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void addSection(
+        com.ext.portlet.plans.model.PlanSectionDefinition section)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void removeSection(
+        com.ext.portlet.plans.model.PlanSectionDefinition section)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void updateSectionWeight(
+        com.ext.portlet.plans.model.PlanSectionDefinition section, int weight)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

@@ -271,15 +271,20 @@
 		</id>
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="defaultText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="ontologyTermId" />
+		<property name="categoryId" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanSectionImpl" table="PlanSection">
 		<cache usage="read-write" />
-		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanSectionPK">
-			<key-property name="planSectionDefinitionId" />
-			<key-property name="planId" />
-		</composite-id>
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="planSectionDefinitionId" />
+		<property name="planId" />
 		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="created" type="org.hibernate.type.TimestampType" />
+		<property name="version" />
+		<property name="planVersion" />
+		<property name="updateAuthorId" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanRelatedImpl" table="PlanRelated">
 		<cache usage="read-write" />
@@ -298,9 +303,10 @@
 	<class name="com.ext.portlet.plans.model.impl.PlanTemplateSectionImpl" table="PlanTemplateSection">
 		<cache usage="read-write" />
 		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanTemplateSectionPK">
-			<key-property name="id" column="id_" />
+			<key-property name="planTemplateId" />
 			<key-property name="planSectionId" />
 		</composite-id>
+		<property name="weight" />
 	</class>
 	<class name="com.ext.portlet.models.model.impl.ModelDiscussionImpl" table="ModelDiscussion">
 		<cache usage="read-write" />
@@ -753,6 +759,7 @@
 		<property name="updated" type="org.hibernate.type.TimestampType" />
 		<property name="authorId" />
 		<property name="contestActive" />
+		<property name="planTemplateId" />
 	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestDebateImpl" table="ContestDebate">
 		<cache usage="read-write" />
@@ -863,5 +870,19 @@
 		<property name="termId" />
 		<property name="classNameId" />
 		<property name="classPK" />
+	</class>
+	<class name="com.ext.portlet.ontology.model.impl.CategoryImpl" table="Category">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.ext.portlet.ontology.model.impl.CategoryOntologyTermImpl" table="CategoryOntologyTerm">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPK">
+			<key-property name="categoryId" />
+			<key-property name="ontologyTerm" />
+		</composite-id>
 	</class>
 </hibernate-mapping>

@@ -943,4 +943,28 @@
 		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermEntityService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermEntityService" />
 	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_CategoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.CategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_CategoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.CategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_CategoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.CategoryService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_CategoryOntologyTermService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryOntologyTermService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_CategoryOntologyTermService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryOntologyTermService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_CategoryOntologyTermService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryOntologyTermService" />
+	</bean>
 </beans>

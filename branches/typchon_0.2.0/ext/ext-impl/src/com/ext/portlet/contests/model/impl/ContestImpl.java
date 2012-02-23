@@ -15,9 +15,12 @@ import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.debaterevision.util.Indexer;
+import com.ext.portlet.plans.model.PlanTemplate;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.service.PlanTemplateLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -102,6 +105,22 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     public void updateDefaultPlanDescription(String description) throws SystemException {
         this.setDefaultPlanDescription(description);
         ContestLocalServiceUtil.updateContest(this);
+    }
+    
+    public void store() throws SystemException {
+        if (isNew()) {
+            if (getContestPK() == null) {
+                setContestPK(CounterLocalServiceUtil.increment(Contest.class.getName()));
+            }
+            ContestLocalServiceUtil.addContest(this);
+        }
+        else {
+            ContestLocalServiceUtil.updateContest(this);
+        }
+    }
+    
+    public PlanTemplate getPlanTemplate() throws PortalException, SystemException {
+        return PlanTemplateLocalServiceUtil.getPlanTemplate(getPlanTemplateId());
     }
 
 }
