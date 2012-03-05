@@ -59,4 +59,23 @@
 		<managed-bean-class>org.climatecollaboratorium.ontology.OntologyAdminBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>focusAreaAdmin</managed-bean-name>
+		<managed-bean-class>org.climatecollaboratorium.ontology.FocusAreaAdminBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<navigation-rule>
+		<from-view-id>/xhtml/view.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>editFocusArea</from-outcome>
+			<to-view-id>/xhtml/editFocusArea.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/xhtml/*</from-view-id>
+		<navigation-case>
+			<from-outcome>backToIndex</from-outcome>
+			<to-view-id>/xhtml/view.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
