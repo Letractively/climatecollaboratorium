@@ -123,6 +123,101 @@ public class OntologyTermUtil {
         return getPersistence().findByParentId_PrevAndNext(id, parentId, obc);
     }
 
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findByParentIdSpaceId(
+        java.lang.Long parentId, java.lang.Long ontologySpaceId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByParentIdSpaceId(parentId, ontologySpaceId);
+    }
+
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findByParentIdSpaceId(
+        java.lang.Long parentId, java.lang.Long ontologySpaceId, int start,
+        int end) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByParentIdSpaceId(parentId, ontologySpaceId, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findByParentIdSpaceId(
+        java.lang.Long parentId, java.lang.Long ontologySpaceId, int start,
+        int end, com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByParentIdSpaceId(parentId, ontologySpaceId, start,
+            end, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTerm findByParentIdSpaceId_First(
+        java.lang.Long parentId, java.lang.Long ontologySpaceId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByParentIdSpaceId_First(parentId, ontologySpaceId, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTerm findByParentIdSpaceId_Last(
+        java.lang.Long parentId, java.lang.Long ontologySpaceId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByParentIdSpaceId_Last(parentId, ontologySpaceId, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTerm[] findByParentIdSpaceId_PrevAndNext(
+        java.lang.Long id, java.lang.Long parentId,
+        java.lang.Long ontologySpaceId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByParentIdSpaceId_PrevAndNext(id, parentId,
+            ontologySpaceId, obc);
+    }
+
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findBySpaceId(
+        java.lang.Long ontologySpaceId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findBySpaceId(ontologySpaceId);
+    }
+
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findBySpaceId(
+        java.lang.Long ontologySpaceId, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findBySpaceId(ontologySpaceId, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findBySpaceId(
+        java.lang.Long ontologySpaceId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findBySpaceId(ontologySpaceId, start, end, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTerm findBySpaceId_First(
+        java.lang.Long ontologySpaceId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findBySpaceId_First(ontologySpaceId, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTerm findBySpaceId_Last(
+        java.lang.Long ontologySpaceId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findBySpaceId_Last(ontologySpaceId, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTerm[] findBySpaceId_PrevAndNext(
+        java.lang.Long id, java.lang.Long ontologySpaceId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findBySpaceId_PrevAndNext(id, ontologySpaceId, obc);
+    }
+
     public static java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findByName(
         java.lang.String name) throws com.liferay.portal.SystemException {
         return getPersistence().findByName(name);
@@ -198,6 +293,17 @@ public class OntologyTermUtil {
         getPersistence().removeByParentId(parentId);
     }
 
+    public static void removeByParentIdSpaceId(java.lang.Long parentId,
+        java.lang.Long ontologySpaceId)
+        throws com.liferay.portal.SystemException {
+        getPersistence().removeByParentIdSpaceId(parentId, ontologySpaceId);
+    }
+
+    public static void removeBySpaceId(java.lang.Long ontologySpaceId)
+        throws com.liferay.portal.SystemException {
+        getPersistence().removeBySpaceId(ontologySpaceId);
+    }
+
     public static void removeByName(java.lang.String name)
         throws com.liferay.portal.SystemException {
         getPersistence().removeByName(name);
@@ -210,6 +316,17 @@ public class OntologyTermUtil {
     public static int countByParentId(java.lang.Long parentId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByParentId(parentId);
+    }
+
+    public static int countByParentIdSpaceId(java.lang.Long parentId,
+        java.lang.Long ontologySpaceId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countByParentIdSpaceId(parentId, ontologySpaceId);
+    }
+
+    public static int countBySpaceId(java.lang.Long ontologySpaceId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().countBySpaceId(ontologySpaceId);
     }
 
     public static int countByName(java.lang.String name)

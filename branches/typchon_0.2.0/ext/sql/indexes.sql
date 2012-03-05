@@ -192,6 +192,12 @@ create index IX_CA9AFB7C on ExpandoValue (tableId, columnId);
 create unique index IX_D27B03E7 on ExpandoValue (tableId, columnId, classPK);
 create index IX_B71E92D5 on ExpandoValue (tableId, rowId_);
 
+create index IX_CDFD3F6A on FocusArea (name);
+
+create index IX_33F53E13 on FocusAreaOntologyTerm (categoryId);
+create index IX_B3ED74A on FocusAreaOntologyTerm (focusAreaId);
+create index IX_36F557C5 on FocusAreaOntologyTerm (focusAreaIdId);
+
 create unique index IX_D0D5E397 on Group_ (companyId, classNameId, classPK);
 create unique index IX_5DE0BE11 on Group_ (companyId, classNameId, liveGroupId, name);
 create unique index IX_5BDDB872 on Group_ (companyId, friendlyURL);
@@ -393,12 +399,17 @@ create index IX_46EED065 on ModelOutputItem (modelOutputItemId);
 create index IX_DB3398BC on ModelPosition (modelId);
 create index IX_64397830 on ModelPosition (positionId);
 
+create index IX_ABD7C0DC on OntologySpace (name);
+
 create index IX_D17A1280 on OntologyTerm (name);
+create index IX_5B21BFC1 on OntologyTerm (ontologySpaceId);
 create index IX_F229DF5A on OntologyTerm (parentId);
+create index IX_815A9508 on OntologyTerm (parentId, ontologySpaceId);
 
 create index IX_222A254A on OntologyTermEntity (classNameId);
 create index IX_E20301D9 on OntologyTermEntity (classNameId, classPK);
 create index IX_8E77BEDF on OntologyTermEntity (termId);
+create index IX_31789CCF on OntologyTermEntity (termId, classNameId);
 
 create index IX_A425F71A on OrgGroupPermission (groupId);
 create index IX_6C53DA4E on OrgGroupPermission (permissionId);
@@ -465,6 +476,9 @@ create index IX_8AF88237 on PlanRelated (relatedPlanId);
 
 create index IX_918E76BA on PlanSection (planId);
 create index IX_D6FF7AA0 on PlanSection (planId, planSectionDefinitionId);
+
+create index IX_9E4A2D02 on PlanSectionPlanMap (relatedPlanId);
+create index IX_E54815F3 on PlanSectionPlanMap (sectionId);
 
 create index IX_F4A17D4C on PlanTeamHistory (planId);
 create index IX_5BE2C986 on PlanTeamHistory (planId, userId);

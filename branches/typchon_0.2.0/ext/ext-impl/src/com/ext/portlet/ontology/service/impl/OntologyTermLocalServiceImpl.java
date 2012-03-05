@@ -3,10 +3,11 @@ package com.ext.portlet.ontology.service.impl;
 import java.util.List;
 
 import com.ext.portlet.ontology.model.OntologyTerm;
+import com.ext.portlet.ontology.model.OntologyTermEntity;
 import com.ext.portlet.ontology.service.base.OntologyTermLocalServiceBaseImpl;
-import com.ext.portlet.plans.model.PlanItem;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.service.ClassNameLocalServiceUtil;
 
 
 public class OntologyTermLocalServiceImpl
@@ -15,13 +16,20 @@ public class OntologyTermLocalServiceImpl
     public List<OntologyTerm> findByParentId(Long parentId) throws SystemException {
         return ontologyTermPersistence.findByParentId(parentId);
     }
+
     
-    public OntologyTerm createTerm(Long parentId, String name) throws SystemException {
+    public List<OntologyTerm> findByParentIdSpaceId(Long parentId, Long spaceId) throws SystemException {
+        return ontologyTermPersistence.findByParentIdSpaceId(parentId, spaceId);
+    }
+    
+    
+    public OntologyTerm createTerm(Long parentId, String name, Long spaceId) throws SystemException {
         Long termId = CounterLocalServiceUtil.increment(OntologyTerm.class.getName());
         
         OntologyTerm t = createOntologyTerm(termId);
         t.setName(name);
         t.setParentId(parentId);
+        t.setOntologySpaceId(spaceId);
         
         t.store();
         
@@ -33,5 +41,12 @@ public class OntologyTermLocalServiceImpl
         return ontologyTermPersistence.countByParentId(parentId);
     }
     
-    
+    public void clearClassTags(Class clasz, Long id) throws SystemException {
+        
+        Long classNameId = ClassNameLocalServiceUtil.getClassNameId(clasz);
+        
+        for (OntologyTermEntity ote: ontologyTermEntityPersistence.findByClassNameIdClassPk(classNameId, id)) {
+            ote.remove();
+        }
+    }
 }

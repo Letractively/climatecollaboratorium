@@ -145,6 +145,8 @@ public class PlansUserSettingsPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.plans.service.persistence.PlanSectionDefinitionPersistence planSectionDefinitionPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanSectionPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanSectionPersistence planSectionPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanSectionPlanMapPersistence.impl")
+    protected com.ext.portlet.plans.service.persistence.PlanSectionPlanMapPersistence planSectionPlanMapPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanRelatedPersistence.impl")
     protected com.ext.portlet.plans.service.persistence.PlanRelatedPersistence planRelatedPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanTemplatePersistence.impl")

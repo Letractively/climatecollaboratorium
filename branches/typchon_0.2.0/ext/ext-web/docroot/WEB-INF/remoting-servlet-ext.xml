@@ -283,6 +283,18 @@
 		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionService" />
 	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionPlanMapService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionPlanMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionPlanMapService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionPlanMapService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionPlanMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionPlanMapService" />
+	</bean>
+	<bean name="/com_ext_portlet_plans_service_spring_PlanSectionPlanMapService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionPlanMapService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanSectionPlanMapService" />
+	</bean>
 	<bean name="/com_ext_portlet_plans_service_spring_PlanRelatedService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.plans.service.PlanRelatedService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.plans.service.PlanRelatedService" />
@@ -919,6 +931,18 @@
 		<property name="service" ref="com.ext.portlet.twitter.service.UserTwitterMappingService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.twitter.service.UserTwitterMappingService" />
 	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologySpaceService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologySpaceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologySpaceService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologySpaceService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologySpaceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologySpaceService" />
+	</bean>
+	<bean name="/com_ext_portlet_ontology_service_spring_OntologySpaceService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologySpaceService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologySpaceService" />
+	</bean>
 	<bean name="/com_ext_portlet_ontology_service_spring_OntologyTermService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermService" />
@@ -943,28 +967,28 @@
 		<property name="service" ref="com.ext.portlet.ontology.service.OntologyTermEntityService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.ontology.service.OntologyTermEntityService" />
 	</bean>
-	<bean name="/com_ext_portlet_ontology_service_spring_CategoryService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryService" />
+	<bean name="/com_ext_portlet_ontology_service_spring_FocusAreaService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.FocusAreaService" />
 	</bean>
-	<bean name="/com_ext_portlet_ontology_service_spring_CategoryService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryService" />
+	<bean name="/com_ext_portlet_ontology_service_spring_FocusAreaService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.FocusAreaService" />
 	</bean>
-	<bean name="/com_ext_portlet_ontology_service_spring_CategoryService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryService" />
+	<bean name="/com_ext_portlet_ontology_service_spring_FocusAreaService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.FocusAreaService" />
 	</bean>
-	<bean name="/com_ext_portlet_ontology_service_spring_CategoryOntologyTermService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryOntologyTermService" />
+	<bean name="/com_ext_portlet_ontology_service_spring_FocusAreaOntologyTermService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaOntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.FocusAreaOntologyTermService" />
 	</bean>
-	<bean name="/com_ext_portlet_ontology_service_spring_CategoryOntologyTermService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryOntologyTermService" />
+	<bean name="/com_ext_portlet_ontology_service_spring_FocusAreaOntologyTermService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaOntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.FocusAreaOntologyTermService" />
 	</bean>
-	<bean name="/com_ext_portlet_ontology_service_spring_CategoryOntologyTermService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" />
-		<property name="serviceInterface" value="com.ext.portlet.ontology.service.CategoryOntologyTermService" />
+	<bean name="/com_ext_portlet_ontology_service_spring_FocusAreaOntologyTermService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaOntologyTermService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.ontology.service.FocusAreaOntologyTermService" />
 	</bean>
 </beans>

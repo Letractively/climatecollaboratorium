@@ -31,6 +31,8 @@ import com.ext.portlet.plans.service.PlanRelatedService;
 import com.ext.portlet.plans.service.PlanSectionDefinitionLocalService;
 import com.ext.portlet.plans.service.PlanSectionDefinitionService;
 import com.ext.portlet.plans.service.PlanSectionLocalService;
+import com.ext.portlet.plans.service.PlanSectionPlanMapLocalService;
+import com.ext.portlet.plans.service.PlanSectionPlanMapService;
 import com.ext.portlet.plans.service.PlanSectionService;
 import com.ext.portlet.plans.service.PlanService;
 import com.ext.portlet.plans.service.PlanTeamHistoryLocalService;
@@ -70,6 +72,7 @@ import com.ext.portlet.plans.service.persistence.PlanPropertyFilterPersistence;
 import com.ext.portlet.plans.service.persistence.PlanRelatedPersistence;
 import com.ext.portlet.plans.service.persistence.PlanSectionDefinitionPersistence;
 import com.ext.portlet.plans.service.persistence.PlanSectionPersistence;
+import com.ext.portlet.plans.service.persistence.PlanSectionPlanMapPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTeamHistoryPersistence;
 import com.ext.portlet.plans.service.persistence.PlanTemplatePersistence;
 import com.ext.portlet.plans.service.persistence.PlanTemplateSectionPersistence;
@@ -233,6 +236,12 @@ public abstract class PlansFilterPositionLocalServiceBaseImpl
     protected PlanSectionService planSectionService;
     @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanSectionPersistence.impl")
     protected PlanSectionPersistence planSectionPersistence;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanSectionPlanMapLocalService.impl")
+    protected PlanSectionPlanMapLocalService planSectionPlanMapLocalService;
+    @BeanReference(name = "com.ext.portlet.plans.service.PlanSectionPlanMapService.impl")
+    protected PlanSectionPlanMapService planSectionPlanMapService;
+    @BeanReference(name = "com.ext.portlet.plans.service.persistence.PlanSectionPlanMapPersistence.impl")
+    protected PlanSectionPlanMapPersistence planSectionPlanMapPersistence;
     @BeanReference(name = "com.ext.portlet.plans.service.PlanRelatedLocalService.impl")
     protected PlanRelatedLocalService planRelatedLocalService;
     @BeanReference(name = "com.ext.portlet.plans.service.PlanRelatedService.impl")
@@ -925,6 +934,33 @@ public abstract class PlansFilterPositionLocalServiceBaseImpl
     public void setPlanSectionPersistence(
         PlanSectionPersistence planSectionPersistence) {
         this.planSectionPersistence = planSectionPersistence;
+    }
+
+    public PlanSectionPlanMapLocalService getPlanSectionPlanMapLocalService() {
+        return planSectionPlanMapLocalService;
+    }
+
+    public void setPlanSectionPlanMapLocalService(
+        PlanSectionPlanMapLocalService planSectionPlanMapLocalService) {
+        this.planSectionPlanMapLocalService = planSectionPlanMapLocalService;
+    }
+
+    public PlanSectionPlanMapService getPlanSectionPlanMapService() {
+        return planSectionPlanMapService;
+    }
+
+    public void setPlanSectionPlanMapService(
+        PlanSectionPlanMapService planSectionPlanMapService) {
+        this.planSectionPlanMapService = planSectionPlanMapService;
+    }
+
+    public PlanSectionPlanMapPersistence getPlanSectionPlanMapPersistence() {
+        return planSectionPlanMapPersistence;
+    }
+
+    public void setPlanSectionPlanMapPersistence(
+        PlanSectionPlanMapPersistence planSectionPlanMapPersistence) {
+        this.planSectionPlanMapPersistence = planSectionPlanMapPersistence;
     }
 
     public PlanRelatedLocalService getPlanRelatedLocalService() {

@@ -40,9 +40,9 @@ public interface PlanSectionDefinitionModel extends BaseModel<PlanSectionDefinit
 
     public void setDefaultText(String defaultText);
 
-    public Long getCategoryId();
+    public Long getFocusAreaId();
 
-    public void setCategoryId(Long categoryId);
+    public void setFocusAreaId(Long focusAreaId);
 
     public PlanSectionDefinition toEscapedModel();
 }

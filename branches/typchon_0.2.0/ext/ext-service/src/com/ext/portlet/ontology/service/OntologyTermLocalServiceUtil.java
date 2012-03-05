@@ -94,15 +94,26 @@ public class OntologyTermLocalServiceUtil {
         return getService().findByParentId(parentId);
     }
 
-    public static com.ext.portlet.ontology.model.OntologyTerm createTerm(
-        java.lang.Long parentId, java.lang.String name)
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findByParentIdSpaceId(
+        java.lang.Long parentId, java.lang.Long spaceId)
         throws com.liferay.portal.SystemException {
-        return getService().createTerm(parentId, name);
+        return getService().findByParentIdSpaceId(parentId, spaceId);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTerm createTerm(
+        java.lang.Long parentId, java.lang.String name, java.lang.Long spaceId)
+        throws com.liferay.portal.SystemException {
+        return getService().createTerm(parentId, name, spaceId);
     }
 
     public static int countChildTerms(java.lang.Long parentId)
         throws com.liferay.portal.SystemException {
         return getService().countChildTerms(parentId);
+    }
+
+    public static void clearClassTags(java.lang.Class clasz, java.lang.Long id)
+        throws com.liferay.portal.SystemException {
+        getService().clearClassTags(clasz, id);
     }
 
     public static OntologyTermLocalService getService() {

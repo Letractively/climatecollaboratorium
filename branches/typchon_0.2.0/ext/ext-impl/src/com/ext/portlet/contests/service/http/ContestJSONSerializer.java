@@ -67,6 +67,7 @@ public class ContestJSONSerializer {
         jsonObj.put("authorId", model.getAuthorId());
         jsonObj.put("contestActive", model.getContestActive());
         jsonObj.put("planTemplateId", model.getPlanTemplateId());
+        jsonObj.put("focusAreaId", model.getFocusAreaId());
 
         return jsonObj;
     }

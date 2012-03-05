@@ -79,4 +79,7 @@ public interface OntologyTermEntityLocalService {
     public com.ext.portlet.ontology.model.OntologyTermEntity updateOntologyTermEntity(
         com.ext.portlet.ontology.model.OntologyTermEntity ontologyTermEntity,
         boolean merge) throws com.liferay.portal.SystemException;
+
+    public java.util.List<Long> findTagedIdsForClass(java.lang.Long termId,
+        java.lang.Class clasz) throws com.liferay.portal.SystemException;
 }

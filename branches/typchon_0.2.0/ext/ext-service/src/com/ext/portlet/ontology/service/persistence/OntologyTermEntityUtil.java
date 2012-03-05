@@ -216,6 +216,55 @@ public class OntologyTermEntityUtil {
         return getPersistence().findByTermId_PrevAndNext(id, termId, obc);
     }
 
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTermEntity> findByTermIdClassNameId(
+        java.lang.Long termId, java.lang.Long classNameId)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByTermIdClassNameId(termId, classNameId);
+    }
+
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTermEntity> findByTermIdClassNameId(
+        java.lang.Long termId, java.lang.Long classNameId, int start, int end)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByTermIdClassNameId(termId, classNameId, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.ontology.model.OntologyTermEntity> findByTermIdClassNameId(
+        java.lang.Long termId, java.lang.Long classNameId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByTermIdClassNameId(termId, classNameId, start, end, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTermEntity findByTermIdClassNameId_First(
+        java.lang.Long termId, java.lang.Long classNameId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermEntityException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByTermIdClassNameId_First(termId, classNameId, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTermEntity findByTermIdClassNameId_Last(
+        java.lang.Long termId, java.lang.Long classNameId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermEntityException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByTermIdClassNameId_Last(termId, classNameId, obc);
+    }
+
+    public static com.ext.portlet.ontology.model.OntologyTermEntity[] findByTermIdClassNameId_PrevAndNext(
+        java.lang.Long id, java.lang.Long termId, java.lang.Long classNameId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermEntityException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByTermIdClassNameId_PrevAndNext(id, termId,
+            classNameId, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -259,6 +308,11 @@ public class OntologyTermEntityUtil {
         getPersistence().removeByTermId(termId);
     }
 
+    public static void removeByTermIdClassNameId(java.lang.Long termId,
+        java.lang.Long classNameId) throws com.liferay.portal.SystemException {
+        getPersistence().removeByTermIdClassNameId(termId, classNameId);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -276,6 +330,11 @@ public class OntologyTermEntityUtil {
     public static int countByTermId(java.lang.Long termId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByTermId(termId);
+    }
+
+    public static int countByTermIdClassNameId(java.lang.Long termId,
+        java.lang.Long classNameId) throws com.liferay.portal.SystemException {
+        return getPersistence().countByTermIdClassNameId(termId, classNameId);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

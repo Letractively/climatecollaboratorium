@@ -151,6 +151,37 @@ public interface OntologyTermEntityPersistence extends BasePersistence {
         throws com.ext.portlet.ontology.NoSuchOntologyTermEntityException,
             com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.ontology.model.OntologyTermEntity> findByTermIdClassNameId(
+        java.lang.Long termId, java.lang.Long classNameId)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.ontology.model.OntologyTermEntity> findByTermIdClassNameId(
+        java.lang.Long termId, java.lang.Long classNameId, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.ontology.model.OntologyTermEntity> findByTermIdClassNameId(
+        java.lang.Long termId, java.lang.Long classNameId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.ontology.model.OntologyTermEntity findByTermIdClassNameId_First(
+        java.lang.Long termId, java.lang.Long classNameId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermEntityException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.ontology.model.OntologyTermEntity findByTermIdClassNameId_Last(
+        java.lang.Long termId, java.lang.Long classNameId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermEntityException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.ontology.model.OntologyTermEntity[] findByTermIdClassNameId_PrevAndNext(
+        java.lang.Long id, java.lang.Long termId, java.lang.Long classNameId,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.ontology.NoSuchOntologyTermEntityException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -178,6 +209,9 @@ public interface OntologyTermEntityPersistence extends BasePersistence {
     public void removeByTermId(java.lang.Long termId)
         throws com.liferay.portal.SystemException;
 
+    public void removeByTermIdClassNameId(java.lang.Long termId,
+        java.lang.Long classNameId) throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByClassNameId(java.lang.Long classNameId)
@@ -188,6 +222,9 @@ public interface OntologyTermEntityPersistence extends BasePersistence {
 
     public int countByTermId(java.lang.Long termId)
         throws com.liferay.portal.SystemException;
+
+    public int countByTermIdClassNameId(java.lang.Long termId,
+        java.lang.Long classNameId) throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

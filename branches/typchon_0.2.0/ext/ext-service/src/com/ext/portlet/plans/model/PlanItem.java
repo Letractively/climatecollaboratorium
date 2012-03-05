@@ -319,7 +319,8 @@ public interface PlanItem extends PlanItemModel {
 
     public void setSectionContent(
         com.ext.portlet.plans.model.PlanSectionDefinition psd,
-        java.lang.String content, java.lang.Long updateAuthorId)
+        java.lang.String content, java.util.List<Long> referencedPlans,
+        java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 

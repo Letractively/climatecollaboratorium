@@ -204,7 +204,7 @@
 		<field name="id" type="Long" />
 		<field name="title" type="String" />
 		<field name="defaultText" type="String" />
-		<field name="categoryId" type="Long" />
+		<field name="focusAreaId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanSection">
 		<field name="id" type="Long" />
@@ -215,6 +215,10 @@
 		<field name="version" type="Long" />
 		<field name="planVersion" type="Long" />
 		<field name="updateAuthorId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.plans.model.PlanSectionPlanMap">
+		<field name="sectionId" type="Long" />
+		<field name="relatedPlanId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanRelated">
 		<field name="sectionId" type="Long" />
@@ -561,6 +565,7 @@
 		<field name="authorId" type="Long" />
 		<field name="contestActive" type="Boolean" />
 		<field name="planTemplateId" type="Long" />
+		<field name="focusAreaId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.contests.model.ContestDebate">
 		<field name="id" type="Long" />
@@ -625,9 +630,15 @@
 		<field name="twitterId" type="Long" />
 		<field name="userId" type="Long" />
 	</model>
+	<model name="com.ext.portlet.ontology.model.OntologySpace">
+		<field name="id" type="Long" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+	</model>
 	<model name="com.ext.portlet.ontology.model.OntologyTerm">
 		<field name="id" type="Long" />
 		<field name="parentId" type="Long" />
+		<field name="ontologySpaceId" type="Long" />
 		<field name="name" type="String" />
 	</model>
 	<model name="com.ext.portlet.ontology.model.OntologyTermEntity">
@@ -636,12 +647,12 @@
 		<field name="classNameId" type="Long" />
 		<field name="classPK" type="Long" />
 	</model>
-	<model name="com.ext.portlet.ontology.model.Category">
+	<model name="com.ext.portlet.ontology.model.FocusArea">
 		<field name="id" type="Long" />
 		<field name="name" type="String" />
 	</model>
-	<model name="com.ext.portlet.ontology.model.CategoryOntologyTerm">
-		<field name="categoryId" type="Long" />
-		<field name="ontologyTerm" type="Long" />
+	<model name="com.ext.portlet.ontology.model.FocusAreaOntologyTerm">
+		<field name="focusAreaId" type="Long" />
+		<field name="ontologyTermId" type="Long" />
 	</model>
 </model-hints>

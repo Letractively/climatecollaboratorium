@@ -83,10 +83,17 @@ public interface OntologyTermLocalService {
     public java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findByParentId(
         java.lang.Long parentId) throws com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.ontology.model.OntologyTerm> findByParentIdSpaceId(
+        java.lang.Long parentId, java.lang.Long spaceId)
+        throws com.liferay.portal.SystemException;
+
     public com.ext.portlet.ontology.model.OntologyTerm createTerm(
-        java.lang.Long parentId, java.lang.String name)
+        java.lang.Long parentId, java.lang.String name, java.lang.Long spaceId)
         throws com.liferay.portal.SystemException;
 
     public int countChildTerms(java.lang.Long parentId)
+        throws com.liferay.portal.SystemException;
+
+    public void clearClassTags(java.lang.Class clasz, java.lang.Long id)
         throws com.liferay.portal.SystemException;
 }

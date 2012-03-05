@@ -237,6 +237,27 @@ public class PlanItemLocalServiceUtil {
         getService().reIndex(planId);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findPlansForFocusArea(
+        com.ext.portlet.ontology.model.FocusArea fa)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().findPlansForFocusArea(fa);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findPlansForOntologyTerms(
+        com.ext.portlet.ontology.model.OntologyTerm terms)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException {
+        return getService().findPlansForOntologyTerms(terms);
+    }
+
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> findPlansForOntologyTerms(
+        java.util.List<com.ext.portlet.ontology.model.OntologyTerm> terms)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException {
+        return getService().findPlansForOntologyTerms(terms);
+    }
+
     public static PlanItemLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanItemLocalService is not set");

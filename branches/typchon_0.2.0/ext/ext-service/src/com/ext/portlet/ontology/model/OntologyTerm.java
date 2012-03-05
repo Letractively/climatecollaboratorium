@@ -37,4 +37,14 @@ public interface OntologyTerm extends OntologyTermModel {
 
     public java.util.List<com.ext.portlet.ontology.model.OntologyTerm> getChildTerms()
         throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.ontology.model.OntologySpace getSpace()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void tagClass(java.lang.Class clasz, java.lang.Long id)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<Long> findTagedIdsForClass(java.lang.Class clasz)
+        throws com.liferay.portal.SystemException;
 }

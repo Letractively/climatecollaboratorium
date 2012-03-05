@@ -189,4 +189,19 @@ public interface PlanItemLocalService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public void reIndex(long planId) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> findPlansForFocusArea(
+        com.ext.portlet.ontology.model.FocusArea fa)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> findPlansForOntologyTerms(
+        com.ext.portlet.ontology.model.OntologyTerm terms)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> findPlansForOntologyTerms(
+        java.util.List<com.ext.portlet.ontology.model.OntologyTerm> terms)
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
 }

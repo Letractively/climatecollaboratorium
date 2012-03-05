@@ -28,4 +28,8 @@ package com.ext.portlet.plans.model;
  */
 public interface PlanSectionDefinition extends PlanSectionDefinitionModel {
     public void store() throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.ontology.model.FocusArea getFocusArea()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }
