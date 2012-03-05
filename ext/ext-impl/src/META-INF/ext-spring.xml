@@ -438,6 +438,24 @@
 	<bean id="com.ext.portlet.plans.service.persistence.PlanSectionUtil" class="com.ext.portlet.plans.service.persistence.PlanSectionUtil">
 		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanSectionPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanSectionPlanMapLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanSectionPlanMapLocalServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanSectionPlanMapLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanSectionPlanMapLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanSectionPlanMapLocalServiceUtil" class="com.ext.portlet.plans.service.PlanSectionPlanMapLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionPlanMapLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanSectionPlanMapService.impl" class="com.ext.portlet.plans.service.impl.PlanSectionPlanMapServiceImpl" />
+	<bean id="com.ext.portlet.plans.service.PlanSectionPlanMapService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.plans.service.PlanSectionPlanMapService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.PlanSectionPlanMapServiceUtil" class="com.ext.portlet.plans.service.PlanSectionPlanMapServiceUtil">
+		<property name="service" ref="com.ext.portlet.plans.service.PlanSectionPlanMapService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.plans.service.persistence.PlanSectionPlanMapPersistence.impl" class="com.ext.portlet.plans.service.persistence.PlanSectionPlanMapPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.plans.service.persistence.PlanSectionPlanMapUtil" class="com.ext.portlet.plans.service.persistence.PlanSectionPlanMapUtil">
+		<property name="persistence" ref="com.ext.portlet.plans.service.persistence.PlanSectionPlanMapPersistence.impl" />
+	</bean>
 	<bean id="com.ext.portlet.plans.service.PlanRelatedLocalService.impl" class="com.ext.portlet.plans.service.impl.PlanRelatedLocalServiceImpl" />
 	<bean id="com.ext.portlet.plans.service.PlanRelatedLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.portlet.plans.service.PlanRelatedLocalService.impl" />
@@ -1424,6 +1442,24 @@
 	<bean id="com.ext.portlet.twitter.service.persistence.UserTwitterMappingUtil" class="com.ext.portlet.twitter.service.persistence.UserTwitterMappingUtil">
 		<property name="persistence" ref="com.ext.portlet.twitter.service.persistence.UserTwitterMappingPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.ontology.service.OntologySpaceLocalService.impl" class="com.ext.portlet.ontology.service.impl.OntologySpaceLocalServiceImpl" />
+	<bean id="com.ext.portlet.ontology.service.OntologySpaceLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.ontology.service.OntologySpaceLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.ontology.service.OntologySpaceLocalServiceUtil" class="com.ext.portlet.ontology.service.OntologySpaceLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologySpaceLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.ontology.service.OntologySpaceService.impl" class="com.ext.portlet.ontology.service.impl.OntologySpaceServiceImpl" />
+	<bean id="com.ext.portlet.ontology.service.OntologySpaceService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.ontology.service.OntologySpaceService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.ontology.service.OntologySpaceServiceUtil" class="com.ext.portlet.ontology.service.OntologySpaceServiceUtil">
+		<property name="service" ref="com.ext.portlet.ontology.service.OntologySpaceService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.ontology.service.persistence.OntologySpacePersistence.impl" class="com.ext.portlet.ontology.service.persistence.OntologySpacePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.ontology.service.persistence.OntologySpaceUtil" class="com.ext.portlet.ontology.service.persistence.OntologySpaceUtil">
+		<property name="persistence" ref="com.ext.portlet.ontology.service.persistence.OntologySpacePersistence.impl" />
+	</bean>
 	<bean id="com.ext.portlet.ontology.service.OntologyTermLocalService.impl" class="com.ext.portlet.ontology.service.impl.OntologyTermLocalServiceImpl" />
 	<bean id="com.ext.portlet.ontology.service.OntologyTermLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.portlet.ontology.service.OntologyTermLocalService.impl" />
@@ -1460,40 +1496,40 @@
 	<bean id="com.ext.portlet.ontology.service.persistence.OntologyTermEntityUtil" class="com.ext.portlet.ontology.service.persistence.OntologyTermEntityUtil">
 		<property name="persistence" ref="com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.CategoryLocalService.impl" class="com.ext.portlet.ontology.service.impl.CategoryLocalServiceImpl" />
-	<bean id="com.ext.portlet.ontology.service.CategoryLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
-		<property name="target" ref="com.ext.portlet.ontology.service.CategoryLocalService.impl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaLocalService.impl" class="com.ext.portlet.ontology.service.impl.FocusAreaLocalServiceImpl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.ontology.service.FocusAreaLocalService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.CategoryLocalServiceUtil" class="com.ext.portlet.ontology.service.CategoryLocalServiceUtil">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryLocalService.impl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaLocalServiceUtil" class="com.ext.portlet.ontology.service.FocusAreaLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaLocalService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.CategoryService.impl" class="com.ext.portlet.ontology.service.impl.CategoryServiceImpl" />
-	<bean id="com.ext.portlet.ontology.service.CategoryService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
-		<property name="target" ref="com.ext.portlet.ontology.service.CategoryService.impl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaService.impl" class="com.ext.portlet.ontology.service.impl.FocusAreaServiceImpl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.ontology.service.FocusAreaService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.CategoryServiceUtil" class="com.ext.portlet.ontology.service.CategoryServiceUtil">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryService.impl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaServiceUtil" class="com.ext.portlet.ontology.service.FocusAreaServiceUtil">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.persistence.CategoryPersistence.impl" class="com.ext.portlet.ontology.service.persistence.CategoryPersistenceImpl" parent="basePersistence" />
-	<bean id="com.ext.portlet.ontology.service.persistence.CategoryUtil" class="com.ext.portlet.ontology.service.persistence.CategoryUtil">
-		<property name="persistence" ref="com.ext.portlet.ontology.service.persistence.CategoryPersistence.impl" />
+	<bean id="com.ext.portlet.ontology.service.persistence.FocusAreaPersistence.impl" class="com.ext.portlet.ontology.service.persistence.FocusAreaPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.ontology.service.persistence.FocusAreaUtil" class="com.ext.portlet.ontology.service.persistence.FocusAreaUtil">
+		<property name="persistence" ref="com.ext.portlet.ontology.service.persistence.FocusAreaPersistence.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.CategoryOntologyTermLocalService.impl" class="com.ext.portlet.ontology.service.impl.CategoryOntologyTermLocalServiceImpl" />
-	<bean id="com.ext.portlet.ontology.service.CategoryOntologyTermLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
-		<property name="target" ref="com.ext.portlet.ontology.service.CategoryOntologyTermLocalService.impl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaOntologyTermLocalService.impl" class="com.ext.portlet.ontology.service.impl.FocusAreaOntologyTermLocalServiceImpl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaOntologyTermLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.ontology.service.FocusAreaOntologyTermLocalService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.CategoryOntologyTermLocalServiceUtil" class="com.ext.portlet.ontology.service.CategoryOntologyTermLocalServiceUtil">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryOntologyTermLocalService.impl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaOntologyTermLocalServiceUtil" class="com.ext.portlet.ontology.service.FocusAreaOntologyTermLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaOntologyTermLocalService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" class="com.ext.portlet.ontology.service.impl.CategoryOntologyTermServiceImpl" />
-	<bean id="com.ext.portlet.ontology.service.CategoryOntologyTermService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
-		<property name="target" ref="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaOntologyTermService.impl" class="com.ext.portlet.ontology.service.impl.FocusAreaOntologyTermServiceImpl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaOntologyTermService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.ontology.service.FocusAreaOntologyTermService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.CategoryOntologyTermServiceUtil" class="com.ext.portlet.ontology.service.CategoryOntologyTermServiceUtil">
-		<property name="service" ref="com.ext.portlet.ontology.service.CategoryOntologyTermService.impl" />
+	<bean id="com.ext.portlet.ontology.service.FocusAreaOntologyTermServiceUtil" class="com.ext.portlet.ontology.service.FocusAreaOntologyTermServiceUtil">
+		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaOntologyTermService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence.impl" class="com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistenceImpl" parent="basePersistence" />
-	<bean id="com.ext.portlet.ontology.service.persistence.CategoryOntologyTermUtil" class="com.ext.portlet.ontology.service.persistence.CategoryOntologyTermUtil">
-		<property name="persistence" ref="com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence.impl" />
+	<bean id="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence.impl" class="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermUtil" class="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermUtil">
+		<property name="persistence" ref="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence.impl" />
 	</bean>
 </beans>

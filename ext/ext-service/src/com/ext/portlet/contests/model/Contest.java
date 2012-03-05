@@ -63,4 +63,8 @@ public interface Contest extends ContestModel {
     public com.ext.portlet.plans.model.PlanTemplate getPlanTemplate()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public com.ext.portlet.ontology.model.FocusArea getFocusArea()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

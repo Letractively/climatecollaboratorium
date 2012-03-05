@@ -27,4 +27,7 @@ package com.ext.portlet.ontology.model;
  *
  */
 public interface OntologyTermEntity extends OntologyTermEntityModel {
+    public void store() throws com.liferay.portal.SystemException;
+
+    public void remove() throws com.liferay.portal.SystemException;
 }

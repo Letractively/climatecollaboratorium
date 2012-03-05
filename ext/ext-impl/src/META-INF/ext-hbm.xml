@@ -271,7 +271,7 @@
 		</id>
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="defaultText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="categoryId" />
+		<property name="focusAreaId" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanSectionImpl" table="PlanSection">
 		<cache usage="read-write" />
@@ -285,6 +285,13 @@
 		<property name="version" />
 		<property name="planVersion" />
 		<property name="updateAuthorId" />
+	</class>
+	<class name="com.ext.portlet.plans.model.impl.PlanSectionPlanMapImpl" table="PlanSectionPlanMap">
+		<cache usage="read-write" />
+		<composite-id name="primaryKey" class="com.ext.portlet.plans.service.persistence.PlanSectionPlanMapPK">
+			<key-property name="sectionId" />
+			<key-property name="relatedPlanId" />
+		</composite-id>
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanRelatedImpl" table="PlanRelated">
 		<cache usage="read-write" />
@@ -760,6 +767,7 @@
 		<property name="authorId" />
 		<property name="contestActive" />
 		<property name="planTemplateId" />
+		<property name="focusAreaId" />
 	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestDebateImpl" table="ContestDebate">
 		<cache usage="read-write" />
@@ -854,12 +862,21 @@
 		</id>
 		<property name="userId" />
 	</class>
+	<class name="com.ext.portlet.ontology.model.impl.OntologySpaceImpl" table="OntologySpace">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="com.ext.portlet.ontology.model.impl.OntologyTermImpl" table="OntologyTerm">
 		<cache usage="read-write" />
 		<id name="id" column="id_" type="java.lang.Long">
 			<generator class="assigned" />
 		</id>
 		<property name="parentId" />
+		<property name="ontologySpaceId" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.ontology.model.impl.OntologyTermEntityImpl" table="OntologyTermEntity">
@@ -871,18 +888,18 @@
 		<property name="classNameId" />
 		<property name="classPK" />
 	</class>
-	<class name="com.ext.portlet.ontology.model.impl.CategoryImpl" table="Category">
+	<class name="com.ext.portlet.ontology.model.impl.FocusAreaImpl" table="FocusArea">
 		<cache usage="read-write" />
 		<id name="id" column="id_" type="java.lang.Long">
 			<generator class="assigned" />
 		</id>
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.ext.portlet.ontology.model.impl.CategoryOntologyTermImpl" table="CategoryOntologyTerm">
+	<class name="com.ext.portlet.ontology.model.impl.FocusAreaOntologyTermImpl" table="FocusAreaOntologyTerm">
 		<cache usage="read-write" />
-		<composite-id name="primaryKey" class="com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPK">
-			<key-property name="categoryId" />
-			<key-property name="ontologyTerm" />
+		<composite-id name="primaryKey" class="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPK">
+			<key-property name="focusAreaId" />
+			<key-property name="ontologyTermId" />
 		</composite-id>
 	</class>
 </hibernate-mapping>

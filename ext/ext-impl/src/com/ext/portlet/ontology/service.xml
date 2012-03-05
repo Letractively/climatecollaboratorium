@@ -9,14 +9,37 @@
 
 <service-builder package-path="com.ext.portlet.ontology">
     <namespace>ontology</namespace>
+    <entity name="OntologySpace" local-service="true">
+        <!-- PK field -->
+        <column name="id" type="Long" primary="true" />
+        <column name="name" type="String" />
+        <column name="description" type="String" />
+        
+        <finder name="Name" return-type="OntologySpace">
+            <finder-column name="name" />
+        </finder>
+        
+    </entity>
+    
     <entity name="OntologyTerm" local-service="true">
         <!-- PK field -->
         <column name="id" type="Long" primary="true" />
         <column name="parentId" type="Long" />
+        <column name="ontologySpaceId" type="Long" />
         <column name="name" type="String" />
         
         <finder name="ParentId" return-type="Collection">
             <finder-column name="parentId" />
+        </finder>
+        
+        <finder name="ParentIdSpaceId" return-type="Collection">
+            <finder-column name="parentId" />
+            <finder-column name="ontologySpaceId" />
+        </finder>
+        
+        
+        <finder name="SpaceId" return-type="Collection">
+            <finder-column name="ontologySpaceId" />
         </finder>
         
         <finder name="Name" return-type="Collection">
@@ -47,27 +70,32 @@
             <finder-column name="termId" />
         </finder>
         
+        <finder name="TermIdClassNameId" return-type="Collection">
+            <finder-column name="termId" />
+            <finder-column name="classNameId" />
+        </finder>
+        
     </entity>
     
     
-    <entity name="Category" local-service="true">
+    <entity name="FocusArea" local-service="true">
         <!-- PK field -->
         <column name="id" type="Long" primary="true" />
         <column name="name" type="String" />
         
-        <finder name="Name" return-type="Category">
+        <finder name="Name" return-type="OntologyFocusArea">
             <finder-column name="name" />
         </finder>
         
     </entity>
     
-    <entity name="CategoryOntologyTerm" local-service="true">
+    <entity name="FocusAreaOntologyTerm" local-service="true">
         <!-- PK field -->
-        <column name="categoryId" type="Long" primary="true" />
-        <column name="ontologyTerm" type="Long" primary="true" />
+        <column name="focusAreaId" type="Long" primary="true" />
+        <column name="ontologyTermId" type="Long" primary="true" />
         
-        <finder name="CategoryId" return-type="Collection">
-            <finder-column name="categoryId" />
+        <finder name="FocusAreaId" return-type="Collection">
+            <finder-column name="focusAreaId" />
         </finder>
         
     </entity>
@@ -77,8 +105,8 @@
 
         <exception>NoSuchOntologyTermException</exception>
         <exception>NoSuchOntologyTermEntityException</exception>
-        <exception>NoSuchCategoryException</exception>
-        <exception>NoSuchCategoryTermException</exception>
+        <exception>NoSuchFocusAreaException</exception>
+        <exception>NoSuchFocusAreaOntologyTermException</exception>
       
     </exceptions>
 </service-builder>

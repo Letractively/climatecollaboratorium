@@ -27,6 +27,7 @@ import java.util.List;
 public class OntologyTermSoap implements Serializable {
     private Long _id;
     private Long _parentId;
+    private Long _ontologySpaceId;
     private String _name;
 
     public OntologyTermSoap() {
@@ -37,6 +38,7 @@ public class OntologyTermSoap implements Serializable {
 
         soapModel.setId(model.getId());
         soapModel.setParentId(model.getParentId());
+        soapModel.setOntologySpaceId(model.getOntologySpaceId());
         soapModel.setName(model.getName());
 
         return soapModel;
@@ -100,6 +102,14 @@ public class OntologyTermSoap implements Serializable {
 
     public void setParentId(Long parentId) {
         _parentId = parentId;
+    }
+
+    public Long getOntologySpaceId() {
+        return _ontologySpaceId;
+    }
+
+    public void setOntologySpaceId(Long ontologySpaceId) {
+        _ontologySpaceId = ontologySpaceId;
     }
 
     public String getName() {

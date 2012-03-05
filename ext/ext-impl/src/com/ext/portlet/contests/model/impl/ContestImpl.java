@@ -15,6 +15,8 @@ import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.debaterevision.util.Indexer;
+import com.ext.portlet.ontology.model.FocusArea;
+import com.ext.portlet.ontology.service.FocusAreaLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanTemplate;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanTemplateLocalServiceUtil;
@@ -121,6 +123,10 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     
     public PlanTemplate getPlanTemplate() throws PortalException, SystemException {
         return PlanTemplateLocalServiceUtil.getPlanTemplate(getPlanTemplateId());
+    }
+    
+    public FocusArea getFocusArea() throws PortalException, SystemException {
+        return FocusAreaLocalServiceUtil.getFocusArea(getFocusAreaId());
     }
 
 }

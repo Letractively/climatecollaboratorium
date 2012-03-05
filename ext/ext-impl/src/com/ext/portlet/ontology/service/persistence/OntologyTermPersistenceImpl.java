@@ -51,6 +51,38 @@ public class OntologyTermPersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_PARENTID = new FinderPath(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
             OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countByParentId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_PARENTIDSPACEID = new FinderPath(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByParentIdSpaceId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_PARENTIDSPACEID = new FinderPath(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByParentIdSpaceId",
+            new String[] {
+                Long.class.getName(), Long.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_PARENTIDSPACEID = new FinderPath(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByParentIdSpaceId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_SPACEID = new FinderPath(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findBySpaceId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_SPACEID = new FinderPath(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findBySpaceId",
+            new String[] {
+                Long.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_SPACEID = new FinderPath(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countBySpaceId", new String[] { Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_BY_NAME = new FinderPath(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
             OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findByName", new String[] { String.class.getName() });
@@ -73,14 +105,16 @@ public class OntologyTermPersistenceImpl extends BasePersistenceImpl
             OntologyTermModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countAll", new String[0]);
     private static Log _log = LogFactoryUtil.getLog(OntologyTermPersistenceImpl.class);
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologySpacePersistence.impl")
+    protected com.ext.portlet.ontology.service.persistence.OntologySpacePersistence ontologySpacePersistence;
     @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologyTermPersistence.impl")
     protected com.ext.portlet.ontology.service.persistence.OntologyTermPersistence ontologyTermPersistence;
     @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence.impl")
     protected com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence ontologyTermEntityPersistence;
-    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.CategoryPersistence.impl")
-    protected com.ext.portlet.ontology.service.persistence.CategoryPersistence categoryPersistence;
-    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence.impl")
-    protected com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence categoryOntologyTermPersistence;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.FocusAreaPersistence.impl")
+    protected com.ext.portlet.ontology.service.persistence.FocusAreaPersistence focusAreaPersistence;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence.impl")
+    protected com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence focusAreaOntologyTermPersistence;
 
     public void cacheResult(OntologyTerm ontologyTerm) {
         EntityCacheUtil.putResult(OntologyTermModelImpl.ENTITY_CACHE_ENABLED,
@@ -529,6 +563,494 @@ public class OntologyTermPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public List<OntologyTerm> findByParentIdSpaceId(Long parentId,
+        Long ontologySpaceId) throws SystemException {
+        Object[] finderArgs = new Object[] { parentId, ontologySpaceId };
+
+        List<OntologyTerm> list = (List<OntologyTerm>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PARENTIDSPACEID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTerm WHERE ");
+
+                if (parentId == null) {
+                    query.append("parentId IS NULL");
+                } else {
+                    query.append("parentId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (ontologySpaceId == null) {
+                    query.append("ontologySpaceId IS NULL");
+                } else {
+                    query.append("ontologySpaceId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (parentId != null) {
+                    qPos.add(parentId.longValue());
+                }
+
+                if (ontologySpaceId != null) {
+                    qPos.add(ontologySpaceId.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<OntologyTerm>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_PARENTIDSPACEID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<OntologyTerm> findByParentIdSpaceId(Long parentId,
+        Long ontologySpaceId, int start, int end) throws SystemException {
+        return findByParentIdSpaceId(parentId, ontologySpaceId, start, end, null);
+    }
+
+    public List<OntologyTerm> findByParentIdSpaceId(Long parentId,
+        Long ontologySpaceId, int start, int end, OrderByComparator obc)
+        throws SystemException {
+        Object[] finderArgs = new Object[] {
+                parentId,
+                
+                ontologySpaceId,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<OntologyTerm> list = (List<OntologyTerm>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_PARENTIDSPACEID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTerm WHERE ");
+
+                if (parentId == null) {
+                    query.append("parentId IS NULL");
+                } else {
+                    query.append("parentId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (ontologySpaceId == null) {
+                    query.append("ontologySpaceId IS NULL");
+                } else {
+                    query.append("ontologySpaceId = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (parentId != null) {
+                    qPos.add(parentId.longValue());
+                }
+
+                if (ontologySpaceId != null) {
+                    qPos.add(ontologySpaceId.longValue());
+                }
+
+                list = (List<OntologyTerm>) QueryUtil.list(q, getDialect(),
+                        start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<OntologyTerm>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_PARENTIDSPACEID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public OntologyTerm findByParentIdSpaceId_First(Long parentId,
+        Long ontologySpaceId, OrderByComparator obc)
+        throws NoSuchOntologyTermException, SystemException {
+        List<OntologyTerm> list = findByParentIdSpaceId(parentId,
+                ontologySpaceId, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No OntologyTerm exists with the key {");
+
+            msg.append("parentId=" + parentId);
+
+            msg.append(", ");
+            msg.append("ontologySpaceId=" + ontologySpaceId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchOntologyTermException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public OntologyTerm findByParentIdSpaceId_Last(Long parentId,
+        Long ontologySpaceId, OrderByComparator obc)
+        throws NoSuchOntologyTermException, SystemException {
+        int count = countByParentIdSpaceId(parentId, ontologySpaceId);
+
+        List<OntologyTerm> list = findByParentIdSpaceId(parentId,
+                ontologySpaceId, count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No OntologyTerm exists with the key {");
+
+            msg.append("parentId=" + parentId);
+
+            msg.append(", ");
+            msg.append("ontologySpaceId=" + ontologySpaceId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchOntologyTermException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public OntologyTerm[] findByParentIdSpaceId_PrevAndNext(Long id,
+        Long parentId, Long ontologySpaceId, OrderByComparator obc)
+        throws NoSuchOntologyTermException, SystemException {
+        OntologyTerm ontologyTerm = findByPrimaryKey(id);
+
+        int count = countByParentIdSpaceId(parentId, ontologySpaceId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.ontology.model.OntologyTerm WHERE ");
+
+            if (parentId == null) {
+                query.append("parentId IS NULL");
+            } else {
+                query.append("parentId = ?");
+            }
+
+            query.append(" AND ");
+
+            if (ontologySpaceId == null) {
+                query.append("ontologySpaceId IS NULL");
+            } else {
+                query.append("ontologySpaceId = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (parentId != null) {
+                qPos.add(parentId.longValue());
+            }
+
+            if (ontologySpaceId != null) {
+                qPos.add(ontologySpaceId.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    ontologyTerm);
+
+            OntologyTerm[] array = new OntologyTermImpl[3];
+
+            array[0] = (OntologyTerm) objArray[0];
+            array[1] = (OntologyTerm) objArray[1];
+            array[2] = (OntologyTerm) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    public List<OntologyTerm> findBySpaceId(Long ontologySpaceId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { ontologySpaceId };
+
+        List<OntologyTerm> list = (List<OntologyTerm>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_SPACEID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTerm WHERE ");
+
+                if (ontologySpaceId == null) {
+                    query.append("ontologySpaceId IS NULL");
+                } else {
+                    query.append("ontologySpaceId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ontologySpaceId != null) {
+                    qPos.add(ontologySpaceId.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<OntologyTerm>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_SPACEID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<OntologyTerm> findBySpaceId(Long ontologySpaceId, int start,
+        int end) throws SystemException {
+        return findBySpaceId(ontologySpaceId, start, end, null);
+    }
+
+    public List<OntologyTerm> findBySpaceId(Long ontologySpaceId, int start,
+        int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                ontologySpaceId,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<OntologyTerm> list = (List<OntologyTerm>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_SPACEID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTerm WHERE ");
+
+                if (ontologySpaceId == null) {
+                    query.append("ontologySpaceId IS NULL");
+                } else {
+                    query.append("ontologySpaceId = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ontologySpaceId != null) {
+                    qPos.add(ontologySpaceId.longValue());
+                }
+
+                list = (List<OntologyTerm>) QueryUtil.list(q, getDialect(),
+                        start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<OntologyTerm>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_SPACEID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public OntologyTerm findBySpaceId_First(Long ontologySpaceId,
+        OrderByComparator obc)
+        throws NoSuchOntologyTermException, SystemException {
+        List<OntologyTerm> list = findBySpaceId(ontologySpaceId, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No OntologyTerm exists with the key {");
+
+            msg.append("ontologySpaceId=" + ontologySpaceId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchOntologyTermException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public OntologyTerm findBySpaceId_Last(Long ontologySpaceId,
+        OrderByComparator obc)
+        throws NoSuchOntologyTermException, SystemException {
+        int count = countBySpaceId(ontologySpaceId);
+
+        List<OntologyTerm> list = findBySpaceId(ontologySpaceId, count - 1,
+                count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No OntologyTerm exists with the key {");
+
+            msg.append("ontologySpaceId=" + ontologySpaceId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchOntologyTermException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public OntologyTerm[] findBySpaceId_PrevAndNext(Long id,
+        Long ontologySpaceId, OrderByComparator obc)
+        throws NoSuchOntologyTermException, SystemException {
+        OntologyTerm ontologyTerm = findByPrimaryKey(id);
+
+        int count = countBySpaceId(ontologySpaceId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.ontology.model.OntologyTerm WHERE ");
+
+            if (ontologySpaceId == null) {
+                query.append("ontologySpaceId IS NULL");
+            } else {
+                query.append("ontologySpaceId = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (ontologySpaceId != null) {
+                qPos.add(ontologySpaceId.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    ontologyTerm);
+
+            OntologyTerm[] array = new OntologyTermImpl[3];
+
+            array[0] = (OntologyTerm) objArray[0];
+            array[1] = (OntologyTerm) objArray[1];
+            array[2] = (OntologyTerm) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<OntologyTerm> findByName(String name) throws SystemException {
         Object[] finderArgs = new Object[] { name };
 
@@ -851,6 +1373,20 @@ public class OntologyTermPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public void removeByParentIdSpaceId(Long parentId, Long ontologySpaceId)
+        throws SystemException {
+        for (OntologyTerm ontologyTerm : findByParentIdSpaceId(parentId,
+                ontologySpaceId)) {
+            remove(ontologyTerm);
+        }
+    }
+
+    public void removeBySpaceId(Long ontologySpaceId) throws SystemException {
+        for (OntologyTerm ontologyTerm : findBySpaceId(ontologySpaceId)) {
+            remove(ontologyTerm);
+        }
+    }
+
     public void removeByName(String name) throws SystemException {
         for (OntologyTerm ontologyTerm : findByName(name)) {
             remove(ontologyTerm);
@@ -906,6 +1442,123 @@ public class OntologyTermPersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PARENTID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByParentIdSpaceId(Long parentId, Long ontologySpaceId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { parentId, ontologySpaceId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PARENTIDSPACEID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTerm WHERE ");
+
+                if (parentId == null) {
+                    query.append("parentId IS NULL");
+                } else {
+                    query.append("parentId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (ontologySpaceId == null) {
+                    query.append("ontologySpaceId IS NULL");
+                } else {
+                    query.append("ontologySpaceId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (parentId != null) {
+                    qPos.add(parentId.longValue());
+                }
+
+                if (ontologySpaceId != null) {
+                    qPos.add(ontologySpaceId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PARENTIDSPACEID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countBySpaceId(Long ontologySpaceId) throws SystemException {
+        Object[] finderArgs = new Object[] { ontologySpaceId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SPACEID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTerm WHERE ");
+
+                if (ontologySpaceId == null) {
+                    query.append("ontologySpaceId IS NULL");
+                } else {
+                    query.append("ontologySpaceId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ontologySpaceId != null) {
+                    qPos.add(ontologySpaceId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SPACEID,
                     finderArgs, count);
 
                 closeSession(session);

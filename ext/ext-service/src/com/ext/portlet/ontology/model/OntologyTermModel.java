@@ -36,6 +36,10 @@ public interface OntologyTermModel extends BaseModel<OntologyTerm> {
 
     public void setParentId(Long parentId);
 
+    public Long getOntologySpaceId();
+
+    public void setOntologySpaceId(Long ontologySpaceId);
+
     public String getName();
 
     public void setName(String name);

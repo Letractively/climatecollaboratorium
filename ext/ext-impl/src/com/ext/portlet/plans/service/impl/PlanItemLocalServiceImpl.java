@@ -1,6 +1,7 @@
 package com.ext.portlet.plans.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -11,6 +12,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import org.apache.ecs.storage.Array;
+
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
@@ -20,6 +23,8 @@ import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.models.CollaboratoriumModelingService;
+import com.ext.portlet.ontology.model.FocusArea;
+import com.ext.portlet.ontology.model.OntologyTerm;
 import com.ext.portlet.plans.EntityState;
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.PlanConstants;
@@ -822,5 +827,44 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
             _log.error("An exception has been thrown when reindexing plan with id: " + planId, e);
         }
     }
+    
+    public List<PlanItem> findPlansForFocusArea(FocusArea fa) throws PortalException, SystemException {
+        return findPlansForOntologyTerms(fa.getTerms());
+    }
+
+    public List<PlanItem> findPlansForOntologyTerms(OntologyTerm...terms) throws NoSuchPlanItemException, SystemException {
+        return findPlansForOntologyTerms(Arrays.asList(terms));
+    }
+    
+    public List<PlanItem> findPlansForOntologyTerms(List<OntologyTerm> terms) throws NoSuchPlanItemException, SystemException {
+        Set<Long> ids = null;
+        
+        for (OntologyTerm term: terms) {
+            List<Long> tmp = term.findTagedIdsForClass(PlanItem.class);
+            if (ids == null) {
+                ids = new HashSet<Long>(tmp);
+            }
+            else {
+                ids.retainAll(tmp);
+            }
+        }
+        
+        List<PlanItem> ret = new ArrayList<PlanItem>();
+        if (ids != null) {
+            for (Long planId: ids) {
+                ret.add(PlanItemLocalServiceUtil.getPlan(planId));
+            
+            }
+        }
+        
+        return ret;
+        
+    }
+
+    @Override
+    public List<PlanItem> findPlansForOntologyTerms(OntologyTerm term) throws NoSuchPlanItemException, SystemException {
+        return findPlansForOntologyTerms(new OntologyTerm[] {term});
+    }
+    
 
 }

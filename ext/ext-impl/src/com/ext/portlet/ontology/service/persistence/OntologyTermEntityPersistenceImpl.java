@@ -87,6 +87,23 @@ public class OntologyTermEntityPersistenceImpl extends BasePersistenceImpl
             OntologyTermEntityModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countByTermId",
             new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_TERMIDCLASSNAMEID = new FinderPath(OntologyTermEntityModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermEntityModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByTermIdClassNameId",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_TERMIDCLASSNAMEID = new FinderPath(OntologyTermEntityModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermEntityModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByTermIdClassNameId",
+            new String[] {
+                Long.class.getName(), Long.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_TERMIDCLASSNAMEID = new FinderPath(OntologyTermEntityModelImpl.ENTITY_CACHE_ENABLED,
+            OntologyTermEntityModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByTermIdClassNameId",
+            new String[] { Long.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(OntologyTermEntityModelImpl.ENTITY_CACHE_ENABLED,
             OntologyTermEntityModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -94,14 +111,16 @@ public class OntologyTermEntityPersistenceImpl extends BasePersistenceImpl
             OntologyTermEntityModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countAll", new String[0]);
     private static Log _log = LogFactoryUtil.getLog(OntologyTermEntityPersistenceImpl.class);
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologySpacePersistence.impl")
+    protected com.ext.portlet.ontology.service.persistence.OntologySpacePersistence ontologySpacePersistence;
     @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologyTermPersistence.impl")
     protected com.ext.portlet.ontology.service.persistence.OntologyTermPersistence ontologyTermPersistence;
     @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence.impl")
     protected com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence ontologyTermEntityPersistence;
-    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.CategoryPersistence.impl")
-    protected com.ext.portlet.ontology.service.persistence.CategoryPersistence categoryPersistence;
-    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence.impl")
-    protected com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence categoryOntologyTermPersistence;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.FocusAreaPersistence.impl")
+    protected com.ext.portlet.ontology.service.persistence.FocusAreaPersistence focusAreaPersistence;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence.impl")
+    protected com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence focusAreaOntologyTermPersistence;
 
     public void cacheResult(OntologyTermEntity ontologyTermEntity) {
         EntityCacheUtil.putResult(OntologyTermEntityModelImpl.ENTITY_CACHE_ENABLED,
@@ -1046,6 +1065,273 @@ public class OntologyTermEntityPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public List<OntologyTermEntity> findByTermIdClassNameId(Long termId,
+        Long classNameId) throws SystemException {
+        Object[] finderArgs = new Object[] { termId, classNameId };
+
+        List<OntologyTermEntity> list = (List<OntologyTermEntity>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_TERMIDCLASSNAMEID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTermEntity WHERE ");
+
+                if (termId == null) {
+                    query.append("termId IS NULL");
+                } else {
+                    query.append("termId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (termId != null) {
+                    qPos.add(termId.longValue());
+                }
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<OntologyTermEntity>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_TERMIDCLASSNAMEID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<OntologyTermEntity> findByTermIdClassNameId(Long termId,
+        Long classNameId, int start, int end) throws SystemException {
+        return findByTermIdClassNameId(termId, classNameId, start, end, null);
+    }
+
+    public List<OntologyTermEntity> findByTermIdClassNameId(Long termId,
+        Long classNameId, int start, int end, OrderByComparator obc)
+        throws SystemException {
+        Object[] finderArgs = new Object[] {
+                termId,
+                
+                classNameId,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<OntologyTermEntity> list = (List<OntologyTermEntity>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_TERMIDCLASSNAMEID,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTermEntity WHERE ");
+
+                if (termId == null) {
+                    query.append("termId IS NULL");
+                } else {
+                    query.append("termId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (termId != null) {
+                    qPos.add(termId.longValue());
+                }
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                list = (List<OntologyTermEntity>) QueryUtil.list(q,
+                        getDialect(), start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<OntologyTermEntity>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_TERMIDCLASSNAMEID,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public OntologyTermEntity findByTermIdClassNameId_First(Long termId,
+        Long classNameId, OrderByComparator obc)
+        throws NoSuchOntologyTermEntityException, SystemException {
+        List<OntologyTermEntity> list = findByTermIdClassNameId(termId,
+                classNameId, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No OntologyTermEntity exists with the key {");
+
+            msg.append("termId=" + termId);
+
+            msg.append(", ");
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchOntologyTermEntityException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public OntologyTermEntity findByTermIdClassNameId_Last(Long termId,
+        Long classNameId, OrderByComparator obc)
+        throws NoSuchOntologyTermEntityException, SystemException {
+        int count = countByTermIdClassNameId(termId, classNameId);
+
+        List<OntologyTermEntity> list = findByTermIdClassNameId(termId,
+                classNameId, count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No OntologyTermEntity exists with the key {");
+
+            msg.append("termId=" + termId);
+
+            msg.append(", ");
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchOntologyTermEntityException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public OntologyTermEntity[] findByTermIdClassNameId_PrevAndNext(Long id,
+        Long termId, Long classNameId, OrderByComparator obc)
+        throws NoSuchOntologyTermEntityException, SystemException {
+        OntologyTermEntity ontologyTermEntity = findByPrimaryKey(id);
+
+        int count = countByTermIdClassNameId(termId, classNameId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.ontology.model.OntologyTermEntity WHERE ");
+
+            if (termId == null) {
+                query.append("termId IS NULL");
+            } else {
+                query.append("termId = ?");
+            }
+
+            query.append(" AND ");
+
+            if (classNameId == null) {
+                query.append("classNameId IS NULL");
+            } else {
+                query.append("classNameId = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (termId != null) {
+                qPos.add(termId.longValue());
+            }
+
+            if (classNameId != null) {
+                qPos.add(classNameId.longValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    ontologyTermEntity);
+
+            OntologyTermEntity[] array = new OntologyTermEntityImpl[3];
+
+            array[0] = (OntologyTermEntity) objArray[0];
+            array[1] = (OntologyTermEntity) objArray[1];
+            array[2] = (OntologyTermEntity) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -1162,6 +1448,14 @@ public class OntologyTermEntityPersistenceImpl extends BasePersistenceImpl
 
     public void removeByTermId(Long termId) throws SystemException {
         for (OntologyTermEntity ontologyTermEntity : findByTermId(termId)) {
+            remove(ontologyTermEntity);
+        }
+    }
+
+    public void removeByTermIdClassNameId(Long termId, Long classNameId)
+        throws SystemException {
+        for (OntologyTermEntity ontologyTermEntity : findByTermIdClassNameId(
+                termId, classNameId)) {
             remove(ontologyTermEntity);
         }
     }
@@ -1332,6 +1626,71 @@ public class OntologyTermEntityPersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TERMID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByTermIdClassNameId(Long termId, Long classNameId)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { termId, classNameId };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_TERMIDCLASSNAMEID,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.ontology.model.OntologyTermEntity WHERE ");
+
+                if (termId == null) {
+                    query.append("termId IS NULL");
+                } else {
+                    query.append("termId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (termId != null) {
+                    qPos.add(termId.longValue());
+                }
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TERMIDCLASSNAMEID,
                     finderArgs, count);
 
                 closeSession(session);

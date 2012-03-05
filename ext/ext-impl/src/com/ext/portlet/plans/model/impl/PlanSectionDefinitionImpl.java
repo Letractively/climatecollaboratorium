@@ -1,8 +1,11 @@
 package com.ext.portlet.plans.model.impl;
 
+import com.ext.portlet.ontology.model.FocusArea;
+import com.ext.portlet.ontology.service.FocusAreaLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanSectionDefinition;
 import com.ext.portlet.plans.service.PlanSectionDefinitionLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 
@@ -24,5 +27,12 @@ public class PlanSectionDefinitionImpl extends PlanSectionDefinitionModelImpl
         else {
             PlanSectionDefinitionLocalServiceUtil.updatePlanSectionDefinition(this);
         }
+    }
+    
+    public FocusArea getFocusArea() throws PortalException, SystemException {
+        if (getFocusAreaId() != null) {
+            return FocusAreaLocalServiceUtil.getFocusArea(getFocusAreaId());
+        }
+        return null;
     }
 }

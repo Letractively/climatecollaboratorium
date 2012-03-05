@@ -89,6 +89,12 @@ public class OntologyTermEntityLocalServiceUtil {
         return getService().updateOntologyTermEntity(ontologyTermEntity, merge);
     }
 
+    public static java.util.List<Long> findTagedIdsForClass(
+        java.lang.Long termId, java.lang.Class clasz)
+        throws com.liferay.portal.SystemException {
+        return getService().findTagedIdsForClass(termId, clasz);
+    }
+
     public static OntologyTermEntityLocalService getService() {
         if (_service == null) {
             throw new RuntimeException(

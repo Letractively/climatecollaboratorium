@@ -1,16 +1,19 @@
 package com.ext.portlet.ontology.service.base;
 
 import com.ext.portlet.ontology.model.OntologyTermEntity;
-import com.ext.portlet.ontology.service.CategoryLocalService;
-import com.ext.portlet.ontology.service.CategoryOntologyTermLocalService;
-import com.ext.portlet.ontology.service.CategoryOntologyTermService;
-import com.ext.portlet.ontology.service.CategoryService;
+import com.ext.portlet.ontology.service.FocusAreaLocalService;
+import com.ext.portlet.ontology.service.FocusAreaOntologyTermLocalService;
+import com.ext.portlet.ontology.service.FocusAreaOntologyTermService;
+import com.ext.portlet.ontology.service.FocusAreaService;
+import com.ext.portlet.ontology.service.OntologySpaceLocalService;
+import com.ext.portlet.ontology.service.OntologySpaceService;
 import com.ext.portlet.ontology.service.OntologyTermEntityLocalService;
 import com.ext.portlet.ontology.service.OntologyTermEntityService;
 import com.ext.portlet.ontology.service.OntologyTermLocalService;
 import com.ext.portlet.ontology.service.OntologyTermService;
-import com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence;
-import com.ext.portlet.ontology.service.persistence.CategoryPersistence;
+import com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence;
+import com.ext.portlet.ontology.service.persistence.FocusAreaPersistence;
+import com.ext.portlet.ontology.service.persistence.OntologySpacePersistence;
 import com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence;
 import com.ext.portlet.ontology.service.persistence.OntologyTermPersistence;
 
@@ -25,6 +28,12 @@ import java.util.List;
 
 public abstract class OntologyTermEntityLocalServiceBaseImpl
     implements OntologyTermEntityLocalService {
+    @BeanReference(name = "com.ext.portlet.ontology.service.OntologySpaceLocalService.impl")
+    protected OntologySpaceLocalService ontologySpaceLocalService;
+    @BeanReference(name = "com.ext.portlet.ontology.service.OntologySpaceService.impl")
+    protected OntologySpaceService ontologySpaceService;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologySpacePersistence.impl")
+    protected OntologySpacePersistence ontologySpacePersistence;
     @BeanReference(name = "com.ext.portlet.ontology.service.OntologyTermLocalService.impl")
     protected OntologyTermLocalService ontologyTermLocalService;
     @BeanReference(name = "com.ext.portlet.ontology.service.OntologyTermService.impl")
@@ -37,18 +46,18 @@ public abstract class OntologyTermEntityLocalServiceBaseImpl
     protected OntologyTermEntityService ontologyTermEntityService;
     @BeanReference(name = "com.ext.portlet.ontology.service.persistence.OntologyTermEntityPersistence.impl")
     protected OntologyTermEntityPersistence ontologyTermEntityPersistence;
-    @BeanReference(name = "com.ext.portlet.ontology.service.CategoryLocalService.impl")
-    protected CategoryLocalService categoryLocalService;
-    @BeanReference(name = "com.ext.portlet.ontology.service.CategoryService.impl")
-    protected CategoryService categoryService;
-    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.CategoryPersistence.impl")
-    protected CategoryPersistence categoryPersistence;
-    @BeanReference(name = "com.ext.portlet.ontology.service.CategoryOntologyTermLocalService.impl")
-    protected CategoryOntologyTermLocalService categoryOntologyTermLocalService;
-    @BeanReference(name = "com.ext.portlet.ontology.service.CategoryOntologyTermService.impl")
-    protected CategoryOntologyTermService categoryOntologyTermService;
-    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.CategoryOntologyTermPersistence.impl")
-    protected CategoryOntologyTermPersistence categoryOntologyTermPersistence;
+    @BeanReference(name = "com.ext.portlet.ontology.service.FocusAreaLocalService.impl")
+    protected FocusAreaLocalService focusAreaLocalService;
+    @BeanReference(name = "com.ext.portlet.ontology.service.FocusAreaService.impl")
+    protected FocusAreaService focusAreaService;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.FocusAreaPersistence.impl")
+    protected FocusAreaPersistence focusAreaPersistence;
+    @BeanReference(name = "com.ext.portlet.ontology.service.FocusAreaOntologyTermLocalService.impl")
+    protected FocusAreaOntologyTermLocalService focusAreaOntologyTermLocalService;
+    @BeanReference(name = "com.ext.portlet.ontology.service.FocusAreaOntologyTermService.impl")
+    protected FocusAreaOntologyTermService focusAreaOntologyTermService;
+    @BeanReference(name = "com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence.impl")
+    protected FocusAreaOntologyTermPersistence focusAreaOntologyTermPersistence;
 
     public OntologyTermEntity addOntologyTermEntity(
         OntologyTermEntity ontologyTermEntity) throws SystemException {
@@ -111,6 +120,33 @@ public abstract class OntologyTermEntityLocalServiceBaseImpl
         return ontologyTermEntityPersistence.update(ontologyTermEntity, merge);
     }
 
+    public OntologySpaceLocalService getOntologySpaceLocalService() {
+        return ontologySpaceLocalService;
+    }
+
+    public void setOntologySpaceLocalService(
+        OntologySpaceLocalService ontologySpaceLocalService) {
+        this.ontologySpaceLocalService = ontologySpaceLocalService;
+    }
+
+    public OntologySpaceService getOntologySpaceService() {
+        return ontologySpaceService;
+    }
+
+    public void setOntologySpaceService(
+        OntologySpaceService ontologySpaceService) {
+        this.ontologySpaceService = ontologySpaceService;
+    }
+
+    public OntologySpacePersistence getOntologySpacePersistence() {
+        return ontologySpacePersistence;
+    }
+
+    public void setOntologySpacePersistence(
+        OntologySpacePersistence ontologySpacePersistence) {
+        this.ontologySpacePersistence = ontologySpacePersistence;
+    }
+
     public OntologyTermLocalService getOntologyTermLocalService() {
         return ontologyTermLocalService;
     }
@@ -164,56 +200,57 @@ public abstract class OntologyTermEntityLocalServiceBaseImpl
         this.ontologyTermEntityPersistence = ontologyTermEntityPersistence;
     }
 
-    public CategoryLocalService getCategoryLocalService() {
-        return categoryLocalService;
+    public FocusAreaLocalService getFocusAreaLocalService() {
+        return focusAreaLocalService;
     }
 
-    public void setCategoryLocalService(
-        CategoryLocalService categoryLocalService) {
-        this.categoryLocalService = categoryLocalService;
+    public void setFocusAreaLocalService(
+        FocusAreaLocalService focusAreaLocalService) {
+        this.focusAreaLocalService = focusAreaLocalService;
     }
 
-    public CategoryService getCategoryService() {
-        return categoryService;
+    public FocusAreaService getFocusAreaService() {
+        return focusAreaService;
     }
 
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
+    public void setFocusAreaService(FocusAreaService focusAreaService) {
+        this.focusAreaService = focusAreaService;
     }
 
-    public CategoryPersistence getCategoryPersistence() {
-        return categoryPersistence;
+    public FocusAreaPersistence getFocusAreaPersistence() {
+        return focusAreaPersistence;
     }
 
-    public void setCategoryPersistence(CategoryPersistence categoryPersistence) {
-        this.categoryPersistence = categoryPersistence;
+    public void setFocusAreaPersistence(
+        FocusAreaPersistence focusAreaPersistence) {
+        this.focusAreaPersistence = focusAreaPersistence;
     }
 
-    public CategoryOntologyTermLocalService getCategoryOntologyTermLocalService() {
-        return categoryOntologyTermLocalService;
+    public FocusAreaOntologyTermLocalService getFocusAreaOntologyTermLocalService() {
+        return focusAreaOntologyTermLocalService;
     }
 
-    public void setCategoryOntologyTermLocalService(
-        CategoryOntologyTermLocalService categoryOntologyTermLocalService) {
-        this.categoryOntologyTermLocalService = categoryOntologyTermLocalService;
+    public void setFocusAreaOntologyTermLocalService(
+        FocusAreaOntologyTermLocalService focusAreaOntologyTermLocalService) {
+        this.focusAreaOntologyTermLocalService = focusAreaOntologyTermLocalService;
     }
 
-    public CategoryOntologyTermService getCategoryOntologyTermService() {
-        return categoryOntologyTermService;
+    public FocusAreaOntologyTermService getFocusAreaOntologyTermService() {
+        return focusAreaOntologyTermService;
     }
 
-    public void setCategoryOntologyTermService(
-        CategoryOntologyTermService categoryOntologyTermService) {
-        this.categoryOntologyTermService = categoryOntologyTermService;
+    public void setFocusAreaOntologyTermService(
+        FocusAreaOntologyTermService focusAreaOntologyTermService) {
+        this.focusAreaOntologyTermService = focusAreaOntologyTermService;
     }
 
-    public CategoryOntologyTermPersistence getCategoryOntologyTermPersistence() {
-        return categoryOntologyTermPersistence;
+    public FocusAreaOntologyTermPersistence getFocusAreaOntologyTermPersistence() {
+        return focusAreaOntologyTermPersistence;
     }
 
-    public void setCategoryOntologyTermPersistence(
-        CategoryOntologyTermPersistence categoryOntologyTermPersistence) {
-        this.categoryOntologyTermPersistence = categoryOntologyTermPersistence;
+    public void setFocusAreaOntologyTermPersistence(
+        FocusAreaOntologyTermPersistence focusAreaOntologyTermPersistence) {
+        this.focusAreaOntologyTermPersistence = focusAreaOntologyTermPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {

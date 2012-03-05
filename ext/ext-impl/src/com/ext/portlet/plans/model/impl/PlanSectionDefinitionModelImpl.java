@@ -50,9 +50,9 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
             { "defaultText", new Integer(Types.VARCHAR) },
             
 
-            { "categoryId", new Integer(Types.BIGINT) }
+            { "focusAreaId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanSectionDefinition (id_ LONG not null primary key,title VARCHAR(75) null,defaultText VARCHAR(75) null,categoryId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanSectionDefinition (id_ LONG not null primary key,title VARCHAR(75) null,defaultText VARCHAR(75) null,focusAreaId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanSectionDefinition";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -68,7 +68,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
     private Long _id;
     private String _title;
     private String _defaultText;
-    private Long _categoryId;
+    private Long _focusAreaId;
 
     public PlanSectionDefinitionModelImpl() {
     }
@@ -80,7 +80,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         model.setId(soapModel.getId());
         model.setTitle(soapModel.getTitle());
         model.setDefaultText(soapModel.getDefaultText());
-        model.setCategoryId(soapModel.getCategoryId());
+        model.setFocusAreaId(soapModel.getFocusAreaId());
 
         return model;
     }
@@ -132,12 +132,12 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         _defaultText = defaultText;
     }
 
-    public Long getCategoryId() {
-        return _categoryId;
+    public Long getFocusAreaId() {
+        return _focusAreaId;
     }
 
-    public void setCategoryId(Long categoryId) {
-        _categoryId = categoryId;
+    public void setFocusAreaId(Long focusAreaId) {
+        _focusAreaId = focusAreaId;
     }
 
     public PlanSectionDefinition toEscapedModel() {
@@ -152,7 +152,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
             model.setId(getId());
             model.setTitle(HtmlUtil.escape(getTitle()));
             model.setDefaultText(HtmlUtil.escape(getDefaultText()));
-            model.setCategoryId(getCategoryId());
+            model.setFocusAreaId(getFocusAreaId());
 
             model = (PlanSectionDefinition) Proxy.newProxyInstance(PlanSectionDefinition.class.getClassLoader(),
                     new Class[] { PlanSectionDefinition.class },
@@ -168,7 +168,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         clone.setId(getId());
         clone.setTitle(getTitle());
         clone.setDefaultText(getDefaultText());
-        clone.setCategoryId(getCategoryId());
+        clone.setFocusAreaId(getFocusAreaId());
 
         return clone;
     }
@@ -214,8 +214,8 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         sb.append(getTitle());
         sb.append(", defaultText=");
         sb.append(getDefaultText());
-        sb.append(", categoryId=");
-        sb.append(getCategoryId());
+        sb.append(", focusAreaId=");
+        sb.append(getFocusAreaId());
         sb.append("}");
 
         return sb.toString();
@@ -241,8 +241,8 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         sb.append(getDefaultText());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>categoryId</column-name><column-value><![CDATA[");
-        sb.append(getCategoryId());
+            "<column><column-name>focusAreaId</column-name><column-value><![CDATA[");
+        sb.append(getFocusAreaId());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

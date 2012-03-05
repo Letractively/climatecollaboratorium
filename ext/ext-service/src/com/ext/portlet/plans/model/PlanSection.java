@@ -32,4 +32,11 @@ public interface PlanSection extends PlanSectionModel {
     public com.ext.portlet.plans.model.PlanSectionDefinition getDefinition()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public void addPlanReference(java.lang.Long planId)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getReferencedPlans()
+        throws com.ext.portlet.plans.NoSuchPlanItemException,
+            com.liferay.portal.SystemException;
 }

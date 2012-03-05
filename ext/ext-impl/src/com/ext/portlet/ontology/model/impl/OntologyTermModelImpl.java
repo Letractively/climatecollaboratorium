@@ -47,9 +47,12 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
             { "parentId", new Integer(Types.BIGINT) },
             
 
+            { "ontologySpaceId", new Integer(Types.BIGINT) },
+            
+
             { "name", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table OntologyTerm (id_ LONG not null primary key,parentId LONG,name VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table OntologyTerm (id_ LONG not null primary key,parentId LONG,ontologySpaceId LONG,name VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table OntologyTerm";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -64,6 +67,7 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
                 "lock.expiration.time.com.ext.portlet.ontology.model.OntologyTerm"));
     private Long _id;
     private Long _parentId;
+    private Long _ontologySpaceId;
     private String _name;
 
     public OntologyTermModelImpl() {
@@ -74,6 +78,7 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
 
         model.setId(soapModel.getId());
         model.setParentId(soapModel.getParentId());
+        model.setOntologySpaceId(soapModel.getOntologySpaceId());
         model.setName(soapModel.getName());
 
         return model;
@@ -117,6 +122,14 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
         _parentId = parentId;
     }
 
+    public Long getOntologySpaceId() {
+        return _ontologySpaceId;
+    }
+
+    public void setOntologySpaceId(Long ontologySpaceId) {
+        _ontologySpaceId = ontologySpaceId;
+    }
+
     public String getName() {
         return GetterUtil.getString(_name);
     }
@@ -136,6 +149,7 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
 
             model.setId(getId());
             model.setParentId(getParentId());
+            model.setOntologySpaceId(getOntologySpaceId());
             model.setName(HtmlUtil.escape(getName()));
 
             model = (OntologyTerm) Proxy.newProxyInstance(OntologyTerm.class.getClassLoader(),
@@ -151,6 +165,7 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
 
         clone.setId(getId());
         clone.setParentId(getParentId());
+        clone.setOntologySpaceId(getOntologySpaceId());
         clone.setName(getName());
 
         return clone;
@@ -195,6 +210,8 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
         sb.append(getId());
         sb.append(", parentId=");
         sb.append(getParentId());
+        sb.append(", ontologySpaceId=");
+        sb.append(getOntologySpaceId());
         sb.append(", name=");
         sb.append(getName());
         sb.append("}");
@@ -216,6 +233,10 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
         sb.append(
             "<column><column-name>parentId</column-name><column-value><![CDATA[");
         sb.append(getParentId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>ontologySpaceId</column-name><column-value><![CDATA[");
+        sb.append(getOntologySpaceId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>name</column-name><column-value><![CDATA[");

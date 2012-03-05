@@ -248,7 +248,8 @@ create table Contest (
 	updated DATE null,
 	authorId LONG,
 	contestActive BOOLEAN,
-	planTemplateId LONG
+	planTemplateId LONG,
+	focusAreaId LONG
 );
 
 create table ContestDebate (
@@ -586,6 +587,17 @@ create table ExpandoValue (
 	classNameId LONG,
 	classPK LONG,
 	data_ STRING null
+);
+
+create table FocusArea (
+	id_ LONG not null primary key,
+	name VARCHAR(75) null
+);
+
+create table FocusAreaOntologyTerm (
+	focusAreaId LONG not null,
+	ontologyTermId LONG not null,
+	primary key (focusAreaId, ontologyTermId)
 );
 
 create table Group_ (
@@ -1058,9 +1070,16 @@ create table ModelOutputItemOrder (
 	type_ VARCHAR(75) null
 );
 
+create table OntologySpace (
+	id_ LONG not null primary key,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null
+);
+
 create table OntologyTerm (
 	id_ LONG not null primary key,
 	parentId LONG,
+	ontologySpaceId LONG,
 	name VARCHAR(75) null
 );
 
@@ -1305,7 +1324,13 @@ create table PlanSectionDefinition (
 	id_ LONG not null primary key,
 	title VARCHAR(75) null,
 	defaultText VARCHAR(75) null,
-	categoryId LONG
+	focusAreaId LONG
+);
+
+create table PlanSectionPlanMap (
+	sectionId LONG not null,
+	relatedPlanId LONG not null,
+	primary key (sectionId, relatedPlanId)
 );
 
 create table PlanTeamHistory (

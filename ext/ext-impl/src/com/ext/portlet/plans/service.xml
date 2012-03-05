@@ -471,7 +471,7 @@
         <column name="id" type="Long" primary="true" />
         <column name="title" type="String" />
         <column name="defaultText" type="String" />
-        <column name="categoryId" type="Long" />
+        <column name="focusAreaId" type="Long" />
     </entity>
     
     <entity name="PlanSection" local-service="true">
@@ -499,6 +499,21 @@
             <finder-column name="planSectionDefinitionId" />
         </finder>
         
+    </entity>
+    
+    
+    
+    <entity name="PlanSectionPlanMap" local-service="true">
+        <column name="sectionId" type="Long" primary="true" />
+        <column name="relatedPlanId" type="Long" primary="true" />
+        
+        <finder name="PlanId" return-type="Collection">
+            <finder-column name="relatedPlanId" />
+        </finder>
+        
+        <finder name="SectionId" return-type="Collection">
+            <finder-column name="sectionId" />
+        </finder>
     </entity>
     
     <entity name="PlanRelated" local-service="true">

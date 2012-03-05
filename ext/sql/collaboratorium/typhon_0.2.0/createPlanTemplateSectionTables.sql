@@ -19,6 +19,7 @@ create table PlanTemplateSection (
 );
 
 ALTER TABLE  `Contest` ADD  `planTemplateId` BIGINT NOT NULL;
+ALTER TABLE  `Contest` ADD  `focusAreaId` BIGINT NOT NULL;
 
 create index IX_910676FA on PlanTemplateSection (planTemplateId);
 
@@ -34,6 +35,15 @@ create table PlanSection (
     planVersion BIGINT,
     updateAuthorId BIGINT
 );
+
+create table PlanSectionPlanMap (
+    sectionId BIGINT not null,
+    relatedPlanId BIGINT not null,
+    primary key (sectionId, relatedPlanId)
+);
+
+create index IX_9E4A2D02 on PlanSectionPlanMap (relatedPlanId);
+create index IX_E54815F3 on PlanSectionPlanMap (sectionId);
 
 
 create index IX_918E76BA on PlanSection (planId);

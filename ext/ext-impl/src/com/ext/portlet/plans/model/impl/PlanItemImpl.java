@@ -772,13 +772,18 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         return ret;
     }
     
-    public void setSectionContent(PlanSectionDefinition psd, String content, Long updateAuthorId) 
+    public void setSectionContent(PlanSectionDefinition psd, String content, List<Long> referencedPlans, Long updateAuthorId) 
     throws SystemException, PortalException {
         newVersion(UpdateType.PLAN_SECTION_UPDATED, updateAuthorId);
 
         PlanSection ps = PlanSectionLocalServiceUtil.createNewVersionForPlanSectionDefinition(this, psd, false);
         ps.setUpdateAuthorId(updateAuthorId);
         ps.setContent(content);
+        
+        for (Long planId: referencedPlans) {
+            ps.addPlanReference(planId);
+        }
+        
         ps.store();
         
     }

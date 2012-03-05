@@ -34,6 +34,7 @@ public class OntologyTermJSONSerializer {
 
         jsonObj.put("id", model.getId());
         jsonObj.put("parentId", model.getParentId());
+        jsonObj.put("ontologySpaceId", model.getOntologySpaceId());
         jsonObj.put("name", model.getName());
 
         return jsonObj;
