@@ -60,17 +60,31 @@
     
     <ice:panelSeries value="#{planBean.plan.sections}" var="section">
         <h2>#{section.section.definition.title} #{section.editing}</h2>
+        <ice:panelSeries var="term" value="#{section.section.definition.focusArea.terms}" >
+            <span><strong>${term.space.name}</strong>: ${term.name}</span>
+        </ice:panelSeries>
         <f:subview rendered="#{not section.editing}">
             <ice:commandButton value="EDIT" styleClass="mothButton orange" actionListener="#{section.toggleEditing}" />
             <div>#{section.section.content}</div>
+            <br />
+            <h3>Referenced plans:</h3> 
+            <ice:panelSeries var="refPlan" value="#{section.section.referencedPlans}">
+                <collab:planLink planId="#{refPlan.planId}" contestId="#{refPlan.contest.primaryKey}" text="#{refPlan.name}"/>
+            </ice:panelSeries>
+            
         </f:subview>
         
         <f:subview rendered="#{section.editing}">
             <ice:commandButton value="SAVE" styleClass="mothButton orange" actionListener="#{section.save}" />
             <ice:commandButton value="CANCEL" styleClass="mothButton orange" actionListener="#{section.toggleEditing}" />
             <ice:inputTextarea value="#{section.section.content}" />
+            <h3>Referenced plans:</h3>
+            
+            <ice:selectManyListbox value="#{section.referencedPlanIds}" >
+                <f:selectItems value="#{section.plansForReference}" />
+            </ice:selectManyListbox>
         </f:subview>
-        
+        <br /><br />
     </ice:panelSeries>
 
 </f:view>
