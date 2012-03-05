@@ -70,10 +70,18 @@
              <f:selectItems value="#{contestsAdmin.editedContest.availablePlanTemplates}" />
            </ice:selectOneMenu>
            
+           <ice:outputLabel value="Focus area" />
+           
+           <ice:selectOneMenu valueChangeListener="#{contestsAdmin.editedContest.planFocusAreaChange}">
+             <f:selectItems value="#{contestsAdmin.editedContest.availableFocusAreas}" />
+           </ice:selectOneMenu>
+           
            <ice:outputText />
            <ice:commandButton value="Save" action="#{contestsAdmin.editedContest.save}" />
         </ice:panelGrid>
         
         <ice:commandButton value="Back" action="backToIndex" />
+        <br /><br />
+        <ice:commandButton value="Populate plans with focus area" actionListener="#{contestsAdmin.editedContest.populateFAtoPlans}" />
     </ice:form></ice:portlet>
 </f:view>
