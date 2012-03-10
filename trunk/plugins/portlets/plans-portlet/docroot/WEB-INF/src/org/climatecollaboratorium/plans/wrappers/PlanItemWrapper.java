@@ -811,5 +811,16 @@ public class PlanItemWrapper {
     public Long getPlanId() {
         return wrapped.getPlanId();
     }
+    
+    public String getScrapboxText() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.SCRAPBOOK_HOVER.name());
+        return attr != null ? attr.getAttributeValue() : null;
+    }
+    
+    public void setScrapboxText(String scrapboxText) throws SystemException {
+        wrapped.setAttribute(PlanConstants.Attribute.SCRAPBOOK_HOVER.name(), scrapboxText);
+        
+    }
+    
 
 }
