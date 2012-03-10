@@ -167,7 +167,8 @@ public class PlanConstants {
 		SUBREGION(String.class, "%s", attributeFunctionFactory.getAttributeValue("SUBREGION"), true, null, null),
         ABSTRACT(String.class, "%s", attributeFunctionFactory.getAttributeValue("ABSTRACT"), true, null, null),
         SCRAPBOOK(String.class, "%s", attributeFunctionFactory.getAttributeValue("SCRAPBOOK"), true, null, null),
-        LAST_MOD_DATE(Date.class, "%1$tm/%1$te/%1$ty", attributeFunctionFactory.getPlanPropertyFunction("Updated"), true, PlanFilterOperatorType.DATE_FROM_TO, null);
+        LAST_MOD_DATE(Date.class, "%1$tm/%1$te/%1$ty", attributeFunctionFactory.getPlanPropertyFunction("Updated"), true, PlanFilterOperatorType.DATE_FROM_TO, null),
+        SCRAPBOOK_HOVER(String.class, "%s", attributeFunctionFactory.getAttributeValue("SCRAPBOOK_HOVER"), true, null, null);
 		
 		private Class<?> clasz;
 		private String format;
