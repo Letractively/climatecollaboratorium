@@ -85,7 +85,7 @@
         </ice:panelGroup>
         
         <ice:panelGroup rendered="#{permissions.canAdminAll}">
-          <h2>Scrapbook settings</h2>
+          <h2>Scrapbook</h2>
             
           <div class="admin_box">
             <div class="buttgrid">
@@ -102,6 +102,11 @@
                 </f:subview>
                 
             </div>
+          </div>
+          
+          <h2>Scrapbook hover text</h2>
+          <div class="admin_box">
+              <ice:inputText value="#{planBean.plan.scrapboxText}" partialSubmit="true" /> 
           </div>
         </ice:panelGroup>
         
