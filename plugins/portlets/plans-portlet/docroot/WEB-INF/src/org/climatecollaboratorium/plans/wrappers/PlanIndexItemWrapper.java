@@ -176,7 +176,7 @@ public class PlanIndexItemWrapper {
         return true;
     }
 
-    public String getScrapboxText() throws SystemException {
+    public String getScrapbookText() throws SystemException {
         PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.SCRAPBOOK_HOVER.name());
         return attr != null ? attr.getAttributeValue() : null;
     }
