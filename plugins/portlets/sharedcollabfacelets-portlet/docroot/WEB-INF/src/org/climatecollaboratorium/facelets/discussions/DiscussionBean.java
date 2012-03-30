@@ -590,4 +590,8 @@ public class DiscussionBean {
         return currentThread == null;
     }
     
+    public boolean isUserLoggedIn() {
+        return Helper.isUserLoggedIn();
+    }
+    
 }

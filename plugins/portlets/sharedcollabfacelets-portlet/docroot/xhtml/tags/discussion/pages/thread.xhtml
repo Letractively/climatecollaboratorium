@@ -149,6 +149,27 @@
         <div class="clearfix"></div>
     </div>
     <div class="clearfix"></div>
+    <f:subview rendered="#{not discussionBean.userLoggedIn}">
+    <div class="logInOrRegister">
+      <h2 style="text-align: center; margin-top: 10px;"><span>To comment, reply or recommend please &amp;nbsp;<a href="javascript:;" class="loginnew">Log In</a> or &amp;nbsp;<a href="javascript:;" class="openregnew">Create An Account.</a></span></h2>
+    </div>
+    <script>
+        jQuery('.openregnew').click(function() {
+            jQuery('.popup_reg').fadeIn(300);
+            jQuery('#content').fadeOut(300);
+            jQuery('#foot_wrap').fadeOut(300);
+            jQuery('.hp_box').fadeOut(300);
+            
+        });
+        
+        jQuery(".loginnew").click(function() {
+          jQuery('.popup_login').show();
+          jQuery.scrollTo(jQuery(".popup_login"));
+            
+        });
+    
+    </script>
+    </f:subview>
     </f:subview>
 </div>
          
