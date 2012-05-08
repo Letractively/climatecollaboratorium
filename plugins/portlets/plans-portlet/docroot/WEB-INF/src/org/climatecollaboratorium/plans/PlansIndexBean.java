@@ -416,7 +416,7 @@ public class PlansIndexBean {
                 else if (plan.getName().startsWith("Untitled")) {
                    untitledPlans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
                 }
-                else if (plan.getRibbon() != null) {
+                else if (plan.getRibbon() != null && plan.getRibbon() > 0) {
                     PlanIndexItemWrapper piiw = new PlanIndexItemWrapper(plan, this, availableDebates);
                     if (hasScrapBook) {
                         plans.add(1, piiw);
