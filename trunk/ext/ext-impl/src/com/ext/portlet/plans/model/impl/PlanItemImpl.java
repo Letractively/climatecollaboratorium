@@ -738,6 +738,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         setAttribute(Attribute.PLAN_RIBBON_TEXT, String.valueOf(ribbonText));
     }
     
+    
     public void setAttribute(String attributeName, String value) throws SystemException {
         setAttribute(Attribute.valueOf(attributeName), value);
     }
@@ -747,6 +748,18 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         
         if (attr != null) {
             PlanAttributeLocalServiceUtil.deletePlanAttribute(attr);
+        }
+    }
+    
+
+    public Integer getRibbon() throws SystemException {
+        PlanAttribute attr = getPlanAttribute(PlanConstants.Attribute.PLAN_RIBBON.name());
+        try {
+            return attr != null && attr.getAttributeValue() != null && attr.getAttributeValue().trim().length() > 0 ? 
+                    Integer.parseInt(attr.getAttributeValue()) : null;
+        }
+        catch (NumberFormatException e) {
+            return null;
         }
     }
 

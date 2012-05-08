@@ -308,4 +308,7 @@ public interface PlanItem extends PlanItemModel {
 
     public void removeAttribute(java.lang.String attributeName)
         throws com.liferay.portal.SystemException;
+
+    public java.lang.Integer getRibbon()
+        throws com.liferay.portal.SystemException;
 }
