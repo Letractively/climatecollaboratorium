@@ -36,7 +36,7 @@ public enum SearchItemType {
                         Long planId = Long.parseLong(id);
                         Long contestPk = PlanItemLocalServiceUtil.getPlan(planId).getContest().getContestPK();
                         
-                        return "/web/guest/plans/-/plans/contestId/" + contestPk + "1/planId/" + id;
+                        return "/web/guest/plans/-/plans/contestId/" + contestPk + "/planId/" + id;
                     }
                     catch (Exception e) {
                         _log.error("Can't find plan for id: " + id, e);
