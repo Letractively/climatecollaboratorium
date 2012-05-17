@@ -14,6 +14,7 @@ import com.ext.portlet.discussions.NoSuchDiscussionMessageException;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.model.DiscussionMessage;
 import com.ext.portlet.discussions.service.DiscussionMessageLocalServiceUtil;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.contests.NoSuchContestException;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
@@ -31,7 +32,17 @@ public enum SearchItemType {
             new String[] { "title" }, new String[] { "content" }, new URLCreator() {
                 public String getUrl(Document doc) {
                     String id = doc.get(Field.ENTRY_CLASS_PK);
-                    return "/web/guest/plans#plans=planId:" + id;
+                    try {
+                        Long planId = Long.parseLong(id);
+                        Long contestPk = PlanItemLocalServiceUtil.getPlan(planId).getContest().getContestPK();
+                        
+                        return "/web/guest/plans/-/plans/contestId/" + contestPk + "1/planId/" + id;
+                    }
+                    catch (Exception e) {
+                        _log.error("Can't find plan for id: " + id, e);
+                    }
+                    
+                    return "/web/guest/plans/-/plans/contestId/1/planId/" + id;
                 }
             }),
 
@@ -245,5 +256,5 @@ public enum SearchItemType {
     public String getName() {
         return name();
     }
-
+    
 }
