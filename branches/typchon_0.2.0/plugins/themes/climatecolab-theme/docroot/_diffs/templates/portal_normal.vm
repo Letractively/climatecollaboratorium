@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+#parse ($init)
+
+<html dir="#language ("lang.dir")" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>$the_title - $company_name</title>
+
+	$theme.include($top_head_include)
+	
+    <link rel="stylesheet" href="$css_folder/style.css" type="text/css" />
+    <script type="text/javascript" src="http://use.typekit.com/uvv6okq.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
+</head>
+<body class="$css_class home">
+<div id="header">
+ <div class="inner">
+  <div id="logo"><a href="/"><img src="$images_folder/logo-climate-colab.png" width="203" height="42" alt="Climate Colab" /></a></div>
+  <ul id="menu">
+   <li><a href="/web/guest/about/">About</a></li>
+   <li><a href="/web/guest/contests/">Contests</a></li>
+   <li><a href="/web/guest/community/">Community</a></li>
+   <li><a href="/web/guest/search/" class="search">Search</a></li>
+  </ul>
+  <ul id="menu-right">
+   <li class="register"><a href="/register/">Register</a></li>
+   <li class="login"><a href="/login/">Login</a></li>
+   <li class="help"><a href="/help/">Help</a></li>
+  </ul>
+ </div>
+</div> <!-- /header -->
+
+
+$theme.include($top_messages_include)
+
+
+        #parse ("$full_templates_path/dock.vm")
+
+<div id="wrapper">
+
+	#if ($selectable)
+		$theme.include($content_include)
+	#else
+		$portletDisplay.recycle()
+
+		$portletDisplay.setTitle($the_title)
+
+		$theme.wrapPortlet("portlet.vm", $content_include)
+	#end
+
+</div>
+
+</body>
+
+$theme.include($bottom_include)
+
+</html>
