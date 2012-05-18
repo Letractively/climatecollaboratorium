@@ -809,4 +809,11 @@
 		</id>
 		<property name="userId" />
 	</class>
+	<class name="com.ext.auth.model.impl.AuthMappingImpl" table="AuthMapping">
+		<cache usage="read-write" />
+		<id name="identifier" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+	</class>
 </hibernate-mapping>

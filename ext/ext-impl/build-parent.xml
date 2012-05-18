@@ -423,6 +423,12 @@ ${exception.message}
               <param name="service.file" value="src/com/ext/portlet/surveys/service.xml" />
           </antcall>
        </target>
+       
+    <target name="build-service-authentication">
+        <antcall target="build-service">
+            <param name="service.file" value="src/com/ext/auth/service.xml" />
+        </antcall>
+     </target>
     
 	<target name="build-services">
 		<antcall target="build-service-portlet-plans" />

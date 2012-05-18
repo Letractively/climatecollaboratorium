@@ -595,4 +595,8 @@
 		<field name="twitterId" type="Long" />
 		<field name="userId" type="Long" />
 	</model>
+	<model name="com.ext.auth.model.AuthMapping">
+		<field name="identifier" type="String" />
+		<field name="userId" type="Long" />
+	</model>
 </model-hints>

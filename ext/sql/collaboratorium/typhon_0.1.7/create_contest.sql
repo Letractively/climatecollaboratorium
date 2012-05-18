@@ -31,11 +31,11 @@ INSERT INTO `PlanTypeColumn` (`planTypeColumnId`, `planTypeId`, `columnName`, `w
 
 
 delete from `lportal`.`Contest` WHERE ContestPK = 6;
-INSERT INTO `lportal`.`Contest` (`ContestPK`, `ContestName`, `ContestDescription`, `PlanTypeId`, `created`, `updated`, `authorId`, `contestActive`, `ContestShortName`, `ContestModelDescription`, `ContestPositionsDescription`) VALUES ('6', 'Placeholder for contest name (XI 2011)', 'Placeholder for contest description (XI 2011)', '5', '2011-11-22 20:00:00', '2011-11-22 20:00:00', '10144', '1', 'Contest 2011.XI short', 'Model description', 'Positions description');
+INSERT INTO `lportal`.`Contest` (`ContestPK`, `ContestName`, `ContestDescription`, `PlanTypeId`, `created`, `updated`, `authorId`, `contestActive`, `ContestShortName`, `ContestModelDescription`, `ContestPositionsDescription`) VALUES ('6', 'Placeholder for contest name (XI 2011)', 'Placeholder for contest description (XI 2011)', '5', '2012-03-01 20:00:00', '2012-04-30 20:00:00', '10144', '1', 'Contest 2011.XI short', 'Model description', 'Positions description');
 
 
 delete from ContestPhase where ContestPhasePK = 60;
-INSERT INTO `lportal`.`ContestPhase` (`ContestPhasePK`, `ContestPK`, `ContestPhaseName`, `ContestPhaseDescription`, `ContestPhaseStatus`, `PhaseStartDate`, `PhaseEndDate`, `nextStatus`, `created`, `updated`, `authorId`, `phaseActive`) VALUES ('60', '6', '2011.XI First phase', 'Phase description', 'OPEN_FOR_EDIT', '2011-11-20 15:44:34', '2011-12-30 15:44:37', NULL, '2011-11-20 15:44:48', '2011-11-20 15:44:50', '10144', '1');
+INSERT INTO `lportal`.`ContestPhase` (`ContestPhasePK`, `ContestPK`, `ContestPhaseName`, `ContestPhaseDescription`, `ContestPhaseStatus`, `PhaseStartDate`, `PhaseEndDate`, `nextStatus`, `created`, `updated`, `authorId`, `phaseActive`) VALUES ('60', '6', '2011.XI First phase', 'Phase description', 'OPEN_FOR_EDIT', '2012-03-01 20:00:00', '2012-04-30 20:00:00', NULL, '2012-04-30 20:00:00', '2011-11-20 15:44:50', '10144', '1');
 
 delete from ContestPhaseColumn where ContestPhasePK = 60;
 insert into ContestPhaseColumn VALUES (600, 60, 'NAME', 0, 1);
