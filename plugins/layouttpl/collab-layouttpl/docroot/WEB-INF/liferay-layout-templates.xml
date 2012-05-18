@@ -58,5 +58,10 @@
             <wap-template-path>/collab-1-col-header-moth.tpl</wap-template-path>
             <thumbnail-path>/custom-1-header-moth.png</thumbnail-path>
         </layout-template>
+        <layout-template id="collab-1-2-1-home" name="ClimateColab - homepage - content - two columns - footer - moth">
+            <template-path>/collab-home-1-2-1.tpl</template-path>
+            <wap-template-path>/collab-home-1-2-1.tpl</wap-template-path>
+            <thumbnail-path>/collab-home-1-2-1.png</thumbnail-path>
+        </layout-template>
 	</custom>
 </layout-templates>
