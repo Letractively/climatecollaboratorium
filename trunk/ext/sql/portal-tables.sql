@@ -76,6 +76,11 @@ create table AnnouncementsFlag (
 	value INTEGER
 );
 
+create table AuthMapping (
+	identifier VARCHAR(75) not null primary key,
+	userId LONG
+);
+
 create table BlogsEntry (
 	uuid_ VARCHAR(75) null,
 	entryId LONG not null primary key,
