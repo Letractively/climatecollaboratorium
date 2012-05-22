@@ -20,7 +20,8 @@ public enum PlanActivityKeys implements SubscriberFactory {
 	SWICTH_VOTE_FOR_PLAN("Changed vote to another plan"), RETRACT_VOTE_FOR_PLAN("Retrated vote from plan"),
 	USER_ADDED_TO_PLAN("User joined plan"), USER_REMOVED_FROM_PLAN("User removed from plan"),
 	EDIT_NAME("Plan name edited"), REMOVE_PLAN("Plan removed"), BECOME_A_SUPPORTER("Became a supporter"), 
-	STOPPED_BEEING_A_SUPPORTER("Is no longer a supporter"), PROMOTE_PLAN("Plan promoted to next phase");
+	STOPPED_BEEING_A_SUPPORTER("Is no longer a supporter"), PROMOTE_PLAN("Plan promoted to next phase"), 
+	CHANGE_IMAGE("Changed an image");
 
 	private String prettyName;
 

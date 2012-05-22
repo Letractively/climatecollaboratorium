@@ -357,6 +357,8 @@ public class PlansIndexBean {
 
             List<PlanItem> popularPlans = Collections.emptyList();
             List<PlanIndexItemWrapper> untitledPlans = new ArrayList<PlanIndexItemWrapper>();
+            
+            boolean hasScrapBook = false;
 
 
             final Long userId = Helper.isUserLoggedIn() ? Helper.getLiferayUser().getUserId() : -1;
@@ -409,10 +411,23 @@ public class PlansIndexBean {
                         plan.getPlanAttribute("SCRAPBOOK").getAttributeValue().equals("true")) {
                     // we have a scrapbook plan, place it at the beginning
                     plans.add(0, new PlanIndexItemWrapper(plan, this, availableDebates));
+                    hasScrapBook = true;
                 }
                 else if (plan.getName().startsWith("Untitled")) {
                    untitledPlans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
-                } else {
+                }
+                else if (plan.getRibbon() != null && plan.getRibbon() > 0) {
+                    PlanIndexItemWrapper piiw = new PlanIndexItemWrapper(plan, this, availableDebates);
+                    if (hasScrapBook) {
+                        plans.add(1, piiw);
+                    }
+                    else {
+                        plans.add(0, piiw);
+                    }
+                    
+                    
+                }
+                else {
                     plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
                 }
             }
@@ -444,6 +459,20 @@ public class PlansIndexBean {
     public void setSortColumn(String sortColumn) {
         this.sortColumn = sortColumn;
         updatePlansList = true;
+    }
+    
+    public void updateSortColumn(ActionEvent e) {
+        String newSortColumn = (String) e.getComponent().getAttributes().get("sortColumn"); 
+        //this.sortColumn =
+        if (newSortColumn.equals(sortColumn)) {
+            sortAscending = !sortAscending;
+        }
+        else {
+            sortAscending = true;
+        }
+        sortColumn = newSortColumn;
+        updatePlansList = true;
+        
     }
 
     public boolean isSortAscending() {

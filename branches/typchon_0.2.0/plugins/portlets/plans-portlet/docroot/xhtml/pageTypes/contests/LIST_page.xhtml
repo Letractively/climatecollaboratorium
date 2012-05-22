@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<f:view
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:collab="http://climatecollaboratorium.org/facelets"
+        xmlns:sharedcollab="http://climatecollaboratorium.org/components">
+        
+    <div class="blueheaderbar tooltips">
+        <div class="contest"><a href="javascript:;">Contest</a></div>
+        <div class="tooltip">click to sort by contest title<div class="tt-arrow"></div></div>
+        <div class="proposal"><a href="javascript:;">&amp;nbsp;</a></div>
+        <div class="tooltip">click to sort by<br />number of proposals<div class="tt-arrow"></div></div>
+        <div class="comment"><a href="javascript:;">&amp;nbsp;</a></div>
+        <div class="tooltip">click to sort by number of comments<div class="tt-arrow"></div></div>
+        <div class="what"><a href="javascript:;">What</a></div>
+        <div class="tooltip">click to sort by actions<div class="tt-arrow"></div></div>
+        <div class="where"><a href="javascript:;">Where</a></div>
+        <div class="tooltip">click to sort by<br />geographical area<div class="tt-arrow"></div></div>
+        <div class="who"><a href="javascript:;">Who</a></div>
+        <div class="tooltip">click to sort by who<br />this issue affects<div class="tt-arrow"></div></div>
+    </div>
+    <div class="shadebar"></div>
+    
+    <ui:include src="./widget_CONTESTS_LIST_SINGLE.xhtml">
+        <ui:param name="contests" value="#{contests.contestsFeatured}" />
+        <ui:param name="class" value="featured" />
+    </ui:include>
+    <div class="shadebar"></div>
+    
+    <ui:include src="./widget_CONTESTS_LIST_SINGLE.xhtml">
+        <ui:param name="contests" value="#{contests.contestsNormal}" />
+        <ui:param name="class" value="" />
+    </ui:include>
+
+    <script type="text/javascript">
+        jQuery.cookie("cc_contests_viewType", "LIST", {expires: 365});
+    </script>
+</f:view>

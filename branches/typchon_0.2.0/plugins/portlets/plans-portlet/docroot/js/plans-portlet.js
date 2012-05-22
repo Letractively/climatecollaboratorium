@@ -816,3 +816,10 @@ function showAlertIfInEdit(text) {
 	}
 	return true;
 }
+
+
+function monitorUploadFrame() {
+	jQuery('.proposalImageUpload iframe').load(function() {
+		jQuery(".signalPictureUploaded").click();
+	})
+}

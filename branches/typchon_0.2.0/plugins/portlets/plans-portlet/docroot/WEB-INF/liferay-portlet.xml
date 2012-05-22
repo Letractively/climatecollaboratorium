@@ -13,10 +13,12 @@
 		<header-portlet-css>/xmlhttp/css/discussion/discussion.css</header-portlet-css>
 		<header-portlet-css>/xmlhttp/css/simulation/simulation.css</header-portlet-css>
 		<header-portlet-css>/xmlhttp/css/debates/debates.css</header-portlet-css>
+		<header-portlet-css>/css/proposals.css</header-portlet-css>
+        <header-portlet-css>/css/jquery.wysiwyg.css</header-portlet-css>
 		<header-portlet-javascript>/js/plans-portlet.js?t=123456</header-portlet-javascript>
 		<header-portlet-javascript>/js/editTrigger.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/dirtyCheckCallbacks.js</header-portlet-javascript>
-		<header-portlet-javascript>/js/jquery.history.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery.wysiwyg.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/navigation/navigationManager.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/simulation/model-inputs-render.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/debates/debates.js</header-portlet-javascript>

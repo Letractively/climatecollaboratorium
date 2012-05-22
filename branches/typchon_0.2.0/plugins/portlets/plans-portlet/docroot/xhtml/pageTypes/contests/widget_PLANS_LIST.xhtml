@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<f:view  xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"  >
+    
+    <ice:form>
+    <div class="blueheaderbar tooltips">
+        <div class="proposalname">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Proposal name">
+                <f:attribute name="sortColumn" value="NAME" />
+            </ice:commandLink>
+            <div class="tooltip">click to sort by name<div class="tt-arrow"></div></div>
+             /&amp;nbsp;
+            
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Author(s)">
+                <f:attribute name="sortColumn" value="CREATOR" />
+            </ice:commandLink>
+            
+            <div class="tooltip">click to sort by author<div class="tt-arrow"></div></div>
+        </div>
+        <div class="thumbs">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
+                <f:attribute name="sortColumn" value="VOTES" />
+            </ice:commandLink>
+        </div>
+        <div class="tooltip">click to sort by<br />number of votes<div class="tt-arrow"></div></div>
+        <div class="propcomm">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
+                <f:attribute name="sortColumn" value="SUPPORTERS" />
+            </ice:commandLink>
+        </div>
+        <div class="tooltip">click to sort by<br />number of comments<div class="tt-arrow"></div></div>
+        <div class="modified">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Modified">
+                <f:attribute name="sortColumn" value="UPDATE_DATE" />
+            </ice:commandLink>
+        </div>
+        <div class="tooltip">click to sort by date<div class="tt-arrow"></div></div>
+        <div class="contributor">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Contributors">
+                <f:attribute name="sortColumn" value="IS_PLAN_OPEN" />
+            </ice:commandLink>
+        </div>
+        <div class="tooltip">click to sort by contributor<div class="tt-arrow"></div></div>
+    </div></ice:form>
+    <div class="shadebar"></div>
+    
+    
+    <ice:panelSeries var="singleProposal" value="#{plansIndex.plans}">
+        <div class="propbox">
+            <div class="row1">
+                <div class="title-author">
+                    <h4>
+                        <collab:planLink planId="#{singleProposal.planId}" contestId="#{singleProposal.contestId}" text="#{singleProposal.name}" escape="true" />
+                        /&amp;nbsp;
+                        <f:subview rendered="#{empty singleProposal.team}">
+                            <collab:userLinkSimple userId="#{singleProposal.author.userId}" text="#{singleProposal.author.screenName}" />
+                        </f:subview>
+                        <f:subview rendered="#{not empty singleProposal.team}">
+                            #{singleProposal.team}
+                        </f:subview>
+                    </h4>
+                </div>
+                <div class="thumbbox">#{singleProposal.supportersCount}</div>
+                <div class="commbox">#{singleProposal.commentsCount}</div>
+                <div class="modbox">
+                    <ice:outputText value="#{singleProposal.lastModifiedDate}" >
+                        <f:convertDateTime pattern="d/MM/yy" />
+                    </ice:outputText>
+                </div>
+                <div class="conbox">
+                    <f:subview rendered="#{singleProposal.open}">
+                        anyone
+                    </f:subview>
+                    <f:subview rendered="#{not singleProposal.open}">
+                        team only
+                    </f:subview>
+                </div>
+            </div>
+            <div class="row2">
+                #{singleProposal.abstract}
+            </div>
+        </div> <!-- /proposal -->
+    </ice:panelSeries>
+    
+    
+</f:view>

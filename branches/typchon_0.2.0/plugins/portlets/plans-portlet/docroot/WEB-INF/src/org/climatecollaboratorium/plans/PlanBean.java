@@ -43,6 +43,7 @@ public class PlanBean {
     private PlanModelBean modelBean;
     private boolean editingDescription;
     private boolean editingName;
+    private boolean editing = false;
     private CreatePlanBean createPlanBean;
     private PlanMembershipBean membershipBean;
     private PlansPermissionsBean permissions;
@@ -64,6 +65,9 @@ public class PlanBean {
     private PlansIndexBean plansIndexBean;
     private org.climatecollaboratorium.facelets.simulations.SimulationBean externalSimulationBean;
     private NavigationEvent lastNavEvent;
+    private List<PlanTab> availableTabs;
+    private PlanTab currentTab = PlanTab.DESCRIPTION;
+    
     static {
 
         tabNameIndexMap.put("admin", tabNameIndexMap.size());
@@ -145,6 +149,7 @@ public class PlanBean {
                 planPositionsBean.edit(null);
             }
         }
+        editing = false;
     }
 
     public int getDefaultTab() throws SystemException, PortalException {
@@ -394,5 +399,65 @@ public class PlanBean {
         
         return hasAbstract;
     }
+    
+    
+    
+    public List<PlanTab> getAvailableTabs() throws PortalException, SystemException {
+        if (availableTabs == null) {
+            availableTabs = new ArrayList<PlanTab>();
+            
+            availableTabs.add(PlanTab.DESCRIPTION);
+            if (getPlan().getHasModel()) { 
+                availableTabs.add(PlanTab.ACTIONSIMPACTS);
+            }
+            availableTabs.add(PlanTab.TEAM);
+            availableTabs.add(PlanTab.COMMENTS);
+            availableTabs.add(PlanTab.ADMIN);
+        }
         
+        return availableTabs;
+    }
+    
+    public PlanTab getCurrentTab() {
+        return currentTab;
+    }
+    
+    public void changeTab(ActionEvent e) {
+        currentTab = PlanTab.valueOf(e.getComponent().getAttributes().get("tab").toString());
+    }
+    
+    public static enum PlanTab {
+        ADMIN("ADMINISTRATION", false),
+        DESCRIPTION("DESCRIPTION", true),
+        ACTIONSIMPACTS("MODEL RESULTS", true),
+        COMMENTS("COMMENTS", false),
+        TEAM("CONTRIBUTORS", false);
+        
+        private final String displayName;
+        private final boolean editable;
+        
+        PlanTab(String displayName, boolean editable) {
+            this.displayName = displayName;
+            this.editable = editable;
+        }
+        
+        public String getDisplayName() {
+            return displayName;
+        }
+        
+        public boolean isEditable() {
+            return editable;
+        }
+        
+    }
+    
+    
+    public boolean isEditing() {
+        return editing;
+    }
+    
+    public void toggleEditing(ActionEvent e) {
+        editing = !editing;
+    }
+    
 }

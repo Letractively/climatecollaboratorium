@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2010. M.I.T. All Rights Reserved
+  ~ Licensed under the MIT license. Please see http://www.opensource.org/licenses/mit-license.php
+  ~ or the license.txt file included in this distribution for the full text of the license.
+  -->
+
+<f:view
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:collab="http://climatecollaboratorium.org/facelets"
+        xmlns:sharedcollab="http://climatecollaboratorium.org/components">
+    <ice:dataTable var="singleContest" value="#{contests}" styleClass="contestlist #{class}">
+        <ice:column style="width: 366px;">
+            <f:subview rendered="#{singleContest.featured}">
+                <strong>Featured:</strong>
+            </f:subview>
+            <collab:contestLink contestId="#{singleContest.contestId}" text="#{singleContest.shortName}:" />
+            #{singleContest.name}
+        </ice:column>
+        <ice:column style="width: 27px" styleClass="g">300</ice:column>
+        <ice:column style="width: 32px" >125</ice:column>
+        <ice:column style="width: 155px" styleClass="g">300</ice:column>
+        <ice:column style="width: 142px" >Global</ice:column>
+        <ice:column style="width: 142px" styleClass="g">Anyone</ice:column>
+    </ice:dataTable>
+
+</f:view>

@@ -5,12 +5,19 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
         xmlns:collab="http://climatecollaboratorium.org/facelets"
         xmlns:ui="http://java.sun.com/jsf/facelets" 
-        xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-   
-       
-    <ui:decorate template="breadcrumb.xhtml">
-    </ui:decorate>
-    <div id="content">
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions">    
+        
+
+   <style type="text/css">
+    .admin_left {
+        width: 400px;
+        float: left;
+    }
+    .admin_right {
+        float: left;
+    }
+   </style>
+   <ice:form>
     <div class="admin_left">
         <h2>This proposal can be edited by:</h2>
         <div class="admin_box">
@@ -203,7 +210,6 @@
         </script>
     
     </f:subview>
-
-</div>
     
+    </ice:form>
 </f:view>

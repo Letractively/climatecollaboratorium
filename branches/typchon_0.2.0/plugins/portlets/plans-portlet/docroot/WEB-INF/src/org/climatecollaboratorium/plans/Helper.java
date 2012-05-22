@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
@@ -180,6 +181,22 @@ public class Helper {
         }
 
         return params;
+    }
+    
+    public static HttpServletRequest getRequest() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        return (HttpServletRequest) ((HttpServletRequestWrapper) context.getExternalContext()
+                .getRequestMap().get(REQUEST_PARAM_NAME)).getRequest();
+    }
+
+    public static String getCookieValue(String name) {
+        for (Cookie c: getRequest().getCookies()) {
+            if (c.getName().equals(name)) {
+                return c.getValue();
+            }
+        }
+        return null;
+        
     }
 
 }

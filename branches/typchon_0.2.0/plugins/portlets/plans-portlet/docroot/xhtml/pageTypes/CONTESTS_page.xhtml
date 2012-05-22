@@ -19,9 +19,53 @@
     initializeColumnsInfo();
   </script>
 </ice:panelGroup>
-<ui:composition template="../templates/singlePageWithBreadcrumb.xhtml">
-  <ui:define name="plans_content">
+<div id="content">
+    <div class="headline formmargin">
+    <h1>Contests</h1>
+    <ice:form>
+    <div class="view ${contests.viewType.lowerCase}view"> <!-- To switch the button over to list view just change "gridview" to "listview" -->
+        <div class="grid">
+            <div>
+                <f:subview rendered="#{contests.viewType != 'GRID'}">
+                    <ice:commandLink actionListener="#{contests.setViewType}" value="Grid View">
+                        <f:attribute name="viewType" value="GRID" />
+                    </ice:commandLink>
+                </f:subview>
+                <f:subview rendered="#{contests.viewType == 'GRID'}">
+                    Grid View
+                </f:subview>
+            
+            </div></div>
+        <div class="list">
+            <div>
+                <f:subview rendered="#{contests.viewType != 'LIST'}">
+                    <ice:commandLink actionListener="#{contests.setViewType}" value="List View">
+                        <f:attribute name="viewType" value="LIST" />
+                    </ice:commandLink>
+                </f:subview>
+                <f:subview rendered="#{contests.viewType == 'LIST'}">
+                    <ice:outputText value="List View" />
+                </f:subview>
+            </div>
+        </div>
+    </div>
+    </ice:form>
+  
+  <div class="show"><a href="javascript:;">Show prior contests</a></div>
+  <div class="divider"></div> 
+  <div class="show"><a href="javascript:;">Suggest a new contest</a></div> 
+ <form method="get" action="" class="filter">
+  <input id="contest-filter" name="contest-filter" type="text" value="Filter contests"  onfocus="if (this.value == 'Filter contests') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Filter contests';}" />
+ </form>
+ </div> <!-- /headline -->
+  
+  
+  <ui:include src="./contests/#{contests.viewType}_page.xhtml" />
+  
+  
   <ice:panelSeries value="#{contests.contests}" var="singleContest" varStatus="status">
+  
+  
     <ice:form>
         <ice:panelGroup styleClass="protitle" rendered="#{not singleContest.editor.editing}">
             <f:subview rendered="#{singleContest.contestActive}">
@@ -233,7 +277,5 @@
 
         </script>
     </ice:panelGroup>
-
-</ui:define>
-</ui:composition>
+</div>
 </f:view>

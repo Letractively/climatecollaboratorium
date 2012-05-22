@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * Created by IntelliJ IDEA.
  * User: jintrone
@@ -116,5 +117,35 @@ public class ContestPhaseWrapper {
             }
         }
         return hasNext;
+    }
+    
+    public long getDaysTillEnd() {
+        //Interval i = new Interval(arg0, arg1)
+        long nowTime = new Date().getTime();
+        long endTime = phase.getPhaseEndDate().getTime();
+        
+        
+        
+        return (endTime - nowTime) / (24 * 60 * 60 * 1000);
+    }
+    
+    public long getHoursTillEnd() {
+        //Interval i = new Interval(arg0, arg1)
+        long nowTime = new Date().getTime();
+        long endTime = phase.getPhaseEndDate().getTime();
+        
+        
+        
+        return (endTime - nowTime) / (60 * 60 * 1000);
+    }
+    
+    public long getMinutesTillEnd() {
+        //Interval i = new Interval(arg0, arg1)
+        long nowTime = new Date().getTime();
+        long endTime = phase.getPhaseEndDate().getTime();
+        
+        
+        
+        return (endTime - nowTime) / (60 * 1000);
     }
 }
