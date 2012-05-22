@@ -25,6 +25,8 @@
         <column name="contestActive" type="Boolean"/>
         <column name="planTemplateId" type="Long" />
         <column name="focusAreaId" type="Long" />
+        <column name="contestLogoId" type="Long" />
+        <column name="featured" type="Boolean" />
         
         <order by="desc">
             <order-column name="created" />

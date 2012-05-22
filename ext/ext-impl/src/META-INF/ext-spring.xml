@@ -1532,4 +1532,22 @@
 	<bean id="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermUtil" class="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermUtil">
 		<property name="persistence" ref="com.ext.portlet.ontology.service.persistence.FocusAreaOntologyTermPersistence.impl" />
 	</bean>
+	<bean id="com.ext.auth.service.AuthMappingLocalService.impl" class="com.ext.auth.service.impl.AuthMappingLocalServiceImpl" />
+	<bean id="com.ext.auth.service.AuthMappingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.auth.service.AuthMappingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.auth.service.AuthMappingLocalServiceUtil" class="com.ext.auth.service.AuthMappingLocalServiceUtil">
+		<property name="service" ref="com.ext.auth.service.AuthMappingLocalService.impl" />
+	</bean>
+	<bean id="com.ext.auth.service.AuthMappingService.impl" class="com.ext.auth.service.impl.AuthMappingServiceImpl" />
+	<bean id="com.ext.auth.service.AuthMappingService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.auth.service.AuthMappingService.impl" />
+	</bean>
+	<bean id="com.ext.auth.service.AuthMappingServiceUtil" class="com.ext.auth.service.AuthMappingServiceUtil">
+		<property name="service" ref="com.ext.auth.service.AuthMappingService.impl" />
+	</bean>
+	<bean id="com.ext.auth.service.persistence.AuthMappingPersistence.impl" class="com.ext.auth.service.persistence.AuthMappingPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.auth.service.persistence.AuthMappingUtil" class="com.ext.auth.service.persistence.AuthMappingUtil">
+		<property name="persistence" ref="com.ext.auth.service.persistence.AuthMappingPersistence.impl" />
+	</bean>
 </beans>

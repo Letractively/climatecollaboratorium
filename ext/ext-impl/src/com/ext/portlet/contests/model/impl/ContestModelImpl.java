@@ -82,9 +82,15 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "planTemplateId", new Integer(Types.BIGINT) },
             
 
-            { "focusAreaId", new Integer(Types.BIGINT) }
+            { "focusAreaId", new Integer(Types.BIGINT) },
+            
+
+            { "contestLogoId", new Integer(Types.BIGINT) },
+            
+
+            { "featured_", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -112,6 +118,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Boolean _originalContestActive;
     private Long _planTemplateId;
     private Long _focusAreaId;
+    private Long _contestLogoId;
+    private Boolean _featured;
 
     public ContestModelImpl() {
     }
@@ -133,6 +141,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setContestActive(soapModel.getContestActive());
         model.setPlanTemplateId(soapModel.getPlanTemplateId());
         model.setFocusAreaId(soapModel.getFocusAreaId());
+        model.setContestLogoId(soapModel.getContestLogoId());
+        model.setFeatured(soapModel.getFeatured());
 
         return model;
     }
@@ -280,6 +290,22 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _focusAreaId = focusAreaId;
     }
 
+    public Long getContestLogoId() {
+        return _contestLogoId;
+    }
+
+    public void setContestLogoId(Long contestLogoId) {
+        _contestLogoId = contestLogoId;
+    }
+
+    public Boolean getFeatured() {
+        return _featured;
+    }
+
+    public void setFeatured(Boolean featured) {
+        _featured = featured;
+    }
+
     public Contest toEscapedModel() {
         if (isEscapedModel()) {
             return (Contest) this;
@@ -306,6 +332,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setContestActive(getContestActive());
             model.setPlanTemplateId(getPlanTemplateId());
             model.setFocusAreaId(getFocusAreaId());
+            model.setContestLogoId(getContestLogoId());
+            model.setFeatured(getFeatured());
 
             model = (Contest) Proxy.newProxyInstance(Contest.class.getClassLoader(),
                     new Class[] { Contest.class },
@@ -332,6 +360,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setContestActive(getContestActive());
         clone.setPlanTemplateId(getPlanTemplateId());
         clone.setFocusAreaId(getFocusAreaId());
+        clone.setContestLogoId(getContestLogoId());
+        clone.setFeatured(getFeatured());
 
         return clone;
     }
@@ -407,6 +437,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getPlanTemplateId());
         sb.append(", focusAreaId=");
         sb.append(getFocusAreaId());
+        sb.append(", contestLogoId=");
+        sb.append(getContestLogoId());
+        sb.append(", featured=");
+        sb.append(getFeatured());
         sb.append("}");
 
         return sb.toString();
@@ -474,6 +508,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>focusAreaId</column-name><column-value><![CDATA[");
         sb.append(getFocusAreaId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>contestLogoId</column-name><column-value><![CDATA[");
+        sb.append(getContestLogoId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>featured</column-name><column-value><![CDATA[");
+        sb.append(getFeatured());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

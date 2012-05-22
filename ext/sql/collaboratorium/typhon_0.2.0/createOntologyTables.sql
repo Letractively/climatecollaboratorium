@@ -29,7 +29,7 @@ create table FocusArea (
 create table FocusAreaOntologyTerm (
     focusAreaId BIGINT not null,
     ontologyTermId BIGINT not null,
-    primary key (focusAreaIdId, ontologyTermId)
+    primary key (focusAreaId, ontologyTermId)
 );
 
 

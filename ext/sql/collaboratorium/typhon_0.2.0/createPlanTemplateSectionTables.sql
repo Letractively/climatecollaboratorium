@@ -1,7 +1,7 @@
 create table PlanSectionDefinition (
     id_ BIGINT not null primary key,
     title VARCHAR(512) null,
-    defaultText VARCHAR(75) null,
+    defaultText LONGTEXT null,
     categoryId BIGINT
 );
 
@@ -29,7 +29,7 @@ create table PlanSection (
     id_ BIGINT not null primary key,
     planSectionDefinitionId BIGINT,
     planId BIGINT,
-    content VARCHAR(75) null,
+    content LONGTEXT null,
     created DATE null,
     version BIGINT,
     planVersion BIGINT,

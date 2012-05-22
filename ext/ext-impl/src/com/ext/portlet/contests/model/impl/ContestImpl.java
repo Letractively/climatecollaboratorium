@@ -1,5 +1,7 @@
 package com.ext.portlet.contests.model.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,11 +25,15 @@ import com.ext.portlet.plans.service.PlanTemplateLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.servlet.ImageServletTokenUtil;
+import com.liferay.portal.model.Image;
+import com.liferay.portal.service.ImageLocalServiceUtil;
 
 
 public class ContestImpl extends ContestModelImpl implements Contest {
@@ -122,11 +128,39 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     }
     
     public PlanTemplate getPlanTemplate() throws PortalException, SystemException {
-        return PlanTemplateLocalServiceUtil.getPlanTemplate(getPlanTemplateId());
+        if (getPlanTemplateId() != null && getPlanTemplateId() > 0) {
+            return PlanTemplateLocalServiceUtil.getPlanTemplate(getPlanTemplateId());
+        }
+        return null;
     }
     
     public FocusArea getFocusArea() throws PortalException, SystemException {
         return FocusAreaLocalServiceUtil.getFocusArea(getFocusAreaId());
     }
+    
+    public Image getLogo() throws PortalException, SystemException {
+        return getContestLogoId() != null && getContestLogoId() > 0 ? 
+                ImageLocalServiceUtil.getImage(getContestLogoId()) : 
+                ImageLocalServiceUtil.getDefaultSpacer();
+    }
+    
+    public void setLogo(File logoFile) throws IOException, SystemException {
+        Image i = ImageLocalServiceUtil.getImage(logoFile);   
+        i.setImageId(CounterLocalServiceUtil.increment(Image.class.getName()));
+        
+        ImageLocalServiceUtil.addImage(i);
+        this.setContestLogoId(i.getImageId());
+        
+    }
+    
+    public String getLogoPath() throws PortalException, SystemException {
+        Image i = getLogo();
+        if (i != null) {
+            return "?img_id=" + i.getImageId() + "&t=" + ImageServletTokenUtil.getToken(i.getImageId());
+        }
+        return "";
+    }
+    
+    
 
 }

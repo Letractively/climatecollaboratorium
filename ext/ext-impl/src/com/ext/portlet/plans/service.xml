@@ -312,6 +312,7 @@
         <column name="planVersion" type="Long" />
         <column name="created" type="Date" />
         <column name="updateAuthorId" type="Long" />
+        <column name="image" type="Long" />
         
         <order by="desc">
             <order-column name="id" />
@@ -471,6 +472,8 @@
         <column name="id" type="Long" primary="true" />
         <column name="title" type="String" />
         <column name="defaultText" type="String" />
+        <column name="helpText" type="String" />
+        <column name="characterLimit" type="Integer" />
         <column name="focusAreaId" type="Long" />
     </entity>
     

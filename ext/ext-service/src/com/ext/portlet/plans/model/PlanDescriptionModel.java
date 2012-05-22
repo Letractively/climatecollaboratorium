@@ -62,5 +62,9 @@ public interface PlanDescriptionModel extends BaseModel<PlanDescription> {
 
     public void setUpdateAuthorId(Long updateAuthorId);
 
+    public Long getImage();
+
+    public void setImage(Long image);
+
     public PlanDescription toEscapedModel();
 }

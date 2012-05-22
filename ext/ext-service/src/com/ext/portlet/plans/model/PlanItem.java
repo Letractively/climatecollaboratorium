@@ -32,12 +32,23 @@ public interface PlanItem extends PlanItemModel {
 
     public java.lang.String getName() throws com.liferay.portal.SystemException;
 
+    public java.lang.Long getImageId()
+        throws com.liferay.portal.SystemException;
+
+    public com.liferay.portal.model.Image getImage()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public void setDescription(java.lang.String description,
         java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
     public void setName(java.lang.String name, java.lang.Long updateAuthorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void setImage(java.lang.Long imageId, java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
@@ -327,4 +338,12 @@ public interface PlanItem extends PlanItemModel {
     public java.util.List<com.ext.portlet.plans.model.PlanSection> getAllPlanSections(
         com.ext.portlet.plans.model.PlanSectionDefinition psd)
         throws com.liferay.portal.SystemException;
+
+    public java.lang.Integer getRibbon()
+        throws com.liferay.portal.SystemException;
+
+    public void setTeam(java.lang.String team)
+        throws com.liferay.portal.SystemException;
+
+    public java.lang.String getTeam() throws com.liferay.portal.SystemException;
 }

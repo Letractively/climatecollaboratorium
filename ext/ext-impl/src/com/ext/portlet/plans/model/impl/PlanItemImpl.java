@@ -60,12 +60,14 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Image;
 import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.impl.MembershipRequestImpl;
 import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.MembershipRequestLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
@@ -90,6 +92,18 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
 
     public String getName() throws SystemException {
         return PlanDescriptionLocalServiceUtil.getCurrentForPlan(this).getName();
+    }
+    
+    public Long getImageId() throws SystemException {
+        return PlanDescriptionLocalServiceUtil.getCurrentForPlan(this).getImage();
+    }
+    
+    public Image getImage() throws SystemException, PortalException {
+        Long imageId = getImageId();
+        if (imageId != null) {
+            return ImageLocalServiceUtil.getImage(imageId);
+        }
+        return null;
     }
 
     public void setDescription(String description, Long updateAuthorId) throws SystemException, PortalException {
@@ -118,6 +132,18 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         DiscussionCategoryGroup dcg = getDiscussionCategoryGroup();
         dcg.setDescription(name + " discussion");
         dcg.store();
+    }
+    
+    public void setImage(Long imageId, Long updateAuthorId) throws SystemException, PortalException {
+        newVersion(UpdateType.IMAGE_UPDATED, updateAuthorId);
+        // update plan name attribute
+
+        PlanDescription planDescription = PlanDescriptionLocalServiceUtil.createNewVersionForPlan(this);
+        planDescription.setImage(imageId);
+        planDescription.store();
+        updateAttribute(Attribute.IMAGE);
+        //joinIfNotAMember(updateAuthorId);
+        updateSearchIndex();
     }
 
     public List<PlanDescription> getAllDescriptionVersions() throws SystemException {
@@ -511,6 +537,25 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
             PlanAttributeLocalServiceUtil.addPlanAttribute(getPlanId(), attribute.name(), value);
         }
     }
+    
+    /**
+     * Updates value of a given attribute, should be used only for property
+     * attributes.
+     * 
+     * @param attribute
+     *            attribute which value should be updated
+     * @throws SystemException
+     *             in case of any error
+     */
+    private String getAttribute(Attribute attribute) throws SystemException {
+        PlanAttribute att = PlanAttributeLocalServiceUtil.findPlanAttribute(getPlanId(), attribute.name());
+        if (att != null) {
+            return att.getAttributeValue();
+        }
+        return null;
+    }
+    
+    
 
     public List<PlanAttribute> getPlanAttributes() throws SystemException {
         return PlanItemLocalServiceUtil.getPlanAttributes(this);
@@ -745,6 +790,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         setAttribute(Attribute.PLAN_RIBBON_TEXT, String.valueOf(ribbonText));
     }
     
+    
     public void setAttribute(String attributeName, String value) throws SystemException {
         setAttribute(Attribute.valueOf(attributeName), value);
     }
@@ -762,20 +808,22 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     }
     
     public List<PlanSection> getPlanSections() throws PortalException, SystemException {
-        List<PlanSection> ret = new ArrayList<PlanSection>();
-        
-        for (PlanSectionDefinition psd: getPlanTemplate().getSections()) {
-            ret.add(PlanSectionLocalServiceUtil.getCurrentForPlanSectionDef(this, psd));
+        PlanTemplate tmpl = getPlanTemplate();
+        if (tmpl != null) {
+            List<PlanSection> ret = new ArrayList<PlanSection>();
             
+            for (PlanSectionDefinition psd: tmpl.getSections()) {
+                ret.add(PlanSectionLocalServiceUtil.getCurrentForPlanSectionDef(this, psd));
+            }
+            return ret;
         }
         
-        return ret;
+        return null;
     }
     
     public void setSectionContent(PlanSectionDefinition psd, String content, List<Long> referencedPlans, Long updateAuthorId) 
     throws SystemException, PortalException {
         newVersion(UpdateType.PLAN_SECTION_UPDATED, updateAuthorId);
-
         PlanSection ps = PlanSectionLocalServiceUtil.createNewVersionForPlanSectionDefinition(this, psd, false);
         ps.setUpdateAuthorId(updateAuthorId);
         ps.setContent(content);
@@ -790,6 +838,29 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     
     public List<PlanSection> getAllPlanSections(PlanSectionDefinition psd) throws SystemException {
         return PlanSectionLocalServiceUtil.getAllForPlanDefinition(this, psd);
+    }
+
+    public Integer getRibbon() throws SystemException {
+        PlanAttribute attr = getPlanAttribute(PlanConstants.Attribute.PLAN_RIBBON.name());
+        try {
+            return attr != null && attr.getAttributeValue() != null && attr.getAttributeValue().trim().length() > 0 ? 
+                    Integer.parseInt(attr.getAttributeValue()) : null;
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
+    }
+    
+    public void setTeam(String team) throws SystemException {
+        setAttribute(PlanConstants.Attribute.TEAM, team);
+    }
+    
+    public String getTeam() throws SystemException {
+        String team = getAttribute(Attribute.TEAM);
+        if (team == null || team.trim().length() == 0) {
+            return null;
+        }
+        return team;
     }
 
 }

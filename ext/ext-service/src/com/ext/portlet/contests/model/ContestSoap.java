@@ -40,6 +40,8 @@ public class ContestSoap implements Serializable {
     private Boolean _contestActive;
     private Long _planTemplateId;
     private Long _focusAreaId;
+    private Long _contestLogoId;
+    private Boolean _featured;
 
     public ContestSoap() {
     }
@@ -61,6 +63,8 @@ public class ContestSoap implements Serializable {
         soapModel.setContestActive(model.getContestActive());
         soapModel.setPlanTemplateId(model.getPlanTemplateId());
         soapModel.setFocusAreaId(model.getFocusAreaId());
+        soapModel.setContestLogoId(model.getContestLogoId());
+        soapModel.setFeatured(model.getFeatured());
 
         return soapModel;
     }
@@ -220,5 +224,21 @@ public class ContestSoap implements Serializable {
 
     public void setFocusAreaId(Long focusAreaId) {
         _focusAreaId = focusAreaId;
+    }
+
+    public Long getContestLogoId() {
+        return _contestLogoId;
+    }
+
+    public void setContestLogoId(Long contestLogoId) {
+        _contestLogoId = contestLogoId;
+    }
+
+    public Boolean getFeatured() {
+        return _featured;
+    }
+
+    public void setFeatured(Boolean featured) {
+        _featured = featured;
     }
 }

@@ -40,6 +40,14 @@ public interface PlanSectionDefinitionModel extends BaseModel<PlanSectionDefinit
 
     public void setDefaultText(String defaultText);
 
+    public String getHelpText();
+
+    public void setHelpText(String helpText);
+
+    public Integer getCharacterLimit();
+
+    public void setCharacterLimit(Integer characterLimit);
+
     public Long getFocusAreaId();
 
     public void setFocusAreaId(Long focusAreaId);
