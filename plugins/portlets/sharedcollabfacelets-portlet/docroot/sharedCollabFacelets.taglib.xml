@@ -72,6 +72,10 @@
         <source>xhtml/tags/userLinkSimple/userLinkSimple.xhtml</source>
     </tag>
     <tag>
+        <tag-name>userPortrait</tag-name>
+        <source>xhtml/tags/userPortrait/userPortrait.xhtml</source>
+    </tag>
+    <tag>
         <tag-name>userLinkSupport</tag-name>
         <handler-class>org.climatecollaboratorium.facelets.userLink.UserLinkSupportTag</handler-class>
     </tag>
