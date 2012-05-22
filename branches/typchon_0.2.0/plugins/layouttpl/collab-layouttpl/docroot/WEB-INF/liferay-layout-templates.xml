@@ -3,31 +3,6 @@
 
 <layout-templates>
 	<custom>
-		<layout-template id="collab" name="Collaboratorium Three Column">
-			<template-path>/collab.tpl</template-path>
-			<wap-template-path>/collab.tpl</wap-template-path>
-			<thumbnail-path>/custom-3-col.png</thumbnail-path>
-		</layout-template>
-		<layout-template id="collab-2-col" name="Collaboratorium Two Column">
-			<template-path>/collab-2-col.tpl</template-path>
-			<wap-template-path>/collab-2-col.tpl</wap-template-path>
-			<thumbnail-path>/custom-2-col.png</thumbnail-path>
-		</layout-template>
-		<layout-template id="collab-2-col-balanced" name="Collaboratorium Two Column Balanced">
-			<template-path>/collab-2-col-balanced.tpl</template-path>
-			<wap-template-path>/collab-2-col-balanced.tpl</wap-template-path>
-			<thumbnail-path>/custom-2-balanced.png</thumbnail-path>
-		</layout-template>
-		<layout-template id="collab-4-rows" name="Collaboratorium Two Column">
-			<template-path>/collab-4-rows.tpl</template-path>
-			<wap-template-path>/collab-4-rows.tpl</wap-template-path>
-			<thumbnail-path>/custom-4-rows.png</thumbnail-path>
-		</layout-template>
-		<layout-template id="collab-1-3-col" name="Collaboratorium 1 - 3 - 1 Column">
-			<template-path>/collab-1-3-col.tpl</template-path>
-			<wap-template-path>/collab-1-3-col.tpl</wap-template-path>
-			<thumbnail-path>/collab-1-3-col.png</thumbnail-path>
-		</layout-template>
 		<layout-template id="collab-content-footer" name="CoLab content and footer">
 			<template-path>/collab-content-footer.tpl</template-path>
 			<wap-template-path>/collab-content-footer.tpl</wap-template-path>
@@ -62,6 +37,16 @@
             <template-path>/collab-home-1-2-1.tpl</template-path>
             <wap-template-path>/collab-home-1-2-1.tpl</wap-template-path>
             <thumbnail-path>/collab-home-1-2-1.png</thumbnail-path>
+        </layout-template>
+        <layout-template id="collab-1-col-2-rows-content-footer" name="CoLab 1 column 2 rows content and footer">
+            <template-path>/collab-1-col-2-rows-content-footer.tpl</template-path>
+            <wap-template-path>/collab-1-col-2-rows-content-footer.tpl</wap-template-path>
+            <thumbnail-path>/collab-1-col-2-rows-content-footer.png</thumbnail-path>
+        </layout-template>
+        <layout-template id="collab-1-col-2-rows-noDIVcontent-footer" name="CoLab 1 column 2 rows content(no div) and footer">
+            <template-path>/collab-1-col-2-rows-noDIVcontent-footer.tpl</template-path>
+            <wap-template-path>/collab-1-col-2-rows-noDIVcontent-footer.tpl</wap-template-path>
+            <thumbnail-path>/collab-1-col-2-rows-noDIVcontent-footer.png</thumbnail-path>
         </layout-template>
 	</custom>
 </layout-templates>
