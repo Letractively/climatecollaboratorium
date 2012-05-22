@@ -1,5 +1,7 @@
 package org.climatecollaboratorium.plans.admin.wrappers;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +20,21 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanTemplate;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTemplateLocalServiceUtil;
+import com.icesoft.faces.component.inputfile.InputFile;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.ImageServletTokenUtil;
+import com.liferay.portal.model.Image;
+import com.liferay.portal.service.ImageLocalServiceUtil;
+
+
+import org.climatecollaboratorium.plans.admin.Helper;
 
 public class ContestWrapper {
     private Contest contest;
+    private File newContestLogo;
     
     public ContestWrapper(Contest contest) {
         this.contest = contest;
@@ -44,8 +56,19 @@ public class ContestWrapper {
         this.contest = contest;
     }
     
+    public boolean getFeatured() {
+        return contest.getFeatured();
+    }
     
-    public void save() throws SystemException {
+    public void setFeatured(boolean featured) {
+        contest.setFeatured(featured);
+    }
+    
+    
+    public void save() throws SystemException, IOException {
+        if (newContestLogo != null) {
+            contest.setLogo(newContestLogo);
+        }
         contest.store();
     }
     
@@ -92,6 +115,36 @@ public class ContestWrapper {
         }
     }
     
+    public void uploadLogo(ActionEvent e) throws IOException {
+        InputFile inputFile = (InputFile) e.getSource();
+        if (inputFile.getFileInfo().getStatus() == InputFile.INVALID) {
+            //fileErrorMessage = "Provided file isn't a valid image.";
+            _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
+            return;
+        }
+        
+        if (! inputFile.getFileInfo().getContentType().startsWith("image")) {
+            //fileErrorMessage = "Provided file isn't a valid image.";
+            _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
+            return;
+        }
+        newContestLogo = inputFile.getFileInfo().getFile();
+        Image i = ImageLocalServiceUtil.getImage(newContestLogo);
+        System.out.println(i);
+        //fileErrorMessage = null;
+        //resiseAndCropImage(inputFile.getFile());
+        //newUserProfile = inputFile.getFile();
+        
+    }
     
-
+    public String getLogo() throws PortalException, SystemException {
+        System.out.println(ImageLocalServiceUtil.getDefaultSpacer());
+        
+        return Helper.getThemeDisplay().getPathImage() + contest.getLogoPath();
+    }
+    
+    
+    
+    
+    private final static Log _log = LogFactoryUtil.getLog(ContestWrapper.class);
 }

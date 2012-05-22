@@ -12,7 +12,9 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
-    <ice:portlet><ice:form>
+    <ice:portlet>
+    <ice:messages />
+    <ice:form>
     <style>
             label {
                 font-weight: bold;
@@ -76,7 +78,22 @@
              <f:selectItems value="#{contestsAdmin.editedContest.availableFocusAreas}" />
            </ice:selectOneMenu>
            
+           <ice:outputLabel value="Featured" />
+           
+           <ice:selectBooleanCheckbox value="#{contestsAdmin.editedContest.featured}" />
+           
+           <ice:outputLabel value="Contest logo" />
+           
+           <f:subview>
+                <img src="#{contestsAdmin.editedContest.logo}" />
+                
+                <ice:inputFile actionListener="#{contestsAdmin.editedContest.uploadLogo}" styleClass="filepc" autoUpload="true" />
+           
+           </f:subview>
+           
+           
            <ice:outputText />
+           
            <ice:commandButton value="Save" action="#{contestsAdmin.editedContest.save}" />
         </ice:panelGrid>
         
