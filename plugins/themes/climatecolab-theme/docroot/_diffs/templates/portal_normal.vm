@@ -10,19 +10,36 @@
 	$theme.include($top_head_include)
 	
     <link rel="stylesheet" href="$css_folder/style.css" type="text/css" />
+    <link rel="stylesheet" href="$css_folder/style_additions.css" type="text/css" />
     <script type="text/javascript" src="http://use.typekit.com/uvv6okq.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
+    
+    <!-- AddThis Button BEGIN -->
+    <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=climatecolab"></script>
+    <!-- AddThis Button END -->
+    
 </head>
-<body class="$css_class home">
+
+
+
+#if ($page.getName($locale).toLowerCase().replaceAll("\s","") == 'home')
+    #set ($body_style_class = " home ")
+#else
+    #set ($body_style_class = "other_pages")
+#end
+
+
+<body class="$css_class $page.getName($locale).toLowerCase() $body_style_class">
 <div id="header">
  <div class="inner">
   <div id="logo"><a href="/"><img src="$images_folder/logo-climate-colab.png" width="203" height="42" alt="Climate Colab" /></a></div>
   <ul id="menu">
-   <li><a href="/web/guest/about/">About</a></li>
-   <li><a href="/web/guest/contests/">Contests</a></li>
-   <li><a href="/web/guest/community/">Community</a></li>
-   <li><a href="/web/guest/search/" class="search">Search</a></li>
+   <li><a href="/web/guest/learn">About</a></li>
+   <li><a href="/web/guest/plans">Contests</a></li>
+   <li><a href="/web/guest/community">Community</a></li>
+   <li><a href="/web/guest/search" class="search">Search</a></li>
   </ul>
   <ul id="menu-right">
    <li class="register"><a href="/register/">Register</a></li>
