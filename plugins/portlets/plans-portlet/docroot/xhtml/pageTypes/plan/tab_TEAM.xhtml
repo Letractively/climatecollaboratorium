@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:ice="http://www.icesoft.com/icefaces/component" 
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:liferay-faces="http://liferay.com/tld/faces"
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    
+    
+    <div class="headline prophead">
+        <h2><span>#{planBean.plan.planMembersCount}</span> members</h2>
+  
+        <div class="prop-butt">
+            <img src="/climatecolab-theme/images/icon-request-membership.png" width="24" height="22" alt="request membership" /> <div class="blue-button"><a href="javascript:;">Request membership</a></div>
+        </div>
+    </div> <!-- /headline -->
+    <ice:form><ice:dataTable var="member" value="#{planBean.membershipBean.planMembers}"  styleClass="contributors" rowClasses="odd,even">
+        <ice:column style="width: 525px">
+            <collab:userPortrait screenName="#{member.screenName}" width="42" height="42" />
+            <collab:userLinkSimple userId="#{member.userId}" text="#{member.screenName}" />
+        </ice:column>
+        <ice:column>
+            <f:subview rendered="#{(not permissions.canAdmin or permissions.planUserPermission gt member.planUserPermission or member.planUserPermission == 'OWNER') and not permissions.canAdminAll}">
+                <ice:outputText value="#{member.planUserPermission.description}"/>
+            </f:subview>
+            <ice:selectOneMenu value="#{member.planUserPermissionStr}"
+                    rendered="#{(permissions.canAdmin and permissions.planUserPermission le member.planUserPermission and not (member.planUserPermission == 'OWNER')) or permissions.canAdminAll}"
+                    partialSubmit="true">
+                <f:selectItems value="#{planBean.membershipBean.availableUserRoles}"/>
+            </ice:selectOneMenu>
+        
+        </ice:column>
+    </ice:dataTable></ice:form>
+
+
+    <div class="headline propsubhead">
+        <h2><span>#{planBean.plan.planFansCount}</span> supporters</h2>
+        <div class="prop-butt">
+            <img src="/climatecolab-theme/images/icon-proposal-thumb.png" width="20" height="22" alt="support proposal" /> <div class="blue-button"><a href="javascript:;">Support proposal</a></div>
+        </div>
+    </div> <!-- /headline -->
+    <ice:dataTable value="#{planBean.plan.planFanPairs}" var="fan" styleClass="contributors" rendered="#{fn:length(planBean.plan.planFans) > 0}" rowClasses="odd,even">
+        <ice:column>
+            <collab:userLinkSimple userId="#{fan.first.user.userId}" text="#{fan.first.user.screenName}"/>
+        </ice:column>
+        <ice:column>
+            <collab:userLinkSimple userId="#{fan.second.user.userId}" text="#{fan.second.user.screenName}"/>
+        </ice:column>
+    </ice:dataTable>        
+        
+        
+        
+        
+</f:view>

@@ -6,234 +6,82 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets">
 
-<ui:composition template="../templates/contestPageTemplateWithButtons.xhtml">
-    <ui:param name="showBread" value="true" />
-
-        <ui:define name="page_subtitle">#{contest.contest.shortName}</ui:define>
-        <ui:define name="plans_breadcrumb">
-        
-            <collab:contestsPageLink text="Contests Index" /> 
-            <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
-            
-            <collab:contestLink contestId="#{contest.contestId}" text="#{contest.contest.shortName}" />
-            
-        </ui:define>
-        
-
-
-<ui:define name="contest_content">
 <ice:form>
     <ui:include src="../createPlan.xhtml">
         <ui:param value="#{navigation.createPlanBean}" name="createPlanBean"/>
     </ui:include>
 </ice:form>
-<!-- 
-<div class="contestPhaseInfo">
-    <div class="details">
-        <f:subview rendered="#{plansIndex.contestPhase.status != 'FINISHED'}">
-            <h3>#{plansIndex.contestPhase.description}
-                (#{plansIndex.plansCount} proposals #{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION' ? 'thus far' : ''})
-            </h3>
-            <h4>#{plansIndex.contestPhase.name} closes &amp;nbsp;
-                <ice:outputText value="#{plansIndex.contestPhase.endDate}">
-                    <f:convertDateTime pattern="MMMMM d"/>
-                </ice:outputText>
-            </h4>
-        </f:subview>
 
-        <f:subview rendered="#{plansIndex.contestPhase.status == 'FINISHED'}">
-            <h3>Contest completed &amp;nbsp;
-                <ice:outputText value="#{plansIndex.contestPhase.endDate}">
-                    <f:convertDateTime pattern="MMMMM d, yyyy"/>
-                </ice:outputText>
-                (#{plansIndex.plansCount} final proposals)
-            </h3>
-        </f:subview>
-    </div>
-    <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
-        <ice:form>
-            <ice:commandButton onclick="if(!deferUntilLogin()) return false; Collab.nav.block();"
-                               styleClass="prominantButton createNewPlanButton"
-                               actionListener="#{navigation.createPlanBean.createPlan}"
-                               value="Begin a new proposal"/>
-        </ice:form>
+<div id="content">
+<div class="headline contest-page">
+    <div class="contest-image"><img src="#{contest.contest.logo}" width="52" height="52" alt="Contest Image" /></div>
+    <h1>${contest.contest.shortName}</h1>
+    <f:subview rendered="#{plansIndex.contestPhase.daysTillEnd gt 0}">
+        <div class="days-left"><span>#{plansIndex.contestPhase.daysTillEnd}</span> days until #{plansIndex.contestPhase.name} ends</div>
     </f:subview>
-
-    <div class="clear"></div>
-</div>
-
-
-<div class="proposalsListNav">
-    <f:subview rendered="#{not contest.currentPhase.firstPhase}">
-        <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals,viewProposals:active"
-           class="#{plansIndex.showPreviousProposals ? '' : 'active'}">
-            <ice:outputText value="Active Proposals" rendered="#{plansIndex.contestPhase.status != 'FINISHED'}"/>
-            <ice:outputText value="Final Proposals" rendered="#{plansIndex.contestPhase.status == 'FINISHED'}"/>
-        </a>
-        <a href="#plans=contests:#{contest.contest.contestActive ? 'active' : 'past'},subview:proposals,viewProposals:previous"
-           class="#{plansIndex.showPreviousProposals ? 'active' : ''}">
-            <ice:outputText value="Previous Proposals" rendered="#{plansIndex.contestPhase.status != 'FINISHED'}"/>
-            <ice:outputText value="Other Proposals" rendered="#{plansIndex.contestPhase.status == 'FINISHED'}"/>
-        </a>
+    <f:subview rendered="#{plansIndex.contestPhase.daysTillEnd eq 0}">
+        <f:subview rendered="#{plansIndex.contestPhase.hoursTillEnd gt 0}">
+            <div class="days-left"><span>#{plansIndex.contestPhase.hoursTillEnd}</span> hours until #{plansIndex.contestPhase.name} ends</div>
+        </f:subview>
+        <f:subview rendered="#{plansIndex.contestPhase.hoursTillEnd eq 0}">
+            <div class="days-left"><span>#{plansIndex.contestPhase.minutesTillEnd}</span> minutes until #{plansIndex.contestPhase.name} ends</div>
+        </f:subview>
     </f:subview>
+    
+</div> <!-- /headline -->
 
-    <div class="filters">
-        <ice:form>
-            <h3>Viewing:</h3>
-            <ice:selectOneMenu value="#{plansIndex.selectedMode}" partialSubmit="true">
-                <f:selectItems value="#{plansIndex.availableModes}"/>
-            </ice:selectOneMenu>
-        </ice:form>
-    </div>
-
-
-    <div class="clear"></div>
-</div>
- -->
- <ice:form>
-  <ice:panelGroup styleClass="protitle" rendered="#{not contest.contest.editor.editing}">
-            <img src="/collaboratorium-theme/images/ribbon.gif" width="65" height="58" alt="ribbon" />
-            <h2>
-                <collab:contestLink contestId="#{contest.contest.contestId}" text="#{contest.contest.shortName}" />
-            </h2>
-            <f:subview rendered="#{contest.contest.contestActive}">
-                <div class="t_wrap"><div class="txt1">CURRENT CONTEST</div></div>
-            </f:subview>
-            <f:subview rendered="#{not contest.contest.contestActive}">
-                <div class="t_wrap"><div class="txt1">ARCHIVED CONTEST</div></div>
-            </f:subview>
-            <h4><ice:outputText value="#{contest.contest.name}" /></h4>
-            
-            <ice:commandButton styleClass="editCategoryButton" value="Edit"
-                               action="#{contest.contest.editor.edit}"
-                               rendered="#{not contest.contest.editor.editing and permissions.canAdminAll}"/>
-        </ice:panelGroup>
-        <ice:panelGroup styleClass="categoryHeader" rendered="#{contest.contest.editor.editing}">
-            <ice:outputLabel for="name">Name</ice:outputLabel>
-
-            <h2><ice:inputText id="name" styleClass="categoryName" value="#{contest.contest.editor.name}"/>
-            </h2>
-        </ice:panelGroup>
-        <ice:panelGroup styleClass="categoryShortName" rendered="#{contest.contest.editor.editing}">
-            <ice:outputLabel for="shortName">Short name</ice:outputLabel>
-            <ice:inputText id="shortName" value="#{contest.contest.editor.shortName}"/>
-        </ice:panelGroup>
+ <div class="blueheaderbar">
+    <div class="contestbar">
+        Current contest phase:&amp;nbsp; <strong>#{contest.contest.activePhase.name}</strong> 
         
-        <div class="probox">
-            <div class="boxtext">
-                    <f:subview rendered="#{not contest.contest.editor.editing}">
-                        <ice:outputText id="description" value="#{contest.contest.description}"
-                                        escape="false"/>
-                    </f:subview>
-                    <f:subview rendered="#{contest.contest.editor.editing}">
-                    
-                        <ice:outputLabel for="defaultPlanDescription">Default plan description:</ice:outputLabel><br />
-                        
-                        <ice:inputTextarea value="#{contest.contest.editor.description}" style="width: 500px; height: 50px;"/>
-                        <br />
-                        <ice:outputLabel for="defaultPlanDescription">Default plan description:</ice:outputLabel><br />
-                        <ice:inputTextarea id="defaultPlanDescription" value="#{contest.contest.editor.defaultPlanDescription}" style="width: 500px; height: 50px;"/>
-                        
-                    </f:subview>
-                    <br />
-                    <ice:panelGrid columns="2" styleClass="editCategory buttonPanel"
-                                   rendered="#{contest.contest.editor.editing}">
-                        <ice:commandButton value="Save" action="#{contest.contest.editor.save}"/>
-                        <ice:commandButton value="Cancel" action="#{contest.contest.editor.cancel}"/>
-                    </ice:panelGrid>
-            </div>
-            
-            <div class="buttbox">
-                <div class="buttbdr">
-                    <collab:contestLink contestId="#{contest.contest.contestId}" hashString="plans=subview:issues" text="&lt;span &gt; DEBATE &lt;/span&gt; the issues" />
-                </div>
-                <f:subview rendered="#{contest.hasModel}">
-                    <div class="buttbdr">
-                        <collab:contestLink contestId="#{contest.contest.contestId}" hashString="plans=subview:model" text="&lt;span &gt;RUN&lt;/span&gt; the model" />
-                    </div>
-                </f:subview>
-                
-            </div>
-            &amp;nbsp;
-            <ul id="tabs" class="prohome">
-            
-                <ui:repeat value="#{contest.contest.activeOrPastPhases}" var="phase">
-                    <li class="#{phase.phaseId == contest.currentPhase.phaseId ? 'c' : ''}">
-                        <collab:contestLink contestId="#{contest.contest.contestId}" text="#{phase.name}" hashString="plans=phase:#{phase.phaseId}" /></li>
-                </ui:repeat>
-            <div class="clearfix"></div>
-            
-            </ul>
-            &amp;nbsp;
-            <div class="clearfix"></div>
-            
-        </div>
-        </ice:form>
-    <ice:form>
-    
-        <div id="pro-info">
-        <table width="100%">
-        <tr>
-        <td>
-        <img src="/collaboratorium-theme/images/icon_proposals.gif" width="26" height="25" /> <span class="num">#{plansIndex.plansCount}</span> proposals
-        <strong>
-        <f:subview rendered="#{plansIndex.contestPhase.contest.contest.contestPK== 1 and plansIndex.contestPhase.endDate!=null}">
-           <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />  
-           <span>Contest ended</span>
-           <ice:outputText value="#{plansIndex.contestPhase.endDate}">
-                <f:convertDateTime pattern="MMMMM yyyy"/>
-            </ice:outputText>
-        </f:subview>
+        <span>Previous phases: 
+            <ui:repeat value="#{contest.contest.activeOrPastPhases}" var="phase">
+                <collab:contestLink contestId="#{contest.contest.contestId}" text="#{phase.name}" hashString="plans=phase:#{phase.phaseId}" />
+            </ui:repeat>
+        </span>
+        
+    </div>
+ </div>
+ <div class="shadebar"></div>
+ 
 
 
-        <f:subview rendered="#{plansIndex.contestPhase.status != 'FINISHED' and plansIndex.contestPhase.contest.contest.contestPK> 1 and plansIndex.contestPhase.endDate!=null}">
-             <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />
-            <span>#{plansIndex.contestPhase.name} ends</span>
-            <ice:outputText value="#{plansIndex.contestPhase.endDate}">
-                <f:convertDateTime pattern="MMMMM d"/>
-            </ice:outputText>
-        </f:subview>
-        <f:subview rendered="#{plansIndex.contestPhase.status == 'FINISHED' and plansIndex.contestPhase.contest.contest.contestPK> 1 and plansIndex.contestPhase.endDate!=null}">
-             <img src="/collaboratorium-theme/images/icon_blue-chk-big.gif" width="34" height="26" />
-            <span>#{plansIndex.contestPhase.name} ended </span>
-            <ice:outputText value="#{plansIndex.contestPhase.endDate}">
-                <f:convertDateTime pattern="MMMMM d, yyyy"/>
-            </ice:outputText>
-        </f:subview>
-        </strong>
-        </td>
-        <td>
-            <div class="butt_wrap">
-                <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
-                    <div class="buttbdr">
-                        <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();"
+<div class="contest-detail">
+    <div class="heading">#{contest.contest.name}</div>
+    <div class="description">
+        <p>#{contest.contest.description}</p>
+        <div class="what"><strong>What:</strong> Any Actions</div>
+        <div class="where"><strong>Where:</strong> Global</div>
+        <div class="who"><strong>Who:</strong> Any organization or individual</div>
+    </div>
+    <div class="moreinfo">
+        <div class="advisors">Advisor: <a href="javascript:;">Traci Holter</a> <span>CoLab Fellow: <a href="javascript:;">Frederick Tavarez</a></span></div>
+        <div class="buttons"><a href="contest.html">Resources</a> <a href="comments.html">Discussion</a></div>
+    </div>
+ </div>
+ 
+  
+ 
+ <div class="headline subhead">
+    <h2><span>#{contest.contest.plansIndex.plansCount}</span> proposals</h2>
+    <div class="right">
+        <f:subview rendered="#{plansIndex.contestPhase.status == 'OPEN_FOR_SUBMISSION'}">
+            <ice:form>
+                <div class="blue-button">
+                    <ice:commandLink onclick="if(!deferUntilLogin()) return false; Collab.nav.block();"
                             actionListener="#{navigation.createPlanBean.createPlan}">
-                            <span>CREATE</span> proposal
-                        </ice:commandLink>
-                    </div>
-                </f:subview>
-          <!-- /butt_wrap -->
-            </div>
-         </td>
-         <td width="250">
-            <div class="select-pro_wrap">
-                <ice:selectOneMenu value="#{plansIndex.selectedMode}" partialSubmit="true" styleClass="selectbox1" style="width: 180px">
-                    <f:selectItems value="#{plansIndex.availableModes}"/>
-                </ice:selectOneMenu>
-                <script type="text/javascript">
-                    jQuery(document).ready(initSelectbox());
-                </script>
-            </div>
-         </td></tr></table>
-      
-    </div> <!-- /proinfo -->
-    
-    <ui:decorate template="../templates/plansList.xhtml">
-        <ui:param name="maxRows" value="#{plansIndex.pageSize}" />
-        <ui:param name="renderPaginator" value="true" />
-    </ui:decorate>
-    </ice:form>
-
-</ui:define>
-</ui:composition>
+                        <span>CREATE</span> proposal
+                    </ice:commandLink>
+                </div>
+            </ice:form>
+        </f:subview>
+    </div>
+</div> <!-- /headline.subhead -->
+ 
+ 
+<ui:decorate template="./contests/widget_PLANS_LIST.xhtml">
+    <ui:param name="maxRows" value="#{contest.contest.plansIndex.pageSize}" />
+    <ui:param name="renderPaginator" value="true" />
+</ui:decorate>
+     </div>
 </f:view>

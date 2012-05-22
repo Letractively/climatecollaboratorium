@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans.wrappers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import org.climatecollaboratorium.plans.PlanHistoryWrapper;
 import org.climatecollaboratorium.plans.PlansPermissionsBean;
 import org.climatecollaboratorium.plans.activity.PlanActivityKeys;
 import org.climatecollaboratorium.plans.events.PlanUpdatedEvent;
+import org.climatecollaboratorium.plans.utils.ImageUtils;
 import org.compass.core.util.backport.java.util.Arrays;
 
 import com.ext.portlet.PlanStatus;
@@ -41,11 +43,17 @@ import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.ext.utils.userInput.UserInputException;
 import com.ext.utils.userInput.service.UserInputFilterUtil;
+import com.icesoft.faces.component.inputfile.InputFile;
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.ImageServletTokenUtil;
+import com.liferay.portal.kernel.util.Tuple;
+import com.liferay.portal.model.Image;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
@@ -94,6 +102,14 @@ public class PlanItemWrapper {
     private final static Set<String> regionsRapidlyDeveloping = new HashSet<String>(Arrays.asList(regionsRapidlyDevelopingArr));
     private final static Set<String> regionsOtherDeveloping = new HashSet<String>(Arrays.asList(regionsOtherDevelopingArr));
     private final static List<SelectItem> availableRegions = new ArrayList<SelectItem>();
+    
+    private List<Tuple> planFanPairs;
+    
+    private Image newImage;
+    
+    private Set<Long> sectionsShown = new HashSet<Long>();
+    private List<PlanSectionWrapper> sections = null;
+    private String newTeam;
     
     static {
         for (String region: regionsDevelopedArr) {
@@ -553,6 +569,29 @@ public class PlanItemWrapper {
         return wrapped.getFans().subList(wrapped.getFans().size() / 2 + wrapped.getFans().size() % 2, wrapped.getFans().size());
     }
     
+    public List<Tuple> getPlanFanPairs() throws SystemException {
+        if (planFanPairs == null) {
+            planFanPairs = new ArrayList<PlanItemWrapper.Tuple>();
+            Tuple t = null;
+            
+            for (PlanFan fan: wrapped.getFans()) {
+                if (t == null) {
+                    t = new Tuple();
+                    t.setFirst(fan);
+                }
+                else {
+                    t.setSecond(fan);
+                    planFanPairs.add(t);
+                    t = null;
+                }
+            }
+            if (t != null) {
+                planFanPairs.add(t);
+            }
+        }
+        return planFanPairs;
+    }
+    
     public void becomeAFan(ActionEvent e) throws SystemException, PortalException {
         if (Helper.isUserLoggedIn()) {
             wrapped.addFan(Helper.getLiferayUser().getUserId());
@@ -815,18 +854,165 @@ public class PlanItemWrapper {
         return wrapped.getPlanId();
     }
     
-    private Set<Long> sectionsShown = new HashSet<Long>();
-    private List<PlanSectionWrapper> sections = new ArrayList<PlanSectionWrapper>();
-    
     public List<PlanSectionWrapper> getSections() throws PortalException, SystemException {
-        for (PlanSection ps: wrapped.getPlanSections()) {
-            Long id = ps.getId() == null ? ps.getDefinition().getId() : ps.getId();
-            if (! sectionsShown.contains(id)) {
-                sections.add(new PlanSectionWrapper(ps, this));
-                sectionsShown.add(id);
+        if (sections == null && wrapped.getPlanSections() != null) {
+            sections = new ArrayList<PlanSectionWrapper>();
+            for (PlanSection ps: wrapped.getPlanSections()) {
+                Long id = ps.getId() == null ? ps.getDefinition().getId() : ps.getId();
+                if (! sectionsShown.contains(id)) {
+                    sections.add(new PlanSectionWrapper(ps, this));
+                    sectionsShown.add(id);
+                }
             }
         }
         return sections;
     }
+    
+    public String getScrapbookText() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.SCRAPBOOK_HOVER.name());
+        return attr != null ? attr.getAttributeValue() : null;
+    }
+    
+    public void setScrapbookText(String scrapboxText) throws SystemException {
+        wrapped.setAttribute(PlanConstants.Attribute.SCRAPBOOK_HOVER.name(), scrapboxText);
+        
+    }
+    
+    public User getAuthor() throws PortalException, SystemException {
+        return wrapped.getAuthor();
+    }
+    
+    public boolean getHasSections() throws PortalException, SystemException {
+        return getSections() != null;
+    }
+    
+    public void saveContent(ActionEvent e) throws SystemException, PortalException, UserInputException {
+        if (Helper.isUserLoggedIn()) {
+            String savedDescription = UserInputFilterUtil.filterHtml(description);
+            if (savedDescription != null) {
+                wrapped.setDescription(savedDescription, Helper.getLiferayUser().getUserId());
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                    PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_DESCRIPTION.id(),null, 0);
+                eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
+            }
+            
+            if (name != null && !name.equals(wrapped.getName())) {
+                if (! PlanItemLocalServiceUtil.isNameAvailable(name, wrapped.getContest())) {
+                    FacesMessage message = new FacesMessage();
+                    message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                    message.setSummary("Name \"" + name + "\" is already taken, please choose different one.");
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                    return;
+                    
+                }
+                wrapped.setName(name, Helper.getLiferayUser().getUserId());
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                        PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_NAME.id(),null, 0);
+                
+                FacesMessage message = new FacesMessage();
+                message.setSeverity(FacesMessage.SEVERITY_INFO);
+                message.setSummary("Name changed.");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                
+                eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
+                //planBean.refreshIndex();
+            }
+            if (newImage != null) {
+                wrapped.setImage(newImage.getImageId(), Helper.getLiferayUser().getUserId());
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                        PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.CHANGE_IMAGE.id(),null, 0);
+                
+                FacesMessage message = new FacesMessage();
+                message.setSeverity(FacesMessage.SEVERITY_INFO);
+                message.setSummary("Image changed.");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+            
+            if (sections != null) {
+                for (PlanSectionWrapper psw: sections) {
+                    psw.save(e);
+                }
+            }
+            if (newTeam != null) {
+                wrapped.setTeam(newTeam);
+            }
+            
+        }
+        planBean.toggleEditing(e);
+    }
+    
+    public void uploadImage(ActionEvent e) throws IOException, SystemException {
+        InputFile inputFile = (InputFile) e.getSource();
+        if (inputFile.getStatus() == InputFile.INVALID) {
+            //fileErrorMessage = "Provided file isn't a valid image.";
+            _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
+            return;
+        }
+        
+        if (! inputFile.getFileInfo().getContentType().startsWith("image")) {
+            //fileErrorMessage = "Provided file isn't a valid image.";
+            _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
+            return;
+        }
+        
+        ImageUtils.resizeAndCropImage(inputFile.getFile(), 150, 150);
+        newImage = ImageLocalServiceUtil.getImage(inputFile.getFile());
+        
+        newImage.setImageId(CounterLocalServiceUtil.increment(Image.class.getName()));
+        
+        ImageLocalServiceUtil.addImage(newImage);
+    }
+
+    public void signalPictureUploaded(ActionEvent e) {
+        System.out.println("signal picture upload");
+        // do nothing, this method will be called thanks to javascript and will
+        // cause parent page to detect a file upload in an iframe
+    }
+    
+    public String getImage() throws PortalException, SystemException {
+        Image img = wrapped.getImage();
+        if (newImage != null && planBean.isEditing()) {
+            img = newImage;
+        }
+        
+        if (img != null) {
+            return Helper.getThemeDisplay().getPathImage() + 
+                "?img_id=" + img.getImageId() + "&t=" + ImageServletTokenUtil.getToken(img.getImageId());
+        }
+        return null;
+    }
+    
+    public String getTeam() throws SystemException {
+        return newTeam == null ? wrapped.getTeam() : newTeam;
+    }
+    
+    public void setTeam(String team) {
+        newTeam = team;
+    }
+    
+    public static class Tuple {
+        private Object first;
+        private Object second;
+        public Object getFirst() {
+            return first;
+        }
+        public void setFirst(Object first) {
+            this.first = first;
+        }
+        public Object getSecond() {
+            return second;
+        }
+        public void setSecond(Object second) {
+            this.second = second;
+        }
+        public Tuple(Object first, Object second) {
+            this.first = first;
+            this.second = second;
+        }
+        public Tuple() {
+            
+        }
+    }
+    
 
 }

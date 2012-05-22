@@ -2,6 +2,7 @@ package org.climatecollaboratorium.plans;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -189,5 +190,9 @@ public class NavigationBean {
 
     public SimulationBean getExternalSimulationBean() {
         return externalSimulationBean;
+    }
+    
+    public Date getForceRerender() {
+        return new Date();
     }
 }

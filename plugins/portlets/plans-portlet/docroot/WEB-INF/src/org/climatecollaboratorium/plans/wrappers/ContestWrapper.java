@@ -16,6 +16,7 @@ import com.ext.portlet.models.CollaboratoriumModelingService;
 import com.ext.portlet.models.ui.ModelUIFactory;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.service.ImageLocalServiceUtil;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -24,6 +25,7 @@ import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.ContestBean;
 import org.climatecollaboratorium.plans.CreatePlanBean;
+import org.climatecollaboratorium.plans.Helper;
 import org.climatecollaboratorium.plans.PlansIndexBean;
 
 import java.util.*;
@@ -44,6 +46,7 @@ public class ContestWrapper {
     private PlansIndexBean plansIndex;
     private EventBus eventBus;
     private List<ContestPhaseWrapper> activeOrPastPhases = new ArrayList<ContestPhaseWrapper>();
+    ContestPhaseWrapper activePhase = null;
 
     private CreatePlanBean createPlanBean;
     
@@ -64,7 +67,6 @@ public class ContestWrapper {
     public ContestWrapper(Contest contest) throws SystemException, PortalException {
         boolean addAsActiveOrPast = true;
         this.contest = contest;
-        ContestPhaseWrapper activePhase = null;
         for (ContestPhase phase:contest.getPhases()) {
             ContestPhaseWrapper phaseWrapper = new ContestPhaseWrapper(this,phase);
             if (addAsActiveOrPast) {
@@ -135,6 +137,17 @@ public class ContestWrapper {
     public String getContestModelDescription() {
         return contest.getContestModelDescription();
     }
+    
+    public String getLogo() throws PortalException, SystemException {
+        System.out.println(ImageLocalServiceUtil.getDefaultSpacer());
+        
+        return Helper.getThemeDisplay().getPathImage() + contest.getLogoPath();
+    }
+    
+    public boolean isFeatured() {
+        return contest.getFeatured();
+    }
+    
 
     /**
      * Created by IntelliJ IDEA.
@@ -329,5 +342,9 @@ public class ContestWrapper {
         plansIndex.init(contestBean.getCurrentPhase(), event);
     }
     
+    
+    public ContestPhaseWrapper getActivePhase() {
+        return activePhase;
+    }
     
 }

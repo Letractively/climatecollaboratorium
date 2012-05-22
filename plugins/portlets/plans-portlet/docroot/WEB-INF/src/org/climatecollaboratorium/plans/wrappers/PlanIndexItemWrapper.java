@@ -16,6 +16,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -46,10 +47,11 @@ public class PlanIndexItemWrapper {
             throws SystemException, PortalException {
         this.wrapped = wrapped;
         columnValues = new HashMap<Columns, Object>();
-
+/*
         for (Columns col : plansIndexBean.getColumns()) {
             columnValues.put(col, col.getValue(wrapped));
         }
+        */
 
         this.plansIndexBean = plansIndexBean;
         this.availableDebates = availableDebates;
@@ -175,6 +177,43 @@ public class PlanIndexItemWrapper {
         }
         return true;
     }
+
+    public String getScrapbookText() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.SCRAPBOOK_HOVER.name());
+        return attr != null ? attr.getAttributeValue() : null;
+    }
+    
+    public String getName() throws SystemException {
+        return wrapped.getName();
+    }
+    
+    public String getAbstract() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.ABSTRACT.name());
+        return attr != null ? attr.getAttributeValue() : null;
+    }
+    
+    public int getCommentsCount() throws SystemException, PortalException {
+        return wrapped.getDiscussionCategoryGroup().getCommentsCount();
+    }
+    
+    public String getSupportersCount() throws SystemException {
+        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.SUPPORTERS.name());
+        return attr != null ? attr.getAttributeValue() : null;
+    }
+    
+    public Date getLastModifiedDate() {
+        return wrapped.getUpdated();
+    }
+    
+    public boolean isOpen() throws SystemException {
+        return wrapped.getOpen();
+    }
+    
+    public String getTeam() throws SystemException {
+        return wrapped.getTeam();
+    }
+    
+    
     
 
 }

@@ -8,5 +8,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Shared Collab Facelets"/>
 	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/client-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/prettytime-1.0.8.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

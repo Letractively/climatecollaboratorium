@@ -1,0 +1,202 @@
+<f:view 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:addthis="http://www.addthis.com/help/api-spec" >
+
+    <div class="headline addprop">
+        Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
+        <a href="javascript:;">Read the contest rules</a>
+    </div> <!-- /headline -->
+
+    <ice:form styleClass="addpropform">
+    <div class="prop-left" id="addpropform">
+        <div class="addpropbox q1">
+            <label>
+                <strong>Title</strong> 
+                <a class="helpTrigger" href="javascript:;"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
+                40 words
+            </label>
+            <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
+            <ice:inputText value="#{plan.plan.name}" onchange="jQuery(this).addClass('valueChanged');" partialSubmit="true" required="true" >
+                <f:attribute name="plan" value="#{plan.plan}"/>
+                <f:validator validatorId="planNameValidator"/>
+                <f:attribute name="planName" value="#{plan.plan.name}" />
+            </ice:inputText>
+        </div>
+        <div class="addpropbox blue q2">
+            <label>
+                <span>Team name<br />
+                <em>optional</em></span> 
+                <a class="helpTrigger" href="javascript:;"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
+                20 words
+            </label>
+            <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
+            <ice:inputText value="#{proposal.plan.team}" />
+        </div>
+        
+        <div class="notation">Note: If you enter a team name, it will replace the proposal owner's name in the Author field.</div>
+        
+        <div class="addpropbox blue">
+            <label>
+                <span>Proposal image<br />
+                <em>optional</em></span>
+            </label>
+            <ice:panelGroup styleClass="upload proposalImageUpload">
+                    <div class="uploadbox">
+                        <f:subview rendered="#{not empty proposal.plan.image}">
+                            <img src="#{proposal.plan.image}" width="50px" height="50px"/>
+                        </f:subview>
+                    </div>
+                            
+                    <div id="uploadWidget">
+                        <ice:inputFile actionListener="#{proposal.plan.uploadImage}" styleClass="filepc" autoUpload="true" >
+                            <ice:outputStyle href="/css/proposals.css" />
+                        </ice:inputFile><br />
+                    </div>
+                    
+                    <ice:commandLink styleClass="hidden signalPictureUploaded" actionListener="#{proposal.plan.signalPictureUploaded}" />
+                    
+                    <script type="text/javascript">
+                        monitorUploadFrame();
+                    </script>
+            </ice:panelGroup>
+        </div>
+
+        <div class="addpropbox q3">
+            <label>
+                <strong>Pitch</strong> 
+                <a href="javascript:;" class="helpTrigger"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
+                140 words
+            </label>
+            <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
+            <div class="addpropInputContainer">
+                <ice:inputTextarea value="#{proposal.plan.abstract}" cols="50" rows="7" />
+            </div>
+        </div>
+        
+        <!--  if proposal has sections - render edit forms for sections -->
+        <f:subview rendered="#{proposal.plan.hasSections}">
+            <ice:panelSeries var="section" value="#{proposal.plan.sections}">
+                <div class="addpropbox q3">
+                    <label>
+                        <strong>#{section.section.definition.title}</strong> 
+                        <a href="javascript:;" class="helpTrigger"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
+                        <f:subview rendered="#{section.section.definition.characterLimit gt 0}">
+                            #{section.section.definition.characterLimit} characters
+                        </f:subview>
+                         
+                    </label>
+                    <div class="addprophelp">#{section.section.definition.helpText}</div>
+                    <div class="addpropInputContainer">
+                        <ice:inputTextarea value="#{section.section.content}" cols="50" rows="7" styleClass="rte" />
+                        <f:subview rendered="#{section.section.definition.characterLimit gt 0}">
+                            <span class="limit_characterCount"></span>/<span class="limit_charactersMax"> #{section.section.definition.characterLimit}</span> characters
+                        </f:subview>
+                    </div>
+                </div>
+            </ice:panelSeries>
+        </f:subview>
+        
+        <f:subview rendered="#{not proposal.plan.hasSections}">
+            <div class="addpropbox">
+                <label>
+                    <strong>Description</strong> 
+                    <a href="javascript:;" class="helpTrigger"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
+                </label>
+                <div class="addprophelp">Enter proposal assumptions, actions, describe your ideas.</div>
+                <div class="addpropInputContainer">
+                    <ice:inputTextarea value="#{proposal.plan.description}" cols="50" rows="20" styleClass="rte" />
+                </div>
+            </div>
+        </f:subview>
+        
+        
+   
+        
+        <script>
+        try {
+            jQuery("#addpropform .helpTrigger").click(function() {
+                var trigger = jQuery(this);
+                trigger.parent().parent().find(".addprophelp").slideToggle("fast");
+            });
+            
+            
+            var counter = 0;
+            
+            function shouldAllowMoreCharacters(input) {
+                if (!input.attr('validateLength')) {
+                    return true;
+                }
+                console.log(input.attr('maxCharacters') , input.val().length, input.attr('maxCharacters') > input.val().length);
+                return input.attr('maxCharacters') > input.val().length;
+            }
+            
+            
+            
+            jQuery("textarea.rte").each(function() {
+                if (jQuery(this).hasClass('rteInitialized')) {
+                    return;
+                }
+                
+                var tmp = this;
+                var thiz = jQuery(this);
+                
+                var limitCharactersMax = thiz.parent().find(".limit_charactersMax");
+                var limitCharacterCount = thiz.parent().find(".limit_characterCount");
+                
+                console.log(limitCharactersMax);
+                
+                
+                if (limitCharactersMax.length > 0) {
+                    thiz.attr({maxCharacters: limitCharactersMax.text(), validateLength: true});
+                    this.limitCharacterCounter = limitCharacterCount;
+                    tmp.limitCharacterCounter.text(thiz.val().length);
+                }
+                else {
+                    thiz.attr({validateLength: false});
+                }
+                
+                
+                thiz.wysiwyg({
+                    css: '/climatecolab-theme/css/style.css', 
+                    events: {
+                        keypress: function(event) {
+                            if (! shouldAllowMoreCharacters(thiz)) {
+                                event.preventDefault();
+                            }
+                            tmp.limitCharacterCounter.text(thiz.val().length);
+                        },
+                        keyup: function(event) {
+                            tmp.limitCharacterCounter.text(thiz.val().length);
+                        }
+                    
+                    }});
+ 
+                jQuery(this).addClass('rteInitialized');
+                
+                
+            });
+            
+            }
+            catch(e) {
+                alert(e);
+            }
+        </script>
+        
+        
+     
+    </div>
+    
+    <div class="prop-right">
+        <div class="edit-prop">
+            <div class="edit-prop-butts">
+                <ice:commandLink value="Save" actionListener="#{proposal.plan.saveContent}" />
+                <ice:commandLink value="Cancel" actionListener="#{proposal.toggleEditing}" />
+            </div>
+        </div>
+    
+    </div>
+    
+        </ice:form>
+ </f:view>
