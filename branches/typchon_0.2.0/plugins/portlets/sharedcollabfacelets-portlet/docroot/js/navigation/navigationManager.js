@@ -47,6 +47,18 @@ Collab.nav = new function() {
 		return false;
 	}
 	
+	this.getHashWithParams = function(token, additionalParameters) {
+		var tmp = navigationItems;
+		if (typeof(tmp[token]) == 'undefined') {
+			tmp[token] = {};
+		}
+		for (var key in additionalParameters) {
+			tmp[token][key] = additionalParameters[key];
+		}
+		
+		return createToken(tmp);
+	}
+	
 	/**
 	 * token and params in format of JS object:
 	 * {
@@ -95,6 +107,11 @@ Collab.nav = new function() {
 			forceNavigation();
 		}
 	}
+	
+	this.getNavigationItems = function() {
+		return navigationItems;
+	}
+	
 	this.refresh = function() {
 		forceNavigation();
 	}
@@ -161,23 +178,27 @@ Collab.nav = new function() {
 		return tokenNavigationMap;
 	}
 	
-	function createToken() {
+	function createToken(params) {
+		var navParams = navigationItems;
+		if (typeof(params) != 'undefined') {
+			navParams = params;
+		}
 		var navigationToken = [];
 		var addSemicolon = false;
-		for (var subject in navigationItems) {
+		for (var subject in navParams) {
 			if (addSemicolon) {
 				navigationToken.push(";");
 			}
 			navigationToken.push(subject);
 			navigationToken.push("=");
 			var addComa = false;
-			for (var key in navigationItems[subject]) {
+			for (var key in navParams[subject]) {
 				if (addComa) {
 					navigationToken.push(",");
 				}
 				navigationToken.push(key);
 				navigationToken.push(":");
-				navigationToken.push(navigationItems[subject][key]);
+				navigationToken.push(navParams[subject][key]);
 				addComa = true;
 			}
 			var addSemicolon = true;
