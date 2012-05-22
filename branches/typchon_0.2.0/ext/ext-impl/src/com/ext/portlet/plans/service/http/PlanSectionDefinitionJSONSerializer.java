@@ -35,6 +35,8 @@ public class PlanSectionDefinitionJSONSerializer {
         jsonObj.put("id", model.getId());
         jsonObj.put("title", model.getTitle());
         jsonObj.put("defaultText", model.getDefaultText());
+        jsonObj.put("helpText", model.getHelpText());
+        jsonObj.put("characterLimit", model.getCharacterLimit());
         jsonObj.put("focusAreaId", model.getFocusAreaId());
 
         return jsonObj;

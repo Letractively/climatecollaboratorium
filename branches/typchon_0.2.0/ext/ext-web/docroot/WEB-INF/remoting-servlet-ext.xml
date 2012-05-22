@@ -991,4 +991,16 @@
 		<property name="service" ref="com.ext.portlet.ontology.service.FocusAreaOntologyTermService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.ontology.service.FocusAreaOntologyTermService" />
 	</bean>
+	<bean name="/com_ext_auth_service_spring_AuthMappingService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.auth.service.AuthMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.auth.service.AuthMappingService" />
+	</bean>
+	<bean name="/com_ext_auth_service_spring_AuthMappingService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.auth.service.AuthMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.auth.service.AuthMappingService" />
+	</bean>
+	<bean name="/com_ext_auth_service_spring_AuthMappingService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.auth.service.AuthMappingService.impl" />
+		<property name="serviceInterface" value="com.ext.auth.service.AuthMappingService" />
+	</bean>
 </beans>

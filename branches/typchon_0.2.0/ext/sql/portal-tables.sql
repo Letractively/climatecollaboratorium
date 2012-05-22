@@ -76,6 +76,11 @@ create table AnnouncementsFlag (
 	value INTEGER
 );
 
+create table AuthMapping (
+	identifier VARCHAR(75) not null primary key,
+	userId LONG
+);
+
 create table BlogsEntry (
 	uuid_ VARCHAR(75) null,
 	entryId LONG not null primary key,
@@ -249,7 +254,9 @@ create table Contest (
 	authorId LONG,
 	contestActive BOOLEAN,
 	planTemplateId LONG,
-	focusAreaId LONG
+	focusAreaId LONG,
+	contestLogoId LONG,
+	featured_ BOOLEAN
 );
 
 create table ContestDebate (
@@ -1228,7 +1235,8 @@ create table PlanDescription (
 	version LONG,
 	planVersion LONG,
 	created DATE null,
-	updateAuthorId LONG
+	updateAuthorId LONG,
+	image LONG
 );
 
 create table PlanFan (
@@ -1324,6 +1332,8 @@ create table PlanSectionDefinition (
 	id_ LONG not null primary key,
 	title VARCHAR(75) null,
 	defaultText VARCHAR(75) null,
+	helpText VARCHAR(75) null,
+	characterLimit INTEGER,
 	focusAreaId LONG
 );
 

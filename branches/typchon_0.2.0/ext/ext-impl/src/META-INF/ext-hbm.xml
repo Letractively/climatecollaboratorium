@@ -187,6 +187,7 @@
 		<property name="planVersion" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updateAuthorId" />
+		<property name="image" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanMetaImpl" table="PlanMeta">
 		<cache usage="read-write" />
@@ -271,6 +272,8 @@
 		</id>
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="defaultText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="helpText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="characterLimit" />
 		<property name="focusAreaId" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanSectionImpl" table="PlanSection">
@@ -768,6 +771,8 @@
 		<property name="contestActive" />
 		<property name="planTemplateId" />
 		<property name="focusAreaId" />
+		<property name="contestLogoId" />
+		<property name="featured" column="featured_" />
 	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestDebateImpl" table="ContestDebate">
 		<cache usage="read-write" />
@@ -858,6 +863,13 @@
 	<class name="com.ext.portlet.twitter.model.impl.UserTwitterMappingImpl" table="UserTwitterMapping">
 		<cache usage="read-write" />
 		<id name="twitterId" type="java.lang.Long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId" />
+	</class>
+	<class name="com.ext.auth.model.impl.AuthMappingImpl" table="AuthMapping">
+		<cache usage="read-write" />
+		<id name="identifier" type="java.lang.String">
 			<generator class="assigned" />
 		</id>
 		<property name="userId" />

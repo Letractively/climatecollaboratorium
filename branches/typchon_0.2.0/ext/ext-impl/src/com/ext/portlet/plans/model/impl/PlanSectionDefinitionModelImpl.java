@@ -50,9 +50,15 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
             { "defaultText", new Integer(Types.VARCHAR) },
             
 
+            { "helpText", new Integer(Types.VARCHAR) },
+            
+
+            { "characterLimit", new Integer(Types.INTEGER) },
+            
+
             { "focusAreaId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanSectionDefinition (id_ LONG not null primary key,title VARCHAR(75) null,defaultText VARCHAR(75) null,focusAreaId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanSectionDefinition (id_ LONG not null primary key,title VARCHAR(75) null,defaultText VARCHAR(75) null,helpText VARCHAR(75) null,characterLimit INTEGER,focusAreaId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanSectionDefinition";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -68,6 +74,8 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
     private Long _id;
     private String _title;
     private String _defaultText;
+    private String _helpText;
+    private Integer _characterLimit;
     private Long _focusAreaId;
 
     public PlanSectionDefinitionModelImpl() {
@@ -80,6 +88,8 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         model.setId(soapModel.getId());
         model.setTitle(soapModel.getTitle());
         model.setDefaultText(soapModel.getDefaultText());
+        model.setHelpText(soapModel.getHelpText());
+        model.setCharacterLimit(soapModel.getCharacterLimit());
         model.setFocusAreaId(soapModel.getFocusAreaId());
 
         return model;
@@ -132,6 +142,22 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         _defaultText = defaultText;
     }
 
+    public String getHelpText() {
+        return GetterUtil.getString(_helpText);
+    }
+
+    public void setHelpText(String helpText) {
+        _helpText = helpText;
+    }
+
+    public Integer getCharacterLimit() {
+        return _characterLimit;
+    }
+
+    public void setCharacterLimit(Integer characterLimit) {
+        _characterLimit = characterLimit;
+    }
+
     public Long getFocusAreaId() {
         return _focusAreaId;
     }
@@ -152,6 +178,8 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
             model.setId(getId());
             model.setTitle(HtmlUtil.escape(getTitle()));
             model.setDefaultText(HtmlUtil.escape(getDefaultText()));
+            model.setHelpText(HtmlUtil.escape(getHelpText()));
+            model.setCharacterLimit(getCharacterLimit());
             model.setFocusAreaId(getFocusAreaId());
 
             model = (PlanSectionDefinition) Proxy.newProxyInstance(PlanSectionDefinition.class.getClassLoader(),
@@ -168,6 +196,8 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         clone.setId(getId());
         clone.setTitle(getTitle());
         clone.setDefaultText(getDefaultText());
+        clone.setHelpText(getHelpText());
+        clone.setCharacterLimit(getCharacterLimit());
         clone.setFocusAreaId(getFocusAreaId());
 
         return clone;
@@ -214,6 +244,10 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         sb.append(getTitle());
         sb.append(", defaultText=");
         sb.append(getDefaultText());
+        sb.append(", helpText=");
+        sb.append(getHelpText());
+        sb.append(", characterLimit=");
+        sb.append(getCharacterLimit());
         sb.append(", focusAreaId=");
         sb.append(getFocusAreaId());
         sb.append("}");
@@ -239,6 +273,14 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         sb.append(
             "<column><column-name>defaultText</column-name><column-value><![CDATA[");
         sb.append(getDefaultText());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>helpText</column-name><column-value><![CDATA[");
+        sb.append(getHelpText());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>characterLimit</column-name><column-value><![CDATA[");
+        sb.append(getCharacterLimit());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>focusAreaId</column-name><column-value><![CDATA[");

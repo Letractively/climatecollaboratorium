@@ -260,18 +260,16 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         }
 
         PlanItem plan = createPlan(contestPhase.getContest().getPlanType().getPlanTypeId(), authorId);
-        
+
         plan.setUpdated(basePlan.getUpdated());
         plan.store();
-        
+
         plan.getPlanMeta().setContestPhase(contestPhase.getContestPhasePK());
         plan.getPlanMeta().setModelId(basePlan.getPlanMeta().getModelId());
         PlanMetaLocalServiceUtil.updatePlanMeta(plan.getPlanMeta());
         PlanDescription description = PlanDescriptionLocalServiceUtil.getCurrentForPlan(plan);
         PlanModelRun planModelRun = PlanModelRunLocalServiceUtil.getCurrentForPlan(plan);
         PlanPositions planPositions = PlanPositionsLocalServiceUtil.getCurrentForPlan(plan);
-        
-        
 
         initPlan(plan);
 
@@ -283,7 +281,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         // copy scenario id
         // check if there is a scenario with given ID
         try {
-            if (basePlan.getScenarioId() != null && CollaboratoriumModelingService.repository().getScenario(basePlan.getScenarioId()) != null) {
+            if (basePlan.getScenarioId() != null
+                    && CollaboratoriumModelingService.repository().getScenario(basePlan.getScenarioId()) != null) {
                 planModelRun.setScenarioId(basePlan.getScenarioId());
 
             }
@@ -300,9 +299,9 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         if (basePlan.getScenarioId() != null) {
             // update all attributes
             plan.updateAllAttributes();
-        } 
+        }
         // update only attributes related to new values
-        
+
         plan.updateAttribute(Attribute.DESCRIPTION.name());
         plan.updateAttribute(Attribute.NAME.name());
         plan.updateAttribute(Attribute.POSITIONS.name());
@@ -310,23 +309,22 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         plan.updateAttribute(Attribute.IS_PLAN_OPEN.name());
         plan.updateAttribute(Attribute.SEEKING_ASSISTANCE.name());
         plan.updateAttribute(Attribute.STATUS.name());
-        
+
         if (basePlan.getOpen()) {
             plan.getPlanMeta().setOpen(true);
             plan.getPlanMeta().store();
         }
-        
+
         // set abstract and pitch
-        Attribute[] attributesToCopy = {Attribute.ABSTRACT, Attribute.LAST_MOD_DATE, Attribute.SCRAPBOOK, 
-                Attribute.SUBREGION, Attribute.REGION, Attribute.SEEKING_ASSISTANCE, Attribute.IS_PLAN_OPEN};
-        
-        for (Attribute attr: attributesToCopy) {
+        Attribute[] attributesToCopy = { Attribute.ABSTRACT, Attribute.LAST_MOD_DATE, Attribute.SCRAPBOOK,
+                Attribute.SUBREGION, Attribute.REGION, Attribute.SEEKING_ASSISTANCE, Attribute.IS_PLAN_OPEN };
+
+        for (Attribute attr : attributesToCopy) {
             PlanAttribute pa = basePlan.getPlanAttribute(attr.name());
             if (pa != null) {
                 plan.setAttribute(pa.getAttributeName(), pa.getAttributeValue());
             }
         }
-        
 
         return plan;
     }
@@ -477,6 +475,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
         categoryGroup.setUrl("/web/guest/plans/-/plans/contestId/" + plan.getContest().getContestPK() + "/planId/"
                 + plan.getPlanId() + "#plans=tab:comments");
+        
+        categoryGroup.store();
 
         DiscussionCategory category = categoryGroup.addCategory("General discussion", null,
                 UserLocalServiceUtil.getUser(plan.getAuthorId()));
@@ -496,15 +496,13 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
                 DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
                 DiscussionActions.ADD_COMMENT.name() };
 
-        String[] adminActions = { DiscussionActions.ADD_CATEGORY.name(),
-                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
-                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
-                DiscussionActions.ADD_COMMENT.name() };
-        
-        String[] moderatorActions = { DiscussionActions.ADD_CATEGORY.name(),
-                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
-                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
-                DiscussionActions.ADD_COMMENT.name() };
+        String[] adminActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
+                DiscussionActions.ADMIN_MESSAGES.name(), DiscussionActions.ADD_COMMENT.name() };
+
+        String[] moderatorActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
+                DiscussionActions.ADMIN_MESSAGES.name(), DiscussionActions.ADD_COMMENT.name() };
 
         String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
                 DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADD_COMMENT.name() };
@@ -570,11 +568,11 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         List<PlanItem> plans = new ArrayList<PlanItem>();
         if (phase != null) {
             plans = new ArrayList(planItemFinder.getPlansForPhase(phase.getContestPhasePK()));
-        }
-        else {
+        } else {
             for (PlanItem planItem : planItemFinder.getPlans()) {
-                if (planType == null || (planItem.getPlanTypeId() != null && planItem.getPlanTypeId().equals(
-                        planType.getPlanTypeId()))) {
+                if (planType == null
+                        || (planItem.getPlanTypeId() != null && planItem.getPlanTypeId().equals(
+                                planType.getPlanTypeId()))) {
                     plans.add(planItem);
                 }
             }
@@ -601,8 +599,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
                         }
                         if (plan2Attr != null) {
                             val2 = (Comparable) plan2Attr.getTypedValue();
-                            
-                        } 
+
+                        }
                         if (val1 == null || val2 == null) {
                             try {
                                 Attribute attribute = Attribute.valueOf(sortColumn);

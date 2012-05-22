@@ -63,9 +63,12 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
             { "created", new Integer(Types.TIMESTAMP) },
             
 
-            { "updateAuthorId", new Integer(Types.BIGINT) }
+            { "updateAuthorId", new Integer(Types.BIGINT) },
+            
+
+            { "image", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanDescription (id_ LONG not null primary key,planId LONG,name VARCHAR(75) null,description VARCHAR(75) null,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanDescription (id_ LONG not null primary key,planId LONG,name VARCHAR(75) null,description VARCHAR(75) null,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,image LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanDescription";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -87,6 +90,7 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
     private Long _planVersion;
     private Date _created;
     private Long _updateAuthorId;
+    private Long _image;
 
     public PlanDescriptionModelImpl() {
     }
@@ -102,6 +106,7 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         model.setPlanVersion(soapModel.getPlanVersion());
         model.setCreated(soapModel.getCreated());
         model.setUpdateAuthorId(soapModel.getUpdateAuthorId());
+        model.setImage(soapModel.getImage());
 
         return model;
     }
@@ -201,6 +206,14 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         _updateAuthorId = updateAuthorId;
     }
 
+    public Long getImage() {
+        return _image;
+    }
+
+    public void setImage(Long image) {
+        _image = image;
+    }
+
     public PlanDescription toEscapedModel() {
         if (isEscapedModel()) {
             return (PlanDescription) this;
@@ -218,6 +231,7 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
             model.setPlanVersion(getPlanVersion());
             model.setCreated(getCreated());
             model.setUpdateAuthorId(getUpdateAuthorId());
+            model.setImage(getImage());
 
             model = (PlanDescription) Proxy.newProxyInstance(PlanDescription.class.getClassLoader(),
                     new Class[] { PlanDescription.class },
@@ -238,6 +252,7 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         clone.setPlanVersion(getPlanVersion());
         clone.setCreated(getCreated());
         clone.setUpdateAuthorId(getUpdateAuthorId());
+        clone.setImage(getImage());
 
         return clone;
     }
@@ -301,6 +316,8 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         sb.append(getCreated());
         sb.append(", updateAuthorId=");
         sb.append(getUpdateAuthorId());
+        sb.append(", image=");
+        sb.append(getImage());
         sb.append("}");
 
         return sb.toString();
@@ -344,6 +361,10 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         sb.append(
             "<column><column-name>updateAuthorId</column-name><column-value><![CDATA[");
         sb.append(getUpdateAuthorId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>image</column-name><column-value><![CDATA[");
+        sb.append(getImage());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

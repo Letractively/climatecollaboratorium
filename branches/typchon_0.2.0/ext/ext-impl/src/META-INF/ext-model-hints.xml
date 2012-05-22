@@ -141,6 +141,7 @@
 		<field name="planVersion" type="Long" />
 		<field name="created" type="Date" />
 		<field name="updateAuthorId" type="Long" />
+		<field name="image" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanMeta">
 		<field name="id" type="Long" />
@@ -204,6 +205,8 @@
 		<field name="id" type="Long" />
 		<field name="title" type="String" />
 		<field name="defaultText" type="String" />
+		<field name="helpText" type="String" />
+		<field name="characterLimit" type="Integer" />
 		<field name="focusAreaId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanSection">
@@ -566,6 +569,8 @@
 		<field name="contestActive" type="Boolean" />
 		<field name="planTemplateId" type="Long" />
 		<field name="focusAreaId" type="Long" />
+		<field name="contestLogoId" type="Long" />
+		<field name="featured" type="Boolean" />
 	</model>
 	<model name="com.ext.portlet.contests.model.ContestDebate">
 		<field name="id" type="Long" />
@@ -628,6 +633,10 @@
 	</model>
 	<model name="com.ext.portlet.twitter.model.UserTwitterMapping">
 		<field name="twitterId" type="Long" />
+		<field name="userId" type="Long" />
+	</model>
+	<model name="com.ext.auth.model.AuthMapping">
+		<field name="identifier" type="String" />
 		<field name="userId" type="Long" />
 	</model>
 	<model name="com.ext.portlet.ontology.model.OntologySpace">

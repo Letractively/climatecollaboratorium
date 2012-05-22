@@ -87,5 +87,13 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setFocusAreaId(Long focusAreaId);
 
+    public Long getContestLogoId();
+
+    public void setContestLogoId(Long contestLogoId);
+
+    public Boolean getFeatured();
+
+    public void setFeatured(Boolean featured);
+
     public Contest toEscapedModel();
 }

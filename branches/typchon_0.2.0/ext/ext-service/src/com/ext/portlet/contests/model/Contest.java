@@ -67,4 +67,15 @@ public interface Contest extends ContestModel {
     public com.ext.portlet.ontology.model.FocusArea getFocusArea()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public com.liferay.portal.model.Image getLogo()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void setLogo(java.io.File logoFile)
+        throws com.liferay.portal.SystemException, java.io.IOException;
+
+    public java.lang.String getLogoPath()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }
