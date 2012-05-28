@@ -17,31 +17,33 @@
         </ice:panelGroup>
     <collab:navigationManager />
     <h1 class="spn">Search <span>&amp;nbsp;Results for "#{searchBean.searchPhrase}"</span></h1>
-
-  <div id="bread">
-    <a href="javascript:;">Search</a>
-    <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
-    <a href="search-results.html">Results</a>
-  </div>
-  
-    <div id="content">
-  
+    
+   
+    <div id="searchFormContainerInline">
+        <form onsubmit="Collab.nav.navigateAddParams('search', {searchPhrase: jQuery('.searchInputInPortlet').val()}); return false;">
+            <input value="#{searchBean.searchPhrase}" class="searchInputInPortlet"/>
+            <div class="blue-button"><a href="javascript:;"   onclick="Collab.nav.navigateAddParams('search', {searchPhrase: jQuery('.searchInputInPortlet').val()}); return false;">Search</a></div>
+        </form>
+    </div>
     <div id="main" class="searchresults">
     <ice:form>
+            
     <ice:panelGroup rendered="#{searchBean.data.rowCount == 0}">
         <br /><br />
         <p>Nothing has been found.</p>
     </ice:panelGroup>
     <ice:panelSeries var="item" value="#{searchBean.data}" id="searchResults" rows="20" rowClasses="odd,even" styleClass="searchTable" >
     
-      <div class="result">
+      <div class="result #{item.odd ? 'blu' : ''}">
         <div class="result_title"><a href="#{item.url}">#{item.title}</a></div>
         <div class="result_locale">
             <ice:outputText value="#{item.itemType.printName}" />
         </div>
+        <div class="clear"></div>
+        <p>
+            #{item.content}
+        </p>
       </div>
-      <div class="clear"></div>
-      #{item.content}
     
     </ice:panelSeries>
     <ice:panelGroup styleClass="pager" rendered="#{searchBean.data.rowCount > 0}">
@@ -111,7 +113,6 @@
     </ice:form>
         
         <div class="clearfix"></div>
-  </div> <!-- /content -->
     
     
     
