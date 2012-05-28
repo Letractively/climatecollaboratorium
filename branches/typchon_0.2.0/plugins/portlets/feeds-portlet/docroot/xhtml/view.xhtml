@@ -8,7 +8,11 @@
     >
     <ice:portlet>
         <f:subview rendered="#{preferences.feedTitle ne ''}">
-        <h2 class="feedTitle">#{preferences.feedTitle}</h2>
+        <h2 class="feedTitle">#{preferences.feedTitle}
+            <f:subview rendered="#{feedsBean.activitiesBean.feedStyle != 'FULL'}">
+                <span><a href="/web/guest/activities">see all activity</a></span>
+            </f:subview>
+        </h2>
         </f:subview>
         <f:subview rendered="#{preferences.feedType == 'ACTIVITIES'}">
             <ui:include src="./feeds/activities.xhtml" />
