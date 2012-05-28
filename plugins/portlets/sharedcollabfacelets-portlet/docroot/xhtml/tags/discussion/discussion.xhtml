@@ -19,7 +19,7 @@
             <ui:include src="./pages/category_add.xhtml" />
         </f:subview>
         <f:subview rendered="#{discussionBean.pageType == 'THREAD'}">
-            <ui:include src="./pages/thread.xhtml" />
+            <ui:include src="./pages/thread_new.xhtml" />
         </f:subview>
         <f:subview rendered="#{discussionBean.pageType == 'THREAD_ADD'}">
             <ui:include src="./pages/thread_add.xhtml">
