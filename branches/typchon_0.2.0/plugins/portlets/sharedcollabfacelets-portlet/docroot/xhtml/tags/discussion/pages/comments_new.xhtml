@@ -89,14 +89,13 @@
     </ice:dataTable>
     <ice:panelGroup styleClass="addcomment" rendered="#{discussionBean.permissions.canAddComment}">
     <script type="text/javascript">
-    <![CDATA[
-        function disableAddComment() {
+        window.disableAddComment = function() {
             if (jQuery.trim(jQuery("#thecomment .commentContent").val()) != '') {
                 jQuery("#thecomment .addCommentButton").attr('disabled', true);
             }
         }
         
-        function isAddCommentFormValid() {
+        window.isAddCommentFormValid = function() {
             var isValid = (jQuery.trim(jQuery("#thecomment .commentContent").val()) != '');
             
             if (isValid) {
@@ -110,14 +109,13 @@
         window.isAddCommentFormValid = isAddCommentFormValid;
         window.disableAddComment = disableAddComment;
         
-        function enableAddComment() {
+        window.enableAddComment = function() {
             jQuery("#thecomment .addCommentButton").removeAttr('disabled');
         }
         
         
         enableAddComment();
         
-        ]]>
     </script>
         <div id="add">
             <strong>ADD YOUR COMMENT</strong>
@@ -127,13 +125,12 @@
             <ice:inputTextarea id="messageContent" value="#{discussionBean.newComment.description}" styleClass="commentbox commentContent"/>
             <br />
             <span class="errorMsg portlet-msg-error" style="display: none;">Value is required</span>
-            <ice:commandButton actionListener="#{discussionBean.newComment.addComment}" styleClass="comm_butt addCommentButton" onclick="if (! window.isAddCommentFormValid()) return false; window.disableAddComment();" />
+            <div class="blue-button"><ice:commandLink  actionListener="#{discussionBean.newComment.addComment}" onclick="if (! window.isAddCommentFormValid()) return false; window.disableAddComment();">Add Comment</ice:commandLink></div>
         </div>
     </ice:panelGroup>
     
         <div class="clearfix"></div>
-        <script type="textjavascript"> 
-       
+        <script type="textjavascript">
         var navItems = window.collab.nav.getNavigationItems();
         if ('discussion' in navItems &amp;&amp; 'messageId' in navItems.discussion) {
             jQuery.scrollTo("#_message_" + navItems.discussion.messageId);
@@ -146,6 +143,7 @@
             container.html("&lt;a href='#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}) + "'&gt;" + container.text() + "&lt;/a&gt;");
             jQuery(".message_add_this").attr('addthis:url', window.location.href.split('#')[0] + "#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}));
         });
+
  
         
         </script>

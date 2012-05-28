@@ -267,6 +267,20 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
 	        
     private String getMailBodyForMessage(DiscussionMessage message) throws SystemException, PortalException {
         DiscussionMessage thread = message.getThreadId() != null ? message.getThread() : message;
+        /*
+        System.out.println(DISCUSSION_MSG_MAIL_BODY_TEMPLATE
+                .replaceAll(USER_LINK_PLACEHOLDER, getUserLink(message.getAuthor())));
+        
+        System.out.println(DISCUSSION_MSG_MAIL_BODY_TEMPLATE
+                .replaceAll(THREAD_TOPIC_PLACEHOLDER, thread.getSubject()));
+        
+
+        System.out.println(DISCUSSION_MSG_MAIL_BODY_TEMPLATE
+                .replaceAll(MESSAGE_BODY_PLACEHOLDER, message.getBody()));
+
+        System.out.println(DISCUSSION_MSG_MAIL_BODY_TEMPLATE
+                .replaceAll(MESSAGE_LINK_PLACEHOLDER, getDiscussion(message)));
+                */
         
         return DISCUSSION_MSG_MAIL_BODY_TEMPLATE
                 .replaceAll(USER_LINK_PLACEHOLDER, getUserLink(message.getAuthor()))
