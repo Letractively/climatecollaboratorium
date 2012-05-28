@@ -58,6 +58,23 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_CONTESTACTIVE = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
             ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countBycontestActive", new String[] { Boolean.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_ACTIVEFEATURED = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByActiveFeatured",
+            new String[] { Boolean.class.getName(), Boolean.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_ACTIVEFEATURED = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByActiveFeatured",
+            new String[] {
+                Boolean.class.getName(), Boolean.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_ACTIVEFEATURED = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByActiveFeatured",
+            new String[] { Boolean.class.getName(), Boolean.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
             ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -73,6 +90,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.contests.service.persistence.ContestPhasePersistence contestPhasePersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence contestPhaseColumnPersistence;
+    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl")
+    protected com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence contestTeamMemberPersistence;
 
     public void cacheResult(Contest contest) {
         EntityCacheUtil.putResult(ContestModelImpl.ENTITY_CACHE_ENABLED,
@@ -349,6 +368,7 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
+                query.append("weight DESC, ");
                 query.append("created DESC");
 
                 Query q = session.createQuery(query.toString());
@@ -421,6 +441,7 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
+                    query.append("weight DESC, ");
                     query.append("created DESC");
                 }
 
@@ -523,6 +544,7 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
+                query.append("weight DESC, ");
                 query.append("created DESC");
             }
 
@@ -610,6 +632,7 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
+                query.append("weight DESC, ");
                 query.append("created DESC");
 
                 Query q = session.createQuery(query.toString());
@@ -658,6 +681,288 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
             } else {
                 return (Contest) result;
             }
+        }
+    }
+
+    public List<Contest> findByActiveFeatured(Boolean contestActive,
+        Boolean featured) throws SystemException {
+        Object[] finderArgs = new Object[] { contestActive, featured };
+
+        List<Contest> list = (List<Contest>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ACTIVEFEATURED,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (featured == null) {
+                    query.append("featured_ IS NULL");
+                } else {
+                    query.append("featured_ = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("weight DESC, ");
+                query.append("created DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (featured != null) {
+                    qPos.add(featured.booleanValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<Contest>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_ACTIVEFEATURED,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<Contest> findByActiveFeatured(Boolean contestActive,
+        Boolean featured, int start, int end) throws SystemException {
+        return findByActiveFeatured(contestActive, featured, start, end, null);
+    }
+
+    public List<Contest> findByActiveFeatured(Boolean contestActive,
+        Boolean featured, int start, int end, OrderByComparator obc)
+        throws SystemException {
+        Object[] finderArgs = new Object[] {
+                contestActive,
+                
+                featured,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<Contest> list = (List<Contest>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_ACTIVEFEATURED,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (featured == null) {
+                    query.append("featured_ IS NULL");
+                } else {
+                    query.append("featured_ = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("weight DESC, ");
+                    query.append("created DESC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (featured != null) {
+                    qPos.add(featured.booleanValue());
+                }
+
+                list = (List<Contest>) QueryUtil.list(q, getDialect(), start,
+                        end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<Contest>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_ACTIVEFEATURED,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public Contest findByActiveFeatured_First(Boolean contestActive,
+        Boolean featured, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        List<Contest> list = findByActiveFeatured(contestActive, featured, 0,
+                1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No Contest exists with the key {");
+
+            msg.append("contestActive=" + contestActive);
+
+            msg.append(", ");
+            msg.append("featured=" + featured);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public Contest findByActiveFeatured_Last(Boolean contestActive,
+        Boolean featured, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        int count = countByActiveFeatured(contestActive, featured);
+
+        List<Contest> list = findByActiveFeatured(contestActive, featured,
+                count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No Contest exists with the key {");
+
+            msg.append("contestActive=" + contestActive);
+
+            msg.append(", ");
+            msg.append("featured=" + featured);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public Contest[] findByActiveFeatured_PrevAndNext(Long ContestPK,
+        Boolean contestActive, Boolean featured, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        Contest contest = findByPrimaryKey(ContestPK);
+
+        int count = countByActiveFeatured(contestActive, featured);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append("FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+            if (contestActive == null) {
+                query.append("contestActive IS NULL");
+            } else {
+                query.append("contestActive = ?");
+            }
+
+            query.append(" AND ");
+
+            if (featured == null) {
+                query.append("featured_ IS NULL");
+            } else {
+                query.append("featured_ = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("weight DESC, ");
+                query.append("created DESC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (contestActive != null) {
+                qPos.add(contestActive.booleanValue());
+            }
+
+            if (featured != null) {
+                qPos.add(featured.booleanValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc, contest);
+
+            Contest[] array = new ContestImpl[3];
+
+            array[0] = (Contest) objArray[0];
+            array[1] = (Contest) objArray[1];
+            array[2] = (Contest) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
         }
     }
 
@@ -731,6 +1036,7 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
+                    query.append("weight DESC, ");
                     query.append("created DESC");
                 }
 
@@ -774,6 +1080,13 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
         Contest contest = findBycontestActive(contestActive);
 
         remove(contest);
+    }
+
+    public void removeByActiveFeatured(Boolean contestActive, Boolean featured)
+        throws SystemException {
+        for (Contest contest : findByActiveFeatured(contestActive, featured)) {
+            remove(contest);
+        }
     }
 
     public void removeAll() throws SystemException {
@@ -878,6 +1191,71 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CONTESTACTIVE,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByActiveFeatured(Boolean contestActive, Boolean featured)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { contestActive, featured };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ACTIVEFEATURED,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (featured == null) {
+                    query.append("featured_ IS NULL");
+                } else {
+                    query.append("featured_ = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (featured != null) {
+                    qPos.add(featured.booleanValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACTIVEFEATURED,
                     finderArgs, count);
 
                 closeSession(session);

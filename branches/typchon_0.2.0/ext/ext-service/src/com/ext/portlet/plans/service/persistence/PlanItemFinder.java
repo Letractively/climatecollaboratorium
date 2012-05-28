@@ -43,4 +43,6 @@ public interface PlanItemFinder {
 
     public com.ext.portlet.plans.model.PlanItem findLatestVersion(
         java.lang.Long planId);
+
+    public void clearPhaseCache(java.lang.Long contestPhasePk);
 }

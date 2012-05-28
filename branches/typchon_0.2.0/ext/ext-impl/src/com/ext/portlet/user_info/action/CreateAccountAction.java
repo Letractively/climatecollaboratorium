@@ -61,6 +61,9 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
         boolean captchaValid = ReCaptchaUtils.validateCaptcha(actionRequest);
         
         String redirect = ParamUtil.getString(actionRequest, "redirect");
+        if (redirect == null || redirect.trim().length() == 0) {
+            redirect = PortalUtil.getHttpServletRequest(actionRequest).getHeader("referer");
+        }
         
         
         redirect = Helper.removeParamFromRequestStr(redirect, "signinRegError");
@@ -124,16 +127,17 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
             if (emailAddress != null) {
                 parameters.put("emailAddress", emailAddress);
             }
-
-            redirect = Helper.modifyRedirectUrl(redirect, actionRequest, parameters);
+            
+            /*actionRequest.getP*/
             
         }
+        /*
         if (Validator.isNotNull(redirect)) {
             
             actionResponse.sendRedirect(redirect);
         } else {
             actionResponse.sendRedirect("/web/guest");
-        }
+        }*/
     }
 
 }

@@ -12,6 +12,7 @@ import org.apache.struts.action.ActionMapping;
 
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.login.action.LoginAction;
 
 public class CollabLoginAction extends LoginAction {
@@ -22,6 +23,10 @@ public class CollabLoginAction extends LoginAction {
         throws Exception {
         
         String redirect = ParamUtil.getString(actionRequest, "redirect");
+        if (redirect == null || redirect.trim().length() == 0) {
+            redirect = PortalUtil.getHttpServletRequest(actionRequest).getHeader("referer");
+        }
+        
         
         
         redirect = Helper.removeParamFromRequestStr(redirect, "signinRegError");

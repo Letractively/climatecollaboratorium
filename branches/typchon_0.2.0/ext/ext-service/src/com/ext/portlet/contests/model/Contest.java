@@ -78,4 +78,19 @@ public interface Contest extends ContestModel {
     public java.lang.String getLogoPath()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public long getProposalsCount()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.discussions.model.DiscussionCategoryGroup getDiscussionCategoryGroup()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public long getCommentsCount()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.contests.model.ContestTeamMember> getTeamMembers()
+        throws com.liferay.portal.SystemException;
 }

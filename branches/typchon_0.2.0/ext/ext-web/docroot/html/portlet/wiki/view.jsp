@@ -117,27 +117,6 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 </c:if>
 
 <h1 class="spn">
-	<c:if test="<%= !print %>">
-		<div class="page-actions">
-			<c:if test="<%= WikiPagePermission.contains(permissionChecker, wikiPage, ActionKeys.UPDATE) %>">
-				<c:if test="<%= followRedirect || (redirectPage == null) %>">
-					<liferay-ui:icon image="edit" url="<%= editPageURL.toString() %>" label="<%= true %>" />
-				</c:if>
-			</c:if>
-
-			<%
-			PortletURL viewPageDetailsURL = PortletURLUtil.clone(viewPageURL, renderResponse);
-
-			viewPageDetailsURL.setParameter("struts_action", "/wiki/view_page_details");
-			%>
-
-            <c:if test="<%= themeDisplay.isSignedIn() && WikiPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_NODE) %>">
-    			 <liferay-ui:icon image="history" message="details" url="<%= viewPageDetailsURL.toString() %>" method="get" label="<%= true %>" />
-
-            		<liferay-ui:icon image="print" url='<%= "javascript: " + renderResponse.getNamespace() + "printPage();" %>' label="<%= true %>" />
-            </c:if>
-		</div>
-	</c:if>
 
 	<%= title %>
 </h1>
@@ -174,6 +153,27 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
     <a href="<%= viewPageURL %>">
     <%= title %>
     </a>
+	<c:if test="<%= !print %>">
+		<div class="page-actions">
+			<c:if test="<%= WikiPagePermission.contains(permissionChecker, wikiPage, ActionKeys.UPDATE) %>">
+				<c:if test="<%= followRedirect || (redirectPage == null) %>">
+					<liferay-ui:icon image="edit" url="<%= editPageURL.toString() %>" label="<%= true %>" />
+				</c:if>
+			</c:if>
+
+			<%
+			PortletURL viewPageDetailsURL = PortletURLUtil.clone(viewPageURL, renderResponse);
+
+			viewPageDetailsURL.setParameter("struts_action", "/wiki/view_page_details");
+			%>
+
+            <c:if test="<%= themeDisplay.isSignedIn() && WikiPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_NODE) %>">
+    			 <liferay-ui:icon image="history" message="details" url="<%= viewPageDetailsURL.toString() %>" method="get" label="<%= true %>" />
+
+            		<liferay-ui:icon image="print" url='<%= "javascript: " + renderResponse.getNamespace() + "printPage();" %>' label="<%= true %>" />
+            </c:if>
+		</div>
+	</c:if>
 </div>
 
 <c:if test="<%= originalPage != null %>">
@@ -215,11 +215,8 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 	portletURL="<%= taggedPagesURL %>"
 />
 <div class="clearfix"></div>
-<div id="content">
-    <div id="main">
-	<%@ include file="/html/portlet/wiki/view_page_content.jspf" %>
-        </div>
-</div>
+<%@ include file="/html/portlet/wiki/view_page_content.jspf" %>
+
 
 <c:if test="<%= themeDisplay.isSignedIn() && WikiPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_NODE) %>">
 

@@ -96,6 +96,25 @@ public class ContestLocalServiceUtil {
         return getService().getContestByActiveFlag(contestActive);
     }
 
+    public static com.ext.portlet.contests.model.Contest createNewContest(
+        java.lang.Long userId, java.lang.String name)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().createNewContest(userId, name);
+    }
+
+    public static void updateContestGroupsAndDiscussions()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        getService().updateContestGroupsAndDiscussions();
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFeatured(
+        boolean active, boolean featured)
+        throws com.liferay.portal.SystemException {
+        return getService().findByActiveFeatured(active, featured);
+    }
+
     public static ContestLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("ContestLocalService is not set");

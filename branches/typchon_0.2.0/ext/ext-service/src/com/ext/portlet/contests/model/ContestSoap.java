@@ -42,6 +42,9 @@ public class ContestSoap implements Serializable {
     private Long _focusAreaId;
     private Long _contestLogoId;
     private Boolean _featured;
+    private Long _groupId;
+    private Long _discussionGroupId;
+    private Integer _weight;
 
     public ContestSoap() {
     }
@@ -65,6 +68,9 @@ public class ContestSoap implements Serializable {
         soapModel.setFocusAreaId(model.getFocusAreaId());
         soapModel.setContestLogoId(model.getContestLogoId());
         soapModel.setFeatured(model.getFeatured());
+        soapModel.setGroupId(model.getGroupId());
+        soapModel.setDiscussionGroupId(model.getDiscussionGroupId());
+        soapModel.setWeight(model.getWeight());
 
         return soapModel;
     }
@@ -240,5 +246,29 @@ public class ContestSoap implements Serializable {
 
     public void setFeatured(Boolean featured) {
         _featured = featured;
+    }
+
+    public Long getGroupId() {
+        return _groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        _groupId = groupId;
+    }
+
+    public Long getDiscussionGroupId() {
+        return _discussionGroupId;
+    }
+
+    public void setDiscussionGroupId(Long discussionGroupId) {
+        _discussionGroupId = discussionGroupId;
+    }
+
+    public Integer getWeight() {
+        return _weight;
+    }
+
+    public void setWeight(Integer weight) {
+        _weight = weight;
     }
 }

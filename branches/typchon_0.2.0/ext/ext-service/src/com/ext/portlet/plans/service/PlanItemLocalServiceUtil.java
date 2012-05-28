@@ -258,6 +258,18 @@ public class PlanItemLocalServiceUtil {
         return getService().findPlansForOntologyTerms(terms);
     }
 
+    public static long countPlansByContest(java.lang.Long contestId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().countPlansByContest(contestId);
+    }
+
+    public static void planDeleted(com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        getService().planDeleted(plan);
+    }
+
     public static PlanItemLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanItemLocalService is not set");

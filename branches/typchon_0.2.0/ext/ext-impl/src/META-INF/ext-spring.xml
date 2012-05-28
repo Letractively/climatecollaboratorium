@@ -1316,6 +1316,24 @@
 	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseColumnUtil">
 		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl" />
 	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestTeamMemberLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestTeamMemberLocalServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestTeamMemberLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestTeamMemberLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestTeamMemberLocalServiceUtil" class="com.ext.portlet.contests.service.ContestTeamMemberLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestTeamMemberLocalService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestTeamMemberService.impl" class="com.ext.portlet.contests.service.impl.ContestTeamMemberServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestTeamMemberService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestTeamMemberService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.ContestTeamMemberServiceUtil" class="com.ext.portlet.contests.service.ContestTeamMemberServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestTeamMemberService.impl" />
+	</bean>
+	<bean id="com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestTeamMemberUtil" class="com.ext.portlet.contests.service.persistence.ContestTeamMemberUtil">
+		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl" />
+	</bean>
 	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" class="com.ext.conditionaltext.service.impl.ConditionalTextSettingLocalServiceImpl" />
 	<bean id="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
 		<property name="target" ref="com.ext.conditionaltext.service.ConditionalTextSettingLocalService.impl" />

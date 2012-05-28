@@ -17,14 +17,19 @@ import com.ext.portlet.plans.model.PlanVote;
 import com.ext.portlet.plans.model.PlansUserSettings;
 import com.ext.portlet.plans.model.impl.PlanImpl;
 import com.ext.portlet.plans.model.impl.PlanItemImpl;
+import com.ext.portlet.plans.model.impl.PlanItemModelImpl;
 import com.ext.portlet.plans.model.impl.PlanPositionImpl;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.portal.SystemException;
+
+import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
+import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -35,51 +40,24 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
     private final String REMOVE_PLAN_WITH_HISTORY = PlanItemFinderImpl.class.getName() + ".removePlanWithHistory";
     private final String GET_PLANS_FOR_PHASE = PlanItemFinderImpl.class.getName() + ".getPlansForContestPhase";
     
-    public List<PlanItem> getPlans() {
-
-
-        Session session = openSession();
-        String sql = CustomSQLUtil.get(GET_PLAN_ITEMS);
-        SQLQuery query = session.createSQLQuery(sql);
-
-        query.addEntity("PlanItem", PlanItemImpl.class);
-        return (List<PlanItem>) QueryUtil.list(query,getDialect(),0,Integer.MAX_VALUE);
-     }
     
-    public List<PlanItem> getPlansForPhase(Long phaseId) {
-
-
-        Session session = openSession();
-        String sql = CustomSQLUtil.get(GET_PLANS_FOR_PHASE);
-        SQLQuery query = session.createSQLQuery(sql);
-
-        query.addEntity("PlanItem", PlanItemImpl.class);
-        query.setLong(0, phaseId);
-        //query.setLong(1, phaseId);
+    public static final String DEFAULT_FORUM_CATEGORY_DESCRIPTION = "General discussion about plan %s";
+    public static final String FINDER_CLASS_NAME_ENTITY = PlanItemImpl.class.getName();
+    public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY + ".List";
+    
+    
+    private static final FinderPath FINDER_PATH_FETCH_BY_CONTEST_PHASE_ID;
+    private static final FinderPath FINDER_PATH_COUNT_BY_CONTEST_PHASE_ID;
+    static {
+        FINDER_PATH_FETCH_BY_CONTEST_PHASE_ID = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
+                PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST, 
+                "fetchByContestPhaseId", new String[] {Long.class.getName()});
         
-        return (List<PlanItem>) QueryUtil.list(query,getDialect(),0,Integer.MAX_VALUE);
-     }
-
-
-  
+        FINDER_PATH_COUNT_BY_CONTEST_PHASE_ID = new FinderPath(PlanItemModelImpl.ENTITY_CACHE_ENABLED,
+                PlanItemModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST, 
+                "countByContestPhaseId", new String[] {Long.class.getName()});
+    }
     
-    public void removePlanWithHistory(long planId) {
-
-
-        Session session = openSession();
-        String sql = CustomSQLUtil.get(REMOVE_PLAN_WITH_HISTORY);
-        SQLQuery query = session.createSQLQuery(sql);
-
-        query.setLong(0, planId);
-        query.executeUpdate();
-     }
-    
-    
-    /**** 
-     * 
-     * FROM PlanItemFinderImpl
-     * 
-     */
     
     
     private static Log _log = LogFactoryUtil.getLog(PlanItemFinderImpl.class);
@@ -409,6 +387,53 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
     public static final String[] DEFAULT_SORT_COLUMNS = {COLUMN_NAME, COLUMN_ID};
 
 
+    public List<PlanItem> getPlans() {
+
+
+        Session session = openSession();
+        String sql = CustomSQLUtil.get(GET_PLAN_ITEMS);
+        SQLQuery query = session.createSQLQuery(sql);
+
+        query.addEntity("PlanItem", PlanItemImpl.class);
+        return (List<PlanItem>) QueryUtil.list(query,getDialect(),0,Integer.MAX_VALUE);
+     }
+    
+    public List<PlanItem> getPlansForPhase(Long phaseId) {
+        Object[] args = new Object[] { phaseId };
+        
+        List<PlanItem> planItems = (List<PlanItem>) 
+                FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CONTEST_PHASE_ID, args, this);
+
+        if (planItems == null) {
+
+            Session session = openSession();
+            String sql = CustomSQLUtil.get(GET_PLANS_FOR_PHASE);
+            SQLQuery query = session.createSQLQuery(sql);
+
+            query.addEntity("PlanItem", PlanItemImpl.class);
+            query.setLong(0, phaseId);
+            planItems = (List<PlanItem>) QueryUtil.list(query,getDialect(),0,Integer.MAX_VALUE);
+            
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTEST_PHASE_ID, args, planItems);
+        }
+        return planItems;
+     }
+
+
+  
+    
+    public void removePlanWithHistory(long planId) {
+
+
+        Session session = openSession();
+        String sql = CustomSQLUtil.get(REMOVE_PLAN_WITH_HISTORY);
+        SQLQuery query = session.createSQLQuery(sql);
+
+        query.setLong(0, planId);
+        query.executeUpdate();
+     }
+    
+    
 
     public int countVotesForPlanType(PlanType type) {
         Session session = openSession();
@@ -917,6 +942,14 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
      */
     private String getPrefixedColumn(String column, String prefix) {
         return prefix + column;
+    }
+    
+    
+    public void clearPhaseCache(Long contestPhasePk) {
+        Object[] args = new Object[] { contestPhasePk };
+        
+        FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CONTEST_PHASE_ID, args);
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTEST_PHASE_ID, args);
     }
     
 }

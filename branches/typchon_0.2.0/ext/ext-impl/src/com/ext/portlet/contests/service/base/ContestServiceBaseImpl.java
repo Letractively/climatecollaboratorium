@@ -8,10 +8,13 @@ import com.ext.portlet.contests.service.ContestPhaseColumnService;
 import com.ext.portlet.contests.service.ContestPhaseLocalService;
 import com.ext.portlet.contests.service.ContestPhaseService;
 import com.ext.portlet.contests.service.ContestService;
+import com.ext.portlet.contests.service.ContestTeamMemberLocalService;
+import com.ext.portlet.contests.service.ContestTeamMemberService;
 import com.ext.portlet.contests.service.persistence.ContestDebatePersistence;
 import com.ext.portlet.contests.service.persistence.ContestPersistence;
 import com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence;
 import com.ext.portlet.contests.service.persistence.ContestPhasePersistence;
+import com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence;
 
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.annotation.BeanReference;
@@ -45,6 +48,12 @@ public abstract class ContestServiceBaseImpl extends PrincipalBean
     protected ContestPhaseColumnService contestPhaseColumnService;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl")
     protected ContestPhaseColumnPersistence contestPhaseColumnPersistence;
+    @BeanReference(name = "com.ext.portlet.contests.service.ContestTeamMemberLocalService.impl")
+    protected ContestTeamMemberLocalService contestTeamMemberLocalService;
+    @BeanReference(name = "com.ext.portlet.contests.service.ContestTeamMemberService.impl")
+    protected ContestTeamMemberService contestTeamMemberService;
+    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl")
+    protected ContestTeamMemberPersistence contestTeamMemberPersistence;
 
     public ContestLocalService getContestLocalService() {
         return contestLocalService;
@@ -148,6 +157,33 @@ public abstract class ContestServiceBaseImpl extends PrincipalBean
     public void setContestPhaseColumnPersistence(
         ContestPhaseColumnPersistence contestPhaseColumnPersistence) {
         this.contestPhaseColumnPersistence = contestPhaseColumnPersistence;
+    }
+
+    public ContestTeamMemberLocalService getContestTeamMemberLocalService() {
+        return contestTeamMemberLocalService;
+    }
+
+    public void setContestTeamMemberLocalService(
+        ContestTeamMemberLocalService contestTeamMemberLocalService) {
+        this.contestTeamMemberLocalService = contestTeamMemberLocalService;
+    }
+
+    public ContestTeamMemberService getContestTeamMemberService() {
+        return contestTeamMemberService;
+    }
+
+    public void setContestTeamMemberService(
+        ContestTeamMemberService contestTeamMemberService) {
+        this.contestTeamMemberService = contestTeamMemberService;
+    }
+
+    public ContestTeamMemberPersistence getContestTeamMemberPersistence() {
+        return contestTeamMemberPersistence;
+    }
+
+    public void setContestTeamMemberPersistence(
+        ContestTeamMemberPersistence contestTeamMemberPersistence) {
+        this.contestTeamMemberPersistence = contestTeamMemberPersistence;
     }
 
     protected void runSQL(String sql) throws SystemException {
