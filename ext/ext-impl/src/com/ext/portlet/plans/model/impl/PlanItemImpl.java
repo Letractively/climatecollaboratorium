@@ -614,13 +614,14 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planMeta.store();
     }
 
-    public void delete(Long updateAuthorId) throws SystemException {
+    public void delete(Long updateAuthorId) throws SystemException, PortalException {
         newVersion(UpdateType.PLAN_DELETED, updateAuthorId);
         this.setState(EntityState.DELETED.name());
         this.store();
         
         try {
             Indexer.deleteEntry(10112L, getPlanId());
+            PlanItemLocalServiceUtil.planDeleted(this);
         } catch (SearchException e) {
             _log.error("can't remove plan " + getPlanId() + " from search index", e);
         }

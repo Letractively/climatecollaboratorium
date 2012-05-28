@@ -16,6 +16,7 @@ import org.apache.ecs.storage.Array;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.ext.portlet.discussions.DiscussionActions;
@@ -42,6 +43,8 @@ import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.model.PlansUserSettings;
+import com.ext.portlet.plans.model.impl.PlanItemImpl;
+import com.ext.portlet.plans.model.impl.PlanItemModelImpl;
 import com.ext.portlet.plans.service.*;
 import com.ext.portlet.plans.service.base.PlanItemLocalServiceBaseImpl;
 import com.ext.portlet.plans.util.Indexer;
@@ -49,6 +52,8 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
+import com.liferay.portal.kernel.dao.orm.FinderPath;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.SearchException;
@@ -104,9 +109,10 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     /**
      * Default forum category description.
      */
-    public static final String DEFAULT_FORUM_CATEGORY_DESCRIPTION = "General discussion about plan %s";
 
     public PlanItem createPlan(ContestPhase phase, Long authorId) throws SystemException, PortalException {
+        planItemFinder.clearPhaseCache(phase.getContestPhasePK());
+        
         long planItemId = CounterLocalServiceUtil.increment(PlanItem.class.getName());
         long planId = CounterLocalServiceUtil.increment(PlanItem.class.getName() + PLAN_ID_NAME_SUFFIX);
         long planTypeId = phase.getContest().getPlanTypeId();
@@ -213,6 +219,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
     public PlanItem createPlan(PlanItem basePlan, Long authorId) throws SystemException, PortalException {
         throw new RuntimeException("Plan must be part of a contest");
+        
 
         // long type = basePlan.getPlanTypeId();
         // if (basePlan.getPlanType().getPublished()) {
@@ -253,6 +260,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
 
     public PlanItem createPlan(PlanItem basePlan, ContestPhase contestPhase, Long authorId) throws SystemException,
             PortalException {
+        planItemFinder.clearPhaseCache(contestPhase.getContestPhasePK());
+            
         long type = basePlan.getPlanTypeId();
         if (contestPhase.getContest().getPlanType().getPlanTypeId() != type) {
             _log.error("Cannot create plan of type " + type + " for contest phase "
@@ -330,7 +339,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     }
 
     public PlanItem createPlan(Plan basePlan) throws SystemException, PortalException {
-
+        
         long planItemId = CounterLocalServiceUtil.increment(PlanItem.class.getName());
         long planId = basePlan.getPlanId();
         long authorId = basePlan.getUserId();
@@ -449,9 +458,6 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         User user = UserLocalServiceUtil.getUser(plan.getUpdateAuthorId());
         PermissionCheckerUtil.setThreadValues(user);
 
-        ServiceContext categoryServiceContext = new ServiceContext();
-        categoryServiceContext.setUserId(plan.getUpdateAuthorId());
-
         ServiceContext groupServiceContext = new ServiceContext();
         groupServiceContext.setUserId(plan.getUpdateAuthorId());
 
@@ -540,6 +546,8 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
     }
 
     public List<PlanItem> getPlansInContestPhase(ContestPhase contestPhase) throws SystemException, PortalException {
+
+        
         return this.getPlans(Collections.emptyMap(), Collections.emptyMap(), null, contestPhase, 0, Integer.MAX_VALUE,
                 "", "", false);
     }
@@ -752,54 +760,6 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         return PlanAttributeLocalServiceUtil.findPlanAttribute(plan.getPlanId(), name);
     }
 
-    private class PlanFilter {
-        private Attribute attribute;
-        private String valueStr;
-        private Double valueDbl;
-        private Double valueMin;
-        private Double valueMax;
-        private Integer valueInt;
-        boolean doubleVal = false;
-        boolean intVal = false;
-        boolean stringVal = true;
-        boolean singleValue = true;
-
-        boolean enabled;
-
-        public PlanFilter(PlanAttributeFilter filter) {
-            this.attribute = Attribute.valueOf(filter.getAttributeName());
-            if (attribute.isFiltered()) {
-                enabled = false;
-            } else {
-                enabled = true;
-                if (attribute.isFilterSingleValue()) {
-                    if (attribute.getAttributeClass() == Double.class) {
-                        valueDbl = Double.parseDouble((filter.getStringVal() != null ? filter.getStringVal() : String
-                                .valueOf(Double.MIN_VALUE)));
-                        doubleVal = true;
-                        stringVal = false;
-                    } else if (attribute.getAttributeClass() == Integer.class) {
-                        valueInt = Integer.parseInt((filter.getStringVal() != null ? filter.getStringVal() : String
-                                .valueOf(Integer.MIN_VALUE)));
-                        intVal = true;
-                        stringVal = false;
-                    }
-                } else {
-                    valueMin = filter.getMin();
-                    valueMax = filter.getMax();
-                    doubleVal = true;
-                    stringVal = false;
-                    singleValue = false;
-                }
-            }
-
-            /*
-             * public boolean isFilteredOut(PlanItem plan) { PlanAttribute
-             * attriplan.getPlanAttribute(attribute.name()); }
-             */
-
-        }
-    }
 
     private final long defaultCompanyId = 10112;
 
@@ -864,5 +824,19 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         return findPlansForOntologyTerms(new OntologyTerm[] {term});
     }
     
+    public long countPlansByContest(Long contestId) throws SystemException, PortalException {
+        List<ContestPhase> phases = ContestPhaseLocalServiceUtil.getPhasesForContest(ContestLocalServiceUtil.getContest(contestId));
+        long counter = 0;
+        for (ContestPhase phase: phases) {
+            counter += planItemFinder.getPlansForPhase(phase.getContestPhasePK()).size();
+        }
+        return counter;
+    }
+    
+    
+    public void planDeleted(PlanItem plan) throws PortalException, SystemException {
+        planItemFinder.clearPhaseCache(plan.getContestPhase().getContestPhasePK());
+        
+    }
 
 }

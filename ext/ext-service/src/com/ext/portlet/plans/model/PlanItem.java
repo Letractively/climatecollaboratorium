@@ -235,7 +235,8 @@ public interface PlanItem extends PlanItemModel {
             com.liferay.portal.SystemException;
 
     public void delete(java.lang.Long updateAuthorId)
-        throws com.liferay.portal.SystemException;
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 
     public com.liferay.portal.model.User getUpdateAuthor()
         throws com.liferay.portal.PortalException,

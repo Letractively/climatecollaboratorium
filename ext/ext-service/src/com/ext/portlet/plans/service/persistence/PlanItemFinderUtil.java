@@ -76,6 +76,10 @@ public class PlanItemFinderUtil {
         return getFinder().findLatestVersion(planId);
     }
 
+    public static void clearPhaseCache(java.lang.Long contestPhasePk) {
+        getFinder().clearPhaseCache(contestPhasePk);
+    }
+
     public static PlanItemFinder getFinder() {
         return _finder;
     }

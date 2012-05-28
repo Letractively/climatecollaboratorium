@@ -13,7 +13,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 public class Helper {
     
     public static String removeParamFromRequestStr(String requestStr, String param) {
-        return requestStr.replaceAll("&?" + param + "=[^&#]*", "");
+        return requestStr == null ? null : requestStr.replaceAll("&?" + param + "=[^&#]*", "");
     }
     
     public static String modifyRedirectUrl(String redirect, ActionRequest actionRequest, Map<String, String> parameters) 
@@ -64,7 +64,6 @@ public class Helper {
         }
 
         redirect = sb.toString();
-        SessionErrors.clear(actionRequest);
         
         return redirect;
     }

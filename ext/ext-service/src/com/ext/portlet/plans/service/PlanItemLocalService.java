@@ -204,4 +204,12 @@ public interface PlanItemLocalService {
         java.util.List<com.ext.portlet.ontology.model.OntologyTerm> terms)
         throws com.ext.portlet.plans.NoSuchPlanItemException,
             com.liferay.portal.SystemException;
+
+    public long countPlansByContest(java.lang.Long contestId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void planDeleted(com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

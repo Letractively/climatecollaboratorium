@@ -141,7 +141,8 @@
 }
 
 .portlet-wiki .page-actions {
-	margin-top: 1.5em;
+    display: inline-block;
+    float: right;
 }
 
 .portlet-wiki .page-actions .article-actions {
@@ -276,6 +277,5 @@ ul.ui-tabs li.last {
 }
 
 #wikiParentTitle {
-	font-size: 1.3em;
-	
+	display: none;
 }

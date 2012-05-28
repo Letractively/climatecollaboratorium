@@ -112,24 +112,11 @@
      });
 	
 </script>
-<div class="popup_reg" style="display: block;">
-    <div class="popupreg_shade" >
-        <div class="popupreg_form">
-            <c:if test="<%= ! themeDisplay.isSignedIn() %>">
-                <c:choose>
-                    <c:when test="<%= isRegistering %>">
-                        <%@ include file="/html/portlet/ext/loginregister/register.jspf" %>
-                    </c:when>
-                    <c:otherwise>
-                        <%@ include file="/html/portlet/ext/loginregister/login.jspf" %>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-            <c:if test="<%= themeDisplay.isSignedIn() %>">
-                You are logged in. <a href="<%= HtmlUtil.escape(themeDisplay.getURLSignOut()) %>" id="logout_link">Sign Out</a>
-            </c:if>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-</div>
+    <c:if test="<%= ! themeDisplay.isSignedIn() %>">
+        <%@ include file="/html/portlet/ext/loginregister/register.jspf" %>
+    </c:if>
+    <c:if test="<%= themeDisplay.isSignedIn() %>">
+        You are logged in. <a href="<%= HtmlUtil.escape(themeDisplay.getURLSignOut()) %>" id="logout_link">Sign Out</a>
+    </c:if>
+    
 <div class="clearfix"></div>

@@ -82,6 +82,7 @@ create index IX_66D496A3 on Contact_ (companyId);
 
 create index IX_E46E624C on Contest (PlanTypeId);
 create index IX_C264C470 on Contest (contestActive);
+create index IX_DCCCA6F1 on Contest (contestActive, featured_);
 
 create index IX_19AE4974 on ContestDebate (ContestPK);
 
@@ -91,6 +92,8 @@ create index IX_3F8D7CBF on ContestPhase (ContestPK, phaseActive);
 create index IX_1652B7B9 on ContestPhaseColumn (ContestPhasePK);
 
 create index IX_18128B3C on ContestPosition (ContestPK);
+
+create index IX_C12DBC2E on ContestTeamMember (contestId);
 
 create unique index IX_717B97E1 on Country (a2);
 create unique index IX_717B9BA2 on Country (a3);

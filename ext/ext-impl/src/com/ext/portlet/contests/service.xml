@@ -7,7 +7,7 @@
 
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 5.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_5_2_0.dtd">
 <service-builder package-path="com.ext.portlet.contests">
-	<namespace>Contests</namespace>
+    <namespace>Contests</namespace>
 
     
     <entity name="Contest" local-service="true" remote-service="true">
@@ -27,16 +27,25 @@
         <column name="focusAreaId" type="Long" />
         <column name="contestLogoId" type="Long" />
         <column name="featured" type="Boolean" />
+        <column name="groupId" type="Long" />
+        <column name="discussionGroupId" type="Long" />
+        <column name="weight" type="Integer" />
         
         <order by="desc">
+            <order-column name="weight" />
             <order-column name="created" />
         </order>
+        
         <finder name="Type" return-type="Collection">
             <finder-column name="PlanTypeId" />
         </finder>
         
         <finder name="contestActive" return-type="Contest">
             <finder-column name="contestActive" />
+        </finder>
+        <finder name="ActiveFeatured" return-type="Collection">
+            <finder-column name="contestActive" />
+            <finder-column name="featured" />
         </finder>
     </entity>
     
@@ -96,10 +105,26 @@
             <finder-column name="ContestPhasePK" />
         </finder>
       </entity>
+      
+      <entity name="ContestTeamMember"  local-service="true">
+        <column name="id" type="Long" primary="true" />
+        <column name="contestId" type="Long" />
+        <column name="userId" type="Long" />
+        <column name="role" type="String" />
+        
+        <order>
+            <order-column name="id" />
+        </order>
+        
+        <finder name="ContestId" return-type="Collection">
+            <finder-column name="contestId" />
+        </finder>
+      
+      </entity>
     
-	<exceptions>
+    <exceptions>
 
-		<exception>NoSuchContestPhase</exception>
-		<exception>NoSuchContest</exception>
-	</exceptions>
+        <exception>NoSuchContestPhase</exception>
+        <exception>NoSuchContest</exception>
+    </exceptions>
 </service-builder>

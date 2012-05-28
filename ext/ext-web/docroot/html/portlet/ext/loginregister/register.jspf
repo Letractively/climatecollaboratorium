@@ -41,14 +41,14 @@
         document.<portlet:namespace />register.submit();
     };
 </script>
-<div class="popupreg_head"><h3>Join the CoLab</h3></div>
-<div class="popupreg_message">Fill out the form below or login with Facebook Connect 
-    <div class="popupreg_facebook">
-        <a href="javascript:;" onclick="clickFacebookButton()"><img src="/collaboratorium-theme/images/popuplogin_facebook.gif" width="154" height="22" alt="Login with Facebook" /></a>
-    </div>
-      
-</div>
+
+<div class="popupreg_form">
+<div class="popupreg_head"><h1>Join the CoLab</h1></div>
+<div class="popupreg_message"><p>Fill out the form below or import your data from another service.</p></div>
+
+
 <div class="is-required"><img src="/collaboratorium-theme/images/reg-star.png" width="8" height="7" align="texttop" /> is a required field.</div>
+
 <form action="${submitURL}" class="uni-form" method="post" name="<portlet:namespace />register">
     <input id="<portlet:namespace />source" name="<portlet:namespace />source" type="hidden" value="register" />
 
@@ -82,39 +82,51 @@
         <liferay-ui:error exception="<%= DuplicateUserScreenNameException.class %>" message="Screen name already taken" />
     </div>
     
-    
-    <p>
-        <div class="popupreg_txt req">Screen name:</div>
+    <div class="popupreg_input_container">
+        <div class="popupreg_txt req">Screen name</div>
         <input class="popupreg_input" type="text" name="<portlet:namespace />screenName" value="<%= ParamUtil.getString(renderRequest, "screenName") %>"/>
-    </p>
-    <div class="reg_errors">
-        <liferay-ui:error exception="<%= UserEmailAddressException.class %>" message="Invalid email address" />
-        <liferay-ui:error exception="<%=DuplicateUserEmailAddressException.class %>" message="Email address alread in use" />
-    </div>
-    <p>
-        <div class="popupreg_txt req">Email:</div>
-        <input class="popupreg_input" type="text" name="<portlet:namespace />emailAddress" value="<%= ParamUtil.getString(renderRequest, "emailAddress") %>"/>
-    </p>
-    <p>
-        <div class="popupreg_txt">First name:</div>
-        <input class="popupreg_input" type="text" name="<portlet:namespace />firstName" value="<%= ParamUtil.getString(renderRequest, "firstName") %>"/>
-    </p>
-    <p>
-        <div class="popupreg_txt">Last name:</div>
-        <input class="popupreg_input" type="text" name="<portlet:namespace />lastName" value="<%= ParamUtil.getString(renderRequest, "lastName") %>"/>
-    </p>
+        <div class="clear"></div>
     
-    <div class="reg_errors">
-        <liferay-ui:error exception="<%= UserPasswordException.class %>" message="Invalid password" />
+        <div class="reg_errors">
+            <liferay-ui:error exception="<%= UserEmailAddressException.class %>" message="Invalid email address" />
+            <liferay-ui:error exception="<%=DuplicateUserEmailAddressException.class %>" message="Email address alread in use" />
+        </div>
     </div>
-    <p>
-        <div class="popupreg_txt req">Password:</div>
+    
+    <div class="popupreg_input_container">
+        <div class="popupreg_txt req">Email</div>
+        <input class="popupreg_input" type="text" name="<portlet:namespace />emailAddress" value="<%= ParamUtil.getString(renderRequest, "emailAddress") %>"/>
+        <div class="clear"></div>
+    </div>
+    
+    <div class="popupreg_input_container">
+        <div class="popupreg_txt">First name</div>
+        <input class="popupreg_input" type="text" name="<portlet:namespace />firstName" value="<%= ParamUtil.getString(renderRequest, "firstName") %>"/>
+        <div class="clear"></div>
+    </div>
+    
+    <div class="popupreg_input_container">
+        <div class="popupreg_txt">Last name</div>
+        <input class="popupreg_input" type="text" name="<portlet:namespace />lastName" value="<%= ParamUtil.getString(renderRequest, "lastName") %>"/>
+        <div class="clear"></div>
+    </div>
+    
+    
+    <div class="popupreg_input_container">
+        <div class="reg_errors">
+            <liferay-ui:error exception="<%= UserPasswordException.class %>" message="Invalid password" />
+        </div>
+    
+        <div class="popupreg_txt req">Password</div>
         <input class="popupreg_input" name="<portlet:namespace />password1" type="password" value=""/>
-    </p>
-    <p>
-        <div class="popupreg_txt req">Retype Password:</div>
+        <div class="clear"></div>
+    </div>
+    
+    <div class="popupreg_input_container">
+        <div class="popupreg_txt req">Retype Password</div>
         <input class="popupreg_input" name="<portlet:namespace />password2" type="password" value=""/>
-    </p>
+        <div class="clear"></div>
+    </div>
     
     <div class="clearfix"></div>
     <div class="reg_errors">
@@ -136,14 +148,18 @@
     </div>   
            
     <div class="popupreg_terms">
-        <div class="popupreg_txt terms">Terms of use</div>
-        <div class="popupreg_terms-right">By registering for this site, you agree to abide by the
+        <div class="popupreg_txt terms req">Terms of use</div>
+        <div class="popupreg_terms-right">By registering for this site, you agree to abide<br />
+            by the
             <a href="http://cci.mit.edu/research/climatehelp/CollaboratoriumTermsUse.html">Terms of Use</a>
         </div>
     </div>
     <div class="clearfix"></div>
     <div class="popupreg_submit_wrap">
-        <input type="button"  class="popupreg_submit" onclick="pageTracker._trackPageview('/user/registerSubmit');<portlet:namespace />doRegister();" />
+        <div class="blue-button">
+            <a href="javascript:;" onclick="pageTracker._trackPageview('/user/registerSubmit');<portlet:namespace />doRegister();">CREATE account</a>
+        </div>
     </div>
 
 </form>
+</div>

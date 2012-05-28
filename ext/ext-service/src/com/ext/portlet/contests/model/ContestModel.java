@@ -95,5 +95,17 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setFeatured(Boolean featured);
 
+    public Long getGroupId();
+
+    public void setGroupId(Long groupId);
+
+    public Long getDiscussionGroupId();
+
+    public void setDiscussionGroupId(Long discussionGroupId);
+
+    public Integer getWeight();
+
+    public void setWeight(Integer weight);
+
     public Contest toEscapedModel();
 }

@@ -69,9 +69,3 @@ Liferay.Service.registerClass(
 Liferay.Service.register("Liferay.Service.landingpage", "com.ext.portlet.landingPage.service");
 
 Liferay.Service.register("Liferay.Service.twitter", "com.ext.portlet.twitter.service");
-
-Liferay.Service.register("Liferay.Service.Authenticatio", "com.ext.auth.service");
-
-Liferay.Service.register("Liferay.Service.Authentication", "com.ext.auth.service");
-
-Liferay.Service.register("Liferay.Service.ontology", "com.ext.portlet.ontology.service");

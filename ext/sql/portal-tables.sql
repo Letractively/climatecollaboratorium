@@ -256,7 +256,10 @@ create table Contest (
 	planTemplateId LONG,
 	focusAreaId LONG,
 	contestLogoId LONG,
-	featured_ BOOLEAN
+	featured_ BOOLEAN,
+	groupId LONG,
+	discussionGroupId LONG,
+	weight INTEGER
 );
 
 create table ContestDebate (
@@ -292,6 +295,13 @@ create table ContestPosition (
 	id_ LONG not null primary key,
 	positionId LONG,
 	ContestPK LONG
+);
+
+create table ContestTeamMember (
+	id_ LONG not null primary key,
+	contestId LONG,
+	userId LONG,
+	role VARCHAR(75) null
 );
 
 create table Counter (

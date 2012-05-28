@@ -10,17 +10,23 @@ import com.ext.portlet.contests.NoSuchContestPhaseException;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestDebate;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.model.ContestTeamMember;
 import com.ext.portlet.contests.service.ContestDebateLocalServiceUtil;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
+import com.ext.portlet.contests.service.ContestTeamMemberLocalServiceUtil;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
 import com.ext.portlet.debaterevision.util.Indexer;
+import com.ext.portlet.discussions.model.DiscussionCategory;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
+import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.ontology.model.FocusArea;
 import com.ext.portlet.ontology.service.FocusAreaLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanTemplate;
 import com.ext.portlet.plans.model.PlanType;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTemplateLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
@@ -135,13 +141,16 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     }
     
     public FocusArea getFocusArea() throws PortalException, SystemException {
-        return FocusAreaLocalServiceUtil.getFocusArea(getFocusAreaId());
+        if (getFocusAreaId() != null && getFocusAreaId() > 0) {
+            return FocusAreaLocalServiceUtil.getFocusArea(getFocusAreaId());
+        }
+        return null;
     }
     
     public Image getLogo() throws PortalException, SystemException {
         return getContestLogoId() != null && getContestLogoId() > 0 ? 
                 ImageLocalServiceUtil.getImage(getContestLogoId()) : 
-                ImageLocalServiceUtil.getDefaultSpacer();
+                null;
     }
     
     public void setLogo(File logoFile) throws IOException, SystemException {
@@ -162,5 +171,22 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     }
     
     
+    public long getProposalsCount() throws PortalException, SystemException {
+        return PlanItemLocalServiceUtil.countPlansByContest(getContestPK());
+    }
+    
+    public DiscussionCategoryGroup getDiscussionCategoryGroup() throws PortalException, SystemException {
+        DiscussionCategoryGroup dcg = 
+            DiscussionCategoryGroupLocalServiceUtil.getDiscussionCategoryGroup(getDiscussionGroupId());
+        return dcg;
+    }
+    
+    public long getCommentsCount() throws PortalException, SystemException {
+        return getDiscussionCategoryGroup().getCommentsCount();
+    }
+    
+    public List<ContestTeamMember> getTeamMembers() throws SystemException {
+        return ContestTeamMemberLocalServiceUtil.findForContest(getContestPK());
+    }
 
 }

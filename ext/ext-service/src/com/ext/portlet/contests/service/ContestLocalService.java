@@ -83,4 +83,17 @@ public interface ContestLocalService {
         boolean contestActive)
         throws com.ext.portlet.contests.NoSuchContestException,
             com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.Contest createNewContest(
+        java.lang.Long userId, java.lang.String name)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public void updateContestGroupsAndDiscussions()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFeatured(
+        boolean active, boolean featured)
+        throws com.liferay.portal.SystemException;
 }
