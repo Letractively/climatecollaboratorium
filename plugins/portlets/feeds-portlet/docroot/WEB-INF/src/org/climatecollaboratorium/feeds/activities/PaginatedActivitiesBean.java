@@ -83,13 +83,15 @@ public class PaginatedActivitiesBean extends DataSource {
         int lastDaysBetween = -1;
         Date now = new Date();
         
+        int i=0; 
         for (SocialActivity activity: ActivityUtil.retrieveAllActivities(startRow, endIndex)) {
             if (SocialActivityWrapper.isEmpty(activity) || (!showAdmin && Helper.isUserAdmin(activity.getUserId()))) {
                 continue;
             }
             int curDaysBetween = DateUtil.getDaysBetween(activity.getCreateDate(), now, TimeZone.getDefault());
             lastDaysBetween = curDaysBetween;
-            items.add(new SocialActivityWrapper(activity, curDaysBetween, lastDaysBetween < curDaysBetween));
+            items.add(new SocialActivityWrapper(activity, curDaysBetween, lastDaysBetween < curDaysBetween, i % 2 == 1));
+            i++;
         }
 
         return new DataPage(totalActivitiesCount, startRow, items);

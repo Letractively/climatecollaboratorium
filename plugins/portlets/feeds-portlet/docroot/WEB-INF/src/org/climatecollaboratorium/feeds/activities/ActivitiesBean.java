@@ -42,14 +42,16 @@ public class ActivitiesBean {
             int lastDaysBetween = -1;
             Date now = new Date();
             int count = feedSize;
+            int i = 0;
             for (SocialActivity activity : ActivityUtil.retrieveAllActivities(0, MAX_QUERY)) {
                 if (SocialActivityWrapper.isEmpty(activity) || (!showAdmin && Helper.isUserAdmin(activity.getUserId()))) {
                     continue;
                 }
 
                 int curDaysBetween = DateUtil.getDaysBetween(activity.getCreateDate(), now, TimeZone.getDefault());
-                activities.add(new SocialActivityWrapper(activity, curDaysBetween, lastDaysBetween < curDaysBetween));
+                activities.add(new SocialActivityWrapper(activity, curDaysBetween, lastDaysBetween < curDaysBetween, i % 2 == 1));
                 lastDaysBetween = curDaysBetween;
+                i++;
                 if (--count == 0)
                     break;
             }
