@@ -72,10 +72,15 @@
                     
                     </td></tr>
                     <tr><td>
-                        <ice:commandButton value="Send" styleClass="mothButton" actionListener="#{contactBean.sendMessage}" onclick="populateCaptchaFields();"/>
+                        <br />
+                        <div class="blue-button">
+                            <ice:commandLink value="Send" actionListener="#{contactBean.sendMessage}" onclick="populateCaptchaFields();"/>
+                        </div>
                         &amp;nbsp;
                         &amp;nbsp;
-                        <input type="button" value="Cancel" class="mothButton" onclick="jQuery('#contactForm').toggle();" />
+                        <div class="blue-button">
+                            <a href="javascript:;" type="button" onclick="jQuery('#contactForm').toggle();" >Cancel</a>
+                        </div>
                     
                     </td></tr>
                 </table>
