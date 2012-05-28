@@ -129,8 +129,8 @@
       <div class="profile_about-head">About me</div>
       <ice:inputTextarea rows="6" cols="30" styleClass="profile_about" value="#{currentUser.about}"/>
       
-      <ice:commandButton actionListener="#{userprofileBean.updateUser}" value="SAVE" styleClass="mothButton" />
-      <ice:commandButton actionListener="#{userprofileBean.toggleEditing}" value="CANCEL" styleClass="mothButton" />
+      <div class="blue-button"><ice:commandLink  actionListener="#{userprofileBean.updateUser}" >Save</ice:commandLink></div>
+      <div class="blue-button"><ice:commandLink  actionListener="#{userprofileBean.toggleEditing}" >Cancel</ice:commandLink></div>
       <!-- <input type="reset" name="reset" class="profile_reset" value="CANCEL" />-->
           
         </div> <!-- /main -->

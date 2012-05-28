@@ -173,9 +173,8 @@ public class UserWrapper {
             return;
         }
         fileErrorMessage = null;
-        resiseAndCropImage(inputFile.getFile());
+        resizeAndCropImage(inputFile.getFile());
         newUserProfile = inputFile.getFile();
-        
     }
 
     public void setLastName(String lastName) {
@@ -273,7 +272,7 @@ public class UserWrapper {
         // do nothing, this method will be called thanks to javascript and will
         // cause parent page to detect a file upload in an iframe
     }
-    private void resiseAndCropImage(File file) throws IOException {
+    private void resizeAndCropImage(File file) throws IOException {
         int newW = 150;
         int newH = 150;
         
