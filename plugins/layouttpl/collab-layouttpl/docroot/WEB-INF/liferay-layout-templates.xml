@@ -48,5 +48,15 @@
             <wap-template-path>/collab-1-col-2-rows-noDIVcontent-footer.tpl</wap-template-path>
             <thumbnail-path>/collab-1-col-2-rows-noDIVcontent-footer.png</thumbnail-path>
         </layout-template>
+        <layout-template id="collab-about-2-1" name="CoLab 2 column 2 rows about page">
+            <template-path>/collab-about-2-1.tpl</template-path>
+            <wap-template-path>/collab-about-2-1.tpl</wap-template-path>
+            <thumbnail-path>/collab-about-2-1.png</thumbnail-path>
+        </layout-template>
+        <layout-template id="collab-community-1-2-1" name="CoLab 1 - 2 - 1 - communit page">
+            <template-path>/collab-community-1-2-1.tpl</template-path>
+            <wap-template-path>/collab-community-1-2-1.tpl</wap-template-path>
+            <thumbnail-path>/collab-community-1-2-1.png</thumbnail-path>
+        </layout-template>
 	</custom>
 </layout-templates>
