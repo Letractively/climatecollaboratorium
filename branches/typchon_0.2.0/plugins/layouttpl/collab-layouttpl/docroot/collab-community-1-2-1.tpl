@@ -1,14 +1,17 @@
 <div class="lrContentPlaceholder lfr-column">
-    $processor.processColumn("column-1")
+        $processor.processColumn("column-1")
 </div>
-    
-    
+
 <div id="content">
-    <div class="home-left lrContentPlaceholder lfr-column ">
+    <div class="lrContentPlaceholder lfr-column">
         $processor.processColumn("column-2")
-    </div> <!-- .col-left -->
-    <div class="home-right lrContentPlaceholder lfr-column">
+    </div>
+    
+    <div class="community-left lrContentPlaceholder lfr-column ">
         $processor.processColumn("column-3")
+    </div> <!-- .col-left -->
+    <div class="community-right lrContentPlaceholder lfr-column">
+        $processor.processColumn("column-4")
     </div> <!-- .col-right -->
 </div>
 
@@ -29,6 +32,6 @@
     </div> <!-- #footmenu -->
     
     <div class="inner lrContentPlaceholder lfr-column ">
-        $processor.processColumn("column-4")
+        $processor.processColumn("column-5")
     </div> <!-- .inner -->
 </div> <!-- #footer -->
