@@ -279,6 +279,7 @@ hr, .separator {
     opacity:0.1;
     filter:alpha(opacity=10);
     color: #fff;
+    margin-left: 50px;
 }
 
 .portlet-actions {
