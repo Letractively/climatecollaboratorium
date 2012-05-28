@@ -201,6 +201,8 @@ public class PlanItemWrapper {
     private PlanStatusSelection planStatus = PlanStatusSelection.DRAFT;
 
     private PlanMode planMode = PlanMode.CLOSED;
+    private String planAbstract;
+    private String newAbstract;
 
 
     
@@ -218,6 +220,7 @@ public class PlanItemWrapper {
         setDescriptionSet(plan.getDescription().trim().length() != 0);
         name = plan.getName();
         description = plan.getDescription();
+        planAbstract = getAbstractAttribute();
         
         planMode = PlanMode.getMode(wrapped);
         planStatus = PlanStatusSelection.getStatus(wrapped);
@@ -427,8 +430,11 @@ public class PlanItemWrapper {
 
     public void selectDescriptionVersion(ActionEvent evt) {
        planDescriptionHistoryItem = (PlanHistoryWrapper) evt.getComponent().getAttributes().get("item");
+       //wrapped = PlanItemLocalServiceUtil.planDescriptionHistoryItem.getWrapped().getVersion();
        
        description = planDescriptionHistoryItem.getWrapped().getDescription();
+       name = planDescriptionHistoryItem.getWrapped().getName();
+       //planAbstract = planDescriptionHistoryItem.getWrapped();
    }
     
     public PlanHistoryWrapper<PlanDescription> getPlanDescriptionHistoryItem() {
@@ -833,16 +839,21 @@ public class PlanItemWrapper {
     public void refresh() throws SystemException {
         name = wrapped.getName();
         description = wrapped.getDescription();
+        planAbstract = getAbstractAttribute(); 
         sections.clear();
         sectionsShown.clear();
     }
     
     
     public void setAbstract(String abstractStr) throws SystemException {
-        wrapped.setAttribute("ABSTRACT", abstractStr);
+        newAbstract = abstractStr;
     }
     
     public String getAbstract() throws SystemException {
+        return planAbstract;
+    }
+    
+    private String getAbstractAttribute() throws SystemException {
         PlanAttribute attr = wrapped.getPlanAttribute("ABSTRACT");
         if (attr != null) {
             return attr.getAttributeValue();
@@ -937,8 +948,12 @@ public class PlanItemWrapper {
                 wrapped.setTeam(newTeam);
             }
             
+            if (newAbstract != null) {
+                wrapped.setAttribute("ABSTRACT", newAbstract);
+            }
+            
         }
-        planBean.toggleEditing(e);
+        planBean.refresh();
     }
     
     public void uploadImage(ActionEvent e) throws IOException, SystemException {
@@ -988,6 +1003,10 @@ public class PlanItemWrapper {
     
     public void setTeam(String team) {
         newTeam = team;
+    }
+    
+    public Long getVersion() {
+        return wrapped.getVersion();
     }
     
     public static class Tuple {

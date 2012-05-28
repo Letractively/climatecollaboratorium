@@ -1,25 +1,19 @@
 package org.climatecollaboratorium.plans;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.portlet.PortletRequest;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
+import org.compass.core.util.backport.java.util.Collections;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
-import com.icesoft.faces.context.BridgeExternalContext;
-import com.liferay.portal.SystemException;
 import com.liferay.portal.PortalException;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.SystemException;
 
 public class ContestsBean {
     private List<ContestWrapper> contests = new ArrayList<ContestWrapper>();
@@ -29,6 +23,13 @@ public class ContestsBean {
     private List<ContestWrapper> contestsNormal;
     private EventBus eventBus;
     private ViewType viewType = ViewType.GRID;
+    private String filterString;
+    
+    private SortColumn sortColumn = null;
+    
+    private boolean sortAsc = true;
+    private boolean showActiveOnly = true;
+    
     
     public ContestsBean() {
         
@@ -48,11 +49,30 @@ public class ContestsBean {
     public List<ContestWrapper> getContests() throws SystemException, PortalException {
         if (contests.size() == 0) {
             for (Contest contest: ContestLocalServiceUtil.getContests(0, Integer.MAX_VALUE)) {
-                ContestWrapper contestWrapper = new ContestWrapper(contest);
-                if (eventBus != null) {
-                    contestWrapper.setEventBus(eventBus);
+                boolean add = true;
+                if (filterString != null) {
+                    if (contest.getContestShortName().toLowerCase().contains(filterString) || 
+                            contest.getContestName().toLowerCase().contains(filterString)) {
+                        add = true;
+                    
+                    }
+                    else {
+                        add = false;
+                        
+                    }
                 }
-                contests.add(contestWrapper);
+                add &= !(showActiveOnly ^ contest.isActive());
+                if (add) {
+                    ContestWrapper contestWrapper = new ContestWrapper(contest);
+                    if (eventBus != null) {
+                        contestWrapper.setEventBus(eventBus);
+                    }
+                    contests.add(contestWrapper);
+                }
+            }
+            if (sortColumn != null) {
+                Collections.sort(contests, sortColumn);
+                if (sortAsc) Collections.reverse(contests);
             }
         }
         
@@ -91,6 +111,7 @@ public class ContestsBean {
 
     private void splitContestsIntoParts() throws SystemException, PortalException {
         if (contestsPart1 == null || contestsPart2 == null) {
+            List<ContestWrapper> contests = getContests();
             contestsPart1 = new ArrayList<ContestWrapper>();
             contestsPart2 = new ArrayList<ContestWrapper>();
             contestsFeatured = new ArrayList<ContestWrapper>();
@@ -98,7 +119,7 @@ public class ContestsBean {
             
             boolean addToFirst = true;
             
-            for (ContestWrapper c: getContests()) {
+            for (ContestWrapper c: contests) {
                 if (addToFirst) contestsPart1.add(c);
                 else contestsPart2.add(c);
                 addToFirst = !addToFirst;
@@ -133,7 +154,49 @@ public class ContestsBean {
         return viewType;
     }
     
+    private void clearContestsList() {
+
+        contestsPart1 = null;
+        contestsPart2 = null;
+        contestsFeatured = null;
+        contestsNormal = null;
+        contests.clear();
+    }
     
+    
+    public void setFilterString(String filter) {
+        this.filterString = filter.trim().length() == 0 ? null : filter.trim();
+        clearContestsList();
+    }
+
+
+    public String getFilterString() {
+        return filterString;
+    }
+    
+    public void changeSortColumn(ActionEvent e) {
+        SortColumn nSortColumn = SortColumn.valueOf(e.getComponent().getAttributes().get("sortColumn").toString());
+        if (sortColumn == nSortColumn) sortAsc = !sortAsc;
+        else sortColumn = nSortColumn;
+        
+        clearContestsList();
+    }
+    
+
+    public void setShowActiveOnly(boolean showActiveOnly) {
+        this.showActiveOnly = showActiveOnly;
+    }
+    
+    public void toggleActiveInactive(ActionEvent e) {
+        showActiveOnly = !showActiveOnly;
+    }
+
+
+    public boolean isShowActiveOnly() {
+        return showActiveOnly;
+    }
+
+
     public static enum ViewType {
         GRID,
         LIST;
@@ -141,6 +204,57 @@ public class ContestsBean {
         public String getLowerCase() {
             return name().toLowerCase();
         }
+    }
+    
+    public static enum SortColumn implements Comparator<ContestWrapper> {
+        CONTEST_NAME,
+        PROPOSALS,
+        COMMENTS,
+        WHO,
+        WHERE,
+        WHAT
+        ;
+
+        @Override
+        public int compare(ContestWrapper o1, ContestWrapper o2) {
+            String w1 = ""; 
+            String w2 = "";
+            try {
+                switch (this) {
+                    case CONTEST_NAME:
+                        return o1.getContest().getContestShortName().compareTo(o2.getContest().getContestShortName());
+                    case PROPOSALS:
+                        return (int) (o1.getProposalsCount() - o2.getProposalsCount());
+                    case COMMENTS:
+                        return (int) (o1.getCommentsCount() - o2.getCommentsCount());
+                    case WHO:
+                        w1 = o1.getWho() == null ? "" : o1.getWho();
+                        w2 = o2.getWho() == null ? "" : o2.getWho();
+                    
+                        return w1.compareTo(w2);
+
+                    case WHAT:
+                        w1 = o1.getWhat() == null ? "" : o1.getWhat();
+                        w2 = o2.getWhat() == null ? "" : o2.getWhat();
+                    
+                        return w1.compareTo(w2);
+
+                    case WHERE:
+                        w1 = o1.getWho() == null ? "" : o1.getWho();
+                        w2 = o2.getWho() == null ? "" : o2.getWho();
+                    
+                        return w1.compareTo(w2);
+                }
+            
+            }
+            catch (Exception e) {
+                // ignore
+            }
+            return o1.hashCode() - o2.hashCode();
+                        
+            
+        }
+        
     }
 
 }

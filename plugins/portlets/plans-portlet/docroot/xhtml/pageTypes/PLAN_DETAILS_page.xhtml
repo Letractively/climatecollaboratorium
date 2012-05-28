@@ -16,7 +16,7 @@
                     <collab:contestLink contestId="#{contest.contest.contestId}" text=" #{contest.contest.shortName} " />
                     by
                     <f:subview rendered="#{empty proposal.plan.team}">
-                        <collab:userLinkSimple userId="#{proposal.plan.author.userId}" text="#{proposal.plan.author.screenName}" />
+                        <collab:userLinkSimple userId="#{proposal.plan.author.userId}" text=" #{proposal.plan.author.screenName}" />
                     </f:subview>
                     <f:subview rendered="#{not empty proposal.plan.team}">
                         #{proposal.plan.team}
@@ -30,9 +30,7 @@
                 <ul>
                     <ui:repeat value="#{proposal.availableTabs}" var="tab">
                         <li class="#{proposal.currentTab == tab ? 'c' : ''}">
-                            <ice:commandLink actionListener="#{proposal.changeTab}" value="#{tab.displayName}" >
-                                <f:attribute name="tab" value="#{tab}" />
-                            </ice:commandLink>
+                            <ice:commandLink value="#{tab.displayName}" onclick="Collab.nav.navigateAddParams('plans', {tab: '#{tab}'}); return false;" />
                         </li>
                     </ui:repeat>
                 </ul>
@@ -50,9 +48,9 @@
                     <ice:form>
                         <div class="edit-prop-butts">
                             <ice:commandLink value="Edit" actionListener="#{planBean.toggleEditing}" />
-                            <a href="javascript:;">Show history</a>
+                            <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" >Show history</a>
                         </div> 
-                        <div class="lastedited">Last edited 5 days ago by <a href="javascript:;">beachbabe-in-fl</a></div>
+                        <!-- <div class="lastedited">Last edited 5 days ago by <a href="javascript:;">&amp;nbsp;beachbabe-in-fl</a></div>-->
                     </ice:form>
                 </div>
             </div>

@@ -9,12 +9,42 @@
     
     
     <div class="headline prophead">
+    <ice:form>
         <h2><span>#{planBean.plan.planMembersCount}</span> members</h2>
   
+        <f:subview rendered="#{not planBean.plan.planMember and not planBean.membershipBean.requesting and not planBean.plan.hasRequestedMembership }">
         <div class="prop-butt">
-            <img src="/climatecolab-theme/images/icon-request-membership.png" width="24" height="22" alt="request membership" /> <div class="blue-button"><a href="javascript:;">Request membership</a></div>
+            <img src="/climatecolab-theme/images/icon-request-membership.png" width="24" height="22" alt="request membership" />
+            <div class="blue-button">
+                <ice:commandLink actionListener="#{planBean.membershipBean.toggleRequestingOrJoin}"
+                                       escaped='false'
+                                       rendered="#{not planBean.plan.planMember and not planBean.membershipBean.requesting and not planBean.plan.hasRequestedMembership }"
+                                       onclick="if(!deferUntilLogin()) return false;">
+                    #{planBean.plan.open?'&lt;span&gt;JOIN&lt;/span&gt; this team':'&lt;span&gt;REQUEST&lt;/span&gt; membership'}
+                </ice:commandLink>
+                </div>
         </div>
+        </f:subview>
+        </ice:form>
     </div> <!-- /headline -->
+    <ice:panelGroup rendered="#{planBean.membershipBean.requesting}">
+                    <div class="manageMembersTop">
+                        <h4>Request Membership</h4>
+                    </div>
+                    <div class="manageMembersContent">
+                        Optional comment:
+                        <ice:inputTextarea value="#{planBean.membershipBean.comment}" styleClass="requestComment"/>
+                    </div>
+                    <ice:commandButton value="REQUEST MEMBERSHIP"
+                                       actionListener="#{planBean.membershipBean.requestMembership}" styleClass="requestMembershipSubmitButton mothButton"/>
+                    <ice:commandButton value="CANCEL" actionListener="#{planBean.membershipBean.toggleRequestingOrJoin}" styleClass="mothButton"/>
+
+                </ice:panelGroup>
+                <ice:panelGroup rendered="#{planBean.plan.hasRequestedMembership}">
+                    <br />
+                    <h2>You have requested to be a member of this team.</h2>
+                </ice:panelGroup>
+                
     <ice:form><ice:dataTable var="member" value="#{planBean.membershipBean.planMembers}"  styleClass="contributors" rowClasses="odd,even">
         <ice:column style="width: 525px">
             <collab:userPortrait screenName="#{member.screenName}" width="42" height="42" />

@@ -2,6 +2,7 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:addthis="http://www.addthis.com/help/api-spec" >
 
     <div class="headline addprop">
@@ -71,7 +72,7 @@
             </label>
             <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
             <div class="addpropInputContainer">
-                <ice:inputTextarea value="#{proposal.plan.abstract}" cols="50" rows="7" />
+                <ice:inputTextarea value="#{proposal.plan.abstract}" cols="50" rows="7" style="display: inline;"/>
             </div>
         </div>
         
@@ -125,10 +126,9 @@
             var counter = 0;
             
             function shouldAllowMoreCharacters(input) {
-                if (!input.attr('validateLength')) {
+                if (typeof(input.attr('validateLength')) == 'undefined' || input.attr('maxCharacters') + 0 &lt;= 0) {
                     return true;
                 }
-                console.log(input.attr('maxCharacters') , input.val().length, input.attr('maxCharacters') > input.val().length);
                 return input.attr('maxCharacters') > input.val().length;
             }
             
@@ -145,7 +145,6 @@
                 var limitCharactersMax = thiz.parent().find(".limit_charactersMax");
                 var limitCharacterCount = thiz.parent().find(".limit_characterCount");
                 
-                console.log(limitCharactersMax);
                 
                 
                 if (limitCharactersMax.length > 0) {
@@ -165,13 +164,26 @@
                             if (! shouldAllowMoreCharacters(thiz)) {
                                 event.preventDefault();
                             }
-                            tmp.limitCharacterCounter.text(thiz.val().length);
+                            if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
+                                tmp.limitCharacterCounter.text(thiz.val().length);
+                            }
                         },
                         keyup: function(event) {
-                            tmp.limitCharacterCounter.text(thiz.val().length);
+                            if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
+                                tmp.limitCharacterCounter.text(thiz.val().length);
+                            }
                         }
                     
-                    }});
+                    },
+                    rmUnusedControls: true,
+                    controls: {
+                        bold: { visible : true }, italic: {visible: true}, underline: {visible: true}, 
+                        insertOrderedList: {visible: true}, insertUnorderedList: {visible: true},
+                        insertImage: {visible: true}, createLink: {visible: true}
+                    }
+                    
+                    
+                    });
  
                 jQuery(this).addClass('rteInitialized');
                 
@@ -188,14 +200,65 @@
      
     </div>
     
-    <div class="prop-right">
-        <div class="edit-prop">
-            <div class="edit-prop-butts">
-                <ice:commandLink value="Save" actionListener="#{proposal.plan.saveContent}" />
-                <ice:commandLink value="Cancel" actionListener="#{proposal.toggleEditing}" />
+    <ui:include src="./widget_PROPOSAL_SUMMARY.xhtml" />
+    
+    <script>
+        window.showAcceptTosPopup = function() {
+            jQuery("#acceptTosPopup").fadeIn("fast");
+            
+        }
+        
+        window.closeAcceptTosPopup = function() {
+            jQuery("#acceptTosPopup").fadeOut("fast");
+            
+        }
+        
+        window.tosAcceptedSave = function() {
+            jQuery("#forceSaveButton a").click();
+            jQuery("#acceptTosPopup").fadeOut("fast");
+            
+        }
+    </script>
+    
+    
+<div id="acceptTosPopup" style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 100; display: none; ">
+<div class="popup-wrap p1" id="acceptTosPopup">
+ <div class="popup">
+  <h4>By saving your proposal you are entering the Climate CoLab contest and agree to the Contest Rules and  Terms of Use:</h4>
+  <div class="terms">
+    #{preferences.defaultDescription}
+  </div>
+  <div class="btns">
+   <div class="blue-button"><a href="javascript:;" onclick="tosAcceptedSave();" class="cp1-1">ACCEPT</a></div> <div class="gray-button"><a href="javascript:;" class="cp1-2" onclick="closeAcceptTosPopup();">DO NOT Accept</a></div>
+  </div>
+ </div>
+</div>
+</div>
+    
+    <div class="admin-overlay-wrap">
+        <div class="admin-overlay">
+            <div class="inner">
+                <div class="admin-left">
+                    <p>
+                        <f:subview rendered="#{proposal.plan.version le 1}">
+                            You are currently editing a new proposal
+                        </f:subview>
+                        <f:subview rendered="#{proposal.plan.version gt 1}">
+                            You are editing a proposal
+                        </f:subview>
+                    <br />
+                    "#{proposal.plan.name}"</p>
+                    <div class="blue-button"><ice:commandLink value="SAVE changes" actionListener="#{proposal.plan.saveContent}" onclick="if (#{proposal.plan.version} &lt;= 1) {window.showAcceptTosPopup(); return false; }" /></div> 
+                    <div class="gray-button"><ice:commandLink value="DISCARD changes" actionListener="#{proposal.toggleEditing}" /></div>
+                </div>
+                <div class="admin-right">
+                    <p>&amp;nbsp;</p>
+                </div>
             </div>
         </div>
-    
+</div>
+    <div id="forceSaveButton" style="display: none;">
+        <ice:commandLink value="SAVE changes" actionListener="#{proposal.plan.saveContent}" style="display: none;" />
     </div>
     
         </ice:form>

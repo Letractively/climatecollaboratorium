@@ -56,6 +56,7 @@ public class SimulationBean {
             public void onEvent(ScenarioSavedEvent arg0) {
                 if (Helper.isUserLoggedIn()) {
                     try {
+                        planBean.refresh();
                         Scenario s = arg0.getScenario();
                         if (arg0.getScenario() == null) {
                             editing = false;
@@ -69,7 +70,6 @@ public class SimulationBean {
                                 PlanItem.class.getName(), plan.getPlanId(), PlanActivityKeys.EDIT_SCENARIO.id(),null, 0);
                         editing = false;
                         saved = true;
-                        planBean.refresh();
                         
                     } catch (PortalException e) {
                         _log.error("Can't save scenario in a plan", e);
