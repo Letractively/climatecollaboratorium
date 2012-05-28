@@ -46,14 +46,14 @@ public class SearchBean extends DataSource {
     }
 
     public void setSearchPhrase(String searchPhrase) {
-        /*if (searchPhrase != null && searchPhrase.trim().length() == 0) {
+        if (searchPhrase != null && searchPhrase.trim().length() == 0) {
             this.searchPhrase = null;
         }
         else {
             this.searchPhrase = searchPhrase;
         }
         onePageDataModel = null;
-        */
+        
     }
 
     public String getSearchPhrase() {
@@ -143,8 +143,9 @@ public class SearchBean extends DataSource {
         }
 
         List<SearchResultItem> items = new ArrayList<SearchResultItem>();
+        int i=0; 
         for (Document doc: hits.getDocs()) {
-            items.add(new SearchResultItem(doc, query));
+            items.add(new SearchResultItem(doc, query, (i++ % 2) == 0));
         }
 
         return new DataPage(totalNumberCustomers,startRow,items);
@@ -187,6 +188,10 @@ public class SearchBean extends DataSource {
             selectedSearchItemType = SearchItemType.valueOf(typeStr);
         }
         onePageDataModel = null;
+    }
+    
+    public void doSearch(ActionEvent e) {
+        // just refresh search results
     }
     
     public SearchItemType getSelectedItemType() {

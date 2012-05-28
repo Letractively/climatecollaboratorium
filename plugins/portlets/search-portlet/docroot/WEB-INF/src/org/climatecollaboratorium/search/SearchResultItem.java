@@ -24,7 +24,7 @@ public class SearchResultItem {
     private String content = null;
     private String title;
     private String url;
-    
+    private boolean odd;
 
     public class Pair {
         private String key;
@@ -48,7 +48,7 @@ public class SearchResultItem {
         }
     }
     
-    public SearchResultItem(Document doc, Query query) throws ParseException, IOException {
+    public SearchResultItem(Document doc, Query query, boolean odd) throws ParseException, IOException {
         this.doc = doc;
         fields = doc.getFields();
         
@@ -68,6 +68,7 @@ public class SearchResultItem {
             url = itemType.getUrl(doc);
             title = itemType.getTitle(doc, higlighter);
         }
+        this.odd = odd;
     }
     
     public List<Pair> getValues() {
@@ -94,6 +95,14 @@ public class SearchResultItem {
 
     public String getUrl() {
         return url;
+    }
+
+    public void setOdd(boolean odd) {
+        this.odd = odd;
+    }
+
+    public boolean isOdd() {
+        return odd;
     }    
 
 }
