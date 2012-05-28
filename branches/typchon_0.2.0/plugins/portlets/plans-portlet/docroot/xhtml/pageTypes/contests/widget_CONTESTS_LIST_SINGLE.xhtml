@@ -20,11 +20,11 @@
             <collab:contestLink contestId="#{singleContest.contestId}" text="#{singleContest.shortName}:" />
             #{singleContest.name}
         </ice:column>
-        <ice:column style="width: 27px" styleClass="g">300</ice:column>
-        <ice:column style="width: 32px" >125</ice:column>
-        <ice:column style="width: 155px" styleClass="g">300</ice:column>
-        <ice:column style="width: 142px" >Global</ice:column>
-        <ice:column style="width: 142px" styleClass="g">Anyone</ice:column>
+        <ice:column style="width: 27px" styleClass="g">#{singleContest.proposalsCount}</ice:column>
+        <ice:column style="width: 32px" >#{singleContest.commentsCount}</ice:column>
+        <ice:column style="width: 155px" styleClass="g">#{singleContest.what}</ice:column>
+        <ice:column style="width: 142px" >#{singleContest.where}</ice:column>
+        <ice:column style="width: 142px" styleClass="g">#{singleContest.who}</ice:column>
     </ice:dataTable>
 
 </f:view>

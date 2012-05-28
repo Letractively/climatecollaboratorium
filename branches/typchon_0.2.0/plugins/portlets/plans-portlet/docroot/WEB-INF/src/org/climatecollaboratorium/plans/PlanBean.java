@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -112,7 +113,9 @@ public class PlanBean {
             try {
                 Integer tmp = tabNameIndexMap.get(parameters.get("tab"));
                 selectedTabIndex = tmp != null ? tmp : getDefaultTab();
-            } catch (NumberFormatException e) {
+                currentTab = PlanTab.valueOf(parameters.get("tab").toUpperCase());
+            }
+            catch (Exception e) {
                 _log.error("Can't parse tab number: " + parameters.get("tab"), e);
             }
         } else {
@@ -191,8 +194,10 @@ public class PlanBean {
             simulationBean.setPlan(planItem, this);
             // simulationBean = new SimulationBean(planItem, this, eventBus);
             membershipBean = new PlanMembershipBean(planItem, this, permissions);
+            editing = false;
 
         }
+        editing = false;
     }
 
     public PlanItemWrapper getPlan() {

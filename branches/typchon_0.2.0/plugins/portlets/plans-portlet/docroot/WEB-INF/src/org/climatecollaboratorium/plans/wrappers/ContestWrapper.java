@@ -6,17 +6,14 @@
 
 package org.climatecollaboratorium.plans.wrappers;
 
-import com.ext.portlet.contests.NoSuchContestPhaseException;
-import com.ext.portlet.contests.model.Contest;
-import com.ext.portlet.contests.model.ContestPhase;
-import com.ext.portlet.contests.service.ContestLocalServiceUtil;
-import com.ext.portlet.debaterevision.model.Debate;
-import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
-import com.ext.portlet.models.CollaboratoriumModelingService;
-import com.ext.portlet.models.ui.ModelUIFactory;
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
-import com.liferay.portal.service.ImageLocalServiceUtil;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -28,7 +25,17 @@ import org.climatecollaboratorium.plans.CreatePlanBean;
 import org.climatecollaboratorium.plans.Helper;
 import org.climatecollaboratorium.plans.PlansIndexBean;
 
-import java.util.*;
+import com.ext.portlet.contests.NoSuchContestPhaseException;
+import com.ext.portlet.contests.model.Contest;
+import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.debaterevision.model.Debate;
+import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
+import com.ext.portlet.ontology.model.FocusArea;
+import com.ext.portlet.ontology.model.OntologyTerm;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
+import com.liferay.portal.service.ImageLocalServiceUtil;
 
 /**
  * Created by IntelliJ IDEA.
@@ -347,4 +354,49 @@ public class ContestWrapper {
         return activePhase;
     }
     
+    public boolean getHasFocusArea() throws PortalException, SystemException {
+        return contest.getFocusArea() != null;
+    }
+    
+    public String getWho() throws PortalException, SystemException {
+        return getTermFromSpace("who");
+    }
+    
+    public String getWhat() throws PortalException, SystemException {
+        return getTermFromSpace("what");
+        
+    }
+    
+    public String getWhere() throws PortalException, SystemException {
+        return getTermFromSpace("where");
+    }
+    
+    public long getProposalsCount() throws SystemException, PortalException {
+        return contest.getProposalsCount();
+    }
+    
+    public long getCommentsCount() throws PortalException, SystemException {
+        return contest.getCommentsCount();
+    }
+    
+    private String getTermFromSpace(String space) throws PortalException, SystemException {
+        FocusArea fa = contest.getFocusArea();
+        if (fa == null) return null;
+        
+        for (OntologyTerm t: fa.getTerms()) {
+            if (t.getSpace().getName().equalsIgnoreCase(space)) {
+                return t.getName();
+            }
+        }
+        return null;
+    }
+    
+    public Long getCategoryGroupId() throws PortalException, SystemException {
+        ContestLocalServiceUtil.updateContestGroupsAndDiscussions();
+        return contest.getDiscussionGroupId();
+    }
+    
+    public Long getGroupId() {
+        return contest.getGroupId();
+    }
 }

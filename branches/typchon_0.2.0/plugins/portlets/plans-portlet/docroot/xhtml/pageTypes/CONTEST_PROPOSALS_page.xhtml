@@ -4,6 +4,7 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"   
         xmlns:collab="http://climatecollaboratorium.org/facelets">
 
 <ice:form>
@@ -43,20 +44,26 @@
     </div>
  </div>
  <div class="shadebar"></div>
- 
 
 
 <div class="contest-detail">
     <div class="heading">#{contest.contest.name}</div>
     <div class="description">
         <p>#{contest.contest.description}</p>
-        <div class="what"><strong>What:</strong> Any Actions</div>
-        <div class="where"><strong>Where:</strong> Global</div>
-        <div class="who"><strong>Who:</strong> Any organization or individual</div>
+        <f:subview rendered="#{contest.contest.hasFocusArea}">
+            <ice:panelGroup styleClass="what" rendered="#{not empty contest.contest.what}"><strong>What:</strong> #{contest.contest.what}</ice:panelGroup>
+            <ice:panelGroup styleClass="where" rendered="#{not empty contest.contest.where}"><strong>Where:</strong> #{contest.contest.where}</ice:panelGroup>
+            <ice:panelGroup styleClass="who" rendered="#{not empty contest.contest.who}"><strong>Who:</strong> #{contest.contest.who}</ice:panelGroup>
+        </f:subview>
     </div>
     <div class="moreinfo">
-        <div class="advisors">Advisor: <a href="javascript:;">Traci Holter</a> <span>CoLab Fellow: <a href="javascript:;">Frederick Tavarez</a></span></div>
-        <div class="buttons"><a href="contest.html">Resources</a> <a href="comments.html">Discussion</a></div>
+        <f:subview rendered="#{fn:length(contest.contest.contest.teamMembers) gt 0}">
+            <ice:panelSeries styleClass="advisors" var="teamMember" value="#{contest.contest.contest.teamMembers}">
+            <span>#{teamMember.role}:&amp;nbsp;<collab:userLinkSimple userId="#{teamMember.userId}" text="#{teamMember.user.fullName}" /></span>
+            
+            </ice:panelSeries>
+        </f:subview>
+        <div class="buttons"><a href="contest.html">Resources</a> <a href="/web/guest/plans/-/plans/contestId/#{contest.contestId}/page/discussion">Discussion</a></div>
     </div>
  </div>
  

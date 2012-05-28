@@ -69,6 +69,23 @@ public enum PlanPageType {
         }
     
     }),
+    
+    // contest discussion
+    CONTEST_DISCUSSION(new DeterminePageTypeForNavigationEvent() {
+
+        @Override
+        public boolean determine(NavigationEvent e) {
+            Map<String, String> params = e.getParameters(PLANS_SOURCE);
+            return params == null ? false : params.containsKey(CONTESTS_PARAM) || params.get(SUBVIEW_PARAM) != null && params.get(SUBVIEW_PARAM).equals(DISCUSSION_PAGE);
+        }
+
+        @Override
+        public boolean determine(Map<String, String> params) {
+            return params.containsKey(CONTESTID_PARAM) && params.containsKey(PAGE_PARAM) && params.get(PAGE_PARAM).equals(DISCUSSION_PAGE);
+        }
+    
+    }),
+    
     CONTEST_PROPOSALS(new DeterminePageTypeForNavigationEvent() {
 
         @Override
@@ -107,10 +124,13 @@ public enum PlanPageType {
     private final static String PLANID_PARAM = "planId";
     private final static String CONTESTID_PARAM = "contestId";
     private final static String CONTESTS_PARAM = "contests";
+    private final static String PAGE_PARAM = "page";
     private final static String SUBVIEW_PARAM = "subview";
     private final static String SUBVIEW_PROPOSALS_NAME = "proposals";
     private final static String SUBVIEW_ISSUES_NAME = "issues";
     private final static String SUBVIEW_MODEL_NAME = "model";
+    private final static String DISCUSSION_PAGE = "discussion";
+    
     private final static PlanPageType defaultType = CONTESTS;
     
     private final static Map<PlanPageType, Set<PlanPageType>> allowedPredecessorsMap = new HashMap<PlanPageType, Set<PlanPageType>>();
@@ -120,7 +140,9 @@ public enum PlanPageType {
         allowedPredecessorsMap.put(CONTEST_ISSUES, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {ISSUE_DETAILS, CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
         allowedPredecessorsMap.put(CONTEST_MODEL, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
         allowedPredecessorsMap.put(CONTEST_PROPOSALS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {CONTEST_ISSUES, CONTEST_MODEL, CONTEST_PROPOSALS})));
+        allowedPredecessorsMap.put(CONTEST_DISCUSSION, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {} )));
         allowedPredecessorsMap.put(CONTESTS, new HashSet<PlanPageType>( Arrays.asList(new PlanPageType[] {} )));
+        
     }
     
     private final DeterminePageTypeForNavigationEvent pageDeterminator;

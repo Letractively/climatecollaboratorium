@@ -17,6 +17,13 @@
 		<ice:form>
 			<ice:outputStyle href="/xmlhttp/css/xp/xp-portlet.css" />
 			<ice:panelTabSet styleClass="componentPanelTabSetLayout">
+                <ice:panelTab label="Proposal settings">
+                    <ice:messages globalOnly="false" layout="table" />
+                    <h1>Term for new proposals</h1>
+                    <ice:inputTextarea value="#{preferences.defaultDescription}" style="width: 90%; height: 400px" /><br />
+                    <ice:commandButton value="Update" />
+                
+                </ice:panelTab>
 				<ice:panelTab label="Questions for assumptions">
                     <strong><ice:outputLabel for="questions" value="Select how many proposals should be displayed for each contest:" /></strong>
                     <ice:dataTable value="#{preferences.contestPreferences}" var="contestPref">
@@ -53,12 +60,7 @@
                     <ice:commandButton action="#{migrationTool.updateUrlsInErrors}" value="Update urls in errors" />
 
                 </ice:panelTab>
-                <ice:panelTab label="Proposal settings">
-                    <ice:messages globalOnly="false" layout="table" />
-                    <ice:inputTextarea value="#{preferences.defaultDescription}" style="width: 90%; height: 400px" /><br />
-                    <ice:commandButton value="Update" />
                 
-                </ice:panelTab>
                 <ice:panelTab label="Update plan open attribute">
                     <ice:messages globalOnly="false" layout="table" />
                     <ice:commandButton value="Update plan open attribute and supporters" action="#{migrationTool.updatePlanOpenAttribute}" /><br />
