@@ -20,14 +20,16 @@ function checkIfPlanNameDirty() {
 
 function checkIfPlanDescriptionDirty() {
 	// check every FCKEditor instance and if it is "dirty" then return true
-	if (jQuery('.descriptionInput').length > 0 && typeof (window.FCKeditorAPI) !== 'undefined') {
-		for (var key in window.FCKeditorAPI.Instances) {
-			if (window.FCKeditorAPI.Instances[key].IsDirty()) {
-				return true;
-			}
+	var isDirty = false;
+	jQuery("#addpropform input[type='text'], #addpropform textarea").each(function() {
+		var input = jQuery(this);
+		var oryginalValue = input.parent().find(".oryginalValue input[type='hidden']").val();
+		if (jQuery.trim(input.val()) != jQuery.trim(oryginalValue)) {
+			isDirty = true;
 		}
-	}
-	return false;
+	});
+	return isDirty;
+	
 }
 
 function checkIfActionsImpactsDirty() {

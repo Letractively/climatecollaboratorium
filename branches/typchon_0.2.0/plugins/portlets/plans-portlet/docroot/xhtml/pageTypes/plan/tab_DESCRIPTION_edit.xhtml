@@ -4,6 +4,15 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:addthis="http://www.addthis.com/help/api-spec" >
+    
+    <ice:panelGroup rendered="#{planBean.leaveThisPlan}">
+        <script type="text/javascript">
+            var location = window.location.toString();
+            location = location.substring(0, location.indexOf("/planId"));
+                
+            window.location = location;
+        </script>
+    </ice:panelGroup>
 
     <div class="headline addprop">
         Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
@@ -16,24 +25,36 @@
             <label>
                 <strong>Title</strong> 
                 <a class="helpTrigger" href="javascript:;"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
-                40 words
+                40 characters
             </label>
             <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
-            <ice:inputText value="#{plan.plan.name}" onchange="jQuery(this).addClass('valueChanged');" partialSubmit="true" required="true" >
-                <f:attribute name="plan" value="#{plan.plan}"/>
-                <f:validator validatorId="planNameValidator"/>
-                <f:attribute name="planName" value="#{plan.plan.name}" />
-            </ice:inputText>
+            <div class="addpropInputContainer">
+                <ice:inputText value="#{plan.plan.name}" onchange="jQuery(this).addClass('valueChanged');" required="true" >
+                    <f:attribute name="plan" value="#{plan.plan}"/>
+                    <f:validator validatorId="planNameValidator"/>
+                    <f:attribute name="planName" value="#{plan.plan.name}" />
+                </ice:inputText>
+                <div class="inputLimitContainer"><span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">40</span> characters</div>
+                <div class="oryginalValue">
+                    <ice:inputHidden value="#{plan.plan.name}" />
+                </div>
+            </div>
         </div>
         <div class="addpropbox blue q2">
             <label>
                 <span>Team name<br />
                 <em>optional</em></span> 
                 <a class="helpTrigger" href="javascript:;"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
-                20 words
+                20 characters
             </label>
             <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
-            <ice:inputText value="#{proposal.plan.team}" />
+            <div class="addpropInputContainer">
+                <ice:inputText value="#{proposal.plan.team}" />
+                <div class="inputLimitContainer"><span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">20</span> characters</div>
+            </div>
+            <div class="oryginalValue">
+                <ice:inputHidden value="#{plan.plan.team}" />
+            </div>
         </div>
         
         <div class="notation">Note: If you enter a team name, it will replace the proposal owner's name in the Author field.</div>
@@ -68,11 +89,17 @@
             <label>
                 <strong>Pitch</strong> 
                 <a href="javascript:;" class="helpTrigger"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
-                140 words
+                140 characters
             </label>
             <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
             <div class="addpropInputContainer">
                 <ice:inputTextarea value="#{proposal.plan.abstract}" cols="50" rows="7" style="display: inline;"/>
+                <div class="inputLimitContainer">
+                    <span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">140</span> characters
+                </div>
+                <div class="oryginalValue">
+                    <ice:inputHidden value="#{proposal.plan.abstract}" />
+                </div>
             </div>
         </div>
         
@@ -92,8 +119,13 @@
                     <div class="addpropInputContainer">
                         <ice:inputTextarea value="#{section.section.content}" cols="50" rows="7" styleClass="rte" />
                         <f:subview rendered="#{section.section.definition.characterLimit gt 0}">
-                            <span class="limit_characterCount"></span>/<span class="limit_charactersMax"> #{section.section.definition.characterLimit}</span> characters
+                            <div class="inputLimitContainer">
+                                <span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">#{section.section.definition.characterLimit}</span> characters
+                            </div>
                         </f:subview>
+                        <div class="oryginalValue">
+                            <ice:inputHidden value="#{section.section.content}" styleClass="oryginalValue" />
+                        </div>
                     </div>
                 </div>
             </ice:panelSeries>
@@ -108,6 +140,9 @@
                 <div class="addprophelp">Enter proposal assumptions, actions, describe your ideas.</div>
                 <div class="addpropInputContainer">
                     <ice:inputTextarea value="#{proposal.plan.description}" cols="50" rows="20" styleClass="rte" />
+                    <div class="oryginalValue">
+                        <ice:inputHidden value="#{proposal.plan.description}" styleClass="oryginalValue" />
+                    </div>
                 </div>
             </div>
         </f:subview>
@@ -126,7 +161,7 @@
             var counter = 0;
             
             function shouldAllowMoreCharacters(input) {
-                if (typeof(input.attr('validateLength')) == 'undefined' || input.attr('maxCharacters') + 0 &lt;= 0) {
+                if (typeof(input.attr('validateLength')) == 'undefined' || typeof(input.attr('maxCharacters')) == 'undefined' || input.attr('maxCharacters') + 0 &lt;= 0) {
                     return true;
                 }
                 return input.attr('maxCharacters') > input.val().length;
@@ -134,7 +169,7 @@
             
             
             
-            jQuery("textarea.rte").each(function() {
+            jQuery("input[type='text'], textarea").each(function() {
                 if (jQuery(this).hasClass('rteInitialized')) {
                     return;
                 }
@@ -156,34 +191,37 @@
                     thiz.attr({validateLength: false});
                 }
                 
-                
-                thiz.wysiwyg({
-                    css: '/climatecolab-theme/css/style.css', 
-                    events: {
-                        keypress: function(event) {
-                            if (! shouldAllowMoreCharacters(thiz)) {
-                                event.preventDefault();
+                eventsToBind = {
+                            keypress: function(event) {
+                                if (! shouldAllowMoreCharacters(thiz)) {
+                                    event.preventDefault();
+                                }
+                                if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
+                                    tmp.limitCharacterCounter.text(thiz.val().length);
+                                }
+                            },
+                            keyup: function(event) {
+                                if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
+                                    tmp.limitCharacterCounter.text(thiz.val().length);
+                                }
                             }
-                            if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
-                                tmp.limitCharacterCounter.text(thiz.val().length);
-                            }
-                        },
-                        keyup: function(event) {
-                            if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
-                                tmp.limitCharacterCounter.text(thiz.val().length);
-                            }
+                        };
+                if (thiz.hasClass("rte")) {
+                    thiz.wysiwyg({
+                        css: '/climatecolab-theme/css/style.css', 
+                        events: eventsToBind,
+                        rmUnusedControls: true,
+                        controls: {
+                            bold: { visible : true }, italic: {visible: true}, underline: {visible: true}, 
+                            insertOrderedList: {visible: true}, insertUnorderedList: {visible: true},
+                            insertImage: {visible: true}, createLink: {visible: true}
                         }
-                    
-                    },
-                    rmUnusedControls: true,
-                    controls: {
-                        bold: { visible : true }, italic: {visible: true}, underline: {visible: true}, 
-                        insertOrderedList: {visible: true}, insertUnorderedList: {visible: true},
-                        insertImage: {visible: true}, createLink: {visible: true}
-                    }
-                    
-                    
                     });
+                }
+                else {
+                    thiz.bind(eventsToBind);
+                }
+                
  
                 jQuery(this).addClass('rteInitialized');
                 
@@ -260,6 +298,14 @@
     <div id="forceSaveButton" style="display: none;">
         <ice:commandLink value="SAVE changes" actionListener="#{proposal.plan.saveContent}" style="display: none;" />
     </div>
+    
+        <ice:panelGroup styleClass="hidden ">
+            <script type="text/javascript">
+                Collab.nav.addEditorDirtyValidationCallback(checkIfPlanDescriptionDirty);
+                initiailzeEditTrigger(#{permissions.loggedIn}, #{permissions.canEdit}, #{permissions.planEditable},true);
+            </script>
+        </ice:panelGroup>
+        
     
         </ice:form>
  </f:view>
