@@ -68,6 +68,7 @@ public class PlanBean {
     private NavigationEvent lastNavEvent;
     private List<PlanTab> availableTabs;
     private PlanTab currentTab = PlanTab.DESCRIPTION;
+    private boolean leaveThisPlan = false;
     
     static {
 
@@ -104,6 +105,7 @@ public class PlanBean {
     public void init(NavigationEvent event) throws SystemException, PortalException, IllegalUIConfigurationException, IOException {
         lastNavEvent = event;
         Map<String, String> parameters = event.getParameters(PLANS_SOURCE);
+        editing = false;
         if (parameters == null) {
             selectedTabIndex = getDefaultTab();
             return;
@@ -128,6 +130,7 @@ public class PlanBean {
             if (planItem.getPlanDescriptions().get(0).getVersion() == 1) {
                 editingDescription = true;
                 editingName = true;
+                editing = true;
             }
             if (planItem.getAllPlanModelRuns().get(0).getVersion() == 0) {
                 if (!simulationBean.isEditing()) {
@@ -152,7 +155,6 @@ public class PlanBean {
                 planPositionsBean.edit(null);
             }
         }
-        editing = false;
     }
 
     public int getDefaultTab() throws SystemException, PortalException {
@@ -462,7 +464,24 @@ public class PlanBean {
     }
     
     public void toggleEditing(ActionEvent e) {
-        editing = !editing;
+        try {
+            boolean oldEditing = editing;
+            this.refresh();
+            if (planItem.getVersion() == 1) {
+                planItem.delete(Helper.getLiferayUser().getUserId());
+                leaveThisPlan = true;
+            }
+            else {
+                editing = !oldEditing;
+            }
+            
+        } catch (SystemException e1) {
+        } catch (PortalException e1) {
+        }
+    }
+    
+    public boolean getLeaveThisPlan() {
+        return leaveThisPlan;
     }
     
 }

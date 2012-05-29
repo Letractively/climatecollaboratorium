@@ -6,7 +6,6 @@
     xmlns:addthis="http://www.addthis.com/help/api-spec" >
 
     <div class="prop-right">
- 
         <div class="votebox-wrap">
             <div class="votebox-shade">
                 <div class="votebox">
@@ -15,7 +14,17 @@
                             <div class="vote">
                                 <img src="/climatecolab-theme/images/icon-proposal-vote.png" width="22" height="18" alt="Vote" /> 
                                 <span>#{proposal.plan.votes}</span> votes
-                                <div class="blue-button"><a href="proposal-edit.html">VOTE for proposal</a></div>
+                                <div class="blue-button">
+                                    <ice:commandLink styleClass="voteForPlanTrigger_#{plan.plan.planId}"  actionListener="#{plan.plan.vote}"
+                                            rendered="#{votingPhase and not plan.plan.votedOn}" 
+                                            onclick="if(!deferUntilLogin()) { deferPlanVoteUntilLoggedIn(${plan.plan.planId}); return false; }">
+                                    
+                                        VOTE for proposal
+                                    </ice:commandLink>
+                                    <ice:commandLink actionListener="#{plan.plan.unvote}" rendered="#{votingPhase and plan.plan.votedOn}">
+                                        RETRACT vote
+                                    </ice:commandLink>
+                                </div>
                             </div>
                             <div class="question"><a href="javascript:;"> 
                                 <img src="/climatecolab-theme/images/icon-proposal-question.png" width="23" height="23" alt="Question?" />
@@ -24,7 +33,11 @@
                     </f:subview>
                     <div class="votebox-bottom">
                         <img src="/climatecolab-theme/images/icon-proposal-thumb.png" width="20" height="22" alt="Thumbs up" />
-                        <span>82</span> supporters <a href="add.html">Support proposal</a>
+                        <span>#{planBean.plan.planFansCount}</span> supporters 
+                        <ice:commandLink actionListener="#{plan.plan.becomeAFan}" rendered="#{!votingPhase and not plan.plan.userAFan}" 
+                                onclick="if(!deferUntilLogin()) return false;">Support proposal</ice:commandLink>
+                        <ice:commandLink actionListener="#{plan.plan.unfan}" rendered="#{!votingPhase and plan.plan.userAFan}">
+                            Retract support</ice:commandLink>
                     </div>
                 </div> <!-- /votebox -->
             </div> <!-- /votebox shade -->
@@ -54,10 +67,10 @@
 
         <div class="prop-settings">
             <f:subview rendered="#{proposal.plan.open}">
-                <strong>Public Proposal:</strong> When published, anyone will be able to edit this proposal. <a href="javascript:;">Change settings</a>
+                <strong>Public Proposal:</strong> When published, anyone will be able to edit this proposal.&amp;nbsp;<a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return false;">Change settings</a>
             </f:subview>
             <f:subview rendered="#{not proposal.plan.open}">
-                <strong>Closed Proposal:</strong> When published, only team members will be able to edit this proposal. <a href="javascript:;">Change settings</a>
+                <strong>Closed Proposal:</strong> When published, only team members will be able to edit this proposal.&amp;nbsp;<a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return false;">Change settings</a>
             </f:subview>
         </div>
 
@@ -99,6 +112,5 @@
                 <div><strong>Damage Costs</strong><br />#{planBean.plan.attributes['DAMAGE_COST']} %GDP in 2100</div>
             </div>
         </f:subview>
-     
     </div> <!-- /prop-right -->
 </f:view>

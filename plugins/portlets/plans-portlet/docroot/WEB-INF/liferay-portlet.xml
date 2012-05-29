@@ -19,6 +19,9 @@
 		<header-portlet-javascript>/js/editTrigger.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/dirtyCheckCallbacks.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery.wysiwyg.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/jquery.wysiwyg.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/wysiwyg.image.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/wysiwyg.link.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/navigation/navigationManager.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/simulation/model-inputs-render.js</header-portlet-javascript>
 		<header-portlet-javascript>/xmlhttp/js/debates/debates.js</header-portlet-javascript>

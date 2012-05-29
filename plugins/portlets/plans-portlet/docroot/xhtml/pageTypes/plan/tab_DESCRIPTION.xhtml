@@ -33,6 +33,16 @@
             </div>
         </div>
         </ice:form>
+        <ice:panelGroup rendered="#{planBean.leaveThisPlan}">
+            <script type="text/javascript">
+                var location = window.location.toString();
+                location = location.substring(0, location.indexOf("/planId"));
+                
+                window.location = location;
+            </script>
+        </ice:panelGroup>
+        
+        
 <div class="prop-left">
 
 
@@ -59,6 +69,8 @@
   </f:subview>
 
  </div> <!-- /prop-left -->
- <ui:include src="./widget_PROPOSAL_SUMMARY.xhtml" />
+ <ice:form>
+    <ui:include src="./widget_PROPOSAL_SUMMARY.xhtml" />
+ </ice:form>
  
  </f:view>
