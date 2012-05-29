@@ -777,3 +777,8 @@ display: inline;
 #userPopupContainer {
     display: none;  
 }
+
+#menu-right li.c {
+    background: white;
+    border-left: 1px solid #888782;
+}

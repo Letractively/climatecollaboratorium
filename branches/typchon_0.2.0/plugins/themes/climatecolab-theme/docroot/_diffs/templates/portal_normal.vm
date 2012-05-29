@@ -35,27 +35,44 @@
     #set ($body_style_class = "other_pages")
 #end
 
+#set ($pageName=$page.getName($locale).toLowerCase().replaceAll("\s",""))
+#if ($page.parentLayoutId > 0) 
+    ## we have a parent page, find it's name
+    #foreach ($parentLayoutCand in $layouts) 
+        #if ($parentLayoutCand.layoutId == $page.parentLayoutId)
+            #set ($parentLayout = $parentLayoutCand)
+        #end
+    #end
+    #set ($parentPageName = $parentLayout.getName($locale).toLowerCase().replaceAll("\s",""))
+    #set ($subPage = true)
+    #set ($subPageClass = 'sub')
+#else 
+    #set ($subPageClass = '')
+    #set ($parentPageName = '')
+#end
+
+
 
 <body class="$css_class $page.getName($locale).toLowerCase() $body_style_class">
 <div id="header">
  <div class="inner">
   <div id="logo"><a href="/"><img src="$images_folder/logo-climate-colab.png" width="203" height="42" alt="Climate Colab" /></a></div>
   <ul id="menu">
-   <li><a href="/web/guest/learn">About</a></li>
-   <li><a href="/web/guest/plans">Contests</a></li>
-   <li><a href="/web/guest/community">Community</a></li>
-   <li><a href="javascript:;" class="search" id="searchPopupTrigger" >Search</a></li>
+   <li class="#if ($pageName== 'about' || $parentPageName == 'about')) c #end"><a href="/web/guest/learn">About</a></li>
+   <li class="#if ($pageName == 'proposals') c #end"><a href="/web/guest/plans">Contests</a></li>
+   <li class="#if ($pageName== 'community' || $parentPageName == 'community')) c #end" ><a href="/web/guest/community">Community</a></li>
+   <li class="#if ($pageName == 'search') c #end"><a href="javascript:;" class="search" id="searchPopupTrigger" >Search</a></li>
   </ul>
 
 #if ($themeDisplay.signedIn)
   <ul id="menu-right">
-   <li class="user"><a href="javascript:;" id="userPopupTrigger" >$user.screenName <img src="/image/user_male_portrait?screenName=$user.screenName" width="24" height="25" alt="$user.screenName" /></a></li>
-   <li class="help"><a href="javascript:;">Help</a></li>
+   <li class="user"><a href="javascript:;" id="userPopupTrigger" >$user.screenName <img src="/image/user_male_portrait?screenName=$user.screenName&companyId=$user.companyId" width="24" height="25" alt="$user.screenName" /></a></li>
+   <li class="help"><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
   </ul>
   
   <!-- USER POPUP -->
   <div class="userpop" id="userPopupContainer">
-   <div class="usertop"><img src="/image/user_male_portrait?screenName=$user.screenName" width="24" height="25" alt="$user.screenName" /></div>
+   <div class="usertop"><img src="/image/user_male_portrait?screenName=$user.screenName&companyId=$user.companyId" width="24" height="25" alt="$user.screenName" /></div>
    <div class="userbox">
     <ul>
      <li><a href="/web/guest/member/-/member/userId/$user.userId">My profile</a></li>
