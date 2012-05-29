@@ -2,6 +2,8 @@ package com.liferay.portlet.enterpriseadmin.util;
 
 
 public enum MemberCategory {
+    ADVISOR("Advisor"),
+    FELLOW("Fellow"),
     MODERATOR("Moderator"),
     EXPERT("Experts"),
     STAFF("Staff"),
