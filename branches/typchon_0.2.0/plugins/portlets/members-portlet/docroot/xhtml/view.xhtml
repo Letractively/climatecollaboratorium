@@ -62,7 +62,7 @@
                             Real Name
                         </ice:commandSortHeader>
                     </ice:column>
-                    <ice:column style="width:90px" columnName="REAL_NAME">
+                    <ice:column style="width:90px; text-align: center;" columnName="REAL_NAME">
                         <ice:commandSortHeader styleClass="column-hover" columnName="ACTIVITY">
                             Activity
                         </ice:commandSortHeader>
@@ -72,7 +72,7 @@
                             Category
                         </ice:commandSortHeader>
                     </ice:column>
-                    <ice:column>
+                    <ice:column style="text-align: center;">
                         <ice:commandSortHeader styleClass="column-hover" columnName="MEMBER_SINCE">
                             Member Since
                         </ice:commandSortHeader>
@@ -81,10 +81,10 @@
             </ice:columnGroup>
         </f:facet>
         <ice:column style="width:350px;">
-            <collab:userLinkSimple userId="#{user.userId}" text="#{user.realName}"/>
+            <h4><collab:userLinkSimple userId="#{user.userId}" text="#{user.realName}"/></h4>
         </ice:column>  
-        <ice:column styleClass="b">
-            <ice:outputText value="#{user.activityCount}" />
+        <ice:column styleClass="b" style="text-align: center;">
+            <strong><ice:outputText value="#{user.activityCount}" /></strong>
         </ice:column>  
         <ice:column style="width: 16px">
             <f:subview rendered="${user.category != 'MEMBER'}">
@@ -92,9 +92,9 @@
             </f:subview>
         </ice:column>
         <ice:column>
-            <ice:outputText value="#{user.category.printName}" />
+            &amp;nbsp;&amp;nbsp;<ice:outputText value="#{user.category.printName}" />
         </ice:column>  
-        <ice:column>
+        <ice:column style="text-align: center;">
             <ice:outputText value="#{user.memberSince}" >
                 <f:convertDateTime pattern="MM/dd/yy"/>
             </ice:outputText>
@@ -145,7 +145,7 @@
     <div class="right_col3">
       
       <div class="comm_list">
-        <h3>Categories</h3>
+        <h2>Categories</h2>
         <ice:form>
             <ul>
                 <li class="#{membersBean.categoryFilter == null or membersBean.categoryFilter == 'MEMBER' ? 'c' : ''}">
