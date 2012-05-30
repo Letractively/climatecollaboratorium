@@ -3,10 +3,12 @@ package org.climatecollaboratorium.plans;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.event.ActionEvent;
 
 import org.climatecollaboratorium.events.EventBus;
+import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
 import org.compass.core.util.backport.java.util.Collections;
 
@@ -29,6 +31,8 @@ public class ContestsBean {
     
     private boolean sortAsc = true;
     private boolean showActiveOnly = true;
+    public final static String PLANS_SOURCE = "plans";
+    private static final String CONTEST_FILTER_PARAM = "contestFilter";
     
     
     public ContestsBean() {
@@ -254,6 +258,18 @@ public class ContestsBean {
                         
             
         }
+        
+    }
+
+    public void init(NavigationEvent event) {
+        Map<String, String> parameters = event.getParameters(PLANS_SOURCE);
+        if (parameters == null || ! parameters.containsKey(CONTEST_FILTER_PARAM)) {
+            filterString = null;
+            clearContestsList();
+            return;
+        }
+        filterString = parameters.get(CONTEST_FILTER_PARAM).trim();
+        clearContestsList();
         
     }
 
