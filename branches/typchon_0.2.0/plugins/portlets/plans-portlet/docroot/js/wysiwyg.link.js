@@ -34,12 +34,13 @@
 				reset: "Cancel"
 			};
 
-			formLinkHtml = '<form class="wysiwyg"><fieldset><legend>{legend}</legend>' +
-				'<label>{url}: <input type="text" name="linkhref" value=""/></label>' +
-				'<label>{title}: <input type="text" name="linktitle" value=""/></label>' +
-				'<label>{target}: <input type="text" name="linktarget" value=""/></label>' +
-				'<input type="submit" class="button" value="{submit}"/> ' +
-				'<input type="reset" value="{reset}"/></fieldset></form>';
+			formLinkHtml = '<div><form class="wysiwyg linkForm">' +
+				'<div class="form-row"><label for="text">Text:</label><div class="form-row-value"><input type="text" name="linkText" value=""/></div> <div class="clear"></div></div>' +
+				'<div class="form-row"><label for="text">{url}:</label><div class="form-row-value"><input type="text" name="linkhref" value=""/></div> <div class="clear"></div></div>' +
+				'<div class="form-row form-row-last"><label for="name"></label>' +
+				'<div class="form-row-value">' +
+				'<div class="blue-button"><a href="javascript:;" class="submitForm">{submit}</a></div>' +
+				'<div class="blue-button"><a class="resetForm" href="javascript:;" >{reset}</a></div></div> <div class="clear"></div></div></form></div>';
 
 			for (key in dialogReplacements) {
 				if ($.wysiwyg.i18n) {
@@ -60,20 +61,22 @@
 				self: Wysiwyg.dom.getElement("a"), // link to element node
 				href: "http://",
 				title: "",
-				target: ""
+				target: "",
+				text: Wysiwyg.getRangeText()
+				
 			};
 
 			if (a.self) {
 				a.href = a.self.href ? a.self.href : a.href;
 				a.title = a.self.title ? a.self.title : "";
 				a.target = a.self.target ? a.self.target : "";
+				a.text = a.self.text ? a.self.text : a.text() ? a.text() : Wysiwyg.getRangeText();
 			}
 
 			if ($.fn.dialog) {
 				elements = $(formLinkHtml);
+				elements.find("input[name=linkText]").val(a.text);
 				elements.find("input[name=linkhref]").val(a.href);
-				elements.find("input[name=linktitle]").val(a.title);
-				elements.find("input[name=linktarget]").val(a.target);
 
 				if ($.browser.msie) {
 					try {
@@ -87,13 +90,19 @@
 
 				dialog.dialog({
 					modal: true,
+					title: "Insert Link",
+					width: 440,
+					height: 270, 
+					
 					open: function (ev, ui) {
-						$("input:submit", dialog).click(function (e) {
+						$(".submitForm", dialog).click(function (e) {
+							
 							e.preventDefault();
 
 							var url = $('input[name="linkhref"]', dialog).val(),
 								title = $('input[name="linktitle"]', dialog).val(),
 								target = $('input[name="linktarget"]', dialog).val(),
+								linkText = $('input[name="linkText"]', dialog).val(),
 								baseUrl,
 								img;
 
@@ -106,11 +115,16 @@
 
 							if (a.self) {
 								if ("string" === typeof (url)) {
+									var obj = jQuery(a.self);
 									if (url.length > 0) {
 										// to preserve all link attributes
-										$(a.self).attr("href", url).attr("title", title).attr("target", target);
+										console.log(a.self, jQuery(a.self), jQuery(a.self).attr);
+										obj.attr("href", url);
+										obj.attr("title", title);
+										obj.attr("target", target);
+										obj.text(linkText);
 									} else {
-										$(a.self).replaceWith(a.self.innerHTML);
+										obj.replaceWith(a.self.innerHTML);
 									}
 								}
 							} else {
@@ -122,7 +136,7 @@
 								selection = Wysiwyg.getRangeText();
 								img = Wysiwyg.dom.getElement("img");
 
-								if ((selection && selection.length > 0) || img) {
+								if ((linkText && linkText.length > 0) || img) {
 									if ($.browser.msie) {
 										Wysiwyg.ui.focus();
 									}
@@ -136,23 +150,25 @@
 									}
 
 									a.self = Wysiwyg.dom.getElement("a");
+									jQuery(a.self).text(linkText);
+									
 
 									$(a.self).attr("href", url).attr("title", title);
+
+									
 
 									/**
 									 * @url https://github.com/akzhan/jwysiwyg/issues/16
 									 */
 									$(a.self).attr("target", target);
-								} else if (Wysiwyg.options.messages.nonSelection) {
-									window.alert(Wysiwyg.options.messages.nonSelection);
-								}
+								} 
 							}
 
 							Wysiwyg.saveContent();
 
 							$(dialog).dialog("close");
 						});
-						$("input:reset", dialog).click(function (e) {
+						$(".resetForm", dialog).click(function (e) {
 							e.preventDefault();
 							$(dialog).dialog("close");
 						});
