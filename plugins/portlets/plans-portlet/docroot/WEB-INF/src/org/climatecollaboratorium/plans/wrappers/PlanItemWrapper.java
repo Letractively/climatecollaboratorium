@@ -1009,6 +1009,23 @@ public class PlanItemWrapper {
         return wrapped.getVersion();
     }
     
+
+    public String getOriginalName() throws SystemException {
+        return wrapped.getName();
+    }
+    
+    public String getOriginalAbstract() throws SystemException {
+        return getAbstractAttribute();
+    }
+    
+    public String getOriginalTeam() throws SystemException {
+        return wrapped.getTeam();
+    }
+    public String getOriginalDescription() throws SystemException {
+        return wrapped.getDescription();
+    }
+    
+    
     public static class Tuple {
         private Object first;
         private Object second;
@@ -1032,6 +1049,7 @@ public class PlanItemWrapper {
             
         }
     }
+    
     
 
 }

@@ -23,7 +23,11 @@ function checkIfPlanDescriptionDirty() {
 	var isDirty = false;
 	jQuery("#addpropform input[type='text'], #addpropform textarea").each(function() {
 		var input = jQuery(this);
-		var oryginalValue = input.parent().find(".oryginalValue input[type='hidden']").val();
+		if (input.hasClass('originalValue')) return;
+		
+		var oryginalValue = input.parent().find(".originalValue").val();
+		console.log(input, input.parent().find(".originalValue"));
+		console.log('comparing', input.val(), oryginalValue);
 		if (jQuery.trim(input.val()) != jQuery.trim(oryginalValue)) {
 			isDirty = true;
 		}
