@@ -1,0 +1,103 @@
+form.wysiwyg {
+	background:#fff;
+	padding:1em;
+	margin:2px;
+	width:28em;
+	margin-left:10px;
+}
+
+form.wysiwyg fieldset div {
+	margin:0.3em 0;
+	margin-bottom:5px;
+}
+
+form.wysiwyg label {
+	text-align:right;
+	margin-right:1em;
+}
+
+form.wysiwyg legend {
+	color:#0b77b7;
+	font-size:1.2em;
+}
+
+form.wysiwyg legend span {
+	width:10em;
+	text-align:right;
+}
+
+form.wysiwyg input {
+	padding:0.15em;
+	border:1px solid #ddd;
+	background:#fafafa;
+	margin-bottom:5px;
+	-moz-border-radius:2px
+	-khtml-border-radius:2px;
+	border-radius: 2px;
+	height: 27px;
+    width: 160px;
+    padding: 0 5px;
+    border: 1px solid #838383;
+    font-size: 16px;
+}
+
+form.wysiwyg.linkForm input {
+	width: 260px;
+}
+
+form.wysiwyg input.imageUrl {
+	width: 227px;
+}
+
+form.wysiwyg input.width, form.wysiwyg input.height {
+	width: 4em;
+}
+
+form.wysiwyg input:hover, form.wysiwyg input:focus {
+	border-color:#c5c5c5;
+	background:#f6f6f6;
+}
+
+form.wysiwyg .button{
+	margin-top:8px;
+}
+
+form.wysiwyg fieldset {
+	border:1px solid #ddd;
+	padding:0 0.5em 0.5em;
+}
+
+form.wysiwyg input.default {
+	color:#bbb;
+}
+
+
+.ui-widget.ui-dialog {
+	background: #fff;
+	border: 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 10px solid rgb(100, 100, 100);
+    border: 10px solid rgba(20, 20, 20, .5);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	
+}
+
+.ui-widget.ui-dialog .ui-dialog-titlebar {
+	font-size: 22px;
+    color: #545454;
+    font-weight: 400;
+    cursor: normal;
+    background: #fff;
+    border: 0;
+}
+
+.form-row {
+	margin-top: 15px;
+}
+.form-row-value {
+	float: right;
+}
+

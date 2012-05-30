@@ -52,27 +52,29 @@
 				fileManagerIcon : "Select file from server"
 			};
 
-			formImageHtml = '<form class="wysiwyg" id="wysiwyg-addImage"><fieldset>' +
-				'<div class="form-row"><span class="form-row-key">{preview}:</span><div class="form-row-value"><img src="" alt="{preview}" style="margin: 2px; padding:5px; max-width: 100%; overflow:hidden; max-height: 100px; border: 1px solid rgb(192, 192, 192);"/></div></div>' +
-				'<div class="form-row"><label for="name">{url}:</label><div class="form-row-value"><input type="text" name="src" value=""/>';
+			formImageHtml = '<form class="wysiwyg" id="wysiwyg-addImage">' +
+				'<div class="form-row"><span class="form-row-key">{preview}:</span><div class="form-row-value"><img src="" alt="{preview}" style="margin: 2px; padding:5px; max-width: 100%; overflow:hidden; max-height: 100px;"/></div><div class="clear"></div></div>' +
+				'<div class="form-row"><label for="name">{url}:</label><div class="form-row-value"><input class="imageUrl" type="text" name="src" value=""/>';
 
 			if ($.wysiwyg.fileManager && $.wysiwyg.fileManager.ready) {
 				// Add the File Manager icon:
 				formImageHtml += '<div class="wysiwyg-fileManager" title="{fileManagerIcon}"/>';
 			}
 
-			formImageHtml += '</div></div>' +
-				'<div class="form-row"><label for="name">{title}:</label><div class="form-row-value"><input type="text" name="imgtitle" value=""/></div></div>' +
-				'<div class="form-row"><label for="name">{description}:</label><div class="form-row-value"><input type="text" name="description" value=""/></div></div>' +
-				'<div class="form-row"><label for="name">{width} x {height}:</label><div class="form-row-value"><input type="text" name="width" value="" class="width-small"/> x <input type="text" name="height" value="" class="width-small"/></div></div>' +
+			formImageHtml += '</div><div class="clear"></div></div>' +
+				'<div class="form-row" style="display: none;"><label for="name">{title}:</label><div class="form-row-value"><input type="text" name="imgtitle" value=""/></div> <div class="clear"></div></div>' +
+				'<div class="form-row" style="display: none;"><label for="name">{description}:</label><div class="form-row-value"><input type="text" name="description" value=""/></div> <div class="clear"></div></div>' +
+				'<div class="form-row"><label for="name">{width} x {height}:</label><div class="form-row-value"><input type="text" name="width" value="" class="width-small"/> x <input type="text" name="height" value="" class="width-small"/></div> <div class="clear"></div></div>' +
 				'<div class="form-row"><label for="name">{original}:</label><div class="form-row-value"><input type="text" name="naturalWidth" value="" class="width-small" disabled="disabled"/> x ' +
-				'<input type="text" name="naturalHeight" value="" class="width-small" disabled="disabled"/></div></div>' +
+				'<input type="text" name="naturalHeight" value="" class="width-small" disabled="disabled"/></div> <div class="clear"></div></div>' +
 				'<div class="form-row"><label for="name">{float}:</label><div class="form-row-value"><select name="float">' +
 				'<option value="">{floatNone}</option>' +
 				'<option value="left">{floatLeft}</option>' +
-				'<option value="right">{floatRight}</option></select></div></div>' +
-				'<div class="form-row form-row-last"><label for="name"></label><div class="form-row-value"><input type="submit" class="button" value="{submit}"/> ' +
-				'<input type="reset" value="{reset}"/></div></div></fieldset></form>';
+				'<option value="right">{floatRight}</option></select></div> <div class="clear"></div></div>' +
+				'<div class="form-row form-row-last"><label for="name"></label>' +
+				'<div class="form-row-value">' +
+				'<div class="blue-button"><a href="javascript:;" onclick=\"jQuery(this).parents(\'form\').submit();\">{submit}</a></div>' +
+				'<div class="blue-button"><a class="resetForm" href="javascript:;" onclick=\"jQuery(this).parents(\'form\').reset();\">{reset}</a></div></div> <div class="clear"></div></div></form>';
 
 			for (key in dialogReplacements) {
 				if ($.wysiwyg.i18n) {
@@ -100,6 +102,7 @@
 
 			adialog = new $.wysiwyg.dialog(Wysiwyg, {
 				"title"   : dialogReplacements.legend,
+				"height"  : 488,
 				"content" : formImageHtml
 			});
 
@@ -122,7 +125,7 @@
 					});
 				}
 
-				$("input:reset", dialog).click(function (e) {
+				$(".resetForm", dialog).click(function (e) {
 					adialog.close();
 
 					return false;
@@ -152,6 +155,7 @@
 				style = "",
 				found,
 				baseUrl;
+			console.log("url: ", url);
 
 			if (Wysiwyg.options.controlImage && Wysiwyg.options.controlImage.forceRelativeUrls) {
 				baseUrl = window.location.protocol + "//" + window.location.hostname
@@ -207,7 +211,7 @@
 				if (styles.length > 0) {
 					style = ' style="' + styles.join(" ") + '"';
 				}
-
+				
 				image = "<img src='" + url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
 				Wysiwyg.insertHtml(image);
 			}
