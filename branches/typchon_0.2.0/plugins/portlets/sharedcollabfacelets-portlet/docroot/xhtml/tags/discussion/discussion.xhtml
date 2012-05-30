@@ -5,6 +5,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:liferay-faces="http://liferay.com/tld/faces">
+    <div style="display: none">#{discussionId} #{groupId}</div>
     <collab:discussionSupport discussionBean="#{discussionBean}" discussionId="#{discussionId}" groupId="#{groupId}" comments="#{comments}" >
         <f:subview rendered="#{discussionBean.pageType == 'DISCUSSIONS'}">
             <ui:include src="./pages/discussions.xhtml" />
@@ -36,4 +37,5 @@
             <ui:include src="./pages/comments.xhtml" />
         </f:subview>
     </collab:discussionSupport>
+    <div style="display: none;">#{discussionBean.pageType}</div>
 </f:view>
