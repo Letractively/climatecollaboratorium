@@ -1,0 +1,59 @@
+<div id="popup_login" class="popup-wrap small" style="display: none;">
+    <div class="popup">
+        
+        <h4>Sign in to ClimateColab</h4>
+    #if ($request.getParameter('isSigningIn')) 
+        #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
+        #set($loginMessageClass='hidden')
+    #else 
+        #set($loginMessageClass='')
+    #end
+        <div class="popup-message $loginMessageClass ">
+            <p>This page requires you to login...</p>
+        </div>
+           <div class="login_popup_box">
+                <form id="signInFormPopup" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
+                    <label>Username:</label> 
+                    <input name="login" type="text" class="username" />
+                    
+                    <label>Password:</label> 
+                    <input name="password" type="password" class="password" />
+                    <div class="btns">
+                        <span><em><a href="javascript:;" class="forgot" onclick="showForgotPasswordPopup()">Forgot your password?</a></em></span>
+                        <div class="blue-button">
+                            <a href="javascript:;" class="login-submit" onclick="addRedirectBeforeSubmit('signInFormPopup');jQuery(this).parents('form').submit();" >LOGIN</a>
+                        </div>
+                    </div>
+                </form>
+            </div>            
+        </div>
+</div>
+<!-- /popup login -->
+
+
+
+  
+<div id="popup_forgotpassword" class="popup-wrap small" style="display: none;">
+    <div class="popup">
+    
+        <h4>Password recovery</h4>
+        <div class="popup-message"><p>Enter your email or screen name to get new password</p></div> 
+        
+        #if ($request.getParameter('isPasswordReminder')) 
+        #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
+        #end            
+        <div class="login_popup_box">
+            <form id="forgotPasswordForm" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Fforgotpassword">
+                <label>Username/email:</label> 
+                <input name="screenName" type="text" class="username screenName" placeholder="username/email" />
+                    
+                <div class="btns">
+                    <div class="blue-button">
+                        <a href="javascript:;" onclick="addRedirectBeforeSubmit('forgotPasswordForm'); processForgotPasswordForm('forgotPasswordForm'); jQuery(this).parents('form').submit(); " >Request new password</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+    <!-- /popup login -->
