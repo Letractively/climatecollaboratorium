@@ -12,18 +12,20 @@
             <p>This page requires you to login...</p>
         </div>
            <div class="login_popup_box">
-                <form id="signInFormPopup" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
+                <form id="signInForm_form" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true"
+                        onsubmit="addRedirectBeforeSubmit('signInFormPopup'); return true;" >
                     <label>Username:</label> 
-                    <input name="login" type="text" class="username" />
+                    <input name="login" type="text" class="username" onkeypress="return submitenter(this,event)" />
                     
                     <label>Password:</label> 
-                    <input name="password" type="password" class="password" />
+                    <input name="password" type="password" class="password" onkeypress="return submitenter(this,event)" />
                     <div class="btns">
                         <span><em><a href="javascript:;" class="forgot" onclick="showForgotPasswordPopup()">Forgot your password?</a></em></span>
                         <div class="blue-button">
-                            <a href="javascript:;" class="login-submit" onclick="addRedirectBeforeSubmit('signInFormPopup');jQuery(this).parents('form').submit();" >LOGIN</a>
+                            <a href="javascript:;" class="login-submit" onclick="jQuery(this).parents('form').submit();" >LOGIN</a>
                         </div>
                     </div>
+                    <input name="submitbtn" type="submit" value="LOGIN" />
                 </form>
             </div>            
         </div>
@@ -43,15 +45,17 @@
         #parse ("$full_templates_path/signin_reg_error_message_translator.vm")
         #end            
         <div class="login_popup_box">
-            <form id="forgotPasswordForm" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Fforgotpassword">
+            <form id="forgotPasswordForm" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Fforgotpassword"
+                    onsubmit="addRedirectBeforeSubmit('forgotPasswordForm'); processForgotPasswordForm('forgotPasswordForm');" >
                 <label>Username/email:</label> 
-                <input name="screenName" type="text" class="username screenName" placeholder="username/email" />
+                <input name="screenName" type="text" class="username screenName" placeholder="username/email" onkeypress="return submitenter(this,event)" />
                     
                 <div class="btns">
                     <div class="blue-button">
-                        <a href="javascript:;" onclick="addRedirectBeforeSubmit('forgotPasswordForm'); processForgotPasswordForm('forgotPasswordForm'); jQuery(this).parents('form').submit(); " >Request new password</a>
+                        <a href="javascript:;" onclick="jQuery(this).parents('form').submit(); " >Request new password</a>
                     </div>
                 </div>
+                <input name="submitbtn" type="submit" value="LOGIN" style="display: none;" />
             </form>
         </div>
       </div>
