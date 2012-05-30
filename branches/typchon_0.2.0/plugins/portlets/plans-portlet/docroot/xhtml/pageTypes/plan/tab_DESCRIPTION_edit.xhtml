@@ -35,8 +35,8 @@
                     <f:attribute name="planName" value="#{plan.plan.name}" />
                 </ice:inputText>
                 <div class="inputLimitContainer"><span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">40</span> characters</div>
-                <div class="oryginalValue">
-                    <ice:inputHidden value="#{plan.plan.name}" />
+                <div style="display: none">
+                    <textarea class="originalValue">#{plan.plan.originalName}</textarea>
                 </div>
             </div>
         </div>
@@ -51,9 +51,9 @@
             <div class="addpropInputContainer">
                 <ice:inputText value="#{proposal.plan.team}" />
                 <div class="inputLimitContainer"><span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">20</span> characters</div>
-            </div>
-            <div class="oryginalValue">
-                <ice:inputHidden value="#{plan.plan.team}" />
+                <div style="display: none">
+                    <textarea class="originalValue">#{plan.plan.originalTeam}</textarea>
+                </div>
             </div>
         </div>
         
@@ -97,8 +97,8 @@
                 <div class="inputLimitContainer">
                     <span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">140</span> characters
                 </div>
-                <div class="oryginalValue">
-                    <ice:inputHidden value="#{proposal.plan.abstract}" />
+                <div style="display: none">
+                    <textarea class="originalValue">#{plan.plan.originalAbstract}</textarea>
                 </div>
             </div>
         </div>
@@ -123,8 +123,8 @@
                                 <span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">#{section.section.definition.characterLimit}</span> characters
                             </div>
                         </f:subview>
-                        <div class="oryginalValue">
-                            <ice:inputHidden value="#{section.section.content}" styleClass="oryginalValue" />
+                        <div style="display: none">
+                            <textarea class="originalValue">#{section.originalContent}</textarea>
                         </div>
                     </div>
                 </div>
@@ -140,8 +140,8 @@
                 <div class="addprophelp">Enter proposal assumptions, actions, describe your ideas.</div>
                 <div class="addpropInputContainer">
                     <ice:inputTextarea value="#{proposal.plan.description}" cols="50" rows="20" styleClass="rte" />
-                    <div class="oryginalValue">
-                        <ice:inputHidden value="#{proposal.plan.description}" styleClass="oryginalValue" />
+                    <div style="display: none">
+                        <textarea class="originalValue">#{plan.plan.originalDescription}</textarea>
                     </div>
                 </div>
             </div>
@@ -167,6 +167,17 @@
                 return input.attr('maxCharacters') > input.val().length;
             }
             
+            function updateCharacterCounter(input) {
+                var elem = input.get(0);
+                var max = input.attr('maxCharacters');
+                if (input.val().length >= 1 * max) {
+                    elem.limitCharacterCounter.parent().addClass('overflow');
+                }
+                else {
+                    elem.limitCharacterCounter.parent().removeClass('overflow');
+                }
+                elem.limitCharacterCounter.text(input.val().length);
+            }
             
             
             jQuery("input[type='text'], textarea").each(function() {
@@ -185,7 +196,7 @@
                 if (limitCharactersMax.length > 0) {
                     thiz.attr({maxCharacters: limitCharactersMax.text(), validateLength: true});
                     this.limitCharacterCounter = limitCharacterCount;
-                    tmp.limitCharacterCounter.text(thiz.val().length);
+                    updateCharacterCounter(thiz);
                 }
                 else {
                     thiz.attr({validateLength: false});
@@ -197,12 +208,12 @@
                                     event.preventDefault();
                                 }
                                 if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
-                                    tmp.limitCharacterCounter.text(thiz.val().length);
+                                    updateCharacterCounter(thiz);
                                 }
                             },
                             keyup: function(event) {
                                 if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
-                                    tmp.limitCharacterCounter.text(thiz.val().length);
+                                    updateCharacterCounter(thiz);
                                 }
                             }
                         };

@@ -67,10 +67,16 @@
 
         <div class="prop-settings">
             <f:subview rendered="#{proposal.plan.open}">
-                <strong>Public Proposal:</strong> When published, anyone will be able to edit this proposal.&amp;nbsp;<a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return false;">Change settings</a>
+                <strong>Public Proposal:</strong> When published, anyone will be able to edit this proposal.&amp;nbsp;
+                <f:subview rendered="#{permissions.canAdmin}">
+                    <a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return false;">Change settings</a>
+                </f:subview>
             </f:subview>
             <f:subview rendered="#{not proposal.plan.open}">
-                <strong>Closed Proposal:</strong> When published, only team members will be able to edit this proposal.&amp;nbsp;<a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return false;">Change settings</a>
+                <strong>Closed Proposal:</strong> When published, only team members will be able to edit this proposal.&amp;nbsp;
+                <f:subview rendered="#{permissions.canAdmin}">
+                    <a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return false;">Change settings</a>
+                </f:subview>
             </f:subview>
         </div>
 

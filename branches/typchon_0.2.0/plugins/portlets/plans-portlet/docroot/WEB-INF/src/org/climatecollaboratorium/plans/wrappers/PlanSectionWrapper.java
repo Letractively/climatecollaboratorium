@@ -20,6 +20,7 @@ public class PlanSectionWrapper {
     private boolean editing;
     private PlanItemWrapper piw;
     private List<Long> referencedPlans;
+    private String oryginalContent;
 
     public PlanSectionWrapper(PlanSection section, PlanItemWrapper planItemWrapper) throws NoSuchPlanItemException, SystemException {
         this.section = section;
@@ -28,6 +29,7 @@ public class PlanSectionWrapper {
         for (PlanItem plan: section.getReferencedPlans()) {
             referencedPlans.add(plan.getId());
         }
+        oryginalContent = section.getContent();
         
         
     }
@@ -80,6 +82,14 @@ public class PlanSectionWrapper {
         }
         
         
+    }
+
+    public void setOryginalContent(String oryginalContent) {
+        this.oryginalContent = oryginalContent;
+    }
+
+    public String getOriginalContent() {
+        return oryginalContent;
     }
     
     
