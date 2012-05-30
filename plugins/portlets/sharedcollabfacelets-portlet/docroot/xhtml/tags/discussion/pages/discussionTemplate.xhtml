@@ -30,55 +30,10 @@
          </div>
         
          <div class="clear"></div>
-         <!-- 
-         <table class="discussionContainer">
-            <tr>
-                <td class="sidebar">
-                    <div>
-
-                        
-                        <ice:commandButton actionListener="#{discussionBean.changePageType}" value="Start a new discussion" rendered="#{!discussionBean.permissions.isLoggedIn or discussionBean.permissions.canAddThread}"
-                                           styleClass="prominantButton startDiscussion" onclick="if(!deferUntilLogin()) return false;">
-                            <f:attribute name="pageType" value="THREAD_ADD"/>
-                        </ice:commandButton>
-                    </div>
-                
-                    <div class="area">
-                        <h3 class="areaLabel">Quick links</h3>
-                        <ul>
-                            <li>
-                                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Discussions" onclick="Collab.nav.navigate('discussion', {pageType: 'DISCUSSIONS'}); return;">
-                                    <f:attribute name="pageType" value="DISCUSSIONS" />
-                                </ice:commandLink>
-                            </li>
-                            <li>
-                                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="Categories" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORIES'}); return;">
-                                    <f:attribute name="pageType" value="CATEGORIES" />
-                                </ice:commandLink>
-                            </li>
-                        </ul>
-                    </div>
-                    <ice:panelGroup rendered="#{discussionBean.permissions.canSubscribe}">
-                        <div class="area">
-                            <h3 class="areaLabel">Social</h3>
-                            <ul>
-                                <li><ice:commandLink actionListener="#{discussionBean.subscribe}">Subscribe</ice:commandLink></li>
-                            </ul>
-                        </div>
-                    </ice:panelGroup>
-                </td>
-                <td class="discussion">
-                -->
                     <div class="discussionActions">
                         <ui:insert name="discussion_actions"/>
                     </div>
                     <ui:insert name="discussion_content"/>          
-       <!--           
-                 </td>
-            </tr>
-        
-        </table>
-        -->
     </div> <!-- /main -->
     
     <ice:panelGroup rendered="#{showActions}" styleClass="right_col v2">
@@ -96,17 +51,17 @@
         </ice:commandLink>
       
       <div class="comm_list">
-        <h3>Categories</h3>
+        <h2>Categories</h2>
         <ul class="discussionCategories">
             <li>
-                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="All Discussions" onclick="Collab.nav.navigate('discussion', {pageType: 'DISCUSSIONS'}); return false;"
+                <ice:commandLink actionListener="#{discussionBean.changePageType}" value="All Discussions" onclick="Collab.nav.navigateAddParams('discussion', {pageType: 'DISCUSSIONS'}); return false;"
                         styleClass="#{discussionBean.pageType == 'DISCUSSIONS' ? 'active' : ''}">
                     <f:attribute name="pageType" value="DISCUSSIONS" />
                 </ice:commandLink>
             </li>
             <ui:repeat value="#{discussionBean.categories}" var="category">
                 <li>
-                    <ice:commandLink actionListener="#{discussionBean.changePageType}" onclick="Collab.nav.navigate('discussion', {pageType: 'CATEGORY', categoryId: #{category.id}}); return false;" 
+                    <ice:commandLink actionListener="#{discussionBean.changePageType}" onclick="Collab.nav.navigateAddParams('discussion', {pageType: 'CATEGORY', categoryId: #{category.id}}); return false;" 
                             styleClass="#{(discussionBean.pageType == 'CATEGORY' and category == discussionBean.currentCategory) || (discussionBean.pageType == 'THREAD' and discussionBean.currentThread != null and category == discussionBean.currentThread.category) ? 'active' : ''}">
                         <f:param name="categoryId" value="#{category.id}" /> 
                         <f:attribute name="categoryId" value="#{category.id}" /> 

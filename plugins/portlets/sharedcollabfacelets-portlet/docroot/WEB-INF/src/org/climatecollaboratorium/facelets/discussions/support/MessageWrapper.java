@@ -308,6 +308,10 @@ public class MessageWrapper {
     public String getLastActivityDateStr() {
         return HumanTime.exactly(new Date().getTime() - (wrapped.getLastActivityDate() != null ? wrapped.getLastActivityDate() : wrapped.getCreateDate()).getTime());
     }
+    /*
+    public String getLastActivityDateAgo() {
+        //return Pretty
+    }*/
     
     public Date getLastActivityDate() {
         return wrapped.getLastActivityDate() != null ? wrapped.getLastActivityDate() : wrapped.getCreateDate();
