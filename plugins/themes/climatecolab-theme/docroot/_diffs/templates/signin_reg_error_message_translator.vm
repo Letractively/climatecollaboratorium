@@ -7,7 +7,7 @@
 #elseif ( $request.getParameter('signinRegError') == 'UserLockoutException') 
     #set ($error = "This account has been locked")
 #elseif ( $request.getParameter('signinRegError') == 'UserPasswordException' )
-    #set ($error = "Please enter a valid password")
+    #set ($error = "Please enter a valid username and password")
 #elseif ( $request.getParameter('signinRegError') == 'UserScreenNameException')
     #set ( $error =  "Please enter a valid screen name")
 #elseif ( $request.getParameter('signinRegError') == 'CaptchaTextException') 
@@ -28,5 +28,5 @@
     #set ($error = "An error occurred")
 #end
 #if ($error) 
-     <div class="error-message">$error</div>
+     <div class="error-message"><p>$error</p></div>
 #end

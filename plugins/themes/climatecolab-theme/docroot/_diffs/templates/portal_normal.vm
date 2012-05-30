@@ -125,6 +125,7 @@
   <div class="loginpop" id="loginPopupContainer">
    <div class="logintop"><img src="$images_folder/icon-menu-login3.png" width="26" height="18" /></div>
    <div class="loginbox">
+    <!--
     <div class="loginwith">
      Login with: &nbsp;
      <a href="javascript:;"><img src="$images_folder/icon-login-twitter.png" width="24" height="24" alt="Twitter" /></a>
@@ -132,11 +133,12 @@
      <a href="javascript:;"><img src="$images_folder/icon-login-google.png" width="24" height="24" alt="Google" /></a>
      <span><a href="javascript">other &raquo;</a></span>
     </div>
+    -->
     use your username &amp; password
     <form id="signInFormPopup" method="post" action="/web/guest/loginregister?p_p_id=loginregister&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&saveLastPath=0&_loginregister_struts_action=%2Fext%2Floginregister%2Flogin&_loginregister_isLoggingIn=true">
-     <input name="login" type="text" class="username" value="username" onfocus="if (this.value == 'username') {this.value = '';}" onblur="if (this.value == '') {this.value = 'username';}" />
-     <input name="password" type="password" class="password" value="password" onfocus="if (this.value == 'password') {this.value = '';}" onblur="if (this.value == '') {this.value = 'password';}" />
-     <span><em><a href="javascript:;" class="forgot">Forgot your password?</a></em></span> <input name="submit" type="submit" class="login-submit" value="LOGIN" />
+     <input name="login" type="text" class="username" value="username" placeholder="username"  />
+     <input name="password" type="password" class="password" placeholder="password" />
+     <span><em><a href="javascript:;" class="forgot" onclick="showForgotPasswordPopup()">Forgot your password?</a></em></span> <input name="submit" type="submit" class="login-submit" value="LOGIN" />
     </form>
    </div>
   </div>
@@ -209,6 +211,9 @@ $theme.include($top_messages_include)
         $request.getSession().removeAttribute('user_from_landing_page')
     </script>
 #end
+
+    #parse ("$full_templates_path/sign_in_popup.vm")
+    #parse ("$full_templates_path/jsadditions.vm")
 
 </body>
 

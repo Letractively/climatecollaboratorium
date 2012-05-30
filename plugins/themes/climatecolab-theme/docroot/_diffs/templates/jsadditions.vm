@@ -1,0 +1,9 @@
+<script>
+#if ($request.getParameter('isSigningIn') == 'true')
+    jQuery("#popup_login").show();
+#end
+
+#if ($request.getParameter('isPasswordReminder') == 'true')
+    jQuery('#popup_forgotpassword').show();
+#end
+</script>

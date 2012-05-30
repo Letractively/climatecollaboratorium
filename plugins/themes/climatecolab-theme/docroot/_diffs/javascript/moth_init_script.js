@@ -117,8 +117,8 @@ function deferUntilLogin(fn) {
     if (Liferay.ThemeDisplay.isSignedIn()) {
         return true;
     } else {
-    	jQuery('.popup_login').show();
-    	jQuery.scrollTo(jQuery(".popup_login"));
+    	jQuery('#popup_login').show();
+    	jQuery.scrollTo(jQuery("#popup_login"));
     	//var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
     	//loginregister += "&redirect=" + escape(window.location);
     	//window.location = loginregister;
@@ -126,8 +126,8 @@ function deferUntilLogin(fn) {
 }
 
 function showForgotPasswordPopup() {
-	jQuery('.popup_login').hide();
-	jQuery('.popup_forgotpassword').show();
+	jQuery('#popup_login').hide();
+	jQuery('#popup_forgotpassword').show();
 }
 
 function deferUntilLoginTargeted(loc) {
