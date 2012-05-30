@@ -131,6 +131,7 @@ public class NavigationBean {
                             plansIndexBean.init(contestBean.getCurrentPhase(), event);
                             break;
                     }
+                    contestsBean.init(event);
                     issuesBean.init(event);
                     createPlanBean.init(event);
                 } catch (NoSuchContestPhaseException e) {

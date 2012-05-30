@@ -56,7 +56,7 @@ public class PlanBean {
     private DiscussionBean commentsBean = new DiscussionBean();
 
     private static final Map<String, Integer> tabNameIndexMap = new HashMap<String, Integer>();
-    private final static String PLANS_SOURCE = "plans";
+    public final static String PLANS_SOURCE = "plans";
     private final static String NEW_PLAN_PARAM = "newPlan";
 
     private final static String DEFAULT_TAB = "actionsimpacts";
