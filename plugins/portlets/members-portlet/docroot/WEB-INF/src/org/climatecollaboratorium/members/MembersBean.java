@@ -75,7 +75,12 @@ public class MembersBean {
             }
         }
         for (MemberCategory category: MemberCategory.values()) {
-            categoryRoleMap.put(category, RoleLocalServiceUtil.getRole(DEFAULT_COMPANY_ID, category.getRoleName()));
+            try {
+                categoryRoleMap.put(category, RoleLocalServiceUtil.getRole(DEFAULT_COMPANY_ID, category.getRoleName()));
+            }
+            catch (com.liferay.portal.NoSuchRoleException e) {
+                _log.warn("Can't find role for user category: " + category.name());
+            }
         }
         
         updateSearchResults();
