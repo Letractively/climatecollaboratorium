@@ -857,3 +857,18 @@ display: inline;
 	color: #b00;
 	font-weight: bold;
 }
+.historyTable, .historyTable tr, .historyTable td {
+	border: 0;
+}
+
+.historyTable {
+	font-weight: 700;
+}
+.historyTable td {
+	padding: 5px;
+}
+
+.historyTable .even td {
+	background-color: #f1f1e9;
+	
+}
