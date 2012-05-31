@@ -16,9 +16,9 @@
 		version: "",
 		defaults: {
 			rules: {
-				heading: false,
-				table: false,
-				inlineCSS: false,
+				heading: true,
+				table: true,
+				inlineCSS: true,
 				/*
 				 * rmAttr       - { "all" | object with names } remove all
 				 *                attributes or attributes with following names
@@ -29,6 +29,12 @@
 				 * rmWhenNoAttr - if element contains no attributes (i.e. <span>Some Text</span>)
 				 *                then it will be removed
 				 */
+				permittedTags: {
+					strong: true, a: true, b: true, i: true, 
+					em: true, span: true, p: true, br: true, 
+					ul: true, li: true, ol: true, img: true, 
+					strike: true, p: true
+				},
 				msWordMarkup: {
 					enabled: false,
 					tags: {
@@ -50,10 +56,7 @@
 						},
 
 						"font": {
-							rmAttr: {
-								"face": "",
-								"size": ""
-							},
+							rmAttr: "all",
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
@@ -123,18 +126,14 @@
 					// $(node).replaceWith($('<p/>').html(node.innerHTML));
 					// to except DOM error: also try in other browsers
 					$(node).replaceWith($('<p/>').html($(node).contents()));
-
+					
 					return true;
 				}
 			}
-
-			// remove tables not smart enough )
-			if (this.options.rules.table) {
-				if (node.nodeName.toLowerCase().match(/^(table|t[dhr]|t(body|foot|head))$/)) {
-					$(node).replaceWith($(node).contents());
-
-					return true;
-				}
+			
+			if (! (node.nodeName.toLowerCase() in this.options.rules.permittedTags)) {
+				$(node).replaceWith($('<span/>').html($(node).contents()));
+				return true;
 			}
 
 			return false;
@@ -152,9 +151,21 @@
 			}
 
 			var isDomRemoved, p;
+			while (el) {
+				var current = el;
+				if (el.firstElementChild) {
+					this.domTraversing(el.firstElementChild, start, end, canRemove, cnt + 1);
+				}
+				
+				el = el.nextElementSibling;
+				this.domRemove(current);
+				this.removeStyle(current);
+			}
 
+			/*
 			while (el) {
 				if (this.debug) { console.log(cnt, "canRemove=", canRemove); }
+				isDomRemoved = this.domRemove(el);
 				
 				this.removeStyle(el);
 
@@ -200,7 +211,7 @@
 						el = el.nextElementSibling;
 					}
 				}
-			}
+			}*/
 
 			return false;
 		},
@@ -232,7 +243,6 @@
 
 						
 			text = text.replace(/^[\s\n]+/gm, "");
-
 			if (this.options.rules.msWordMarkup.tags) {
 				for (tagName in this.options.rules.msWordMarkup.tags) {
 					rules = this.options.rules.msWordMarkup.tags[tagName];
@@ -328,6 +338,12 @@
 				}
 
 				node = r.commonAncestorContainer;
+				while (node.parentNode.nodeName.toLowerCase() != 'body') {
+					node = node.parentNode;
+				}
+				
+				this.domTraversing(node, start, end, true, 1);
+				/*
 				if (node.nodeType === 3) {
 					node = node.parentNode;
 				}
@@ -339,12 +355,15 @@
 
 				traversing = null;
 				if (start === end) {
+					console.log('will traverse');
 					traversing = this.domTraversing(node, start, end, true, 1);
 				} else {
-					traversing = this.domTraversing(node.firstElementChild, start, end, null, 1);
+					console.log('will traverse2');
+					traversing = this.domTraversing(node.firstElementChild, start, end, true, 1);
 				}
 
 				if (this.debug) { console.log("DomTraversing=", traversing); }
+				*/
 			}
 
 			if (this.options.rules.msWordMarkup.enabled) {
