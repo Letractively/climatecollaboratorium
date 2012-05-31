@@ -215,7 +215,22 @@
                                 if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
                                     updateCharacterCounter(thiz);
                                 }
+                            },
+                            focus: function(event) {
+                                
+                                jQuery('.addpropInputContainer').removeClass('active');
+                                thiz.parents('.addpropInputContainer').addClass('active');
+                            },
+                            blur: function(event) {
+                                
+                                jQuery('.addpropInputContainer').removeClass('active');
+                            },
+                            click: function(event) {
+                                
+                                jQuery('.addpropInputContainer').removeClass('active');
+                                thiz.parents('.addpropInputContainer').addClass('active');
                             }
+                            
                         };
                 if (thiz.hasClass("rte")) {
                     thiz.wysiwyg({
@@ -224,12 +239,11 @@
                         rmUnusedControls: true,
                         dialog:"jqueryui",
                         controls: {
-                            bold: { visible : true }, italic: {visible: true}, underline: {visible: true}, 
-                            insertOrderedList: {visible: true}, insertUnorderedList: {visible: true},
+                            bold: { visible : true }, italic: {visible: true}, underline: {visible: true}, insertOrderedList: {visible: true}, insertUnorderedList: {visible: true},
                             insertImage: {visible: true}, createLink: {visible: true}
                         },
                         plugins: {
-                            rmFormat: { rmMsWordMarkup: true }
+                            rmFormat: { rmMsWordMarkup: true, rules: {heading: true, table: true }}
                         }
                     });
                 }
