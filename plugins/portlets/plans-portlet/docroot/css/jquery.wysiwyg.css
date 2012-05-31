@@ -2,23 +2,34 @@
 #content div.wysiwyg { border: 1px solid #999; padding: 0; background: #fff url('jquery.wysiwyg.bg.png') repeat-x top; z-index: 0;}
 #content div.wysiwyg * { margin: 0; padding: 0; }
 
+/*#content div.wysiwyg .toolbar {display: none;}*/
+#content .active div.wysiwyg .toolbar {display: block;}
+
 #content div.wysiwyg ul.toolbar li.jwysiwyg-custom-command { overflow: hidden; }
 
 #content div.wysiwyg ul.toolbar { border-bottom: 1px solid #ccc; float: left; width: 100%; padding: 0; }
 #content div.wysiwyg ul.toolbar li { list-style: none; float: left; margin: 1px 2px 3px 0;  background: rgb(240, 240, 240); -moz-user-select: none; -webkit-user-select: none; user-select: none; clear: none; padding: 0 }
-#content div.wysiwyg ul.toolbar li.separator { background: none; width: 1px; height: 20px; margin: 0 4px 0px 5px; border: none; border-left: 1px solid #ccc; }
-#content div.wysiwyg ul.toolbar li { text-indent: -5000px; display: block; width: 18px; height: 18px; background: url('jquery.wysiwyg.gif') no-repeat -640px -800px; border: 1px solid transparent; cursor: pointer; margin: 0px; }
-#content div.wysiwyg ul.toolbar li.wysiwyg-button-hover, #content div.wysiwyg ul.toolbar li.active { background-color: #DDD; border: 1px solid transparent; }
-#content div.wysiwyg ul.toolbar li.active { background-color: rgb(255, 255, 64); border: 1px solid rgb(208, 208, 208); border-left-color: #aaa; border-top-color: #aaa; height: 18px; width: 18px; padding: -1px 0 0 -1px; margin: 0; }
+#content div.wysiwyg ul.toolbar li.separator { background: none; width: 1px; height: 20px; margin: 0 4px 0px 5px; border: none; border-left: 1px solid #ccc; display: none; }
+#content div.wysiwyg ul.toolbar li { text-indent: -5000px; display: block; width: 18px; height: 25px; background: url('../img/wysiwyg_icons.gif') no-repeat -640px -800px;  cursor: pointer; margin: 0px; }
+#content div.wysiwyg ul.toolbar li.wysiwyg-button-hover, #content div.wysiwyg ul.toolbar li.active { background-color: #DDD;  }
+#content div.wysiwyg ul.toolbar li.active { background-color: rgb(255, 255, 64); border: 0; padding: 0; margin: 0; }
 
 #content div.wysiwyg ul.toolbar li.disabled, #content div.wysiwyg ul.toolbar li.wysiwyg-button-hover.disabled, #content div.wysiwyg ul.toolbar li.active.disabled { opacity: 0.5; filter:alpha(opacity=50); border: 0px none transparent; padding: 1px; cursor: auto; }
 
 
-#content div.wysiwyg ul.toolbar li.bold { background-position: -1px -15px; }
-#content div.wysiwyg ul.toolbar li.italic { background-position: -18px -15px; }
-#content div.wysiwyg ul.toolbar li.strikeThrough { background-position: -36px -15px; }
-#content div.wysiwyg ul.toolbar li.underline { background-position: -55px -15px; }
-#content div.wysiwyg ul.toolbar li.highlight { background-position: -48px -96px; }
+#content div.wysiwyg ul.toolbar li.bold { background-position: 0px 0px; width: 45px;}
+#content div.wysiwyg ul.toolbar li.bold.active { background-position: -87px 0px; width: 45px;}
+
+#content div.wysiwyg ul.toolbar li.italic { background-position: 0px -25px; width: 45px;}
+#content div.wysiwyg ul.toolbar li.italic.active { background-position: -87px -25px; width: 45px;}
+
+#content div.wysiwyg ul.toolbar li.strikeThrough { background-position: -100px 1000px;}
+
+#content div.wysiwyg ul.toolbar li.underline { background-position: 0px -50px; width: 27px; }
+#content div.wysiwyg ul.toolbar li.underline.active { background-position: -87px -50px; width: 27px;}
+
+#content div.wysiwyg ul.toolbar li.highlight { background-position: 0px -125px; }
+
 
 #content div.wysiwyg ul.toolbar li.justifyLeft { background-position: 0 2px; }
 #content div.wysiwyg ul.toolbar li.justifyCenter { background-position: -18px 2px; }
@@ -34,9 +45,14 @@
 #content div.wysiwyg ul.toolbar li.undo { background-position: 0px -68px; }
 #content div.wysiwyg ul.toolbar li.redo { background-position: -18px -69px; }
 
-#content div.wysiwyg ul.toolbar li.insertOrderedList { background-position: -36px -49px; }
-#content div.wysiwyg ul.toolbar li.insertUnorderedList { background-position: -19px -49px; }
-#content div.wysiwyg ul.toolbar li.insertHorizontalRule { background-position: 0 -49px; }
+
+#content div.wysiwyg ul.toolbar li.insertUnorderedList { background-position: 0px -100px; width: 87px;}
+#content div.wysiwyg ul.toolbar li.insertUnorderedList.active { background-position: -87px -100px;}
+
+#content div.wysiwyg ul.toolbar li.insertOrderedList { background-position: 0px -75px; width: 68px; }
+#content div.wysiwyg ul.toolbar li.insertOrderedList.active { background-position: -87px -75px;}
+
+#content div.wysiwyg ul.toolbar li.insertHorizontalRule { background-position: 0px -49px; }
 
 #content div.wysiwyg ul.toolbar li.h1 { background-position: 0px -31px; }
 #content div.wysiwyg ul.toolbar li.h2 { background-position: -18px -31px; }
@@ -57,9 +73,13 @@
 #content div.wysiwyg ul.toolbar li.increaseFontSize { background-position: -18px -87px; }
 #content div.wysiwyg ul.toolbar li.decreaseFontSize { background-position: -36px -87px; }
 
-#content div.wysiwyg ul.toolbar li.createLink { background-position: -92px -48px; }
+#content div.wysiwyg ul.toolbar li.createLink { background-position: 0px -150px; width: 56px;}
+#content div.wysiwyg ul.toolbar li.createLink.active { background-position: -87px -150px;}
+
 #content div.wysiwyg ul.toolbar li.unLink { background-position: -74px -87px; }
-#content div.wysiwyg ul.toolbar li.insertImage { background-position: -92px -87px; }
+
+#content div.wysiwyg ul.toolbar li.insertImage { background-position: 0px -125px; width: 67px;}
+#content div.wysiwyg ul.toolbar li.insertImage.active { background-position: -87px -125px;}
 
 #content div.wysiwyg ul.toolbar li.html { background-position: -55px -49px; }
 #content div.wysiwyg ul.toolbar li.removeFormat { background-position: -92px -68px; }
