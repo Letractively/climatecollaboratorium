@@ -608,15 +608,15 @@ function initVersionChoosingBox() {
     container.addClass('processed');
 }
 
-function triggerVersionsContainerVisibility() {
-    var trigger = jQuery(".versionsTrigger");
+function triggerVersionsContainerVisibility(triggerLink) {
+    var trigger = jQuery(triggerLink);
     var container = jQuery(".versionsContainer");
     if (! container.is(':visible')) {
-        trigger.html("hide history")
+        trigger.html("Hide history")
         container.show("slide", {direction: "up"});
     }
     else {
-        trigger.html("show history");
+        trigger.html("Show history");
         container.hide("slide", {direction: "up"}, 'medium', function() {
         });
     }
