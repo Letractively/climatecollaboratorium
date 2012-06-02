@@ -91,6 +91,18 @@ public interface PlanSectionLocalService {
         com.ext.portlet.plans.model.PlanSectionDefinition def,
         boolean createOnEmpty) throws com.liferay.portal.SystemException;
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanSection getForPlanSectionDef(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanSection getForPlanSectionDef(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def, boolean current,
+        boolean createOnEmpty) throws com.liferay.portal.SystemException;
+
     public com.ext.portlet.plans.model.PlanSection createNewVersionForPlanSectionDefinition(
         com.ext.portlet.plans.model.PlanItem plan,
         com.ext.portlet.plans.model.PlanSectionDefinition def)

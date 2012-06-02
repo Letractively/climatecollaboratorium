@@ -455,6 +455,7 @@ create index IX_DE35A5E0 on PlanAttributeFilter (planUserSettingsId, attributeNa
 create index IX_B607C303 on PlanColumnSettings (planUserSettingsId, columnName);
 
 create index IX_DAB9791 on PlanDescription (planId);
+create index IX_D9FD55EE on PlanDescription (planId, planVersion);
 
 create index IX_B7B214E8 on PlanFan (planId);
 create index IX_C6200522 on PlanFan (planId, userId);
@@ -479,6 +480,7 @@ create index IX_8AF88237 on PlanRelated (relatedPlanId);
 
 create index IX_918E76BA on PlanSection (planId);
 create index IX_D6FF7AA0 on PlanSection (planId, planSectionDefinitionId);
+create index IX_F551233F on PlanSection (planId, planSectionDefinitionId, planVersion);
 
 create index IX_9E4A2D02 on PlanSectionPlanMap (relatedPlanId);
 create index IX_E54815F3 on PlanSectionPlanMap (sectionId);

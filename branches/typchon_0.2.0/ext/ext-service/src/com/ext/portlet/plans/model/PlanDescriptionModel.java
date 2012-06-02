@@ -66,5 +66,9 @@ public interface PlanDescriptionModel extends BaseModel<PlanDescription> {
 
     public void setImage(Long image);
 
+    public String getPitch();
+
+    public void setPitch(String pitch);
+
     public PlanDescription toEscapedModel();
 }

@@ -99,6 +99,27 @@ public class PlanDescriptionUtil {
         return getPersistence().fetchByCurrentByPlanId(planId, retrieveFromCache);
     }
 
+    public static com.ext.portlet.plans.model.PlanDescription findByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanDescriptionException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByPlanIdPlanVersion(planId, planVersion);
+    }
+
+    public static com.ext.portlet.plans.model.PlanDescription fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().fetchByPlanIdPlanVersion(planId, planVersion);
+    }
+
+    public static com.ext.portlet.plans.model.PlanDescription fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByPlanIdPlanVersion(planId, planVersion,
+            retrieveFromCache);
+    }
+
     public static java.util.List<com.ext.portlet.plans.model.PlanDescription> findByAllByPlanId(
         java.lang.Long planId) throws com.liferay.portal.SystemException {
         return getPersistence().findByAllByPlanId(planId);
@@ -175,6 +196,13 @@ public class PlanDescriptionUtil {
         getPersistence().removeByCurrentByPlanId(planId);
     }
 
+    public static void removeByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanDescriptionException,
+            com.liferay.portal.SystemException {
+        getPersistence().removeByPlanIdPlanVersion(planId, planVersion);
+    }
+
     public static void removeByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException {
         getPersistence().removeByAllByPlanId(planId);
@@ -187,6 +215,11 @@ public class PlanDescriptionUtil {
     public static int countByCurrentByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByCurrentByPlanId(planId);
+    }
+
+    public static int countByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planVersion) throws com.liferay.portal.SystemException {
+        return getPersistence().countByPlanIdPlanVersion(planId, planVersion);
     }
 
     public static int countByAllByPlanId(java.lang.Long planId)

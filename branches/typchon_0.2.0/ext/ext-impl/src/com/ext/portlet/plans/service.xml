@@ -313,6 +313,7 @@
         <column name="created" type="Date" />
         <column name="updateAuthorId" type="Long" />
         <column name="image" type="Long" />
+        <column name="pitch" type="String" />
         
         <order by="desc">
             <order-column name="id" />
@@ -320,6 +321,11 @@
         
         <finder name="CurrentByPlanId" return-type="PlanDescription">
             <finder-column name="planId" />
+        </finder>
+        
+        <finder name="PlanIdPlanVersion" return-type="PlanDescription">
+            <finder-column name="planId" />
+            <finder-column name="planVersion" comparator="&lt;=" />
         </finder>
         
         <finder name="AllByPlanId" return-type="Collection">
@@ -500,6 +506,12 @@
         <finder name="CurrentPlanIdSectionDefinitionId" return-type="PlanSection">
             <finder-column name="planId" />
             <finder-column name="planSectionDefinitionId" />
+        </finder>
+        
+        <finder name="PlanIdPlanVersion" return-type="PlanDescription">
+            <finder-column name="planId" />
+            <finder-column name="planSectionDefinitionId" />
+            <finder-column name="planVersion" comparator="&lt;=" />
         </finder>
         
     </entity>

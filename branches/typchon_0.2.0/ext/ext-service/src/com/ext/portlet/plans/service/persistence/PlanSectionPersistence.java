@@ -102,6 +102,21 @@ public interface PlanSectionPersistence extends BasePersistence {
         java.lang.Long planId, java.lang.Long planSectionDefinitionId,
         boolean retrieveFromCache) throws com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanSection findByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planSectionDefinitionId,
+        java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanSectionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanSection fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planSectionDefinitionId,
+        java.lang.Long planVersion) throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanSection fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planSectionDefinitionId,
+        java.lang.Long planVersion, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -129,6 +144,11 @@ public interface PlanSectionPersistence extends BasePersistence {
         throws com.ext.portlet.plans.NoSuchPlanSectionException,
             com.liferay.portal.SystemException;
 
+    public void removeByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planSectionDefinitionId, java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanSectionException,
+            com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByPlanIdSectionDefinitionId(java.lang.Long planId,
@@ -137,6 +157,10 @@ public interface PlanSectionPersistence extends BasePersistence {
 
     public int countByCurrentPlanIdSectionDefinitionId(java.lang.Long planId,
         java.lang.Long planSectionDefinitionId)
+        throws com.liferay.portal.SystemException;
+
+    public int countByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planSectionDefinitionId, java.lang.Long planVersion)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

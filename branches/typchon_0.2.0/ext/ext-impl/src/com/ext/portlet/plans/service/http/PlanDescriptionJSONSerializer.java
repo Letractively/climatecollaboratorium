@@ -52,6 +52,7 @@ public class PlanDescriptionJSONSerializer {
         jsonObj.put("created", createdJSON);
         jsonObj.put("updateAuthorId", model.getUpdateAuthorId());
         jsonObj.put("image", model.getImage());
+        jsonObj.put("pitch", model.getPitch());
 
         return jsonObj;
     }

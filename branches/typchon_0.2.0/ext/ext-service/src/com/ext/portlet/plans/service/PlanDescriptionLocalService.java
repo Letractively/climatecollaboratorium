@@ -94,6 +94,11 @@ public interface PlanDescriptionLocalService {
         throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanDescription getForPlan(
+        com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public java.util.List<com.ext.portlet.plans.model.PlanDescription> getAllForPlan(
         com.ext.portlet.plans.model.PlanItem plan)
         throws com.liferay.portal.SystemException;

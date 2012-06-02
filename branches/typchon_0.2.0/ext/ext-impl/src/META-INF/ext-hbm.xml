@@ -188,6 +188,7 @@
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updateAuthorId" />
 		<property name="image" />
+		<property name="pitch" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanMetaImpl" table="PlanMeta">
 		<cache usage="read-write" />

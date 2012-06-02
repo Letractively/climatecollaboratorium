@@ -87,6 +87,7 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
     private Date _created;
     private Long _version;
     private Long _planVersion;
+    private Long _originalPlanVersion;
     private Long _updateAuthorId;
 
     public PlanSectionModelImpl() {
@@ -199,6 +200,14 @@ public class PlanSectionModelImpl extends BaseModelImpl<PlanSection> {
 
     public void setPlanVersion(Long planVersion) {
         _planVersion = planVersion;
+
+        if (_originalPlanVersion == null) {
+            _originalPlanVersion = planVersion;
+        }
+    }
+
+    public Long getOriginalPlanVersion() {
+        return _originalPlanVersion;
     }
 
     public Long getUpdateAuthorId() {

@@ -87,16 +87,21 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
 
     /* Description related stuff */
     public String getDescription() throws SystemException {
-        return PlanDescriptionLocalServiceUtil.getCurrentForPlan(this).getDescription();
+        return PlanDescriptionLocalServiceUtil.getForPlan(this).getDescription();
     }
 
     public String getName() throws SystemException {
-        return PlanDescriptionLocalServiceUtil.getCurrentForPlan(this).getName();
+        return PlanDescriptionLocalServiceUtil.getForPlan(this).getName();
     }
     
     public Long getImageId() throws SystemException {
-        return PlanDescriptionLocalServiceUtil.getCurrentForPlan(this).getImage();
+        return PlanDescriptionLocalServiceUtil.getForPlan(this).getImage();
     }
+    
+    public String getPitch() throws SystemException {
+        return PlanDescriptionLocalServiceUtil.getForPlan(this).getPitch();
+    }
+    
     
     public Image getImage() throws SystemException, PortalException {
         Long imageId = getImageId();
@@ -143,6 +148,16 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         planDescription.store();
         updateAttribute(Attribute.IMAGE);
         //joinIfNotAMember(updateAuthorId);
+        updateSearchIndex();
+    }
+    
+    public void setPitch(String pitch, Long updateAuthorId) throws SystemException, SearchException {
+        newVersion(UpdateType.PITCH_UPDATED, updateAuthorId);
+        
+        PlanDescription planDescription = PlanDescriptionLocalServiceUtil.createNewVersionForPlan(this);
+        planDescription.setPitch(pitch);
+        planDescription.store();
+        updateAttribute(Attribute.ABSTRACT);
         updateSearchIndex();
     }
 
@@ -814,7 +829,7 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
             List<PlanSection> ret = new ArrayList<PlanSection>();
             
             for (PlanSectionDefinition psd: tmpl.getSections()) {
-                ret.add(PlanSectionLocalServiceUtil.getCurrentForPlanSectionDef(this, psd));
+                ret.add(PlanSectionLocalServiceUtil.getForPlanSectionDef(this, psd));
             }
             return ret;
         }

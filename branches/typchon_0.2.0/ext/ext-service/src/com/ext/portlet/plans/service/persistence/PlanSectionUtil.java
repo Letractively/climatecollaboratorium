@@ -162,6 +162,33 @@ public class PlanSectionUtil {
             planSectionDefinitionId, retrieveFromCache);
     }
 
+    public static com.ext.portlet.plans.model.PlanSection findByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planSectionDefinitionId,
+        java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanSectionException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByPlanIdPlanVersion(planId, planSectionDefinitionId,
+            planVersion);
+    }
+
+    public static com.ext.portlet.plans.model.PlanSection fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planSectionDefinitionId,
+        java.lang.Long planVersion) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByPlanIdPlanVersion(planId, planSectionDefinitionId,
+            planVersion);
+    }
+
+    public static com.ext.portlet.plans.model.PlanSection fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planSectionDefinitionId,
+        java.lang.Long planVersion, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByPlanIdPlanVersion(planId, planSectionDefinitionId,
+            planVersion, retrieveFromCache);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -206,6 +233,15 @@ public class PlanSectionUtil {
             planSectionDefinitionId);
     }
 
+    public static void removeByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planSectionDefinitionId, java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanSectionException,
+            com.liferay.portal.SystemException {
+        getPersistence()
+            .removeByPlanIdPlanVersion(planId, planSectionDefinitionId,
+            planVersion);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -224,6 +260,14 @@ public class PlanSectionUtil {
         return getPersistence()
                    .countByCurrentPlanIdSectionDefinitionId(planId,
             planSectionDefinitionId);
+    }
+
+    public static int countByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planSectionDefinitionId, java.lang.Long planVersion)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .countByPlanIdPlanVersion(planId, planSectionDefinitionId,
+            planVersion);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {
