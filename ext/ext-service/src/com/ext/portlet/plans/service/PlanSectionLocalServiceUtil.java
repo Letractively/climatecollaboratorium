@@ -103,6 +103,21 @@ public class PlanSectionLocalServiceUtil {
         return getService().getCurrentForPlanSectionDef(plan, def, createOnEmpty);
     }
 
+    public static com.ext.portlet.plans.model.PlanSection getForPlanSectionDef(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def)
+        throws com.liferay.portal.SystemException {
+        return getService().getForPlanSectionDef(plan, def);
+    }
+
+    public static com.ext.portlet.plans.model.PlanSection getForPlanSectionDef(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSectionDefinition def, boolean current,
+        boolean createOnEmpty) throws com.liferay.portal.SystemException {
+        return getService()
+                   .getForPlanSectionDef(plan, def, current, createOnEmpty);
+    }
+
     public static com.ext.portlet.plans.model.PlanSection createNewVersionForPlanSectionDefinition(
         com.ext.portlet.plans.model.PlanItem plan,
         com.ext.portlet.plans.model.PlanSectionDefinition def)

@@ -70,6 +70,19 @@ public interface PlanDescriptionPersistence extends BasePersistence {
         java.lang.Long planId, boolean retrieveFromCache)
         throws com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanDescription findByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanDescriptionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanDescription fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanDescription fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.plans.model.PlanDescription> findByAllByPlanId(
         java.lang.Long planId) throws com.liferay.portal.SystemException;
 
@@ -122,6 +135,11 @@ public interface PlanDescriptionPersistence extends BasePersistence {
         throws com.ext.portlet.plans.NoSuchPlanDescriptionException,
             com.liferay.portal.SystemException;
 
+    public void removeByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanDescriptionException,
+            com.liferay.portal.SystemException;
+
     public void removeByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
 
@@ -129,6 +147,9 @@ public interface PlanDescriptionPersistence extends BasePersistence {
 
     public int countByCurrentByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
+
+    public int countByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planVersion) throws com.liferay.portal.SystemException;
 
     public int countByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;

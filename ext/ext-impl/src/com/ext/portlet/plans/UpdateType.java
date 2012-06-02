@@ -16,7 +16,8 @@ public enum UpdateType {
     PLAN_CLOSED("Closed"),
     PLAN_STATUS_UPDATED("Updated status"),
     PLAN_SECTION_UPDATED("Updated section"), 
-    IMAGE_UPDATED("Image updated");
+    IMAGE_UPDATED("Image updated"), 
+    PITCH_UPDATED("Pitch updated");
 
     private final String description;
     UpdateType(String description) {

@@ -35,6 +35,9 @@ public interface PlanItem extends PlanItemModel {
     public java.lang.Long getImageId()
         throws com.liferay.portal.SystemException;
 
+    public java.lang.String getPitch()
+        throws com.liferay.portal.SystemException;
+
     public com.liferay.portal.model.Image getImage()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
@@ -51,6 +54,10 @@ public interface PlanItem extends PlanItemModel {
     public void setImage(java.lang.Long imageId, java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public void setPitch(java.lang.String pitch, java.lang.Long updateAuthorId)
+        throws com.liferay.portal.SystemException,
+            com.liferay.portal.kernel.search.SearchException;
 
     public java.util.List<com.ext.portlet.plans.model.PlanDescription> getAllDescriptionVersions()
         throws com.liferay.portal.SystemException;

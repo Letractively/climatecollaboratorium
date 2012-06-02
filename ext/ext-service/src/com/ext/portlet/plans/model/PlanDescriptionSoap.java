@@ -35,6 +35,7 @@ public class PlanDescriptionSoap implements Serializable {
     private Date _created;
     private Long _updateAuthorId;
     private Long _image;
+    private String _pitch;
 
     public PlanDescriptionSoap() {
     }
@@ -51,6 +52,7 @@ public class PlanDescriptionSoap implements Serializable {
         soapModel.setCreated(model.getCreated());
         soapModel.setUpdateAuthorId(model.getUpdateAuthorId());
         soapModel.setImage(model.getImage());
+        soapModel.setPitch(model.getPitch());
 
         return soapModel;
     }
@@ -171,5 +173,13 @@ public class PlanDescriptionSoap implements Serializable {
 
     public void setImage(Long image) {
         _image = image;
+    }
+
+    public String getPitch() {
+        return _pitch;
+    }
+
+    public void setPitch(String pitch) {
+        _pitch = pitch;
     }
 }

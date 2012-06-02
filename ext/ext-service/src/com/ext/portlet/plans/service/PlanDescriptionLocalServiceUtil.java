@@ -107,6 +107,12 @@ public class PlanDescriptionLocalServiceUtil {
         return getService().getCurrentForPlan(plan);
     }
 
+    public static com.ext.portlet.plans.model.PlanDescription getForPlan(
+        com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException {
+        return getService().getForPlan(plan);
+    }
+
     public static java.util.List<com.ext.portlet.plans.model.PlanDescription> getAllForPlan(
         com.ext.portlet.plans.model.PlanItem plan)
         throws com.liferay.portal.SystemException {

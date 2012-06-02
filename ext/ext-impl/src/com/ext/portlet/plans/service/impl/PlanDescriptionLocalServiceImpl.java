@@ -39,6 +39,10 @@ public class PlanDescriptionLocalServiceImpl
         return this.planDescriptionPersistence.fetchByCurrentByPlanId(plan.getPlanId(), false);
     }
     
+    public PlanDescription getForPlan(PlanItem plan) throws SystemException {
+       return this.planDescriptionPersistence.fetchByPlanIdPlanVersion(plan.getPlanId(), plan.getVersion());
+    }
+    
     public List<PlanDescription> getAllForPlan(PlanItem plan) throws SystemException {
         return this.planDescriptionPersistence.findByAllByPlanId(plan.getPlanId());
     }

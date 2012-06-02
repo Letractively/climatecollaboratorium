@@ -5,12 +5,9 @@ import java.util.List;
 
 import com.ext.portlet.plans.NoSuchPlanSectionException;
 import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.model.PlanMeta;
 import com.ext.portlet.plans.model.PlanSection;
 import com.ext.portlet.plans.model.PlanSectionDefinition;
-import com.ext.portlet.plans.service.PlanMetaLocalServiceUtil;
 import com.ext.portlet.plans.service.base.PlanSectionLocalServiceBaseImpl;
-import com.ext.portlet.plans.service.persistence.PlanSectionPK;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.SystemException;
 
@@ -21,11 +18,26 @@ public class PlanSectionLocalServiceImpl extends PlanSectionLocalServiceBaseImpl
         return getCurrentForPlanSectionDef(plan, def, true);
     }
     
+
     public PlanSection getCurrentForPlanSectionDef(PlanItem plan, PlanSectionDefinition def, boolean createOnEmpty) 
     throws SystemException {
+        return getForPlanSectionDef(plan, def, true, createOnEmpty);
+    }
+    
+    public PlanSection getForPlanSectionDef(PlanItem plan, PlanSectionDefinition def) throws SystemException {
+        return getForPlanSectionDef(plan, def, false, true);
+    }
+    
+    
+    public PlanSection getForPlanSectionDef(PlanItem plan, PlanSectionDefinition def, boolean current, boolean createOnEmpty) throws SystemException {
         PlanSection ps = null;
         try {
-            ps = this.planSectionPersistence.findByCurrentPlanIdSectionDefinitionId(plan.getPlanId(), def.getId());
+            if (current) {
+                ps = this.planSectionPersistence.findByCurrentPlanIdSectionDefinitionId(plan.getPlanId(), def.getId());
+            }
+            else {
+                ps = this.planSectionPersistence.findByPlanIdPlanVersion(plan.getPlanId(), def.getId(), plan.getVersion());
+            }
         }
         catch (NoSuchPlanSectionException e) {
             // ignore

@@ -1246,7 +1246,8 @@ create table PlanDescription (
 	planVersion LONG,
 	created DATE null,
 	updateAuthorId LONG,
-	image LONG
+	image LONG,
+	pitch VARCHAR(75) null
 );
 
 create table PlanFan (

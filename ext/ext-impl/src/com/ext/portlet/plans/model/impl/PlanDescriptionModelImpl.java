@@ -66,9 +66,12 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
             { "updateAuthorId", new Integer(Types.BIGINT) },
             
 
-            { "image", new Integer(Types.BIGINT) }
+            { "image", new Integer(Types.BIGINT) },
+            
+
+            { "pitch", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanDescription (id_ LONG not null primary key,planId LONG,name VARCHAR(75) null,description VARCHAR(75) null,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,image LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanDescription (id_ LONG not null primary key,planId LONG,name VARCHAR(75) null,description VARCHAR(75) null,version LONG,planVersion LONG,created DATE null,updateAuthorId LONG,image LONG,pitch VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table PlanDescription";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -88,9 +91,11 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
     private String _description;
     private Long _version;
     private Long _planVersion;
+    private Long _originalPlanVersion;
     private Date _created;
     private Long _updateAuthorId;
     private Long _image;
+    private String _pitch;
 
     public PlanDescriptionModelImpl() {
     }
@@ -107,6 +112,7 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         model.setCreated(soapModel.getCreated());
         model.setUpdateAuthorId(soapModel.getUpdateAuthorId());
         model.setImage(soapModel.getImage());
+        model.setPitch(soapModel.getPitch());
 
         return model;
     }
@@ -188,6 +194,14 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
 
     public void setPlanVersion(Long planVersion) {
         _planVersion = planVersion;
+
+        if (_originalPlanVersion == null) {
+            _originalPlanVersion = planVersion;
+        }
+    }
+
+    public Long getOriginalPlanVersion() {
+        return _originalPlanVersion;
     }
 
     public Date getCreated() {
@@ -214,6 +228,14 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         _image = image;
     }
 
+    public String getPitch() {
+        return GetterUtil.getString(_pitch);
+    }
+
+    public void setPitch(String pitch) {
+        _pitch = pitch;
+    }
+
     public PlanDescription toEscapedModel() {
         if (isEscapedModel()) {
             return (PlanDescription) this;
@@ -232,6 +254,7 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
             model.setCreated(getCreated());
             model.setUpdateAuthorId(getUpdateAuthorId());
             model.setImage(getImage());
+            model.setPitch(HtmlUtil.escape(getPitch()));
 
             model = (PlanDescription) Proxy.newProxyInstance(PlanDescription.class.getClassLoader(),
                     new Class[] { PlanDescription.class },
@@ -253,6 +276,7 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         clone.setCreated(getCreated());
         clone.setUpdateAuthorId(getUpdateAuthorId());
         clone.setImage(getImage());
+        clone.setPitch(getPitch());
 
         return clone;
     }
@@ -318,6 +342,8 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         sb.append(getUpdateAuthorId());
         sb.append(", image=");
         sb.append(getImage());
+        sb.append(", pitch=");
+        sb.append(getPitch());
         sb.append("}");
 
         return sb.toString();
@@ -365,6 +391,10 @@ public class PlanDescriptionModelImpl extends BaseModelImpl<PlanDescription> {
         sb.append(
             "<column><column-name>image</column-name><column-value><![CDATA[");
         sb.append(getImage());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>pitch</column-name><column-value><![CDATA[");
+        sb.append(getPitch());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");
