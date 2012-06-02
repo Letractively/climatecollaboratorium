@@ -51,8 +51,8 @@ public class PlanSectionWrapper {
     }
     
     public void save(ActionEvent e) throws NoSuchPlanItemException, PortalException, SystemException {
-        if (Helper.isUserLoggedIn()) {
-            System.out.println("new content: " + section.getContent());
+        if (Helper.isUserLoggedIn() && !section.getContent().trim().equals(oryginalContent)) {
+            
             PlanItemLocalServiceUtil.getPlan(section.getPlanId())
                     .setSectionContent(section.getDefinition(), section.getContent(), referencedPlans, Helper.getLiferayUser().getUserId());
         }
