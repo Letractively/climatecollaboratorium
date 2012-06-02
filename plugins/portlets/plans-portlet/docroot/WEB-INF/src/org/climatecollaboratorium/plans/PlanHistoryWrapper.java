@@ -7,6 +7,7 @@
 package org.climatecollaboratorium.plans;
 
 import com.ext.portlet.plans.model.PlanDescription;
+import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.liferay.portal.PortalException;
@@ -140,6 +141,42 @@ public abstract class PlanHistoryWrapper<T> {
             }
         };
     }
+    
+    public static PlanHistoryWrapper<PlanItem> getWrapper(final PlanItem positions, final boolean latest) {
+        return new PlanHistoryWrapper<PlanItem>() {
 
+            @Override
+            public Date getUpdateDate() {
+                return positions.getUpdated();
+            }
+
+            @Override
+            public User getUpdateAuthor() {
+                try {
+                    return positions.getUpdateAuthor();
+                } catch (PortalException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (SystemException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+                return null;
+            }
+
+            @Override
+            public long getUpdateVersion() {
+                return positions.getId();
+            }
+
+            @Override
+            public PlanItem getWrapped() {
+                return positions;
+            }
+
+            @Override
+            public boolean isLatest() {
+                return latest;
+            }
+        };
+    }
    
 }

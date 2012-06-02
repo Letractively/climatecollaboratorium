@@ -465,10 +465,15 @@ public class PlanBean {
     public void toggleEditing(ActionEvent e) {
         try {
             boolean oldEditing = editing;
-            this.refresh();
-            if (planItem.getVersion() == 1) {
-                planItem.delete(Helper.getLiferayUser().getUserId());
-                leaveThisPlan = true;
+            if (oldEditing) {
+                this.refresh();
+                if (planItem.getVersion() == 1) {
+                    planItem.delete(Helper.getLiferayUser().getUserId());
+                    leaveThisPlan = true;
+                }
+                else {
+                    editing = !oldEditing;
+                }
             }
             else {
                 editing = !oldEditing;
