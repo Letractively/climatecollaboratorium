@@ -121,7 +121,7 @@
 										console.log(a.self, jQuery(a.self), jQuery(a.self).attr);
 										obj.attr("href", url);
 										obj.attr("title", title);
-										obj.attr("target", target);
+										obj.attr("target", "_blank");
 										obj.text(linkText);
 									} else {
 										obj.replaceWith(a.self.innerHTML);
@@ -150,17 +150,12 @@
 									}
 
 									a.self = Wysiwyg.dom.getElement("a");
-									jQuery(a.self).text(linkText);
 									
-
-									$(a.self).attr("href", url).attr("title", title);
-
-									
-
-									/**
-									 * @url https://github.com/akzhan/jwysiwyg/issues/16
-									 */
-									$(a.self).attr("target", target);
+									var elem = jQuery(a.self);
+									elem.text(linkText);
+									elem.attr("href", url);
+									elem.attr("title", title);
+									elem.attr("target", "_blank");
 								} 
 							}
 
@@ -191,7 +186,7 @@
 
 					if ("string" === typeof (url)) {
 						if (url.length > 0) {
-							$(a.self).attr("href", url);
+							$(a.self).attr("href", url).attr("target", "_blank");
 						} else {
 							$(a.self).replaceWith(a.self.innerHTML);
 						}
