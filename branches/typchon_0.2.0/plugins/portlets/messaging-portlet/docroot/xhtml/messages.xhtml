@@ -7,15 +7,16 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     >
-    <div id="content">
   
     <div class="main_long">
       <div id="message-info">
         <ice:form>
             <span class="num">#{messagingBean.messagesCount}</span> messages
-            <ice:commandLink actionListener="#{messagingBean.toggleSendMessage}">
-                <img src="/collaboratorium-theme/images/icon_new-message.gif" width="41" height="38" /> compose message
-            </ice:commandLink>
+            <div style="float: right;">
+                <ice:commandLink actionListener="#{messagingBean.toggleSendMessage}">
+                    <img src="/collaboratorium-theme/images/icon_new-message.gif" width="31" height="29" /> compose message
+                </ice:commandLink>
+            </div>
         </ice:form>
       </div>
       
@@ -32,9 +33,11 @@
                 <div class="msgContent hidden"> 
                     <p>#{message.content}</p>
                     <div class="floatRight">
-                    <ice:commandButton actionListener="#{messagingBean.toggleSendMessage}" styleClass="mothButton" value="REPLY" >
-                        <f:attribute name="replyMessageId" value="#{message.messageId}" />
-                    </ice:commandButton>
+                    <div class="blue-button">
+                        <ice:commandLink actionListener="#{messagingBean.toggleSendMessage}" value="Reply" >
+                            <f:attribute name="replyMessageId" value="#{message.messageId}" />
+                        </ice:commandLink>
+                    </div>
                     </div>
                     <div class="clear"></div>
                 
@@ -66,6 +69,14 @@
                 </ice:outputText>
             </ice:column>
       </ice:dataTable>
+      <br /><br />
+      <ice:panelGroup styleClass="messages_bot" rendered="#{messagingBean.type == 'INBOX'}">
+        <div class="blue-button">
+            <ice:commandLink actionListener="#{messagingBean.archiveSelectedMessages}" >Archive selected messages</ice:commandLink>
+        </div>
+      </ice:panelGroup>
+      
+      <br />
       <br />
             <table style="float: right;">
                 <tr>
@@ -104,9 +115,6 @@
                 </td>
             </tr>
           </table>
-      <ice:panelGroup styleClass="messages_bot" rendered="#{messagingBean.type == 'INBOX'}">
-            <ice:commandLink actionListener="#{messagingBean.archiveSelectedMessages}" >ARCHIVE SELECTED MESSAGES</ice:commandLink>
-      </ice:panelGroup>
           </ice:form>
           
         </div> <!-- /main -->
@@ -140,6 +148,5 @@
         
         <div class="clearfix"></div>
 
-  </div> <!-- /content -->
   
 </f:view>
