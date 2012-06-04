@@ -85,7 +85,7 @@
     
      <ice:dataTable value="#{discussionBean.currentThread.threadMessages}" var="message" varStatus="messageStatus" columnClasses="l,r" rowClasses="odd,even" id="commentsTable">
         <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
-            <div class="com_num messageLink" id="_message_#{message.id}" rel="#{message.id}">#{message.messageNum}</div>
+            
             <collab:userLinkSimple text="#{message.author.screenName}" userId="#{message.author.userId}" /> <br />
             <f:subview rendered="#{message.expertReview}">
                 <strong>Expert Reviews</strong><br />
@@ -96,6 +96,7 @@
             <ice:outputText value="#{message.createDate}">
                 <f:convertDateTime pattern="hh:mm a"/>
             </ice:outputText>
+            <div class="com_num messageLink" id="_message_#{message.id}" rel="#{message.id}">link</div>
         </ice:column>
         
         <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
