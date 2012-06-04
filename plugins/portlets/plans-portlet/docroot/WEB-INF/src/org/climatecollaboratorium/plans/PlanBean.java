@@ -66,7 +66,7 @@ public class PlanBean {
     private PlansIndexBean plansIndexBean;
     private org.climatecollaboratorium.facelets.simulations.SimulationBean externalSimulationBean;
     private NavigationEvent lastNavEvent;
-    private List<PlanTab> availableTabs;
+    private List<PlanTabWrapper> availableTabs;
     private PlanTab currentTab = PlanTab.DESCRIPTION;
     private boolean leaveThisPlan = false;
     
@@ -408,17 +408,17 @@ public class PlanBean {
     
     
     
-    public List<PlanTab> getAvailableTabs() throws PortalException, SystemException {
+    public List<PlanTabWrapper> getAvailableTabs() throws PortalException, SystemException {
         if (availableTabs == null) {
-            availableTabs = new ArrayList<PlanTab>();
+            availableTabs = new ArrayList<PlanTabWrapper>();
             
-            availableTabs.add(PlanTab.DESCRIPTION);
+            availableTabs.add(new PlanTabWrapper(planItem, PlanTab.DESCRIPTION));
             if (getPlan().getHasModel()) { 
-                availableTabs.add(PlanTab.ACTIONSIMPACTS);
+                availableTabs.add(new PlanTabWrapper(planItem, PlanTab.ACTIONSIMPACTS));
             }
-            availableTabs.add(PlanTab.TEAM);
-            availableTabs.add(PlanTab.COMMENTS);
-            availableTabs.add(PlanTab.ADMIN);
+            availableTabs.add(new PlanTabWrapper(planItem, PlanTab.TEAM));
+            availableTabs.add(new PlanTabWrapper(planItem, PlanTab.COMMENTS));
+            availableTabs.add(new PlanTabWrapper(planItem, PlanTab.ADMIN));
         }
         
         return availableTabs;
@@ -432,30 +432,6 @@ public class PlanBean {
         currentTab = PlanTab.valueOf(e.getComponent().getAttributes().get("tab").toString());
     }
     
-    public static enum PlanTab {
-        ADMIN("ADMINISTRATION", false),
-        DESCRIPTION("DESCRIPTION", true),
-        ACTIONSIMPACTS("MODEL RESULTS", true),
-        COMMENTS("COMMENTS", false),
-        TEAM("CONTRIBUTORS", false);
-        
-        private final String displayName;
-        private final boolean editable;
-        
-        PlanTab(String displayName, boolean editable) {
-            this.displayName = displayName;
-            this.editable = editable;
-        }
-        
-        public String getDisplayName() {
-            return displayName;
-        }
-        
-        public boolean isEditable() {
-            return editable;
-        }
-        
-    }
     
     
     public boolean isEditing() {
@@ -488,4 +464,59 @@ public class PlanBean {
         return leaveThisPlan;
     }
     
+
+    public static enum PlanTab {
+        ADMIN("ADMINISTRATION", false),
+        DESCRIPTION("DESCRIPTION", true),
+        ACTIONSIMPACTS("MODEL RESULTS", true),
+        COMMENTS("COMMENTS", false),
+        TEAM("CONTRIBUTORS", false);
+        
+        private final String displayName;
+        private final boolean editable;
+        
+        PlanTab(String displayName, boolean editable) {
+            this.displayName = displayName;
+            this.editable = editable;
+        }
+        
+        public String getDisplayName() {
+            return displayName;
+        }
+        
+        public boolean isEditable() {
+            return editable;
+        }
+        
+    }
+    
+    public class PlanTabWrapper {
+        private final PlanItem plan;
+        private final PlanTab tab;
+        
+        public PlanTabWrapper(PlanItem plan, PlanTab tab) {
+            this.tab = tab;
+            this.plan = plan;
+        }
+        
+        public String getDisplayName() {
+            return tab.getDisplayName();
+        }
+        
+        public boolean getHasActivityCount() {
+            return tab == PlanTab.COMMENTS || tab == PlanTab.TEAM;
+        }
+        
+        public int getActivityCount() throws SystemException, PortalException {
+            if (tab == PlanTab.COMMENTS) 
+                return plan.getCommentsCount();
+            else if (tab == PlanTab.TEAM) 
+                return plan.getMembers().size();
+            return 0;
+        }
+        
+        public PlanTab getTab() {
+            return tab;
+        }
+    }
 }

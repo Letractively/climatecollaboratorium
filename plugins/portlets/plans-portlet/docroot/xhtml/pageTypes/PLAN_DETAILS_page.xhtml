@@ -28,9 +28,13 @@
         <div class="prop-tabs">
             <ice:form>
                 <ul>
-                    <ui:repeat value="#{proposal.availableTabs}" var="tab">
-                        <li class="#{proposal.currentTab == tab ? 'c' : ''}">
-                            <ice:commandLink value="#{tab.displayName}" onclick="Collab.nav.navigateAddParams('plans', {tab: '#{tab}'}); return false;" />
+                    <ui:repeat value="#{proposal.availableTabs}" var="tabWrapper">
+                        <li class="#{proposal.currentTab == tabWrapper.tab ? 'c' : ''}">
+                            <ice:commandLink value="#{tabWrapper.displayName}" onclick="Collab.nav.navigateAddParams('plans', {tab: '#{tabWrapper.tab}'}); return false;" >
+                                <f:subview rendered="#{tabWrapper.hasActivityCount}">
+                                    <div>#{tabWrapper.activityCount}</div>
+                                </f:subview>
+                            </ice:commandLink>
                         </li>
                     </ui:repeat>
                 </ul>
