@@ -2,7 +2,7 @@
 #content div.wysiwyg { border: 1px solid #999; padding: 0; background: #fff url('jquery.wysiwyg.bg.png') repeat-x top; z-index: 0;}
 #content div.wysiwyg * { margin: 0; padding: 0; }
 
-/*#content div.wysiwyg .toolbar {display: none;}*/
+#content div.wysiwyg .toolbar {display: none;}
 #content .active div.wysiwyg .toolbar {display: block;}
 
 #content div.wysiwyg ul.toolbar li.jwysiwyg-custom-command { overflow: hidden; }

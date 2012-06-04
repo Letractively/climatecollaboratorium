@@ -25,13 +25,14 @@
                 <f:selectItems value="#{planBean.plan.allPlanModes}"></f:selectItems>
             </ice:selectOneRadio>                
         </div>        
-        
+        <!-- 
         <h2>Ask for help:</h2>
         <div class="admin_box">
             <ice:selectManyCheckbox value="#{planBean.plan.helpStatus}" partialSubmit="true" styleClass="plan-mode-select">
                 <f:selectItems value="#{planBean.plan.allHelpStatuses}"></f:selectItems>    
             </ice:selectManyCheckbox>
-        </div> 
+        </div>
+         --> 
         
         <ice:panelGroup rendered="#{permissions.canAdminAll and contest.currentPhase.hasNextPhase and !planBean.plan.promoted}">
             <h2>Promote to next phase</h2>
@@ -129,7 +130,7 @@
         </ice:panelGroup>
         <ice:dataTable value="#{planBean.membershipBean.planMembershipRequests}" var="membershipRequest" styleClass="colab adm" rendered="#{fn:length(planBean.membershipBean.planMembershipRequests) gt 0}" rowClasses="t,nt">
             <ice:column>
-                <collab:userLinkSimple userId="#{membershipRequest.userId}" text="#{membershipRequest.screenName}" />
+                <strong><collab:userLinkSimple userId="#{membershipRequest.userId}" text="#{membershipRequest.screenName}" /></strong>
             </ice:column>
             <!-- 
             <ice:column>
@@ -137,9 +138,11 @@
             </ice:column>
             -->
             <ice:column rendered="#{permissions.canAdmin}">
-                <a href="javascript:;" onclick="showManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')">
-                    View
-                </a>                                                                          
+                <div class="blue-button">
+                    <a href="javascript:;" onclick="showManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')">
+                        View
+                    </a>                     
+                </div>                                                     
                 <div id="manage_membership_request_#{membershipRequest.id}">
                     <div class="content hidden">
                         <div class="manageMembersTop">
@@ -153,14 +156,20 @@
                             Optional message to requestor:<br />
                                 <ice:inputTextarea value="#{membershipRequest.response}" styleClass="membershipRequestResponse" />
                             Action:
-                            <ice:selectOneRadio value="#{membershipRequest.approve}">
-                                <f:selectItem itemValue="true" itemLabel="approve" />
-                                <f:selectItem itemValue="false" itemLabel="deny" />
-                            </ice:selectOneRadio>
+                            <strong>
+                                <ice:selectOneRadio value="#{membershipRequest.approve}">
+                                    <f:selectItem itemValue="true" itemLabel="approve" />
+                                    <f:selectItem itemValue="false" itemLabel="deny" />
+                                </ice:selectOneRadio>
+                            </strong>
                         </div>
                         <div class="manageMembersActions">
-                            <button class="checkBtn first" onclick="respondToMembershipRequest('manage_membership_request_#{membershipRequest.id}')">OK</button>
-                            <button class="cancelBtn"  onclick="hideManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')">Cancel</button>
+                            <div class="blue-button">
+                                <a href="javascript:;" onclick="respondToMembershipRequest('manage_membership_request_#{membershipRequest.id}')">OK</a>
+                            </div>
+                            <div class="blue-button">
+                                <a href="javascript:;" onclick="hideManageMembershipRequestDialog('manage_membership_request_#{membershipRequest.id}')">Cancel</a>
+                            </div>
                         </div>
                     </div>
                     <ice:commandLink actionListener="#{membershipRequest.update}" styleClass="hidden membershipRequestResponseSubmitButton" />

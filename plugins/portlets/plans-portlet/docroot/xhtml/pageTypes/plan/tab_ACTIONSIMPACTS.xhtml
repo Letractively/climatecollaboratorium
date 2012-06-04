@@ -30,11 +30,6 @@
             <ice:dataTable value="#{planBean.plan.planModelRunVersionItems}" rows="10" var="historyItem" styleClass="historyTable" rowClasses="odd,even">
             
                 <ice:column style="width: 700px;">
-                    <collab:userLinkSimple userId="#{historyItem.updateAuthor.userId}" text="#{historyItem.updateAuthor.screenName}"/>
-
-
-                </ice:column>
-                <ice:column>
                     <ice:commandLink
                                      actionListener="#{planBean.plan.selectModelRunVersion}"  >
                         <ice:outputText value="#{historyItem.updateDate}">
@@ -42,6 +37,14 @@
                         </ice:outputText>
                         <f:attribute name="item" value="#{historyItem}"/>
                     </ice:commandLink>
+
+                </ice:column>
+                <ice:column>
+                    <em>
+                        by&amp;nbsp;
+                        <collab:userLinkSimple userId="#{historyItem.updateAuthor.userId}" text="#{historyItem.updateAuthor.screenName}"/>
+                    </em>
+
 
                 </ice:column>
             </ice:dataTable>
