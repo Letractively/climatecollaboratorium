@@ -77,7 +77,7 @@
     <ul>
      <li><a href="/web/guest/member/-/member/userId/$user.userId">My profile</a></li>
      <li><a href="/web/guest/messaging">My messages</a></li>
-     <li><a href="/web/guest/member/-/member/userId/10144">My subscriptions</a></li>
+     <li><a href="/web/guest/member/-/member/userId/$user.userId">My subscriptions</a></li>
      #if ($permissionChecker.isOmniadmin())
      #if ($show_control_panel)
         <li>
