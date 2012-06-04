@@ -27,7 +27,7 @@
             
             <collab:userPortrait screenName="#{message.author.screenName}" width="59" height="59" /><br />
             
-            <span class="com_num messageLink" id="_message_#{message.id}" rel="#{message.id}">#{message.messageNum} </span>
+            <span id="_message_#{message.id}"></span>
             <collab:userLinkSimple text="#{message.author.screenName}" userId="#{message.author.userId}" /> <br />
             <f:subview rendered="#{message.expertReview}">
                 <strong>Expert Reviews</strong><br />
@@ -37,7 +37,8 @@
             </ice:outputText><br />
             <ice:outputText value="#{message.createDate}"  nospan="true" >
                 <f:convertDateTime pattern="hh:mm a"/>
-            </ice:outputText>
+            </ice:outputText><br />
+            <span class="com_num messageLink" rel="#{message.id}">link </span>
         </ice:column>
         
         <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
