@@ -122,30 +122,30 @@ public class ContestPhaseWrapper {
     public long getDaysTillEnd() {
         //Interval i = new Interval(arg0, arg1)
         long nowTime = new Date().getTime();
-        long endTime = phase.getPhaseEndDate().getTime();
-        
-        
-        
-        return (endTime - nowTime) / (24 * 60 * 60 * 1000);
+        if (phase.getPhaseEndDate() != null) {
+            long endTime = phase.getPhaseEndDate().getTime();
+            return (endTime - nowTime) / (24 * 60 * 60 * 1000);
+        }
+        return 0;
     }
     
     public long getHoursTillEnd() {
         //Interval i = new Interval(arg0, arg1)
         long nowTime = new Date().getTime();
-        long endTime = phase.getPhaseEndDate().getTime();
-        
-        
-        
-        return (endTime - nowTime) / (60 * 60 * 1000);
+        if (phase.getPhaseEndDate() != null) {
+            long endTime = phase.getPhaseEndDate().getTime();
+            return (endTime - nowTime) / (60 * 60 * 1000);
+        }
+        return 0;
     }
     
     public long getMinutesTillEnd() {
         //Interval i = new Interval(arg0, arg1)
         long nowTime = new Date().getTime();
-        long endTime = phase.getPhaseEndDate().getTime();
-        
-        
-        
-        return (endTime - nowTime) / (60 * 1000);
+        if (phase.getPhaseEndDate() != null) {
+            long endTime = phase.getPhaseEndDate().getTime();
+            return (endTime - nowTime) / (60 * 1000);
+        }
+        return 0;
     }
 }

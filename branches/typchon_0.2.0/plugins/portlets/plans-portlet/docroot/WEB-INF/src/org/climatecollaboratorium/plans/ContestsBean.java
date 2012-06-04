@@ -189,10 +189,12 @@ public class ContestsBean {
 
     public void setShowActiveOnly(boolean showActiveOnly) {
         this.showActiveOnly = showActiveOnly;
+        clearContestsList();
     }
     
     public void toggleActiveInactive(ActionEvent e) {
         showActiveOnly = !showActiveOnly;
+        clearContestsList();
     }
 
 
