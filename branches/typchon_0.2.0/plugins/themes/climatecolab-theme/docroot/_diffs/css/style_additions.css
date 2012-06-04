@@ -872,3 +872,9 @@ display: inline;
 	background-color: #f1f1e9;
 	
 }
+
+.closepopuplogin {
+	position: absolute;
+    top: 10px;
+    right: 10px;
+}
