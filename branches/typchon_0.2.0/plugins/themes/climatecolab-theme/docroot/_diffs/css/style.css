@@ -298,7 +298,7 @@ body {background:#fff; font-size:15px;}
 .blueheaderbar .contestbar a {padding-left:12px;}
 
 /* the shadeed div below the bluebar */
-.shadebar {background-image:url(../images/tableshade.png); background-repeat: repeat-x; height:4px; position:relative; z-index:99;}
+.shadebar {background-image:url(../images/tableshade.png); background-repeat: repeat-x; height:4px; position:relative; z-index:9;}
 
 /* ------------------------------------------------------------------------------------------------- */
 
