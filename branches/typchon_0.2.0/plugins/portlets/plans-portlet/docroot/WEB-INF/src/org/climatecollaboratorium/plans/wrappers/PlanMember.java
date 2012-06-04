@@ -64,8 +64,8 @@ public class PlanMember {
         return planUserPermission;
     }
     
-    public String getPlanUserPermissionStr() {
-        return planUserPermission.name();
+    public String getPlanUserPermissionStr() throws PortalException, SystemException {
+        return getPlanUserPermission().name();
     }
     
     public void setPlanUserPermissionStr(String planUserPermissionStr) throws PortalException, SystemException {

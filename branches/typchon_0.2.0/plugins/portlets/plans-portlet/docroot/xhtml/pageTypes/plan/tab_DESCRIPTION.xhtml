@@ -20,16 +20,18 @@
             <div class="versionsContainer hidden">
             <div class="versions">
                 <ice:dataTable value="#{planBean.plan.allDescriptionVersions}" rows="10" var="historyItem" styleClass="historyTable" rowClasses="odd,even">
-                
                     <ice:column style="width: 400px;">
-                        <collab:userLinkSimple userId="#{historyItem.updateAuthor.userId}" text="#{historyItem.updateAuthor.screenName}"/>
-                    </ice:column>
-                    
-                    <ice:column>
                         <ice:commandLink onclick="showAlertIfInEdit('Changing version will remove all changes that have been done, are you sure?'); "
                                 value="#{historyItem.updateDate}" actionListener="#{planBean.plan.selectDescriptionVersion}">
                             <f:attribute name="item" value="#{historyItem}"/>
                         </ice:commandLink>
+                    </ice:column>
+                    
+                    <ice:column>
+                        <em>
+                          by&amp;nbsp; <collab:userLinkSimple userId="#{historyItem.updateAuthor.userId}" text="#{historyItem.updateAuthor.screenName}"/>
+                        </em>
+                        
                     </ice:column>
                 </ice:dataTable>
 

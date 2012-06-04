@@ -93,7 +93,7 @@
             </label>
             <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
             <div class="addpropInputContainer">
-                <ice:inputTextarea value="#{proposal.plan.abstract}" cols="50" rows="7" style="display: inline; resize: none;"/>
+                <ice:inputTextarea value="#{proposal.plan.abstract}" cols="50" rows="7" style="display: inline; resize: none;" styleClass="proposalPitchInput"/>
                 <div class="inputLimitContainer">
                     <span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">140</span> characters
                 </div>
@@ -101,6 +101,19 @@
                     <textarea class="originalValue">#{plan.plan.originalAbstract}</textarea>
                 </div>
             </div>
+            
+            <script>
+                jQuery("textarea.proposalPitchInput").keydown(function(e) {
+                    var TABKEY = 9;
+                    if(e.keyCode == TABKEY) {
+                        this.value += "    ";
+                        if(e.preventDefault) {
+                            e.preventDefault();
+                        }
+                        return false;
+                    }
+                });
+            </script>
         </div>
         
         <!--  if proposal has sections - render edit forms for sections -->
