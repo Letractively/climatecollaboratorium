@@ -177,10 +177,20 @@ function insertParam(key, value)
     document.location.search = kvp.length>1?kvp.join('&'):kvp[0];
 }
 
+function closePopup(obj) {
+	jQuery(".popup-wrap").hide();
+}
+
 jQuery(document).ready(function() {
 	initSearchUpperBox();
 	initLoginPopupUpper();
 	initUserInfoPopup();
+	
+	jQuery(".popup .close").click(function() {
+		
+		closePopup(this);
+	});
+	
 	
 	if (jQuery(".hp_boxwin").length > 0) {
 		jQuery('.hp_boxwin').cycle({

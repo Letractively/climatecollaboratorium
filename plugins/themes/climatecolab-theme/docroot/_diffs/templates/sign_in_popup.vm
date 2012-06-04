@@ -1,5 +1,6 @@
 <div id="popup_login" class="popup-wrap small" style="display: none;">
     <div class="popup">
+        <div class="closepopuplogin"><a href="javascript:;" onclick="jQuery('#popup_login').hide()"><img src="$images_folder/help_close.png" width="20" height="20" alt="X" /></a></div>
         
         <h4>Sign in to ClimateColab</h4>
     #if ($request.getParameter('isSigningIn')) 
@@ -25,7 +26,6 @@
                             <a href="javascript:;" class="login-submit" onclick="jQuery(this).parents('form').submit();" >LOGIN</a>
                         </div>
                     </div>
-                    <input name="submitbtn" type="submit" value="LOGIN" />
                 </form>
             </div>            
         </div>
@@ -37,6 +37,7 @@
   
 <div id="popup_forgotpassword" class="popup-wrap small" style="display: none;">
     <div class="popup">
+        <div class="closepopuplogin"><a href="javascript:;" onclick="jQuery('#popup_forgotpassword').hide()"><img src="$images_folder/help_close.png" width="20" height="20" alt="X" /></a></div>
     
         <h4>Password recovery</h4>
         <div class="popup-message"><p>Enter your email or screen name to get new password</p></div> 
@@ -55,7 +56,6 @@
                         <a href="javascript:;" onclick="jQuery(this).parents('form').submit(); " >Request new password</a>
                     </div>
                 </div>
-                <input name="submitbtn" type="submit" value="LOGIN" style="display: none;" />
             </form>
         </div>
       </div>
