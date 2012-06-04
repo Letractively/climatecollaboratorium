@@ -42,6 +42,7 @@
   <h2>Pitch</h2>
   <p class="intro">#{proposal.plan.abstract}</p>
   
+  
   <div class="div1"></div>
   <h2>Description</h2>
   <f:subview rendered="#{not proposal.plan.hasSections}">
@@ -53,7 +54,9 @@
         <p>
             #{section.section.content}
         </p>
-        
+        <f:subview rendered="#{not section.last}">
+            <div class="div2"></div>
+        </f:subview>
         
     
     </ice:panelSeries>

@@ -21,8 +21,10 @@ public class PlanSectionWrapper {
     private PlanItemWrapper piw;
     private List<Long> referencedPlans;
     private String oryginalContent;
+    private boolean last;
+    
 
-    public PlanSectionWrapper(PlanSection section, PlanItemWrapper planItemWrapper) throws NoSuchPlanItemException, SystemException {
+    public PlanSectionWrapper(PlanSection section, PlanItemWrapper planItemWrapper, boolean last) throws NoSuchPlanItemException, SystemException {
         this.section = section;
         piw = planItemWrapper;
         referencedPlans = new ArrayList<Long>();
@@ -31,6 +33,7 @@ public class PlanSectionWrapper {
         }
         oryginalContent = section.getContent();
         
+        this.setLast(last);
         
     }
 
@@ -90,6 +93,14 @@ public class PlanSectionWrapper {
 
     public String getOriginalContent() {
         return oryginalContent;
+    }
+
+    public void setLast(boolean last) {
+        this.last = last;
+    }
+
+    public boolean isLast() {
+        return last;
     }
     
     

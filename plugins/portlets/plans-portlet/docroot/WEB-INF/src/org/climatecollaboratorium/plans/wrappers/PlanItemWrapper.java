@@ -218,7 +218,7 @@ public class PlanItemWrapper {
         setDescriptionSet(plan.getDescription().trim().length() != 0);
         name = plan.getName();
         description = plan.getDescription();
-        planAbstract = plan.getPitch();
+        newAbstract = plan.getPitch();
 
         planMode = PlanMode.getMode(wrapped);
         planStatus = PlanStatusSelection.getStatus(wrapped);
@@ -435,7 +435,7 @@ public class PlanItemWrapper {
 
         description = wrapped.getDescription();
         name = wrapped.getName();
-        planAbstract = wrapped.getPitch();
+        newAbstract = wrapped.getPitch();
         sections = null;
         // planAbstract = planDescriptionHistoryItem.getWrapped();
     }
@@ -829,7 +829,7 @@ public class PlanItemWrapper {
     public void refresh() throws SystemException {
         name = wrapped.getName();
         description = wrapped.getDescription();
-        planAbstract = getAbstractAttribute();
+        newAbstract = wrapped.getPitch();
         sections.clear();
         sectionsShown.clear();
     }
@@ -839,7 +839,7 @@ public class PlanItemWrapper {
     }
 
     public String getAbstract() throws SystemException {
-        return planAbstract;
+        return newAbstract;
     }
 
     private String getAbstractAttribute() throws SystemException {
@@ -858,8 +858,9 @@ public class PlanItemWrapper {
         if (sections == null && wrapped.getPlanSections() != null) {
             sections = new ArrayList<PlanSectionWrapper>();
             for (PlanSection ps : wrapped.getPlanSections()) {
-                sections.add(new PlanSectionWrapper(ps, this));
+                sections.add(new PlanSectionWrapper(ps, this, false));
             }
+            sections.get(sections.size()-1).setLast(true);
         }
         return sections;
     }
@@ -1000,7 +1001,7 @@ public class PlanItemWrapper {
     }
 
     public String getOriginalAbstract() throws SystemException {
-        return getAbstractAttribute();
+        return wrapped.getPitch();
     }
 
     public String getOriginalTeam() throws SystemException {

@@ -418,7 +418,9 @@ public class PlanBean {
             }
             availableTabs.add(new PlanTabWrapper(planItem, PlanTab.TEAM));
             availableTabs.add(new PlanTabWrapper(planItem, PlanTab.COMMENTS));
-            availableTabs.add(new PlanTabWrapper(planItem, PlanTab.ADMIN));
+            if (permissions.getCanAdmin()) {
+                availableTabs.add(new PlanTabWrapper(planItem, PlanTab.ADMIN));
+            }
         }
         
         return availableTabs;
