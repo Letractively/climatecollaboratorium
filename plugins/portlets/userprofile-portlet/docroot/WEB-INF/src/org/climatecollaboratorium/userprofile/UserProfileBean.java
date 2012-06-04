@@ -1,6 +1,5 @@
 package org.climatecollaboratorium.userprofile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +7,6 @@ import java.util.Map;
 import javax.faces.event.ActionEvent;
 import javax.mail.internet.AddressException;
 
-import com.ext.portlet.Activity.ActivityConstants;
-import com.ext.portlet.Activity.ActivityUtil;
 import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.messaging.MessageConstants;
 import com.ext.portlet.messaging.MessageUtil;
@@ -22,7 +19,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
-import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.util.mail.MailEngineException;
@@ -32,6 +28,10 @@ public class UserProfileBean {
     private User wrappedUser;
     private final static String USER_ID_PARAM = "userId";
     private final static Log _log = LogFactoryUtil.getLog(UserProfileBean.class);
+    private static final String PAGE_PARAM = "page";
+    private static final String PAGE_PARAM_SUBSCRIPTIONS = "subscriptions";
+    private static final String PAGE_PARAM_MANAGE_SUBSCRIPTIONS = "subscriptionsManage";
+    private static final String PAGE_PARAM_EDIT_PROFILE = "edit";
     private boolean viewingOwnProfile = false;
     private boolean editing = false;
     private String messageText;
@@ -70,11 +70,26 @@ public class UserProfileBean {
             
         }
         
+        if (parameters.containsKey(PAGE_PARAM)) {
+            if (PAGE_PARAM_SUBSCRIPTIONS.equals(parameters.get(PAGE_PARAM)))
+                pageType = PageType.SUBSCRIPTIONS_VIEW;
+            
+        }
+        
+        
         if (wrappedUser != null && 
                 Helper.isUserLoggedIn() && 
                 wrappedUser.getUserId() == Helper.getLiferayUser().getUserId()) {
             // user is logged in and is viewing his own profile
             viewingOwnProfile = true;
+
+            if (parameters.containsKey(PAGE_PARAM)) {
+                if (PAGE_PARAM_MANAGE_SUBSCRIPTIONS.equals(parameters.get(PAGE_PARAM)))
+                    pageType = PageType.SUBSCRIPTIONS_MANAGE;
+                else if (PAGE_PARAM_EDIT_PROFILE.equals(parameters.get(PAGE_PARAM))) 
+                    pageType = PageType.PROFILE_EDIT;
+            }
+            
         }
         
     }
