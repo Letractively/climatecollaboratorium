@@ -56,48 +56,64 @@
 
 		%>
 
-		<h2><%= entry.getTitle() %></h2>
-        <div class="comm_meta">
-            <div class="comm_date">
-                <%= entryDateFormat.format(entry.getDisplayDate()) %>
-            
+        <c:if test='<%= !displayStyle.endsWith("-without-title") %>'>
+		  <h4><a href="<%= viewEntryURL %>"><%= entry.getTitle() %></a></h4>
+        </c:if>
+        
+        <c:if test='<%= !displayStyle.equals("title") %>'>
+            <div class="comm_meta">
+                <div class="comm_date">
+                    <%= entryDateFormat.format(entry.getDisplayDate()) %>
+                </div>
+                <div class="comm_icons">
+                    <a href="<%= viewEntryURL %>#_33_messages_top" title="comments">
+                        <c:if test="<%= messagesCount > 0 %>">
+                            <img src="/collaboratorium-theme/images/icon_comments2.gif" width="25" height="23" alt="messagesCount comments" />&nbsp;<%= messagesCount %>
+                        </c:if>
+                        <c:if test="<%= messagesCount <= 0 %>">
+                            <img src="/collaboratorium-theme/images/icon_comments2-none.gif" width="25" height="23" alt="no comments" /> 
+                        </c:if>
+                    </a>
+                
+                    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact"
+                        addthis:url="<%= HtmlUtil.escape(viewEntryURL) %>"
+                        addthis:title="<%= HtmlUtil.escape(entry.getTitle()) %>"
+                        addthis:description="<%= HtmlUtil.escape(HtmlUtil.extractText(entry.getContent()).substring(0,255)) %>"
+                    >
+                        <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
+                    </a>
+                    <!-- AddThis Button BEGIN -->
+                    <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+                    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=climatecolab"></script>
+                    <!-- AddThis Button END -->
+                </div>
             </div>
-            <div class="comm_icons">
-                <a href="<%= viewEntryURL %>#_33_messages_top" title="comments">
-                    <c:if test="<%= messagesCount > 0 %>">
-                        <img src="/collaboratorium-theme/images/icon_comments2.gif" width="25" height="23" alt="messagesCount comments" />&nbsp;<%= messagesCount %>
-                    </c:if>
-                    <c:if test="<%= messagesCount <= 0 %>">
-                        <img src="/collaboratorium-theme/images/icon_comments2-none.gif" width="25" height="23" alt="no comments" /> 
-                    </c:if>
-                </a>
-                
-                
-                <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact"
-                      addthis:url="<%= HtmlUtil.escape(viewEntryURL) %>"
-                      addthis:title="<%= HtmlUtil.escape(entry.getTitle()) %>"
-                      addthis:description="<%= HtmlUtil.escape(HtmlUtil.extractText(entry.getContent()).substring(0,255)) %>"
-                
-                >
-                    <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
-                </a>
-                <!-- AddThis Button BEGIN -->
-                <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
-                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=climatecolab"></script>
-                <!-- AddThis Button END -->
-                
-            </div>
-        </div>
 
-		<liferay-ui:tags-summary
-			className="<%= BlogsEntry.class.getName() %>"
-			classPK="<%= entry.getEntryId() %>"
-		/>
-    </div>
-    <div class="comm_div"></div>
-
-     <%= entry.getContent() %>
+		    <liferay-ui:tags-summary
+			     className="<%= BlogsEntry.class.getName() %>"
+			     classPK="<%= entry.getEntryId() %>"
+		    />
     
+        <c:choose>
+            <c:when test='<%= displayStyle.startsWith("abstract") %>'>
+                <%= StringUtil.shorten(HtmlUtil.stripHtml(entry.getContent()), 500, StringPool.BLANK) %>
+            </c:when>
+            <c:when test='<%= displayStyle.startsWith("quote") %>'>
+                <span class="quote">
+                    <a href="<%= viewAllEntriesURL %>">
+                        &quot;<%= StringUtil.shorten(StringUtil.trim(HtmlUtil.stripHtml(entry.getContent())), 100, StringPool.BLANK) %> ...&quot;
+                        <span class="nobreak"><liferay-ui:message key="read-more" /> &raquo;</span>
+                    </a>
+                </span>
+            </c:when>
+            <c:otherwise>
+                <%= entry.getContent() %>
+            </c:otherwise>
+        </c:choose>
     
         <p><a href="<%= viewEntryURL %>">Read more...</a></p>
-	</c:if>
+        
+        <div class="div2"></div>
+     </c:if>
+    </div>
+</c:if>

@@ -428,6 +428,9 @@
             <forward name="portlet.ext.landingpage.view" path="portlet.ext.landingpage.view"/>
         </action>
         
+        <!-- landing page tool -->
+        <action path="/ext/blogs_stats/view" forward="portlet.ext.blogs_stats.view" />
+        
         
 
     </action-mappings>

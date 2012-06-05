@@ -127,5 +127,6 @@
         <portlet id="messaging" />
         <portlet id="loginregister" />
         <portlet id="landingpage" />
+        <portlet id="blogs_stats" />
 	</category>
 </display>

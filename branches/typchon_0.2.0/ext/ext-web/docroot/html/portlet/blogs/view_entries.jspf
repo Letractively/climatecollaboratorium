@@ -27,7 +27,7 @@ boolean showAddEntryButton = BlogsPermission.contains(permissionChecker, scopeGr
 boolean showPermissionsButton = GroupPermissionUtil.contains(permissionChecker, scopeGroupId, ActionKeys.PERMISSIONS);
 showSearch = showSearch && (results.size() > 0);
 %>
-
+<!-- 
   <div id="bread" class="pro">
     <a href="/web/guest/community">Community</a>
     <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
@@ -35,7 +35,7 @@ showSearch = showSearch && (results.size() > 0);
     <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
     History
   </div>
-
+ -->
 <c:if test="<%= showAddEntryButton %>">
     <input id="<portlet:namespace />addEntryButton" type="button" value="<liferay-ui:message key="add-blog-entry" />" onClick="location.href = '<portlet:renderURL><portlet:param name="struts_action" value="/blogs/edit_entry" /><portlet:param name="redirect" value="<%= currentURL %>" /></portlet:renderURL>';" />
 </c:if>

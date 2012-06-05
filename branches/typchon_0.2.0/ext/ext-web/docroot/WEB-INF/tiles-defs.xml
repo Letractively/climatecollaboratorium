@@ -295,4 +295,9 @@
     <definition name="portlet.ext.landingpage.view" extends="portlet">
             <put name="portlet_content" value="/portlet/ext/landingpage/view.jsp" />
     </definition>
+    
+     <!-- Autologin tool -->
+    <definition name="portlet.ext.blogs_stats.view" extends="portlet">
+        <put name="portlet_content" value="/portlet/ext/blogs_stats/view.jsp" />
+    </definition>
 </tiles-definitions>
