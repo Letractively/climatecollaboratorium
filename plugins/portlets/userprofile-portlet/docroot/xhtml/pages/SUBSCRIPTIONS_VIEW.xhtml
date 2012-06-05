@@ -22,16 +22,15 @@
   
     <div class="main_long">
                  <ice:form>
-    
-      <div class="comm_disc-head">        
-        <div class="comm_info-left subscriptions">Activities</div>
-      </div>
+      <h1>#{currentUser.screenName} subscribed activities</h1>
       <ice:dataTable var="activity" value="#{userprofileBean.subscribedActivities}" id="activitiesTable" styleClass="colab" rowClasses='nt,t' rows="50">
         <ice:column style="width: 585px">
+            <f:facet name="header">Activity</f:facet>
             #{activity.body}
         </ice:column>
         
         <ice:column style="width: 140px">
+            <f:facet name="header">Date</f:facet>
                 <ice:outputText value="#{activity.createdDate}">
                     <f:convertDateTime pattern="MM/dd/yy hh:mm a"/>
                 </ice:outputText>
