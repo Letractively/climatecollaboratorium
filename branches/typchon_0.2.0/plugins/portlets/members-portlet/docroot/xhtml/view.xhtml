@@ -168,6 +168,16 @@
                         <f:attribute name="category" value="STAFF" />
                     </ice:commandLink>
                 </li>
+                <li class="#{membersBean.categoryFilter == 'ADVISOR' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Advisors" onclick="Collab.nav.navigateAddParams('members', {filter: 'ADVISOR'}); return false;">
+                        <f:attribute name="category" value="ADVISOR" />
+                    </ice:commandLink>
+                </li>
+                <li class="#{membersBean.categoryFilter == 'FELLOW' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Fellows" onclick="Collab.nav.navigateAddParams('members', {filter: 'FELLOW'}); return false;">
+                        <f:attribute name="category" value="FELLOW" />
+                    </ice:commandLink>
+                </li>
             </ul>
         </ice:form>
       </div>
