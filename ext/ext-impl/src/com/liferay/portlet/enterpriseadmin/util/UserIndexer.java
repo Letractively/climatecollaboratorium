@@ -277,7 +277,21 @@ public class UserIndexer implements Indexer {
 	    List<String> categories = new ArrayList<String>();
 	    
 	    for (Long roleId: user.getRoleIds()) {
+	        try {
+	        Role r = RoleLocalServiceUtil.getRole(roleId);
+	        if (r.getName().equals("Fellow") || r.getName().equals("Advisor")) {
+	            System.out.println("Mam role!");
+	        }
+	        }
+	        catch (Exception e) {
+	            // ignoree
+	        }
+	            
 	        if (roleIdToCategoryMap.containsKey(roleId)) {
+	            if (roleIdToCategoryMap.get(roleId) == MemberCategory.ADVISOR || roleIdToCategoryMap.get(roleId) == MemberCategory.FELLOW) {
+	                System.out.println("member/fellow");
+	            }
+	            
 	            categories.add(roleIdToCategoryMap.get(roleId).name());
 	        }
 	    }
@@ -286,7 +300,6 @@ public class UserIndexer implements Indexer {
 	}
 	
 	private static synchronized void initRoleIdToCategoryMap() {
-        if (roleIdToCategoryMap == null) {
             roleIdToCategoryMap = new HashMap<Long, MemberCategory>();
 
             for (MemberCategory category : MemberCategory.values()) {
@@ -298,7 +311,6 @@ public class UserIndexer implements Indexer {
                 } catch (SystemException e) {
                     _log.error("Can't find role for user category " + category, e);
                 }
-            }
         }
 	}
 
