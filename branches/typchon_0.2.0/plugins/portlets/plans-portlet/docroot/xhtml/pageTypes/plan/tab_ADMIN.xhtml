@@ -112,9 +112,9 @@
             <h2>Owner actions</h2>
             
             <div class="admin_box">
-                <div class="buttgrid">
+                <div class="blue-button">
                     <ice:commandLink rendered="#{permissions.canAdmin}"  actionListener="#{planBean.plan.delete}" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }">
-                        <span>DELETE</span> plan
+                        DELETE plan
                     </ice:commandLink>
                 </div>
             </div>
