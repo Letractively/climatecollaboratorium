@@ -335,7 +335,7 @@ position: relative;
 
 
 /* community - news */
-.comm_news { margin-top:30px; padding-bottom:10px; }
+.comm_news { padding-bottom:10px; margin-top: 10px;}
 .comm_news p { padding-left:5px; }
 #main .comm_news h2 { margin:0; padding-left:5px; }
 .comm_meta { height:25px; padding-left:5px;}
@@ -345,7 +345,9 @@ position: relative;
 .comm_icons img  { vertical-align:middle;}
 .comm_icons a { font-size:14px; font-weight:600; padding-bottom:0; border-bottom:none; }
     .wf-active .comm_icons a { font-size:16px; }
-.comm_div { background:url(../images/grid.gif); height:16px; clear:both; margin:25px 0;}
+/*.comm_div { background:url(../images/grid.gif); height:16px; clear:both; margin:25px 0;}*/
+.portlet-blogs .edit-actions {text-align: right; margin-top: 5px; margin-bottom: 5px;}
+.portlet-blogs .edit-actions table {width: auto; float: right;}
 
 .icon_share { padding-left:20px; }
 
@@ -357,7 +359,7 @@ position: relative;
     .wf-active .featured_expert-name { font-size:16px; }
 .featured_expert p { padding:0 15px; margin-bottom:10px; font:12px/21px Verdana, Geneva, sans-serif; }
 
-.comm_rightcol-bdr { border-bottom:3px solid #e7f1f5; padding-bottom:10px; margin-top:40px; }
+.comm_rightcol-bdr { border-bottom:3px solid #e7f1f5; padding-bottom:10px; margin-top:0px; }
 .comm_rightcol { padding-bottom:10px; margin-top:40px; }
 .comm_rightcol-title { background:#e7f1f5; height:22px; padding:10px 0 0 8px; font-size:12px; line-height:normal; font-weight:600; color:#444; margin-bottom:15px; }
     .wf-active .comm_rightcol-title { font-size:14px; }
@@ -365,6 +367,7 @@ position: relative;
     .wf-active .comm_rightcol-title2 { font-size:14px; }
 .comm_rightcol-time { color:#000; padding:0 10px; font:12px/21px Verdana, Geneva, sans-serif;}
 .comm_rightcol p, .comm_rightcol-bdr p { color:#666; padding:0 10px; margin-bottom:15px; font:12px/21px Verdana, Geneva, sans-serif;}
+ul#blogArchives li {list-style: none; margin-bottom: 10px; background: none;}
 
 
 /*  HELP BOXES  --------------------------------------------------- */
