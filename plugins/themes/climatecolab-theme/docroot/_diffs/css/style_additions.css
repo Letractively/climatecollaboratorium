@@ -283,12 +283,9 @@ input.comm_butt[type="submit"]:focus
 
 #bread {
     margin: -10px 0 20px 0;
-    font-size: 0.8em;
+    font-size: 14px;
     padding: 5px;
-    border: 1px dashed #aaa;
-    border-left: 0;
-    border-right: 0;
-    
+    border: 0;
     
 }
 
