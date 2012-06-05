@@ -655,7 +655,7 @@ h2.debate-issue { color:#318eb5; font-weight:400; margin:50px 0 10px 0;}
 .info-left img.spc { margin-left:40px;}
 .info-left span {color:#66b035; font-size:30px; font-weight:600; padding-right:5px; font-style:normal;}
 	.wf-active .info-left span { font-size:32px; }
-.pager { float:right; width:400px; height:20px; text-align:right; padding-top:30px;}
+.pager { float:right; width:600px; height:20px; text-align:right; padding-top:30px;}
 .pager .page { background:#f3f3ed; padding:5px 10px; margin:0 10px; font-style:italic;}
 .pager .vdiv { color:#b8b8b8;}
 .pager .navigate { font-weight:600; font-style:normal; margin-top:10px; font-size:13px;}
