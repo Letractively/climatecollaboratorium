@@ -46,6 +46,7 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter implem
     public static String PLAN_NAME_UPDATED="%s updated the name in plan %s";
     public static String PLAN_SUPPORTED="%s became a supporter of plan %s";
     public static String PLAN_UNSUPPORTED="%s is no longer a supporter of plan %s";
+    public static String CHANGE_IMAGE="%s changed image of plan %s";
 
 	public static Map<PlanActivityKeys,String> msgMap = new HashMap<PlanActivityKeys,String>();
 	static {
@@ -63,6 +64,7 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter implem
         msgMap.put(PlanActivityKeys.REMOVE_PLAN, PLAN_REMOVED);
         msgMap.put(PlanActivityKeys.BECOME_A_SUPPORTER, PLAN_SUPPORTED);
         msgMap.put(PlanActivityKeys.STOPPED_BEEING_A_SUPPORTER, PLAN_UNSUPPORTED);
+        msgMap.put(PlanActivityKeys.CHANGE_IMAGE, CHANGE_IMAGE);
 
 	}
 
