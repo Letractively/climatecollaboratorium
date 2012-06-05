@@ -1,6 +1,7 @@
 package org.climatecollaboratorium.members;
 
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.liferay.portal.PortalException;
@@ -31,7 +32,14 @@ public class MemberListItemBean {
         
         
         joinDate = userDoc.getDate("joinDate");
-        category = MemberCategory.valueOf(userDoc.getValues("memberCategory")[0]);
+        if (userDoc.getValues("memberCategory").length > 0) {
+            try {
+                category = MemberCategory.valueOf(userDoc.getValues("memberCategory")[0]);
+            }
+            catch (java.lang.IllegalArgumentException e) {
+                // ignore
+            }
+        }
         
     }
     
