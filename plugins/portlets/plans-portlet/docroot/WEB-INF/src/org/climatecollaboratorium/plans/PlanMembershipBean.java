@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.messaging.MessageUtil;
 import com.ext.portlet.models.ui.IllegalUIConfigurationException;
 import com.ext.portlet.plans.PlanUserPermission;
 import com.ext.portlet.plans.model.PlanItem;
@@ -8,17 +9,23 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.MembershipRequest;
 import com.liferay.portal.model.User;
+import com.liferay.util.mail.MailEngineException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.mail.internet.AddressException;
 
 import org.climatecollaboratorium.plans.wrappers.PlanMember;
 
 public class PlanMembershipBean {
+    private static final String MSG_MEMBERSHIP_REQUEST_SUBJECT = "%s wants to join your proposal %s";
+    private static final String MSG_MEMBERSHIP_REQUEST_CONTENT = "User %s has requested to join your proposal %s. Click <a href='%s'>here</a> to respond to it.";
+    private static final String PROPOSAL_URL = "%s/web/guest/plans/-/plans/contestId/%d/planId/%d#plans%%3Dtab%%3AADMIN";
     private PlanItem plan;
     private PlanBean planBean;
     private List<PlanMember> planMembers;
@@ -91,10 +98,26 @@ public class PlanMembershipBean {
         return planMembershipRequests;
     }
 
-    public void requestMembership(ActionEvent e) throws PortalException, SystemException {
+    public void requestMembership(ActionEvent e) throws PortalException, SystemException, AddressException, MailEngineException {
         if (Helper.isUserLoggedIn()) {
             plan.addMembershipRequest(Helper.getLiferayUser().getUserId(), comment.length() == 0 ? "No comments" : comment);
             planBean.refresh();
+            List<Long> receipients = new ArrayList<Long>();
+            receipients.add(plan.getAuthorId());
+            
+            String requestUrl = Helper.getRequest().getRequestURL().toString();
+            
+            
+            
+            
+            String proposalUrl = String.format(PROPOSAL_URL, requestUrl.substring(0, requestUrl.indexOf("/", 10)), 
+                    plan.getContest().getContestPK(), plan.getPlanId());
+            String subject = String.format(MSG_MEMBERSHIP_REQUEST_SUBJECT, Helper.getLiferayUser().getFullName(), plan.getName());
+            String content = String.format(MSG_MEMBERSHIP_REQUEST_CONTENT, Helper.getLiferayUser().getFullName(), plan.getName(), proposalUrl);
+            
+            MessageUtil.sendMessage(subject, content, 
+                    Helper.getLiferayUser().getUserId(), 
+                    Helper.getLiferayUser().getUserId(), receipients, null);
         }
     }
 

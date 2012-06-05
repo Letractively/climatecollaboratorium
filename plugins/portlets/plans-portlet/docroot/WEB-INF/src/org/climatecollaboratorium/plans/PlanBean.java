@@ -116,6 +116,11 @@ public class PlanBean {
                 Integer tmp = tabNameIndexMap.get(parameters.get("tab"));
                 selectedTabIndex = tmp != null ? tmp : getDefaultTab();
                 currentTab = PlanTab.valueOf(parameters.get("tab").toUpperCase());
+                if (currentTab == PlanTab.ADMIN) {
+                    if (! permissions.getCanAdmin()) {
+                        currentTab = PlanTab.DESCRIPTION;
+                    }
+                }
             }
             catch (Exception e) {
                 _log.error("Can't parse tab number: " + parameters.get("tab"), e);
