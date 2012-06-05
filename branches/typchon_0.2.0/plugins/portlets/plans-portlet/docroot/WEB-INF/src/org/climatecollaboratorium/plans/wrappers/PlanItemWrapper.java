@@ -885,12 +885,13 @@ public class PlanItemWrapper {
 
     public void saveContent(ActionEvent e) throws SystemException, PortalException, UserInputException {
         if (Helper.isUserLoggedIn()) {
+            boolean descriptionChanged = false;
+            
             if (description != null && (wrapped.getDescription() == null || !description.trim().equals(wrapped.getDescription().trim()))) {
                 String savedDescription = UserInputFilterUtil.filterHtml(description);
                 
                 wrapped.setDescription(savedDescription, Helper.getLiferayUser().getUserId());
-                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
-                        PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_DESCRIPTION.id(), null, 0);
+                descriptionChanged = true;
                 eventBus.fireEvent(new PlanUpdatedEvent(wrapped));
             }
 
@@ -928,7 +929,7 @@ public class PlanItemWrapper {
 
             if (sections != null) {
                 for (PlanSectionWrapper psw : sections) {
-                    psw.save(e);
+                    descriptionChanged |= psw.save(e);
                 }
             }
             if (newTeam != null && (wrapped.getTeam() == null || !wrapped.getTeam().trim().equals(newTeam.trim()))) {
@@ -937,6 +938,11 @@ public class PlanItemWrapper {
 
             if (newAbstract != null && (wrapped.getPitch() == null || !wrapped.getPitch().trim().equals(newAbstract.trim()))) {
                 wrapped.setPitch(newAbstract, Helper.getLiferayUser().getUserId());
+                descriptionChanged = true;
+            }
+            if (descriptionChanged) {
+                SocialActivityLocalServiceUtil.addActivity(td.getUserId(), td.getScopeGroupId(),
+                        PlanItem.class.getName(), wrapped.getPlanId(), PlanActivityKeys.EDIT_DESCRIPTION.id(), null, 0);
             }
 
         }

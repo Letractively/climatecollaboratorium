@@ -53,13 +53,18 @@ public class PlanSectionWrapper {
         editing = !editing;
     }
     
-    public void save(ActionEvent e) throws NoSuchPlanItemException, PortalException, SystemException {
+    public boolean save(ActionEvent e) throws NoSuchPlanItemException, PortalException, SystemException {
+        boolean changed = false;
         if (Helper.isUserLoggedIn() && !section.getContent().trim().equals(oryginalContent)) {
             
             PlanItemLocalServiceUtil.getPlan(section.getPlanId())
                     .setSectionContent(section.getDefinition(), section.getContent(), referencedPlans, Helper.getLiferayUser().getUserId());
+            changed = true;
         }
         toggleEditing(e);
+        
+        return changed;
+        
     }
     
     public List<SelectItem> getPlansForReference() throws PortalException, SystemException {
