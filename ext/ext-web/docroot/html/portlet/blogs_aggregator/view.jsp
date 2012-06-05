@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%
 /**
  * Copyright (c) 2000-2009 Liferay, Inc. All rights reserved.
@@ -33,6 +34,7 @@ portletURL.setParameter("struts_action", "/blogs_aggregator/view");
 SearchContainer searchContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, 5, portletURL, null, null);
 
 List entries = null;
+
  
 if (selectionMethod.equals("users")) {
 	if (organizationId > 0) {
@@ -54,7 +56,6 @@ List results = ListUtil.subList(entries, searchContainer.getStart(), searchConta
 
 searchContainer.setResults(results);
 %>
-
 <%@ include file="/html/portlet/blogs_aggregator/view_entries.jspf" %>
 
 <c:if test="<%= windowState.equals(WindowState.MAXIMIZED) %>">
@@ -63,8 +64,3 @@ searchContainer.setResults(results);
 	</script>
 </c:if>
 
-<div id="content_inner">
-    <div class="comm_div"></div>
-    <div class="floatRight"><a href="/web/guest/news/">Older posts...</a></div>
-    <div class="clear"></div>
-</div>

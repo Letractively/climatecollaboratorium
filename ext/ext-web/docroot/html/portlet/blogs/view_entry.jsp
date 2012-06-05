@@ -47,7 +47,7 @@ TagsAssetLocalServiceUtil.incrementViewCounter(BlogsEntry.class.getName(), entry
 
 TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(BlogsEntry.class.getName(), entry.getEntryId(), true));
 %>
-
+<!-- 
   <div id="bread" class="pro">
     <a href="/web/guest/community">Community</a>
     <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
@@ -55,6 +55,7 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Blog
     <img src="/collaboratorium-theme/images/arrow.gif" width="8" height="8" />
     <%= entry.getTitle() %>
   </div>
+   -->
   <div id="content_inner">
 
 <form action="<portlet:actionURL><portlet:param name="struts_action" value="/blogs/edit_entry" /></portlet:actionURL>" method="post" name="<portlet:namespace />fm1" onSubmit="<portlet:namespace />saveEntry(); return false;">

@@ -121,6 +121,12 @@ i<?xml version="1.0"?>
         <use-default-template>false</use-default-template>
         <instanceable>false</instanceable>
     </portlet>
+    <portlet>
+        <portlet-name>blogs_stats</portlet-name>
+        <struts-path>ext/blogs_stats</struts-path>
+        <use-default-template>false</use-default-template>
+        <instanceable>false</instanceable>
+    </portlet>
 
 	<!--
 	Liferay Portlets
