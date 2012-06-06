@@ -569,7 +569,9 @@ a.get:hover {background:url(../images/homespot-get-hover.png) no-repeat;}
 .edit-prop {font-size:13px;}
 .edit-prop a {font-weight:700;}
 .edit-prop-butts {float:left; margin-right:5px;}
-.edit-prop-butts a {height:20px; padding:3px 10px 0; margin-right:5px; display:inline-block; background:#0f558a; font-size:14px; color:#fff;  -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.edit-prop-butts a, .edit-prop-butts span {height:20px; padding:3px 10px 0; margin-right:5px; display:inline-block; background:#0f558a; font-size:14px; color:#fff;  -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+.edit-prop-butts span { background:#b4b4b4; font-weight: 700;}
+
 .lastedited {float:left; height:19px; padding-top:4px;}
 
 /* proposal columns */

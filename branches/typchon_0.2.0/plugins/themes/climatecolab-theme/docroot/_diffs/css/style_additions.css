@@ -900,3 +900,8 @@ display: inline;
 	vertical-align: middle;
 	margin-right: 20px;
 }
+
+#invalidFieldsList li {
+	margin-bottom: 10px;
+	font-weight: 700;
+}
