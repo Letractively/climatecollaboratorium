@@ -71,8 +71,12 @@
                         </f:subview>
                     </h4>
                 </div>
-                <div class="thumbbox">#{singleProposal.supportersCount}</div>
-                <div class="commbox">#{singleProposal.commentsCount}</div>
+                <div class="thumbbox">
+                    <collab:planLink planId="#{singleProposal.planId}" contestId="#{singleProposal.contestId}" text="#{singleProposal.supportersCount}" hashString="plans%3Dtab%3ATEAM"/>
+                </div>
+                <div class="commbox">
+                    <collab:planLink planId="#{singleProposal.planId}" contestId="#{singleProposal.contestId}" text="#{singleProposal.commentsCount}" hashString="plans%3Dtab%3ACOMMENTS" />
+                </div>
                 <div class="modbox">
                     <ice:outputText value="#{singleProposal.lastModifiedDate}" >
                         <f:convertDateTime pattern="d/MM/yy" />
