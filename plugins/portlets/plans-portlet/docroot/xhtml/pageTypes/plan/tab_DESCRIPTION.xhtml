@@ -19,7 +19,7 @@
     <ice:form>
             <div class="versionsContainer hidden">
             <div class="versions">
-                <ice:dataTable value="#{planBean.plan.allDescriptionVersions}" rows="10" var="historyItem" styleClass="historyTable" rowClasses="odd,even">
+                <ice:dataTable value="#{planBean.plan.allDescriptionVersions}" rows="20" var="historyItem" styleClass="historyTable" rowClasses="odd,even">
                     <ice:column style="width: 400px;">
                         <ice:commandLink onclick="showAlertIfInEdit('Changing version will remove all changes that have been done, are you sure?'); triggerVersionsContainerVisibility();"
                                 value="#{historyItem.updateDate}" actionListener="#{planBean.plan.selectDescriptionVersion}">

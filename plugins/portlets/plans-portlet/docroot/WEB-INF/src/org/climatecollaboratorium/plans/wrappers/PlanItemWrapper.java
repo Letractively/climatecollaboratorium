@@ -112,6 +112,7 @@ public class PlanItemWrapper {
     private Set<Long> sectionsShown = new HashSet<Long>();
     private List<PlanSectionWrapper> sections = null;
     private String newTeam;
+    private boolean viewingLatest = true;
 
     static {
         for (String region : regionsDevelopedArr) {
@@ -437,6 +438,7 @@ public class PlanItemWrapper {
         name = wrapped.getName();
         newAbstract = wrapped.getPitch();
         sections = null;
+        viewingLatest = ((PlanHistoryWrapper) evt.getComponent().getAttributes().get("item")).isLatest();
         // planAbstract = planDescriptionHistoryItem.getWrapped();
     }
 
@@ -560,6 +562,18 @@ public class PlanItemWrapper {
 
     public Long getGroupId() throws SystemException {
         return wrapped.getPlanGroupId();
+    }
+    
+    public Date getUpdated() throws SystemException {
+        return wrapped.getUpdated();
+    }
+    
+    public Long getUpdateAuthorId() throws SystemException {
+        return wrapped.getUpdateAuthorId();
+    }
+    
+    public String getUpdateAuthorScreenName() throws SystemException, PortalException {
+        return wrapped.getUpdateAuthor().getScreenName();
     }
 
     public List<PlanFan> getPlanFans() throws SystemException {
@@ -1018,6 +1032,28 @@ public class PlanItemWrapper {
         return wrapped.getDescription();
     }
 
+    public void setViewingLatest(boolean viewingLatest) {
+        this.viewingLatest = viewingLatest;
+    }
+
+    public boolean isViewingLatest() {
+        return viewingLatest;
+    }
+    
+
+    public void revertTo(ActionEvent e) throws PortalException, SystemException {
+        if (Helper.isUserLoggedIn()) {
+            wrapped.revertTo(Helper.getLiferayUser().getUserId());
+            planBean.toggleEditing(e);
+            planBean.refresh();
+            
+        }
+    }
+    
+    public void goToCurrent(ActionEvent e) throws PortalException, SystemException {
+        planBean.refresh();
+    }
+
     public static class Tuple {
         private Object first;
         private Object second;
@@ -1047,5 +1083,6 @@ public class PlanItemWrapper {
 
         }
     }
+    
 
 }
