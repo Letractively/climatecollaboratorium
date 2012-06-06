@@ -42,7 +42,7 @@
         </div>
         <div class="addpropbox blue q2">
             <label>
-                <span>Team name<br />
+                <span><strong>Team name</strong><br />
                 <em>optional</em></span> 
                 <a class="helpTrigger" href="javascript:;"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
                 20 characters
@@ -61,7 +61,7 @@
         
         <div class="addpropbox blue">
             <label>
-                <span>Proposal image<br />
+                <span><strong>Proposal image</strong><br />
                 <em>optional</em></span>
             </label>
             <ice:panelGroup styleClass="upload proposalImageUpload">
@@ -170,6 +170,24 @@
                 trigger.parent().parent().find(".addprophelp").slideToggle("fast");
             });
             
+            window.validatePlanEditForm = function() {
+                var invalidFieldsList = jQuery("#invalidFieldsList");
+                invalidFieldsList.html("");
+                
+                var isValid = true;
+                jQuery("input[type='text'].invalid, textarea.invalid").each(function() {
+                    var x = jQuery(this).parents(".addpropbox");
+                    console.log(x, x.find("strong"), x.find("strong").text());
+                    invalidFieldsList.append("&lt;li&gt;" + jQuery(this).parents(".addpropbox").find("strong").text() + "&lt;/li&gt;");
+                    
+                    isValid = false;   
+                });
+                if (!isValid) {
+                    jQuery("#invalidFieldsPopupContainer").show();
+                }
+                
+                return isValid;
+            };
             
             function countCharacters(input) {
                 var tmp = input;
@@ -194,9 +212,11 @@
                 var count = countCharacters(input);
                 if (count >= 1 * max) {
                     elem.limitCharacterCounter.parent().addClass('overflow');
+                    input.addClass('invalid');
                 }
                 else {
                     elem.limitCharacterCounter.parent().removeClass('overflow');
+                    input.removeClass('invalid');
                 }
                 elem.limitCharacterCounter.text(count);
             }
@@ -320,6 +340,19 @@
  </div>
 </div>
 </div>
+
+<div id="invalidFieldsPopupContainer" style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 100; display: none; ">
+<div class="popup-wrap p1" id="invalidFieldsPopup">
+ <div class="popup">
+  <h4>Form is invalid, please correct following fields:</h4>
+  <ul id="invalidFieldsList">
+  </ul>
+  <div class="btns">
+   <div class="blue-button"><a href="javascript:;" onclick="jQuery('#invalidFieldsPopupContainer').fadeOut('fast')" class="cp1-1">CLOSE</a></div>
+  </div>
+ </div>
+</div>
+</div>
     
     <div class="admin-overlay-wrap">
         <div class="admin-overlay">
@@ -334,7 +367,7 @@
                         </f:subview>
                     <br />
                     "#{proposal.plan.name}"</p>
-                    <div class="blue-button"><ice:commandLink value="SAVE changes" actionListener="#{proposal.plan.saveContent}" onclick="if (#{proposal.plan.version} &lt;= 1) {window.showAcceptTosPopup(); return false; }" /></div> 
+                    <div class="blue-button"><ice:commandLink value="SAVE changes" actionListener="#{proposal.plan.saveContent}" onclick="if (!validatePlanEditForm()) return false; if (#{proposal.plan.version} &lt;= 1) {window.showAcceptTosPopup(); return false; }" /></div> 
                     <div class="gray-button"><ice:commandLink value="DISCARD changes" actionListener="#{proposal.toggleEditing}" /></div>
                 </div>
                 <div class="admin-right">
