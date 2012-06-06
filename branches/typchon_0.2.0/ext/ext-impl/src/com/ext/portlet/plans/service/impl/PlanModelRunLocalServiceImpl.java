@@ -35,6 +35,10 @@ public class PlanModelRunLocalServiceImpl
         return this.planModelRunPersistence.findByAllByPlanId(plan.getPlanId());
     }
     
+    public PlanModelRun getForPlan(PlanItem plan) throws SystemException {
+        return this.planModelRunPersistence.fetchByPlanIdPlanVersion(plan.getPlanId(), plan.getVersion());
+     }
+    
 
     public PlanModelRun createNewVersionForPlan(PlanItem plan) throws SystemException {
         return createNewVersionForPlan(plan, true);
@@ -42,7 +46,15 @@ public class PlanModelRunLocalServiceImpl
     
     public PlanModelRun createNewVersionForPlan(PlanItem plan, boolean store) throws SystemException {
         PlanModelRun currentModelRun = this.planModelRunPersistence.fetchByCurrentByPlanId(plan.getPlanId());
-        PlanModelRun newModelRun = (PlanModelRun) currentModelRun.clone();
+        
+        return createNewVersionForPlanFrom(plan, currentModelRun, store);
+        
+    }
+    
+    public PlanModelRun createNewVersionForPlanFrom(PlanItem plan, PlanModelRun from, boolean store) throws SystemException {
+        PlanModelRun newModelRun = (PlanModelRun) from.clone();
+        PlanModelRun currentModelRun = this.planModelRunPersistence.fetchByCurrentByPlanId(plan.getPlanId());
+        
         
         newModelRun.setVersion(currentModelRun.getVersion()+1);
         newModelRun.setId(CounterLocalServiceUtil.increment(PlanModelRun.class.getName()));

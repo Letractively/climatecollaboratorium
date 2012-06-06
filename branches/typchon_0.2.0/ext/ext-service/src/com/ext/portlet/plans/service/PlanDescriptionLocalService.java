@@ -110,4 +110,9 @@ public interface PlanDescriptionLocalService {
     public com.ext.portlet.plans.model.PlanDescription createNewVersionForPlan(
         com.ext.portlet.plans.model.PlanItem plan, boolean store)
         throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanDescription createNewVersionForPlanFrom(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanDescription from, boolean store)
+        throws com.liferay.portal.SystemException;
 }

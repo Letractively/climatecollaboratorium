@@ -277,21 +277,9 @@ public class UserIndexer implements Indexer {
 	    List<String> categories = new ArrayList<String>();
 	    
 	    for (Long roleId: user.getRoleIds()) {
-	        try {
-	        Role r = RoleLocalServiceUtil.getRole(roleId);
-	        if (r.getName().equals("Fellow") || r.getName().equals("Advisor")) {
-	            System.out.println("Mam role!");
-	        }
-	        }
-	        catch (Exception e) {
-	            // ignoree
-	        }
+	        
 	            
 	        if (roleIdToCategoryMap.containsKey(roleId)) {
-	            if (roleIdToCategoryMap.get(roleId) == MemberCategory.ADVISOR || roleIdToCategoryMap.get(roleId) == MemberCategory.FELLOW) {
-	                System.out.println("member/fellow");
-	            }
-	            
 	            categories.add(roleIdToCategoryMap.get(roleId).name());
 	        }
 	    }

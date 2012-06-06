@@ -59,6 +59,14 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_ALLBYPLANID = new FinderPath(PlanModelRunModelImpl.ENTITY_CACHE_ENABLED,
             PlanModelRunModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countByAllByPlanId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FETCH_BY_PLANIDPLANVERSION = new FinderPath(PlanModelRunModelImpl.ENTITY_CACHE_ENABLED,
+            PlanModelRunModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_ENTITY, "fetchByPlanIdPlanVersion",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    public static final FinderPath FINDER_PATH_COUNT_BY_PLANIDPLANVERSION = new FinderPath(PlanModelRunModelImpl.ENTITY_CACHE_ENABLED,
+            PlanModelRunModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByPlanIdPlanVersion",
+            new String[] { Long.class.getName(), Long.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(PlanModelRunModelImpl.ENTITY_CACHE_ENABLED,
             PlanModelRunModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -127,6 +135,10 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
 
         FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURRENTBYPLANID,
             new Object[] { planModelRun.getPlanId() }, planModelRun);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDPLANVERSION,
+            new Object[] { planModelRun.getPlanId(), planModelRun.getPlanVersion() },
+            planModelRun);
     }
 
     public void cacheResult(List<PlanModelRun> planModelRuns) {
@@ -233,6 +245,13 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
         FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CURRENTBYPLANID,
             new Object[] { planModelRunModelImpl.getOriginalPlanId() });
 
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANIDPLANVERSION,
+            new Object[] {
+                planModelRunModelImpl.getOriginalPlanId(),
+                
+            planModelRunModelImpl.getOriginalPlanVersion()
+            });
+
         EntityCacheUtil.removeResult(PlanModelRunModelImpl.ENTITY_CACHE_ENABLED,
             PlanModelRunImpl.class, planModelRun.getPrimaryKey());
 
@@ -328,6 +347,32 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
                     planModelRunModelImpl.getOriginalPlanId()))) {
             FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CURRENTBYPLANID,
                 new Object[] { planModelRun.getPlanId() }, planModelRun);
+        }
+
+        if (!isNew &&
+                (!Validator.equals(planModelRun.getPlanId(),
+                    planModelRunModelImpl.getOriginalPlanId()) ||
+                !Validator.equals(planModelRun.getPlanVersion(),
+                    planModelRunModelImpl.getOriginalPlanVersion()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_PLANIDPLANVERSION,
+                new Object[] {
+                    planModelRunModelImpl.getOriginalPlanId(),
+                    
+                planModelRunModelImpl.getOriginalPlanVersion()
+                });
+        }
+
+        if (isNew ||
+                (!Validator.equals(planModelRun.getPlanId(),
+                    planModelRunModelImpl.getOriginalPlanId()) ||
+                !Validator.equals(planModelRun.getPlanVersion(),
+                    planModelRunModelImpl.getOriginalPlanVersion()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDPLANVERSION,
+                new Object[] {
+                    planModelRun.getPlanId(),
+                    
+                planModelRun.getPlanVersion()
+                }, planModelRun);
         }
 
         return planModelRun;
@@ -720,6 +765,134 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public PlanModelRun findByPlanIdPlanVersion(Long planId, Long planVersion)
+        throws NoSuchPlanModelRunException, SystemException {
+        PlanModelRun planModelRun = fetchByPlanIdPlanVersion(planId, planVersion);
+
+        if (planModelRun == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No PlanModelRun exists with the key {");
+
+            msg.append("planId=" + planId);
+
+            msg.append(", ");
+            msg.append("planVersion=" + planVersion);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchPlanModelRunException(msg.toString());
+        }
+
+        return planModelRun;
+    }
+
+    public PlanModelRun fetchByPlanIdPlanVersion(Long planId, Long planVersion)
+        throws SystemException {
+        return fetchByPlanIdPlanVersion(planId, planVersion, true);
+    }
+
+    public PlanModelRun fetchByPlanIdPlanVersion(Long planId, Long planVersion,
+        boolean retrieveFromCache) throws SystemException {
+        Object[] finderArgs = new Object[] { planId, planVersion };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_PLANIDPLANVERSION,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanModelRun WHERE ");
+
+                if (planId == null) {
+                    query.append("planId IS NULL");
+                } else {
+                    query.append("planId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (planVersion == null) {
+                    query.append("planVersion <= null");
+                } else {
+                    query.append("planVersion <= ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("id_ DESC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planId != null) {
+                    qPos.add(planId.longValue());
+                }
+
+                if (planVersion != null) {
+                    qPos.add(planVersion.longValue());
+                }
+
+                List<PlanModelRun> list = q.list();
+
+                result = list;
+
+                PlanModelRun planModelRun = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDPLANVERSION,
+                        finderArgs, list);
+                } else {
+                    planModelRun = list.get(0);
+
+                    cacheResult(planModelRun);
+
+                    if ((planModelRun.getPlanId() == null) ||
+                            !planModelRun.getPlanId().equals(planId) ||
+                            (planModelRun.getPlanVersion() == null) ||
+                            !planModelRun.getPlanVersion().equals(planVersion)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDPLANVERSION,
+                            finderArgs, planModelRun);
+                    }
+                }
+
+                return planModelRun;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_PLANIDPLANVERSION,
+                        finderArgs, new ArrayList<PlanModelRun>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (PlanModelRun) result;
+            }
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -836,6 +1009,13 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public void removeByPlanIdPlanVersion(Long planId, Long planVersion)
+        throws NoSuchPlanModelRunException, SystemException {
+        PlanModelRun planModelRun = findByPlanIdPlanVersion(planId, planVersion);
+
+        remove(planModelRun);
+    }
+
     public void removeAll() throws SystemException {
         for (PlanModelRun planModelRun : findAll()) {
             remove(planModelRun);
@@ -937,6 +1117,71 @@ public class PlanModelRunPersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ALLBYPLANID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByPlanIdPlanVersion(Long planId, Long planVersion)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { planId, planVersion };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PLANIDPLANVERSION,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.plans.model.PlanModelRun WHERE ");
+
+                if (planId == null) {
+                    query.append("planId IS NULL");
+                } else {
+                    query.append("planId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (planVersion == null) {
+                    query.append("planVersion <= null");
+                } else {
+                    query.append("planVersion <= ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (planId != null) {
+                    qPos.add(planId.longValue());
+                }
+
+                if (planVersion != null) {
+                    qPos.add(planVersion.longValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PLANIDPLANVERSION,
                     finderArgs, count);
 
                 closeSession(session);

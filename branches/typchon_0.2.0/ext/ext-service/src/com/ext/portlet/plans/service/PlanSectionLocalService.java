@@ -103,6 +103,12 @@ public interface PlanSectionLocalService {
         com.ext.portlet.plans.model.PlanSectionDefinition def, boolean current,
         boolean createOnEmpty) throws com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanSection createForPlanFrom(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSection from, boolean store)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public com.ext.portlet.plans.model.PlanSection createNewVersionForPlanSectionDefinition(
         com.ext.portlet.plans.model.PlanItem plan,
         com.ext.portlet.plans.model.PlanSectionDefinition def)

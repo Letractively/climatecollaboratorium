@@ -107,6 +107,12 @@ public class PlanModelRunLocalServiceUtil {
         return getService().getAllForPlan(plan);
     }
 
+    public static com.ext.portlet.plans.model.PlanModelRun getForPlan(
+        com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException {
+        return getService().getForPlan(plan);
+    }
+
     public static com.ext.portlet.plans.model.PlanModelRun createNewVersionForPlan(
         com.ext.portlet.plans.model.PlanItem plan)
         throws com.liferay.portal.SystemException {
@@ -117,6 +123,13 @@ public class PlanModelRunLocalServiceUtil {
         com.ext.portlet.plans.model.PlanItem plan, boolean store)
         throws com.liferay.portal.SystemException {
         return getService().createNewVersionForPlan(plan, store);
+    }
+
+    public static com.ext.portlet.plans.model.PlanModelRun createNewVersionForPlanFrom(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanModelRun from, boolean store)
+        throws com.liferay.portal.SystemException {
+        return getService().createNewVersionForPlanFrom(plan, from, store);
     }
 
     public static PlanModelRunLocalService getService() {

@@ -467,6 +467,7 @@ create index IX_971BCD5A on PlanItem (planId);
 create index IX_9D95E1CC on PlanMeta (planId);
 
 create index IX_792779A9 on PlanModelRun (planId);
+create index IX_272B9AD6 on PlanModelRun (planId, planVersion);
 
 create index IX_B365BC70 on PlanPosition (positionId);
 

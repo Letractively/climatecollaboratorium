@@ -9,6 +9,7 @@ import com.ext.portlet.plans.model.PlanSection;
 import com.ext.portlet.plans.model.PlanSectionDefinition;
 import com.ext.portlet.plans.service.base.PlanSectionLocalServiceBaseImpl;
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 
 
@@ -53,6 +54,26 @@ public class PlanSectionLocalServiceImpl extends PlanSectionLocalServiceBaseImpl
             ps.setPlanVersion(plan.getVersion());
             ps.setCreated(new Date());
             ps.setUpdateAuthorId(0L);
+        }
+        return ps;
+    }
+    
+    public PlanSection createForPlanFrom(PlanItem plan, PlanSection from, boolean store) throws SystemException, PortalException {
+        PlanSection current = getCurrentForPlanSectionDef(plan, from.getDefinition(), false);
+        PlanSection ps = createPlanSection(null);
+        
+        ps.setPlanId(plan.getPlanId());
+        ps.setPlanSectionDefinitionId(from.getPlanSectionDefinitionId());
+        
+        ps.setContent(from.getContent());
+        
+        ps.setVersion(current.getVersion()+1);
+        ps.setPlanVersion(plan.getVersion());
+        ps.setCreated(new Date());
+        ps.setUpdateAuthorId(0L);
+        
+        if (store) {
+            ps.store();
         }
         return ps;
     }

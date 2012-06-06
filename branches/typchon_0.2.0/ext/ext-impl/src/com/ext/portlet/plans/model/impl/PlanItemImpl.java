@@ -33,6 +33,7 @@ import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanFan;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanMeta;
+import com.ext.portlet.plans.model.PlanModel;
 import com.ext.portlet.plans.model.PlanModelRun;
 import com.ext.portlet.plans.model.PlanPositions;
 import com.ext.portlet.plans.model.PlanSection;
@@ -877,6 +878,35 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
             return null;
         }
         return team;
+    }
+    
+    public void revertTo(Long updateAuthorId) throws SystemException, PortalException {
+        
+        
+        PlanDescription oldDesc = PlanDescriptionLocalServiceUtil.getForPlan(this);
+        PlanModelRun oldAi = PlanModelRunLocalServiceUtil.getForPlan(this);
+        List<PlanSection> oldSections = getPlanSections();
+        
+        newVersion(UpdateType.PLAN_REVERTED, updateAuthorId);
+        
+        PlanDescriptionLocalServiceUtil.createNewVersionForPlanFrom(this, oldDesc, true);
+        PlanModelRunLocalServiceUtil.createNewVersionForPlanFrom(this, oldAi, true);
+        
+        PlanTemplate tmpl = getPlanTemplate();
+        for (PlanSection section: oldSections) {
+            PlanSectionLocalServiceUtil.createForPlanFrom(this, section, true);
+        }
+        
+        updateAttribute(Attribute.ABSTRACT);
+        updateAttribute(Attribute.DESCRIPTION);
+        updateAttribute(Attribute.NAME);
+        updateAttribute(Attribute.IMAGE);        
+        
+        PlanType planType = getPlanType();
+
+        for (PlanConstants.Attribute attribute : PlanConstants.Attribute.getPlanTypeAttributes(planType)) {
+            updateAttribute(attribute);
+        }
     }
 
 }
