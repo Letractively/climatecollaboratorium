@@ -45,14 +45,30 @@
 
 
 
-    <ice:panelGroup styleClass="edit-prop-wrap">
+    <ice:panelGroup styleClass="edit-prop-wrap" rendered="#{not proposal.editing}">
         <div class="inner">
             <div class="edit-prop">
                 <ice:form>
                     <div class="edit-prop-butts">
-                        <ice:commandLink value="Edit" actionListener="#{planBean.toggleEditing}" rendered="#{permissions.canEdit and plan.currentTab.editable and not plan.editing}" />
+                        <ice:commandLink value="Edit" actionListener="#{planBean.toggleEditing}" 
+                                rendered="#{permissions.canEdit and plan.currentTab.editable and not plan.editing}" 
+                                styleClass="#{planBean.plan.viewingLatest ? '' : 'disabled'}" 
+                                disabled="#{not planBean.plan.viewingLatest}" />
                         <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" id="versionContainerTrigger">Show history</a>
-                    </div> 
+                    </div>
+                    <f:subview rendered="#{not planBean.plan.viewingLatest}">
+                        <div class="lastedited">
+                            Currently viewing version from #{planBean.plan.updated} by&amp;nbsp;
+                            <collab:userLinkSimple userId="#{planBean.plan.updateAuthorId}" text="#{planBean.plan.updateAuthorScreenName}" />
+                        </div> 
+                        <ice:panelGroup styleClass="edit-prop-butts" rendered="#{permissions.canEdit}">
+                            &amp;nbsp;
+                            &amp;nbsp;
+                            <ice:commandLink value="Revert" actionListener="#{planBean.plan.revertTo}" />
+                            <ice:commandLink value="Go to current" actionListener="#{planBean.plan.goToCurrent}" />
+                    
+                        </ice:panelGroup>
+                    </f:subview>
                     <!-- <div class="lastedited">Last edited 5 days ago by <a href="javascript:;">&amp;nbsp;beachbabe-in-fl</a></div>-->
                 </ice:form>
             </div>
