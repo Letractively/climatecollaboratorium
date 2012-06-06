@@ -100,6 +100,19 @@ public interface PlanModelRunPersistence extends BasePersistence {
         throws com.ext.portlet.plans.NoSuchPlanModelRunException,
             com.liferay.portal.SystemException;
 
+    public com.ext.portlet.plans.model.PlanModelRun findByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanModelRunException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanModelRun fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanModelRun fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -125,6 +138,11 @@ public interface PlanModelRunPersistence extends BasePersistence {
     public void removeByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
 
+    public void removeByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanModelRunException,
+            com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByCurrentByPlanId(java.lang.Long planId)
@@ -132,6 +150,9 @@ public interface PlanModelRunPersistence extends BasePersistence {
 
     public int countByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException;
+
+    public int countByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planVersion) throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

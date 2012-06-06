@@ -131,6 +131,13 @@ public class PlanDescriptionLocalServiceUtil {
         return getService().createNewVersionForPlan(plan, store);
     }
 
+    public static com.ext.portlet.plans.model.PlanDescription createNewVersionForPlanFrom(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanDescription from, boolean store)
+        throws com.liferay.portal.SystemException {
+        return getService().createNewVersionForPlanFrom(plan, from, store);
+    }
+
     public static PlanDescriptionLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("PlanDescriptionLocalService is not set");

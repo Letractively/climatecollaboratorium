@@ -354,4 +354,8 @@ public interface PlanItem extends PlanItemModel {
         throws com.liferay.portal.SystemException;
 
     public java.lang.String getTeam() throws com.liferay.portal.SystemException;
+
+    public void revertTo(java.lang.Long updateAuthorId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

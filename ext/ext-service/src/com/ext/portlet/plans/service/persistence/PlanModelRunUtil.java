@@ -141,6 +141,27 @@ public class PlanModelRunUtil {
         return getPersistence().findByAllByPlanId_PrevAndNext(id, planId, obc);
     }
 
+    public static com.ext.portlet.plans.model.PlanModelRun findByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanModelRunException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByPlanIdPlanVersion(planId, planVersion);
+    }
+
+    public static com.ext.portlet.plans.model.PlanModelRun fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().fetchByPlanIdPlanVersion(planId, planVersion);
+    }
+
+    public static com.ext.portlet.plans.model.PlanModelRun fetchByPlanIdPlanVersion(
+        java.lang.Long planId, java.lang.Long planVersion,
+        boolean retrieveFromCache) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByPlanIdPlanVersion(planId, planVersion,
+            retrieveFromCache);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -180,6 +201,13 @@ public class PlanModelRunUtil {
         getPersistence().removeByAllByPlanId(planId);
     }
 
+    public static void removeByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planVersion)
+        throws com.ext.portlet.plans.NoSuchPlanModelRunException,
+            com.liferay.portal.SystemException {
+        getPersistence().removeByPlanIdPlanVersion(planId, planVersion);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -192,6 +220,11 @@ public class PlanModelRunUtil {
     public static int countByAllByPlanId(java.lang.Long planId)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByAllByPlanId(planId);
+    }
+
+    public static int countByPlanIdPlanVersion(java.lang.Long planId,
+        java.lang.Long planVersion) throws com.liferay.portal.SystemException {
+        return getPersistence().countByPlanIdPlanVersion(planId, planVersion);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

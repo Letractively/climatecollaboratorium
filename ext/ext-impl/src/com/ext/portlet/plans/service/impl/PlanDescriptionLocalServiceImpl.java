@@ -54,7 +54,13 @@ public class PlanDescriptionLocalServiceImpl
     
     public PlanDescription createNewVersionForPlan(PlanItem plan, boolean store) throws SystemException {
         PlanDescription currentDescription = this.planDescriptionPersistence.fetchByCurrentByPlanId(plan.getPlanId());
-        PlanDescription newDescription = (PlanDescription) currentDescription.clone();
+        return createNewVersionForPlanFrom(plan, currentDescription, store);
+    }
+    
+    public PlanDescription createNewVersionForPlanFrom(PlanItem plan, PlanDescription from, boolean store) throws SystemException {
+        
+        PlanDescription newDescription = (PlanDescription) from.clone();
+        PlanDescription currentDescription = this.planDescriptionPersistence.fetchByCurrentByPlanId(plan.getPlanId());
         
         newDescription.setVersion(currentDescription.getVersion()+1);
         newDescription.setId(CounterLocalServiceUtil.increment(PlanDescription.class.getName()));

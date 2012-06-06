@@ -94,11 +94,21 @@ public interface PlanModelRunLocalService {
         com.ext.portlet.plans.model.PlanItem plan)
         throws com.liferay.portal.SystemException;
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.ext.portlet.plans.model.PlanModelRun getForPlan(
+        com.ext.portlet.plans.model.PlanItem plan)
+        throws com.liferay.portal.SystemException;
+
     public com.ext.portlet.plans.model.PlanModelRun createNewVersionForPlan(
         com.ext.portlet.plans.model.PlanItem plan)
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.plans.model.PlanModelRun createNewVersionForPlan(
         com.ext.portlet.plans.model.PlanItem plan, boolean store)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.plans.model.PlanModelRun createNewVersionForPlanFrom(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanModelRun from, boolean store)
         throws com.liferay.portal.SystemException;
 }

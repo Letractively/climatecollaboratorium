@@ -392,6 +392,12 @@
         <finder name="AllByPlanId" return-type="Collection">
             <finder-column name="planId" />
         </finder>
+        
+        <finder name="PlanIdPlanVersion" return-type="PlanDescription">
+            <finder-column name="planId" />
+            <finder-column name="planVersion" comparator="&lt;=" />
+        </finder>
+        
     </entity>
     
     <entity name="PlanPositions" local-service="true">

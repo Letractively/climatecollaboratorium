@@ -79,6 +79,7 @@ public class PlanModelRunModelImpl extends BaseModelImpl<PlanModelRun> {
     private Long _originalPlanId;
     private Long _scenarioId;
     private Long _planVersion;
+    private Long _originalPlanVersion;
     private Long _version;
     private Date _created;
     private Long _updateAuthorId;
@@ -160,6 +161,14 @@ public class PlanModelRunModelImpl extends BaseModelImpl<PlanModelRun> {
 
     public void setPlanVersion(Long planVersion) {
         _planVersion = planVersion;
+
+        if (_originalPlanVersion == null) {
+            _originalPlanVersion = planVersion;
+        }
+    }
+
+    public Long getOriginalPlanVersion() {
+        return _originalPlanVersion;
     }
 
     public Long getVersion() {

@@ -118,6 +118,14 @@ public class PlanSectionLocalServiceUtil {
                    .getForPlanSectionDef(plan, def, current, createOnEmpty);
     }
 
+    public static com.ext.portlet.plans.model.PlanSection createForPlanFrom(
+        com.ext.portlet.plans.model.PlanItem plan,
+        com.ext.portlet.plans.model.PlanSection from, boolean store)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().createForPlanFrom(plan, from, store);
+    }
+
     public static com.ext.portlet.plans.model.PlanSection createNewVersionForPlanSectionDefinition(
         com.ext.portlet.plans.model.PlanItem plan,
         com.ext.portlet.plans.model.PlanSectionDefinition def)
