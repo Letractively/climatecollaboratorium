@@ -31,7 +31,7 @@
             
                 <ice:column style="width: 700px;">
                     <ice:commandLink
-                                     actionListener="#{planBean.plan.selectModelRunVersion}"  >
+                                     actionListener="#{planBean.plan.selectModelRunVersion}" onclick="triggerVersionsContainerVisibility()" >
                         <ice:outputText value="#{historyItem.updateDate}">
                         <f:convertDateTime type="both" dateStyle="short" timeStyle="short"/>
                         </ice:outputText>

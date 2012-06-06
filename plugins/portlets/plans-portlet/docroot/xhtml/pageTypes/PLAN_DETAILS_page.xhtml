@@ -45,18 +45,16 @@
 
 
 
-    <ice:panelGroup rendered="#{permissions.canEdit and plan.currentTab.editable and not plan.editing}">
-        <div class="edit-prop-wrap">
-            <div class="inner">
-                <div class="edit-prop">
-                    <ice:form>
-                        <div class="edit-prop-butts">
-                            <ice:commandLink value="Edit" actionListener="#{planBean.toggleEditing}" />
-                            <a href="javascript:;" onclick="triggerVersionsContainerVisibility(this);" >Show history</a>
-                        </div> 
-                        <!-- <div class="lastedited">Last edited 5 days ago by <a href="javascript:;">&amp;nbsp;beachbabe-in-fl</a></div>-->
-                    </ice:form>
-                </div>
+    <ice:panelGroup styleClass="edit-prop-wrap">
+        <div class="inner">
+            <div class="edit-prop">
+                <ice:form>
+                    <div class="edit-prop-butts">
+                        <ice:commandLink value="Edit" actionListener="#{planBean.toggleEditing}" rendered="#{permissions.canEdit and plan.currentTab.editable and not plan.editing}" />
+                        <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" id="versionContainerTrigger">Show history</a>
+                    </div> 
+                    <!-- <div class="lastedited">Last edited 5 days ago by <a href="javascript:;">&amp;nbsp;beachbabe-in-fl</a></div>-->
+                </ice:form>
             </div>
         </div>
     </ice:panelGroup>
