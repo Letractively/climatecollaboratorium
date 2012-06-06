@@ -26,8 +26,6 @@ function checkIfPlanDescriptionDirty() {
 		if (input.hasClass('originalValue')) return;
 		
 		var oryginalValue = input.parent().find(".originalValue").val();
-		console.log(input, input.parent().find(".originalValue"));
-		console.log('comparing', input.val(), oryginalValue);
 		if (jQuery.trim(input.val()) != jQuery.trim(oryginalValue)) {
 			isDirty = true;
 		}

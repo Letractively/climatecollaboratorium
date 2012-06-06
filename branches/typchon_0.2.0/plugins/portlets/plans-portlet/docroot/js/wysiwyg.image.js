@@ -63,12 +63,11 @@
 			formImageHtml += '</div><div class="clear"></div></div>' +
 				'<div class="form-row" style="display: none;"><label for="name">{title}:</label><div class="form-row-value"><input type="text" name="imgtitle" value=""/></div> <div class="clear"></div></div>' +
 				'<div class="form-row" style="display: none;"><label for="name">{description}:</label><div class="form-row-value"><input type="text" name="description" value=""/></div> <div class="clear"></div></div>' +
-				'<div class="form-row"><label for="name">{width}:</label><div class="form-row-value"><input type="text" name="width" class="imageUrl" value="" /></div> <div class="clear"></div></div>' +
-				'<div class="form-row"><label for="name">{height}:</label><div class="form-row-value"><input type="text" name="height" class="imageUrl"  value="" /></div> <div class="clear"></div></div>' +
+				'<div class="form-row"><label for="name">Percent of original size:</label><div class="form-row-value"><input type="text" name="percentOfSize" class="percentOfSize"  value="100" /> %</div> <div class="clear"></div></div>' +
 				'<div class="form-row form-row-last"><label for="name"></label>' +
 				'<div class="form-row-value">' +
 				'<div class="blue-button"><a href="javascript:;" onclick=\"jQuery(this).parents(\'form\').submit();\">{submit}</a></div>' +
-				'<div class="blue-button"><a class="resetForm" href="javascript:;" onclick=\"jQuery(this).parents(\'form\').reset();\">{reset}</a></div></div> <div class="clear"></div></div></form>';
+				'<div class="blue-button"><a class="resetForm" href="javascript:;" >{reset}</a></div></div> <div class="clear"></div></div></form>';
 
 			for (key in dialogReplacements) {
 				if ($.wysiwyg.i18n) {
@@ -91,19 +90,21 @@
 				img.title  = img.self.title  ? img.self.title  : "";
 				img.width  = img.self.width  ? img.self.width  : "";
 				img.height = img.self.height ? img.self.height : "";
+				img.percentOfSize = img.self.style.width ? $(img.self).css("width").replace("%", "") : "";
 				img.styleFloat = $(img.self).css("float");
+				
 			}
 
 			adialog = new $.wysiwyg.dialog(Wysiwyg, {
 				"title"   : dialogReplacements.legend,
-				"height"  : 313,
+				"height"  : 264,
 				"content" : formImageHtml
 			});
 
 			$(adialog).bind("afterOpen", function (e, dialog) {
 				dialog.find("form#wysiwyg-addImage").submit(function (e) {
 					e.preventDefault();
-					self.processInsert(dialog.container, Wysiwyg, img);
+					self.processInsert(dialog, Wysiwyg, img);
 
 					adialog.close();
 					return false;
@@ -145,11 +146,12 @@
 				width = $('input[name="width"]', context).val(),
 				height = $('input[name="height"]', context).val(),
 				styleFloat = $('select[name="float"]', context).val(),
+				percentOfSize = $('input[name="percentOfSize"]', context).val(),
 				styles = [],
 				style = "",
 				found,
 				baseUrl;
-
+			
 			if (Wysiwyg.options.controlImage && Wysiwyg.options.controlImage.forceRelativeUrls) {
 				baseUrl = window.location.protocol + "//" + window.location.hostname
 					+ (window.location.port ? ":" + window.location.port : "");
@@ -157,28 +159,40 @@
 					url = url.substr(baseUrl.length);
 				}
 			}
-
+			
 			if (img.self) {
 				// to preserve all img attributes
 				$(img.self).attr("src", url)
 					.attr("title", title)
 					.attr("alt", description)
 					.css("float", styleFloat);
+				var x = percentOfSize + "%";
 
-				if (width.toString().match(/^[0-9]+(px|%)?$/)) {
-					$(img.self).css("width", width);
+				if (percentOfSize.toString().match(/^[0-9]+$/)) {
+					$(img.self).attr("style", "width: " + x + "; height: " + x + ";");
+				}
+				else {
+					$(img.self).attr("width", "");
+					$(img.self).attr("height", "");
+					
+				}
+				/*
+				if (width.toString().match(/^[0-9]+$/)) {
+					$(img.self).attr("width", width + "%");
 				} else {
 					$(img.self).css("width", "");
 				}
 
-				if (height.toString().match(/^[0-9]+(px|%)?$/)) {
-					$(img.self).css("height", height);
+				if (height.toString().match(/^[0-9]+$/)) {
+					$(img.self).attr("height", height + "%");
 				} else {
 					$(img.self).css("height", "");
 				}
+				*/
 
 				Wysiwyg.saveContent();
 			} else {
+				/*
 				found = width.toString().match(/^[0-9]+(px|%)?$/);
 				if (found) {
 					if (found[1]) {
@@ -196,6 +210,10 @@
 						styles.push("height: " + height + "px;");
 					}
 				}
+				*/
+				
+				var x = percentOfSize + "%";
+				
 				/*
 				if (styleFloat.length > 0) {
 					styles.push("float: " + styleFloat + ";");
@@ -205,7 +223,7 @@
 					style = ' style="' + styles.join(" ") + '"';
 				}
 				
-				image = "<img src='" + url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
+				image = "<img src='" + url + "' title='" + title + "' alt='" + description + "' style='width: " + x + "; height: " + x + "' />";
 				Wysiwyg.insertHtml(image);
 			}
 		},
@@ -216,6 +234,7 @@
 			form.find("input[name=description]").val(img.alt);
 			form.find('input[name="width"]').val(img.width);
 			form.find('input[name="height"]').val(img.height);
+			form.find('input[name="percentOfSize"]').val(img.percentOfSize);
 			form.find('select[name="float"]').val(img.styleFloat);
 			form.find('img').attr("src", img.src);
 

@@ -671,7 +671,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			// startOffset is the number of child nodes between the start of the
 			// startContainer and the boundary point of the Range
 			if (element === range.startContainer) {
-				element = element.childNodes[range.startOffset];
+				element = element.childNodes[range.startOffset-1];
 			}
 			
 			if(!element.tagName && (element.previousSibiling || element.nextSibling)) {
