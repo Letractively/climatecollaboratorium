@@ -226,7 +226,7 @@ td.jqplot-table-legend > div {border: 0;}
 
 .admin_left { float:left; width:474px; margin-top:50px;}
 .admin_right { float:left; width:454px; margin:50px 0 0 56px;}
-.admin_left h2, .admin_right h2 { font-size:18px; color:#2498b3; line-height:normal;}
+/*.admin_left h2, .admin_right h2 { font-size:18px; color:#2498b3; line-height:normal;}*/
 .admin_box { background:#efeee3; padding:18px 20px; margin:10px 0 40px 0;}
 .admin_box span { padding-left:25px; font-style:italic;}
 
@@ -234,8 +234,10 @@ td.jqplot-table-legend > div {border: 0;}
 
 .adm { margin:15px 0 40px 0;}
 .adm2 { margin:0 0 40px 0;}
-.adm2 td { color:#6e6e6e;}
-.adm2 td.createdate { font-family:Verdana, sans-serif; font-size:11px; color:#4c4847; padding:12px 0 2px 10px;}
+/*.adm2 td { }*/
+.adm2 td.createdate { padding:12px 0 2px 10px; padding-top: 5px;}
+
+.adm2 tr.t td { border-bottom: 1px solid #4a4a4a; padding-bottom: 5px; padding-left: 10px;}
 
 fieldset { border: 0; padding: 0; margin: 0}
 
