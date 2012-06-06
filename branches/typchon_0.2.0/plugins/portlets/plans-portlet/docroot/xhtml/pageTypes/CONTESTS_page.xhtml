@@ -57,7 +57,7 @@
   <div class="divider"></div> 
   <div class="show"><a href="/web/guest/feedback">Suggest a new contest</a></div> 
  <div class="filter" style="position: relative;">
-    <input type="text" value="#{empty contests.filterString ? 'Filter contests' : contests.filterString }" onfocus="if (this.value == 'Filter contests') {this.value = '';}" onchange="Collab.nav.navigateAddParams('plans', {contestFilter: this.value}); return false;" onblur="if (this.value == '') {this.value = 'Filter contests';}" />
+    <input type="text" value="#{contests.filterString}" placeholder="Filter contests" onchange="Collab.nav.navigateAddParams('plans', {contestFilter: this.value}); return false;" />
     <f:subview rendered="#{not empty contests.filterString}">
         <a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {contestFilter: ''}); return false;" id="contestsFilterClear">&amp;nbsp;</a>
     </f:subview>
