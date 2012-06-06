@@ -53,8 +53,8 @@ function initLoginPopupUpper() {
 	});
 	
 	function hideIfLoginNotUsed() {
-		console.log(jQuery('#loginPopupContainer').hasClass('mouseover'), jQuery('#loginPopupContainer input.focus').length)
-		if (! jQuery('#loginPopupContainer').hasClass('mouseover') && jQuery('#loginPopupContainer input.focus').length == 0) {
+		console.log(jQuery('#loginPopupContainer').hasClass('mouseover'), jQuery('#loginPopupContainer .focus').length)
+		if (! jQuery('#loginPopupContainer').hasClass('mouseover') && jQuery('#loginPopupContainer .focus').length == 0) {
 			jQuery("#loginPopupContainer").fadeOut("fast");
 		}
 	}
@@ -63,12 +63,12 @@ function initLoginPopupUpper() {
 		jQuery("#loginPopupContainer").addClass('mouseover');
 	});
 
-	jQuery("#loginPopupContainer input").focus(function() {
-		jQuery("#loginPopupContainer").addClass('focus');
+	jQuery("#loginPopupContainer input, #loginPopupContainer a").focus(function() {
+		jQuery(this).addClass('focus');
 	});
 	
-	jQuery("#loginPopupContainer input").blur(function() {
-		jQuery("#loginPopupContainer").removeClass('focus');
+	jQuery("#loginPopupContainer input, #loginPopupContainer a").blur(function() {
+		jQuery(this).removeClass('focus');
 		setTimeout(hideIfLoginNotUsed, 10);
 	});
 	
