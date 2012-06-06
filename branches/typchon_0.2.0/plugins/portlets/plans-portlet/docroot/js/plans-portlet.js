@@ -608,8 +608,8 @@ function initVersionChoosingBox() {
     container.addClass('processed');
 }
 
-function triggerVersionsContainerVisibility(triggerLink) {
-    var trigger = jQuery(triggerLink);
+function triggerVersionsContainerVisibility() {
+    var trigger = jQuery("#versionContainerTrigger");
     var container = jQuery(".versionsContainer");
     if (! container.is(':visible')) {
         trigger.html("Hide history")

@@ -14,14 +14,14 @@
         </ice:panelGroup>
         
         
-<div class="prop-left">
+<ice:panelGroup styleClass="prop-left">
 
     <ice:form>
             <div class="versionsContainer hidden">
             <div class="versions">
                 <ice:dataTable value="#{planBean.plan.allDescriptionVersions}" rows="10" var="historyItem" styleClass="historyTable" rowClasses="odd,even">
                     <ice:column style="width: 400px;">
-                        <ice:commandLink onclick="showAlertIfInEdit('Changing version will remove all changes that have been done, are you sure?'); "
+                        <ice:commandLink onclick="showAlertIfInEdit('Changing version will remove all changes that have been done, are you sure?'); triggerVersionsContainerVisibility();"
                                 value="#{historyItem.updateDate}" actionListener="#{planBean.plan.selectDescriptionVersion}">
                             <f:attribute name="item" value="#{historyItem}"/>
                         </ice:commandLink>
@@ -65,7 +65,7 @@
   
   </f:subview>
 
- </div> <!-- /prop-left -->
+ </ice:panelGroup> <!-- /prop-left -->
  <ice:form>
     <ui:include src="./widget_PROPOSAL_SUMMARY.xhtml" />
  </ice:form>
