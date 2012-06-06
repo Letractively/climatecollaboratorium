@@ -19,12 +19,14 @@
    </style>
    <ice:form>
     <div class="admin_left">
-        <h2>This proposal can be edited by:</h2>
-        <div class="admin_box">
-            <ice:selectOneRadio value="#{planBean.plan.planMode}" layout="pageDirection" partialSubmit="true">
-                <f:selectItems value="#{planBean.plan.allPlanModes}"></f:selectItems>
-            </ice:selectOneRadio>                
-        </div>        
+        <div class="addpropbox">
+            <strong>This proposal can be edited by:</strong>
+            <div>
+                <ice:selectOneRadio value="#{planBean.plan.planMode}" layout="pageDirection" partialSubmit="true">
+                    <f:selectItems value="#{planBean.plan.allPlanModes}"></f:selectItems>
+                </ice:selectOneRadio>                
+            </div>        
+        </div>
         <!-- 
         <h2>Ask for help:</h2>
         <div class="admin_box">
@@ -34,10 +36,10 @@
         </div>
          --> 
         
-        <ice:panelGroup rendered="#{permissions.canAdminAll and contest.currentPhase.hasNextPhase and !planBean.plan.promoted}">
-            <h2>Promote to next phase</h2>
-            <div class="admin_box">           
-                <div class="buttgrid">
+        <ice:panelGroup rendered="#{permissions.canAdminAll and contest.currentPhase.hasNextPhase and !planBean.plan.promoted}" styleClass="addpropbox blue">
+            <strong>Promote to next phase</strong>
+            <div>           
+                <div class="blue-button">
                     <ice:commandLink actionListener="#{planBean.plan.promote}" onclick="if(!confirm('Are you sure you want to proceed with promoting this plan?')){ return false; }">
                         <span>PROMOTE</span> plan to next phase
                     </ice:commandLink>
@@ -45,10 +47,10 @@
             </div>
         </ice:panelGroup>
         
-        <ice:panelGroup rendered="#{permissions.canAdminAll and planBean.plan.place le 0}">
-            <h2>Mark as semi-finalist</h2>
-            <div class="admin_box">  
-                <div class="buttgrid">
+        <ice:panelGroup rendered="#{permissions.canAdminAll and planBean.plan.place le 0}"  styleClass="addpropbox blue">
+            <strong>Mark as semi-finalist</strong>
+            <div>  
+                <div class="blue-button">
                     <ice:commandLink actionListener="#{planBean.plan.markAsSemiFinalist}" onclick="if(!confirm('Are you sure you want to proceed with marking this proposal as semi finalist?')){ return false; }">
                         <span>MARK</span> as semi-finalist
                     </ice:commandLink>
@@ -56,10 +58,10 @@
             </div>
         </ice:panelGroup>
         
-        <ice:panelGroup rendered="#{permissions.canAdminAll and planBean.plan.place == 2}">
-            <h2>Remove semi-finalist ribbon</h2>
-            <div class="admin_box">
-                <div class="buttgrid">
+        <ice:panelGroup rendered="#{permissions.canAdminAll and planBean.plan.place == 2}"  styleClass="addpropbox">
+            <strong>Remove semi-finalist ribbon</strong>
+            <div>
+                <div class="blue-button">
                     <ice:commandLink actionListener="#{planBean.plan.removeSemiFinalistRibbon}" onclick="if(!confirm('Are you sure you want to remove semi-finalist ribbon?')){ return false; }">
                         <span>REMOVE</span> semi-finalist ribbon
                     </ice:commandLink>
@@ -69,49 +71,53 @@
         </ice:panelGroup>
         
         <ice:panelGroup rendered="#{permissions.canAdminAll}">
-            <h2>Set ribbon type (integer value 1 to 3)</h2>
-            
-            <div class="admin_box">
-                <ice:inputText value="#{planBean.plan.ribbon}" partialSubmit="true" /> 
-            </div>
-                
-            
-            <h2>Set ribbon text (it will be shown when user hovers over the ribbon)</h2>
-            <div class="admin_box">
-                <ice:inputText value="#{planBean.plan.ribbonText}" partialSubmit="true" /> 
+            <div  class="addpropbox">
+                <strong>Set ribbon type (integer value 1 to 3)</strong>
+                <div>
+                    <ice:inputText value="#{planBean.plan.ribbon}" partialSubmit="true" /> 
+                </div>
+                <br />
+                <strong>Set ribbon text (it will be shown when user hovers over the ribbon)</strong>
+                <div>
+                    <ice:inputText value="#{planBean.plan.ribbonText}" partialSubmit="true" /> 
+                </div>
             </div>
         </ice:panelGroup>
         
         <ice:panelGroup rendered="#{permissions.canAdminAll}">
-          <h2>Scrapbook</h2>
+            <div class="addpropbox blue">
+                <strong>Scrapbook</strong>
             
-          <div class="admin_box">
-            <div class="buttgrid">
-                <f:subview rendered="#{planBean.plan.scrapbook}">
-                    <ice:commandLink actionListener="#{planBean.plan.toggleScrapbook}">
-                        <span>REMOVE</span> scrapbook mark
-                    </ice:commandLink>
-                </f:subview>
+                  <div>
+                    <f:subview rendered="#{planBean.plan.scrapbook}">
+                        <div class="blue-button">
+                            <ice:commandLink actionListener="#{planBean.plan.toggleScrapbook}">
+                                <span>REMOVE</span> scrapbook mark
+                            </ice:commandLink>
+                        </div>
+                    </f:subview>
+                    <f:subview rendered="#{not planBean.plan.scrapbook}">
+                        <div class="blue-button">
+                            <ice:commandLink actionListener="#{planBean.plan.toggleScrapbook}">
+                                <span>MARK</span> proposal as a scrapbook
+                            </ice:commandLink>
+                        </div>
+                    </f:subview>
                 
-                <f:subview rendered="#{not planBean.plan.scrapbook}">
-                    <ice:commandLink actionListener="#{planBean.plan.toggleScrapbook}">
-                        <span>MARK</span> proposal as a scrapbook
-                    </ice:commandLink>
-                </f:subview>
-                
-            </div>
-          </div>
+                </div>
+                    <br />
           
-          <h2>Scrapbook hover text</h2>
-          <div class="admin_box">
-              <ice:inputText value="#{planBean.plan.scrapbookText}" partialSubmit="true" /> 
+            <strong>Scrapbook hover text</strong>
+            <div>
+                  <ice:inputText value="#{planBean.plan.scrapbookText}" partialSubmit="true" /> 
+            </div>
           </div>
         </ice:panelGroup>
         
-        <ice:panelGroup rendered="#{permissions.planOwner}">
-            <h2>Owner actions</h2>
+        <ice:panelGroup rendered="#{permissions.planOwner}" styleClass="addpropbox">
+            <strong>Owner actions</strong>
             
-            <div class="admin_box">
+            <div>
                 <div class="blue-button">
                     <ice:commandLink rendered="#{permissions.canAdmin}"  actionListener="#{planBean.plan.delete}" onclick="if(!confirm('Are you sure you want to proceed with removal?')){ return false; }">
                         DELETE plan
@@ -124,8 +130,9 @@
     
     
     <div class="admin_right">
-        <h2>Membership requests</h2>
-        <ice:panelGroup  styleClass="admin_box" rendered="#{fn:length(planBean.membershipBean.planMembershipRequests) lt 1}">
+        <div class="addpropbox">
+        <strong>Membership requests</strong>
+        <ice:panelGroup rendered="#{fn:length(planBean.membershipBean.planMembershipRequests) lt 1}">
             <i>No new requests</i>
         </ice:panelGroup>
         <ice:dataTable value="#{planBean.membershipBean.planMembershipRequests}" var="membershipRequest" styleClass="colab adm" rendered="#{fn:length(planBean.membershipBean.planMembershipRequests) gt 0}" rowClasses="t,nt">
@@ -178,12 +185,14 @@
 
         </ice:dataTable>
         <div id="manage_membership_request_dialog"></div>
+        </div>
         
-        <h2>History</h2>
+        <div class="addpropbox blue">
+        <strong>History</strong>
         <table class="colab adm2">
             <ui:repeat value="#{planBean.plan.allVersions}" var="planVersion">
                 <tr class="createdate">
-                    <td colspan="2" class="createdate">
+                    <td class="createdate">
                         <ice:outputText value="#{planVersion.updateDate}">
                             <f:convertDateTime pattern="MM/dd/yy hh:mm a"/>
                         </ice:outputText>
@@ -191,15 +200,16 @@
                 </tr>
                 <tr class="t">
                     <td width="210" class="b">
-                        <collab:userLinkSimple userId="#{planVersion.updateAuthor.userId}" text="#{planVersion.updateAuthor.screenName}" />
+                        <strong><collab:userLinkSimple userId="#{planVersion.updateAuthor.userId}" text="#{planVersion.updateAuthor.screenName}" /></strong>
                     </td>
                     <td>
-                        #{planVersion.updateType}
+                        <strong>#{planVersion.updateType}</strong>
                     </td>
                 </tr>
         
             </ui:repeat>
         </table>
+        </div>
     </div>
    <!--  if plan has been deleted, redirect user to plansIndex -->
     
