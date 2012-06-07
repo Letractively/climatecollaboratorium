@@ -5,7 +5,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.navigation.NavigationEvent;
@@ -14,8 +18,11 @@ import org.compass.core.util.backport.java.util.Collections;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.messaging.MessageUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.util.mail.MailEngine;
+import com.liferay.util.mail.MailEngineException;
 
 public class ContestsBean {
     private List<ContestWrapper> contests = new ArrayList<ContestWrapper>();
@@ -26,6 +33,8 @@ public class ContestsBean {
     private EventBus eventBus;
     private ViewType viewType = ViewType.GRID;
     private String filterString;
+    private String newContestSuggestion;
+    private boolean contestSuggestionSent;
     
     private SortColumn sortColumn = null;
     
@@ -272,6 +281,58 @@ public class ContestsBean {
         }
         filterString = parameters.get(CONTEST_FILTER_PARAM).trim();
         clearContestsList();
+        
+    }
+
+
+    public void setNewContestSuggestion(String newContestSuggestion) {
+        this.newContestSuggestion = newContestSuggestion;
+        contestSuggestionSent = false;
+    }
+
+
+    public String getNewContestSuggestion() {
+        return newContestSuggestion;
+    }
+    
+    public void sendContestSuggestion(ActionEvent e) throws MailEngineException, AddressException {
+        String messageSubject = "New contest suggestion";
+        String messageBody = newContestSuggestion;
+        
+        String[] receipients = new String[] {"janusz.parfieniuk@gmail.com", "jintrone@MIT.EDU"};//, "rjl@MIT.EDU"};
+        
+        InternetAddress[] addressTo = new InternetAddress[receipients.length];
+        for (int i=0; i < receipients.length; i++) {
+            addressTo[i] = new InternetAddress(receipients[i]);
+        }
+        
+        InternetAddress addressFrom = new InternetAddress("admin@climatecolab.org");
+
+        InternetAddress replyTo[] = {new InternetAddress(Helper.getLiferayUser().getEmailAddress())};
+        
+        
+        MailEngine.send(addressFrom, addressTo, null, null, null, messageSubject, messageBody, false, replyTo, null, null);
+        
+        FacesMessage fm = new FacesMessage();
+        fm.setSummary("Message has been sent.");
+        fm.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, fm);
+        
+        contestSuggestionSent = true;
+        
+        newContestSuggestion = null;
+    }
+
+
+    public void setContestSuggestionSent(boolean contestSuggestionSent) {
+        this.contestSuggestionSent = contestSuggestionSent;
+        
+    }
+
+
+    public boolean isContestSuggestionSent() {
+        contestSuggestionSent = !contestSuggestionSent;
+        return !contestSuggestionSent;
         
     }
 
