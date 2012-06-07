@@ -671,13 +671,18 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			// startOffset is the number of child nodes between the start of the
 			// startContainer and the boundary point of the Range
 			if (element === range.startContainer) {
-				element = element.childNodes[range.startOffset-1];
+				if (range.startOffset > 0) {
+					element = element.childNodes[range.startOffset-1];
+				}
+				else {
+					element = element.childNodes[0];
+				}
 			}
 			
-			if(!element.tagName && (element.previousSibiling || element.nextSibling)) {
-				if(element.previousSibiling) {
-					if(element.previousSibiling.tagName.toLowerCase() == filterTagName) {
-						return element.previousSibiling;
+			if(!element.tagName && (element.previousSibling || element.nextSibling)) {
+				if(element.previousSibling) {
+					if(element.previousSibling.tagName.toLowerCase() == filterTagName) {
+						return element.previousSibling;
 					}
 				}	
 				if(element.nextSibling) {
@@ -1759,7 +1764,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					content = newContent.html();
 				}
 
-				$(this.original).val(content);
+				$(this.original).val(content).change();
 
 				if (this.options.events && this.options.events.save) {
 					this.options.events.save.call(this);
