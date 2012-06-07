@@ -58,10 +58,28 @@
                     <f:facet name="header">
                         Name
                     </f:facet>
-                    <ice:commandLink value="${term.name}" actionListener="#{ontologyAdmin.setTermId}">
+                    <f:subview rendered="#{ ontologyAdmin.editedTermId == term.id }">
+                        <ice:inputText value="#{term.name}" />
+                    </f:subview>
+                    
+                    <ice:commandLink value="#{term.name}" actionListener="#{ontologyAdmin.setTermId}" rendered="#{not (ontologyAdmin.editedTermId == term.id)}">
                         <f:attribute name="termId" value="#{term.id}" />
                     </ice:commandLink>
-                </ice:column>                    
+                </ice:column>                          
+                 <ice:column>
+                    <f:facet name="header">
+                        Description URL
+                    </f:facet>
+                    
+                    <f:subview rendered="#{ ontologyAdmin.editedTermId == term.id }">
+                        <ice:inputText value="#{term.descriptionUrl}" />
+                    </f:subview>
+                    
+                    <f:subview rendered="#{not (ontologyAdmin.editedTermId == term.id)}">
+                        #{term.descriptionUrl}
+                    </f:subview>
+                    
+                </ice:column>            
                 <ice:column>
                     <f:facet name="header">
                         Child terms count
@@ -72,17 +90,33 @@
                     <f:facet name="header">
                         Action
                     </f:facet>
-                    <ice:commandButton actionListener="#{ontologyAdmin.deleteTerm}" value="Delete">
-                        <f:attribute name="termId" value="#{term.id}" />
-                    </ice:commandButton>
                     
+                    <f:subview rendered="#{ ontologyAdmin.editedTermId == term.id}">
+                            <ice:commandButton actionListener="#{ontologyAdmin.updateTerm}" value="Update">
+                                <f:attribute name="termId" value="#{term.id}" />
+                            </ice:commandButton>
+                            <ice:commandButton actionListener="#{ontologyAdmin.editTerm}" value="Cancel" />
+                    </f:subview>
+                    
+                    <f:subview rendered="#{not (ontologyAdmin.editedTermId == term.id)}">
+                        <ice:commandButton actionListener="#{ontologyAdmin.editTerm}" value="Edit">
+                            <f:attribute name="termId" value="#{term.id}" />
+                        </ice:commandButton>
+                        
+                        <ice:commandButton actionListener="#{ontologyAdmin.deleteTerm}" value="Delete" onclick="if (! confirm('Are you sure you want to delete #{term.name}?')) return false;">
+                            <f:attribute name="termId" value="#{term.id}" />
+                        </ice:commandButton>
+                    
+                    </f:subview>
                 </ice:column>
                 
             </ice:dataTable>
                 <f:subview rendered="#{not empty ontologyAdmin.termId}">
                     <h3>Add new term:</h3>
         
-                    <ice:inputText value="#{ontologyAdmin.newTerm}" />
+                    <label>Term:</label><ice:inputText value="#{ontologyAdmin.newTerm}" /><br />
+                    <label>Description URL:</label>
+                    <ice:inputText value="#{ontologyAdmin.newTermDescriptionUrl}" /><br />
         
                     <ice:commandButton actionListener="#{ontologyAdmin.createNewTerm}" value="Add" />
                 </f:subview>
