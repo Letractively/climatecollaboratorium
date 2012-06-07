@@ -210,7 +210,7 @@
                 var elem = input.get(0);
                 var max = input.attr('maxCharacters');
                 var count = countCharacters(input);
-                if (count >= 1 * max) {
+                if (count > 1 * max) {
                     elem.limitCharacterCounter.parent().addClass('overflow');
                     input.addClass('invalid');
                 }
