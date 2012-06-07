@@ -358,16 +358,16 @@ public class ContestWrapper {
         return contest.getFocusArea() != null;
     }
     
-    public String getWho() throws PortalException, SystemException {
+    public OntologyTerm getWho() throws PortalException, SystemException {
         return getTermFromSpace("who");
     }
     
-    public String getWhat() throws PortalException, SystemException {
+    public OntologyTerm getWhat() throws PortalException, SystemException {
         return getTermFromSpace("what");
         
     }
     
-    public String getWhere() throws PortalException, SystemException {
+    public OntologyTerm getWhere() throws PortalException, SystemException {
         return getTermFromSpace("where");
     }
     
@@ -379,13 +379,17 @@ public class ContestWrapper {
         return contest.getCommentsCount();
     }
     
-    private String getTermFromSpace(String space) throws PortalException, SystemException {
+    public String getResourcesUrl() {
+        return contest.getResourcesUrl();
+    }
+    
+    private OntologyTerm getTermFromSpace(String space) throws PortalException, SystemException {
         FocusArea fa = contest.getFocusArea();
         if (fa == null) return null;
         
         for (OntologyTerm t: fa.getTerms()) {
             if (t.getSpace().getName().equalsIgnoreCase(space)) {
-                return t.getName();
+                return t;
             }
         }
         return null;
