@@ -190,7 +190,7 @@ public class Helper {
     }
 
     public static String getCookieValue(String name) {
-        if (getRequest().getCookies() == null) {
+        if (getRequest().getCookies() != null) {
             for (Cookie c: getRequest().getCookies()) {
                 if (c.getName().equals(name)) {
                     return c.getValue();

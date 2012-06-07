@@ -16,42 +16,46 @@
     <ice:form>
     <div class="blueheaderbar tooltips">
         <div class="proposalname">
-            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Proposal name">
-                <f:attribute name="sortColumn" value="NAME" />
-            </ice:commandLink>
-            <div class="tooltip">click to sort by name<div class="tt-arrow"></div></div>
+            <div style="display: inline-block">
+                <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Proposal name">
+                    <f:attribute name="sortColumn" value="NAME" />
+                </ice:commandLink>
+                <div class="tooltip">click to sort by name<div class="tt-arrow"></div></div>
+            </div>
              /&amp;nbsp;
             
-            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Author(s)">
-                <f:attribute name="sortColumn" value="CREATOR" />
-            </ice:commandLink>
-            
-            <div class="tooltip">click to sort by author<div class="tt-arrow"></div></div>
+            <div style="display: inline-block">
+                <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Author(s)">
+                    <f:attribute name="sortColumn" value="CREATOR" />
+                </ice:commandLink>
+                
+                <div class="tooltip">click to sort by author<div class="tt-arrow"></div></div>
+            </div>
         </div>
         <div class="thumbs">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
-                <f:attribute name="sortColumn" value="VOTES" />
-            </ice:commandLink>
-        </div>
-        <div class="tooltip">click to sort by<br />number of votes<div class="tt-arrow"></div></div>
-        <div class="propcomm">
-            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
                 <f:attribute name="sortColumn" value="SUPPORTERS" />
             </ice:commandLink>
+            <div class="tooltip">click to sort by<br />number of supporters<div class="tt-arrow"></div></div>
         </div>
-        <div class="tooltip">click to sort by<br />number of comments<div class="tt-arrow"></div></div>
+        <div class="propcomm">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
+                <f:attribute name="sortColumn" value="COMMENTS" />
+            </ice:commandLink>
+            <div class="tooltip">click to sort by<br />number of comments<div class="tt-arrow"></div></div>
+        </div>
         <div class="modified">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Modified">
                 <f:attribute name="sortColumn" value="UPDATE_DATE" />
             </ice:commandLink>
+            <div class="tooltip">click to sort by date<div class="tt-arrow"></div></div>
         </div>
-        <div class="tooltip">click to sort by date<div class="tt-arrow"></div></div>
         <div class="contributor">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Contributors">
                 <f:attribute name="sortColumn" value="IS_PLAN_OPEN" />
             </ice:commandLink>
+            <div class="tooltip">click to sort by contributor<div class="tt-arrow"></div></div>
         </div>
-        <div class="tooltip">click to sort by contributor<div class="tt-arrow"></div></div>
     </div></ice:form>
     <div class="shadebar"></div>
     
@@ -60,8 +64,33 @@
         <div class="propbox">
             <div class="row1">
                 <div class="title-author">
+                
                     <h4>
+                        <f:subview rendered="#{singleProposal.scrapbook}">
+                            <div class="tooltips" style="display: inline-block;">
+                                <div>
+                                <a href="javascript:;">
+                                    <img src="/climatecolab-theme/images/scrapbook_icon.png"  class="scrapbook_icon" width="20px" height="20px" />
+                                </a> 
+                                </div>
+                                <div class="tooltip">#{singleProposal.scrapbookText}<div class="tt-arrow"></div></div>
+                            </div>
+                        </f:subview>
+                        
+                        <f:subview rendered="#{singleProposal.ribbon != null and singleProposal.ribbon > 0}">
+                            <div class="tooltips" style="display: inline-block;">
+                                <div>
+                                    <a href="javascript:;" class="ribbon-hover planRibbon ribbon_#{singleProposal.ribbon}">&amp;nbsp;</a>
+                                    <div class="tooltip">
+                                        #{singleProposal.ribbonText}
+                                        <div class="tt-arrow"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </f:subview>
+                        
                         <collab:planLink planId="#{singleProposal.planId}" contestId="#{singleProposal.contestId}" text="#{singleProposal.name}" escape="true" />
+                        
                         /&amp;nbsp;
                         <f:subview rendered="#{empty singleProposal.team}">
                             <collab:userLinkSimple userId="#{singleProposal.author.userId}" text="#{singleProposal.author.screenName}" />
@@ -96,6 +125,10 @@
             </div>
         </div> <!-- /proposal -->
     </ice:panelSeries>
+    
+    <script type="text/javascript">
+        initTooltips();
+    </script>
     
     
 </f:view>
