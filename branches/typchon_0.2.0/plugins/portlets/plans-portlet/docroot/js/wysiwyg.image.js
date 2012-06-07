@@ -48,9 +48,14 @@
 				floatLeft : "Left",
 				floatRight : "Right",
 				submit  : "Insert Image",
+				changeImage  : "Change Image",
 				reset   : "Cancel",
 				fileManagerIcon : "Select file from server"
 			};
+			
+			if (img.self) {
+				dialogReplacements.submit = dialogReplacements.changeImage;
+			}
 
 			formImageHtml = '<form class="wysiwyg" id="wysiwyg-addImage">' +
 				'<div class="form-row"><label for="name">{url}:</label><div class="form-row-value"><input class="imageUrl" type="text" name="src" value=""/>';
