@@ -20,13 +20,18 @@ public class OntologyAdminBean {
     private Long spaceId;
     
     private String newTerm;
+    private String newTermDescriptionUrl;
 
     private String newSpace;
 
     private String newSpaceDescription;
+    private Long editedTermId = null;
+    
+    private List<OntologyTerm> terms = null;
     
     public List<OntologyTerm> getOntologyTerms() throws SystemException {
-        return OntologyTermLocalServiceUtil.findByParentIdSpaceId(termId, spaceId);
+        terms = OntologyTermLocalServiceUtil.findByParentIdSpaceId(termId, spaceId);
+        return terms;
     }
     
     public List<OntologySpace> getOntologySpaces() throws SystemException {
@@ -89,7 +94,7 @@ public class OntologyAdminBean {
         }
         
         
-        OntologyTermLocalServiceUtil.createTerm(termId, newTerm, spaceId);
+        OntologyTermLocalServiceUtil.createTerm(termId, newTerm, spaceId, newTermDescriptionUrl);
         newTerm = "";
     }
     
@@ -114,7 +119,11 @@ public class OntologyAdminBean {
     public void deleteTerm(ActionEvent e) throws PortalException, SystemException {
         Long termId = null;
         try {
-            termId = Long.parseLong(e.getComponent().getAttributes().get("termId").toString());
+            Object term = e.getComponent().getAttributes().get("termId");
+            if (term != null) {
+                termId = Long.parseLong(term.toString());
+            }
+
         }
         catch (NumberFormatException ex) {
             // ignore
@@ -123,6 +132,48 @@ public class OntologyAdminBean {
             OntologyTermLocalServiceUtil.deleteOntologyTerm(termId);
         }
         
+    }
+    
+    public void editTerm(ActionEvent e) throws PortalException, SystemException {
+        Long termId = null;
+        try {
+            Object term = e.getComponent().getAttributes().get("termId");
+            if (term != null) {
+                termId = Long.parseLong(term.toString());
+            }
+        }
+        catch (NumberFormatException ex) {
+            // ignore
+        }
+        if (termId != null) {
+            setEditedTermId(termId);
+        }
+        else {
+            editedTermId = null;
+        }
+    }
+    
+    public void updateTerm(ActionEvent e) throws PortalException, SystemException {
+        Long termId = null;
+        try {
+            Object term = e.getComponent().getAttributes().get("termId");
+            if (term != null) {
+                termId = Long.parseLong(term.toString());
+            }
+
+        }
+        catch (NumberFormatException ex) {
+            // ignore
+        }
+        if (termId != null) {
+            for (OntologyTerm t: terms) {
+                if (t.getId().equals(editedTermId)) {
+                    t.store();
+                }
+            }
+            setEditedTermId(termId);
+        }
+        editedTermId = null;
     }
     
     public List<OntologyTerm> getAllTermParents() throws PortalException, SystemException {
@@ -162,6 +213,22 @@ public class OntologyAdminBean {
 
     public void setNewSpaceDescription(String newSpaceDescription) {
         this.newSpaceDescription = newSpaceDescription;
+    }
+
+    public void setNewTermDescriptionUrl(String newTermDescriptionUrl) {
+        this.newTermDescriptionUrl = newTermDescriptionUrl;
+    }
+
+    public String getNewTermDescriptionUrl() {
+        return newTermDescriptionUrl;
+    }
+
+    public void setEditedTermId(Long editedTermId) {
+        this.editedTermId = editedTermId;
+    }
+
+    public Long getEditedTermId() {
+        return editedTermId;
     }
     
 }
