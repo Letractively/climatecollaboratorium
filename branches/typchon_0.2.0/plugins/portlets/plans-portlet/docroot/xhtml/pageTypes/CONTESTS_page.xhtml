@@ -55,7 +55,7 @@
     <ice:commandLink value="Show active contests" actionListener="#{contests.toggleActiveInactive}" rendered="#{not contests.showActiveOnly}"/>
   </div>
   <div class="divider"></div> 
-  <div class="show"><a href="javascript:;" onclick="jQuery('#suggestContestPopupContainer').show();">Suggest a new contest</a></div> 
+  <div class="show"><a href="javascript:;" onclick="if(!deferUntilLogin()) return false; jQuery('#suggestContestPopupContainer').show();">Suggest a new contest</a></div> 
  <div class="filter" style="position: relative;">
     <input type="text" value="#{contests.filterString}" placeholder="Filter contests" onchange="Collab.nav.navigateAddParams('plans', {contestFilter: this.value}); return false;" />
     <f:subview rendered="#{not empty contests.filterString}">
