@@ -828,7 +828,11 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         List<ContestPhase> phases = ContestPhaseLocalServiceUtil.getPhasesForContest(ContestLocalServiceUtil.getContest(contestId));
         long counter = 0;
         for (ContestPhase phase: phases) {
-            counter += planItemFinder.getPlansForPhase(phase.getContestPhasePK()).size();
+            for (PlanItem plan: planItemFinder.getPlansForPhase(phase.getContestPhasePK())) {
+                if (plan.getVersion() > 1 && !plan.getState().equals(EntityState.DELETED.name())) {
+                    counter++;
+                }
+            }
         }
         return counter;
     }
