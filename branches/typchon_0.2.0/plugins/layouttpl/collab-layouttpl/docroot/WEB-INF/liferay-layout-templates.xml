@@ -58,5 +58,10 @@
             <wap-template-path>/collab-community-1-2-1.tpl</wap-template-path>
             <thumbnail-path>/collab-community-1-2-1.png</thumbnail-path>
         </layout-template>
+        <layout-template id="collab-contests-1-2-1-1" name="CoLab 1 - 2 - 1 - contests page with popup">
+            <template-path>/collab-contests-1-2-1-1.tpl</template-path>
+            <wap-template-path>/collab-contests-1-2-1-1.tpl</wap-template-path>
+            <thumbnail-path>/collab-contests-1-2-1-1.png</thumbnail-path>
+        </layout-template>
 	</custom>
 </layout-templates>
