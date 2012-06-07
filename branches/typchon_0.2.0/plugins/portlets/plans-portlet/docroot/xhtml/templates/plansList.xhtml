@@ -40,9 +40,10 @@
                     <f:subview rendered="#{singlePlan.ribbon != null and singlePlan.ribbon > 0}">
                         <div>
                             <div class="ribbon-hover planRibbon ribbon_#{singlePlan.ribbon}">
+                                <a href="javascript:;">&amp;nbsp;</a>
                             </div>
-                            <div class="popup-info-box hidden">
-                                #{singlePlan.ribbonText}
+                            <div class="tooltip">
+                                #{singleProposal.ribbonText}
                             </div>
                         </div>
                     </f:subview>
