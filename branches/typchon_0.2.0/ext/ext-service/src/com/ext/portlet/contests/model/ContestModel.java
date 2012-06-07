@@ -107,5 +107,9 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setWeight(Integer weight);
 
+    public String getResourcesUrl();
+
+    public void setResourcesUrl(String resourcesUrl);
+
     public Contest toEscapedModel();
 }

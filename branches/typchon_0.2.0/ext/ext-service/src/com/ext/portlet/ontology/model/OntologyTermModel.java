@@ -44,5 +44,9 @@ public interface OntologyTermModel extends BaseModel<OntologyTerm> {
 
     public void setName(String name);
 
+    public String getDescriptionUrl();
+
+    public void setDescriptionUrl(String descriptionUrl);
+
     public OntologyTerm toEscapedModel();
 }

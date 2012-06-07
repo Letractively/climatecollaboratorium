@@ -777,6 +777,7 @@
 		<property name="groupId" />
 		<property name="discussionGroupId" />
 		<property name="weight" />
+		<property name="resourcesUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestDebateImpl" table="ContestDebate">
 		<cache usage="read-write" />
@@ -903,6 +904,7 @@
 		<property name="parentId" />
 		<property name="ontologySpaceId" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="descriptionUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.ontology.model.impl.OntologyTermEntityImpl" table="OntologyTermEntity">
 		<cache usage="read-write" />

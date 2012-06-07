@@ -101,9 +101,10 @@ public class OntologyTermLocalServiceUtil {
     }
 
     public static com.ext.portlet.ontology.model.OntologyTerm createTerm(
-        java.lang.Long parentId, java.lang.String name, java.lang.Long spaceId)
+        java.lang.Long parentId, java.lang.String name, java.lang.Long spaceId,
+        java.lang.String descriptionUrl)
         throws com.liferay.portal.SystemException {
-        return getService().createTerm(parentId, name, spaceId);
+        return getService().createTerm(parentId, name, spaceId, descriptionUrl);
     }
 
     public static int countChildTerms(java.lang.Long parentId)

@@ -19,7 +19,7 @@ public class OntologySpaceLocalServiceImpl
         space.store();
         
         // create parent term for new space
-        OntologyTerm t = OntologyTermLocalServiceUtil.createTerm(null, "all", space.getId());
+        OntologyTerm t = OntologyTermLocalServiceUtil.createTerm(null, "all", space.getId(), null);
         
         return space;
     }
