@@ -905,3 +905,11 @@ display: inline;
 	margin-bottom: 10px;
 	font-weight: 700;
 }
+
+.proposals #contactForm {
+	display: block;
+}
+
+#suggestContestPopupContainer {
+	display: none;
+}
