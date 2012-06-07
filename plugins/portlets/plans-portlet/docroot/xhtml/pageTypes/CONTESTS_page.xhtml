@@ -76,18 +76,42 @@
   
   
   <ui:include src="./contests/#{contests.viewType}_page.xhtml" />
+  <ice:form>
+  <div id="suggestContestPopupContainer" >
+    <div class="popup-wrap p1" id="suggestContestPopup">
+        <div class="popup">
+            <h4>Please enter your suggestion below.  A message will be sent to the CoLab staff and they will follow up with you soon.</h4>
+            <div id="suggestContestPopupContent" class="lrContentPlaceholder lfr-column ">
+                <div>
+                    <ice:inputTextarea value="#{contests.newContestSuggestion}" style="display: block; width: 100%; height: 80px;"/>
+                </div>
+                <center>
+                <br />
+                <div class="blue-button">
+                    <ice:commandLink value="Send" actionListener="#{contests.sendContestSuggestion}" />
+                </div>
+                <div class="blue-button">
+                    <a href="javascript:;" onclick="jQuery('#suggestContestPopupContainer').hide();" >Cancel</a>
+                </div>
+                </center>
+            </div>
+        </div>
+    </div>
+  </div>
   
-    <ice:panelGroup styleClass="hidden" >
-	    #{contests}
-        <script type="text/javascript">
-            jQuery(document).ready(function() {
-                setTimeout(function() {
-                   initializeColumnsInfo();
-                    makeNANotesVisible();
-                }, 3000);
-            });
-
-        </script>
-    </ice:panelGroup>
+  
+    <f:subview rendered="#{contests.contestSuggestionSent}">
+        <ice:panelGroup styleClass="hidden" >
+           #{contests} #{contests.newContestSuggestion}
+            <script type="text/javascript">
+                jQuery('#suggestContestPopupContainer').hide();
+            </script>
+        </ice:panelGroup>
+    </f:subview>
+    
+  </ice:form>
+    
+    
+    
 </div>
 </f:view>
