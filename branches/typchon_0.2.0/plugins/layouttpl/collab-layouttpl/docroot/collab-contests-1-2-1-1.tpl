@@ -1,4 +1,6 @@
-$processor.processColumn("column-1")
+<div class="lrContentPlaceholder lfr-column ">
+    $processor.processColumn("column-1")
+</div>
 
 <div id="suggestContestPopupContainer" >
     <div class="popup-wrap p1" id="suggestContestPopup">
