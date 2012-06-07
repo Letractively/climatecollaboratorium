@@ -410,3 +410,29 @@ function updateBreadcrumb(placeholder, items) {
 		else
 			return true;
 	}
+	
+	
+function initTooltips() {
+    function findTooltip(obj) {
+        if (obj.next().hasClass('tooltip')) {
+            return obj.next();
+        }
+        if (obj.parent() != null && obj.parent() != obj) {
+            return findTooltip(obj.parent());
+        }
+        return jQuery("<span />");
+    }
+    
+    jQuery(".tooltips div a").mouseover(function() {
+        var self = jQuery(this);
+        var tooltip = findTooltip(jQuery(this));
+        
+        tooltip.parent().css("position", "relative"); 
+        tooltip.show();
+        tooltip.css({top: - tooltip.outerHeight() - 10, left: (self.outerWidth() - tooltip.outerWidth()) / 2});
+    });
+    jQuery(".tooltips div a").mouseleave(function() {
+        findTooltip(jQuery(this)).hide();
+    });
+
+}
