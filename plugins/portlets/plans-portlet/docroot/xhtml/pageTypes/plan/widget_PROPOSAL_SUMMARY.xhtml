@@ -73,7 +73,7 @@
                 </f:subview>
             </f:subview>
             <f:subview rendered="#{not proposal.plan.open}">
-                <strong>Closed Proposal:</strong> Only team members will be able to edit this proposal.&amp;nbsp;
+                <strong>Team Proposal:</strong> Only team members will be able to edit this proposal.&amp;nbsp;
                 <f:subview rendered="#{permissions.canAdmin}">
                     <a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {tab: 'admin'}); return false;">Change settings</a>
                 </f:subview>
