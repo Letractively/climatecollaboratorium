@@ -73,6 +73,7 @@ public class ContestJSONSerializer {
         jsonObj.put("groupId", model.getGroupId());
         jsonObj.put("discussionGroupId", model.getDiscussionGroupId());
         jsonObj.put("weight", model.getWeight());
+        jsonObj.put("resourcesUrl", model.getResourcesUrl());
 
         return jsonObj;
     }

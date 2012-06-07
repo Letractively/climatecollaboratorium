@@ -50,9 +50,12 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
             { "ontologySpaceId", new Integer(Types.BIGINT) },
             
 
-            { "name", new Integer(Types.VARCHAR) }
+            { "name", new Integer(Types.VARCHAR) },
+            
+
+            { "descriptionUrl", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table OntologyTerm (id_ LONG not null primary key,parentId LONG,ontologySpaceId LONG,name VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table OntologyTerm (id_ LONG not null primary key,parentId LONG,ontologySpaceId LONG,name VARCHAR(75) null,descriptionUrl VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table OntologyTerm";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -69,6 +72,7 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
     private Long _parentId;
     private Long _ontologySpaceId;
     private String _name;
+    private String _descriptionUrl;
 
     public OntologyTermModelImpl() {
     }
@@ -80,6 +84,7 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
         model.setParentId(soapModel.getParentId());
         model.setOntologySpaceId(soapModel.getOntologySpaceId());
         model.setName(soapModel.getName());
+        model.setDescriptionUrl(soapModel.getDescriptionUrl());
 
         return model;
     }
@@ -138,6 +143,14 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
         _name = name;
     }
 
+    public String getDescriptionUrl() {
+        return GetterUtil.getString(_descriptionUrl);
+    }
+
+    public void setDescriptionUrl(String descriptionUrl) {
+        _descriptionUrl = descriptionUrl;
+    }
+
     public OntologyTerm toEscapedModel() {
         if (isEscapedModel()) {
             return (OntologyTerm) this;
@@ -151,6 +164,7 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
             model.setParentId(getParentId());
             model.setOntologySpaceId(getOntologySpaceId());
             model.setName(HtmlUtil.escape(getName()));
+            model.setDescriptionUrl(HtmlUtil.escape(getDescriptionUrl()));
 
             model = (OntologyTerm) Proxy.newProxyInstance(OntologyTerm.class.getClassLoader(),
                     new Class[] { OntologyTerm.class },
@@ -167,6 +181,7 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
         clone.setParentId(getParentId());
         clone.setOntologySpaceId(getOntologySpaceId());
         clone.setName(getName());
+        clone.setDescriptionUrl(getDescriptionUrl());
 
         return clone;
     }
@@ -214,6 +229,8 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
         sb.append(getOntologySpaceId());
         sb.append(", name=");
         sb.append(getName());
+        sb.append(", descriptionUrl=");
+        sb.append(getDescriptionUrl());
         sb.append("}");
 
         return sb.toString();
@@ -241,6 +258,10 @@ public class OntologyTermModelImpl extends BaseModelImpl<OntologyTerm> {
         sb.append(
             "<column><column-name>name</column-name><column-value><![CDATA[");
         sb.append(getName());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>descriptionUrl</column-name><column-value><![CDATA[");
+        sb.append(getDescriptionUrl());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

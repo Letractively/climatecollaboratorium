@@ -23,13 +23,14 @@ public class OntologyTermLocalServiceImpl
     }
     
     
-    public OntologyTerm createTerm(Long parentId, String name, Long spaceId) throws SystemException {
+    public OntologyTerm createTerm(Long parentId, String name, Long spaceId, String descriptionUrl) throws SystemException {
         Long termId = CounterLocalServiceUtil.increment(OntologyTerm.class.getName());
         
         OntologyTerm t = createOntologyTerm(termId);
         t.setName(name);
         t.setParentId(parentId);
         t.setOntologySpaceId(spaceId);
+        t.setDescriptionUrl(descriptionUrl);
         
         t.store();
         

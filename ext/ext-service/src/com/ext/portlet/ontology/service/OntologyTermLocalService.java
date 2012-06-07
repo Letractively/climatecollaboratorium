@@ -88,7 +88,8 @@ public interface OntologyTermLocalService {
         throws com.liferay.portal.SystemException;
 
     public com.ext.portlet.ontology.model.OntologyTerm createTerm(
-        java.lang.Long parentId, java.lang.String name, java.lang.Long spaceId)
+        java.lang.Long parentId, java.lang.String name, java.lang.Long spaceId,
+        java.lang.String descriptionUrl)
         throws com.liferay.portal.SystemException;
 
     public int countChildTerms(java.lang.Long parentId)

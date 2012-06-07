@@ -575,6 +575,7 @@
 		<field name="groupId" type="Long" />
 		<field name="discussionGroupId" type="Long" />
 		<field name="weight" type="Integer" />
+		<field name="resourcesUrl" type="String" />
 	</model>
 	<model name="com.ext.portlet.contests.model.ContestDebate">
 		<field name="id" type="Long" />
@@ -659,6 +660,7 @@
 		<field name="parentId" type="Long" />
 		<field name="ontologySpaceId" type="Long" />
 		<field name="name" type="String" />
+		<field name="descriptionUrl" type="String" />
 	</model>
 	<model name="com.ext.portlet.ontology.model.OntologyTermEntity">
 		<field name="id" type="Long" />

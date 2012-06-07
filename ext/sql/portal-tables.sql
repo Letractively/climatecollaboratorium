@@ -259,7 +259,8 @@ create table Contest (
 	featured_ BOOLEAN,
 	groupId LONG,
 	discussionGroupId LONG,
-	weight INTEGER
+	weight INTEGER,
+	resourcesUrl VARCHAR(75) null
 );
 
 create table ContestDebate (
@@ -1097,7 +1098,8 @@ create table OntologyTerm (
 	id_ LONG not null primary key,
 	parentId LONG,
 	ontologySpaceId LONG,
-	name VARCHAR(75) null
+	name VARCHAR(75) null,
+	descriptionUrl VARCHAR(75) null
 );
 
 create table OntologyTermEntity (

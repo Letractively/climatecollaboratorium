@@ -45,6 +45,7 @@ public class ContestSoap implements Serializable {
     private Long _groupId;
     private Long _discussionGroupId;
     private Integer _weight;
+    private String _resourcesUrl;
 
     public ContestSoap() {
     }
@@ -71,6 +72,7 @@ public class ContestSoap implements Serializable {
         soapModel.setGroupId(model.getGroupId());
         soapModel.setDiscussionGroupId(model.getDiscussionGroupId());
         soapModel.setWeight(model.getWeight());
+        soapModel.setResourcesUrl(model.getResourcesUrl());
 
         return soapModel;
     }
@@ -270,5 +272,13 @@ public class ContestSoap implements Serializable {
 
     public void setWeight(Integer weight) {
         _weight = weight;
+    }
+
+    public String getResourcesUrl() {
+        return _resourcesUrl;
+    }
+
+    public void setResourcesUrl(String resourcesUrl) {
+        _resourcesUrl = resourcesUrl;
     }
 }

@@ -27,6 +27,7 @@
         <column name="parentId" type="Long" />
         <column name="ontologySpaceId" type="Long" />
         <column name="name" type="String" />
+        <column name="descriptionUrl" type="String" />
         
         <finder name="ParentId" return-type="Collection">
             <finder-column name="parentId" />
