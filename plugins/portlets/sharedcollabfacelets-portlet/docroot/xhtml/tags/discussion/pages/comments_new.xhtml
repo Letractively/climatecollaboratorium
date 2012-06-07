@@ -131,18 +131,29 @@
     </ice:panelGroup>
     
         <div class="clearfix"></div>
-        <script type="textjavascript">
-        var navItems = window.collab.nav.getNavigationItems();
-        if ('discussion' in navItems &amp;&amp; 'messageId' in navItems.discussion) {
-            jQuery.scrollTo("#_message_" + navItems.discussion.messageId);
+        
+        <script type="text/javascript">
+        
+        
+        jQuery(function() {
+        try {
+            var navItems = window.collab.nav.getNavigationItems();
+            
+            if ('discussion' in navItems &amp;&amp; 'messageId' in navItems.discussion) {
+                jQuery.scrollTo("#_message_" + navItems.discussion.messageId);
 
-        } 
-
-        jQuery(".messageLink").each(function() {
-            var container = jQuery(this);
-            var messageId = container.attr('rel');
-            container.html("&lt;a href='#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}) + "'&gt;" + container.text() + "&lt;/a&gt;");
-            jQuery(".message_add_this").attr('addthis:url', window.location.href.split('#')[0] + "#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}));
+            } 
+            
+            jQuery(".messageLink").each(function() {
+                var container = jQuery(this);
+                var messageId = container.attr('rel');
+                container.html("&lt;a href='#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}) + "'&gt;" + container.text() + "&lt;/a&gt;");
+                jQuery(".message_add_this").attr('addthis:url', window.location.href.split('#')[0] + "#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}));
+            });
+            }
+            catch(e) {
+                console.log(e);
+            }
         });
 
  
