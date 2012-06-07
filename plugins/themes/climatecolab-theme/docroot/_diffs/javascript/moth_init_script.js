@@ -181,10 +181,19 @@ function closePopup(obj) {
 	jQuery(".popup-wrap").hide();
 }
 
+function initSuggestContestFormPopup() {
+	jQuery("#suggestContestPopupContainer #contactFormCancel").attr('onclick', '').click(function() {
+		jQuery("#suggestContestPopupContainer").hide();
+	});
+	
+	
+}
+
 jQuery(document).ready(function() {
 	initSearchUpperBox();
 	initLoginPopupUpper();
 	initUserInfoPopup();
+	initSuggestContestFormPopup()
 	
 	jQuery(".popup .close").click(function() {
 		
