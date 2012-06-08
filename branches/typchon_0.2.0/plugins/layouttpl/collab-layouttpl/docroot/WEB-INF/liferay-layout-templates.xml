@@ -63,5 +63,11 @@
             <wap-template-path>/collab-contests-1-2-1-1.tpl</wap-template-path>
             <thumbnail-path>/collab-contests-1-2-1-1.png</thumbnail-path>
         </layout-template>
+        <layout-template id="collab-contests-news-page" name="CoLab community news page">
+            <template-path>/collab-community-news.tpl</template-path>
+            <wap-template-path>/collab-community-news.tpl</wap-template-path>
+            <thumbnail-path>/collab-community-news.png</thumbnail-path>
+        </layout-template>
+        
 	</custom>
 </layout-templates>
