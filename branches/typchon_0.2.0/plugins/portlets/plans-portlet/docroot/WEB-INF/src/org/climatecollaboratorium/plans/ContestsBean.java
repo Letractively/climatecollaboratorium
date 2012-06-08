@@ -299,7 +299,7 @@ public class ContestsBean {
         String messageSubject = "New contest suggestion";
         String messageBody = newContestSuggestion;
         
-        String[] receipients = new String[] {"janusz.parfieniuk@gmail.com", "jintrone@MIT.EDU"};//, "rjl@MIT.EDU"};
+        String[] receipients = new String[] {"janusz.parfieniuk@gmail.com", "jintrone@MIT.EDU", "rjl@MIT.EDU"};
         
         InternetAddress[] addressTo = new InternetAddress[receipients.length];
         for (int i=0; i < receipients.length; i++) {
