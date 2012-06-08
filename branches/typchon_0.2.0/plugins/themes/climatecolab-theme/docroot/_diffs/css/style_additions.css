@@ -396,7 +396,7 @@ ul#blogArchives li {list-style: none; margin-bottom: 10px; background: none;}
 .comm_info-large { float:left; width:400px; margin-left:60px; }
 .comm_info-left span {color:#66b035; font-size:30px; font-weight:600; padding-right:5px; font-style:normal;}
     .wf-active .comm_info-left span { font-size:32px;}
-.comm_info-left img { margin-right:5px; vertical-align:middle;}
+.comm_info-left img { margin-right:5px; vertical-align:bottom;}
 .comm_info-left img.spc { margin-left:40px;}
 
 .comm_list { line-height:normal; margin-top: 26px;}
@@ -449,7 +449,9 @@ ul#blogArchives li {list-style: none; margin-bottom: 10px; background: none;}
 .comm_submit:hover { color:#000; }
 
 .comm_member { margin:45px 0;}
-.comm_member table { width:100%; color:#444;}
+.comm_member table.colab { width:100%; margin-top: 0; }
+.comm_member table.colab.otherInfo { width:100%;  margin-top: 0; width: 300px;}
+.member table.colab { width:100%;  margin-top: 0;}
 .comm_member td.memname { font-size:21px; color:#707070;}
     .wf-active .comm_member td.memname { font-size:23px; }
 .comm_member td.r { text-align:right;}
@@ -459,6 +461,7 @@ ul#blogArchives li {list-style: none; margin-bottom: 10px; background: none;}
 .comm_member-photo {float:left; width:150px; margin-right:20px;}
 .comm_member-info {float:left; width:510px;}
 #main.full .comm_member-info { width:810px;}
+#main.userProfile h2 {margin-top: 30px;}
 
 .main_long {
     float: left;
@@ -912,4 +915,16 @@ display: inline;
 
 #suggestContestPopupContainer {
 	display: none;
+}
+.comm-butt {
+	position: relative;
+}
+.comm-butt .comm-share img {
+	vertical-align: bottom;
+}
+.comm-share {
+	position: absolute;
+	right: 0;
+	top:10px;
+	line-height: 24px;
 }
