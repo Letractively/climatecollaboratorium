@@ -8,9 +8,26 @@
     </div>
     
     <div class="community-left ">
-       <div>
-           $processor.processColumn("column-3")
-       </div>
+        <div id="communityHeading">
+            <div class="community-left-left lrContentPlaceholder lfr-column ">
+                <div class="smallBoxInner">
+                    $processor.processColumn("column-8")
+                </div>
+            </div>
+        
+            <div class="community-left-right lrContentPlaceholder lfr-column ">
+                <div class="smallBoxInner">
+                    $processor.processColumn("column-7")
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <div>
+            <div>
+                $processor.processColumn("column-3")
+            </div>
+        </div>
     </div> <!-- .col-left -->
     <div class="community-right lrContentPlaceholder lfr-column">
         $processor.processColumn("column-4")
