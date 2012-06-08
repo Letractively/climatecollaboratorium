@@ -6,27 +6,29 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets"
         xmlns:sharedcollab="http://climatecollaboratorium.org/components">
-        <div id="content">
-<div class="headline contest-page">
-    <div class="contest-image"><img src="#{contest.contest.logo}" width="52" height="52" alt="Contest Image" /></div>
-    <h1>${contest.contest.shortName} - discussion</h1>
-    <f:subview rendered="#{plansIndex.contestPhase.daysTillEnd gt 0}">
-        <div class="days-left"><span>#{plansIndex.contestPhase.daysTillEnd}</span> days until #{plansIndex.contestPhase.name} ends</div>
-    </f:subview>
-    <f:subview rendered="#{plansIndex.contestPhase.daysTillEnd eq 0}">
-        <f:subview rendered="#{plansIndex.contestPhase.hoursTillEnd gt 0}">
-            <div class="days-left"><span>#{plansIndex.contestPhase.hoursTillEnd}</span> hours until #{plansIndex.contestPhase.name} ends</div>
-        </f:subview>
-        <f:subview rendered="#{plansIndex.contestPhase.hoursTillEnd eq 0}">
-            <div class="days-left"><span>#{plansIndex.contestPhase.minutesTillEnd}</span> minutes until #{plansIndex.contestPhase.name} ends</div>
-        </f:subview>
-    </f:subview>
-    
-    </div> <!-- /headline -->
+        
+                
+<div class="proposal-head">
+    <div class="inner">
+        <div class="headline">
+            <div class="contest-image"><img src="#{contest.contest.logo}" width="52" height="52" alt="Contest Image" /></div>
+            <div class="proposal-title">
+                <div class="prop-description">
+                    <h2><collab:contestLink contestId="#{contest.contest.contestId}" text=" #{contest.contest.shortName} " /></h2>
+                    <div class="clear"></div>
+                    <h1>
+                        Discussion
+                    </h1>
+                </div>
+            </div>
+        </div> <!-- /headline -->
+    </div> <!-- /inner -->
+</div> <!-- /proposal-head -->
+
+<div id="content">
     <ice:form>
         <collab:comments discussionId="#{contest.contest.categoryGroupId}" groupId="#{contest.contest.groupId}" comments="true" />
     </ice:form>
-    
 </div>
   
 </f:view>

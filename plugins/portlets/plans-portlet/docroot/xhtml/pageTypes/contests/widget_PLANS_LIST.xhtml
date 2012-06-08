@@ -20,6 +20,11 @@
                 <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Proposal name">
                     <f:attribute name="sortColumn" value="NAME" />
                 </ice:commandLink>
+                <ui:include src="./widget_SORT_ARROW.xhtml">
+                    <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                    <ui:param name="currentColumn" value="NAME" />
+                    <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+                </ui:include>
                 <div class="tooltip">click to sort by name<div class="tt-arrow"></div></div>
             </div>
              /&amp;nbsp;
@@ -28,6 +33,11 @@
                 <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Author(s)">
                     <f:attribute name="sortColumn" value="CREATOR" />
                 </ice:commandLink>
+                <ui:include src="./widget_SORT_ARROW.xhtml">
+                    <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                    <ui:param name="currentColumn" value="CREATOR" />
+                    <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+                </ui:include>
                 
                 <div class="tooltip">click to sort by author<div class="tt-arrow"></div></div>
             </div>
@@ -35,25 +45,47 @@
         <div class="thumbs">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
                 <f:attribute name="sortColumn" value="SUPPORTERS" />
+                <img src="/climatecolab-theme/images/icon-proposal-thumb.png" style="margin-top: 8px;" />
             </ice:commandLink>
+            <ui:include src="./widget_SORT_ARROW.xhtml">
+                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                <ui:param name="currentColumn" value="SUPPORTERS" />
+                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+            </ui:include>
             <div class="tooltip">click to sort by<br />number of supporters<div class="tt-arrow"></div></div>
         </div>
         <div class="propcomm">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
                 <f:attribute name="sortColumn" value="COMMENTS" />
+                <img src="/climatecolab-theme/images/icon-list-comment.png" style="margin-top: 8px;" />
             </ice:commandLink>
+            <ui:include src="./widget_SORT_ARROW.xhtml">
+                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                <ui:param name="currentColumn" value="COMMENTS" />
+                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+            </ui:include>
             <div class="tooltip">click to sort by<br />number of comments<div class="tt-arrow"></div></div>
         </div>
         <div class="modified">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Modified">
                 <f:attribute name="sortColumn" value="UPDATE_DATE" />
             </ice:commandLink>
+            <ui:include src="./widget_SORT_ARROW.xhtml">
+                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                <ui:param name="currentColumn" value="UPDATE_DATE" />
+                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+            </ui:include>
             <div class="tooltip">click to sort by date<div class="tt-arrow"></div></div>
         </div>
         <div class="contributor">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Contributors">
                 <f:attribute name="sortColumn" value="IS_PLAN_OPEN" />
             </ice:commandLink>
+            <ui:include src="./widget_SORT_ARROW.xhtml">
+                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                <ui:param name="currentColumn" value="IS_PLAN_OPEN" />
+                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+            </ui:include>
             <div class="tooltip">click to sort by contributor<div class="tt-arrow"></div></div>
         </div>
     </div></ice:form>
