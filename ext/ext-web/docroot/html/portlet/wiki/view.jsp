@@ -120,7 +120,7 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 
 	<%= title %>
 </h1>
-    <div id="bread" style="<% if(!permissionChecker.isOmniadmin()) { %> display: none;<% } %>">
+    <div id="bread">
         <div style="display: inline;">
   <c:if test='<%= ! "About".equals(wikiPage.getTitle().trim()) %>'>
         <a href="/web/guest/about">About </a>
