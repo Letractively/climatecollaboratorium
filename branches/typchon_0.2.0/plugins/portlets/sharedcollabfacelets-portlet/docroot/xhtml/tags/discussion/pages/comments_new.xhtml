@@ -13,6 +13,25 @@
         <div class="comm-butt">
             <img src="/climatecolab-theme/images/icon-add-comment.png" width="24" height="22" alt="add a comment" /> 
             <div class="blue-button"><a href="javascript:;" onclick='if(!deferUntilLogin()) return false; jQuery.scrollTo(jQuery("#thecomment")); return false;'>Add Comment</a></div>
+            <div class="comm-share">
+                    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact discussion_share"
+                        addthis:title="#{discussionBean.discussion.description}"
+                        addthis:description="#{discussionBean.discussion.description}"
+                          addthis:url="#{discussionBean.discussionUrl}"
+                
+                    >
+                    <script type="text/javascript">
+                        if (typeof(addthis) != 'undefined') {
+                            addthis.button('.discussion_share');
+                        }
+                        //#{debateBean.currentItem}
+                    
+                    </script>
+                    <img src="/climatecolab-theme/images/share.png" width="24" height="24" alt="Share" class="icon_share" />
+                    Share conversation
+                </a>
+            
+            </div>
         </div>
     </div> <!-- /headline -->
   
@@ -38,7 +57,6 @@
             <ice:outputText value="#{message.createDate}"  nospan="true" >
                 <f:convertDateTime pattern="hh:mm a"/>
             </ice:outputText><br />
-            <span class="com_num messageLink" rel="#{message.id}">link </span>
         </ice:column>
         
         <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
@@ -56,6 +74,9 @@
                             <f:attribute name="flagType" value="EXPERT_REVIEW" />
                         </ice:commandButton>
                         
+                        &amp;nbsp;
+                        <span class="com_num messageLink" rel="#{message.id}">link </span>
+                        |
                         <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact message_add_this"
                             addthis:title="#{discussionBean.discussion.description}"
                             addthis:description="#{message.filteredDescription}"
@@ -66,8 +87,8 @@
                                 }
                     
                             </script>
-                                <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
-                                Share
+                                
+                                share
                         </a>
                     </div>
                     <div class="clear"></div>

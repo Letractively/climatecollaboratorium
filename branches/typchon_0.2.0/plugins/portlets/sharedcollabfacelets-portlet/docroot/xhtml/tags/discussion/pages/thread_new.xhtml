@@ -38,7 +38,7 @@
                     //#{debateBean.currentItem}
                     
                 </script>
-                    <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
+                    <img src="/climatecolab-theme/images/share.png" width="24" height="24" alt="Share" class="icon_share" />
                     Share
                 </a>
                 &amp;nbsp;
@@ -49,11 +49,11 @@
                 rendered="#{discussionBean.pageType == 'DISCUSSIONS' or discussionBean.pageType == 'CATEGORY' or discussionBean.pageType == 'THREAD'}"
                             onclick='if(!deferUntilLogin()) return false;'>
                         <f:subview rendered="#{discussionBean.subscribed}">
-                        <img src="/collaboratorium-theme/images/unsubscribe_small_2.png" />
+                        <img src="/climatecolab-theme/images/unsubscribe_small_2.png" />
                             Unsubscribe
                         </f:subview>
                         <f:subview rendered="#{not discussionBean.subscribed}">
-                            <img src="/collaboratorium-theme/images/subscribe_small_2.png" />
+                            <img src="/climatecolab-theme/images/subscribe_small_2.png" />
                             Subscribe
                         </f:subview>
                     </ice:commandLink>
@@ -97,7 +97,6 @@
             <ice:outputText value="#{message.createDate}"  nospan="true" >
                 <f:convertDateTime pattern="hh:mm a"/>
             </ice:outputText><br />
-            <span class="com_num messageLink" rel="#{message.id}">link </span>
         </ice:column>
         
         <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
@@ -114,7 +113,9 @@
                         <ice:commandButton actionListener="#{message.removeFlag}" value="Remove an expert review flag" rendered='#{discussionBean.permissions.canAdminMessages and message.expertReview}' >
                             <f:attribute name="flagType" value="EXPERT_REVIEW" />
                         </ice:commandButton>
-                        
+                        &amp;nbsp;
+                        <span class="com_num messageLink" rel="#{message.id}">link </span>
+                        |
                         <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact message_add_this"
                             addthis:title="#{discussionBean.currentThread.title}"
                             addthis:description="#{message.filteredDescription}"
@@ -125,8 +126,7 @@
                                 }
                     
                             </script>
-                                <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
-                                Share
+                            share
                         </a>
                     </div>
                     <div class="clear"></div>
@@ -189,19 +189,28 @@
     </f:subview>
     
  
-        <script type="textjavascript"> 
+        <script type="text/javascript"> 
        
-        var navItems = window.collab.nav.getNavigationItems();
-        if ('discussion' in navItems &amp;&amp; 'messageId' in navItems.discussion) {
-            jQuery.scrollTo("#_message_" + navItems.discussion.messageId);
 
-        } 
+        jQuery(function() {
+        try {
+            var navItems = window.collab.nav.getNavigationItems();
+            
+            if ('discussion' in navItems &amp;&amp; 'messageId' in navItems.discussion) {
+                jQuery.scrollTo("#_message_" + navItems.discussion.messageId);
 
-        jQuery(".messageLink").each(function() {
-            var container = jQuery(this);
-            var messageId = container.attr('rel');
-            container.html("&lt;a href='#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}) + "'&gt;" + container.text() + "&lt;/a&gt;");
-            jQuery(".message_add_this").attr('addthis:url', window.location.href.split('#')[0] + "#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}));
+            } 
+            
+            jQuery(".messageLink").each(function() {
+                var container = jQuery(this);
+                var messageId = container.attr('rel');
+                container.html("&lt;a href='#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}) + "'&gt;" + container.text() + "&lt;/a&gt;");
+                jQuery(".message_add_this").attr('addthis:url', window.location.href.split('#')[0] + "#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}));
+            });
+            }
+            catch(e) {
+                console.log(e);
+            }
         });
  
         

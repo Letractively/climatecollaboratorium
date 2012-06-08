@@ -594,4 +594,8 @@ public class DiscussionBean {
         return Helper.isUserLoggedIn();
     }
     
+    public String getDiscussionUrl() {
+        return discussion.getUrl();
+    }
+    
 }
