@@ -9,7 +9,7 @@
     >
     <ice:portlet>
     <div class="comm_rightcol-bdr">
-        <div class="comm_rightcol-title">RECENTLY ACTIVE MEMBERS</div>
+        <h3>Recently active members</h3><br />
         <ui:repeat value="#{feedsBean.membersBean.recentlyActiveMembers}" var="member">
             <div class="comm_rightcol-time">
                 #{member.lastActivityDateAgo}
