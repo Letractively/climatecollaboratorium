@@ -20,19 +20,19 @@
             <collab:contestLink contestId="#{singleContest.contestId}" text="#{singleContest.shortName}:" />
             #{singleContest.name}
         </ice:column>
-        <ice:column style="width: 27px" styleClass="g">#{singleContest.proposalsCount}</ice:column>
-        <ice:column style="width: 32px" >#{singleContest.commentsCount}</ice:column>
-        <ice:column style="width: 155px" styleClass="g">
+        <ice:column style="width: 31px" styleClass="g">#{singleContest.proposalsCount}</ice:column>
+        <ice:column style="width: 35px" >#{singleContest.commentsCount}</ice:column>
+        <ice:column style="width: 153px" styleClass="g">
             <ui:include src="./widget_WHAT_WHERE_WHO.xhtml">
                 <ui:param name="whatWhoWhere" value="#{singleContest.what}" />
             </ui:include>
         </ice:column>
-        <ice:column style="width: 142px" >
+        <ice:column style="width: 140px" >
             <ui:include src="./widget_WHAT_WHERE_WHO.xhtml">
                 <ui:param name="whatWhoWhere" value="#{singleContest.where}" />
             </ui:include>
         </ice:column>
-        <ice:column style="width: 142px" styleClass="g">
+        <ice:column style="width: 140px" styleClass="g">
             <ui:include src="./widget_WHAT_WHERE_WHO.xhtml">
                 <ui:param name="whatWhoWhere" value="#{singleContest.who}" />
             </ui:include>
