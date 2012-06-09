@@ -473,18 +473,20 @@ public class PlanBean {
     
 
     public static enum PlanTab {
-        ADMIN("ADMINISTRATION", false),
-        DESCRIPTION("DESCRIPTION", true),
-        ACTIONSIMPACTS("MODEL RESULTS", true),
-        COMMENTS("COMMENTS", false),
-        TEAM("CONTRIBUTORS", false);
+        ADMIN("ADMINISTRATION", false, false),
+        DESCRIPTION("DESCRIPTION", true, true),
+        ACTIONSIMPACTS("MODEL RESULTS", true, false),
+        COMMENTS("COMMENTS", false, false),
+        TEAM("CONTRIBUTORS", false, false);
         
         private final String displayName;
         private final boolean editable;
+        private final boolean hasHistory;
         
-        PlanTab(String displayName, boolean editable) {
+        PlanTab(String displayName, boolean editable, boolean hasHistory) {
             this.displayName = displayName;
             this.editable = editable;
+            this.hasHistory = hasHistory;
         }
         
         public String getDisplayName() {
@@ -493,6 +495,10 @@ public class PlanBean {
         
         public boolean isEditable() {
             return editable;
+        }
+        
+        public boolean getHasHistory() {
+            return hasHistory;
         }
         
     }
