@@ -967,3 +967,6 @@ display: inline;
 	background: none;
 	padding-left: 0;
 }
+.contest-discussion .prop-description a {
+	font-size: 18px;
+} 
