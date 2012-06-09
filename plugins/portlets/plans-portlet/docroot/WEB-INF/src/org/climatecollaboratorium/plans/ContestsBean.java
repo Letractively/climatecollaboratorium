@@ -210,6 +210,17 @@ public class ContestsBean {
     public boolean isShowActiveOnly() {
         return showActiveOnly;
     }
+    
+    public String getSortColumn() {
+        if (sortColumn != null) {
+            return sortColumn.name();
+        }
+        return null;
+    }
+    
+    public boolean isSortAscending() {
+        return sortAsc;
+    }
 
 
     public static enum ViewType {

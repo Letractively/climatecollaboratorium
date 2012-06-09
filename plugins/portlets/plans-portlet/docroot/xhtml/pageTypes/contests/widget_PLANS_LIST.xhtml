@@ -45,7 +45,6 @@
         <div class="thumbs">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
                 <f:attribute name="sortColumn" value="SUPPORTERS" />
-                <img src="/climatecolab-theme/images/icon-proposal-thumb.png" style="margin-top: 8px;" />
             </ice:commandLink>
             <ui:include src="./widget_SORT_ARROW.xhtml">
                 <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
@@ -57,7 +56,6 @@
         <div class="propcomm">
             <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
                 <f:attribute name="sortColumn" value="COMMENTS" />
-                <img src="/climatecolab-theme/images/icon-list-comment.png" style="margin-top: 8px;" />
             </ice:commandLink>
             <ui:include src="./widget_SORT_ARROW.xhtml">
                 <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
