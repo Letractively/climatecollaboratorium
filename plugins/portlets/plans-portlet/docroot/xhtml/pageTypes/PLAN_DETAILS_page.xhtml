@@ -45,7 +45,7 @@
 
 
 
-    <ice:panelGroup styleClass="edit-prop-wrap" rendered="#{not proposal.editing}">
+    <ice:panelGroup styleClass="edit-prop-wrap" rendered="#{not proposal.editing and proposal.currentTab.hasHistory}">
         <div class="inner">
             <div class="edit-prop">
                 <ice:form>
