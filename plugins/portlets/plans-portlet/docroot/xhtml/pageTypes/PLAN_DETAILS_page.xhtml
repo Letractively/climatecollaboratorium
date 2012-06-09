@@ -61,13 +61,15 @@
                             Currently viewing version from #{planBean.plan.updated} by&amp;nbsp;
                             <collab:userLinkSimple userId="#{planBean.plan.updateAuthorId}" text="#{planBean.plan.updateAuthorScreenName}" />
                         </div> 
-                        <ice:panelGroup styleClass="edit-prop-butts" rendered="#{permissions.canEdit}">
+                        <div class="edit-prop-butts">
                             &amp;nbsp;
                             &amp;nbsp;
-                            <ice:commandLink value="Revert" actionListener="#{planBean.plan.revertTo}" />
+                            <f:subview styleClass="edit-prop-butts" rendered="#{permissions.canEdit}">
+                                <ice:commandLink value="Revert" actionListener="#{planBean.plan.revertTo}" />
+                            </f:subview>
                             <ice:commandLink value="Go to current" actionListener="#{planBean.plan.goToCurrent}" />
+                        </div>
                     
-                        </ice:panelGroup>
                     </f:subview>
                     <!-- <div class="lastedited">Last edited 5 days ago by <a href="javascript:;">&amp;nbsp;beachbabe-in-fl</a></div>-->
                 </ice:form>
