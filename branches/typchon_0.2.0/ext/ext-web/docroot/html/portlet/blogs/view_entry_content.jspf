@@ -104,8 +104,7 @@
 			</div>
 		</div>
         
-
-		<c:if test="<%= BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.UPDATE) || BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.PERMISSIONS) %>">
+        <c:if test="<%= ! pageDisplayStyle.equals(RSSUtil.DISPLAY_STYLE_ABSTRACT) && (BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.UPDATE) || BlogsEntryPermission.contains(permissionChecker, entry, ActionKeys.PERMISSIONS) )%>">
 			<div class="edit-actions entry">
 				<table class="lfr-table">
 				<tr>
@@ -177,7 +176,7 @@
 
 		<div class="entry-footer">
 			<div class="entry-author">
-				<liferay-ui:message key="written-by" /> <%= PortalUtil.getUserName(entry.getUserId(), entry.getUserName()) %>
+				<liferay-ui:message key="written-by" /> <a href="http://localhost:8080/web/guest/member/-/member/userId/<%= entry.getUserId() %>"><%= PortalUtil.getUserName(entry.getUserId(), entry.getUserName()) %></a>
 			</div>
 
 			<div class="stats">
