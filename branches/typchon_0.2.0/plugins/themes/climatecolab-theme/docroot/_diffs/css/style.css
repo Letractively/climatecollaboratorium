@@ -269,23 +269,27 @@ body {background:#fff; font-size:15px;}
 /* list page */
 .blueheaderbar .contest {float:left; width:377px; height:37px; padding-left:9px;}
 .blueheaderbar .contest a {padding-top:10px; height:27px; display:inline-block;}
-.blueheaderbar .proposal {float:left; width:47px; height:37px;}
-.blueheaderbar .proposal a {background:url(../images/icon-list-proposals.png) no-repeat 9px 7px; width:47px; height:37px; display:inline-block;}
-.blueheaderbar .comment {float:left; width:52px; height:37px;}
-.blueheaderbar .comment a {background:url(../images/icon-list-comment.png) no-repeat 9px 8px; width:52px; height:37px; display:inline-block;}
-.blueheaderbar .what {float:left; width:175px; height:37px;background:url(../images/icon-list-what.png) no-repeat 10px 6px; }
+.blueheaderbar .proposal {float:left; width:55px; height:37px; position: relative;}
+.blueheaderbar .proposal .sort-arrow {position: absolute; top: 15px;}
+.blueheaderbar .proposal a {background:url(../images/icon-list-proposals.png) no-repeat 9px 7px; width:33px; height:37px; display:inline-block;}
+.blueheaderbar .comment {float:left; width:55px; height:37px; position: relative;}
+.blueheaderbar .comment .sort-arrow {position: absolute; top: 15px;} 
+.blueheaderbar .comment a {background:url(../images/icon-list-comment.png) no-repeat 9px 8px; width:33px; height:37px; display:inline-block;}
+.blueheaderbar .what {float:left; width:168px; height:37px;background:url(../images/icon-list-what.png) no-repeat 10px 6px; }
 .blueheaderbar .what a {height:27px; padding-top:10px; margin-left:41px; display:inline-block;}
-.blueheaderbar .where {float:left;  width:162px; height:37px;background:url(../images/icon-list-where.png) no-repeat 10px 6px; }
+.blueheaderbar .where {float:left;  width:160px; height:37px;background:url(../images/icon-list-where.png) no-repeat 10px 6px; }
 .blueheaderbar .where a {height:27px; padding-top:10px; margin-left:41px; display:inline-block;}
-.blueheaderbar .who {float:left; width:162px; height:37px;background:url(../images/icon-list-who.png) no-repeat 10px 6px; }
+.blueheaderbar .who {float:left; width:155px; height:37px;background:url(../images/icon-list-who.png) no-repeat 10px 6px; }
 .blueheaderbar .who a {height:27px; padding-top:10px; margin-left:33px; display:inline-block;}
 
 /* proposal page */
 .blueheaderbar .proposalname {float:left; width:645px; height:37px; padding-left:9px;}
 .blueheaderbar .proposalname a {padding-top:10px; height:27px; display:inline-block;}
-.blueheaderbar .thumbs {float:left; width:67px; height:37px;}
+.blueheaderbar .thumbs {float:left; width:67px; height:37px; position: relative;}
+.blueheaderbar .thumbs .sort-arrow {position: absolute; top: 15px;}
 .blueheaderbar .thumbs a {background:url(../images/icon-proposal-thumb.png) no-repeat 0 7px; width:20px; height:37px; display:inline-block;}
-.blueheaderbar .propcomm {float:left; width:65px; height:37px;}
+.blueheaderbar .propcomm {float:left; width:65px; height:37px; position: relative;}
+.blueheaderbar .propcomm .sort-arrow {position: absolute; top: 15px;}
 .blueheaderbar .propcomm a {background:url(../images/icon-list-comment.png) no-repeat 0 8px; width:24px; height:37px; display:inline-block;}
 .blueheaderbar .modified {float:left; width:85px; height:37px;}
 .blueheaderbar .modified a {padding-top:10px; height:27px; display:inline-block;}
