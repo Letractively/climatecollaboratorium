@@ -24,6 +24,7 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.util.PortalUtil;
 
 public class NavigationBean {
     private PlanPageType pageType = PlanPageType.getDefaultPageType();
@@ -66,6 +67,8 @@ public class NavigationBean {
             throw e;
         }
         pageType = PlanPageType.getPageTypeForParams(params);
+        
+        updatePageTitle();
         
         
     }
@@ -134,6 +137,7 @@ public class NavigationBean {
                     contestsBean.init(event);
                     issuesBean.init(event);
                     createPlanBean.init(event);
+                    updatePageTitle();
                 } catch (NoSuchContestPhaseException e) {
                     _log.error("Can't init plan related beans", e);
                 } catch (PortalException e) {
@@ -148,10 +152,17 @@ public class NavigationBean {
                 
             }
 
+
         }));
     }
     
 
+    private void updatePageTitle() {
+        
+        PortalUtil.setPageTitle(pageType.getPageTitle(this), Helper.getRequest());
+        
+    }
+    
     public PlansIndexBean getPlansIndexBean() {
         return plansIndexBean;
     }
