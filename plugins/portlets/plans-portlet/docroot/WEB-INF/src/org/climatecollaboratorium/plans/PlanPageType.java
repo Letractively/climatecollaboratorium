@@ -2,6 +2,10 @@ package org.climatecollaboratorium.plans;
 
 import org.climatecollaboratorium.navigation.NavigationEvent;
 
+import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 import edu.emory.mathcs.backport.java.util.Arrays;
 
 import java.util.HashMap;
@@ -10,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 
 public enum PlanPageType {
+    
+    
     
     PLAN_DETAILS(new DeterminePageTypeForNavigationEvent() {
 
@@ -23,6 +29,18 @@ public enum PlanPageType {
         public boolean determine(Map<String, String> params) {
             // TODO Auto-generated method stub
             return params.containsKey(CONTESTID_PARAM) && params.containsKey(PLANID_PARAM);
+        }
+        
+    }, new TitleDeterminator() {
+
+        @Override
+        public String getTitle(NavigationBean nb) {
+            try {
+                return nb.getPlanBean().getPlan().getName() + " Proposal";
+            } catch (SystemException e) {
+                _log.error(e);
+            }
+            return "Unknown Proposal";
         }
         
     }),
@@ -39,6 +57,13 @@ public enum PlanPageType {
             return params.get(DEBATEID_PARAM) != null;
         }
     
+    }, new TitleDeterminator() {
+
+        @Override
+        public String getTitle(NavigationBean nb) {
+            return "Climatecolab";
+        }
+        
     }),
     CONTEST_ISSUES(new DeterminePageTypeForNavigationEvent() {
 
@@ -53,6 +78,13 @@ public enum PlanPageType {
             return params.containsKey("contestId") && params.get(SUBVIEW_PARAM) != null && SUBVIEW_ISSUES_NAME.equals(params.get(SUBVIEW_PARAM));
         }
     
+    }, new TitleDeterminator() {
+
+        @Override
+        public String getTitle(NavigationBean nb) {
+            return nb.getContestBean().getContest().getShortName() + " issues";
+        }
+        
     }),
     CONTEST_MODEL(new DeterminePageTypeForNavigationEvent() {
 
@@ -68,6 +100,13 @@ public enum PlanPageType {
             return params.containsKey("contestId") && params.get(SUBVIEW_PARAM) != null && SUBVIEW_MODEL_NAME.equals(params.get(SUBVIEW_PARAM));
         }
     
+    }, new TitleDeterminator() {
+
+        @Override
+        public String getTitle(NavigationBean nb) {
+            return nb.getContestBean().getContest().getShortName() + " model";
+        }
+        
     }),
     
     // contest discussion
@@ -84,6 +123,13 @@ public enum PlanPageType {
             return params.containsKey(CONTESTID_PARAM) && params.containsKey(PAGE_PARAM) && params.get(PAGE_PARAM).equals(DISCUSSION_PAGE);
         }
     
+    }, new TitleDeterminator() {
+
+        @Override
+        public String getTitle(NavigationBean nb) {
+            return nb.getContestBean().getContest().getShortName() + " discussion";
+        }
+        
     }),
     
     CONTEST_PROPOSALS(new DeterminePageTypeForNavigationEvent() {
@@ -99,6 +145,13 @@ public enum PlanPageType {
             return params.containsKey(CONTESTID_PARAM);
         }
     
+    }, new TitleDeterminator() {
+
+        @Override
+        public String getTitle(NavigationBean nb) {
+            return nb.getContestBean().getContest().getShortName() + " proposals";
+        }
+        
     }),
     
     // contests index is default view, it will be checked last so it can simply return true
@@ -114,6 +167,13 @@ public enum PlanPageType {
             return true;
         }
     
+    }, new TitleDeterminator() {
+
+        @Override
+        public String getTitle(NavigationBean nb) {
+            return "Contests";
+        }
+        
     });
 
 
@@ -132,6 +192,7 @@ public enum PlanPageType {
     private final static String DISCUSSION_PAGE = "discussion";
     
     private final static PlanPageType defaultType = CONTESTS;
+    private final static Log _log = LogFactoryUtil.getLog(PlanPageType.class);
     
     private final static Map<PlanPageType, Set<PlanPageType>> allowedPredecessorsMap = new HashMap<PlanPageType, Set<PlanPageType>>();
     static {
@@ -146,10 +207,13 @@ public enum PlanPageType {
     }
     
     private final DeterminePageTypeForNavigationEvent pageDeterminator;
+    private final TitleDeterminator titleDeterminator;
     
     
-    PlanPageType(DeterminePageTypeForNavigationEvent pageDeterminator) {
+    
+    PlanPageType(DeterminePageTypeForNavigationEvent pageDeterminator, TitleDeterminator titleDeterminator) {
         this.pageDeterminator = pageDeterminator;
+        this.titleDeterminator = titleDeterminator;
     }
     
     public static PlanPageType getPageTypeForNavEvent(NavigationEvent e, PlanPageType oldType) {
@@ -170,6 +234,10 @@ public enum PlanPageType {
         return defaultType;
     }
     
+    public String getPageTitle(NavigationBean nb) {
+        return this.titleDeterminator.getTitle(nb);
+    }
+    
     public static PlanPageType getDefaultPageType() {
         return defaultType;
     }
@@ -177,6 +245,10 @@ public enum PlanPageType {
     interface DeterminePageTypeForNavigationEvent {
         boolean determine(NavigationEvent e);
         boolean determine(Map<String, String> params);
+    }
+    
+    interface TitleDeterminator {
+        String getTitle(NavigationBean nb);
     }
 
 }
