@@ -53,6 +53,7 @@ public class ContestWrapper {
     private PlansIndexBean plansIndex;
     private EventBus eventBus;
     private List<ContestPhaseWrapper> activeOrPastPhases = new ArrayList<ContestPhaseWrapper>();
+    private List<ContestPhaseWrapper> pastPhases = new ArrayList<ContestPhaseWrapper>();
     ContestPhaseWrapper activePhase = null;
 
     private CreatePlanBean createPlanBean;
@@ -78,6 +79,9 @@ public class ContestWrapper {
             ContestPhaseWrapper phaseWrapper = new ContestPhaseWrapper(this,phase);
             if (addAsActiveOrPast) {
                 activeOrPastPhases.add(phaseWrapper);
+                if (! phaseWrapper.isActive()) {
+                    pastPhases.add(phaseWrapper);
+                }
             }
             if (phase.getPhaseActive() != null && phase.getPhaseActive()) {
                 // don't add next phases as they haven't started yet
@@ -153,6 +157,10 @@ public class ContestWrapper {
     
     public boolean isFeatured() {
         return contest.getFeatured();
+    }
+    
+    public List<ContestPhaseWrapper> getPastPhases() {
+        return pastPhases;
     }
     
 

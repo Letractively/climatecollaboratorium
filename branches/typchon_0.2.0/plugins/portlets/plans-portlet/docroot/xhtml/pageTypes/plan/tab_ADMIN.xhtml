@@ -83,7 +83,7 @@
                 </div>
             </div>
         </ice:panelGroup>
-        
+        <!-- 
         <ice:panelGroup rendered="#{permissions.canAdminAll}">
             <div class="addpropbox blue">
                 <strong>Scrapbook</strong>
@@ -111,6 +111,21 @@
             <div>
                   <ice:inputText value="#{planBean.plan.scrapbookText}" partialSubmit="true" /> 
             </div>
+          </div>
+        </ice:panelGroup>
+         -->
+        
+        <ice:panelGroup rendered="#{permissions.canAdminAll}">
+            <div class="addpropbox blue">
+                <strong>Proposal tags (featured etc...)</strong>
+                <div>
+                    <ice:inputText value="#{planBean.plan.tags}" partialSubmit="true" /> 
+                </div>
+          
+                <strong>Proposal tags hover text</strong>
+                <div>
+                    <ice:inputText value="#{planBean.plan.tagsHover}" partialSubmit="true" /> 
+                </div>
           </div>
         </ice:panelGroup>
         

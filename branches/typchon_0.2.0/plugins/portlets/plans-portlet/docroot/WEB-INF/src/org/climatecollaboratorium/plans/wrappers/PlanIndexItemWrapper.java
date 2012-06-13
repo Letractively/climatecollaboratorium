@@ -213,6 +213,18 @@ public class PlanIndexItemWrapper {
         return wrapped.getTeam();
     }
     
+    public boolean isFeatured() throws SystemException {
+        return wrapped.getTags() != null;
+    }
+    
+    public String getTags() throws SystemException {
+        return wrapped.getTags();
+    }
+    
+    public String getTagsHover() throws SystemException {
+        return wrapped.getTagsHover();
+    }
+    
     
     
 

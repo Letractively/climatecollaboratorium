@@ -33,19 +33,7 @@
 
  <div class="blueheaderbar">
     <div class="contestbar">
-        Current contest phase:&amp;nbsp; <strong>#{contest.contest.activePhase.name}</strong> 
-        
-        <span>Previous phases: 
-            <f:subview rendered="#{fn:length(contest.contest.activeOrPastPhases) gt 1}">
-                <ui:repeat value="#{contest.contest.activeOrPastPhases}" var="phase">
-                    <collab:contestLink contestId="#{contest.contest.contestId}" text="#{phase.name}" hashString="plans=phase:#{phase.phaseId}" />
-                </ui:repeat>
-            </f:subview>
-            <f:subview rendered="#{fn:length(contest.contest.activeOrPastPhases) le 1}">
-                No previous phases
-            </f:subview>
-        </span>
-        
+        <ui:include src="./contests/widget_CONTEST_PHASES_#{contest.contestState}.xhtml" />
     </div>
  </div>
  <div class="shadebar"></div>
