@@ -172,6 +172,7 @@ public class PlanConstants {
         IMAGE(Long.class, "%s", attributeFunctionFactory.getPlanPropertyFunction("image"), true, PlanFilterOperatorType.DUMMY, null),
         TEAM(String.class, "%s", attributeFunctionFactory.getAttributeValue("TEAM"), true, null, null),
         TAGS(String.class, "%s", attributeFunctionFactory.getAttributeValue("TAGS"), true, null, null),
+        TAGS_ORDER(Integer.class, "%s", attributeFunctionFactory.getAttributeValue("TAGS_ORDER"), true, null, null),
         TAGS_HOVER(String.class, "%s", attributeFunctionFactory.getAttributeValue("TAGS_HOVER"), true, null, null);
 		
 		private Class<?> clasz;

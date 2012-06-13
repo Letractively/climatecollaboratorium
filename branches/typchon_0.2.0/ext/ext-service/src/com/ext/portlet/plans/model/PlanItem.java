@@ -369,4 +369,10 @@ public interface PlanItem extends PlanItemModel {
 
     public void setTagsHover(java.lang.String tagsHover)
         throws com.liferay.portal.SystemException;
+
+    public java.lang.Integer getTagsOrder()
+        throws com.liferay.portal.SystemException;
+
+    public void setTagsOrder(int tagsOrder)
+        throws com.liferay.portal.SystemException;
 }

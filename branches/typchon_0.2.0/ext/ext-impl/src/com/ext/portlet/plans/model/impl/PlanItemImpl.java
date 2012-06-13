@@ -932,4 +932,23 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
     public void setTagsHover(String tagsHover) throws SystemException {
         setAttribute(Attribute.TAGS_HOVER, tagsHover);
     }
+    
+    public Integer getTagsOrder() throws SystemException {
+        String tagsOrderStr = getAttribute(Attribute.TAGS_ORDER);
+        int ret = 0;
+        if (tagsOrderStr != null && tagsOrderStr.trim().length() > 0) {
+            try {
+                ret = Integer.parseInt(tagsOrderStr);
+                
+            }
+            catch (NumberFormatException e) {
+                // ignore
+            }
+        }
+        return ret;
+    }
+    
+    public void setTagsOrder(int tagsOrder) throws SystemException {
+        setAttribute(Attribute.TAGS_ORDER, String.valueOf(tagsOrder));
+    }
 }
