@@ -886,7 +886,23 @@ public class PlanItemWrapper {
 
     public void setScrapbookText(String scrapboxText) throws SystemException {
         wrapped.setAttribute(PlanConstants.Attribute.SCRAPBOOK_HOVER.name(), scrapboxText);
+    }
+    
+    public String getTags() throws SystemException {
+        return wrapped.getTags();
+    }
+    
+    public String getTagsHover() throws SystemException {
+        return wrapped.getTagsHover();
+    }
+    
 
+    public void setTags(String tags) throws SystemException {
+        wrapped.setAttribute(PlanConstants.Attribute.TAGS.name(), tags);
+    }
+    
+    public void setTagsHover(String tagsHover) throws SystemException {
+        wrapped.setAttribute(PlanConstants.Attribute.TAGS_HOVER.name(), tagsHover);
     }
 
     public User getAuthor() throws PortalException, SystemException {

@@ -2,6 +2,7 @@ package org.climatecollaboratorium.plans;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,12 +31,14 @@ public class ContestBean {
     private boolean activeContest = true; 
     private ContestSubView subView = ContestSubView.PROPOSALS;
     private ContestPhaseWrapper currentPhase;
+    private ContestState contestState = ContestState.NOT_STARTED;
     
     private final static String PLANS_SOURCE = "plans"; 
     private final static String SUBVIEW_PARAM = "subview";
     private final static String CONTESTS_PARAM = "contests";
     private final static String PAST_CONTESTS_PARAM_VAL = "past";
     private static final String PHASE_PARAM = "phase";
+    
 
     public List<SelectItem> availableModels = new ArrayList<SelectItem>();
     public Long modelId;
@@ -59,9 +62,16 @@ public class ContestBean {
         }
         if (contest.getContest().isActive()) {
             currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getActivePhase());
+            contestState = ContestState.ACTIVE;
         }
         else {
             currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getPhases().get(0));
+            if (currentPhase.getStartDate().after(new Date())) {
+                contestState = ContestState.NOT_STARTED;
+            }
+            else {
+                contestState = ContestState.ENDED;
+            }
         }
         
         activeContest = contest.isContestActive();
@@ -151,4 +161,20 @@ public class ContestBean {
     public PlansIndexBean getPlansIndex() {
         return contest.getPlansIndex();
     }
+    
+    
+    public void setContestState(ContestState contestState) {
+        this.contestState = contestState;
+    }
+
+    public ContestState getContestState() {
+        return contestState;
+    }
+
+
+    public enum ContestState {
+        NOT_STARTED,
+        ACTIVE,
+        ENDED
+    };
 }

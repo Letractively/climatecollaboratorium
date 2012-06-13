@@ -91,11 +91,20 @@
     
     
     <ice:panelSeries var="singleProposal" value="#{plansIndex.plans}">
-        <div class="propbox">
+        <div class="propbox #{singleProposal.featured ? 'featured' : ''}">
             <div class="row1">
                 <div class="title-author">
-                
                     <h4>
+                        <f:subview rendered="#{not empty singleProposal.tags}">
+                            <div style="display: inline; display: inline-block;">
+                                <span class="fieldWithTooltip">#{singleProposal.tags}</span>
+                                <div class="tooltip">
+                                    #{singleProposal.tagsHover}
+                                    <div class="tt-arrow"></div>
+                                </div>
+                            </div>
+                                
+                        </f:subview>
                         <f:subview rendered="#{singleProposal.scrapbook}">
                             <div class="tooltips" style="display: inline-block;">
                                 <div>
@@ -113,7 +122,6 @@
                                     <a href="javascript:;" class="ribbon-hover planRibbon ribbon_#{singleProposal.ribbon}">&amp;nbsp;</a>
                                     <div class="tooltip">
                                         #{singleProposal.ribbonText}
-                                        <div class="tt-arrow"></div>
                                     </div>
                                 </div>
                             </div>
