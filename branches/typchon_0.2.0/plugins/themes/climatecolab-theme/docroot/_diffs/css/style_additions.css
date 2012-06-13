@@ -460,7 +460,7 @@ ul#blogArchives li {list-style: none; margin-bottom: 10px; background: none;}
 .comm_member-photo {float:left; width:150px; margin-right:20px;}
 .comm_member-info {float:left; width:510px;}
 #main.full .comm_member-info { width:810px;}
-#main.userProfile h2 {margin-top: 30px;}
+#main.userProfile h2 {margin-top: 0}
 
 .main_long {
     float: left;
