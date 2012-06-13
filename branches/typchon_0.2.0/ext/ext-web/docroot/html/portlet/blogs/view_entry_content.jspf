@@ -79,10 +79,10 @@
                 <div class="comm_icons">
                     <a href="<%= viewEntryURL %>#_33_messages_top" title="comments">
                         <c:if test="<%= messagesCount > 0 %>">
-                            <img src="/collaboratorium-theme/images/icon_comments2.gif" width="25" height="23" alt="messagesCount comments" />&nbsp;<%= messagesCount %>
+                            <img src="/climatecolab-theme/images/icon_comments2.gif" width="25" height="23" alt="messagesCount comments" />&nbsp;<%= messagesCount %>
                         </c:if>
                         <c:if test="<%= messagesCount <= 0 %>">
-                            <img src="/collaboratorium-theme/images/icon_comments2-none.gif" width="25" height="23" alt="no comments" /> 
+                            <img src="/climatecolab-theme/images/icon_comments2-none.gif" width="25" height="23" alt="no comments" /> 
                         </c:if>
                     </a>
                                     
@@ -93,7 +93,7 @@
                       addthis:description="<%= HtmlUtil.escape(HtmlUtil.extractText(entry.getContent()).substring(0,255)) %>"
                 
                 >
-                    <img src="/collaboratorium-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
+                    <img src="/climatecolab-theme/images/icon_share.gif" width="19" height="23" alt="Share" class="icon_share" />
                 </a>
                 <!-- AddThis Button BEGIN -->
                 <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
