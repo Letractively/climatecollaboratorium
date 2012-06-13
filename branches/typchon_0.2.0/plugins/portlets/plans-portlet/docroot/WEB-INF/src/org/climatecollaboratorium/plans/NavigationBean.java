@@ -163,10 +163,14 @@ public class NavigationBean {
         if (pageTitle == null) {
             pageTitle = "Climatecolab Proposals";
         }
-        
-        HttpServletRequest request = Helper.getRequest();
-        if (request != null) {
-            PortalUtil.setPageTitle(pageTitle, Helper.getRequest());
+        try {
+            HttpServletRequest request = Helper.getRequest();
+            if (request != null) {
+                PortalUtil.setPageTitle(pageTitle, Helper.getRequest());
+            }
+        }
+        catch (Throwable e) {
+            // ignore as icefaces throws NPE on some phases because requests haven't been populated  
         }
         
     }
