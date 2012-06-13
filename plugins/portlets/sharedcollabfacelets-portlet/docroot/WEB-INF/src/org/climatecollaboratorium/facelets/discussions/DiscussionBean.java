@@ -227,15 +227,22 @@ public class DiscussionBean {
             PortalException {
         if (e.getComponent().getAttributes().containsKey("pageType")) {
             try {
-                pageType = DiscussionPageType.valueOf(e.getComponent().getAttributes().get("pageType").toString());
+                Object obj = e.getComponent().getAttributes().get("pageType");
+                if (obj != null && obj.toString().trim().length() > 0) {
+                    pageType = DiscussionPageType.valueOf(e.getComponent().getAttributes().get("pageType").toString());
+                }
             } catch (IllegalArgumentException ex) {
                 _log.error("Can't find specified page type", ex);
             }
         }
         if (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().containsKey("categoryId")) {
             try {
-                categoryId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext()
-                        .getRequestParameterMap().get("categoryId").toString());
+                Object obj = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("categoryId");
+                if (obj != null && obj.toString().trim().length() > 0) {
+                
+                    categoryId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext()
+                            .getRequestParameterMap().get("categoryId").toString());
+                }
             } catch (NumberFormatException ex) {
                 _log.error("Can't read category id from request", ex);
             }
