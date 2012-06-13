@@ -358,4 +358,15 @@ public interface PlanItem extends PlanItemModel {
     public void revertTo(java.lang.Long updateAuthorId)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public java.lang.String getTags() throws com.liferay.portal.SystemException;
+
+    public void setTags(java.lang.String tags)
+        throws com.liferay.portal.SystemException;
+
+    public java.lang.String getTagsHover()
+        throws com.liferay.portal.SystemException;
+
+    public void setTagsHover(java.lang.String tagsHover)
+        throws com.liferay.portal.SystemException;
 }
