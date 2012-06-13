@@ -299,7 +299,7 @@ body {background:#fff; font-size:15px;}
 /* contest page */
 .blueheaderbar .contestbar {padding:11px 0 0 14px;}
 .blueheaderbar .contestbar span {padding-left:30px;}
-.blueheaderbar .contestbar a {padding-left:12px;}
+.blueheaderbar .contestbar a, .blueheaderbar .contestbar strong {padding-left:12px;}
 
 /* the shadeed div below the bluebar */
 .shadebar {background-image:url(../images/tableshade.png); background-repeat: repeat-x; height:4px; position:relative; z-index:9;}
