@@ -908,5 +908,28 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
             updateAttribute(attribute);
         }
     }
-
+    
+    public String getTags() throws SystemException {
+        String tags = getAttribute(Attribute.TAGS);
+        if (tags == null || tags.trim().length() == 0) {
+            return null;
+        }
+        return tags;
+    }
+    
+    public void setTags(String tags) throws SystemException {
+        setAttribute(Attribute.TAGS, tags);
+    }
+    
+    public String getTagsHover() throws SystemException {
+        String tagsHover = getAttribute(Attribute.TAGS_HOVER);
+        if (tagsHover == null || tagsHover.trim().length() == 0) {
+            return null;
+        }
+        return tagsHover;
+    }
+    
+    public void setTagsHover(String tagsHover) throws SystemException {
+        setAttribute(Attribute.TAGS_HOVER, tagsHover);
+    }
 }
