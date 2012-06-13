@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.FacesEvent;
+import javax.servlet.http.HttpServletRequest;
 
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
@@ -163,7 +164,10 @@ public class NavigationBean {
             pageTitle = "Climatecolab Proposals";
         }
         
-        PortalUtil.setPageTitle(pageTitle, Helper.getRequest());
+        HttpServletRequest request = Helper.getRequest();
+        if (request != null) {
+            PortalUtil.setPageTitle(pageTitle, Helper.getRequest());
+        }
         
     }
     
