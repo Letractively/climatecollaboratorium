@@ -23,7 +23,7 @@
             <ice:commandLink actionListener="#{discussionBean.changePageType}" rendered="#{!discussionBean.permissions.isLoggedIn or discussionBean.permissions.canAddThread}"
                                            styleClass="prominantButton startDiscussion" onclick="if(!deferUntilLogin()) return false;">
                             <f:attribute name="pageType" value="THREAD_ADD"/>
-                <img src="/collaboratorium-theme/images/icon_new-topic.gif" width="37" height="36" class="spc" /> new discussion
+                <img src="/climatecolab-theme/images/icon_new-topic.gif" width="37" height="36" class="spc" /> new discussion
             </ice:commandLink>
           </div>
           
@@ -41,11 +41,11 @@
                 rendered="#{discussionBean.pageType == 'DISCUSSIONS' or discussionBean.pageType == 'CATEGORY' or discussionBean.pageType == 'THREAD'}"
                 onclick='if(!deferUntilLogin()) return false;' styleClass="subscribeLinkSmall">
                 <f:subview rendered="#{discussionBean.subscribed}">
-                <img src="/collaboratorium-theme/images/unsubscribe_small_2.gif" />
+                <img src="/climatecolab-theme/images/unsubscribe_small_2.gif" />
                     Unsubscribe
                 </f:subview>
                 <f:subview rendered="#{not discussionBean.subscribed}">
-                    <img src="/collaboratorium-theme/images/subscribe_small_2.png" />
+                    <img src="/climatecolab-theme/images/subscribe_small_2.png" />
                     Subscribe
                 </f:subview>
         </ice:commandLink>
