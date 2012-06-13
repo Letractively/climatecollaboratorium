@@ -158,8 +158,12 @@ public class NavigationBean {
     
 
     private void updatePageTitle() {
+        String pageTitle = pageType.getPageTitle(this);
+        if (pageTitle == null) {
+            pageTitle = "Climatecolab Proposals";
+        }
         
-        PortalUtil.setPageTitle(pageType.getPageTitle(this), Helper.getRequest());
+        PortalUtil.setPageTitle(pageTitle, Helper.getRequest());
         
     }
     
