@@ -896,6 +896,14 @@ public class PlanItemWrapper {
         return wrapped.getTagsHover();
     }
     
+    public int getTagsOrder() throws SystemException  {
+        return wrapped.getTagsOrder();
+    }
+    
+    public void setTagsOrder(int order) throws SystemException  {
+        wrapped.setTagsOrder(order);
+    }
+    
 
     public void setTags(String tags) throws SystemException {
         wrapped.setAttribute(PlanConstants.Attribute.TAGS.name(), tags);

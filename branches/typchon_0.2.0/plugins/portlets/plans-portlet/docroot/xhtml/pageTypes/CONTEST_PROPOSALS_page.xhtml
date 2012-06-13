@@ -67,7 +67,10 @@
     <div class="moreinfo">
         <f:subview rendered="#{fn:length(contest.contest.contest.teamMembers) gt 0}">
             <ice:panelSeries styleClass="advisors" var="teamMember" value="#{contest.contest.contest.teamMembers}">
-            <span>#{teamMember.role}:&amp;nbsp;<collab:userLinkSimple userId="#{teamMember.userId}" text="#{teamMember.user.fullName}" /></span>
+            <span>#{teamMember.role}:&amp;nbsp;
+                <collab:userPortrait screenName="#{empty proposal.plan.team ? teamMember.user.screenName : ''}" width="30" height="30" />
+                <collab:userLinkSimple userId="#{teamMember.userId}" text="#{teamMember.user.fullName}" />
+            </span>
             
             </ice:panelSeries>
         </f:subview>
@@ -97,10 +100,109 @@
     </div>
 </div> <!-- /headline.subhead -->
  
+ <ice:form>
+    <div class="blueheaderbar tooltips">
+        <div class="proposalname">
+            <div style="display: inline-block">
+                <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Proposal name">
+                    <f:attribute name="sortColumn" value="NAME" />
+                </ice:commandLink>
+                <ui:include src="./contests/widget_SORT_ARROW.xhtml">
+                    <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                    <ui:param name="currentColumn" value="NAME" />
+                    <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+                </ui:include>
+                <div class="tooltip">click to sort by name<div class="tt-arrow"></div></div>
+            </div>
+             /&amp;nbsp;
+            
+            <div style="display: inline-block">
+                <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Author(s)">
+                    <f:attribute name="sortColumn" value="CREATOR" />
+                </ice:commandLink>
+                <ui:include src="./contests/widget_SORT_ARROW.xhtml">
+                    <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                    <ui:param name="currentColumn" value="CREATOR" />
+                    <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+                </ui:include>
+                
+                <div class="tooltip">click to sort by author<div class="tt-arrow"></div></div>
+            </div>
+        </div>
+        <div class="thumbs">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
+                <f:attribute name="sortColumn" value="SUPPORTERS" />
+            </ice:commandLink>
+            <ui:include src="./contests/widget_SORT_ARROW.xhtml">
+                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                <ui:param name="currentColumn" value="SUPPORTERS" />
+                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+            </ui:include>
+            <div class="tooltip">click to sort by<br />number of supporters<div class="tt-arrow"></div></div>
+        </div>
+        <div class="propcomm">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
+                <f:attribute name="sortColumn" value="COMMENTS" />
+            </ice:commandLink>
+            <ui:include src="./contests/widget_SORT_ARROW.xhtml">
+                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                <ui:param name="currentColumn" value="COMMENTS" />
+                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+            </ui:include>
+            <div class="tooltip">click to sort by<br />number of comments<div class="tt-arrow"></div></div>
+        </div>
+        <div class="modified">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Modified">
+                <f:attribute name="sortColumn" value="UPDATE_DATE" />
+            </ice:commandLink>
+            <ui:include src="./contests/widget_SORT_ARROW.xhtml">
+                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                <ui:param name="currentColumn" value="UPDATE_DATE" />
+                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+            </ui:include>
+            <div class="tooltip">click to sort by date<div class="tt-arrow"></div></div>
+        </div>
+        <div class="contributor">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Contributors">
+                <f:attribute name="sortColumn" value="IS_PLAN_OPEN" />
+            </ice:commandLink>
+            <ui:include src="./contests/widget_SORT_ARROW.xhtml">
+                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
+                <ui:param name="currentColumn" value="IS_PLAN_OPEN" />
+                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
+            </ui:include>
+            <div class="tooltip">click to sort by contributor<div class="tt-arrow"></div></div>
+        </div>
+    </div></ice:form>
  
-<ui:decorate template="./contests/widget_PLANS_LIST.xhtml">
-    <ui:param name="maxRows" value="#{contest.contest.plansIndex.pageSize}" />
-    <ui:param name="renderPaginator" value="true" />
-</ui:decorate>
+    <ui:decorate template="./contests/widget_PLANS_LIST.xhtml">
+        <ui:param name="maxRows" value="#{contest.contest.plansIndex.pageSize}" />
+        <ui:param name="renderPaginator" value="true" />
+        <ui:param name="plansList" value="#{plansIndex.plansWithRibbons}" />
+        <ui:param name="showShadebar" value="#{true}" />
+    </ui:decorate>
+    
+    <ui:decorate template="./contests/widget_PLANS_LIST.xhtml">
+        <ui:param name="maxRows" value="#{contest.contest.plansIndex.pageSize}" />
+        <ui:param name="renderPaginator" value="true" />
+        <ui:param name="plansList" value="#{plansIndex.plansFeatured}" />
+        <ui:param name="showShadebar" value="true" />
+    </ui:decorate>
+    <h1></h1>
+    <ui:decorate template="./contests/widget_PLANS_LIST.xhtml">
+        <ui:param name="maxRows" value="#{contest.contest.plansIndex.pageSize}" />
+        <ui:param name="renderPaginator" value="true" />
+        <ui:param name="plansList" value="#{plansIndex.plansWithProperName}" />
+        <ui:param name="showShadebar" value="#{fn:length(plansIndex.plansFeatured) eq 0}" />
+    </ui:decorate>
+    <ui:decorate template="./contests/widget_PLANS_LIST.xhtml">
+        <ui:param name="maxRows" value="#{contest.contest.plansIndex.pageSize}" />
+        <ui:param name="renderPaginator" value="true" />
+        <ui:param name="plansList" value="#{plansIndex.plansUntitled}" />
+        <ui:param name="showShadebar" value="#{(fn:length(plansIndex.plansFeatured) eq 0) and (fn:length(plansIndex.plansWithProperName) eq 0)}" />
+    </ui:decorate>
+    
+    
+    
      </div>
 </f:view>

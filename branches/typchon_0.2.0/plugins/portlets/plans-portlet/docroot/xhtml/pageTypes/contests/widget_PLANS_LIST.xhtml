@@ -11,93 +11,32 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces"
     xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:collab="http://climatecollaboratorium.org/facelets"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"   
     xmlns:h="http://java.sun.com/jsf/html"  >
     
-    <ice:form>
-    <div class="blueheaderbar tooltips">
-        <div class="proposalname">
-            <div style="display: inline-block">
-                <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Proposal name">
-                    <f:attribute name="sortColumn" value="NAME" />
-                </ice:commandLink>
-                <ui:include src="./widget_SORT_ARROW.xhtml">
-                    <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
-                    <ui:param name="currentColumn" value="NAME" />
-                    <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
-                </ui:include>
-                <div class="tooltip">click to sort by name<div class="tt-arrow"></div></div>
-            </div>
-             /&amp;nbsp;
-            
-            <div style="display: inline-block">
-                <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Author(s)">
-                    <f:attribute name="sortColumn" value="CREATOR" />
-                </ice:commandLink>
-                <ui:include src="./widget_SORT_ARROW.xhtml">
-                    <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
-                    <ui:param name="currentColumn" value="CREATOR" />
-                    <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
-                </ui:include>
-                
-                <div class="tooltip">click to sort by author<div class="tt-arrow"></div></div>
-            </div>
-        </div>
-        <div class="thumbs">
-            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
-                <f:attribute name="sortColumn" value="SUPPORTERS" />
-            </ice:commandLink>
-            <ui:include src="./widget_SORT_ARROW.xhtml">
-                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
-                <ui:param name="currentColumn" value="SUPPORTERS" />
-                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
-            </ui:include>
-            <div class="tooltip">click to sort by<br />number of supporters<div class="tt-arrow"></div></div>
-        </div>
-        <div class="propcomm">
-            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value=" ">
-                <f:attribute name="sortColumn" value="COMMENTS" />
-            </ice:commandLink>
-            <ui:include src="./widget_SORT_ARROW.xhtml">
-                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
-                <ui:param name="currentColumn" value="COMMENTS" />
-                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
-            </ui:include>
-            <div class="tooltip">click to sort by<br />number of comments<div class="tt-arrow"></div></div>
-        </div>
-        <div class="modified">
-            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Modified">
-                <f:attribute name="sortColumn" value="UPDATE_DATE" />
-            </ice:commandLink>
-            <ui:include src="./widget_SORT_ARROW.xhtml">
-                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
-                <ui:param name="currentColumn" value="UPDATE_DATE" />
-                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
-            </ui:include>
-            <div class="tooltip">click to sort by date<div class="tt-arrow"></div></div>
-        </div>
-        <div class="contributor">
-            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Contributors">
-                <f:attribute name="sortColumn" value="IS_PLAN_OPEN" />
-            </ice:commandLink>
-            <ui:include src="./widget_SORT_ARROW.xhtml">
-                <ui:param name="sortColumn" value="#{plansIndex.sortColumn}" />
-                <ui:param name="currentColumn" value="IS_PLAN_OPEN" />
-                <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
-            </ui:include>
-            <div class="tooltip">click to sort by contributor<div class="tt-arrow"></div></div>
-        </div>
-    </div></ice:form>
-    <div class="shadebar"></div>
+    <f:subview rendered="#{showShadebar and (fn:length(plansList) > 0)}">
+        <div class="shadebar"></div>
+    </f:subview>
     
-    
-    <ice:panelSeries var="singleProposal" value="#{plansIndex.plans}">
+    <ice:panelSeries var="singleProposal" value="#{plansList}">
         <div class="propbox #{singleProposal.featured ? 'featured' : ''}">
+          <f:subview rendered="#{singleProposal.ribbon != null and singleProposal.ribbon > 0}">
+            <div class="ribbonPlaceholder">
+                <span class="fieldWithTooltip">
+                    <br />
+                    <img src="/climatecolab-theme/images/icon-prize.png" />
+                </span>
+                <div class="tooltip">
+                    #{singleProposal.ribbonText}
+                </div>
+            </div>
+            </f:subview>
             <div class="row1">
                 <div class="title-author">
                     <h4>
                         <f:subview rendered="#{not empty singleProposal.tags}">
                             <div style="display: inline; display: inline-block;">
-                                <span class="fieldWithTooltip">#{singleProposal.tags}</span>
+                                <span class="fieldWithTooltip">#{singleProposal.tags}:</span>
                                 <div class="tooltip">
                                     #{singleProposal.tagsHover}
                                     <div class="tt-arrow"></div>
@@ -105,6 +44,7 @@
                             </div>
                                 
                         </f:subview>
+                        <!-- 
                         <f:subview rendered="#{singleProposal.scrapbook}">
                             <div class="tooltips" style="display: inline-block;">
                                 <div>
@@ -115,7 +55,8 @@
                                 <div class="tooltip">#{singleProposal.scrapbookText}<div class="tt-arrow"></div></div>
                             </div>
                         </f:subview>
-                        
+                         -->
+                        <!-- 
                         <f:subview rendered="#{singleProposal.ribbon != null and singleProposal.ribbon > 0}">
                             <div class="tooltips" style="display: inline-block;">
                                 <div>
@@ -126,6 +67,7 @@
                                 </div>
                             </div>
                         </f:subview>
+                         -->
                         
                         <collab:planLink planId="#{singleProposal.planId}" contestId="#{singleProposal.contestId}" text="#{singleProposal.name}" escape="true" />
                         
@@ -137,6 +79,7 @@
                             #{singleProposal.team}
                         </f:subview>
                     </h4>
+                    <div class="clear" ></div>
                 </div>
                 <div class="thumbbox">
                     <collab:planLink planId="#{singleProposal.planId}" contestId="#{singleProposal.contestId}" text="#{singleProposal.supportersCount}" hashString="plans%3Dtab%3ATEAM"/>

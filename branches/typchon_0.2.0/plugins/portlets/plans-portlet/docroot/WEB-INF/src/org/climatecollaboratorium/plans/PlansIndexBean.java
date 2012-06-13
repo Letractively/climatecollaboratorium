@@ -44,12 +44,14 @@ public class PlansIndexBean {
     private Columns defaultSortColumn;
     private boolean sortAscending = false;
     private boolean updatePlansList = true;
+    private boolean defaultSort = true;
     private int pageSize = 50;
     private static int MAX_POPULAR_RESULTS = 10;
     // Current items in ui
     private List uiCustomerBeans = new ArrayList(pageSize);
 
     private PagedListDataModel plansDataModel;
+    
 
 
     private ContestPhaseWrapper contestPhase;
@@ -67,6 +69,10 @@ public class PlansIndexBean {
 
     private List<PlanItem> notFilteredPlans = new ArrayList<PlanItem>();
     private List<PlanIndexItemWrapper> plans = new ArrayList<PlanIndexItemWrapper>();
+    private List<PlanIndexItemWrapper> plansWithRibbons = new ArrayList<PlanIndexItemWrapper>();
+    private List<PlanIndexItemWrapper> plansFeatured = new ArrayList<PlanIndexItemWrapper>();
+    private List<PlanIndexItemWrapper> plansWithProperName = new ArrayList<PlanIndexItemWrapper>();
+    private List<PlanIndexItemWrapper> plansUntitled = new ArrayList<PlanIndexItemWrapper>();
 
     private DataPaginator dataPaginator;
     private List<Debate> availableDebates;
@@ -334,7 +340,13 @@ public class PlansIndexBean {
         availableDebates = contestPhase.getContest().getContest().getDebates();
         if (updatePlansList) {
             plansUpdateToken++;
+            
             plans.clear();
+            plansWithRibbons.clear();
+            plansFeatured.clear();
+            plansWithProperName.clear();
+            plansUntitled.clear();
+            
             updatePlansList = false;
             Columns sortCol = Columns.valueOf(sortColumn);
 
@@ -368,72 +380,58 @@ public class PlansIndexBean {
                     i.remove();
                     continue;
                 }
-
-                switch (current_mode) {
-                      case PROPOSALS_ALL: {
-                        break;
-                    }
-
-                   
-                    case PROPOSALS_OPEN: {
-                        String s = PlanConstants.Columns.IS_PLAN_OPEN.getValue(plan);
-                       if (!plan.getOpen()) {
-                            continue;
-                        }
-                        break;
-                    }
-
-
-
-                    case PROPOSALS_NEED_ASSISTANCE: {
-                        if (!plan.isSeekingAssistance()) {
-                            continue;
-                        }
-                        break;
-                    }
-
-                    case PROPOSALS_USER_OWNS: {
-                        if (!plan.getAuthorId().equals(userId)) {
-                            continue;
-                        }
-                        break;
-                    }
-                    case PROPSALS_USER_SUPPORTS: {
-                        if (!plan.isUserAFan(userId)) {
-                            continue;
-                        }
-                        break;
-                    }
-
+                PlanIndexItemWrapper piiw = new PlanIndexItemWrapper(plan, this, availableDebates);
+                
+                if (plan.getRibbon() != null && plan.getRibbon() > 0) {
+                    plansWithRibbons.add(piiw);
                 }
-                if (plan.getPlanAttribute("SCRAPBOOK") != null && 
-                        plan.getPlanAttribute("SCRAPBOOK").getAttributeValue() != null && 
-                        plan.getPlanAttribute("SCRAPBOOK").getAttributeValue().equals("true")) {
-                    // we have a scrapbook plan, place it at the beginning
-                    plans.add(0, new PlanIndexItemWrapper(plan, this, availableDebates));
-                    hasScrapBook = true;
+                else if (plan.getTags() != null) {
+                    plansFeatured.add(piiw);
                 }
                 else if (plan.getName().startsWith("Untitled")) {
-                   untitledPlans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
-                }
-                else if (plan.getRibbon() != null && plan.getRibbon() > 0) {
-                    PlanIndexItemWrapper piiw = new PlanIndexItemWrapper(plan, this, availableDebates);
-                    if (hasScrapBook) {
-                        plans.add(1, piiw);
-                    }
-                    else {
-                        plans.add(0, piiw);
-                    }
-                    
-                    
+                    plansUntitled.add(piiw);
                 }
                 else {
-                    plans.add(new PlanIndexItemWrapper(plan, this, availableDebates));
+                    plansWithProperName.add(piiw);
                 }
+                plans.add(piiw);
             }
-            if (!untitledPlans.isEmpty()) {
-                plans.addAll(untitledPlans);
+            
+            if (defaultSort) {
+                // update sorting for sections
+                Collections.sort(plansWithRibbons, new Comparator<PlanIndexItemWrapper>() {
+
+                    @Override
+                    public int compare(PlanIndexItemWrapper o1, PlanIndexItemWrapper o2) {
+                        try {
+                            return o1.getRibbon() - o2.getRibbon();
+                        } catch (SystemException e) {
+                            // ignore
+                        }
+                        return 0;
+                    }
+                
+                });
+            
+                // update sorting for sections
+                Collections.sort(plansFeatured, new Comparator<PlanIndexItemWrapper>() {
+
+                    @Override
+                    public int compare(PlanIndexItemWrapper o1, PlanIndexItemWrapper o2) {
+                        try {
+                            return o1.getTagsOrder() - o2.getTagsOrder();
+                        } catch (SystemException e) {
+                            // ignore
+                        }
+                        return 0;
+                    }
+                
+                });
             }
+            
+            
+            
+            
             updateErrorNotes = true;
         }
         return plans;
@@ -462,6 +460,7 @@ public class PlansIndexBean {
     }
     
     public void updateSortColumn(ActionEvent e) {
+        defaultSort = false;
         String newSortColumn = (String) e.getComponent().getAttributes().get("sortColumn"); 
         //this.sortColumn =
         if (newSortColumn.equals(sortColumn)) {
@@ -663,5 +662,29 @@ public class PlansIndexBean {
     
     public int getPlansUpdateToken() {
         return plansUpdateToken;
+    }
+
+
+    public List<PlanIndexItemWrapper> getPlansWithRibbons() throws SystemException, PortalException {
+        getPlans();
+        return plansWithRibbons;
+    }
+
+
+    public List<PlanIndexItemWrapper> getPlansFeatured() throws SystemException, PortalException {
+        getPlans();
+        return plansFeatured;
+    }
+
+
+    public List<PlanIndexItemWrapper> getPlansWithProperName() throws SystemException, PortalException {
+        getPlans();
+        return plansWithProperName;
+    }
+
+
+    public List<PlanIndexItemWrapper> getPlansUntitled() throws SystemException, PortalException {
+        getPlans();
+        return plansUntitled;
     }
 }
