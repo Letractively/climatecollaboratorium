@@ -214,7 +214,7 @@ public class PlanIndexItemWrapper {
     }
     
     public boolean isFeatured() throws SystemException {
-        return wrapped.getTags() != null;
+        return wrapped.getRibbon() != null && wrapped.getRibbon() > 0;
     }
     
     public String getTags() throws SystemException {
@@ -223,6 +223,10 @@ public class PlanIndexItemWrapper {
     
     public String getTagsHover() throws SystemException {
         return wrapped.getTagsHover();
+    }
+
+    public int getTagsOrder() throws SystemException {
+        return wrapped.getTagsOrder();
     }
     
     
