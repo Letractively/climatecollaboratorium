@@ -425,7 +425,7 @@ function initTooltips() {
         return jQuery("<span />");
     }
     
-    jQuery(".tooltips div a").mouseover(function() {
+    jQuery(".tooltips div a, .fieldWithTooltip").mouseover(function() {
         var self = jQuery(this);
         var tooltip = findTooltip(jQuery(this));
         
@@ -433,7 +433,7 @@ function initTooltips() {
         tooltip.show();
         tooltip.css({top: - tooltip.outerHeight() - 10, left: (self.outerWidth() - tooltip.outerWidth()) / 2});
     });
-    jQuery(".tooltips div a").mouseleave(function() {
+    jQuery(".tooltips div a, .fieldWithTooltip").mouseleave(function() {
         findTooltip(jQuery(this)).hide();
     });
 
