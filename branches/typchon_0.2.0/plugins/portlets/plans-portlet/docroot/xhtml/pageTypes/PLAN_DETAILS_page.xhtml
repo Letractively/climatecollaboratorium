@@ -45,7 +45,7 @@
 
 
 
-    <ice:panelGroup styleClass="edit-prop-wrap" rendered="#{not proposal.editing and proposal.currentTab.hasHistory}">
+    <ice:panelGroup styleClass="edit-prop-wrap" rendered="#{not proposal.editing and proposal.currentTab.editable}">
         <div class="inner">
             <div class="edit-prop">
                 <ice:form>
@@ -54,7 +54,9 @@
                                 rendered="#{permissions.canEdit and plan.currentTab.editable and not plan.editing}" 
                                 styleClass="#{planBean.plan.viewingLatest ? '' : 'disabled'}" 
                                 disabled="#{not planBean.plan.viewingLatest}" />
-                        <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" id="versionContainerTrigger">Show history</a>
+                        <f:subview rendered="#{ proposal.currentTab.hasHistory}">
+                            <a href="javascript:;" onclick="triggerVersionsContainerVisibility();" id="versionContainerTrigger">Show history</a>
+                        </f:subview>
                     </div>
                     <f:subview rendered="#{not planBean.plan.viewingLatest}">
                         <div class="lastedited">
