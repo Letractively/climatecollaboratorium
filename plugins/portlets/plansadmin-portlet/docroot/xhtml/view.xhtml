@@ -75,6 +75,10 @@
             
             <ice:dataTable value="#{planSectionDefinitionsAdmin.sectionDefinitions}" var="definition">
                 <ice:column>
+                    <f:facet name="header">Admin title</f:facet>
+                    #{definition.definition.adminTitle}
+                </ice:column>
+                <ice:column>
                     <f:facet name="header">Title</f:facet>
                     #{definition.definition.title}
                 </ice:column>
