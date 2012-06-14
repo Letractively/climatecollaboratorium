@@ -404,7 +404,9 @@ public class ContestWrapper {
     }
     
     public Long getCategoryGroupId() throws PortalException, SystemException {
-        ContestLocalServiceUtil.updateContestGroupsAndDiscussions();
+        if (contest.getDiscussionGroupId() == null || contest.getDiscussionGroupId() <= 0) {
+            ContestLocalServiceUtil.updateContestGroupsAndDiscussions();
+        }
         return contest.getDiscussionGroupId();
     }
     
