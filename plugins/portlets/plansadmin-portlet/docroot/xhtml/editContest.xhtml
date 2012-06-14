@@ -74,7 +74,7 @@
            
            <ice:outputLabel value="Focus area" />
            
-           <ice:selectOneMenu valueChangeListener="#{contestsAdmin.editedContest.planFocusAreaChange}">
+           <ice:selectOneMenu valueChangeListener="#{contestsAdmin.editedContest.planFocusAreaChange}" value="#{contestsAdmin.editedContest.contest.focusAreaId}">
              <f:selectItems value="#{contestsAdmin.editedContest.availableFocusAreas}" />
            </ice:selectOneMenu>
            
