@@ -1343,6 +1343,7 @@ create table PlanSection (
 
 create table PlanSectionDefinition (
 	id_ LONG not null primary key,
+	adminTitle VARCHAR(75) null,
 	title VARCHAR(75) null,
 	defaultText VARCHAR(75) null,
 	helpText VARCHAR(75) null,

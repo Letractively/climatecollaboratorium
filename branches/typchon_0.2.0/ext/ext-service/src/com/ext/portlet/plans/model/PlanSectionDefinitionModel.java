@@ -32,6 +32,10 @@ public interface PlanSectionDefinitionModel extends BaseModel<PlanSectionDefinit
 
     public void setId(Long id);
 
+    public String getAdminTitle();
+
+    public void setAdminTitle(String adminTitle);
+
     public String getTitle();
 
     public void setTitle(String title);

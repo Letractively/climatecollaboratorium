@@ -44,6 +44,9 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
             { "id_", new Integer(Types.BIGINT) },
             
 
+            { "adminTitle", new Integer(Types.VARCHAR) },
+            
+
             { "title", new Integer(Types.VARCHAR) },
             
 
@@ -58,7 +61,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
 
             { "focusAreaId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanSectionDefinition (id_ LONG not null primary key,title VARCHAR(75) null,defaultText VARCHAR(75) null,helpText VARCHAR(75) null,characterLimit INTEGER,focusAreaId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanSectionDefinition (id_ LONG not null primary key,adminTitle VARCHAR(75) null,title VARCHAR(75) null,defaultText VARCHAR(75) null,helpText VARCHAR(75) null,characterLimit INTEGER,focusAreaId LONG)";
     public static final String TABLE_SQL_DROP = "drop table PlanSectionDefinition";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -72,6 +75,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
                 "lock.expiration.time.com.ext.portlet.plans.model.PlanSectionDefinition"));
     private Long _id;
+    private String _adminTitle;
     private String _title;
     private String _defaultText;
     private String _helpText;
@@ -86,6 +90,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         PlanSectionDefinition model = new PlanSectionDefinitionImpl();
 
         model.setId(soapModel.getId());
+        model.setAdminTitle(soapModel.getAdminTitle());
         model.setTitle(soapModel.getTitle());
         model.setDefaultText(soapModel.getDefaultText());
         model.setHelpText(soapModel.getHelpText());
@@ -124,6 +129,14 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
 
     public void setId(Long id) {
         _id = id;
+    }
+
+    public String getAdminTitle() {
+        return GetterUtil.getString(_adminTitle);
+    }
+
+    public void setAdminTitle(String adminTitle) {
+        _adminTitle = adminTitle;
     }
 
     public String getTitle() {
@@ -176,6 +189,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
             model.setEscapedModel(true);
 
             model.setId(getId());
+            model.setAdminTitle(HtmlUtil.escape(getAdminTitle()));
             model.setTitle(HtmlUtil.escape(getTitle()));
             model.setDefaultText(HtmlUtil.escape(getDefaultText()));
             model.setHelpText(HtmlUtil.escape(getHelpText()));
@@ -194,6 +208,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         PlanSectionDefinitionImpl clone = new PlanSectionDefinitionImpl();
 
         clone.setId(getId());
+        clone.setAdminTitle(getAdminTitle());
         clone.setTitle(getTitle());
         clone.setDefaultText(getDefaultText());
         clone.setHelpText(getHelpText());
@@ -240,6 +255,8 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
 
         sb.append("{id=");
         sb.append(getId());
+        sb.append(", adminTitle=");
+        sb.append(getAdminTitle());
         sb.append(", title=");
         sb.append(getTitle());
         sb.append(", defaultText=");
@@ -265,6 +282,10 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         sb.append(
             "<column><column-name>id</column-name><column-value><![CDATA[");
         sb.append(getId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>adminTitle</column-name><column-value><![CDATA[");
+        sb.append(getAdminTitle());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>title</column-name><column-value><![CDATA[");

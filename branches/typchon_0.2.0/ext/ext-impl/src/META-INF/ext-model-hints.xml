@@ -204,6 +204,7 @@
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanSectionDefinition">
 		<field name="id" type="Long" />
+		<field name="adminTitle" type="String" />
 		<field name="title" type="String" />
 		<field name="defaultText" type="String" />
 		<field name="helpText" type="String" />

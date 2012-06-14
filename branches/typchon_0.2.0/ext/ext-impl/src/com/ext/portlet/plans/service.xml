@@ -482,6 +482,7 @@
     
     <entity name="PlanSectionDefinition" local-service="true">
         <column name="id" type="Long" primary="true" />
+        <column name="adminTitle" type="String" />
         <column name="title" type="String" />
         <column name="defaultText" type="String" />
         <column name="helpText" type="String" />
