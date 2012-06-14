@@ -48,7 +48,7 @@ public class PlanTemplateWrapper {
         List<SelectItem> ret = new ArrayList<SelectItem>();
         for (PlanSectionDefinition av: available) {
             if (used.contains(av)) continue;
-            ret.add(new SelectItem(av.getId(), av.getTitle()));
+            ret.add(new SelectItem(av.getId(), av.getAdminTitle() + " - " + av.getTitle()));
         }
         
         return ret;
