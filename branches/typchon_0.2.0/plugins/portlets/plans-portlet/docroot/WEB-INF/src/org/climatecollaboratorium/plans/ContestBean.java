@@ -65,7 +65,8 @@ public class ContestBean {
             contestState = ContestState.ACTIVE;
         }
         else {
-            currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getPhases().get(0));
+            List<ContestPhase> phases = contest.getContest().getPhases();
+            currentPhase = new ContestPhaseWrapper(contest, phases.get(phases.size()-1));
             if (currentPhase.getStartDate().after(new Date())) {
                 contestState = ContestState.NOT_STARTED;
             }
