@@ -271,6 +271,7 @@
 		<id name="id" column="id_" type="java.lang.Long">
 			<generator class="assigned" />
 		</id>
+		<property name="adminTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="defaultText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="helpText" type="com.liferay.portal.dao.orm.hibernate.StringType" />

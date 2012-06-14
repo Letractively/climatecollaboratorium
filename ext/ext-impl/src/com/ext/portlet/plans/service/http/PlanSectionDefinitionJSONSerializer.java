@@ -33,6 +33,7 @@ public class PlanSectionDefinitionJSONSerializer {
         JSONObject jsonObj = JSONFactoryUtil.createJSONObject();
 
         jsonObj.put("id", model.getId());
+        jsonObj.put("adminTitle", model.getAdminTitle());
         jsonObj.put("title", model.getTitle());
         jsonObj.put("defaultText", model.getDefaultText());
         jsonObj.put("helpText", model.getHelpText());
