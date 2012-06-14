@@ -68,7 +68,7 @@
            
            <ice:outputLabel value="Plan template" />
            
-           <ice:selectOneMenu valueChangeListener="#{contestsAdmin.editedContest.planTemplateChange}">
+           <ice:selectOneMenu valueChangeListener="#{contestsAdmin.editedContest.planTemplateChange}" value="#{contestsAdmin.editedContest.contest.planTemplateId}">
              <f:selectItems value="#{contestsAdmin.editedContest.availablePlanTemplates}" />
            </ice:selectOneMenu>
            
