@@ -52,6 +52,9 @@
         <h1>Edit PlanSectionDefinition #{planSectionDefinitionsAdmin.edited.definition.title}</h1>
         <ice:panelGrid cellspacing="0" columnClasses="col1, col2" rowClasses="odd, even" cellpadding="5" columns="2">
         
+           <ice:outputLabel value="Admin title" />
+           <ice:inputText value="#{planSectionDefinitionsAdmin.edited.definition.adminTitle}" styleClass="inputWide"  />
+           
            <ice:outputLabel value="Title" />
            <ice:inputText value="#{planSectionDefinitionsAdmin.edited.definition.title}" styleClass="inputWide"  />
            
