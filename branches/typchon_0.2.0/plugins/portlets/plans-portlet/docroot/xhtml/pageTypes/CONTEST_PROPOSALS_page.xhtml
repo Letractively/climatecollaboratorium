@@ -24,7 +24,7 @@
         <f:subview rendered="#{plansIndex.contestPhase.hoursTillEnd gt 0}">
             <div class="days-left"><span>#{plansIndex.contestPhase.hoursTillEnd}</span> hours until #{plansIndex.contestPhase.name} ends</div>
         </f:subview>
-        <f:subview rendered="#{plansIndex.contestPhase.hoursTillEnd eq 0}">
+        <f:subview rendered="#{(plansIndex.contestPhase.hoursTillEnd eq 0) and (plansIndex.contestPhase.minutesTillEnd gt 0)}">
             <div class="days-left"><span>#{plansIndex.contestPhase.minutesTillEnd}</span> minutes until #{plansIndex.contestPhase.name} ends</div>
         </f:subview>
     </f:subview>
