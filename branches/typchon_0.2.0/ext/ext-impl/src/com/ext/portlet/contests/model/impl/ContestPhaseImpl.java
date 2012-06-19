@@ -73,4 +73,9 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
         throw new SystemException("Can't find next phase for phase with id: " + getContestPhasePK());
     }
     
+    public boolean getPhaseActive() {
+        java.util.Date now = new java.util.Date();
+        return now.after(getPhaseStartDate()) && now.before(getPhaseEndDate());
+    }
+    
 }

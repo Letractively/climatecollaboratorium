@@ -280,8 +280,7 @@ create table ContestPhase (
 	nextStatus VARCHAR(75) null,
 	created DATE null,
 	updated DATE null,
-	authorId LONG,
-	phaseActive BOOLEAN
+	authorId LONG
 );
 
 create table ContestPhaseColumn (

@@ -50,4 +50,6 @@ public interface ContestPhase extends ContestPhaseModel {
     public com.ext.portlet.contests.model.ContestPhase getNextContestPhase()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
+
+    public boolean getPhaseActive();
 }

@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.CalendarUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
@@ -29,6 +30,7 @@ import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,6 +39,18 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
     public static final String FINDER_CLASS_NAME_ENTITY = ContestPhaseImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
+    public static final FinderPath FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_ENTITY, "fetchByContestIdStartEnd",
+            new String[] {
+                Long.class.getName(), Date.class.getName(), Date.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_CONTESTIDSTARTEND = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByContestIdStartEnd",
+            new String[] {
+                Long.class.getName(), Date.class.getName(), Date.class.getName()
+            });
     public static final FinderPath FINDER_PATH_FIND_BY_CONTESTID = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
             ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findByContestId", new String[] { Long.class.getName() });
@@ -52,14 +66,6 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_CONTESTID = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
             ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countByContestId", new String[] { Long.class.getName() });
-    public static final FinderPath FINDER_PATH_FETCH_BY_CONTESTIDACTIVE = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
-            ContestPhaseModelImpl.FINDER_CACHE_ENABLED,
-            FINDER_CLASS_NAME_ENTITY, "fetchByContestIdActive",
-            new String[] { Long.class.getName(), Boolean.class.getName() });
-    public static final FinderPath FINDER_PATH_COUNT_BY_CONTESTIDACTIVE = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
-            ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
-            "countByContestIdActive",
-            new String[] { Long.class.getName(), Boolean.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
             ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -82,11 +88,13 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
         EntityCacheUtil.putResult(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
             ContestPhaseImpl.class, contestPhase.getPrimaryKey(), contestPhase);
 
-        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDACTIVE,
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND,
             new Object[] {
                 contestPhase.getContestPK(),
                 
-            contestPhase.getPhaseActive()
+            contestPhase.getPhaseStartDate(),
+                
+            contestPhase.getPhaseEndDate()
             }, contestPhase);
     }
 
@@ -192,11 +200,13 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
 
         ContestPhaseModelImpl contestPhaseModelImpl = (ContestPhaseModelImpl) contestPhase;
 
-        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTESTIDACTIVE,
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND,
             new Object[] {
                 contestPhaseModelImpl.getOriginalContestPK(),
                 
-            contestPhaseModelImpl.getOriginalPhaseActive()
+            contestPhaseModelImpl.getOriginalPhaseStartDate(),
+                
+            contestPhaseModelImpl.getOriginalPhaseEndDate()
             });
 
         EntityCacheUtil.removeResult(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
@@ -285,26 +295,34 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
         if (!isNew &&
                 (!Validator.equals(contestPhase.getContestPK(),
                     contestPhaseModelImpl.getOriginalContestPK()) ||
-                !Validator.equals(contestPhase.getPhaseActive(),
-                    contestPhaseModelImpl.getOriginalPhaseActive()))) {
-            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTESTIDACTIVE,
+                !Validator.equals(contestPhase.getPhaseStartDate(),
+                    contestPhaseModelImpl.getOriginalPhaseStartDate()) ||
+                !Validator.equals(contestPhase.getPhaseEndDate(),
+                    contestPhaseModelImpl.getOriginalPhaseEndDate()))) {
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND,
                 new Object[] {
                     contestPhaseModelImpl.getOriginalContestPK(),
                     
-                contestPhaseModelImpl.getOriginalPhaseActive()
+                contestPhaseModelImpl.getOriginalPhaseStartDate(),
+                    
+                contestPhaseModelImpl.getOriginalPhaseEndDate()
                 });
         }
 
         if (isNew ||
                 (!Validator.equals(contestPhase.getContestPK(),
                     contestPhaseModelImpl.getOriginalContestPK()) ||
-                !Validator.equals(contestPhase.getPhaseActive(),
-                    contestPhaseModelImpl.getOriginalPhaseActive()))) {
-            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDACTIVE,
+                !Validator.equals(contestPhase.getPhaseStartDate(),
+                    contestPhaseModelImpl.getOriginalPhaseStartDate()) ||
+                !Validator.equals(contestPhase.getPhaseEndDate(),
+                    contestPhaseModelImpl.getOriginalPhaseEndDate()))) {
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND,
                 new Object[] {
                     contestPhase.getContestPK(),
                     
-                contestPhase.getPhaseActive()
+                contestPhase.getPhaseStartDate(),
+                    
+                contestPhase.getPhaseEndDate()
                 }, contestPhase);
         }
 
@@ -354,6 +372,162 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
         }
 
         return contestPhase;
+    }
+
+    public ContestPhase findByContestIdStartEnd(Long ContestPK,
+        Date PhaseStartDate, Date PhaseEndDate)
+        throws NoSuchContestPhaseException, SystemException {
+        ContestPhase contestPhase = fetchByContestIdStartEnd(ContestPK,
+                PhaseStartDate, PhaseEndDate);
+
+        if (contestPhase == null) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ContestPhase exists with the key {");
+
+            msg.append("ContestPK=" + ContestPK);
+
+            msg.append(", ");
+            msg.append("PhaseStartDate=" + PhaseStartDate);
+
+            msg.append(", ");
+            msg.append("PhaseEndDate=" + PhaseEndDate);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchContestPhaseException(msg.toString());
+        }
+
+        return contestPhase;
+    }
+
+    public ContestPhase fetchByContestIdStartEnd(Long ContestPK,
+        Date PhaseStartDate, Date PhaseEndDate) throws SystemException {
+        return fetchByContestIdStartEnd(ContestPK, PhaseStartDate,
+            PhaseEndDate, true);
+    }
+
+    public ContestPhase fetchByContestIdStartEnd(Long ContestPK,
+        Date PhaseStartDate, Date PhaseEndDate, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] {
+                ContestPK,
+                
+                PhaseStartDate,
+                
+                PhaseEndDate
+            };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND,
+                    finderArgs, this);
+        }
+
+        if (result == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.ContestPhase WHERE ");
+
+                if (ContestPK == null) {
+                    query.append("ContestPK IS NULL");
+                } else {
+                    query.append("ContestPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (PhaseStartDate == null) {
+                    query.append("PhaseStartDate >= null");
+                } else {
+                    query.append("PhaseStartDate >= ?");
+                }
+
+                query.append(" AND ");
+
+                if (PhaseEndDate == null) {
+                    query.append("PhaseEndDate <= null");
+                } else {
+                    query.append("PhaseEndDate <= ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("PhaseStartDate ASC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ContestPK != null) {
+                    qPos.add(ContestPK.longValue());
+                }
+
+                if (PhaseStartDate != null) {
+                    qPos.add(CalendarUtil.getTimestamp(PhaseStartDate));
+                }
+
+                if (PhaseEndDate != null) {
+                    qPos.add(CalendarUtil.getTimestamp(PhaseEndDate));
+                }
+
+                List<ContestPhase> list = q.list();
+
+                result = list;
+
+                ContestPhase contestPhase = null;
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND,
+                        finderArgs, list);
+                } else {
+                    contestPhase = list.get(0);
+
+                    cacheResult(contestPhase);
+
+                    if ((contestPhase.getContestPK() == null) ||
+                            !contestPhase.getContestPK().equals(ContestPK) ||
+                            (contestPhase.getPhaseStartDate() == null) ||
+                            !contestPhase.getPhaseStartDate()
+                                             .equals(PhaseStartDate) ||
+                            (contestPhase.getPhaseEndDate() == null) ||
+                            !contestPhase.getPhaseEndDate().equals(PhaseEndDate)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND,
+                            finderArgs, contestPhase);
+                    }
+                }
+
+                return contestPhase;
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (result == null) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDSTARTEND,
+                        finderArgs, new ArrayList<ContestPhase>());
+                }
+
+                closeSession(session);
+            }
+        } else {
+            if (result instanceof List) {
+                return null;
+            } else {
+                return (ContestPhase) result;
+            }
+        }
     }
 
     public List<ContestPhase> findByContestId(Long ContestPK)
@@ -591,137 +765,6 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ContestPhase findByContestIdActive(Long ContestPK,
-        Boolean phaseActive)
-        throws NoSuchContestPhaseException, SystemException {
-        ContestPhase contestPhase = fetchByContestIdActive(ContestPK,
-                phaseActive);
-
-        if (contestPhase == null) {
-            StringBuilder msg = new StringBuilder();
-
-            msg.append("No ContestPhase exists with the key {");
-
-            msg.append("ContestPK=" + ContestPK);
-
-            msg.append(", ");
-            msg.append("phaseActive=" + phaseActive);
-
-            msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-            if (_log.isWarnEnabled()) {
-                _log.warn(msg.toString());
-            }
-
-            throw new NoSuchContestPhaseException(msg.toString());
-        }
-
-        return contestPhase;
-    }
-
-    public ContestPhase fetchByContestIdActive(Long ContestPK,
-        Boolean phaseActive) throws SystemException {
-        return fetchByContestIdActive(ContestPK, phaseActive, true);
-    }
-
-    public ContestPhase fetchByContestIdActive(Long ContestPK,
-        Boolean phaseActive, boolean retrieveFromCache)
-        throws SystemException {
-        Object[] finderArgs = new Object[] { ContestPK, phaseActive };
-
-        Object result = null;
-
-        if (retrieveFromCache) {
-            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CONTESTIDACTIVE,
-                    finderArgs, this);
-        }
-
-        if (result == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append(
-                    "FROM com.ext.portlet.contests.model.ContestPhase WHERE ");
-
-                if (ContestPK == null) {
-                    query.append("ContestPK IS NULL");
-                } else {
-                    query.append("ContestPK = ?");
-                }
-
-                query.append(" AND ");
-
-                if (phaseActive == null) {
-                    query.append("phaseActive IS NULL");
-                } else {
-                    query.append("phaseActive = ?");
-                }
-
-                query.append(" ");
-
-                query.append("ORDER BY ");
-
-                query.append("PhaseStartDate ASC");
-
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (ContestPK != null) {
-                    qPos.add(ContestPK.longValue());
-                }
-
-                if (phaseActive != null) {
-                    qPos.add(phaseActive.booleanValue());
-                }
-
-                List<ContestPhase> list = q.list();
-
-                result = list;
-
-                ContestPhase contestPhase = null;
-
-                if (list.isEmpty()) {
-                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDACTIVE,
-                        finderArgs, list);
-                } else {
-                    contestPhase = list.get(0);
-
-                    cacheResult(contestPhase);
-
-                    if ((contestPhase.getContestPK() == null) ||
-                            !contestPhase.getContestPK().equals(ContestPK) ||
-                            (contestPhase.getPhaseActive() == null) ||
-                            !contestPhase.getPhaseActive().equals(phaseActive)) {
-                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDACTIVE,
-                            finderArgs, contestPhase);
-                    }
-                }
-
-                return contestPhase;
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (result == null) {
-                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONTESTIDACTIVE,
-                        finderArgs, new ArrayList<ContestPhase>());
-                }
-
-                closeSession(session);
-            }
-        } else {
-            if (result instanceof List) {
-                return null;
-            } else {
-                return (ContestPhase) result;
-            }
-        }
-    }
-
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -826,23 +869,107 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
         return list;
     }
 
+    public void removeByContestIdStartEnd(Long ContestPK, Date PhaseStartDate,
+        Date PhaseEndDate) throws NoSuchContestPhaseException, SystemException {
+        ContestPhase contestPhase = findByContestIdStartEnd(ContestPK,
+                PhaseStartDate, PhaseEndDate);
+
+        remove(contestPhase);
+    }
+
     public void removeByContestId(Long ContestPK) throws SystemException {
         for (ContestPhase contestPhase : findByContestId(ContestPK)) {
             remove(contestPhase);
         }
     }
 
-    public void removeByContestIdActive(Long ContestPK, Boolean phaseActive)
-        throws NoSuchContestPhaseException, SystemException {
-        ContestPhase contestPhase = findByContestIdActive(ContestPK, phaseActive);
-
-        remove(contestPhase);
-    }
-
     public void removeAll() throws SystemException {
         for (ContestPhase contestPhase : findAll()) {
             remove(contestPhase);
         }
+    }
+
+    public int countByContestIdStartEnd(Long ContestPK, Date PhaseStartDate,
+        Date PhaseEndDate) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                ContestPK,
+                
+                PhaseStartDate,
+                
+                PhaseEndDate
+            };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CONTESTIDSTARTEND,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.contests.model.ContestPhase WHERE ");
+
+                if (ContestPK == null) {
+                    query.append("ContestPK IS NULL");
+                } else {
+                    query.append("ContestPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (PhaseStartDate == null) {
+                    query.append("PhaseStartDate >= null");
+                } else {
+                    query.append("PhaseStartDate >= ?");
+                }
+
+                query.append(" AND ");
+
+                if (PhaseEndDate == null) {
+                    query.append("PhaseEndDate <= null");
+                } else {
+                    query.append("PhaseEndDate <= ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ContestPK != null) {
+                    qPos.add(ContestPK.longValue());
+                }
+
+                if (PhaseStartDate != null) {
+                    qPos.add(CalendarUtil.getTimestamp(PhaseStartDate));
+                }
+
+                if (PhaseEndDate != null) {
+                    qPos.add(CalendarUtil.getTimestamp(PhaseEndDate));
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CONTESTIDSTARTEND,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
     }
 
     public int countByContestId(Long ContestPK) throws SystemException {
@@ -888,71 +1015,6 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CONTESTID,
-                    finderArgs, count);
-
-                closeSession(session);
-            }
-        }
-
-        return count.intValue();
-    }
-
-    public int countByContestIdActive(Long ContestPK, Boolean phaseActive)
-        throws SystemException {
-        Object[] finderArgs = new Object[] { ContestPK, phaseActive };
-
-        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CONTESTIDACTIVE,
-                finderArgs, this);
-
-        if (count == null) {
-            Session session = null;
-
-            try {
-                session = openSession();
-
-                StringBuilder query = new StringBuilder();
-
-                query.append("SELECT COUNT(*) ");
-                query.append(
-                    "FROM com.ext.portlet.contests.model.ContestPhase WHERE ");
-
-                if (ContestPK == null) {
-                    query.append("ContestPK IS NULL");
-                } else {
-                    query.append("ContestPK = ?");
-                }
-
-                query.append(" AND ");
-
-                if (phaseActive == null) {
-                    query.append("phaseActive IS NULL");
-                } else {
-                    query.append("phaseActive = ?");
-                }
-
-                query.append(" ");
-
-                Query q = session.createQuery(query.toString());
-
-                QueryPos qPos = QueryPos.getInstance(q);
-
-                if (ContestPK != null) {
-                    qPos.add(ContestPK.longValue());
-                }
-
-                if (phaseActive != null) {
-                    qPos.add(phaseActive.booleanValue());
-                }
-
-                count = (Long) q.uniqueResult();
-            } catch (Exception e) {
-                throw processException(e);
-            } finally {
-                if (count == null) {
-                    count = Long.valueOf(0);
-                }
-
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CONTESTIDACTIVE,
                     finderArgs, count);
 
                 closeSession(session);

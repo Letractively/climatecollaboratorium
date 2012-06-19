@@ -803,7 +803,6 @@
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />
 		<property name="authorId" />
-		<property name="phaseActive" />
 	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestPhaseColumnImpl" table="ContestPhaseColumn">
 		<cache usage="read-write" />

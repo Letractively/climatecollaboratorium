@@ -74,19 +74,19 @@
         <column name="created" type="Date" />
         <column name="updated" type="Date" />
         <column name="authorId" type="Long" />
-        <column name="phaseActive" type="Boolean" />
 
         <order by="asc">
             <order-column name="PhaseStartDate" />
         </order>
 
-        <finder name="ContestId" return-type="Collection">
+        <finder name="ContestIdStartEnd" return-type="ContestPhase">
             <finder-column name="ContestPK" />
+            <finder-column name="PhaseStartDate" comparator="&gt;=" />
+            <finder-column name="PhaseEndDate" comparator="&lt;=" />
         </finder>
         
-        <finder name="ContestIdActive" return-type="ContestPhase">
+        <finder name="ContestId" return-type="Collection">
             <finder-column name="ContestPK"/>
-            <finder-column name="phaseActive"/>
         </finder>
       </entity>
       
