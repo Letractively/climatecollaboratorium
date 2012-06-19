@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="$css_folder/autoSuggest.css" type="text/css" />
     <script type="text/javascript" src="http://use.typekit.com/zdq3gry.js?kisc"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <!--[if IE]>
+        <script type="text/javascript" src="$javascript_folder/excanvas.js"></script>
+    <![endif]-->
     
     
     <!-- AddThis Button BEGIN -->
