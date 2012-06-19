@@ -83,13 +83,13 @@ public class ContestWrapper {
                     pastPhases.add(phaseWrapper);
                 }
             }
-            if (phase.getPhaseActive() != null && phase.getPhaseActive()) {
+            if (phase.getPhaseActive()) {
                 // don't add next phases as they haven't started yet
                 addAsActiveOrPast = false;
             }
             phases.add(phaseWrapper);
             index.put(phase.getContestPhasePK(),phaseWrapper);
-            if (phase.getPhaseActive() != null && phase.getPhaseActive()) {
+            if (phase.getPhaseActive()) {
                 activePhase = phaseWrapper;
             }
         }

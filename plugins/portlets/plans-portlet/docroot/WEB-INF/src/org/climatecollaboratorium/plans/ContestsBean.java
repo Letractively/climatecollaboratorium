@@ -74,7 +74,7 @@ public class ContestsBean {
                         
                     }
                 }
-                add &= !(showActiveOnly ^ contest.isActive());
+                add &= !(showActiveOnly ^ contest.getContestActive());
                 if (add) {
                     ContestWrapper contestWrapper = new ContestWrapper(contest);
                     if (eventBus != null) {

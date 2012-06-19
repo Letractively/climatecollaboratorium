@@ -102,7 +102,7 @@ public class ContestPhaseWrapper {
     }
     
     public boolean isActive() {
-        return phase.getPhaseActive() == null ? false : phase.getPhaseActive();
+        return phase.getPhaseActive();
     }
     
     public boolean getHasNextPhase() {
