@@ -119,9 +119,6 @@ function deferUntilLogin(fn) {
     } else {
     	jQuery('#popup_login').show();
     	jQuery.scrollTo(jQuery("#popup_login"));
-    	//var loginregister = "/web/guest/loginregister?p_p_id=loginregister";
-    	//loginregister += "&redirect=" + escape(window.location);
-    	//window.location = loginregister;
     }
 }
 
