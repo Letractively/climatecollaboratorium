@@ -21,9 +21,14 @@ public class UserPasswordValidator implements Validator {
         
         String type = arg1.getAttributes().get("type").toString();
         
-        String currentPassword = ((UIInput) arg1.getParent().findComponent("currentPasswordInput")).getValue().toString();
-        String newPassword = ((UIInput) arg1.getParent().findComponent("newPasswordInput")).getValue().toString();
-        String newPasswordRetype = ((UIInput) arg1.getParent().findComponent("newPasswordRetypeInput")).getValue().toString();
+        UIInput currentPasswordInput = ((UIInput) arg1.getParent().findComponent("currentPasswordInput"));
+        String currentPassword = currentPasswordInput.getValue() != null ? currentPasswordInput.getValue().toString() : null;
+        
+        UIInput newPasswordInput = ((UIInput) arg1.getParent().findComponent("newPasswordInput"));
+        String newPassword = newPasswordInput.getValue() != null ? newPasswordInput.getValue().toString() : null;
+        
+        UIInput newPasswordRetypeInput = ((UIInput) arg1.getParent().findComponent("newPasswordRetypeInput"));
+        String newPasswordRetype = newPasswordRetypeInput.getValue() != null ? newPasswordRetypeInput.getValue().toString() : null;
         
         User currentUser = ((UserWrapper) arg1.getAttributes().get("currentUser")).getWrapped();
         
@@ -46,13 +51,20 @@ public class UserPasswordValidator implements Validator {
                 errorMsg.setSummary("Invalid password");
             }
         }
+        else if (type.equals("new")) {
+            if ( value.toString().trim().length() < 6) {
+                errorMsg.setDetail("Password needs to have at least 6 characters");
+                errorMsg.setSummary("Password needs to have at least 6 characters");
+                isError = true;
+            }
+        }
         else if (type.equals("newRetype")) {
                 if (! value.equals(newPassword)) {
                     errorMsg.setDetail("Passwords don't match");
                     errorMsg.setSummary("Passwords don't match");
                     isError = true;
                 }
-                if (value.toString().trim().length() > 0 && currentPassword.length() < 0) {
+                if (value.toString().trim().length() > 0 && (currentPassword != null && currentPassword.length() < 0)) {
                     errorMsg.setDetail("You need to provide current password");
                     errorMsg.setSummary("You need to provide current password");
                     isError = true;
