@@ -27,12 +27,14 @@
     birthday.set(Calendar.YEAR, 1970);
 
     boolean male = BeanParamUtil.getBoolean(contact2, request, "male", true);
+    String redirect = ParamUtil.getString(request, "redirect");
 %>
-
+<h1>Redirect: <%= redirect %></h1>
 <portlet:actionURL var="submitURL">
     <portlet:param name="saveLastPath" value="1"/>
     <portlet:param name="struts_action" value="/ext/user_info/create_account"/>
     <portlet:param name="isRegistering" value="true"/>
+    <portlet:param name="redirect" value="<%= redirect %>" />
 </portlet:actionURL>
 
 <script language="javascript">
