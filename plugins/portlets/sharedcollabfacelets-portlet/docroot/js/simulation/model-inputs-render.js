@@ -9,7 +9,7 @@
 
 
 //setTimeout(function() { log.toggle(); }, 1000);
-var debug = false;
+var debug = true;
 var inputValues = {};
 var currentTab = "CO2 Concentration";
 /* This is ugly, it selects tab on outputs tab, but it should be rather a parameter in database */
@@ -434,8 +434,7 @@ function renderSingleChart(chartDef) {
 
             var invalidErrorMessage = jQuery(this).find(".invalidErrorMessage").val();
 			var invalidErrorPolicy = jQuery(this).find(".invalidErrorPolicy").val();
-
-            var rangeErrorMessage = jQuery(this).find(".rangeErrorMessage").val();
+			var rangeErrorMessage = jQuery(this).find(".rangeErrorMessage").val();
 			var rangeErrorPolicy = jQuery(this).find(".rangeErrorPolicy").val();
 
 
@@ -523,7 +522,7 @@ function renderSingleChart(chartDef) {
 		     interval=(Math.round((interval / 10)*2)/2)/divideback ;
 		     return interval;
 		}
-	
+		
 		if (min != null && max != null) {
 			yaxis.min = min;
 			yaxis.max = max;
@@ -578,7 +577,6 @@ function renderSingleChart(chartDef) {
 			series.push({showMarker: false, showLabel: false, 
 				renderer: jQuery.jqplot.OHLCRenderer, color: "rgb(125, 228, 247)"});
 		}
-
 		if (values.length > 0) {
 			
 
@@ -593,6 +591,28 @@ function renderSingleChart(chartDef) {
 			}
 
 			
+			/************** TEST ***************/
+			var cosPoints = [];
+			  for (var i=0; i<2*Math.PI; i+=0.4){ 
+			    cosPoints.push([i, Math.cos(i)]); 
+			  }
+			    
+			  var sinPoints = []; 
+			  for (var i=0; i<2*Math.PI; i+=0.4){ 
+			     sinPoints.push([i, 2*Math.sin(i-.8)]); 
+			  }
+			    
+			  var powPoints1 = []; 
+			  for (var i=0; i<2*Math.PI; i+=0.4) { 
+			      powPoints1.push([i, 2.5 + Math.pow(i/4, 2)]); 
+			  }
+			    
+			  var powPoints2 = []; 
+			  for (var i=0; i<2*Math.PI; i+=0.4) { 
+			      powPoints2.push([i, -2.5 - Math.pow(i/4, 2)]); 
+			  } 
+			  
+
 			var plotOptions = {
 					stackSeries: stackSeries,
 			    	showMarker: showMarker,
@@ -602,6 +622,11 @@ function renderSingleChart(chartDef) {
 			    		xaxis: xaxis,
 			    		yaxis: yaxis
 			    	},
+			    	grid: {
+			    		drawGridLines: true,
+			    		background: "#f3f2ec",
+			    		shadow: false
+			    	},
 			    	legend : {
 			    		show :true,
 			    		location :'nw',
@@ -610,16 +635,48 @@ function renderSingleChart(chartDef) {
 			    		yoffset :320,
 			    		xoffset:0
 			    	},
-			    	grid: {
-			    		drawGridLines: true,
-			    		background: "#f3f2ec",
-			    		shadow: false
-			    	}
 			};
 			try { 
+				if (jQuery.browser.ie && jQuery.browser.version.number <= 8) {
+					// turn off legend
+					plotOptions.legend = null;
+				}
+
 				var plot = jQuery.jqplot(chartPlaceholderId, values, plotOptions); 
+				/*var plot3 = jQuery.jqplot(chartPlaceholderId, [cosPoints, sinPoints, powPoints1, powPoints2], 
+					    { 
+					      title:'Line Style Options', 
+					      // Series options are specified as an array of objects, one object
+					      // for each series.
+					      series:[ 
+					          {
+					            // Change our line width and use a diamond shaped marker.
+					            lineWidth:2, 
+					            markerOptions: { style:'dimaond' }
+					          }, 
+					          {
+					            // Don't show a line, just show markers.
+					            // Make the markers 7 pixels with an 'x' style
+					            showLine:false, 
+					            markerOptions: { size: 7, style:"x" }
+					          },
+					          { 
+					            // Use (open) circlular markers.
+					            markerOptions: { style:"circle" }
+					          }, 
+					          {
+					            // Use a thicker, 5 pixel line and 10 pixel
+					            // filled square markers.
+					            lineWidth:5, 
+					            markerOptions: { style:"filledSquare", size:10 }
+					          }
+					      ]
+					    }
+					  );*/
+
 			} catch (e) {
-				if (window.console) {
+
+				if (typeof console === "undefined" || typeof console.log === "undefined") {
 					console.error(e);
 					console.log("values: ", values);
 					console.log("plotOptions: ", plotOptions);
@@ -639,7 +696,6 @@ function renderSingleChart(chartDef) {
 	/* Legend is positioned absolutely thus it is hard to determine how long the chart will be, I'm assuming
 	 * that graph will take around 320 px and I'm giving 18 px for each item in the legend.
 	 */
-
 		var height = jQuery("#" + chartPlaceholderId).height();
 		if (jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").length > 0) {
 			height += jQuery("#" + chartPlaceholderId + " .jqplot-table-legend").height();
@@ -745,7 +801,14 @@ function renderModelOutputs() {
 	}
 	
 	// update input values
-	updateModelInputsFromModelRun();
+	try {
+		updateModelInputsFromModelRun();
+	}
+	catch (e) {
+		if (typeof console === "undefined" || typeof console.log === "undefined") {
+			console.log(e);
+		}
+	}
 	
 	/*
 	 * Render graphs
@@ -761,7 +824,6 @@ function renderModelOutputs() {
 	else {
 		jQuery("#freeOutputPhysical_trigger").show();
 	}
-	
 	
 	/* this is rather ugly hack, used because there is no good handling of output grouping */
 	//jQuery(".impactsContent").html("");
@@ -819,7 +881,6 @@ function renderModelOutputs() {
 
 	}
 	
-	
 	/* end of physical impacts hack */
 	
 	
@@ -846,7 +907,6 @@ function renderModelOutputs() {
 		isTabFirst = false;
 	});
 	//initAccordion();
-
 	setTimeout( function() { jQuery(".impactsContent").css("height", jQuery(".impactsContentCharts").height()) }, 700);
 	jQuery(".outputDef").eq(0).addClass("processed");
 	jQuery(".outputDef").show();
@@ -934,6 +994,7 @@ function initAccordion() {
 	});
 
 	var selectedHeader = container.find("h3").get(0);
+
 	if (currentTab) {
 		container.find("h3").each(function() {
 			if (currentTab == jQuery(this).find(".activator").text()) {
