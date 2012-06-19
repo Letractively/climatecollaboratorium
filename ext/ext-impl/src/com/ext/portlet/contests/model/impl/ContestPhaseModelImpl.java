@@ -73,12 +73,9 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
             { "updated", new Integer(Types.TIMESTAMP) },
             
 
-            { "authorId", new Integer(Types.BIGINT) },
-            
-
-            { "phaseActive", new Integer(Types.BOOLEAN) }
+            { "authorId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ContestPhase (ContestPhasePK LONG not null primary key,ContestPK LONG,ContestPhaseName VARCHAR(75) null,ContestPhaseDescription VARCHAR(75) null,ContestPhaseStatus VARCHAR(75) null,PhaseStartDate DATE null,PhaseEndDate DATE null,nextStatus VARCHAR(75) null,created DATE null,updated DATE null,authorId LONG,phaseActive BOOLEAN)";
+    public static final String TABLE_SQL_CREATE = "create table ContestPhase (ContestPhasePK LONG not null primary key,ContestPK LONG,ContestPhaseName VARCHAR(75) null,ContestPhaseDescription VARCHAR(75) null,ContestPhaseStatus VARCHAR(75) null,PhaseStartDate DATE null,PhaseEndDate DATE null,nextStatus VARCHAR(75) null,created DATE null,updated DATE null,authorId LONG)";
     public static final String TABLE_SQL_DROP = "drop table ContestPhase";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -98,13 +95,13 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
     private String _ContestPhaseDescription;
     private String _ContestPhaseStatus;
     private Date _PhaseStartDate;
+    private Date _originalPhaseStartDate;
     private Date _PhaseEndDate;
+    private Date _originalPhaseEndDate;
     private String _nextStatus;
     private Date _created;
     private Date _updated;
     private Long _authorId;
-    private Boolean _phaseActive;
-    private Boolean _originalPhaseActive;
 
     public ContestPhaseModelImpl() {
     }
@@ -123,7 +120,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         model.setCreated(soapModel.getCreated());
         model.setUpdated(soapModel.getUpdated());
         model.setAuthorId(soapModel.getAuthorId());
-        model.setPhaseActive(soapModel.getPhaseActive());
 
         return model;
     }
@@ -204,6 +200,14 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
     public void setPhaseStartDate(Date PhaseStartDate) {
         _PhaseStartDate = PhaseStartDate;
+
+        if (_originalPhaseStartDate == null) {
+            _originalPhaseStartDate = PhaseStartDate;
+        }
+    }
+
+    public Date getOriginalPhaseStartDate() {
+        return _originalPhaseStartDate;
     }
 
     public Date getPhaseEndDate() {
@@ -212,6 +216,14 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
     public void setPhaseEndDate(Date PhaseEndDate) {
         _PhaseEndDate = PhaseEndDate;
+
+        if (_originalPhaseEndDate == null) {
+            _originalPhaseEndDate = PhaseEndDate;
+        }
+    }
+
+    public Date getOriginalPhaseEndDate() {
+        return _originalPhaseEndDate;
     }
 
     public String getNextStatus() {
@@ -246,22 +258,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         _authorId = authorId;
     }
 
-    public Boolean getPhaseActive() {
-        return _phaseActive;
-    }
-
-    public void setPhaseActive(Boolean phaseActive) {
-        _phaseActive = phaseActive;
-
-        if (_originalPhaseActive == null) {
-            _originalPhaseActive = phaseActive;
-        }
-    }
-
-    public Boolean getOriginalPhaseActive() {
-        return _originalPhaseActive;
-    }
-
     public ContestPhase toEscapedModel() {
         if (isEscapedModel()) {
             return (ContestPhase) this;
@@ -283,7 +279,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
             model.setCreated(getCreated());
             model.setUpdated(getUpdated());
             model.setAuthorId(getAuthorId());
-            model.setPhaseActive(getPhaseActive());
 
             model = (ContestPhase) Proxy.newProxyInstance(ContestPhase.class.getClassLoader(),
                     new Class[] { ContestPhase.class },
@@ -307,7 +302,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         clone.setCreated(getCreated());
         clone.setUpdated(getUpdated());
         clone.setAuthorId(getAuthorId());
-        clone.setPhaseActive(getPhaseActive());
 
         return clone;
     }
@@ -376,8 +370,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         sb.append(getUpdated());
         sb.append(", authorId=");
         sb.append(getAuthorId());
-        sb.append(", phaseActive=");
-        sb.append(getPhaseActive());
         sb.append("}");
 
         return sb.toString();
@@ -433,10 +425,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         sb.append(
             "<column><column-name>authorId</column-name><column-value><![CDATA[");
         sb.append(getAuthorId());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>phaseActive</column-name><column-value><![CDATA[");
-        sb.append(getPhaseActive());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

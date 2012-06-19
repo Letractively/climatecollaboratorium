@@ -82,6 +82,33 @@ public class ContestPhaseUtil {
         return getPersistence().fetchByPrimaryKey(ContestPhasePK);
     }
 
+    public static com.ext.portlet.contests.model.ContestPhase findByContestIdStartEnd(
+        java.lang.Long ContestPK, java.util.Date PhaseStartDate,
+        java.util.Date PhaseEndDate)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByContestIdStartEnd(ContestPK, PhaseStartDate,
+            PhaseEndDate);
+    }
+
+    public static com.ext.portlet.contests.model.ContestPhase fetchByContestIdStartEnd(
+        java.lang.Long ContestPK, java.util.Date PhaseStartDate,
+        java.util.Date PhaseEndDate) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByContestIdStartEnd(ContestPK, PhaseStartDate,
+            PhaseEndDate);
+    }
+
+    public static com.ext.portlet.contests.model.ContestPhase fetchByContestIdStartEnd(
+        java.lang.Long ContestPK, java.util.Date PhaseStartDate,
+        java.util.Date PhaseEndDate, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .fetchByContestIdStartEnd(ContestPK, PhaseStartDate,
+            PhaseEndDate, retrieveFromCache);
+    }
+
     public static java.util.List<com.ext.portlet.contests.model.ContestPhase> findByContestId(
         java.lang.Long ContestPK) throws com.liferay.portal.SystemException {
         return getPersistence().findByContestId(ContestPK);
@@ -125,27 +152,6 @@ public class ContestPhaseUtil {
                    .findByContestId_PrevAndNext(ContestPhasePK, ContestPK, obc);
     }
 
-    public static com.ext.portlet.contests.model.ContestPhase findByContestIdActive(
-        java.lang.Long ContestPK, java.lang.Boolean phaseActive)
-        throws com.ext.portlet.contests.NoSuchContestPhaseException,
-            com.liferay.portal.SystemException {
-        return getPersistence().findByContestIdActive(ContestPK, phaseActive);
-    }
-
-    public static com.ext.portlet.contests.model.ContestPhase fetchByContestIdActive(
-        java.lang.Long ContestPK, java.lang.Boolean phaseActive)
-        throws com.liferay.portal.SystemException {
-        return getPersistence().fetchByContestIdActive(ContestPK, phaseActive);
-    }
-
-    public static com.ext.portlet.contests.model.ContestPhase fetchByContestIdActive(
-        java.lang.Long ContestPK, java.lang.Boolean phaseActive,
-        boolean retrieveFromCache) throws com.liferay.portal.SystemException {
-        return getPersistence()
-                   .fetchByContestIdActive(ContestPK, phaseActive,
-            retrieveFromCache);
-    }
-
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -174,31 +180,34 @@ public class ContestPhaseUtil {
         return getPersistence().findAll(start, end, obc);
     }
 
+    public static void removeByContestIdStartEnd(java.lang.Long ContestPK,
+        java.util.Date PhaseStartDate, java.util.Date PhaseEndDate)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException {
+        getPersistence()
+            .removeByContestIdStartEnd(ContestPK, PhaseStartDate, PhaseEndDate);
+    }
+
     public static void removeByContestId(java.lang.Long ContestPK)
         throws com.liferay.portal.SystemException {
         getPersistence().removeByContestId(ContestPK);
-    }
-
-    public static void removeByContestIdActive(java.lang.Long ContestPK,
-        java.lang.Boolean phaseActive)
-        throws com.ext.portlet.contests.NoSuchContestPhaseException,
-            com.liferay.portal.SystemException {
-        getPersistence().removeByContestIdActive(ContestPK, phaseActive);
     }
 
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
 
+    public static int countByContestIdStartEnd(java.lang.Long ContestPK,
+        java.util.Date PhaseStartDate, java.util.Date PhaseEndDate)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .countByContestIdStartEnd(ContestPK, PhaseStartDate,
+            PhaseEndDate);
+    }
+
     public static int countByContestId(java.lang.Long ContestPK)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByContestId(ContestPK);
-    }
-
-    public static int countByContestIdActive(java.lang.Long ContestPK,
-        java.lang.Boolean phaseActive)
-        throws com.liferay.portal.SystemException {
-        return getPersistence().countByContestIdActive(ContestPK, phaseActive);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

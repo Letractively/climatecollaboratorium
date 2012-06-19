@@ -7,6 +7,7 @@ import com.ext.portlet.contests.service.base.ContestPhaseLocalServiceBaseImpl;
 import com.liferay.portal.SystemException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,6 +21,7 @@ public class ContestPhaseLocalServiceImpl
     }
 
     public ContestPhase getActivePhaseForContest(Contest contest) throws NoSuchContestPhaseException, SystemException {
-        return contestPhasePersistence.findByContestIdActive(contest.getContestPK(), true);
+        Date now = new Date();
+        return contestPhasePersistence.findByContestIdStartEnd(contest.getContestPK(), now, now);
     }
 }

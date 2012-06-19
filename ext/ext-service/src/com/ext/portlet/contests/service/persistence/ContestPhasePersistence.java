@@ -61,6 +61,21 @@ public interface ContestPhasePersistence extends BasePersistence {
         java.lang.Long ContestPhasePK)
         throws com.liferay.portal.SystemException;
 
+    public com.ext.portlet.contests.model.ContestPhase findByContestIdStartEnd(
+        java.lang.Long ContestPK, java.util.Date PhaseStartDate,
+        java.util.Date PhaseEndDate)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.ContestPhase fetchByContestIdStartEnd(
+        java.lang.Long ContestPK, java.util.Date PhaseStartDate,
+        java.util.Date PhaseEndDate) throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.ContestPhase fetchByContestIdStartEnd(
+        java.lang.Long ContestPK, java.util.Date PhaseStartDate,
+        java.util.Date PhaseEndDate, boolean retrieveFromCache)
+        throws com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.contests.model.ContestPhase> findByContestId(
         java.lang.Long ContestPK) throws com.liferay.portal.SystemException;
 
@@ -91,19 +106,6 @@ public interface ContestPhasePersistence extends BasePersistence {
         throws com.ext.portlet.contests.NoSuchContestPhaseException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.contests.model.ContestPhase findByContestIdActive(
-        java.lang.Long ContestPK, java.lang.Boolean phaseActive)
-        throws com.ext.portlet.contests.NoSuchContestPhaseException,
-            com.liferay.portal.SystemException;
-
-    public com.ext.portlet.contests.model.ContestPhase fetchByContestIdActive(
-        java.lang.Long ContestPK, java.lang.Boolean phaseActive)
-        throws com.liferay.portal.SystemException;
-
-    public com.ext.portlet.contests.model.ContestPhase fetchByContestIdActive(
-        java.lang.Long ContestPK, java.lang.Boolean phaseActive,
-        boolean retrieveFromCache) throws com.liferay.portal.SystemException;
-
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -122,21 +124,21 @@ public interface ContestPhasePersistence extends BasePersistence {
         int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
         throws com.liferay.portal.SystemException;
 
-    public void removeByContestId(java.lang.Long ContestPK)
-        throws com.liferay.portal.SystemException;
-
-    public void removeByContestIdActive(java.lang.Long ContestPK,
-        java.lang.Boolean phaseActive)
+    public void removeByContestIdStartEnd(java.lang.Long ContestPK,
+        java.util.Date PhaseStartDate, java.util.Date PhaseEndDate)
         throws com.ext.portlet.contests.NoSuchContestPhaseException,
             com.liferay.portal.SystemException;
 
-    public void removeAll() throws com.liferay.portal.SystemException;
-
-    public int countByContestId(java.lang.Long ContestPK)
+    public void removeByContestId(java.lang.Long ContestPK)
         throws com.liferay.portal.SystemException;
 
-    public int countByContestIdActive(java.lang.Long ContestPK,
-        java.lang.Boolean phaseActive)
+    public void removeAll() throws com.liferay.portal.SystemException;
+
+    public int countByContestIdStartEnd(java.lang.Long ContestPK,
+        java.util.Date PhaseStartDate, java.util.Date PhaseEndDate)
+        throws com.liferay.portal.SystemException;
+
+    public int countByContestId(java.lang.Long ContestPK)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

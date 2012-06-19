@@ -87,6 +87,7 @@ create index IX_DCCCA6F1 on Contest (contestActive, featured_);
 create index IX_19AE4974 on ContestDebate (ContestPK);
 
 create index IX_684980D2 on ContestPhase (ContestPK);
+create index IX_AEDFCD9D on ContestPhase (ContestPK, PhaseStartDate, PhaseEndDate);
 create index IX_3F8D7CBF on ContestPhase (ContestPK, phaseActive);
 
 create index IX_1652B7B9 on ContestPhaseColumn (ContestPhasePK);
