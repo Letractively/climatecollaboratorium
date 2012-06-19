@@ -15,10 +15,13 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletPreferences;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.ext.recaptcha.ReCaptchaUtils;
@@ -39,6 +42,29 @@ import com.liferay.portlet.login.util.LoginUtil;
  * @version 1.0
  */
 public class CreateAccountAction extends com.liferay.portlet.login.action.CreateAccountAction {
+    private final static String REDIRECT_AFTER_ACCOUNT_CREATION_PARAM = "redirectUserAfterAccountCreation";
+
+    @Override
+    public ActionForward render(ActionMapping mapping, ActionForm form, PortletConfig portletConfig,
+            RenderRequest renderRequest, RenderResponse renderResponse) throws Exception {
+        
+        
+
+        String redirect = ParamUtil.getString(renderRequest, "redirect");
+        
+        if (redirect == null || redirect.trim().length() == 0) {
+            redirect = PortalUtil.getHttpServletRequest(renderRequest).getParameter("redirect");
+            if (redirect == null) {
+                redirect = PortalUtil.getHttpServletRequest(renderRequest).getHeader("referer");
+            }
+        }
+        
+        renderRequest.setAttribute("redirect", redirect);
+        
+        
+        super.render(mapping, form, portletConfig, renderRequest, renderResponse);
+        return mapping.findForward("portlet.login.create_account");
+    }
 
     /**
      * Processes create account action (submission of register form).
@@ -59,21 +85,17 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
     public void processAction(ActionMapping mapping, ActionForm form, PortletConfig portletConfig,
             ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
         boolean captchaValid = ReCaptchaUtils.validateCaptcha(actionRequest);
-        
+
         String redirect = ParamUtil.getString(actionRequest, "redirect");
+        
         if (redirect == null || redirect.trim().length() == 0) {
-            redirect = PortalUtil.getHttpServletRequest(actionRequest).getHeader("referer");
+            Object redirectObj = actionRequest.getPortletSession().getAttribute(REDIRECT_AFTER_ACCOUNT_CREATION_PARAM);
+            redirect = redirectObj == null ? null : redirectObj.toString();
+            if (redirect == null) {
+                redirect = PortalUtil.getHttpServletRequest(actionRequest).getHeader("referer");
+            }
         }
-        
-        
-        redirect = Helper.removeParamFromRequestStr(redirect, "signinRegError");
-        redirect = Helper.removeParamFromRequestStr(redirect, "isRegistering");
-        redirect = Helper.removeParamFromRequestStr(redirect, "isSigningIn");
-        redirect = Helper.removeParamFromRequestStr(redirect, "isPasswordReminder");
-        redirect = Helper.removeParamFromRequestStr(redirect, "firstName");
-        redirect = Helper.removeParamFromRequestStr(redirect, "lastName");
-        redirect = Helper.removeParamFromRequestStr(redirect, "screenName");
-        redirect = Helper.removeParamFromRequestStr(redirect, "emailAddress");
+       
         
         HttpServletRequest request = PortalUtil.getHttpServletRequest(actionRequest);
         HttpServletResponse response = PortalUtil.getHttpServletResponse(actionResponse);
@@ -86,6 +108,7 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
             ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
             PortletPreferences preferences = PortletPreferencesFactoryUtil.getPortletSetup(actionRequest);
+            
 
             String login = ParamUtil.getString(actionRequest, "screenName");
             String password = ParamUtil.getString(actionRequest, "password1");
@@ -103,6 +126,12 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
                 actionResponse.sendRedirect(themeDisplay.getPathMain() + "/portal/protected");
             }
             request.getSession().setAttribute("collab_user_has_registered", true);
+            
+            if (Validator.isNotNull(redirect)) {
+                actionResponse.sendRedirect(redirect);
+            } else {
+                actionResponse.sendRedirect("/web/guest");
+            }
         }
         else {
             // url parameters
@@ -131,13 +160,7 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
             /*actionRequest.getP*/
             
         }
-        /*
-        if (Validator.isNotNull(redirect)) {
-            
-            actionResponse.sendRedirect(redirect);
-        } else {
-            actionResponse.sendRedirect("/web/guest");
-        }*/
+        
     }
 
 }

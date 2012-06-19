@@ -32,12 +32,11 @@
     <portlet:param name="saveLastPath" value="<%= String.valueOf(isRegistering ? 0 : 1) %>"/>
     <portlet:param name="struts_action" value="/ext/loginregister/create_account"/>
     <portlet:param name="isRegistering" value="true"/>
+    <portlet:param name="redirect" value="<%= HtmlUtil.escape(redirect) %>" />
 </portlet:actionURL>
 
 <script language="javascript">
     function <portlet:namespace />doRegister() {
-        var redirect = jQuery('#<portlet:namespace />baseUrl').val();
-        jQuery('#<portlet:namespace />registerRedirect').val(redirect + document.location.hash);
         document.<portlet:namespace />register.submit();
     };
 </script>

@@ -26,7 +26,7 @@
     
     
 
-    String redirect = ParamUtil.getString(renderRequest, "redirect");
+    String redirect = (String) renderRequest.getAttribute("redirect");
 	List<Role> userRoles = RoleServiceUtil.getUserRoles(user.getUserId());
 	boolean isAdmin = false;
 	
