@@ -977,6 +977,10 @@ display: inline;
 #communityHeading .smallBoxInner {
     padding: 10px;
 }
+#communityHeading .smallBoxInner  h4 {
+	font-size: 12px;
+	line-height: 21px;
+}
 
 .portlet-blogs .entry-author { 
 	background: none;
@@ -984,4 +988,6 @@ display: inline;
 }
 .contest-discussion .prop-description a {
 	font-size: 18px;
-} 
+}
+
+body.colab { margin-top: 0;}

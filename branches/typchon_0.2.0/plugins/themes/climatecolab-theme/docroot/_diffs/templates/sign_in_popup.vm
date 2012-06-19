@@ -21,7 +21,11 @@
                     <label>Password:</label> 
                     <input name="password" type="password" class="password" onkeypress="return submitenter(this,event)" />
                     <div class="btns">
-                        <span><em><a href="javascript:;" class="forgot" onclick="showForgotPasswordPopup()">Forgot your password?</a></em></span>
+                        <div style="float: left;">
+                            <span><em><a href="javascript:;" class="forgot" onclick="showForgotPasswordPopup()">Forgot your password?</a></em></span><br />
+                            <span><em><a href="/web/guest/loginregister?redirect=$escapeTool.url($themeDisplay.uRLCurrent)" class="forgot" >Haven't registered yet?</a></em></span><br />
+                            <div class="clearfix"></div>
+                        </div>
                         <div class="blue-button">
                             <a href="javascript:;" class="login-submit" onclick="jQuery(this).parents('form').submit();" >LOGIN</a>
                         </div>

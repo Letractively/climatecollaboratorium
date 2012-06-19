@@ -116,7 +116,7 @@
 
 #else  
   <ul id="menu-right">
-   <li class="register"><a href="/web/guest/loginregister">Register</a></li>
+   <li class="register"><a href="/web/guest/loginregister?redirect=$escapeTool.url($themeDisplay.uRLCurrent)">Register</a></li>
    <li class="login" ><a  href="javascript:;" id="loginPopupTrigger">Login</a></li>
    <li class="help"><a href="/web/guest/resources/-/wiki/Main/Help">Help</a></li>
   </ul>
