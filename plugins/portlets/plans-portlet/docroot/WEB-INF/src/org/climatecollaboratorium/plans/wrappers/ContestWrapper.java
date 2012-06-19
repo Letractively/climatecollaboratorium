@@ -94,7 +94,8 @@ public class ContestWrapper {
             }
         }
         if (activePhase == null) {
-            activePhase = new ContestPhaseWrapper(this, contest.getPhases().get(0));
+            List<ContestPhase> phases = contest.getPhases();
+            activePhase = new ContestPhaseWrapper(this, phases.get(phases.size()-1));
         }
         editor = new EditContestBean();
         plansIndex = new PlansIndexBean(activePhase);
