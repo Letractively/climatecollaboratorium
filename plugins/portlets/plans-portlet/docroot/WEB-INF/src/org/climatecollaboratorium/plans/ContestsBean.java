@@ -254,20 +254,20 @@ public class ContestsBean {
                     case COMMENTS:
                         return (int) (o1.getCommentsCount() - o2.getCommentsCount());
                     case WHO:
-                        w1 = o1.getWho() == null ? "" : o1.getWho().getName();
-                        w2 = o2.getWho() == null ? "" : o2.getWho().getName();
+                        w1 = o1.getWho() == null ? "" : o1.getWho().get(0).getName();
+                        w2 = o2.getWho() == null ? "" : o2.getWho().get(0).getName();
                     
                         return w1.compareTo(w2);
 
                     case WHAT:
-                        w1 = o1.getWhat() == null ? "" : o1.getWhat().getName();
-                        w2 = o2.getWhat() == null ? "" : o2.getWhat().getName();
+                        w1 = o1.getWhat() == null ? "" : o1.getWhat().get(0).getName();
+                        w2 = o2.getWhat() == null ? "" : o2.getWhat().get(0).getName();
                     
                         return w1.compareTo(w2);
 
                     case WHERE:
-                        w1 = o1.getWho() == null ? "" : o1.getWho().getName();
-                        w2 = o2.getWho() == null ? "" : o2.getWho().getName();
+                        w1 = o1.getWho() == null ? "" : o1.getWho().get(0).getName();
+                        w2 = o2.getWho() == null ? "" : o2.getWho().get(0).getName();
                     
                         return w1.compareTo(w2);
                 }
