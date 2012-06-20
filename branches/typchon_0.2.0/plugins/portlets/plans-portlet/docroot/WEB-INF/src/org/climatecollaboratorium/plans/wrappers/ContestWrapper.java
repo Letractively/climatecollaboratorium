@@ -367,16 +367,16 @@ public class ContestWrapper {
         return contest.getFocusArea() != null;
     }
     
-    public OntologyTerm getWho() throws PortalException, SystemException {
+    public List<OntologyTerm> getWho() throws PortalException, SystemException {
         return getTermFromSpace("who");
     }
     
-    public OntologyTerm getWhat() throws PortalException, SystemException {
+    public List<OntologyTerm> getWhat() throws PortalException, SystemException {
         return getTermFromSpace("what");
         
     }
     
-    public OntologyTerm getWhere() throws PortalException, SystemException {
+    public List<OntologyTerm> getWhere() throws PortalException, SystemException {
         return getTermFromSpace("where");
     }
     
@@ -392,16 +392,16 @@ public class ContestWrapper {
         return contest.getResourcesUrl();
     }
     
-    private OntologyTerm getTermFromSpace(String space) throws PortalException, SystemException {
+    private List<OntologyTerm> getTermFromSpace(String space) throws PortalException, SystemException {
         FocusArea fa = contest.getFocusArea();
         if (fa == null) return null;
-        
+        List<OntologyTerm> terms = new ArrayList<OntologyTerm>();
         for (OntologyTerm t: fa.getTerms()) {
             if (t.getSpace().getName().equalsIgnoreCase(space)) {
-                return t;
+                terms.add(t);
             }
         }
-        return null;
+        return terms.isEmpty() ? null : terms;
     }
     
     public Long getCategoryGroupId() throws PortalException, SystemException {
