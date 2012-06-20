@@ -44,13 +44,13 @@ public class FocusAreaImpl extends FocusAreaModelImpl implements FocusArea {
     
     public void addTerm(Long termId) throws PortalException, SystemException {
         OntologyTerm term = OntologyTermLocalServiceUtil.getOntologyTerm(termId);
-        
+        /*
         for (OntologyTerm t: getTerms()) {
             if (t.getOntologySpaceId().equals(term.getOntologySpaceId())) {
                 // remove term from the same space
                 removeTerm(t.getId());
             }
-        }
+        }*/
         FocusAreaOntologyTerm faot = FocusAreaOntologyTermLocalServiceUtil.createFocusAreaOntologyTerm(new FocusAreaOntologyTermPK(getId(), termId));
         faot.store();
     }
