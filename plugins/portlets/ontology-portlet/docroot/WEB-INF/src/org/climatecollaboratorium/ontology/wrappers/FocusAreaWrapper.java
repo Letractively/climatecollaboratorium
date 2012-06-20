@@ -42,14 +42,15 @@ public class FocusAreaWrapper {
             spaces = new ArrayList<OntologySpaceWrapper>();
             
             for (OntologySpace space: OntologySpaceLocalServiceUtil.getOntologySpaces(0, Integer.MAX_VALUE)) {
-                OntologyTerm term = space.getTopTerm();
+                List<OntologyTerm> faSpaceTerms = new ArrayList<OntologyTerm>();
+                
                 for (OntologyTerm t: area.getTerms()) {
-                    if (t.getOntologySpaceId().equals(term.getOntologySpaceId())) {
-                        term = t;
+                    if (t.getOntologySpaceId().equals(space.getId())) {
+                        faSpaceTerms.add(t);
                     }
                 }
                 
-                spaces.add(new OntologySpaceWrapper(space, term));
+                spaces.add(new OntologySpaceWrapper(space, faSpaceTerms));
             }
         }
         return spaces;
@@ -57,8 +58,14 @@ public class FocusAreaWrapper {
     
     public void save(ActionEvent e) throws PortalException, SystemException {
         area.store();
+        for (OntologyTerm t: area.getTerms()) {
+            area.removeTerm(t.getId());
+        }
         for (OntologySpaceWrapper osw: getOntologySpaces()) {
-            area.addTerm(osw.getTerm().getId());
+            for (OntologySpaceTermWrapper ostw: osw.getTerms()) {
+                
+                area.addTerm(ostw.getTerm().getId());
+            }
         }
         
     }

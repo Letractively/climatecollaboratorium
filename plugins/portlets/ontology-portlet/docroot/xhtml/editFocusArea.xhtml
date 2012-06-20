@@ -47,12 +47,17 @@
                 <div>
                 
                     #{space.space.name}:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
-                     <strong>#{space.term.name}</strong>
-                     &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
-                     <ice:commandButton value="Change" actionListener="#{space.changeTerm}" />
-                    
+                     <ice:dataTable var="term" value="#{space.terms}">
+                        <ice:column>
+                            <strong>#{term.term.name}</strong>
+                        </ice:column>
+                        <ice:column>
+                            <ice:commandButton value="Remove" actionListener="#{term.remove}" />
+                        </ice:column>
+                     </ice:dataTable>
+                     <ice:commandButton value="Add" actionListener="#{space.addTerm}" />
                     <ice:panelPopup draggable="true" modal="true" rendered='#{space.changingTerm}'>
-                        <f:facet name="header">Change term for space #{space.space.name}</f:facet>
+                        <f:facet name="header">Add term for space #{space.space.name}</f:facet>
                         <f:facet name="body">
                             <ice:panelGroup>
                                 <h3>Pick term that should be used</h3>
