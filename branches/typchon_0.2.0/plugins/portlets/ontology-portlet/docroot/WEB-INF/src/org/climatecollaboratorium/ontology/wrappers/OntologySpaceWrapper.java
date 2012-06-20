@@ -15,14 +15,15 @@ import edu.emory.mathcs.backport.java.util.Collections;
 
 public class OntologySpaceWrapper {
     private OntologySpace space;
-    private OntologyTerm term;
+    private List<OntologySpaceTermWrapper> terms = new ArrayList<OntologySpaceTermWrapper>();
     private OntologyTerm newTerm;
     private boolean changingTerm;
 
-    public OntologySpaceWrapper(OntologySpace space, OntologyTerm term) {
+    public OntologySpaceWrapper(OntologySpace space, List<OntologyTerm> faSpaceTerms) {
         this.space = space;
-        this.term = term;
-        newTerm = term;
+        for (OntologyTerm t: faSpaceTerms) {
+            terms.add(new OntologySpaceTermWrapper(t, this));
+        }
     }
 
     public OntologySpace getSpace() {
@@ -33,12 +34,8 @@ public class OntologySpaceWrapper {
         this.space = space;
     }
 
-    public OntologyTerm getTerm() {
-        return term;
-    }
-
-    public void setTerm(OntologyTerm term) {
-        this.term = term;
+    public List<OntologySpaceTermWrapper> getTerms() {
+        return terms;
     }
 
     public void setChangingTerm(boolean changingTerm) {
@@ -49,9 +46,9 @@ public class OntologySpaceWrapper {
         return changingTerm;
     }
     
-    public void changeTerm(ActionEvent e) {
+    public void addTerm(ActionEvent e) throws SystemException {
         changingTerm = !changingTerm;
-        newTerm = term;
+        newTerm = space.getTopTerm();
     }
 
     public void setNewTerm(OntologyTerm newTerm) {
@@ -83,13 +80,18 @@ public class OntologySpaceWrapper {
     public void selectTerm(ActionEvent e) throws PortalException, SystemException {
         Long termId = Long.parseLong(e.getComponent().getAttributes().get("termId").toString());
         
-        term = OntologyTermLocalServiceUtil.getOntologyTerm(termId);
+        terms.add(new OntologySpaceTermWrapper(OntologyTermLocalServiceUtil.getOntologyTerm(termId), this));
         changingTerm = !changingTerm;
     }
     
     public void setNewTermId(ActionEvent e) throws PortalException, SystemException {
         Long termId = Long.parseLong(e.getComponent().getAttributes().get("termId").toString());
         newTerm = OntologyTermLocalServiceUtil.getOntologyTerm(termId);
+        
+    }
+
+    public void remove(OntologySpaceTermWrapper ontologySpaceTermWrapper) {
+        terms.remove(ontologySpaceTermWrapper);
         
     }
     
