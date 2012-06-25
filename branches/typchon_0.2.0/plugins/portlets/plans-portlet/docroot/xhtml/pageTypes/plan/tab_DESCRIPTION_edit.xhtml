@@ -262,10 +262,12 @@
                                 thiz.parents('.addpropInputContainer').addClass('active');
                             },
                             blur: function(event) {
-                                jQuery('.addpropInputContainer').removeClass('active');
                             },
                             click: function(event) {
-                                jQuery('.addpropInputContainer').removeClass('active');
+                                var tmp = jQuery('.addpropInputContainer.active');
+                                if (tmp.get(0) != this) {
+                                    tmp.removeClass('active');
+                                }
                                 thiz.parents('.addpropInputContainer').addClass('active');
                             }
                             
@@ -284,6 +286,7 @@
                             rmFormat: { rmMsWordMarkup: true, rules: {heading: true, table: true }}
                         }
                     });
+                    //jQuery(this).parent().mouseenter(function() { jQuery(this).addClass("mousein"); }).mouseleave( function() { jQuery(this).removeClass("mousein"); } );
                 }
                 else {
                     thiz.bind(eventsToBind);
@@ -291,6 +294,7 @@
                 
  
                 jQuery(this).addClass('rteInitialized');
+                
                 
                 
             });

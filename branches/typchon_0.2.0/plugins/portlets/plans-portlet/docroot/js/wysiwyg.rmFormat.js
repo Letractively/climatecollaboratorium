@@ -96,9 +96,7 @@
 						},
 
 						"span": {
-							rmAttr: {
-								lang: ""
-							},
+							rmAttr: "all",
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
@@ -116,7 +114,7 @@
 		},
 		options: {},
 		enabled: false,
-		debug:	false,
+		debug:	true,
 
 		domRemove: function (node) {
 			// replace h1-h6 with p
