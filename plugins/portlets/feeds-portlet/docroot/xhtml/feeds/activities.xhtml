@@ -22,7 +22,7 @@
      </f:subview>
      <f:subview rendered="#{feedsBean.activitiesBean.feedStyle == 'FULL'}">       
      <ice:form>
-             <ice:panelSeries value="#{feedsBean.activitiesBean.activities}" var="activity" id="activitiesTable" rows="40">
+             <ice:panelSeries value="#{feedsBean.activitiesBean.activities}" var="activity" id="activitiesTable" rows="20">
             <div class="activitybox #{activity.odd ? '' : 'blu'}" style="width: 100%;">
                 <div class="status #{activity.type.displayName}"></div>
                 <div class="text" style="width: 750px; margin-top: 20px;">

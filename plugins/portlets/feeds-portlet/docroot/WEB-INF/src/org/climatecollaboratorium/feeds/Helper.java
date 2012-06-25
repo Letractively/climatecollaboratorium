@@ -1,11 +1,14 @@
 package org.climatecollaboratorium.feeds;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 import com.ext.portlet.debaterevision.model.DebateItem;
 import com.liferay.portal.PortalException;
@@ -21,10 +24,7 @@ import com.liferay.portlet.ratings.model.RatingsStats;
 import com.liferay.portlet.ratings.service.RatingsStatsLocalServiceUtil;
 
 public class Helper {
-    private final static ThemeDisplay themeDisplay = getThemeDisplay();
-    private final static String portletId = themeDisplay.getPortletDisplay().getRootPortletId();
-    private final static long groupId = themeDisplay.getScopeGroupId();
-    private final static String primKey = themeDisplay.getPortletDisplay().getResourcePK();
+    private static final String COLLAB_URL_PARAMETER_PREFIX = "_collab_param";
 
     public static int getDebateItemVotes(DebateItem debateItem) throws SystemException {
         RatingsStats ratingsStats =
@@ -99,10 +99,13 @@ public class Helper {
     
     private static Map getRequestMap() {
         FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext ec = fc.getExternalContext();
-        Map map = ec.getRequestMap();
+        if (fc != null) {
+            ExternalContext ec = fc.getExternalContext();
+            Map map = ec.getRequestMap();
+            return map;
+        }
 
-        return map;
+        return null;
     }
     
     public static PortletPreferences getPortletPrefs(){
@@ -118,6 +121,44 @@ public class Helper {
         return RoleLocalServiceUtil.hasUserRole(id,r.getRoleId());
 
     }
+    
+    private final static String REQUEST_PARAM_NAME = "com.liferay.portal.kernel.servlet.PortletServletRequest";
+    
+    public static boolean isUrlParameterKey(String key) {
+        return key.startsWith(COLLAB_URL_PARAMETER_PREFIX);
+    }
 
+    public static String removeCollabPrefixFromParameterKey(String key) {
+        return key.substring(COLLAB_URL_PARAMETER_PREFIX.length());
+    }
+    
+    public static Map<String, String> getUrlParametersMap() {
+        Map<String, String> params = new HashMap<String, String>();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) ((HttpServletRequestWrapper) context.getExternalContext()
+                .getRequestMap().get(REQUEST_PARAM_NAME)).getRequest();
+
+        Map<String, String> requestParams = request.getParameterMap();
+        for (String key : requestParams.keySet()) {
+            if (isUrlParameterKey(key)) {
+                Object valueObj = requestParams.get(key);
+                String value = null;
+                if (valueObj.getClass().isArray() && ((Object[]) valueObj).length > 0) {
+                    value = ((Object[]) valueObj)[0].toString();
+                }
+                else {
+                    value = valueObj.toString();
+                }
+                params.put(removeCollabPrefixFromParameterKey(key), value);
+            }
+        }
+
+        return params;
+    }
+
+    public static String getUrlParameterKey(String key) {
+        return COLLAB_URL_PARAMETER_PREFIX + key;
+    }
 
 }
