@@ -3,7 +3,7 @@
 #content div.wysiwyg * { margin: 0; padding: 0; }
 
 #content div.wysiwyg .toolbar {display: none;}
-#content .active div.wysiwyg .toolbar {display: block;}
+#content .active div.wysiwyg .toolbar, #content .mousein  div.wysiwyg .toolbar {display: block;}
 
 #content div.wysiwyg ul.toolbar li.jwysiwyg-custom-command { overflow: hidden; }
 
