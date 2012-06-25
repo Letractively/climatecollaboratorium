@@ -94,7 +94,7 @@
         <tr>
             <td class="b m">Current password</td>
             <td>
-                <ice:inputSecret  id="currentPasswordInput" styleClass="profile_input" value="#{currentUser.currentPassword}">
+                <ice:inputSecret id="currentPasswordInput" styleClass="profile_input" value="#{currentUser.currentPassword}">
                     <f:attribute name="currentUser" value="#{currentUser}"/>
                     <f:validator validatorId="userPasswordValidator"/>
                     <f:attribute name="type" value="current" />
