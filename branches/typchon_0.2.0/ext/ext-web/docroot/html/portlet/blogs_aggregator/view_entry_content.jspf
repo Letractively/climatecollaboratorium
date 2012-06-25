@@ -57,7 +57,7 @@
 		%>
 
         <c:if test='<%= !displayStyle.endsWith("-without-title") %>'>
-		  <h4><a href="<%= viewEntryURL %>"><%= entry.getTitle() %></a></h4>
+		  <a href="<%= viewEntryURL %>"><%= entry.getTitle() %></a><br />
         </c:if>
         
         <c:if test='<%= !displayStyle.equals("title") %>'>
