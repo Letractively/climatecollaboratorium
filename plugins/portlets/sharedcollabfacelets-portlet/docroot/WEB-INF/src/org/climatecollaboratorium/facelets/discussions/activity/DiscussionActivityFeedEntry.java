@@ -281,12 +281,21 @@ public class DiscussionActivityFeedEntry extends BaseSocialActivityInterpreter i
         System.out.println(DISCUSSION_MSG_MAIL_BODY_TEMPLATE
                 .replaceAll(MESSAGE_LINK_PLACEHOLDER, getDiscussion(message)));
                 */
-        
-        return DISCUSSION_MSG_MAIL_BODY_TEMPLATE
-                .replaceAll(USER_LINK_PLACEHOLDER, getUserLink(message.getAuthor()))
-                .replaceAll(THREAD_TOPIC_PLACEHOLDER, thread.getSubject())
-                .replaceAll(MESSAGE_BODY_PLACEHOLDER, message.getBody())
-                .replaceAll(MESSAGE_LINK_PLACEHOLDER, getDiscussion(message));
+        try {
+            String tmp = DISCUSSION_MSG_MAIL_BODY_TEMPLATE.replace(USER_LINK_PLACEHOLDER, getUserLink(message.getAuthor()));
+            tmp = tmp.replace(THREAD_TOPIC_PLACEHOLDER, thread.getSubject());
+            tmp = tmp.replace(MESSAGE_BODY_PLACEHOLDER, message.getBody());
+            tmp = tmp.replace(MESSAGE_LINK_PLACEHOLDER, getDiscussion(message));
+            return tmp;
+        }
+        catch (Throwable t) {
+            t.printStackTrace();
+            System.out.println("user link: " + getUserLink(message.getAuthor()));
+            System.out.println("thread topic: " + thread.getSubject());
+            System.out.println("body: " + message.getBody());
+            System.out.println("message link: " + getDiscussion(message));
+        }
+        return "";
     }
     
     private String getUserLink(User user) {
