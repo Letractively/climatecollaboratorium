@@ -55,8 +55,10 @@
       </ice:dataTable>
 
       <div class="com-info bot">
-        <div class="select_sub"><a href="javascript:;" onclick="selectAllSubscriptions()">SELECT ALL</a> 
-            <ice:commandLink actionListener="#{userSubscriptionsBean.removeSelected}">REMOVE SELECTED SUBSCRIPTIONS</ice:commandLink>
+        <div class="blue-button"><a href="javascript:;" onclick="selectAllSubscriptions()">SELECT ALL</a>
+        </div>
+        <div class="blue-button"> 
+            <ice:commandLink actionListener="#{userSubscriptionsBean.removeSelected}">REMOVE SELECTED</ice:commandLink>
         </div>
       </div>
     

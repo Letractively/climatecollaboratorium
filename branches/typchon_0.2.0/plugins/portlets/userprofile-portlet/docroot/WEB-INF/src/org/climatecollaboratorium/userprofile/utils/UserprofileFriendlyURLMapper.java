@@ -2,7 +2,6 @@ package org.climatecollaboratorium.userprofile.utils;
 
 import java.util.Map;
 
-import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 
 import org.climatecollaboratorium.userprofile.Helper;
