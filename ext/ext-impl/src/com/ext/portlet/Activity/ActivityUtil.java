@@ -92,6 +92,8 @@ public class ActivityUtil {
 	}
 	
 	public static List<SocialActivity> retrieveActivities(long userId, int pagestart, int count) throws SystemException, PortalException {
+        List<SocialActivity> activities = SocialActivityLocalServiceUtil.getUserActivities(userId, pagestart, count);
+        return activities;
 	/*
 		List<ActivitySubscription> subscriptions = ActivitySubscriptionLocalServiceUtil.findByUser(userId);
 		Long companyId = UserLocalServiceUtil.getUser(userId).getCompanyId();
@@ -135,7 +137,7 @@ public class ActivityUtil {
 		
 		return activities;
 		*/
-	    return null;
+	    //return null;
 	}
 	
 	public static void deleteSubscription(String portlet, long userid, long entityid, int type) throws SystemException {
