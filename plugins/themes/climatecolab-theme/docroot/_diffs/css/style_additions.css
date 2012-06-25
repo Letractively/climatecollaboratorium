@@ -263,10 +263,8 @@ input.comm_butt[type="submit"]:focus
  { background: url(/collaboratorium-theme/images/comment_submit.gif); border:none; width:119px; height:30px; cursor:pointer;}
  
  .commentsActions {
+    margin-top: 15px;
     text-align: right;
-    position: absolute;
-    bottom: 5px;
-    right: 10px;
  }
  
  .the-comment {
