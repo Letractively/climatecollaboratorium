@@ -12,6 +12,7 @@ import org.climatecollaboratorium.feeds.Helper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class ActivitiesBean {
@@ -20,7 +21,7 @@ public class ActivitiesBean {
      * Max query to handle the bug with no activity body - sufficiently high number that we're very likely to get enough
      * non-null entres to meet the feedSize param
      */
-    private int MAX_QUERY = 200;
+    private int MAX_QUERY = 500;
     private int feedSize = 20;
     private boolean showAdmin = true;
     private String feedStyle = "FULL";
@@ -31,7 +32,7 @@ public class ActivitiesBean {
         showAdmin = !preferences.getRemoveAdmin();
         feedStyle = preferences.getFeedStyle();
         if (feedStyle.equals("FULL")) {
-            MAX_QUERY = 3000;
+            MAX_QUERY = 100;
             feedSize = MAX_QUERY/2;
         }
     }
@@ -43,7 +44,18 @@ public class ActivitiesBean {
             Date now = new Date();
             int count = feedSize;
             int i = 0;
-            for (SocialActivity activity : ActivityUtil.retrieveAllActivities(0, MAX_QUERY)) {
+            Map<String, String> parameters = Helper.getUrlParametersMap();
+            Long userId = null; 
+            if (parameters.containsKey("userId")) {
+                try {
+                    userId = Long.parseLong(parameters.get("userId"));
+                }
+                catch (Throwable t) {
+                    // ignore
+                }
+            }
+            
+            for (SocialActivity activity : userId == null ? ActivityUtil.retrieveAllActivities(0, MAX_QUERY) : ActivityUtil.retrieveActivities(userId, 0, MAX_QUERY)) {
                 if (SocialActivityWrapper.isEmpty(activity) || (!showAdmin && Helper.isUserAdmin(activity.getUserId()))) {
                     continue;
                 }
