@@ -609,7 +609,7 @@ a.get:hover {background:url(../images/homespot-get-hover.png) no-repeat;}
 .commbox {background:url(../images/icon-proposal-comments.png) no-repeat 11px 5px #f2f1e9; margin-right:18px;}
 .modbox {float:left; width:81px; padding-top:4px;}
 .conbox {float:left; width:99px; padding-top:4px;}
-.propbox.featured h4 {height:23px;}
+.propbox.featured h4 {/*height:23px;*/}
 .propbox.featured .ribbonPlaceholder {height:28px; width: 30px; float: left;}
 .propbox.featured .row2 {padding-left: 30px;}
 
