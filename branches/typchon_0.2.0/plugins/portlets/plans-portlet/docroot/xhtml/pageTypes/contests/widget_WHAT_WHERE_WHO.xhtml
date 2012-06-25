@@ -12,14 +12,15 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets"
         xmlns:sharedcollab="http://climatecollaboratorium.org/components">
-     <ui:repeat value="#{whatWhoWhere}" var="item" >
+     <ice:panelSeries value="#{whatWhoWhere}" var="item" varStatus="status">
         <f:subview rendered="#{not empty item.descriptionUrl}">
-            <a href="#{item.descriptionUrl}">#{item.name}</a>
+            <a href="#{item.descriptionUrl}">#{item.name}<f:subview rendered="#{not status.last}">,</f:subview></a>
         </f:subview> 
                 
         <f:subview rendered="#{empty item.descriptionUrl}">
-            #{item.name}
+            #{item.name}<f:subview rendered="#{not status.last}">,</f:subview>
         </f:subview> 
-    </ui:repeat>
+        
+    </ice:panelSeries>
 
 </f:view>
