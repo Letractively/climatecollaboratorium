@@ -84,7 +84,7 @@ public class ContestWrapper {
     }
     
     public long getCommentsCount() throws PortalException, SystemException {
-        return contest.getCommentsCount();
+        return contest.getTotalComments();
     }
     
 }
