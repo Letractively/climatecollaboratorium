@@ -4,6 +4,8 @@ import com.ext.portlet.Activity.ActivityUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.util.DateUtil;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.service.SocialActivityInterpreterLocalServiceUtil;
 import org.climatecollaboratorium.feeds.FeedsPreferences;
@@ -26,6 +28,8 @@ public class ActivitiesBean {
     private boolean showAdmin = true;
     private String feedStyle = "FULL";
     private List<SocialActivityWrapper> activities;
+    private Long filterUserId;
+    private User filterUser;
 
     public ActivitiesBean(FeedsPreferences preferences) {
         feedSize = preferences.getFeedSize();
@@ -45,17 +49,18 @@ public class ActivitiesBean {
             int count = feedSize;
             int i = 0;
             Map<String, String> parameters = Helper.getUrlParametersMap();
-            Long userId = null; 
+            filterUserId = null; 
             if (parameters.containsKey("userId")) {
                 try {
-                    userId = Long.parseLong(parameters.get("userId"));
+                    filterUserId = Long.parseLong(parameters.get("userId"));
+                    filterUser = UserLocalServiceUtil.getUser(filterUserId);
                 }
                 catch (Throwable t) {
                     // ignore
                 }
             }
             
-            for (SocialActivity activity : userId == null ? ActivityUtil.retrieveAllActivities(0, MAX_QUERY) : ActivityUtil.retrieveActivities(userId, 0, MAX_QUERY)) {
+            for (SocialActivity activity : filterUserId == null ? ActivityUtil.retrieveAllActivities(0, MAX_QUERY) : ActivityUtil.retrieveActivities(filterUserId, 0, MAX_QUERY)) {
                 if (SocialActivityWrapper.isEmpty(activity) || (!showAdmin && Helper.isUserAdmin(activity.getUserId()))) {
                     continue;
                 }
@@ -77,5 +82,13 @@ public class ActivitiesBean {
 
     public String getFeedStyle() {
         return feedStyle;
+    }
+    
+    public User getFilterUser() {
+        return filterUser;
+    }
+    
+    public Long getFilterUserId() {
+        return filterUserId;
     }
 }
