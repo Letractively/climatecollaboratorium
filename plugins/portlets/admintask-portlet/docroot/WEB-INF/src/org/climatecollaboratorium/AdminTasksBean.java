@@ -36,7 +36,7 @@ public class AdminTasksBean {
                 description = ContentFilteringHelper.removeStylingFromHTMLContent(description);
             }
             List<PlanDescription> descriptions = plan.getPlanDescriptions();
-            PlanDescription planDescriptionLast = descriptions.get(descriptions.size()-1);
+            PlanDescription planDescriptionLast = descriptions.get(0);
             planDescriptionLast.setDescription(description);
             planDescriptionLast.store();
         }
@@ -50,7 +50,11 @@ public class AdminTasksBean {
                 PlanAttribute attr = plan.getPlanAttribute(PlanConstants.Attribute.ABSTRACT.name());
                 if (attr != null && attr.getAttributeValue() != null) {
                     List<PlanDescription> descriptions = plan.getPlanDescriptions();
-                    PlanDescription planDescriptionLast = descriptions.get(descriptions.size()-1);
+                    PlanDescription planDescriptionLast = descriptions.get(0);
+                    System.out.println("Updating plan: " + plan.getPlanId());
+                    if (plan.getPlanId().compareTo(15207L) == 0) {
+                        System.out.println(attr.getAttributeValue());
+                    }
                     planDescriptionLast.setPitch(attr.getAttributeValue());
                     planDescriptionLast.store();
                 }
