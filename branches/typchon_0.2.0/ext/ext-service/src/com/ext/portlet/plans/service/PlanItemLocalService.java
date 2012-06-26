@@ -209,6 +209,12 @@ public interface PlanItemLocalService {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.plans.model.PlanItem> getPlansByContest(
+        java.lang.Long contestId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public void planDeleted(com.ext.portlet.plans.model.PlanItem plan)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;

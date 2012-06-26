@@ -837,6 +837,21 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         return counter;
     }
     
+    public List<PlanItem> getPlansByContest(Long contestId) throws SystemException, PortalException {
+        List<ContestPhase> phases = ContestPhaseLocalServiceUtil.getPhasesForContest(ContestLocalServiceUtil.getContest(contestId));
+        List<PlanItem> ret = new ArrayList<PlanItem>();
+        long counter = 0;
+        for (ContestPhase phase: phases) {
+            for (PlanItem plan: planItemFinder.getPlansForPhase(phase.getContestPhasePK())) {
+                if (plan.getVersion() > 1 && !plan.getState().equals(EntityState.DELETED.name())) {
+                    ret.add(plan);
+                }
+            }
+        }
+        return ret;
+    }
+    
+    
     
     public void planDeleted(PlanItem plan) throws PortalException, SystemException {
         planItemFinder.clearPhaseCache(plan.getContestPhase().getContestPhasePK());
