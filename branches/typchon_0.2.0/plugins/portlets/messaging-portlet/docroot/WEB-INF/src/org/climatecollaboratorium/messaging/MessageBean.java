@@ -31,7 +31,7 @@ public class MessageBean {
     }
     
     public String getContent() {
-        return org.climatecollaboratorium.facelets.debates.backing.Helper.filterContent(message.getContent());
+        return message.getContent();
     }
     
     public Date getCreateDate() {

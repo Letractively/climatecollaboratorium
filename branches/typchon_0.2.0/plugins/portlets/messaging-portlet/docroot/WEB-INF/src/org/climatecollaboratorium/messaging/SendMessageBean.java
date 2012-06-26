@@ -72,7 +72,7 @@ public class SendMessageBean {
         receipients = String.valueOf(replyMessage.getFrom().getUserId());
         
         subject = "RE: " + replyMessage.getSubject();
-        content = "-- original message begin --\n\n" + replyMessage.getContent() + "\n\n-- original message end --\n"; 
+        content = "-- original message begin --\n\n" + replyMessage.getContent() + "\n\n-- original message end --\n";
         this.replyMessage = replyMessage;
     }
 
