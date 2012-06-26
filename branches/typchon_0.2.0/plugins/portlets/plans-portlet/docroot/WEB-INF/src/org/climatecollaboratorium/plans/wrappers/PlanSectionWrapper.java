@@ -7,6 +7,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.plans.Helper;
+import org.climatecollaboratorium.plans.utils.ContentFilteringHelper;
 
 import com.ext.portlet.plans.NoSuchPlanItemException;
 import com.ext.portlet.plans.model.PlanItem;
@@ -58,7 +59,7 @@ public class PlanSectionWrapper {
         if (Helper.isUserLoggedIn() && !section.getContent().trim().equals(oryginalContent)) {
             
             PlanItemLocalServiceUtil.getPlan(section.getPlanId())
-                    .setSectionContent(section.getDefinition(), section.getContent(), referencedPlans, Helper.getLiferayUser().getUserId());
+                    .setSectionContent(section.getDefinition(), ContentFilteringHelper.removeStylingFromHTMLContent(section.getContent()), referencedPlans, Helper.getLiferayUser().getUserId());
             changed = true;
         }
         toggleEditing(e);
