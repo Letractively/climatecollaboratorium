@@ -431,15 +431,11 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
         value = getWeight().compareTo(contest.getWeight());
 
-        value = value * -1;
-
         if (value != 0) {
             return value;
         }
 
         value = DateUtil.compareTo(getCreated(), contest.getCreated());
-
-        value = value * -1;
 
         if (value != 0) {
             return value;

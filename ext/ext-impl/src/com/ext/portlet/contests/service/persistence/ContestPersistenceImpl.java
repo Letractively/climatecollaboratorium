@@ -368,8 +368,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("weight DESC, ");
-                query.append("created DESC");
+                query.append("weight ASC, ");
+                query.append("created ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -441,8 +441,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("weight DESC, ");
-                    query.append("created DESC");
+                    query.append("weight ASC, ");
+                    query.append("created ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -544,8 +544,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("weight DESC, ");
-                query.append("created DESC");
+                query.append("weight ASC, ");
+                query.append("created ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -632,8 +632,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("weight DESC, ");
-                query.append("created DESC");
+                query.append("weight ASC, ");
+                query.append("created ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -720,8 +720,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
 
                 query.append("ORDER BY ");
 
-                query.append("weight DESC, ");
-                query.append("created DESC");
+                query.append("weight ASC, ");
+                query.append("created ASC");
 
                 Query q = session.createQuery(query.toString());
 
@@ -808,8 +808,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("weight DESC, ");
-                    query.append("created DESC");
+                    query.append("weight ASC, ");
+                    query.append("created ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
@@ -934,8 +934,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
             else {
                 query.append("ORDER BY ");
 
-                query.append("weight DESC, ");
-                query.append("created DESC");
+                query.append("weight ASC, ");
+                query.append("created ASC");
             }
 
             Query q = session.createQuery(query.toString());
@@ -1036,8 +1036,8 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
                 else {
                     query.append("ORDER BY ");
 
-                    query.append("weight DESC, ");
-                    query.append("created DESC");
+                    query.append("weight ASC, ");
+                    query.append("created ASC");
                 }
 
                 Query q = session.createQuery(query.toString());
