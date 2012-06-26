@@ -785,7 +785,7 @@ ul li {
 	list-style: none; background: none; padding: 0; margin-left: 0;
 }
 
-.commentor.expertReview, .comments tr.odd td.expertReview {
+.commentor.expertReview, .comments tr.odd td.commentor.expertReview {
 	background-color: #FFC0C0;
 }
 
