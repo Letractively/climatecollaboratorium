@@ -12,7 +12,7 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:collab="http://climatecollaboratorium.org/facelets"
         xmlns:sharedcollab="http://climatecollaboratorium.org/components">
-     <ice:panelSeries value="#{whatWhoWhere}" var="item" varStatus="status">
+     <ice:panelSeries value="#{whatWhoWhere}" var="item" varStatus="status" styleClass="whatWhoWhere">
         <f:subview rendered="#{not empty item.descriptionUrl}">
             <a href="#{item.descriptionUrl}">#{item.name}<f:subview rendered="#{not status.last}">,</f:subview></a>
         </f:subview> 
