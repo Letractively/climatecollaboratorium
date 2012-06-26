@@ -39,26 +39,24 @@
 					enabled: false,
 					tags: {
 						"a": {
+							rmAttr: "style",
 							rmWhenEmpty: true
 						},
 
 						"b": {
+							rmAttr: "all",
 							rmWhenEmpty: true
 						},
 
 						"div": {
+							rmAttr: "all",
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
 
 						"em": {
-							rmWhenEmpty: true
-						},
-
-						"font": {
 							rmAttr: "all",
-							rmWhenEmpty: true,
-							rmWhenNoAttr: true
+							rmWhenEmpty: true
 						},
 
 						"h1": {
@@ -87,6 +85,7 @@
 						},
 
 						"i": {
+							rmAttr: "all",
 							rmWhenEmpty: true
 						},
 
@@ -102,10 +101,12 @@
 						},
 
 						"strong": {
+							rmAttr: "all",
 							rmWhenEmpty: true
 						},
 
 						"u": {
+							rmAttr: "all",
 							rmWhenEmpty: true
 						}
 					}

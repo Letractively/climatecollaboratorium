@@ -46,11 +46,11 @@
 #content div.wysiwyg ul.toolbar li.redo { background-position: -18px -69px; }
 
 
-#content div.wysiwyg ul.toolbar li.insertUnorderedList { background-position: 0px -100px; width: 87px;}
-#content div.wysiwyg ul.toolbar li.insertUnorderedList.active { background-position: -87px -100px;}
+#content div.wysiwyg ul.toolbar li.insertOrderedList { background-position: 0px -100px; width: 87px;}
+#content div.wysiwyg ul.toolbar li.insertOrderedList.active { background-position: -87px -100px;}
 
-#content div.wysiwyg ul.toolbar li.insertOrderedList { background-position: 0px -75px; width: 68px; }
-#content div.wysiwyg ul.toolbar li.insertOrderedList.active { background-position: -87px -75px;}
+#content div.wysiwyg ul.toolbar li.insertUnorderedList { background-position: 0px -75px; width: 68px; }
+#content div.wysiwyg ul.toolbar li.insertUnorderedList.active { background-position: -87px -75px;}
 
 #content div.wysiwyg ul.toolbar li.insertHorizontalRule { background-position: 0px -49px; }
 
