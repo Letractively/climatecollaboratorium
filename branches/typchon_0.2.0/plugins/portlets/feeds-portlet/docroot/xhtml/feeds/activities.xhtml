@@ -7,6 +7,7 @@
     xmlns:ice="http://www.icesoft.com/icefaces/component" 
     >
     <f:subview rendered="#{feedsBean.activitiesBean.feedStyle != 'FULL'}">
+    
   
         <ui:repeat value="#{feedsBean.activitiesBean.activities}" var="activity">
             <div class="activitybox #{activity.odd ? '' : 'blu'}">
@@ -20,7 +21,7 @@
         </ui:repeat>
   
      </f:subview>
-     <f:subview rendered="#{feedsBean.activitiesBean.feedStyle == 'FULL'}">       
+     <f:subview rendered="#{feedsBean.activitiesBean.feedStyle == 'FULL'}">
      <ice:form>
              <ice:panelSeries value="#{feedsBean.activitiesBean.activities}" var="activity" id="activitiesTable" rows="20">
             <div class="activitybox #{activity.odd ? '' : 'blu'}" style="width: 100%;">
@@ -61,6 +62,16 @@
           
         </ice:panelGroup>  
           </ice:form>
+          
+          
+        <f:subview rendered="#{not empty feedsBean.activitiesBean.filterUserId}">      
+            <script type="text/javascript">
+                var filterSettings = {
+                    filterUserId: #{feedsBean.activitiesBean.filterUserId},
+                    filterUserName: '#{feedsBean.activitiesBean.filterUser.screenName}'
+                };
+            </script>  
+        </f:subview>
         
      </f:subview>
 </f:view>
