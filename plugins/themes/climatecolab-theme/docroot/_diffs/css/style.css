@@ -781,6 +781,6 @@ ul li {
 	margin-left: 11px;
 }
 
-#footmenu li, #menu li, .prop-tabs li {
+#footmenu li, #menu li, .prop-tabs li, .userbox li {
 	list-style: none; background: none; padding: 0; margin-left: 0;
 }
