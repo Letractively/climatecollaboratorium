@@ -819,7 +819,9 @@ function showAlertIfInEdit(text) {
 
 
 function monitorUploadFrame() {
-	jQuery('.proposalImageUpload iframe').load(function() {
-		jQuery(".signalPictureUploaded").click();
+	setTimeout(function() {
+		jQuery('.proposalImageUpload iframe').load(function() {
+			jQuery(".signalPictureUploaded").click(); 
+		})}, 4000);
 	})
 }
