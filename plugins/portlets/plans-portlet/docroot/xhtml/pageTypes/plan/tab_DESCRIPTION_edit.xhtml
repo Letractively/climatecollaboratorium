@@ -129,7 +129,7 @@
                     </label>
                     <div class="addprophelp">#{section.section.definition.helpText}</div>
                     <div class="addpropInputContainer">
-                        <ice:inputTextarea value="#{section.section.content}" cols="50" rows="7" styleClass="rte" />
+                        <ice:inputTextarea value="#{section.section.content}" cols="54" rows="7" styleClass="rte" />
                         <f:subview rendered="#{section.section.definition.characterLimit gt 0}">
                             <div class="inputLimitContainer">
                                 <span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">#{section.section.definition.characterLimit}</span> characters
@@ -151,7 +151,7 @@
                 </label>
                 <div class="addprophelp">Enter proposal assumptions, actions, describe your ideas.</div>
                 <div class="addpropInputContainer">
-                    <ice:inputTextarea value="#{proposal.plan.description}" cols="50" rows="20" styleClass="rte" />
+                    <ice:inputTextarea value="#{proposal.plan.description}"  cols="50" rows="7" styleClass="rte" />
                     <div style="display: none">
                         <textarea class="originalValue">#{plan.plan.originalDescription}</textarea>
                     </div>
@@ -277,6 +277,7 @@
                         css: '/climatecolab-theme/css/style.css', 
                         events: eventsToBind,
                         rmUnusedControls: true,
+                        width: "440px",
                         dialog:"jqueryui",
                         controls: {
                             bold: { visible : true }, italic: {visible: true}, underline: {visible: true}, insertOrderedList: {visible: true}, insertUnorderedList: {visible: true},
