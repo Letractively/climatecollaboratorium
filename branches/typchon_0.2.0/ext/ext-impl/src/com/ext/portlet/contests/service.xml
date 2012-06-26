@@ -32,7 +32,7 @@
         <column name="weight" type="Integer" />
         <column name="resourcesUrl" type="String" />
         
-        <order by="desc">
+        <order by="asc">
             <order-column name="weight" />
             <order-column name="created" />
         </order>
