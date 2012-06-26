@@ -22,8 +22,8 @@
                 </h3>
                 #{singleContest.name}
                 <div class="count">
-                    <div class="prop"><collab:contestLink contestId="#{singleContest.contestId}" text="#{singleContest.proposalsCount}" /> proposals</div>
-                    <div class="comm"><a href="/web/guest/plans/-/plans/contestId/#{singleContest.contestId}/page/discussion">#{singleContest.commentsCount}</a> comments</div>
+                    <div class="prop">proposals</div>
+                    <div class="comm">#{singleContest.commentsCount} comments</div>
                 </div>
             </div>
             <f:subview rendered="#{singleContest.featured}">
