@@ -264,6 +264,13 @@ public class PlanItemLocalServiceUtil {
         return getService().countPlansByContest(contestId);
     }
 
+    public static java.util.List<com.ext.portlet.plans.model.PlanItem> getPlansByContest(
+        java.lang.Long contestId)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService().getPlansByContest(contestId);
+    }
+
     public static void planDeleted(com.ext.portlet.plans.model.PlanItem plan)
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException {

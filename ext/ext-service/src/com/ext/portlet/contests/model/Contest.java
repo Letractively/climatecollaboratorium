@@ -91,6 +91,14 @@ public interface Contest extends ContestModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public long getProposalsCommentsCount()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public long getTotalComments()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.contests.model.ContestTeamMember> getTeamMembers()
         throws com.liferay.portal.SystemException;
 }

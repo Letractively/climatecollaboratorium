@@ -24,6 +24,7 @@ import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.ontology.model.FocusArea;
 import com.ext.portlet.ontology.service.FocusAreaLocalServiceUtil;
+import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanTemplate;
 import com.ext.portlet.plans.model.PlanType;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
@@ -183,6 +184,18 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     
     public long getCommentsCount() throws PortalException, SystemException {
         return getDiscussionCategoryGroup().getCommentsCount();
+    }
+    
+    public long getProposalsCommentsCount() throws SystemException, PortalException {
+        long proposalsCommentsCount = 0;
+        for (PlanItem pi: PlanItemLocalServiceUtil.getPlansByContest(getContestPK())) {
+            proposalsCommentsCount += pi.getCommentsCount();
+        }
+        return proposalsCommentsCount;
+    }
+    
+    public long getTotalComments() throws PortalException, SystemException {
+        return getCommentsCount() + getProposalsCommentsCount();
     }
     
     public List<ContestTeamMember> getTeamMembers() throws SystemException {
