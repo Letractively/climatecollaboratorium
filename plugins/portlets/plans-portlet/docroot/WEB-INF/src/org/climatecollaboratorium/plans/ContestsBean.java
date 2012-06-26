@@ -130,15 +130,23 @@ public class ContestsBean {
             contestsFeatured = new ArrayList<ContestWrapper>();
             contestsNormal = new ArrayList<ContestWrapper>();
             
-            boolean addToFirst = true;
+            
             
             for (ContestWrapper c: contests) {
+                if (c.isFeatured()) contestsFeatured.add(c);
+                else contestsNormal.add(c);
+            }
+            
+            boolean addToFirst = true;
+            for (ContestWrapper c: contestsFeatured) {
                 if (addToFirst) contestsPart1.add(c);
                 else contestsPart2.add(c);
                 addToFirst = !addToFirst;
-                
-                if (c.isFeatured()) contestsFeatured.add(c);
-                else contestsNormal.add(c);
+            }
+            for (ContestWrapper c: contestsNormal) {
+                if (addToFirst) contestsPart1.add(c);
+                else contestsPart2.add(c);
+                addToFirst = !addToFirst;
             }
         }
     }
