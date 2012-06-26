@@ -782,5 +782,5 @@ ul li {
 }
 
 #footmenu li, #menu li, .prop-tabs li {
-	list-style: none; background: none; padding: 0;
+	list-style: none; background: none; padding: 0; margin-left: 0;
 }
