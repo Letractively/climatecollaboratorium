@@ -75,6 +75,7 @@ public class ContestWrapper {
     public List<SelectItem> getAvailablePlanTemplates() throws SystemException {
         List<SelectItem> ret = new ArrayList<SelectItem>();
         
+        ret.add(new SelectItem(null, "-- none --"));
         for (PlanTemplate tmpl: PlanTemplateLocalServiceUtil.getPlanTemplates(0, Integer.MAX_VALUE)) {
             ret.add(new SelectItem(tmpl.getId(), tmpl.getName()));
         }
@@ -83,6 +84,7 @@ public class ContestWrapper {
     
     public List<SelectItem> getAvailableFocusAreas() throws SystemException {
         List<SelectItem> ret = new ArrayList<SelectItem>();
+        ret.add(new SelectItem(null, "-- none --"));
         
         for (FocusArea fa: FocusAreaLocalServiceUtil.getFocusAreas(0, Integer.MAX_VALUE)) {
             ret.add(new SelectItem(fa.getId(), fa.getName()));
