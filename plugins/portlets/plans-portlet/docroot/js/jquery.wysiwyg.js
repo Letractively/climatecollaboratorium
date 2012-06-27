@@ -671,12 +671,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			// startOffset is the number of child nodes between the start of the
 			// startContainer and the boundary point of the Range
 			if (element === range.startContainer) {
-				if (range.startOffset > 0) {
-					element = element.childNodes[range.startOffset-1];
-				}
-				else {
-					element = element.childNodes[0];
-				}
+				element = element.childNodes[range.startOffset];
 			}
 			
 			if(!element.tagName && (element.previousSibling || element.nextSibling)) {
@@ -1465,10 +1460,10 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			}
 
 			if (self.options.plugins.rmFormat.rmMsWordMarkup) {
-				$(self.editorDoc).bind("keypress.wysiwyg", function (event) {
-					if (event.ctrlKey || event.metaKey || event.keyIdentifier == 'Meta') {
+				$(self.editorDoc).bind("keydown.wysiwyg", function (event) {
+					if (event.ctrlKey || event.metaKey) {
 						// CTRL + V (paste)
-						if (86 === event.keyCode || 91 == event.keyCode) {
+						if (86 === event.keyCode) {
 							if ($.wysiwyg.rmFormat) {
 								if ("object" === typeof (self.options.plugins.rmFormat.rmMsWordMarkup)) {
 									$.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: self.options.plugins.rmFormat.rmMsWordMarkup }});
