@@ -1459,19 +1459,31 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				});
 			}
 
+			self.pasteDetected = false;
+			
 			if (self.options.plugins.rmFormat.rmMsWordMarkup) {
-				$(self.editorDoc).bind("keyup.wysiwyg", function (event) {
+				$(self.editorDoc).bind("keydown.wysiwyg", function (event) {
 					if (event.ctrlKey || event.metaKey) {
 						// CTRL + V (paste)
 						if (86 === event.keyCode) {
-							if ($.wysiwyg.rmFormat) {
-								if ("object" === typeof (self.options.plugins.rmFormat.rmMsWordMarkup)) {
-									$.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: self.options.plugins.rmFormat.rmMsWordMarkup }});
-								} else {
-									$.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: { enabled: true }}});
-								}
+							self.pasteDetected = true;
+						}
+					}
+				});
+			}
+			
+			
+			if (self.options.plugins.rmFormat.rmMsWordMarkup) {
+				$(self.editorDoc).bind("keyup.wysiwyg", function (event) {
+					if (self.pasteDetected) {
+						if ($.wysiwyg.rmFormat) {
+							if ("object" === typeof (self.options.plugins.rmFormat.rmMsWordMarkup)) {
+								$.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: self.options.plugins.rmFormat.rmMsWordMarkup }});
+							} else {
+								$.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: { enabled: true }}});
 							}
 						}
+						self.pasteDetected = false;
 					}
 				});
 			}
