@@ -389,7 +389,6 @@ public class PlanItemFinderImpl extends BasePersistenceImpl implements PlanItemF
 
     public List<PlanItem> getPlans() {
 
-
         Session session = openSession();
         String sql = CustomSQLUtil.get(GET_PLAN_ITEMS);
         SQLQuery query = session.createSQLQuery(sql);
