@@ -4,7 +4,7 @@
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>debates3</portlet-name>
-		<indexer-class>com.ext.portlet.debaterevision.util.Indexer</indexer-class>
+		<!--<indexer-class>com.ext.portlet.debaterevision.util.Indexer</indexer-class>-->
 		<social-activity-interpreter-class>org.climatecollaboratorium.debates.activity.DebatesActivityFeedEntry</social-activity-interpreter-class>
 		<instanceable>true</instanceable>
 		<render-weight>1</render-weight>
