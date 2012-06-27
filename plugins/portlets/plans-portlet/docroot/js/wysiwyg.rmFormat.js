@@ -33,27 +33,28 @@
 					enabled: false,
 					tags: {
 						"a": {
+							rmAttr: true,
 							rmWhenEmpty: true
 						},
 
 						"b": {
+							rmAttr: true,
 							rmWhenEmpty: true
 						},
 
 						"div": {
+							rmAttr: true,
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
 
 						"em": {
+							rmAttr: true,
 							rmWhenEmpty: true
 						},
 
 						"font": {
-							rmAttr: {
-								"face": "",
-								"size": ""
-							},
+							rmAttr: true,
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
@@ -84,6 +85,7 @@
 						},
 
 						"i": {
+							rmAttr: true,
 							rmWhenEmpty: true
 						},
 
@@ -93,18 +95,18 @@
 						},
 
 						"span": {
-							rmAttr: {
-								lang: ""
-							},
+							rmAttr: true,
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
 
 						"strong": {
+							rmAttr: true,
 							rmWhenEmpty: true
 						},
 
 						"u": {
+							rmAttr: true,
 							rmWhenEmpty: true
 						}
 					}
