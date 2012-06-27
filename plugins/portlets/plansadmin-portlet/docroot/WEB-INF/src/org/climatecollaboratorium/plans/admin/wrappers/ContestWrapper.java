@@ -94,16 +94,28 @@ public class ContestWrapper {
     
 
     public void planTemplateChange(ValueChangeEvent e) throws NumberFormatException, PortalException, SystemException {
-        PlanTemplate tmpl = PlanTemplateLocalServiceUtil.getPlanTemplate(Long.parseLong(e.getNewValue().toString()));
+        Long id = 0L;
+        if (e.getNewValue() == null) {
+            id = 0L;
+        }
+        else {
+            PlanTemplate tmpl = PlanTemplateLocalServiceUtil.getPlanTemplate(Long.parseLong(e.getNewValue().toString()));
+        }
         
-        contest.setPlanTemplateId(tmpl.getId());
+        contest.setPlanTemplateId(id);
         contest.store();
     }
     
-    public void planFocusAreaChange(ValueChangeEvent e) throws NumberFormatException, PortalException, SystemException {
-        FocusArea fa = FocusAreaLocalServiceUtil.getFocusArea(Long.parseLong(e.getNewValue().toString()));
+    public void planFocusAreaChange(ValueChangeEvent e) throws NumberFormatException, PortalException, SystemException {        
+        Long id = 0L;
+        if (e.getNewValue() == null) {
+            id = 0L;
+        }
+        else {
+            FocusArea fa = FocusAreaLocalServiceUtil.getFocusArea(Long.parseLong(e.getNewValue().toString()));
+        }
         
-        contest.setFocusAreaId(fa.getId());
+        contest.setFocusAreaId(id);
         contest.store();
     }
     
