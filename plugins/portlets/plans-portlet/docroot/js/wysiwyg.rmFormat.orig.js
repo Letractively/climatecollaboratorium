@@ -16,9 +16,9 @@
 		version: "",
 		defaults: {
 			rules: {
-				heading: true,
+				heading: false,
 				table: false,
-				inlineCSS: true,
+				inlineCSS: false,
 				/*
 				 * rmAttr       - { "all" | object with names } remove all
 				 *                attributes or attributes with following names
@@ -33,28 +33,27 @@
 					enabled: false,
 					tags: {
 						"a": {
-							rmAttr: "all",
 							rmWhenEmpty: true
 						},
 
 						"b": {
-							rmAttr: "all",
 							rmWhenEmpty: true
 						},
 
 						"div": {
-							rmAttr: "all",
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
 
 						"em": {
-							rmAttr: "all",
 							rmWhenEmpty: true
 						},
 
 						"font": {
-							rmAttr: "all",
+							rmAttr: {
+								"face": "",
+								"size": ""
+							},
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
@@ -85,7 +84,6 @@
 						},
 
 						"i": {
-							rmAttr: "all",
 							rmWhenEmpty: true
 						},
 
@@ -95,18 +93,18 @@
 						},
 
 						"span": {
-							rmAttr: "all",
+							rmAttr: {
+								lang: ""
+							},
 							rmWhenEmpty: true,
 							rmWhenNoAttr: true
 						},
 
 						"strong": {
-							rmAttr: "all",
 							rmWhenEmpty: true
 						},
 
 						"u": {
-							rmAttr: "all",
 							rmWhenEmpty: true
 						}
 					}
@@ -343,7 +341,7 @@
 				if (start === end) {
 					traversing = this.domTraversing(node, start, end, true, 1);
 				} else {
-					traversing = this.domTraversing(node.firstElementChild, start, end, true, 1);
+					traversing = this.domTraversing(node.firstElementChild, start, end, null, 1);
 				}
 
 				if (this.debug) { console.log("DomTraversing=", traversing); }
