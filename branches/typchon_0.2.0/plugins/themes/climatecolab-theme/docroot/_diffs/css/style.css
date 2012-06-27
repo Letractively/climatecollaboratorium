@@ -745,7 +745,7 @@ a.get:hover {background:url(../images/homespot-get-hover.png) no-repeat;}
 .popup h4 {font-size:22px; color:#545454; margin-bottom:30px; font-weight:400;}
 .popup p {font-size:15px; color:#000; line-height:22px; margin-bottom:20px;}
 .popup p a {font-weight:700;}
-/*.popup .terms {height:160px; overflow:auto; padding:5px; margin-bottom:30px; border:1px solid #9b9b9b; background:url(../images/popup-txtbox-bg.png) no-repeat; font-family:Arial, Helvetica, sans-serif;}
+.popup .terms {height:260px; overflow:auto; } /*padding:5px; margin-bottom:30px; border:1px solid #9b9b9b; background:url(../images/popup-txtbox-bg.png) no-repeat; font-family:Arial, Helvetica, sans-serif;}
 .popup .terms p {font-size:12px; line-height:20px}
 */
 .popup .btns {text-align:center; margin-top:5px;}
