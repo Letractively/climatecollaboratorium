@@ -126,9 +126,9 @@
 					// to except DOM error: also try in other browsers
 					$(node).replaceWith($('<p/>').html($(node).contents()));
 
-					return true;
 				}
 			}
+			
 
 			// remove tables not smart enough )
 			if (this.options.rules.table) {
@@ -137,6 +137,15 @@
 
 					return true;
 				}
+			}
+			
+			if (node.nodeName.toLowerCase().match(/^sub$/)) {
+				// in chromium change this to
+				// $(node).replaceWith($('<p/>').html(node.innerHTML));
+				// to except DOM error: also try in other browsers
+				$(node).replaceWith($('<p/>').html($(node).contents()));
+
+				return true;
 			}
 
 			return false;
