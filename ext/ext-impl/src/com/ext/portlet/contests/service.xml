@@ -81,8 +81,8 @@
 
         <finder name="ContestIdStartEnd" return-type="ContestPhase">
             <finder-column name="ContestPK" />
-            <finder-column name="PhaseStartDate" comparator="&gt;=" />
-            <finder-column name="PhaseEndDate" comparator="&lt;=" />
+            <finder-column name="PhaseStartDate" comparator="&lt;=" />
+            <finder-column name="PhaseEndDate" comparator="&gt;=" />
         </finder>
         
         <finder name="ContestId" return-type="Collection">
