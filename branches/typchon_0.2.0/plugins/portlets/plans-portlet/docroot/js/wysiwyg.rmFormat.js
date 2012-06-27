@@ -33,7 +33,10 @@
 					enabled: false,
 					tags: {
 						"a": {
-							rmAttr: "all",
+							rmAttr: {
+								"style": "",
+								"class": ""
+							},
 							rmWhenEmpty: true
 						},
 
@@ -124,7 +127,8 @@
 					// in chromium change this to
 					// $(node).replaceWith($('<p/>').html(node.innerHTML));
 					// to except DOM error: also try in other browsers
-					$(node).replaceWith($('<p/>').html($(node).contents()));
+					$(node).replaceWith($('<p />').html("<strong>" + $(node).html() + "</strong>"));
+					return true;
 
 				}
 			}
@@ -156,7 +160,26 @@
 		    $(node).removeAttr('style');
 		  }
 		},
+		domTraversing: function (el, start, end, canRemove, cnt) {
+			console.log(el);
+			if (null === canRemove) {
+				canRemove = false;
+			}
+			
 
+			var current = el;
+			while (current) {
+				if (current.firstElementChild) {
+					console.log("going into child");
+					this.domTraversing(current.firstElementChild, start, end, canRemove, cnt + 1);
+				}
+				
+				current = current.nextElementSibling;
+			}
+			this.domRemove(el);
+			this.removeStyle(el);
+		},
+		/*
 		domTraversing: function (el, start, end, canRemove, cnt) {
 			if (null === canRemove) {
 				canRemove = false;
@@ -214,7 +237,7 @@
 			}
 
 			return false;
-		},
+		},*/
 
 		msWordMarkup: function (text) {
 			var tagName, attrName, rules, reg, regAttr, found, attrs;
@@ -349,6 +372,10 @@
 				}
 
 				traversing = null;
+				// go to body node
+				while (node.parentNode && node.parentNode.nodeName.toLowerCase() != 'body') {
+					node = node.parentNode;
+				}
 				if (start === end) {
 					traversing = this.domTraversing(node, start, end, true, 1);
 				} else {
