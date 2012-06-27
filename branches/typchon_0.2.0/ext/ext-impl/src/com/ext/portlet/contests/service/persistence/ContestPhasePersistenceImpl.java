@@ -449,17 +449,17 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
                 query.append(" AND ");
 
                 if (PhaseStartDate == null) {
-                    query.append("PhaseStartDate >= null");
+                    query.append("PhaseStartDate <= null");
                 } else {
-                    query.append("PhaseStartDate >= ?");
+                    query.append("PhaseStartDate <= ?");
                 }
 
                 query.append(" AND ");
 
                 if (PhaseEndDate == null) {
-                    query.append("PhaseEndDate <= null");
+                    query.append("PhaseEndDate >= null");
                 } else {
-                    query.append("PhaseEndDate <= ?");
+                    query.append("PhaseEndDate >= ?");
                 }
 
                 query.append(" ");
@@ -923,17 +923,17 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
                 query.append(" AND ");
 
                 if (PhaseStartDate == null) {
-                    query.append("PhaseStartDate >= null");
+                    query.append("PhaseStartDate <= null");
                 } else {
-                    query.append("PhaseStartDate >= ?");
+                    query.append("PhaseStartDate <= ?");
                 }
 
                 query.append(" AND ");
 
                 if (PhaseEndDate == null) {
-                    query.append("PhaseEndDate <= null");
+                    query.append("PhaseEndDate >= null");
                 } else {
-                    query.append("PhaseEndDate <= ?");
+                    query.append("PhaseEndDate >= ?");
                 }
 
                 query.append(" ");
