@@ -3,6 +3,7 @@ package com.ext.portlet.ontology.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ext.portlet.ontology.NoSuchOntologyTermException;
 import com.ext.portlet.ontology.model.FocusArea;
 import com.ext.portlet.ontology.model.FocusAreaOntologyTerm;
 import com.ext.portlet.ontology.model.OntologyTerm;
@@ -33,7 +34,13 @@ public class FocusAreaImpl extends FocusAreaModelImpl implements FocusArea {
     public List<OntologyTerm> getTerms() throws PortalException, SystemException {
         List<OntologyTerm> ret = new ArrayList<OntologyTerm>();
         for (FocusAreaOntologyTerm faot: FocusAreaOntologyTermLocalServiceUtil.findTermsByFocusArea(getId())) {
-            ret.add(faot.getTerm());
+            try {
+                ret.add(faot.getTerm());
+            }
+            catch (NoSuchOntologyTermException e) {
+                // if term has been deleted, remove association
+                FocusAreaOntologyTermLocalServiceUtil.deleteFocusAreaOntologyTerm(faot);
+            }
         }
         return ret;
     }
