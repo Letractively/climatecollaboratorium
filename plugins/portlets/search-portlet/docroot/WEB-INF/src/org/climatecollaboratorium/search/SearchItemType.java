@@ -105,7 +105,9 @@ public enum SearchItemType {
             }
             return "";
         }
-    }),
+    })
+    /*,
+    
     DEBATE_ITEM("Debates", new String[] { "entryClassName", "com.ext.portlet.debaterevision.model.*" }, new String[] { "content", "title" },
             new String[] { "title" }, new String[] { "content" }, new URLCreator() {
         private final static String DEBATE_ITEM_URL_ACTIVE_FORMAT = "/web/guest/plans#plans=contests:active,subview:issues;debate=debateId:%s,itemId:%s";
@@ -132,7 +134,8 @@ public enum SearchItemType {
 
                 }
             }
-    );
+    )*/
+    ;
     
     
     
