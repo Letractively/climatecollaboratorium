@@ -48,7 +48,7 @@
                 height: 100px;
             }
         </style>
-        
+        <h1>#{planSectionDefinitionsAdmin.edited.definition}</h1>
         <h1>Edit PlanSectionDefinition #{planSectionDefinitionsAdmin.edited.definition.title}</h1>
         <ice:panelGrid cellspacing="0" columnClasses="col1, col2" rowClasses="odd, even" cellpadding="5" columns="2">
         
@@ -72,6 +72,10 @@
            <ice:selectOneMenu valueChangeListener="#{planSectionDefinitionsAdmin.edited.focusAreaChange}">
              <f:selectItems value="#{planSectionDefinitionsAdmin.edited.availableFocusAreas}" />
            </ice:selectOneMenu>
+           
+           
+           <ice:outputLabel value="Locked" />
+           <ice:selectBooleanCheckbox value="#{planSectionDefinitionsAdmin.edited.definition.locked}" />
            
            <!-- <ice:inputTextarea value="#{planSectionDefinitionsAdmin.edited.definition.defaultText}" styleClass="defaultText" />-->
            
