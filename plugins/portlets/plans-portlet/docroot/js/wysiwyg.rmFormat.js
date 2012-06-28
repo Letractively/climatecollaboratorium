@@ -167,13 +167,9 @@
 			}
 			
 
-			var current = el;
+			var current = el.firstElementChild;
 			while (current) {
-				if (current.firstElementChild) {
-					console.log("going into child");
-					this.domTraversing(current.firstElementChild, start, end, canRemove, cnt + 1);
-				}
-				
+				this.domTraversing(current, start, end, canRemove, cnt + 1);
 				current = current.nextElementSibling;
 			}
 			this.domRemove(el);
