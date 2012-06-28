@@ -488,6 +488,7 @@
         <column name="helpText" type="String" />
         <column name="characterLimit" type="Integer" />
         <column name="focusAreaId" type="Long" />
+        <column name="locked" type="Boolean" />
     </entity>
     
     <entity name="PlanSection" local-service="true">

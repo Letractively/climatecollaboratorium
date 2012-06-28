@@ -39,6 +39,7 @@ public class PlanSectionDefinitionJSONSerializer {
         jsonObj.put("helpText", model.getHelpText());
         jsonObj.put("characterLimit", model.getCharacterLimit());
         jsonObj.put("focusAreaId", model.getFocusAreaId());
+        jsonObj.put("locked", model.getLocked());
 
         return jsonObj;
     }

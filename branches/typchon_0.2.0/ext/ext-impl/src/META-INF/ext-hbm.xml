@@ -277,6 +277,7 @@
 		<property name="helpText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="characterLimit" />
 		<property name="focusAreaId" />
+		<property name="locked" />
 	</class>
 	<class name="com.ext.portlet.plans.model.impl.PlanSectionImpl" table="PlanSection">
 		<cache usage="read-write" />

@@ -1347,7 +1347,8 @@ create table PlanSectionDefinition (
 	defaultText VARCHAR(75) null,
 	helpText VARCHAR(75) null,
 	characterLimit INTEGER,
-	focusAreaId LONG
+	focusAreaId LONG,
+	locked BOOLEAN
 );
 
 create table PlanSectionPlanMap (
