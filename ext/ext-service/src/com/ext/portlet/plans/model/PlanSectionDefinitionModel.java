@@ -56,5 +56,9 @@ public interface PlanSectionDefinitionModel extends BaseModel<PlanSectionDefinit
 
     public void setFocusAreaId(Long focusAreaId);
 
+    public Boolean getLocked();
+
+    public void setLocked(Boolean locked);
+
     public PlanSectionDefinition toEscapedModel();
 }

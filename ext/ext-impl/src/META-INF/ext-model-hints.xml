@@ -210,6 +210,7 @@
 		<field name="helpText" type="String" />
 		<field name="characterLimit" type="Integer" />
 		<field name="focusAreaId" type="Long" />
+		<field name="locked" type="Boolean" />
 	</model>
 	<model name="com.ext.portlet.plans.model.PlanSection">
 		<field name="id" type="Long" />

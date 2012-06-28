@@ -59,9 +59,12 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
             { "characterLimit", new Integer(Types.INTEGER) },
             
 
-            { "focusAreaId", new Integer(Types.BIGINT) }
+            { "focusAreaId", new Integer(Types.BIGINT) },
+            
+
+            { "locked", new Integer(Types.BOOLEAN) }
         };
-    public static final String TABLE_SQL_CREATE = "create table PlanSectionDefinition (id_ LONG not null primary key,adminTitle VARCHAR(75) null,title VARCHAR(75) null,defaultText VARCHAR(75) null,helpText VARCHAR(75) null,characterLimit INTEGER,focusAreaId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table PlanSectionDefinition (id_ LONG not null primary key,adminTitle VARCHAR(75) null,title VARCHAR(75) null,defaultText VARCHAR(75) null,helpText VARCHAR(75) null,characterLimit INTEGER,focusAreaId LONG,locked BOOLEAN)";
     public static final String TABLE_SQL_DROP = "drop table PlanSectionDefinition";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -81,6 +84,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
     private String _helpText;
     private Integer _characterLimit;
     private Long _focusAreaId;
+    private Boolean _locked;
 
     public PlanSectionDefinitionModelImpl() {
     }
@@ -96,6 +100,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         model.setHelpText(soapModel.getHelpText());
         model.setCharacterLimit(soapModel.getCharacterLimit());
         model.setFocusAreaId(soapModel.getFocusAreaId());
+        model.setLocked(soapModel.getLocked());
 
         return model;
     }
@@ -179,6 +184,14 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         _focusAreaId = focusAreaId;
     }
 
+    public Boolean getLocked() {
+        return _locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        _locked = locked;
+    }
+
     public PlanSectionDefinition toEscapedModel() {
         if (isEscapedModel()) {
             return (PlanSectionDefinition) this;
@@ -195,6 +208,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
             model.setHelpText(HtmlUtil.escape(getHelpText()));
             model.setCharacterLimit(getCharacterLimit());
             model.setFocusAreaId(getFocusAreaId());
+            model.setLocked(getLocked());
 
             model = (PlanSectionDefinition) Proxy.newProxyInstance(PlanSectionDefinition.class.getClassLoader(),
                     new Class[] { PlanSectionDefinition.class },
@@ -214,6 +228,7 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         clone.setHelpText(getHelpText());
         clone.setCharacterLimit(getCharacterLimit());
         clone.setFocusAreaId(getFocusAreaId());
+        clone.setLocked(getLocked());
 
         return clone;
     }
@@ -267,6 +282,8 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         sb.append(getCharacterLimit());
         sb.append(", focusAreaId=");
         sb.append(getFocusAreaId());
+        sb.append(", locked=");
+        sb.append(getLocked());
         sb.append("}");
 
         return sb.toString();
@@ -306,6 +323,10 @@ public class PlanSectionDefinitionModelImpl extends BaseModelImpl<PlanSectionDef
         sb.append(
             "<column><column-name>focusAreaId</column-name><column-value><![CDATA[");
         sb.append(getFocusAreaId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>locked</column-name><column-value><![CDATA[");
+        sb.append(getLocked());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

@@ -7469,21 +7469,21 @@
                 ss['fontFamily'] = this.fontFamily;
             }
             if (this.textColor) {
-                ss['color'] = this.textColor;
+                ss['textColor'] = this.textColor;
             }
             if (this.marginTop != null) {
-                ss['margin-top'] = this.marginTop;
+                ss['marginTop'] = this.marginTop;
             }
             if (this.marginBottom != null) {
-                ss['margin-bottom'] = this.marginBottom;
+                ss['marginBottom'] = this.marginBottom;
             }
             if (this.marginLeft != null) {
-                ss['margin-left'] = this.marginLeft;
+                ss['marginLeft'] = this.marginLeft;
             }
             if (this.marginRight != null) {
-                ss['margin-right'] = this.marginRight;
+                ss['marginRight'] = this.marginRight;
             }
-            this._elem.css(ss); 
+            
         
             var pad = false, 
                 reverse = false,
