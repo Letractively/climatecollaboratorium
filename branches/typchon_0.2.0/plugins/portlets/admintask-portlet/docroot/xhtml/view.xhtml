@@ -15,10 +15,13 @@
     <ice:portlet>
         <h1>Admin tasks</h1>
         <ice:form>
+            <ice:outputConnectionStatus />
+            <ice:messages globalOnly="false" layout="table" />
             <ul>
                 <li><ice:commandButton action="#{adminTask.removeBlogsFormatting}" value="Remove formatting from blog etries"/></li>
                 <li><ice:commandButton action="#{adminTask.removeProposalFormatting}" value="Remove formatting from proposals"/></li>
                 <li><ice:commandButton action="#{adminTask.updatePitchForProposals}" value="Update pitch for old plans"/></li>
+                <li><ice:commandButton action="#{adminTask.populateFirstEmptySectionWithDescription}" value="Copy description to first section (if it is empty)"/></li>
             </ul>
         </ice:form>
     </ice:portlet>
