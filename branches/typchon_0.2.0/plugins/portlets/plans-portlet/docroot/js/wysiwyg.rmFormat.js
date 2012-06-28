@@ -369,9 +369,14 @@
 
 				traversing = null;
 				// go to body node
-				while (node.parentNode && node.parentNode.nodeName.toLowerCase() != 'body') {
-					node = node.parentNode;
+				var tmp = node;
+				while (tmp && tmp.nodeName.toLowerCase() != 'body') {
+					tmp = tmp.parentNode;
 				}
+				if (tmp != null) {
+					node = tmp;
+				}
+				
 				if (start === end) {
 					traversing = this.domTraversing(node, start, end, true, 1);
 				} else {
