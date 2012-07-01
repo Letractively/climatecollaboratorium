@@ -1,8 +1,8 @@
 function monitorUploadFrame() {
-	jQuery('.profile_upload iframe').load(function() {
-		jQuery(".signalPictureUploaded").click();
-	})
-
+	setTimeout(function() {
+		jQuery('.profile_upload iframe').load(function() {
+			jQuery(".signalPictureUploaded").click();
+		})}, 4000);
 }
 
 function selectAllSubscriptions() {
