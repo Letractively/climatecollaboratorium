@@ -7,7 +7,7 @@
 		<friendly-url-mapper-class>org.climatecollaboratorium.userprofile.utils.UserprofileFriendlyURLMapper</friendly-url-mapper-class>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/css/userprofile.css</header-portlet-css>
-		<footer-portlet-javascript>/js/userprofile.js</footer-portlet-javascript>
+		<header-portlet-javascript>/js/userprofile.js</header-portlet-javascript>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
