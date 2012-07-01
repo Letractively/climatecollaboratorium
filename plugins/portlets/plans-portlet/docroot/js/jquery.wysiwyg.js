@@ -1448,6 +1448,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				$(self.editorDoc).keydown(function (event) {
 					if (event.keyCode === 13) {
 						var rng = self.getRange();
+						
 						rng.pasteHTML("<br/>");
 						rng.collapse(false);
 						rng.select();
