@@ -634,14 +634,11 @@ function renderSingleChart(chartDef) {
 			    		marginTop: "320px",
 			    		yoffset :320,
 			    		xoffset:0
-			    	},
+			    	}
 			};
 			try { 
-				if (jQuery.browser.ie && jQuery.browser.version.number <= 8) {
-					// turn off legend
-					plotOptions.legend = null;
-				}
 
+				
 				var plot = jQuery.jqplot(chartPlaceholderId, values, plotOptions); 
 				/*var plot3 = jQuery.jqplot(chartPlaceholderId, [cosPoints, sinPoints, powPoints1, powPoints2], 
 					    { 
@@ -676,7 +673,7 @@ function renderSingleChart(chartDef) {
 
 			} catch (e) {
 
-				if (typeof console === "undefined" || typeof console.log === "undefined") {
+				if (typeof console != "undefined" && typeof console.log != "undefined") {
 					console.error(e);
 					console.log("values: ", values);
 					console.log("plotOptions: ", plotOptions);
