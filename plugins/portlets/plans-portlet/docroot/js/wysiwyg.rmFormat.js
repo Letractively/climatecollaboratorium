@@ -143,7 +143,7 @@
 				}
 			}
 			
-			if (node.nodeName.toLowerCase().match(/^sub$/)) {
+			if (node.nodeName.toLowerCase().match(/^sub$/) || node.nodeName.toLowerCase().match(/^sup$/)) {
 				// in chromium change this to
 				// $(node).replaceWith($('<p/>').html(node.innerHTML));
 				// to except DOM error: also try in other browsers
@@ -161,16 +161,28 @@
 		  }
 		},
 		domTraversing: function (el, start, end, canRemove, cnt) {
-			console.log(el);
+			
+			function nextElementSibling( el ) {
+			    do { el = el.nextSibling } while ( el && el.nodeType !== 1 );
+			    return el;
+			}
+			
 			if (null === canRemove) {
 				canRemove = false;
 			}
 			
 
-			var current = el.firstElementChild;
+			var current = el.children[0];
+			if (current && current.nodeType != 1) {
+				current = nextElementSibling(el);
+			}
+			
 			while (current) {
-				this.domTraversing(current, start, end, canRemove, cnt + 1);
-				current = current.nextElementSibling;
+				var tmp = current;
+				current = nextElementSibling(current);
+				
+				this.domTraversing(tmp, start, end, canRemove, cnt + 1);
+
 			}
 			this.domRemove(el);
 			this.removeStyle(el);
@@ -334,10 +346,10 @@
 		run: function (Wysiwyg, options) {
 			options = options || {};
 			this.options = $.extend(true, this.defaults, options);
-
-			if (this.options.rules.heading || this.options.rules.table) {
-				var r = Wysiwyg.getInternalRange(),
-					start,
+			//var r = Wysiwyg.getInternalRange();
+			if ((this.options.rules.heading || this.options.rules.table)) {
+				/*
+					var start,
 					end,
 					node,
 					traversing;
@@ -376,13 +388,13 @@
 				if (tmp != null) {
 					node = tmp;
 				}
+				*/
 				
-				if (start === end) {
-					traversing = this.domTraversing(node, start, end, true, 1);
-				} else {
-					traversing = this.domTraversing(node.firstElementChild, start, end, true, 1);
-				}
-
+				node = Wysiwyg.editorDoc.body;
+				start = node;
+				end = node;
+				traversing = this.domTraversing(node, start, end, true, 1);
+				
 				if (this.debug) { console.log("DomTraversing=", traversing); }
 			}
 
