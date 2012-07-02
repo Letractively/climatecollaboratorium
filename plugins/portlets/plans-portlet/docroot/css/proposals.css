@@ -45,3 +45,7 @@
 	font-size: 12px;
 	text-align: right;
 }
+
+.jqplot-table-legend {
+	margin-top: 320px;
+}
