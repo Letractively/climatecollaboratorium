@@ -29,6 +29,20 @@
 				 * rmWhenNoAttr - if element contains no attributes (i.e. <span>Some Text</span>)
 				 *                then it will be removed
 				 */
+				allowedTags: {
+					strong: true,
+					b: true,
+					em: true,
+					i: true,
+					ul: true,
+					ol: true,
+					u: true,
+					img: true,
+					a: true,
+					body: true,
+					p: true,
+					br: true
+				},
 				msWordMarkup: {
 					enabled: false,
 					tags: {
@@ -143,7 +157,7 @@
 				}
 			}
 			
-			if (node.nodeName.toLowerCase().match(/^sub$/) || node.nodeName.toLowerCase().match(/^sup$/)) {
+			if (! (node.nodeName.toLowerCase() in this.options.rules.allowedTags )) {
 				// in chromium change this to
 				// $(node).replaceWith($('<p/>').html(node.innerHTML));
 				// to except DOM error: also try in other browsers
@@ -151,6 +165,8 @@
 
 				return true;
 			}
+			
+			if (node.nodeName)
 
 			return false;
 		},
@@ -161,6 +177,7 @@
 		  }
 		},
 		domTraversing: function (el, start, end, canRemove, cnt) {
+			if (el == null) return;
 			
 			function nextElementSibling( el ) {
 			    do { el = el.nextSibling } while ( el && el.nodeType !== 1 );
