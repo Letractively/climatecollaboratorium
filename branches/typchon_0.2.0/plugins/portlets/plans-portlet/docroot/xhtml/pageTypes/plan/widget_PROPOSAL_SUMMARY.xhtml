@@ -81,7 +81,7 @@
         </div>
 
         <div class="prop-avatar">
-            <collab:userPortrait screenName="#{empty proposal.plan.team ? proposal.plan.author.screenName : ''}" width="42" height="42" />
+            <collab:userPortrait screenName="#{empty proposal.plan.team ? proposal.plan.author.screenName : ''}" portraitId="#{proposal.plan.author.portraitId}" width="42" height="42" />
             By:&amp;nbsp;
                 <f:subview rendered="#{empty proposal.plan.team}">
                     <collab:userLinkSimple userId="#{proposal.plan.author.userId}" text="#{proposal.plan.author.screenName}" />
