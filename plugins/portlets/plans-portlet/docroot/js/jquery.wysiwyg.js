@@ -13,17 +13,17 @@
 
 /*jslint browser: true, forin: true */
 
-(function ($) {
+(function (jQuery) {
 	"use strict";
 	/* Wysiwyg namespace: private properties and methods */
 
 	var console = window.console ? window.console : {
-		log: $.noop,
+		log: jQuery.noop,
 		error: function (msg) {
-			$.error(msg);
+			jQuery.error(msg);
 		}
 	};
-	var supportsProp = (('prop' in $.fn) && ('removeProp' in $.fn));
+	var supportsProp = (('prop' in jQuery.fn) && ('removeProp' in jQuery.fn));
 
 	function Wysiwyg() {
 		// - the item is added by this.ui.appendControls and then appendItem
@@ -54,14 +54,14 @@
 				visible: true,
 				exec: function () {
 					var self = this;
-					if ($.wysiwyg.controls && $.wysiwyg.controls.link) {
-						$.wysiwyg.controls.link.init(this);
-					} else if ($.wysiwyg.autoload) {
-						$.wysiwyg.autoload.control("wysiwyg.link.js", function () {
+					if (jQuery.wysiwyg.controls && jQuery.wysiwyg.controls.link) {
+						jQuery.wysiwyg.controls.link.init(this);
+					} else if (jQuery.wysiwyg.autoload) {
+						jQuery.wysiwyg.autoload.control("wysiwyg.link.js", function () {
 							self.controls.createLink.exec.apply(self);
 						});
 					} else {
-						console.error("$.wysiwyg.controls.link not defined. You need to include wysiwyg.link.js file");
+						console.error("jQuery.wysiwyg.controls.link not defined. You need to include wysiwyg.link.js file");
 					}
 				},
 				tags: ["a"],
@@ -97,8 +97,8 @@
 				groupIndex: 7,
 				visible: true,
 				className: "h1",
-				command: ($.browser.msie || $.browser.safari) ? "FormatBlock" : "heading",
-				"arguments": ($.browser.msie || $.browser.safari) ? "<h1>" : "h1",
+				command: (jQuery.browser.msie || jQuery.browser.safari) ? "FormatBlock" : "heading",
+				"arguments": (jQuery.browser.msie || jQuery.browser.safari) ? "<h1>" : "h1",
 				tags: ["h1"],
 				tooltip: "Header 1"
 			},
@@ -107,8 +107,8 @@
 				groupIndex: 7,
 				visible: true,
 				className: "h2",
-				command: ($.browser.msie || $.browser.safari)	? "FormatBlock" : "heading",
-				"arguments": ($.browser.msie || $.browser.safari) ? "<h2>" : "h2",
+				command: (jQuery.browser.msie || jQuery.browser.safari)	? "FormatBlock" : "heading",
+				"arguments": (jQuery.browser.msie || jQuery.browser.safari) ? "<h2>" : "h2",
 				tags: ["h2"],
 				tooltip: "Header 2"
 			},
@@ -117,8 +117,8 @@
 				groupIndex: 7,
 				visible: true,
 				className: "h3",
-				command: ($.browser.msie || $.browser.safari) ? "FormatBlock" : "heading",
-				"arguments": ($.browser.msie || $.browser.safari) ? "<h3>" : "h3",
+				command: (jQuery.browser.msie || jQuery.browser.safari) ? "FormatBlock" : "heading",
+				"arguments": (jQuery.browser.msie || jQuery.browser.safari) ? "<h3>" : "h3",
 				tags: ["h3"],
 				tooltip: "Header 3"
 			},
@@ -134,13 +134,13 @@
 				exec: function () {
 					var command, node, selection, args;
 
-					if ($.browser.msie || $.browser.safari) {
+					if (jQuery.browser.msie || jQuery.browser.safari) {
 						command = "backcolor";
 					} else {
 						command = "hilitecolor";
 					}
 
-					if ($.browser.msie) {
+					if (jQuery.browser.msie) {
 						node = this.getInternalRange().parentElement();
 					} else {
 						selection = this.getInternalSelection();
@@ -171,29 +171,29 @@
 				exec: function () {
 					var elementHeight;
 
-					if (this.options.resizeOptions && $.fn.resizable) {
+					if (this.options.resizeOptions && jQuery.fn.resizable) {
 						elementHeight = this.element.height();
 					}
 
 					if (this.viewHTML) { //textarea is shown
 						this.setContent(this.original.value);
 
-						$(this.original).hide();
+						jQuery(this.original).hide();
 						this.editor.show();
 
-						if (this.options.resizeOptions && $.fn.resizable) {
+						if (this.options.resizeOptions && jQuery.fn.resizable) {
 							// if element.height still the same after frame was shown
 							if (elementHeight === this.element.height()) {
 								this.element.height(elementHeight + this.editor.height());
 							}
 
-							this.element.resizable($.extend(true, {
+							this.element.resizable(jQuery.extend(true, {
 								alsoResize: this.editor
 							}, this.options.resizeOptions));
 						}
 						
 						this.ui.toolbar.find("li").each(function () {
-							var li = $(this);
+							var li = jQuery(this);
 
 							if (li.hasClass("html")) {
 								li.removeClass("active");
@@ -204,14 +204,14 @@
 					} else { //wysiwyg is shown
 						this.saveContent();
 
-						$(this.original).css({
+						jQuery(this.original).css({
 							width:	this.element.outerWidth() - 6,
 							height: this.element.height() - this.ui.toolbar.height() - 6,
 							resize: "none"
 						}).show();
 						this.editor.hide();
 						
-						if (this.options.resizeOptions && $.fn.resizable) {
+						if (this.options.resizeOptions && jQuery.fn.resizable) {
 							// if element.height still the same after frame was hidden
 							if (elementHeight === this.element.height()) {
 								this.element.height(this.ui.toolbar.height());
@@ -221,7 +221,7 @@
 						}
 
 						this.ui.toolbar.find("li").each(function () {
-							var li = $(this);
+							var li = jQuery(this);
 
 							if (li.hasClass("html")) {
 								li.addClass("active");
@@ -267,14 +267,14 @@
 				exec: function () {
 					var self = this;
 
-					if ($.wysiwyg.controls && $.wysiwyg.controls.image) {
-						$.wysiwyg.controls.image.init(this);
-					} else if ($.wysiwyg.autoload) {
-						$.wysiwyg.autoload.control("wysiwyg.image.js", function () {
+					if (jQuery.wysiwyg.controls && jQuery.wysiwyg.controls.image) {
+						jQuery.wysiwyg.controls.image.init(this);
+					} else if (jQuery.wysiwyg.autoload) {
+						jQuery.wysiwyg.autoload.control("wysiwyg.image.js", function () {
 							self.controls.insertImage.exec.apply(self);
 						});
 					} else {
-						console.error("$.wysiwyg.controls.image not defined. You need to include wysiwyg.image.js file");
+						console.error("jQuery.wysiwyg.controls.image not defined. You need to include wysiwyg.image.js file");
 					}
 				},
 				tags: ["img"],
@@ -294,14 +294,14 @@
 				exec: function () {
 					var self = this;
 
-					if ($.wysiwyg.controls && $.wysiwyg.controls.table) {
-						$.wysiwyg.controls.table(this);
-					} else if ($.wysiwyg.autoload) {
-						$.wysiwyg.autoload.control("wysiwyg.table.js", function () {
+					if (jQuery.wysiwyg.controls && jQuery.wysiwyg.controls.table) {
+						jQuery.wysiwyg.controls.table(this);
+					} else if (jQuery.wysiwyg.autoload) {
+						jQuery.wysiwyg.autoload.control("wysiwyg.table.js", function () {
 							self.controls.insertTable.exec.apply(self);
 						});
 					} else {
-						console.error("$.wysiwyg.controls.table not defined. You need to include wysiwyg.table.js file");
+						console.error("jQuery.wysiwyg.controls.table not defined. You need to include wysiwyg.table.js file");
 					}
 				},
 				tags: ["table"],
@@ -373,7 +373,7 @@
 						return false;
 					}
 
-					$(p).attr("dir", "ltr");
+					jQuery(p).attr("dir", "ltr");
 					return true;
 				},
 				tooltip : "Left to Right"
@@ -390,7 +390,7 @@
 				visible: false,
 				className: "paragraph",
 				command: "FormatBlock",
-				"arguments": ($.browser.msie || $.browser.safari) ? "<p>" : "p",
+				"arguments": (jQuery.browser.msie || jQuery.browser.safari) ? "<p>" : "p",
 				tags: ["p"],
 				tooltip: "Paragraph"
 			},
@@ -426,7 +426,7 @@
 						return false;
 					}
 
-					$(p).attr("dir", "rtl");
+					jQuery(p).attr("dir", "rtl");
 					return true;
 				},
 				tooltip : "Right to Left"
@@ -479,12 +479,12 @@
 				tooltip: "Code snippet",
 				exec: function () {
 					var range	= this.getInternalRange(),
-						common	= $(range.commonAncestorContainer),
-						$nodeName = range.commonAncestorContainer.nodeName.toLowerCase();
+						common	= jQuery(range.commonAncestorContainer),
+						jQuerynodeName = range.commonAncestorContainer.nodeName.toLowerCase();
 					if (common.parent("code").length) {
 						common.unwrap();
 					} else {
-						if ($nodeName !== "body") {
+						if (jQuerynodeName !== "body") {
 							common.wrap("<code/>");
 						}
 					}
@@ -496,7 +496,7 @@
 				groupIndex: 6,
 				tooltip: "CSS Wrapper",
 				exec: function () { 
-					$.wysiwyg.controls.cssWrap.init(this);
+					jQuery.wysiwyg.controls.cssWrap.init(this);
 				}
 			}
 			
@@ -691,7 +691,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		};
 
 		this.ui.addHoverClass = function () {
-			$(this).addClass("wysiwyg-button-hover");
+			jQuery(this).addClass("wysiwyg-button-hover");
 		};
 
 		this.ui.appendControls = function () {
@@ -725,7 +725,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					}
 				};
 
-			$.each(controls, function (name, c) { //sort by groupIndex
+			jQuery.each(controls, function (name, c) { //sort by groupIndex
 				var index = "empty";
 
 				if (undefined !== c.groupIndex) {
@@ -768,7 +768,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			}
 
 			for (i = 0; i < groups.length; i += 1) {
-				$.each(controlsByGroup[groups[i]], iterateGroup);
+				jQuery.each(controlsByGroup[groups[i]], iterateGroup);
 			}
 		};
 
@@ -777,12 +777,12 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				className = control.className || control.command || name || "empty",
 				tooltip = control.tooltip || control.command || name || "";
 
-			return $('<li role="menuitem" unselectable="on">' + (className) + "</li>")
+			return jQuery('<li role="menuitem" unselectable="on">' + (className) + "</li>")
 				.addClass(className)
 				.attr("title", tooltip)
 				.hover(this.addHoverClass, this.removeHoverClass)
 				.click(function (event) {
-					if ($(this).hasClass("disabled")) {
+					if (jQuery(this).hasClass("disabled")) {
 						return false;
 					}
 
@@ -791,9 +791,9 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					/**
 					* @link https://github.com/akzhan/jwysiwyg/issues/219
 					*/
-					var $target = $(event.target);
+					var jQuerytarget = jQuery(event.target);
 					for (var controlName in self.controls) {
-						if ($target.hasClass(controlName)) {
+						if (jQuerytarget.hasClass(controlName)) {
 							self.ui.toolbar.find("." + controlName).toggleClass("active");
 							self.editorDoc.rememberCommand = true;
 							break;
@@ -813,17 +813,17 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				tooltip = control.tooltip || control.command || name || "";
 
 			if (control.callback) {
-				$(window).bind("trigger-" + name + ".wysiwyg", control.callback);
+				jQuery(window).bind("trigger-" + name + ".wysiwyg", control.callback);
 			}
 
-			return $('<li role="menuitem" unselectable="on" style="background: url(\'' + control.icon + '\') no-repeat;"></li>')
+			return jQuery('<li role="menuitem" unselectable="on" style="background: url(\'' + control.icon + '\') no-repeat;"></li>')
 				.addClass("custom-command-" + name)
 				.addClass("wysiwyg-custom-command")
 				.addClass(name)
 				.attr("title", tooltip)
 				.hover(this.addHoverClass, this.removeHoverClass)
 				.click(function () {
-					if ($(this).hasClass("disabled")) {
+					if (jQuery(this).hasClass("disabled")) {
 						return false;
 					}
 
@@ -841,7 +841,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		this.ui.appendItemSeparator = function () {
 			var self = this.self;
-			return $('<li role="separator" class="separator"></li>').appendTo(self.ui.toolbar);
+			return jQuery('<li role="separator" class="separator"></li>').appendTo(self.ui.toolbar);
 		};
 
 		this.autoSaveFunction = function () {
@@ -853,7 +853,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			var self = this.self;
 
 			//activate controls
-			$.each(self.options.controls, function (name, control) {
+			jQuery.each(self.options.controls, function (name, control) {
 				var className = control.className || control.command || name || "empty",
 					tags,
 					elm,
@@ -888,7 +888,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 							break;
 						}
 
-						if ($.inArray(elm.tagName.toLowerCase(), tags) !== -1) {
+						if (jQuery.inArray(elm.tagName.toLowerCase(), tags) !== -1) {
 							self.ui.toolbar.find("." + className).addClass("active");
 						}
 
@@ -899,13 +899,13 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				//activate by supposed css
 				if (control.css || (control.options && control.options.css)) {
 					css = control.css || (control.options && control.options.css);
-					el = $(element);
+					el = jQuery(element);
 
 					while (el) {
 						if (el[0].nodeType !== 1) {
 							break;
 						}
-						$.each(css, checkActiveStatus);
+						jQuery.each(css, checkActiveStatus);
 
 						el = el.parent();
 					}
@@ -948,17 +948,17 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		this.destroy = function () {
 			this.isDestroyed = true;
 
-			var i, $form = this.element.closest("form");
+			var i, jQueryform = this.element.closest("form");
 
 			for (i = 0; i < this.timers.length; i += 1) {
 				window.clearTimeout(this.timers[i]);
 			}
 
 			// Remove bindings
-			$form.unbind(".wysiwyg");
+			jQueryform.unbind(".wysiwyg");
 			this.element.remove();
-			$.removeData(this.original, "wysiwyg");
-			$(this.original).show();
+			jQuery.removeData(this.original, "wysiwyg");
+			jQuery(this.original).show();
 			return this;
 		};
 
@@ -993,11 +993,11 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				delete options.controls;
 			}
 
-			options = $.extend(true, {}, this.defaults, options);
-			options.controls = $.extend(true, {}, controls, this.controls, controls);
+			options = jQuery.extend(true, {}, this.defaults, options);
+			options.controls = jQuery.extend(true, {}, controls, this.controls, controls);
 
 			if (options.rmUnusedControls) {
-				$.each(options.controls, function (controlName) {
+				jQuery.each(options.controls, function (controlName) {
 					if (!controls[controlName]) {
 						delete options.controls[controlName];
 					}
@@ -1039,9 +1039,9 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		};
 
 		this.increaseFontSize = function () {
-			if ($.browser.mozilla || $.browser.opera) {
+			if (jQuery.browser.mozilla || jQuery.browser.opera) {
 				this.editorDoc.execCommand("increaseFontSize", false, null);
-			} else if ($.browser.safari) {				
+			} else if (jQuery.browser.safari) {				
 				var Range = this.getInternalRange(),
 					Selection = this.getInternalSelection(),
 					newNode = this.editorDoc.createElement("big");
@@ -1068,9 +1068,9 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		};
 
 		this.decreaseFontSize = function () {
-			if ($.browser.mozilla || $.browser.opera) {
+			if (jQuery.browser.mozilla || jQuery.browser.opera) {
 				this.editorDoc.execCommand("decreaseFontSize", false, null);
-			} else if ($.browser.safari) {
+			} else if (jQuery.browser.safari) {
 				var Range = this.getInternalRange(),
 					Selection = this.getInternalSelection(),
 					newNode = this.editorDoc.createElement("small");
@@ -1108,7 +1108,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		 *
 		 * Example:
 		 * 
-		 * $("#editor").getWysiwyg().events.bind("getContent", function (orig) {
+		 * jQuery("#editor").getWysiwyg().events.bind("getContent", function (orig) {
 		 *     return "<div id='content'>"+orgi+"</div>";
 		 * });
 		 * 
@@ -1133,7 +1133,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			trigger : function (eventName, args) {
 				if (typeof (this._events.eventName) === "object") {
 					var editor = this.editor;
-					$.each(this._events[eventName], function (k, v) {
+					jQuery.each(this._events[eventName], function (k, v) {
 						if (typeof (v) === "function") {
 							v.apply(editor, args);
 						}
@@ -1152,7 +1152,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					var editor = this.editor,
 						args = Array.prototype.slice.call(arguments, 1);
 
-					$.each(this._events[eventName], function (k, v) {
+					jQuery.each(this._events[eventName], function (k, v) {
 						if (typeof (v) === "function") {
 							originalText = v.apply(editor, args);
 						}
@@ -1168,7 +1168,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			for (i = 0; i < elements.length; i += 1) {
 				value = elements[i].getAttribute(attributeName);
 
-				if ($.browser.msie) {
+				if (jQuery.browser.msie) {
 					/** IE add full path, so I check by the last chars. */
 					value = value.substr(value.length - attributeValue.length);
 				}
@@ -1240,8 +1240,8 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		// :TODO: you can type long string and letters will be hidden because of overflow
 		this.ui.grow = function () {
 			var self = this.self,
-				innerBody = $(self.editorDoc.body),
-				innerHeight = $.browser.msie ? innerBody[0].scrollHeight : innerBody.height() + 2 + 20, // 2 - borders, 20 - to prevent content jumping on grow
+				innerBody = jQuery(self.editorDoc.body),
+				innerHeight = jQuery.browser.msie ? innerBody[0].scrollHeight : innerBody.height() + 2 + 20, // 2 - borders, 20 - to prevent content jumping on grow
 				minHeight = self.ui.initialHeight,
 				height = Math.max(innerHeight, minHeight);
 
@@ -1257,16 +1257,16 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		this.init = function (element, options) {
 			var self = this,
-				$form = $(element).closest("form"),
+				jQueryform = jQuery(element).closest("form"),
 				newX = (element.width || element.clientWidth || 0),
 				newY = (element.height || element.clientHeight || 0)
 				;
 
 			this.options	= this.extendOptions(options);
 			this.original	= element;
-			this.ui.toolbar	= $(this.options.toolbarHtml);
+			this.ui.toolbar	= jQuery(this.options.toolbarHtml);
 
-			if ($.browser.msie && parseInt($.browser.version, 10) < 8) {
+			if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) < 8) {
 				this.options.autoGrow = false;
 			}
 
@@ -1277,7 +1277,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				newY = (element.rows * 16) + 16;
 			}
 
-			this.editor = $(window.location.protocol === "https:" ? '<iframe src="javascript:false;"></iframe>' : "<iframe></iframe>").attr("frameborder", "0");
+			this.editor = jQuery(window.location.protocol === "https:" ? '<iframe src="javascript:false;"></iframe>' : "<iframe></iframe>").attr("frameborder", "0");
 
 			if (this.options.iFrameClass) {
 				this.editor.addClass(this.options.iFrameClass);
@@ -1287,7 +1287,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					// fix for issue 12 ( http://github.com/akzhan/jwysiwyg/issues/issue/12 )
 					width: (newX > 50) ? newX.toString() + "px" : ""
 				});
-				if ($.browser.msie && parseInt($.browser.version, 10) < 7) {
+				if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) < 7) {
 					this.editor.css("height", newY.toString() + "px");
 				}
 			}
@@ -1305,9 +1305,9 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			/**
 			 * http://code.google.com/p/jwysiwyg/issues/detail?id=96
 			 */
-			this.editor.attr("tabindex", $(element).attr("tabindex"));
+			this.editor.attr("tabindex", jQuery(element).attr("tabindex"));
 
-			this.element = $("<div/>").addClass("wysiwyg");
+			this.element = jQuery("<div/>").addClass("wysiwyg");
 
 			if (!this.options.iFrameClass) {
 				this.element.css({
@@ -1315,27 +1315,27 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				});
 			}
 
-			$(element).hide().before(this.element);
+			jQuery(element).hide().before(this.element);
 
 			this.viewHTML = false;
 
 			/**
 			 * @link http://code.google.com/p/jwysiwyg/issues/detail?id=52
 			 */
-			this.initialContent = $(element).val();
+			this.initialContent = jQuery(element).val();
 			this.ui.initFrame();
 
-			if (this.options.resizeOptions && $.fn.resizable) {
-				this.element.resizable($.extend(true, {
+			if (this.options.resizeOptions && jQuery.fn.resizable) {
+				this.element.resizable(jQuery.extend(true, {
 					alsoResize: this.editor
 				}, this.options.resizeOptions));
 			}
 
 			if (this.options.autoSave) {
-				$form.bind("submit.wysiwyg", function () { self.autoSaveFunction(); });
+				jQueryform.bind("submit.wysiwyg", function () { self.autoSaveFunction(); });
 			}
 
-			$form.bind("reset.wysiwyg", function () { self.resetFunction(); });
+			jQueryform.bind("reset.wysiwyg", function () { self.resetFunction(); });
 		};
 
 		this.ui.initFrame = function () {
@@ -1346,7 +1346,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 			self.ui.appendControls();
 			self.element.append(self.ui.toolbar)
-				.append($("<div><!-- --></div>")
+				.append(jQuery("<div><!-- --></div>")
 					.css({
 						clear: "both"
 					}))
@@ -1369,11 +1369,11 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			);
 			self.editorDoc.close();
 
-			$.wysiwyg.plugin.bind(self);
+			jQuery.wysiwyg.plugin.bind(self);
 
-			$(self.editorDoc).trigger("initFrame.wysiwyg");
+			jQuery(self.editorDoc).trigger("initFrame.wysiwyg");
 
-			$(self.editorDoc).bind("click.wysiwyg", function (event) {
+			jQuery(self.editorDoc).bind("click.wysiwyg", function (event) {
 				self.ui.checkTargets(event.target ? event.target : event.srcElement);
 			});
 
@@ -1388,8 +1388,8 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
                     if (range) {
                         offset = {
                             range: range,
-                            parent: $.browser.msie ? range.parentElement() : range.endContainer.parentNode,
-                            width: ($.browser.msie ? range.boundingWidth : range.startOffset - range.endOffset) || 0
+                            parent: jQuery.browser.msie ? range.parentElement() : range.endContainer.parentNode,
+                            width: (jQuery.browser.msie ? range.boundingWidth : range.startOffset - range.endOffset) || 0
                         };
                     }
                 }
@@ -1403,17 +1403,17 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			/**
 			 * @link http://code.google.com/p/jwysiwyg/issues/detail?id=20
 			 */
-			$(self.original).focus(function () {
-				if ($(this).filter(":visible").length === 0) {
+			jQuery(self.original).focus(function () {
+				if (jQuery(this).filter(":visible").length === 0) {
 					return;
 				}
 				self.ui.focus();
 			});
 
-			$(self.editorDoc).keydown(function (event) {
+			jQuery(self.editorDoc).keydown(function (event) {
 				var emptyContentRegex;
 				if (event.keyCode === 8) { // backspace
-					emptyContentRegex = /^<([\w]+)[^>]*>(<br\/?>)?<\/\1>$/;
+					emptyContentRegex = /^<([\w]+)[^>]*>(<br\/?>)?<\/\1>jQuery/;
 					if (emptyContentRegex.test(self.getContent())) { // if content is empty
 						event.stopPropagation(); // prevent remove single empty tag
 						return false;
@@ -1424,8 +1424,8 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				return true;
 			});
 
-			if (!$.browser.msie) {
-				$(self.editorDoc).keydown(function (event) {
+			if (!jQuery.browser.msie) {
+				jQuery(self.editorDoc).keydown(function (event) {
 					var controlName;
                     			var control;
 
@@ -1445,7 +1445,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					return true;
 				});
 			} else if (self.options.brIE) {
-				$(self.editorDoc).keydown(function (event) {
+				jQuery(self.editorDoc).keydown(function (event) {
 					if (event.keyCode === 13) {
 						var rng = self.getRange();
 						
@@ -1463,7 +1463,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			self.pasteDetected = false;
 			
 			if (self.options.plugins.rmFormat.rmMsWordMarkup) {
-				$(self.editorDoc).bind("keydown.wysiwyg", function (event) {
+				jQuery(self.editorDoc).bind("keydown.wysiwyg", function (event) {
 					if (event.ctrlKey || event.metaKey) {
 						// CTRL + V (paste)
 						if (86 === event.keyCode) {
@@ -1475,13 +1475,13 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			
 			
 			if (self.options.plugins.rmFormat.rmMsWordMarkup) {
-				$(self.editorDoc).bind("keyup.wysiwyg", function (event) {
+				jQuery(self.editorDoc).bind("keyup.wysiwyg", function (event) {
 					if (self.pasteDetected) {
-						if ($.wysiwyg.rmFormat) {
+						if (jQuery.wysiwyg.rmFormat) {
 							if ("object" === typeof (self.options.plugins.rmFormat.rmMsWordMarkup)) {
-								$.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: self.options.plugins.rmFormat.rmMsWordMarkup }});
+								jQuery.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: self.options.plugins.rmFormat.rmMsWordMarkup }});
 							} else {
-								$.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: { enabled: true }}});
+								jQuery.wysiwyg.rmFormat.run(self, {rules: { msWordMarkup: { enabled: true }}});
 							}
 						}
 						self.pasteDetected = false;
@@ -1490,26 +1490,26 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			}
 
 			if (self.options.autoSave) {
-				$(self.editorDoc).keydown(function () { self.autoSaveFunction(); })
+				jQuery(self.editorDoc).keydown(function () { self.autoSaveFunction(); })
 					.keyup(function () { self.autoSaveFunction(); })
 					.mousedown(function () { self.autoSaveFunction(); })
-					.bind($.support.noCloneEvent ? "input.wysiwyg" : "paste.wysiwyg", function () { self.autoSaveFunction(); });
+					.bind(jQuery.support.noCloneEvent ? "input.wysiwyg" : "paste.wysiwyg", function () { self.autoSaveFunction(); });
 			}
 
 			if (self.options.autoGrow) {
 				if (self.options.initialMinHeight !== null) {
 					self.ui.initialHeight = self.options.initialMinHeight;
 				} else {
-					self.ui.initialHeight = $(self.editorDoc).height();
+					self.ui.initialHeight = jQuery(self.editorDoc).height();
 				}
-				$(self.editorDoc.body).css("border", "1px solid white"); // cancel margin collapsing
+				jQuery(self.editorDoc.body).css("border", "1px solid white"); // cancel margin collapsing
 
 				growHandler = function () {
 					self.ui.grow();
 				};
 
-				$(self.editorDoc).keyup(growHandler);
-				$(self.editorDoc).bind("editorRefresh.wysiwyg", growHandler);
+				jQuery(self.editorDoc).keyup(growHandler);
+				jQuery(self.editorDoc).bind("editorRefresh.wysiwyg", growHandler);
 
 				// fix when content height > textarea height
 				self.ui.grow();
@@ -1517,24 +1517,24 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 			if (self.options.css) {
 				if (String === self.options.css.constructor) {
-					if ($.browser.msie) {
+					if (jQuery.browser.msie) {
 						stylesheet = self.editorDoc.createStyleSheet(self.options.css);
-						$(stylesheet).attr({
+						jQuery(stylesheet).attr({
 							"media":	"all"
 						});
 					} else {
-						stylesheet = $("<link/>").attr({
+						stylesheet = jQuery("<link/>").attr({
 							"href":		self.options.css,
 							"media":	"all",
 							"rel":		"stylesheet",
 							"type":		"text/css"
 						});
 
-						$(self.editorDoc).find("head").append(stylesheet);
+						jQuery(self.editorDoc).find("head").append(stylesheet);
 					}
 				} else {
 					self.timers.initFrame_Css = window.setTimeout(function () {
-						$(self.editorDoc.body).css(self.options.css);
+						jQuery(self.editorDoc.body).css(self.options.css);
 					}, 0);
 				}
 			}
@@ -1548,16 +1548,16 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			}
 
 			if (self.options.maxLength > 0) {
-				$(self.editorDoc).keydown(function (event) {
-					if ($(self.editorDoc).text().length >= self.options.maxLength && $.inArray(event.which, self.validKeyCodes) === -1) {
+				jQuery(self.editorDoc).keydown(function (event) {
+					if (jQuery(self.editorDoc).text().length >= self.options.maxLength && jQuery.inArray(event.which, self.validKeyCodes) === -1) {
 						event.preventDefault();
 					}
 				});
 			}
 			
 			// Support event callbacks
-			$.each(self.options.events, function (key, handler) {
-				$(self.editorDoc).bind(key + ".wysiwyg", function (event) {
+			jQuery.each(self.options.events, function (key, handler) {
+				jQuery(self.editorDoc).bind(key + ".wysiwyg", function (event) {
 					// Trigger event handler, providing the event and api to 
 					// support additional functionality.
 					handler.apply(self.editorDoc, [event, self]);
@@ -1565,31 +1565,31 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			});
 
 			// restores selection properly on focus
-			if ($.browser.msie) {
+			if (jQuery.browser.msie) {
 				// Event chain: beforedeactivate => focusout => blur.
 				// Focusout & blur fired too late to handle internalRange() in dialogs.
 				// When clicked on input boxes both got range = null
-				$(self.editorDoc).bind("beforedeactivate.wysiwyg", function () {
+				jQuery(self.editorDoc).bind("beforedeactivate.wysiwyg", function () {
 					self.savedRange = self.getInternalRange();
 				});
 			} else {
-				$(self.editorDoc).bind("blur.wysiwyg", function () {
+				jQuery(self.editorDoc).bind("blur.wysiwyg", function () {
 					self.savedRange = self.getInternalRange();
 				});
 			}
 
-			$(self.editorDoc.body).addClass("wysiwyg");
+			jQuery(self.editorDoc.body).addClass("wysiwyg");
 			if (self.options.events && self.options.events.save) {
 				saveHandler = self.options.events.save;
 
-				$(self.editorDoc).bind("keyup.wysiwyg", saveHandler);
-				$(self.editorDoc).bind("change.wysiwyg", saveHandler);
+				jQuery(self.editorDoc).bind("keyup.wysiwyg", saveHandler);
+				jQuery(self.editorDoc).bind("change.wysiwyg", saveHandler);
 
-				if ($.support.noCloneEvent) {
-					$(self.editorDoc).bind("input.wysiwyg", saveHandler);
+				if (jQuery.support.noCloneEvent) {
+					jQuery(self.editorDoc).bind("input.wysiwyg", saveHandler);
 				} else {
-					$(self.editorDoc).bind("paste.wysiwyg", saveHandler);
-					$(self.editorDoc).bind("cut.wysiwyg", saveHandler);
+					jQuery(self.editorDoc).bind("paste.wysiwyg", saveHandler);
+					jQuery(self.editorDoc).bind("cut.wysiwyg", saveHandler);
 				}
 			}
 			
@@ -1613,7 +1613,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					});
 				});
 			}
-			$(self.original).trigger('ready.jwysiwyg', [self.editorDoc, self]);
+			jQuery(self.original).trigger('ready.jwysiwyg', [self.editorDoc, self]);
 		};
 
 		this.innerDocument = function () {
@@ -1633,7 +1633,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				console.error("Unexpected error in innerDocument");
 
 				/*
-				 return ( $.browser.msie )
+				 return ( jQuery.browser.msie )
 				 ? document.frames[element.id].document
 				 : element.contentWindow.document // contentDocument;
 				 */
@@ -1649,19 +1649,19 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				return this;
 			}
 
-			if ($.browser.msie) {
+			if (jQuery.browser.msie) {
 				this.ui.focus();
 				this.editorDoc.execCommand("insertImage", false, "#jwysiwyg#");
 				img = this.getElementByAttributeValue("img", "src", "#jwysiwyg#");
 				if (img) {
-					$(img).replaceWith(szHTML);
+					jQuery(img).replaceWith(szHTML);
 				}
 			} else {
-				if ($.browser.mozilla) { // @link https://github.com/akzhan/jwysiwyg/issues/50
-					if (1 === $(szHTML).length) {
+				if (jQuery.browser.mozilla) { // @link https://github.com/akzhan/jwysiwyg/issues/50
+					if (1 === jQuery(szHTML).length) {
 						range = this.getInternalRange();
 						range.deleteContents();
-						range.insertNode($(szHTML).get(0));
+						range.insertNode(jQuery(szHTML).get(0));
 					} else {
 						this.editorDoc.execCommand("insertHTML", false, szHTML);
 					}
@@ -1688,9 +1688,9 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		this.parseControls = function () {
 			var self = this;
 
-			$.each(this.options.controls, function (controlName, control) {
-				$.each(control, function (propertyName) {
-					if (-1 === $.inArray(propertyName, self.availableControlProperties)) {
+			jQuery.each(this.options.controls, function (controlName, control) {
+				jQuery.each(control, function (propertyName) {
+					if (-1 === jQuery.inArray(propertyName, self.availableControlProperties)) {
 						throw controlName + '["' + propertyName + '"]: property "' + propertyName + '" not exists in Wysiwyg.availableControlProperties';
 					}
 				});
@@ -1704,7 +1704,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		};
 
 		this.removeFormat = function () {
-			if ($.browser.msie) {
+			if (jQuery.browser.msie) {
 				this.ui.focus();
 			}
 
@@ -1715,11 +1715,11 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			this.editorDoc.execCommand("removeFormat", false, null);
 			this.editorDoc.execCommand("unlink", false, null);
 
-			if ($.wysiwyg.rmFormat && $.wysiwyg.rmFormat.enabled) {
+			if (jQuery.wysiwyg.rmFormat && jQuery.wysiwyg.rmFormat.enabled) {
 				if ("object" === typeof (this.options.plugins.rmFormat.rmMsWordMarkup)) {
-					$.wysiwyg.rmFormat.run(this, {rules: { msWordMarkup: this.options.plugins.rmFormat.rmMsWordMarkup }});
+					jQuery.wysiwyg.rmFormat.run(this, {rules: { msWordMarkup: this.options.plugins.rmFormat.rmMsWordMarkup }});
 				} else {
-					$.wysiwyg.rmFormat.run(this, {rules: { msWordMarkup: { enabled: true }}});
+					jQuery.wysiwyg.rmFormat.run(this, {rules: { msWordMarkup: { enabled: true }}});
 				}
 			}
 
@@ -1727,7 +1727,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		};
 
 		this.ui.removeHoverClass = function () {
-			$(this).removeClass("wysiwyg-button-hover");
+			jQuery(this).removeClass("wysiwyg-button-hover");
 		};
 
 		this.resetFunction = function () {
@@ -1745,17 +1745,17 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				content = this.getContent();
 
 				if (this.options.rmUnwantedBr) {
-					content = content.replace(/<br\/?>$/, "");
+					content = content.replace(/<br\/?>jQuery/, "");
 				}
 
 				if (this.options.replaceDivWithP) {
-					newContent = $("<div/>").addClass("temp").append(content);
+					newContent = jQuery("<div/>").addClass("temp").append(content);
 
 					newContent.children("div").each(function () {
-						var element = $(this), p = element.find("p"), i;
+						var element = jQuery(this), p = element.find("p"), i;
 
 						if (0 === p.length) {
-							p = $("<p></p>");
+							p = jQuery("<p></p>");
 
 							if (this.attributes.length > 0) {
 								for (i = 0; i < this.attributes.length; i += 1) {
@@ -1772,7 +1772,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					content = newContent.html();
 				}
 
-				$(this.original).val(content).change();
+				jQuery(this.original).val(content).change();
 
 				if (this.options.events && this.options.events.save) {
 					this.options.events.save.call(this);
@@ -1813,13 +1813,13 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		};
 
 		this.triggerControlCallback = function (name) {
-			$(window).trigger("trigger-" + name + ".wysiwyg", [this]);
+			jQuery(window).trigger("trigger-" + name + ".wysiwyg", [this]);
 		};
 
 		this.ui.withoutCss = function () {
 			var self = this.self;
 
-			if ($.browser.mozilla) {
+			if (jQuery.browser.mozilla) {
 				try {
 					self.editorDoc.execCommand("styleWithCSS", false, false);
 				} catch (e) {
@@ -1850,7 +1850,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 	/*
 	 * Wysiwyg namespace: public properties and methods
 	 */
-	$.wysiwyg = {
+	jQuery.wysiwyg = {
 		messages: {
 			noObject: "Something goes wrong, check object"
 		},
@@ -1860,7 +1860,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		 */
 		addControl: function (object, name, settings) {
 			return object.each(function () {
-				var oWysiwyg = $(this).data("wysiwyg"),
+				var oWysiwyg = jQuery(this).data("wysiwyg"),
 					customControl = {},
 					toolbar;
 
@@ -1868,11 +1868,11 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					return this;
 				}
 
-				customControl[name] = $.extend(true, {visible: true, custom: true}, settings);
-				$.extend(true, oWysiwyg.options.controls, customControl);
+				customControl[name] = jQuery.extend(true, {visible: true, custom: true}, settings);
+				jQuery.extend(true, oWysiwyg.options.controls, customControl);
 
 				// render new toolbar
-				toolbar = $(oWysiwyg.options.toolbarHtml);
+				toolbar = jQuery(oWysiwyg.options.toolbarHtml);
 				oWysiwyg.ui.toolbar.replaceWith(toolbar);
 				oWysiwyg.ui.toolbar = toolbar;
 				oWysiwyg.ui.appendControls();
@@ -1881,7 +1881,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		clear: function (object) {
 			return object.each(function () {
-				var oWysiwyg = $(this).data("wysiwyg");
+				var oWysiwyg = jQuery(this).data("wysiwyg");
 
 				if (!oWysiwyg) {
 					return this;
@@ -1895,7 +1895,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		destroy: function (object) {
 			return object.each(function () {
-				var oWysiwyg = $(this).data("wysiwyg");
+				var oWysiwyg = jQuery(this).data("wysiwyg");
 
 				if (!oWysiwyg) {
 					return this;
@@ -1913,7 +1913,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				return undefined;
 			}
 
-			return $(oWysiwyg.editorDoc);
+			return jQuery(oWysiwyg.editorDoc);
 		},
 
 		getContent: function (object) {
@@ -1940,28 +1940,28 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		init: function (object, options) {
 			return object.each(function () {
-				var opts = $.extend(true, {}, options),
+				var opts = jQuery.extend(true, {}, options),
 					obj;
 
 				// :4fun:
 				// remove this textarea validation and change line in this.saveContent function
-				// $(this.original).val(content); to $(this.original).html(content);
+				// jQuery(this.original).val(content); to jQuery(this.original).html(content);
 				// now you can make WYSIWYG editor on h1, p, and many more tags
-				if (("textarea" !== this.nodeName.toLowerCase()) || $(this).data("wysiwyg")) {
+				if (("textarea" !== this.nodeName.toLowerCase()) || jQuery(this).data("wysiwyg")) {
 					return;
 				}
 
 				obj = new Wysiwyg();
 				obj.init(this, opts);
-				$.data(this, "wysiwyg", obj);
+				jQuery.data(this, "wysiwyg", obj);
 
-				$(obj.editorDoc).trigger("afterInit.wysiwyg");
+				jQuery(obj.editorDoc).trigger("afterInit.wysiwyg");
 			});
 		},
 
 		insertHtml: function (object, szHTML) {
 			return object.each(function () {
-				var oWysiwyg = $(this).data("wysiwyg");
+				var oWysiwyg = jQuery(this).data("wysiwyg");
 
 				if (!oWysiwyg) {
 					return this;
@@ -1977,14 +1977,14 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			bind: function (Wysiwyg) {
 				var self = this;
 
-				$.each(this.listeners, function (action, handlers) {
+				jQuery.each(this.listeners, function (action, handlers) {
 					var i, plugin;
 
 					for (i = 0; i < handlers.length; i += 1) {
 						plugin = self.parseName(handlers[i]);
 
-						$(Wysiwyg.editorDoc).bind(action + ".wysiwyg", {plugin: plugin}, function (event) {
-							$.wysiwyg[event.data.plugin.name][event.data.plugin.method].apply($.wysiwyg[event.data.plugin.name], [Wysiwyg]);
+						jQuery(Wysiwyg.editorDoc).bind(action + ".wysiwyg", {plugin: plugin}, function (event) {
+							jQuery.wysiwyg[event.data.plugin.name][event.data.plugin.method].apply(jQuery.wysiwyg[event.data.plugin.name], [Wysiwyg]);
 						});
 					}
 				});
@@ -1999,7 +1999,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 				plugin = this.parseName(name);
 
-				if (!$.wysiwyg[plugin.name] || !$.wysiwyg[plugin.name][plugin.method]) {
+				if (!jQuery.wysiwyg[plugin.name] || !jQuery.wysiwyg[plugin.name][plugin.method]) {
 					return false;
 				}
 
@@ -2011,7 +2011,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 				plugin = this.parseName(handler);
 
-				if (!$.wysiwyg[plugin.name] || !$.wysiwyg[plugin.name][plugin.method]) {
+				if (!jQuery.wysiwyg[plugin.name] || !jQuery.wysiwyg[plugin.name][plugin.method]) {
 					return false;
 				}
 
@@ -2045,13 +2045,13 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					console.error("Plugin name missing");
 				}
 
-				$.each($.wysiwyg, function (pluginName) {
+				jQuery.each(jQuery.wysiwyg, function (pluginName) {
 					if (pluginName === data.name) {
 						console.error("Plugin with name '" + data.name + "' was already registered");
 					}
 				});
 
-				$.wysiwyg[data.name] = data;
+				jQuery.wysiwyg[data.name] = data;
 
 				return true;
 			}
@@ -2059,7 +2059,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		removeFormat: function (object) {
 			return object.each(function () {
-				var oWysiwyg = $(this).data("wysiwyg");
+				var oWysiwyg = jQuery(this).data("wysiwyg");
 
 				if (!oWysiwyg) {
 					return this;
@@ -2071,7 +2071,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		save: function (object) {
 			return object.each(function () {
-				var oWysiwyg = $(this).data("wysiwyg");
+				var oWysiwyg = jQuery(this).data("wysiwyg");
 
 				if (!oWysiwyg) {
 					return this;
@@ -2101,7 +2101,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		setContent: function (object, newContent) {
 			return object.each(function () {
-				var oWysiwyg = $(this).data("wysiwyg");
+				var oWysiwyg = jQuery(this).data("wysiwyg");
 
 				if (!oWysiwyg) {
 					return this;
@@ -2113,7 +2113,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		triggerControl: function (object, controlName) {
 			return object.each(function () {
-				var oWysiwyg = $(this).data("wysiwyg");
+				var oWysiwyg = jQuery(this).data("wysiwyg");
 
 				if (!oWysiwyg) {
 					return this;
@@ -2138,14 +2138,14 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 				var self = this, aStr, aRet = [];
 
 				if (this.extraSafeEntities[1].length === 0) {
-					$.each(this.extraSafeEntities[0], function (i, ch) {
+					jQuery.each(this.extraSafeEntities[0], function (i, ch) {
 						self.extraSafeEntities[1].push(ch.charCodeAt(0));
 					});
 				}
 				aStr = str.split("");
-				$.each(aStr, function (i) {
+				jQuery.each(aStr, function (i) {
 					var iC = aStr[i].charCodeAt(0);
-					if ($.inArray(iC, self.extraSafeEntities[1]) && (iC < 65 || iC > 127 || (iC > 90 && iC < 97))) {
+					if (jQuery.inArray(iC, self.extraSafeEntities[1]) && (iC < 65 || iC > 127 || (iC > 90 && iC < 97))) {
 						aRet.push('&#' + iC + ';');
 					} else {
 						aRet.push(aStr[i]);
@@ -2170,7 +2170,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 	 *     * afterClose
 	 * 
 	 * Example:
-	 * var dialog = new ($.wysiwyg.dialog)($('#idToTextArea').data('wysiwyg'), {"title": "Test", "content": "form data, etc."});
+	 * var dialog = new (jQuery.wysiwyg.dialog)(jQuery('#idToTextArea').data('wysiwyg'), {"title": "Test", "content": "form data, etc."});
 	 * 
 	 * dialog.bind("afterOpen", function () { alert('you should see a dialog behind this one!'); });
 	 * 
@@ -2178,12 +2178,12 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 	 * 
 	 * 
 	 */
-	$.wysiwyg.dialog = function (jWysiwyg, opts) {
+	jQuery.wysiwyg.dialog = function (jWysiwyg, opts) {
 		
 		var theme	= (jWysiwyg && jWysiwyg.options && jWysiwyg.options.dialog) ? jWysiwyg.options.dialog : (opts.theme ? opts.theme : "default"),
-			obj		= new $.wysiwyg.dialog.createDialog(theme),
+			obj		= new jQuery.wysiwyg.dialog.createDialog(theme),
 			that	= this,
-			$that	= $(that);
+			jQuerythat	= jQuery(that);
 				
 		this.options = {
 			"modal": true,
@@ -2199,7 +2199,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 
 		this.isOpen = false;
 
-		$.extend(this.options, opts);
+		jQuery.extend(this.options, opts);
 
 		this.object = obj;
 
@@ -2208,82 +2208,82 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			this.isOpen = true;
 
 			obj.init.apply(that, []);
-			var $dialog = obj.show.apply(that, []);
+			var jQuerydialog = obj.show.apply(that, []);
 
-			$that.trigger("afterOpen", [$dialog]);
+			jQuerythat.trigger("afterOpen", [jQuerydialog]);
 			
 		};
 
 		this.show = function () {
 			this.isOpen = true;
 			
-			$that.trigger("beforeShow");
+			jQuerythat.trigger("beforeShow");
 			
-			var $dialog = obj.show.apply(that, []);
+			var jQuerydialog = obj.show.apply(that, []);
 			
-			$that.trigger("afterShow");
+			jQuerythat.trigger("afterShow");
 		};
 
 		this.hide = function () {
 			this.isOpen = false;
 			
-			$that.trigger("beforeHide");
+			jQuerythat.trigger("beforeHide");
 			
-			var $dialog = obj.hide.apply(that, []);
+			var jQuerydialog = obj.hide.apply(that, []);
 			
-			$that.trigger("afterHide", [$dialog]);
+			jQuerythat.trigger("afterHide", [jQuerydialog]);
 		};
 
 		// Closes the dialog window.
 		this.close = function () {
 			this.isOpen = false;
 						
-			var $dialog = obj.hide.apply(that, []);
+			var jQuerydialog = obj.hide.apply(that, []);
 			
-			$that.trigger("beforeClose", [$dialog]);
+			jQuerythat.trigger("beforeClose", [jQuerydialog]);
 			
 			obj.destroy.apply(that, []);
 			
-			$that.trigger("afterClose", [$dialog]);
+			jQuerythat.trigger("afterClose", [jQuerydialog]);
 
 			jWysiwyg.ui.focus();
 		};
 
 		if (this.options.open) {
-			$that.bind("afterOpen", this.options.open);
+			jQuerythat.bind("afterOpen", this.options.open);
 		}
 		if (this.options.close) {
-			$that.bind("afterClose", this.options.close);
+			jQuerythat.bind("afterClose", this.options.close);
 		}
 
 		return this;
 	};
 
 	// "Static" Dialog methods.
-	$.extend(true, $.wysiwyg.dialog, {
+	jQuery.extend(true, jQuery.wysiwyg.dialog, {
 		_themes : {}, // sample {"Theme Name": object}
 		_theme : "", // the current theme
 
 		register : function(name, obj) {
-			$.wysiwyg.dialog._themes[name] = obj;
+			jQuery.wysiwyg.dialog._themes[name] = obj;
 		},
 
 		deregister : function (name) {
-			delete $.wysiwyg.dialog._themes[name];
+			delete jQuery.wysiwyg.dialog._themes[name];
 		},
 
 		createDialog : function (name) {
-			return new ($.wysiwyg.dialog._themes[name]);
+			return new (jQuery.wysiwyg.dialog._themes[name]);
 		},
 		
 		getDimensions : function () {
 			var width  = document.body.scrollWidth,
 				height = document.body.scrollHeight;
 
-			if ($.browser.opera) {
+			if (jQuery.browser.opera) {
 				height = Math.max(
-					$(document).height(),
-					$(window).height(),
+					jQuery(document).height(),
+					jQuery(window).height(),
 					document.documentElement.clientHeight);
 			}
 
@@ -2291,12 +2291,12 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 		}
 	});
 
-	$(function () { // need access to jQuery UI stuff.
+	jQuery(function () { // need access to jQuery UI stuff.
 		if (jQuery.ui) {
-			$.wysiwyg.dialog.register("jqueryui", function () {
+			jQuery.wysiwyg.dialog.register("jqueryui", function () {
 				var that = this;
 
-				this._$dialog = null;
+				this._jQuerydialog = null;
 
 				this.init = function() {
 					var abstractDialog	= this,
@@ -2310,44 +2310,44 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 						}
 					}
 
-					that._$dialog = $('<div></div>').attr('title', this.options.title).html(content);
+					that._jQuerydialog = jQuery('<div></div>').attr('title', this.options.title).html(content);
 
 					var dialogHeight = this.options.height == 'auto' ? 300 : this.options.height,
 						dialogWidth = this.options.width == 'auto' ? 450 : this.options.width;
 
-					// console.log(that._$dialog);
+					// console.log(that._jQuerydialog);
 					
-					that._$dialog.dialog({
+					that._jQuerydialog.dialog({
 						modal: this.options.modal,
 						draggable: this.options.draggable,
 						height: dialogHeight,
 						width: dialogWidth
 					});
 
-					return that._$dialog;
+					return that._jQuerydialog;
 				};
 
 				this.show = function () {
-					that._$dialog.dialog("open");
-					return that._$dialog;
+					that._jQuerydialog.dialog("open");
+					return that._jQuerydialog;
 				};
 
 				this.hide = function () {
-					that._$dialog.dialog("close");
-					return that._$dialog;
+					that._jQuerydialog.dialog("close");
+					return that._jQuerydialog;
 				};
 
 				this.destroy = function() {
-					that._$dialog.dialog("destroy");
-					return that._$dialog;
+					that._jQuerydialog.dialog("destroy");
+					return that._jQuerydialog;
 				};
 			});
 		}
 
-		$.wysiwyg.dialog.register("default", function () {
+		jQuery.wysiwyg.dialog.register("default", function () {
 			var that = this;
 
-			this._$dialog = null;
+			this._jQuerydialog = null;
 
 			this.init = function() {
 				var abstractDialog	= this,
@@ -2362,44 +2362,44 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					}
 				}
 
-				that._$dialog = $('<div class="wysiwyg-dialog"></div>').css({"z-index": this.options.zIndex});
+				that._jQuerydialog = jQuery('<div class="wysiwyg-dialog"></div>').css({"z-index": this.options.zIndex});
 
-				var $topbar = $('<div class="wysiwyg-dialog-topbar"><div class="wysiwyg-dialog-close-wrapper"></div><div class="wysiwyg-dialog-title">'+this.options.title+'</div></div>');
-				var $link = $('<a href="#" class="wysiwyg-dialog-close-button">X</a>');
+				var jQuerytopbar = jQuery('<div class="wysiwyg-dialog-topbar"><div class="wysiwyg-dialog-close-wrapper"></div><div class="wysiwyg-dialog-title">'+this.options.title+'</div></div>');
+				var jQuerylink = jQuery('<a href="#" class="wysiwyg-dialog-close-button">X</a>');
 
-				$link.click(function () {
-					abstractDialog.close(); // this is important it makes sure that is close from the abstract $.wysiwyg.dialog instace, not just locally 
+				jQuerylink.click(function () {
+					abstractDialog.close(); // this is important it makes sure that is close from the abstract jQuery.wysiwyg.dialog instace, not just locally 
 				});
 				
-				$topbar.find('.wysiwyg-dialog-close-wrapper').prepend($link);
+				jQuerytopbar.find('.wysiwyg-dialog-close-wrapper').prepend(jQuerylink);
 
-				var $dcontent = $('<div class="wysiwyg-dialog-content">'+content+'</div>');
+				var jQuerydcontent = jQuery('<div class="wysiwyg-dialog-content">'+content+'</div>');
 
-				that._$dialog.append($topbar).append($dcontent);
+				that._jQuerydialog.append(jQuerytopbar).append(jQuerydcontent);
 				
 				// Set dialog's height & width, and position it correctly:
 				var dialogHeight = this.options.height == 'auto' ? 300 : this.options.height,
 					dialogWidth = this.options.width == 'auto' ? 450 : this.options.width;
-				that._$dialog.hide().css({
+				that._jQuerydialog.hide().css({
 					"width": dialogWidth,
 					"height": dialogHeight,
-					"left": (($(window).width() - dialogWidth) / 2),
-					"top": (($(window).height() - dialogHeight) / 3)
+					"left": ((jQuery(window).width() - dialogWidth) / 2),
+					"top": ((jQuery(window).height() - dialogHeight) / 3)
 				});
 
-				$("body").append(that._$dialog);
+				jQuery("body").append(that._jQuerydialog);
 
-				return that._$dialog;
+				return that._jQuerydialog;
 			};
 
 			this.show = function () {
 
 				// Modal feature:
 				if (this.options.modal) {
-					var dimensions = $.wysiwyg.dialog.getDimensions(),
-						wrapper    = $('<div class="wysiwyg-dialog-modal-div"></div>')
+					var dimensions = jQuery.wysiwyg.dialog.getDimensions(),
+						wrapper    = jQuery('<div class="wysiwyg-dialog-modal-div"></div>')
 						.css({"width": dimensions[0], "height": dimensions[1]});
-					that._$dialog.wrap(wrapper);
+					that._jQuerydialog.wrap(wrapper);
 				}
 				
 				// Draggable feature:
@@ -2407,17 +2407,17 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 					
 					var mouseDown = false;
 					
-					that._$dialog.find("div.wysiwyg-dialog-topbar").bind("mousedown", function (e) {
+					that._jQuerydialog.find("div.wysiwyg-dialog-topbar").bind("mousedown", function (e) {
 						e.preventDefault();
-						$(this).css({ "cursor": "move" });
-						var $topbar = $(this),
-							_dialog = $(this).parents(".wysiwyg-dialog"),
+						jQuery(this).css({ "cursor": "move" });
+						var jQuerytopbar = jQuery(this),
+							_dialog = jQuery(this).parents(".wysiwyg-dialog"),
 							offsetX = (e.pageX - parseInt(_dialog.css("left"), 10)),
 							offsetY = (e.pageY - parseInt(_dialog.css("top"), 10));
 						mouseDown = true;
-						$(this).css({ "cursor": "move" });
+						jQuery(this).css({ "cursor": "move" });
 						
-						$(document).bind("mousemove", function (e) {
+						jQuery(document).bind("mousemove", function (e) {
 							e.preventDefault();
 							if (mouseDown) {
 								_dialog.css({
@@ -2428,62 +2428,62 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 						}).bind("mouseup", function (e) {
 							e.preventDefault();
 							mouseDown = false;
-							$topbar.css({ "cursor": "auto" });
-							$(document).unbind("mousemove").unbind("mouseup");
+							jQuerytopbar.css({ "cursor": "auto" });
+							jQuery(document).unbind("mousemove").unbind("mouseup");
 						});
 					
 					});
 				}
 				
-				that._$dialog.show();
-				return that._$dialog;
+				that._jQuerydialog.show();
+				return that._jQuerydialog;
 
 			};
 
 			this.hide = function () {
-				that._$dialog.hide();
-				return that._$dialog;
+				that._jQuerydialog.hide();
+				return that._jQuerydialog;
 			};
 
 			this.destroy = function() {
 			
 				// Modal feature:
 				if (this.options.modal) { 
-					that._$dialog.unwrap();
+					that._jQuerydialog.unwrap();
 				}
 				
 				// Draggable feature:
 				if (this.options.draggable) { 
-					that._$dialog.find("div.wysiwyg-dialog-topbar").unbind("mousedown");
+					that._jQuerydialog.find("div.wysiwyg-dialog-topbar").unbind("mousedown");
 				}
 				
-				that._$dialog.remove();
-				return that._$dialog;
+				that._jQuerydialog.remove();
+				return that._jQuerydialog;
 			};
 		});
 	});
 	// end Dialog
 
-	$.fn.wysiwyg = function (method) {
+	jQuery.fn.wysiwyg = function (method) {
 		var args = arguments, plugin;
 
-		if ("undefined" !== typeof $.wysiwyg[method]) {
+		if ("undefined" !== typeof jQuery.wysiwyg[method]) {
 			// set argument object to undefined
 			args = Array.prototype.concat.call([args[0]], [this], Array.prototype.slice.call(args, 1));
-			return $.wysiwyg[method].apply($.wysiwyg, Array.prototype.slice.call(args, 1));
+			return jQuery.wysiwyg[method].apply(jQuery.wysiwyg, Array.prototype.slice.call(args, 1));
 		} else if ("object" === typeof method || !method) {
 			Array.prototype.unshift.call(args, this);
-			return $.wysiwyg.init.apply($.wysiwyg, args);
-		} else if ($.wysiwyg.plugin.exists(method)) {
-			plugin = $.wysiwyg.plugin.parseName(method);
+			return jQuery.wysiwyg.init.apply(jQuery.wysiwyg, args);
+		} else if (jQuery.wysiwyg.plugin.exists(method)) {
+			plugin = jQuery.wysiwyg.plugin.parseName(method);
 			args = Array.prototype.concat.call([args[0]], [this], Array.prototype.slice.call(args, 1));
-			return $.wysiwyg[plugin.name][plugin.method].apply($.wysiwyg[plugin.name], Array.prototype.slice.call(args, 1));
+			return jQuery.wysiwyg[plugin.name][plugin.method].apply(jQuery.wysiwyg[plugin.name], Array.prototype.slice.call(args, 1));
 		} else {
 			console.error("Method '" +  method + "' does not exist on jQuery.wysiwyg.\nTry to include some extra controls or plugins");
 		}
 	};
 	
-	$.fn.getWysiwyg = function () {
+	jQuery.fn.getWysiwyg = function () {
 		return this.data("wysiwyg");
 	};
 })(jQuery);

@@ -229,6 +229,7 @@
 				}
 				
 				image = "<img src='" + url + "' title='" + title + "' alt='" + description + "' style='width: " + x + "; height: " + x + "' />";
+				alert('new image!');
 				Wysiwyg.insertHtml(image);
 			}
 		},
