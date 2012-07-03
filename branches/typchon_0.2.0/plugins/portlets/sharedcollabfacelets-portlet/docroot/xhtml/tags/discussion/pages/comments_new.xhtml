@@ -44,7 +44,7 @@
     <ice:dataTable value="#{discussionBean.commentsThread.threadMessages}" var="message" varStatus="messageStatus" columnClasses="commentor,the-comment" rowClasses="odd,even" styleClass="comments" id="commentsTable" rendered="#{not discussionBean.commentsThread.newMsg}">
         <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
             
-            <collab:userPortrait screenName="#{message.author.screenName}" width="59" height="59" /><br />
+            <collab:userPortrait screenName="#{message.author.screenName}" portraitId="#{message.author.portraitId}" width="59" height="59" /><br />
             
             <span id="_message_#{message.id}"></span>
             <collab:userLinkSimple text="#{message.author.screenName}" userId="#{message.author.userId}" /> <br />
@@ -56,7 +56,23 @@
             </ice:outputText><br />
             <ice:outputText value="#{message.createDate}"  nospan="true" >
                 <f:convertDateTime pattern="hh:mm a"/>
-            </ice:outputText><br />
+            </ice:outputText><br /><br /><br />
+            
+                        <span class="com_num messageLink" rel="#{message.id}">#{message.messageNum} </span>
+                        |
+                        <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact message_add_this"
+                            addthis:title="#{discussionBean.discussion.description}"
+                            addthis:description="#{message.filteredDescription}"
+                        >
+                            <script type="text/javascript">
+                                if (typeof(addthis) != 'undefined') {
+                                    addthis.button('.addthis_button_compact');
+                                }
+                    
+                            </script>
+                                
+                                share
+                        </a>
         </ice:column>
         
         <ice:column styleClass="#{message.expertReview ? 'expertReview' : ''}">
@@ -74,22 +90,6 @@
                             <f:attribute name="flagType" value="EXPERT_REVIEW" />
                         </ice:commandButton>
                         
-                        &amp;nbsp;
-                        <span class="com_num messageLink" rel="#{message.id}">#{message.messageNum} </span>
-                        |
-                        <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact message_add_this"
-                            addthis:title="#{discussionBean.discussion.description}"
-                            addthis:description="#{message.filteredDescription}"
-                        >
-                            <script type="text/javascript">
-                                if (typeof(addthis) != 'undefined') {
-                                    addthis.button('.addthis_button_compact');
-                                }
-                    
-                            </script>
-                                
-                                share
-                        </a>
                     </div>
                     <div class="clear"></div>
                     
