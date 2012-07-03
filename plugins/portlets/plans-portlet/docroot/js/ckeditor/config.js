@@ -278,7 +278,7 @@ CONTENT_FILTER = {
 		},
 		
 		removeStyle: function(node) {
-		  if (this.options.rules.inlineCSS) {
+		  if (this.options.rules.inlineCSS && ! node.nodeName.toLowerCase().match(/^img$/)) {
 		    jQuery(node).removeAttr('style');
 		  }
 		},
