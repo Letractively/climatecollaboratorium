@@ -319,10 +319,13 @@ CONTENT_FILTER.init(CONTENT_FILTER_OPTIONS);
 
 CKEDITOR.on('instanceReady', function (ev) {
     ev.editor.on('paste', function (ev) {
-        ev.data.html = CONTENT_FILTER.removeMsWordFormatting(ev.data.html);
+        var tmp = CONTENT_FILTER.removeMsWordFormatting(ev.data.html);
+        var par = jQuery("<p />").html(tmp);
+        CONTENT_FILTER.domTraversing(par.get(0), true, 1);
+        ev.data.html = par.html();
     });
     ev.editor.on('afterPaste', function (ev) {
-        CONTENT_FILTER.domTraversing(ev.editor.document['$'].body, true, 1);
+//        CONTENT_FILTER.domTraversing(ev.editor.document['$'].body, true, 1);
     });
 });
 
