@@ -7,7 +7,7 @@ public class ContentFilteringHelper {
         content = removeTagWithContents(content, "xml");
         content = removeTagWithContents(content, "style");
         content = removeTagWithContents(content, "style");
-        content = removeAttribute(content, "style");
+        //content = removeAttribute(content, "style");
         content = removeAttribute(content, "class");
         content = removeAttribute(content, "border");
         content = removeTagLeaveContents(content, "font");

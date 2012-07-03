@@ -211,12 +211,21 @@
                 return isValid;
             };
             
-            function countCharacters(input) {
-                var tmp = input;
+            function countCharacters(input, editor) {
+                /*var tmp = input;
                 if (typeof(input) != 'string') {
                     tmp = input.val();
                 }
                 tmp = tmp.replace(/&lt;[^&gt;]*&gt;/g, "");
+                */
+                if (editor) {
+                    if (editor.document['$'].body.textContent) {
+                        return editor.document['$'].body.textContent.length;
+                        
+                    }
+                    return editor.document['$'].body.innerText.length;
+                }
+                return input.val().length;
                 return tmp.length;
                 
             }
@@ -228,19 +237,25 @@
                 return input.attr('maxCharacters') > input.val().length;
             }
             
-            function updateCharacterCounter(input) {
+            function updateCharacterCounter(input, editor) {
+            
+                
+                
                 var elem = input.get(0);
                 var max = input.attr('maxCharacters');
-                var count = countCharacters(input);
-                if (count > 1 * max) {
-                    elem.limitCharacterCounter.parent().addClass('overflow');
-                    input.addClass('invalid');
+                console.log(elem);
+                if (elem &amp;&amp; elem.limitCharacterCounter) {
+                    var count = countCharacters(input, editor);
+                    if (count > 1 * max) {
+                        elem.limitCharacterCounter.parent().addClass('overflow');
+                        input.addClass('invalid');
+                    }
+                    else {
+                        elem.limitCharacterCounter.parent().removeClass('overflow');
+                        input.removeClass('invalid');
+                    }
+                    elem.limitCharacterCounter.text(count);
                 }
-                else {
-                    elem.limitCharacterCounter.parent().removeClass('overflow');
-                    input.removeClass('invalid');
-                }
-                elem.limitCharacterCounter.text(count);
             }
             
             
@@ -306,12 +321,15 @@
                     
                     setInterval(function() {
                         if (editor.checkDirty()) {
-                            editor.element['$'].value = editor.getData();
-                            updateCharacterCounter(thiz);
+                            /*editor.element['$'].value = editor.getData();
+                            */
+                            updateCharacterCounter(thiz, editor);
+                            //editor.resetDirty();
+                            console.log(editor);
                             editor.resetDirty();
                         }
                             
-                    }, 100);
+                    }, 1000);
                 }
                 else {
                     thiz.bind(eventsToBind);
