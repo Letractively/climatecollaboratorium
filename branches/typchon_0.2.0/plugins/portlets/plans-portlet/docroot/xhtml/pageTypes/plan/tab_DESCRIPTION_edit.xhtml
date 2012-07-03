@@ -190,13 +190,16 @@
             });
             
             window.validatePlanEditForm = function() {
+                for (var ckInstanceId in CKEDITOR.instances) {
+                    var ckInstance = CKEDITOR.instances[ckInstanceId];
+                    ckInstance.element['$'].value = ckInstance.getData();
+                }
                 var invalidFieldsList = jQuery("#invalidFieldsList");
                 invalidFieldsList.html("");
                 
                 var isValid = true;
                 jQuery("input[type='text'].invalid, textarea.invalid").each(function() {
                     var x = jQuery(this).parents(".addpropbox");
-                    console.log(x, x.find("strong"), x.find("strong").text());
                     invalidFieldsList.append("&lt;li&gt;" + jQuery(this).parents(".addpropbox").find("strong").text() + "&lt;/li&gt;");
                     
                     isValid = false;   
@@ -276,23 +279,10 @@
                                 if (thiz.attr('validateLength') &amp;&amp; tmp.limitCharacterCounter) {
                                     updateCharacterCounter(thiz);
                                 }
-                            },
-                            focus: function(event) {
-                                jQuery('.addpropInputContainer').removeClass('active');
-                                thiz.parents('.addpropInputContainer').addClass('active');
-                            },
-                            blur: function(event) {
-                            },
-                            click: function(event) {
-                                var tmp = jQuery('.addpropInputContainer.active');
-                                if (tmp.get(0) != this) {
-                                    tmp.removeClass('active');
-                                }
-                                thiz.parents('.addpropInputContainer').addClass('active');
                             }
-                            
                         };
                 if (thiz.hasClass("rte")) {
+                    /*
                     thiz.wysiwyg({
                         css: '/climatecolab-theme/css/style.css', 
                         events: eventsToBind,
@@ -308,8 +298,20 @@
                         plugins: {
                             rmFormat: { rmMsWordMarkup: true, rules: {heading: true, table: true }}
                         }
-                    });
+                    });*/
+                    
                     //jQuery(this).parent().mouseenter(function() { jQuery(this).addClass("mousein"); }).mouseleave( function() { jQuery(this).removeClass("mousein"); } );
+                    var editor = CKEDITOR.replace(thiz.attr("id"));
+                    thiz.get(0)["ckeditor"] = editor;
+                    
+                    setInterval(function() {
+                        if (editor.checkDirty()) {
+                            editor.element['$'].value = editor.getData();
+                            updateCharacterCounter(thiz);
+                            editor.resetDirty();
+                        }
+                            
+                    }, 100);
                 }
                 else {
                     thiz.bind(eventsToBind);

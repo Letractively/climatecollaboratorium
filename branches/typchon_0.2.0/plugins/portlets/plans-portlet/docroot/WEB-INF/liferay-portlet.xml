@@ -19,6 +19,7 @@
 		<header-portlet-javascript>/js/editTrigger.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/dirtyCheckCallbacks.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery.wysiwyg.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/ckeditor/ckeditor.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/wysiwyg.image.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/wysiwyg.link.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/wysiwyg.rmFormat.js</header-portlet-javascript>
