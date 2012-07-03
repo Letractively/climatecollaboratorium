@@ -94,5 +94,9 @@ public class PlanMember {
         return permissionChanged;
     }
     
+    public Long getPortraitId() {
+        return user.getPortraitId();
+    }
+    
     
 }

@@ -68,7 +68,7 @@
         <f:subview rendered="#{fn:length(contest.contest.contest.teamMembers) gt 0}">
             <ice:panelSeries styleClass="advisors" var="teamMember" value="#{contest.contest.contest.teamMembers}">
             <span>#{teamMember.role}:&amp;nbsp;
-                <collab:userPortrait screenName="#{empty proposal.plan.team ? teamMember.user.screenName : ''}" width="30" height="30" />
+                <collab:userPortrait screenName="#{empty proposal.plan.team ? teamMember.user.screenName : ''}" portraitId="#{teamMember.user.portraitId}" width="30" height="30" />
                 <collab:userLinkSimple userId="#{teamMember.userId}" text="#{teamMember.user.fullName}" />
             </span>
             
