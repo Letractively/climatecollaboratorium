@@ -339,7 +339,17 @@
                             }
                         }
                     }
-                    updateEditorCharCount();
+                    
+                    if (! jQuery.browser.ie || jQuery.browser.version.number >= 9) {
+                    
+                        updateEditorCharCount();
+                    }
+                    
+                    editor.on("blur", function() {
+                        updateCharacterCounter(thiz, editor);
+                    });
+                    // initiate char counters
+                    setTimeout(function() { updateCharacterCounter(thiz, editor); }, 2000);
                             
                 }
                 else {
