@@ -31,7 +31,7 @@
                 </f:facet>
                 <a href="javascript:;" class="showContent" id="message_#{message.messageId}">#{message.subject}</a>
                 <div class="msgContent hidden"> 
-                    <p>#{message.content}</p>
+                    <p>#{message.filteredContent}</p>
                     <div class="floatRight">
                     <div class="blue-button">
                         <ice:commandLink actionListener="#{messagingBean.toggleSendMessage}" value="Reply" >
