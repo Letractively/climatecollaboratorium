@@ -123,7 +123,6 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
     <div id="bread">
         <div style="display: inline;">
         <a href="/web/guest/about">About </a>
-    <c:if test="<%= Validator.isNotNull(wikiPage.getParentTitle()) %>">
         
     <%
         PortletURL viewParentPageURL = PortletURLUtil.clone(viewPageURL, renderResponse);
@@ -132,10 +131,6 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 
         for (int i = 0; i < parentPages.size(); i++) {
             WikiPage curParentPage = (WikiPage)parentPages.get(i);
-            
-            if (curParentPage.getTitle().equals("About")) {
-                continue;
-            }
 
             viewParentPageURL.setParameter("title", curParentPage.getTitle());
     %>
@@ -147,7 +142,6 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
         %>
 
         <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif" />
-  </c:if>
     <a href="<%= viewPageURL %>">
     <%= title %>
     </a>
