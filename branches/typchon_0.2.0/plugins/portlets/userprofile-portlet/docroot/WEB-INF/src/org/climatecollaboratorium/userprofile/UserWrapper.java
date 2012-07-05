@@ -238,6 +238,8 @@ public class UserWrapper {
 
                 PermissionThreadLocal.setPermissionChecker(permissionChecker);
                 UserServiceUtil.updatePortrait(user.getUserId(), bytes);
+                user.setPortraitId(0L);
+                UserLocalServiceUtil.updateUser(user);
                 user = UserLocalServiceUtil.getUser(user.getUserId());
             }
         }
