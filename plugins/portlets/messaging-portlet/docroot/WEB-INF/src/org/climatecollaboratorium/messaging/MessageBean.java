@@ -34,6 +34,10 @@ public class MessageBean {
         return message.getContent();
     }
     
+    public String getFilteredContent() {
+        return Helper.filterLineBreaks(message.getContent());
+    }
+    
     public Date getCreateDate() {
         return message.getCreateDate();
     }
