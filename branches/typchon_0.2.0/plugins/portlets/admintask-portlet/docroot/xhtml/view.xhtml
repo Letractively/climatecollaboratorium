@@ -13,16 +13,37 @@
     xmlns:collab="http://climatecollaboratorium.org/facelets"
     >
     <ice:portlet>
+        <ice:outputStyle href="/xmlhttp/css/xp/xp-portlet.css"/>
         <h1>Admin tasks</h1>
+                    
         <ice:form>
-            <ice:outputConnectionStatus />
             <ice:messages globalOnly="false" layout="table" />
-            <ul>
-                <li><ice:commandButton action="#{adminTask.removeBlogsFormatting}" value="Remove formatting from blog etries"/></li>
-                <li><ice:commandButton action="#{adminTask.removeProposalFormatting}" value="Remove formatting from proposals"/></li>
-                <li><ice:commandButton action="#{adminTask.updatePitchForProposals}" value="Update pitch for old plans"/></li>
-                <li><ice:commandButton action="#{adminTask.populateFirstEmptySectionWithDescription}" value="Copy description to first section (if it is empty)"/></li>
-            </ul>
+            <ice:outputConnectionStatus />
+            <ice:panelTabSet styleClass="componentPanelTabSetLayout">
+                <ice:panelTab label="Commons">
+                    <ul>
+                        <li><ice:commandButton action="#{adminTask.removeBlogsFormatting}" value="Remove formatting from blog etries"/></li>
+                        <li><ice:commandButton action="#{adminTask.removeProposalFormatting}" value="Remove formatting from proposals"/></li>
+                        <li><ice:commandButton action="#{adminTask.updatePitchForProposals}" value="Update pitch for old plans"/></li>
+                    </ul>
+                </ice:panelTab>
+                <ice:panelTab label="Plan section description">
+                    <ice:panelGrid cellspacing="0" columnClasses="col1, col2" rowClasses="odd, even" cellpadding="5" columns="2">
+                        <ice:outputLabel value="Contest" />
+                        <ice:selectOneMenu valueChangeListener="#{templateAdminBean.changeContest}" value="#{templateAdminBean.selectedContestId}" partialSubmit="true">
+                            <f:selectItems value="#{templateAdminBean.availableContests}" />
+                        </ice:selectOneMenu>
+                        <ice:outputLabel value="Section" />
+                        <ice:selectOneMenu valueChangeListener="#{templateAdminBean.changeSection}" value="#{templateAdminBean.selectedSectionId}" partialSubmit="true">
+                            <f:selectItems value="#{templateAdminBean.availableSections}" />
+                        </ice:selectOneMenu>
+           
+                        <ice:commandButton action="#{templateAdminBean.populateSectionWithDescription}" value="Copy plan description to selected section (if it is empty)"/>
+                    </ice:panelGrid>
+                </ice:panelTab>
+            </ice:panelTabSet>
+            
+            
         </ice:form>
     </ice:portlet>
 </f:view>         
