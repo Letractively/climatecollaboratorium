@@ -776,6 +776,9 @@ a.get:hover {background:url(../images/homespot-get-hover.png) no-repeat;}
 ol, ul {
 	margin-left: 0px;
 }
+.portlet-journal-content ul, .portlet-journal-content ol, .portlet-wiki ul, .portlet-wiki ol {
+	margin-bottom: 15px;
+}
 ol li{
 	margin-left: 20px;
 }
