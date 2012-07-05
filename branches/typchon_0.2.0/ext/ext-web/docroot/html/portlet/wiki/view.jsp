@@ -122,7 +122,6 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
 </h1>
     <div id="bread">
         <div style="display: inline;">
-  <c:if test='<%= ! "About".equals(wikiPage.getTitle().trim()) %>'>
         <a href="/web/guest/about">About </a>
     <c:if test="<%= Validator.isNotNull(wikiPage.getParentTitle()) %>">
         
@@ -147,7 +146,6 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
         }
         %>
 
-    </c:if>
         <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif" />
   </c:if>
     <a href="<%= viewPageURL %>">
