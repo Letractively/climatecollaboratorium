@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
@@ -328,5 +328,4 @@ CKEDITOR.on('instanceReady', function (ev) {
 //        CONTENT_FILTER.domTraversing(ev.editor.document['$'].body, true, 1);
     });
 });
-
 
