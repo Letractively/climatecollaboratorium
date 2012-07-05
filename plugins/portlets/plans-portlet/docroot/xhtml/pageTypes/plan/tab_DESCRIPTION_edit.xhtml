@@ -27,9 +27,9 @@
             <label>
                 <strong>Title</strong> 
                 <a class="helpTrigger" href="javascript:;"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
-                40 characters
+                80 characters
             </label>
-            <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
+            <div class="addprophelp">Give your proposal a title. It's the first thing most people will see, so you'll want to make it descriptive and engaging.</div>
             <div class="addpropInputContainer">
                 <ice:inputText value="#{plan.plan.name}" onchange="jQuery(this).addClass('valueChanged');" required="true" >
                     <f:attribute name="plan" value="#{plan.plan}"/>
@@ -49,7 +49,7 @@
                 <a class="helpTrigger" href="javascript:;"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
                 20 characters
             </label>
-            <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
+            <div class="addprophelp">If you'd like to have your proposal appear under a team name, insert it here. Otherwise, the proposal will appear under the user name of its owner.</div>
             <div class="addpropInputContainer">
                 <ice:inputText value="#{proposal.plan.team}" />
                 <div class="inputLimitContainer"><span class="limit_characterCount"></span>/&amp;nbsp;<span class="limit_charactersMax">20</span> characters</div>
@@ -93,7 +93,7 @@
                 <a href="javascript:;" class="helpTrigger"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
                 140 characters
             </label>
-            <div class="addprophelp">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum ultricies vehicula ut id elit. magnis dis parturient montes, nasceturnibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh  ridiculus mus lorem dolor sit amet.</div>
+            <div class="addprophelp">Insert a tweet-length (140 character) message that conveys the key idea behind your proposal.</div>
             <div class="addpropInputContainer">
                 <ice:inputTextarea value="#{proposal.plan.abstract}" cols="50" rows="7" style="display: inline; resize: none;" styleClass="proposalPitchInput"/>
                 <div class="inputLimitContainer">
