@@ -323,7 +323,7 @@
 		<url-pattern>/sharedcollabfaceletsportlet/*</url-pattern>
 	</servlet-mapping>
 	<session-config>
-		<session-timeout>240</session-timeout>
+		<session-timeout>480</session-timeout>
 	</session-config>
 	<jsp-config>
 		<taglib>
