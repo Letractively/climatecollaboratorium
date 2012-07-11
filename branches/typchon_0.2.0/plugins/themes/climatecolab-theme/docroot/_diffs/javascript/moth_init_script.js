@@ -435,3 +435,18 @@ function initTooltips() {
     });
 
 }
+
+
+function updateShareThisUrls(selector) {
+	jQuery(selector).each(function() {
+		var self = jQuery(this);
+		var currentUrl = self.attr('addthis:url');
+		if (currentUrl == null) {
+			currentUrl = window.location;
+		}
+		else if (currentUrl.startsWith("/")) {
+			currentUrl = window.document.location.protocol + "//" + window.document.location.host + currentUrl;
+		}
+		self.attr('addthis:url', window.document.location.protocol + "//" + window.document.location.host + '?redirect_to=' + escape(currentUrl));
+	});
+}
