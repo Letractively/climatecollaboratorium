@@ -72,12 +72,12 @@
 .actions-edit_chart_x-axis { clear:both; height:40px; margin-left:50px; line-height:normal; font:11px Verdana, sans-serif; color:#656562;}
 .actions-edit_chart_x-axis li { float:left; list-style:none; padding:10px 10px 0 0; }
 
-.chart_sub-menu { float:left; width:130px; list-style:none; margin-top:30px; line-height:normal;}
+.chart_sub-menu { float:left; width:130px; list-style:none; margin-top:15px; line-height:normal;}
 .chart_sub-menu li, #content .chart_sub-menu li { width:130px; vertical-align:middle; background: none; list-style: none;}
 .chart_sub-menu li a { width:110px; padding:10px 0 10px 20px; margin:1px 0; display:inline-block; font-family:Verdana, Geneva, sans-serif; font-size:12px; background:url(../images/actions_chart-list-shade.png) repeat-y #fff;}
 .chart_sub-menu li a:hover { padding:11px 0 11px 20px; margin:0; background:#a6a59c; color:#fff;}
 .chart_sub-menu li.c a, #content .chart_sub-menu li.c a { padding:11px 0 11px 20px; margin:0; background:#a6a59c; color:#fff;}
-.chart_sub-description { float:left; width:295px; margin:30px 0 50px 20px; font-family:Verdana, Geneva, sans-serif; font-size:13px; line-height:21px;}
+.chart_sub-description { float:left; width:295px; margin:30px 0 50px 50px; font-family:Verdana, Geneva, sans-serif; font-size:13px; line-height:21px;}
 .chart_sub-description span { font-size:14px; font-weight:bold;}
 
 .actions-edit_key { font:12px Verdana, sans-serif; margin:15px 0 15px 5px; }
