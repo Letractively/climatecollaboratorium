@@ -24,6 +24,10 @@
     <to type="redirect">http://climatecolab.org$1</to>
 </rule>
  -->
- 
+ <rule>
+    <name>redirect to rule</name>
+    <condition type="parameter" name="redirect_to" operator="greater"> </condition>
+    <to type="permanent-redirect" last="true">%{parameter:redirect_to}</to>
+</rule>
 </urlrewrite>
 
