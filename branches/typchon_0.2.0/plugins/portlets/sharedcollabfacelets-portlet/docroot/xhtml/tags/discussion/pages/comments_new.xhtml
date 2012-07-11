@@ -18,15 +18,9 @@
                     <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=climatecolab" class="addthis_button_compact discussion_share"
                         addthis:title="#{discussionBean.discussion.description}"
                         addthis:description="#{discussionBean.discussion.description}"
-                        addthis:url="#{fn:replace(discussionBean.discussionUrl, '#', '%23')}"
+                        addthis:url="#{discussionBean.discussionUrl}"
                     >
-                    <script type="text/javascript">
-                        if (typeof(addthis) != 'undefined') {
-                            addthis.button('.discussion_share');
-                        }
-                        //#{debateBean.currentItem}
-                    
-                    </script>
+
                     <img src="/climatecolab-theme/images/share.png" width="24" height="24" alt="Share" class="icon_share" />
                     Share conversation
                 </a>
@@ -169,8 +163,10 @@
                 var container = jQuery(this);
                 var messageId = container.attr('rel');
                 container.html("&lt;a href='#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}) + "'&gt;" + container.text() + "&lt;/a&gt;");
-                jQuery(".message_add_this").attr('addthis:url', window.location.href.split('#')[0] + "%23" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}));
+                jQuery(".message_add_this").attr('addthis:url', window.location.href.split('#')[0] + "#" + window.collab.nav.getHashWithParams('discussion', {messageId: messageId}));
             });
+            updateShareThisUrls(".message_add_this, .discussion_share");
+            
             }
             catch(e) {
                 console.log(e);
@@ -180,4 +176,11 @@
  
         
         </script>
+                            <script type="text/javascript">
+                        if (typeof(addthis) != 'undefined') {
+                            addthis.button('.discussion_share');
+                        }
+                        //#{debateBean.currentItem}
+                    
+                    </script>
 </f:view>
