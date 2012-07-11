@@ -1004,3 +1004,27 @@ body.colab { margin-top: 0;}
 	margin-bottom: 0;
 	margin-bottom: 0 !important;
 }
+
+/* tool tips */
+#hide_tips { display:none;}
+.act_tooltip {width:266px; background:url(../images/actions_tooltip-top.png) no-repeat right top; padding-top:14px; position:absolute; left:228px; top:0px; z-index:5; visibility:hidden;}
+.act_tt-wrap {background:url(../images/actions_tooltip-arrow.png) no-repeat 0px 8px;}
+.act_tt-txt {width:226px; background:url(../images/actions_tooltip-bg.png); margin-left:8px; padding:0 16px; font:11px/17px Verdana, sans-serif; color:#fff; min-height: 30px;}
+.act_tt-bot {background:url(../images/actions_tooltip-bottom.png) no-repeat right; height:20px; }
+
+.act_charts-bot { bottom:0px;}
+.act_tooltip {visibility: visible;}
+.actInputDef { position: relative; }
+.act_left-list li ul { display: list-item; }
+.act_left-list li.act_left-list-child { border: 1px solid #ffffff;}
+.act_left-list li.act_left-list-child:hover { background:#e7f1f5; border:1px solid #2498b3; }
+
+
+tr.jqplot-table-legend {
+    position: relative;
+}
+
+td.jqplot-table-legend div.act_tooltip_label {width:275px; background:url(../images/actions_tooltip-top.png) no-repeat left top; padding: 0; padding-top:14px; position:absolute; left:-262px; top:-20px; z-index:5;}
+td.jqplot-table-legend div.act_tt-wrap_label {background:url(../images/actions_tooltip-arrow_label.png) no-repeat 258px 8px;}
+td.jqplot-table-legend div.act_tt-txt_label {width:226px; background:url(../images/actions_tooltip-bg.png); padding:0 16px; font:11px/17px Verdana, sans-serif; color:#fff;}
+td.jqplot-table-legend div.act_tt-bot_label {background:url(../images/actions_tooltip-bottom.png) no-repeat left; height:20px; }
