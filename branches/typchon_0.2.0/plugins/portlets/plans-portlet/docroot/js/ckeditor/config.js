@@ -241,7 +241,7 @@ CONTENT_FILTER = {
 		return text;
     },
         domRemove: function (node) {
-			// replace h1-h6 with p
+        	// replace h1-h6 with p
 			if (this.options.rules.heading) {
 				if (node.nodeName.toLowerCase().match(/^h[1-6]$/)) {
 					// in chromium change this to
@@ -297,9 +297,8 @@ CONTENT_FILTER = {
 
 			var current = el.childNodes[0];
 			if (current && current.nodeType != 1) {
-				current = nextElementSibling(el);
+				current = nextElementSibling(current);
 			}
-			
             while (current) {
 				var tmp = current;
 				current = nextElementSibling(current);
