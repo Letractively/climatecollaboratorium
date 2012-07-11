@@ -993,3 +993,14 @@ body.colab { margin-top: 0;}
 .seeAllActivities {
     text-align: right;
 }
+
+#previousProposalsPopup.popup-wrap {
+	top: -2000px;
+	position: relative;
+	left: 280px;;
+}
+
+.no-bottom-margin, ul.no-bottom-margin, ol.no-bottom-margin {
+	margin-bottom: 0;
+	margin-bottom: 0 !important;
+}
