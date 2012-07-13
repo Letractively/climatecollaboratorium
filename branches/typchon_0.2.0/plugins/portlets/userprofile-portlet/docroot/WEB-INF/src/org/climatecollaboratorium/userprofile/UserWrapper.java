@@ -240,7 +240,9 @@ public class UserWrapper {
                 UserServiceUtil.updatePortrait(user.getUserId(), bytes);
                 user.setPortraitId(0L);
                 UserLocalServiceUtil.updateUser(user);
+                UserServiceUtil.updatePortrait(user.getUserId(), bytes);
                 user = UserLocalServiceUtil.getUser(user.getUserId());
+                //user.se
             }
         }
         
