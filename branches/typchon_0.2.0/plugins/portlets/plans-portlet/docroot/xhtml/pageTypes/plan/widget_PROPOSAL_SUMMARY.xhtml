@@ -42,6 +42,19 @@
                 </div> <!-- /votebox -->
             </div> <!-- /votebox shade -->
         </div> <!-- /votebox wrapper -->
+        <div class="share">
+            <f:subview rendered="#{planBean.plan.subscribed}">
+                <div class="info subscribe">
+                    <ice:commandLink actionListener="#{planBean.plan.subscribe}" onclick="if(!deferUntilLogin()) return false;" ><img src="/climatecolab-theme/images/unsubscribe.png" /> Unsubscribe</ice:commandLink>
+                </div>
+            </f:subview>
+        
+        <f:subview rendered="#{not planBean.plan.subscribed}">
+            <div class="info subscribe">
+                <ice:commandLink actionListener="#{planBean.plan.subscribe}" onclick="if(!deferUntilLogin()) return false;" ><img src="/climatecolab-theme/images/icon_star.gif" /> Subscribe</ice:commandLink>
+            </div>
+        </f:subview>
+        </div>
  
         <div class="share">
             <div class="addthis_toolbox addthis_default_style addthis_32x32_style" id="shareProposalToolbox">
