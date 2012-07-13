@@ -69,7 +69,7 @@ public class UserWrapper {
         this.user = user;
         about = HtmlUtil.escape(ExpandoValueLocalServiceUtil.getData(User.class.getName(), CommunityConstants.EXPANDO, 
                 CommunityConstants.BIO, user.getUserId(), StringPool.BLANK));
-        filteredAbout = Helper.filterLineBreaks(about);
+        filteredAbout = Helper.filterLinkifyUrls(Helper.filterLineBreaks(about));
         
         realName = getName(user.getFullName(), user.getScreenName());
         firstName = user.getFirstName();
