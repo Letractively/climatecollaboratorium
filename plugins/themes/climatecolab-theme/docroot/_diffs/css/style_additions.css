@@ -1014,7 +1014,7 @@ body.colab { margin-top: 0;}
 
 .act_charts-bot { bottom:0px;}
 .act_tooltip {visibility: visible;}
-.act_tooltip { color: #06C; }
+.act_tooltip a:hover { color: #8ECCE6; }
 .actInputDef { position: relative; }
 .act_left-list li ul { display: list-item; }
 .act_left-list li.act_left-list-child { border: 1px solid #ffffff;}
@@ -1029,4 +1029,4 @@ td.jqplot-table-legend div.act_tooltip_label {width:275px; background:url(../ima
 td.jqplot-table-legend div.act_tt-wrap_label {background:url(../images/actions_tooltip-arrow_label.png) no-repeat 258px 8px;}
 td.jqplot-table-legend div.act_tt-txt_label {width:226px; background:url(../images/actions_tooltip-bg.png); padding:0 16px; font:11px/17px Verdana, sans-serif; color:#fff;}
 td.jqplot-table-legend div.act_tt-bot_label {background:url(../images/actions_tooltip-bottom.png) no-repeat left; height:20px; }
-td.jqplot-table-legend a:hover { color: #06C; }
+td.jqplot-table-legend a:hover { color: #8ECCE6; }
