@@ -1030,3 +1030,9 @@ td.jqplot-table-legend div.act_tt-wrap_label {background:url(../images/actions_t
 td.jqplot-table-legend div.act_tt-txt_label {width:226px; background:url(../images/actions_tooltip-bg.png); padding:0 16px; font:11px/17px Verdana, sans-serif; color:#fff;}
 td.jqplot-table-legend div.act_tt-bot_label {background:url(../images/actions_tooltip-bottom.png) no-repeat left; height:20px; }
 td.jqplot-table-legend a:hover { color: #8ECCE6; }
+
+.prop-tabs ul { margin-bottom: 0;}
+
+.info.subscribe img {
+	vertical-align: bottom;
+}
