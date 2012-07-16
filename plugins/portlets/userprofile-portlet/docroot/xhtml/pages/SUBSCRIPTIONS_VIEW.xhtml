@@ -22,7 +22,7 @@
   
     <div class="main_long">
                  <ice:form>
-      <h1>#{currentUser.screenName} subscribed activities</h1>
+      <h1>Subscribed activities</h1>
       <ice:dataTable var="activity" value="#{userprofileBean.subscribedActivities}" id="activitiesTable" styleClass="colab" rowClasses='nt,t' rows="50">
         <ice:column style="width: 585px">
             <f:facet name="header">Activity</f:facet>
@@ -76,12 +76,13 @@
           </ice:panelGroup> 
           </ice:form>
     </div>
-    <div class="right_col3">
-      
-      <div class="comm_list">
+    <ice:panelGroup rendered="#{userprofileBean.viewingOwnProfile}" styleClass="right_col3">
+    
+      <div class="blue-button">
+        <a href="./#{currentUser.userId}/page/subscriptionsManage">MANAGE</a>
       </div>
 
-    </div> <!-- /right_col4 -->
+    </ice:panelGroup>
         
         <div class="clearfix"></div>
 

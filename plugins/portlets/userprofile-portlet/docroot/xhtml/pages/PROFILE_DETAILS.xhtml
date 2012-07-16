@@ -126,7 +126,12 @@
         </f:subview>
         
 
-    <h2>Activity feed</h2>
+    <f:subview rendered="#{userprofileBean.viewingOwnProfile}">
+        <h2>My activities</h2>
+    </f:subview>
+    <f:subview rendered="#{not userprofileBean.viewingOwnProfile}">
+        <h2>#{currentUser.screenName} activities</h2>
+    </f:subview>
         <ice:dataTable styleClass="colab" value="#{currentUser.activities}" rowClasses="t,nt" var="activity">
             <ice:column>
                 #{activity.body}
