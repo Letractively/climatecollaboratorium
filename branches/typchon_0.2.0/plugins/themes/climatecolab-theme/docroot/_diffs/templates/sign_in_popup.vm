@@ -20,6 +20,7 @@
                     
                     <label>Password:</label> 
                     <input name="password" type="password" class="password" onkeypress="return submitenter(this,event)" />
+                    <input name="redirect" type="hidden" />
                     <div class="btns">
                         <div style="float: left;">
                             <span><em><a href="javascript:;" class="forgot" onclick="showForgotPasswordPopup()">Forgot your password?</a></em></span><br />
@@ -27,7 +28,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="blue-button">
-                            <a href="javascript:;" class="login-submit" onclick="jQuery(this).parents('form').submit();" >LOGIN</a>
+                            <a href="javascript:;" class="login-submit" onclick="jQuery(this).parents('form').submit();" id="deferLoginPopupSubmit">LOGIN</a>
                         </div>
                     </div>
                 </form>

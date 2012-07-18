@@ -77,6 +77,10 @@ function initLoginPopupUpper() {
 		setTimeout(hideIfLoginNotUsed, 10);
 		
 	});
+	
+	jQuery("#loginPopupTopSubmit").click(function() {
+		jQuery("#signInFormPopup input[name=redirect]").val(location.toString());
+	});
 }
 
 function initUserInfoPopup() {
@@ -112,6 +116,10 @@ function initUserInfoPopup() {
 	});
 }
 
+function initWikiBorderless() {
+	jQuery(".wiki-borderless table").removeAttr("border").css("border", 0);
+}
+
 function deferUntilLogin(fn) {
  
     if (Liferay.ThemeDisplay.isSignedIn()) {
@@ -119,6 +127,7 @@ function deferUntilLogin(fn) {
     } else {
     	jQuery('#popup_login').show();
     	jQuery.scrollTo(jQuery("#popup_login"));
+    	jQuery("#signInForm_form input[name=redirect]").val(location.toString());
     }
 }
 
@@ -184,6 +193,7 @@ jQuery(document).ready(function() {
 	initSearchUpperBox();
 	initLoginPopupUpper();
 	initUserInfoPopup();
+	initWikiBorderless();
 	
 	jQuery(".popup .close").click(function() {
 		
