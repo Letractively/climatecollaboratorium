@@ -42,9 +42,11 @@ public class ContestsBean {
     private boolean showActiveOnly = true;
     public final static String PLANS_SOURCE = "plans";
     private static final String CONTEST_FILTER_PARAM = "contestFilter";
+    private static final String CONTESTS_TYPE_PARAM = "contestsType";
+    private static final String CONTESTS_PRIOR = "prior";
     
     
-    public ContestsBean() {
+    public ContestsBean(Map<String, String> params) {
         
         String viewTypeStr = Helper.getCookieValue("cc_contests_viewType");
         if (viewType != null) {
@@ -54,6 +56,9 @@ public class ContestsBean {
             catch (Exception e) {
                 // ignore
             }
+        }
+        if (params.containsKey(CONTESTS_TYPE_PARAM) && params.get(CONTESTS_TYPE_PARAM).equals(CONTESTS_PRIOR)) {
+            showActiveOnly = false;
         }
         
     }

@@ -57,7 +57,7 @@ public class NavigationBean {
             issuesBean = new IssuesBean();
             createPlanBean = new CreatePlanBean(plansIndexBean);
             
-            contestsBean = new ContestsBean();
+            contestsBean = new ContestsBean(params);
             
             
             planBean.setPermissions(plansPermissionsBean);
