@@ -132,12 +132,18 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
         for (int i = 0; i < parentPages.size(); i++) {
             WikiPage curParentPage = (WikiPage)parentPages.get(i);
 
-            viewParentPageURL.setParameter("title", curParentPage.getTitle());
+            if (curParentPage.getTitle().equals("Resources")) {
     %>
-            <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
-            <a href="<%= viewParentPageURL %>"><%= curParentPage.getTitle() %></a>
+                <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
+                <a href="/web/guest/aboutresources"><%= curParentPage.getTitle() %></a>
+    <%
+            } else {
+                viewParentPageURL.setParameter("title", curParentPage.getTitle());
+    %>
+                <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
+                <a href="<%= viewParentPageURL %>"><%= curParentPage.getTitle() %></a>
 
-        <%
+            }<%
         }
         %>
 
