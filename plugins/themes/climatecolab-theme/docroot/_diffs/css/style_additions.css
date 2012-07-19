@@ -1036,3 +1036,5 @@ td.jqplot-table-legend a:hover { color: #8ECCE6; }
 .info.subscribe img {
 	vertical-align: bottom;
 }
+
+.wiki-borderless table, .wiki-borderless table td, .wiki-borderless table tr { border: 0; }
