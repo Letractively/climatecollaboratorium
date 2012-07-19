@@ -143,7 +143,9 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
                 <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
                 <a href="<%= viewParentPageURL %>"><%= curParentPage.getTitle() %></a>
 
-            }<%
+    <% 
+            
+            }
         }
         %>
 
