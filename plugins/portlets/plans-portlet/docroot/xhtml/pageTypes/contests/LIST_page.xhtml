@@ -114,7 +114,8 @@
 
     <script type="text/javascript">
         initTooltips();
-        jQuery.cookie("cc_contests_viewType", "LIST", {expires: 365});
+        jQuery.cookie("cc_contests_viewType", null, {expires: -1});
+        jQuery.cookie("cc_contests_viewType", "LIST", {expires: 365, path: '/'});
     </script>
     
 </ice:form>

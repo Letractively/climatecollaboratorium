@@ -51,8 +51,8 @@
     </div>
   
   <div class="show">
-    <ice:commandLink value="Show prior contests" actionListener="#{contests.toggleActiveInactive}" rendered="#{contests.showActiveOnly}"/>
-    <ice:commandLink value="Show active contests" actionListener="#{contests.toggleActiveInactive}" rendered="#{not contests.showActiveOnly}"/>
+    <f:subview rendered="#{contests.showActiveOnly}"><a href="/web/guest/plans/-/plans/contestsType/prior" >Show prior contests</a></f:subview>
+    <f:subview rendered="#{not contests.showActiveOnly}"><a href="/web/guest/plans/" >Show active contests</a></f:subview>
   </div>
   <div class="divider"></div> 
   <div class="show"><a href="javascript:;" onclick="if(!deferUntilLogin()) return false; jQuery('#suggestContestPopupContainer').show();">Suggest a new contest</a></div> 
@@ -68,7 +68,7 @@
         <ice:form>
             <div id="archivedContestsMarkerContainer">
                 <img src="/climatecolab-theme/images/contests-archive.png" />
-                <strong>Archived:</strong>You are currently viewing archived contests.&amp;nbsp; <ice:commandLink value="Back to active contests" actionListener="#{contests.toggleActiveInactive}" />
+                <strong>Archived:</strong>You are currently viewing archived contests.&amp;nbsp; <a href="/web/guest/plans" >Back to active contests</a>
             </div>
         </ice:form>
         

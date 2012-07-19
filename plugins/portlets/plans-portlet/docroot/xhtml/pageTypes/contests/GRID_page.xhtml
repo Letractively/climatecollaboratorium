@@ -34,7 +34,8 @@
     </f:subview>
         
     <script type="text/javascript">
-        jQuery.cookie("cc_contests_viewType", "GRID", {expires: 365});
+        jQuery.cookie("cc_contests_viewType", null, {expires: -1});
+        jQuery.cookie("cc_contests_viewType", "GRID", {expires: 365, path: '/'});
     </script>
 
 </f:view>
