@@ -685,11 +685,29 @@ function renderSingleChart(chartDef) {
 				tooltip.show();
 			});
 			
+			function hideIfNoHover(parent, tooltip) {
+				if (! parent.hasClass('trMouseIn') && ! parent.hasClass('tooltipMouseIn')) {
+					tooltip.hide();
+				}
+				
+			}
+			
 			parentTr.hover(function() {
 				tooltip.show();
+				parentTr.addClass('trMouseIn');
 			}, function() {
-				tooltip.hide();
+				parentTr.removeClass("trMouseIn");
+				setTimeout(function() { hideIfNoHover(parentTr, tooltip);}, 20);
+				
 			});
+			
+			tooltip.hover(function() {
+				tooltip.show();
+				parentTr.addClass("tooltipMouseIn");
+			}, function() {
+				parentTr.removeClass("tooltipMouseIn");
+				setTimeout(function() { hideIfNoHover(parentTr, tooltip);}, 20);
+			})
 			
 		});
 
