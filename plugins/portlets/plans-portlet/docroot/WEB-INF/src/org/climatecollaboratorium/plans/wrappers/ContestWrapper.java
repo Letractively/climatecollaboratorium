@@ -57,20 +57,7 @@ public class ContestWrapper {
     ContestPhaseWrapper activePhase = null;
 
     private CreatePlanBean createPlanBean;
-    
-    public boolean flag;
-    
-     public void setFlag(boolean b) {
-        flag = b;
-    }
 
-    public boolean getFlag() {
-        return flag;
-    }
-
-    public void test(ActionEvent e) {
-        setFlag(!flag);
-    }
 
     public ContestWrapper(Contest contest) throws SystemException, PortalException {
         boolean addAsActiveOrPast = true;
@@ -151,13 +138,24 @@ public class ContestWrapper {
     }
     
     public String getLogo() throws PortalException, SystemException {
-        System.out.println(ImageLocalServiceUtil.getDefaultSpacer());
         
         return Helper.getThemeDisplay().getPathImage() + contest.getLogoPath();
     }
     
     public boolean isFeatured() {
-        return contest.getFeatured();
+        return contest.getFlagText().toLowerCase().equals("featured");
+    }
+    
+    public Integer getFlag() {
+        return contest.getFlag();
+    }
+    
+    public String getFlagText() {
+        return contest.getFlagText();
+    }
+    
+    public String getFlagTextClass() {
+        return contest.getFlagText().toLowerCase().replaceAll("\\s", "");
     }
     
     public List<ContestPhaseWrapper> getPastPhases() {
