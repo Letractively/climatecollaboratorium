@@ -56,7 +56,7 @@ public class ContestWrapper {
     }
     
     public boolean isFeatured() {
-        return contest.getFeatured();
+        return contest.getFlagText().toLowerCase().equals("featured");
     }
    
     
