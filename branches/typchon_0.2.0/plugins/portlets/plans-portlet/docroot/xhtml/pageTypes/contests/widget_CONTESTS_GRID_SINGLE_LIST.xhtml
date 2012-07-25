@@ -26,8 +26,8 @@
                     <div class="comm"><strong>#{singleContest.commentsCount}</strong> comments</div>
                 </div>
             </div>
-            <f:subview rendered="#{singleContest.featured}">
-                <div class="featured"></div>
+            <f:subview rendered="#{not empty singleContest.flag}">
+                <div class="contestFlag-#{singleContest.flag} #{singleContest.flagTextClass} #{singleContest.flagText}"></div>
             </f:subview>
         </div> <!-- /contestbox -->
     </ice:panelSeries>
