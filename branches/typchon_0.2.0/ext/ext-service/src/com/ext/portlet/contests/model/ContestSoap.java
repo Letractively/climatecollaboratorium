@@ -42,6 +42,8 @@ public class ContestSoap implements Serializable {
     private Long _focusAreaId;
     private Long _contestLogoId;
     private Boolean _featured;
+    private Integer _flag;
+    private String _flagText;
     private Long _groupId;
     private Long _discussionGroupId;
     private Integer _weight;
@@ -69,6 +71,8 @@ public class ContestSoap implements Serializable {
         soapModel.setFocusAreaId(model.getFocusAreaId());
         soapModel.setContestLogoId(model.getContestLogoId());
         soapModel.setFeatured(model.getFeatured());
+        soapModel.setFlag(model.getFlag());
+        soapModel.setFlagText(model.getFlagText());
         soapModel.setGroupId(model.getGroupId());
         soapModel.setDiscussionGroupId(model.getDiscussionGroupId());
         soapModel.setWeight(model.getWeight());
@@ -248,6 +252,22 @@ public class ContestSoap implements Serializable {
 
     public void setFeatured(Boolean featured) {
         _featured = featured;
+    }
+
+    public Integer getFlag() {
+        return _flag;
+    }
+
+    public void setFlag(Integer flag) {
+        _flag = flag;
+    }
+
+    public String getFlagText() {
+        return _flagText;
+    }
+
+    public void setFlagText(String flagText) {
+        _flagText = flagText;
     }
 
     public Long getGroupId() {

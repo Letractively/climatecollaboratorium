@@ -91,6 +91,12 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "featured_", new Integer(Types.BOOLEAN) },
             
 
+            { "flag", new Integer(Types.INTEGER) },
+            
+
+            { "flagText", new Integer(Types.VARCHAR) },
+            
+
             { "groupId", new Integer(Types.BIGINT) },
             
 
@@ -102,7 +108,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
             { "resourcesUrl", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN,groupId LONG,discussionGroupId LONG,weight INTEGER,resourcesUrl VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN,flag INTEGER,flagText VARCHAR(75) null,groupId LONG,discussionGroupId LONG,weight INTEGER,resourcesUrl VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -132,6 +138,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Long _focusAreaId;
     private Long _contestLogoId;
     private Boolean _featured;
+    private Integer _flag;
+    private String _flagText;
     private Long _groupId;
     private Long _discussionGroupId;
     private Integer _weight;
@@ -159,6 +167,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setFocusAreaId(soapModel.getFocusAreaId());
         model.setContestLogoId(soapModel.getContestLogoId());
         model.setFeatured(soapModel.getFeatured());
+        model.setFlag(soapModel.getFlag());
+        model.setFlagText(soapModel.getFlagText());
         model.setGroupId(soapModel.getGroupId());
         model.setDiscussionGroupId(soapModel.getDiscussionGroupId());
         model.setWeight(soapModel.getWeight());
@@ -326,6 +336,22 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _featured = featured;
     }
 
+    public Integer getFlag() {
+        return _flag;
+    }
+
+    public void setFlag(Integer flag) {
+        _flag = flag;
+    }
+
+    public String getFlagText() {
+        return GetterUtil.getString(_flagText);
+    }
+
+    public void setFlagText(String flagText) {
+        _flagText = flagText;
+    }
+
     public Long getGroupId() {
         return _groupId;
     }
@@ -386,6 +412,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setFocusAreaId(getFocusAreaId());
             model.setContestLogoId(getContestLogoId());
             model.setFeatured(getFeatured());
+            model.setFlag(getFlag());
+            model.setFlagText(HtmlUtil.escape(getFlagText()));
             model.setGroupId(getGroupId());
             model.setDiscussionGroupId(getDiscussionGroupId());
             model.setWeight(getWeight());
@@ -418,6 +446,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setFocusAreaId(getFocusAreaId());
         clone.setContestLogoId(getContestLogoId());
         clone.setFeatured(getFeatured());
+        clone.setFlag(getFlag());
+        clone.setFlagText(getFlagText());
         clone.setGroupId(getGroupId());
         clone.setDiscussionGroupId(getDiscussionGroupId());
         clone.setWeight(getWeight());
@@ -505,6 +535,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getContestLogoId());
         sb.append(", featured=");
         sb.append(getFeatured());
+        sb.append(", flag=");
+        sb.append(getFlag());
+        sb.append(", flagText=");
+        sb.append(getFlagText());
         sb.append(", groupId=");
         sb.append(getGroupId());
         sb.append(", discussionGroupId=");
@@ -588,6 +622,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>featured</column-name><column-value><![CDATA[");
         sb.append(getFeatured());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>flag</column-name><column-value><![CDATA[");
+        sb.append(getFlag());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>flagText</column-name><column-value><![CDATA[");
+        sb.append(getFlagText());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>groupId</column-name><column-value><![CDATA[");
