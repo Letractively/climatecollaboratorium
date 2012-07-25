@@ -9,13 +9,12 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.climatecollaboratorium.plans.admin.Helper;
+
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.ontology.model.FocusArea;
-import com.ext.portlet.ontology.model.OntologyTermEntity;
 import com.ext.portlet.ontology.service.FocusAreaLocalServiceUtil;
-import com.ext.portlet.ontology.service.OntologyTermEntityLocalServiceUtil;
-import com.ext.portlet.ontology.service.OntologyTermLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanTemplate;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
@@ -25,12 +24,8 @@ import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.servlet.ImageServletTokenUtil;
 import com.liferay.portal.model.Image;
 import com.liferay.portal.service.ImageLocalServiceUtil;
-
-
-import org.climatecollaboratorium.plans.admin.Helper;
 
 public class ContestWrapper {
     private Contest contest;
@@ -62,6 +57,22 @@ public class ContestWrapper {
     
     public void setFeatured(boolean featured) {
         contest.setFeatured(featured);
+    }
+    
+    public Integer getFlag() {
+        return contest.getFlag();
+    }
+    
+    public void setFlag(Integer flag) {
+        contest.setFlag(flag);
+    }
+    
+    public String getFlagText() {
+        return contest.getFlagText();
+    }
+    
+    public void setFlagText(String flagText) {
+        contest.setFlagText(flagText);
     }
     
     
