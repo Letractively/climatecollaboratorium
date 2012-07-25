@@ -1,9 +1,12 @@
 package org.climatecollaboratorium.ontology;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Stack;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import com.ext.portlet.ontology.model.OntologySpace;
 import com.ext.portlet.ontology.model.OntologyTerm;
@@ -28,6 +31,7 @@ public class OntologyAdminBean {
     private Long editedTermId = null;
     
     private List<OntologyTerm> terms = null;
+    private boolean reparent;
     
     public List<OntologyTerm> getOntologyTerms() throws SystemException {
         terms = OntologyTermLocalServiceUtil.findByParentIdSpaceId(termId, spaceId);
@@ -41,6 +45,7 @@ public class OntologyAdminBean {
     
     public void setTermId(ActionEvent e) {
         termId = null;
+        
         try {
             termId = Long.parseLong(e.getComponent().getAttributes().get("termId").toString());
         }
@@ -67,6 +72,10 @@ public class OntologyAdminBean {
         catch (NumberFormatException ex) {
             // ignore
         }
+    }
+    
+    public void reparentTerm(ActionEvent e) {
+        reparent = !reparent;
     }
 
 
@@ -136,6 +145,7 @@ public class OntologyAdminBean {
     
     public void editTerm(ActionEvent e) throws PortalException, SystemException {
         Long termId = null;
+        reparent = false;
         try {
             Object term = e.getComponent().getAttributes().get("termId");
             if (term != null) {
@@ -229,6 +239,43 @@ public class OntologyAdminBean {
 
     public Long getEditedTermId() {
         return editedTermId;
+    }
+    
+    public boolean getReparent() {
+        return reparent;
+    }
+    
+    public List<SelectItem> getAllAvailableTermsList() throws SystemException, PortalException {
+        List<SelectItem> ret = new ArrayList<SelectItem>();
+        
+        for (OntologyTerm t: OntologyTermLocalServiceUtil.getOntologyTerms(0, Integer.MAX_VALUE)) {
+            
+            Stack<OntologyTerm> parentsPath = new Stack<OntologyTerm>();
+            OntologyTerm current = t;
+            while (current != null) {
+                parentsPath.push(current);
+                current = current.getParent();
+            }
+            
+            StringBuilder nameStr = new StringBuilder();
+            nameStr.append(t.getSpace().getName() + " # ");
+            while (! parentsPath.isEmpty()) {
+                current = parentsPath.pop();
+                nameStr.append(" > " + current.getName());
+            }
+            nameStr.append(" (" + t.getId() + ")");
+            ret.add(new SelectItem(current.getId(), nameStr.toString()));
+        }
+        
+        Collections.sort(ret, new Comparator<SelectItem>() {
+
+            @Override
+            public int compare(SelectItem o1, SelectItem o2) {
+                return o1.getLabel().compareTo(o2.getLabel());
+            }
+            
+        });
+        return ret;
     }
     
 }
