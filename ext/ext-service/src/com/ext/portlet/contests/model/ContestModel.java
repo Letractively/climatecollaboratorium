@@ -95,6 +95,14 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setFeatured(Boolean featured);
 
+    public Integer getFlag();
+
+    public void setFlag(Integer flag);
+
+    public String getFlagText();
+
+    public void setFlagText(String flagText);
+
     public Long getGroupId();
 
     public void setGroupId(Long groupId);

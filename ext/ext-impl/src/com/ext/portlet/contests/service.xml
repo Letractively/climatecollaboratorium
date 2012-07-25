@@ -27,6 +27,10 @@
         <column name="focusAreaId" type="Long" />
         <column name="contestLogoId" type="Long" />
         <column name="featured" type="Boolean" />
+        
+        <column name="flag" type="Integer" />
+        <column name="flagText" type="String" />
+        
         <column name="groupId" type="Long" />
         <column name="discussionGroupId" type="Long" />
         <column name="weight" type="Integer" />
