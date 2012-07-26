@@ -195,6 +195,104 @@ public class ContestUtil {
             featured, obc);
     }
 
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlag(
+        java.lang.Boolean contestActive, java.lang.Integer flag)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByActiveFlag(contestActive, flag);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlag(
+        java.lang.Boolean contestActive, java.lang.Integer flag, int start,
+        int end) throws com.liferay.portal.SystemException {
+        return getPersistence().findByActiveFlag(contestActive, flag, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlag(
+        java.lang.Boolean contestActive, java.lang.Integer flag, int start,
+        int end, com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByActiveFlag(contestActive, flag, start, end, obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest findByActiveFlag_First(
+        java.lang.Boolean contestActive, java.lang.Integer flag,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByActiveFlag_First(contestActive, flag, obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest findByActiveFlag_Last(
+        java.lang.Boolean contestActive, java.lang.Integer flag,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence().findByActiveFlag_Last(contestActive, flag, obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest[] findByActiveFlag_PrevAndNext(
+        java.lang.Long ContestPK, java.lang.Boolean contestActive,
+        java.lang.Integer flag,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByActiveFlag_PrevAndNext(ContestPK, contestActive,
+            flag, obc);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlagText(
+        java.lang.Boolean contestActive, java.lang.String flagText)
+        throws com.liferay.portal.SystemException {
+        return getPersistence().findByActiveFlagText(contestActive, flagText);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlagText(
+        java.lang.Boolean contestActive, java.lang.String flagText, int start,
+        int end) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByActiveFlagText(contestActive, flagText, start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlagText(
+        java.lang.Boolean contestActive, java.lang.String flagText, int start,
+        int end, com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByActiveFlagText(contestActive, flagText, start, end,
+            obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest findByActiveFlagText_First(
+        java.lang.Boolean contestActive, java.lang.String flagText,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByActiveFlagText_First(contestActive, flagText, obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest findByActiveFlagText_Last(
+        java.lang.Boolean contestActive, java.lang.String flagText,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByActiveFlagText_Last(contestActive, flagText, obc);
+    }
+
+    public static com.ext.portlet.contests.model.Contest[] findByActiveFlagText_PrevAndNext(
+        java.lang.Long ContestPK, java.lang.Boolean contestActive,
+        java.lang.String flagText,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByActiveFlagText_PrevAndNext(ContestPK, contestActive,
+            flagText, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -239,6 +337,16 @@ public class ContestUtil {
         getPersistence().removeByActiveFeatured(contestActive, featured);
     }
 
+    public static void removeByActiveFlag(java.lang.Boolean contestActive,
+        java.lang.Integer flag) throws com.liferay.portal.SystemException {
+        getPersistence().removeByActiveFlag(contestActive, flag);
+    }
+
+    public static void removeByActiveFlagText(java.lang.Boolean contestActive,
+        java.lang.String flagText) throws com.liferay.portal.SystemException {
+        getPersistence().removeByActiveFlagText(contestActive, flagText);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -256,6 +364,16 @@ public class ContestUtil {
     public static int countByActiveFeatured(java.lang.Boolean contestActive,
         java.lang.Boolean featured) throws com.liferay.portal.SystemException {
         return getPersistence().countByActiveFeatured(contestActive, featured);
+    }
+
+    public static int countByActiveFlag(java.lang.Boolean contestActive,
+        java.lang.Integer flag) throws com.liferay.portal.SystemException {
+        return getPersistence().countByActiveFlag(contestActive, flag);
+    }
+
+    public static int countByActiveFlagText(java.lang.Boolean contestActive,
+        java.lang.String flagText) throws com.liferay.portal.SystemException {
+        return getPersistence().countByActiveFlagText(contestActive, flagText);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

@@ -83,6 +83,8 @@ create index IX_66D496A3 on Contact_ (companyId);
 create index IX_E46E624C on Contest (PlanTypeId);
 create index IX_C264C470 on Contest (contestActive);
 create index IX_DCCCA6F1 on Contest (contestActive, featured_);
+create index IX_2904D0D0 on Contest (contestActive, flag);
+create index IX_D1786BDD on Contest (contestActive, flagText);
 
 create index IX_19AE4974 on ContestDebate (ContestPK);
 
