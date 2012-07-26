@@ -130,4 +130,11 @@ public class ContestLocalServiceImpl extends ContestLocalServiceBaseImpl {
     public List<Contest> findByActiveFeatured(boolean active, boolean featured) throws SystemException {
         return contestPersistence.findByActiveFeatured(active, featured);
     }
+    
+    public List<Contest> findByActiveFlag(boolean active, int flag) throws SystemException {
+        return contestPersistence.findByActiveFlag(active, flag);
+    }
+    public List<Contest> findByActiveFlagText(boolean active, String flagText) throws SystemException {
+        return contestPersistence.findByActiveFlagText(active, flagText);
+    }
 }

@@ -52,6 +52,14 @@
             <finder-column name="contestActive" />
             <finder-column name="featured" />
         </finder>
+        <finder name="ActiveFlag" return-type="Collection">
+            <finder-column name="contestActive" />
+            <finder-column name="flag" />
+        </finder>
+        <finder name="ActiveFlagText" return-type="Collection">
+            <finder-column name="contestActive" />
+            <finder-column name="flagText" />
+        </finder>
     </entity>
     
     <entity name="ContestDebate" local-service="true">

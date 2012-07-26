@@ -75,6 +75,40 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
             ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countByActiveFeatured",
             new String[] { Boolean.class.getName(), Boolean.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_ACTIVEFLAG = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByActiveFlag",
+            new String[] { Boolean.class.getName(), Integer.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_ACTIVEFLAG = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByActiveFlag",
+            new String[] {
+                Boolean.class.getName(), Integer.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_ACTIVEFLAG = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByActiveFlag",
+            new String[] { Boolean.class.getName(), Integer.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_ACTIVEFLAGTEXT = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByActiveFlagText",
+            new String[] { Boolean.class.getName(), String.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_ACTIVEFLAGTEXT = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByActiveFlagText",
+            new String[] {
+                Boolean.class.getName(), String.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_ACTIVEFLAGTEXT = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
+            ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByActiveFlagText",
+            new String[] { Boolean.class.getName(), String.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ContestModelImpl.ENTITY_CACHE_ENABLED,
             ContestModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -966,6 +1000,566 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public List<Contest> findByActiveFlag(Boolean contestActive, Integer flag)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { contestActive, flag };
+
+        List<Contest> list = (List<Contest>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ACTIVEFLAG,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (flag == null) {
+                    query.append("flag IS NULL");
+                } else {
+                    query.append("flag = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("weight ASC, ");
+                query.append("created ASC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (flag != null) {
+                    qPos.add(flag.intValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<Contest>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_ACTIVEFLAG,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<Contest> findByActiveFlag(Boolean contestActive, Integer flag,
+        int start, int end) throws SystemException {
+        return findByActiveFlag(contestActive, flag, start, end, null);
+    }
+
+    public List<Contest> findByActiveFlag(Boolean contestActive, Integer flag,
+        int start, int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                contestActive,
+                
+                flag,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<Contest> list = (List<Contest>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_ACTIVEFLAG,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (flag == null) {
+                    query.append("flag IS NULL");
+                } else {
+                    query.append("flag = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("weight ASC, ");
+                    query.append("created ASC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (flag != null) {
+                    qPos.add(flag.intValue());
+                }
+
+                list = (List<Contest>) QueryUtil.list(q, getDialect(), start,
+                        end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<Contest>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_ACTIVEFLAG,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public Contest findByActiveFlag_First(Boolean contestActive, Integer flag,
+        OrderByComparator obc) throws NoSuchContestException, SystemException {
+        List<Contest> list = findByActiveFlag(contestActive, flag, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No Contest exists with the key {");
+
+            msg.append("contestActive=" + contestActive);
+
+            msg.append(", ");
+            msg.append("flag=" + flag);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public Contest findByActiveFlag_Last(Boolean contestActive, Integer flag,
+        OrderByComparator obc) throws NoSuchContestException, SystemException {
+        int count = countByActiveFlag(contestActive, flag);
+
+        List<Contest> list = findByActiveFlag(contestActive, flag, count - 1,
+                count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No Contest exists with the key {");
+
+            msg.append("contestActive=" + contestActive);
+
+            msg.append(", ");
+            msg.append("flag=" + flag);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public Contest[] findByActiveFlag_PrevAndNext(Long ContestPK,
+        Boolean contestActive, Integer flag, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        Contest contest = findByPrimaryKey(ContestPK);
+
+        int count = countByActiveFlag(contestActive, flag);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append("FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+            if (contestActive == null) {
+                query.append("contestActive IS NULL");
+            } else {
+                query.append("contestActive = ?");
+            }
+
+            query.append(" AND ");
+
+            if (flag == null) {
+                query.append("flag IS NULL");
+            } else {
+                query.append("flag = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("weight ASC, ");
+                query.append("created ASC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (contestActive != null) {
+                qPos.add(contestActive.booleanValue());
+            }
+
+            if (flag != null) {
+                qPos.add(flag.intValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc, contest);
+
+            Contest[] array = new ContestImpl[3];
+
+            array[0] = (Contest) objArray[0];
+            array[1] = (Contest) objArray[1];
+            array[2] = (Contest) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    public List<Contest> findByActiveFlagText(Boolean contestActive,
+        String flagText) throws SystemException {
+        Object[] finderArgs = new Object[] { contestActive, flagText };
+
+        List<Contest> list = (List<Contest>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_ACTIVEFLAGTEXT,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (flagText == null) {
+                    query.append("flagText IS NULL");
+                } else {
+                    query.append("flagText = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("weight ASC, ");
+                query.append("created ASC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (flagText != null) {
+                    qPos.add(flagText);
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<Contest>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_ACTIVEFLAGTEXT,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<Contest> findByActiveFlagText(Boolean contestActive,
+        String flagText, int start, int end) throws SystemException {
+        return findByActiveFlagText(contestActive, flagText, start, end, null);
+    }
+
+    public List<Contest> findByActiveFlagText(Boolean contestActive,
+        String flagText, int start, int end, OrderByComparator obc)
+        throws SystemException {
+        Object[] finderArgs = new Object[] {
+                contestActive,
+                
+                flagText,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<Contest> list = (List<Contest>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_ACTIVEFLAGTEXT,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (flagText == null) {
+                    query.append("flagText IS NULL");
+                } else {
+                    query.append("flagText = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("weight ASC, ");
+                    query.append("created ASC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (flagText != null) {
+                    qPos.add(flagText);
+                }
+
+                list = (List<Contest>) QueryUtil.list(q, getDialect(), start,
+                        end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<Contest>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_ACTIVEFLAGTEXT,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public Contest findByActiveFlagText_First(Boolean contestActive,
+        String flagText, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        List<Contest> list = findByActiveFlagText(contestActive, flagText, 0,
+                1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No Contest exists with the key {");
+
+            msg.append("contestActive=" + contestActive);
+
+            msg.append(", ");
+            msg.append("flagText=" + flagText);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public Contest findByActiveFlagText_Last(Boolean contestActive,
+        String flagText, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        int count = countByActiveFlagText(contestActive, flagText);
+
+        List<Contest> list = findByActiveFlagText(contestActive, flagText,
+                count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No Contest exists with the key {");
+
+            msg.append("contestActive=" + contestActive);
+
+            msg.append(", ");
+            msg.append("flagText=" + flagText);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public Contest[] findByActiveFlagText_PrevAndNext(Long ContestPK,
+        Boolean contestActive, String flagText, OrderByComparator obc)
+        throws NoSuchContestException, SystemException {
+        Contest contest = findByPrimaryKey(ContestPK);
+
+        int count = countByActiveFlagText(contestActive, flagText);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append("FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+            if (contestActive == null) {
+                query.append("contestActive IS NULL");
+            } else {
+                query.append("contestActive = ?");
+            }
+
+            query.append(" AND ");
+
+            if (flagText == null) {
+                query.append("flagText IS NULL");
+            } else {
+                query.append("flagText = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("weight ASC, ");
+                query.append("created ASC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (contestActive != null) {
+                qPos.add(contestActive.booleanValue());
+            }
+
+            if (flagText != null) {
+                qPos.add(flagText);
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc, contest);
+
+            Contest[] array = new ContestImpl[3];
+
+            array[0] = (Contest) objArray[0];
+            array[1] = (Contest) objArray[1];
+            array[2] = (Contest) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -1085,6 +1679,20 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
     public void removeByActiveFeatured(Boolean contestActive, Boolean featured)
         throws SystemException {
         for (Contest contest : findByActiveFeatured(contestActive, featured)) {
+            remove(contest);
+        }
+    }
+
+    public void removeByActiveFlag(Boolean contestActive, Integer flag)
+        throws SystemException {
+        for (Contest contest : findByActiveFlag(contestActive, flag)) {
+            remove(contest);
+        }
+    }
+
+    public void removeByActiveFlagText(Boolean contestActive, String flagText)
+        throws SystemException {
+        for (Contest contest : findByActiveFlagText(contestActive, flagText)) {
             remove(contest);
         }
     }
@@ -1256,6 +1864,136 @@ public class ContestPersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACTIVEFEATURED,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByActiveFlag(Boolean contestActive, Integer flag)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { contestActive, flag };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ACTIVEFLAG,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (flag == null) {
+                    query.append("flag IS NULL");
+                } else {
+                    query.append("flag = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (flag != null) {
+                    qPos.add(flag.intValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACTIVEFLAG,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByActiveFlagText(Boolean contestActive, String flagText)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { contestActive, flagText };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ACTIVEFLAGTEXT,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.contests.model.Contest WHERE ");
+
+                if (contestActive == null) {
+                    query.append("contestActive IS NULL");
+                } else {
+                    query.append("contestActive = ?");
+                }
+
+                query.append(" AND ");
+
+                if (flagText == null) {
+                    query.append("flagText IS NULL");
+                } else {
+                    query.append("flagText = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (contestActive != null) {
+                    qPos.add(contestActive.booleanValue());
+                }
+
+                if (flagText != null) {
+                    qPos.add(flagText);
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACTIVEFLAGTEXT,
                     finderArgs, count);
 
                 closeSession(session);

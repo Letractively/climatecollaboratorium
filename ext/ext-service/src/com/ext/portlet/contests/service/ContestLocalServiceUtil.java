@@ -115,6 +115,17 @@ public class ContestLocalServiceUtil {
         return getService().findByActiveFeatured(active, featured);
     }
 
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlag(
+        boolean active, int flag) throws com.liferay.portal.SystemException {
+        return getService().findByActiveFlag(active, flag);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlagText(
+        boolean active, java.lang.String flagText)
+        throws com.liferay.portal.SystemException {
+        return getService().findByActiveFlagText(active, flagText);
+    }
+
     public static ContestLocalService getService() {
         if (_service == null) {
             throw new RuntimeException("ContestLocalService is not set");

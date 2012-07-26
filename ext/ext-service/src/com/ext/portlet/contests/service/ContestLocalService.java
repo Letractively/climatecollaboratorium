@@ -96,4 +96,11 @@ public interface ContestLocalService {
     public java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFeatured(
         boolean active, boolean featured)
         throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlag(
+        boolean active, int flag) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.contests.model.Contest> findByActiveFlagText(
+        boolean active, java.lang.String flagText)
+        throws com.liferay.portal.SystemException;
 }
