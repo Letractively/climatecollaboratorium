@@ -120,6 +120,28 @@ function initWikiBorderless() {
 	jQuery(".wiki-borderless table, .wiki-borderless table td, .wiki-borderless table tr").removeAttr("border").css("border", 0);
 }
 
+function initTreeWithDynatree() {
+    var treeContainer = jQuery(".jsTreeContainer");
+    if (treeContainer.length > 0) {
+	    var hash = location.hash.toString();
+    	var nodeKeyPos = hash.indexOf('tree_');
+
+	    if (hash.length > 0 && nodeKeyPos >= 0) {
+    		var nodeKey = hash.substring(nodeKeyPos + 5);
+    		var node = jQuery("#" + nodeKey);
+    		if (node.length > 0) {
+    			// remove expanded, active, selected from all nodes
+    			jQuery(".active, .expanded, .selected", treeContainer).removeClass("active").removeClass("expanded").removeClass("selected");
+    			node.addClass("expanded").addClass("selected");
+    			node.parents("li").addClass("expanded");
+    		}
+    	}
+    
+
+    	treeContainer.dynatree();
+    }
+}
+
 function deferUntilLogin(fn) {
  
     if (Liferay.ThemeDisplay.isSignedIn()) {
@@ -194,6 +216,7 @@ jQuery(document).ready(function() {
 	initLoginPopupUpper();
 	initUserInfoPopup();
 	initWikiBorderless();
+	initTreeWithDynatree();
 	
 	jQuery(".popup .close").click(function() {
 		
