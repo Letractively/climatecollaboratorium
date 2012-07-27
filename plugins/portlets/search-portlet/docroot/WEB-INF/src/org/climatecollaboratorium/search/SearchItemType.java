@@ -29,7 +29,7 @@ import com.liferay.portal.search.lucene.LuceneUtil;
 
 public enum SearchItemType {
     
-    PLAN("Plans", new String[] {"entryClassName", "com.ext.portlet.plans.model.*" }, new String[] { "content", "title" },
+    PLAN("Proposals", new String[] {"entryClassName", "com.ext.portlet.plans.model.*" }, new String[] { "content", "title" },
             new String[] { "title" }, new String[] { "content" }, new URLCreator() {
                 public String getUrl(Document doc) {
                     String idStr = doc.get(Field.ENTRY_CLASS_PK);
@@ -71,7 +71,7 @@ public enum SearchItemType {
         }
     }),
 
-    BLOG("Blogs", new String[] {"entryClassName", "com.liferay.portlet.blogs.model.*" }, new String[] { "title", "content" },
+    BLOG("News", new String[] {"entryClassName", "com.liferay.portlet.blogs.model.*" }, new String[] { "title", "content" },
             new String[] { "title" }, new String[] { "content" }, new URLCreator() {
 
                 private static final String BLOG_URL_FORMAT = "/c/blogs/find_entry?redirect=/web/guest/community&noSuchEntryRedirect=/web/guest/community&entryId=%1$s";
