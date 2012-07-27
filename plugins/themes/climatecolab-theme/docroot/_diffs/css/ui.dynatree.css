@@ -120,6 +120,7 @@ span.dynatree-expander
 {
 	background-position: 0px -80px;
 	cursor: pointer;
+	margin-top: 7px;
 }
 .dynatree-exp-cl span.dynatree-expander /* Collapsed, not delayed, last sibling */
 {
@@ -445,9 +446,11 @@ span.dynatree-icon {
 	width: 0;
 	height: 0;
 }
-.dynatree-title {
-	
+ul.dynatree-container a.dynatree-title {
+	padding: 5px 0;
 }
+
+
 
 .dynatree-node h2 {
 	margin-top: 0;
