@@ -123,11 +123,9 @@ function initWikiBorderless() {
 function initTreeWithDynatree() {
     var treeContainer = jQuery(".jsTreeContainer");
     if (treeContainer.length > 0) {
-	    var hash = location.hash.toString();
-    	var nodeKeyPos = hash.indexOf('tree_');
+	    var nodeKey = location.hash.toString();
 
-	    if (hash.length > 0 && nodeKeyPos >= 0) {
-    		var nodeKey = hash.substring(nodeKeyPos + 5);
+	    if (nodeKey.length) {
     		var node = jQuery("#" + nodeKey);
     		if (node.length > 0) {
     			// remove expanded, active, selected from all nodes
