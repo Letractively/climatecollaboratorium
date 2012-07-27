@@ -125,8 +125,8 @@ function initTreeWithDynatree() {
     if (treeContainer.length > 0) {
 	    var nodeKey = location.hash.toString();
 
-	    if (nodeKey.length) {
-    		var node = jQuery("#" + nodeKey);
+	    if (nodeKey.length > 0) {
+    		var node = jQuery(nodeKey);
     		if (node.length > 0) {
     			// remove expanded, active, selected from all nodes
     			jQuery(".active, .expanded, .selected", treeContainer).removeClass("active").removeClass("expanded").removeClass("selected");
