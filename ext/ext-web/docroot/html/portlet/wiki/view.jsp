@@ -142,7 +142,11 @@ TagsUtil.addLayoutTagsEntries(request, TagsEntryLocalServiceUtil.getEntries(Wiki
                 <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
                 <a href="/web/guest/people"><%= curParentPage.getTitle() %></a>
     <%            
-                
+            } else if (curParentPage.getTitle().equals("Sponsors and Collaborators")){
+    %>
+                <img width="8" height="8" alt="" src="/collaboratorium-theme/images/arrow.gif">
+                <a href="/web/guest/sponsors"><%= curParentPage.getTitle() %></a>
+    <%                        
             } else {
                 viewParentPageURL.setParameter("title", curParentPage.getTitle());
     %>
