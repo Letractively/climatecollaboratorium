@@ -317,7 +317,8 @@ span.dynatree-expanded a
 {
 }
 
-span.dynatree-selected a
+span.dynatree-selected a,
+span.dynatree-selected h2
 {
 	color: green;
 	font-style: italic;
