@@ -149,6 +149,7 @@ public class ContestsBean {
                 if (c.isFeatured()) contestsFeatured.add(c);
                 else contestsNormal.add(c);
             }
+            /*
             Collections.sort(contestsNormal, new Comparator<ContestWrapper>() {
                 @Override
                 public int compare(ContestWrapper o1, ContestWrapper o2) {
@@ -161,6 +162,7 @@ public class ContestsBean {
                         return o2.getFlag() != null ? 1 : 0;
                 }  
             });
+            */
             
             boolean addToFirst = true;
             for (ContestWrapper c: contestsFeatured) {
