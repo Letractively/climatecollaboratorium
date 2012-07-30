@@ -29,5 +29,23 @@
     <condition type="parameter" name="redirect_to" operator="greater"> </condition>
     <to type="permanent-redirect" last="true">%{parameter:redirect_to}</to>
 </rule>
+
+ <rule>
+    <name>redirect sponsors rule</name>
+    <condition type="request-url" operator="equal">\/web\/guest\/resources\/-\/wiki\/Main\/Sponsors.and.Collaborators</condition>
+    <to type="permanent-redirect" last="true">/web/guest/sponsors</to>
+</rule>
+
+<rule>
+    <name>redirect resources rule</name>
+    <condition type="request-url" operator="equal">\/web\/guest\/resources\/-\/wiki\/Main\/Resources</condition>
+    <to type="permanent-redirect" last="true">/web/guest/resources</to>
+</rule>
+
+<rule>
+    <name>redirect about rule</name>
+    <condition type="request-url" operator="equal">\/web\/guest\/resources\/-\/wiki\/Main\/About</condition>
+    <to type="permanent-redirect" last="true">/web/guest/about</to>
+</rule>
 </urlrewrite>
 
