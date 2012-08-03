@@ -16,7 +16,11 @@
             </script>
         </ice:panelGroup>
     <collab:navigationManager />
-    <h1 class="spn">Search <span>&amp;nbsp;Results for "#{searchBean.searchPhrase}"</span></h1>
+    <h1 class="spn">Search 
+        <f:subview rendered="#{not empty searchBean.searchPhrase}">
+            <span>&amp;nbsp;Results for "#{searchBean.searchPhrase}"</span>
+        </f:subview>
+    </h1>
     
    
     <div id="searchFormContainerInline">
@@ -28,10 +32,11 @@
     <div id="main" class="searchresults">
     <ice:form>
             
-    <ice:panelGroup rendered="#{searchBean.data.rowCount == 0}">
+    <ice:panelGroup rendered="#{searchBean.data.rowCount == 0 and not empty searchBean.searchPhrase}">
         <br /><br />
         <p>Nothing has been found.</p>
     </ice:panelGroup>
+    
     <ice:panelSeries var="item" value="#{searchBean.data}" id="searchResults" rows="20" rowClasses="odd,even" styleClass="searchTable" >
     
       <div class="result #{item.odd ? 'blu' : ''}">
@@ -52,7 +57,7 @@
                     <td>
                         <ice:dataPaginator for="searchResults" rowsCountVar="rowsCount" displayedRowsCountVar="displayedRowsCountVar" 
                                 firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex" pageCountVar="pageCount" 
-                                pageIndexVar="pageIndex" >
+                                pageIndexVar="pageIndex" binding="#{searchBean.paginator1}">
                             <ice:outputFormat value="Page {0} of {1}" styleClass="page" escape="false">
                                 <f:param value="#{pageIndex}" />
                                 <f:param value="#{pageCount}" />
@@ -61,7 +66,7 @@
                         
                 </td>     
                 <td class="paginatorControls">
-                    <ice:dataPaginator rendered="true" for="searchResults" paginator="true" paginatorMaxPages="0" styleClass="comm_controls" style="display: inline;"> 
+                    <ice:dataPaginator rendered="true" for="searchResults" paginator="true" paginatorMaxPages="5" styleClass="comm_controls" style="display: inline;" binding="#{searchBean.paginator1}"> 
                         <f:facet name="first" rendered="true">
                             <ice:panelGroup >First</ice:panelGroup>
                         </f:facet>
@@ -85,9 +90,10 @@
     
     
     
-    
+    <p>&amp;nbsp;</p>
     
     </div> <!-- /main -->
+    
     <ice:form>
     <div class="right_col">
       <div class="comm_list">

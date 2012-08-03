@@ -44,7 +44,23 @@ public enum SearchItemType {
                     
                     return "/web/guest/plans";
                 }
-            }),
+     }),
+     CONTEST("Contests", new String[] {"entryClassName", "com.ext.portlet.contests.model.*" }, new String[] { "content", "title" },
+             new String[] { "title" }, new String[] { "content" }, new URLCreator() {
+                 public String getUrl(Document doc) {
+                     String idStr = doc.get(Field.ENTRY_CLASS_PK);
+                     try {
+                     	Long id = Long.parseLong(idStr);
+                     	Contest c = ContestLocalServiceUtil.getContest(id);
+                     	return "/web/guest/plans/-/plans/contestId/" + id; 
+                     }
+                     catch (Exception e) {
+                     	// ignore
+                     }
+                     
+                     return "/web/guest/plans";
+                 }
+            }),            
 
     USER("Users", new String[] { "active", "true" }, new String[] { "screenName", "firstName", "lastName" },
             new String[] { "screenName" }, new String[] { "firstName", "lastName" }, new URLCreator() {
@@ -82,7 +98,23 @@ public enum SearchItemType {
                     return String.format(BLOG_URL_FORMAT, id);
                 }
             }),
+            /*
+     ARTICLE("Page", new String[] {"entryClassName", "com.liferay.portlet.journal.model.*" }, new String[] { "title", "content" },
+    		
+    		new String[] { "title" }, new String[] { "content" }, new URLCreator() {
 
+    	 		private static final String BLOG_URL_FORMAT = "/c/blogs/find_entry?redirect=/web/guest/community&noSuchEntryRedirect=/web/guest/community&entryId=%1$s";
+
+                        @Override
+                        public String getUrl(Document doc) {
+                        	System.out.println(doc.getFields());
+                        	
+                        	
+                            String id = doc.get(Field.ENTRY_CLASS_PK);
+                            return String.format(BLOG_URL_FORMAT, id);
+                        }
+            }),
+*/
     DISCUSSION("Discussions", new String[] { "entryClassName", "com.ext.portlet.discussions.model.*" }, new String[] { "title",
             "content" }, new String[] { "title" }, new String[] { "content" }, new URLCreator() {
 
