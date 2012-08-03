@@ -1,4 +1,4 @@
 <Context
-path="search"
-docBase="/home/janusz/workdir/liferay/plugins-svn/portlets/search-portlet/docroot"
+path="search-portlet"
+docBase="/home/janusz/workdir/colab/plugins/portlets/search-portlet/docroot"
 />

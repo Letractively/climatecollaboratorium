@@ -19,6 +19,7 @@ import org.climatecollaboratorium.search.utils.DataPage;
 import org.climatecollaboratorium.search.utils.DataSource;
 import org.climatecollaboratorium.search.utils.PagedListDataModel;
 
+import com.icesoft.faces.component.datapaginator.DataPaginator;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
@@ -36,6 +37,8 @@ public class SearchBean extends DataSource {
     private SearchItemType selectedSearchItemType;
     private EventBus eventBus;
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
+    private DataPaginator paginator1 = new DataPaginator();
+    private DataPaginator paginator2 = new DataPaginator();
     
     private final static Log _log = LogFactoryUtil.getLog(SearchBean.class); 
     
@@ -152,12 +155,17 @@ public class SearchBean extends DataSource {
     }
 
     private class LocalDataModel extends PagedListDataModel {
+    	private boolean resetPager = true;
         public LocalDataModel(int pageSize) {
             super(pageSize);
         }
 
         public DataPage fetchPage(int startRow, int pageSize) {
             // call enclosing managed bean method to fetch the data
+        	if (resetPager) {
+        		startRow = 0;
+            	resetPager = false;
+        	}
             try {
                 return getDataPage(startRow, pageSize);
             }
@@ -186,6 +194,8 @@ public class SearchBean extends DataSource {
         }
         else {
             selectedSearchItemType = SearchItemType.valueOf(typeStr);
+            startFrom = 0;
+            paginator1.gotoFirstPage();
         }
         onePageDataModel = null;
     }
@@ -234,4 +244,20 @@ public class SearchBean extends DataSource {
         }));
         
     }
+
+	public DataPaginator getPaginator1() {
+		return paginator1;
+	}
+
+	public void setPaginator1(DataPaginator paginator1) {
+		this.paginator1 = paginator1;
+	}
+
+	public DataPaginator getPaginator2() {
+		return paginator2;
+	}
+
+	public void setPaginator2(DataPaginator paginator2) {
+		this.paginator2 = paginator2;
+	}
 }
