@@ -9,6 +9,7 @@
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>contests</portlet-name>
+		<indexer-class>org.climatecollaboratorium.contests.Indexer</indexer-class>
 		<instanceable>true</instanceable>
 		<header-portlet-css>/xmlhttp/css/discussion/discussion.css</header-portlet-css>
 		<header-portlet-css>/css/contests.css</header-portlet-css>

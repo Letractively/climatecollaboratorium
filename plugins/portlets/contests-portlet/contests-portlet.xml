@@ -6,5 +6,5 @@
 
 <Context
 path="discussions"
-docBase="/home/janusz/workdir/liferay/plugins-svn/portlets/contests-portlet/docroot"
+docBase="/home/janusz/workdir/colab/plugins/portlets/contests-portlet/docroot"
 />
