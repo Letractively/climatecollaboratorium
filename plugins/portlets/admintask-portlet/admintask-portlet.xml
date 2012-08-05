@@ -6,5 +6,5 @@
 
 <Context
 path="ontology"
-docBase="/home/janusz/workdir/liferay/plugins-svn/portlets/admintask-portlet/docroot"
+docBase="/home/janusz/workdir/colab/plugins/portlets/admintask-portlet/docroot"
 />
