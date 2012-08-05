@@ -4,10 +4,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Collaboratorium - Repo"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Shared Collab Facelets"/>
-	<classpathentry kind="lib" path="/home/janusz/workdir/liferay/ext-svn/ext-lib/global/client-1.0-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="docroot/WEB-INF/lib/prettytime-1.0.8.Final.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ext"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/portal"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sharedcollabfacelets-portlet"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ColabExt"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
