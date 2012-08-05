@@ -11,9 +11,9 @@
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/push-server.jar"/>
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/shared_collab_facelets.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Liferay Portal"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Collab"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Portal"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Collaboratorium - Repo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ext"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/portal"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

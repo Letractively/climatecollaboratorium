@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.climatecollaboratorium.facelets.plans.wrappers.PlanItemWrapper;
 
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanAttribute;
 import com.ext.portlet.plans.model.PlanDescription;
@@ -13,8 +14,19 @@ import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanSectionLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.model.RoleConstants;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.service.PermissionLocalServiceUtil;
+import com.liferay.portal.service.ResourceLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
+import com.liferay.portlet.admin.action.ActionUtil;
 import com.liferay.portlet.blogs.model.BlogsEntry;
 import com.liferay.portlet.blogs.service.BlogsEntryLocalServiceUtil;
+import com.liferay.portlet.wiki.model.WikiPage;
+import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
+import com.liferay.portlet.wiki.service.permission.WikiPagePermission;
 
 public class AdminTasksBean {
 
@@ -81,5 +93,20 @@ public class AdminTasksBean {
             plan.setSectionContent(sections.get(0).getDefinition(), plan.getDescription(), null, plan.getAuthorId());
         }
         return null;
+    }
+
+    private final long defaultCompanyId = 10112L;
+    public String fixWikiPermissions() throws SystemException, PortalException {
+    	
+    	Long companyId = defaultCompanyId;
+        Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
+        String[] guestActions = { ActionKeys.VIEW };
+        
+    	for (WikiPage wp: WikiPageLocalServiceUtil.getWikiPages(0,  Integer.MAX_VALUE)) {
+            PermissionLocalServiceUtil.setRolePermissions(guest.getRoleId(), companyId,
+                    WikiPage.class.getName(), ResourceConstants.SCOPE_GROUP,
+                    String.valueOf(wp.getResourcePrimKey()), guestActions);
+    	}
+    	return null;
     }
 }
