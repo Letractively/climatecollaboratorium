@@ -117,12 +117,14 @@ public class SocialActivityNotifyingServiceImpl extends SocialActivityLocalServi
                         InternetAddress toEmail = new InternetAddress(receipient.getEmailAddress());
                         String message = messageTemplate
                                 .replace(USER_PROFILE_LINK_PLACEHOLDER, getUserLink(receipient));
-                        MailEngine.send(fromEmail, toEmail, subject, message, true);
+                        
+                        //MailEngine.send(fromEmail, toEmail, subject, message, true);
+                        System.out.println("Would send email from: " + fromEmail + "\tto: " + toEmail + "\tsubject: " + subject);
                     }
 
                 }
-            } catch (MailEngineException e) {
-                _log.error("Can't send email message", e);
+            //} catch (MailEngineException e) {
+            //    _log.error("Can't send email message", e);
             } catch (AddressException e) {
                 _log.error("Can't send email message", e);
             }
