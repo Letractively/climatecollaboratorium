@@ -12,19 +12,24 @@ import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanSection;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanSectionLocalServiceUtil;
+import com.liferay.portal.NoSuchResourceException;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.Resource;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.PermissionLocalServiceUtil;
+import com.liferay.portal.service.PermissionServiceUtil;
 import com.liferay.portal.service.ResourceLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portlet.admin.action.ActionUtil;
 import com.liferay.portlet.blogs.model.BlogsEntry;
 import com.liferay.portlet.blogs.service.BlogsEntryLocalServiceUtil;
 import com.liferay.portlet.wiki.model.WikiPage;
+import com.liferay.portlet.wiki.service.WikiNodeLocalServiceUtil;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
 import com.liferay.portlet.wiki.service.permission.WikiPagePermission;
 
@@ -102,10 +107,38 @@ public class AdminTasksBean {
         Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
         String[] guestActions = { ActionKeys.VIEW };
         
+        int idx = 0;
+        int total = WikiPageLocalServiceUtil.getWikiPagesCount();
+        
+        String[] actionIds = {ActionKeys.VIEW};
     	for (WikiPage wp: WikiPageLocalServiceUtil.getWikiPages(0,  Integer.MAX_VALUE)) {
-            PermissionLocalServiceUtil.setRolePermissions(guest.getRoleId(), companyId,
-                    WikiPage.class.getName(), ResourceConstants.SCOPE_GROUP,
+    		idx++;
+    		System.out.println(idx + " of " + total);
+    		
+    		Resource resource = null;
+
+    		try {
+    	        resource = ResourceLocalServiceUtil.getResource(defaultCompanyId, 
+    	        		WikiPage.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL, String.valueOf(wp.getResourcePrimKey()));
+    		}
+    		catch (NoSuchResourceException nsre) {
+    			System.out.println("Can't find resource for page: " + wp.getPageId());
+    			resource = ResourceLocalServiceUtil.addResource(defaultCompanyId, WikiPage.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL, String.valueOf(wp.getResourcePrimKey()));
+    			System.out.println("New resource created: " + resource.getResourceId());
+    			ResourceLocalServiceUtil.updateResource(resource);
+    			continue;
+    		}
+
+            /*PermissionLocalServiceUtil.setRolePermissions(guest.getRoleId(), companyId,
+                    WikiPage.class.getName(), ResourceConstants.SCOPE_COMPANY,
                     String.valueOf(wp.getResourcePrimKey()), guestActions);
+                    */
+    		PermissionLocalServiceUtil.setRolePermissions(guest.getRoleId(), actionIds, resource.getResourceId()); 
+            
+			/*PermissionServiceUtil.setRolePermissions(
+					guest.getRoleId(), wp.getGroupId(), actionIds,
+					resource.getResourceId());
+					*/
     	}
     	return null;
     }
