@@ -819,8 +819,16 @@ function showAlertIfInEdit(text) {
 
 
 function monitorUploadFrame() {
-	setTimeout(function() {
+	var imgContainer = jQuery(".proposalImageUpload .uploadbox");
 		jQuery('.proposalImageUpload iframe').load(function() {
-			jQuery(".signalPictureUploaded").click(); 
-		})}, 4000);
+			
+			var imgUrl = jQuery(this).contents().find("input.filepcTxt").attr("title");
+			if (imgUrl) {
+				imgUrl = jQuery.trim(imgUrl);
+				if (imgUrl.length > 0) {
+					var imgElement = "<img src='" + imgUrl + "' width='50px' height='50px' />";
+					imgContainer.html(imgElement);
+				}
+			} 
+		});
 }
