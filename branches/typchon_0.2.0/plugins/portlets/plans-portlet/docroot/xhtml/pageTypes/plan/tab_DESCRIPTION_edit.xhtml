@@ -23,7 +23,7 @@
 
     <ice:form styleClass="addpropform">
     <div class="prop-left" id="addpropform">
-        <div class="addpropbox q1">
+        <ice:panelGroup styleClass="addpropbox q1">
             <label>
                 <strong>Title</strong> 
                 <a class="helpTrigger" href="javascript:;"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
@@ -41,8 +41,8 @@
                     <textarea class="originalValue">#{plan.plan.originalName}</textarea>
                 </div>
             </div>
-        </div>
-        <div class="addpropbox blue q2">
+        </ice:panelGroup>
+        <ice:panelGroup styleClass="addpropbox blue q2">
             <label>
                 <span><strong>Team name</strong><br />
                 <em>optional</em></span> 
@@ -57,11 +57,11 @@
                     <textarea class="originalValue">#{plan.plan.originalTeam}</textarea>
                 </div>
             </div>
-        </div>
+        </ice:panelGroup>
         
         <div class="notation">Note: If you enter a team name, it will replace the proposal owner's name in the Author field.</div>
         
-        <div class="addpropbox blue">
+        <ice:panelGroup styleClass="addpropbox blue">
             <label>
                 <span><strong>Proposal image</strong><br />
                 <em>optional</em></span>
@@ -74,7 +74,7 @@
                     </div>
                             
                     <div id="uploadWidget">
-                        <ice:inputFile actionListener="#{proposal.plan.uploadImage}" styleClass="filepc" autoUpload="true" >
+                        <ice:inputFile actionListener="#{proposal.plan.uploadImage}" styleClass="filepc" title="#{proposal.plan.image}" autoUpload="true" value="#{proposal.plan.image}">
                             <ice:outputStyle href="/css/proposals.css" />
                         </ice:inputFile><br />
                     </div>
@@ -85,9 +85,9 @@
                         monitorUploadFrame();
                     </script>
             </ice:panelGroup>
-        </div>
+        </ice:panelGroup>
 
-        <div class="addpropbox q3">
+        <ice:panelGroup styleClass="addpropbox q3">
             <label>
                 <strong>Pitch</strong> 
                 <a href="javascript:;" class="helpTrigger"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
@@ -116,13 +116,13 @@
                     }
                 });
             </script>
-        </div>
+        </ice:panelGroup>
         
         <!--  if proposal has sections - render edit forms for sections -->
-        <f:subview rendered="#{proposal.plan.hasSections}">
+        <ice:panelGroup rendered="#{proposal.plan.hasSections}">
             <ice:panelSeries var="section" value="#{proposal.plan.sections}">
-                <f:subview rendered="#{not section.section.definition.locked}">
-                  <div class="addpropbox q3">
+                <ice:panelGroup rendered="#{not section.section.definition.locked}">
+                  <ice:panelGroup styleClass="addpropbox q3">
                     <label>
                         <strong>#{section.section.definition.title}</strong> 
                         <a href="javascript:;" class="helpTrigger"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
@@ -143,9 +143,9 @@
                             <textarea class="originalValue">#{section.originalContent}</textarea>
                         </div>
                     </div>
-                  </div>
-                </f:subview>
-                <f:subview rendered="#{section.section.definition.locked}">
+                  </ice:panelGroup>
+                </ice:panelGroup>
+                <ice:panelGroup rendered="#{section.section.definition.locked}">
                   <div class="addpropbox q3">
                     <label>
                         <strong>#{section.section.definition.title}</strong> 
@@ -159,12 +159,12 @@
                     </div>
                     <div class="clearfix"></div>
                   </div>
-                </f:subview>
+                </ice:panelGroup>
             </ice:panelSeries>
-        </f:subview>
+        </ice:panelGroup>
         
-        <f:subview rendered="#{not proposal.plan.hasSections}">
-            <div class="addpropbox">
+        <ice:panelGroup rendered="#{not proposal.plan.hasSections}">
+            <ice:panelGroup styleClass="addpropbox">
                 <label>
                     <strong>Description</strong> 
                     <a href="javascript:;" class="helpTrigger"><img src="/climatecolab-theme/images/icon-addprop-question.png" width="15" height="15" /></a><br />
@@ -176,8 +176,8 @@
                         <textarea class="originalValue">#{plan.plan.originalDescription}</textarea>
                     </div>
                 </div>
-            </div>
-        </f:subview>
+            </ice:panelGroup>
+        </ice:panelGroup>
         
         
    
