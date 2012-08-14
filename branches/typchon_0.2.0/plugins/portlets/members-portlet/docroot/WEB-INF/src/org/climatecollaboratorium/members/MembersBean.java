@@ -156,7 +156,7 @@ public class MembersBean {
     }
 
     private void updateSearchResults() throws SystemException, NumberFormatException, PortalException, ParseException {
-      searchResults.clear();
+    	searchResults.clear();
       
         LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
         
@@ -214,8 +214,16 @@ public class MembersBean {
                 if (o1Val instanceof String && o2Val instanceof String) {
                     ret = ((String) o1Val).compareToIgnoreCase((String) o2Val);
                 }
+                else if (o1Val != null) {
+                	if (o2Val != null) {
+                		ret = o1Val.compareTo(o2Val);
+                	}
+                	else {
+                		ret = -1;
+                	}
+                }
                 else {
-                    ret = o1Val.compareTo(o2Val);
+                	ret = o2Val != null ? 1 : 0;
                 }
                 
                 return sortAscending ? ret : -ret;
