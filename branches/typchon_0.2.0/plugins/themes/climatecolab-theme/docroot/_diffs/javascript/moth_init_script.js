@@ -140,6 +140,49 @@ function initTreeWithDynatree() {
     }
 }
 
+function removeMSWordChars(str) {
+    var myReplacements = new Array();
+    var myCode, intReplacement;
+    myReplacements[8216] = 39;
+    myReplacements[8217] = 39;
+    myReplacements[8220] = 34;
+    myReplacements[8221] = 34;
+    myReplacements[8212] = 45;
+    var result = [];
+    for(c=0; c<str.length; c++) {
+        var currentChar = str.charCodeAt(c);
+        if(myReplacements[currentChar] != undefined) {
+            currentChar = myReplacements[currentChar];
+        }
+        result.push(currentChar);
+    }
+    return result.join("");
+}
+
+/**
+ * Function cleans up form inputs by replacing MSWord characters with UTF-8 equivalents
+ */
+function initMSWordCharsCleanup() {
+	
+	function cleanUpInputs(form) {
+		form.find("input[type=text], textarea").each(function() {
+			var input = $(self);
+			input.val( removeMSWordChars(input.val()) );
+		});
+	}
+	
+	jQuery("form").each(function() {
+		var form = jQuery(this);
+		form.submit(function() {
+			cleanUpInputs(form);
+		});
+		form.find('button, input[type="submit"], input[type="button"]').click(function() {
+			cleanUpInputs(form);
+		});
+	});
+	
+}
+
 function deferUntilLogin(fn) {
  
     if (Liferay.ThemeDisplay.isSignedIn()) {
@@ -215,6 +258,7 @@ jQuery(document).ready(function() {
 	initUserInfoPopup();
 	initWikiBorderless();
 	initTreeWithDynatree();
+	initMSWordCharsCleanup();
 	
 	jQuery(".popup .close").click(function() {
 		
