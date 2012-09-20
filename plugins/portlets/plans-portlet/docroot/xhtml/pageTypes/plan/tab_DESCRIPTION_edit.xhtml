@@ -225,7 +225,9 @@
                         return editor.document['$'].body.textContent.length;
                         
                     }
-                    return editor.document['$'].body.innerText.length;
+                    if (editor.document['$'].body.innerText) {
+                        return editor.document['$'].body.innerText.length;
+                    }
                 }
                 return input.val().replace(/&lt;[^&gt;]*&gt;/g, "").replace(/\s+/g, " ").length;
                 
