@@ -163,7 +163,7 @@
     <div class="clearfix"></div>
     <f:subview rendered="#{not discussionBean.userLoggedIn}">
     <div class="logInOrRegister">
-      <h2 style="text-align: center; margin-top: 10px;"><span>To comment, reply or recommend please &amp;nbsp;<a href="javascript:;" class="loginnew">Log In</a> or &amp;nbsp;<a href="javascript:;" class="openregnew">Create An Account.</a></span></h2>
+      <h2 style="text-align: center; margin-top: 10px;"><span>To comment, reply or recommend please &amp;nbsp;<a href="javascript:" onclick="deferUntilLogin();">Log In</a> or &amp;nbsp;<a href="/web/guest/loginregister" >Create An Account.</a></span></h2>
     </div>
     <script>
         jQuery('.openregnew').click(function() {
