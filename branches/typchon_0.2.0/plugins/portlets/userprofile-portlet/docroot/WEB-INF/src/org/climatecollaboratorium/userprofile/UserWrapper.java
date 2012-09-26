@@ -67,8 +67,8 @@ public class UserWrapper {
     
     private void init(User user) throws PortalException, SystemException {
         this.user = user;
-        about = HtmlUtil.escape(ExpandoValueLocalServiceUtil.getData(User.class.getName(), CommunityConstants.EXPANDO, 
-                CommunityConstants.BIO, user.getUserId(), StringPool.BLANK));
+        about = ExpandoValueLocalServiceUtil.getData(User.class.getName(), CommunityConstants.EXPANDO, 
+                CommunityConstants.BIO, user.getUserId(), StringPool.BLANK);
         filteredAbout = Helper.filterLinkifyUrls(Helper.filterLineBreaks(about));
         
         realName = getName(user.getFullName(), user.getScreenName());
