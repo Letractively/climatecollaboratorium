@@ -72,7 +72,7 @@ public enum SearchItemType {
             }
     ), 
     
-    WIKI("Wiki pages", new String[] { "entryClassName", "com.liferay.portlet.wiki.model.*" }, new String[] { "title",
+    CONTENT("Content", new String[] { "entryClassName", "com.liferay.portlet.wiki.model.*" }, new String[] { "title",
             "content" }, new String[] { "title" }, new String[] { "content" }, new URLCreator() {
 
         @Override
