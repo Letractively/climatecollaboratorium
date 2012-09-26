@@ -302,12 +302,12 @@ span.dynatree-folder a
 {
 	font-weight: bold;
 }
-
+/*
 ul.dynatree-container a:focus,
-span.dynatree-focused a:link  /* @IE */
-{
-	background-color: #EFEBDE; /* gray */
+span.dynatree-focused a:link  
+	background-color: #EFEBDE; 
 }
+*/
 
 span.dynatree-has-children a
 {
