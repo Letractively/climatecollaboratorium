@@ -159,29 +159,7 @@ function removeMSWordChars(str) {
     return result.join("");
 }
 
-/**
- * Function cleans up form inputs by replacing MSWord characters with UTF-8 equivalents
- */
-function initMSWordCharsCleanup() {
-	
-	function cleanUpInputs(form) {
-		form.find("input[type=text], textarea").each(function() {
-			var input = $(self);
-			input.val( removeMSWordChars(input.val()) );
-		});
-	}
-	
-	jQuery("form").each(function() {
-		var form = jQuery(this);
-		form.submit(function() {
-			cleanUpInputs(form);
-		});
-		form.find('button, input[type="submit"], input[type="button"]').click(function() {
-			cleanUpInputs(form);
-		});
-	});
-	
-}
+
 
 function deferUntilLogin(fn) {
  
@@ -258,7 +236,6 @@ jQuery(document).ready(function() {
 	initUserInfoPopup();
 	initWikiBorderless();
 	initTreeWithDynatree();
-	initMSWordCharsCleanup();
 	
 	jQuery(".popup .close").click(function() {
 		
