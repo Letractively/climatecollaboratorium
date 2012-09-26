@@ -323,12 +323,13 @@ span.dynatree-selected h2
 	color: green;
 	font-style: italic;
 }
-
+/*
 span.dynatree-active a
 {
 	background-color: #3169C6 !important;
-	color: white !important; /* @ IE6 */
+	color: white !important; 
 }
+*/
 
 /*******************************************************************************
  * Drag'n'drop support
