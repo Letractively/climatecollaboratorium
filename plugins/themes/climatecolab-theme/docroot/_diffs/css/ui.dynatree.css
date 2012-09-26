@@ -5,7 +5,7 @@ ul.dynatree-container
 {
 	/*font-family: tahoma, arial, helvetica;*/
 	
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 	padding: 3px;
 	margin: 0; /* issue 201 */
 	background-color: white;
@@ -104,6 +104,7 @@ span.dynatree-connector
 {
 	background-position: -16px -64px;
 	margin-top: 8px;
+	position: absolute;
 }
 
 /*******************************************************************************
@@ -450,7 +451,11 @@ span.dynatree-icon {
 	height: 0;
 }
 ul.dynatree-container a.dynatree-title {
-	padding: 5px 0;
+	padding: 5px 0 0 20px;	
+}
+
+ul.dynatree-container .dynatree-has-children a.dynatree-title {
+	padding-left: 5px;
 }
 
 
