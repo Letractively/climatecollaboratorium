@@ -58,7 +58,7 @@ FCKeditor.MinHeight = 200 ;
  * The minimum width used when replacing textareas.
  */
 FCKeditor.MinWidth = 750 ;
-
+FCKConfig.ProcessHTMLEntities = false ;
 FCKeditor.prototype.Version			= '2.6.3' ;
 FCKeditor.prototype.VersionBuild	= '19836' ;
 
@@ -325,4 +325,14 @@ function FCKeditor_IsCompatibleBrowser()
 		return ( sAgent.match( / applewebkit\/(\d+)/ )[1] >= 522 ) ;	// Build must be at least 522 (v3)
 
 	return false ;
+}
+
+function doSave(x, y, z) {
+	alert("do save!");
+	console.log('do save', x, y, z);
+	
+}
+
+function FCKeditor_OnComplete( editorInstance ){
+    editorInstance.LinkedField.form.onsubmit = doSave;
 }
