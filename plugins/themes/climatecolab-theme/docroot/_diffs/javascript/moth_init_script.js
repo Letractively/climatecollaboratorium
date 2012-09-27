@@ -134,10 +134,13 @@ function initTreeWithDynatree() {
     			node.parents("li").addClass("expanded");
     		}
     	}
-    
-
     	treeContainer.dynatree();
     }
+}
+
+function expandDynatree() { 
+	var treeContainer = jQuery(".jsTreeContainer");
+	treeContainer.dynatree("getTree").visit(function(node) {node.expand(true); }, true); 
 }
 
 function removeMSWordChars(str) {
