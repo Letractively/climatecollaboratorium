@@ -58,7 +58,6 @@ FCKeditor.MinHeight = 200 ;
  * The minimum width used when replacing textareas.
  */
 FCKeditor.MinWidth = 750 ;
-FCKConfig.ProcessHTMLEntities = false ;
 FCKeditor.prototype.Version			= '2.6.3' ;
 FCKeditor.prototype.VersionBuild	= '19836' ;
 
