@@ -137,6 +137,33 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 Integer.class.getName(), String.class.getName(),
                 Long.class.getName()
             });
+    public static final FinderPath FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATA =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByClassNameIdClassPKTypeExtraData",
+            new String[] {
+                Long.class.getName(), Long.class.getName(),
+                Integer.class.getName(), String.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPEEXTRADATA =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "findByClassNameIdClassPKTypeExtraData",
+            new String[] {
+                Long.class.getName(), Long.class.getName(),
+                Integer.class.getName(), String.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATA =
+        new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
+            ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
+            FINDER_CLASS_NAME_LIST, "countByClassNameIdClassPKTypeExtraData",
+            new String[] {
+                Long.class.getName(), Long.class.getName(),
+                Integer.class.getName(), String.class.getName()
+            });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ActivitySubscriptionModelImpl.ENTITY_CACHE_ENABLED,
             ActivitySubscriptionModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
@@ -1711,6 +1738,369 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeExtraData(
+        Long classNameId, Long classPK, Integer type, String extraData)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { classNameId, classPK, type, extraData };
+
+        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATA,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
+                }
+
+                query.append(" AND ");
+
+                if (extraData == null) {
+                    query.append("extraData IS NULL");
+                } else {
+                    query.append("extraData = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
+                }
+
+                if (extraData != null) {
+                    qPos.add(extraData);
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ActivitySubscription>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATA,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeExtraData(
+        Long classNameId, Long classPK, Integer type, String extraData,
+        int start, int end) throws SystemException {
+        return findByClassNameIdClassPKTypeExtraData(classNameId, classPK,
+            type, extraData, start, end, null);
+    }
+
+    public List<ActivitySubscription> findByClassNameIdClassPKTypeExtraData(
+        Long classNameId, Long classPK, Integer type, String extraData,
+        int start, int end, OrderByComparator obc) throws SystemException {
+        Object[] finderArgs = new Object[] {
+                classNameId,
+                
+                classPK,
+                
+                type,
+                
+                extraData,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<ActivitySubscription> list = (List<ActivitySubscription>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPEEXTRADATA,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
+                }
+
+                query.append(" AND ");
+
+                if (extraData == null) {
+                    query.append("extraData IS NULL");
+                } else {
+                    query.append("extraData = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
+                }
+
+                if (extraData != null) {
+                    qPos.add(extraData);
+                }
+
+                list = (List<ActivitySubscription>) QueryUtil.list(q,
+                        getDialect(), start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ActivitySubscription>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_CLASSNAMEIDCLASSPKTYPEEXTRADATA,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public ActivitySubscription findByClassNameIdClassPKTypeExtraData_First(
+        Long classNameId, Long classPK, Integer type, String extraData,
+        OrderByComparator obc)
+        throws NoSuchSubscriptionException, SystemException {
+        List<ActivitySubscription> list = findByClassNameIdClassPKTypeExtraData(classNameId,
+                classPK, type, extraData, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ActivitySubscription exists with the key {");
+
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(", ");
+            msg.append("classPK=" + classPK);
+
+            msg.append(", ");
+            msg.append("type=" + type);
+
+            msg.append(", ");
+            msg.append("extraData=" + extraData);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchSubscriptionException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ActivitySubscription findByClassNameIdClassPKTypeExtraData_Last(
+        Long classNameId, Long classPK, Integer type, String extraData,
+        OrderByComparator obc)
+        throws NoSuchSubscriptionException, SystemException {
+        int count = countByClassNameIdClassPKTypeExtraData(classNameId,
+                classPK, type, extraData);
+
+        List<ActivitySubscription> list = findByClassNameIdClassPKTypeExtraData(classNameId,
+                classPK, type, extraData, count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ActivitySubscription exists with the key {");
+
+            msg.append("classNameId=" + classNameId);
+
+            msg.append(", ");
+            msg.append("classPK=" + classPK);
+
+            msg.append(", ");
+            msg.append("type=" + type);
+
+            msg.append(", ");
+            msg.append("extraData=" + extraData);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchSubscriptionException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ActivitySubscription[] findByClassNameIdClassPKTypeExtraData_PrevAndNext(
+        Long pk, Long classNameId, Long classPK, Integer type,
+        String extraData, OrderByComparator obc)
+        throws NoSuchSubscriptionException, SystemException {
+        ActivitySubscription activitySubscription = findByPrimaryKey(pk);
+
+        int count = countByClassNameIdClassPKTypeExtraData(classNameId,
+                classPK, type, extraData);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
+
+            if (classNameId == null) {
+                query.append("classNameId IS NULL");
+            } else {
+                query.append("classNameId = ?");
+            }
+
+            query.append(" AND ");
+
+            if (classPK == null) {
+                query.append("classPK IS NULL");
+            } else {
+                query.append("classPK = ?");
+            }
+
+            query.append(" AND ");
+
+            if (type == null) {
+                query.append("type_ IS NULL");
+            } else {
+                query.append("type_ = ?");
+            }
+
+            query.append(" AND ");
+
+            if (extraData == null) {
+                query.append("extraData IS NULL");
+            } else {
+                query.append("extraData = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (classNameId != null) {
+                qPos.add(classNameId.longValue());
+            }
+
+            if (classPK != null) {
+                qPos.add(classPK.longValue());
+            }
+
+            if (type != null) {
+                qPos.add(type.intValue());
+            }
+
+            if (extraData != null) {
+                qPos.add(extraData);
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    activitySubscription);
+
+            ActivitySubscription[] array = new ActivitySubscriptionImpl[3];
+
+            array[0] = (ActivitySubscription) objArray[0];
+            array[1] = (ActivitySubscription) objArray[1];
+            array[2] = (ActivitySubscription) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -1838,6 +2228,14 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
         Long receiverId) throws SystemException {
         for (ActivitySubscription activitySubscription : findByClassNameIdClassPKTypeExtraDataReceiverId(
                 classNameId, classPK, type, extraData, receiverId)) {
+            remove(activitySubscription);
+        }
+    }
+
+    public void removeByClassNameIdClassPKTypeExtraData(Long classNameId,
+        Long classPK, Integer type, String extraData) throws SystemException {
+        for (ActivitySubscription activitySubscription : findByClassNameIdClassPKTypeExtraData(
+                classNameId, classPK, type, extraData)) {
             remove(activitySubscription);
         }
     }
@@ -2177,6 +2575,95 @@ public class ActivitySubscriptionPersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATARECEIVERID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByClassNameIdClassPKTypeExtraData(Long classNameId,
+        Long classPK, Integer type, String extraData) throws SystemException {
+        Object[] finderArgs = new Object[] { classNameId, classPK, type, extraData };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATA,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.Activity.model.ActivitySubscription WHERE ");
+
+                if (classNameId == null) {
+                    query.append("classNameId IS NULL");
+                } else {
+                    query.append("classNameId = ?");
+                }
+
+                query.append(" AND ");
+
+                if (classPK == null) {
+                    query.append("classPK IS NULL");
+                } else {
+                    query.append("classPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (type == null) {
+                    query.append("type_ IS NULL");
+                } else {
+                    query.append("type_ = ?");
+                }
+
+                query.append(" AND ");
+
+                if (extraData == null) {
+                    query.append("extraData IS NULL");
+                } else {
+                    query.append("extraData = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (classNameId != null) {
+                    qPos.add(classNameId.longValue());
+                }
+
+                if (classPK != null) {
+                    qPos.add(classPK.longValue());
+                }
+
+                if (type != null) {
+                    qPos.add(type.intValue());
+                }
+
+                if (extraData != null) {
+                    qPos.add(extraData);
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CLASSNAMEIDCLASSPKTYPEEXTRADATA,
                     finderArgs, count);
 
                 closeSession(session);

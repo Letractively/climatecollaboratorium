@@ -205,6 +205,43 @@ public interface ActivitySubscriptionPersistence extends BasePersistence {
         throws com.ext.portlet.Activity.NoSuchSubscriptionException,
             com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeExtraData(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeExtraData(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData, int start, int end)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByClassNameIdClassPKTypeExtraData(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.Activity.model.ActivitySubscription findByClassNameIdClassPKTypeExtraData_First(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.Activity.NoSuchSubscriptionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.Activity.model.ActivitySubscription findByClassNameIdClassPKTypeExtraData_Last(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.Activity.NoSuchSubscriptionException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.Activity.model.ActivitySubscription[] findByClassNameIdClassPKTypeExtraData_PrevAndNext(
+        java.lang.Long pk, java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.Activity.NoSuchSubscriptionException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -240,6 +277,11 @@ public interface ActivitySubscriptionPersistence extends BasePersistence {
         java.lang.Integer type, java.lang.String extraData,
         java.lang.Long receiverId) throws com.liferay.portal.SystemException;
 
+    public void removeByClassNameIdClassPKTypeExtraData(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData)
+        throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByreceiverId(java.lang.Long receiverId)
@@ -258,6 +300,11 @@ public interface ActivitySubscriptionPersistence extends BasePersistence {
         java.lang.Long classNameId, java.lang.Long classPK,
         java.lang.Integer type, java.lang.String extraData,
         java.lang.Long receiverId) throws com.liferay.portal.SystemException;
+
+    public int countByClassNameIdClassPKTypeExtraData(
+        java.lang.Long classNameId, java.lang.Long classPK,
+        java.lang.Integer type, java.lang.String extraData)
+        throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;
 }

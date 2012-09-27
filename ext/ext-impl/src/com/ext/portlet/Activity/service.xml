@@ -54,6 +54,13 @@
             <finder-column name="extraData"  />
             <finder-column name="receiverId" />
         </finder>
+        
+        <finder name="ClassNameIdClassPKTypeExtraData" return-type="Collection">
+            <finder-column name="classNameId" />
+            <finder-column name="classPK" />
+            <finder-column name="type" />
+            <finder-column name="extraData"  />
+        </finder>
 
 		
 	</entity>
