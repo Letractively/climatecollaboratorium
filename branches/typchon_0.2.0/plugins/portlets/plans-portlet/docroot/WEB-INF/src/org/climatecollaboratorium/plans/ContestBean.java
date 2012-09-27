@@ -12,15 +12,21 @@ import org.climatecollaboratorium.plans.exceptions.BeanInitializationException;
 import org.climatecollaboratorium.plans.wrappers.ContestPhaseWrapper;
 import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
 
+import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.contests.NoSuchContestPhaseException;
+import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.model.ContestStatus;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
+import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.climatecollaboratorium.plans.wrappers.PlanModelWrapper;
+import org.climatecollaboratorium.utils.Helper;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -171,6 +177,45 @@ public class ContestBean {
     public ContestState getContestState() {
         return contestState;
     }
+    
+    public boolean isUserSubscribed() throws PortalException, SystemException {
+        if (Helper.isUserLoggedIn()) {
+            boolean subscribed =  ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(),
+                    Contest.class, contest.getContestId(), null, "");
+            return subscribed;
+        }
+        return false;
+    }
+    
+    public void subscribe(ActionEvent e) throws PortalException, SystemException {
+    	if (Helper.isUserLoggedIn()) {
+    		ActivitySubscriptionLocalServiceUtil.addSubscription(Contest.class, contest.getContestId(), null, "", Helper.getLiferayUser().getUserId());
+    		
+    		// add subscription to each proposal and it's comments
+    		for (PlanItem planItem: PlanItemLocalServiceUtil.getPlansByContest(contest.getContest().getContestPK())) {
+                ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, planItem.getPlanId(), null, "",
+                        Helper.getLiferayUser().getUserId());
+
+                ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, planItem.getCategoryGroupId(), 
+                        null, "", Helper.getLiferayUser().getUserId());
+    		}
+    	}
+    }
+    
+    public void unsubscribe(ActionEvent e) throws SystemException, PortalException {
+    	if (Helper.isUserLoggedIn()) {
+    		ActivitySubscriptionLocalServiceUtil.deleteSubscription(Helper.getLiferayUser().getUserId(), Contest.class, contest.getContestId(), null, "");
+    		
+    		// add subscription to each proposal and it's comments
+    		for (PlanItem planItem: PlanItemLocalServiceUtil.getPlansByContest(contest.getContest().getContestPK())) {
+                ActivitySubscriptionLocalServiceUtil.deleteSubscription(Helper.getLiferayUser().getUserId(), PlanItem.class, planItem.getPlanId(), null, "");
+
+                ActivitySubscriptionLocalServiceUtil.deleteSubscription(Helper.getLiferayUser().getUserId(), DiscussionCategoryGroup.class, planItem.getCategoryGroupId(), 
+                        null, "");
+    		}
+    	}
+    }
+    
 
 
     public enum ContestState {

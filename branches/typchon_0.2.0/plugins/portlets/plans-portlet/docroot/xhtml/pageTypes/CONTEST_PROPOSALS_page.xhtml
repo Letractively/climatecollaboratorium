@@ -25,9 +25,9 @@
             <f:subview rendered="#{plansIndex.contestPhase.hoursTillEnd gt 0}">
                 <div class="days-left"><span>#{plansIndex.contestPhase.hoursTillEnd}</span> hours until #{plansIndex.contestPhase.name} ends</div>
             </f:subview>
-            <f:subview rendered="#{(plansIndex.contestPhase.hoursTillEnd eq 0) and (plansIndex.contestPhase.minutesTillEnd gt 0)}">
-                <div class="days-left"><span>#{plansIndex.contestPhase.minutesTillEnd}</span> minutes until #{plansIndex.contestPhase.name} ends</div>
-            </f:subview>
+                <f:subview rendered="#{(plansIndex.contestPhase.hoursTillEnd eq 0) and (plansIndex.contestPhase.minutesTillEnd gt 0)}">
+                    <div class="days-left"><span>#{plansIndex.contestPhase.minutesTillEnd}</span> minutes until #{plansIndex.contestPhase.name} ends</div>
+                </f:subview>
         </f:subview>
     </f:subview>
     
@@ -36,6 +36,16 @@
  <div class="blueheaderbar">
     <div class="contestbar">
         <ui:include src="./contests/widget_CONTEST_PHASES_#{contest.contestState}.xhtml" />
+        <div class="contestSubscribe">
+            <ice:form>
+                <f:subview rendered="#{not contest.userSubscribed}">
+                    <ice:commandLink onclick="if(!deferUntilLogin()) return false;" actionListener="#{contest.subscribe}"><img src="/climatecolab-theme/images/icon_star.png" /> Subscribe</ice:commandLink>
+                </f:subview>
+                <f:subview rendered="#{contest.userSubscribed}">
+                    <ice:commandLink actionListener="#{contest.unsubscribe}"><img src="/climatecolab-theme/images/unsubscribe.png" />Unsubscribe</ice:commandLink>
+                </f:subview>
+            </ice:form>
+        </div>
     </div>
  </div>
  <div class="shadebar"></div>

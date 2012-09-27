@@ -1275,3 +1275,15 @@ h1.planDetailsSection {
 table.ribbonsAndPlanName td {
 	padding: 0;
 }
+
+.contestSubscribe {
+	float: right;
+	padding-right: 20px;
+	margin-top: -5px;
+}
+
+.contestSubscribe img {
+	width: 25px;
+	vertical-align: bottom;
+	margin-right: 5px;
+}
