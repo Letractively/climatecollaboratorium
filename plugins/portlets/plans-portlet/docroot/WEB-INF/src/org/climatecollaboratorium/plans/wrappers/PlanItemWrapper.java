@@ -29,6 +29,7 @@ import org.compass.core.util.backport.java.util.Arrays;
 import com.ext.portlet.PlanStatus;
 import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.plans.NoSuchPlanPositionsException;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanAttribute;
@@ -387,9 +388,15 @@ public class PlanItemWrapper {
             if (isSubscribed()) {
                 ActivitySubscriptionLocalServiceUtil.deleteSubscription(Helper.getLiferayUser().getUserId(),
                         PlanItem.class, wrapped.getPlanId(), null, "");
+
+                ActivitySubscriptionLocalServiceUtil.deleteSubscription(Helper.getLiferayUser().getUserId(), DiscussionCategoryGroup.class, wrapped.getCategoryGroupId(), 
+                        null, "");
             } else {
                 ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, wrapped.getPlanId(), null, "",
                         Helper.getLiferayUser().getUserId());
+
+                ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, wrapped.getCategoryGroupId(), 
+                        null, "", Helper.getLiferayUser().getUserId());
             }
             ActivitySubscriptionLocalServiceUtil.isSubscribed(Helper.getLiferayUser().getUserId(), PlanItem.class,
                     wrapped.getPlanId(), null, "");

@@ -1,5 +1,6 @@
 package org.climatecollaboratorium.plans;
 
+import com.ext.portlet.Activity.model.ActivitySubscription;
 import com.ext.portlet.Activity.service.ActivitySubscriptionLocalServiceUtil;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
@@ -19,6 +20,7 @@ import org.climatecollaboratorium.navigation.NavigationEvent;
 import org.climatecollaboratorium.plans.events.PlanCreatedEvent;
 import org.climatecollaboratorium.plans.wrappers.ContestWrapper;
 import org.climatecollaboratorium.plans.wrappers.PlanItemWrapper;
+import org.climatecollaboratorium.utils.Helper;
 
 import javax.faces.event.ActionEvent;
 import java.util.List;
@@ -119,6 +121,16 @@ public class CreatePlanBean {
             }
             eventBus.fireEvent(new PlanCreatedEvent(planItem));
             // subscribe plan
+            
+            // fetch all users subscribed to current contest, and subscribe them to this proposal too
+            for (ActivitySubscription subscription: ActivitySubscriptionLocalServiceUtil.getActivitySubscriptions(Contest.class, planItem.getContest().getContestPK(), null, "")) {
+            	//subscription.getReceiverId();
+                ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, planItem.getPlanId(), null, "",
+                        subscription.getReceiverId());
+
+                ActivitySubscriptionLocalServiceUtil.addSubscription(DiscussionCategoryGroup.class, planItem.getCategoryGroupId(), 
+                        null, "", subscription.getReceiverId());
+            }
 
             ActivitySubscriptionLocalServiceUtil.addSubscription(PlanItem.class, planItem.getPlanId(), null, "", Helper.getLiferayUser().getUserId());
             // subscribe to comments
