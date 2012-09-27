@@ -38,6 +38,12 @@ public class ActivitySubscriptionLocalServiceImpl extends ActivitySubscriptionLo
 
     private Map<String, ICollabActivityInterpreter> interpreters = new HashMap<String, ICollabActivityInterpreter>();
 
+
+    public List<ActivitySubscription>  getActivitySubscriptions(Class clasz, Long classPK, Integer type, String extraData)
+            throws PortalException, SystemException {
+    	return activitySubscriptionPersistence.findByClassNameIdClassPKTypeExtraData(PortalUtil.getClassNameId(clasz), classPK, type, extraData);
+    }
+    
     public List<ActivitySubscription> findByUser(Long userId) throws SystemException {
         return activitySubscriptionPersistence.findByreceiverId(userId);
     }
@@ -125,8 +131,9 @@ public class ActivitySubscriptionLocalServiceImpl extends ActivitySubscriptionLo
         for (ActivitySubscription sub : subscriptions) {
             Map<String, Number> criterion = new HashMap<String, Number>();
             criterion.put("classNameId", sub.getClassNameId());
-            criterion.put("classPK", sub.getClassPK());
-            
+            if (sub.getClassPK() != null) {
+            	criterion.put("classPK", sub.getClassPK());
+            }
             if (sub.getType() != null) {
                 criterion.put("type", sub.getType());
             }
@@ -155,5 +162,7 @@ public class ActivitySubscriptionLocalServiceImpl extends ActivitySubscriptionLo
         return activities;
 
     }
+
+    
 
 }

@@ -18,6 +18,8 @@
 	</target>
 
 	<target name="compile">
+		<property name="myclasspath" refid="project.classpath"/>
+                <echo message="${myclasspath}"/>
 		<mkdir dir="classes" />
 
 		<trycatch property="exception.message">

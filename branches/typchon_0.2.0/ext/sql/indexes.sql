@@ -1,5 +1,6 @@
 create index IX_6E358DAF on ActivitySubscription (activitytype);
 create index IX_46601065 on ActivitySubscription (classNameId, classPK, receiverId);
+create index IX_356E53DC on ActivitySubscription (classNameId, classPK, type_, extraData);
 create index IX_44E51D3A on ActivitySubscription (classNameId, classPK, type_, extraData, receiverId);
 create index IX_A9BC42CC on ActivitySubscription (classNameId, classPK, type_, receiverId);
 create index IX_F4F4B404 on ActivitySubscription (entityId);

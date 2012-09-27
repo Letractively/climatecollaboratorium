@@ -80,6 +80,13 @@ public interface ActivitySubscriptionLocalService {
         com.ext.portlet.Activity.model.ActivitySubscription activitySubscription,
         boolean merge) throws com.liferay.portal.SystemException;
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> getActivitySubscriptions(
+        java.lang.Class clasz, java.lang.Long classPK, java.lang.Integer type,
+        java.lang.String extraData)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByUser(
         java.lang.Long userId) throws com.liferay.portal.SystemException;
 

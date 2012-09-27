@@ -90,6 +90,15 @@ public class ActivitySubscriptionLocalServiceUtil {
                    .updateActivitySubscription(activitySubscription, merge);
     }
 
+    public static java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> getActivitySubscriptions(
+        java.lang.Class clasz, java.lang.Long classPK, java.lang.Integer type,
+        java.lang.String extraData)
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException {
+        return getService()
+                   .getActivitySubscriptions(clasz, classPK, type, extraData);
+    }
+
     public static java.util.List<com.ext.portlet.Activity.model.ActivitySubscription> findByUser(
         java.lang.Long userId) throws com.liferay.portal.SystemException {
         return getService().findByUser(userId);
