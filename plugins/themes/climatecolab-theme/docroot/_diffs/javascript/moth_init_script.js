@@ -139,6 +139,7 @@ function initTreeWithDynatree() {
 function expandDynatree() { 
 	var treeContainer = jQuery(".jsTreeContainer");
 	treeContainer.dynatree("getTree").visit(function(node) {node.expand(true); }, true); 
+	jQuery(".jsTreeExpandDefaultToggle").toggle();
 }
 
 function removeMSWordChars(str) {
