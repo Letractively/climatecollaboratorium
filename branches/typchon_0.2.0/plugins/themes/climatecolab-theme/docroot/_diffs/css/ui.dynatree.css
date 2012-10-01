@@ -300,6 +300,10 @@ span.dynatree-node a
 	/*	line-height: 16px; /* should be the same as img height, in case 16 px */
 	
 }
+
+span.dynatree-node a.externallink {
+	display: inline;
+}
 span.dynatree-folder a
 {
 	font-weight: bold;
