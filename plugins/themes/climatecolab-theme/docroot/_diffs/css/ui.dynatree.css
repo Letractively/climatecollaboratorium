@@ -449,6 +449,7 @@ span.dynatree-icon {
 	background: none;
 	width: 0;
 	height: 0;
+	position: absolute;
 }
 ul.dynatree-container a.dynatree-title {
 	padding: 5px 0 0 20px;	
