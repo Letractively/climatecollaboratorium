@@ -26,7 +26,7 @@ public class ContestsFeedEntry  extends BaseSocialActivityInterpreter implements
 		Contest c;
 		try {
 			c = ContestLocalServiceUtil.getContest(classPK);
-			return c.getContestShortName();
+			return c.getContestShortName() + " contest";
 		} catch (PortalException e) {
 			e.printStackTrace();
 		} catch (SystemException e) {
