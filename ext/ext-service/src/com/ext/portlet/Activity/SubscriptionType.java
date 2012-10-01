@@ -1,5 +1,6 @@
 package com.ext.portlet.Activity;
 
+import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.plans.model.PlanItem;
@@ -7,7 +8,8 @@ import com.ext.portlet.plans.model.PlanItem;
 public enum SubscriptionType {
     DEBATE(Debate.class.getName(), "Debate"),
     DISCUSSION(DiscussionCategoryGroup.class.getName(), "Discussion"),
-    PLAN(PlanItem.class.getName(), "Proposal");
+    PLAN(PlanItem.class.getName(), "Proposal"),
+    CONTEST(Contest.class.getName(), "Contest");
     
     private String className;
     private String printName;
