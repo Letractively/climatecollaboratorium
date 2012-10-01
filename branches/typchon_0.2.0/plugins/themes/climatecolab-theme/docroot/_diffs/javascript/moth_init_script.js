@@ -53,7 +53,6 @@ function initLoginPopupUpper() {
 	});
 	
 	function hideIfLoginNotUsed() {
-		console.log(jQuery('#loginPopupContainer').hasClass('mouseover'), jQuery('#loginPopupContainer .focus').length)
 		if (! jQuery('#loginPopupContainer').hasClass('mouseover') && jQuery('#loginPopupContainer .focus').length == 0) {
 			jQuery("#loginPopupContainer").fadeOut("fast");
 		}
@@ -90,7 +89,6 @@ function initUserInfoPopup() {
 	});
 	
 	function hideIfLoginNotUsed() {
-		console.log(jQuery('#userPopupContainer').hasClass('mouseover'), jQuery('#userPopupContainer a.focus').length)
 		if (! jQuery('#userPopupContainer').hasClass('mouseover') && jQuery('#userPopupContainer a.focus').length == 0) {
 			jQuery("#userPopupContainer").fadeOut("fast");
 		}
