@@ -132,7 +132,21 @@ function initTreeWithDynatree() {
     			node.parents("li").addClass("expanded");
     		}
     	}
-    	treeContainer.dynatree();
+    	treeContainer.dynatree({onActivate: function(node) { 
+            if( node.data.href ){
+               //   use href attribute
+                window.location.href = node.data.href; 
+        	}
+    	}});
+    	
+    	treeContainer.find(".externallink").each(function() {
+    		var linkSpan = jQuery(this);
+    		var linkAnchor = jQuery("<a href=\"" + linkSpan.attr("href") + "\" class=\"externallink\">" + linkSpan.text() + "</a>");
+    		linkAnchor.click(function() {
+    			window.location.href = linkAnchor.attr("href");
+    		});
+    		linkSpan.replaceWith(linkAnchor);
+    	});
     }
 }
 

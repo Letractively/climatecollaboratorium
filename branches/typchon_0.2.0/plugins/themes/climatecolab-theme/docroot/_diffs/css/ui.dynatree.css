@@ -301,9 +301,16 @@ span.dynatree-node a
 	
 }
 
-span.dynatree-node a.externallink {
+span.dynatree-node .externallink a,
+span.dynatree-node a.externallink, 
+span.dynatree-node .externallink
+{
 	display: inline;
+	vertical-align: bottom;
+	color: #30A3FB;
+    text-decoration: none;
 }
+
 span.dynatree-folder a
 {
 	font-weight: bold;
