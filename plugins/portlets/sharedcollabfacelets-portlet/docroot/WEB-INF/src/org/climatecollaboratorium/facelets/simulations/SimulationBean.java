@@ -275,6 +275,10 @@ public class SimulationBean {
             */
             oldDisplayInputs = display.getWrappedInputs();
         }
+        if (scenario == null && simulation == null) {
+        	_log.error("Simulation and scenario not set");
+        	return;
+        }
         if (scenario != null) {
             display = new ModelDisplayWrapper(ModelUIFactory.getInstance().getDisplay(scenario), this, inputsValues);
         }
