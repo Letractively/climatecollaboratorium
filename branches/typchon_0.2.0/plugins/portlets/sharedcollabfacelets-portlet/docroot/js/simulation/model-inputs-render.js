@@ -896,6 +896,7 @@ function renderModelOutputs() {
 	jQuery(".outputDef").eq(0).addClass("processed");
 	jQuery(".outputDef").show();
 	var msg = '';
+	var selected = false;
 	jQuery(".outputItemTrigger").each(function() {
 		
 		var trigger = jQuery(this);
@@ -903,13 +904,20 @@ function renderModelOutputs() {
 		if (selectedItem) {
 			if (selectedItem == name) {
 				trigger.click();
+				selected = true;
 			}
 		}
 		else if (name in defaultItems) {
 			trigger.click();
+			selected = true;
 		} 
 		
 	});
+	if (! selected) {
+		jQuery(".outputItemTrigger").eq(0).click();
+	}
+	
+	
 	unlockImpactsScreen();
 	
 	
