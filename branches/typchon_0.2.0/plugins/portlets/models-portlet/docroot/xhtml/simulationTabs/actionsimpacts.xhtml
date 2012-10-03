@@ -13,10 +13,9 @@
     xmlns:liferay-faces="http://liferay.com/tld/faces">
     
 
-    <ice:panelGroup rendered="#{not simulationDetailsBean.tabEditing}">
-                <collab:simulationEdit simulationId="#{planBean.plan.selectedModel}"
-                                   scenarioId="#{planBean.plan.planModelRunScenarioId}" 
-                                   editActions="true" />
+    <ice:panelGroup rendered="#{not simulationDetailsBean.tabEditing}" style="">
+        <!-- <collab:simulation simulationId="#{simulationDetailsBean.modelId}" showEditArea="false" showRunButton="true"/>-->
+        <collab:simulationEdit simulationId="#{simulationDetailsBean.modelId}" editActions="true" />
      </ice:panelGroup>
 
 
