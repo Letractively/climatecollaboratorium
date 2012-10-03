@@ -72,13 +72,17 @@ public enum SearchItemType {
             }
     ), 
     
-    CONTENT("Content", new String[] { "entryClassName", "com.liferay.portlet.wiki.model.*" }, new String[] { "title",
+    CONTENT("Content", new String[] { "entryClassName", "com.liferay.portlet.journal.model.*" }, new String[] { "title",
             "content" }, new String[] { "title" }, new String[] { "content" }, new URLCreator() {
 
         @Override
         public String getUrl(Document doc) {
             String title = doc.get("title");
             try {
+            	String pageUrl = doc.get("PAGE_URL"); 
+            	if (pageUrl != null && pageUrl.length() > 0) {
+            		return "/web/guest" + pageUrl;
+            	}
                 return "/web/guest/resources/-/wiki/Main/" + URLEncoder.encode(title, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 return "";
@@ -272,8 +276,14 @@ public enum SearchItemType {
     }
 
     public boolean isOfGivenType(Document doc) {
-        return doc.get(determinatorFieldValue[0]) != null ? doc.get(determinatorFieldValue[0]).matches(
-                determinatorFieldValue[1]) : false;
+    	String detFieldVal = doc.get(determinatorFieldValue[0]);
+    	if (detFieldVal != null) { 
+    		String[] detFieldVals = determinatorFieldValue[1].split(" ");
+    		for (String fv: detFieldVals) {
+    			if (detFieldVal.matches(fv)) return true;
+    		}
+    	}
+    	return false;
     }
 
     private abstract interface URLCreator {
