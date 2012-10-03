@@ -14,7 +14,9 @@
     
 
     <ice:panelGroup rendered="#{not simulationDetailsBean.tabEditing}">
-        <collab:simulation simulationId="#{simulationDetailsBean.modelId}" showEditArea="false" showRunButton="true"/>
+                <collab:simulationEdit simulationId="#{planBean.plan.selectedModel}"
+                                   scenarioId="#{planBean.plan.planModelRunScenarioId}" 
+                                   editActions="#{planBean.planOpenForEditing}" />
      </ice:panelGroup>
 
 
