@@ -75,6 +75,14 @@ public class ContestWrapper {
         contest.setFlagText(flagText);
     }
     
+    public boolean getPlansOpenByDefault() {
+    	return contest.getPlansOpenByDefault();
+    }
+    
+    public void setPlansOpenByDefault(boolean open) {
+    	contest.setPlansOpenByDefault(open);
+    }
+    
     
     public void save() throws SystemException, IOException {
         if (newContestLogo != null) {
