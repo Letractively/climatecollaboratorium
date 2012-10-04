@@ -6,5 +6,5 @@
 
 <Context
 path="plansadmin"
-docBase="/home/janusz/workdir/liferay/plugins-svn/portlets/plansadmin-portlet/docroot"
+docBase="/home/janusz/workdir/colab/plugins/portlets/plansadmin-portlet/docroot"
 />

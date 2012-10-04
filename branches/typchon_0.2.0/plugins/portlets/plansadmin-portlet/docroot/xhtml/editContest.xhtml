@@ -79,8 +79,10 @@
            </ice:selectOneMenu>
            
            <ice:outputLabel value="Featured" />
-           
            <ice:selectBooleanCheckbox value="#{contestsAdmin.editedContest.featured}" />
+           
+           <ice:outputLabel value="Plans opened by default" />
+           <ice:selectBooleanCheckbox value="#{contestsAdmin.editedContest.plansOpenByDefault}" />
            
            
            <ice:outputLabel value="Flag number (ie 1 for featured)" />
