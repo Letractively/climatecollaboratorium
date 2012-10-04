@@ -27,6 +27,7 @@
         <column name="focusAreaId" type="Long" />
         <column name="contestLogoId" type="Long" />
         <column name="featured" type="Boolean" />
+        <column name="plansOpenByDefault" type="Boolean" />
         
         <column name="flag" type="Integer" />
         <column name="flagText" type="String" />

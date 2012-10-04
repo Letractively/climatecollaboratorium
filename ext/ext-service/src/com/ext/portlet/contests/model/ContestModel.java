@@ -95,6 +95,10 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setFeatured(Boolean featured);
 
+    public Boolean getPlansOpenByDefault();
+
+    public void setPlansOpenByDefault(Boolean plansOpenByDefault);
+
     public Integer getFlag();
 
     public void setFlag(Integer flag);

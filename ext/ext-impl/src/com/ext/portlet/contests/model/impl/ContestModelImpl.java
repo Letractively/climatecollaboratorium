@@ -91,6 +91,9 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "featured_", new Integer(Types.BOOLEAN) },
             
 
+            { "plansOpenByDefault", new Integer(Types.BOOLEAN) },
+            
+
             { "flag", new Integer(Types.INTEGER) },
             
 
@@ -108,7 +111,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
             { "resourcesUrl", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN,flag INTEGER,flagText VARCHAR(75) null,groupId LONG,discussionGroupId LONG,weight INTEGER,resourcesUrl VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN,plansOpenByDefault BOOLEAN,flag INTEGER,flagText VARCHAR(75) null,groupId LONG,discussionGroupId LONG,weight INTEGER,resourcesUrl VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -138,6 +141,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Long _focusAreaId;
     private Long _contestLogoId;
     private Boolean _featured;
+    private Boolean _plansOpenByDefault;
     private Integer _flag;
     private String _flagText;
     private Long _groupId;
@@ -167,6 +171,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setFocusAreaId(soapModel.getFocusAreaId());
         model.setContestLogoId(soapModel.getContestLogoId());
         model.setFeatured(soapModel.getFeatured());
+        model.setPlansOpenByDefault(soapModel.getPlansOpenByDefault());
         model.setFlag(soapModel.getFlag());
         model.setFlagText(soapModel.getFlagText());
         model.setGroupId(soapModel.getGroupId());
@@ -336,6 +341,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _featured = featured;
     }
 
+    public Boolean getPlansOpenByDefault() {
+        return _plansOpenByDefault;
+    }
+
+    public void setPlansOpenByDefault(Boolean plansOpenByDefault) {
+        _plansOpenByDefault = plansOpenByDefault;
+    }
+
     public Integer getFlag() {
         return _flag;
     }
@@ -412,6 +425,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setFocusAreaId(getFocusAreaId());
             model.setContestLogoId(getContestLogoId());
             model.setFeatured(getFeatured());
+            model.setPlansOpenByDefault(getPlansOpenByDefault());
             model.setFlag(getFlag());
             model.setFlagText(HtmlUtil.escape(getFlagText()));
             model.setGroupId(getGroupId());
@@ -446,6 +460,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setFocusAreaId(getFocusAreaId());
         clone.setContestLogoId(getContestLogoId());
         clone.setFeatured(getFeatured());
+        clone.setPlansOpenByDefault(getPlansOpenByDefault());
         clone.setFlag(getFlag());
         clone.setFlagText(getFlagText());
         clone.setGroupId(getGroupId());
@@ -535,6 +550,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getContestLogoId());
         sb.append(", featured=");
         sb.append(getFeatured());
+        sb.append(", plansOpenByDefault=");
+        sb.append(getPlansOpenByDefault());
         sb.append(", flag=");
         sb.append(getFlag());
         sb.append(", flagText=");
@@ -622,6 +639,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>featured</column-name><column-value><![CDATA[");
         sb.append(getFeatured());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>plansOpenByDefault</column-name><column-value><![CDATA[");
+        sb.append(getPlansOpenByDefault());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>flag</column-name><column-value><![CDATA[");

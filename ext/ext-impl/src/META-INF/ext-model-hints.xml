@@ -574,6 +574,7 @@
 		<field name="focusAreaId" type="Long" />
 		<field name="contestLogoId" type="Long" />
 		<field name="featured" type="Boolean" />
+		<field name="plansOpenByDefault" type="Boolean" />
 		<field name="flag" type="Integer" />
 		<field name="flagText" type="String" />
 		<field name="groupId" type="Long" />

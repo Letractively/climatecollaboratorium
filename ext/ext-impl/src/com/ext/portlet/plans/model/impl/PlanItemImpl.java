@@ -367,6 +367,14 @@ public class PlanItemImpl extends PlanItemModelImpl implements PlanItem {
         updateAttribute(Attribute.IS_PLAN_OPEN);
 
     }
+    
+    public void setOpen(boolean open) throws SystemException {
+        PlanMeta planMeta = getPlanMeta();
+        planMeta.setOpen(open);
+        planMeta.store();
+        updateAttribute(Attribute.IS_PLAN_OPEN);
+
+    }
 
     public String getStatus() throws SystemException {
         return PlanMetaLocalServiceUtil.getCurrentForPlan(this).getStatus();
