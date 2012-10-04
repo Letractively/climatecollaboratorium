@@ -79,7 +79,6 @@ public enum SearchItemType {
         public String getUrl(Document doc) {
             String title = doc.get("title");
             try {
-            	System.out.println(doc.get("entryClassName"));
             	String pageUrl = doc.get("PAGE_URL"); 
             	if (pageUrl != null && pageUrl.length() > 0) {
             		return "/web/guest" + pageUrl;
