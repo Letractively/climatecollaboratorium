@@ -776,6 +776,7 @@
 		<property name="focusAreaId" />
 		<property name="contestLogoId" />
 		<property name="featured" column="featured_" />
+		<property name="plansOpenByDefault" />
 		<property name="flag" />
 		<property name="flagText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="groupId" />

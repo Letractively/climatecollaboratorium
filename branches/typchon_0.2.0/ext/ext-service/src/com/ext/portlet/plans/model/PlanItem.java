@@ -160,6 +160,8 @@ public interface PlanItem extends PlanItemModel {
     public void setOpen(boolean open, java.lang.Long updateAuthorId)
         throws com.liferay.portal.SystemException;
 
+    public void setOpen(boolean open) throws com.liferay.portal.SystemException;
+
     public java.lang.String getStatus()
         throws com.liferay.portal.SystemException;
 

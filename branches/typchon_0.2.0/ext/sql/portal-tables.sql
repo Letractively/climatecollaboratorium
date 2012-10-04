@@ -257,6 +257,7 @@ create table Contest (
 	focusAreaId LONG,
 	contestLogoId LONG,
 	featured_ BOOLEAN,
+	plansOpenByDefault BOOLEAN,
 	flag INTEGER,
 	flagText VARCHAR(75) null,
 	groupId LONG,
