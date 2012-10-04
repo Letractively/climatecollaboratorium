@@ -72,7 +72,7 @@ public enum SearchItemType {
             }
     ), 
     
-    CONTENT("Content", new String[] { "entryClassName", "com.liferay.portlet.journal.model.*" }, new String[] { "title",
+    CONTENT("Content", new String[] { "entryClassName", "com.liferay.portlet.wiki.model.* OR com.liferay.portlet.journal.model.*" }, new String[] { "title",
             "content" }, new String[] { "title" }, new String[] { "content" }, new URLCreator() {
 
         @Override
