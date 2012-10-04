@@ -89,6 +89,7 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 		throws SearchException {
 
 		SearchEngineUtil.deleteDocument(companyId, getArticleUID(articleId));
+		SearchEngineUtil.deleteDocument(companyId, getArticleUID(articleId, true));
 	}
 
 	public static Document getArticleDocument(
@@ -113,10 +114,34 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 		content = StringUtil.replace(content, "&gt;", ">");
 
 		content = HtmlUtil.extractText(content);
+		
+		if (content.contains("assembl")) {
+			System.out.println("Mam!" + title);
+			System.out.println("stop");
+			
+		}
 
 		Document doc = new DocumentImpl();
 
-		doc.addUID(PORTLET_ID, articleId);
+		// check if this is an most recent version of an article
+		JournalArticle article;
+		boolean isOld = false;
+		try {
+			article = JournalArticleLocalServiceUtil.getArticle(Long.parseLong(articleId));
+			if (article.getVersion() != version) {
+				isOld = true;
+			}
+		} catch (Exception e1) {
+			// ignore
+		} 
+				
+				
+		if (isOld) {
+			doc.addUID(PORTLET_ID, articleId, "old");
+		}
+		else {
+			doc.addUID(PORTLET_ID, articleId);
+		}
 
 		doc.addModifiedDate(displayDate);
 
@@ -142,7 +167,7 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 			
 			if (pageLayout != null) {
 				Layout tmp = pageLayout;
-				/*boolean isAbout = false;
+				boolean isAbout = false;
 				while (tmp != null && !isAbout) {
 					if (tmp.getFriendlyURL().toLowerCase().contains("about")) {
 						isAbout = true;
@@ -153,6 +178,8 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 						}
 						catch (com.liferay.portal.NoSuchLayoutException e) {
 							tmp = null;
+						} catch (PortalException e) {
+							tmp = null;
 						}
 					}
 					else {
@@ -161,16 +188,9 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 				}
 				
 				if (isAbout) {
-				*/
-					System.out.println(pageLayout.getFriendlyURL() + "\t" + doc.get("title") + " indexed" + version);
 					doc.addKeyword("PAGE_URL", pageLayout.getFriendlyURL());
-					
 					doc.addKeyword(Field.ENTRY_CLASS_NAME, JournalArticle.class.getName() + ".index");
-				/*}
-				else {
-					System.out.println(pageLayout.getFriendlyURL() + "\t" + doc.get("title") + " not indexed" + version);
-					doc.addKeyword(Field.ENTRY_CLASS_NAME, JournalArticle.class.getName());
-				}*/
+				}
 			}
 			else {
 				doc.addKeyword(Field.ENTRY_CLASS_NAME, JournalArticle.class.getName());
@@ -179,14 +199,23 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 			doc.addKeyword(Field.ENTRY_CLASS_NAME, JournalArticle.class.getName());
 			e.printStackTrace();
 		}
-
+		System.out.println(" uid na koniec: " + doc.get(Field.UID));
 		return doc;
 	}
 
 	public static String getArticleUID(String articleId) {
+		return getArticleUID(articleId, false);
+	}
+	
+	public static String getArticleUID(String articleId, boolean isOld) {
 		Document doc = new DocumentImpl();
 
-		doc.addUID(PORTLET_ID, articleId);
+		if (isOld) {
+			doc.addUID(PORTLET_ID, articleId, "old");
+		}
+		else {
+			doc.addUID(PORTLET_ID, articleId);
+		}
 
 		return doc.get(Field.UID);
 	}
