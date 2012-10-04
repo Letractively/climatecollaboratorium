@@ -115,23 +115,18 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 
 		content = HtmlUtil.extractText(content);
 		
-		if (content.contains("assembl")) {
-			System.out.println("Mam!" + title);
-			System.out.println("stop");
-			
-		}
-
 		Document doc = new DocumentImpl();
 
 		// check if this is an most recent version of an article
 		JournalArticle article;
 		boolean isOld = false;
 		try {
-			article = JournalArticleLocalServiceUtil.getArticle(Long.parseLong(articleId));
+			article = JournalArticleLocalServiceUtil.getArticle(groupId, articleId);
 			if (article.getVersion() != version) {
 				isOld = true;
 			}
 		} catch (Exception e1) {
+			e1.printStackTrace();
 			// ignore
 		} 
 				
@@ -169,12 +164,13 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 				Layout tmp = pageLayout;
 				boolean isAbout = false;
 				while (tmp != null && !isAbout) {
-					if (tmp.getFriendlyURL().toLowerCase().contains("about")) {
+					if (tmp.getFriendlyURL().toLowerCase().contains("/about") || tmp.getFriendlyURL().toLowerCase().contains("/contests")) {
 						isAbout = true;
 					}
 					if (tmp.getParentLayoutId() > 0) {
 						try {
 							tmp = LayoutLocalServiceUtil.getLayout(tmp.getGroupId(), tmp.getPrivateLayout(), tmp.getParentLayoutId());
+							
 						}
 						catch (com.liferay.portal.NoSuchLayoutException e) {
 							tmp = null;
@@ -199,7 +195,6 @@ public class Indexer implements com.liferay.portal.kernel.search.Indexer {
 			doc.addKeyword(Field.ENTRY_CLASS_NAME, JournalArticle.class.getName());
 			e.printStackTrace();
 		}
-		System.out.println(" uid na koniec: " + doc.get(Field.UID));
 		return doc;
 	}
 
