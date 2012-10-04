@@ -72,13 +72,14 @@ public enum SearchItemType {
             }
     ), 
     
-    CONTENT("Content", new String[] { "entryClassName", "com.liferay.portlet.wiki.model.* OR com.liferay.portlet.journal.model.*" }, new String[] { "title",
+    CONTENT("Content", new String[] { "entryClassName", "com.liferay.portlet.wiki.model.* OR com.liferay.portlet.journal.model.*.index" }, new String[] { "title",
             "content" }, new String[] { "title" }, new String[] { "content" }, new URLCreator() {
 
         @Override
         public String getUrl(Document doc) {
             String title = doc.get("title");
             try {
+            	System.out.println(doc.get("entryClassName"));
             	String pageUrl = doc.get("PAGE_URL"); 
             	if (pageUrl != null && pageUrl.length() > 0) {
             		return "/web/guest" + pageUrl;
