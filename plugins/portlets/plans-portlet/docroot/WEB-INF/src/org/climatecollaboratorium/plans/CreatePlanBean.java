@@ -120,7 +120,17 @@ public class CreatePlanBean {
 
             }
             eventBus.fireEvent(new PlanCreatedEvent(planItem));
+            
+            if (planItem.getContest().getPlansOpenByDefault()) {
+            	planItem.setOpen(true);
+            }
+            else {
+            	planItem.setOpen(false);
+            }
+            
             // subscribe plan
+            
+            
             
             // fetch all users subscribed to current contest, and subscribe them to this proposal too
             for (ActivitySubscription subscription: ActivitySubscriptionLocalServiceUtil.getActivitySubscriptions(Contest.class, planItem.getContest().getContestPK(), null, "")) {
