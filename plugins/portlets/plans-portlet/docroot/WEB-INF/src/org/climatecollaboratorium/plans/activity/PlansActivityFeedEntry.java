@@ -32,21 +32,21 @@ public class PlansActivityFeedEntry extends BaseSocialActivityInterpreter implem
     private static Log _log =
 		 LogFactoryUtil.getLog(PlansActivityFeedEntry.class);
 
-	public static String PLAN_ADDED = "%s added plan %s";
-	public static String PLAN_REMOVED = "%s removed plan %s";
-	public static String PLAN_POSITIONS_UPDATED = "%s updated positions in plan %s";
-	public static String PLAN_SCENARIO_UPDATED = "%s updated the model run in plan %s";
-	public static String PLAN_DESCRIPTION_UPDATED="%s updated the description in plan %s";
-	public static String PLAN_VOTED = "%s voted for plan %s";
-	public static String PLAN_UNVOTED = "%s retracted vote for plan %s";
-	public static String PLAN_VOTE_SWITCHED="%s switched vote to plan %s";
-	public static String PLAN_USER_ADDED="%s joined plan %s";
-	public static String PLAN_USER_REMOVED = "%s left plan %s";
-	public static String PLAN_PUBLISHED = "%s published plan %s";
-    public static String PLAN_NAME_UPDATED="%s updated the name in plan %s";
-    public static String PLAN_SUPPORTED="%s became a supporter of plan %s";
-    public static String PLAN_UNSUPPORTED="%s is no longer a supporter of plan %s";
-    public static String CHANGE_IMAGE="%s changed image of plan %s";
+	public static String PLAN_ADDED = "%s added proposal %s";
+	public static String PLAN_REMOVED = "%s removed proposal %s";
+	public static String PLAN_POSITIONS_UPDATED = "%s updated positions in proposal %s";
+	public static String PLAN_SCENARIO_UPDATED = "%s updated the model run in proposal %s";
+	public static String PLAN_DESCRIPTION_UPDATED="%s updated the description in proposal %s";
+	public static String PLAN_VOTED = "%s voted for proposal %s";
+	public static String PLAN_UNVOTED = "%s retracted vote for proposal %s";
+	public static String PLAN_VOTE_SWITCHED="%s switched vote to proposal %s";
+	public static String PLAN_USER_ADDED="%s joined proposal %s";
+	public static String PLAN_USER_REMOVED = "%s left proposal %s";
+	public static String PLAN_PUBLISHED = "%s published proposal %s";
+    public static String PLAN_NAME_UPDATED="%s updated the name in proposal %s";
+    public static String PLAN_SUPPORTED="%s became a supporter of proposal %s";
+    public static String PLAN_UNSUPPORTED="%s is no longer a supporter of proposal %s";
+    public static String CHANGE_IMAGE="%s changed image of proposal %s";
 
 	public static Map<PlanActivityKeys,String> msgMap = new HashMap<PlanActivityKeys,String>();
 	static {
