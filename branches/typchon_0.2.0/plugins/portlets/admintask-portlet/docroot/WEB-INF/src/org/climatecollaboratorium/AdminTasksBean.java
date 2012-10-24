@@ -17,11 +17,13 @@ import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.liferay.portal.NoSuchResourceException;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Resource;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.PermissionLocalServiceUtil;
 import com.liferay.portal.service.ResourceLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
@@ -140,6 +142,17 @@ public class AdminTasksBean {
     }
     
     public String fixContestsDiscussionPermissions() throws SystemException, PortalException {
+    	for (Contest contest: ContestLocalServiceUtil.getContests(0,  Integer.MAX_VALUE)) {
+    		try {
+    			Group g = GroupLocalServiceUtil.getGroup(contest.getGroupId());
+    		}
+    		catch (Exception e) {
+    			contest.setGroupId(null);
+    			contest.store();
+    		}
+    	
+    	}
+    	
     	ContestLocalServiceUtil.updateContestGroupsAndDiscussions();
 
 
@@ -183,6 +196,7 @@ public class AdminTasksBean {
     	
     	for (Contest contest: ContestLocalServiceUtil.getContests(0,  Integer.MAX_VALUE)) {
             for (Role role : rolesActionsMap.keySet()) {
+            	
                 PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId,
                         DiscussionCategoryGroup.class.getName(), ResourceConstants.SCOPE_GROUP,
                         String.valueOf(contest.getGroupId()), rolesActionsMap.get(role));
