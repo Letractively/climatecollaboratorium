@@ -1,9 +1,12 @@
 package org.climatecollaboratorium;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.climatecollaboratorium.facelets.plans.wrappers.PlanItemWrapper;
-
+import com.ext.portlet.contests.model.Contest;
+import com.ext.portlet.contests.service.ContestLocalServiceUtil;
+import com.ext.portlet.discussions.DiscussionActions;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.plans.PlanConstants;
 import com.ext.portlet.plans.model.PlanAttribute;
@@ -11,27 +14,21 @@ import com.ext.portlet.plans.model.PlanDescription;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanSection;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
-import com.ext.portlet.plans.service.PlanSectionLocalServiceUtil;
 import com.liferay.portal.NoSuchResourceException;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Resource;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.PermissionLocalServiceUtil;
-import com.liferay.portal.service.PermissionServiceUtil;
 import com.liferay.portal.service.ResourceLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portlet.admin.action.ActionUtil;
 import com.liferay.portlet.blogs.model.BlogsEntry;
 import com.liferay.portlet.blogs.service.BlogsEntryLocalServiceUtil;
 import com.liferay.portlet.wiki.model.WikiPage;
-import com.liferay.portlet.wiki.service.WikiNodeLocalServiceUtil;
 import com.liferay.portlet.wiki.service.WikiPageLocalServiceUtil;
-import com.liferay.portlet.wiki.service.permission.WikiPagePermission;
 
 public class AdminTasksBean {
 
@@ -126,7 +123,6 @@ public class AdminTasksBean {
     			resource = ResourceLocalServiceUtil.addResource(defaultCompanyId, WikiPage.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL, String.valueOf(wp.getResourcePrimKey()));
     			System.out.println("New resource created: " + resource.getResourceId());
     			ResourceLocalServiceUtil.updateResource(resource);
-    			continue;
     		}
 
             /*PermissionLocalServiceUtil.setRolePermissions(guest.getRoleId(), companyId,
@@ -142,4 +138,62 @@ public class AdminTasksBean {
     	}
     	return null;
     }
+    
+    public String fixContestsDiscussionPermissions() throws SystemException, PortalException {
+    	ContestLocalServiceUtil.updateContestGroupsAndDiscussions();
+
+
+    	Long companyId = defaultCompanyId;
+        Role owner = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_OWNER);
+        Role admin = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_ADMINISTRATOR);
+        Role member = RoleLocalServiceUtil.getRole(companyId, RoleConstants.COMMUNITY_MEMBER);
+        Role userRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER);
+        Role guest = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST);
+        Role moderator = RoleLocalServiceUtil.getRole(companyId, "Moderator");
+
+        String[] ownerActions = { DiscussionActions.ADMIN.name(), DiscussionActions.ADD_CATEGORY.name(),
+                DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                DiscussionActions.ADMIN_CATEGORIES.name(), DiscussionActions.ADMIN_MESSAGES.name(),
+                DiscussionActions.ADD_COMMENT.name() };
+
+        String[] adminActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
+                DiscussionActions.ADMIN_MESSAGES.name(), DiscussionActions.ADD_COMMENT.name() };
+
+        String[] moderatorActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADMIN_CATEGORIES.name(),
+                DiscussionActions.ADMIN_MESSAGES.name(), DiscussionActions.ADD_COMMENT.name() };
+
+        String[] memberActions = { DiscussionActions.ADD_CATEGORY.name(), DiscussionActions.ADD_MESSAGE.name(),
+                DiscussionActions.ADD_THREAD.name(), DiscussionActions.ADD_COMMENT.name() };
+
+        String[] userActions = { DiscussionActions.ADD_MESSAGE.name(), DiscussionActions.ADD_THREAD.name(),
+                DiscussionActions.ADD_COMMENT.name() };
+
+        String[] guestActions = {};
+
+        Map<Role, String[]> rolesActionsMap = new HashMap<Role, String[]>();
+
+        rolesActionsMap.put(owner, ownerActions);
+        rolesActionsMap.put(admin, adminActions);
+        rolesActionsMap.put(member, memberActions);
+        rolesActionsMap.put(userRole, userActions);
+        rolesActionsMap.put(guest, guestActions);
+        rolesActionsMap.put(moderator, moderatorActions);
+    	
+    	for (Contest contest: ContestLocalServiceUtil.getContests(0,  Integer.MAX_VALUE)) {
+            for (Role role : rolesActionsMap.keySet()) {
+                PermissionLocalServiceUtil.setRolePermissions(role.getRoleId(), companyId,
+                        DiscussionCategoryGroup.class.getName(), ResourceConstants.SCOPE_GROUP,
+                        String.valueOf(contest.getGroupId()), rolesActionsMap.get(role));
+            }
+    	
+    	}
+    	
+    	return null;
+    	
+    }
+    
+    
+    
 }
