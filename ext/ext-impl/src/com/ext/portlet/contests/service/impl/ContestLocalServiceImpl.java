@@ -20,6 +20,7 @@ import com.liferay.portal.model.GroupConstants;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.GroupServiceUtil;
 import com.liferay.portal.service.PermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
@@ -66,8 +67,13 @@ public class ContestLocalServiceImpl extends ContestLocalServiceBaseImpl {
         String groupName = c.getContestName() + "_" + System.currentTimeMillis() + "_" + rand.nextLong();
         Group group = null;
         
-        group = GroupServiceUtil.addGroup("CONTEST:  " + c.getContestShortName(), String.format(DEFAULT_GROUP_DESCRIPTION, groupName),
+        /*
+        group = GroupServiceUtil.add.addGroup("CONTEST:  " + c.getContestShortName(), String.format(DEFAULT_GROUP_DESCRIPTION, groupName),
                     GroupConstants.TYPE_COMMUNITY_RESTRICTED, null, true, groupServiceContext);
+        */
+        group = GroupLocalServiceUtil.addGroup(c.getAuthorId(), null, 0, "CONTEST:  " + c.getContestShortName(), 
+        		String.format(DEFAULT_GROUP_DESCRIPTION, groupName),  
+        		GroupConstants.TYPE_COMMUNITY_RESTRICTED, null, true, groupServiceContext);
         
         DiscussionCategoryGroup categoryGroup = DiscussionCategoryGroupLocalServiceUtil
                 .createDiscussionCategoryGroup(c.getContestName() + " discussion");
