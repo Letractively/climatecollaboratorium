@@ -147,7 +147,7 @@ public class AdminTasksBean {
     			Group g = GroupLocalServiceUtil.getGroup(contest.getGroupId());
     		}
     		catch (Exception e) {
-    			contest.setGroupId(null);
+    			contest.setGroupId(0L);
     			contest.store();
     		}
     	
