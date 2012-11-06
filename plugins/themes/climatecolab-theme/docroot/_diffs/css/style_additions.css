@@ -1067,3 +1067,8 @@ div.selectbox-wrapper ul li { list-style:none; display:block; font-size:12px; pa
 .selectbox1 { overflow: hidden;}
 input.selectbox, input[type='text'].selectbox { padding:0 44px 0 9px; width:100%; height:35px; display:block; background: url(../images/butt_arrowbdr.png) no-repeat right;     font-size:17px; font-style:italic; color:#666; border:none; cursor: pointer; padding-right: 35px;}
 input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:#e36f0f;}
+
+/* wiki-additions, where should i go */
+.contest-tax-header{ background: url(../images/icon-prize.png) no-repeat left; margin-left:38px; padding-left:27px; padding-top: 6px; font-size:21px; font-weight:bold;padding-bottom:5px;color: #66B035;}
+
+.contest-tax-contests{ margin-left:21px; padding-left: 12px;}
