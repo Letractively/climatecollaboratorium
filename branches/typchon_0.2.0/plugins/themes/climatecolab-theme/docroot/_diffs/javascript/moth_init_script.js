@@ -154,6 +154,14 @@ function expandDynatree() {
 	var treeContainer = jQuery(".jsTreeContainer");
 	treeContainer.dynatree("getTree").visit(function(node) {node.expand(true); }, true); 
 	jQuery(".jsTreeExpandDefaultToggle").toggle();
+	treeContainer.find(".externallink").each(function() {
+    		var linkSpan = jQuery(this);
+    		var linkAnchor = jQuery("<a href=\"" + linkSpan.attr("href") + "\" class=\"externallink\">" + linkSpan.text() + "</a>");
+    		linkAnchor.click(function() {
+    			window.location.href = linkAnchor.attr("href");
+    		});
+    		linkSpan.replaceWith(linkAnchor);
+    	});
 }
 
 function removeMSWordChars(str) {
