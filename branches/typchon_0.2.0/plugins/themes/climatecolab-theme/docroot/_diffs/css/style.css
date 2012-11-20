@@ -301,6 +301,11 @@ ul li {list-style: none; background:url(../images/bullet.jpg) no-repeat left 10p
 .blueheaderbar .contestbar span {padding-left:30px;}
 .blueheaderbar .contestbar a, .blueheaderbar .contestbar strong {padding-left:12px;}
 
+.contestSubscribe {
+position: absolute;
+    right: 20px;
+    top: 6px;
+}
 /* the shadeed div below the bluebar */
 .shadebar {background-image:url(../images/tableshade.png); background-repeat: repeat-x; height:4px; position:relative; z-index:9;}
 
@@ -729,6 +734,7 @@ a.get:hover {background:url(../images/homespot-get-hover.png) no-repeat;}
 .admin-left {float:left; width:601px; padding:25px 0 25px 15px; margin-right:38px; font-size:20px; line-height:29px;}
 .admin-right {float:left; width:330px; padding:25px 0; font-size:14px; line-height:29px;}
 .savechanges-wrap {background:url(../images/adminoverlay-bg.png); width:528px; padding:11px 10px; margin-left:-264px; position:fixed; left:50%; bottom:350px; z-index:99; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
+.sendMessagePopup .savechanges-wrap {bottom: auto; top: 50px;}
 .savechanges {background:#fff; padding:42px 60px 32px 46px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
 .savechanges h4 {font-size:22px; color:#545454; margin-bottom:20px; font-weight:400;}
 .savechanges p {font-size:15px; color:#000; line-height:24px; margin-bottom:30px;}
