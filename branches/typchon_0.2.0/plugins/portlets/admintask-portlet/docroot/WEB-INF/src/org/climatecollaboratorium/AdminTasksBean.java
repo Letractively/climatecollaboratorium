@@ -18,6 +18,7 @@ import com.liferay.portal.NoSuchResourceException;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Permission;
 import com.liferay.portal.model.Resource;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
@@ -206,6 +207,22 @@ public class AdminTasksBean {
     	
     	return null;
     	
+    }
+    
+    public String fixResourceReferencesInPermissions() throws SystemException, PortalException {
+    	
+    	for (Permission p: PermissionLocalServiceUtil.getPermissions(0,  Integer.MAX_VALUE)) {
+    		try {
+    			ResourceLocalServiceUtil.getResource(p.getResourceId());
+    		}
+    		catch (NoSuchResourceException e) {
+    			PermissionLocalServiceUtil.deletePermission(p);
+    		}
+    	}
+    	
+    	
+    	
+    	return null;
     }
     
     
