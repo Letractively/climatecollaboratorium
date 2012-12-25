@@ -28,6 +28,7 @@ import org.climatecollaboratorium.plans.PlansIndexBean;
 import com.ext.portlet.contests.NoSuchContestPhaseException;
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.model.ContestTeamMember;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
@@ -35,6 +36,7 @@ import com.ext.portlet.ontology.model.FocusArea;
 import com.ext.portlet.ontology.model.OntologyTerm;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
+import com.liferay.portal.model.User;
 import com.liferay.portal.service.ImageLocalServiceUtil;
 
 /**
@@ -57,6 +59,7 @@ public class ContestWrapper {
     ContestPhaseWrapper activePhase = null;
 
     private CreatePlanBean createPlanBean;
+	private Map<String, List<User>> teamRoleUsersMap = new HashMap<String, List<User>>();
 
 
     public ContestWrapper(Contest contest) throws SystemException, PortalException {
@@ -90,6 +93,15 @@ public class ContestWrapper {
         // reverse list to have active phase as the first one
         Collections.reverse(activeOrPastPhases);
         createPlanBean = new CreatePlanBean(this);
+        
+        for (ContestTeamMember ctm: contest.getTeamMembers()) {
+        	List<User> roleUsers = teamRoleUsersMap.get(ctm.getRole());
+        	if (roleUsers == null) {
+        		roleUsers = new ArrayList<User>();
+        		teamRoleUsersMap.put(ctm.getRole(), roleUsers);
+        	}
+        	roleUsers.add(ctm.getUser());
+        }
     }
 
     public String getName() {
@@ -412,4 +424,9 @@ public class ContestWrapper {
     public Long getGroupId() {
         return contest.getGroupId();
     }
+    
+    public Map<String, List<User>> getTeamRoleUsers() {
+    	return teamRoleUsersMap;
+    }
+    
 }
