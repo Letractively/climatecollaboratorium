@@ -85,10 +85,10 @@
             	<f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) gt 1}">
             		<span>#{teamRole}s</span>
             	</f:subview>
-            	<ui:repeat var="teamRoleUser" value="#{contest.contest.teamRoleUsers[teamRole]}">
+            	<ice:panelSeries style="display: inline;" var="teamRoleUser" value="#{contest.contest.teamRoleUsers[teamRole]}" varStatus="status">
                 	<collab:userPortrait screenName="#{teamRoleUser.screenName }" portraitId="#{teamRoleUser.portraitId}" width="30" height="30" />
-                	<collab:userLinkSimple userId="#{teamRoleUser.userId}" text="#{teamRoleUser.fullName}" />
-            	</ui:repeat>
+                	<collab:userLinkSimple userId="#{teamRoleUser.userId}" text="#{teamRoleUser.fullName}" /><f:subview rendered="#{not status.last}">,</f:subview>
+            	</ice:panelSeries>
             
             </ice:panelSeries>
         </f:subview>
