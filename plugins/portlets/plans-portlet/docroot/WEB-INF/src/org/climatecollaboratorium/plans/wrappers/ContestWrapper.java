@@ -429,4 +429,8 @@ public class ContestWrapper {
     	return teamRoleUsersMap;
     }
     
+    public Set<String> getTeamRoles() {
+    	return teamRoleUsersMap.keySet();
+    }
+    
 }
