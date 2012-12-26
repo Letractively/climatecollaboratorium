@@ -520,10 +520,11 @@ a.get:hover {background:url(../images/homespot-get-hover.png) no-repeat;}
 .contest-detail .where {background:url(../images/icon-list-where.png) no-repeat; padding-left:33px;}
 .contest-detail .who {background:url(../images/icon-list-who.png) no-repeat; padding-left:25px;}
 
-.contest-detail .moreinfo {clear:both; height:35px; padding:14px 16px 16px 18px;}
-.contest-detail .advisors {float:left; width:500px; font-size:14px; font-weight:700; padding-top:0px; color:#757572;}
+.contest-detail .moreinfo {clear:both; padding:14px 16px 16px 18px;}
+.contest-detail .advisors {width:500px; font-size:14px; font-weight:700; padding-top:0px; color:#757572;}
 .contest-detail .advisors img {margin-left: 5px; margin-right: 10px; vertical-align: bottom;}
 .contest-detail .advisors span {margin-left:20px;}
+.contest-detail .contestTeamRole { padding: 5px; }
 
 .contest-detail .buttons {float:right; width:270px; text-align:right;}
 .contest-detail .buttons a {width:115px; height:27px; display:inline-block; padding-top:8px; margin-left:3px; background:#fcfbf9; border:1px solid #6a96a7; font-size:16px; font-weight:700; text-align:center; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
