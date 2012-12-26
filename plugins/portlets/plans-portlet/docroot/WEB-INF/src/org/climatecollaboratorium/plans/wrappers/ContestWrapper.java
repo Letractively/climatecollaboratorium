@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -59,7 +60,7 @@ public class ContestWrapper {
     ContestPhaseWrapper activePhase = null;
 
     private CreatePlanBean createPlanBean;
-	private Map<String, List<User>> teamRoleUsersMap = new HashMap<String, List<User>>();
+	private Map<String, List<User>> teamRoleUsersMap = new TreeMap<String, List<User>>();
 
 
     public ContestWrapper(Contest contest) throws SystemException, PortalException {
