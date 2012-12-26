@@ -79,16 +79,19 @@
     <div class="moreinfo">
         <f:subview rendered="#{fn:length(contest.contest.contest.teamMembers) gt 0}">
             <ice:panelSeries styleClass="advisors" var="teamRole" value="#{contest.contest.teamRoles}">
-            	<f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) eq 1}">
-            		<span>#{teamRole}</span>
-            	</f:subview>
-            	<f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) gt 1}">
-            		<span>#{teamRole}s</span>
-            	</f:subview>
-            	<ice:panelSeries style="display: inline;" var="teamRoleUser" value="#{contest.contest.teamRoleUsers[teamRole]}" varStatus="status">
-                	<collab:userPortrait screenName="#{teamRoleUser.screenName }" portraitId="#{teamRoleUser.portraitId}" width="30" height="30" />
-                	<collab:userLinkSimple userId="#{teamRoleUser.userId}" text="#{teamRoleUser.fullName}" /><f:subview rendered="#{not status.last}">,</f:subview>
-            	</ice:panelSeries>
+                <div class="contestTeamRole">
+            	   <f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) eq 1}">
+            		  <span>#{teamRole}: </span>
+            	   </f:subview>
+            	   <f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) gt 1}">
+            		  <span>#{teamRole}s: </span>
+            	   </f:subview>
+            	   <ice:panelSeries style="display: inline;" var="teamRoleUser" value="#{contest.contest.teamRoleUsers[teamRole]}" varStatus="status">
+                	   <collab:userPortrait screenName="#{teamRoleUser.screenName }" portraitId="#{teamRoleUser.portraitId}" width="30" height="30" />
+                	   <collab:userLinkSimple userId="#{teamRoleUser.userId}" text="#{teamRoleUser.fullName}" /><f:subview rendered="#{not status.last}">,</f:subview>
+            	   </ice:panelSeries>
+            	</div>
+            	
             
             </ice:panelSeries>
         </f:subview>
@@ -96,7 +99,10 @@
             <f:subview rendered="#{not empty contest.contest.resourcesUrl}">
                 <a href="#{contest.contest.resourcesUrl}">Resources</a>
             </f:subview>
-            <a href="/web/guest/plans/-/plans/contestId/#{contest.contestId}/page/discussion">Discussion</a></div>
+            <a href="/web/guest/plans/-/plans/contestId/#{contest.contestId}/page/discussion">Discussion</a>
+        </div>
+        <div class="clearfix"><!--  --></div>
+        <div class="clear"><!--  --></div>
     </div>
  </div>
  
