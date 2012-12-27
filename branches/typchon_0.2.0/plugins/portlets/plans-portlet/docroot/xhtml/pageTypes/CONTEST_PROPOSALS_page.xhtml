@@ -81,7 +81,7 @@
             <ice:panelSeries styleClass="advisors" var="teamRole" value="#{contest.contest.teamRoles}">
                 <div class="contestTeamRole">
             	   <f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) eq 1}">
-            		  <span>#{teamRole}: </span>
+            		  <span>#{teamRole}</span>
             	   </f:subview>
             	   <f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) gt 1}">
             		  <span>#{teamRole}s</span>
