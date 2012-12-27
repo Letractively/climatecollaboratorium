@@ -84,11 +84,11 @@
             		  <span>#{teamRole}: </span>
             	   </f:subview>
             	   <f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) gt 1}">
-            		  <span>#{teamRole}s: </span>
+            		  <span>#{teamRole}s</span>
             	   </f:subview>
             	   <ice:panelSeries style="display: inline;" var="teamRoleUser" value="#{contest.contest.teamRoleUsers[teamRole]}" varStatus="status">
                 	   <collab:userPortrait screenName="#{teamRoleUser.screenName }" portraitId="#{teamRoleUser.portraitId}" width="30" height="30" />
-                	   <collab:userLinkSimple userId="#{teamRoleUser.userId}" text="#{teamRoleUser.fullName}" /><f:subview rendered="#{not status.last}">,</f:subview>
+                	   <collab:userLinkSimple userId="#{teamRoleUser.userId}" text="#{teamRoleUser.fullName}" />
             	   </ice:panelSeries>
             	</div>
             	
