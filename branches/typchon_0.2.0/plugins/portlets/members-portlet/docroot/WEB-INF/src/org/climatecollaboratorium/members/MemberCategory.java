@@ -1,12 +1,14 @@
 package org.climatecollaboratorium.members;
 
 public enum MemberCategory {
-    ADVISOR("Advisor"),
+	ALL("All"),
+    MEMBER("User"),
     FELLOW("Fellow"),
-    MODERATOR("Moderator"),
+    ADVISOR("Advisor"),
     EXPERT("Experts"),
     STAFF("Staff"),
-    MEMBER("User");
+    MODERATOR("Staff");
+    
     
     private final String roleName;
     
