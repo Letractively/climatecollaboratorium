@@ -87,9 +87,7 @@
             <strong><ice:outputText value="#{user.activityCount}" /></strong>
         </ice:column>  
         <ice:column style="width: 16px">
-            <f:subview rendered="${user.category != 'MEMBER'}">
-                <img src="/climatecolab-theme/images/icon_mem-${user.category.lowerCase}.png" width="16" height="16" />
-            </f:subview>
+            <img src="/climatecolab-theme/images/icon_mem-${user.category.lowerCase}.png" width="16" height="16" />
         </ice:column>
         <ice:column>
             &amp;nbsp;&amp;nbsp;<ice:outputText value="#{user.category.printName}" />
@@ -148,34 +146,39 @@
         <h2>Categories</h2>
         <ice:form>
             <ul>
-                <li class="#{membersBean.categoryFilter == null or membersBean.categoryFilter == 'MEMBER' ? 'c' : ''}">
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="All Members" onclick="Collab.nav.navigateAddParams('members', {filter: 'MEMBER'}); return false;">
+                <li class="#{membersBean.categoryFilter == 'MEMBER' ? 'c' : ''}">
+                    <img src="/climatecolab-theme/images/icon_mem-member.png" width="16" height="16" />&amp;nbsp;
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Members" onclick="Collab.nav.navigateAddParams('members', {filter: 'MEMBER'}); return false;">
                         <f:attribute name="category" value="MEMBER" />
                     </ice:commandLink>
                 </li>
-                <li class="#{membersBean.categoryFilter == 'EXPERT' ? 'c' : ''}">
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Experts" onclick="Collab.nav.navigateAddParams('members', {filter: 'EXPERT'}); return false;">
-                        <f:attribute name="category" value="EXPERT" />
-                    </ice:commandLink>
-                </li>
-                <li class="#{membersBean.categoryFilter == 'MODERATOR' ? 'c' : ''}">
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Moderators" onclick="Collab.nav.navigateAddParams('members', {filter: 'MODERATOR'}); return false;">
-                        <f:attribute name="category" value="MODERATOR" />
-                    </ice:commandLink>
-                </li>
-                <li class="#{membersBean.categoryFilter == 'STAFF' ? 'c' : ''}">
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Staff" onclick="Collab.nav.navigateAddParams('members', {filter: 'STAFF'}); return false;">
-                        <f:attribute name="category" value="STAFF" />
+                <li class="#{membersBean.categoryFilter == 'FELLOW' ? 'c' : ''}">
+                    <img src="/climatecolab-theme/images/icon_mem-fellow.png" width="16" height="16" />&amp;nbsp;
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Fellows" onclick="Collab.nav.navigateAddParams('members', {filter: 'FELLOW'}); return false;">
+                        <f:attribute name="category" value="FELLOW" />
                     </ice:commandLink>
                 </li>
                 <li class="#{membersBean.categoryFilter == 'ADVISOR' ? 'c' : ''}">
+                    <img src="/climatecolab-theme/images/icon_mem-advisor.png" width="16" height="16" />&amp;nbsp;
                     <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Advisors" onclick="Collab.nav.navigateAddParams('members', {filter: 'ADVISOR'}); return false;">
                         <f:attribute name="category" value="ADVISOR" />
                     </ice:commandLink>
                 </li>
-                <li class="#{membersBean.categoryFilter == 'FELLOW' ? 'c' : ''}">
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Fellows" onclick="Collab.nav.navigateAddParams('members', {filter: 'FELLOW'}); return false;">
-                        <f:attribute name="category" value="FELLOW" />
+                <li class="#{membersBean.categoryFilter == 'EXPERT' ? 'c' : ''}">
+                    <img src="/climatecolab-theme/images/icon_mem-expert.png" width="16" height="16" />&amp;nbsp;
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Experts" onclick="Collab.nav.navigateAddParams('members', {filter: 'EXPERT'}); return false;">
+                        <f:attribute name="category" value="EXPERT" />
+                    </ice:commandLink>
+                </li>
+                <li class="#{membersBean.categoryFilter == 'STAFF' ? 'c' : ''}">
+                    <img src="/climatecolab-theme/images/icon_mem-staff.png" width="16" height="16" />&amp;nbsp;
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Staff" onclick="Collab.nav.navigateAddParams('members', {filter: 'STAFF'}); return false;">
+                        <f:attribute name="category" value="STAFF" />
+                    </ice:commandLink>
+                </li>
+                <li class="#{membersBean.categoryFilter == null or membersBean.categoryFilter == 'ALL' ? 'c' : ''}">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="All Members" onclick="Collab.nav.navigateAddParams('members', {filter: 'ALL'}); return false;">
+                        <f:attribute name="category" value="ALL" />
                     </ice:commandLink>
                 </li>
             </ul>

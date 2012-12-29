@@ -40,8 +40,8 @@ public class MembersBean {
     private int startFrom = 0;
     private int RESULTS_PER_PAGE = 25;
     private final static long DEFAULT_COMPANY_ID = 10112L;
-    private String sortColumnStr;
-    private MembersListColumns sortColumn = MembersListColumns.MEMBER_SINCE;
+    private MembersListColumns sortColumn = MembersListColumns.ACTIVITY;
+    private String sortColumnStr = sortColumn.name();
     private boolean sortAscending = false;
     private String searchPhrase = "";
     private EventBus eventBus;
@@ -63,7 +63,7 @@ public class MembersBean {
     private final static Log _log = LogFactoryUtil.getLog(MembersBean.class);
     
     public MembersBean() throws SystemException, PortalException, NumberFormatException, ParseException {
-        categoryRoleMap = new HashMap<MemberCategory, Role>();
+    	categoryRoleMap = new HashMap<MemberCategory, Role>();
 
         Object filterObj = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("filter");
         if (filterObj != null) {
@@ -161,7 +161,7 @@ public class MembersBean {
         LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
         
         // apply category filters
-        if (categoryFilter != null) {
+        if (categoryFilter != null && !categoryFilter.equals(MemberCategory.ALL)) {
             params.put("memberCategory", categoryFilter.name());
         }
         
@@ -170,7 +170,7 @@ public class MembersBean {
         
         
         for (Document userDoc: hits.getDocs()) {
-            if (categoryFilter != null && !categoryFilter.equals(MemberCategory.MEMBER)) {
+            if (categoryFilter != null && !categoryFilter.equals(MemberCategory.ALL)) {
                 // user has enabled category filter, show results from given category and mark them as
                 // from that category
                 String[] categories = userDoc.getValues("memberCategory");

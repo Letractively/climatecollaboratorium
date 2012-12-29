@@ -32,21 +32,31 @@ public class MemberListItemBean {
         
         
         joinDate = userDoc.getDate("joinDate");
+
         if (userDoc.getValues("memberCategory").length > 0) {
             try {
-                category = MemberCategory.valueOf(userDoc.getValues("memberCategory")[0]);
+            	String[] categoriesStr = userDoc.getValues("memberCategory");
+            	MemberCategory currentCat = MemberCategory.MEMBER;
+            	category = MemberCategory.MEMBER;
+            	for (String categoryStr: userDoc.getValues("memberCategory")) {
+            		currentCat = MemberCategory.valueOf(categoryStr);
+            		if (currentCat.ordinal() > category.ordinal()) {
+            			category = currentCat;
+            		}
+            	}
+            	
+            	if (category == MemberCategory.MODERATOR) category = MemberCategory.STAFF;
             }
             catch (java.lang.IllegalArgumentException e) {
                 // ignore
             }
         }
-        
     }
     
     public MemberListItemBean(Document userDoc, MemberCategory categoryFilter) throws NumberFormatException, 
     SystemException, PortalException, ParseException {
         this(userDoc);
-        category = categoryFilter;
+        //category = categoryFilter;
     }
 
     public String getRealName() {
