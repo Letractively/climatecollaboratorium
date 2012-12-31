@@ -1,6 +1,5 @@
 package com.ext.utils.userInput.service;
 
-import com.ext.portlet.plans.service.PlanItemLocalService;
 import com.ext.utils.userInput.IUserInputFilter;
 import com.ext.utils.userInput.UserInputException;
 

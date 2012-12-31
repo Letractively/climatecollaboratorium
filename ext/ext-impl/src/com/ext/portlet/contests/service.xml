@@ -31,6 +31,7 @@
         
         <column name="flag" type="Integer" />
         <column name="flagText" type="String" />
+        <column name="flagTooltip" type="String" />
         
         <column name="groupId" type="Long" />
         <column name="discussionGroupId" type="Long" />

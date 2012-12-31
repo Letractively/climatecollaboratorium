@@ -577,6 +577,7 @@
 		<field name="plansOpenByDefault" type="Boolean" />
 		<field name="flag" type="Integer" />
 		<field name="flagText" type="String" />
+		<field name="flagTooltip" type="String" />
 		<field name="groupId" type="Long" />
 		<field name="discussionGroupId" type="Long" />
 		<field name="weight" type="Integer" />

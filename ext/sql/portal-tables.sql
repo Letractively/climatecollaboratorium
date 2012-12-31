@@ -260,6 +260,7 @@ create table Contest (
 	plansOpenByDefault BOOLEAN,
 	flag INTEGER,
 	flagText VARCHAR(75) null,
+	flagTooltip VARCHAR(75) null,
 	groupId LONG,
 	discussionGroupId LONG,
 	weight INTEGER,

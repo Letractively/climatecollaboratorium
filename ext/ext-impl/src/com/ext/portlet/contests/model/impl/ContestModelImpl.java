@@ -100,6 +100,9 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "flagText", new Integer(Types.VARCHAR) },
             
 
+            { "flagTooltip", new Integer(Types.VARCHAR) },
+            
+
             { "groupId", new Integer(Types.BIGINT) },
             
 
@@ -111,7 +114,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
 
             { "resourcesUrl", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN,plansOpenByDefault BOOLEAN,flag INTEGER,flagText VARCHAR(75) null,groupId LONG,discussionGroupId LONG,weight INTEGER,resourcesUrl VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN,plansOpenByDefault BOOLEAN,flag INTEGER,flagText VARCHAR(75) null,flagTooltip VARCHAR(75) null,groupId LONG,discussionGroupId LONG,weight INTEGER,resourcesUrl VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -144,6 +147,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Boolean _plansOpenByDefault;
     private Integer _flag;
     private String _flagText;
+    private String _flagTooltip;
     private Long _groupId;
     private Long _discussionGroupId;
     private Integer _weight;
@@ -174,6 +178,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setPlansOpenByDefault(soapModel.getPlansOpenByDefault());
         model.setFlag(soapModel.getFlag());
         model.setFlagText(soapModel.getFlagText());
+        model.setFlagTooltip(soapModel.getFlagTooltip());
         model.setGroupId(soapModel.getGroupId());
         model.setDiscussionGroupId(soapModel.getDiscussionGroupId());
         model.setWeight(soapModel.getWeight());
@@ -365,6 +370,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _flagText = flagText;
     }
 
+    public String getFlagTooltip() {
+        return GetterUtil.getString(_flagTooltip);
+    }
+
+    public void setFlagTooltip(String flagTooltip) {
+        _flagTooltip = flagTooltip;
+    }
+
     public Long getGroupId() {
         return _groupId;
     }
@@ -428,6 +441,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setPlansOpenByDefault(getPlansOpenByDefault());
             model.setFlag(getFlag());
             model.setFlagText(HtmlUtil.escape(getFlagText()));
+            model.setFlagTooltip(HtmlUtil.escape(getFlagTooltip()));
             model.setGroupId(getGroupId());
             model.setDiscussionGroupId(getDiscussionGroupId());
             model.setWeight(getWeight());
@@ -463,6 +477,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setPlansOpenByDefault(getPlansOpenByDefault());
         clone.setFlag(getFlag());
         clone.setFlagText(getFlagText());
+        clone.setFlagTooltip(getFlagTooltip());
         clone.setGroupId(getGroupId());
         clone.setDiscussionGroupId(getDiscussionGroupId());
         clone.setWeight(getWeight());
@@ -556,6 +571,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getFlag());
         sb.append(", flagText=");
         sb.append(getFlagText());
+        sb.append(", flagTooltip=");
+        sb.append(getFlagTooltip());
         sb.append(", groupId=");
         sb.append(getGroupId());
         sb.append(", discussionGroupId=");
@@ -651,6 +668,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>flagText</column-name><column-value><![CDATA[");
         sb.append(getFlagText());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>flagTooltip</column-name><column-value><![CDATA[");
+        sb.append(getFlagTooltip());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>groupId</column-name><column-value><![CDATA[");

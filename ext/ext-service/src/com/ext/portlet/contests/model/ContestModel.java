@@ -107,6 +107,10 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setFlagText(String flagText);
 
+    public String getFlagTooltip();
+
+    public void setFlagTooltip(String flagTooltip);
+
     public Long getGroupId();
 
     public void setGroupId(Long groupId);

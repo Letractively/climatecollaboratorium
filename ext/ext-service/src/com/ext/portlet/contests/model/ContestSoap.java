@@ -45,6 +45,7 @@ public class ContestSoap implements Serializable {
     private Boolean _plansOpenByDefault;
     private Integer _flag;
     private String _flagText;
+    private String _flagTooltip;
     private Long _groupId;
     private Long _discussionGroupId;
     private Integer _weight;
@@ -75,6 +76,7 @@ public class ContestSoap implements Serializable {
         soapModel.setPlansOpenByDefault(model.getPlansOpenByDefault());
         soapModel.setFlag(model.getFlag());
         soapModel.setFlagText(model.getFlagText());
+        soapModel.setFlagTooltip(model.getFlagTooltip());
         soapModel.setGroupId(model.getGroupId());
         soapModel.setDiscussionGroupId(model.getDiscussionGroupId());
         soapModel.setWeight(model.getWeight());
@@ -278,6 +280,14 @@ public class ContestSoap implements Serializable {
 
     public void setFlagText(String flagText) {
         _flagText = flagText;
+    }
+
+    public String getFlagTooltip() {
+        return _flagTooltip;
+    }
+
+    public void setFlagTooltip(String flagTooltip) {
+        _flagTooltip = flagTooltip;
     }
 
     public Long getGroupId() {
