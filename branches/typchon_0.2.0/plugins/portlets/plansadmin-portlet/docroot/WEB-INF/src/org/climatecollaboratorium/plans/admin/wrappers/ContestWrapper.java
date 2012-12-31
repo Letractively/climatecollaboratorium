@@ -74,6 +74,14 @@ public class ContestWrapper {
     public void setFlagText(String flagText) {
         contest.setFlagText(flagText);
     }
+
+    public String getFlagTooltip() {
+        return contest.getFlagTooltip();
+    }
+    
+    public void setFlagTooltip(String flagTooltip) {
+        contest.setFlagTooltip(flagTooltip);
+    }
     
     public boolean getPlansOpenByDefault() {
     	return contest.getPlansOpenByDefault();
