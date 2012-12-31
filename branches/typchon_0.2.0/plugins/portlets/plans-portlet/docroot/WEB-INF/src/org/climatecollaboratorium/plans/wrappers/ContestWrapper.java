@@ -167,6 +167,10 @@ public class ContestWrapper {
         return contest.getFlagText();
     }
     
+    public String getFlagTooltip() {
+        return contest.getFlagTooltip();
+    }
+    
     public String getFlagTextClass() {
         return contest.getFlagText().toLowerCase().replaceAll("\\s", "");
     }
