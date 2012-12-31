@@ -10,7 +10,7 @@
     
     <div class="headline prophead">
     <ice:form>
-        <h2><span>#{planBean.plan.planMembersCount}</span> members</h2>
+        <h2>Team:&amp;nbsp; <span>#{planBean.plan.planMembersCount}</span> member<f:subview rendered="#{planBean.plan.planMembersCount == 0 or planBean.plan.planMembersCount > 1}">s</f:subview></h2>
   
         <f:subview rendered="#{not planBean.plan.planMember and not planBean.membershipBean.requesting and not planBean.plan.hasRequestedMembership }">
         <div class="prop-butt">
@@ -88,13 +88,11 @@
             </div>
         </div>
     </div> <!-- /headline -->
-    <ice:dataTable value="#{planBean.plan.planFanPairs}" var="fan" styleClass="contributors" rendered="#{fn:length(planBean.plan.planFans) > 0}" rowClasses="odd,even">
+    <ice:dataTable value="#{planBean.plan.planFans}" var="fan" styleClass="contributors" rendered="#{fn:length(planBean.plan.planFans) > 0}" rowClasses="odd,even">
         <ice:column>
-            <collab:userLinkSimple userId="#{fan.first.user.userId}" text="#{fan.first.user.screenName}"/>
+            <collab:userLinkSimple userId="#{fan.user.userId}" text="#{fan.user.screenName}"/>
         </ice:column>
-        <ice:column>
-            <collab:userLinkSimple userId="#{fan.second.user.userId}" text="#{fan.second.user.screenName}"/>
-        </ice:column>
+        
     </ice:dataTable>        
 </ice:form>
         
