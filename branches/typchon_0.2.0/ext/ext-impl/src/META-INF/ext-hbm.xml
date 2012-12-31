@@ -779,6 +779,7 @@
 		<property name="plansOpenByDefault" />
 		<property name="flag" />
 		<property name="flagText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="flagTooltip" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="groupId" />
 		<property name="discussionGroupId" />
 		<property name="weight" />

@@ -73,6 +73,7 @@ public class ContestJSONSerializer {
         jsonObj.put("plansOpenByDefault", model.getPlansOpenByDefault());
         jsonObj.put("flag", model.getFlag());
         jsonObj.put("flagText", model.getFlagText());
+        jsonObj.put("flagTooltip", model.getFlagTooltip());
         jsonObj.put("groupId", model.getGroupId());
         jsonObj.put("discussionGroupId", model.getDiscussionGroupId());
         jsonObj.put("weight", model.getWeight());
