@@ -174,12 +174,12 @@ public class MembersBean {
                 // user has enabled category filter, show results from given category and mark them as
                 // from that category
                 String[] categories = userDoc.getValues("memberCategory");
-                for (String s: categories) {
-                    if (s.equals(categoryFilter.name())) {
-                        searchResults.add(new MemberListItemBean(userDoc, categoryFilter));
-                        break;
-                    }
+                boolean include = true;
+                if (categoryFilter.equals(MemberCategory.MEMBER) && categories.length > 1) {
+                	include = false;
                 }
+                if (include) 
+                	searchResults.add(new MemberListItemBean(userDoc, categoryFilter));
             }
             else {
                 // autodetect member category
