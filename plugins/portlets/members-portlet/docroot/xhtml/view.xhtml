@@ -145,7 +145,7 @@
       <div class="comm_list">
         <h2>Categories</h2>
         <ice:form>
-            <ul>
+            <ul class="membersCategories">
                 <li class="#{membersBean.categoryFilter == 'MEMBER' ? 'c' : ''}">
                     <img src="/climatecolab-theme/images/icon_mem-member.png" width="16" height="16" />&amp;nbsp;
                     <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="Members" onclick="Collab.nav.navigateAddParams('members', {filter: 'MEMBER'}); return false;">

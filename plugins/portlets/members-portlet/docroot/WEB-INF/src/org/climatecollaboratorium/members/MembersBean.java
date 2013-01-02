@@ -48,7 +48,7 @@ public class MembersBean {
     private List<HandlerRegistration> handlerRegistrations = new ArrayList<HandlerRegistration>();
     
 
-    private MemberCategory categoryFilter = null;
+    private MemberCategory categoryFilter = MemberCategory.MEMBER;
     
     /**
      * Represents a mapping from member category to a role that represents this category. 
