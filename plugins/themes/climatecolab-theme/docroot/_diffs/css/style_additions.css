@@ -1088,3 +1088,30 @@ input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:
 	list-style: none;
 	background: none;
 }
+
+.contestbar .phaseSeparatorContainer {
+    width: 16px;
+    display: inline-block;
+    
+}
+
+.contestbar .phaseSeparator {
+	width: 16px;
+    height: 37px;
+    top: 0px;
+    position: absolute;
+    background: url(../images/contest_blueheader_separator.png) no-repeat;
+}
+
+.contestbar .phaseSelected {
+	text-decoration: underline;
+}
+
+.phaseLinkContainer {
+	display: inline-block;
+	position: relative;
+}
+
+.tooltip {
+	z-index: 10;
+}
