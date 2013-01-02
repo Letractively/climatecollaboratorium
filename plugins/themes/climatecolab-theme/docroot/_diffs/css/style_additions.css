@@ -1077,3 +1077,7 @@ input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:
 .contest-tax-header{ background: url(../images/icon-prize.png) no-repeat left; margin-left:38px; padding-left:27px; padding-top: 6px; font-size:21px; font-weight:bold;padding-bottom:5px;color: #66B035;}
 
 .contest-tax-contests{ margin-left:21px; padding-left: 12px;}
+
+.contestlistCol1 .tooltip {
+	width: 150px;
+}
