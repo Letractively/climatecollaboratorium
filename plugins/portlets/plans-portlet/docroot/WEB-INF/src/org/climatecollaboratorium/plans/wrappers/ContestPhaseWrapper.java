@@ -28,10 +28,12 @@ import java.util.List;
 public class ContestPhaseWrapper {
     private ContestPhase phase;
     private ContestWrapper contestWrapper;
+    private boolean last;
 
-    public ContestPhaseWrapper(ContestWrapper wrapper, ContestPhase phase) {
+    public ContestPhaseWrapper(ContestWrapper wrapper, ContestPhase phase, boolean last) {
         this.phase = phase;
         this.contestWrapper = wrapper;
+        this.last = last;
     }
 
     public ContestPhase getPhase() {
@@ -54,6 +56,10 @@ public class ContestPhaseWrapper {
     public Date getEndDate() {
        return phase.getPhaseEndDate();
        // return new Date();
+    }
+    
+    public boolean isAlreadyStarted() {
+    	return phase.getPhaseStartDate().before(new Date());
     }
 
     public ContestStatus getStatus() {
@@ -105,6 +111,8 @@ public class ContestPhaseWrapper {
         return phase.getPhaseActive();
     }
     
+
+    
     public boolean getHasNextPhase() {
         boolean hasNext = false;
         boolean currentFound = false;
@@ -148,4 +156,13 @@ public class ContestPhaseWrapper {
         }
         return 0;
     }
+    
+    public boolean isLast() {
+    	return last;
+    }
+    
+    public boolean isEnded() {
+    	return phase.getPhaseEndDate().before(new Date());
+    }
+    
 }
