@@ -1083,3 +1083,8 @@ input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:
 .contestlistCol1 .tooltip {
 	width: 150px;
 }
+
+#content  .membersCategories , #content  .membersCategories li {
+	list-style: none;
+	background: none;
+}
