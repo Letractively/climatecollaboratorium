@@ -187,7 +187,7 @@
             <div class="tooltip">click to sort by date<div class="tt-arrow"></div></div>
         </div>
         <div class="contributor">
-            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Contributors">
+            <ice:commandLink actionListener="#{plansIndex.updateSortColumn}" value="Who can edit">
                 <f:attribute name="sortColumn" value="IS_PLAN_OPEN" />
             </ice:commandLink>
             <ui:include src="./contests/widget_SORT_ARROW.xhtml">
@@ -195,7 +195,7 @@
                 <ui:param name="currentColumn" value="IS_PLAN_OPEN" />
                 <ui:param name="sortAscending" value="#{plansIndex.sortAscending}" />
             </ui:include>
-            <div class="tooltip">click to sort by contributor<div class="tt-arrow"></div></div>
+            <div class="tooltip">click to sort by who can edit<div class="tt-arrow"></div></div>
         </div>
     </div></ice:form>
  
