@@ -66,8 +66,13 @@ public class ContestWrapper {
     public ContestWrapper(Contest contest) throws SystemException, PortalException {
         boolean addAsActiveOrPast = true;
         this.contest = contest;
+        
+        int phasesCount = contest.getPhases().size();
+        int phaseNumber = 0;
         for (ContestPhase phase:contest.getPhases()) {
-            ContestPhaseWrapper phaseWrapper = new ContestPhaseWrapper(this,phase);
+        	phaseNumber++;
+        	
+            ContestPhaseWrapper phaseWrapper = new ContestPhaseWrapper(this,phase, phaseNumber == phasesCount);
             if (addAsActiveOrPast) {
                 activeOrPastPhases.add(phaseWrapper);
                 if (! phaseWrapper.isActive()) {
@@ -86,7 +91,7 @@ public class ContestWrapper {
         }
         if (activePhase == null) {
             List<ContestPhase> phases = contest.getPhases();
-            activePhase = new ContestPhaseWrapper(this, phases.get(phases.size()-1));
+            activePhase = new ContestPhaseWrapper(this, phases.get(phases.size()-1), true);
         }
         editor = new EditContestBean();
         plansIndex = new PlansIndexBean(activePhase);

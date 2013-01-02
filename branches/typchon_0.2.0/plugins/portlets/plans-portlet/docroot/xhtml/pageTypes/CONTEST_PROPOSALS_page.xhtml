@@ -32,10 +32,9 @@
     </f:subview>
     
 </div> <!-- /headline -->
-
  <div class="blueheaderbar">
     <div class="contestbar">
-        <ui:include src="./contests/widget_CONTEST_PHASES_#{contest.contestState}.xhtml" />
+        <ui:include src="./contests/widget_CONTEST_PHASES.xhtml" />
         <div class="contestSubscribe">
             <ice:form>
                 <f:subview rendered="#{not contest.userSubscribed}">

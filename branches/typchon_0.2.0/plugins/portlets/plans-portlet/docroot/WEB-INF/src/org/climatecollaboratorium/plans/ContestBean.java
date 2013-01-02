@@ -67,12 +67,12 @@ public class ContestBean {
             contest = new ContestWrapper(ContestLocalServiceUtil.getContestByActiveFlag(true));
         }
         if (contest.getContest().getContestActive() && contest.getContest().isActive()) {
-            currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getActivePhase());
+            currentPhase = new ContestPhaseWrapper(contest, contest.getContest().getActivePhase(), false);
             contestState = ContestState.ACTIVE;
         }
         else {
             List<ContestPhase> phases = contest.getContest().getPhases();
-            currentPhase = new ContestPhaseWrapper(contest, phases.get(phases.size()-1));
+            currentPhase = new ContestPhaseWrapper(contest, phases.get(phases.size()-1), true);
             if (currentPhase.getStartDate().after(new Date())) {
                 contestState = ContestState.NOT_STARTED;
             }
