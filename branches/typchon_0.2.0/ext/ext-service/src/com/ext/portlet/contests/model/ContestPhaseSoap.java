@@ -34,7 +34,7 @@ public class ContestPhaseSoap implements Serializable {
     private Date _PhaseStartDate;
     private Date _PhaseEndDate;
     private String _nextStatus;
-    private String _description;
+    private String _phaseStatusDescription;
     private Date _created;
     private Date _updated;
     private Long _authorId;
@@ -53,7 +53,7 @@ public class ContestPhaseSoap implements Serializable {
         soapModel.setPhaseStartDate(model.getPhaseStartDate());
         soapModel.setPhaseEndDate(model.getPhaseEndDate());
         soapModel.setNextStatus(model.getNextStatus());
-        soapModel.setDescription(model.getDescription());
+        soapModel.setPhaseStatusDescription(model.getPhaseStatusDescription());
         soapModel.setCreated(model.getCreated());
         soapModel.setUpdated(model.getUpdated());
         soapModel.setAuthorId(model.getAuthorId());
@@ -169,12 +169,12 @@ public class ContestPhaseSoap implements Serializable {
         _nextStatus = nextStatus;
     }
 
-    public String getDescription() {
-        return _description;
+    public String getPhaseStatusDescription() {
+        return _phaseStatusDescription;
     }
 
-    public void setDescription(String description) {
-        _description = description;
+    public void setPhaseStatusDescription(String phaseStatusDescription) {
+        _phaseStatusDescription = phaseStatusDescription;
     }
 
     public Date getCreated() {
