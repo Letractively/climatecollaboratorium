@@ -104,7 +104,7 @@
             <finder-column name="ContestPK"/>
         </finder>
       </entity>
-      <entity name="ContestPhaseStatus">
+      <entity name="ContestPhaseStatus" local-service="true" remote-service="true">
         <column name="name" type="String" primary="true" />
         <column name="description" type="String" />
       </entity>
