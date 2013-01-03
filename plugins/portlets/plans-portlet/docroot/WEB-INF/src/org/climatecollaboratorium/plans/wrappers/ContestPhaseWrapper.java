@@ -6,8 +6,11 @@
 
 package org.climatecollaboratorium.plans.wrappers;
 
+import com.ext.portlet.contests.NoSuchContestPhaseStatusException;
 import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.model.ContestStatus;
+import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
+import com.ext.portlet.contests.service.ContestPhaseStatusLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.model.PlanType;
 import com.liferay.portal.PortalException;
@@ -16,6 +19,8 @@ import com.liferay.portal.SystemException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -163,6 +168,19 @@ public class ContestPhaseWrapper {
     
     public boolean isEnded() {
     	return phase.getPhaseEndDate().before(new Date());
+    }
+    
+    public String getPhaseStatusDescription() throws PortalException, SystemException {
+    	if (StringUtils.isBlank(phase.getDescription())) {
+    		try {
+    			return ContestPhaseStatusLocalServiceUtil.getContestPhaseStatus(phase.getContestPhaseStatus()).getDescription();
+    		}
+    		catch (NoSuchContestPhaseStatusException e) {
+    			// ignore
+    		}
+    		return null;
+    	}
+    	return phase.getDescription();
     }
     
 }

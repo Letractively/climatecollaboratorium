@@ -14,7 +14,15 @@
                         <span class="fieldWithTooltip">
                             <ui:include src="./widget_PHASE_LINK.xhtml" />
                         </span>
-                        <div class="tooltip">#{phase.name}: #{phase.startDate} - #{phase.endDate} <div class="tt-arrow"></div></div>
+                        <div class="tooltip">#{phase.description}: 
+                            start: <ice:outputText value="#{phase.startDate}" >
+                                <f:convertDateTime pattern="hh:mm MM/d/yy" />
+                            </ice:outputText><br />
+                            end: <ice:outputText value="#{phase.endDate}" >
+                                <f:convertDateTime pattern="hh:mm MM/d/yy" />
+                            </ice:outputText><br />
+                            #{phase.phaseStatusDescription}
+                             <div class="tt-arrow"></div></div>
                     </div>
                     <f:subview rendered="#{not phase.last}">
                         <div class="phaseSeparatorContainer">
