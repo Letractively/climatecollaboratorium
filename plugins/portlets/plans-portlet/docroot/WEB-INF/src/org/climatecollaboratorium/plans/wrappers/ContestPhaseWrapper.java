@@ -167,7 +167,10 @@ public class ContestPhaseWrapper {
     }
     
     public boolean isEnded() {
-    	return phase.getPhaseEndDate().before(new Date());
+    	if (phase.getPhaseEndDate() != null) {
+    		return phase.getPhaseEndDate().before(new Date());
+    	}
+    	return false;
     }
     
     public String getPhaseStatusDescription() throws PortalException, SystemException {
