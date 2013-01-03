@@ -6,4 +6,4 @@ create table ContestPhaseStatus (
 );
 
 
-ALTER TABLE  `ContestPhase` ADD description VARCHAR(512) CHARACTER SET utf8 COLLATE utf8_general_ci null;
+ALTER TABLE  `ContestPhase` ADD phaseStatusDescription VARCHAR(512) CHARACTER SET utf8 COLLATE utf8_general_ci null;

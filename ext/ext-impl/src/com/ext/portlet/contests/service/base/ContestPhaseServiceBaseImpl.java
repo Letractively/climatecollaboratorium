@@ -7,7 +7,6 @@ import com.ext.portlet.contests.service.ContestPhaseColumnLocalService;
 import com.ext.portlet.contests.service.ContestPhaseColumnService;
 import com.ext.portlet.contests.service.ContestPhaseLocalService;
 import com.ext.portlet.contests.service.ContestPhaseService;
-import com.ext.portlet.contests.service.ContestPhaseStatusLocalService;
 import com.ext.portlet.contests.service.ContestPhaseStatusService;
 import com.ext.portlet.contests.service.ContestService;
 import com.ext.portlet.contests.service.ContestTeamMemberLocalService;
@@ -45,8 +44,6 @@ public abstract class ContestPhaseServiceBaseImpl extends PrincipalBean
     protected ContestPhaseService contestPhaseService;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl")
     protected ContestPhasePersistence contestPhasePersistence;
-    @BeanReference(name = "com.ext.portlet.contests.service.ContestPhaseStatusLocalService.impl")
-    protected ContestPhaseStatusLocalService contestPhaseStatusLocalService;
     @BeanReference(name = "com.ext.portlet.contests.service.ContestPhaseStatusService.impl")
     protected ContestPhaseStatusService contestPhaseStatusService;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence.impl")
@@ -139,15 +136,6 @@ public abstract class ContestPhaseServiceBaseImpl extends PrincipalBean
     public void setContestPhasePersistence(
         ContestPhasePersistence contestPhasePersistence) {
         this.contestPhasePersistence = contestPhasePersistence;
-    }
-
-    public ContestPhaseStatusLocalService getContestPhaseStatusLocalService() {
-        return contestPhaseStatusLocalService;
-    }
-
-    public void setContestPhaseStatusLocalService(
-        ContestPhaseStatusLocalService contestPhaseStatusLocalService) {
-        this.contestPhaseStatusLocalService = contestPhaseStatusLocalService;
     }
 
     public ContestPhaseStatusService getContestPhaseStatusService() {
