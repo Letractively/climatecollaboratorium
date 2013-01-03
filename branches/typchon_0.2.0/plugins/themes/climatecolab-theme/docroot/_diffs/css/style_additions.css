@@ -1092,6 +1092,8 @@ input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:
 .contestbar .phaseSeparatorContainer {
     width: 16px;
     display: inline-block;
+    padding-left: 7px; 
+    padding-right: 7px;
     
 }
 
@@ -1103,8 +1105,12 @@ input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:
     background: url(../images/contest_blueheader_separator.png) no-repeat;
 }
 
-.contestbar .phaseSelected {
-	text-decoration: underline;
+.contestbar .phaseActive {
+	font-weight: 700;
+}
+
+.contestbar .phaseFuture {
+	color: #858585;
 }
 
 .phaseLinkContainer {
