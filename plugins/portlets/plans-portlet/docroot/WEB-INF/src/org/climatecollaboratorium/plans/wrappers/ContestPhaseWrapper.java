@@ -171,7 +171,7 @@ public class ContestPhaseWrapper {
     }
     
     public String getPhaseStatusDescription() throws PortalException, SystemException {
-    	if (StringUtils.isBlank(phase.getDescription())) {
+    	if (StringUtils.isBlank(phase.getPhaseStatusDescription())) {
     		try {
     			return ContestPhaseStatusLocalServiceUtil.getContestPhaseStatus(phase.getContestPhaseStatus()).getDescription();
     		}
@@ -180,7 +180,7 @@ public class ContestPhaseWrapper {
     		}
     		return null;
     	}
-    	return phase.getDescription();
+    	return phase.getPhaseStatusDescription();
     }
     
 }
