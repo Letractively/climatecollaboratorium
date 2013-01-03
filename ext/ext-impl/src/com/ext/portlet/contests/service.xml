@@ -85,6 +85,7 @@
         <column name="PhaseStartDate" type="Date" />
         <column name="PhaseEndDate" type="Date" />
         <column name="nextStatus" type="String" />
+        <column name="description" type="String" />
         <column name="created" type="Date" />
         <column name="updated" type="Date" />
         <column name="authorId" type="Long" />
@@ -102,6 +103,10 @@
         <finder name="ContestId" return-type="Collection">
             <finder-column name="ContestPK"/>
         </finder>
+      </entity>
+      <entity name="ContestPhaseStatus" local-service="true" >
+        <column name="name" type="String" primary="true" />
+        <column name="description" type="String" />
       </entity>
       
       <entity name="ContestPhaseColumn" local-service="true">

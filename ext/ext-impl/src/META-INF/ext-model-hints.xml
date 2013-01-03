@@ -597,9 +597,14 @@
 		<field name="PhaseStartDate" type="Date" />
 		<field name="PhaseEndDate" type="Date" />
 		<field name="nextStatus" type="String" />
+		<field name="description" type="String" />
 		<field name="created" type="Date" />
 		<field name="updated" type="Date" />
 		<field name="authorId" type="Long" />
+	</model>
+	<model name="com.ext.portlet.contests.model.ContestPhaseStatus">
+		<field name="name" type="String" />
+		<field name="description" type="String" />
 	</model>
 	<model name="com.ext.portlet.contests.model.ContestPhaseColumn">
 		<field name="id" type="Long" />

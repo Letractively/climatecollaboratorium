@@ -805,9 +805,17 @@
 		<property name="PhaseStartDate" type="org.hibernate.type.TimestampType" />
 		<property name="PhaseEndDate" type="org.hibernate.type.TimestampType" />
 		<property name="nextStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />
 		<property name="authorId" />
+	</class>
+	<class name="com.ext.portlet.contests.model.impl.ContestPhaseStatusImpl" table="ContestPhaseStatus">
+		<cache usage="read-write" />
+		<id name="name" type="java.lang.String">
+			<generator class="assigned" />
+		</id>
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestPhaseColumnImpl" table="ContestPhaseColumn">
 		<cache usage="read-write" />

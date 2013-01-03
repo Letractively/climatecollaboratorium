@@ -66,6 +66,8 @@ public class ContestTeamMemberPersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.contests.service.persistence.ContestDebatePersistence contestDebatePersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPhasePersistence contestPhasePersistence;
+    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence.impl")
+    protected com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence contestPhaseStatusPersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence contestPhaseColumnPersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl")

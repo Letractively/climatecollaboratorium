@@ -61,6 +61,7 @@ public class ContestPhaseJSONSerializer {
 
         jsonObj.put("PhaseEndDate", PhaseEndDateJSON);
         jsonObj.put("nextStatus", model.getNextStatus());
+        jsonObj.put("description", model.getDescription());
 
         Date created = model.getCreated();
 
