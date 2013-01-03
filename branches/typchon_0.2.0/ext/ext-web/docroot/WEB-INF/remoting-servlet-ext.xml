@@ -835,6 +835,18 @@
 		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseService" />
 	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseStatusService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseStatusService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseStatusService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseStatusService-hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseStatusService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseStatusService" />
+	</bean>
+	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseStatusService-http" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseStatusService.impl" />
+		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseStatusService" />
+	</bean>
 	<bean name="/com_ext_portlet_contests_service_spring_ContestPhaseColumnService-burlap" class="org.springframework.remoting.caucho.BurlapServiceExporter">
 		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseColumnService.impl" />
 		<property name="serviceInterface" value="com.ext.portlet.contests.service.ContestPhaseColumnService" />

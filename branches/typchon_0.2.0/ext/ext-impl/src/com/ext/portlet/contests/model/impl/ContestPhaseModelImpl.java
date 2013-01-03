@@ -67,6 +67,9 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
             { "nextStatus", new Integer(Types.VARCHAR) },
             
 
+            { "description", new Integer(Types.VARCHAR) },
+            
+
             { "created", new Integer(Types.TIMESTAMP) },
             
 
@@ -75,7 +78,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
             { "authorId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ContestPhase (ContestPhasePK LONG not null primary key,ContestPK LONG,ContestPhaseName VARCHAR(75) null,ContestPhaseDescription VARCHAR(75) null,ContestPhaseStatus VARCHAR(75) null,PhaseStartDate DATE null,PhaseEndDate DATE null,nextStatus VARCHAR(75) null,created DATE null,updated DATE null,authorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table ContestPhase (ContestPhasePK LONG not null primary key,ContestPK LONG,ContestPhaseName VARCHAR(75) null,ContestPhaseDescription VARCHAR(75) null,ContestPhaseStatus VARCHAR(75) null,PhaseStartDate DATE null,PhaseEndDate DATE null,nextStatus VARCHAR(75) null,description VARCHAR(75) null,created DATE null,updated DATE null,authorId LONG)";
     public static final String TABLE_SQL_DROP = "drop table ContestPhase";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -99,6 +102,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
     private Date _PhaseEndDate;
     private Date _originalPhaseEndDate;
     private String _nextStatus;
+    private String _description;
     private Date _created;
     private Date _updated;
     private Long _authorId;
@@ -117,6 +121,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         model.setPhaseStartDate(soapModel.getPhaseStartDate());
         model.setPhaseEndDate(soapModel.getPhaseEndDate());
         model.setNextStatus(soapModel.getNextStatus());
+        model.setDescription(soapModel.getDescription());
         model.setCreated(soapModel.getCreated());
         model.setUpdated(soapModel.getUpdated());
         model.setAuthorId(soapModel.getAuthorId());
@@ -234,6 +239,14 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         _nextStatus = nextStatus;
     }
 
+    public String getDescription() {
+        return GetterUtil.getString(_description);
+    }
+
+    public void setDescription(String description) {
+        _description = description;
+    }
+
     public Date getCreated() {
         return _created;
     }
@@ -276,6 +289,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
             model.setPhaseStartDate(getPhaseStartDate());
             model.setPhaseEndDate(getPhaseEndDate());
             model.setNextStatus(HtmlUtil.escape(getNextStatus()));
+            model.setDescription(HtmlUtil.escape(getDescription()));
             model.setCreated(getCreated());
             model.setUpdated(getUpdated());
             model.setAuthorId(getAuthorId());
@@ -299,6 +313,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         clone.setPhaseStartDate(getPhaseStartDate());
         clone.setPhaseEndDate(getPhaseEndDate());
         clone.setNextStatus(getNextStatus());
+        clone.setDescription(getDescription());
         clone.setCreated(getCreated());
         clone.setUpdated(getUpdated());
         clone.setAuthorId(getAuthorId());
@@ -364,6 +379,8 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         sb.append(getPhaseEndDate());
         sb.append(", nextStatus=");
         sb.append(getNextStatus());
+        sb.append(", description=");
+        sb.append(getDescription());
         sb.append(", created=");
         sb.append(getCreated());
         sb.append(", updated=");
@@ -413,6 +430,10 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         sb.append(
             "<column><column-name>nextStatus</column-name><column-value><![CDATA[");
         sb.append(getNextStatus());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>description</column-name><column-value><![CDATA[");
+        sb.append(getDescription());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>created</column-name><column-value><![CDATA[");

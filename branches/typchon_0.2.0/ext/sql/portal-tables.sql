@@ -282,6 +282,7 @@ create table ContestPhase (
 	PhaseStartDate DATE null,
 	PhaseEndDate DATE null,
 	nextStatus VARCHAR(75) null,
+	description VARCHAR(75) null,
 	created DATE null,
 	updated DATE null,
 	authorId LONG
@@ -293,6 +294,11 @@ create table ContestPhaseColumn (
 	columnName VARCHAR(75) null,
 	columnWeight INTEGER,
 	defaultSort BOOLEAN
+);
+
+create table ContestPhaseStatus (
+	name VARCHAR(75) not null primary key,
+	description VARCHAR(75) null
 );
 
 create table ContestPosition (

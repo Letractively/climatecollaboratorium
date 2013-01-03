@@ -25,8 +25,8 @@ import com.liferay.portal.service.base.PrincipalBean;
 import com.liferay.portal.util.PortalUtil;
 
 
-public abstract class ContestTeamMemberServiceBaseImpl extends PrincipalBean
-    implements ContestTeamMemberService {
+public abstract class ContestPhaseStatusServiceBaseImpl extends PrincipalBean
+    implements ContestPhaseStatusService {
     @BeanReference(name = "com.ext.portlet.contests.service.ContestLocalService.impl")
     protected ContestLocalService contestLocalService;
     @BeanReference(name = "com.ext.portlet.contests.service.ContestService.impl")

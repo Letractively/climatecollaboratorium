@@ -1,5 +1,6 @@
 package com.ext.portlet.contests.service.base;
 
+import com.ext.portlet.contests.model.ContestPhaseStatus;
 import com.ext.portlet.contests.service.ContestDebateLocalService;
 import com.ext.portlet.contests.service.ContestDebateService;
 import com.ext.portlet.contests.service.ContestLocalService;
@@ -19,14 +20,17 @@ import com.ext.portlet.contests.service.persistence.ContestPhasePersistence;
 import com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence;
 import com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence;
 
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.annotation.BeanReference;
-import com.liferay.portal.service.base.PrincipalBean;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.util.PortalUtil;
 
+import java.util.List;
 
-public abstract class ContestTeamMemberServiceBaseImpl extends PrincipalBean
-    implements ContestTeamMemberService {
+
+public abstract class ContestPhaseStatusLocalServiceBaseImpl
+    implements ContestPhaseStatusLocalService {
     @BeanReference(name = "com.ext.portlet.contests.service.ContestLocalService.impl")
     protected ContestLocalService contestLocalService;
     @BeanReference(name = "com.ext.portlet.contests.service.ContestService.impl")
@@ -63,6 +67,67 @@ public abstract class ContestTeamMemberServiceBaseImpl extends PrincipalBean
     protected ContestTeamMemberService contestTeamMemberService;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl")
     protected ContestTeamMemberPersistence contestTeamMemberPersistence;
+
+    public ContestPhaseStatus addContestPhaseStatus(
+        ContestPhaseStatus contestPhaseStatus) throws SystemException {
+        contestPhaseStatus.setNew(true);
+
+        return contestPhaseStatusPersistence.update(contestPhaseStatus, false);
+    }
+
+    public ContestPhaseStatus createContestPhaseStatus(String name) {
+        return contestPhaseStatusPersistence.create(name);
+    }
+
+    public void deleteContestPhaseStatus(String name)
+        throws PortalException, SystemException {
+        contestPhaseStatusPersistence.remove(name);
+    }
+
+    public void deleteContestPhaseStatus(ContestPhaseStatus contestPhaseStatus)
+        throws SystemException {
+        contestPhaseStatusPersistence.remove(contestPhaseStatus);
+    }
+
+    public List<Object> dynamicQuery(DynamicQuery dynamicQuery)
+        throws SystemException {
+        return contestPhaseStatusPersistence.findWithDynamicQuery(dynamicQuery);
+    }
+
+    public List<Object> dynamicQuery(DynamicQuery dynamicQuery, int start,
+        int end) throws SystemException {
+        return contestPhaseStatusPersistence.findWithDynamicQuery(dynamicQuery,
+            start, end);
+    }
+
+    public ContestPhaseStatus getContestPhaseStatus(String name)
+        throws PortalException, SystemException {
+        return contestPhaseStatusPersistence.findByPrimaryKey(name);
+    }
+
+    public List<ContestPhaseStatus> getContestPhaseStatuses(int start, int end)
+        throws SystemException {
+        return contestPhaseStatusPersistence.findAll(start, end);
+    }
+
+    public int getContestPhaseStatusesCount() throws SystemException {
+        return contestPhaseStatusPersistence.countAll();
+    }
+
+    public ContestPhaseStatus updateContestPhaseStatus(
+        ContestPhaseStatus contestPhaseStatus) throws SystemException {
+        contestPhaseStatus.setNew(false);
+
+        return contestPhaseStatusPersistence.update(contestPhaseStatus, true);
+    }
+
+    public ContestPhaseStatus updateContestPhaseStatus(
+        ContestPhaseStatus contestPhaseStatus, boolean merge)
+        throws SystemException {
+        contestPhaseStatus.setNew(false);
+
+        return contestPhaseStatusPersistence.update(contestPhaseStatus, merge);
+    }
 
     public ContestLocalService getContestLocalService() {
         return contestLocalService;

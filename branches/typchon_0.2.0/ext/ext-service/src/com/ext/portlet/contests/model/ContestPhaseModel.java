@@ -62,6 +62,10 @@ public interface ContestPhaseModel extends BaseModel<ContestPhase> {
 
     public void setNextStatus(String nextStatus);
 
+    public String getDescription();
+
+    public void setDescription(String description);
+
     public Date getCreated();
 
     public void setCreated(Date created);
