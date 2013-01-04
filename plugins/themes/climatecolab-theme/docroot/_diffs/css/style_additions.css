@@ -1088,6 +1088,9 @@ input.selectbox span {font-size:13px; font-style:normal; font-weight:600; color:
 #content  .membersCategories , #content  .membersCategories li {
 	list-style: none;
 	background: none;
+	padding-left: 0px;
+    margin-left: 0px;
+	
 }
 
 .contestbar .phaseSeparatorContainer {
