@@ -397,6 +397,7 @@ ul#blogArchives li {list-style: none; margin-bottom: 10px; background: none;}
 .comm_info-left img.spc { margin-left:40px;}
 
 .comm_list { line-height:normal; margin-top: 26px;}
+.comm_list.members { line-height:normal; margin-top: 26px;}
 .comm_list h2 {font-size:20px; color: #404040; margin-bottom: 18px;}
     .wf-active .comm_list h3 { font-size:14px; }
 .comm_list ul { list-style:none; }
