@@ -99,7 +99,7 @@
                     <collab:userLinkSimple userId="#{proposal.plan.author.userId}" text="#{proposal.plan.author.screenName}" />
                 </f:subview>
                 <f:subview rendered="#{not empty proposal.plan.team}">
-                    #{proposal.plan.team}
+                    <a href="javascript:;" onclick="Collab.nav.navigateAddParams('plans', {tab: 'team'}); return false;">#{proposal.plan.team}</a>
                 </f:subview>
         </div>
 
