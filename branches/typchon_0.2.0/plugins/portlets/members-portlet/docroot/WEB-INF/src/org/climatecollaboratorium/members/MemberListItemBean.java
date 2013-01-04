@@ -56,7 +56,7 @@ public class MemberListItemBean {
     public MemberListItemBean(Document userDoc, MemberCategory categoryFilter) throws NumberFormatException, 
     SystemException, PortalException, ParseException {
         this(userDoc);
-        //category = categoryFilter;
+        category = categoryFilter;
     }
 
     public String getRealName() {
