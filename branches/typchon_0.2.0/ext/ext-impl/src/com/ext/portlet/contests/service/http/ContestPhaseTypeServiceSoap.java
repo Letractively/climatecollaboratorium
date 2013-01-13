@@ -2,7 +2,7 @@ package com.ext.portlet.contests.service.http;
 
 
 /**
- * <a href="ContestPhaseStatusServiceSoap.java.html"><b><i>View Source</i></b></a>
+ * <a href="ContestPhaseTypeServiceSoap.java.html"><b><i>View Source</i></b></a>
  *
  * <p>
  * ServiceBuilder generated this class. Modifications in this class will be
@@ -11,7 +11,7 @@ package com.ext.portlet.contests.service.http;
  *
  * <p>
  * This class provides a SOAP utility for the
- * <code>com.ext.portlet.contests.service.ContestPhaseStatusServiceUtil</code> service
+ * <code>com.ext.portlet.contests.service.ContestPhaseTypeServiceUtil</code> service
  * utility. The static methods of this class calls the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -21,9 +21,9 @@ package com.ext.portlet.contests.service.http;
  * ServiceBuilder follows certain rules in translating the methods. For example,
  * if the method in the service utility returns a <code>java.util.List</code>,
  * that is translated to an array of
- * <code>com.ext.portlet.contests.model.ContestPhaseStatusSoap</code>. If the method in the
- * service utility returns a <code>com.ext.portlet.contests.model.ContestPhaseStatus</code>,
- * that is translated to a <code>com.ext.portlet.contests.model.ContestPhaseStatusSoap</code>.
+ * <code>com.ext.portlet.contests.model.ContestPhaseTypeSoap</code>. If the method in the
+ * service utility returns a <code>com.ext.portlet.contests.model.ContestPhaseType</code>,
+ * that is translated to a <code>com.ext.portlet.contests.model.ContestPhaseTypeSoap</code>.
  * Methods that SOAP cannot safely wire are skipped.
  * </p>
  *
@@ -47,10 +47,10 @@ package com.ext.portlet.contests.service.http;
  *
  * @author Brian Wing Shun Chan
  *
- * @see com.ext.portlet.contests.model.ContestPhaseStatusSoap
- * @see com.ext.portlet.contests.service.ContestPhaseStatusServiceUtil
- * @see com.ext.portlet.contests.service.http.ContestPhaseStatusServiceHttp
+ * @see com.ext.portlet.contests.model.ContestPhaseTypeSoap
+ * @see com.ext.portlet.contests.service.ContestPhaseTypeServiceUtil
+ * @see com.ext.portlet.contests.service.http.ContestPhaseTypeServiceHttp
  *
  */
-public class ContestPhaseStatusServiceSoap {
+public class ContestPhaseTypeServiceSoap {
 }

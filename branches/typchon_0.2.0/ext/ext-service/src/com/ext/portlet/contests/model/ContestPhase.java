@@ -35,7 +35,9 @@ public interface ContestPhase extends ContestPhaseModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
-    public com.ext.portlet.contests.model.ContestStatus getContestStatus();
+    public com.ext.portlet.contests.model.ContestStatus getContestStatus()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 
     public java.util.List<String> getPhaseColumns()
         throws com.liferay.portal.SystemException;
@@ -52,4 +54,8 @@ public interface ContestPhase extends ContestPhaseModel {
             com.liferay.portal.SystemException;
 
     public boolean getPhaseActive();
+
+    public java.lang.String getName()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
 }

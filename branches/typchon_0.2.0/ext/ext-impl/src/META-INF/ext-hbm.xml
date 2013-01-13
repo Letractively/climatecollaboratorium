@@ -799,23 +799,24 @@
 			<generator class="assigned" />
 		</id>
 		<property name="ContestPK" />
-		<property name="ContestPhaseName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="ContestPhaseDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="ContestPhaseStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ContestPhaseType" />
+		<property name="ContestPhaseDescriptionOverride" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="phaseActiveOverride" />
 		<property name="PhaseStartDate" type="org.hibernate.type.TimestampType" />
 		<property name="PhaseEndDate" type="org.hibernate.type.TimestampType" />
 		<property name="nextStatus" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="phaseStatusDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="created" type="org.hibernate.type.TimestampType" />
 		<property name="updated" type="org.hibernate.type.TimestampType" />
 		<property name="authorId" />
 	</class>
-	<class name="com.ext.portlet.contests.model.impl.ContestPhaseStatusImpl" table="ContestPhaseStatus">
+	<class name="com.ext.portlet.contests.model.impl.ContestPhaseTypeImpl" table="ContestPhaseType">
 		<cache usage="read-write" />
-		<id name="name" type="java.lang.String">
+		<id name="id" column="id_" type="java.lang.Long">
 			<generator class="assigned" />
 		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestPhaseColumnImpl" table="ContestPhaseColumn">
 		<cache usage="read-write" />

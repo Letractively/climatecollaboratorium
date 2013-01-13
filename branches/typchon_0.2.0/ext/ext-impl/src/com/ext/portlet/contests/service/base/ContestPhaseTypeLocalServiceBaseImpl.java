@@ -1,5 +1,6 @@
 package com.ext.portlet.contests.service.base;
 
+import com.ext.portlet.contests.model.ContestPhaseType;
 import com.ext.portlet.contests.service.ContestDebateLocalService;
 import com.ext.portlet.contests.service.ContestDebateService;
 import com.ext.portlet.contests.service.ContestLocalService;
@@ -7,8 +8,8 @@ import com.ext.portlet.contests.service.ContestPhaseColumnLocalService;
 import com.ext.portlet.contests.service.ContestPhaseColumnService;
 import com.ext.portlet.contests.service.ContestPhaseLocalService;
 import com.ext.portlet.contests.service.ContestPhaseService;
-import com.ext.portlet.contests.service.ContestPhaseStatusLocalService;
-import com.ext.portlet.contests.service.ContestPhaseStatusService;
+import com.ext.portlet.contests.service.ContestPhaseTypeLocalService;
+import com.ext.portlet.contests.service.ContestPhaseTypeService;
 import com.ext.portlet.contests.service.ContestService;
 import com.ext.portlet.contests.service.ContestTeamMemberLocalService;
 import com.ext.portlet.contests.service.ContestTeamMemberService;
@@ -16,17 +17,20 @@ import com.ext.portlet.contests.service.persistence.ContestDebatePersistence;
 import com.ext.portlet.contests.service.persistence.ContestPersistence;
 import com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence;
 import com.ext.portlet.contests.service.persistence.ContestPhasePersistence;
-import com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence;
+import com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistence;
 import com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence;
 
+import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.annotation.BeanReference;
-import com.liferay.portal.service.base.PrincipalBean;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.util.PortalUtil;
 
+import java.util.List;
 
-public abstract class ContestPhaseStatusServiceBaseImpl extends PrincipalBean
-    implements ContestPhaseStatusService {
+
+public abstract class ContestPhaseTypeLocalServiceBaseImpl
+    implements ContestPhaseTypeLocalService {
     @BeanReference(name = "com.ext.portlet.contests.service.ContestLocalService.impl")
     protected ContestLocalService contestLocalService;
     @BeanReference(name = "com.ext.portlet.contests.service.ContestService.impl")
@@ -45,12 +49,12 @@ public abstract class ContestPhaseStatusServiceBaseImpl extends PrincipalBean
     protected ContestPhaseService contestPhaseService;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl")
     protected ContestPhasePersistence contestPhasePersistence;
-    @BeanReference(name = "com.ext.portlet.contests.service.ContestPhaseStatusLocalService.impl")
-    protected ContestPhaseStatusLocalService contestPhaseStatusLocalService;
-    @BeanReference(name = "com.ext.portlet.contests.service.ContestPhaseStatusService.impl")
-    protected ContestPhaseStatusService contestPhaseStatusService;
-    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence.impl")
-    protected ContestPhaseStatusPersistence contestPhaseStatusPersistence;
+    @BeanReference(name = "com.ext.portlet.contests.service.ContestPhaseTypeLocalService.impl")
+    protected ContestPhaseTypeLocalService contestPhaseTypeLocalService;
+    @BeanReference(name = "com.ext.portlet.contests.service.ContestPhaseTypeService.impl")
+    protected ContestPhaseTypeService contestPhaseTypeService;
+    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistence.impl")
+    protected ContestPhaseTypePersistence contestPhaseTypePersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.ContestPhaseColumnLocalService.impl")
     protected ContestPhaseColumnLocalService contestPhaseColumnLocalService;
     @BeanReference(name = "com.ext.portlet.contests.service.ContestPhaseColumnService.impl")
@@ -63,6 +67,67 @@ public abstract class ContestPhaseStatusServiceBaseImpl extends PrincipalBean
     protected ContestTeamMemberService contestTeamMemberService;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl")
     protected ContestTeamMemberPersistence contestTeamMemberPersistence;
+
+    public ContestPhaseType addContestPhaseType(
+        ContestPhaseType contestPhaseType) throws SystemException {
+        contestPhaseType.setNew(true);
+
+        return contestPhaseTypePersistence.update(contestPhaseType, false);
+    }
+
+    public ContestPhaseType createContestPhaseType(Long id) {
+        return contestPhaseTypePersistence.create(id);
+    }
+
+    public void deleteContestPhaseType(Long id)
+        throws PortalException, SystemException {
+        contestPhaseTypePersistence.remove(id);
+    }
+
+    public void deleteContestPhaseType(ContestPhaseType contestPhaseType)
+        throws SystemException {
+        contestPhaseTypePersistence.remove(contestPhaseType);
+    }
+
+    public List<Object> dynamicQuery(DynamicQuery dynamicQuery)
+        throws SystemException {
+        return contestPhaseTypePersistence.findWithDynamicQuery(dynamicQuery);
+    }
+
+    public List<Object> dynamicQuery(DynamicQuery dynamicQuery, int start,
+        int end) throws SystemException {
+        return contestPhaseTypePersistence.findWithDynamicQuery(dynamicQuery,
+            start, end);
+    }
+
+    public ContestPhaseType getContestPhaseType(Long id)
+        throws PortalException, SystemException {
+        return contestPhaseTypePersistence.findByPrimaryKey(id);
+    }
+
+    public List<ContestPhaseType> getContestPhaseTypes(int start, int end)
+        throws SystemException {
+        return contestPhaseTypePersistence.findAll(start, end);
+    }
+
+    public int getContestPhaseTypesCount() throws SystemException {
+        return contestPhaseTypePersistence.countAll();
+    }
+
+    public ContestPhaseType updateContestPhaseType(
+        ContestPhaseType contestPhaseType) throws SystemException {
+        contestPhaseType.setNew(false);
+
+        return contestPhaseTypePersistence.update(contestPhaseType, true);
+    }
+
+    public ContestPhaseType updateContestPhaseType(
+        ContestPhaseType contestPhaseType, boolean merge)
+        throws SystemException {
+        contestPhaseType.setNew(false);
+
+        return contestPhaseTypePersistence.update(contestPhaseType, merge);
+    }
 
     public ContestLocalService getContestLocalService() {
         return contestLocalService;
@@ -141,31 +206,31 @@ public abstract class ContestPhaseStatusServiceBaseImpl extends PrincipalBean
         this.contestPhasePersistence = contestPhasePersistence;
     }
 
-    public ContestPhaseStatusLocalService getContestPhaseStatusLocalService() {
-        return contestPhaseStatusLocalService;
+    public ContestPhaseTypeLocalService getContestPhaseTypeLocalService() {
+        return contestPhaseTypeLocalService;
     }
 
-    public void setContestPhaseStatusLocalService(
-        ContestPhaseStatusLocalService contestPhaseStatusLocalService) {
-        this.contestPhaseStatusLocalService = contestPhaseStatusLocalService;
+    public void setContestPhaseTypeLocalService(
+        ContestPhaseTypeLocalService contestPhaseTypeLocalService) {
+        this.contestPhaseTypeLocalService = contestPhaseTypeLocalService;
     }
 
-    public ContestPhaseStatusService getContestPhaseStatusService() {
-        return contestPhaseStatusService;
+    public ContestPhaseTypeService getContestPhaseTypeService() {
+        return contestPhaseTypeService;
     }
 
-    public void setContestPhaseStatusService(
-        ContestPhaseStatusService contestPhaseStatusService) {
-        this.contestPhaseStatusService = contestPhaseStatusService;
+    public void setContestPhaseTypeService(
+        ContestPhaseTypeService contestPhaseTypeService) {
+        this.contestPhaseTypeService = contestPhaseTypeService;
     }
 
-    public ContestPhaseStatusPersistence getContestPhaseStatusPersistence() {
-        return contestPhaseStatusPersistence;
+    public ContestPhaseTypePersistence getContestPhaseTypePersistence() {
+        return contestPhaseTypePersistence;
     }
 
-    public void setContestPhaseStatusPersistence(
-        ContestPhaseStatusPersistence contestPhaseStatusPersistence) {
-        this.contestPhaseStatusPersistence = contestPhaseStatusPersistence;
+    public void setContestPhaseTypePersistence(
+        ContestPhaseTypePersistence contestPhaseTypePersistence) {
+        this.contestPhaseTypePersistence = contestPhaseTypePersistence;
     }
 
     public ContestPhaseColumnLocalService getContestPhaseColumnLocalService() {

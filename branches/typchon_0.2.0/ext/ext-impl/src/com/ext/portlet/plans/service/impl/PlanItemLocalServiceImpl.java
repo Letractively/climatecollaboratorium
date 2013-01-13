@@ -265,7 +265,7 @@ public class PlanItemLocalServiceImpl extends PlanItemLocalServiceBaseImpl {
         long type = basePlan.getPlanTypeId();
         if (contestPhase.getContest().getPlanType().getPlanTypeId() != type) {
             _log.error("Cannot create plan of type " + type + " for contest phase "
-                    + contestPhase.getContestPhaseName());
+                    + contestPhase.getName());
         }
 
         PlanItem plan = createPlan(contestPhase.getContest().getPlanType().getPlanTypeId(), authorId);

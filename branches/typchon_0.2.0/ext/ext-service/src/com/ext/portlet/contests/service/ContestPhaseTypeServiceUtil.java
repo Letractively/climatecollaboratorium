@@ -2,7 +2,7 @@ package com.ext.portlet.contests.service;
 
 
 /**
- * <a href="ContestPhaseStatusServiceUtil.java.html"><b><i>View Source</i></b></a>
+ * <a href="ContestPhaseTypeServiceUtil.java.html"><b><i>View Source</i></b></a>
  *
  * <p>
  * ServiceBuilder generated this class. Modifications in this class will be
@@ -11,7 +11,7 @@ package com.ext.portlet.contests.service;
  *
  * <p>
  * This class provides static methods for the
- * <code>com.ext.portlet.contests.service.ContestPhaseStatusService</code>
+ * <code>com.ext.portlet.contests.service.ContestPhaseTypeService</code>
  * bean. The static methods of this class calls the same methods of the bean
  * instance. It's convenient to be able to just write one line to call a method
  * on a bean instead of writing a lookup call and a method call.
@@ -19,21 +19,21 @@ package com.ext.portlet.contests.service;
  *
  * @author Brian Wing Shun Chan
  *
- * @see com.ext.portlet.contests.service.ContestPhaseStatusService
+ * @see com.ext.portlet.contests.service.ContestPhaseTypeService
  *
  */
-public class ContestPhaseStatusServiceUtil {
-    private static ContestPhaseStatusService _service;
+public class ContestPhaseTypeServiceUtil {
+    private static ContestPhaseTypeService _service;
 
-    public static ContestPhaseStatusService getService() {
+    public static ContestPhaseTypeService getService() {
         if (_service == null) {
-            throw new RuntimeException("ContestPhaseStatusService is not set");
+            throw new RuntimeException("ContestPhaseTypeService is not set");
         }
 
         return _service;
     }
 
-    public void setService(ContestPhaseStatusService service) {
+    public void setService(ContestPhaseTypeService service) {
         _service = service;
     }
 }

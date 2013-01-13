@@ -33,7 +33,7 @@ public class ContestServiceTest extends BaseCollabTest {
            System.err.println("Contest: "+contest.getContestName());
 
         for (ContestPhase phase:contest.getPhases()) {
-            System.err.println("Contest phase: "+phase.getContestPhaseName());
+            System.err.println("Contest phase: "+phase.getName());
             System.err.println("Number of plans: "+phase.getPlans().size());
         }
         }

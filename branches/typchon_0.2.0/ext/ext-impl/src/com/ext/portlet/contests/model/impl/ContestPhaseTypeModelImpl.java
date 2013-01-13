@@ -1,7 +1,7 @@
 package com.ext.portlet.contests.model.impl;
 
-import com.ext.portlet.contests.model.ContestPhaseStatus;
-import com.ext.portlet.contests.model.ContestPhaseStatusSoap;
+import com.ext.portlet.contests.model.ContestPhaseType;
+import com.ext.portlet.contests.model.ContestPhaseTypeSoap;
 
 import com.liferay.portal.kernel.bean.ReadOnlyBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -19,7 +19,7 @@ import java.util.List;
 
 
 /**
- * <a href="ContestPhaseStatusModelImpl.java.html"><b><i>View Source</i></b></a>
+ * <a href="ContestPhaseTypeModelImpl.java.html"><b><i>View Source</i></b></a>
  *
  * <p>
  * ServiceBuilder generated this class. Modifications in this class will be
@@ -27,74 +27,92 @@ import java.util.List;
  * </p>
  *
  * <p>
- * This class is a model that represents the <code>ContestPhaseStatus</code> table
+ * This class is a model that represents the <code>ContestPhaseType</code> table
  * in the database.
  * </p>
  *
  * @author Brian Wing Shun Chan
  *
- * @see com.ext.portlet.contests.model.ContestPhaseStatus
- * @see com.ext.portlet.contests.model.ContestPhaseStatusModel
- * @see com.ext.portlet.contests.model.impl.ContestPhaseStatusImpl
+ * @see com.ext.portlet.contests.model.ContestPhaseType
+ * @see com.ext.portlet.contests.model.ContestPhaseTypeModel
+ * @see com.ext.portlet.contests.model.impl.ContestPhaseTypeImpl
  *
  */
-public class ContestPhaseStatusModelImpl extends BaseModelImpl<ContestPhaseStatus> {
-    public static final String TABLE_NAME = "ContestPhaseStatus";
+public class ContestPhaseTypeModelImpl extends BaseModelImpl<ContestPhaseType> {
+    public static final String TABLE_NAME = "ContestPhaseType";
     public static final Object[][] TABLE_COLUMNS = {
+            { "id_", new Integer(Types.BIGINT) },
+            
+
             { "name", new Integer(Types.VARCHAR) },
             
 
-            { "description", new Integer(Types.VARCHAR) }
+            { "description", new Integer(Types.VARCHAR) },
+            
+
+            { "status", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ContestPhaseStatus (name VARCHAR(75) not null primary key,description VARCHAR(75) null)";
-    public static final String TABLE_SQL_DROP = "drop table ContestPhaseStatus";
+    public static final String TABLE_SQL_CREATE = "create table ContestPhaseType (id_ LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,status VARCHAR(75) null)";
+    public static final String TABLE_SQL_DROP = "drop table ContestPhaseType";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
     public static final String TX_MANAGER = "liferayTransactionManager";
     public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
-                "value.object.entity.cache.enabled.com.ext.portlet.contests.model.ContestPhaseStatus"),
+                "value.object.entity.cache.enabled.com.ext.portlet.contests.model.ContestPhaseType"),
             true);
     public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.portal.util.PropsUtil.get(
-                "value.object.finder.cache.enabled.com.ext.portlet.contests.model.ContestPhaseStatus"),
+                "value.object.finder.cache.enabled.com.ext.portlet.contests.model.ContestPhaseType"),
             true);
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.portal.util.PropsUtil.get(
-                "lock.expiration.time.com.ext.portlet.contests.model.ContestPhaseStatus"));
+                "lock.expiration.time.com.ext.portlet.contests.model.ContestPhaseType"));
+    private Long _id;
     private String _name;
     private String _description;
+    private String _status;
 
-    public ContestPhaseStatusModelImpl() {
+    public ContestPhaseTypeModelImpl() {
     }
 
-    public static ContestPhaseStatus toModel(ContestPhaseStatusSoap soapModel) {
-        ContestPhaseStatus model = new ContestPhaseStatusImpl();
+    public static ContestPhaseType toModel(ContestPhaseTypeSoap soapModel) {
+        ContestPhaseType model = new ContestPhaseTypeImpl();
 
+        model.setId(soapModel.getId());
         model.setName(soapModel.getName());
         model.setDescription(soapModel.getDescription());
+        model.setStatus(soapModel.getStatus());
 
         return model;
     }
 
-    public static List<ContestPhaseStatus> toModels(
-        ContestPhaseStatusSoap[] soapModels) {
-        List<ContestPhaseStatus> models = new ArrayList<ContestPhaseStatus>(soapModels.length);
+    public static List<ContestPhaseType> toModels(
+        ContestPhaseTypeSoap[] soapModels) {
+        List<ContestPhaseType> models = new ArrayList<ContestPhaseType>(soapModels.length);
 
-        for (ContestPhaseStatusSoap soapModel : soapModels) {
+        for (ContestPhaseTypeSoap soapModel : soapModels) {
             models.add(toModel(soapModel));
         }
 
         return models;
     }
 
-    public String getPrimaryKey() {
-        return _name;
+    public Long getPrimaryKey() {
+        return _id;
     }
 
-    public void setPrimaryKey(String pk) {
-        setName(pk);
+    public void setPrimaryKey(Long pk) {
+        setId(pk);
     }
 
     public Serializable getPrimaryKeyObj() {
-        return _name;
+        return _id;
+    }
+
+    public Long getId() {
+        return _id;
+    }
+
+    public void setId(Long id) {
+        _id = id;
     }
 
     public String getName() {
@@ -113,20 +131,30 @@ public class ContestPhaseStatusModelImpl extends BaseModelImpl<ContestPhaseStatu
         _description = description;
     }
 
-    public ContestPhaseStatus toEscapedModel() {
+    public String getStatus() {
+        return GetterUtil.getString(_status);
+    }
+
+    public void setStatus(String status) {
+        _status = status;
+    }
+
+    public ContestPhaseType toEscapedModel() {
         if (isEscapedModel()) {
-            return (ContestPhaseStatus) this;
+            return (ContestPhaseType) this;
         } else {
-            ContestPhaseStatus model = new ContestPhaseStatusImpl();
+            ContestPhaseType model = new ContestPhaseTypeImpl();
 
             model.setNew(isNew());
             model.setEscapedModel(true);
 
+            model.setId(getId());
             model.setName(HtmlUtil.escape(getName()));
             model.setDescription(HtmlUtil.escape(getDescription()));
+            model.setStatus(HtmlUtil.escape(getStatus()));
 
-            model = (ContestPhaseStatus) Proxy.newProxyInstance(ContestPhaseStatus.class.getClassLoader(),
-                    new Class[] { ContestPhaseStatus.class },
+            model = (ContestPhaseType) Proxy.newProxyInstance(ContestPhaseType.class.getClassLoader(),
+                    new Class[] { ContestPhaseType.class },
                     new ReadOnlyBeanHandler(model));
 
             return model;
@@ -134,16 +162,18 @@ public class ContestPhaseStatusModelImpl extends BaseModelImpl<ContestPhaseStatu
     }
 
     public Object clone() {
-        ContestPhaseStatusImpl clone = new ContestPhaseStatusImpl();
+        ContestPhaseTypeImpl clone = new ContestPhaseTypeImpl();
 
+        clone.setId(getId());
         clone.setName(getName());
         clone.setDescription(getDescription());
+        clone.setStatus(getStatus());
 
         return clone;
     }
 
-    public int compareTo(ContestPhaseStatus contestPhaseStatus) {
-        String pk = contestPhaseStatus.getPrimaryKey();
+    public int compareTo(ContestPhaseType contestPhaseType) {
+        Long pk = contestPhaseType.getPrimaryKey();
 
         return getPrimaryKey().compareTo(pk);
     }
@@ -153,15 +183,15 @@ public class ContestPhaseStatusModelImpl extends BaseModelImpl<ContestPhaseStatu
             return false;
         }
 
-        ContestPhaseStatus contestPhaseStatus = null;
+        ContestPhaseType contestPhaseType = null;
 
         try {
-            contestPhaseStatus = (ContestPhaseStatus) obj;
+            contestPhaseType = (ContestPhaseType) obj;
         } catch (ClassCastException cce) {
             return false;
         }
 
-        String pk = contestPhaseStatus.getPrimaryKey();
+        Long pk = contestPhaseType.getPrimaryKey();
 
         if (getPrimaryKey().equals(pk)) {
             return true;
@@ -177,10 +207,14 @@ public class ContestPhaseStatusModelImpl extends BaseModelImpl<ContestPhaseStatu
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("{name=");
+        sb.append("{id=");
+        sb.append(getId());
+        sb.append(", name=");
         sb.append(getName());
         sb.append(", description=");
         sb.append(getDescription());
+        sb.append(", status=");
+        sb.append(getStatus());
         sb.append("}");
 
         return sb.toString();
@@ -190,9 +224,13 @@ public class ContestPhaseStatusModelImpl extends BaseModelImpl<ContestPhaseStatu
         StringBuilder sb = new StringBuilder();
 
         sb.append("<model><model-name>");
-        sb.append("com.ext.portlet.contests.model.ContestPhaseStatus");
+        sb.append("com.ext.portlet.contests.model.ContestPhaseType");
         sb.append("</model-name>");
 
+        sb.append(
+            "<column><column-name>id</column-name><column-value><![CDATA[");
+        sb.append(getId());
+        sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>name</column-name><column-value><![CDATA[");
         sb.append(getName());
@@ -200,6 +238,10 @@ public class ContestPhaseStatusModelImpl extends BaseModelImpl<ContestPhaseStatu
         sb.append(
             "<column><column-name>description</column-name><column-value><![CDATA[");
         sb.append(getDescription());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>status</column-name><column-value><![CDATA[");
+        sb.append(getStatus());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

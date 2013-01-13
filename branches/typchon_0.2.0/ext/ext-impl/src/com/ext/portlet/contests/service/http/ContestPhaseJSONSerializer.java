@@ -36,10 +36,10 @@ public class ContestPhaseJSONSerializer {
 
         jsonObj.put("ContestPhasePK", model.getContestPhasePK());
         jsonObj.put("ContestPK", model.getContestPK());
-        jsonObj.put("ContestPhaseName", model.getContestPhaseName());
-        jsonObj.put("ContestPhaseDescription",
-            model.getContestPhaseDescription());
-        jsonObj.put("ContestPhaseStatus", model.getContestPhaseStatus());
+        jsonObj.put("ContestPhaseType", model.getContestPhaseType());
+        jsonObj.put("ContestPhaseDescriptionOverride",
+            model.getContestPhaseDescriptionOverride());
+        jsonObj.put("phaseActiveOverride", model.getPhaseActiveOverride());
 
         Date PhaseStartDate = model.getPhaseStartDate();
 
@@ -61,7 +61,6 @@ public class ContestPhaseJSONSerializer {
 
         jsonObj.put("PhaseEndDate", PhaseEndDateJSON);
         jsonObj.put("nextStatus", model.getNextStatus());
-        jsonObj.put("phaseStatusDescription", model.getPhaseStatusDescription());
 
         Date created = model.getCreated();
 

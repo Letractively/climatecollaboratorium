@@ -152,6 +152,61 @@ public class ContestPhaseUtil {
                    .findByContestId_PrevAndNext(ContestPhasePK, ContestPK, obc);
     }
 
+    public static java.util.List<com.ext.portlet.contests.model.ContestPhase> findByPhaseActiveOverride(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByPhaseActiveOverride(ContestPK, phaseActiveOverride);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.ContestPhase> findByPhaseActiveOverride(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride,
+        int start, int end) throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByPhaseActiveOverride(ContestPK, phaseActiveOverride,
+            start, end);
+    }
+
+    public static java.util.List<com.ext.portlet.contests.model.ContestPhase> findByPhaseActiveOverride(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride,
+        int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByPhaseActiveOverride(ContestPK, phaseActiveOverride,
+            start, end, obc);
+    }
+
+    public static com.ext.portlet.contests.model.ContestPhase findByPhaseActiveOverride_First(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByPhaseActiveOverride_First(ContestPK,
+            phaseActiveOverride, obc);
+    }
+
+    public static com.ext.portlet.contests.model.ContestPhase findByPhaseActiveOverride_Last(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByPhaseActiveOverride_Last(ContestPK,
+            phaseActiveOverride, obc);
+    }
+
+    public static com.ext.portlet.contests.model.ContestPhase[] findByPhaseActiveOverride_PrevAndNext(
+        java.lang.Long ContestPhasePK, java.lang.Long ContestPK,
+        java.lang.Boolean phaseActiveOverride,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException {
+        return getPersistence()
+                   .findByPhaseActiveOverride_PrevAndNext(ContestPhasePK,
+            ContestPK, phaseActiveOverride, obc);
+    }
+
     public static java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException {
@@ -193,6 +248,13 @@ public class ContestPhaseUtil {
         getPersistence().removeByContestId(ContestPK);
     }
 
+    public static void removeByPhaseActiveOverride(java.lang.Long ContestPK,
+        java.lang.Boolean phaseActiveOverride)
+        throws com.liferay.portal.SystemException {
+        getPersistence()
+            .removeByPhaseActiveOverride(ContestPK, phaseActiveOverride);
+    }
+
     public static void removeAll() throws com.liferay.portal.SystemException {
         getPersistence().removeAll();
     }
@@ -208,6 +270,13 @@ public class ContestPhaseUtil {
     public static int countByContestId(java.lang.Long ContestPK)
         throws com.liferay.portal.SystemException {
         return getPersistence().countByContestId(ContestPK);
+    }
+
+    public static int countByPhaseActiveOverride(java.lang.Long ContestPK,
+        java.lang.Boolean phaseActiveOverride)
+        throws com.liferay.portal.SystemException {
+        return getPersistence()
+                   .countByPhaseActiveOverride(ContestPK, phaseActiveOverride);
     }
 
     public static int countAll() throws com.liferay.portal.SystemException {

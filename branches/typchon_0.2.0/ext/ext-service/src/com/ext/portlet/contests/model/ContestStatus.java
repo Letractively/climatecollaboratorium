@@ -20,7 +20,8 @@ public enum ContestStatus {
     OPEN_FOR_SUBMISSION("Open for submission",true,false),
     CLOSED_FOR_JUDGING("Closed for judging",false,false),
     VOTING("Open for voting",false,true),
-    FINISHED("Finished",false,false);
+    FINISHED("Finished",false,false),
+    CLOSED("Closed",false,false);
 
 
 

@@ -3,6 +3,7 @@ package com.ext.portlet.contests.model.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,8 +19,6 @@ import com.ext.portlet.contests.service.ContestTeamMemberLocalServiceUtil;
 import com.ext.portlet.debaterevision.model.Debate;
 import com.ext.portlet.debaterevision.service.DebateItemLocalServiceUtil;
 import com.ext.portlet.debaterevision.service.DebateLocalServiceUtil;
-import com.ext.portlet.debaterevision.util.Indexer;
-import com.ext.portlet.discussions.model.DiscussionCategory;
 import com.ext.portlet.discussions.model.DiscussionCategoryGroup;
 import com.ext.portlet.discussions.service.DiscussionCategoryGroupLocalServiceUtil;
 import com.ext.portlet.ontology.model.FocusArea;
@@ -32,7 +31,6 @@ import com.ext.portlet.plans.service.PlanTemplateLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanTypeLocalServiceUtil;
 import com.ext.portlet.plans.service.PlanVoteLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
-import com.liferay.counter.service.persistence.CounterUtil;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -57,7 +55,7 @@ public class ContestImpl extends ContestModelImpl implements Contest {
         return PlanTypeLocalServiceUtil.getPlanType(getPlanTypeId());
     }
 
-    public List<ContestPhase> getActivePhases() throws SystemException {
+    public List<ContestPhase> getActivePhases() throws SystemException, PortalException {
         List<ContestPhase> result = getPhases();
         for (Iterator<ContestPhase> i=result.iterator();i.hasNext();) {
            if (!i.next().getContestStatus().isCanEdit()) {
@@ -68,7 +66,13 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     }
     
     public ContestPhase getActivePhase() throws NoSuchContestPhaseException, SystemException {
-        return ContestPhaseLocalServiceUtil.getActivePhaseForContest(this);
+    	Date now = new Date();
+    	for (ContestPhase phase: getPhases()) {
+    		if (phase.getPhaseStartDate() == null || phase.getPhaseStartDate().after(now)) continue;
+    		if (phase.getPhaseEndDate() != null && phase.getPhaseEndDate().before(now)) continue;
+    		return phase;
+    	}
+        return null;
     }
     
     public boolean isActive() throws SystemException {

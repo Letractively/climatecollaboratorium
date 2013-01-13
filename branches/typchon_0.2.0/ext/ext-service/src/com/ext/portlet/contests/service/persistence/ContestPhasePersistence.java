@@ -106,6 +106,38 @@ public interface ContestPhasePersistence extends BasePersistence {
         throws com.ext.portlet.contests.NoSuchContestPhaseException,
             com.liferay.portal.SystemException;
 
+    public java.util.List<com.ext.portlet.contests.model.ContestPhase> findByPhaseActiveOverride(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride)
+        throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.contests.model.ContestPhase> findByPhaseActiveOverride(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride,
+        int start, int end) throws com.liferay.portal.SystemException;
+
+    public java.util.List<com.ext.portlet.contests.model.ContestPhase> findByPhaseActiveOverride(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride,
+        int start, int end, com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.ContestPhase findByPhaseActiveOverride_First(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.ContestPhase findByPhaseActiveOverride_Last(
+        java.lang.Long ContestPK, java.lang.Boolean phaseActiveOverride,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException;
+
+    public com.ext.portlet.contests.model.ContestPhase[] findByPhaseActiveOverride_PrevAndNext(
+        java.lang.Long ContestPhasePK, java.lang.Long ContestPK,
+        java.lang.Boolean phaseActiveOverride,
+        com.liferay.portal.kernel.util.OrderByComparator obc)
+        throws com.ext.portlet.contests.NoSuchContestPhaseException,
+            com.liferay.portal.SystemException;
+
     public java.util.List<Object> findWithDynamicQuery(
         com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
         throws com.liferay.portal.SystemException;
@@ -132,6 +164,10 @@ public interface ContestPhasePersistence extends BasePersistence {
     public void removeByContestId(java.lang.Long ContestPK)
         throws com.liferay.portal.SystemException;
 
+    public void removeByPhaseActiveOverride(java.lang.Long ContestPK,
+        java.lang.Boolean phaseActiveOverride)
+        throws com.liferay.portal.SystemException;
+
     public void removeAll() throws com.liferay.portal.SystemException;
 
     public int countByContestIdStartEnd(java.lang.Long ContestPK,
@@ -139,6 +175,10 @@ public interface ContestPhasePersistence extends BasePersistence {
         throws com.liferay.portal.SystemException;
 
     public int countByContestId(java.lang.Long ContestPK)
+        throws com.liferay.portal.SystemException;
+
+    public int countByPhaseActiveOverride(java.lang.Long ContestPK,
+        java.lang.Boolean phaseActiveOverride)
         throws com.liferay.portal.SystemException;
 
     public int countAll() throws com.liferay.portal.SystemException;

@@ -7,7 +7,7 @@ import com.liferay.portal.kernel.annotation.Transactional;
 
 
 /**
- * <a href="ContestPhaseStatusService.java.html"><b><i>View Source</i></b></a>
+ * <a href="ContestPhaseTypeService.java.html"><b><i>View Source</i></b></a>
  *
  * <p>
  * ServiceBuilder generated this class. Modifications in this class will be
@@ -16,7 +16,7 @@ import com.liferay.portal.kernel.annotation.Transactional;
  *
  * <p>
  * This interface defines the service. The default implementation is
- * <code>com.ext.portlet.contests.service.impl.ContestPhaseStatusServiceImpl</code>.
+ * <code>com.ext.portlet.contests.service.impl.ContestPhaseTypeServiceImpl</code>.
  * Modify methods in that class and rerun ServiceBuilder to populate this class
  * and all other generated classes.
  * </p>
@@ -27,11 +27,11 @@ import com.liferay.portal.kernel.annotation.Transactional;
  *
  * @author Brian Wing Shun Chan
  *
- * @see com.ext.portlet.contests.service.ContestPhaseStatusServiceUtil
+ * @see com.ext.portlet.contests.service.ContestPhaseTypeServiceUtil
  *
  */
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
     PortalException.class, SystemException.class}
 )
-public interface ContestPhaseStatusService {
+public interface ContestPhaseTypeService {
 }

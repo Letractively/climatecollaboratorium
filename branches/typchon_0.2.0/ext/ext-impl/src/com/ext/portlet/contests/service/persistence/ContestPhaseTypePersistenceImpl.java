@@ -1,9 +1,9 @@
 package com.ext.portlet.contests.service.persistence;
 
-import com.ext.portlet.contests.NoSuchContestPhaseStatusException;
-import com.ext.portlet.contests.model.ContestPhaseStatus;
-import com.ext.portlet.contests.model.impl.ContestPhaseStatusImpl;
-import com.ext.portlet.contests.model.impl.ContestPhaseStatusModelImpl;
+import com.ext.portlet.contests.NoSuchContestPhaseTypeException;
+import com.ext.portlet.contests.model.ContestPhaseType;
+import com.ext.portlet.contests.model.impl.ContestPhaseTypeImpl;
+import com.ext.portlet.contests.model.impl.ContestPhaseTypeModelImpl;
 
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.annotation.BeanReference;
@@ -29,88 +29,87 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
-    implements ContestPhaseStatusPersistence {
-    public static final String FINDER_CLASS_NAME_ENTITY = ContestPhaseStatusImpl.class.getName();
+public class ContestPhaseTypePersistenceImpl extends BasePersistenceImpl
+    implements ContestPhaseTypePersistence {
+    public static final String FINDER_CLASS_NAME_ENTITY = ContestPhaseTypeImpl.class.getName();
     public static final String FINDER_CLASS_NAME_LIST = FINDER_CLASS_NAME_ENTITY +
         ".List";
-    public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ContestPhaseStatusModelImpl.ENTITY_CACHE_ENABLED,
-            ContestPhaseStatusModelImpl.FINDER_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ContestPhaseTypeModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseTypeModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "findAll", new String[0]);
-    public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(ContestPhaseStatusModelImpl.ENTITY_CACHE_ENABLED,
-            ContestPhaseStatusModelImpl.FINDER_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(ContestPhaseTypeModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseTypeModelImpl.FINDER_CACHE_ENABLED,
             FINDER_CLASS_NAME_LIST, "countAll", new String[0]);
-    private static Log _log = LogFactoryUtil.getLog(ContestPhaseStatusPersistenceImpl.class);
+    private static Log _log = LogFactoryUtil.getLog(ContestPhaseTypePersistenceImpl.class);
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPersistence contestPersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestDebatePersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestDebatePersistence contestDebatePersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPhasePersistence contestPhasePersistence;
-    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence.impl")
-    protected com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence contestPhaseStatusPersistence;
+    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistence.impl")
+    protected com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistence contestPhaseTypePersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence contestPhaseColumnPersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence contestTeamMemberPersistence;
 
-    public void cacheResult(ContestPhaseStatus contestPhaseStatus) {
-        EntityCacheUtil.putResult(ContestPhaseStatusModelImpl.ENTITY_CACHE_ENABLED,
-            ContestPhaseStatusImpl.class, contestPhaseStatus.getPrimaryKey(),
-            contestPhaseStatus);
+    public void cacheResult(ContestPhaseType contestPhaseType) {
+        EntityCacheUtil.putResult(ContestPhaseTypeModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseTypeImpl.class, contestPhaseType.getPrimaryKey(),
+            contestPhaseType);
     }
 
-    public void cacheResult(List<ContestPhaseStatus> contestPhaseStatuses) {
-        for (ContestPhaseStatus contestPhaseStatus : contestPhaseStatuses) {
+    public void cacheResult(List<ContestPhaseType> contestPhaseTypes) {
+        for (ContestPhaseType contestPhaseType : contestPhaseTypes) {
             if (EntityCacheUtil.getResult(
-                        ContestPhaseStatusModelImpl.ENTITY_CACHE_ENABLED,
-                        ContestPhaseStatusImpl.class,
-                        contestPhaseStatus.getPrimaryKey(), this) == null) {
-                cacheResult(contestPhaseStatus);
+                        ContestPhaseTypeModelImpl.ENTITY_CACHE_ENABLED,
+                        ContestPhaseTypeImpl.class,
+                        contestPhaseType.getPrimaryKey(), this) == null) {
+                cacheResult(contestPhaseType);
             }
         }
     }
 
     public void clearCache() {
-        CacheRegistry.clear(ContestPhaseStatusImpl.class.getName());
-        EntityCacheUtil.clearCache(ContestPhaseStatusImpl.class.getName());
+        CacheRegistry.clear(ContestPhaseTypeImpl.class.getName());
+        EntityCacheUtil.clearCache(ContestPhaseTypeImpl.class.getName());
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
     }
 
-    public ContestPhaseStatus create(String name) {
-        ContestPhaseStatus contestPhaseStatus = new ContestPhaseStatusImpl();
+    public ContestPhaseType create(Long id) {
+        ContestPhaseType contestPhaseType = new ContestPhaseTypeImpl();
 
-        contestPhaseStatus.setNew(true);
-        contestPhaseStatus.setPrimaryKey(name);
+        contestPhaseType.setNew(true);
+        contestPhaseType.setPrimaryKey(id);
 
-        return contestPhaseStatus;
+        return contestPhaseType;
     }
 
-    public ContestPhaseStatus remove(String name)
-        throws NoSuchContestPhaseStatusException, SystemException {
+    public ContestPhaseType remove(Long id)
+        throws NoSuchContestPhaseTypeException, SystemException {
         Session session = null;
 
         try {
             session = openSession();
 
-            ContestPhaseStatus contestPhaseStatus = (ContestPhaseStatus) session.get(ContestPhaseStatusImpl.class,
-                    name);
+            ContestPhaseType contestPhaseType = (ContestPhaseType) session.get(ContestPhaseTypeImpl.class,
+                    id);
 
-            if (contestPhaseStatus == null) {
+            if (contestPhaseType == null) {
                 if (_log.isWarnEnabled()) {
                     _log.warn(
-                        "No ContestPhaseStatus exists with the primary key " +
-                        name);
+                        "No ContestPhaseType exists with the primary key " +
+                        id);
                 }
 
-                throw new NoSuchContestPhaseStatusException(
-                    "No ContestPhaseStatus exists with the primary key " +
-                    name);
+                throw new NoSuchContestPhaseTypeException(
+                    "No ContestPhaseType exists with the primary key " + id);
             }
 
-            return remove(contestPhaseStatus);
-        } catch (NoSuchContestPhaseStatusException nsee) {
+            return remove(contestPhaseType);
+        } catch (NoSuchContestPhaseTypeException nsee) {
             throw nsee;
         } catch (Exception e) {
             throw processException(e);
@@ -119,39 +118,39 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public ContestPhaseStatus remove(ContestPhaseStatus contestPhaseStatus)
+    public ContestPhaseType remove(ContestPhaseType contestPhaseType)
         throws SystemException {
-        for (ModelListener<ContestPhaseStatus> listener : listeners) {
-            listener.onBeforeRemove(contestPhaseStatus);
+        for (ModelListener<ContestPhaseType> listener : listeners) {
+            listener.onBeforeRemove(contestPhaseType);
         }
 
-        contestPhaseStatus = removeImpl(contestPhaseStatus);
+        contestPhaseType = removeImpl(contestPhaseType);
 
-        for (ModelListener<ContestPhaseStatus> listener : listeners) {
-            listener.onAfterRemove(contestPhaseStatus);
+        for (ModelListener<ContestPhaseType> listener : listeners) {
+            listener.onAfterRemove(contestPhaseType);
         }
 
-        return contestPhaseStatus;
+        return contestPhaseType;
     }
 
-    protected ContestPhaseStatus removeImpl(
-        ContestPhaseStatus contestPhaseStatus) throws SystemException {
+    protected ContestPhaseType removeImpl(ContestPhaseType contestPhaseType)
+        throws SystemException {
         Session session = null;
 
         try {
             session = openSession();
 
-            if (contestPhaseStatus.isCachedModel() ||
+            if (contestPhaseType.isCachedModel() ||
                     BatchSessionUtil.isEnabled()) {
-                Object staleObject = session.get(ContestPhaseStatusImpl.class,
-                        contestPhaseStatus.getPrimaryKeyObj());
+                Object staleObject = session.get(ContestPhaseTypeImpl.class,
+                        contestPhaseType.getPrimaryKeyObj());
 
                 if (staleObject != null) {
                     session.evict(staleObject);
                 }
             }
 
-            session.delete(contestPhaseStatus);
+            session.delete(contestPhaseType);
 
             session.flush();
         } catch (Exception e) {
@@ -162,23 +161,23 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
 
-        EntityCacheUtil.removeResult(ContestPhaseStatusModelImpl.ENTITY_CACHE_ENABLED,
-            ContestPhaseStatusImpl.class, contestPhaseStatus.getPrimaryKey());
+        EntityCacheUtil.removeResult(ContestPhaseTypeModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseTypeImpl.class, contestPhaseType.getPrimaryKey());
 
-        return contestPhaseStatus;
+        return contestPhaseType;
     }
 
     /**
-     * @deprecated Use <code>update(ContestPhaseStatus contestPhaseStatus, boolean merge)</code>.
+     * @deprecated Use <code>update(ContestPhaseType contestPhaseType, boolean merge)</code>.
      */
-    public ContestPhaseStatus update(ContestPhaseStatus contestPhaseStatus)
+    public ContestPhaseType update(ContestPhaseType contestPhaseType)
         throws SystemException {
         if (_log.isWarnEnabled()) {
             _log.warn(
-                "Using the deprecated update(ContestPhaseStatus contestPhaseStatus) method. Use update(ContestPhaseStatus contestPhaseStatus, boolean merge) instead.");
+                "Using the deprecated update(ContestPhaseType contestPhaseType) method. Use update(ContestPhaseType contestPhaseType, boolean merge) instead.");
         }
 
-        return update(contestPhaseStatus, false);
+        return update(contestPhaseType, false);
     }
 
     /**
@@ -186,50 +185,50 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
      * listeners to trigger the proper events associated with adding, deleting,
      * or updating an entity.
      *
-     * @param                contestPhaseStatus the entity to add, update, or merge
+     * @param                contestPhaseType the entity to add, update, or merge
      * @param                merge boolean value for whether to merge the entity. The
      *                                default value is false. Setting merge to true is more
-     *                                expensive and should only be true when contestPhaseStatus is
+     *                                expensive and should only be true when contestPhaseType is
      *                                transient. See LEP-5473 for a detailed discussion of this
      *                                method.
      * @return                true if the portlet can be displayed via Ajax
      */
-    public ContestPhaseStatus update(ContestPhaseStatus contestPhaseStatus,
+    public ContestPhaseType update(ContestPhaseType contestPhaseType,
         boolean merge) throws SystemException {
-        boolean isNew = contestPhaseStatus.isNew();
+        boolean isNew = contestPhaseType.isNew();
 
-        for (ModelListener<ContestPhaseStatus> listener : listeners) {
+        for (ModelListener<ContestPhaseType> listener : listeners) {
             if (isNew) {
-                listener.onBeforeCreate(contestPhaseStatus);
+                listener.onBeforeCreate(contestPhaseType);
             } else {
-                listener.onBeforeUpdate(contestPhaseStatus);
+                listener.onBeforeUpdate(contestPhaseType);
             }
         }
 
-        contestPhaseStatus = updateImpl(contestPhaseStatus, merge);
+        contestPhaseType = updateImpl(contestPhaseType, merge);
 
-        for (ModelListener<ContestPhaseStatus> listener : listeners) {
+        for (ModelListener<ContestPhaseType> listener : listeners) {
             if (isNew) {
-                listener.onAfterCreate(contestPhaseStatus);
+                listener.onAfterCreate(contestPhaseType);
             } else {
-                listener.onAfterUpdate(contestPhaseStatus);
+                listener.onAfterUpdate(contestPhaseType);
             }
         }
 
-        return contestPhaseStatus;
+        return contestPhaseType;
     }
 
-    public ContestPhaseStatus updateImpl(
-        com.ext.portlet.contests.model.ContestPhaseStatus contestPhaseStatus,
+    public ContestPhaseType updateImpl(
+        com.ext.portlet.contests.model.ContestPhaseType contestPhaseType,
         boolean merge) throws SystemException {
         Session session = null;
 
         try {
             session = openSession();
 
-            BatchSessionUtil.update(session, contestPhaseStatus, merge);
+            BatchSessionUtil.update(session, contestPhaseType, merge);
 
-            contestPhaseStatus.setNew(false);
+            contestPhaseType.setNew(false);
         } catch (Exception e) {
             throw processException(e);
         } finally {
@@ -238,55 +237,55 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST);
 
-        EntityCacheUtil.putResult(ContestPhaseStatusModelImpl.ENTITY_CACHE_ENABLED,
-            ContestPhaseStatusImpl.class, contestPhaseStatus.getPrimaryKey(),
-            contestPhaseStatus);
+        EntityCacheUtil.putResult(ContestPhaseTypeModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseTypeImpl.class, contestPhaseType.getPrimaryKey(),
+            contestPhaseType);
 
-        return contestPhaseStatus;
+        return contestPhaseType;
     }
 
-    public ContestPhaseStatus findByPrimaryKey(String name)
-        throws NoSuchContestPhaseStatusException, SystemException {
-        ContestPhaseStatus contestPhaseStatus = fetchByPrimaryKey(name);
+    public ContestPhaseType findByPrimaryKey(Long id)
+        throws NoSuchContestPhaseTypeException, SystemException {
+        ContestPhaseType contestPhaseType = fetchByPrimaryKey(id);
 
-        if (contestPhaseStatus == null) {
+        if (contestPhaseType == null) {
             if (_log.isWarnEnabled()) {
-                _log.warn("No ContestPhaseStatus exists with the primary key " +
-                    name);
+                _log.warn("No ContestPhaseType exists with the primary key " +
+                    id);
             }
 
-            throw new NoSuchContestPhaseStatusException(
-                "No ContestPhaseStatus exists with the primary key " + name);
+            throw new NoSuchContestPhaseTypeException(
+                "No ContestPhaseType exists with the primary key " + id);
         }
 
-        return contestPhaseStatus;
+        return contestPhaseType;
     }
 
-    public ContestPhaseStatus fetchByPrimaryKey(String name)
+    public ContestPhaseType fetchByPrimaryKey(Long id)
         throws SystemException {
-        ContestPhaseStatus contestPhaseStatus = (ContestPhaseStatus) EntityCacheUtil.getResult(ContestPhaseStatusModelImpl.ENTITY_CACHE_ENABLED,
-                ContestPhaseStatusImpl.class, name, this);
+        ContestPhaseType contestPhaseType = (ContestPhaseType) EntityCacheUtil.getResult(ContestPhaseTypeModelImpl.ENTITY_CACHE_ENABLED,
+                ContestPhaseTypeImpl.class, id, this);
 
-        if (contestPhaseStatus == null) {
+        if (contestPhaseType == null) {
             Session session = null;
 
             try {
                 session = openSession();
 
-                contestPhaseStatus = (ContestPhaseStatus) session.get(ContestPhaseStatusImpl.class,
-                        name);
+                contestPhaseType = (ContestPhaseType) session.get(ContestPhaseTypeImpl.class,
+                        id);
             } catch (Exception e) {
                 throw processException(e);
             } finally {
-                if (contestPhaseStatus != null) {
-                    cacheResult(contestPhaseStatus);
+                if (contestPhaseType != null) {
+                    cacheResult(contestPhaseType);
                 }
 
                 closeSession(session);
             }
         }
 
-        return contestPhaseStatus;
+        return contestPhaseType;
     }
 
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
@@ -325,22 +324,22 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
         }
     }
 
-    public List<ContestPhaseStatus> findAll() throws SystemException {
+    public List<ContestPhaseType> findAll() throws SystemException {
         return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
     }
 
-    public List<ContestPhaseStatus> findAll(int start, int end)
+    public List<ContestPhaseType> findAll(int start, int end)
         throws SystemException {
         return findAll(start, end, null);
     }
 
-    public List<ContestPhaseStatus> findAll(int start, int end,
+    public List<ContestPhaseType> findAll(int start, int end,
         OrderByComparator obc) throws SystemException {
         Object[] finderArgs = new Object[] {
                 String.valueOf(start), String.valueOf(end), String.valueOf(obc)
             };
 
-        List<ContestPhaseStatus> list = (List<ContestPhaseStatus>) FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
+        List<ContestPhaseType> list = (List<ContestPhaseType>) FinderCacheUtil.getResult(FINDER_PATH_FIND_ALL,
                 finderArgs, this);
 
         if (list == null) {
@@ -352,7 +351,7 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
                 StringBuilder query = new StringBuilder();
 
                 query.append(
-                    "FROM com.ext.portlet.contests.model.ContestPhaseStatus ");
+                    "FROM com.ext.portlet.contests.model.ContestPhaseType ");
 
                 if (obc != null) {
                     query.append("ORDER BY ");
@@ -362,19 +361,19 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
                 Query q = session.createQuery(query.toString());
 
                 if (obc == null) {
-                    list = (List<ContestPhaseStatus>) QueryUtil.list(q,
+                    list = (List<ContestPhaseType>) QueryUtil.list(q,
                             getDialect(), start, end, false);
 
                     Collections.sort(list);
                 } else {
-                    list = (List<ContestPhaseStatus>) QueryUtil.list(q,
+                    list = (List<ContestPhaseType>) QueryUtil.list(q,
                             getDialect(), start, end);
                 }
             } catch (Exception e) {
                 throw processException(e);
             } finally {
                 if (list == null) {
-                    list = new ArrayList<ContestPhaseStatus>();
+                    list = new ArrayList<ContestPhaseType>();
                 }
 
                 cacheResult(list);
@@ -389,8 +388,8 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
     }
 
     public void removeAll() throws SystemException {
-        for (ContestPhaseStatus contestPhaseStatus : findAll()) {
-            remove(contestPhaseStatus);
+        for (ContestPhaseType contestPhaseType : findAll()) {
+            remove(contestPhaseType);
         }
     }
 
@@ -407,7 +406,7 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
                 session = openSession();
 
                 Query q = session.createQuery(
-                        "SELECT COUNT(*) FROM com.ext.portlet.contests.model.ContestPhaseStatus");
+                        "SELECT COUNT(*) FROM com.ext.portlet.contests.model.ContestPhaseType");
 
                 count = (Long) q.uniqueResult();
             } catch (Exception e) {
@@ -430,14 +429,14 @@ public class ContestPhaseStatusPersistenceImpl extends BasePersistenceImpl
     public void afterPropertiesSet() {
         String[] listenerClassNames = StringUtil.split(GetterUtil.getString(
                     com.liferay.portal.util.PropsUtil.get(
-                        "value.object.listener.com.ext.portlet.contests.model.ContestPhaseStatus")));
+                        "value.object.listener.com.ext.portlet.contests.model.ContestPhaseType")));
 
         if (listenerClassNames.length > 0) {
             try {
-                List<ModelListener<ContestPhaseStatus>> listenersList = new ArrayList<ModelListener<ContestPhaseStatus>>();
+                List<ModelListener<ContestPhaseType>> listenersList = new ArrayList<ModelListener<ContestPhaseType>>();
 
                 for (String listenerClassName : listenerClassNames) {
-                    listenersList.add((ModelListener<ContestPhaseStatus>) Class.forName(
+                    listenersList.add((ModelListener<ContestPhaseType>) Class.forName(
                             listenerClassName).newInstance());
                 }
 
