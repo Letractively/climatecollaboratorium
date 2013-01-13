@@ -6,21 +6,20 @@
 
 package org.climatecollaboratorium.plans.wrappers;
 
-import com.ext.portlet.contests.NoSuchContestPhaseStatusException;
-import com.ext.portlet.contests.model.ContestPhase;
-import com.ext.portlet.contests.model.ContestStatus;
-import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
-import com.ext.portlet.contests.service.ContestPhaseStatusLocalServiceUtil;
-import com.ext.portlet.plans.model.PlanItem;
-import com.ext.portlet.plans.model.PlanType;
-import com.liferay.portal.PortalException;
-import com.liferay.portal.SystemException;
-
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+
+import com.ext.portlet.contests.NoSuchContestPhaseStatusException;
+import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.model.ContestStatus;
+import com.ext.portlet.contests.service.ContestPhaseTypeLocalServiceUtil;
+import com.ext.portlet.plans.model.PlanItem;
+import com.ext.portlet.plans.model.PlanType;
+import com.liferay.portal.PortalException;
+import com.liferay.portal.SystemException;
 
 
 /**
@@ -49,8 +48,8 @@ public class ContestPhaseWrapper {
         return phase.getContest().getPlanType();
     }
 
-    public String getName() {
-        return phase.getContestPhaseName();
+    public String getName() throws PortalException, SystemException {
+        return phase.getName();
         //return "fooey";
     }
 
@@ -67,15 +66,15 @@ public class ContestPhaseWrapper {
     	return phase.getPhaseStartDate().before(new Date());
     }
 
-    public ContestStatus getStatus() {
+    public ContestStatus getStatus() throws PortalException, SystemException {
         return phase.getContestStatus();
     }
 
-    public boolean getCanVote() {
+    public boolean getCanVote() throws PortalException, SystemException {
         return getStatus().isCanVote();
     }
 
-    public boolean getCanEdit() {
+    public boolean getCanEdit() throws PortalException, SystemException {
         return getStatus().isCanEdit();
     }
 
@@ -87,8 +86,8 @@ public class ContestPhaseWrapper {
         return contestWrapper;
     }
     
-    public String getDescription() {
-        return phase.getContestPhaseDescription();
+    public String getDescription() throws PortalException, SystemException {
+        return getPhaseStatusDescription();
     }
 
     public List<PlanItem> getPlans() throws SystemException, PortalException {
@@ -174,16 +173,17 @@ public class ContestPhaseWrapper {
     }
     
     public String getPhaseStatusDescription() throws PortalException, SystemException {
-    	if (StringUtils.isBlank(phase.getPhaseStatusDescription())) {
+    	String descriptionOverride = phase.getContestPhaseDescriptionOverride();
+    	if (StringUtils.isBlank(descriptionOverride)) {
     		try {
-    			return ContestPhaseStatusLocalServiceUtil.getContestPhaseStatus(phase.getContestPhaseStatus()).getDescription();
+    			return ContestPhaseTypeLocalServiceUtil.getContestPhaseType(phase.getContestPhaseType()).getDescription();
     		}
     		catch (NoSuchContestPhaseStatusException e) {
     			// ignore
     		}
     		return null;
     	}
-    	return phase.getPhaseStatusDescription();
+    	return descriptionOverride;
     }
     
 }

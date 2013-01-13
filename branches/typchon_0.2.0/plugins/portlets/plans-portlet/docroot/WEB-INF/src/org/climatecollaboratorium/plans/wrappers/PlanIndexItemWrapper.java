@@ -188,8 +188,7 @@ public class PlanIndexItemWrapper {
     }
     
     public String getAbstract() throws SystemException {
-        PlanAttribute attr = wrapped.getPlanAttribute(PlanConstants.Attribute.ABSTRACT.name());
-        return attr != null ? attr.getAttributeValue() : null;
+    	return wrapped.getPitch();
     }
     
     public int getCommentsCount() throws SystemException, PortalException {
