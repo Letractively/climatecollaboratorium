@@ -930,6 +930,18 @@ public class PlanItemWrapper {
 
     public void saveContent(ActionEvent e) throws SystemException, PortalException, UserInputException {
         if (Helper.isUserLoggedIn()) {
+        	
+        	if (! wrapped.getContestPhase().getPhaseActive()) {
+                FacesMessage message = new FacesMessage();
+                message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                message.setSummary("Sorry, the phase ended while you were working on your edits.");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
+                planBean.refresh();
+                return;
+        		
+        	}
+        	
             boolean descriptionChanged = false;
             
             if (description != null && (wrapped.getDescription() == null || !description.trim().equals(wrapped.getDescription().trim()))) {
