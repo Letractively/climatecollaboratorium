@@ -7,6 +7,7 @@ import com.ext.portlet.contests.model.ContestPhase;
 import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.contests.service.ContestPhaseColumnLocalServiceUtil;
 import com.ext.portlet.contests.service.ContestPhaseLocalServiceUtil;
+import com.ext.portlet.contests.service.ContestPhaseTypeLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
 import com.ext.portlet.plans.service.PlanItemLocalServiceUtil;
 import com.liferay.portal.PortalException;
@@ -31,8 +32,8 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
         //return PlanItemLocalServiceUtil.getPlansInContestPhase(this);
     }
 
-    public ContestStatus getContestStatus() {
-        String status = getContestPhaseStatus();
+    public ContestStatus getContestStatus() throws PortalException, SystemException {
+        String status = ContestPhaseTypeLocalServiceUtil.getContestPhaseType(getContestPhaseType()).getStatus();
         return status == null?null:ContestStatus.valueOf(status);
     }
     
@@ -74,11 +75,19 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
     }
     
     public boolean getPhaseActive() {
+    	if (getPhaseActiveOverride() != null && getPhaseActiveOverride()) { 
+    		return true;
+    	
+    	}
         if (getPhaseStartDate() != null && getPhaseEndDate() != null) {
             java.util.Date now = new java.util.Date();
             return now.after(getPhaseStartDate()) && now.before(getPhaseEndDate());
         }
         return false;
+    }
+    
+    public String getName() throws PortalException, SystemException {
+    	return ContestPhaseTypeLocalServiceUtil.getContestPhaseType(getContestPhaseType()).getName();
     }
     
 }

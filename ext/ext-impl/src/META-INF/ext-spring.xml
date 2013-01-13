@@ -1298,23 +1298,23 @@
 	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseUtil">
 		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl" />
 	</bean>
-	<bean id="com.ext.portlet.contests.service.ContestPhaseStatusLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseStatusLocalServiceImpl" />
-	<bean id="com.ext.portlet.contests.service.ContestPhaseStatusLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
-		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseStatusLocalService.impl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseTypeLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseTypeLocalServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseTypeLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseTypeLocalService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.contests.service.ContestPhaseStatusLocalServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseStatusLocalServiceUtil">
-		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseStatusLocalService.impl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseTypeLocalServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseTypeLocalServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseTypeLocalService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.contests.service.ContestPhaseStatusService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseStatusServiceImpl" />
-	<bean id="com.ext.portlet.contests.service.ContestPhaseStatusService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
-		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseStatusService.impl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseTypeService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseTypeServiceImpl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseTypeService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">
+		<property name="target" ref="com.ext.portlet.contests.service.ContestPhaseTypeService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.contests.service.ContestPhaseStatusServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseStatusServiceUtil">
-		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseStatusService.impl" />
+	<bean id="com.ext.portlet.contests.service.ContestPhaseTypeServiceUtil" class="com.ext.portlet.contests.service.ContestPhaseTypeServiceUtil">
+		<property name="service" ref="com.ext.portlet.contests.service.ContestPhaseTypeService.impl" />
 	</bean>
-	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistenceImpl" parent="basePersistence" />
-	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseStatusUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseStatusUtil">
-		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence.impl" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistence.impl" class="com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistenceImpl" parent="basePersistence" />
+	<bean id="com.ext.portlet.contests.service.persistence.ContestPhaseTypeUtil" class="com.ext.portlet.contests.service.persistence.ContestPhaseTypeUtil">
+		<property name="persistence" ref="com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistence.impl" />
 	</bean>
 	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.impl" class="com.ext.portlet.contests.service.impl.ContestPhaseColumnLocalServiceImpl" />
 	<bean id="com.ext.portlet.contests.service.ContestPhaseColumnLocalService.velocity" class="org.springframework.aop.framework.ProxyFactoryBean" parent="baseVelocityService">

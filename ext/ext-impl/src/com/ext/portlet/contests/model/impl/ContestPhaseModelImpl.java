@@ -49,13 +49,13 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
             { "ContestPK", new Integer(Types.BIGINT) },
             
 
-            { "ContestPhaseName", new Integer(Types.VARCHAR) },
+            { "ContestPhaseType", new Integer(Types.BIGINT) },
             
 
-            { "ContestPhaseDescription", new Integer(Types.VARCHAR) },
+            { "ContestPhaseDescriptionOverride", new Integer(Types.VARCHAR) },
             
 
-            { "ContestPhaseStatus", new Integer(Types.VARCHAR) },
+            { "phaseActiveOverride", new Integer(Types.BOOLEAN) },
             
 
             { "PhaseStartDate", new Integer(Types.TIMESTAMP) },
@@ -67,9 +67,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
             { "nextStatus", new Integer(Types.VARCHAR) },
             
 
-            { "phaseStatusDescription", new Integer(Types.VARCHAR) },
-            
-
             { "created", new Integer(Types.TIMESTAMP) },
             
 
@@ -78,7 +75,7 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
             { "authorId", new Integer(Types.BIGINT) }
         };
-    public static final String TABLE_SQL_CREATE = "create table ContestPhase (ContestPhasePK LONG not null primary key,ContestPK LONG,ContestPhaseName VARCHAR(75) null,ContestPhaseDescription VARCHAR(75) null,ContestPhaseStatus VARCHAR(75) null,PhaseStartDate DATE null,PhaseEndDate DATE null,nextStatus VARCHAR(75) null,phaseStatusDescription VARCHAR(75) null,created DATE null,updated DATE null,authorId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table ContestPhase (ContestPhasePK LONG not null primary key,ContestPK LONG,ContestPhaseType LONG,ContestPhaseDescriptionOverride VARCHAR(75) null,phaseActiveOverride BOOLEAN,PhaseStartDate DATE null,PhaseEndDate DATE null,nextStatus VARCHAR(75) null,created DATE null,updated DATE null,authorId LONG)";
     public static final String TABLE_SQL_DROP = "drop table ContestPhase";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -94,15 +91,14 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
     private Long _ContestPhasePK;
     private Long _ContestPK;
     private Long _originalContestPK;
-    private String _ContestPhaseName;
-    private String _ContestPhaseDescription;
-    private String _ContestPhaseStatus;
+    private Long _ContestPhaseType;
+    private String _ContestPhaseDescriptionOverride;
+    private Boolean _phaseActiveOverride;
     private Date _PhaseStartDate;
     private Date _originalPhaseStartDate;
     private Date _PhaseEndDate;
     private Date _originalPhaseEndDate;
     private String _nextStatus;
-    private String _phaseStatusDescription;
     private Date _created;
     private Date _updated;
     private Long _authorId;
@@ -115,13 +111,12 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
         model.setContestPhasePK(soapModel.getContestPhasePK());
         model.setContestPK(soapModel.getContestPK());
-        model.setContestPhaseName(soapModel.getContestPhaseName());
-        model.setContestPhaseDescription(soapModel.getContestPhaseDescription());
-        model.setContestPhaseStatus(soapModel.getContestPhaseStatus());
+        model.setContestPhaseType(soapModel.getContestPhaseType());
+        model.setContestPhaseDescriptionOverride(soapModel.getContestPhaseDescriptionOverride());
+        model.setPhaseActiveOverride(soapModel.getPhaseActiveOverride());
         model.setPhaseStartDate(soapModel.getPhaseStartDate());
         model.setPhaseEndDate(soapModel.getPhaseEndDate());
         model.setNextStatus(soapModel.getNextStatus());
-        model.setPhaseStatusDescription(soapModel.getPhaseStatusDescription());
         model.setCreated(soapModel.getCreated());
         model.setUpdated(soapModel.getUpdated());
         model.setAuthorId(soapModel.getAuthorId());
@@ -175,28 +170,29 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         return _originalContestPK;
     }
 
-    public String getContestPhaseName() {
-        return GetterUtil.getString(_ContestPhaseName);
+    public Long getContestPhaseType() {
+        return _ContestPhaseType;
     }
 
-    public void setContestPhaseName(String ContestPhaseName) {
-        _ContestPhaseName = ContestPhaseName;
+    public void setContestPhaseType(Long ContestPhaseType) {
+        _ContestPhaseType = ContestPhaseType;
     }
 
-    public String getContestPhaseDescription() {
-        return GetterUtil.getString(_ContestPhaseDescription);
+    public String getContestPhaseDescriptionOverride() {
+        return GetterUtil.getString(_ContestPhaseDescriptionOverride);
     }
 
-    public void setContestPhaseDescription(String ContestPhaseDescription) {
-        _ContestPhaseDescription = ContestPhaseDescription;
+    public void setContestPhaseDescriptionOverride(
+        String ContestPhaseDescriptionOverride) {
+        _ContestPhaseDescriptionOverride = ContestPhaseDescriptionOverride;
     }
 
-    public String getContestPhaseStatus() {
-        return GetterUtil.getString(_ContestPhaseStatus);
+    public Boolean getPhaseActiveOverride() {
+        return _phaseActiveOverride;
     }
 
-    public void setContestPhaseStatus(String ContestPhaseStatus) {
-        _ContestPhaseStatus = ContestPhaseStatus;
+    public void setPhaseActiveOverride(Boolean phaseActiveOverride) {
+        _phaseActiveOverride = phaseActiveOverride;
     }
 
     public Date getPhaseStartDate() {
@@ -239,14 +235,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         _nextStatus = nextStatus;
     }
 
-    public String getPhaseStatusDescription() {
-        return GetterUtil.getString(_phaseStatusDescription);
-    }
-
-    public void setPhaseStatusDescription(String phaseStatusDescription) {
-        _phaseStatusDescription = phaseStatusDescription;
-    }
-
     public Date getCreated() {
         return _created;
     }
@@ -282,15 +270,13 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
             model.setContestPhasePK(getContestPhasePK());
             model.setContestPK(getContestPK());
-            model.setContestPhaseName(HtmlUtil.escape(getContestPhaseName()));
-            model.setContestPhaseDescription(HtmlUtil.escape(
-                    getContestPhaseDescription()));
-            model.setContestPhaseStatus(HtmlUtil.escape(getContestPhaseStatus()));
+            model.setContestPhaseType(getContestPhaseType());
+            model.setContestPhaseDescriptionOverride(HtmlUtil.escape(
+                    getContestPhaseDescriptionOverride()));
+            model.setPhaseActiveOverride(getPhaseActiveOverride());
             model.setPhaseStartDate(getPhaseStartDate());
             model.setPhaseEndDate(getPhaseEndDate());
             model.setNextStatus(HtmlUtil.escape(getNextStatus()));
-            model.setPhaseStatusDescription(HtmlUtil.escape(
-                    getPhaseStatusDescription()));
             model.setCreated(getCreated());
             model.setUpdated(getUpdated());
             model.setAuthorId(getAuthorId());
@@ -308,13 +294,12 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
 
         clone.setContestPhasePK(getContestPhasePK());
         clone.setContestPK(getContestPK());
-        clone.setContestPhaseName(getContestPhaseName());
-        clone.setContestPhaseDescription(getContestPhaseDescription());
-        clone.setContestPhaseStatus(getContestPhaseStatus());
+        clone.setContestPhaseType(getContestPhaseType());
+        clone.setContestPhaseDescriptionOverride(getContestPhaseDescriptionOverride());
+        clone.setPhaseActiveOverride(getPhaseActiveOverride());
         clone.setPhaseStartDate(getPhaseStartDate());
         clone.setPhaseEndDate(getPhaseEndDate());
         clone.setNextStatus(getNextStatus());
-        clone.setPhaseStatusDescription(getPhaseStatusDescription());
         clone.setCreated(getCreated());
         clone.setUpdated(getUpdated());
         clone.setAuthorId(getAuthorId());
@@ -368,20 +353,18 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         sb.append(getContestPhasePK());
         sb.append(", ContestPK=");
         sb.append(getContestPK());
-        sb.append(", ContestPhaseName=");
-        sb.append(getContestPhaseName());
-        sb.append(", ContestPhaseDescription=");
-        sb.append(getContestPhaseDescription());
-        sb.append(", ContestPhaseStatus=");
-        sb.append(getContestPhaseStatus());
+        sb.append(", ContestPhaseType=");
+        sb.append(getContestPhaseType());
+        sb.append(", ContestPhaseDescriptionOverride=");
+        sb.append(getContestPhaseDescriptionOverride());
+        sb.append(", phaseActiveOverride=");
+        sb.append(getPhaseActiveOverride());
         sb.append(", PhaseStartDate=");
         sb.append(getPhaseStartDate());
         sb.append(", PhaseEndDate=");
         sb.append(getPhaseEndDate());
         sb.append(", nextStatus=");
         sb.append(getNextStatus());
-        sb.append(", phaseStatusDescription=");
-        sb.append(getPhaseStatusDescription());
         sb.append(", created=");
         sb.append(getCreated());
         sb.append(", updated=");
@@ -409,16 +392,16 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         sb.append(getContestPK());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>ContestPhaseName</column-name><column-value><![CDATA[");
-        sb.append(getContestPhaseName());
+            "<column><column-name>ContestPhaseType</column-name><column-value><![CDATA[");
+        sb.append(getContestPhaseType());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>ContestPhaseDescription</column-name><column-value><![CDATA[");
-        sb.append(getContestPhaseDescription());
+            "<column><column-name>ContestPhaseDescriptionOverride</column-name><column-value><![CDATA[");
+        sb.append(getContestPhaseDescriptionOverride());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>ContestPhaseStatus</column-name><column-value><![CDATA[");
-        sb.append(getContestPhaseStatus());
+            "<column><column-name>phaseActiveOverride</column-name><column-value><![CDATA[");
+        sb.append(getPhaseActiveOverride());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>PhaseStartDate</column-name><column-value><![CDATA[");
@@ -431,10 +414,6 @@ public class ContestPhaseModelImpl extends BaseModelImpl<ContestPhase> {
         sb.append(
             "<column><column-name>nextStatus</column-name><column-value><![CDATA[");
         sb.append(getNextStatus());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>phaseStatusDescription</column-name><column-value><![CDATA[");
-        sb.append(getPhaseStatusDescription());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>created</column-name><column-value><![CDATA[");

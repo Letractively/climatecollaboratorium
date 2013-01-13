@@ -2,7 +2,7 @@ package com.ext.portlet.contests.service.http;
 
 
 /**
- * <a href="ContestPhaseStatusServiceHttp.java.html"><b><i>View Source</i></b></a>
+ * <a href="ContestPhaseTypeServiceHttp.java.html"><b><i>View Source</i></b></a>
  *
  * <p>
  * ServiceBuilder generated this class. Modifications in this class will be
@@ -11,7 +11,7 @@ package com.ext.portlet.contests.service.http;
  *
  * <p>
  * This class provides a HTTP utility for the
- * <code>com.ext.portlet.contests.service.ContestPhaseStatusServiceUtil</code> service
+ * <code>com.ext.portlet.contests.service.ContestPhaseTypeServiceUtil</code> service
  * utility. The static methods of this class calls the same methods of the
  * service utility. However, the signatures are different because it requires an
  * additional <code>com.liferay.portal.security.auth.HttpPrincipal</code>
@@ -36,9 +36,9 @@ package com.ext.portlet.contests.service.http;
  * @author Brian Wing Shun Chan
  *
  * @see com.liferay.portal.security.auth.HttpPrincipal
- * @see com.ext.portlet.contests.service.ContestPhaseStatusServiceUtil
- * @see com.ext.portlet.contests.service.http.ContestPhaseStatusServiceSoap
+ * @see com.ext.portlet.contests.service.ContestPhaseTypeServiceUtil
+ * @see com.ext.portlet.contests.service.http.ContestPhaseTypeServiceSoap
  *
  */
-public class ContestPhaseStatusServiceHttp {
+public class ContestPhaseTypeServiceHttp {
 }

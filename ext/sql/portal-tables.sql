@@ -276,13 +276,12 @@ create table ContestDebate (
 create table ContestPhase (
 	ContestPhasePK LONG not null primary key,
 	ContestPK LONG,
-	ContestPhaseName VARCHAR(75) null,
-	ContestPhaseDescription VARCHAR(75) null,
-	ContestPhaseStatus VARCHAR(75) null,
+	ContestPhaseType LONG,
+	ContestPhaseDescriptionOverride VARCHAR(75) null,
+	phaseActiveOverride BOOLEAN,
 	PhaseStartDate DATE null,
 	PhaseEndDate DATE null,
 	nextStatus VARCHAR(75) null,
-	phaseStatusDescription VARCHAR(75) null,
 	created DATE null,
 	updated DATE null,
 	authorId LONG
@@ -299,6 +298,13 @@ create table ContestPhaseColumn (
 create table ContestPhaseStatus (
 	name VARCHAR(75) not null primary key,
 	description VARCHAR(75) null
+);
+
+create table ContestPhaseType (
+	id_ LONG not null primary key,
+	name VARCHAR(75) null,
+	description VARCHAR(75) null,
+	status VARCHAR(75) null
 );
 
 create table ContestPosition (

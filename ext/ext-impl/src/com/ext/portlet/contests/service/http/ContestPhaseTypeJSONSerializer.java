@@ -1,6 +1,6 @@
 package com.ext.portlet.contests.service.http;
 
-import com.ext.portlet.contests.model.ContestPhaseStatus;
+import com.ext.portlet.contests.model.ContestPhaseType;
 
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -10,7 +10,7 @@ import java.util.List;
 
 
 /**
- * <a href="ContestPhaseStatusJSONSerializer.java.html"><b><i>View Source</i></b></a>
+ * <a href="ContestPhaseTypeJSONSerializer.java.html"><b><i>View Source</i></b></a>
  *
  * <p>
  * ServiceBuilder generated this class. Modifications in this class will be
@@ -19,30 +19,32 @@ import java.util.List;
  *
  * <p>
  * This class is used by
- * <code>com.ext.portlet.contests.service.http.ContestPhaseStatusServiceJSON</code>
+ * <code>com.ext.portlet.contests.service.http.ContestPhaseTypeServiceJSON</code>
  * to translate objects.
  * </p>
  *
  * @author Brian Wing Shun Chan
  *
- * @see com.ext.portlet.contests.service.http.ContestPhaseStatusServiceJSON
+ * @see com.ext.portlet.contests.service.http.ContestPhaseTypeServiceJSON
  *
  */
-public class ContestPhaseStatusJSONSerializer {
-    public static JSONObject toJSONObject(ContestPhaseStatus model) {
+public class ContestPhaseTypeJSONSerializer {
+    public static JSONObject toJSONObject(ContestPhaseType model) {
         JSONObject jsonObj = JSONFactoryUtil.createJSONObject();
 
+        jsonObj.put("id", model.getId());
         jsonObj.put("name", model.getName());
         jsonObj.put("description", model.getDescription());
+        jsonObj.put("status", model.getStatus());
 
         return jsonObj;
     }
 
     public static JSONArray toJSONArray(
-        com.ext.portlet.contests.model.ContestPhaseStatus[] models) {
+        com.ext.portlet.contests.model.ContestPhaseType[] models) {
         JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-        for (ContestPhaseStatus model : models) {
+        for (ContestPhaseType model : models) {
             jsonArray.put(toJSONObject(model));
         }
 
@@ -50,10 +52,10 @@ public class ContestPhaseStatusJSONSerializer {
     }
 
     public static JSONArray toJSONArray(
-        com.ext.portlet.contests.model.ContestPhaseStatus[][] models) {
+        com.ext.portlet.contests.model.ContestPhaseType[][] models) {
         JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-        for (ContestPhaseStatus[] model : models) {
+        for (ContestPhaseType[] model : models) {
             jsonArray.put(toJSONArray(model));
         }
 
@@ -61,10 +63,10 @@ public class ContestPhaseStatusJSONSerializer {
     }
 
     public static JSONArray toJSONArray(
-        List<com.ext.portlet.contests.model.ContestPhaseStatus> models) {
+        List<com.ext.portlet.contests.model.ContestPhaseType> models) {
         JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-        for (ContestPhaseStatus model : models) {
+        for (ContestPhaseType model : models) {
             jsonArray.put(toJSONObject(model));
         }
 

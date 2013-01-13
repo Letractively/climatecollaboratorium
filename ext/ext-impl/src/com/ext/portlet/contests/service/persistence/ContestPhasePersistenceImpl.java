@@ -66,6 +66,23 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
     public static final FinderPath FINDER_PATH_COUNT_BY_CONTESTID = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
             ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "countByContestId", new String[] { Long.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_PHASEACTIVEOVERRIDE = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByPhaseActiveOverride",
+            new String[] { Long.class.getName(), Boolean.class.getName() });
+    public static final FinderPath FINDER_PATH_FIND_BY_OBC_PHASEACTIVEOVERRIDE = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "findByPhaseActiveOverride",
+            new String[] {
+                Long.class.getName(), Boolean.class.getName(),
+                
+            "java.lang.Integer", "java.lang.Integer",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            });
+    public static final FinderPath FINDER_PATH_COUNT_BY_PHASEACTIVEOVERRIDE = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
+            ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
+            "countByPhaseActiveOverride",
+            new String[] { Long.class.getName(), Boolean.class.getName() });
     public static final FinderPath FINDER_PATH_FIND_ALL = new FinderPath(ContestPhaseModelImpl.ENTITY_CACHE_ENABLED,
             ContestPhaseModelImpl.FINDER_CACHE_ENABLED, FINDER_CLASS_NAME_LIST,
             "findAll", new String[0]);
@@ -79,8 +96,8 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
     protected com.ext.portlet.contests.service.persistence.ContestDebatePersistence contestDebatePersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhasePersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPhasePersistence contestPhasePersistence;
-    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence.impl")
-    protected com.ext.portlet.contests.service.persistence.ContestPhaseStatusPersistence contestPhaseStatusPersistence;
+    @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistence.impl")
+    protected com.ext.portlet.contests.service.persistence.ContestPhaseTypePersistence contestPhaseTypePersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence.impl")
     protected com.ext.portlet.contests.service.persistence.ContestPhaseColumnPersistence contestPhaseColumnPersistence;
     @BeanReference(name = "com.ext.portlet.contests.service.persistence.ContestTeamMemberPersistence.impl")
@@ -767,6 +784,290 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
         }
     }
 
+    public List<ContestPhase> findByPhaseActiveOverride(Long ContestPK,
+        Boolean phaseActiveOverride) throws SystemException {
+        Object[] finderArgs = new Object[] { ContestPK, phaseActiveOverride };
+
+        List<ContestPhase> list = (List<ContestPhase>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_PHASEACTIVEOVERRIDE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.ContestPhase WHERE ");
+
+                if (ContestPK == null) {
+                    query.append("ContestPK IS NULL");
+                } else {
+                    query.append("ContestPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (phaseActiveOverride == null) {
+                    query.append("phaseActiveOverride IS NULL");
+                } else {
+                    query.append("phaseActiveOverride = ?");
+                }
+
+                query.append(" ");
+
+                query.append("ORDER BY ");
+
+                query.append("PhaseStartDate ASC");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ContestPK != null) {
+                    qPos.add(ContestPK.longValue());
+                }
+
+                if (phaseActiveOverride != null) {
+                    qPos.add(phaseActiveOverride.booleanValue());
+                }
+
+                list = q.list();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ContestPhase>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_PHASEACTIVEOVERRIDE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public List<ContestPhase> findByPhaseActiveOverride(Long ContestPK,
+        Boolean phaseActiveOverride, int start, int end)
+        throws SystemException {
+        return findByPhaseActiveOverride(ContestPK, phaseActiveOverride, start,
+            end, null);
+    }
+
+    public List<ContestPhase> findByPhaseActiveOverride(Long ContestPK,
+        Boolean phaseActiveOverride, int start, int end, OrderByComparator obc)
+        throws SystemException {
+        Object[] finderArgs = new Object[] {
+                ContestPK,
+                
+                phaseActiveOverride,
+                
+                String.valueOf(start), String.valueOf(end), String.valueOf(obc)
+            };
+
+        List<ContestPhase> list = (List<ContestPhase>) FinderCacheUtil.getResult(FINDER_PATH_FIND_BY_OBC_PHASEACTIVEOVERRIDE,
+                finderArgs, this);
+
+        if (list == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append(
+                    "FROM com.ext.portlet.contests.model.ContestPhase WHERE ");
+
+                if (ContestPK == null) {
+                    query.append("ContestPK IS NULL");
+                } else {
+                    query.append("ContestPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (phaseActiveOverride == null) {
+                    query.append("phaseActiveOverride IS NULL");
+                } else {
+                    query.append("phaseActiveOverride = ?");
+                }
+
+                query.append(" ");
+
+                if (obc != null) {
+                    query.append("ORDER BY ");
+                    query.append(obc.getOrderBy());
+                }
+                else {
+                    query.append("ORDER BY ");
+
+                    query.append("PhaseStartDate ASC");
+                }
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ContestPK != null) {
+                    qPos.add(ContestPK.longValue());
+                }
+
+                if (phaseActiveOverride != null) {
+                    qPos.add(phaseActiveOverride.booleanValue());
+                }
+
+                list = (List<ContestPhase>) QueryUtil.list(q, getDialect(),
+                        start, end);
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (list == null) {
+                    list = new ArrayList<ContestPhase>();
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(FINDER_PATH_FIND_BY_OBC_PHASEACTIVEOVERRIDE,
+                    finderArgs, list);
+
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    public ContestPhase findByPhaseActiveOverride_First(Long ContestPK,
+        Boolean phaseActiveOverride, OrderByComparator obc)
+        throws NoSuchContestPhaseException, SystemException {
+        List<ContestPhase> list = findByPhaseActiveOverride(ContestPK,
+                phaseActiveOverride, 0, 1, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ContestPhase exists with the key {");
+
+            msg.append("ContestPK=" + ContestPK);
+
+            msg.append(", ");
+            msg.append("phaseActiveOverride=" + phaseActiveOverride);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestPhaseException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ContestPhase findByPhaseActiveOverride_Last(Long ContestPK,
+        Boolean phaseActiveOverride, OrderByComparator obc)
+        throws NoSuchContestPhaseException, SystemException {
+        int count = countByPhaseActiveOverride(ContestPK, phaseActiveOverride);
+
+        List<ContestPhase> list = findByPhaseActiveOverride(ContestPK,
+                phaseActiveOverride, count - 1, count, obc);
+
+        if (list.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+
+            msg.append("No ContestPhase exists with the key {");
+
+            msg.append("ContestPK=" + ContestPK);
+
+            msg.append(", ");
+            msg.append("phaseActiveOverride=" + phaseActiveOverride);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            throw new NoSuchContestPhaseException(msg.toString());
+        } else {
+            return list.get(0);
+        }
+    }
+
+    public ContestPhase[] findByPhaseActiveOverride_PrevAndNext(
+        Long ContestPhasePK, Long ContestPK, Boolean phaseActiveOverride,
+        OrderByComparator obc)
+        throws NoSuchContestPhaseException, SystemException {
+        ContestPhase contestPhase = findByPrimaryKey(ContestPhasePK);
+
+        int count = countByPhaseActiveOverride(ContestPK, phaseActiveOverride);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            StringBuilder query = new StringBuilder();
+
+            query.append(
+                "FROM com.ext.portlet.contests.model.ContestPhase WHERE ");
+
+            if (ContestPK == null) {
+                query.append("ContestPK IS NULL");
+            } else {
+                query.append("ContestPK = ?");
+            }
+
+            query.append(" AND ");
+
+            if (phaseActiveOverride == null) {
+                query.append("phaseActiveOverride IS NULL");
+            } else {
+                query.append("phaseActiveOverride = ?");
+            }
+
+            query.append(" ");
+
+            if (obc != null) {
+                query.append("ORDER BY ");
+                query.append(obc.getOrderBy());
+            }
+            else {
+                query.append("ORDER BY ");
+
+                query.append("PhaseStartDate ASC");
+            }
+
+            Query q = session.createQuery(query.toString());
+
+            QueryPos qPos = QueryPos.getInstance(q);
+
+            if (ContestPK != null) {
+                qPos.add(ContestPK.longValue());
+            }
+
+            if (phaseActiveOverride != null) {
+                qPos.add(phaseActiveOverride.booleanValue());
+            }
+
+            Object[] objArray = QueryUtil.getPrevAndNext(q, count, obc,
+                    contestPhase);
+
+            ContestPhase[] array = new ContestPhaseImpl[3];
+
+            array[0] = (ContestPhase) objArray[0];
+            array[1] = (ContestPhase) objArray[1];
+            array[2] = (ContestPhase) objArray[2];
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<Object> findWithDynamicQuery(DynamicQuery dynamicQuery)
         throws SystemException {
         Session session = null;
@@ -881,6 +1182,14 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
 
     public void removeByContestId(Long ContestPK) throws SystemException {
         for (ContestPhase contestPhase : findByContestId(ContestPK)) {
+            remove(contestPhase);
+        }
+    }
+
+    public void removeByPhaseActiveOverride(Long ContestPK,
+        Boolean phaseActiveOverride) throws SystemException {
+        for (ContestPhase contestPhase : findByPhaseActiveOverride(ContestPK,
+                phaseActiveOverride)) {
             remove(contestPhase);
         }
     }
@@ -1017,6 +1326,71 @@ public class ContestPhasePersistenceImpl extends BasePersistenceImpl
                 }
 
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CONTESTID,
+                    finderArgs, count);
+
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    public int countByPhaseActiveOverride(Long ContestPK,
+        Boolean phaseActiveOverride) throws SystemException {
+        Object[] finderArgs = new Object[] { ContestPK, phaseActiveOverride };
+
+        Long count = (Long) FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_PHASEACTIVEOVERRIDE,
+                finderArgs, this);
+
+        if (count == null) {
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                StringBuilder query = new StringBuilder();
+
+                query.append("SELECT COUNT(*) ");
+                query.append(
+                    "FROM com.ext.portlet.contests.model.ContestPhase WHERE ");
+
+                if (ContestPK == null) {
+                    query.append("ContestPK IS NULL");
+                } else {
+                    query.append("ContestPK = ?");
+                }
+
+                query.append(" AND ");
+
+                if (phaseActiveOverride == null) {
+                    query.append("phaseActiveOverride IS NULL");
+                } else {
+                    query.append("phaseActiveOverride = ?");
+                }
+
+                query.append(" ");
+
+                Query q = session.createQuery(query.toString());
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (ContestPK != null) {
+                    qPos.add(ContestPK.longValue());
+                }
+
+                if (phaseActiveOverride != null) {
+                    qPos.add(phaseActiveOverride.booleanValue());
+                }
+
+                count = (Long) q.uniqueResult();
+            } catch (Exception e) {
+                throw processException(e);
+            } finally {
+                if (count == null) {
+                    count = Long.valueOf(0);
+                }
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_PHASEACTIVEOVERRIDE,
                     finderArgs, count);
 
                 closeSession(session);

@@ -38,17 +38,18 @@ public interface ContestPhaseModel extends BaseModel<ContestPhase> {
 
     public void setContestPK(Long ContestPK);
 
-    public String getContestPhaseName();
+    public Long getContestPhaseType();
 
-    public void setContestPhaseName(String ContestPhaseName);
+    public void setContestPhaseType(Long ContestPhaseType);
 
-    public String getContestPhaseDescription();
+    public String getContestPhaseDescriptionOverride();
 
-    public void setContestPhaseDescription(String ContestPhaseDescription);
+    public void setContestPhaseDescriptionOverride(
+        String ContestPhaseDescriptionOverride);
 
-    public String getContestPhaseStatus();
+    public Boolean getPhaseActiveOverride();
 
-    public void setContestPhaseStatus(String ContestPhaseStatus);
+    public void setPhaseActiveOverride(Boolean phaseActiveOverride);
 
     public Date getPhaseStartDate();
 
@@ -61,10 +62,6 @@ public interface ContestPhaseModel extends BaseModel<ContestPhase> {
     public String getNextStatus();
 
     public void setNextStatus(String nextStatus);
-
-    public String getPhaseStatusDescription();
-
-    public void setPhaseStatusDescription(String phaseStatusDescription);
 
     public Date getCreated();
 

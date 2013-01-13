@@ -8,7 +8,7 @@ import com.liferay.portal.kernel.annotation.Transactional;
 
 
 /**
- * <a href="ContestPhaseStatusLocalService.java.html"><b><i>View Source</i></b></a>
+ * <a href="ContestPhaseTypeLocalService.java.html"><b><i>View Source</i></b></a>
  *
  * <p>
  * ServiceBuilder generated this class. Modifications in this class will be
@@ -17,7 +17,7 @@ import com.liferay.portal.kernel.annotation.Transactional;
  *
  * <p>
  * This interface defines the service. The default implementation is
- * <code>com.ext.portlet.contests.service.impl.ContestPhaseStatusLocalServiceImpl</code>.
+ * <code>com.ext.portlet.contests.service.impl.ContestPhaseTypeLocalServiceImpl</code>.
  * Modify methods in that class and rerun ServiceBuilder to populate this class
  * and all other generated classes.
  * </p>
@@ -28,26 +28,26 @@ import com.liferay.portal.kernel.annotation.Transactional;
  *
  * @author Brian Wing Shun Chan
  *
- * @see com.ext.portlet.contests.service.ContestPhaseStatusLocalServiceUtil
+ * @see com.ext.portlet.contests.service.ContestPhaseTypeLocalServiceUtil
  *
  */
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
     PortalException.class, SystemException.class}
 )
-public interface ContestPhaseStatusLocalService {
-    public com.ext.portlet.contests.model.ContestPhaseStatus addContestPhaseStatus(
-        com.ext.portlet.contests.model.ContestPhaseStatus contestPhaseStatus)
+public interface ContestPhaseTypeLocalService {
+    public com.ext.portlet.contests.model.ContestPhaseType addContestPhaseType(
+        com.ext.portlet.contests.model.ContestPhaseType contestPhaseType)
         throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.contests.model.ContestPhaseStatus createContestPhaseStatus(
-        java.lang.String name);
+    public com.ext.portlet.contests.model.ContestPhaseType createContestPhaseType(
+        java.lang.Long id);
 
-    public void deleteContestPhaseStatus(java.lang.String name)
+    public void deleteContestPhaseType(java.lang.Long id)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
-    public void deleteContestPhaseStatus(
-        com.ext.portlet.contests.model.ContestPhaseStatus contestPhaseStatus)
+    public void deleteContestPhaseType(
+        com.ext.portlet.contests.model.ContestPhaseType contestPhaseType)
         throws com.liferay.portal.SystemException;
 
     public java.util.List<Object> dynamicQuery(
@@ -59,24 +59,24 @@ public interface ContestPhaseStatusLocalService {
         int end) throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public com.ext.portlet.contests.model.ContestPhaseStatus getContestPhaseStatus(
-        java.lang.String name)
+    public com.ext.portlet.contests.model.ContestPhaseType getContestPhaseType(
+        java.lang.Long id)
         throws com.liferay.portal.SystemException,
             com.liferay.portal.PortalException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public java.util.List<com.ext.portlet.contests.model.ContestPhaseStatus> getContestPhaseStatuses(
+    public java.util.List<com.ext.portlet.contests.model.ContestPhaseType> getContestPhaseTypes(
         int start, int end) throws com.liferay.portal.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public int getContestPhaseStatusesCount()
+    public int getContestPhaseTypesCount()
         throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.contests.model.ContestPhaseStatus updateContestPhaseStatus(
-        com.ext.portlet.contests.model.ContestPhaseStatus contestPhaseStatus)
+    public com.ext.portlet.contests.model.ContestPhaseType updateContestPhaseType(
+        com.ext.portlet.contests.model.ContestPhaseType contestPhaseType)
         throws com.liferay.portal.SystemException;
 
-    public com.ext.portlet.contests.model.ContestPhaseStatus updateContestPhaseStatus(
-        com.ext.portlet.contests.model.ContestPhaseStatus contestPhaseStatus,
+    public com.ext.portlet.contests.model.ContestPhaseType updateContestPhaseType(
+        com.ext.portlet.contests.model.ContestPhaseType contestPhaseType,
         boolean merge) throws com.liferay.portal.SystemException;
 }

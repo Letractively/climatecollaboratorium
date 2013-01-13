@@ -28,13 +28,12 @@ import java.util.List;
 public class ContestPhaseSoap implements Serializable {
     private Long _ContestPhasePK;
     private Long _ContestPK;
-    private String _ContestPhaseName;
-    private String _ContestPhaseDescription;
-    private String _ContestPhaseStatus;
+    private Long _ContestPhaseType;
+    private String _ContestPhaseDescriptionOverride;
+    private Boolean _phaseActiveOverride;
     private Date _PhaseStartDate;
     private Date _PhaseEndDate;
     private String _nextStatus;
-    private String _phaseStatusDescription;
     private Date _created;
     private Date _updated;
     private Long _authorId;
@@ -47,13 +46,12 @@ public class ContestPhaseSoap implements Serializable {
 
         soapModel.setContestPhasePK(model.getContestPhasePK());
         soapModel.setContestPK(model.getContestPK());
-        soapModel.setContestPhaseName(model.getContestPhaseName());
-        soapModel.setContestPhaseDescription(model.getContestPhaseDescription());
-        soapModel.setContestPhaseStatus(model.getContestPhaseStatus());
+        soapModel.setContestPhaseType(model.getContestPhaseType());
+        soapModel.setContestPhaseDescriptionOverride(model.getContestPhaseDescriptionOverride());
+        soapModel.setPhaseActiveOverride(model.getPhaseActiveOverride());
         soapModel.setPhaseStartDate(model.getPhaseStartDate());
         soapModel.setPhaseEndDate(model.getPhaseEndDate());
         soapModel.setNextStatus(model.getNextStatus());
-        soapModel.setPhaseStatusDescription(model.getPhaseStatusDescription());
         soapModel.setCreated(model.getCreated());
         soapModel.setUpdated(model.getUpdated());
         soapModel.setAuthorId(model.getAuthorId());
@@ -121,28 +119,29 @@ public class ContestPhaseSoap implements Serializable {
         _ContestPK = ContestPK;
     }
 
-    public String getContestPhaseName() {
-        return _ContestPhaseName;
+    public Long getContestPhaseType() {
+        return _ContestPhaseType;
     }
 
-    public void setContestPhaseName(String ContestPhaseName) {
-        _ContestPhaseName = ContestPhaseName;
+    public void setContestPhaseType(Long ContestPhaseType) {
+        _ContestPhaseType = ContestPhaseType;
     }
 
-    public String getContestPhaseDescription() {
-        return _ContestPhaseDescription;
+    public String getContestPhaseDescriptionOverride() {
+        return _ContestPhaseDescriptionOverride;
     }
 
-    public void setContestPhaseDescription(String ContestPhaseDescription) {
-        _ContestPhaseDescription = ContestPhaseDescription;
+    public void setContestPhaseDescriptionOverride(
+        String ContestPhaseDescriptionOverride) {
+        _ContestPhaseDescriptionOverride = ContestPhaseDescriptionOverride;
     }
 
-    public String getContestPhaseStatus() {
-        return _ContestPhaseStatus;
+    public Boolean getPhaseActiveOverride() {
+        return _phaseActiveOverride;
     }
 
-    public void setContestPhaseStatus(String ContestPhaseStatus) {
-        _ContestPhaseStatus = ContestPhaseStatus;
+    public void setPhaseActiveOverride(Boolean phaseActiveOverride) {
+        _phaseActiveOverride = phaseActiveOverride;
     }
 
     public Date getPhaseStartDate() {
@@ -167,14 +166,6 @@ public class ContestPhaseSoap implements Serializable {
 
     public void setNextStatus(String nextStatus) {
         _nextStatus = nextStatus;
-    }
-
-    public String getPhaseStatusDescription() {
-        return _phaseStatusDescription;
-    }
-
-    public void setPhaseStatusDescription(String phaseStatusDescription) {
-        _phaseStatusDescription = phaseStatusDescription;
     }
 
     public Date getCreated() {

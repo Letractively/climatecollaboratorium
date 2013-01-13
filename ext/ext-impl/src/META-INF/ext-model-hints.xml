@@ -591,20 +591,21 @@
 	<model name="com.ext.portlet.contests.model.ContestPhase">
 		<field name="ContestPhasePK" type="Long" />
 		<field name="ContestPK" type="Long" />
-		<field name="ContestPhaseName" type="String" />
-		<field name="ContestPhaseDescription" type="String" />
-		<field name="ContestPhaseStatus" type="String" />
+		<field name="ContestPhaseType" type="Long" />
+		<field name="ContestPhaseDescriptionOverride" type="String" />
+		<field name="phaseActiveOverride" type="Boolean" />
 		<field name="PhaseStartDate" type="Date" />
 		<field name="PhaseEndDate" type="Date" />
 		<field name="nextStatus" type="String" />
-		<field name="phaseStatusDescription" type="String" />
 		<field name="created" type="Date" />
 		<field name="updated" type="Date" />
 		<field name="authorId" type="Long" />
 	</model>
-	<model name="com.ext.portlet.contests.model.ContestPhaseStatus">
+	<model name="com.ext.portlet.contests.model.ContestPhaseType">
+		<field name="id" type="Long" />
 		<field name="name" type="String" />
 		<field name="description" type="String" />
+		<field name="status" type="String" />
 	</model>
 	<model name="com.ext.portlet.contests.model.ContestPhaseColumn">
 		<field name="id" type="Long" />
