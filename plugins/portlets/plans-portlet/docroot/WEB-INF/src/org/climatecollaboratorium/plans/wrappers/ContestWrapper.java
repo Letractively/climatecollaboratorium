@@ -9,6 +9,7 @@ package org.climatecollaboratorium.plans.wrappers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +17,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.climatecollaboratorium.events.EventBus;
@@ -38,7 +38,6 @@ import com.ext.portlet.ontology.model.OntologyTerm;
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.ImageLocalServiceUtil;
 
 /**
  * Created by IntelliJ IDEA.
@@ -64,8 +63,10 @@ public class ContestWrapper {
 
 
     public ContestWrapper(Contest contest) throws SystemException, PortalException {
+    	ContestPhase defaultPhase = null;
         boolean addAsActiveOrPast = true;
         this.contest = contest;
+        Date now = new Date();
         
         int phasesCount = contest.getPhases().size();
         int phaseNumber = 0;
@@ -88,10 +89,12 @@ public class ContestWrapper {
             if (phase.getPhaseActive()) {
                 activePhase = phaseWrapper;
             }
+            if (phase.getPhaseStartDate().before(now))
+            	defaultPhase = defaultPhase == null || defaultPhase.getPhaseStartDate().before(phase.getPhaseStartDate()) ? phase : defaultPhase;
         }
         if (activePhase == null) {
             List<ContestPhase> phases = contest.getPhases();
-            activePhase = new ContestPhaseWrapper(this, phases.get(0), false);
+            activePhase = new ContestPhaseWrapper(this, defaultPhase, false);
         }
         editor = new EditContestBean();
         plansIndex = new PlansIndexBean(activePhase);
