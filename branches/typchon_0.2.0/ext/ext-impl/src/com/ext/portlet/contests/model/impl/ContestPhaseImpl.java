@@ -75,9 +75,8 @@ public class ContestPhaseImpl extends ContestPhaseModelImpl
     }
     
     public boolean getPhaseActive() {
-    	if (getPhaseActiveOverride() != null && getPhaseActiveOverride()) { 
-    		return true;
-    	
+    	if (getPhaseActiveOverride() != null) { 
+    		return getPhaseActiveOverride();
     	}
         if (getPhaseStartDate() != null && getPhaseEndDate() != null) {
             java.util.Date now = new java.util.Date();

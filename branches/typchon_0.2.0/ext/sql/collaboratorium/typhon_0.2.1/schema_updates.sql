@@ -9,7 +9,7 @@ create table ContestPhaseType (
     status VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci not null
 );
 
-ALTER TABLE  `ContestPhase` CHANGE  `ContestPhaseDescription`  `ContestPhaseDescriptionOverride` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL
+ALTER TABLE  `ContestPhase` CHANGE  `ContestPhaseDescription`  `ContestPhaseDescriptionOverride` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
 ALTER TABLE  `ContestPhase` ADD phaseActiveOverride tinyint(1) null;
 ALTER TABLE  `ContestPhase` ADD ContestPhaseType bigint not null;
 ALTER TABLE  `ContestPhase` DROP  `ContestPhaseStatus` ;
