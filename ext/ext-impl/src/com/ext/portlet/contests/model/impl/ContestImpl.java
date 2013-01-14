@@ -58,7 +58,7 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     public List<ContestPhase> getActivePhases() throws SystemException, PortalException {
         List<ContestPhase> result = getPhases();
         for (Iterator<ContestPhase> i=result.iterator();i.hasNext();) {
-           if (!i.next().getContestStatus().isCanEdit()) {
+           if (!i.next().getPhaseActive()) {
                i.remove();
            }
         }
@@ -66,11 +66,8 @@ public class ContestImpl extends ContestModelImpl implements Contest {
     }
     
     public ContestPhase getActivePhase() throws NoSuchContestPhaseException, SystemException {
-    	Date now = new Date();
     	for (ContestPhase phase: getPhases()) {
-    		if (phase.getPhaseStartDate() == null || phase.getPhaseStartDate().after(now)) continue;
-    		if (phase.getPhaseEndDate() != null && phase.getPhaseEndDate().before(now)) continue;
-    		return phase;
+    		if (phase.getPhaseActive()) return phase;
     	}
         return null;
     }
