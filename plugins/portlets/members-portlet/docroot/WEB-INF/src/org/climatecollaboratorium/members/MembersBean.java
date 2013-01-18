@@ -169,7 +169,6 @@ public class MembersBean {
         Hits hits = UserLocalServiceUtil.search(DEFAULT_COMPANY_ID, searchPhrase, true, params, 0, Integer.MAX_VALUE, sorting);
         
         
-        System.out.println("Found: " + hits.getLength() + "\t" + categoryFilter + String.valueOf(categoryFilter));
         for (Document userDoc: hits.getDocs()) {
             if (categoryFilter != null && !categoryFilter.equals(MemberCategory.ALL)) {
                 // user has enabled category filter, show results from given category and mark them as
