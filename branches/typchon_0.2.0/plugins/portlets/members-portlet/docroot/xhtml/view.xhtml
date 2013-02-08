@@ -40,6 +40,9 @@
       <div class="comm_disc-head">        
         <div class="comm_info-left members"><span>#{membersBean.usersCount}</span> Members</div>
         <div class="comm_info-large">
+            <f:subview rendered="#{not empty membersBean.searchPhrase}">
+                <span id="clearSearchBox" onclick="jQuery('.comm_search').val(''); jQuery('.comm_disc-head .blue-button a').click();">x</span>
+            </f:subview>
             <ice:inputText styleClass="comm_search" value="#{membersBean.searchPhrase}" partialSubmit="true" style="float: left;"/>
             <div class="blue-button" style="float: left;"> 
                 <ice:commandLink actionListener="#{membersBean.doSearch}" value="Search" />
