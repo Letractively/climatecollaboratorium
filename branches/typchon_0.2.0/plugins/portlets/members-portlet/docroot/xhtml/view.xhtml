@@ -177,7 +177,7 @@
                     </ice:commandLink>
                 </li>
                 <li class="#{membersBean.categoryFilter == null or membersBean.categoryFilter == 'ALL' ? 'c' : ''}">
-                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="All Members" onclick="Collab.nav.navigateAddParams('members', {filter: 'ALL'}); return false;">
+                    <ice:commandLink actionListener="#{membersBean.updateCategoryFilter}" value="All" onclick="Collab.nav.navigateAddParams('members', {filter: 'ALL'}); return false;">
                         <f:attribute name="category" value="ALL" />
                     </ice:commandLink>
                 </li>

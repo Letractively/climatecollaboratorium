@@ -1,7 +1,5 @@
 package org.climatecollaboratorium.members;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,27 +11,30 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.DataModel;
 
+import org.apache.commons.lang.StringUtils;
 import org.climatecollaboratorium.events.EventBus;
 import org.climatecollaboratorium.events.EventHandler;
 import org.climatecollaboratorium.events.HandlerRegistration;
 import org.climatecollaboratorium.navigation.NavigationEvent;
 
-
 import com.liferay.portal.PortalException;
 import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.search.BooleanClauseOccurImpl;
+import com.liferay.portal.kernel.search.BooleanQuery;
+import com.liferay.portal.kernel.search.BooleanQueryFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
-import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.search.Query;
+import com.liferay.portal.kernel.search.SearchEngineUtil;
+import com.liferay.portal.kernel.search.TermQueryFactoryUtil;
 import com.liferay.portal.model.Role;
-import com.liferay.portal.model.User;
 import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portlet.login.util.LoginUtil;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class MembersBean {
     
@@ -128,6 +129,7 @@ public class MembersBean {
 
     public void setSearchPhrase(String searchPhrase) throws SystemException, NumberFormatException, PortalException, ParseException {
         this.searchPhrase = searchPhrase;
+        categoryFilter = MemberCategory.ALL;
         updateSearchResults();
     }
 
@@ -158,15 +160,29 @@ public class MembersBean {
     private void updateSearchResults() throws SystemException, NumberFormatException, PortalException, ParseException {
     	searchResults.clear();
       
-        LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
         
+        
+        BooleanQuery query = BooleanQueryFactoryUtil.create();
+        //query.addRequiredTerm(Field.ENTRY_CLASS_NAME, "com.liferay.portal.model.*");
+        query.addRequiredTerm("active", true);
         // apply category filters
         if (categoryFilter != null && !categoryFilter.equals(MemberCategory.ALL)) {
-            params.put("memberCategory", categoryFilter.name());
+        	query.addRequiredTerm("memberCategory", categoryFilter.name());
         }
+        if (StringUtils.isNotBlank(searchPhrase)) {
+        	BooleanQuery subQuery = BooleanQueryFactoryUtil.create();
+        	String fuzzyPhrase = searchPhrase + "*";
+        	subQuery.addTerm("screenName", fuzzyPhrase);
+        	subQuery.addTerm("firstName", fuzzyPhrase);
+        	subQuery.addTerm("lastName", fuzzyPhrase);
+        	query.add(subQuery, BooleanClauseOccurImpl.MUST);
+        }
+        //Query query = new StringQueryImpl(sb.toString());
+
+        Hits hits = SearchEngineUtil.search(10112L, query, 0, Integer.MAX_VALUE);
         
-        Sort sorting = new Sort();
-        Hits hits = UserLocalServiceUtil.search(DEFAULT_COMPANY_ID, searchPhrase, true, params, 0, Integer.MAX_VALUE, sorting);
+        //Sort sorting = new Sort();
+        //Hits hits = UserLocalServiceUtil.search(DEFAULT_COMPANY_ID, searchPhrase, true, params, 0, Integer.MAX_VALUE, sorting);
         
         
         for (Document userDoc: hits.getDocs()) {
