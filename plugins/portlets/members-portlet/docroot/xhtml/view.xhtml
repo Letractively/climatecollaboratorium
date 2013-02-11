@@ -191,7 +191,10 @@
     </div> <!-- /right_col4 -->
         
         <div class="clearfix"></div>
-    
-        
+    <f:subview rendered="#{membersBean.categoryFilter == null || membersBean.categoryFilter == 'ALL'}">
+    <script type="text/javascript">
+      window.location = '#';
+    </script>
+    </f:subview>
     </ice:portlet>
 </f:view>
