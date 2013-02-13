@@ -167,8 +167,14 @@ public class MembersBean {
         //query.addRequiredTerm(Field.ENTRY_CLASS_NAME, "com.liferay.portal.model.*");
         query.addRequiredTerm("active", true);
         // apply category filters
-        if (categoryFilter != null && !categoryFilter.equals(MemberCategory.ALL)) {
-        	query.addRequiredTerm("memberCategory", categoryFilter.name());
+        if (categoryFilter != null && (categoryFilter.equals(MemberCategory.MODERATOR) || categoryFilter.equals(MemberCategory.STAFF))) {
+            BooleanQuery subQuery = BooleanQueryFactoryUtil.create();
+            subQuery.addExactTerm("memberCategory", MemberCategory.MODERATOR.name());
+            subQuery.addExactTerm("memberCategory", MemberCategory.STAFF.name());
+            query.add(subQuery, BooleanClauseOccurImpl.MUST);
+        }
+        else if (categoryFilter != null && !categoryFilter.equals(MemberCategory.ALL)) {
+            	query.addRequiredTerm("memberCategory", categoryFilter.name());
         }
         if (StringUtils.isNotBlank(searchPhrase)) {
         	BooleanQuery subQuery = BooleanQueryFactoryUtil.create();
@@ -181,13 +187,13 @@ public class MembersBean {
         //Query query = new StringQueryImpl(sb.toString());
 
         Hits hits = SearchEngineUtil.search(10112L, query, 0, Integer.MAX_VALUE);
-        
         //Sort sorting = new Sort();
         //Hits hits = UserLocalServiceUtil.search(DEFAULT_COMPANY_ID, searchPhrase, true, params, 0, Integer.MAX_VALUE, sorting);
         
         
         for (Document userDoc: hits.getDocs()) {
             if (categoryFilter != null && !categoryFilter.equals(MemberCategory.ALL)) {
+            	
                 // user has enabled category filter, show results from given category and mark them as
                 // from that category
                 String[] categories = userDoc.getValues("memberCategory");
