@@ -69,7 +69,8 @@ public class UserWrapper {
         this.user = user;
         about = ExpandoValueLocalServiceUtil.getData(User.class.getName(), CommunityConstants.EXPANDO, 
                 CommunityConstants.BIO, user.getUserId(), StringPool.BLANK);
-        filteredAbout = Helper.filterLinkifyUrls(Helper.filterLineBreaks(about));
+        //filteredAbout = Helper.filterLinkifyUrls(Helper.filterLineBreaks(about));
+        filteredAbout = about;
         
         realName = getName(user.getFullName(), user.getScreenName());
         firstName = user.getFirstName();
@@ -99,6 +100,8 @@ public class UserWrapper {
     }
     
     public void setAbout(String about) throws UserInputException {
+    	System.out.println("******** old about:\n " + this.about);
+    	System.out.println("######## new about:\n " + about);
         this.about = UserInputFilterUtil.filterHtml(about);
     }
     
