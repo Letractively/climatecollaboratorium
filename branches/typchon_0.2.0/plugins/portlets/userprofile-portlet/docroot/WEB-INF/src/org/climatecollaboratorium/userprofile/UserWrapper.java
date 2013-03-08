@@ -100,8 +100,6 @@ public class UserWrapper {
     }
     
     public void setAbout(String about) throws UserInputException {
-    	System.out.println("******** old about:\n " + this.about);
-    	System.out.println("######## new about:\n " + about);
         this.about = UserInputFilterUtil.filterHtml(about);
     }
     
