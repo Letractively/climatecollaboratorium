@@ -21,10 +21,10 @@ public class ActivitiesBean {
 
     /**
      * Max query to handle the bug with no activity body - sufficiently high number that we're very likely to get enough
-     * non-null entres to meet the feedSize param
+     * non-null entries to meet the feedSize param
      */
     private int MAX_QUERY = 500;
-    private int feedSize = 20;
+    private int feedSize = 50;
     private boolean showAdmin = true;
     private String feedStyle = "FULL";
     private List<SocialActivityWrapper> activities;
@@ -36,7 +36,7 @@ public class ActivitiesBean {
         showAdmin = !preferences.getRemoveAdmin();
         feedStyle = preferences.getFeedStyle();
         if (feedStyle.equals("FULL")) {
-            MAX_QUERY = 100;
+            MAX_QUERY = 1000;
             feedSize = MAX_QUERY/2;
         }
     }
