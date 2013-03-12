@@ -71,7 +71,6 @@ public class ContestBean {
             contestState = ContestState.ACTIVE;
         }
         else {
-            List<ContestPhase> phases = contest.getContest().getPhases();
             currentPhase = contest.getActivePhase();
             if (currentPhase.getStartDate().after(new Date())) {
                 contestState = ContestState.NOT_STARTED;

@@ -163,6 +163,15 @@ public class ContestWrapper {
         return Helper.getThemeDisplay().getPathImage() + contest.getLogoPath();
     }
     
+    public String getSponsorLogo() throws PortalException, SystemException {
+        
+        return Helper.getThemeDisplay().getPathImage() + contest.getSponsorLogoPath();
+    }
+    
+    public String getSponsorText() {
+    	return contest.getSponsorText();
+    }
+    
     public boolean isFeatured() {
         return contest.getFlagText().toLowerCase().equals("featured");
     }
