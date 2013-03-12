@@ -30,6 +30,7 @@ import com.liferay.portal.service.ImageLocalServiceUtil;
 public class ContestWrapper {
     private Contest contest;
     private File newContestLogo;
+	private File newSponsorLogo;
     
     public ContestWrapper(Contest contest) {
         this.contest = contest;
@@ -91,10 +92,21 @@ public class ContestWrapper {
     	contest.setPlansOpenByDefault(open);
     }
     
+    public String getSponsorText() {
+    	return contest.getSponsorText();
+    }
+    
+    public void setSponsorText(String sponsorText) {
+    	contest.setSponsorText(sponsorText);
+    }
+    
     
     public void save() throws SystemException, IOException {
         if (newContestLogo != null) {
             contest.setLogo(newContestLogo);
+        }
+        if (newSponsorLogo != null) {
+            contest.setSponsorLogo(newSponsorLogo);
         }
         contest.store();
     }
@@ -178,12 +190,33 @@ public class ContestWrapper {
         
     }
     
-    public String getLogo() throws PortalException, SystemException {
-        System.out.println(ImageLocalServiceUtil.getDefaultSpacer());
+    public void uploadSponsorLogo(ActionEvent e) throws IOException {
+        InputFile inputFile = (InputFile) e.getSource();
+        if (inputFile.getFileInfo().getStatus() == InputFile.INVALID) {
+            //fileErrorMessage = "Provided file isn't a valid image.";
+            _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
+            return;
+        }
         
+        if (! inputFile.getFileInfo().getContentType().startsWith("image")) {
+            //fileErrorMessage = "Provided file isn't a valid image.";
+            _log.error("There was an error when uploading file", inputFile.getFileInfo().getException());
+            return;
+        }
+        newSponsorLogo = inputFile.getFileInfo().getFile();
+        Image i = ImageLocalServiceUtil.getImage(newSponsorLogo);
+        
+    }
+    
+    
+    public String getLogo() throws PortalException, SystemException {
         return Helper.getThemeDisplay().getPathImage() + contest.getLogoPath();
     }
     
+    public String getSponsorLogo() throws PortalException, SystemException {
+        
+        return Helper.getThemeDisplay().getPathImage() + contest.getSponsorLogoPath();
+    }
     
     
     

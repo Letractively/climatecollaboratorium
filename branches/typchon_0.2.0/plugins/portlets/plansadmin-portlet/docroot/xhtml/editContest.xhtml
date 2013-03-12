@@ -111,6 +111,20 @@
            </f:subview>
            
            
+           <ice:outputLabel value="Sponsor text" />
+           <ice:inputText value="#{contestsAdmin.editedContest.contest.sponsorText}" />
+           
+           
+           <ice:outputLabel value="Sponsor logo" />
+                      
+           <f:subview>
+                <img src="#{contestsAdmin.editedContest.sponsorLogo}" />
+                
+                <ice:inputFile actionListener="#{contestsAdmin.editedContest.uploadSponsorLogo}" styleClass="filepc" autoUpload="true" />
+           
+           </f:subview>
+           
+           
            <ice:outputText />
            
            <ice:commandButton value="Save" action="#{contestsAdmin.editedContest.save}" />
