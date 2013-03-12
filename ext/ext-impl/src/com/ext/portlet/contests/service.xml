@@ -23,6 +23,7 @@
         <column name="updated" type="Date" />
         <column name="authorId" type="Long" />
         <column name="contestActive" type="Boolean"/>
+        <column name="sponsorLogoId" type="Long" />
         <column name="planTemplateId" type="Long" />
         <column name="focusAreaId" type="Long" />
         <column name="contestLogoId" type="Long" />
@@ -37,6 +38,7 @@
         <column name="discussionGroupId" type="Long" />
         <column name="weight" type="Integer" />
         <column name="resourcesUrl" type="String" />
+        <column name="sponsorText" type="String" />
         
         <order by="asc">
             <order-column name="weight" />

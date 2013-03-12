@@ -28,3 +28,9 @@ UPDATE ContestPhase set ContestPhaseType = 9 WHERE ContestPhaseName LIKE "%Conte
 UPDATE ContestPhase set ContestPhaseType = 9 WHERE ContestPhaseName LIKE "%Proposal revisions%";
 UPDATE ContestPhase set ContestPhaseType = 9 WHERE ContestPhaseName LIKE "%Voting%";
 UPDATE ContestPhase set ContestPhaseType = 9 WHERE ContestPhaseName LIKE "%Completed%";
+
+update ContestPhase set PhaseStartDate = '2010-11-04 13:00:00' where ContestPhasePK = 13;
+update ContestPhase set PhaseStartDate = '2010-11-28 13:00:00' where ContestPhasePK = 7;
+update ContestPhase set PhaseStartDate = '2011-11-04 12:00:00' where ContestPhasePK = 12;
+
+

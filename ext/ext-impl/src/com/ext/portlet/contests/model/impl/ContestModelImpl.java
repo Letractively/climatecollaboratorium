@@ -79,6 +79,9 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "contestActive", new Integer(Types.BOOLEAN) },
             
 
+            { "sponsorLogoId", new Integer(Types.BIGINT) },
+            
+
             { "planTemplateId", new Integer(Types.BIGINT) },
             
 
@@ -112,9 +115,12 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             { "weight", new Integer(Types.INTEGER) },
             
 
-            { "resourcesUrl", new Integer(Types.VARCHAR) }
+            { "resourcesUrl", new Integer(Types.VARCHAR) },
+            
+
+            { "sponsorText", new Integer(Types.VARCHAR) }
         };
-    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN,plansOpenByDefault BOOLEAN,flag INTEGER,flagText VARCHAR(75) null,flagTooltip VARCHAR(75) null,groupId LONG,discussionGroupId LONG,weight INTEGER,resourcesUrl VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table Contest (ContestPK LONG not null primary key,ContestName VARCHAR(75) null,ContestShortName VARCHAR(75) null,ContestDescription VARCHAR(75) null,ContestModelDescription VARCHAR(75) null,ContestPositionsDescription VARCHAR(75) null,defaultPlanDescription VARCHAR(75) null,PlanTypeId LONG,created DATE null,updated DATE null,authorId LONG,contestActive BOOLEAN,sponsorLogoId LONG,planTemplateId LONG,focusAreaId LONG,contestLogoId LONG,featured_ BOOLEAN,plansOpenByDefault BOOLEAN,flag INTEGER,flagText VARCHAR(75) null,flagTooltip VARCHAR(75) null,groupId LONG,discussionGroupId LONG,weight INTEGER,resourcesUrl VARCHAR(75) null,sponsorText VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table Contest";
     public static final String DATA_SOURCE = "liferayDataSource";
     public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -140,6 +146,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Long _authorId;
     private Boolean _contestActive;
     private Boolean _originalContestActive;
+    private Long _sponsorLogoId;
     private Long _planTemplateId;
     private Long _focusAreaId;
     private Long _contestLogoId;
@@ -152,6 +159,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
     private Long _discussionGroupId;
     private Integer _weight;
     private String _resourcesUrl;
+    private String _sponsorText;
 
     public ContestModelImpl() {
     }
@@ -171,6 +179,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setUpdated(soapModel.getUpdated());
         model.setAuthorId(soapModel.getAuthorId());
         model.setContestActive(soapModel.getContestActive());
+        model.setSponsorLogoId(soapModel.getSponsorLogoId());
         model.setPlanTemplateId(soapModel.getPlanTemplateId());
         model.setFocusAreaId(soapModel.getFocusAreaId());
         model.setContestLogoId(soapModel.getContestLogoId());
@@ -183,6 +192,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         model.setDiscussionGroupId(soapModel.getDiscussionGroupId());
         model.setWeight(soapModel.getWeight());
         model.setResourcesUrl(soapModel.getResourcesUrl());
+        model.setSponsorText(soapModel.getSponsorText());
 
         return model;
     }
@@ -314,6 +324,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         return _originalContestActive;
     }
 
+    public Long getSponsorLogoId() {
+        return _sponsorLogoId;
+    }
+
+    public void setSponsorLogoId(Long sponsorLogoId) {
+        _sponsorLogoId = sponsorLogoId;
+    }
+
     public Long getPlanTemplateId() {
         return _planTemplateId;
     }
@@ -410,6 +428,14 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         _resourcesUrl = resourcesUrl;
     }
 
+    public String getSponsorText() {
+        return GetterUtil.getString(_sponsorText);
+    }
+
+    public void setSponsorText(String sponsorText) {
+        _sponsorText = sponsorText;
+    }
+
     public Contest toEscapedModel() {
         if (isEscapedModel()) {
             return (Contest) this;
@@ -434,6 +460,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setUpdated(getUpdated());
             model.setAuthorId(getAuthorId());
             model.setContestActive(getContestActive());
+            model.setSponsorLogoId(getSponsorLogoId());
             model.setPlanTemplateId(getPlanTemplateId());
             model.setFocusAreaId(getFocusAreaId());
             model.setContestLogoId(getContestLogoId());
@@ -446,6 +473,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
             model.setDiscussionGroupId(getDiscussionGroupId());
             model.setWeight(getWeight());
             model.setResourcesUrl(HtmlUtil.escape(getResourcesUrl()));
+            model.setSponsorText(HtmlUtil.escape(getSponsorText()));
 
             model = (Contest) Proxy.newProxyInstance(Contest.class.getClassLoader(),
                     new Class[] { Contest.class },
@@ -470,6 +498,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setUpdated(getUpdated());
         clone.setAuthorId(getAuthorId());
         clone.setContestActive(getContestActive());
+        clone.setSponsorLogoId(getSponsorLogoId());
         clone.setPlanTemplateId(getPlanTemplateId());
         clone.setFocusAreaId(getFocusAreaId());
         clone.setContestLogoId(getContestLogoId());
@@ -482,6 +511,7 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         clone.setDiscussionGroupId(getDiscussionGroupId());
         clone.setWeight(getWeight());
         clone.setResourcesUrl(getResourcesUrl());
+        clone.setSponsorText(getSponsorText());
 
         return clone;
     }
@@ -557,6 +587,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getAuthorId());
         sb.append(", contestActive=");
         sb.append(getContestActive());
+        sb.append(", sponsorLogoId=");
+        sb.append(getSponsorLogoId());
         sb.append(", planTemplateId=");
         sb.append(getPlanTemplateId());
         sb.append(", focusAreaId=");
@@ -581,6 +613,8 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getWeight());
         sb.append(", resourcesUrl=");
         sb.append(getResourcesUrl());
+        sb.append(", sponsorText=");
+        sb.append(getSponsorText());
         sb.append("}");
 
         return sb.toString();
@@ -642,6 +676,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(getContestActive());
         sb.append("]]></column-value></column>");
         sb.append(
+            "<column><column-name>sponsorLogoId</column-name><column-value><![CDATA[");
+        sb.append(getSponsorLogoId());
+        sb.append("]]></column-value></column>");
+        sb.append(
             "<column><column-name>planTemplateId</column-name><column-value><![CDATA[");
         sb.append(getPlanTemplateId());
         sb.append("]]></column-value></column>");
@@ -688,6 +726,10 @@ public class ContestModelImpl extends BaseModelImpl<Contest> {
         sb.append(
             "<column><column-name>resourcesUrl</column-name><column-value><![CDATA[");
         sb.append(getResourcesUrl());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>sponsorText</column-name><column-value><![CDATA[");
+        sb.append(getSponsorText());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

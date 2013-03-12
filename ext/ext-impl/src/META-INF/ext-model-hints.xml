@@ -570,6 +570,7 @@
 		<field name="updated" type="Date" />
 		<field name="authorId" type="Long" />
 		<field name="contestActive" type="Boolean" />
+		<field name="sponsorLogoId" type="Long" />
 		<field name="planTemplateId" type="Long" />
 		<field name="focusAreaId" type="Long" />
 		<field name="contestLogoId" type="Long" />
@@ -582,6 +583,7 @@
 		<field name="discussionGroupId" type="Long" />
 		<field name="weight" type="Integer" />
 		<field name="resourcesUrl" type="String" />
+		<field name="sponsorText" type="String" />
 	</model>
 	<model name="com.ext.portlet.contests.model.ContestDebate">
 		<field name="id" type="Long" />

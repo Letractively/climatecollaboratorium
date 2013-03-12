@@ -79,6 +79,10 @@ public interface ContestModel extends BaseModel<Contest> {
 
     public void setContestActive(Boolean contestActive);
 
+    public Long getSponsorLogoId();
+
+    public void setSponsorLogoId(Long sponsorLogoId);
+
     public Long getPlanTemplateId();
 
     public void setPlanTemplateId(Long planTemplateId);
@@ -126,6 +130,10 @@ public interface ContestModel extends BaseModel<Contest> {
     public String getResourcesUrl();
 
     public void setResourcesUrl(String resourcesUrl);
+
+    public String getSponsorText();
+
+    public void setSponsorText(String sponsorText);
 
     public Contest toEscapedModel();
 }

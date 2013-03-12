@@ -66,6 +66,7 @@ public class ContestJSONSerializer {
         jsonObj.put("updated", updatedJSON);
         jsonObj.put("authorId", model.getAuthorId());
         jsonObj.put("contestActive", model.getContestActive());
+        jsonObj.put("sponsorLogoId", model.getSponsorLogoId());
         jsonObj.put("planTemplateId", model.getPlanTemplateId());
         jsonObj.put("focusAreaId", model.getFocusAreaId());
         jsonObj.put("contestLogoId", model.getContestLogoId());
@@ -78,6 +79,7 @@ public class ContestJSONSerializer {
         jsonObj.put("discussionGroupId", model.getDiscussionGroupId());
         jsonObj.put("weight", model.getWeight());
         jsonObj.put("resourcesUrl", model.getResourcesUrl());
+        jsonObj.put("sponsorText", model.getSponsorText());
 
         return jsonObj;
     }

@@ -155,6 +155,13 @@ public class ContestImpl extends ContestModelImpl implements Contest {
                 null;
     }
     
+    
+    public Image getSponsorLogo() throws PortalException, SystemException {
+        return getSponsorLogoId() != null && getSponsorLogoId() > 0 ? 
+                ImageLocalServiceUtil.getImage(getSponsorLogoId()) : 
+                null;
+    }
+    
     public void setLogo(File logoFile) throws IOException, SystemException {
         Image i = ImageLocalServiceUtil.getImage(logoFile);   
         i.setImageId(CounterLocalServiceUtil.increment(Image.class.getName()));
@@ -164,8 +171,25 @@ public class ContestImpl extends ContestModelImpl implements Contest {
         
     }
     
+    public void setSponsorLogo(File logoFile) throws IOException, SystemException {
+        Image i = ImageLocalServiceUtil.getImage(logoFile);   
+        i.setImageId(CounterLocalServiceUtil.increment(Image.class.getName()));
+        
+        ImageLocalServiceUtil.addImage(i);
+        this.setSponsorLogoId(i.getImageId());
+        
+    }
+    
     public String getLogoPath() throws PortalException, SystemException {
         Image i = getLogo();
+        if (i != null) {
+            return "?img_id=" + i.getImageId() + "&t=" + ImageServletTokenUtil.getToken(i.getImageId());
+        }
+        return "";
+    }
+    
+    public String getSponsorLogoPath() throws PortalException, SystemException {
+        Image i = getSponsorLogo();
         if (i != null) {
             return "?img_id=" + i.getImageId() + "&t=" + ImageServletTokenUtil.getToken(i.getImageId());
         }

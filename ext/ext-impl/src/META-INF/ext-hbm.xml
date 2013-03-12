@@ -772,6 +772,7 @@
 		<property name="updated" type="org.hibernate.type.TimestampType" />
 		<property name="authorId" />
 		<property name="contestActive" />
+		<property name="sponsorLogoId" />
 		<property name="planTemplateId" />
 		<property name="focusAreaId" />
 		<property name="contestLogoId" />
@@ -784,6 +785,7 @@
 		<property name="discussionGroupId" />
 		<property name="weight" />
 		<property name="resourcesUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="sponsorText" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.ext.portlet.contests.model.impl.ContestDebateImpl" table="ContestDebate">
 		<cache usage="read-write" />

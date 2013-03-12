@@ -253,6 +253,7 @@ create table Contest (
 	updated DATE null,
 	authorId LONG,
 	contestActive BOOLEAN,
+	sponsorLogoId LONG,
 	planTemplateId LONG,
 	focusAreaId LONG,
 	contestLogoId LONG,
@@ -264,7 +265,8 @@ create table Contest (
 	groupId LONG,
 	discussionGroupId LONG,
 	weight INTEGER,
-	resourcesUrl VARCHAR(75) null
+	resourcesUrl VARCHAR(75) null,
+	sponsorText VARCHAR(75) null
 );
 
 create table ContestDebate (
