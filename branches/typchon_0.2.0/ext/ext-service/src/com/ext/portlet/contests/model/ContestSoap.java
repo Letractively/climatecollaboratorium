@@ -38,6 +38,7 @@ public class ContestSoap implements Serializable {
     private Date _updated;
     private Long _authorId;
     private Boolean _contestActive;
+    private Long _sponsorLogoId;
     private Long _planTemplateId;
     private Long _focusAreaId;
     private Long _contestLogoId;
@@ -50,6 +51,7 @@ public class ContestSoap implements Serializable {
     private Long _discussionGroupId;
     private Integer _weight;
     private String _resourcesUrl;
+    private String _sponsorText;
 
     public ContestSoap() {
     }
@@ -69,6 +71,7 @@ public class ContestSoap implements Serializable {
         soapModel.setUpdated(model.getUpdated());
         soapModel.setAuthorId(model.getAuthorId());
         soapModel.setContestActive(model.getContestActive());
+        soapModel.setSponsorLogoId(model.getSponsorLogoId());
         soapModel.setPlanTemplateId(model.getPlanTemplateId());
         soapModel.setFocusAreaId(model.getFocusAreaId());
         soapModel.setContestLogoId(model.getContestLogoId());
@@ -81,6 +84,7 @@ public class ContestSoap implements Serializable {
         soapModel.setDiscussionGroupId(model.getDiscussionGroupId());
         soapModel.setWeight(model.getWeight());
         soapModel.setResourcesUrl(model.getResourcesUrl());
+        soapModel.setSponsorText(model.getSponsorText());
 
         return soapModel;
     }
@@ -226,6 +230,14 @@ public class ContestSoap implements Serializable {
         _contestActive = contestActive;
     }
 
+    public Long getSponsorLogoId() {
+        return _sponsorLogoId;
+    }
+
+    public void setSponsorLogoId(Long sponsorLogoId) {
+        _sponsorLogoId = sponsorLogoId;
+    }
+
     public Long getPlanTemplateId() {
         return _planTemplateId;
     }
@@ -320,5 +332,13 @@ public class ContestSoap implements Serializable {
 
     public void setResourcesUrl(String resourcesUrl) {
         _resourcesUrl = resourcesUrl;
+    }
+
+    public String getSponsorText() {
+        return _sponsorText;
+    }
+
+    public void setSponsorText(String sponsorText) {
+        _sponsorText = sponsorText;
     }
 }

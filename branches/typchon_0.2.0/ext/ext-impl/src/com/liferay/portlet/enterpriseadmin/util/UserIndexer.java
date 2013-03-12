@@ -88,6 +88,9 @@ public class UserIndexer implements Indexer {
 		doc.addKeyword(Field.PORTLET_ID, PORTLET_ID);
 		doc.addKeyword(Field.USER_ID, userId);
 
+		doc.addKeyword(Field.ENTRY_CLASS_NAME, User.class.getName());
+		doc.addKeyword(Field.ENTRY_CLASS_PK, userId);
+
 		doc.addKeyword("screenName", screenName);
 		doc.addKeyword("emailAddress", emailAddress);
 		doc.addKeyword("firstName", firstName, true);

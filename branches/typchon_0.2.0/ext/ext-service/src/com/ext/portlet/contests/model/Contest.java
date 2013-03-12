@@ -73,10 +73,21 @@ public interface Contest extends ContestModel {
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
+    public com.liferay.portal.model.Image getSponsorLogo()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
     public void setLogo(java.io.File logoFile)
         throws com.liferay.portal.SystemException, java.io.IOException;
 
+    public void setSponsorLogo(java.io.File logoFile)
+        throws com.liferay.portal.SystemException, java.io.IOException;
+
     public java.lang.String getLogoPath()
+        throws com.liferay.portal.PortalException,
+            com.liferay.portal.SystemException;
+
+    public java.lang.String getSponsorLogoPath()
         throws com.liferay.portal.PortalException,
             com.liferay.portal.SystemException;
 
