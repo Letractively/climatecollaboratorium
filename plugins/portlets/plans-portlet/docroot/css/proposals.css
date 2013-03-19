@@ -49,3 +49,20 @@
 table.jqplot-table-legend {
 	margin-top: 320px;
 }
+
+div.sponsorLogo {
+    width:250px;
+    display:inline-block;
+    margin-top:20px;
+    margin-left:50px;
+}
+
+div.sponsorLogo table {
+    width:100%;
+}
+
+
+div.sponsorLogo img {
+    height:54px;    
+    padding-right:5px;
+}
