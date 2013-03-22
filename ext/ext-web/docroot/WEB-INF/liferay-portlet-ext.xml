@@ -105,6 +105,9 @@ i<?xml version="1.0"?>
         <struts-path>ext/mass_messaging</struts-path>
         <control-panel-entry-category>portal</control-panel-entry-category>
         <control-panel-entry-weight>100.0</control-panel-entry-weight>
+        <control-panel-entry-class>
+            com.ext.portlet.mass_messaging.MassMessagingPortletControlPanelEntry
+        </control-panel-entry-class>
         <use-default-template>false</use-default-template>
         <instanceable>false</instanceable>
     </portlet>
