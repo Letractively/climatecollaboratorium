@@ -6,6 +6,12 @@
 
 package com.ext.portlet.mass_messaging.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +53,8 @@ import com.ext.portlet.mass_messaging.service.MessagingMessageRecipientLocalServ
 import com.ext.portlet.mass_messaging.service.MessagingRedirectLinkLocalServiceUtil;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.NoSuchUserException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -68,6 +76,8 @@ public class EditMessagingMessageAction extends PortletAction {
 
 	private final static String HTML_HEADER = "<html><head></head><body>";
 	private final static String HTML_FOOTER = "</body></html>";
+	private final static String MAIL_PROPS = "/colabMail.properties";
+	private final static Log _log = LogFactoryUtil.getLog(EditMessagingMessageAction.class);
 
 	public ActionForward render(ActionMapping mapping, ActionForm form,
 			PortletConfig portletConfig, RenderRequest renderRequest,
@@ -362,24 +372,56 @@ public class EditMessagingMessageAction extends PortletAction {
 		}
 		return false;
 	}
-
-	private List<MessageSendAsBean> readSendAsProperties() {
-		String accounts = PropsUtil.get("user.accounts");
-		List<MessageSendAsBean> msgSendAsBeans = new ArrayList<MessageSendAsBean>();
+	
+	private static long propsLastModified = -1;
+	private static List<MessageSendAsBean> msgSendAsBeans = null;
+	private synchronized List<MessageSendAsBean> readSendAsProperties() {
+		URL mailPropsUrl = EditMessagingMessageAction.class.getClassLoader().getResource(MAIL_PROPS);
+		if (mailPropsUrl == null) {
+			throw new RuntimeException("Can't read properties file " + MAIL_PROPS);
+		}
+		File mailPropsFile = new File (mailPropsUrl.getFile());
+		if (! mailPropsFile.exists()) {
+			throw new RuntimeException("Can't read properties file " + MAIL_PROPS);
+		}
+		if (propsLastModified >= mailPropsFile.lastModified()) {
+			return msgSendAsBeans;
+		}
+		propsLastModified = mailPropsFile.lastModified();
+		InputStream propsStream = null;
+		Properties mailProps;
+		try {
+			propsStream = new FileInputStream(mailPropsFile);
+			mailProps = new Properties();
+			mailProps.load(propsStream);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException("Can't read properties file " + MAIL_PROPS);
+		} catch (IOException e) {
+			throw new RuntimeException("Can't read properties file " + MAIL_PROPS);
+		}
+		finally {
+			if (propsStream != null) {
+				try {
+					propsStream.close();
+				} catch (IOException e) {
+					_log.error("Error when closing props stream", e);
+				}
+			}
+		}
+		
+		
+		
+		String accounts = mailProps.getProperty("user.accounts");
+		msgSendAsBeans = new ArrayList<MessageSendAsBean>();
 		if (StringUtils.isNotBlank(accounts)) {
 			for (String account : accounts.split(",")) {
 				MessageSendAsBean sendAsBean = new MessageSendAsBean();
 				sendAsBean.setName(account);
-				sendAsBean.setPassword(PropsUtil.get("user.account."
-						+ account + ".password"));
-				sendAsBean.setHost(PropsUtil.get("user.account." + account
-						+ ".host"));
-				sendAsBean.setPort(Integer.valueOf(PropsUtil
-						.get("user.account." + account + ".port")));
-				sendAsBean.setUseAuth(Boolean.valueOf(PropsUtil
-						.get("user.account." + account + ".useAuth")));
-				sendAsBean.setFullName(PropsUtil.get("user.account."
-						+ account + ".fullName"));
+				sendAsBean.setPassword(mailProps.getProperty("user.account." + account + ".password"));
+				sendAsBean.setHost(mailProps.getProperty("user.account." + account + ".host"));
+				sendAsBean.setPort(Integer.valueOf(mailProps.getProperty("user.account." + account + ".port")));
+				sendAsBean.setUseAuth(Boolean.valueOf(mailProps.getProperty("user.account." + account + ".useAuth")));
+				sendAsBean.setFullName(mailProps.getProperty("user.account." + account + ".fullName"));
 
 				msgSendAsBeans.add(sendAsBean);
 			}
