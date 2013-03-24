@@ -67,11 +67,11 @@
                             <span class="phaseInfo">(#{plansIndexBean.plansCount} plans, #{plansIndexBean.votesCount} total votes)</span>
 
                             <div class="dateInfo"><span class="phaseDateLabel">Start:</span><ice:outputText
-                                    value="#{plansIndexBean.contestPhase.startDate}"><f:convertDateTime type="date" dateStyle="short"/>
+                                    value="#{plansIndexBean.contestPhase.startDate}"><f:convertDateTime type="date" dateStyle="short" locale="en_US" timeZone="America/New_York"/>
                          </ice:outputText>&#160;<span
                                     class="phaseDateLabel">End:</span><ice:outputText
                                     value="#{plansIndexBean.contestPhase.endDate}">
-                                        <f:convertDateTime type="date" dateStyle="short"/>
+                                        <f:convertDateTime type="date" dateStyle="short" locale="en_US" timeZone="America/New_York"/>
                          </ice:outputText>
 
                             </div>
