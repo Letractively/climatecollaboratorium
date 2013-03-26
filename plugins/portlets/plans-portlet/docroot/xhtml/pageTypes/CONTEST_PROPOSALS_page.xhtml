@@ -76,7 +76,10 @@
         </f:subview>
     </div>
     <div class="moreinfo">
+    <table>
+    <tr>
         <f:subview rendered="#{fn:length(contest.contest.contest.teamMembers) gt 0}">
+          <td nowrap="nowrap">
             <ice:panelSeries styleClass="advisors" var="teamRole" value="#{contest.contest.teamRoles}">
                 <div class="contestTeamRole">
             	   <f:subview rendered="#{fn:length(contest.contest.teamRoleUsers[teamRole]) eq 1}">
@@ -93,7 +96,9 @@
             	
             
             </ice:panelSeries>
+          </td>
         </f:subview>
+        <td width="100%" style="text-align:center;">
         <f:subview rendered="#{not empty contest.contest.sponsorText}">
             <div class="sponsorLogo">
                 <table>
@@ -104,14 +109,16 @@
                 </table>
                 </div>
         </f:subview>
-        <div class="buttons">
+        </td>
+        <td align="right" nowrap="nowrap" style="vertical-align: bottom;">
+        <div>
             <f:subview rendered="#{not empty contest.contest.resourcesUrl}">
-                <a href="#{contest.contest.resourcesUrl}">Resources</a>
+                <a href="#{contest.contest.resourcesUrl}" class="detailbutton">Resources</a>
             </f:subview>
-            <a href="/web/guest/plans/-/plans/contestId/#{contest.contestId}/page/discussion">Discussion</a>
+            <a class="detailbutton" href="/web/guest/plans/-/plans/contestId/#{contest.contestId}/page/discussion">Discussion</a>
         </div>
-        <div class="clearfix"><!--  --></div>
-        <div class="clear"><!--  --></div>
+        </td></tr>
+    </table>
     </div>
  </div>
  
