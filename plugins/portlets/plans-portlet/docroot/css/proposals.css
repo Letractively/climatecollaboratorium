@@ -51,10 +51,11 @@ table.jqplot-table-legend {
 }
 
 div.sponsorLogo {
-    width:250px;
+    max-width:320px;
+    min-width:0;
     display:inline-block;
     margin-top:20px;
-    margin-left:50px;
+    font-size:14px;
 }
 
 div.sponsorLogo table {
