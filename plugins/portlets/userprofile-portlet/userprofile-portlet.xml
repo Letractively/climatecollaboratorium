@@ -1,4 +1,4 @@
 <Context
 path="userprofile"
-docBase="/home/janusz/workdir/liferay/plugins-svn/portlets/userprofile-portlet/docroot"
+docBase="/home/janusz/workdir/colab/plugins/portlets/userprofile-portlet/docroot"
 />
