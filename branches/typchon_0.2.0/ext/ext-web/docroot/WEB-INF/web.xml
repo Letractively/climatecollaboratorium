@@ -64,6 +64,12 @@
     
     
     <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>com.ext.utils.FileUploadServlet</servlet-class>
+    </servlet>
+    
+    
+    <servlet>
         <servlet-name>GoogleAnalyticsFilterCookie</servlet-name>
         <servlet-class>com.ext.googleanalytycs.CollabStaffMemberCookieServlet</servlet-class>
     </servlet>
@@ -99,6 +105,11 @@
         <servlet-name>LandingPageServlet</servlet-name>
         <url-pattern>/landingpage/*</url-pattern>
     
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/fileUpload</url-pattern>
     </servlet-mapping>
     
     <!-- 
