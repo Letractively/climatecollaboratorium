@@ -36,6 +36,12 @@ import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.security.pwd.PwdEncryptor;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.UserServiceUtil;
+import com.liferay.portlet.expando.NoSuchColumnException;
+import com.liferay.portlet.expando.model.ExpandoColumn;
+import com.liferay.portlet.expando.model.ExpandoColumnConstants;
+import com.liferay.portlet.expando.model.ExpandoTable;
+import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
+import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.portlet.social.model.SocialActivity;
 import com.liferay.portlet.social.service.SocialActivityLocalServiceUtil;
@@ -44,6 +50,7 @@ public class UserWrapper {
 
     private User user; 
     private String about;
+    private String country;
     private String realName;
     private String firstName;
     private String lastName;
@@ -69,6 +76,8 @@ public class UserWrapper {
         this.user = user;
         about = ExpandoValueLocalServiceUtil.getData(User.class.getName(), CommunityConstants.EXPANDO, 
                 CommunityConstants.BIO, user.getUserId(), StringPool.BLANK);
+        country = ExpandoValueLocalServiceUtil.getData(User.class.getName(), CommunityConstants.EXPANDO, 
+                "country", user.getUserId(), StringPool.BLANK);
         //filteredAbout = Helper.filterLinkifyUrls(Helper.filterLineBreaks(about));
         filteredAbout = about;
         
@@ -225,6 +234,28 @@ public class UserWrapper {
                     CommunityConstants.BIO, user.getUserId(), about);
         }
         
+        String existingCountry = ExpandoValueLocalServiceUtil.getData(
+                User.class.getName(), CommunityConstants.EXPANDO,
+                "country", user.getUserId(),
+                StringPool.BLANK);
+        if ((existingCountry == null && country != null) || !existingCountry.equals(country)) {
+        	ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(User.class.getName(), CommunityConstants.EXPANDO);
+    		ExpandoColumn column = null;
+    		try {
+    			column = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "country");	
+    		}
+    		catch (NoSuchColumnException e) {
+    		}
+    		
+    		
+    		if (column == null) {
+                ExpandoColumnLocalServiceUtil.addColumn(table.getTableId(), "country", ExpandoColumnConstants.STRING);
+    		}
+    		
+    		ExpandoValueLocalServiceUtil.addValue(User.class.getName(), CommunityConstants.EXPANDO, 
+    				"country", user.getUserId(), country);
+        }
+        
         if (changed) {
             UserLocalServiceUtil.updateUser(user);
         }
@@ -355,5 +386,13 @@ public class UserWrapper {
 
     public User getWrapped() {
         return user;
+    }
+    
+    public String getCountry() {
+    	return country;
+    }
+    
+    public void setCountry(String country) {
+    	this.country = country;
     }
 }

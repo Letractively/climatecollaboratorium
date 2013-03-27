@@ -78,11 +78,14 @@
                 </ice:inputText><br />
                 <ice:message for="screenNameMessage" styleClass="form_error_message"/>
             </td></tr>
-        <tr><td class="b">Member Since</td><td class="l">
-            <ice:outputText value="#{currentUser.joinDate}" >
-                <f:convertDateTime pattern="MM/dd/yy" locale="en_US" timeZone="America/New_York" />
-            </ice:outputText>
-        </td></tr>
+        
+        <tr>
+            <td class="b m" width="170">Country</td>
+            <td>
+                <ice:inputText id="countryMessage" styleClass="profile_input" value="#{currentUser.country}" />
+                <br />
+                <ice:message for="countryMessage" styleClass="form_error_message"/>
+            </td></tr>
         <tr>
             <td class="b m">Email</td>
             <td>

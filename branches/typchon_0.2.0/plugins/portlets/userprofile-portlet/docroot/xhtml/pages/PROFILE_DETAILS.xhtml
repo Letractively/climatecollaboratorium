@@ -97,6 +97,9 @@
                     <f:convertDateTime pattern="MM/dd/yy" locale="en_US" timeZone="America/New_York"/>
                 </ice:outputText>
             </td></tr>
+            <tr>
+                <td class="b">Country</td><td>#{currentUser.country}</td>
+            </tr>
             <f:subview rendered="#{userprofileBean.viewingOwnProfile}">
                 <tr><td class="b">Email</td><td><a href="mailto:#{currentUser.email}">#{currentUser.email}</a></td></tr>
             </f:subview>
