@@ -6,9 +6,7 @@
 
 package com.ext.portlet.user_info.action;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.portlet.ActionRequest;
@@ -20,19 +18,30 @@ import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.ext.portlet.community.action.CommunityConstants;
 import com.ext.recaptcha.ReCaptchaUtils;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.WebKeys;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portlet.expando.NoSuchColumnException;
+import com.liferay.portlet.expando.model.ExpandoColumn;
+import com.liferay.portlet.expando.model.ExpandoColumnConstants;
+import com.liferay.portlet.expando.model.ExpandoTable;
+import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
+import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
+import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 import com.liferay.portlet.login.util.LoginUtil;
 
 /**
@@ -121,6 +130,46 @@ public class CreateAccountAction extends com.liferay.portlet.login.action.Create
             } catch (Exception e) {
                 System.out.println(e);
             }
+            User user = UserLocalServiceUtil.getUserByScreenName(themeDisplay.getCompanyId(), login);
+            
+            long imageId = ParamUtil.getLong(request, "imageId", -1);
+            String country = ParamUtil.getString(request,  "country", null);
+            if (imageId > 0) {
+            	//Image img = ImageLocalServiceUtil.getImage(imageId);
+            	user.setPortraitId(imageId);
+            	UserLocalServiceUtil.updateUser(user, true);
+            }
+            if (country != null) {
+            	try {
+            		ExpandoTable table = ExpandoTableLocalServiceUtil.getTable(User.class.getName(), CommunityConstants.EXPANDO);
+            		ExpandoColumn column = null;
+            		try {
+            			column = ExpandoColumnLocalServiceUtil.getColumn(table.getTableId(), "country");	
+            		}
+            		catch (NoSuchColumnException e) {
+            		}
+            		
+            		
+            		if (column == null) {
+                        ExpandoColumnLocalServiceUtil.addColumn(table.getTableId(), "country", ExpandoColumnConstants.STRING);
+            		}
+            		
+            		ExpandoValueLocalServiceUtil.addValue(User.class.getName(), CommunityConstants.EXPANDO, 
+            				"country", user.getUserId(), country);
+            	}
+            	catch (Throwable t) {
+            		t.printStackTrace();
+            	}
+            }
+
+            String bio = ParamUtil.getString(request,  "bio", null);
+            if (StringUtils.isNotBlank(bio)) {
+            	ExpandoValueLocalServiceUtil.addValue(User.class.getName(), CommunityConstants.EXPANDO, 
+            			CommunityConstants.BIO, user.getUserId(), bio);
+            }
+            
+            
+            
 
             if (PropsValues.PORTAL_JAAS_ENABLE) {
                 actionResponse.sendRedirect(themeDisplay.getPathMain() + "/portal/protected");
