@@ -127,7 +127,7 @@
            
            <ice:outputText />
            
-           <ice:commandButton value="Save" action="#{contestsAdmin.editedContest.save}" />
+           <ice:commandButton value="Save" action="#{contestsAdmin.editedContest.save}" actionListener="#{contestsAdmin.editedContest.save}" />
         </ice:panelGrid>
         
         <ice:commandButton value="Back" action="backToIndex" />
