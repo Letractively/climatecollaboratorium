@@ -762,7 +762,7 @@ background: url(../images/reg-star.png) no-repeat 125px 4px;
 .popupreg_txt {
 text-align: left;
 font-weight: 600;
-width: 140px;
+width: 180px;
 height: 27px;
 padding: 12px 20px 12px 0;
 color: #444444;
@@ -781,7 +781,7 @@ color: #444444;
 float: left;
 border: none;
 border: 1px solid #898989;
-width: 325px;
+width: 300px;
 height: 33px;
 padding: 2px 0 0 8px;
 font-size: 13px;
@@ -807,7 +807,7 @@ display: inline;
 }
 
 .popupreg_terms {
-    margin-top: 30px;
+    padding-top: 10px;
     color: #444;
 }
 
