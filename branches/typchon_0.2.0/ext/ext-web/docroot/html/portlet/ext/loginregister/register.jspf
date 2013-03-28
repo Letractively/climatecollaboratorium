@@ -187,14 +187,19 @@
             <a href=" /web/guest/resources/-/wiki/Main/Terms+of+use">Terms of Use</a>
         </td>
     </tr>
-    </table>
+    <tr>
+        <td class="popupreg_txt">
+        </td>
+        <td colspan="3">
+            <div class="popupreg_submit_wrap">
+                <div class="blue-button">
+                    <a href="javascript:;" onclick="pageTracker._trackPageview('/user/registerSubmit');<portlet:namespace />doRegister();">CREATE account</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+  </table>
     <div class="clearfix"></div>
-    
-    <div class="popupreg_submit_wrap">
-        <div class="blue-button">
-            <a href="javascript:;" onclick="pageTracker._trackPageview('/user/registerSubmit');<portlet:namespace />doRegister();">CREATE account</a>
-        </div>
-    </div>
 
 </form>
         
