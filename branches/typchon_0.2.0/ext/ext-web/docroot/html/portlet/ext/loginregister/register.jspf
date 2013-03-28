@@ -82,7 +82,7 @@
   <table class="table">
     <!--mark-->
     <tr>
-        <td class="popupreg_txt req">Screen name</td>
+        <td class="popupreg_txt">Screen name <img src="/climatecolab-theme/images/reg-star.png" width="8" height="7" align="texttop" /></td>
         <td>
             <input class="popupreg_input" type="text" name="<portlet:namespace />screenName" value="<%= ParamUtil.getString(renderRequest, "screenName") %>"/>
             
@@ -102,7 +102,7 @@
         
     </tr>
     <tr>
-        <td class="popupreg_txt req">Email</td>
+        <td class="popupreg_txt">Email <img src="/climatecolab-theme/images/reg-star.png" width="8" height="7" align="texttop" /></td>
         <td>
             <input class="popupreg_input" type="text" name="<portlet:namespace />emailAddress" value="<%= ParamUtil.getString(renderRequest, "emailAddress") %>"/>
             <div class="clear"></div>
@@ -129,7 +129,7 @@
     </tr>
     
     <tr  class="popupreg_input_container">
-        <td class="popupreg_txt req">Password</td>
+        <td class="popupreg_txt">Password <img src="/climatecolab-theme/images/reg-star.png" width="8" height="7" align="texttop" /></td>
         <td class="reg_errors">
             <input class="popupreg_input" name="<portlet:namespace />password1" type="password" value=""/>
             <div class="clear"></div>
@@ -139,7 +139,7 @@
         </td>
     </tr>
     <tr class="popupreg_input_container">
-        <td class="popupreg_txt req">Retype Password</td>
+        <td class="popupreg_txt">Retype Password <img src="/climatecolab-theme/images/reg-star.png" width="8" height="7" align="texttop" /></td>
         <td>
             <input class="popupreg_input" name="<portlet:namespace />password2" type="password" value=""/>
             <div class="clear"></div>
@@ -151,7 +151,7 @@
         </td>
     </tr>
     <tr class="popupreg_input_container">
-        <td class="popupreg_txt req">Short Bio:</td>
+        <td class="popupreg_txt">Short Bio:</td>
         <td colspan="3">
             <textarea name="<portlet:namespace />bio" id="userBio"><%= ParamUtil.getString(renderRequest, "country") %></textarea>
             <script>
@@ -161,7 +161,7 @@
     </tr>
     
     <tr>
-        <td class="popupreg_recap popupreg_txt req recap">Retype the words</td>
+        <td class="popupreg_recap popupreg_txt recap">Retype the words <img src="/climatecolab-theme/images/reg-star.png" width="8" height="7" align="texttop" /></td>
         <td class="popupreg_recap popupreg_txt recap" colspan="3">
             <div class="clearfix"></div>
             <div class="reg_errors">
@@ -181,8 +181,8 @@
         </td>
     </tr>   
     <tr class="popupreg_terms">
-        <td class="popupreg_txt terms req">Terms of use</td>
-        <td colspan="3" class="popupreg_terms-right">By registering for this site, you agree to abide<br />
+        <td class="popupreg_txt terms">Terms of use <img src="/climatecolab-theme/images/reg-star.png" width="8" height="7" align="texttop" /></td>
+        <td colspan="3" class="popupreg_terms">By registering for this site, you agree to abide
             by the
             <a href=" /web/guest/resources/-/wiki/Main/Terms+of+use">Terms of Use</a>
         </td>
