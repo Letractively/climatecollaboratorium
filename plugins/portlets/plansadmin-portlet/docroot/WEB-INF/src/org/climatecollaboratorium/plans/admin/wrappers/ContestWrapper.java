@@ -13,6 +13,7 @@ import org.climatecollaboratorium.plans.admin.Helper;
 
 import com.ext.portlet.contests.model.Contest;
 import com.ext.portlet.contests.model.ContestPhase;
+import com.ext.portlet.contests.service.ContestLocalServiceUtil;
 import com.ext.portlet.ontology.model.FocusArea;
 import com.ext.portlet.ontology.service.FocusAreaLocalServiceUtil;
 import com.ext.portlet.plans.model.PlanItem;
@@ -25,15 +26,25 @@ import com.liferay.portal.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.Image;
+import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.security.permission.AdvancedPermissionChecker;
+import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.ImageLocalServiceUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
 
 public class ContestWrapper {
     private Contest contest;
     private File newContestLogo;
 	private File newSponsorLogo;
+	private boolean isNew = false;
     
     public ContestWrapper(Contest contest) {
         this.contest = contest;
+        if (contest.getContestPK() == null) {
+        	isNew = true;
+        }
     }
     
     public String getContestShortName() {
@@ -52,11 +63,11 @@ public class ContestWrapper {
         this.contest = contest;
     }
     
-    public boolean getFeatured() {
+    public Boolean getFeatured() {
         return contest.getFeatured();
     }
     
-    public void setFeatured(boolean featured) {
+    public void setFeatured(Boolean featured) {
         contest.setFeatured(featured);
     }
     
@@ -84,11 +95,11 @@ public class ContestWrapper {
         contest.setFlagTooltip(flagTooltip);
     }
     
-    public boolean getPlansOpenByDefault() {
+    public Boolean getPlansOpenByDefault() {
     	return contest.getPlansOpenByDefault();
     }
     
-    public void setPlansOpenByDefault(boolean open) {
+    public void setPlansOpenByDefault(Boolean open) {
     	contest.setPlansOpenByDefault(open);
     }
     
@@ -216,6 +227,10 @@ public class ContestWrapper {
     public String getSponsorLogo() throws PortalException, SystemException {
         
         return Helper.getThemeDisplay().getPathImage() + contest.getSponsorLogoPath();
+    }
+    
+    public void save(ActionEvent e) throws PortalException, SystemException, InstantiationException, IllegalAccessException {
+
     }
     
     

@@ -36,6 +36,7 @@
         </style>
         <h1>Plans administration</h1>
         <h2>Contests</h2>
+        <ice:commandButton value="Create new Contest" action="#{contestsAdmin.editContest}" actionListener="#{contestsAdmin.createContestActionListener}" />
         <ice:dataTable value="#{contestsAdmin.contests}" var="contest">
             <ice:column>
                 <f:facet name="header">Name</f:facet>
