@@ -44,7 +44,7 @@
 
 <div class="popupreg_form">
 <div class="popupreg_head"><h1>Join the CoLab</h1></div>
-<div class="popupreg_message"><p>Fill out the form below or import your data from another service.</p></div>
+<div class="popupreg_message"><p>Fill out the form below</p></div>
 
 <form action="/fileUpload" method="post" enctype="multipart/form-data" target="_fileUploadFrame" id="fileUploadForm">
     <input type="file" name="file" id="portraitUploadInput" />
